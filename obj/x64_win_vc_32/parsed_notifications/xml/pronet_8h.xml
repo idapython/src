@@ -1,0 +1,331 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="pronet_8h" kind="file" language="C++">
+    <compoundname>pronet.h</compoundname>
+    <includes local="no">winsock2.h</includes>
+    <incdepgraph>
+      <node id="1248">
+        <label>winsock2.h</label>
+      </node>
+      <node id="1247">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/pronet.h</label>
+        <link refid="pronet_8h"/>
+        <childnode refid="1248" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespace_d_o_n_t___u_s_e___f_u_n_c_s">DONT_USE_FUNCS</innernamespace>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="pronet_8h_1a1b0d5a7785c134773d7aab960801906b" prot="public" static="no">
+        <name>SIG_SAFE_CALL</name>
+        <param><defname>expr</defname></param>
+        <initializer>return expr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="30" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pronet_8h_1a7687159c87b8758364782b0b3f00215a" prot="public" static="no">
+        <name>SOCKLEN_T</name>
+        <initializer>int</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="31" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pronet_8h_1acb6a79b51a9e623b14237b3874d8fcda" prot="public" static="no">
+        <name>SOCKBUF_T</name>
+        <initializer>char *</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="32" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="pronet_8h_1a16625f0b6004867ddbc2ab5adc06ff87" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t qsendto</definition>
+        <argsstring>(int socket, const SOCKBUF_T buf, size_t size, int flags, const struct sockaddr *dest_addr, SOCKLEN_T addrlen)</argsstring>
+        <name>qsendto</name>
+        <param>
+          <type>int</type>
+          <declname>socket</declname>
+        </param>
+        <param>
+          <type>const SOCKBUF_T</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <param>
+          <type>const struct sockaddr *</type>
+          <declname>dest_addr</declname>
+        </param>
+        <param>
+          <type>SOCKLEN_T</type>
+          <declname>addrlen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="47" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" bodystart="47" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="pronet_8h_1a6c5c703d40ff3f4bcb7932e991b3dae7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t qrecvfrom</definition>
+        <argsstring>(int socket, SOCKBUF_T buf, size_t size, int flags, struct sockaddr *src_addr, SOCKLEN_T *addrlen)</argsstring>
+        <name>qrecvfrom</name>
+        <param>
+          <type>int</type>
+          <declname>socket</declname>
+        </param>
+        <param>
+          <type>SOCKBUF_T</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <param>
+          <type>struct sockaddr *</type>
+          <declname>src_addr</declname>
+        </param>
+        <param>
+          <type>SOCKLEN_T *</type>
+          <declname>addrlen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="53" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" bodystart="53" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="pronet_8h_1a31bbc9bd1bf345a5c91a08bae516dca7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t qsend</definition>
+        <argsstring>(int socket, const void *buf, size_t size)</argsstring>
+        <name>qsend</name>
+        <param>
+          <type>int</type>
+          <declname>socket</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="59" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" bodystart="59" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="pronet_8h_1a6c32c59e5131024f1893bf8d2676486c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t qrecv</definition>
+        <argsstring>(int socket, void *buf, size_t size)</argsstring>
+        <name>qrecv</name>
+        <param>
+          <type>int</type>
+          <declname>socket</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="69" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" bodystart="69" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="pronet_8h_1a9b33407034ef9d00aeab74b53558ad87" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int qselect</definition>
+        <argsstring>(int nflds, fd_set *rds, fd_set *wds, fd_set *eds, struct timeval *timeout)</argsstring>
+        <name>qselect</name>
+        <param>
+          <type>int</type>
+          <declname>nflds</declname>
+        </param>
+        <param>
+          <type>fd_set *</type>
+          <declname>rds</declname>
+        </param>
+        <param>
+          <type>fd_set *</type>
+          <declname>wds</declname>
+        </param>
+        <param>
+          <type>fd_set *</type>
+          <declname>eds</declname>
+        </param>
+        <param>
+          <type>struct timeval *</type>
+          <declname>timeout</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="79" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" bodystart="79" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="pronet_8h_1a66e1339bd587983018a2edd0086be001" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export qhost2addr_</definition>
+        <argsstring>(void *out, const char *name, ushort family, ushort port=0)</argsstring>
+        <name>qhost2addr_</name>
+        <param>
+          <type>void *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+          <declname>family</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+          <declname>port</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the IPv4 or IPv6 address corresponding to the given host.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>should be of type &apos;sockaddr_in&apos; or &apos;sockaddr_in6&apos;, depending on the value of &apos;family&apos;. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the host name. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>family</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>either AF_INET or AF_INET6. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>port</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a port number, or 0 for none. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="106" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="pronet_8h_1af357850a3278890b87ed055fadae9ddf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool qhost2addr</definition>
+        <argsstring>(struct sockaddr_in *out, const char *name, ushort port=0)</argsstring>
+        <name>qhost2addr</name>
+        <param>
+          <type>struct sockaddr_in *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+          <declname>port</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="113" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" bodystart="113" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="pronet_8h_1a835b03252c17a8ddbfd598c693e4c6fa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool qhost2addr</definition>
+        <argsstring>(struct sockaddr_in6 *out, const char *name, ushort port=0)</argsstring>
+        <name>qhost2addr</name>
+        <param>
+          <type>struct sockaddr_in6 *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+          <declname>port</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="119" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" bodystart="119" bodyend="122"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Network related functions. </para>    </briefdescription>
+    <detaileddescription>
+<para>Each of the following functions work just like their C standard equivalent, only they are safer and system independent. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h"/>
+  </compounddef>
+</doxygen>

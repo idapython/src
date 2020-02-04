@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___p_m_f__" kind="group">
+    <compoundname>PMF_</compoundname>
+    <title>flags for the push_md operation</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___p_m_f___1ga1fe08e36ba45a0ea19f6a144cc8a2fcd" prot="public" static="no">
+        <name>PMF_PUSH_MODE_MASK</name>
+        <initializer>0xF</initializer>
+        <briefdescription>
+<para>Conflict resolution mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="29" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_m_f___1ga5ff1c5f13c07b66a8d333fa1582d89c7" prot="public" static="no">
+        <name>PMF_PUSH_OVERRIDE_IF_BETTER</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="30" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_m_f___1ga9fe8d2a86996dea4250ec533f5f9682a" prot="public" static="no">
+        <name>PMF_PUSH_OVERRIDE</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="31" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_m_f___1gadcb606ccb0e3880ec2ffe0e13c4fe901" prot="public" static="no">
+        <name>PMF_PUSH_DO_NOT_OVERRIDE</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="32" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_m_f___1ga08d996afae08cad78d856236993743b3" prot="public" static="no">
+        <name>PMF_PUSH_MERGE</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="33" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

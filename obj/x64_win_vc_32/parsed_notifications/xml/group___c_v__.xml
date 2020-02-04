@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_v__" kind="group">
+    <compoundname>CV_</compoundname>
+    <title>Ctree visitor property bits</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___c_v___1ga385bcb9903f94773c8071895341d5ce2" prot="public" static="no">
+        <name>CV_FAST</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>do not maintain parent information </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5297" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v___1ga279405e5dcaf13c8c430657c7290f134" prot="public" static="no">
+        <name>CV_PRUNE</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>this bit is set by visit...() to prune the walk </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5298" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5298" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v___1ga9b2d109cab07925613d27b947762fa36" prot="public" static="no">
+        <name>CV_PARENTS</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>maintain parent information </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5299" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v___1gab980b547ca14290c72d783c32cbd9c04" prot="public" static="no">
+        <name>CV_POST</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>call the leave...() functions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5300" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v___1ga266cbccf6172eca1ca42afaddaf40f41" prot="public" static="no">
+        <name>CV_RESTART</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>restart enumeration at the top expr (apply_to_exprs) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5301" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v___1gafa8b1f61bb64b94971309b12c7df2b85" prot="public" static="no">
+        <name>CV_INSNS</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>visit only statements, prune all expressions do not use before the final ctree maturity because expressions may contain statements at intermediate stages (see cot_insn). Otherwise you risk missing statements embedded into expressions. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5302" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5302" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used in <ref refid="structctree__visitor__t_1ab9f328f14cba3408273e5312b36f6b6c" kindref="member">ctree_visitor_t::cv_flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

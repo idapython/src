@@ -1,0 +1,442 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structrect__t" kind="struct" language="C++" prot="public">
+    <compoundname>rect_t</compoundname>
+    <includes refid="graph_8hpp" local="no">graph.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrect__t_1a6123b9f5b353faee09256ad5043b4b68" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rect_t::left</definition>
+        <argsstring></argsstring>
+        <name>left</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="298" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrect__t_1a02a584f910cec26890ca89e7ff6d404b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rect_t::top</definition>
+        <argsstring></argsstring>
+        <name>top</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="299" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrect__t_1ad50e024e9741d0c51e33ffc7cc18ce5d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rect_t::right</definition>
+        <argsstring></argsstring>
+        <name>right</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="300" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrect__t_1ab6d8b7c097705fe8773b65313e101851" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rect_t::bottom</definition>
+        <argsstring></argsstring>
+        <name>bottom</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="301" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structrect__t_1ade75ffdc747b3bf842c555a48e5f6c81" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>rect_t::rect_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>rect_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="302" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="302" bodyend="302"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1a9dd897942a6bb14b4feb3fa1f7b1a85f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>rect_t::rect_t</definition>
+        <argsstring>(int l, int t, int r, int b)</argsstring>
+        <name>rect_t</name>
+        <param>
+          <type>int</type>
+          <declname>l</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>t</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="303" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="303" bodyend="303"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1a9105053fdc4eeceff41fb91a745342a3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>rect_t::rect_t</definition>
+        <argsstring>(const point_t &amp;p0, const point_t &amp;p1)</argsstring>
+        <name>rect_t</name>
+        <param>
+          <type>const <ref refid="structpoint__t" kindref="compound">point_t</ref> &amp;</type>
+          <declname>p0</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structpoint__t" kindref="compound">point_t</ref> &amp;</type>
+          <declname>p1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="304" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="304" bodyend="308"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1a645d1d7efa9000db356f0d9052b6d11f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int rect_t::width</definition>
+        <argsstring>(void) const</argsstring>
+        <name>width</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="309" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="309" bodyend="309"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1a3b2ea959eadf9e57268a6eab5d323e58" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int rect_t::height</definition>
+        <argsstring>(void) const</argsstring>
+        <name>height</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="310" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="310" bodyend="310"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1a4bf4f6a6399ad8ce666c5a0113252225" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void rect_t::move_to</definition>
+        <argsstring>(const point_t &amp;p)</argsstring>
+        <name>move_to</name>
+        <param>
+          <type>const <ref refid="structpoint__t" kindref="compound">point_t</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="311" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="311" bodyend="316"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1ad41c9e91e7ee4cc2a57ac295b2664ff8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void rect_t::move_by</definition>
+        <argsstring>(const point_t &amp;p)</argsstring>
+        <name>move_by</name>
+        <param>
+          <type>const <ref refid="structpoint__t" kindref="compound">point_t</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="317" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="317" bodyend="323"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1a2675a04d6500092e91357a35e29ab491" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structpoint__t" kindref="compound">point_t</ref></type>
+        <definition>point_t rect_t::center</definition>
+        <argsstring>(void) const</argsstring>
+        <name>center</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="324" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="324" bodyend="327"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1a37692b864bc12cec1e335eab51190dfa" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structpoint__t" kindref="compound">point_t</ref></type>
+        <definition>point_t rect_t::topleft</definition>
+        <argsstring>(void) const</argsstring>
+        <name>topleft</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="328" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="328" bodyend="331"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1a94836c7d38d41df2b9ddb85502eeb3ac" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structpoint__t" kindref="compound">point_t</ref></type>
+        <definition>point_t rect_t::bottomright</definition>
+        <argsstring>(void) const</argsstring>
+        <name>bottomright</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="332" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="332" bodyend="335"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1a6d6f8e77b8949b0c9417a91360f1b446" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void rect_t::grow</definition>
+        <argsstring>(int delta)</argsstring>
+        <name>grow</name>
+        <param>
+          <type>int</type>
+          <declname>delta</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="336" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="336" bodyend="342"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1a3d6bc0a2704e96711214c60cc564f0f1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void rect_t::intersect</definition>
+        <argsstring>(const rect_t &amp;r)</argsstring>
+        <name>intersect</name>
+        <param>
+          <type>const <ref refid="structrect__t" kindref="compound">rect_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="343" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="343" bodyend="353"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1a51bbc418fbfdc3f0c9fa9711e48495db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void rect_t::make_union</definition>
+        <argsstring>(const rect_t &amp;r)</argsstring>
+        <name>make_union</name>
+        <param>
+          <type>const <ref refid="structrect__t" kindref="compound">rect_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="354" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="354" bodyend="364"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1ab22ca8808e8cf31850a4eca3011319e0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rect_t::empty</definition>
+        <argsstring>(void) const</argsstring>
+        <name>empty</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="365" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="365" bodyend="368"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1a704eec7045531adc8e91b5c5b10bdc28" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rect_t::is_intersection_empty</definition>
+        <argsstring>(const rect_t &amp;r) const</argsstring>
+        <name>is_intersection_empty</name>
+        <param>
+          <type>const <ref refid="structrect__t" kindref="compound">rect_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="369" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="369" bodyend="375"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1ad3bf30705b0a66859fd12ad22c90a8fd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rect_t::contains</definition>
+        <argsstring>(const point_t &amp;p) const</argsstring>
+        <name>contains</name>
+        <param>
+          <type>const <ref refid="structpoint__t" kindref="compound">point_t</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="376" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="376" bodyend="382"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1a350843f373567281ff406c0dde5dda90" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int rect_t::area</definition>
+        <argsstring>(void) const</argsstring>
+        <name>area</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="383" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="383" bodyend="383"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1a712ec8d9d5f8711ad5048f145fb04864" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi rect_t::operator==</definition>
+        <argsstring>(const rect_t &amp;r) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structrect__t" kindref="compound">rect_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="384" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="384" bodyend="390"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1a45e76cb39e5defe10bee9ab0e4ea8d29" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi rect_t::operator!=</definition>
+        <argsstring>(const rect_t &amp;r) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structrect__t" kindref="compound">rect_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="391" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="391" bodyend="391"/>
+      </memberdef>
+      <memberdef kind="function" id="structrect__t_1a887ec9f08ab9b91339e0a0f00f5e232c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi rect_t::operator&lt;</definition>
+        <argsstring>(const rect_t &amp;r) const</argsstring>
+        <name>operator&lt;</name>
+        <param>
+          <type>const <ref refid="structrect__t" kindref="compound">rect_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="392" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A rectangle in a graph view. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="297" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="296" bodyend="398"/>
+    <listofallmembers>
+      <member refid="structrect__t_1a350843f373567281ff406c0dde5dda90" prot="public" virt="non-virtual"><scope>rect_t</scope><name>area</name></member>
+      <member refid="structrect__t_1ab6d8b7c097705fe8773b65313e101851" prot="public" virt="non-virtual"><scope>rect_t</scope><name>bottom</name></member>
+      <member refid="structrect__t_1a94836c7d38d41df2b9ddb85502eeb3ac" prot="public" virt="non-virtual"><scope>rect_t</scope><name>bottomright</name></member>
+      <member refid="structrect__t_1a2675a04d6500092e91357a35e29ab491" prot="public" virt="non-virtual"><scope>rect_t</scope><name>center</name></member>
+      <member refid="structrect__t_1ad3bf30705b0a66859fd12ad22c90a8fd" prot="public" virt="non-virtual"><scope>rect_t</scope><name>contains</name></member>
+      <member refid="structrect__t_1ab22ca8808e8cf31850a4eca3011319e0" prot="public" virt="non-virtual"><scope>rect_t</scope><name>empty</name></member>
+      <member refid="structrect__t_1a6d6f8e77b8949b0c9417a91360f1b446" prot="public" virt="non-virtual"><scope>rect_t</scope><name>grow</name></member>
+      <member refid="structrect__t_1a3b2ea959eadf9e57268a6eab5d323e58" prot="public" virt="non-virtual"><scope>rect_t</scope><name>height</name></member>
+      <member refid="structrect__t_1a3d6bc0a2704e96711214c60cc564f0f1" prot="public" virt="non-virtual"><scope>rect_t</scope><name>intersect</name></member>
+      <member refid="structrect__t_1a704eec7045531adc8e91b5c5b10bdc28" prot="public" virt="non-virtual"><scope>rect_t</scope><name>is_intersection_empty</name></member>
+      <member refid="structrect__t_1a6123b9f5b353faee09256ad5043b4b68" prot="public" virt="non-virtual"><scope>rect_t</scope><name>left</name></member>
+      <member refid="structrect__t_1a51bbc418fbfdc3f0c9fa9711e48495db" prot="public" virt="non-virtual"><scope>rect_t</scope><name>make_union</name></member>
+      <member refid="structrect__t_1ad41c9e91e7ee4cc2a57ac295b2664ff8" prot="public" virt="non-virtual"><scope>rect_t</scope><name>move_by</name></member>
+      <member refid="structrect__t_1a4bf4f6a6399ad8ce666c5a0113252225" prot="public" virt="non-virtual"><scope>rect_t</scope><name>move_to</name></member>
+      <member refid="structrect__t_1a45e76cb39e5defe10bee9ab0e4ea8d29" prot="public" virt="non-virtual"><scope>rect_t</scope><name>operator!=</name></member>
+      <member refid="structrect__t_1a887ec9f08ab9b91339e0a0f00f5e232c" prot="public" virt="non-virtual"><scope>rect_t</scope><name>operator&lt;</name></member>
+      <member refid="structrect__t_1a712ec8d9d5f8711ad5048f145fb04864" prot="public" virt="non-virtual"><scope>rect_t</scope><name>operator==</name></member>
+      <member refid="structrect__t_1ade75ffdc747b3bf842c555a48e5f6c81" prot="public" virt="non-virtual"><scope>rect_t</scope><name>rect_t</name></member>
+      <member refid="structrect__t_1a9dd897942a6bb14b4feb3fa1f7b1a85f" prot="public" virt="non-virtual"><scope>rect_t</scope><name>rect_t</name></member>
+      <member refid="structrect__t_1a9105053fdc4eeceff41fb91a745342a3" prot="public" virt="non-virtual"><scope>rect_t</scope><name>rect_t</name></member>
+      <member refid="structrect__t_1ad50e024e9741d0c51e33ffc7cc18ce5d" prot="public" virt="non-virtual"><scope>rect_t</scope><name>right</name></member>
+      <member refid="structrect__t_1a02a584f910cec26890ca89e7ff6d404b" prot="public" virt="non-virtual"><scope>rect_t</scope><name>top</name></member>
+      <member refid="structrect__t_1a37692b864bc12cec1e335eab51190dfa" prot="public" virt="non-virtual"><scope>rect_t</scope><name>topleft</name></member>
+      <member refid="structrect__t_1a645d1d7efa9000db356f0d9052b6d11f" prot="public" virt="non-virtual"><scope>rect_t</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

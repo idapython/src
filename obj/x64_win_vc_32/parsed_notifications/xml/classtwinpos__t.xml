@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classtwinpos__t" kind="class" language="C++" prot="public">
+    <compoundname>twinpos_t</compoundname>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classtwinpos__t_1ae6085f3d9ddb196188fed254d1dd2a84" prot="public" static="no" mutable="no">
+        <type><ref refid="classplace__t" kindref="compound">place_t</ref> *</type>
+        <definition>place_t* twinpos_t::at</definition>
+        <argsstring></argsstring>
+        <name>at</name>
+        <briefdescription>
+<para>location in view </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1801" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1801" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classtwinpos__t_1a49050357342c79db2d80bef011c33578" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int twinpos_t::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+<para>cursor x </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1802" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1802" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classtwinpos__t_1a40826e5b0c3bc2c33463cef478269a79" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>twinpos_t::twinpos_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>twinpos_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1803" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1803" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="classtwinpos__t_1a329940de5246e59d0863ff750479177a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>twinpos_t::twinpos_t</definition>
+        <argsstring>(place_t *t)</argsstring>
+        <name>twinpos_t</name>
+        <param>
+          <type><ref refid="classplace__t" kindref="compound">place_t</ref> *</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1804" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1804" bodyend="1803"/>
+      </memberdef>
+      <memberdef kind="function" id="classtwinpos__t_1a794d41dd9f5079725b151bc818048431" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>twinpos_t::twinpos_t</definition>
+        <argsstring>(place_t *t, int x0)</argsstring>
+        <name>twinpos_t</name>
+        <param>
+          <type><ref refid="classplace__t" kindref="compound">place_t</ref> *</type>
+          <declname>t</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x0</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1805" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1805" bodyend="1804"/>
+      </memberdef>
+      <memberdef kind="function" id="classtwinpos__t_1a52e7ae3059c95d4e0dae7fa3198992b8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool twinpos_t::operator!=</definition>
+        <argsstring>(const twinpos_t &amp;r) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="classtwinpos__t" kindref="compound">twinpos_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>compare two <ref refid="classtwinpos__t" kindref="compound">twinpos_t</ref>&apos;s with &apos;!=&apos; </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1808" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1808" bodyend="1817"/>
+      </memberdef>
+      <memberdef kind="function" id="classtwinpos__t_1a70aaf49474e9c00dc051b98756214e92" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool twinpos_t::operator==</definition>
+        <argsstring>(const twinpos_t &amp;r) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="classtwinpos__t" kindref="compound">twinpos_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>compare two <ref refid="classtwinpos__t" kindref="compound">twinpos_t</ref>&apos;s with &apos;==&apos; </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1819" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1819" bodyend="1819"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A position in a text window. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3486">
+        <label>place_t</label>
+        <link refid="classplace__t"/>
+      </node>
+      <node id="3485">
+        <label>twinpos_t</label>
+        <link refid="classtwinpos__t"/>
+        <childnode refid="3486" relation="usage">
+          <edgelabel>at</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1799" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1798" bodyend="1820"/>
+    <listofallmembers>
+      <member refid="classtwinpos__t_1ae6085f3d9ddb196188fed254d1dd2a84" prot="public" virt="non-virtual"><scope>twinpos_t</scope><name>at</name></member>
+      <member refid="classtwinpos__t_1a52e7ae3059c95d4e0dae7fa3198992b8" prot="public" virt="non-virtual"><scope>twinpos_t</scope><name>operator!=</name></member>
+      <member refid="classtwinpos__t_1a70aaf49474e9c00dc051b98756214e92" prot="public" virt="non-virtual"><scope>twinpos_t</scope><name>operator==</name></member>
+      <member refid="classtwinpos__t_1a40826e5b0c3bc2c33463cef478269a79" prot="public" virt="non-virtual"><scope>twinpos_t</scope><name>twinpos_t</name></member>
+      <member refid="classtwinpos__t_1a329940de5246e59d0863ff750479177a" prot="public" virt="non-virtual"><scope>twinpos_t</scope><name>twinpos_t</name></member>
+      <member refid="classtwinpos__t_1a794d41dd9f5079725b151bc818048431" prot="public" virt="non-virtual"><scope>twinpos_t</scope><name>twinpos_t</name></member>
+      <member refid="classtwinpos__t_1a49050357342c79db2d80bef011c33578" prot="public" virt="non-virtual"><scope>twinpos_t</scope><name>x</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

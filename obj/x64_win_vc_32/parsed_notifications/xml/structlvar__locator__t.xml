@@ -1,0 +1,325 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structlvar__locator__t" kind="struct" language="C++" prot="public">
+    <compoundname>lvar_locator_t</compoundname>
+    <derivedcompoundref refid="classlvar__t" prot="public" virt="non-virtual">lvar_t</derivedcompoundref>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structlvar__locator__t_1ab8af8ff55da9d7ed7fda4011497203b9" prot="public" static="no" mutable="no">
+        <type><ref refid="classvdloc__t" kindref="compound">vdloc_t</ref></type>
+        <definition>vdloc_t lvar_locator_t::location</definition>
+        <argsstring></argsstring>
+        <name>location</name>
+        <briefdescription>
+<para>Variable location. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1184" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlvar__locator__t_1a4bf842abf6f90deb40b0ef14ef7e3465" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t lvar_locator_t::defea</definition>
+        <argsstring></argsstring>
+        <name>defea</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Definition address. The address of an instruction that initializes the variable. This value is assigned to each lvar by lvar allocator. BADADDR for function arguments </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1185" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1185" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structlvar__locator__t_1a02f4a886acc497b3ef88fd0501f6e982" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>lvar_locator_t::lvar_locator_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>lvar_locator_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1189" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1189" bodyend="1189"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__locator__t_1ad2c7d33b0d5a64119b9a695c9151c62b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>lvar_locator_t::lvar_locator_t</definition>
+        <argsstring>(const vdloc_t &amp;loc, ea_t ea)</argsstring>
+        <name>lvar_locator_t</name>
+        <param>
+          <type>const <ref refid="classvdloc__t" kindref="compound">vdloc_t</ref> &amp;</type>
+          <declname>loc</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1190" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1190" bodyend="1190"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__locator__t_1ae39546f1d5cce624bf90f885e9313c89" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+        <definition>sval_t lvar_locator_t::get_stkoff</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_stkoff</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get offset of the varialbe in the stack frame. <simplesect kind="return"><para>a non-negative value for stack variables. The value is an offset from the bottom of the stack frame in terms of vd-offsets. negative values mean error (not a stack variable) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1196" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1196" bodyend="1199"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__locator__t_1a0960d6e78010b8d788d6b1f94e9173ba" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lvar_locator_t::is_reg1</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_reg1</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is variable located on one register? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1201" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1201" bodyend="1201"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__locator__t_1a2b44cfb583a46f055248118bab7f39bb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lvar_locator_t::is_reg2</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_reg2</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is variable located on two registers? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1203" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1203" bodyend="1203"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__locator__t_1a93b03852717f6dd65fba4ccdbccc5313" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lvar_locator_t::is_reg_var</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_reg_var</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is variable located on register(s)? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1205" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1205" bodyend="1205"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__locator__t_1aec76fba438403c7c25bb4df5b4bc6c73" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lvar_locator_t::is_stk_var</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_stk_var</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is variable located on the stack? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1207" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1207" bodyend="1207"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__locator__t_1a2169dd0a535bea4e30d5288c1ee07078" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lvar_locator_t::is_scattered</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_scattered</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is variable scattered? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1209" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1209" bodyend="1209"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__locator__t_1a244616d5b83e7f17c1643fd99272aa47" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>mreg_t</type>
+        <definition>mreg_t lvar_locator_t::get_reg1</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_reg1</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get the register number of the variable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1211" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1211" bodyend="1211"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__locator__t_1a54bb449797ce86d2e218903e5b172ffb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>mreg_t</type>
+        <definition>mreg_t lvar_locator_t::get_reg2</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_reg2</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get the number of the second register (works only for ALOC_REG2 lvars) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1213" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1213" bodyend="1213"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__locator__t_1aadfad502407be0eba39a8c4bc34d169c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classscattered__aloc__t" kindref="compound">scattered_aloc_t</ref> &amp;</type>
+        <definition>const scattered_aloc_t&amp; lvar_locator_t::get_scattered</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_scattered</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get information about scattered variable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1215" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1215" bodyend="1215"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__locator__t_1adc56b1150e24698569887c9dfbee7341" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classscattered__aloc__t" kindref="compound">scattered_aloc_t</ref> &amp;</type>
+        <definition>scattered_aloc_t&amp; lvar_locator_t::get_scattered</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_scattered</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1216" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1216" bodyend="1216"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__locator__t_1a8db756a15e364fbd30dcb553ee43184a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *hexapi</type>
+        <definition>const char * lvar_locator_t::dstr</definition>
+        <argsstring>(void) const</argsstring>
+        <name>dstr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1220" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9333" bodyend="9336"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Local variable locator. Local variables are located using definition ea and location. Each variable must have a unique locator, this is how we tell them apart. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="1972">
+        <label>lvar_locator_t</label>
+        <link refid="structlvar__locator__t"/>
+      </node>
+      <node id="1973">
+        <label>lvar_t</label>
+        <link refid="classlvar__t"/>
+        <childnode refid="1972" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1974">
+        <label>lvar_locator_t</label>
+        <link refid="structlvar__locator__t"/>
+        <childnode refid="1975" relation="usage">
+          <edgelabel>location</edgelabel>
+        </childnode>
+      </node>
+      <node id="1977">
+        <label>scattered_aloc_t</label>
+        <link refid="classscattered__aloc__t"/>
+        <childnode refid="1978" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1978">
+        <label>qvector&lt; argpart_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1975">
+        <label>vdloc_t</label>
+        <link refid="classvdloc__t"/>
+        <childnode refid="1976" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1976">
+        <label>argloc_t</label>
+        <link refid="classargloc__t"/>
+        <childnode refid="1977" relation="usage">
+          <edgelabel>dist</edgelabel>
+        </childnode>
+        <childnode refid="1979" relation="usage">
+          <edgelabel>rrel</edgelabel>
+        </childnode>
+      </node>
+      <node id="1979">
+        <label>rrel_t</label>
+        <link refid="structrrel__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1183" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1182" bodyend="1221"/>
+    <listofallmembers>
+      <member refid="structlvar__locator__t_1a4bf842abf6f90deb40b0ef14ef7e3465" prot="public" virt="non-virtual"><scope>lvar_locator_t</scope><name>defea</name></member>
+      <member refid="structlvar__locator__t_1a8db756a15e364fbd30dcb553ee43184a" prot="public" virt="non-virtual"><scope>lvar_locator_t</scope><name>dstr</name></member>
+      <member refid="structlvar__locator__t_1a244616d5b83e7f17c1643fd99272aa47" prot="public" virt="non-virtual"><scope>lvar_locator_t</scope><name>get_reg1</name></member>
+      <member refid="structlvar__locator__t_1a54bb449797ce86d2e218903e5b172ffb" prot="public" virt="non-virtual"><scope>lvar_locator_t</scope><name>get_reg2</name></member>
+      <member refid="structlvar__locator__t_1aadfad502407be0eba39a8c4bc34d169c" prot="public" virt="non-virtual"><scope>lvar_locator_t</scope><name>get_scattered</name></member>
+      <member refid="structlvar__locator__t_1adc56b1150e24698569887c9dfbee7341" prot="public" virt="non-virtual"><scope>lvar_locator_t</scope><name>get_scattered</name></member>
+      <member refid="structlvar__locator__t_1ae39546f1d5cce624bf90f885e9313c89" prot="public" virt="non-virtual"><scope>lvar_locator_t</scope><name>get_stkoff</name></member>
+      <member refid="structlvar__locator__t_1a0960d6e78010b8d788d6b1f94e9173ba" prot="public" virt="non-virtual"><scope>lvar_locator_t</scope><name>is_reg1</name></member>
+      <member refid="structlvar__locator__t_1a2b44cfb583a46f055248118bab7f39bb" prot="public" virt="non-virtual"><scope>lvar_locator_t</scope><name>is_reg2</name></member>
+      <member refid="structlvar__locator__t_1a93b03852717f6dd65fba4ccdbccc5313" prot="public" virt="non-virtual"><scope>lvar_locator_t</scope><name>is_reg_var</name></member>
+      <member refid="structlvar__locator__t_1a2169dd0a535bea4e30d5288c1ee07078" prot="public" virt="non-virtual"><scope>lvar_locator_t</scope><name>is_scattered</name></member>
+      <member refid="structlvar__locator__t_1aec76fba438403c7c25bb4df5b4bc6c73" prot="public" virt="non-virtual"><scope>lvar_locator_t</scope><name>is_stk_var</name></member>
+      <member refid="structlvar__locator__t_1ab8af8ff55da9d7ed7fda4011497203b9" prot="public" virt="non-virtual"><scope>lvar_locator_t</scope><name>location</name></member>
+      <member refid="structlvar__locator__t_1a02f4a886acc497b3ef88fd0501f6e982" prot="public" virt="non-virtual"><scope>lvar_locator_t</scope><name>lvar_locator_t</name></member>
+      <member refid="structlvar__locator__t_1ad2c7d33b0d5a64119b9a695c9151c62b" prot="public" virt="non-virtual"><scope>lvar_locator_t</scope><name>lvar_locator_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

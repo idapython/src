@@ -1,0 +1,729 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__conv" kind="group">
+    <compoundname>conv</compoundname>
+    <title>Functions: string conversion</title>
+    <innergroup refid="group___s2_e_a_o_p_t__">String to address conversion flags</innergroup>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__conv_1gafeb8ec5376fcc707cd186cda8709e402" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ea2str</definition>
+        <argsstring>(qstring *out, ea_t ea)</argsstring>
+        <name>ea2str</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+<para>Convert linear address to UTF-8 string. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6745" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6745" bodyend="6752"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1ga1749acc1d36063b3c63eceb573807803" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export str2ea</definition>
+        <argsstring>(ea_t *ea_ptr, const char *str, ea_t screen_ea)</argsstring>
+        <name>str2ea</name>
+        <param>
+          <type>ea_t *</type>
+          <declname>ea_ptr</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>screen_ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Convert string to linear address. Tries to interpret the string as: <linebreak/>
+1) &quot;current IP&quot; keyword if supported by assembler (e.g. &quot;$&quot; in x86) <linebreak/>
+2) segment:offset expression, where &quot;segment&quot; may be a name or a fixed segment register (e.g. cs, ds) <linebreak/>
+3) just segment name/register (translated to segment&apos;s start address) <linebreak/>
+4) a name in the database (or debug name during debugging) <linebreak/>
+5) +delta or -delta, where numerical &apos;delta&apos; is added to or subtracted from &apos;screenEA&apos; <linebreak/>
+6) if all else fails, try to evaluate &apos;str&apos; as an IDC expression </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6764" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1ga23d7766239e287fb8ff399b5bc0aaee5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export str2ea_ex</definition>
+        <argsstring>(ea_t *ea_ptr, const char *str, ea_t screen_ea, int flags)</argsstring>
+        <name>str2ea_ex</name>
+        <param>
+          <type>ea_t *</type>
+          <declname>ea_ptr</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>screen_ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Same as <ref refid="group__conv_1ga1749acc1d36063b3c63eceb573807803" kindref="member">str2ea()</ref> but possibly with some steps skipped. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___s2_e_a_o_p_t__" kindref="compound">String to address conversion flags</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6770" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1gab76412b1a3398d75775dfe8793f21586" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export atoea</definition>
+        <argsstring>(ea_t *pea, const char *str)</argsstring>
+        <name>atoea</name>
+        <param>
+          <type>ea_t *</type>
+          <declname>pea</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Convert a number in C notation to an address. decimal: 1234 <linebreak/>
+octal: 0123 <linebreak/>
+hexadecimal: 0xabcd <linebreak/>
+binary: 0b00101010 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6785" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1ga4b85a3df343f84521b38db85dfbcfc88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export stoa</definition>
+        <argsstring>(qstring *buf, ea_t from, sel_t seg)</argsstring>
+        <name>stoa</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type>sel_t</type>
+          <declname>seg</declname>
+        </param>
+        <briefdescription>
+<para>Convert segment selector to UTF-8 string. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6790" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1ga37485399ee5ae9a8f2a640791c196ba3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export atos</definition>
+        <argsstring>(sel_t *seg, const char *str)</argsstring>
+        <name>atos</name>
+        <param>
+          <type>sel_t *</type>
+          <declname>seg</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Convert UTF-8 string to segment selector. <parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- fail </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- ok (hex) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- ok (segment name or reg) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6798" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1ga930c378fa67e093ba89b16a3893aa26a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export b2a_width</definition>
+        <argsstring>(int nbytes, int radix)</argsstring>
+        <name>b2a_width</name>
+        <param>
+          <type>int</type>
+          <declname>nbytes</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>radix</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the number of UTF-8 characters required to represent a number with the specified number of bytes and radix. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nbytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if 0, use default number of bytes, usually 4 or 8 depending on <bold>EA64</bold> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>radix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if 0, use default radix, usually 16 </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6809" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1gaf556e4db77caa513277469f486538021" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export b2a32</definition>
+        <argsstring>(char *buf, size_t bufsize, uint32 x, int nbytes, int radix)</argsstring>
+        <name>b2a32</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nbytes</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>radix</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Convert number to UTF-8 string (includes leading zeroes). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value to convert </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bufsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nbytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1, 2, 3, or 4 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>radix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>2, 8, 10, or 16 </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>size of resulting string </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6820" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1ga36ba7a6b65e2f88044f65f88e8e869f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export b2a64</definition>
+        <argsstring>(char *buf, size_t bufsize, uint64 x, int nbytes, int radix)</argsstring>
+        <name>b2a64</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nbytes</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>radix</declname>
+        </param>
+        <briefdescription>
+<para>Same as <ref refid="group__conv_1gaf556e4db77caa513277469f486538021" kindref="member">b2a32()</ref>, but can handle &apos;nbytes&apos; = 8. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6825" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1ga89eff609660f3911b48b064cded528a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export btoa_width</definition>
+        <argsstring>(int nbytes, flags_t flag, int n)</argsstring>
+        <name>btoa_width</name>
+        <param>
+          <type>int</type>
+          <declname>nbytes</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>flag</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get max number of UTF-8 characters required to represent a given type of value, with a given size (without leading zeroes). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nbytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of number </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>should be one of FF_ for <ref refid="group___f_f__opbits_1ga82c35fed1b6c4b01b773184c8ce1a4f3" kindref="member">MS_0TYPE</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if 1, shr &apos;flag&apos; by 4 </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6836" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1ga5c891837ef475e76b295d9a392fee148" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export btoa32</definition>
+        <argsstring>(char *buf, size_t bufsize, uint32 x, int radix=0)</argsstring>
+        <name>btoa32</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>radix</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Same as <ref refid="group__conv_1gaf556e4db77caa513277469f486538021" kindref="member">b2a32()</ref>, but will generate a string without any leading zeroes. Can be used to output some numbers in the instructions. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6842" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1gaae2d3012fb1dee65fe7af339a88327b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export btoa64</definition>
+        <argsstring>(char *buf, size_t bufsize, uint64 x, int radix=0)</argsstring>
+        <name>btoa64</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>radix</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>64-bit equivalent of <ref refid="group__conv_1ga5c891837ef475e76b295d9a392fee148" kindref="member">btoa32()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6847" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1ga1481961520f3f83e1887a3456a4207ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export btoa128</definition>
+        <argsstring>(char *buf, size_t bufsize, uint128 x, int radix=0)</argsstring>
+        <name>btoa128</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type><ref refid="classuint128" kindref="compound">uint128</ref></type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>radix</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>128-bit equivalent of <ref refid="group__conv_1ga5c891837ef475e76b295d9a392fee148" kindref="member">btoa32()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6852" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1ga69a59c44a34ab2ad3ac2a63db70a1d3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export numop2str</definition>
+        <argsstring>(char *buf, size_t bufsize, ea_t ea, int n, uint64 x, int nbytes, int radix=0)</argsstring>
+        <name>numop2str</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nbytes</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>radix</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Convert instruction operand immediate number to UTF-8. This is the main function to output numbers in the instruction operands. <linebreak/>
+It prints the number with or without the leading zeroes depending on the flags. <linebreak/>
+This function is called from out_value(). Please use out_value() if you can. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6870" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1gad1f23fd75bbb86f6c99cda4ee3f2901b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export atob32</definition>
+        <argsstring>(uint32 *x, const char *str)</argsstring>
+        <name>atob32</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Convert UTF-8 to a number using the current assembler formats. e.g. for ibmpc, &apos;12o&apos; is octal, &apos;12h&apos; is hex, etc. <simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6884" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1gad91500c42cbe464460c6743ed939b914" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export atob64</definition>
+        <argsstring>(uint64 *x, const char *str)</argsstring>
+        <name>atob64</name>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref> *</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>64-bit equivalent of <ref refid="group__conv_1gad1f23fd75bbb86f6c99cda4ee3f2901b" kindref="member">atob32()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6889" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1gacb73af3c1ed4cb525cf9460ab9c76583" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export append_disp</definition>
+        <argsstring>(qstring *buf, adiff_t disp, bool tag=true)</argsstring>
+        <name>append_disp</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>adiff_t</type>
+          <declname>disp</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>tag</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Auxiliary function. Print displacement to a name (+disp or -disp) in the natural radix <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output buffer to append to </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>disp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>displacement to output. 0 leads to no modifications </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>whether to output color tags </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6898" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1ga20030e1b244657d07e337f43b30d31a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export r50_to_asc</definition>
+        <argsstring>(char *p, const ushort *r, int k)</argsstring>
+        <name>r50_to_asc</name>
+        <param>
+          <type>char *</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref> *</type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Convert RADIX50 -&gt; UTF-8. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to UTF-8 string </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>r</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to radix50 string </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>k</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of elements in the input string <linebreak/>
+ (element of radix50 string is a word) <linebreak/>
+ (element of UTF-8 string is a character) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>number of elements left unprocessed in the input string, <linebreak/>
+ because the input string contains unconvertible elements. <linebreak/>
+ 0-ok, all elements are converted </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6911" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__conv_1ga8716a13603308b43998f55be1a056e5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref></type>
+        <definition>int THREAD_SAFE asc_to_r50</definition>
+        <argsstring>(ushort *r, const char *p, int k)</argsstring>
+        <name>asc_to_r50</name>
+        <param>
+          <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref> *</type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+<para>Convert UTF-8 -&gt; RADIX50 (see <ref refid="group__conv_1ga20030e1b244657d07e337f43b30d31a8" kindref="member">r50_to_asc()</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6916" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__conv_1ga2a279305305bab80e523786467b4b978" prot="public" static="no">
+        <name>MAX_NUMBUF</name>
+        <initializer>(128+8)</initializer>
+        <briefdescription>
+<para>16-byte value in binary base (0b00101010...) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6801" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6801" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__conv_1ga6b3db1c24e62b851151ad44961673fe2" prot="public" static="no">
+        <name>b2a</name>
+        <initializer><ref refid="group__conv_1gaf556e4db77caa513277469f486538021" kindref="member">b2a32</ref></initializer>
+        <briefdescription>
+<para>shortcut for number-&gt;string conversion, see <ref refid="group__conv_1gaf556e4db77caa513277469f486538021" kindref="member">b2a32()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6859" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6859" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__conv_1gaf60881ca3eb98d6591178afcfa89931d" prot="public" static="no">
+        <name>btoa</name>
+        <initializer><ref refid="group__conv_1ga5c891837ef475e76b295d9a392fee148" kindref="member">btoa32</ref></initializer>
+        <briefdescription>
+<para>shortcut for number-&gt;string conversion, see <ref refid="group__conv_1ga5c891837ef475e76b295d9a392fee148" kindref="member">btoa32()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6860" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6860" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__conv_1gaa9186123d2c0a94a99b6aedddc4d8d95" prot="public" static="no">
+        <name>atob</name>
+        <initializer><ref refid="group__conv_1gad1f23fd75bbb86f6c99cda4ee3f2901b" kindref="member">atob32</ref></initializer>
+        <briefdescription>
+<para>shortcut for string-&gt;number conversion, see <ref refid="group__conv_1gad1f23fd75bbb86f6c99cda4ee3f2901b" kindref="member">atob32()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6861" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6861" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>functions that convert between string encodings </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

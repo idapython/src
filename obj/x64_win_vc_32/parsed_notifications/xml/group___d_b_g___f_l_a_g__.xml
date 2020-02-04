@@ -1,0 +1,288 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___d_b_g___f_l_a_g__" kind="group">
+    <compoundname>DBG_FLAG_</compoundname>
+    <title>Debugger module features</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga8e92be34c098ff5cc3c8555d3dc518fd" prot="public" static="no">
+        <name>DBG_FLAG_REMOTE</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Remote debugger (requires remote host name unless <ref refid="group___d_b_g___f_l_a_g___1ga584fec50d0580701170eb23c8c5467c7" kindref="member">DBG_FLAG_NOHOST</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="765" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="765" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga584fec50d0580701170eb23c8c5467c7" prot="public" static="no">
+        <name>DBG_FLAG_NOHOST</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>(a unique device connected to the machine) </para>        </briefdescription>
+        <detaileddescription>
+<para>Remote debugger with does not require network params (host/port/pass). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="766" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="766" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga24c222dba509cb02e5a0bd572c77c10b" prot="public" static="no">
+        <name>DBG_FLAG_FAKE_ATTACH</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>and does not suspend the execution </para>        </briefdescription>
+        <detaileddescription>
+<para><ref refid="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a0aa061ebfe8277ed602bcdc5ec1c47d4" kindref="member">PROCESS_ATTACHED</ref> is a fake event </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="768" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="768" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga7be8702d0faec636f5ee3fccbc65d62b" prot="public" static="no">
+        <name>DBG_FLAG_HWDATBPT_ONE</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>one byte size by default </para>        </briefdescription>
+        <detaileddescription>
+<para>Hardware data breakpoints are </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="770" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="770" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1gadff938dc1c4cab1f4bc69dc0a014a995" prot="public" static="no">
+        <name>DBG_FLAG_CAN_CONT_BPT</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Debugger knows to continue from a bpt. This flag also means that the debugger module hides breakpoints from ida upon read_memory </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="772" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="772" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga7d672811f0e5bf910391d5cde4be0472" prot="public" static="no">
+        <name>DBG_FLAG_NEEDPORT</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Remote debugger requires port number (to be used with DBG_FLAG_NOHOST) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="775" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="775" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1gae0c598cb1c0fe8e8d016acebb6d01551" prot="public" static="no">
+        <name>DBG_FLAG_DONT_DISTURB</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Debugger can handle only <ref refid="group__dbg__funcs__high_1ga9b5f5bec1ed0c449555449a875de3ae7" kindref="member">get_debug_event()</ref>, request_pause(), <ref refid="group__dbg__funcs__cmds_1ga2aaee8c71618ffef3f2562599b314316" kindref="member">exit_process()</ref>. when the debugged process is running. The kernel may also call service functions (file I/O, map_address, etc) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="776" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="776" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga5014045353a5319d89dee7a68c780d2a" prot="public" static="no">
+        <name>DBG_FLAG_SAFE</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>without really running it) </para>        </briefdescription>
+        <detaileddescription>
+<para>The debugger is safe (probably because it just emulates the application </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="783" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="783" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga83e77c88388575a1a3e60961d4dbea7a" prot="public" static="no">
+        <name>DBG_FLAG_CLEAN_EXIT</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>IDA must suspend the application and remove all breakpoints before terminating the application. Usually this is not required because the application memory disappears upon termination. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="785" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="785" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga93099c972ac63c2660f44554ecbe72ce" prot="public" static="no">
+        <name>DBG_FLAG_USE_SREGS</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>Take segment register values into account (non flat memory) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="789" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="789" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga3f8939c2d1b3fa6e54b9a56b9377ad84" prot="public" static="no">
+        <name>DBG_FLAG_NOSTARTDIR</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>Debugger module doesn&apos;t use startup directory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="790" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="790" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga7da96c39911b30346f9c464035bcabc2" prot="public" static="no">
+        <name>DBG_FLAG_NOPARAMETERS</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>Debugger module doesn&apos;t use commandline parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="791" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="791" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1gab17ce4b4650a869303265187300faa12" prot="public" static="no">
+        <name>DBG_FLAG_NOPASSWORD</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>Remote debugger doesn&apos;t use password. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="792" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="792" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga8e45c7590152a300948c4bbbacf98b9e" prot="public" static="no">
+        <name>DBG_FLAG_CONNSTRING</name>
+        <initializer>0x00002000</initializer>
+        <briefdescription>
+<para>Display &quot;Connection string&quot; instead of &quot;Hostname&quot; and hide the &quot;Port&quot; field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="793" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="793" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga9656735fbe68b8e13f1af87f171a36d4" prot="public" static="no">
+        <name>DBG_FLAG_SMALLBLKS</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+<para>Otherwise, 1024-byte blocks are used. </para>        </briefdescription>
+        <detaileddescription>
+<para>If set, IDA uses 256-byte blocks for caching memory contents. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="794" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="794" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1gacac4d57b9b0ee8224a925fd8453145e8" prot="public" static="no">
+        <name>DBG_FLAG_MANMEMINFO</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>If set, manual memory region manipulation commands will be available. Use this bit for debugger modules that can not return memory layout information </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="796" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="796" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1gac1a1d91931d207bec0738ac9dfdc9b08" prot="public" static="no">
+        <name>DBG_FLAG_EXITSHOTOK</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+<para>IDA may take a memory snapshot at <ref refid="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a38cb54b7fd7aaf4ad0271c399417105a" kindref="member">PROCESS_EXITED</ref> event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="799" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="799" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga8f43a05b5a33f4ff30ea6cd119271c68" prot="public" static="no">
+        <name>DBG_FLAG_VIRTHREADS</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+<para>(to be used for virtual threads that represent cpus for windbg kmode) </para>        </briefdescription>
+        <detaileddescription>
+<para>Thread IDs may be shuffled after each debug event. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="800" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="800" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga971e61b7456ef434ea86f4aa7fb5ae39" prot="public" static="no">
+        <name>DBG_FLAG_LOWCNDS</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+<para>Low level breakpoint conditions are supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="802" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="802" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1gaff47e2dbf1d46099cb0cce35bd36ad1e" prot="public" static="no">
+        <name>DBG_FLAG_DEBTHREAD</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Supports creation of a separate thread in ida for the debugger (the debthread). Most debugger functions will be called from debthread (exceptions are marked below) The debugger module may directly call only <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> functions. To call other functions please use <ref refid="kernwin_8hpp_1a69761082f4ed4caa6fb527da4bf5268d" kindref="member">execute_sync()</ref>. The debthread significantly increases debugging speed, especially if debug events occur frequently (to be tested) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="803" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="803" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1gabb363aa6833062299ddc023de2b373be" prot="public" static="no">
+        <name>DBG_FLAG_DEBUG_DLL</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+<para>For example, Bochs debugger can debug any snippet of code. </para>        </briefdescription>
+        <detaileddescription>
+<para>Can debug standalone DLLs. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="810" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="810" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga312fb3e8840b367ca0f4c9de2e3c6d9b" prot="public" static="no">
+        <name>DBG_FLAG_FAKE_MEMORY</name>
+        <initializer>0x00200000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>get_memory_info()/read_memory()/write_memory() work with the idb. (there is no real process to read from, as for the replayer module) the kernel will not call these functions if this flag is set. however, third party plugins may call them, they must be implemented. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="812" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="812" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga4869ea226c3df8c87bb75428bf439b7f" prot="public" static="no">
+        <name>DBG_FLAG_ANYSIZE_HWBPT</name>
+        <initializer>0x00400000</initializer>
+        <briefdescription>
+<para>The debugger supports arbitrary size hardware breakpoints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="816" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="816" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga6601ee11c1e00e8fe9d6df55b9192697" prot="public" static="no">
+        <name>DBG_FLAG_TRACER_MODULE</name>
+        <initializer>0x00800000</initializer>
+        <briefdescription>
+<para>The module is a tracer, not a full featured debugger module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="817" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="817" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga775207dbc650ddeb636640bbbb36f400" prot="public" static="no">
+        <name>DBG_FLAG_PREFER_SWBPTS</name>
+        <initializer>0x01000000</initializer>
+        <briefdescription>
+<para>Prefer to use software breakpoints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="818" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="818" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="group___d_b_g___f_l_a_g2__" kindref="compound">Debugger module features</ref> may be set inside debugger_t::init_debugger() except of the severals Used by debugger_t::flags </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

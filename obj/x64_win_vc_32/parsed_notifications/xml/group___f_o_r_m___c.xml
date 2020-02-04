@@ -1,0 +1,306 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_o_r_m___c" kind="group">
+    <compoundname>FORM_C</compoundname>
+    <title>ask_form()/open_form()</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___f_o_r_m___c_1ga3e2bf943ddcd9256fadc7cf0913bdfbf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int vask_form</definition>
+        <argsstring>(const char *format, va_list va)</argsstring>
+        <name>vask_form</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>va_list</type>
+          <declname>va</declname>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___f_o_r_m___c_1ga56bdea2f1808b588da54c343f42ebf41" kindref="member">ask_form()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6126" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6126" bodyend="6129"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_o_r_m___c_1ga56bdea2f1808b588da54c343f42ebf41" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int ask_form</definition>
+        <argsstring>(const char *form,...)</argsstring>
+        <name>ask_form</name>
+        <param>
+          <type>const char *</type>
+          <declname>form</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Display a dialog box and wait for the user. If the form contains the &quot;BUTTON NO &lt;title&gt;&quot; keyword, then the return values are the same as in the <ref refid="kernwin_8hpp_1a29d876e50747b86d842c0abaf6d0d7d8" kindref="member">ask_yn()</ref> function (<ref refid="group___a_s_k_b_t_n__" kindref="compound">Button IDs</ref>) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>form</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dialog box as a string. see <ref refid="group___f_o_r_m___c" kindref="compound">ask_form()/open_form()</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the user pressed Esc, no memory to display or form syntax error a dialog box (a warning is displayed in this case). all variables retain their original values. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok, all input fields are filled and validated. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>-1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the form had BUTTON CANCEL and the user cancelled the dialog </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6141" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6141" bodyend="6148"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_o_r_m___c_1gac0a6440bc79c64499e55e53d263aa148" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* vopen_form</definition>
+        <argsstring>(const char *format, int flags, va_list va)</argsstring>
+        <name>vopen_form</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <param>
+          <type>va_list</type>
+          <declname>va</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create and/or activate dockable modeless form (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334ab90ae4abe5dc7cb69cb2cee54543dab8" kindref="member">ui_open_form</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>string </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___w_i_d_g_e_t___o_p_e_n" kindref="compound">Widget open flags</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>va</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>args </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting TWidget </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6157" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6157" bodyend="6160"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_o_r_m___c_1gad13585334cbdbf7bc9910cc166137d19" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_form</definition>
+        <argsstring>(const char *form, int flags,...)</argsstring>
+        <name>open_form</name>
+        <param>
+          <type>const char *</type>
+          <declname>form</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Display a dockable modeless dialog box and return a handle to it. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>form</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dialog box as a string. see <ref refid="group___f_o_r_m___c" kindref="compound">ask_form()/open_form()</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___w_i_d_g_e_t___o_p_e_n" kindref="compound">Widget open flags</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>handle to the form or NULL. the handle can be used with TWidget functions: <ref refid="kernwin_8hpp_1ad27da33115a2f2e7bddbbf5d29aa814b" kindref="member">close_widget()</ref>/activate_widget()/etc </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6169" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6169" bodyend="6176"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This module describes how to generate a custom form. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted></preformatted></para><para><preformatted>The following keywords might appear at the beginning of the &apos;form&apos; argument
+(case insensitive):</preformatted></para><para><preformatted>STARTITEM number</preformatted></para><para><preformatted>  where number is a number of input field the cursor will stand on.
+  By default the cursor is in the first field of the dialog box.
+  The input fields are numbered from 0 (the first field is field 0).</preformatted></para><para><preformatted>BUTTON name caption</preformatted></para><para><preformatted>  Alternative caption for a button. It may contain the character
+  to highlight in this form:  ~Y~es
+  Valid button names are: YES, NO, CANCEL
+  For example:
+      BUTTON YES Please do
+      BUTTON NO Nope
+      BUTTON CANCEL NONE</preformatted></para><para><preformatted>  By default the NO button is not displayed. If it is displayed, then
+  the return value of the function will be different!
+  (see the function description)</preformatted></para><para><preformatted>  Empty text means that there won&apos;t be any corresponding button.
+  (you may also use NONE as the caption to hide it)</preformatted></para><para><preformatted>  A * after the button name means that this button will be the default:</preformatted></para><para><preformatted>    BUTTON CANCEL* Cancel</preformatted></para><para><preformatted>Next, if the dialog box is kept in IDA.HLP, the following may appear:
+(this defines help context for the whole dialog box)</preformatted></para><para><preformatted>[]</preformatted></para><para><preformatted>If the form is not in IDA.HLP file, then it can have a built-in
+help message. In this case the help screen should be enclosed in the
+following keywords:</preformatted></para><para><preformatted>HELP
+....
+....
+....
+ENDHELP</preformatted></para><para><preformatted>Each keyword should be on a separate line.</preformatted></para><para><preformatted>Next there must be the title line and two empty lines.
+Most of the text in the dialog box text string is copied to the dialog
+without modification. There are three special cases:
+<verbatim>  - dynamic labels (format parameters)
+  - callback arguments
+  - input fields
+</verbatim></preformatted></para><para><preformatted>For example, this dialog box:</preformatted></para><para><preformatted>---<mdash/> format:
+      Sample dialog box</preformatted></para><para><preformatted><verbatim>  This is sample dialog box for %A
+  using address %$
+
+  &lt;~E~nter value:N::18::&gt;
+</verbatim></preformatted></para><para><preformatted><hruler/>
+</preformatted></para><para><preformatted>Contains two dynamic labels (text A and address %$) and one input field
+(numerical input box with the label &quot;Enter value&quot;).</preformatted></para><para><preformatted>Parameters for the dynamic labels and input fields are taken from the
+function&apos;s input arguments (va_list). The corresponding argument should
+contain a pointer (sic, pointer) to the value to be displayed.</preformatted></para><para><preformatted>The dialog box above should be called as</preformatted></para><para><preformatted><programlisting><codeline><highlight class="normal">char<sp/>*string<sp/>=<sp/>&quot;something&quot;;</highlight></codeline>
+<codeline><highlight class="normal">ea_t<sp/>addr<sp/>=<sp/>someaddr;</highlight></codeline>
+<codeline><highlight class="normal">uval_t<sp/>answer<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>ok<sp/>=<sp/>ask_form(format,<sp/>string,<sp/>&amp;addr,<sp/>&amp;answer);</highlight></codeline>
+</programlisting></preformatted></para><para><preformatted>Dynamic labels are used to specify variant parts of the dialog box text.
+They use the following syntax:
+<verbatim>  %nT
+</verbatim></preformatted></para><para><preformatted>where
+      n  - optional decimal field ID, which may be used in the
+           <ref refid="structform__actions__t" kindref="compound">form_actions_t</ref> calls to get/set label value at runtime
+      T  - a character specifying type of input field. All input field
+           types (except B and K) are valid format specifiers. See below
+           for the list.</preformatted></para><para><preformatted>There are two special specifiers for callbacks:</preformatted></para><para><preformatted>The combination &apos;%/&apos; corresponds to a callback function that will be
+called when any of the fields is modified. The callback type is <ref refid="kernwin_8hpp_1a435eebdaa696149cdba8213abf460465" kindref="member">formchgcb_t</ref>.
+There can be only one such callback.</preformatted></para><para><preformatted>The combination &apos;%*&apos; is used to store user data (void *) in the form.
+This data can be later retrieved from the <ref refid="kernwin_8hpp_1a435eebdaa696149cdba8213abf460465" kindref="member">formchgcb_t</ref> callback via the
+form action method get_ud().</preformatted></para><para><preformatted>Input fields use the following syntax:</preformatted></para><para><preformatted>&lt;label:type:width:swidth:[]&gt;</preformatted></para><para><preformatted>where
+      label - any text string serving as label for the input field
+              the label may contain an accelerator key like this: &quot;~O~pen&quot;
+              (O is the accelerator key; Alt-O will work too)
+      type  - a character specifying type of input field.
+              The form() function will perform initial validation of
+              value specified by the user and convert it appropriately.
+              See table of input field types below. The type can be followed
+              by a decimal number, an input field ID.
+      width - for A, I, T, X: decimal number specifying size of the buffer
+                passed for text input fields (including terminating 0).
+                if omitted or &lt;0, assumed to be at least MAXSTR</preformatted></para><para><preformatted>              for B, k: the code generated when the user presses the button (passed to the button callback)
+              for f (path to file) this attribute specifies the dialog type:
+                0-&apos;open file&apos; dialog box
+                1-&apos;save file&apos; dialog box
+              for F (folder) it is ignored (buffer is assumed to be at least QMAXPATH long)
+              for b (dropdown list) this attribute specifies the readonly attribute:
+                0   - read-only dropdown list
+                &gt; 0 - editable dropdown list
+              for i, q: decimal number specifying maximum possible number
+                of characters that can be entered into the input field
+              for the rest of controls: this field is ignored
+      swidth -decimal number specifying width of visible part of input field.
+              this number may be omitted.
+      []- help context for the input field. you may replace the
+              help context with &apos;::&apos; (two colons) if you don&apos;t want to
+              specify help context. The help context is a number of help
+              page from IDA.HLP file.</preformatted></para><para><preformatted>Input field types                               va_list parameter
+<hruler/>
+</preformatted></para><para><preformatted>q - UTF-8 string                                <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref>*
+h - HTML text                                   char * (only for GUI version; only for dynamic labels; no input)
+S - segment                                     ::sel_t*
+N - hex number, C notation                      <ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref>*
+n - signed hex number, C notation               <ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref>*
+L - C notation number                           <ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref>*
+    (prefix 0x - hex, 0 - octal, otherwise decimal)
+l - same as L but with optional sign            <ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref>*
+M - hex number, no &quot;0x&quot; prefix                  <ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref>*
+D - decimal number                              <ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref>*
+O - octal number, C notation                    <ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref>*
+Y - binary number, &quot;0b&quot; prefix                  <ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref>*
+H - char value, C notation                      <ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref>*
+$ - address                                     ::ea_t*
+I - ident                                       char* at least <ref refid="name_8hpp_1a56739a38cf3fb0c5d7d842fe94f96f86" kindref="member">MAXNAMELEN</ref> size (obsolete, will be removed)
+i - ident                                       <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref>*
+B - button                                      <ref refid="kernwin_8hpp_1ac45b0287a792bd1745fc5cd54a24978b" kindref="member">buttoncb_t</ref>*
+k - txt: button (same as B)/gui: hyperlink      <ref refid="kernwin_8hpp_1ac45b0287a792bd1745fc5cd54a24978b" kindref="member">buttoncb_t</ref>*
+K - color button                                <ref refid="pro_8h_1a3df5040891132e50157aee66affdf1de" kindref="member">bgcolor_t</ref>*
+F - path to folder                              char* at least #QMAXPATH size
+f - path to file                                char* at least #QMAXPATH size
+T - type declaration                            char* at least <ref refid="pro_8h_1a5189100144828825ca4369c28c1261d1" kindref="member">MAXSTR</ref> size, obsolete, see below
+y - type declaration                            <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref>*
+X - command                                     char* at least <ref refid="pro_8h_1a5189100144828825ca4369c28c1261d1" kindref="member">MAXSTR</ref> size
+E - chooser                                     <ref refid="structchooser__base__t" kindref="compound">chooser_base_t</ref> * - embedded chooser
+                                                <ref refid="pro_8h_1a3fb92c6beff4e1e004a4ef5a2e356391" kindref="member">sizevec_t</ref> * - in/out: selected lines (0-based)
+                                                  (NB: this field takes two args)
+t - multi line text control                     <ref refid="structtextctrl__info__t" kindref="compound">textctrl_info_t</ref> *
+b - dropdown list                               <ref refid="pro_8h_1a823b67c620f6cdca97e1d969ea4a9b02" kindref="member">qstrvec_t</ref> * - the list of items
+                                                int* or <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref>* - the preselected item
+                                                  (<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref>* when the combo is editable, i.e. width field is &gt;0)</preformatted></para><para><preformatted>A - UTF-8 string                                char* at least MAXSTR size, obsolete. Use &apos;q&apos; instead.</preformatted></para><para><preformatted>The M, n, N, D, O, Y, H, $ fields try to parse the input as an IDC expression
+and convert the result into the required value type</preformatted></para><para><preformatted>If the buffer for &apos;F&apos; field contains filemasks and descriptions like this:
+  *.exe|Executable files,*.dll|Dll files
+they will be used in the dialog box filter.</preformatted></para><para><preformatted>The hint message can be specified before the label enclosed in &apos;#&apos;:</preformatted></para><para><preformatted>&lt;#hint message::label:...&gt;</preformatted></para><para><preformatted>Radiobuttons and checkboxes are represented by:</preformatted></para><para><preformatted>&lt;label:type&gt;
+&lt;label:type&gt;&gt;         - end of block</preformatted></para><para><preformatted>where valid types are C and R
+(you may use lowercase &apos;c&apos; and &apos;r&apos; if you need to create two radiobutton
+or checkbox groups on the same lines). The field ID of the whole group
+can be specified between the brackets: &lt;label:type&gt;ID&gt;</preformatted></para><para><preformatted>field types           va_list parameter
+<hruler/>
+</preformatted></para><para><preformatted>C - checkbox          ushort*                 bit mask of checkboxes
+R - radiobutton       ushort*                 number of radiobutton</preformatted></para><para><preformatted>The box title and hint messages can be specified like this:</preformatted></para><para><preformatted>&lt;#item hint::title::box hint::label:type&gt;</preformatted></para><para><preformatted>The title and the box hint can be specified only in the first item of the box.
+If the hint doesn&apos;t exist, it should be specified as an empty hint (##title##)
+The subsequent items can have an item hint only:</preformatted></para><para><preformatted>&lt;#item hint::label:type&gt;</preformatted></para><para><preformatted>Initial values of input fields are specified in the corresponding
+input/output parameters (taken from va_list array).</preformatted></para><para><preformatted>OK, Cancel and (possibly) Help buttons are displayed at the bottom of
+the dialog box automatically. Their captions can be changed by the BUTTON
+keywords described at the beginning of this page.</preformatted></para><para><preformatted>Input field definition examples:</preformatted></para><para><preformatted> &lt;Kernel analyzer options ~1~:B:0:::&gt;
+ &lt;~A~nalysis enabled:C&gt;
+ &lt;~I~ndicator enabled:C&gt;&gt;
+ &lt;Names pre~f~ix  :A:15:15::&gt;
+ &lt;~O~utput <ulink url="file:f:1:64::">file:f:1:64::</ulink>&gt;
+ &lt;~O~utput directory:F::64::&gt;</preformatted></para><para><preformatted>Resizable fields can be separated by splitters (GUI only).</preformatted></para><para><preformatted>A vertical splitter is represented by &lt;|&gt;. E.g.,:
+  &lt;~Chooser~:E1:0:40:::&gt;&lt;|&gt;&lt;~E~ditor:t2:0:40:::&gt;
+whereas a horizontal splitter is represented by &lt;-&gt;. E.g.,:
+  &lt;~Chooser~:E1:0:40:::&gt;
+  &lt;-&gt;
+  &lt;~E~ditor:t2:0:40:::&gt;</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

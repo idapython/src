@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___d_s_t_a_t_e__" kind="group">
+    <compoundname>DSTATE_</compoundname>
+    <title>Debugged process states</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___d_s_t_a_t_e___1ga38e96ce99ab25bf8045c2b8a9dbdaf70" prot="public" static="no">
+        <name>DSTATE_SUSP</name>
+        <initializer>-1</initializer>
+        <briefdescription>
+<para>process is suspended and will not continue </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="299" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_s_t_a_t_e___1ga6d31e2cc8725b482c31542d59d679630" prot="public" static="no">
+        <name>DSTATE_NOTASK</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>no process is currently debugged </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="300" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_s_t_a_t_e___1gaa469984b7d11a438e53a6f9f554c4669" prot="public" static="no">
+        <name>DSTATE_RUN</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>process is running </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="301" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>See <ref refid="group__dbg__funcs__cmds_1ga610fa89b8ec6db08d7f7d3aabcf69a2f" kindref="member">get_process_state()</ref>, <ref refid="group__dbg__funcs__cmds_1ga626126369d3b58b3d5eeaa953c936988" kindref="member">set_process_state()</ref>, <ref refid="group__dbg__funcs__cmds_1ga01e494031d20479e64771af94a7f7f61" kindref="member">invalidate_dbg_state()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

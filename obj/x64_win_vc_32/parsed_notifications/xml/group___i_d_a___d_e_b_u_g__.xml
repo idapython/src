@@ -1,0 +1,299 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___i_d_a___d_e_b_u_g__" kind="group">
+    <compoundname>IDA_DEBUG_</compoundname>
+    <title>IDA debug bits</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1ga62d091eb0672a456474c7b5ae16e2b3f" prot="public" static="no">
+        <name>IDA_DEBUG_DREFS</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>drefs </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2115" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1gacb4b5543a27062af4b7dfc66b60cc98a" prot="public" static="no">
+        <name>IDA_DEBUG_OFFSET</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>offsets </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2116" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1gaf0c13eddcb43550f4f837a6c3ed83503" prot="public" static="no">
+        <name>IDA_DEBUG_FLIRT</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>flirt </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2117" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1gaabf1ce78c9f1349b83869cf339188631" prot="public" static="no">
+        <name>IDA_DEBUG_IDP</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>idp module </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2118" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1ga6cfdbc3ddeb1fcb428608acade54a63a" prot="public" static="no">
+        <name>IDA_DEBUG_LDR</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>ldr module </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2119" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1gaf0f02c1a7b791a167a2c6da00fb77af2" prot="public" static="no">
+        <name>IDA_DEBUG_PLUGIN</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>plugin module </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2120" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1ga24d9abceb7bb80d04be05745fa124eb0" prot="public" static="no">
+        <name>IDA_DEBUG_IDS</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>ids files </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2121" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1gab040e81b5bf919fd403a3014cb315e57" prot="public" static="no">
+        <name>IDA_DEBUG_CONFIG</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>config file </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2122" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1ga77a972a6c9a5fd28aa0afdb7534470a6" prot="public" static="no">
+        <name>IDA_DEBUG_CHECKMEM</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>check heap consistency </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2123" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1gaf2c071b03bd3ee4494aa582eb552727d" prot="public" static="no">
+        <name>IDA_DEBUG_CHECKARG</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>checkarg </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2124" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1ga9ac98393431428dc4c9239fed13dd5ac" prot="public" static="no">
+        <name>IDA_DEBUG_DEMANGLE</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>demangler </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2125" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1gacc426505ad80fc6553a97c7c0a738405" prot="public" static="no">
+        <name>IDA_DEBUG_QUEUE</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>queue </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2126" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1gae627bec81ddbf8e482d78f193fda6f4b" prot="public" static="no">
+        <name>IDA_DEBUG_ROLLBACK</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>rollback </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2127" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1ga98cfc1017c11dac1553b991a18602560" prot="public" static="no">
+        <name>IDA_DEBUG_ALREADY</name>
+        <initializer>0x00002000</initializer>
+        <briefdescription>
+<para>already data or code </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2128" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1gaa301af3f59188be1fafe4d33454b5153" prot="public" static="no">
+        <name>IDA_DEBUG_TIL</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+<para>type system </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2129" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1gab286aa618dc0c630f3cf4126cea6e451" prot="public" static="no">
+        <name>IDA_DEBUG_NOTIFY</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+<para>show all notifications </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2130" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1ga56f40d8c68dee934c830a8a3ad0e3c61" prot="public" static="no">
+        <name>IDA_DEBUG_DEBUGGER</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+<para>debugger </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2131" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1gaa2bc4ce9a5e89efb770c0548800b38e8" prot="public" static="no">
+        <name>IDA_DEBUG_APPCALL</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+<para>appcall </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2132" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1gac75a729d02febb8aa91d34d1049d74ad" prot="public" static="no">
+        <name>IDA_DEBUG_SRCDBG</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+<para>source debugging </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2133" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1ga8814944fc370567527611a4a244dc437" prot="public" static="no">
+        <name>IDA_DEBUG_ACCESSIBILITY</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+<para>accessibility </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2134" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1ga9bf07b5dbe78c3c2491129570836529a" prot="public" static="no">
+        <name>IDA_DEBUG_NETWORK</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+<para>network </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2135" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1gaba28a66cb30ff8a2e9d671d5d33e869d" prot="public" static="no">
+        <name>IDA_DEBUG_INTERNET</name>
+        <initializer><ref refid="group___i_d_a___d_e_b_u_g___1ga9bf07b5dbe78c3c2491129570836529a" kindref="member">IDA_DEBUG_NETWORK</ref></initializer>
+        <briefdescription>
+<para>internet connection (for API backward compatibility) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2136" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1ga851f8e74f6e32122577a59c397990ca2" prot="public" static="no">
+        <name>IDA_DEBUG_SIMPLEX</name>
+        <initializer>0x00200000</initializer>
+        <briefdescription>
+<para>full stack analysis </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2137" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1ga78a882f3600aae43cf1c707bbfff3500" prot="public" static="no">
+        <name>IDA_DEBUG_DBGINFO</name>
+        <initializer>0x00400000</initializer>
+        <briefdescription>
+<para>handling of debug info (e.g. pdb, dwarf) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2138" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1ga07e47da4230e93ded4ba97012006aa7b" prot="public" static="no">
+        <name>IDA_DEBUG_LUMINA</name>
+        <initializer>0x00800000</initializer>
+        <briefdescription>
+<para>lumina related </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2139" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___d_e_b_u_g___1ga69ad0a8ad2fd8c41b4525ea90efbece8" prot="public" static="no">
+        <name>IDA_DEBUG_ALWAYS</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+<para>everything </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2140" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2140" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>used by <ref refid="kernwin_8hpp_1a2d9b7e43291ec52f217b47e417579353" kindref="member">debug</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

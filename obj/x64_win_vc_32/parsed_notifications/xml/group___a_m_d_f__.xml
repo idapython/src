@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___a_m_d_f__" kind="group">
+    <compoundname>AMDF_</compoundname>
+    <title>flags forref apply_metadata()</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___a_m_d_f___1ga86a6045efda345f96b7c62604392c31b" prot="public" static="no">
+        <name>AMDF_UPGRADE</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>&quot;quality&quot; than what&apos;s currently in the IDB </para>        </briefdescription>
+        <detaileddescription>
+<para>apply kvps that seem to be of higher </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="291" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_m_d_f___1gab606ad0242df274cb1a1f18b66ca66fb" prot="public" static="no">
+        <name>AMDF_FORCE</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>apply kvps regardless of what&apos;s currently in the IDB, possibly removing some attributes currently present (e.g., name, or prototype could be lost) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="293" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

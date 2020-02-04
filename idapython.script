@@ -1,7 +1,6 @@
 {
 global:
   PLUGIN;
-  PyWStringOrNone_Check;
   PyW_CreateIdcException;
   PyW_GetError;
   PyW_GetNumber;

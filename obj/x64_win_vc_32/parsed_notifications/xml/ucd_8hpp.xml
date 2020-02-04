@@ -1,0 +1,2912 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="ucd_8hpp" kind="file" language="C++">
+    <compoundname>ucd.hpp</compoundname>
+    <includes refid="pro_8h" local="no">pro.h</includes>
+    <includes refid="range_8hpp" local="no">range.hpp</includes>
+    <includedby refid="parseucdr_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp</includedby>
+    <incdepgraph>
+      <node id="1552">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="1536">
+        <label>stdarg.h</label>
+      </node>
+      <node id="1539">
+        <label>assert.h</label>
+      </node>
+      <node id="1535">
+        <label>stdlib.h</label>
+      </node>
+      <node id="1547">
+        <label>io.h</label>
+      </node>
+      <node id="1550">
+        <label>fcntl.h</label>
+      </node>
+      <node id="1553">
+        <label>llong.hpp</label>
+        <link refid="llong_8hpp_source"/>
+      </node>
+      <node id="1545">
+        <label>malloc.h</label>
+      </node>
+      <node id="1544">
+        <label>string</label>
+      </node>
+      <node id="1549">
+        <label>map</label>
+      </node>
+      <node id="1548">
+        <label>direct.h</label>
+      </node>
+      <node id="1537">
+        <label>stddef.h</label>
+      </node>
+      <node id="1540">
+        <label>limits.h</label>
+      </node>
+      <node id="1551">
+        <label>sys/types.h</label>
+      </node>
+      <node id="1546">
+        <label>string.h</label>
+      </node>
+      <node id="1533">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp</label>
+        <link refid="ucd_8hpp"/>
+        <childnode refid="1534" relation="include">
+        </childnode>
+        <childnode refid="1554" relation="include">
+        </childnode>
+      </node>
+      <node id="1543">
+        <label>new</label>
+      </node>
+      <node id="1534">
+        <label>pro.h</label>
+        <link refid="pro_8h"/>
+        <childnode refid="1535" relation="include">
+        </childnode>
+        <childnode refid="1536" relation="include">
+        </childnode>
+        <childnode refid="1537" relation="include">
+        </childnode>
+        <childnode refid="1538" relation="include">
+        </childnode>
+        <childnode refid="1539" relation="include">
+        </childnode>
+        <childnode refid="1540" relation="include">
+        </childnode>
+        <childnode refid="1541" relation="include">
+        </childnode>
+        <childnode refid="1542" relation="include">
+        </childnode>
+        <childnode refid="1543" relation="include">
+        </childnode>
+        <childnode refid="1544" relation="include">
+        </childnode>
+        <childnode refid="1545" relation="include">
+        </childnode>
+        <childnode refid="1546" relation="include">
+        </childnode>
+        <childnode refid="1547" relation="include">
+        </childnode>
+        <childnode refid="1548" relation="include">
+        </childnode>
+        <childnode refid="1549" relation="include">
+        </childnode>
+        <childnode refid="1550" relation="include">
+        </childnode>
+        <childnode refid="1551" relation="include">
+        </childnode>
+        <childnode refid="1552" relation="include">
+        </childnode>
+        <childnode refid="1553" relation="include">
+        </childnode>
+      </node>
+      <node id="1542">
+        <label>time.h</label>
+      </node>
+      <node id="1541">
+        <label>ctype.h</label>
+      </node>
+      <node id="1554">
+        <label>range.hpp</label>
+        <link refid="range_8hpp"/>
+      </node>
+      <node id="1538">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1556">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp</label>
+        <link refid="parseucdr_8hpp_source"/>
+      </node>
+      <node id="1555">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp</label>
+        <link refid="ucd_8hpp"/>
+        <childnode refid="1556" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structcp__data__t" prot="public">cp_data_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="ucd_8hpp_1af6a018c744fde2d729b2bee711c58deb" prot="public" static="no">
+        <name>NCPS</name>
+        <initializer>0x110000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="323" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ucd_8hpp_1a177475e2735fec20261f77f4e408efcf" prot="public" static="no">
+        <name>CULTURE_FNAME_PFX_LEN</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="435" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="435" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ucd_8hpp_1a2a18cfc4023bea76e276e35e320d32fc" prot="public" static="no">
+        <name>CULTURE_FNAME_EXT</name>
+        <initializer>&quot;.clt&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="436" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="436" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381" prot="public" static="no">
+        <name>cp_block_t</name>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a7ffdd62c568e1658c0df48e95bb8cee3" prot="public">
+          <name>CPB_Unknown</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381af04b1b2765a7974c5c457b43469691c7" prot="public">
+          <name>CPB_Adlam</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ab56758347afdb0fa5ecb2d58cb18be2c" prot="public">
+          <name>CPB_Aegean_Numbers</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a2af38516111f2af9a1086b9169d800a5" prot="public">
+          <name>CPB_Ahom</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a159d7fe6d8ee0293daaf09f8feedae58" prot="public">
+          <name>CPB_Alchemical_Symbols</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381abcbd9e71ee7e0de2f6a557be33519658" prot="public">
+          <name>CPB_Alphabetic_Presentation_Forms</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ac3996e5cf7e64e3572c1a260b2d5df4c" prot="public">
+          <name>CPB_Anatolian_Hieroglyphs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ac115bb2f0ab62db35215edcba31b9235" prot="public">
+          <name>CPB_Ancient_Greek_Musical_Notation</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381acacde8ecb56cdee4e89bee46219090be" prot="public">
+          <name>CPB_Ancient_Greek_Numbers</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a45997f188eb7db8874fda589b17107ff" prot="public">
+          <name>CPB_Ancient_Symbols</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a82f08e3107a84ddb8c8944f57c2f4a1c" prot="public">
+          <name>CPB_Arabic</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a2a9ba6e3ad7d2e89ab76c2ad9ea04fd0" prot="public">
+          <name>CPB_Arabic_Extended_A</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a1a310ee1984445bdd3a7322ef6adc1d8" prot="public">
+          <name>CPB_Arabic_Mathematical_Alphabetic_Symbols</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a11f884b7f269c74618488e7231f65532" prot="public">
+          <name>CPB_Arabic_Presentation_Forms_A</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a17631a138081f240eb8d1dae08f339d0" prot="public">
+          <name>CPB_Arabic_Presentation_Forms_B</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ae80ee5eb3f35f8f6cbd7a8d216f2f20c" prot="public">
+          <name>CPB_Arabic_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a2424ef94a3618187bcfffda26b4e905d" prot="public">
+          <name>CPB_Armenian</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a50e3d9bc9c386f16dffdb61d0193fb12" prot="public">
+          <name>CPB_Arrows</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a25cbb1e921fcdb4b2bc08dac0d0b3bf0" prot="public">
+          <name>CPB_Avestan</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a9a1d0bb639acadef290244a204a41281" prot="public">
+          <name>CPB_Balinese</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a4a2cb943f9fb3306031a53d3f96c67f6" prot="public">
+          <name>CPB_Bamum</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a47dc0774d13749d31f41729253ed1148" prot="public">
+          <name>CPB_Bamum_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aa06a4f6434b232617639e94fc53a47b8" prot="public">
+          <name>CPB_Basic_Latin</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a6a48589f1019a0175b39b8f55a51ed0e" prot="public">
+          <name>CPB_Bassa_Vah</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a5467607276882c8f22fc9f1093e31501" prot="public">
+          <name>CPB_Batak</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a636c76e8df1df5c7351dbb9a41b16ae5" prot="public">
+          <name>CPB_Bengali</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a4e16161e1b72e11f032f9970af802262" prot="public">
+          <name>CPB_Bhaiksuki</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a70b936a1a790d3fcf6629e5bfa02bee2" prot="public">
+          <name>CPB_Block_Elements</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381adc9d477296d1d089d38908d8587f1d10" prot="public">
+          <name>CPB_Bopomofo</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ae10d4a0f933c870f1d46fe385c7bec98" prot="public">
+          <name>CPB_Bopomofo_Extended</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a7b3e358aa61634245944c79416393243" prot="public">
+          <name>CPB_Box_Drawing</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a2b67bdc047911f537ac85e4faeb5e1ac" prot="public">
+          <name>CPB_Brahmi</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a37d505eb87a1198fd6e3e4038b84112e" prot="public">
+          <name>CPB_Braille_Patterns</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a17dbfc5ca8b02ea387d35542d0735a1f" prot="public">
+          <name>CPB_Buginese</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a8c26d99050ed7cc335dc7ea943e530a2" prot="public">
+          <name>CPB_Buhid</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ac54d893fd293961600f45f41e7eb7d1f" prot="public">
+          <name>CPB_Byzantine_Musical_Symbols</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a4fd14cc83e0920b516f85097ea6d9e77" prot="public">
+          <name>CPB_CJK_Compatibility</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a3d9d788a84feffed8a5e027abb30ecfc" prot="public">
+          <name>CPB_CJK_Compatibility_Forms</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a39b1fd08c6a2f3f6c6191141351ad32d" prot="public">
+          <name>CPB_CJK_Compatibility_Ideographs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a7b527bd2fe6e34aee4b5b8ac71d215b1" prot="public">
+          <name>CPB_CJK_Compatibility_Ideographs_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381abf12f288e0b25a402b84dc364f0ca503" prot="public">
+          <name>CPB_CJK_Radicals_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a323fb46af4bef84c3f1a5a7ff5200ada" prot="public">
+          <name>CPB_CJK_Strokes</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a933a15add8ae7189a2a9c2063e07d7b2" prot="public">
+          <name>CPB_CJK_Symbols_and_Punctuation</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a25e77c00448a0b10ee57ffd44c178376" prot="public">
+          <name>CPB_CJK_Unified_Ideographs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aaae9dc00327b0fe386ff7e5f8449802b" prot="public">
+          <name>CPB_CJK_Unified_Ideographs_Extension_A</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a50998dab3dfde033d7eb3cab13387995" prot="public">
+          <name>CPB_CJK_Unified_Ideographs_Extension_B</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aa05b94cb79990517ab22ac43f049de4f" prot="public">
+          <name>CPB_CJK_Unified_Ideographs_Extension_C</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a57530f7c0b9aae378b2b73b9e055e039" prot="public">
+          <name>CPB_CJK_Unified_Ideographs_Extension_D</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ac93ba8b0bfaeb1600d1f33ef700fc16c" prot="public">
+          <name>CPB_CJK_Unified_Ideographs_Extension_E</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a854ead1ec1d68aea5a3d6a4a65ed4cf6" prot="public">
+          <name>CPB_Carian</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aeed2552db6d01d9ed28a557571838041" prot="public">
+          <name>CPB_Caucasian_Albanian</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a2bd468aa412d55bbb606efaf85f0b96a" prot="public">
+          <name>CPB_Chakma</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ae700080494ac0c798c1121607e6e025f" prot="public">
+          <name>CPB_Cham</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a5dcece4e28d634d214403b398ee8d697" prot="public">
+          <name>CPB_Cherokee</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a66526be6f7f439ec9da3d2ab09ec480b" prot="public">
+          <name>CPB_Cherokee_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a1a96838dd335a965737e1a994300d6cd" prot="public">
+          <name>CPB_Combining_Diacritical_Marks</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a838a5d5116d7ff6dd697faeb8270a2e3" prot="public">
+          <name>CPB_Combining_Diacritical_Marks_Extended</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ab78fab05945fc3e3a8b3a8ac9c5e4dc6" prot="public">
+          <name>CPB_Combining_Diacritical_Marks_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a707b26a2fc9b7514769e6886ae1527f9" prot="public">
+          <name>CPB_Combining_Diacritical_Marks_for_Symbols</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a48a9d061eac94803e81e5df94cc77f8f" prot="public">
+          <name>CPB_Combining_Half_Marks</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381af0e0e6afdc810e085ba284bd5e500a30" prot="public">
+          <name>CPB_Common_Indic_Number_Forms</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a9347215f6e54a500c394de83aaa27fc8" prot="public">
+          <name>CPB_Control_Pictures</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a778dbb9c0f69eaca0b788fee0791ad51" prot="public">
+          <name>CPB_Coptic</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aa3fa7e961e806e8d8368c480c645d91f" prot="public">
+          <name>CPB_Coptic_Epact_Numbers</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aa3712c53ef988be0225549f6a78d89b2" prot="public">
+          <name>CPB_Counting_Rod_Numerals</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a21ecd5fe24848b603011fcabeb57cf0f" prot="public">
+          <name>CPB_Cuneiform</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a4a1178f4a47e34af7b48b772a3c670fc" prot="public">
+          <name>CPB_Cuneiform_Numbers_and_Punctuation</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ae2ab9496c724e635e81806375022cbcc" prot="public">
+          <name>CPB_Currency_Symbols</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a3cfdca3d0baf41a1665d8cb572442960" prot="public">
+          <name>CPB_Cypriot_Syllabary</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a40a8f66f3a04cc8ab4bd1c5a186afb05" prot="public">
+          <name>CPB_Cyrillic</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a4fb19f5b0525b184bd5a532585a0980d" prot="public">
+          <name>CPB_Cyrillic_Extended_A</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a7941b3f51f30fff97f458dc242c277e8" prot="public">
+          <name>CPB_Cyrillic_Extended_B</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ab374ee6773e66fd62e4aaeeaf2307d78" prot="public">
+          <name>CPB_Cyrillic_Extended_C</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aa107531944623eb95177380f96dcc0cd" prot="public">
+          <name>CPB_Cyrillic_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aaba15b849f7cd68d323df4859daacd56" prot="public">
+          <name>CPB_Deseret</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ab2f352e94ede3b02eab7f9f110f99deb" prot="public">
+          <name>CPB_Devanagari</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a6033b72d1a463821f949a717221a47f2" prot="public">
+          <name>CPB_Devanagari_Extended</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a7dbee8bc8ef5b47b6d70780e4682ad8a" prot="public">
+          <name>CPB_Dingbats</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381af8e3e6956e5d1d2bd2d0a8b13f876246" prot="public">
+          <name>CPB_Domino_Tiles</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a8e1c094ff3850fb3461bdba18732f537" prot="public">
+          <name>CPB_Duployan</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381adf7c694a49a9d64413ad293a68cb74ea" prot="public">
+          <name>CPB_Early_Dynastic_Cuneiform</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aaaad28f2151c25b17cc5388b49c8a835" prot="public">
+          <name>CPB_Egyptian_Hieroglyphs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a13defef56c7e6aff3710e547c66e12a0" prot="public">
+          <name>CPB_Elbasan</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a47f8e3edda247db7e43e423a5c18cc56" prot="public">
+          <name>CPB_Emoticons</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a49f0a56480c7898fb2a6b63a4378def0" prot="public">
+          <name>CPB_Enclosed_Alphanumeric_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aaaaa975ec21db7a5871a4fcc4df5f914" prot="public">
+          <name>CPB_Enclosed_Alphanumerics</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aa4d2c4f759667a8e2653bedb99727942" prot="public">
+          <name>CPB_Enclosed_CJK_Letters_and_Months</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a530c713fb5764454cadfa648d14c15ef" prot="public">
+          <name>CPB_Enclosed_Ideographic_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ac2995a9ef3275536b5761a81d6f1ecaf" prot="public">
+          <name>CPB_Ethiopic</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a433157b128d3917ae7dae312087a437f" prot="public">
+          <name>CPB_Ethiopic_Extended</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a261f2c8723b29fb853db8ebf1149af08" prot="public">
+          <name>CPB_Ethiopic_Extended_A</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381abdb92d1b7a596f5a80b233ec2a6475da" prot="public">
+          <name>CPB_Ethiopic_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a4fcbc1b20b9e5e50eb9230cb23311c03" prot="public">
+          <name>CPB_General_Punctuation</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a8023a08c01c8bc9da843f2ad616ff148" prot="public">
+          <name>CPB_Geometric_Shapes</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a7f261b23ec22c6026d48a1b26fdfd1d5" prot="public">
+          <name>CPB_Geometric_Shapes_Extended</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ad1cbc48189b02eda64d50514b67c949e" prot="public">
+          <name>CPB_Georgian</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381afa8d2c95210f1564182c62de3d8cdccf" prot="public">
+          <name>CPB_Georgian_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a701169a767dc81e65360f4401f749159" prot="public">
+          <name>CPB_Glagolitic</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381af092f162cd4d3906477e0258de31b088" prot="public">
+          <name>CPB_Glagolitic_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a86b83772554d8b324daf551ad4a60577" prot="public">
+          <name>CPB_Gothic</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381acf41f01bb91c2f22ba98064e66e98e40" prot="public">
+          <name>CPB_Grantha</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a87bba695b665050d64a2557f06df113a" prot="public">
+          <name>CPB_Greek_Extended</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a5f17f77399f1e57b9ca2883c3e1eef2c" prot="public">
+          <name>CPB_Greek_and_Coptic</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a1f637592e00a294b653acb854a2d0eb9" prot="public">
+          <name>CPB_Gujarati</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a2047de3c7a5e561b427a5131fe45f788" prot="public">
+          <name>CPB_Gurmukhi</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a85270b8a88520395bbd6466c1a24f3ec" prot="public">
+          <name>CPB_Halfwidth_and_Fullwidth_Forms</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ab313fb2ab9def267514d4b72a3efe0e9" prot="public">
+          <name>CPB_Hangul_Compatibility_Jamo</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ac5bf73dc61ddab5e7d1474d060516e42" prot="public">
+          <name>CPB_Hangul_Jamo</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a00fd4da2cd5c34aa25262bd66e3045b1" prot="public">
+          <name>CPB_Hangul_Jamo_Extended_A</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a994265255c61f97ecedec1c3329f6e10" prot="public">
+          <name>CPB_Hangul_Jamo_Extended_B</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a2099733cc98c73d1d9bf82689ffd5287" prot="public">
+          <name>CPB_Hangul_Syllables</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a6fd2b22b68fdf1c2d9501f6ae6facefa" prot="public">
+          <name>CPB_Hanunoo</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a673f65adbd92461fda24e1736c4bc174" prot="public">
+          <name>CPB_Hatran</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381afa658b9c34c7c460397618260f760b2e" prot="public">
+          <name>CPB_Hebrew</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a458c3ca1cd7a7c08a674919149854cd4" prot="public">
+          <name>CPB_High_Private_Use_Surrogates</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a759bcc135b60f9fc820bf8b338bfa62b" prot="public">
+          <name>CPB_High_Surrogates</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a0c64d7e1c9feb24d32ae18555803d199" prot="public">
+          <name>CPB_Hiragana</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ae50e7c93cd8cf2980b1f3d7cda1d368c" prot="public">
+          <name>CPB_IPA_Extensions</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a114feb1a00fdd27a2c0ca1f80705f9d0" prot="public">
+          <name>CPB_Ideographic_Description_Characters</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aef12033ea9c116b3076ba0d36c9b3d9c" prot="public">
+          <name>CPB_Ideographic_Symbols_and_Punctuation</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a85555f2a8479fcd8933f214ddb9dacd2" prot="public">
+          <name>CPB_Imperial_Aramaic</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a6affd7a872c553e080427a7cbd426ff1" prot="public">
+          <name>CPB_Inscriptional_Pahlavi</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a204f886b6dc30294bc7cb820e99d8d9d" prot="public">
+          <name>CPB_Inscriptional_Parthian</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a0f25dafd03ae21270165a687f6731807" prot="public">
+          <name>CPB_Javanese</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aa078e702597c5d7c0c881763f9ef7e9e" prot="public">
+          <name>CPB_Kaithi</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a12982a7a652a4bbbe65f2c385352abbb" prot="public">
+          <name>CPB_Kana_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a8afeceef3dc3d173c8f6f00cfb31c52f" prot="public">
+          <name>CPB_Kanbun</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ae9d0e2c766449ae21e09ef764c8886ca" prot="public">
+          <name>CPB_Kangxi_Radicals</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a34b5976052408986a69d51266dc8fa91" prot="public">
+          <name>CPB_Kannada</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a99163aeec5d6074f769a4057742b5996" prot="public">
+          <name>CPB_Katakana</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ac8467f75a0909556a1cb07236d4fbc7a" prot="public">
+          <name>CPB_Katakana_Phonetic_Extensions</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ad8f77b22358d5b201dd07b60ba26cc12" prot="public">
+          <name>CPB_Kayah_Li</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a860635846286dc64545287a4a1702eae" prot="public">
+          <name>CPB_Kharoshthi</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a1182694cb9de52129c1a0d1dc8961aaa" prot="public">
+          <name>CPB_Khmer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a88a6e66e490f9d4a4298d8eacdef876b" prot="public">
+          <name>CPB_Khmer_Symbols</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a04f8a4cf9618e5d7c81cda3eb4fdd4a9" prot="public">
+          <name>CPB_Khojki</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a6ea68706a1df7edeb0c1a36c60181d30" prot="public">
+          <name>CPB_Khudawadi</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a115d076e3c7309c263065a27d1c28c89" prot="public">
+          <name>CPB_Lao</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a741731c22e23cffe584647b75b22eff1" prot="public">
+          <name>CPB_Latin_Extended_Additional</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a3ca4d9fc87423fa029c0af0dc5d9145d" prot="public">
+          <name>CPB_Latin_Extended_A</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381af90e3414a98179ea40982e0cb43f51db" prot="public">
+          <name>CPB_Latin_Extended_B</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a80881eb45b1f1a2a2b9472db720addf4" prot="public">
+          <name>CPB_Latin_Extended_C</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a37683102242532ec092b152b87c3127e" prot="public">
+          <name>CPB_Latin_Extended_D</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a4ddb8e45d7f54fdd7568eabfe77335f2" prot="public">
+          <name>CPB_Latin_Extended_E</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a38b5a08a82fbe35d10bb5c567d6ab0e2" prot="public">
+          <name>CPB_Latin_1_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ac6d63f28b531868ca054d0e7e727dc64" prot="public">
+          <name>CPB_Lepcha</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ab43319f3deb8626f1a816051d90345cb" prot="public">
+          <name>CPB_Letterlike_Symbols</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a69f6602464400a3b664c9ec8a1473b8e" prot="public">
+          <name>CPB_Limbu</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a5e54b33fe069887c633f081485b7740a" prot="public">
+          <name>CPB_Linear_A</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a3e3f2cc545a2c448b5b83af034e16c0a" prot="public">
+          <name>CPB_Linear_B_Ideograms</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ab88aea1e04e08dc3843893b92d319f72" prot="public">
+          <name>CPB_Linear_B_Syllabary</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ac104fe939166ce5821fdbf89695fe759" prot="public">
+          <name>CPB_Lisu</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a0867a918a324aee4922e959887233f3a" prot="public">
+          <name>CPB_Low_Surrogates</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a69b0a3667eb30ab79f76db99352dd809" prot="public">
+          <name>CPB_Lycian</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a2cb5baac64b6c08ce0a0edbf17d559aa" prot="public">
+          <name>CPB_Lydian</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a62610dcd69d919c8e69d7682c8733070" prot="public">
+          <name>CPB_Mahajani</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a801142a1e0d7ba1cc0d204cbd184370d" prot="public">
+          <name>CPB_Mahjong_Tiles</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a80d1c33f0d384d9745d4685cdd3a03b3" prot="public">
+          <name>CPB_Malayalam</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a47033d23bce3a57f12d51486b81c19fb" prot="public">
+          <name>CPB_Mandaic</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a3c373ab705b505543e28ee86b6342ad3" prot="public">
+          <name>CPB_Manichaean</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a206262fa2e9c1d872e2a6a3866f1b6b4" prot="public">
+          <name>CPB_Marchen</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a55b611315b5f12adbf84a4aa9ab135d8" prot="public">
+          <name>CPB_Mathematical_Alphanumeric_Symbols</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a052bf5183eebdecea140291c6d6aff39" prot="public">
+          <name>CPB_Mathematical_Operators</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a7d588c2ad6215c2cbcd9924194d5dddb" prot="public">
+          <name>CPB_Meetei_Mayek</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ac97b3437f7e4c65cd368cd4120cbd0b0" prot="public">
+          <name>CPB_Meetei_Mayek_Extensions</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a1f117669e251e024c1ede82bdc3914a1" prot="public">
+          <name>CPB_Mende_Kikakui</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381af519658021664c951c7b5df69c536f7d" prot="public">
+          <name>CPB_Meroitic_Cursive</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ae4f11b5dd6123b7b68b8407be952647f" prot="public">
+          <name>CPB_Meroitic_Hieroglyphs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aaef4cd50eebe417d7a16a6b4375074c4" prot="public">
+          <name>CPB_Miao</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ad7e7ca51a00bda910abc2f7584a1a2b0" prot="public">
+          <name>CPB_Miscellaneous_Mathematical_Symbols_A</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a3f0eb1890a0ccb6ebd8da63958bdb6d9" prot="public">
+          <name>CPB_Miscellaneous_Mathematical_Symbols_B</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381afb5639f56b67b7be0e7291b6ded58020" prot="public">
+          <name>CPB_Miscellaneous_Symbols</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a49f965edd40c43d5e449268cd3fe1b1f" prot="public">
+          <name>CPB_Miscellaneous_Symbols_and_Arrows</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a0c40e08adc02112a9fe427894b2ba036" prot="public">
+          <name>CPB_Miscellaneous_Symbols_and_Pictographs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aa13a800756bc85f990934a4966264dc9" prot="public">
+          <name>CPB_Miscellaneous_Technical</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ae4e4e347c75940084b297a67e3106b6d" prot="public">
+          <name>CPB_Modi</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a0bec12d608d8e9f533e1c5f8e4856e9e" prot="public">
+          <name>CPB_Modifier_Tone_Letters</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381af97da4ce0ade0998b495aefb7004842a" prot="public">
+          <name>CPB_Mongolian</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a0781c7d1ad8f76d86e26f0153a93f07d" prot="public">
+          <name>CPB_Mongolian_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a43adbbe54c503d6ad55be15c2b26af00" prot="public">
+          <name>CPB_Mro</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a1a9b2eb4b25374354b972ece6416779f" prot="public">
+          <name>CPB_Multani</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ad8a8d1a2ac949b6950e95e81c7bd20d3" prot="public">
+          <name>CPB_Musical_Symbols</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a77441f4640692636c929ac38f6ac9080" prot="public">
+          <name>CPB_Myanmar</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a4b9c0257a67fc87b96f23c373f552c33" prot="public">
+          <name>CPB_Myanmar_Extended_A</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a37c1fd930aeb720876d8028c6d201c1d" prot="public">
+          <name>CPB_Myanmar_Extended_B</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a9e849f3371e6328fdff761463d98a902" prot="public">
+          <name>CPB_NKo</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aab859fe4b159c237fa603187fe7dab38" prot="public">
+          <name>CPB_Nabataean</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a2bf7599538f2901c2fcbddbc479e9f35" prot="public">
+          <name>CPB_New_Tai_Lue</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aab20564bb223295a2441d03cd9183614" prot="public">
+          <name>CPB_Newa</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a0c50dd67119f58bb9696f76b254761cc" prot="public">
+          <name>CPB_Number_Forms</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a96ec7f5fd61971084aabc66dbb3b1665" prot="public">
+          <name>CPB_Ogham</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a3c158e719931c07ac7363504f0fb8d7b" prot="public">
+          <name>CPB_Ol_Chiki</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a177cecf18650cc013d685d40202f4d1b" prot="public">
+          <name>CPB_Old_Hungarian</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a11f2c8087e2220c7e7a0ed106a35f476" prot="public">
+          <name>CPB_Old_Italic</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a94b4667eefdedd8abfb53d57528611dd" prot="public">
+          <name>CPB_Old_North_Arabian</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a31f2f47da58158f9347621d0e7cc3f2d" prot="public">
+          <name>CPB_Old_Permic</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a326c49557cee29be1dce1dcdff054ba2" prot="public">
+          <name>CPB_Old_Persian</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a673a32ca65058351bec009259c846843" prot="public">
+          <name>CPB_Old_South_Arabian</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381acac537f0775183ab9502cc17e86d2fbb" prot="public">
+          <name>CPB_Old_Turkic</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381af10c2c31153d180303e1cf7eb2d8a840" prot="public">
+          <name>CPB_Optical_Character_Recognition</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aa1a2f09d1fcf1dedf0d074ceb339d1a0" prot="public">
+          <name>CPB_Oriya</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a257bf5185796a5a13e096a4aefaf64fd" prot="public">
+          <name>CPB_Ornamental_Dingbats</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a3c4fef6faf600f424d0f09646543831f" prot="public">
+          <name>CPB_Osage</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381af423f7df88a038360efafdf83f360db8" prot="public">
+          <name>CPB_Osmanya</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381af47fe7a2b11f14c8859807a0b215e852" prot="public">
+          <name>CPB_Pahawh_Hmong</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a2f8ee8a6f8a015b71ee0cbce076bbeea" prot="public">
+          <name>CPB_Palmyrene</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a141e43966de8fa066c571f896077ed66" prot="public">
+          <name>CPB_Pau_Cin_Hau</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a84e1944b10cfad10cbf54c9c66370ac3" prot="public">
+          <name>CPB_Phags_pa</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ace94d7bc3adb420d1b67be1ec60b3477" prot="public">
+          <name>CPB_Phaistos_Disc</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a5ee44fd030ed1e8b856a4eff8d3fd3b7" prot="public">
+          <name>CPB_Phoenician</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a2d2713f70eaf0c21d50ca8b9b011df86" prot="public">
+          <name>CPB_Phonetic_Extensions</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ab39a6dcc9a83558f9111a9c7b2dde11d" prot="public">
+          <name>CPB_Phonetic_Extensions_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a6920557a428264e3381b92b0a9f30a88" prot="public">
+          <name>CPB_Playing_Cards</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ace939aa9e66f25ece1f559f0eae0a34d" prot="public">
+          <name>CPB_Private_Use_Area</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a10b84a907bd36036bbfbd577535914be" prot="public">
+          <name>CPB_Psalter_Pahlavi</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a20d85bc510cfbc4ecd3330f6d48fb03e" prot="public">
+          <name>CPB_Rejang</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a241100f9448c6700d4519c08815d71ac" prot="public">
+          <name>CPB_Rumi_Numeral_Symbols</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a2203e64f617c7e2e1fbb2f071123eae9" prot="public">
+          <name>CPB_Runic</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a59d4284e3866e0245a3d0ee60c04312c" prot="public">
+          <name>CPB_Samaritan</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ab997953c6051bfb5a50a1e26b2ed7049" prot="public">
+          <name>CPB_Saurashtra</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a4a84f1747a1a1d7a231e4d4c9df9b750" prot="public">
+          <name>CPB_Sharada</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a3f52f618d5ce0cd89ad96bf391c014c2" prot="public">
+          <name>CPB_Shavian</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a3c49f58f22d9f836c198db26845fbca3" prot="public">
+          <name>CPB_Shorthand_Format_Controls</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a810765ba23f77cfcade9a72a37e1d7ce" prot="public">
+          <name>CPB_Siddham</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ae31e667fd69cf712d31bff212b1cf05d" prot="public">
+          <name>CPB_Sinhala</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a14bb6aafc86444c2026b29293fddb96b" prot="public">
+          <name>CPB_Sinhala_Archaic_Numbers</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a157115da046e43918187a912ab73aa22" prot="public">
+          <name>CPB_Small_Form_Variants</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a9a28f008e93c3a80e95678b36c7303bf" prot="public">
+          <name>CPB_Sora_Sompeng</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ae7141399b3eaf19b6fbd54ff5839b326" prot="public">
+          <name>CPB_Spacing_Modifier_Letters</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a75d2c803430118e6fb266904c400a8bd" prot="public">
+          <name>CPB_Specials</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a999f303d1e04501ee324745d17142f28" prot="public">
+          <name>CPB_Sundanese</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a12a83e628e46a3610b125bb49a513eef" prot="public">
+          <name>CPB_Sundanese_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ac8b15772715023a44f5c2c3b00309ca9" prot="public">
+          <name>CPB_Superscripts_and_Subscripts</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a751263283be3f28652b2a1240ff996e6" prot="public">
+          <name>CPB_Supplemental_Arrows_A</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381abdccdb1872eb7abffa20f0ff374f7e73" prot="public">
+          <name>CPB_Supplemental_Arrows_B</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aeec7486d971dce8214a37441f7d14806" prot="public">
+          <name>CPB_Supplemental_Arrows_C</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a4e6f6df144f6039b9bbff5b37d147923" prot="public">
+          <name>CPB_Supplemental_Mathematical_Operators</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a5204256b6ce018d49791e1345fcb926a" prot="public">
+          <name>CPB_Supplemental_Punctuation</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a0407c48585f676735676b70010ec3fcc" prot="public">
+          <name>CPB_Supplemental_Symbols_and_Pictographs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ab0466829820471df20e603bb1d2e24c0" prot="public">
+          <name>CPB_Supplementary_Private_Use_Area_A</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a314f85c10718c3f0d46a0253591d932c" prot="public">
+          <name>CPB_Supplementary_Private_Use_Area_B</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a7d5a8b60829e6ead6639732382ef92e8" prot="public">
+          <name>CPB_Sutton_SignWriting</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ae547e2240c54a48e76074a5370f74293" prot="public">
+          <name>CPB_Syloti_Nagri</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ab1f216eaab3a7c726bf69182324a58e5" prot="public">
+          <name>CPB_Syriac</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381af579dfaedc87f39afe2edebd86da24ad" prot="public">
+          <name>CPB_Tagalog</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a9545ee5d2a88000c4492b28cb3ead35b" prot="public">
+          <name>CPB_Tagbanwa</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a49358942acf253634042d845e59248e6" prot="public">
+          <name>CPB_Tags</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ad3cdc53d6768c41a22407742653477e4" prot="public">
+          <name>CPB_Tai_Le</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a898894b048302daf7caabc108475ed9f" prot="public">
+          <name>CPB_Tai_Tham</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a56877eac10b3c170b67d6e9c2f0064ab" prot="public">
+          <name>CPB_Tai_Viet</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a4ace72f25988e0532adb2814df342a9a" prot="public">
+          <name>CPB_Tai_Xuan_Jing_Symbols</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ae45a17d66b1eb39f64378d72e008baac" prot="public">
+          <name>CPB_Takri</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381acc8918ab9758b607c3a56a8c9d488ff8" prot="public">
+          <name>CPB_Tamil</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a58761e82701f706a198b450167178f64" prot="public">
+          <name>CPB_Tangut</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a80ae48137a83ff881555037d300d9be3" prot="public">
+          <name>CPB_Tangut_Components</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ab6ee2ef4a62804b863a5d0832520e84f" prot="public">
+          <name>CPB_Telugu</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a11265aad007c6a32aef48a17e0a834c1" prot="public">
+          <name>CPB_Thaana</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a8e7f599001cbb2f7db211b17ea4c966c" prot="public">
+          <name>CPB_Thai</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ac8ce1573b2b430763d308173b180c70c" prot="public">
+          <name>CPB_Tibetan</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381ae9d1a2fc334124421bf056e94dbe5efb" prot="public">
+          <name>CPB_Tifinagh</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aa89219391d19b36bc238a1e303d85fb4" prot="public">
+          <name>CPB_Tirhuta</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a40f3c55ece655ce37b52446b4e1b7ac0" prot="public">
+          <name>CPB_Transport_and_Map_Symbols</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a170ff00f72e21739372712a2f2041a57" prot="public">
+          <name>CPB_Ugaritic</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a2f725f9841d616d47ea4bc63c7d68111" prot="public">
+          <name>CPB_Unified_Canadian_Aboriginal_Syllabics</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a9b8c72cb78e6b744eccb90d876b8c432" prot="public">
+          <name>CPB_Unified_Canadian_Aboriginal_Syllabics_Extended</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a15484d5ade8b3a2e96bec645a2347dfb" prot="public">
+          <name>CPB_Vai</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381afa5919e6fa9fc0a733e556501ad9b700" prot="public">
+          <name>CPB_Variation_Selectors</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a13289af1d61c626e87354d9abde73b26" prot="public">
+          <name>CPB_Variation_Selectors_Supplement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a86c3d23afaa1a5079cb33bdc2b8445bc" prot="public">
+          <name>CPB_Vedic_Extensions</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a88a3b1c20586269efab06183939c99d3" prot="public">
+          <name>CPB_Vertical_Forms</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aefa5d65cb7e0b7fc33e91d1a18d938ca" prot="public">
+          <name>CPB_Warang_Citi</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381af68658850a134386d573f6d7708b092d" prot="public">
+          <name>CPB_Yi_Radicals</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a0b1098de3dd52500dc3c23f7464a49b4" prot="public">
+          <name>CPB_Yi_Syllables</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381a8bd4bcd9a1464a9b63727edbda5a4be2" prot="public">
+          <name>CPB_Yijing_Hexagram_Symbols</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1aa49ad6f1a71faa8544888bbd5bb46381aa76352c2446054b1d038b5e96ee15fbe" prot="public">
+          <name>CPB_last</name>
+          <initializer>= CPB_Yijing_Hexagram_Symbols</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="8" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="7" bodyend="284"/>
+      </memberdef>
+      <memberdef kind="enum" id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2c" prot="public" static="no">
+        <name>cp_category_t</name>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2caff541aef629ea6e5f0f3403ed440b642" prot="public">
+          <name>CPC_Unknown</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca5a65b969d1a6cdaf95f319ac57370439" prot="public">
+          <name>CPC_Cc</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca9744307ee507f150d27df1eccd868479" prot="public">
+          <name>CPC_Cf</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca9943ce11825127bc58a238cdd3ba2e0f" prot="public">
+          <name>CPC_Cn</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2caaac2805c076fe6ea80a1f3c5a0713f85" prot="public">
+          <name>CPC_Co</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca28c1345b02f18c929863730ae6f462ae" prot="public">
+          <name>CPC_Cs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca01d41188293ff3bae4563f435885a610" prot="public">
+          <name>CPC_LC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2cae39dbbffc32668b2c062eb53eea11938" prot="public">
+          <name>CPC_Ll</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca6ac59e6e9cd1c15cfc584ef3cb83b6d2" prot="public">
+          <name>CPC_Lm</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2cab11f153c8b4fc0092c133f50863ed4ef" prot="public">
+          <name>CPC_Lo</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2caa658667aac7b859f0cac92610e29ff5d" prot="public">
+          <name>CPC_Lt</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca8134c810586dd7250454ffaad34dc6b1" prot="public">
+          <name>CPC_Lu</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca8fdebc397ec3606f10f1127c39b4bd8e" prot="public">
+          <name>CPC_Mc</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca71dfa4f6a61c0a52de2e1d66d1356739" prot="public">
+          <name>CPC_Me</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2caa3df79bb8481be0cc76318b86a42578f" prot="public">
+          <name>CPC_Mn</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca7222cb61a65cc273b9173f18515c77d1" prot="public">
+          <name>CPC_Nd</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca1b1c7c33fe3b55ed4ead242c7539589d" prot="public">
+          <name>CPC_Nl</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca12dd7c218cecd173894c1cf0ab9ae5da" prot="public">
+          <name>CPC_No</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca9f05b8bc247c4e9d447c77cddad20e68" prot="public">
+          <name>CPC_Pc</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca5a0a557465ac833f0fe77ae071f6431c" prot="public">
+          <name>CPC_Pd</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2caf8728135038cafaafadb521b059e01e2" prot="public">
+          <name>CPC_Pe</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca06ff38d691687af63c0747cfe0e8f476" prot="public">
+          <name>CPC_Pf</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2caea315ab3faf8b508499bd0c0d0e953e2" prot="public">
+          <name>CPC_Pi</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2cafa206cda0dc8432c550b2048420d3fab" prot="public">
+          <name>CPC_Po</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca4dc8408ba4402c83f25f20d88c118607" prot="public">
+          <name>CPC_Ps</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2cae9617b8d08d72fc47857f08f64a29dbe" prot="public">
+          <name>CPC_Sc</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca412f0d506b9191208afdcd4e83e159fc" prot="public">
+          <name>CPC_Sk</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca651477d8fb7f0524956c815d241d091a" prot="public">
+          <name>CPC_Sm</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca6b1ed0c0f4500dd026464c5adc9553f7" prot="public">
+          <name>CPC_So</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca3f78e55bf4f39d84517bd79a672bbdea" prot="public">
+          <name>CPC_Zl</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca016c5e6f7498b94091ef2747740a14e0" prot="public">
+          <name>CPC_Zp</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2caa3f4e41c84d257dee0d809b23e1f23fa" prot="public">
+          <name>CPC_Zs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ucd_8hpp_1a8135fee545d4b70a7be393b162640f2ca8c184c82867b928a19f1270bbbd5d1a0" prot="public">
+          <name>CPC_last</name>
+          <initializer>= CPC_Zs</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="287" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="286" bodyend="321"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="ucd_8hpp_1ab62cad4c9b9b978935085ecd494c7638" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structcp__data__t" kindref="compound">cp_data_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;cp_data_t&gt; cps_data_t</definition>
+        <argsstring></argsstring>
+        <name>cps_data_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="334" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="334" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ucd_8hpp_1a4d006ebc003a6d9cae427854be992e63" prot="public" static="no">
+        <type>cp_block_t</type>
+        <definition>typedef cp_block_t cp_metablock_t</definition>
+        <argsstring></argsstring>
+        <name>cp_metablock_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="408" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="408" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ucd_8hpp_1ab45a99be29435d88c5ca7d806fb0caab" prot="public" static="no">
+        <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+        <definition>typedef error_t culture_resolver_t(rangeset_t *out, const char *culture)</definition>
+        <argsstring>(rangeset_t *out, const char *culture)</argsstring>
+        <name>culture_resolver_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="427" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="427" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="ucd_8hpp_1ad31980d61898b9613cf7df63b4cd3d35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CASSERT</definition>
+        <argsstring>(sizeof(cp_data_t)==4)</argsstring>
+        <name>CASSERT</name>
+        <param>
+          <type>sizeof(<ref refid="structcp__data__t" kindref="compound">cp_data_t</ref>)</type>
+          <defval>=4</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="333" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a52f1fad26ebec96e2e58df98b697f6d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structcp__data__t" kindref="compound">cp_data_t</ref></type>
+        <definition>cp_data_t get_cp_data</definition>
+        <argsstring>(wchar32_t cp)</argsstring>
+        <name>get_cp_data</name>
+        <param>
+          <type>wchar32_t</type>
+          <declname>cp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="336" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a88035bdde39d2e4c3d09237dece03069" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucd_is_graphical</definition>
+        <argsstring>(wchar32_t cp)</argsstring>
+        <name>ucd_is_graphical</name>
+        <param>
+          <type>wchar32_t</type>
+          <declname>cp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="338" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a8e131f61caac99bf551c418ff0c2883e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucd_is_category_surrogate</definition>
+        <argsstring>(const cp_data_t cpd)</argsstring>
+        <name>ucd_is_category_surrogate</name>
+        <param>
+          <type>const <ref refid="structcp__data__t" kindref="compound">cp_data_t</ref></type>
+          <declname>cpd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="340" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="340" bodyend="343"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a10423b72bee4ad841aed82c93cc84b68" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucd_is_category_letter</definition>
+        <argsstring>(const cp_data_t cpd)</argsstring>
+        <name>ucd_is_category_letter</name>
+        <param>
+          <type>const <ref refid="structcp__data__t" kindref="compound">cp_data_t</ref></type>
+          <declname>cpd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="345" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="345" bodyend="348"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1af332802c1adcebce02038470525c4bed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucd_is_category_number</definition>
+        <argsstring>(const cp_data_t cpd)</argsstring>
+        <name>ucd_is_category_number</name>
+        <param>
+          <type>const <ref refid="structcp__data__t" kindref="compound">cp_data_t</ref></type>
+          <declname>cpd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="350" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="350" bodyend="353"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a8f9246c522a730f7e44236d51899a913" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucd_is_category_letter_or_number</definition>
+        <argsstring>(const cp_data_t cpd)</argsstring>
+        <name>ucd_is_category_letter_or_number</name>
+        <param>
+          <type>const <ref refid="structcp__data__t" kindref="compound">cp_data_t</ref></type>
+          <declname>cpd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="355" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="355" bodyend="358"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a3ff7469ed30f9961c56a5f248d494c82" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucd_is_category_punct</definition>
+        <argsstring>(const cp_data_t cpd)</argsstring>
+        <name>ucd_is_category_punct</name>
+        <param>
+          <type>const <ref refid="structcp__data__t" kindref="compound">cp_data_t</ref></type>
+          <declname>cpd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="360" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="360" bodyend="363"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a8b169a7be1e3c3acb6f19fe1edff1706" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucd_is_category_surrogate</definition>
+        <argsstring>(wchar32_t cp)</argsstring>
+        <name>ucd_is_category_surrogate</name>
+        <param>
+          <type>wchar32_t</type>
+          <declname>cp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="365" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="365" bodyend="368"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a03a59775d96226e2eccea407888daeb8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucd_is_category_letter</definition>
+        <argsstring>(wchar32_t cp)</argsstring>
+        <name>ucd_is_category_letter</name>
+        <param>
+          <type>wchar32_t</type>
+          <declname>cp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="370" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="370" bodyend="373"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1ad6ff59e21dc44c9a8dc785628f9c4f57" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucd_is_category_number</definition>
+        <argsstring>(wchar32_t cp)</argsstring>
+        <name>ucd_is_category_number</name>
+        <param>
+          <type>wchar32_t</type>
+          <declname>cp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="375" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="375" bodyend="378"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a6cddbbc7f971ef50b975cb3e03ef1cf0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucd_is_category_letter_or_number</definition>
+        <argsstring>(wchar32_t cp)</argsstring>
+        <name>ucd_is_category_letter_or_number</name>
+        <param>
+          <type>wchar32_t</type>
+          <declname>cp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="380" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="380" bodyend="383"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a4ab0c3e9588aec6d5446ae8327bd1990" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucd_is_category_punct</definition>
+        <argsstring>(wchar32_t cp)</argsstring>
+        <name>ucd_is_category_punct</name>
+        <param>
+          <type>wchar32_t</type>
+          <declname>cp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="385" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="385" bodyend="388"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1ad02dae9de0494ddb2090690c6b360222" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucd_get_block_range</definition>
+        <argsstring>(range_t *out, cp_block_t blk)</argsstring>
+        <name>ucd_get_block_range</name>
+        <param>
+          <type><ref refid="structrange__t" kindref="compound">range_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>cp_block_t</type>
+          <declname>blk</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="396" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a9c9dfb371516e1a49ee77639f7da5b0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cp_block_t</type>
+        <definition>cp_block_t ucd_lookup_block</definition>
+        <argsstring>(const char *enumname)</argsstring>
+        <name>ucd_lookup_block</name>
+        <param>
+          <type>const char *</type>
+          <declname>enumname</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="398" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a837a3daed929b4fcbdbd8914a9689314" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cp_category_t</type>
+        <definition>cp_category_t ucd_lookup_category</definition>
+        <argsstring>(const char *enumname)</argsstring>
+        <name>ucd_lookup_category</name>
+        <param>
+          <type>const char *</type>
+          <declname>enumname</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="399" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1abbf20617fef33487ed5169c2a61d3e68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* ucd_get_block</definition>
+        <argsstring>(cp_block_t blk)</argsstring>
+        <name>ucd_get_block</name>
+        <param>
+          <type>cp_block_t</type>
+          <declname>blk</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="401" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a72566834b754dd1c29863d6c98e3188e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* ucd_get_category</definition>
+        <argsstring>(cp_category_t cat)</argsstring>
+        <name>ucd_get_category</name>
+        <param>
+          <type>cp_category_t</type>
+          <declname>cat</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="402" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a0ad25c6bc0692d1cd0db32639f25a529" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cp_metablock_t</type>
+        <definition>cp_metablock_t ucd_get_metablock</definition>
+        <argsstring>(const cp_data_t cpd)</argsstring>
+        <name>ucd_get_metablock</name>
+        <param>
+          <type>const <ref refid="structcp__data__t" kindref="compound">cp_data_t</ref></type>
+          <declname>cpd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="409" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1ae65ac8f97d90220d8493ed5de3d7b99b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cp_metablock_t</type>
+        <definition>cp_metablock_t get_block_metablock</definition>
+        <argsstring>(cp_block_t blk)</argsstring>
+        <name>get_block_metablock</name>
+        <param>
+          <type>cp_block_t</type>
+          <declname>blk</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="410" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a372e92dbc32fcfbd778f21db0737b988" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucd_is_metablock_basic</definition>
+        <argsstring>(cp_metablock_t mbl)</argsstring>
+        <name>ucd_is_metablock_basic</name>
+        <param>
+          <type>cp_metablock_t</type>
+          <declname>mbl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="412" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1ad799f65a551a6e08536251fbdf224338" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucd_is_metablock_shared</definition>
+        <argsstring>(cp_metablock_t mbl)</argsstring>
+        <name>ucd_is_metablock_shared</name>
+        <param>
+          <type>cp_metablock_t</type>
+          <declname>mbl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="413" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1aa2c78c02fb68353c79483854a6c388b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucd_get_metablock_ranges</definition>
+        <argsstring>(rangeset_t *out, cp_metablock_t mblk)</argsstring>
+        <name>ucd_get_metablock_ranges</name>
+        <param>
+          <type><ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>cp_metablock_t</type>
+          <declname>mblk</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="414" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a9e0e3f5907ec6ea6048edc5c1bd0cb13" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>cp_metablock_t</type>
+        <definition>cp_metablock_t ucd_lookup_metablock</definition>
+        <argsstring>(const char *enumname)</argsstring>
+        <name>ucd_lookup_metablock</name>
+        <param>
+          <type>const char *</type>
+          <declname>enumname</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="416" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" bodystart="416" bodyend="419"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a31233f135ec32f4aa9e05fb58d160890" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* ucd_get_metablock</definition>
+        <argsstring>(cp_metablock_t mblk)</argsstring>
+        <name>ucd_get_metablock</name>
+        <param>
+          <type>cp_metablock_t</type>
+          <declname>mblk</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="421" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a56223618dd98f29befd60c6c4dae56b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *</type>
+        <definition>const rangeset_t* ucd_get_culture_ranges</definition>
+        <argsstring>(const char *culture, culture_resolver_t *resolver=NULL)</argsstring>
+        <name>ucd_get_culture_ranges</name>
+        <param>
+          <type>const char *</type>
+          <declname>culture</declname>
+        </param>
+        <param>
+          <type>culture_resolver_t *</type>
+          <declname>resolver</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="431" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1aa025daebae3c5d27a82b3409a56dec0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ucd_culture_compose_file_name</definition>
+        <argsstring>(qstring *out_fname, const char *culture)</argsstring>
+        <name>ucd_culture_compose_file_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out_fname</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="438" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a1efc117329899f0155fb2a43d4f6b405" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucd_culture_split_file_name</definition>
+        <argsstring>(qstring *out_culture, const char *fname)</argsstring>
+        <name>ucd_culture_split_file_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out_culture</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>fname</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="439" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ucd_8hpp_1a2c43bd92a09cd4042d6eedba276057ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void term_ucd_cultures</definition>
+        <argsstring>(void)</argsstring>
+        <name>term_ucd_cultures</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp" line="441" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp"/>
+  </compounddef>
+</doxygen>

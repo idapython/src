@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structtext__sink__t" kind="struct" language="C++" prot="public" abstract="yes">
+    <compoundname>text_sink_t</compoundname>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structtext__sink__t_1a7b570b7996829f9dbcd36a7811b4cb64" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi text_sink_t::print</definition>
+        <argsstring>(const char *str)=0</argsstring>
+        <name>print</name>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>0-ok, otherwise print_cdata will stop </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="4041" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Flush formatted text. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="4039" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="4038" bodyend="4042"/>
+    <listofallmembers>
+      <member refid="structtext__sink__t_1a7b570b7996829f9dbcd36a7811b4cb64" prot="public" virt="pure-virtual"><scope>text_sink_t</scope><name>print</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

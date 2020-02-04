@@ -1,0 +1,2646 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="class_varray" kind="class" language="C++" prot="public">
+    <compoundname>Varray</compoundname>
+    <innerclass refid="struct_varray_1_1chunk__t" prot="private">Varray::chunk_t</innerclass>
+    <innerclass refid="class_varray_1_1chunklist__t" prot="public">Varray::chunklist_t</innerclass>
+    <innerclass refid="struct_varray_1_1va__file__header__t" prot="private">Varray::va_file_header_t</innerclass>
+    <innerclass refid="struct_varray_1_1vaheader16__t" prot="private">Varray::vaheader16_t</innerclass>
+    <innerclass refid="struct_varray_1_1vaidx__info__t" prot="private">Varray::vaidx_info_t</innerclass>
+    <innerclass refid="struct_varray_1_1vaptr16__t" prot="private">Varray::vaptr16_t</innerclass>
+    <innerclass refid="struct_varray_1_1vaptr__t" prot="public">Varray::vaptr_t</innerclass>
+    <innerclass refid="struct_varray_1_1vascan__info__t" prot="private">Varray::vascan_info_t</innerclass>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class_varray_1a7b5897903a53049c9e29f6cabe3077b4" prot="public" static="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>typedef uint32 Varray::va_pagenum_t</definition>
+        <argsstring></argsstring>
+        <name>va_pagenum_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="41" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_varray_1a3648c23a9798458cc8108d7d012ba556" prot="public" static="no">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>typedef uint64 Varray::va_offset_t</definition>
+        <argsstring></argsstring>
+        <name>va_offset_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="43" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_varray_1ab3f913ba8562bc5fbd5158f60c656754" prot="public" static="no">
+        <type>chunklist_t::iterator</type>
+        <definition>typedef chunklist_t::iterator Varray::iterator</definition>
+        <argsstring></argsstring>
+        <name>iterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="141" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_varray_1ad50c7ffadabfde56096b6cbfcce6c8d1" prot="public" static="no">
+        <type>chunklist_t::const_iterator</type>
+        <definition>typedef chunklist_t::const_iterator Varray::const_iterator</definition>
+        <argsstring></argsstring>
+        <name>const_iterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="142" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_varray_1ab0ca0874fa7ee9419401016a068ee554" prot="private" static="no" mutable="no">
+        <type><ref refid="classvmclass" kindref="compound">vmclass</ref>&lt; <ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> &gt; *</type>
+        <definition>vmclass&lt;uint32&gt;* Varray::pages</definition>
+        <argsstring></argsstring>
+        <name>pages</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="204" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_varray_1ab8c9b34a940ac31bd631a389448dbdc8" prot="private" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 Varray::pmask</definition>
+        <argsstring></argsstring>
+        <name>pmask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="206" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_varray_1afa862a61409eb854699146ea7c5e8927" prot="private" static="no" mutable="no">
+        <type><ref refid="class_varray_1_1chunklist__t" kindref="compound">chunklist_t</ref></type>
+        <definition>chunklist_t Varray::entries</definition>
+        <argsstring></argsstring>
+        <name>entries</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="207" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_varray_1af72dfe7c04ed578390068e9746466be7" prot="private" static="no" mutable="no">
+        <type>va_pagenum_t</type>
+        <definition>va_pagenum_t Varray::eof</definition>
+        <argsstring></argsstring>
+        <name>eof</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="208" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_varray_1adb14cac8edc2e9e8886d9a482e8340c1" prot="private" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t Varray::lastea</definition>
+        <argsstring></argsstring>
+        <name>lastea</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="211" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_varray_1a0c306d452506f3225162d5022b1c35db" prot="private" static="no" mutable="no">
+        <type>iterator</type>
+        <definition>iterator Varray::lastvp</definition>
+        <argsstring></argsstring>
+        <name>lastvp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="212" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_varray_1a4ba93af4f079c30c845d7196cce1a399" prot="private" static="no" mutable="no">
+        <type>va_offset_t</type>
+        <definition>va_offset_t Varray::lastoff</definition>
+        <argsstring></argsstring>
+        <name>lastoff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="213" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_varray_1aef1a03e078b31cd0e9e4bbe6b0893bb7" prot="private" static="no" mutable="no">
+        <type>va_pagenum_t</type>
+        <definition>va_pagenum_t Varray::last_page_num</definition>
+        <argsstring></argsstring>
+        <name>last_page_num</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="215" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_varray_1acd0923012a208b12c561efb6f4605d28" prot="private" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+        <definition>uint32* Varray::last_page_ptr</definition>
+        <argsstring></argsstring>
+        <name>last_page_ptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="216" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_varray_1a7e5f75b7a9c0856855e2aa03c14754d5" prot="private" static="no" mutable="no">
+        <type>iterator</type>
+        <definition>iterator Varray::vp_end</definition>
+        <argsstring></argsstring>
+        <name>vp_end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="217" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_varray_1a015c10ca66c7dd67d2d73c80f3be5bd7" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Varray::have_data</definition>
+        <argsstring></argsstring>
+        <name>have_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="219" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_varray_1a5812acdc66b077a878055754bec9372c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Varray::Varray</definition>
+        <argsstring>()</argsstring>
+        <name>Varray</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="47" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a6a814d2a1e7a9bdba0a8b78a484c295a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Varray::~Varray</definition>
+        <argsstring>()</argsstring>
+        <name>~Varray</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="48" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a5002fa75f407374d7eaee6368c4b75af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Varray::linkTo</definition>
+        <argsstring>(const char *file, uint psize, uint pool_sz)</argsstring>
+        <name>linkTo</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14" kindref="member">uint</ref></type>
+          <declname>psize</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14" kindref="member">uint</ref></type>
+          <declname>pool_sz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="50" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a674bf3c5c2c93932b67da3a2f08855cf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* Varray::filename</definition>
+        <argsstring>() const</argsstring>
+        <name>filename</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="55" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="55" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a77ce5174ac0176e9cc756ebed7024acb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14" kindref="member">uint</ref></type>
+        <definition>uint Varray::page_size</definition>
+        <argsstring>() const</argsstring>
+        <name>page_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="56" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="341" bodyend="344"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a425d3180bf1865a8eabaaf4d0f31d33d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::vclose</definition>
+        <argsstring>()</argsstring>
+        <name>vclose</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="57" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ac20bdb830a5ea6bd5046564d9e0d6074" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::vflush</definition>
+        <argsstring>()</argsstring>
+        <name>vflush</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="58" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1abf2c6709e1916ab59a6ab1378bf4bf79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>linput_t *</type>
+        <definition>linput_t* Varray::make_linput</definition>
+        <argsstring>(int32 blksize=0)</argsstring>
+        <name>make_linput</name>
+        <param>
+          <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+          <declname>blksize</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="61" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1aff7f14c783a24059cf2875d3d98dfdeb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+        <definition>error_t Varray::enable</definition>
+        <argsstring>(ea_t start, ea_t end)</argsstring>
+        <name>enable</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="66" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a9eb65ab51890509fd406f3abe1896162" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+        <definition>error_t Varray::disable</definition>
+        <argsstring>(ea_t start, ea_t end)</argsstring>
+        <name>disable</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="67" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a7f2466dcb0dd5208c3b1524273e63b7c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Varray::enabled</definition>
+        <argsstring>(ea_t addr)</argsstring>
+        <name>enabled</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="68" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="347" bodyend="350"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a185e72291d4b9e5b452ce7a20dfa2b94" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Varray::in_fast_cache</definition>
+        <argsstring>(ea_t addr)</argsstring>
+        <name>in_fast_cache</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="70" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="353" bodyend="356"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ac76bbd6ddd5b15b3429259b3faff9190" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t Varray::next_addr</definition>
+        <argsstring>(ea_t addr)</argsstring>
+        <name>next_addr</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="72" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a68747746a9dc7e634d0d343f8b061d7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t Varray::prev_addr</definition>
+        <argsstring>(ea_t addr)</argsstring>
+        <name>prev_addr</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="74" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1aac06eb809ced19f28315de98f3e29b6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t Varray::prev_chunk</definition>
+        <argsstring>(ea_t addr)</argsstring>
+        <name>prev_chunk</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="75" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1af76b5cc493c0bcebca5a96da9a1f4b02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t Varray::next_chunk</definition>
+        <argsstring>(ea_t addr)</argsstring>
+        <name>next_chunk</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="76" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1aa1a79b6715153545de43989c0f974acc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>asize_t</type>
+        <definition>asize_t Varray::chunk_size</definition>
+        <argsstring>(ea_t addr)</argsstring>
+        <name>chunk_size</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="78" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="359" bodyend="365"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a7cab8197cc332e25d9dd3fb3ad20c02d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t Varray::get_chunk_start</definition>
+        <argsstring>(ea_t addr)</argsstring>
+        <name>get_chunk_start</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="79" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="367" bodyend="373"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a242e6261da2df0e7cd0db6a314232fb6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t Varray::get_chunk_end</definition>
+        <argsstring>(ea_t addr)</argsstring>
+        <name>get_chunk_end</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="80" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="375" bodyend="382"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ad3482359892e35cdf4f5accac6b1d6b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t Varray::first_enabled_addr</definition>
+        <argsstring>(ea_t ea1, ea_t ea2)</argsstring>
+        <name>first_enabled_addr</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea1</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="82" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a69c1370f7fe6214e4d2af20859018408" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Varray::movechunk</definition>
+        <argsstring>(ea_t from, ea_t to, asize_t size)</argsstring>
+        <name>movechunk</name>
+        <param>
+          <type>ea_t</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="83" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ae25a77b819bd99946d9b35d25a1b966e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Varray::check_move_args</definition>
+        <argsstring>(ea_t from, ea_t to, asize_t size)</argsstring>
+        <name>check_move_args</name>
+        <param>
+          <type>ea_t</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="84" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a4e6c0f2e67b3ff1c5e993b254b4e284d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 Varray::vread</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>vread</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="89" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="385" bodyend="389"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a172154c6f4d8ad54f6206b1e9e36ae0a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::vwrite</definition>
+        <argsstring>(ea_t ea, uint32 val)</argsstring>
+        <name>vwrite</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="90" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="391" bodyend="395"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a50d2e5846b788acbf44382bb5ad73873" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::setbits</definition>
+        <argsstring>(ea_t ea, uint32 bit)</argsstring>
+        <name>setbits</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>bit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="91" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="397" bodyend="401"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a66e63a69286bc1f367ff4d05b6585a5c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::clrbits</definition>
+        <argsstring>(ea_t ea, uint32 bit)</argsstring>
+        <name>clrbits</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>bit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="92" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="403" bodyend="407"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1afec8bd3577a26a69b1b3add2cb8f6dbb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+        <definition>uint32 * Varray::Waddr</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>Waddr</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="94" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="410" bodyend="414"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ad25b7f9d1ae15f232d85deaed55d0472" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+        <definition>uint32 * Varray::Raddr</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>Raddr</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="95" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="416" bodyend="420"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a2f980794308fe2599c9221ae559d3f0d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::memfill</definition>
+        <argsstring>(ea_t start, asize_t size, uint32 x)</argsstring>
+        <name>memfill</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="97" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="661" bodyend="665"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a9a7e831461b9acd0b7cc1ace5fe18a6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::memcopy</definition>
+        <argsstring>(ea_t start, asize_t size, Varray &amp;src, ea_t srcstart)</argsstring>
+        <name>memcopy</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type><ref refid="class_varray" kindref="compound">Varray</ref> &amp;</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>srcstart</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="98" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1af061e314442d778c05bd4e16cc87a6a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t Varray::memcomp</definition>
+        <argsstring>(ea_t start, asize_t size, Varray &amp;v2, ea_t v2start)</argsstring>
+        <name>memcomp</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type><ref refid="class_varray" kindref="compound">Varray</ref> &amp;</type>
+          <declname>v2</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>v2start</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="99" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a9515674ba0821d9e9710abc41cf02bef" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t Varray::memscn</definition>
+        <argsstring>(ea_t start, asize_t size, uint32 x)</argsstring>
+        <name>memscn</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="102" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="668" bodyend="671"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1afd4f4598de4ddcd0a9fc14ca66858d49" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t Varray::memtst</definition>
+        <argsstring>(ea_t start, asize_t size, va_test *test, void *ud)</argsstring>
+        <name>memtst</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>va_test *</type>
+          <declname>test</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="103" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="687" bodyend="691"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ade8c115394d8a3803245fb17ec5d4b84" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t Varray::memtstr</definition>
+        <argsstring>(ea_t start, asize_t size, va_test *test, void *ud)</argsstring>
+        <name>memtstr</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>va_test *</type>
+          <declname>test</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="104" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="680" bodyend="684"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ae081147689f0b48878b62d3dd6b900f2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+        <definition>uint32 * Varray::vread</definition>
+        <argsstring>(ea_t start, uint32 *buffer, size_t size)</argsstring>
+        <name>vread</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+          <declname>buffer</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="106" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="653" bodyend="658"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a052ed4cadd207d9e457ea9308b3eba06" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::vwrite</definition>
+        <argsstring>(ea_t start, const uint32 *buffer, size_t size)</argsstring>
+        <name>vwrite</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+          <declname>buffer</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="107" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="674" bodyend="677"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ac2f124e4b8a266175ac8db780621a6f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* Varray::check</definition>
+        <argsstring>()</argsstring>
+        <name>check</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="109" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a0cf048811f7e4b694b26c957d8c7b40d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::vadump</definition>
+        <argsstring>(const char *msg)</argsstring>
+        <name>vadump</name>
+        <param>
+          <type>const char *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="111" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a350e0b0900b642d1ba6092825f203f6f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::print_dump</definition>
+        <argsstring>(const char *msg)</argsstring>
+        <name>print_dump</name>
+        <param>
+          <type>const char *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="112" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a883bdb17eb03112ac2abcb3bc590602a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::commit</definition>
+        <argsstring>(const char *title)</argsstring>
+        <name>commit</name>
+        <param>
+          <type>const char *</type>
+          <declname>title</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="114" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a025fbb46f2a6343268de7d4751651c98" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t Varray::n_chunks</definition>
+        <argsstring>() const</argsstring>
+        <name>n_chunks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="144" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="423" bodyend="423"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1aebd8fa80efe43049ad3765cf07cd54f2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const_iterator</type>
+        <definition>Varray::const_iterator Varray::begin</definition>
+        <argsstring>() const</argsstring>
+        <name>begin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="145" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="426" bodyend="426"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a134beed9eb9aff9161230e37f7aa516d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const_iterator</type>
+        <definition>Varray::const_iterator Varray::end</definition>
+        <argsstring>() const</argsstring>
+        <name>end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="146" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="427" bodyend="427"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a7234c7f9a6ce2ca495f23a79a4a269c0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>Varray::iterator Varray::begin</definition>
+        <argsstring>()</argsstring>
+        <name>begin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="147" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="424" bodyend="424"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a2fb5c808c897a7a16f9e24bb813e56f2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>Varray::iterator Varray::end</definition>
+        <argsstring>()</argsstring>
+        <name>end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="148" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="425" bodyend="425"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ade566dd1e7112ec8b08f166752cb995a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t Varray::vascan</definition>
+        <argsstring>(ea_t _start, asize_t size, ssize_t(idaapi *perform)(uint32 *page, ssize_t s, void *ud), bool change, void *ud)</argsstring>
+        <name>vascan</name>
+        <param>
+          <type>ea_t</type>
+          <declname>_start</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref>(idaapi *)(<ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *page, <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> s, void *ud)</type>
+          <declname>perform</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>change</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="159" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="444" bodyend="452"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a596fd1c2ce123d441da5abde87f9a529" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t Varray::vascanr</definition>
+        <argsstring>(ea_t _start, asize_t size, ssize_t(idaapi *perform)(uint32 *page, ssize_t s, void *ud), bool change, void *ud)</argsstring>
+        <name>vascanr</name>
+        <param>
+          <type>ea_t</type>
+          <declname>_start</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref>(idaapi *)(<ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *page, <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> s, void *ud)</type>
+          <declname>perform</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>change</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="165" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="454" bodyend="462"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_varray_1a76c5fe0fc9bfd1db89c1b3a1fa0f28e4" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Varray::init_vm</definition>
+        <argsstring>(const char *file, size_t pgsz_required, size_t pgsz_real, int pool_sz)</argsstring>
+        <name>init_vm</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>pgsz_required</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>pgsz_real</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>pool_sz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="224" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a00bbb77be6ff911dda4744ce5bc99f97" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Varray::try_init_va16</definition>
+        <argsstring>(const char *file, const va_file_header_t &amp;vh, size_t pg_sz, int pool_sz)</argsstring>
+        <name>try_init_va16</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>const va_file_header_t &amp;</type>
+          <declname>vh</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>pg_sz</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>pool_sz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="225" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a347de236f2caf785b1f4b4b23ccb8d15" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Varray::upgrade</definition>
+        <argsstring>(int src_version)</argsstring>
+        <name>upgrade</name>
+        <param>
+          <type>int</type>
+          <declname>src_version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="226" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a880ab0c2dfb64ddbe909f23950fb7f28" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Varray::read_entries</definition>
+        <argsstring>(const char *file, const va_file_header_t &amp;vh, size_t pg_sz, int pool_sz)</argsstring>
+        <name>read_entries</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>const va_file_header_t &amp;</type>
+          <declname>vh</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>pg_sz</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>pool_sz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="227" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a86a49dd7085e11fedb9f9845fbef444c" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::add_chunk</definition>
+        <argsstring>(ea_t start, ea_t endea, va_offset_t offset)</argsstring>
+        <name>add_chunk</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>endea</declname>
+        </param>
+        <param>
+          <type>va_offset_t</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="228" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="495" bodyend="503"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a05f7ce47a910780ad00831d340ad903b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::flush_headers</definition>
+        <argsstring>()</argsstring>
+        <name>flush_headers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="230" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1abfbc2f01e8b764201b0e918e7479266a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::flush_file_header</definition>
+        <argsstring>()</argsstring>
+        <name>flush_file_header</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="231" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a1762b0477f80abc5b55fe8732cfbb834" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::flush_entries</definition>
+        <argsstring>()</argsstring>
+        <name>flush_entries</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="232" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1afa924688bb36797133144d4480a72de8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t Varray::n_extra_index_pages</definition>
+        <argsstring>()</argsstring>
+        <name>n_extra_index_pages</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="233" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a52b8bdd193a48c40540a72eb00da10c1" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::alloc_index_pages</definition>
+        <argsstring>()</argsstring>
+        <name>alloc_index_pages</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="234" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a5a2e41fae2210b864be7d6776ff86d28" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::flush_index_page</definition>
+        <argsstring>(const_iterator &amp;p, va_pagenum_t page, size_t page_off)</argsstring>
+        <name>flush_index_page</name>
+        <param>
+          <type>const_iterator &amp;</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>va_pagenum_t</type>
+          <declname>page</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>page_off</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="235" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a3d015602d17aaedcaa2007967c04fee6" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>va_pagenum_t</type>
+        <definition>Varray::va_pagenum_t Varray::calc_pages</definition>
+        <argsstring>(va_offset_t offs)</argsstring>
+        <name>calc_pages</name>
+        <param>
+          <type>va_offset_t</type>
+          <declname>offs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="236" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="436" bodyend="441"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1aa04f439294ec2cbaca8ce5190d4ed95f" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t Varray::chunks_per_page</definition>
+        <argsstring>(size_t off)</argsstring>
+        <name>chunks_per_page</name>
+        <param>
+          <type>size_t</type>
+          <declname>off</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="237" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="430" bodyend="433"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a6b1ff4ba71a0fd0f9aabd9d16bff5cb3" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+        <definition>uint32 * Varray::rw_addr</definition>
+        <argsstring>(ea_t ea, bool set_dirty)</argsstring>
+        <name>rw_addr</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>set_dirty</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="240" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="640" bodyend="650"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a717793188edc6908bcd4852954fdce6e" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+        <definition>uint32 * Varray::rw_page</definition>
+        <argsstring>(va_pagenum_t pg, bool set_dirty)</argsstring>
+        <name>rw_page</name>
+        <param>
+          <type>va_pagenum_t</type>
+          <declname>pg</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>set_dirty</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="241" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="609" bodyend="628"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a718ead79f5f77cd6879796bbb248a712" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>Varray::iterator Varray::nexti</definition>
+        <argsstring>(iterator p)</argsstring>
+        <name>nexti</name>
+        <param>
+          <type>iterator</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="244" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="465" bodyend="466"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ad559c9d42c8d2dad8e10731840d8201b" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>Varray::iterator Varray::previ</definition>
+        <argsstring>(iterator p)</argsstring>
+        <name>previ</name>
+        <param>
+          <type>iterator</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="245" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="467" bodyend="468"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a5a007208270d5f6afd7a894a2e5758c0" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const_iterator</type>
+        <definition>Varray::const_iterator Varray::nexti</definition>
+        <argsstring>(const_iterator p) const</argsstring>
+        <name>nexti</name>
+        <param>
+          <type>const_iterator</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="246" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="471" bodyend="472"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a29943c6c5ae58633119b7f0ecd236bcb" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const_iterator</type>
+        <definition>Varray::const_iterator Varray::previ</definition>
+        <argsstring>(const_iterator p) const</argsstring>
+        <name>previ</name>
+        <param>
+          <type>const_iterator</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="247" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="473" bodyend="474"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a1241f3e950a653162a52f27a74ad5860" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t Varray::getidx</definition>
+        <argsstring>(const iterator vp) const</argsstring>
+        <name>getidx</name>
+        <param>
+          <type>const iterator</type>
+          <declname>vp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="248" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="477" bodyend="478"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1af4f7319392991fb32788674a0c69a5ed" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>iterator</type>
+        <definition>iterator Varray::chunk_by_addr</definition>
+        <argsstring>(ea_t addr)</argsstring>
+        <name>chunk_by_addr</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="251" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a8ecca0a7d9455eed54f1d7c5dac6d076" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>iterator</type>
+        <definition>iterator Varray::lower_bound</definition>
+        <argsstring>(ea_t addr, size_t left, size_t right)</argsstring>
+        <name>lower_bound</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="252" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ae57ce47b689536526fdf6e16ab03b455" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>Varray::iterator Varray::lower_bound</definition>
+        <argsstring>(ea_t addr, iterator left, iterator right)</argsstring>
+        <name>lower_bound</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <param>
+          <type>iterator</type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type>iterator</type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="253" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="481" bodyend="487"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ad0b9f8aed7aafe53ba3c12c77f8bb5d7" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>Varray::iterator Varray::lower_bound</definition>
+        <argsstring>(ea_t addr)</argsstring>
+        <name>lower_bound</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="254" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="489" bodyend="492"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ae2f14036dcdb933de9aa596a521b4587" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>iterator</type>
+        <definition>iterator Varray::r_lower_bound</definition>
+        <argsstring>(ea_t addr)</argsstring>
+        <name>r_lower_bound</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="255" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1aee6f074209e04fee1dd967e37bf703ca" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>iterator</type>
+        <definition>iterator Varray::upper_bound</definition>
+        <argsstring>(ea_t addr)</argsstring>
+        <name>upper_bound</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="256" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a789e8fdff59dec41919cebd2cac34bff" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>Varray::iterator Varray::find</definition>
+        <argsstring>(ea_t start_addr)</argsstring>
+        <name>find</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start_addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="257" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="518" bodyend="522"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ad961cd91f69998cf5f813c6f0a44c801" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>Varray::iterator Varray::re_find</definition>
+        <argsstring>(iterator contender, ea_t start_addr)</argsstring>
+        <name>re_find</name>
+        <param>
+          <type>iterator</type>
+          <declname>contender</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>start_addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="258" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="525" bodyend="530"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1aa1937cd5bd69270fc38c901c5401d424" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t Varray::get_addr_by_off</definition>
+        <argsstring>(va_offset_t off)</argsstring>
+        <name>get_addr_by_off</name>
+        <param>
+          <type>va_offset_t</type>
+          <declname>off</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="259" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a9d989ba4cffb7f2abcdcb62300669aaf" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>iterator</type>
+        <definition>iterator Varray::erase</definition>
+        <argsstring>(iterator p)</argsstring>
+        <name>erase</name>
+        <param>
+          <type>iterator</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="262" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ae3d948350d0ba62c74cbc51a03e07dbf" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>Varray::iterator Varray::erase</definition>
+        <argsstring>(ea_t start)</argsstring>
+        <name>erase</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="263" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="541" bodyend="546"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a5870212675b93e955aa19079858ac3ad" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>Varray::iterator Varray::erase</definition>
+        <argsstring>(iterator from, iterator to)</argsstring>
+        <name>erase</name>
+        <param>
+          <type>iterator</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type>iterator</type>
+          <declname>to</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="264" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="533" bodyend="538"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a9754f247fe7aa7cbf70e710f02816e01" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>Varray::iterator Varray::insert</definition>
+        <argsstring>(ea_t start, ea_t endea=0, va_offset_t offs=0)</argsstring>
+        <name>insert</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>endea</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>va_offset_t</type>
+          <declname>offs</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="265" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="549" bodyend="554"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a762e0f2b6d942d058a34fe4716e7e25a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>iterator</type>
+        <definition>iterator Varray::insert</definition>
+        <argsstring>(const vaptr_t &amp;vp)</argsstring>
+        <name>insert</name>
+        <param>
+          <type>const <ref refid="struct_varray_1_1vaptr__t" kindref="compound">vaptr_t</ref> &amp;</type>
+          <declname>vp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="266" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a733dd0fc77df126332063145f2dbe14b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+        <definition>error_t Varray::insert_chunk_between</definition>
+        <argsstring>(iterator left, iterator right, vaptr_t &amp;chunk)</argsstring>
+        <name>insert_chunk_between</name>
+        <param>
+          <type>iterator</type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type>iterator</type>
+          <declname>right</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_varray_1_1vaptr__t" kindref="compound">vaptr_t</ref> &amp;</type>
+          <declname>chunk</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="267" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a208b02d635e246d2d29554f1e4d89106" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>iterator</type>
+        <definition>iterator Varray::split</definition>
+        <argsstring>(iterator cvp, ea_t from, ea_t end)</argsstring>
+        <name>split</name>
+        <param>
+          <type>iterator</type>
+          <declname>cvp</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="268" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a72187ca7bddc21e160876d954547a549" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::merge_if_necessary</definition>
+        <argsstring>(iterator vp)</argsstring>
+        <name>merge_if_necessary</name>
+        <param>
+          <type>iterator</type>
+          <declname>vp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="269" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ab7e99a5bf20c955654d76e9f9f0f46ad" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Varray::addr_in_chunk</definition>
+        <argsstring>(const iterator p, ea_t addr) const</argsstring>
+        <name>addr_in_chunk</name>
+        <param>
+          <type>const iterator</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="270" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="512" bodyend="515"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a7dc0da776cafc3966a2c7dd521dd6052" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Varray::set_lastvp</definition>
+        <argsstring>(iterator vp, ea_t addr)</argsstring>
+        <name>set_lastvp</name>
+        <param>
+          <type>iterator</type>
+          <declname>vp</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="273" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="598" bodyend="606"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1aceab8a0aa41e87832c73cd3e6b4fb4da" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::reset_cache</definition>
+        <argsstring>()</argsstring>
+        <name>reset_cache</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="274" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a6d9aa62fd842110a8344c85039973bba" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Varray::locate_addr</definition>
+        <argsstring>(ea_t addr)</argsstring>
+        <name>locate_addr</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="275" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="506" bodyend="509"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1af7b86fda63e282799a1cb618545374b0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>va_offset_t</type>
+        <definition>va_offset_t Varray::getoff</definition>
+        <argsstring>(ea_t addr)</argsstring>
+        <name>getoff</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="276" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ad9dcdcbf067d6811426335ed42129c37" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>va_pagenum_t</type>
+        <definition>Varray::va_pagenum_t Varray::split_off</definition>
+        <argsstring>(va_offset_t off, va_offset_t *page_offs)</argsstring>
+        <name>split_off</name>
+        <param>
+          <type>va_offset_t</type>
+          <declname>off</declname>
+        </param>
+        <param>
+          <type>va_offset_t *</type>
+          <declname>page_offs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="279" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="631" bodyend="637"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1adefae93b46c09a399156bd29a335c752" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+        <definition>error_t Varray::grow</definition>
+        <argsstring>(asize_t word_count)</argsstring>
+        <name>grow</name>
+        <param>
+          <type>asize_t</type>
+          <declname>word_count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="282" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="557" bodyend="563"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a560302271169998d4f983f48e6bfc5f8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+        <definition>error_t Varray::incsize</definition>
+        <argsstring>(int64 inc_bytes)</argsstring>
+        <name>incsize</name>
+        <param>
+          <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref></type>
+          <declname>inc_bytes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="283" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ad184abb6c810fd8627e6b9ff63c13a9e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+        <definition>error_t Varray::chsize</definition>
+        <argsstring>(va_offset_t new_size)</argsstring>
+        <name>chsize</name>
+        <param>
+          <type>va_offset_t</type>
+          <declname>new_size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="284" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1aa671d26e07f9d3875bb5e5cca28c1809" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>va_offset_t</type>
+        <definition>va_offset_t Varray::cut_area</definition>
+        <argsstring>(va_offset_t start_offs, va_offset_t end_offs)</argsstring>
+        <name>cut_area</name>
+        <param>
+          <type>va_offset_t</type>
+          <declname>start_offs</declname>
+        </param>
+        <param>
+          <type>va_offset_t</type>
+          <declname>end_offs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="285" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a587fc268b4f04b8d61bddbb6f1cfb6d7" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::swap_area</definition>
+        <argsstring>(va_offset_t from, va_offset_t to, uint64 n)</argsstring>
+        <name>swap_area</name>
+        <param>
+          <type>va_offset_t</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type>va_offset_t</type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="286" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a8da4a1e6fd4d2b3617b796a4a90c480c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::reset_bytes</definition>
+        <argsstring>(va_offset_t from, va_offset_t to)</argsstring>
+        <name>reset_bytes</name>
+        <param>
+          <type>va_offset_t</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type>va_offset_t</type>
+          <declname>to</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="287" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1aae99ff49aa7d453d6321f8fe81770ce3" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::copy_bytes</definition>
+        <argsstring>(va_offset_t from, va_offset_t to, uint64 size)</argsstring>
+        <name>copy_bytes</name>
+        <param>
+          <type>va_offset_t</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type>va_offset_t</type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="288" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1afc73a5d7de86a7b15ce9208ff020c341" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+        <definition>error_t Varray::reserve</definition>
+        <argsstring>(iterator before, asize_t word_count)</argsstring>
+        <name>reserve</name>
+        <param>
+          <type>iterator</type>
+          <declname>before</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>word_count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="291" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a3ea89af5fa1339254a6b4238a04613a6" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>asize_t</type>
+        <definition>asize_t Varray::shift_chunks</definition>
+        <argsstring>(iterator pstart, const_iterator pend, asize_t shift_count, asize_t nreserved)</argsstring>
+        <name>shift_chunks</name>
+        <param>
+          <type>iterator</type>
+          <declname>pstart</declname>
+        </param>
+        <param>
+          <type>const_iterator</type>
+          <declname>pend</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>shift_count</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>nreserved</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="292" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a6e632cec515e7e194880ceb2c16ff53e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>asize_t</type>
+        <definition>asize_t Varray::shift_one_chunk</definition>
+        <argsstring>(iterator pv, asize_t shift_count)</argsstring>
+        <name>shift_one_chunk</name>
+        <param>
+          <type>iterator</type>
+          <declname>pv</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>shift_count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="295" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a2b4945ce58c83769621bb4549e5791fd" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::shift_offsets</definition>
+        <argsstring>(iterator pstart, const_iterator pend, va_offset_t shift)</argsstring>
+        <name>shift_offsets</name>
+        <param>
+          <type>iterator</type>
+          <declname>pstart</declname>
+        </param>
+        <param>
+          <type>const_iterator</type>
+          <declname>pend</declname>
+        </param>
+        <param>
+          <type>va_offset_t</type>
+          <declname>shift</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="296" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1aaecbb1c376b03153917649100ff35a6b" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>va_offset_t</type>
+        <definition>Varray::va_offset_t Varray::initial_offset</definition>
+        <argsstring>()</argsstring>
+        <name>initial_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="298" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="566" bodyend="569"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a59b797459668cb0e889c55633bb3a78c" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>va_offset_t</type>
+        <definition>Varray::va_offset_t Varray::max_offset</definition>
+        <argsstring>()</argsstring>
+        <name>max_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="299" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="571" bodyend="574"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a3a50a94b9a12139ede549bb89e6a571e" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>va_offset_t</type>
+        <definition>Varray::va_offset_t Varray::first_offset</definition>
+        <argsstring>()</argsstring>
+        <name>first_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="300" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="576" bodyend="579"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a268c6a09ee6e9172864c495ee3954e63" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>va_offset_t</type>
+        <definition>Varray::va_offset_t Varray::page_offset</definition>
+        <argsstring>(va_pagenum_t pnum)</argsstring>
+        <name>page_offset</name>
+        <param>
+          <type>va_pagenum_t</type>
+          <declname>pnum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="301" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="582" bodyend="586"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1aa58e52a3e53c0b6716e2c822d6908625" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t Varray::vascan_dir</definition>
+        <argsstring>(ea_t start, asize_t size, ssize_t(idaapi *perform)(uint32 *page, ssize_t s, void *ud), bool change, void *ud, bool backward)</argsstring>
+        <name>vascan_dir</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref>(idaapi *)(<ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *page, <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> s, void *ud)</type>
+          <declname>perform</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>change</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>backward</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="328" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_varray_1ae3d348d1d1329ae25992d7f62eba831f" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Varray::words2bytes</definition>
+        <argsstring>(va_offset_t *nbytes, uint64 nwords)</argsstring>
+        <name>words2bytes</name>
+        <param>
+          <type>va_offset_t *</type>
+          <declname>nbytes</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>nwords</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="302" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="589" bodyend="595"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a4d1028803b05a35ebf948dc29aa88ba3" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>static ssize_t idaapi Varray::copybuf_read</definition>
+        <argsstring>(uint32 *page, ssize_t s, void *ud)</argsstring>
+        <name>copybuf_read</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+          <declname>page</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="318" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a5b60b76956f2b4a6cf17333338f8b01c" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>static ssize_t idaapi Varray::copybuf_write</definition>
+        <argsstring>(uint32 *page, ssize_t s, void *ud)</argsstring>
+        <name>copybuf_write</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+          <declname>page</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="319" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1aa6c89bdae14f0bfe1f4d257a491e0604" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>static ssize_t idaapi Varray::memstx</definition>
+        <argsstring>(uint32 *page, ssize_t s, void *ud)</argsstring>
+        <name>memstx</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+          <declname>page</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="320" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a233a3685ce1117843a2127bdc7d8f54d" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>static bool idaapi Varray::cmpint32</definition>
+        <argsstring>(uint32 arg, void *ud)</argsstring>
+        <name>cmpint32</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>arg</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="321" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a2016305a32cabf572e5bcc46ed750ea5" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>static ssize_t idaapi Varray::copyva</definition>
+        <argsstring>(uint32 *page, ssize_t s, void *ud)</argsstring>
+        <name>copyva</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+          <declname>page</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="323" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1ae1f1ada072cef844d41906654710a57a" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>static ssize_t idaapi Varray::testpager</definition>
+        <argsstring>(uint32 *page, ssize_t s, void *ud)</argsstring>
+        <name>testpager</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+          <declname>page</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="324" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1a5efdcc048b90dd3931ede51a647bd2cc" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>static ssize_t idaapi Varray::testpage</definition>
+        <argsstring>(uint32 *page, ssize_t s, void *ud)</argsstring>
+        <name>testpage</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+          <declname>page</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="325" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_varray_1af81c12081dd439cd3a1090dc2bc92909" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>static ssize_t idaapi Varray::cmpva</definition>
+        <argsstring>(uint32 *page, ssize_t s, void *ud)</argsstring>
+        <name>cmpva</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+          <declname>page</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="326" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="39" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="38" bodyend="335"/>
+    <listofallmembers>
+      <member refid="class_varray_1a86a49dd7085e11fedb9f9845fbef444c" prot="private" virt="non-virtual"><scope>Varray</scope><name>add_chunk</name></member>
+      <member refid="class_varray_1ab7e99a5bf20c955654d76e9f9f0f46ad" prot="private" virt="non-virtual"><scope>Varray</scope><name>addr_in_chunk</name></member>
+      <member refid="class_varray_1a52b8bdd193a48c40540a72eb00da10c1" prot="private" virt="non-virtual"><scope>Varray</scope><name>alloc_index_pages</name></member>
+      <member refid="class_varray_1aebd8fa80efe43049ad3765cf07cd54f2" prot="public" virt="non-virtual"><scope>Varray</scope><name>begin</name></member>
+      <member refid="class_varray_1a7234c7f9a6ce2ca495f23a79a4a269c0" prot="public" virt="non-virtual"><scope>Varray</scope><name>begin</name></member>
+      <member refid="class_varray_1a3d015602d17aaedcaa2007967c04fee6" prot="private" virt="non-virtual"><scope>Varray</scope><name>calc_pages</name></member>
+      <member refid="class_varray_1ac2f124e4b8a266175ac8db780621a6f5" prot="public" virt="non-virtual"><scope>Varray</scope><name>check</name></member>
+      <member refid="class_varray_1ae25a77b819bd99946d9b35d25a1b966e" prot="public" virt="non-virtual"><scope>Varray</scope><name>check_move_args</name></member>
+      <member refid="class_varray_1ad184abb6c810fd8627e6b9ff63c13a9e" prot="private" virt="non-virtual"><scope>Varray</scope><name>chsize</name></member>
+      <member refid="class_varray_1af4f7319392991fb32788674a0c69a5ed" prot="private" virt="non-virtual"><scope>Varray</scope><name>chunk_by_addr</name></member>
+      <member refid="class_varray_1aa1a79b6715153545de43989c0f974acc" prot="public" virt="non-virtual"><scope>Varray</scope><name>chunk_size</name></member>
+      <member refid="class_varray_1aa04f439294ec2cbaca8ce5190d4ed95f" prot="private" virt="non-virtual"><scope>Varray</scope><name>chunks_per_page</name></member>
+      <member refid="class_varray_1a66e63a69286bc1f367ff4d05b6585a5c" prot="public" virt="non-virtual"><scope>Varray</scope><name>clrbits</name></member>
+      <member refid="class_varray_1a233a3685ce1117843a2127bdc7d8f54d" prot="private" virt="non-virtual"><scope>Varray</scope><name>cmpint32</name></member>
+      <member refid="class_varray_1af81c12081dd439cd3a1090dc2bc92909" prot="private" virt="non-virtual"><scope>Varray</scope><name>cmpva</name></member>
+      <member refid="class_varray_1a883bdb17eb03112ac2abcb3bc590602a" prot="public" virt="non-virtual"><scope>Varray</scope><name>commit</name></member>
+      <member refid="class_varray_1ad50c7ffadabfde56096b6cbfcce6c8d1" prot="public" virt="non-virtual"><scope>Varray</scope><name>const_iterator</name></member>
+      <member refid="class_varray_1aae99ff49aa7d453d6321f8fe81770ce3" prot="private" virt="non-virtual"><scope>Varray</scope><name>copy_bytes</name></member>
+      <member refid="class_varray_1a4d1028803b05a35ebf948dc29aa88ba3" prot="private" virt="non-virtual"><scope>Varray</scope><name>copybuf_read</name></member>
+      <member refid="class_varray_1a5b60b76956f2b4a6cf17333338f8b01c" prot="private" virt="non-virtual"><scope>Varray</scope><name>copybuf_write</name></member>
+      <member refid="class_varray_1a2016305a32cabf572e5bcc46ed750ea5" prot="private" virt="non-virtual"><scope>Varray</scope><name>copyva</name></member>
+      <member refid="class_varray_1aa671d26e07f9d3875bb5e5cca28c1809" prot="private" virt="non-virtual"><scope>Varray</scope><name>cut_area</name></member>
+      <member refid="class_varray_1a9eb65ab51890509fd406f3abe1896162" prot="public" virt="non-virtual"><scope>Varray</scope><name>disable</name></member>
+      <member refid="class_varray_1aff7f14c783a24059cf2875d3d98dfdeb" prot="public" virt="non-virtual"><scope>Varray</scope><name>enable</name></member>
+      <member refid="class_varray_1a7f2466dcb0dd5208c3b1524273e63b7c" prot="public" virt="non-virtual"><scope>Varray</scope><name>enabled</name></member>
+      <member refid="class_varray_1a134beed9eb9aff9161230e37f7aa516d" prot="public" virt="non-virtual"><scope>Varray</scope><name>end</name></member>
+      <member refid="class_varray_1a2fb5c808c897a7a16f9e24bb813e56f2" prot="public" virt="non-virtual"><scope>Varray</scope><name>end</name></member>
+      <member refid="class_varray_1afa862a61409eb854699146ea7c5e8927" prot="private" virt="non-virtual"><scope>Varray</scope><name>entries</name></member>
+      <member refid="class_varray_1af72dfe7c04ed578390068e9746466be7" prot="private" virt="non-virtual"><scope>Varray</scope><name>eof</name></member>
+      <member refid="class_varray_1a9d989ba4cffb7f2abcdcb62300669aaf" prot="private" virt="non-virtual"><scope>Varray</scope><name>erase</name></member>
+      <member refid="class_varray_1ae3d948350d0ba62c74cbc51a03e07dbf" prot="private" virt="non-virtual"><scope>Varray</scope><name>erase</name></member>
+      <member refid="class_varray_1a5870212675b93e955aa19079858ac3ad" prot="private" virt="non-virtual"><scope>Varray</scope><name>erase</name></member>
+      <member refid="class_varray_1a674bf3c5c2c93932b67da3a2f08855cf" prot="public" virt="non-virtual"><scope>Varray</scope><name>filename</name></member>
+      <member refid="class_varray_1a789e8fdff59dec41919cebd2cac34bff" prot="private" virt="non-virtual"><scope>Varray</scope><name>find</name></member>
+      <member refid="class_varray_1ad3482359892e35cdf4f5accac6b1d6b8" prot="public" virt="non-virtual"><scope>Varray</scope><name>first_enabled_addr</name></member>
+      <member refid="class_varray_1a3a50a94b9a12139ede549bb89e6a571e" prot="private" virt="non-virtual"><scope>Varray</scope><name>first_offset</name></member>
+      <member refid="class_varray_1a1762b0477f80abc5b55fe8732cfbb834" prot="private" virt="non-virtual"><scope>Varray</scope><name>flush_entries</name></member>
+      <member refid="class_varray_1abfbc2f01e8b764201b0e918e7479266a" prot="private" virt="non-virtual"><scope>Varray</scope><name>flush_file_header</name></member>
+      <member refid="class_varray_1a05f7ce47a910780ad00831d340ad903b" prot="private" virt="non-virtual"><scope>Varray</scope><name>flush_headers</name></member>
+      <member refid="class_varray_1a5a2e41fae2210b864be7d6776ff86d28" prot="private" virt="non-virtual"><scope>Varray</scope><name>flush_index_page</name></member>
+      <member refid="class_varray_1aa1937cd5bd69270fc38c901c5401d424" prot="private" virt="non-virtual"><scope>Varray</scope><name>get_addr_by_off</name></member>
+      <member refid="class_varray_1a242e6261da2df0e7cd0db6a314232fb6" prot="public" virt="non-virtual"><scope>Varray</scope><name>get_chunk_end</name></member>
+      <member refid="class_varray_1a7cab8197cc332e25d9dd3fb3ad20c02d" prot="public" virt="non-virtual"><scope>Varray</scope><name>get_chunk_start</name></member>
+      <member refid="class_varray_1a1241f3e950a653162a52f27a74ad5860" prot="private" virt="non-virtual"><scope>Varray</scope><name>getidx</name></member>
+      <member refid="class_varray_1af7b86fda63e282799a1cb618545374b0" prot="private" virt="non-virtual"><scope>Varray</scope><name>getoff</name></member>
+      <member refid="class_varray_1adefae93b46c09a399156bd29a335c752" prot="private" virt="non-virtual"><scope>Varray</scope><name>grow</name></member>
+      <member refid="class_varray_1a015c10ca66c7dd67d2d73c80f3be5bd7" prot="private" virt="non-virtual"><scope>Varray</scope><name>have_data</name></member>
+      <member refid="class_varray_1a185e72291d4b9e5b452ce7a20dfa2b94" prot="public" virt="non-virtual"><scope>Varray</scope><name>in_fast_cache</name></member>
+      <member refid="class_varray_1a560302271169998d4f983f48e6bfc5f8" prot="private" virt="non-virtual"><scope>Varray</scope><name>incsize</name></member>
+      <member refid="class_varray_1a76c5fe0fc9bfd1db89c1b3a1fa0f28e4" prot="private" virt="non-virtual"><scope>Varray</scope><name>init_vm</name></member>
+      <member refid="class_varray_1aaecbb1c376b03153917649100ff35a6b" prot="private" virt="non-virtual"><scope>Varray</scope><name>initial_offset</name></member>
+      <member refid="class_varray_1a9754f247fe7aa7cbf70e710f02816e01" prot="private" virt="non-virtual"><scope>Varray</scope><name>insert</name></member>
+      <member refid="class_varray_1a762e0f2b6d942d058a34fe4716e7e25a" prot="private" virt="non-virtual"><scope>Varray</scope><name>insert</name></member>
+      <member refid="class_varray_1a733dd0fc77df126332063145f2dbe14b" prot="private" virt="non-virtual"><scope>Varray</scope><name>insert_chunk_between</name></member>
+      <member refid="class_varray_1ab3f913ba8562bc5fbd5158f60c656754" prot="public" virt="non-virtual"><scope>Varray</scope><name>iterator</name></member>
+      <member refid="class_varray_1aef1a03e078b31cd0e9e4bbe6b0893bb7" prot="private" virt="non-virtual"><scope>Varray</scope><name>last_page_num</name></member>
+      <member refid="class_varray_1acd0923012a208b12c561efb6f4605d28" prot="private" virt="non-virtual"><scope>Varray</scope><name>last_page_ptr</name></member>
+      <member refid="class_varray_1adb14cac8edc2e9e8886d9a482e8340c1" prot="private" virt="non-virtual"><scope>Varray</scope><name>lastea</name></member>
+      <member refid="class_varray_1a4ba93af4f079c30c845d7196cce1a399" prot="private" virt="non-virtual"><scope>Varray</scope><name>lastoff</name></member>
+      <member refid="class_varray_1a0c306d452506f3225162d5022b1c35db" prot="private" virt="non-virtual"><scope>Varray</scope><name>lastvp</name></member>
+      <member refid="class_varray_1a5002fa75f407374d7eaee6368c4b75af" prot="public" virt="non-virtual"><scope>Varray</scope><name>linkTo</name></member>
+      <member refid="class_varray_1a6d9aa62fd842110a8344c85039973bba" prot="private" virt="non-virtual"><scope>Varray</scope><name>locate_addr</name></member>
+      <member refid="class_varray_1a8ecca0a7d9455eed54f1d7c5dac6d076" prot="private" virt="non-virtual"><scope>Varray</scope><name>lower_bound</name></member>
+      <member refid="class_varray_1ae57ce47b689536526fdf6e16ab03b455" prot="private" virt="non-virtual"><scope>Varray</scope><name>lower_bound</name></member>
+      <member refid="class_varray_1ad0b9f8aed7aafe53ba3c12c77f8bb5d7" prot="private" virt="non-virtual"><scope>Varray</scope><name>lower_bound</name></member>
+      <member refid="class_varray_1abf2c6709e1916ab59a6ab1378bf4bf79" prot="public" virt="non-virtual"><scope>Varray</scope><name>make_linput</name></member>
+      <member refid="class_varray_1a59b797459668cb0e889c55633bb3a78c" prot="private" virt="non-virtual"><scope>Varray</scope><name>max_offset</name></member>
+      <member refid="class_varray_1af061e314442d778c05bd4e16cc87a6a9" prot="public" virt="non-virtual"><scope>Varray</scope><name>memcomp</name></member>
+      <member refid="class_varray_1a9a7e831461b9acd0b7cc1ace5fe18a6e" prot="public" virt="non-virtual"><scope>Varray</scope><name>memcopy</name></member>
+      <member refid="class_varray_1a2f980794308fe2599c9221ae559d3f0d" prot="public" virt="non-virtual"><scope>Varray</scope><name>memfill</name></member>
+      <member refid="class_varray_1a9515674ba0821d9e9710abc41cf02bef" prot="public" virt="non-virtual"><scope>Varray</scope><name>memscn</name></member>
+      <member refid="class_varray_1aa6c89bdae14f0bfe1f4d257a491e0604" prot="private" virt="non-virtual"><scope>Varray</scope><name>memstx</name></member>
+      <member refid="class_varray_1afd4f4598de4ddcd0a9fc14ca66858d49" prot="public" virt="non-virtual"><scope>Varray</scope><name>memtst</name></member>
+      <member refid="class_varray_1ade8c115394d8a3803245fb17ec5d4b84" prot="public" virt="non-virtual"><scope>Varray</scope><name>memtstr</name></member>
+      <member refid="class_varray_1a72187ca7bddc21e160876d954547a549" prot="private" virt="non-virtual"><scope>Varray</scope><name>merge_if_necessary</name></member>
+      <member refid="class_varray_1a69c1370f7fe6214e4d2af20859018408" prot="public" virt="non-virtual"><scope>Varray</scope><name>movechunk</name></member>
+      <member refid="class_varray_1a025fbb46f2a6343268de7d4751651c98" prot="public" virt="non-virtual"><scope>Varray</scope><name>n_chunks</name></member>
+      <member refid="class_varray_1afa924688bb36797133144d4480a72de8" prot="private" virt="non-virtual"><scope>Varray</scope><name>n_extra_index_pages</name></member>
+      <member refid="class_varray_1ac76bbd6ddd5b15b3429259b3faff9190" prot="public" virt="non-virtual"><scope>Varray</scope><name>next_addr</name></member>
+      <member refid="class_varray_1af76b5cc493c0bcebca5a96da9a1f4b02" prot="public" virt="non-virtual"><scope>Varray</scope><name>next_chunk</name></member>
+      <member refid="class_varray_1a718ead79f5f77cd6879796bbb248a712" prot="private" virt="non-virtual"><scope>Varray</scope><name>nexti</name></member>
+      <member refid="class_varray_1a5a007208270d5f6afd7a894a2e5758c0" prot="private" virt="non-virtual"><scope>Varray</scope><name>nexti</name></member>
+      <member refid="class_varray_1a268c6a09ee6e9172864c495ee3954e63" prot="private" virt="non-virtual"><scope>Varray</scope><name>page_offset</name></member>
+      <member refid="class_varray_1a77ce5174ac0176e9cc756ebed7024acb" prot="public" virt="non-virtual"><scope>Varray</scope><name>page_size</name></member>
+      <member refid="class_varray_1ab0ca0874fa7ee9419401016a068ee554" prot="private" virt="non-virtual"><scope>Varray</scope><name>pages</name></member>
+      <member refid="class_varray_1ab8c9b34a940ac31bd631a389448dbdc8" prot="private" virt="non-virtual"><scope>Varray</scope><name>pmask</name></member>
+      <member refid="class_varray_1a68747746a9dc7e634d0d343f8b061d7e" prot="public" virt="non-virtual"><scope>Varray</scope><name>prev_addr</name></member>
+      <member refid="class_varray_1aac06eb809ced19f28315de98f3e29b6a" prot="public" virt="non-virtual"><scope>Varray</scope><name>prev_chunk</name></member>
+      <member refid="class_varray_1ad559c9d42c8d2dad8e10731840d8201b" prot="private" virt="non-virtual"><scope>Varray</scope><name>previ</name></member>
+      <member refid="class_varray_1a29943c6c5ae58633119b7f0ecd236bcb" prot="private" virt="non-virtual"><scope>Varray</scope><name>previ</name></member>
+      <member refid="class_varray_1a350e0b0900b642d1ba6092825f203f6f" prot="public" virt="non-virtual"><scope>Varray</scope><name>print_dump</name></member>
+      <member refid="class_varray_1ae2f14036dcdb933de9aa596a521b4587" prot="private" virt="non-virtual"><scope>Varray</scope><name>r_lower_bound</name></member>
+      <member refid="class_varray_1ad25b7f9d1ae15f232d85deaed55d0472" prot="public" virt="non-virtual"><scope>Varray</scope><name>Raddr</name></member>
+      <member refid="class_varray_1ad961cd91f69998cf5f813c6f0a44c801" prot="private" virt="non-virtual"><scope>Varray</scope><name>re_find</name></member>
+      <member refid="class_varray_1a880ab0c2dfb64ddbe909f23950fb7f28" prot="private" virt="non-virtual"><scope>Varray</scope><name>read_entries</name></member>
+      <member refid="class_varray_1afc73a5d7de86a7b15ce9208ff020c341" prot="private" virt="non-virtual"><scope>Varray</scope><name>reserve</name></member>
+      <member refid="class_varray_1a8da4a1e6fd4d2b3617b796a4a90c480c" prot="private" virt="non-virtual"><scope>Varray</scope><name>reset_bytes</name></member>
+      <member refid="class_varray_1aceab8a0aa41e87832c73cd3e6b4fb4da" prot="private" virt="non-virtual"><scope>Varray</scope><name>reset_cache</name></member>
+      <member refid="class_varray_1a6b1ff4ba71a0fd0f9aabd9d16bff5cb3" prot="private" virt="non-virtual"><scope>Varray</scope><name>rw_addr</name></member>
+      <member refid="class_varray_1a717793188edc6908bcd4852954fdce6e" prot="private" virt="non-virtual"><scope>Varray</scope><name>rw_page</name></member>
+      <member refid="class_varray_1a7dc0da776cafc3966a2c7dd521dd6052" prot="private" virt="non-virtual"><scope>Varray</scope><name>set_lastvp</name></member>
+      <member refid="class_varray_1a50d2e5846b788acbf44382bb5ad73873" prot="public" virt="non-virtual"><scope>Varray</scope><name>setbits</name></member>
+      <member refid="class_varray_1a3ea89af5fa1339254a6b4238a04613a6" prot="private" virt="non-virtual"><scope>Varray</scope><name>shift_chunks</name></member>
+      <member refid="class_varray_1a2b4945ce58c83769621bb4549e5791fd" prot="private" virt="non-virtual"><scope>Varray</scope><name>shift_offsets</name></member>
+      <member refid="class_varray_1a6e632cec515e7e194880ceb2c16ff53e" prot="private" virt="non-virtual"><scope>Varray</scope><name>shift_one_chunk</name></member>
+      <member refid="class_varray_1a208b02d635e246d2d29554f1e4d89106" prot="private" virt="non-virtual"><scope>Varray</scope><name>split</name></member>
+      <member refid="class_varray_1ad9dcdcbf067d6811426335ed42129c37" prot="private" virt="non-virtual"><scope>Varray</scope><name>split_off</name></member>
+      <member refid="class_varray_1a587fc268b4f04b8d61bddbb6f1cfb6d7" prot="private" virt="non-virtual"><scope>Varray</scope><name>swap_area</name></member>
+      <member refid="class_varray_1a5efdcc048b90dd3931ede51a647bd2cc" prot="private" virt="non-virtual"><scope>Varray</scope><name>testpage</name></member>
+      <member refid="class_varray_1ae1f1ada072cef844d41906654710a57a" prot="private" virt="non-virtual"><scope>Varray</scope><name>testpager</name></member>
+      <member refid="class_varray_1a00bbb77be6ff911dda4744ce5bc99f97" prot="private" virt="non-virtual"><scope>Varray</scope><name>try_init_va16</name></member>
+      <member refid="class_varray_1a347de236f2caf785b1f4b4b23ccb8d15" prot="private" virt="non-virtual"><scope>Varray</scope><name>upgrade</name></member>
+      <member refid="class_varray_1aee6f074209e04fee1dd967e37bf703ca" prot="private" virt="non-virtual"><scope>Varray</scope><name>upper_bound</name></member>
+      <member refid="class_varray_1a3648c23a9798458cc8108d7d012ba556" prot="public" virt="non-virtual"><scope>Varray</scope><name>va_offset_t</name></member>
+      <member refid="class_varray_1a7b5897903a53049c9e29f6cabe3077b4" prot="public" virt="non-virtual"><scope>Varray</scope><name>va_pagenum_t</name></member>
+      <member refid="class_varray_1a0cf048811f7e4b694b26c957d8c7b40d" prot="public" virt="non-virtual"><scope>Varray</scope><name>vadump</name></member>
+      <member refid="class_varray_1a5812acdc66b077a878055754bec9372c" prot="public" virt="non-virtual"><scope>Varray</scope><name>Varray</name></member>
+      <member refid="class_varray_1ade566dd1e7112ec8b08f166752cb995a" prot="public" virt="non-virtual"><scope>Varray</scope><name>vascan</name></member>
+      <member refid="class_varray_1aa58e52a3e53c0b6716e2c822d6908625" prot="private" virt="non-virtual"><scope>Varray</scope><name>vascan_dir</name></member>
+      <member refid="class_varray_1a596fd1c2ce123d441da5abde87f9a529" prot="public" virt="non-virtual"><scope>Varray</scope><name>vascanr</name></member>
+      <member refid="class_varray_1a425d3180bf1865a8eabaaf4d0f31d33d" prot="public" virt="non-virtual"><scope>Varray</scope><name>vclose</name></member>
+      <member refid="class_varray_1ac20bdb830a5ea6bd5046564d9e0d6074" prot="public" virt="non-virtual"><scope>Varray</scope><name>vflush</name></member>
+      <member refid="class_varray_1a7e5f75b7a9c0856855e2aa03c14754d5" prot="private" virt="non-virtual"><scope>Varray</scope><name>vp_end</name></member>
+      <member refid="class_varray_1a4e6c0f2e67b3ff1c5e993b254b4e284d" prot="public" virt="non-virtual"><scope>Varray</scope><name>vread</name></member>
+      <member refid="class_varray_1ae081147689f0b48878b62d3dd6b900f2" prot="public" virt="non-virtual"><scope>Varray</scope><name>vread</name></member>
+      <member refid="class_varray_1a172154c6f4d8ad54f6206b1e9e36ae0a" prot="public" virt="non-virtual"><scope>Varray</scope><name>vwrite</name></member>
+      <member refid="class_varray_1a052ed4cadd207d9e457ea9308b3eba06" prot="public" virt="non-virtual"><scope>Varray</scope><name>vwrite</name></member>
+      <member refid="class_varray_1afec8bd3577a26a69b1b3add2cb8f6dbb" prot="public" virt="non-virtual"><scope>Varray</scope><name>Waddr</name></member>
+      <member refid="class_varray_1ae3d348d1d1329ae25992d7f62eba831f" prot="private" virt="non-virtual"><scope>Varray</scope><name>words2bytes</name></member>
+      <member refid="class_varray_1a6a814d2a1e7a9bdba0a8b78a484c295a" prot="public" virt="non-virtual"><scope>Varray</scope><name>~Varray</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

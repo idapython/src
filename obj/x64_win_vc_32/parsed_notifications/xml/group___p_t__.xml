@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___p_t__" kind="group">
+    <compoundname>PT_</compoundname>
+    <title>Type parsing flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___p_t___1gadd54cb3cb262adaa24e8e0a064db915c" prot="public" static="no">
+        <name>PT_SIL</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>silent, no messages </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1658" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1658" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_t___1ga57609d69c3433c3a5e4a7cfcf33ceaeb" prot="public" static="no">
+        <name>PT_NDC</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>don&apos;t decorate names </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1659" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1659" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_t___1ga275f154b9415ddab5d773d3f2ce48a30" prot="public" static="no">
+        <name>PT_TYP</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>return declared type information </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1660" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1660" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_t___1ga2372a33ffe07dcfaae46a1873a453e8f" prot="public" static="no">
+        <name>PT_VAR</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>return declared object information </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1661" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1661" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_t___1ga218f8fa41b94eb9d4065d2a6e70ca991" prot="public" static="no">
+        <name>PT_PACKMASK</name>
+        <initializer>0x0070</initializer>
+        <briefdescription>
+<para>mask for pack alignment values </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1662" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1662" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_t___1gac6284f488e8820aee39aa19cfab3c583" prot="public" static="no">
+        <name>PT_HIGH</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para>(with hidden args, etc) </para>        </briefdescription>
+        <detaileddescription>
+<para>assume high level prototypes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1663" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1663" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_t___1ga8d8c7cbf15346f19cfab0634f38668b3" prot="public" static="no">
+        <name>PT_LOWER</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+<para>lower the function prototypes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1665" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1665" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_t___1gab04abaa7e18028fd14722db3ca00f900" prot="public" static="no">
+        <name>PT_REPLACE</name>
+        <initializer>0x0200</initializer>
+        <briefdescription>
+<para>replace the old type (used in idc) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1666" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1666" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_t___1ga596fed0e18a485e36cc46e6f3d4961ba" prot="public" static="no">
+        <name>PT_RAWARGS</name>
+        <initializer>0x0400</initializer>
+        <briefdescription>
+<para>leave argument names unchanged (do not remove underscores) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1667" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1667" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

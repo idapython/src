@@ -1,0 +1,842 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_f__datafuncs1" kind="group">
+    <compoundname>FF_datafuncs1</compoundname>
+    <title>Functions: examine data bits</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gad4453baa846eedb6219dea2fcf305ab5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> idaapi</type>
+        <definition>THREAD_SAFE flags_t idaapi code_flag</definition>
+        <argsstring>(void)</argsstring>
+        <name>code_flag</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___f_f__statebits_1gacb1e52d0b6bcfce13bfb81dcb793f447" kindref="member">FF_CODE</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1369" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1369" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gaa14a627f4353a5bdd533c6bbd020e90e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> idaapi</type>
+        <definition>THREAD_SAFE flags_t idaapi byte_flag</definition>
+        <argsstring>(void)</argsstring>
+        <name>byte_flag</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a flags_t representing a byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1370" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1370" bodyend="1369"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gabf79b38da271c551fed0bada7c5d8337" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> idaapi</type>
+        <definition>THREAD_SAFE flags_t idaapi word_flag</definition>
+        <argsstring>(void)</argsstring>
+        <name>word_flag</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a flags_t representing a word. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1371" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1371" bodyend="1370"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gab18fd84003b7256585d97b583f0639cf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> idaapi</type>
+        <definition>THREAD_SAFE flags_t idaapi dword_flag</definition>
+        <argsstring>(void)</argsstring>
+        <name>dword_flag</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a flags_t representing a double word. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1372" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1372" bodyend="1371"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga9b4ca69d10deef0f994090427879d311" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> idaapi</type>
+        <definition>THREAD_SAFE flags_t idaapi qword_flag</definition>
+        <argsstring>(void)</argsstring>
+        <name>qword_flag</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a flags_t representing a quad word. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1373" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1373" bodyend="1372"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gaff484526a5b160e846d579195c2cdcd4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> idaapi</type>
+        <definition>THREAD_SAFE flags_t idaapi oword_flag</definition>
+        <argsstring>(void)</argsstring>
+        <name>oword_flag</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a flags_t representing a octaword. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1374" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1374" bodyend="1373"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gafa693b6b7b1675021961085736232809" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> idaapi</type>
+        <definition>THREAD_SAFE flags_t idaapi yword_flag</definition>
+        <argsstring>(void)</argsstring>
+        <name>yword_flag</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a flags_t representing a ymm word. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1375" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1375" bodyend="1374"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga0be33c88ac0a2674af2c830f33373a74" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> idaapi</type>
+        <definition>THREAD_SAFE flags_t idaapi zword_flag</definition>
+        <argsstring>(void)</argsstring>
+        <name>zword_flag</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a flags_t representing a zmm word. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1376" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1376" bodyend="1375"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga4471aad7626f942cd172f7626966e154" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> idaapi</type>
+        <definition>THREAD_SAFE flags_t idaapi tbyte_flag</definition>
+        <argsstring>(void)</argsstring>
+        <name>tbyte_flag</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a flags_t representing a tbyte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1377" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1377" bodyend="1376"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gaa6ca54199e2ef6583f49c4f9bce796e7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> idaapi</type>
+        <definition>THREAD_SAFE flags_t idaapi strlit_flag</definition>
+        <argsstring>(void)</argsstring>
+        <name>strlit_flag</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a flags_t representing a string literal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1378" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1378" bodyend="1377"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga38f08ea02f7331c492d89d618eda5164" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> idaapi</type>
+        <definition>THREAD_SAFE flags_t idaapi stru_flag</definition>
+        <argsstring>(void)</argsstring>
+        <name>stru_flag</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a flags_t representing a struct. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1379" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1379" bodyend="1378"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga3ea824ebc0fc1929a753cf48728853c9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> idaapi</type>
+        <definition>THREAD_SAFE flags_t idaapi cust_flag</definition>
+        <argsstring>(void)</argsstring>
+        <name>cust_flag</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a flags_t representing custom type data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1380" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1380" bodyend="1379"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gacff3001250e2c87d96e6c622778c4ffa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> idaapi</type>
+        <definition>THREAD_SAFE flags_t idaapi align_flag</definition>
+        <argsstring>(void)</argsstring>
+        <name>align_flag</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a flags_t representing an alignment directive. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1381" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1381" bodyend="1380"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga25bd07366283665e9c493044ecc8bfd3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> idaapi</type>
+        <definition>THREAD_SAFE flags_t idaapi float_flag</definition>
+        <argsstring>(void)</argsstring>
+        <name>float_flag</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a flags_t representing a float. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1382" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1382" bodyend="1381"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga79666f78735d9727cae4ccbd7c6ca3dc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> idaapi</type>
+        <definition>THREAD_SAFE flags_t idaapi double_flag</definition>
+        <argsstring>(void)</argsstring>
+        <name>double_flag</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a flags_t representing a double. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1383" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1383" bodyend="1382"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga74f7c59993c499b8625f2e740d6bd3b7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> idaapi</type>
+        <definition>THREAD_SAFE flags_t idaapi packreal_flag</definition>
+        <argsstring>(void)</argsstring>
+        <name>packreal_flag</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a flags_t representing a packed decimal real. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1384" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1384" bodyend="1383"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga54d4eddf62de312c70550341adbefde4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_byte</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_byte</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="group___f_f__databits_1ga31e184e1e9e9986dccb2bf75a5cc281a" kindref="member">FF_BYTE</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1386" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1386" bodyend="1384"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gae2c61a3e081f3cda318ec9aedc48c6ba" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_word</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_word</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="group___f_f__databits_1ga700e6fe75ce2d59afe9f0337419e5fb3" kindref="member">FF_WORD</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1387" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1387" bodyend="1386"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga63afb22ce812edf1c4b034fda04be191" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_dword</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_dword</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="group___f_f__databits_1ga113c39256aa0eb30138fc3dcbbb1b224" kindref="member">FF_DWORD</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1388" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1388" bodyend="1387"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga737e24e01444334b5d1b002d3a0c6c5d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_qword</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_qword</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="group___f_f__databits_1ga74d61c8ba1d3bedefbd3e619f1f4116a" kindref="member">FF_QWORD</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1389" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1389" bodyend="1388"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga6f8b09d8c1f48f0694a88beeeee1e86c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_oword</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_oword</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="group___f_f__databits_1ga6102a6e3eebb8350527c7613792080ae" kindref="member">FF_OWORD</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1390" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1390" bodyend="1389"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga125aae5b9affb9bdf05dac6301e01099" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_yword</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_yword</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="group___f_f__databits_1ga4c5878e95aef45b3816e5cfcf16cacb9" kindref="member">FF_YWORD</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1391" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1391" bodyend="1390"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga2b4270be217a60ccdd95586e432911a5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_zword</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_zword</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="group___f_f__databits_1ga3c513c72624ec1d284f2c3e9f295a6e8" kindref="member">FF_ZWORD</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1392" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1392" bodyend="1391"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gabb8e62481338548854eb49ead755b817" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_tbyte</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_tbyte</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="group___f_f__databits_1ga8b0cb6734338e1ed1a3188d6b4c70b8f" kindref="member">FF_TBYTE</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1393" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1393" bodyend="1392"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga6af0c3992394a39b9cd6922a8ecbbaaf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_float</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_float</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="group___f_f__databits_1gadc1e062047911a7fda90a84959fa49bc" kindref="member">FF_FLOAT</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1394" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1394" bodyend="1393"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga5c9cf9b97f9e8ccbf50bd5ab01f2689c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_double</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_double</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="group___f_f__databits_1ga709bb154304e65d8991bc081a182ce2e" kindref="member">FF_DOUBLE</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1395" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1395" bodyend="1394"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gad356ee8d20c4339cfcded75a1ab5334a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_pack_real</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_pack_real</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="group___f_f__databits_1gaa0adb817e6662035bd7d06346c01c864" kindref="member">FF_PACKREAL</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1396" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1396" bodyend="1395"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga5685eabe52d67b5293ef6d39062e3b43" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_strlit</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_strlit</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="group___f_f__databits_1gaa320c33a480cc1403e0c7912ee1bd522" kindref="member">FF_STRLIT</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1397" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1397" bodyend="1396"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga76ba97b115e2a491d4e25ebe9911e506" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_struct</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_struct</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="group___f_f__databits_1ga303e1d05f0fd18c165ff0c2c7e4aa4de" kindref="member">FF_STRUCT</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1398" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1398" bodyend="1397"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gab1fc7d724f7446176f8e0626e58d2a28" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_align</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_align</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="group___f_f__databits_1ga61f222cbe3cbe2570892096fc7dc1e8c" kindref="member">FF_ALIGN</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1399" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1399" bodyend="1398"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga93a96a1b4739bbb04cbb1c00e2eed89b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_custom</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_custom</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="group___f_f__databits_1ga19f933094d6c5c52e6f9861d533d1382" kindref="member">FF_CUSTOM</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1400" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1400" bodyend="1399"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga21fafd7373b1d9ac5e1c04dc2141acff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_byte</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_byte</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___f_f__datafuncs1_1ga54d4eddf62de312c70550341adbefde4" kindref="member">is_byte()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1402" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1402" bodyend="1400"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gaccff8f950d62fae56ada7b962697ed79" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_word</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_word</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___f_f__datafuncs1_1gae2c61a3e081f3cda318ec9aedc48c6ba" kindref="member">is_word()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1403" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1403" bodyend="1402"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga0496291fa3aa49a666f0d0424b8ea29c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_dword</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_dword</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___f_f__datafuncs1_1ga63afb22ce812edf1c4b034fda04be191" kindref="member">is_dword()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1404" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1404" bodyend="1403"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga67677092795e5de5fb95a98fc40f9234" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_qword</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_qword</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___f_f__datafuncs1_1ga737e24e01444334b5d1b002d3a0c6c5d" kindref="member">is_qword()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1405" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1405" bodyend="1404"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga06425fcefdacc6c77012a142cefc8bdf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_oword</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_oword</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___f_f__datafuncs1_1ga6f8b09d8c1f48f0694a88beeeee1e86c" kindref="member">is_oword()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1406" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1406" bodyend="1405"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gacb4a7106f23e398c8832ca224f3bbdcf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_yword</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_yword</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___f_f__datafuncs1_1ga125aae5b9affb9bdf05dac6301e01099" kindref="member">is_yword()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1407" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1407" bodyend="1406"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gaa7fff53cd3063f5edbb4bb770e191bb1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_tbyte</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_tbyte</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___f_f__datafuncs1_1gabb8e62481338548854eb49ead755b817" kindref="member">is_tbyte()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1408" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1408" bodyend="1407"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga2c69701a34fae14045bc2d049b1770e2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_float</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_float</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___f_f__datafuncs1_1ga6af0c3992394a39b9cd6922a8ecbbaaf" kindref="member">is_float()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1409" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1409" bodyend="1408"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga4ae3da58de731050dd56a0df3af095b1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_double</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_double</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___f_f__datafuncs1_1ga5c9cf9b97f9e8ccbf50bd5ab01f2689c" kindref="member">is_double()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1410" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1410" bodyend="1409"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gaf1469581afbbb7688fc9b1c6c2a38ab4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_pack_real</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_pack_real</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___f_f__datafuncs1_1gad356ee8d20c4339cfcded75a1ab5334a" kindref="member">is_pack_real()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1411" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1411" bodyend="1410"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga9e4bd2d3b55480b0e5c64a93af129d86" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_strlit</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_strlit</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___f_f__datafuncs1_1ga5685eabe52d67b5293ef6d39062e3b43" kindref="member">is_strlit()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1412" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1412" bodyend="1411"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga9bc96b4ecba693b292ff7a1bcf6c6e06" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_struct</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_struct</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___f_f__datafuncs1_1ga76ba97b115e2a491d4e25ebe9911e506" kindref="member">is_struct()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1413" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1413" bodyend="1412"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gab91c2b76ed1c41861a9ea7f084783a50" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_align</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_align</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___f_f__datafuncs1_1gab1fc7d724f7446176f8e0626e58d2a28" kindref="member">is_align()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1414" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1414" bodyend="1413"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga1eaa068a06d8a52ab5dd6858321bbfe5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_custom</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_custom</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___f_f__datafuncs1_1ga93a96a1b4739bbb04cbb1c00e2eed89b" kindref="member">is_custom()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1415" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1415" bodyend="1414"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1gab0c18038248938d7fcb80a1b2cc8cdec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_same_data_type</definition>
+        <argsstring>(flags_t F1, flags_t F2)</argsstring>
+        <name>is_same_data_type</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F1</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F2</declname>
+        </param>
+        <briefdescription>
+<para>Do the given flags specify the same data type? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1420" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1420" bodyend="1420"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs1_1ga5b36bdf78537d6aa9fd68f2c4eb51cc4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> ida_export</type>
+        <definition>idaman flags_t ida_export get_flags_by_size</definition>
+        <argsstring>(size_t size)</argsstring>
+        <name>get_flags_by_size</name>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get flags from size (in bytes). Supported sizes: 1, 2, 4, 8, 16, 32. For other sizes returns 0 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1427" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

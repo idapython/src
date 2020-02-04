@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structchooser__item__attrs__t" kind="struct" language="C++" prot="public">
+    <compoundname>chooser_item_attrs_t</compoundname>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structchooser__item__attrs__t_1ad7d0eedd78361b3815f2594d01f2d2aa" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int chooser_item_attrs_t::cb</definition>
+        <argsstring></argsstring>
+        <name>cb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>size of this structure. the callback must check this field and fill only the existing fields. the first 2 fields always exist: </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2301" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structchooser__item__attrs__t_1ab03ecf02dcdd3219a749ad0beeb01f70" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int chooser_item_attrs_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+<para><ref refid="group___c_h_i_t_e_m__" kindref="compound">Chooser item property bits</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2304" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structchooser__item__attrs__t_1a53c40e208163cf6ba2826fdfd6ce243d" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a3df5040891132e50157aee66affdf1de" kindref="member">bgcolor_t</ref></type>
+        <definition>bgcolor_t chooser_item_attrs_t::color</definition>
+        <argsstring></argsstring>
+        <name>color</name>
+        <briefdescription>
+<para>item color </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2305" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2305" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structchooser__item__attrs__t_1adcd1628556e740975348070358deb4f8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>chooser_item_attrs_t::chooser_item_attrs_t</definition>
+        <argsstring>()</argsstring>
+        <name>chooser_item_attrs_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2306" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2306" bodyend="2309"/>
+      </memberdef>
+      <memberdef kind="function" id="structchooser__item__attrs__t_1a049d4256fbd0994a621e6203a0a59b00" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void chooser_item_attrs_t::reset</definition>
+        <argsstring>(void)</argsstring>
+        <name>reset</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2310" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2310" bodyend="2315"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Chooser item attributes. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2300" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2299" bodyend="2316"/>
+    <listofallmembers>
+      <member refid="structchooser__item__attrs__t_1ad7d0eedd78361b3815f2594d01f2d2aa" prot="public" virt="non-virtual"><scope>chooser_item_attrs_t</scope><name>cb</name></member>
+      <member refid="structchooser__item__attrs__t_1adcd1628556e740975348070358deb4f8" prot="public" virt="non-virtual"><scope>chooser_item_attrs_t</scope><name>chooser_item_attrs_t</name></member>
+      <member refid="structchooser__item__attrs__t_1a53c40e208163cf6ba2826fdfd6ce243d" prot="public" virt="non-virtual"><scope>chooser_item_attrs_t</scope><name>color</name></member>
+      <member refid="structchooser__item__attrs__t_1ab03ecf02dcdd3219a749ad0beeb01f70" prot="public" virt="non-virtual"><scope>chooser_item_attrs_t</scope><name>flags</name></member>
+      <member refid="structchooser__item__attrs__t_1a049d4256fbd0994a621e6203a0a59b00" prot="public" virt="non-virtual"><scope>chooser_item_attrs_t</scope><name>reset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structstruct__field__visitor__t" kind="struct" language="C++" prot="public" abstract="yes">
+    <compoundname>struct_field_visitor_t</compoundname>
+    <includes refid="struct_8hpp" local="no">struct.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structstruct__field__visitor__t_1a719578d3e20b14d7b92d29dfdea75e9b" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi struct_field_visitor_t::visit_field</definition>
+        <argsstring>(struc_t *sptr, member_t *mptr)=0</argsstring>
+        <name>visit_field</name>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type><ref refid="classmember__t" kindref="compound">member_t</ref> *</type>
+          <declname>mptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="592" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements action to take when a field is visited with <ref refid="struct_8hpp_1a55f8f177dc0b2e79220fe8147314626a" kindref="member">visit_stroff_fields()</ref> </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="591" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="590" bodyend="593"/>
+    <listofallmembers>
+      <member refid="structstruct__field__visitor__t_1a719578d3e20b14d7b92d29dfdea75e9b" prot="public" virt="pure-virtual"><scope>struct_field_visitor_t</scope><name>visit_field</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

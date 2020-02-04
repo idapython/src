@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="struct_m_d5_context" kind="struct" language="C++" prot="public">
+    <compoundname>MD5Context</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_m_d5_context_1a36b1288167ba08fff254430f9a63517d" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 MD5Context::buf[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>buf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/md5.h" line="6" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/md5.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_d5_context_1ae71eef0dfc66c94831b64914baa38e08" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 MD5Context::bits[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>bits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/md5.h" line="7" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/md5.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_d5_context_1ae8be45f236e5cb12b0ae79da77e5f929" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char MD5Context::in[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>in</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/md5.h" line="8" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/md5.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/md5.h" line="5" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/md5.h" bodystart="4" bodyend="9"/>
+    <listofallmembers>
+      <member refid="struct_m_d5_context_1ae71eef0dfc66c94831b64914baa38e08" prot="public" virt="non-virtual"><scope>MD5Context</scope><name>bits</name></member>
+      <member refid="struct_m_d5_context_1a36b1288167ba08fff254430f9a63517d" prot="public" virt="non-virtual"><scope>MD5Context</scope><name>buf</name></member>
+      <member refid="struct_m_d5_context_1ae8be45f236e5cb12b0ae79da77e5f929" prot="public" virt="non-virtual"><scope>MD5Context</scope><name>in</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structenum__member__visitor__t" kind="struct" language="C++" prot="public" abstract="yes">
+    <compoundname>enum_member_visitor_t</compoundname>
+    <includes refid="enum_8hpp" local="no">enum.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structenum__member__visitor__t_1a427f6f5809beb683d27d7d672f9b8712" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi enum_member_visitor_t::visit_enum_member</definition>
+        <argsstring>(const_t cid, uval_t value)=0</argsstring>
+        <name>visit_enum_member</name>
+        <param>
+          <type><ref refid="enum_8hpp_1ae92726449792c6db974b4b5d3f04a501" kindref="member">const_t</ref></type>
+          <declname>cid</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Implements action to take when enum member is visited. <simplesect kind="return"><para>nonzero to stop the iteration </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/enum.hpp" line="238" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Enum member visitor - see <ref refid="enum_8hpp_1a2f47e825245724df2c41b669bceb1669" kindref="member">for_all_enum_members()</ref>. Derive your visitor from this class. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/enum.hpp" line="235" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/enum.hpp" bodystart="234" bodyend="239"/>
+    <listofallmembers>
+      <member refid="structenum__member__visitor__t_1a427f6f5809beb683d27d7d672f9b8712" prot="public" virt="pure-virtual"><scope>enum_member_visitor_t</scope><name>visit_enum_member</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__unp__templates" kind="group">
+    <compoundname>unp_templates</compoundname>
+    <title>Template unpacking</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__unp__templates_1gafe330225797bdd2b5b5815ff9ac283f8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool</type>
+        <definition>THREAD_SAFE bool unpack_uleb128</definition>
+        <argsstring>(T *res, const uchar **pptr, const uchar *end)</argsstring>
+        <name>unpack_uleb128</name>
+        <param>
+          <type>T *</type>
+          <declname>res</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>pptr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7155" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7155" bodyend="7159"/>
+      </memberdef>
+      <memberdef kind="function" id="group__unp__templates_1ga599a0912063f9f52b3816bd7ad9e2547" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool</type>
+        <definition>THREAD_SAFE bool unpack_sleb128</definition>
+        <argsstring>(T *res, const uchar **pptr, const uchar *end)</argsstring>
+        <name>unpack_sleb128</name>
+        <param>
+          <type>T *</type>
+          <declname>res</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>pptr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7162" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7162" bodyend="7166"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Template functions that can unpack values </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

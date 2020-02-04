@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="sha256_8h" kind="file" language="C++">
+    <compoundname>sha256.h</compoundname>
+    <innerclass refid="structsha256__ctx" prot="public">sha256_ctx</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="sha256_8h_1a3222ec7e8ffb3ebc91ab2d34a32790f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export sha256_init</definition>
+        <argsstring>(sha256_ctx *ctx)</argsstring>
+        <name>sha256_init</name>
+        <param>
+          <type><ref refid="structsha256__ctx" kindref="compound">sha256_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/sha256.h" line="11" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="sha256_8h_1ad1473f2f56873873226cc42ef472572f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export sha256_update</definition>
+        <argsstring>(sha256_ctx *ctx, const uchar *data, uint32 len)</argsstring>
+        <name>sha256_update</name>
+        <param>
+          <type><ref refid="structsha256__ctx" kindref="compound">sha256_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/sha256.h" line="12" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="sha256_8h_1ad6a8f1d00c4b35a9eeeda93660732c3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export sha256_final</definition>
+        <argsstring>(uchar digest[32], sha256_ctx *ctx)</argsstring>
+        <name>sha256_final</name>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>digest</declname>
+          <array>[32]</array>
+        </param>
+        <param>
+          <type><ref refid="structsha256__ctx" kindref="compound">sha256_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/sha256.h" line="13" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="sha256_8h_1aabdb6b87225e53570bb34a430e86d187" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export sha256_transform</definition>
+        <argsstring>(sha256_ctx *ctx)</argsstring>
+        <name>sha256_transform</name>
+        <param>
+          <type><ref refid="structsha256__ctx" kindref="compound">sha256_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/sha256.h" line="14" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/sha256.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structproduct__entry__t" kind="struct" language="C++" prot="public">
+    <compoundname>product_entry_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structproduct__entry__t_1ab78404b099126b07752d000c8dac7a61" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar product_entry_t::lid[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>lid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="72" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structproduct__entry__t_1ad20777074631911cadd4b0b0d846a053" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char product_entry_t::product[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>product</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="75" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structproduct__entry__t_1a510df902c3b31adccd7d7fb430cd1301" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 product_entry_t::nseats</definition>
+        <argsstring></argsstring>
+        <name>nseats</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="76" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structproduct__entry__t_1ab4a0207b2dd28027a3a24e32a374e5d0" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a3645c7d6d9f101f476e964504741b92b" kindref="member">qtime32_t</ref></type>
+        <definition>qtime32_t product_entry_t::expires</definition>
+        <argsstring></argsstring>
+        <name>expires</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="77" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structproduct__entry__t_1a06237d468b52ef3f75a1b8c04f968759" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a3645c7d6d9f101f476e964504741b92b" kindref="member">qtime32_t</ref></type>
+        <definition>qtime32_t product_entry_t::support</definition>
+        <argsstring></argsstring>
+        <name>support</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="78" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="71" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="70" bodyend="79"/>
+    <listofallmembers>
+      <member refid="structproduct__entry__t_1ab4a0207b2dd28027a3a24e32a374e5d0" prot="public" virt="non-virtual"><scope>product_entry_t</scope><name>expires</name></member>
+      <member refid="structproduct__entry__t_1ab78404b099126b07752d000c8dac7a61" prot="public" virt="non-virtual"><scope>product_entry_t</scope><name>lid</name></member>
+      <member refid="structproduct__entry__t_1a510df902c3b31adccd7d7fb430cd1301" prot="public" virt="non-virtual"><scope>product_entry_t</scope><name>nseats</name></member>
+      <member refid="structproduct__entry__t_1ad20777074631911cadd4b0b0d846a053" prot="public" virt="non-virtual"><scope>product_entry_t</scope><name>product</name></member>
+      <member refid="structproduct__entry__t_1a06237d468b52ef3f75a1b8c04f968759" prot="public" virt="non-virtual"><scope>product_entry_t</scope><name>support</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

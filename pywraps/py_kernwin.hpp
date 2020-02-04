@@ -105,10 +105,10 @@ static PyObject *py_unregister_timer(PyObject *py_timerctx)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  if ( py_timerctx == NULL || !PyCObject_Check(py_timerctx) )
+  if ( py_timerctx == NULL || !PyCapsule_IsValid(py_timerctx, VALID_CAPSULE_NAME) )
     Py_RETURN_FALSE;
 
-  py_timer_ctx_t *ctx = (py_timer_ctx_t *) PyCObject_AsVoidPtr(py_timerctx);
+  py_timer_ctx_t *ctx = (py_timer_ctx_t *) PyCapsule_GetPointer(py_timerctx, VALID_CAPSULE_NAME);
   if ( ctx == NULL || !unregister_timer(ctx->timer_id) )
     Py_RETURN_FALSE;
 
@@ -139,7 +139,7 @@ static PyObject *py_choose_idasgn()
   }
   else
   {
-    PyObject *py_str = PyString_FromString(name);
+    PyObject *py_str = IDAPyStr_FromUTF8(name);
     qfree(name);
     return py_str;
   }
@@ -273,7 +273,7 @@ static PyObject *py_msg(PyObject *o)
   Py_BEGIN_ALLOW_THREADS;
   rc = msg("%s", utf8);
   Py_END_ALLOW_THREADS;
-  return PyInt_FromLong(rc);
+  return IDAPyInt_FromLong(rc);
 }
 
 //------------------------------------------------------------------------
@@ -396,10 +396,10 @@ def del_hotkey(ctx):
 bool py_del_hotkey(PyObject *pyctx)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyCObject_Check(pyctx) )
+  if ( !PyCapsule_IsValid(pyctx, VALID_CAPSULE_NAME) )
     return false;
 
-  py_idchotkey_ctx_t *ctx = (py_idchotkey_ctx_t *) PyCObject_AsVoidPtr(pyctx);
+  py_idchotkey_ctx_t *ctx = (py_idchotkey_ctx_t *) PyCapsule_GetPointer(pyctx, VALID_CAPSULE_NAME);
   if ( ctx == NULL || !del_idc_hotkey(ctx->hotkey.c_str()) )
     return false;
 
@@ -618,7 +618,7 @@ static int py_execute_sync(PyObject *py_callable, int reqf)
       {
         PYW_GIL_GET;
         newref_t py_result(PyObject_CallFunctionObjArgs(py_callable.o, NULL));
-        int ret = py_result == NULL || !PyInt_Check(py_result.o)
+        int ret = py_result == NULL || !IDAPyInt_Check(py_result.o)
                 ? -1
                 : IDAPyInt_AsLong(py_result.o);
         // if the requesting thread decided not to wait for the request to
@@ -977,7 +977,7 @@ public:
         && _len > 0 )
       {
         borref_t el1(PyTuple_GetItem(o, 1));
-        if ( el1 != NULL && PyInt_Check(el1.o) )
+        if ( el1 != NULL && IDAPyInt_Check(el1.o) )
         {
           long lns = IDAPyInt_AsLong(el1.o);
           if ( lns > 0 )

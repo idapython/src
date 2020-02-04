@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structcmdopt__t" kind="struct" language="C++" prot="public">
+    <compoundname>cmdopt_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcmdopt__t_1ac9221c3c8d6ed1a8c20222a896cd579f" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char cmdopt_t::shortname</definition>
+        <argsstring></argsstring>
+        <name>shortname</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="301" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcmdopt__t_1ae7334f16f6a23166e455c2805cce526e" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* cmdopt_t::help</definition>
+        <argsstring></argsstring>
+        <name>help</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="302" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcmdopt__t_1a2b94e9c4e63ad0ab2fd8566c473abd85" prot="public" static="no" mutable="no">
+        <type>cmdopt_handler_t *</type>
+        <definition>cmdopt_handler_t* cmdopt_t::handler</definition>
+        <argsstring></argsstring>
+        <name>handler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="303" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcmdopt__t_1a1fededf3255a906e3dc3d39f99937d54" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int cmdopt_t::nargs</definition>
+        <argsstring></argsstring>
+        <name>nargs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="304" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="300" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="299" bodyend="308"/>
+    <listofallmembers>
+      <member refid="structcmdopt__t_1a2b94e9c4e63ad0ab2fd8566c473abd85" prot="public" virt="non-virtual"><scope>cmdopt_t</scope><name>handler</name></member>
+      <member refid="structcmdopt__t_1ae7334f16f6a23166e455c2805cce526e" prot="public" virt="non-virtual"><scope>cmdopt_t</scope><name>help</name></member>
+      <member refid="structcmdopt__t_1a1fededf3255a906e3dc3d39f99937d54" prot="public" virt="non-virtual"><scope>cmdopt_t</scope><name>nargs</name></member>
+      <member refid="structcmdopt__t_1ac9221c3c8d6ed1a8c20222a896cd579f" prot="public" virt="non-virtual"><scope>cmdopt_t</scope><name>shortname</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

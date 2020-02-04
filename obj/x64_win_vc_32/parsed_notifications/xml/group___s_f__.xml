@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_f__" kind="group">
+    <compoundname>SF_</compoundname>
+    <title>Structure properties</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_f___1gab2887ca1c10ddaf7ec691ee1a7c506d9" prot="public" static="no">
+        <name>SF_VAR</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>is variable size structure (varstruct)? a variable size structure is one with the zero size last member. if the last member is a varstruct, then the current structure is a varstruct too. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="78" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1ga179c261302637756337e83e8a8bfde06" prot="public" static="no">
+        <name>SF_UNION</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>varunions are prohibited! </para>        </briefdescription>
+        <detaileddescription>
+<para>is a union? </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="83" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1ga9f266f43562a29fa4495652be7c479d3" prot="public" static="no">
+        <name>SF_HASUNI</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>has members of type &quot;union&quot;? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="85" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1gac555d5d6421d2526a0256b9dfd0a89ea" prot="public" static="no">
+        <name>SF_NOLIST</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>don&apos;t include in the chooser list </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="86" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1ga6cf9168b96cf9628391f20a2eef3f67c" prot="public" static="no">
+        <name>SF_TYPLIB</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>the structure comes from type library </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="87" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1ga4e6ed7a6362dc0e44e0f0e4e33249a73" prot="public" static="no">
+        <name>SF_HIDDEN</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>the structure is collapsed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="88" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1ga1b395347ef66eb4a1faa5c584421a3e8" prot="public" static="no">
+        <name>SF_FRAME</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>the structure is a function frame </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="89" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1ga758f228e585003ae05f1d9e476ccbdd7" prot="public" static="no">
+        <name>SF_ALIGN</name>
+        <initializer>0x00000F80</initializer>
+        <briefdescription>
+<para>alignment (shift amount: 0..31) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="90" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1gad19e7396164061042fb789b0ae8dde88" prot="public" static="no">
+        <name>SF_GHOST</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>ghost copy of a local type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="91" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="classstruc__t_1aff7e92266a9cc4bbced5ed574d59e452" kindref="member">struc_t::props</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

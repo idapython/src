@@ -453,7 +453,6 @@ idaman Py_ssize_t ida_export PyW_PyListToEaVec(eavec_t *out, PyObject *py_list);
 idaman Py_ssize_t ida_export PyW_PyListToStrVec(qstrvec_t *out, PyObject *py_list);
 
 //-------------------------------------------------------------------------
-idaman bool ida_export PyWStringOrNone_Check(PyObject *tp);
 
 //-------------------------------------------------------------------------
 #include <idd.hpp>
@@ -792,9 +791,9 @@ T *view_extract_this(PyObject *self)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   ref_t py_this(PyW_TryGetAttrString(self, S_M_THIS));
-  if ( py_this == NULL || !PyCObject_Check(py_this.o) )
+  if ( py_this == NULL || !PyCapsule_IsValid(py_this.o, VALID_CAPSULE_NAME) )
     return NULL;
-  return (T*) PyCObject_AsVoidPtr(py_this.o);
+  return (T*) PyCapsule_GetPointer(py_this.o, VALID_CAPSULE_NAME);
 }
 
 //-------------------------------------------------------------------------

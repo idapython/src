@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_f__codefuncs" kind="group">
+    <compoundname>FF_codefuncs</compoundname>
+    <title>Functions: work with code bits</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___f_f__codefuncs_1gaf4b846767d354823c81e4146a245ee9d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi has_immd</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>has_immd</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Has immediate value? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1734" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1734" bodyend="1734"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__codefuncs_1ga1fa3dc80149519257ad59f2eb5a4b0a5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_func</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_func</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is function start? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1739" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1739" bodyend="1739"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__codefuncs_1ga560484246ad27da7047675a330cd6ead" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_immd</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>set_immd</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set &apos;has immediate operand&apos; flag. Returns true if the <ref refid="group___f_f__codebits_1gacea2ec7d412b8d21330145f9bd8d7543" kindref="member">FF_IMMD</ref> bit was not set and now is set </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1745" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

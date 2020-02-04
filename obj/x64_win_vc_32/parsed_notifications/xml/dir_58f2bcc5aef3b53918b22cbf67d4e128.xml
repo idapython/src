@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="dir_58f2bcc5aef3b53918b22cbf67d4e128" kind="dir">
+    <compoundname>obj/x64_linux_gcc_32_opt/idasdk</compoundname>
+    <innerfile refid="aes_8h">aes.h</innerfile>
+    <innerfile refid="allins_8hpp">allins.hpp</innerfile>
+    <innerfile refid="allow__deprecated_8hpp">allow_deprecated.hpp</innerfile>
+    <innerfile refid="auto_8hpp">auto.hpp</innerfile>
+    <innerfile refid="bitrange_8hpp">bitrange.hpp</innerfile>
+    <innerfile refid="blowfish_8h">blowfish.h</innerfile>
+    <innerfile refid="btree_8hpp">btree.hpp</innerfile>
+    <innerfile refid="bytes_8hpp">bytes.hpp</innerfile>
+    <innerfile refid="clp__c__interface_8h">clp_c_interface.h</innerfile>
+    <innerfile refid="coin__c__defines_8h">coin_c_defines.h</innerfile>
+    <innerfile refid="commerc_8hpp">commerc.hpp</innerfile>
+    <innerfile refid="compress_8hpp">compress.hpp</innerfile>
+    <innerfile refid="config_8hpp">config.hpp</innerfile>
+    <innerfile refid="dbg_8hpp">dbg.hpp</innerfile>
+    <innerfile refid="demangle_8hpp">demangle.hpp</innerfile>
+    <innerfile refid="diskio_8hpp">diskio.hpp</innerfile>
+    <innerfile refid="entry_8hpp">entry.hpp</innerfile>
+    <innerfile refid="enum_8hpp">enum.hpp</innerfile>
+    <innerfile refid="err_8h">err.h</innerfile>
+    <innerfile refid="exehdr_8h">exehdr.h</innerfile>
+    <innerfile refid="expr_8hpp">expr.hpp</innerfile>
+    <innerfile refid="fixup_8hpp">fixup.hpp</innerfile>
+    <innerfile refid="fpro_8h">fpro.h</innerfile>
+    <innerfile refid="frame_8hpp">frame.hpp</innerfile>
+    <innerfile refid="funcs_8hpp">funcs.hpp</innerfile>
+    <innerfile refid="fuzzer_8hpp">fuzzer.hpp</innerfile>
+    <innerfile refid="gdl_8hpp">gdl.hpp</innerfile>
+    <innerfile refid="graph_8hpp">graph.hpp</innerfile>
+    <innerfile refid="help_8h">help.h</innerfile>
+    <innerfile refid="hexrays_8hpp">hexrays.hpp</innerfile>
+    <innerfile refid="hitcnt_8hpp">hitcnt.hpp</innerfile>
+    <innerfile refid="ida_8hpp">ida.hpp</innerfile>
+    <innerfile refid="ida__highlighter_8hpp">ida_highlighter.hpp</innerfile>
+    <innerfile refid="idadcr_8h">idadcr.h</innerfile>
+    <innerfile refid="idd_8hpp">idd.hpp</innerfile>
+    <innerfile refid="idp_8hpp">idp.hpp</innerfile>
+    <innerfile refid="ids_8hpp">ids.hpp</innerfile>
+    <innerfile refid="idtaccess_8hpp">idtaccess.hpp</innerfile>
+    <innerfile refid="ieee_8h">ieee.h</innerfile>
+    <innerfile refid="intel_8hpp">intel.hpp</innerfile>
+    <innerfile refid="jumptable_8hpp">jumptable.hpp</innerfile>
+    <innerfile refid="kernwin_8hpp">kernwin.hpp</innerfile>
+    <innerfile refid="lex_8hpp">lex.hpp</innerfile>
+    <innerfile refid="libfuncs_8hpp">libfuncs.hpp</innerfile>
+    <innerfile refid="lines_8hpp">lines.hpp</innerfile>
+    <innerfile refid="llong_8hpp">llong.hpp</innerfile>
+    <innerfile refid="loader_8hpp">loader.hpp</innerfile>
+    <innerfile refid="lumina_8hpp">lumina.hpp</innerfile>
+    <innerfile refid="md5_8h">md5.h</innerfile>
+    <innerfile refid="moves_8hpp">moves.hpp</innerfile>
+    <innerfile refid="nalt_8hpp">nalt.hpp</innerfile>
+    <innerfile refid="name_8hpp">name.hpp</innerfile>
+    <innerfile refid="netnode_8hpp">netnode.hpp</innerfile>
+    <innerfile refid="network_8hpp">network.hpp</innerfile>
+    <innerfile refid="offset_8hpp">offset.hpp</innerfile>
+    <innerfile refid="parse_8hpp">parse.hpp</innerfile>
+    <innerfile refid="parsejson_8hpp">parsejson.hpp</innerfile>
+    <innerfile refid="parseucdr_8hpp">parseucdr.hpp</innerfile>
+    <innerfile refid="pro_8h">pro.h</innerfile>
+    <innerfile refid="problems_8hpp">problems.hpp</innerfile>
+    <innerfile refid="prodir_8h">prodir.h</innerfile>
+    <innerfile refid="pronet_8h">pronet.h</innerfile>
+    <innerfile refid="range_8hpp">range.hpp</innerfile>
+    <innerfile refid="regex_8h">regex.h</innerfile>
+    <innerfile refid="registry_8hpp">registry.hpp</innerfile>
+    <innerfile refid="search_8hpp">search.hpp</innerfile>
+    <innerfile refid="segment_8hpp">segment.hpp</innerfile>
+    <innerfile refid="segregs_8hpp">segregs.hpp</innerfile>
+    <innerfile refid="sha256_8h">sha256.h</innerfile>
+    <innerfile refid="strlist_8hpp">strlist.hpp</innerfile>
+    <innerfile refid="struct_8hpp">struct.hpp</innerfile>
+    <innerfile refid="testbox_8hpp">testbox.hpp</innerfile>
+    <innerfile refid="tryblks_8hpp">tryblks.hpp</innerfile>
+    <innerfile refid="tstfeat_8hpp">tstfeat.hpp</innerfile>
+    <innerfile refid="typeinf_8hpp">typeinf.hpp</innerfile>
+    <innerfile refid="ua_8hpp">ua.hpp</innerfile>
+    <innerfile refid="ucd_8hpp">ucd.hpp</innerfile>
+    <innerfile refid="uphttp_8hpp">uphttp.hpp</innerfile>
+    <innerfile refid="va_8hpp">va.hpp</innerfile>
+    <innerfile refid="vm_8hpp">vm.hpp</innerfile>
+    <innerfile refid="workarounds_8hpp">workarounds.hpp</innerfile>
+    <innerfile refid="xref_8hpp">xref.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_s_f__" kind="group">
+    <compoundname>SSF_</compoundname>
+    <title>Snapshot flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_s_f___1ga804afc38b16073f6fd8c044a7c530fb2" prot="public" static="no">
+        <name>SSF_AUTOMATIC</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>automatic snapshot </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="894" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="894" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="classsnapshot__t_1a1fc89da9475fe9222d2601aeffe4acd1" kindref="member">snapshot_t::flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

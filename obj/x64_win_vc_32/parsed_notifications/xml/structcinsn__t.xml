@@ -1,0 +1,1266 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structcinsn__t" kind="struct" language="C++" prot="public">
+    <compoundname>cinsn_t</compoundname>
+    <basecompoundref refid="structcitem__t" prot="public" virt="non-virtual">citem_t</basecompoundref>
+    <derivedcompoundref refid="structccase__t" prot="public" virt="non-virtual">ccase_t</derivedcompoundref>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcinsn__t_1af100fbeb9a2ffbf6515b1eb54fcd84e6" prot="public" static="no" mutable="no">
+        <type><ref refid="structcblock__t" kindref="compound">cblock_t</ref> *</type>
+        <definition>cblock_t* cinsn_t::cblock</definition>
+        <argsstring></argsstring>
+        <name>cblock</name>
+        <briefdescription>
+<para>details of block-statement </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5974" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5974" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcinsn__t_1a40e2874faca4be42c5a5643c5c78c5cf" prot="public" static="no" mutable="no">
+        <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+        <definition>cexpr_t* cinsn_t::cexpr</definition>
+        <argsstring></argsstring>
+        <name>cexpr</name>
+        <briefdescription>
+<para>details of expression-statement </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5975" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5975" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcinsn__t_1a40d81b2f926c5cb6892a5fa86b1653ed" prot="public" static="no" mutable="no">
+        <type><ref refid="structcif__t" kindref="compound">cif_t</ref> *</type>
+        <definition>cif_t* cinsn_t::cif</definition>
+        <argsstring></argsstring>
+        <name>cif</name>
+        <briefdescription>
+<para>details of if-statement </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5976" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5976" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcinsn__t_1a5e69c8a79947594e5b063048d66f5050" prot="public" static="no" mutable="no">
+        <type><ref refid="structcfor__t" kindref="compound">cfor_t</ref> *</type>
+        <definition>cfor_t* cinsn_t::cfor</definition>
+        <argsstring></argsstring>
+        <name>cfor</name>
+        <briefdescription>
+<para>details of for-statement </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5977" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5977" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcinsn__t_1ae679927f031a3347d688918b9b25992e" prot="public" static="no" mutable="no">
+        <type><ref refid="structcwhile__t" kindref="compound">cwhile_t</ref> *</type>
+        <definition>cwhile_t* cinsn_t::cwhile</definition>
+        <argsstring></argsstring>
+        <name>cwhile</name>
+        <briefdescription>
+<para>details of while-statement </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5978" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5978" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcinsn__t_1a152b7113be68864822c73f6e421118d8" prot="public" static="no" mutable="no">
+        <type><ref refid="structcdo__t" kindref="compound">cdo_t</ref> *</type>
+        <definition>cdo_t* cinsn_t::cdo</definition>
+        <argsstring></argsstring>
+        <name>cdo</name>
+        <briefdescription>
+<para>details of do-statement </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5979" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5979" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcinsn__t_1a6027054cf52cd22d8950dadaf4d078e3" prot="public" static="no" mutable="no">
+        <type><ref refid="structcswitch__t" kindref="compound">cswitch_t</ref> *</type>
+        <definition>cswitch_t* cinsn_t::cswitch</definition>
+        <argsstring></argsstring>
+        <name>cswitch</name>
+        <briefdescription>
+<para>details of switch-statement </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5980" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5980" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcinsn__t_1aee679ba2d57984260db946270034357d" prot="public" static="no" mutable="no">
+        <type><ref refid="structcreturn__t" kindref="compound">creturn_t</ref> *</type>
+        <definition>creturn_t* cinsn_t::creturn</definition>
+        <argsstring></argsstring>
+        <name>creturn</name>
+        <briefdescription>
+<para>details of return-statement </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5981" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5981" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcinsn__t_1a3f8ac80ed80423f0c59b643ad5f2f994" prot="public" static="no" mutable="no">
+        <type><ref refid="structcgoto__t" kindref="compound">cgoto_t</ref> *</type>
+        <definition>cgoto_t* cinsn_t::cgoto</definition>
+        <argsstring></argsstring>
+        <name>cgoto</name>
+        <briefdescription>
+<para>details of goto-statement </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5982" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5982" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcinsn__t_1af50edc0146fc1774b86ed6522739f725" prot="public" static="no" mutable="no">
+        <type><ref refid="structcasm__t" kindref="compound">casm_t</ref> *</type>
+        <definition>casm_t* cinsn_t::casm</definition>
+        <argsstring></argsstring>
+        <name>casm</name>
+        <briefdescription>
+<para>details of asm-statement </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5983" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5983" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcinsn__t_1ace0f89642a24fe0bff622efae43d2cad" prot="public" static="no" mutable="no">
+        <type>union cinsn_t::@123</type>
+        <definition>union cinsn_t::@123 cinsn_t::@124</definition>
+        <argsstring></argsstring>
+        <name>@124</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5984" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structcinsn__t_1aec6a83fab1db2318eb1019108950fa4f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>cinsn_t::cinsn_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>cinsn_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5986" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5986" bodyend="5986"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1affab8b5be3b048642de1ee8653ae5d32" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>cinsn_t::cinsn_t</definition>
+        <argsstring>(const cinsn_t &amp;r)</argsstring>
+        <name>cinsn_t</name>
+        <param>
+          <type>const <ref refid="structcinsn__t" kindref="compound">cinsn_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5987" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5987" bodyend="5987"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1a7eee82659ee255ee3a619d0669c39244" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void cinsn_t::swap</definition>
+        <argsstring>(cinsn_t &amp;r)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="structcinsn__t" kindref="compound">cinsn_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5988" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5988" bodyend="5988"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1ac1447ff816870acc0dd9580974e0b3b7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structcinsn__t" kindref="compound">cinsn_t</ref> &amp;</type>
+        <definition>cinsn_t&amp; cinsn_t::operator=</definition>
+        <argsstring>(const cinsn_t &amp;r)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="structcinsn__t" kindref="compound">cinsn_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5989" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5989" bodyend="5989"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1a284d00266946d49b0d3b717e5fe06153" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structcinsn__t" kindref="compound">cinsn_t</ref> &amp;hexapi</type>
+        <definition>cinsn_t &amp; cinsn_t::assign</definition>
+        <argsstring>(const cinsn_t &amp;r)</argsstring>
+        <name>assign</name>
+        <param>
+          <type>const <ref refid="structcinsn__t" kindref="compound">cinsn_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5990" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10907" bodyend="10910"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1a2e00e164f046c9f88b343cdf7963704c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>cinsn_t::~cinsn_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>~cinsn_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5992" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5992" bodyend="5992"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1a9274f55437907cd013282db14cbaeadd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void cinsn_t::replace_by</definition>
+        <argsstring>(cinsn_t *r)</argsstring>
+        <name>replace_by</name>
+        <param>
+          <type><ref refid="structcinsn__t" kindref="compound">cinsn_t</ref> *</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Replace the statement. The children of the statement are abandoned (not freed). The statement pointed by &apos;r&apos; is moved to &apos;this&apos; statement <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>r</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the source statement. It is deleted after being copied </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5998" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10919" bodyend="10922"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1ab95999b1a71baec4044a80044210db7e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void cinsn_t::cleanup</definition>
+        <argsstring>(void)</argsstring>
+        <name>cleanup</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Cleanup the statement. This function properly deletes all children and sets the item type to cit_empty. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6002" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10925" bodyend="10928"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1afa10029f1435454cb526529bc84a193f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void cinsn_t::zero</definition>
+        <argsstring>(void)</argsstring>
+        <name>zero</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Overwrite with zeroes without cleaning memory or deleting children. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6005" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6005" bodyend="6005"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1ae45ccb4572069c09626b222b46adbf41" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structcinsn__t" kindref="compound">cinsn_t</ref> &amp;hexapi</type>
+        <definition>cinsn_t &amp; cinsn_t::new_insn</definition>
+        <argsstring>(ea_t insn_ea)</argsstring>
+        <name>new_insn</name>
+        <param>
+          <type>ea_t</type>
+          <declname>insn_ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create a new statement. The current statement must be a block. The new statement will be appended to it. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>insn_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>statement address </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6010" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10931" bodyend="10934"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1a5bc392865360bb5306e1cfb43c96fe94" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structcif__t" kindref="compound">cif_t</ref> &amp;hexapi</type>
+        <definition>cif_t &amp; cinsn_t::create_if</definition>
+        <argsstring>(cexpr_t *cnd)</argsstring>
+        <name>create_if</name>
+        <param>
+          <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+          <declname>cnd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create a new if-statement. The current statement must be a block. The new statement will be appended to it. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cnd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if condition. It will be deleted after being copied. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6015" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10937" bodyend="10940"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1a63e650a94e493c45e0f2c6975f5f65b4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void cinsn_t::print</definition>
+        <argsstring>(int indent, vc_printer_t &amp;vp, use_curly_t use_curly=CALC_CURLY_BRACES) const</argsstring>
+        <name>print</name>
+        <param>
+          <type>int</type>
+          <declname>indent</declname>
+        </param>
+        <param>
+          <type><ref refid="structvc__printer__t" kindref="compound">vc_printer_t</ref> &amp;</type>
+          <declname>vp</declname>
+        </param>
+        <param>
+          <type>use_curly_t</type>
+          <declname>use_curly</declname>
+          <defval>CALC_CURLY_BRACES</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Print the statement into many lines. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>indent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indention (number of spaces) for the statement </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>vp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>printer helper class which will receive the generated text. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>use_curly</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if the statement is a block, how should curly braces be printed. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6021" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10943" bodyend="10946"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1a498845125d4d22b3c6d58c29c2ee8b12" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void cinsn_t::print1</definition>
+        <argsstring>(qstring *vout, const cfunc_t *func) const</argsstring>
+        <name>print1</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>vout</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structcfunc__t" kindref="compound">cfunc_t</ref> *</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Print the statement into one line. Currently this function is not available. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>vout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>parent function. This argument is used to find out the referenced variable names. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6027" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10949" bodyend="10952"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1af5b0d112361682770a46e15e6e7bd613" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool cinsn_t::is_ordinary_flow</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_ordinary_flow</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Check if the statement passes execution to the next statement. <simplesect kind="return"><para>false if the statement breaks the control flow (like goto, return, etc) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6031" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10955" bodyend="10958"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1aca07222ef7b9b5c6b6d995992f5e145b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool cinsn_t::contains_insn</definition>
+        <argsstring>(ctype_t type, int times=1) const</argsstring>
+        <name>contains_insn</name>
+        <param>
+          <type>ctype_t</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>times</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Check if the statement contains a statement of the specified type. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>statement opcode to look for </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>times</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>how many times TYPE should be present </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the statement has at least TIMES children with opcode == TYPE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6037" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10961" bodyend="10964"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1ab9b04e289f2d7ba7318af5408bd2eecc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool cinsn_t::collect_free_breaks</definition>
+        <argsstring>(cinsnptrvec_t *breaks)</argsstring>
+        <name>collect_free_breaks</name>
+        <param>
+          <type><ref refid="classqvector" kindref="compound">cinsnptrvec_t</ref> *</type>
+          <declname>breaks</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Collect free <computeroutput>break</computeroutput> statements. This function finds all free <computeroutput>break</computeroutput> statements within the current statement. A <computeroutput>break</computeroutput> statement is free if it does not have a loop or switch parent that that is also within the current statement. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>breaks</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the variable where the vector of all found free <computeroutput>break</computeroutput> statements is returned. This argument can be NULL. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if some free <computeroutput>break</computeroutput> statements have been found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6046" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10967" bodyend="10970"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1a660a0d276fb1743f4c29c00b9d907063" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool cinsn_t::collect_free_continues</definition>
+        <argsstring>(cinsnptrvec_t *continues)</argsstring>
+        <name>collect_free_continues</name>
+        <param>
+          <type><ref refid="classqvector" kindref="compound">cinsnptrvec_t</ref> *</type>
+          <declname>continues</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Collect free <computeroutput>continue</computeroutput> statements. This function finds all free <computeroutput>continue</computeroutput> statements within the current statement. A <computeroutput>continue</computeroutput> statement is free if it does not have a loop parent that that is also within the current statement. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>continues</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the variable where the vector of all found free <computeroutput>continue</computeroutput> statements is returned. This argument can be NULL. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if some free <computeroutput>continue</computeroutput> statements have been found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6055" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10973" bodyend="10976"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1a7c958b5c16cc0dd7a5565b305d0f5956" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cinsn_t::contains_free_break</definition>
+        <argsstring>(void) const</argsstring>
+        <name>contains_free_break</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Check if the statement has free <computeroutput>break</computeroutput> statements. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6058" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6058" bodyend="6058"/>
+      </memberdef>
+      <memberdef kind="function" id="structcinsn__t_1a3f37dd446221b408fe7c22d297165fde" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cinsn_t::contains_free_continue</definition>
+        <argsstring>(void) const</argsstring>
+        <name>contains_free_continue</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Check if the statement has free <computeroutput>continue</computeroutput> statements. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6060" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6060" bodyend="6060"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Ctree element: statement. Depending on the exact statement type, various fields of the union are used. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="894">
+        <label>cinsn_t</label>
+        <link refid="structcinsn__t"/>
+        <childnode refid="895" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="896">
+        <label>ccase_t</label>
+        <link refid="structccase__t"/>
+        <childnode refid="894" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="895">
+        <label>citem_t</label>
+        <link refid="structcitem__t"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="940">
+        <label>ivl_tpl&lt; uval_t &gt;</label>
+        <link refid="structivl__tpl"/>
+      </node>
+      <node id="916">
+        <label>bitset_t</label>
+        <link refid="classbitset__t"/>
+      </node>
+      <node id="897">
+        <label>cinsn_t</label>
+        <link refid="structcinsn__t"/>
+        <childnode refid="898" relation="public-inheritance">
+        </childnode>
+        <childnode refid="899" relation="usage">
+          <edgelabel>cexpr</edgelabel>
+        </childnode>
+        <childnode refid="952" relation="usage">
+          <edgelabel>cwhile</edgelabel>
+        </childnode>
+        <childnode refid="955" relation="usage">
+          <edgelabel>cswitch</edgelabel>
+        </childnode>
+        <childnode refid="958" relation="usage">
+          <edgelabel>cfor</edgelabel>
+        </childnode>
+        <childnode refid="959" relation="usage">
+          <edgelabel>cdo</edgelabel>
+        </childnode>
+        <childnode refid="960" relation="usage">
+          <edgelabel>casm</edgelabel>
+        </childnode>
+        <childnode refid="962" relation="usage">
+          <edgelabel>cblock</edgelabel>
+        </childnode>
+        <childnode refid="964" relation="usage">
+          <edgelabel>creturn</edgelabel>
+        </childnode>
+        <childnode refid="965" relation="usage">
+          <edgelabel>cif</edgelabel>
+        </childnode>
+        <childnode refid="966" relation="usage">
+          <edgelabel>cgoto</edgelabel>
+        </childnode>
+      </node>
+      <node id="914">
+        <label>mlist_t</label>
+        <link refid="structmlist__t"/>
+        <childnode refid="911" relation="usage">
+          <edgelabel>mem</edgelabel>
+        </childnode>
+        <childnode refid="915" relation="usage">
+          <edgelabel>reg</edgelabel>
+        </childnode>
+      </node>
+      <node id="938">
+        <label>ivl_with_name_t</label>
+        <link refid="structivl__with__name__t"/>
+        <childnode refid="939" relation="usage">
+          <edgelabel>ivl</edgelabel>
+        </childnode>
+      </node>
+      <node id="906">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="962">
+        <label>cblock_t</label>
+        <link refid="structcblock__t"/>
+        <childnode refid="963" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="963">
+        <label>qlist&lt; cinsn_t &gt;</label>
+        <link refid="classqlist"/>
+      </node>
+      <node id="928">
+        <label>mop_addr_t</label>
+        <link refid="classmop__addr__t"/>
+        <childnode refid="921" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="950">
+        <label>netnode</label>
+        <link refid="classnetnode"/>
+      </node>
+      <node id="956">
+        <label>ccases_t</label>
+        <link refid="structccases__t"/>
+        <childnode refid="957" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="932">
+        <label>qvector&lt; mop_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="911">
+        <label>ivlset_t</label>
+        <link refid="structivlset__t"/>
+        <childnode refid="912" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="904">
+        <label>carglist_t</label>
+        <link refid="structcarglist__t"/>
+        <childnode refid="905" relation="public-inheritance">
+        </childnode>
+        <childnode refid="906" relation="usage">
+          <edgelabel>functype</edgelabel>
+        </childnode>
+      </node>
+      <node id="919">
+        <label>mblock_t</label>
+        <link refid="classmblock__t"/>
+        <childnode refid="908" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="914" relation="usage">
+          <edgelabel>maybuse</edgelabel>
+          <edgelabel>dnu</edgelabel>
+          <edgelabel>maybdef</edgelabel>
+          <edgelabel>mustbuse</edgelabel>
+          <edgelabel>mustbdef</edgelabel>
+          <edgelabel>dead_at_start</edgelabel>
+        </childnode>
+        <childnode refid="917" relation="usage">
+          <edgelabel>succset</edgelabel>
+          <edgelabel>predset</edgelabel>
+        </childnode>
+        <childnode refid="920" relation="usage">
+          <edgelabel>head</edgelabel>
+          <edgelabel>tail</edgelabel>
+        </childnode>
+        <childnode refid="919" relation="usage">
+          <edgelabel>nextb</edgelabel>
+          <edgelabel>prevb</edgelabel>
+        </childnode>
+      </node>
+      <node id="949">
+        <label>rangevec_base_t</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="958">
+        <label>cfor_t</label>
+        <link refid="structcfor__t"/>
+        <childnode refid="953" relation="public-inheritance">
+        </childnode>
+        <childnode refid="899" relation="usage">
+          <edgelabel>step</edgelabel>
+          <edgelabel>init</edgelabel>
+        </childnode>
+      </node>
+      <node id="935">
+        <label>operand_locator_t</label>
+        <link refid="structoperand__locator__t"/>
+      </node>
+      <node id="901">
+        <label>cnumber_t</label>
+        <link refid="structcnumber__t"/>
+        <childnode refid="902" relation="usage">
+          <edgelabel>nf</edgelabel>
+        </childnode>
+      </node>
+      <node id="913">
+        <label>qvector&lt; ivl_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="936">
+        <label>mcases_t</label>
+        <link refid="classmcases__t"/>
+        <childnode refid="917" relation="usage">
+          <edgelabel>targets</edgelabel>
+        </childnode>
+      </node>
+      <node id="931">
+        <label>qvector&lt; mcallarg_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="952">
+        <label>cwhile_t</label>
+        <link refid="structcwhile__t"/>
+        <childnode refid="953" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="964">
+        <label>creturn_t</label>
+        <link refid="structcreturn__t"/>
+        <childnode refid="954" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="942">
+        <label>func_t</label>
+        <link refid="classfunc__t"/>
+        <childnode refid="943" relation="public-inheritance">
+        </childnode>
+        <childnode refid="944" relation="usage">
+          <edgelabel>regargs</edgelabel>
+        </childnode>
+        <childnode refid="945" relation="usage">
+          <edgelabel>points</edgelabel>
+        </childnode>
+        <childnode refid="943" relation="usage">
+          <edgelabel>tails</edgelabel>
+        </childnode>
+        <childnode refid="946" relation="usage">
+          <edgelabel>regvars</edgelabel>
+        </childnode>
+        <childnode refid="947" relation="usage">
+          <edgelabel>llabels</edgelabel>
+        </childnode>
+      </node>
+      <node id="921">
+        <label>mop_t</label>
+        <link refid="classmop__t"/>
+        <childnode refid="922" relation="usage">
+          <edgelabel>scif</edgelabel>
+        </childnode>
+        <childnode refid="900" relation="usage">
+          <edgelabel>fpc</edgelabel>
+        </childnode>
+        <childnode refid="928" relation="usage">
+          <edgelabel>a</edgelabel>
+        </childnode>
+        <childnode refid="929" relation="usage">
+          <edgelabel>pair</edgelabel>
+        </childnode>
+        <childnode refid="930" relation="usage">
+          <edgelabel>f</edgelabel>
+        </childnode>
+        <childnode refid="920" relation="usage">
+          <edgelabel>d</edgelabel>
+        </childnode>
+        <childnode refid="933" relation="usage">
+          <edgelabel>l</edgelabel>
+        </childnode>
+        <childnode refid="934" relation="usage">
+          <edgelabel>nnn</edgelabel>
+        </childnode>
+        <childnode refid="936" relation="usage">
+          <edgelabel>c</edgelabel>
+        </childnode>
+        <childnode refid="937" relation="usage">
+          <edgelabel>s</edgelabel>
+        </childnode>
+      </node>
+      <node id="961">
+        <label>eavec_t</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="929">
+        <label>mop_pair_t</label>
+        <link refid="classmop__pair__t"/>
+        <childnode refid="921" relation="usage">
+          <edgelabel>hop</edgelabel>
+          <edgelabel>lop</edgelabel>
+        </childnode>
+      </node>
+      <node id="907">
+        <label>var_ref_t</label>
+        <link refid="structvar__ref__t"/>
+        <childnode refid="908" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="960">
+        <label>casm_t</label>
+        <link refid="structcasm__t"/>
+        <childnode refid="961" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="944">
+        <label>regarg_t</label>
+        <link refid="structregarg__t"/>
+      </node>
+      <node id="899">
+        <label>cexpr_t</label>
+        <link refid="structcexpr__t"/>
+        <childnode refid="898" relation="public-inheritance">
+        </childnode>
+        <childnode refid="899" relation="usage">
+          <edgelabel>x</edgelabel>
+          <edgelabel>y</edgelabel>
+          <edgelabel>z</edgelabel>
+        </childnode>
+        <childnode refid="900" relation="usage">
+          <edgelabel>fpc</edgelabel>
+        </childnode>
+        <childnode refid="901" relation="usage">
+          <edgelabel>n</edgelabel>
+        </childnode>
+        <childnode refid="904" relation="usage">
+          <edgelabel>a</edgelabel>
+        </childnode>
+        <childnode refid="906" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+        <childnode refid="897" relation="usage">
+          <edgelabel>insn</edgelabel>
+        </childnode>
+        <childnode refid="907" relation="usage">
+          <edgelabel>v</edgelabel>
+        </childnode>
+      </node>
+      <node id="957">
+        <label>qvector&lt; ccase_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="902">
+        <label>number_format_t</label>
+        <link refid="structnumber__format__t"/>
+        <childnode refid="903" relation="usage">
+          <edgelabel>type_name</edgelabel>
+        </childnode>
+      </node>
+      <node id="900">
+        <label>fnumber_t</label>
+        <link refid="structfnumber__t"/>
+      </node>
+      <node id="908">
+        <label>mbl_array_t</label>
+        <link refid="classmbl__array__t"/>
+        <childnode refid="909" relation="usage">
+          <edgelabel>vars</edgelabel>
+        </childnode>
+        <childnode refid="903" relation="usage">
+          <edgelabel>label</edgelabel>
+          <edgelabel>error_strarg</edgelabel>
+        </childnode>
+        <childnode refid="911" relation="usage">
+          <edgelabel>gotoff_stkvars</edgelabel>
+          <edgelabel>restricted_memory</edgelabel>
+          <edgelabel>aliased_memory</edgelabel>
+        </childnode>
+        <childnode refid="914" relation="usage">
+          <edgelabel>spoiled_list</edgelabel>
+          <edgelabel>nodel_memory</edgelabel>
+        </childnode>
+        <childnode refid="917" relation="usage">
+          <edgelabel>argidx</edgelabel>
+        </childnode>
+        <childnode refid="918" relation="usage">
+          <edgelabel>idb_spoiled</edgelabel>
+        </childnode>
+        <childnode refid="919" relation="usage">
+          <edgelabel>blocks</edgelabel>
+          <edgelabel>natural</edgelabel>
+        </childnode>
+        <childnode refid="915" relation="usage">
+          <edgelabel>consumed_argregs</edgelabel>
+        </childnode>
+        <childnode refid="938" relation="usage">
+          <edgelabel>std_ivls</edgelabel>
+        </childnode>
+        <childnode refid="906" relation="usage">
+          <edgelabel>idb_type</edgelabel>
+        </childnode>
+        <childnode refid="941" relation="usage">
+          <edgelabel>mbr</edgelabel>
+        </childnode>
+        <childnode refid="950" relation="usage">
+          <edgelabel>idb_node</edgelabel>
+        </childnode>
+        <childnode refid="951" relation="usage">
+          <edgelabel>notes</edgelabel>
+        </childnode>
+        <childnode refid="939" relation="usage">
+          <edgelabel>aliased_args</edgelabel>
+          <edgelabel>aliased_vars</edgelabel>
+        </childnode>
+      </node>
+      <node id="930">
+        <label>mcallinfo_t</label>
+        <link refid="classmcallinfo__t"/>
+        <childnode refid="911" relation="usage">
+          <edgelabel>visible_memory</edgelabel>
+        </childnode>
+        <childnode refid="914" relation="usage">
+          <edgelabel>pass_regs</edgelabel>
+          <edgelabel>spoiled</edgelabel>
+          <edgelabel>dead_regs</edgelabel>
+          <edgelabel>return_regs</edgelabel>
+        </childnode>
+        <childnode refid="931" relation="usage">
+          <edgelabel>args</edgelabel>
+        </childnode>
+        <childnode refid="906" relation="usage">
+          <edgelabel>return_type</edgelabel>
+        </childnode>
+        <childnode refid="932" relation="usage">
+          <edgelabel>retregs</edgelabel>
+        </childnode>
+        <childnode refid="924" relation="usage">
+          <edgelabel>return_argloc</edgelabel>
+        </childnode>
+      </node>
+      <node id="941">
+        <label>mba_ranges_t</label>
+        <link refid="structmba__ranges__t"/>
+        <childnode refid="942" relation="usage">
+          <edgelabel>pfn</edgelabel>
+        </childnode>
+        <childnode refid="948" relation="usage">
+          <edgelabel>ranges</edgelabel>
+        </childnode>
+      </node>
+      <node id="912">
+        <label>ivlset_tpl&lt; ivl_t, uval_t &gt;</label>
+        <link refid="classivlset__tpl"/>
+        <childnode refid="913" relation="usage">
+          <edgelabel>bag</edgelabel>
+        </childnode>
+      </node>
+      <node id="955">
+        <label>cswitch_t</label>
+        <link refid="structcswitch__t"/>
+        <childnode refid="954" relation="public-inheritance">
+        </childnode>
+        <childnode refid="956" relation="usage">
+          <edgelabel>cases</edgelabel>
+        </childnode>
+        <childnode refid="901" relation="usage">
+          <edgelabel>mvnf</edgelabel>
+        </childnode>
+      </node>
+      <node id="922">
+        <label>scif_t</label>
+        <link refid="structscif__t"/>
+        <childnode refid="923" relation="public-inheritance">
+        </childnode>
+        <childnode refid="908" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="903" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="906" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+      </node>
+      <node id="917">
+        <label>qvector&lt; int &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="945">
+        <label>stkpnt_t</label>
+        <link refid="structstkpnt__t"/>
+      </node>
+      <node id="903">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="905">
+        <label>qvector&lt; carg_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="920">
+        <label>minsn_t</label>
+        <link refid="classminsn__t"/>
+        <childnode refid="920" relation="usage">
+          <edgelabel>prev</edgelabel>
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="921" relation="usage">
+          <edgelabel>l</edgelabel>
+          <edgelabel>r</edgelabel>
+          <edgelabel>d</edgelabel>
+        </childnode>
+      </node>
+      <node id="898">
+        <label>citem_t</label>
+        <link refid="structcitem__t"/>
+      </node>
+      <node id="925">
+        <label>scattered_aloc_t</label>
+        <link refid="classscattered__aloc__t"/>
+        <childnode refid="926" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="926">
+        <label>qvector&lt; argpart_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="943">
+        <label>range_t</label>
+        <link refid="structrange__t"/>
+      </node>
+      <node id="923">
+        <label>vdloc_t</label>
+        <link refid="classvdloc__t"/>
+        <childnode refid="924" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="946">
+        <label>regvar_t</label>
+        <link refid="structregvar__t"/>
+        <childnode refid="943" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="951">
+        <label>qvector&lt; hexwarn_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="934">
+        <label>mnumber_t</label>
+        <link refid="structmnumber__t"/>
+        <childnode refid="935" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="909">
+        <label>lvars_t</label>
+        <link refid="structlvars__t"/>
+        <childnode refid="910" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="924">
+        <label>argloc_t</label>
+        <link refid="classargloc__t"/>
+        <childnode refid="925" relation="usage">
+          <edgelabel>dist</edgelabel>
+        </childnode>
+        <childnode refid="927" relation="usage">
+          <edgelabel>rrel</edgelabel>
+        </childnode>
+      </node>
+      <node id="966">
+        <label>cgoto_t</label>
+        <link refid="structcgoto__t"/>
+      </node>
+      <node id="947">
+        <label>llabel_t</label>
+        <link refid="structllabel__t"/>
+      </node>
+      <node id="933">
+        <label>lvar_ref_t</label>
+        <link refid="structlvar__ref__t"/>
+        <childnode refid="908" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="910">
+        <label>qvector&lt; lvar_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="937">
+        <label>stkvar_ref_t</label>
+        <link refid="structstkvar__ref__t"/>
+        <childnode refid="908" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="918">
+        <label>qvector&lt; reg_info_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="927">
+        <label>rrel_t</label>
+        <link refid="structrrel__t"/>
+      </node>
+      <node id="959">
+        <label>cdo_t</label>
+        <link refid="structcdo__t"/>
+        <childnode refid="953" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="954">
+        <label>ceinsn_t</label>
+        <link refid="structceinsn__t"/>
+        <childnode refid="899" relation="usage">
+          <edgelabel>expr</edgelabel>
+        </childnode>
+      </node>
+      <node id="915">
+        <label>rlist_t</label>
+        <link refid="classrlist__t"/>
+        <childnode refid="916" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="965">
+        <label>cif_t</label>
+        <link refid="structcif__t"/>
+        <childnode refid="954" relation="public-inheritance">
+        </childnode>
+        <childnode refid="897" relation="usage">
+          <edgelabel>ithen</edgelabel>
+          <edgelabel>ielse</edgelabel>
+        </childnode>
+      </node>
+      <node id="953">
+        <label>cloop_t</label>
+        <link refid="structcloop__t"/>
+        <childnode refid="954" relation="public-inheritance">
+        </childnode>
+        <childnode refid="897" relation="usage">
+          <edgelabel>body</edgelabel>
+        </childnode>
+      </node>
+      <node id="939">
+        <label>ivl_t</label>
+        <link refid="structivl__t"/>
+        <childnode refid="940" relation="public-inheritance">
+        </childnode>
+        <childnode refid="939" relation="usage">
+          <edgelabel>allmem</edgelabel>
+        </childnode>
+      </node>
+      <node id="948">
+        <label>rangevec_t</label>
+        <link refid="structrangevec__t"/>
+        <childnode refid="949" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5971" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5970" bodyend="6062"/>
+    <listofallmembers>
+      <member refid="structcinsn__t_1a284d00266946d49b0d3b717e5fe06153" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>assign</name></member>
+      <member refid="structcinsn__t_1af50edc0146fc1774b86ed6522739f725" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>casm</name></member>
+      <member refid="structcinsn__t_1af100fbeb9a2ffbf6515b1eb54fcd84e6" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>cblock</name></member>
+      <member refid="structcinsn__t_1a152b7113be68864822c73f6e421118d8" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>cdo</name></member>
+      <member refid="structcinsn__t_1a40e2874faca4be42c5a5643c5c78c5cf" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>cexpr</name></member>
+      <member refid="structcinsn__t_1a5e69c8a79947594e5b063048d66f5050" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>cfor</name></member>
+      <member refid="structcinsn__t_1a3f8ac80ed80423f0c59b643ad5f2f994" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>cgoto</name></member>
+      <member refid="structcinsn__t_1a40d81b2f926c5cb6892a5fa86b1653ed" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>cif</name></member>
+      <member refid="structcinsn__t_1aec6a83fab1db2318eb1019108950fa4f" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>cinsn_t</name></member>
+      <member refid="structcinsn__t_1affab8b5be3b048642de1ee8653ae5d32" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>cinsn_t</name></member>
+      <member refid="structcitem__t_1a68e6534549ef56240f63223ce2cb9511" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>citem_t</name></member>
+      <member refid="structcitem__t_1a8ed7508d9cdd428897e5ab86cff6d51c" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>citem_t</name></member>
+      <member refid="structcinsn__t_1ab95999b1a71baec4044a80044210db7e" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>cleanup</name></member>
+      <member refid="structcinsn__t_1ab9b04e289f2d7ba7318af5408bd2eecc" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>collect_free_breaks</name></member>
+      <member refid="structcinsn__t_1a660a0d276fb1743f4c29c00b9d907063" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>collect_free_continues</name></member>
+      <member refid="structcitem__t_1a304ea880814cfd2d766ced8ac9d63d6a" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>contains_expr</name></member>
+      <member refid="structcinsn__t_1a7c958b5c16cc0dd7a5565b305d0f5956" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>contains_free_break</name></member>
+      <member refid="structcinsn__t_1a3f37dd446221b408fe7c22d297165fde" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>contains_free_continue</name></member>
+      <member refid="structcinsn__t_1aca07222ef7b9b5c6b6d995992f5e145b" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>contains_insn</name></member>
+      <member refid="structcitem__t_1abcfd9281359d7cc9073396fb20a1a379" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>contains_label</name></member>
+      <member refid="structcinsn__t_1a5bc392865360bb5306e1cfb43c96fe94" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>create_if</name></member>
+      <member refid="structcinsn__t_1aee679ba2d57984260db946270034357d" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>creturn</name></member>
+      <member refid="structcinsn__t_1a6027054cf52cd22d8950dadaf4d078e3" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>cswitch</name></member>
+      <member refid="structcinsn__t_1ae679927f031a3347d688918b9b25992e" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>cwhile</name></member>
+      <member refid="structcitem__t_1af00396e7913ec06b2b2f8935cf8f7fb2" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>ea</name></member>
+      <member refid="structcitem__t_1a6eb0a116ba9cc474ecacc1eb6760c989" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>find_closest_addr</name></member>
+      <member refid="structcitem__t_1adc6157bf70af53c0a3b2d18605b45e47" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>find_parent_of</name></member>
+      <member refid="structcitem__t_1a71afa2c61889ebb945079417dd2ffdbb" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>find_parent_of</name></member>
+      <member refid="structcitem__t_1ab7a994cf8aa6189e9f76bc7137ba19d1" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>index</name></member>
+      <member refid="structcitem__t_1a3cd0a66665b25a4e0fb37f0142f61177" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>is_expr</name></member>
+      <member refid="structcinsn__t_1af5b0d112361682770a46e15e6e7bd613" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>is_ordinary_flow</name></member>
+      <member refid="structcitem__t_1ab61378fb46647d677357d927fa83b770" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>label_num</name></member>
+      <member refid="structcinsn__t_1ae45ccb4572069c09626b222b46adbf41" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>new_insn</name></member>
+      <member refid="structcitem__t_1a33d356c09a0788470e7cf211b13f6215" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>op</name></member>
+      <member refid="structcinsn__t_1ac1447ff816870acc0dd9580974e0b3b7" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>operator=</name></member>
+      <member refid="structcinsn__t_1a63e650a94e493c45e0f2c6975f5f65b4" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>print</name></member>
+      <member refid="structcinsn__t_1a498845125d4d22b3c6d58c29c2ee8b12" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>print1</name></member>
+      <member refid="structcinsn__t_1a9274f55437907cd013282db14cbaeadd" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>replace_by</name></member>
+      <member refid="structcinsn__t_1a7eee82659ee255ee3a619d0669c39244" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>swap</name></member>
+      <member refid="structcitem__t_1acd07d680aacae7bd9a4c57e6aefbf19f" prot="public" virt="non-virtual" ambiguityscope="citem_t::"><scope>cinsn_t</scope><name>swap</name></member>
+      <member refid="structcinsn__t_1afa10029f1435454cb526529bc84a193f" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>zero</name></member>
+      <member refid="structcinsn__t_1a2e00e164f046c9f88b343cdf7963704c" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>~cinsn_t</name></member>
+      <member refid="structcitem__t_1ad1359d2dcb00069b1c29a0e08bcdbc18" prot="public" virt="non-virtual"><scope>cinsn_t</scope><name>~citem_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

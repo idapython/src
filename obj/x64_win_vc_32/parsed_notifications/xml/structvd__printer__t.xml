@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structvd__printer__t" kind="struct" language="C++" prot="public">
+    <compoundname>vd_printer_t</compoundname>
+    <derivedcompoundref refid="structfile__printer__t" prot="public" virt="non-virtual">file_printer_t</derivedcompoundref>
+    <derivedcompoundref refid="structvc__printer__t" prot="public" virt="non-virtual">vc_printer_t</derivedcompoundref>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structvd__printer__t_1a29327658729a4113c1096fb901dbf815" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring vd_printer_t::tmpbuf</definition>
+        <argsstring></argsstring>
+        <name>tmpbuf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="912" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="912" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvd__printer__t_1a80e781417646cb435dcaf6c5113cb344" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int vd_printer_t::hdrlines</definition>
+        <argsstring></argsstring>
+        <name>hdrlines</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>number of header lines (prototype+typedef+lvars) valid at the end of print process </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="913" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="913" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structvd__printer__t_1a75abfef1c3c6dc5da92ae20df2380afe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>int hexapi</type>
+        <definition>int vd_printer_t::print</definition>
+        <argsstring>(int indent, const char *format,...)</argsstring>
+        <name>print</name>
+        <reimplementedby refid="structfile__printer__t_1a422f0c74fde47b2528938f284848ff75">print</reimplementedby>
+        <reimplementedby refid="structqstring__printer__t_1aa015dc431ac64a993737dcf23fddd3b8">print</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>indent</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Print. This function is called to generate a portion of the output text. The output text may contain color codes. <simplesect kind="return"><para>the number of printed characters </para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>indent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of spaces to generate as prefix </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>printf-style format specifier </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>length of printed string </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="922" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9165" bodyend="9172"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Base helper class to convert binary data structures into text. Other classes are derived from this class. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="3751">
+        <label>vc_printer_t</label>
+        <link refid="structvc__printer__t"/>
+        <childnode refid="3749" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3749">
+        <label>vd_printer_t</label>
+        <link refid="structvd__printer__t"/>
+      </node>
+      <node id="3752">
+        <label>qstring_printer_t</label>
+        <link refid="structqstring__printer__t"/>
+        <childnode refid="3751" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3750">
+        <label>file_printer_t</label>
+        <link refid="structfile__printer__t"/>
+        <childnode refid="3749" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3753">
+        <label>vd_printer_t</label>
+        <link refid="structvd__printer__t"/>
+        <childnode refid="3754" relation="usage">
+          <edgelabel>tmpbuf</edgelabel>
+        </childnode>
+      </node>
+      <node id="3754">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="911" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="910" bodyend="924"/>
+    <listofallmembers>
+      <member refid="structvd__printer__t_1a80e781417646cb435dcaf6c5113cb344" prot="public" virt="non-virtual"><scope>vd_printer_t</scope><name>hdrlines</name></member>
+      <member refid="structvd__printer__t_1a75abfef1c3c6dc5da92ae20df2380afe" prot="public" virt="virtual"><scope>vd_printer_t</scope><name>print</name></member>
+      <member refid="structvd__printer__t_1a29327658729a4113c1096fb901dbf815" prot="public" virt="non-virtual"><scope>vd_printer_t</scope><name>tmpbuf</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

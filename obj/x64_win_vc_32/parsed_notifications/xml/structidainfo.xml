@@ -1,0 +1,1633 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structidainfo" kind="struct" language="C++" prot="public">
+    <compoundname>idainfo</compoundname>
+    <includes refid="ida_8hpp" local="no">ida.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structidainfo_1af32c06d23e5d729e030300d41e6cdb13" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char idainfo::tag[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>tag</name>
+        <briefdescription>
+<para>&apos;IDA&apos; </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="106" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1ab4c002c8b8dbee1bd21ed2579f78dfbd" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char idainfo::zero</definition>
+        <argsstring></argsstring>
+        <name>zero</name>
+        <briefdescription>
+<para>this field is not present in the database </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="107" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a7159a5a207b9b474c24957f0acdddcb6" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+        <definition>ushort idainfo::version</definition>
+        <argsstring></argsstring>
+        <name>version</name>
+        <briefdescription>
+<para>Version of database. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="108" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1aeae16f4dd4dda86f54c90390d021a281" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char idainfo::procname[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>procname</name>
+        <briefdescription>
+<para>Name of the current processor (with \0) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="109" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a7e87c180440ba1682326e6b9f791dd70" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+        <definition>ushort idainfo::s_genflags</definition>
+        <argsstring></argsstring>
+        <name>s_genflags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___i_n_f_f_l__" kindref="compound">General idainfo flags</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="111" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1ae992797dc8a5dff27b8fa90ced1ee49a" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 idainfo::lflags</definition>
+        <argsstring></argsstring>
+        <name>lflags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___l_f_l_g__" kindref="compound">Misc. database flags</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="132" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1aee503f2891e2d7075711a39c16c91b25" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 idainfo::database_change_count</definition>
+        <argsstring></argsstring>
+        <name>database_change_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>incremented after each byte and regular segment modifications </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="190" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a9615918b0c5b94d037dd9b61f94d67c8" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+        <definition>ushort idainfo::filetype</definition>
+        <argsstring></argsstring>
+        <name>filetype</name>
+        <briefdescription>
+<para>The input file type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="193" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1ab0dc9a59cf017a29a995a2879c9424f4" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+        <definition>ushort idainfo::ostype</definition>
+        <argsstring></argsstring>
+        <name>ostype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>OS type the program is for bit definitions in <ref refid="libfuncs_8hpp_source" kindref="compound">libfuncs.hpp</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="204" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a5aefdae7fd5deca326425b7bfac0640e" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+        <definition>ushort idainfo::apptype</definition>
+        <argsstring></argsstring>
+        <name>apptype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Application type bit definitions in <ref refid="libfuncs_8hpp_source" kindref="compound">libfuncs.hpp</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="207" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a18ec3d8a5cd72b933a53ec53eb6d5186" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idainfo::asmtype</definition>
+        <argsstring></argsstring>
+        <name>asmtype</name>
+        <briefdescription>
+<para>target assembler number </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="210" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1aad581ee1e7dc34b773498f728c8a2cab" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idainfo::specsegs</definition>
+        <argsstring></argsstring>
+        <name>specsegs</name>
+        <briefdescription>
+<para>What format do special segments use? 0-unspecified, 4-entries are 4 bytes, 8- entries are 8 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="212" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a3da66def2cc449f51e50742869bafbd5" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 idainfo::af</definition>
+        <argsstring></argsstring>
+        <name>af</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___a_f__" kindref="compound">Analysis flags</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="214" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a99e20674f376ba7099f607561e196405" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 idainfo::af2</definition>
+        <argsstring></argsstring>
+        <name>af2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___a_f2__" kindref="compound">Analysis flags 2</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="256" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a648317794592f062a57c335a89b3af2c" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+        <definition>uval_t idainfo::baseaddr</definition>
+        <argsstring></argsstring>
+        <name>baseaddr</name>
+        <briefdescription>
+<para>remaining 30 bits are reserved </para>        </briefdescription>
+        <detaileddescription>
+<para>base address of the program (paragraphs) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="264" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a9eb87f540e8e4a2ea28aecf53ed452d5" prot="public" static="no" mutable="no">
+        <type>sel_t</type>
+        <definition>sel_t idainfo::start_ss</definition>
+        <argsstring></argsstring>
+        <name>start_ss</name>
+        <briefdescription>
+<para>selector of the initial stack segment </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="265" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a2854affbd7a3a1067ab6fffc313650e8" prot="public" static="no" mutable="no">
+        <type>sel_t</type>
+        <definition>sel_t idainfo::start_cs</definition>
+        <argsstring></argsstring>
+        <name>start_cs</name>
+        <briefdescription>
+<para>selector of the segment with the main entry point </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="266" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a9473e3b088fffeb3fc867f486a3b591e" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t idainfo::start_ip</definition>
+        <argsstring></argsstring>
+        <name>start_ip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>IP register value at the start of program execution </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="267" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1ab8b6edf1a30a7fcd0899d2ab657e692a" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t idainfo::start_ea</definition>
+        <argsstring></argsstring>
+        <name>start_ea</name>
+        <briefdescription>
+<para>Linear address of program entry point. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="269" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1ac3b3d93b8b7624b8a1782f4acad3b12d" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t idainfo::start_sp</definition>
+        <argsstring></argsstring>
+        <name>start_sp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>SP register value at the start of program execution </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="270" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a2122a0ef22364edcb452537e942ff921" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t idainfo::main</definition>
+        <argsstring></argsstring>
+        <name>main</name>
+        <briefdescription>
+<para>address of <ref refid="structidainfo_1a2122a0ef22364edcb452537e942ff921" kindref="member">main()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="272" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a9414151d0f7241ac1369b98358b8c0cb" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t idainfo::min_ea</definition>
+        <argsstring></argsstring>
+        <name>min_ea</name>
+        <briefdescription>
+<para>current limits of program </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="273" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a55a7952ae4d39577ce2bb2a5699a6fee" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t idainfo::max_ea</definition>
+        <argsstring></argsstring>
+        <name>max_ea</name>
+        <briefdescription>
+<para>maxEA is excluded </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="274" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a80258e5d86f9f360bb279cbacdc80773" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t idainfo::omin_ea</definition>
+        <argsstring></argsstring>
+        <name>omin_ea</name>
+        <briefdescription>
+<para>original minEA (is set after loading the input file) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="275" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1ac64109043ebacc93c04b0a4983023098" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t idainfo::omax_ea</definition>
+        <argsstring></argsstring>
+        <name>omax_ea</name>
+        <briefdescription>
+<para>original maxEA (is set after loading the input file) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="276" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a4db3d6290ce9f8b3b87a609e70cf3664" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t idainfo::lowoff</definition>
+        <argsstring></argsstring>
+        <name>lowoff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Low limit for offsets (used in calculation of &apos;void&apos; operands) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="278" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a4a2cafeb82fc53775f00568c6100dab6" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t idainfo::highoff</definition>
+        <argsstring></argsstring>
+        <name>highoff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>High limit for offsets (used in calculation of &apos;void&apos; operands) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="280" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1ae9f819e32c08c1e1dd41722c725bfb60" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+        <definition>uval_t idainfo::maxref</definition>
+        <argsstring></argsstring>
+        <name>maxref</name>
+        <briefdescription>
+<para>Max tail for references. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="283" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a4665184d6fce41f44600dfab7b889f01" prot="public" static="no" mutable="no">
+        <type><ref refid="structrange__t" kindref="compound">range_t</ref></type>
+        <definition>range_t idainfo::privrange</definition>
+        <argsstring></argsstring>
+        <name>privrange</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Range of addresses reserved for internal use. Initially (MAXADDR, MAXADDR+0x800000) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="285" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a17e09b24463f8bff921b137e28e36617" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+        <definition>sval_t idainfo::netdelta</definition>
+        <argsstring></argsstring>
+        <name>netdelta</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delta value to be added to all adresses for mapping to netnodes. Initially 0 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="287" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a9df3bcb380713be1b7d4a6be024649f9" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idainfo::xrefnum</definition>
+        <argsstring></argsstring>
+        <name>xrefnum</name>
+        <briefdescription>
+<para>CROSS REFERENCES. </para>        </briefdescription>
+        <detaileddescription>
+<para>Number of references to generate in the disassembly listing 0 - xrefs won&apos;t be generated at all </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="291" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a22990d7f61459f22b659c2a53d52cf81" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idainfo::type_xrefnum</definition>
+        <argsstring></argsstring>
+        <name>type_xrefnum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Number of references to generate in the struct &amp; enum windows 0 - xrefs won&apos;t be generated at all </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="294" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="294" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a3791ffa2d48cff2ceb3d985b07aadeac" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idainfo::refcmtnum</definition>
+        <argsstring></argsstring>
+        <name>refcmtnum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Number of comment lines to generate for refs to string literals or demangled names 0 - such comments won&apos;t be generated at all </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="297" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a11631cc167d16fb6bd318874e07c3e3d" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idainfo::s_xrefflag</definition>
+        <argsstring></argsstring>
+        <name>s_xrefflag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___s_w___x" kindref="compound">Xref options</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="302" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1ad646c2f856a8abe543a54395d397aeab" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+        <definition>ushort idainfo::max_autoname_len</definition>
+        <argsstring></argsstring>
+        <name>max_autoname_len</name>
+        <briefdescription>
+<para>NAMES. </para>        </briefdescription>
+        <detaileddescription>
+<para>max autogenerated name length (without zero byte) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="313" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="313" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a9711d36d37ed4382a905e9a2653ade9b" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char idainfo::nametype</definition>
+        <argsstring></argsstring>
+        <name>nametype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___n_m__" kindref="compound">Dummy names representation types</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="314" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1aff8c8d841fe27365a286195bec9652dc" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 idainfo::short_demnames</definition>
+        <argsstring></argsstring>
+        <name>short_demnames</name>
+        <briefdescription>
+<para>short form of demangled names </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="331" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a952d4e827a7ccbd2b0ce7c23569433d5" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 idainfo::long_demnames</definition>
+        <argsstring></argsstring>
+        <name>long_demnames</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>long form of demangled names see demangle.h for definitions </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="332" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1ad2b89cb23a66b38f7c3b7e68b74cd732" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idainfo::demnames</definition>
+        <argsstring></argsstring>
+        <name>demnames</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___d_e_m_n_a_m__" kindref="compound">Demangled name flags</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="334" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="334" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a4c55f8c5b5457299a9e4cabddbf90bc4" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idainfo::listnames</definition>
+        <argsstring></argsstring>
+        <name>listnames</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___l_n__" kindref="compound">Name list options</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="348" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="348" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a5b02cae28a47157507151c77a8668fd5" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idainfo::indent</definition>
+        <argsstring></argsstring>
+        <name>indent</name>
+        <briefdescription>
+<para>DISASSEMBLY LISTING DETAILS. </para>        </briefdescription>
+        <detaileddescription>
+<para>Indentation for instructions </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="359" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="359" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a8efad3782487ff56f0f8e5d2aab7cd11" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idainfo::comment</definition>
+        <argsstring></argsstring>
+        <name>comment</name>
+        <briefdescription>
+<para>Indentation for comments. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="360" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="360" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a5555c617f44019c39cc4610a837a081c" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+        <definition>ushort idainfo::margin</definition>
+        <argsstring></argsstring>
+        <name>margin</name>
+        <briefdescription>
+<para>max length of data lines </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="361" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="361" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a7e4320b2f55118a29bd9d3ebf9b97356" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+        <definition>ushort idainfo::lenxref</definition>
+        <argsstring></argsstring>
+        <name>lenxref</name>
+        <briefdescription>
+<para>max length of line with xrefs </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="362" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="362" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a148ad5a0d473d0db53c8d4654b63c9de" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 idainfo::outflags</definition>
+        <argsstring></argsstring>
+        <name>outflags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___o_f_l_g__" kindref="compound">output flags</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="363" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="363" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1afd1f8d126391c38e6ead30396777cf3a" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idainfo::s_cmtflg</definition>
+        <argsstring></argsstring>
+        <name>s_cmtflg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___s_w___c" kindref="compound">Comment options</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="378" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="378" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1ad49d2047e80243cf294b7627c4e47d58" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idainfo::s_limiter</definition>
+        <argsstring></argsstring>
+        <name>s_limiter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___l_m_t__" kindref="compound">Delimiter options</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="392" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="392" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a9c4ad1c79c4093ac2e186a97080f1bbe" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short idainfo::bin_prefix_size</definition>
+        <argsstring></argsstring>
+        <name>bin_prefix_size</name>
+        <briefdescription>
+<para><heading level="1">of instruction bytes (opcodes) to show in line prefix</heading>
+</para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="401" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="401" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a9f29d5654ebf47130f459f3125137d58" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idainfo::s_prefflag</definition>
+        <argsstring></argsstring>
+        <name>s_prefflag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___p_r_e_f__" kindref="compound">Line prefix options</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="402" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="402" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a5fdb297b649c9dc7ee26b20fd6953cf6" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idainfo::strlit_flags</definition>
+        <argsstring></argsstring>
+        <name>strlit_flags</name>
+        <briefdescription>
+<para>STRING LITERALS. </para>        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___s_t_r_f__" kindref="compound">string literal flags</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="412" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="412" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a3ea5d6e02338b270c49c545cfa278e7b" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idainfo::strlit_break</definition>
+        <argsstring></argsstring>
+        <name>strlit_break</name>
+        <briefdescription>
+<para>string literal line break symbol </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="423" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="423" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a78178fa5ff61e769f105614b26067964" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char idainfo::strlit_zeroes</definition>
+        <argsstring></argsstring>
+        <name>strlit_zeroes</name>
+        <briefdescription>
+<para>leading zeroes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="424" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="424" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1aaf11e0c984294acc35d7a7897b8de510" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 idainfo::strtype</definition>
+        <argsstring></argsstring>
+        <name>strtype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>current ascii string type see <ref refid="nalt_8hpp" kindref="compound">nalt.hpp</ref> for string types </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="425" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="425" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1afc8c12d223d315da476a2e86d3f2ea9c" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char idainfo::strlit_pref[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>strlit_pref</name>
+        <briefdescription>
+<para>prefix for string literal names </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="427" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="427" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a775a2455eec9e36d3013359b836a5ff1" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+        <definition>uval_t idainfo::strlit_sernum</definition>
+        <argsstring></argsstring>
+        <name>strlit_sernum</name>
+        <briefdescription>
+<para>serial number </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="428" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="428" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1aebb12858a353f671cb736cd0b7c1e2b6" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+        <definition>uval_t idainfo::datatypes</definition>
+        <argsstring></argsstring>
+        <name>datatypes</name>
+        <briefdescription>
+<para>data types allowed in data carousel </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="431" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="431" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1afc34ca1c9144e25fd5be9ec6ec13a527" prot="public" static="no" mutable="no">
+        <type><ref refid="structcompiler__info__t" kindref="compound">compiler_info_t</ref></type>
+        <definition>compiler_info_t idainfo::cc</definition>
+        <argsstring></argsstring>
+        <name>cc</name>
+        <briefdescription>
+<para>COMPILER. </para>        </briefdescription>
+        <detaileddescription>
+<para>Target compiler </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="434" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="434" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1a47e0d906c1be5e2764bc0c3fd9c4b8b2" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 idainfo::abibits</definition>
+        <argsstring></argsstring>
+        <name>abibits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>ABI features. Depends on info returned by <ref refid="group___c_c__funcs_1ga574b887360c437eb564122c17a82c4ef" kindref="member">get_abi_name()</ref> Processor modules may modify them in set_compiler </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="435" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="435" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidainfo_1af28b643c416bbf3871f5dd2c856889e5" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 idainfo::appcall_options</definition>
+        <argsstring></argsstring>
+        <name>appcall_options</name>
+        <briefdescription>
+<para>appcall options, see <ref refid="idd_8hpp" kindref="compound">idd.hpp</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="460" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="460" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structidainfo_1a2c3c0b54a0ddc0660060a8e6b34b05da" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::use_allasm</definition>
+        <argsstring>(void) const</argsstring>
+        <name>use_allasm</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___i_n_f_f_l___1ga75170b0a26a2617529202fcb7f5701c5" kindref="member">INFFL_ALLASM</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="125" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a72c1121f5f222b111042c90d2f1a9036" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::loading_idc</definition>
+        <argsstring>(void) const</argsstring>
+        <name>loading_idc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___i_n_f_f_l___1ga8ea6f5f9dfc6ac60c441699cb0f647e0" kindref="member">INFFL_LOADIDC</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="126" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="126" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a2db74815c84cc4cd3339875fb1ebb59c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::store_user_info</definition>
+        <argsstring>(void) const</argsstring>
+        <name>store_user_info</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___i_n_f_f_l___1gaa512527e3e9d1b96027071a2e491e1a5" kindref="member">INFFL_NOUSER</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="127" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="127" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a4a88fe3a628932b355d779b89a141f5c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::readonly_idb</definition>
+        <argsstring>(void) const</argsstring>
+        <name>readonly_idb</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___i_n_f_f_l___1ga62b961c71dd3fcbe31f43ec9d3eb7898" kindref="member">INFFL_READONLY</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="128" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="128" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a957303f63a6ec060764754f5287e7303" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::is_graph_view</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_graph_view</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___i_n_f_f_l___1ga88e2b4baae4e1ace367ecc3e9d674da5" kindref="member">INFFL_GRAPH_VIEW</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="129" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="129" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a1cfff7c9ff838a3a9ec9d8a8e94aacaf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void idainfo::set_graph_view</definition>
+        <argsstring>(bool value)</argsstring>
+        <name>set_graph_view</name>
+        <param>
+          <type>bool</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="130" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="130" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1ae0e9cd2af19386ea5d99bf661a536e89" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::is_32bit</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_32bit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___l_f_l_g___1ga800b59a3d1daa30a055894922952f2eb" kindref="member">LFLG_PC_FLAT</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="150" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a4e2520cbbe2e77c01a9a624ee0d1c912" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::is_64bit</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_64bit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___l_f_l_g___1ga0f4f06d418cf9ef88ab48161a30090a9" kindref="member">LFLG_64BIT</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="151" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="151" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1ac6d14e7a9518e04b09bfe04fcdcf6554" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::is_snapshot</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_snapshot</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___l_f_l_g___1ga4233709a4f6bc7e80d75163a352a2f22" kindref="member">LFLG_SNAPSHOT</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="152" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="152" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1afda7ea8ca3138d27b887d0d505132ddb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::is_dll</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_dll</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___l_f_l_g___1ga8ec1aff45c041932b6ce3f0f8923ca7e" kindref="member">LFLG_IS_DLL</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="153" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="153" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1ab57b4a0ea002a16d818fa7bc0a9c2529" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::is_flat_off32</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_flat_off32</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___l_f_l_g___1ga39b349850a0db882f73fbe87ad5b38e3" kindref="member">LFLG_FLAT_OFF32</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="154" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="154" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a3b13e62ad1c3d187bb208f74a56e0ddf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::is_be</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_be</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___l_f_l_g___1ga0430f98ff084c58b44e86369652cc6df" kindref="member">LFLG_MSF</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="155" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="155" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a6d13ec2e0df1803290df1946816d5e48" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::set_be</definition>
+        <argsstring>(bool value)</argsstring>
+        <name>set_be</name>
+        <param>
+          <type>bool</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="156" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="156" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a4bfc4a043fc2cc35ced7b0b4a62a87c7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::is_wide_high_byte_first</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_wide_high_byte_first</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___l_f_l_g___1ga2b4e78d4f913cd325ec266ed17f2c3fd" kindref="member">LFLG_WIDE_HBF</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="157" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a3883440c4ce9f8eb47def56fccfea966" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void idainfo::set_wide_high_byte_first</definition>
+        <argsstring>(bool value)</argsstring>
+        <name>set_wide_high_byte_first</name>
+        <param>
+          <type>bool</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="159" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="159" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a06d2afe91287442bd24838523ec4fa49" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void idainfo::set_64bit</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_64bit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="161" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="161" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a92046c82cc06c82360364a8ebf31817f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::is_kernel_mode</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_kernel_mode</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___l_f_l_g___1gacabeee1310caa9a50c5067abee0962bf" kindref="member">LFLG_KERNMODE</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="166" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a643d52eabb932e09360e8d120fc66a14" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int idainfo::get_pack_mode</definition>
+        <argsstring>() const</argsstring>
+        <name>get_pack_mode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="176" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="176" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1ad186988e9e820ca6c447bd734af81031" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int idainfo::set_pack_mode</definition>
+        <argsstring>(int pack_mode)</argsstring>
+        <name>set_pack_mode</name>
+        <param>
+          <type>int</type>
+          <declname>pack_mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="182" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="182" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1ad059be9423574205b09e9e190fdb3af4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::like_binary</definition>
+        <argsstring>(void) const</argsstring>
+        <name>like_binary</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is unstructured input file? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="196" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="196" bodyend="202"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a5f2f6848d56b810a9cebdd6b61a69023" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idainfo::get_demname_form</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_demname_form</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get <ref refid="group___d_e_m_n_a_m___1ga035a90e9aab463f3ceb1ce691adee892" kindref="member">DEMNAM_MASK</ref> bits of <ref refid="structidainfo_1ad2b89cb23a66b38f7c3b7e68b74cd732" kindref="member">demnames</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="346" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="346" bodyend="346"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1ac6f8e8f30981f7b544aef2bd27e9bcd6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::is_mem_aligned4</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_mem_aligned4</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="452" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="452" bodyend="452"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1ad282b64b19e6e52fe525a728a8b53525" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::pack_stkargs</definition>
+        <argsstring>(void) const</argsstring>
+        <name>pack_stkargs</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="453" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="453" bodyend="453"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a8ed760428ede16e813bd517eddd79550" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::big_arg_align</definition>
+        <argsstring>(void) const</argsstring>
+        <name>big_arg_align</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="454" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="454" bodyend="454"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a9fb84c19316d582b4294fe5961986143" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::stack_ldbl</definition>
+        <argsstring>() const</argsstring>
+        <name>stack_ldbl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="455" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="455" bodyend="455"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a8b460659b03d2c4cc55ab3dc3dc4517c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::stack_varargs</definition>
+        <argsstring>() const</argsstring>
+        <name>stack_varargs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="456" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="456" bodyend="456"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1acf1f096609c4d95be270c6e4cdfeb1d3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::is_hard_float</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_hard_float</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="457" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="457" bodyend="457"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a2682ee9896dcd259a06919ae4e74ea90" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::use_gcc_layout</definition>
+        <argsstring>(void) const</argsstring>
+        <name>use_gcc_layout</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="458" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="458" bodyend="458"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1af444a741a118a18cb6c03206366ea785" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>idainfo::EA64_ALIGN</definition>
+        <argsstring>(padding)</argsstring>
+        <name>EA64_ALIGN</name>
+        <param>
+          <type>padding</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>total size for 32bit: 216 bytes for 64bit: 296 bytes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="461" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1abf946948e23580cdfe2b98b4ae9af2f8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::is_auto_enabled</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_auto_enabled</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___i_n_f_f_l___1gaa364101dbf2354063cea1ae691f5375f" kindref="member">INFFL_AUTO</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="464" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="464" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1afe4fbb9e2625670e62c1381640782a42" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void idainfo::set_auto_enabled</definition>
+        <argsstring>(bool value)</argsstring>
+        <name>set_auto_enabled</name>
+        <param>
+          <type>bool</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="465" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="465" bodyend="465"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a08d419d30a94186c6c633cdfcca8ee87" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::show_void</definition>
+        <argsstring>(void) const</argsstring>
+        <name>show_void</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___o_f_l_g___1ga6f62c1d63b34cbfc964dbdc0d02dce6f" kindref="member">OFLG_SHOW_VOID</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="466" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="466" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1ab60cd976fb694714f7d50f8529fed5e0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void idainfo::set_show_void</definition>
+        <argsstring>(bool value)</argsstring>
+        <name>set_show_void</name>
+        <param>
+          <type>bool</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="467" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="467" bodyend="467"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1ad184ad507b11fcfad11a2da82a3a0e98" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::show_auto</definition>
+        <argsstring>(void) const</argsstring>
+        <name>show_auto</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___o_f_l_g___1ga279aa81f44f35edb85969218847c64c5" kindref="member">OFLG_SHOW_AUTO</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="468" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="468" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1aa014578f6b156834768db21eeb2f97ad" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void idainfo::set_show_auto</definition>
+        <argsstring>(bool value)</argsstring>
+        <name>set_show_auto</name>
+        <param>
+          <type>bool</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="469" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="469" bodyend="469"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1ae21728189b9eeebe8653793eb2679231" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::gen_null</definition>
+        <argsstring>(void) const</argsstring>
+        <name>gen_null</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___o_f_l_g___1gab46ed10b06722159c6f8a6531ee4341a" kindref="member">OFLG_GEN_NULL</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="470" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="470" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a74a610d9eb1588e0a8dd957ccd245213" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void idainfo::set_gen_null</definition>
+        <argsstring>(bool value)</argsstring>
+        <name>set_gen_null</name>
+        <param>
+          <type>bool</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="471" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="471" bodyend="471"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a9ea34512ff5f92af96d64f1cbb85c8cd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::show_line_pref</definition>
+        <argsstring>(void) const</argsstring>
+        <name>show_line_pref</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___o_f_l_g___1gadccf44ef4db61e9242e5b49b5232d65f" kindref="member">OFLG_SHOW_PREF</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="472" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="472" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1acac06f9550e0d9c9e0092f978abee1c0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void idainfo::set_show_line_pref</definition>
+        <argsstring>(bool value)</argsstring>
+        <name>set_show_line_pref</name>
+        <param>
+          <type>bool</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="473" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="473" bodyend="473"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a0602987bfe73a0b604be1666c9e16ce5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::line_pref_with_seg</definition>
+        <argsstring>(void) const</argsstring>
+        <name>line_pref_with_seg</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___o_f_l_g___1ga574ce37321c2a99ef556a2ef82a4ddaa" kindref="member">OFLG_PREF_SEG</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="474" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="474" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a89cfe17fc8afba69a42cd67f21c1e0ca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void idainfo::set_line_pref_with_seg</definition>
+        <argsstring>(bool value)</argsstring>
+        <name>set_line_pref_with_seg</name>
+        <param>
+          <type>bool</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="475" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="475" bodyend="475"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a1321afe670c4b83ece4a16a1d253f313" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::gen_lzero</definition>
+        <argsstring>(void) const</argsstring>
+        <name>gen_lzero</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="group___o_f_l_g___1ga49d74da37c4350bd7532f9635d67ce2b" kindref="member">OFLG_LZERO</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="476" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="476" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1ac735d08469de52b1544ff249b70bc052" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void idainfo::set_gen_lzero</definition>
+        <argsstring>(bool value)</argsstring>
+        <name>set_gen_lzero</name>
+        <param>
+          <type>bool</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="477" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="477" bodyend="477"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1acb9373fbfb6356b2a1d1094627c625e7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool idainfo::gen_tryblks</definition>
+        <argsstring>(void) const</argsstring>
+        <name>gen_tryblks</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="478" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="478" bodyend="478"/>
+      </memberdef>
+      <memberdef kind="function" id="structidainfo_1a6381858b3f148859d821d774348e11bb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void idainfo::set_gen_tryblks</definition>
+        <argsstring>(bool value)</argsstring>
+        <name>set_gen_tryblks</name>
+        <param>
+          <type>bool</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>&lt; <ref refid="group___o_f_l_g___1gaf5bb012595eab8177f48e4774b73f6e1" kindref="member">OFLG_GEN_TRYBLKS</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="479" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="479" bodyend="479"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>The database parameters. This structure is kept in the ida database. It contains the essential parameters for the current program </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1753">
+        <label>idainfo</label>
+        <link refid="structidainfo"/>
+        <childnode refid="1754" relation="usage">
+          <edgelabel>privrange</edgelabel>
+        </childnode>
+        <childnode refid="1755" relation="usage">
+          <edgelabel>cc</edgelabel>
+        </childnode>
+      </node>
+      <node id="1754">
+        <label>range_t</label>
+        <link refid="structrange__t"/>
+      </node>
+      <node id="1755">
+        <label>compiler_info_t</label>
+        <link refid="structcompiler__info__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="105" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="104" bodyend="482"/>
+    <listofallmembers>
+      <member refid="structidainfo_1a47e0d906c1be5e2764bc0c3fd9c4b8b2" prot="public" virt="non-virtual"><scope>idainfo</scope><name>abibits</name></member>
+      <member refid="structidainfo_1a3da66def2cc449f51e50742869bafbd5" prot="public" virt="non-virtual"><scope>idainfo</scope><name>af</name></member>
+      <member refid="structidainfo_1a99e20674f376ba7099f607561e196405" prot="public" virt="non-virtual"><scope>idainfo</scope><name>af2</name></member>
+      <member refid="structidainfo_1af28b643c416bbf3871f5dd2c856889e5" prot="public" virt="non-virtual"><scope>idainfo</scope><name>appcall_options</name></member>
+      <member refid="structidainfo_1a5aefdae7fd5deca326425b7bfac0640e" prot="public" virt="non-virtual"><scope>idainfo</scope><name>apptype</name></member>
+      <member refid="structidainfo_1a18ec3d8a5cd72b933a53ec53eb6d5186" prot="public" virt="non-virtual"><scope>idainfo</scope><name>asmtype</name></member>
+      <member refid="structidainfo_1a648317794592f062a57c335a89b3af2c" prot="public" virt="non-virtual"><scope>idainfo</scope><name>baseaddr</name></member>
+      <member refid="structidainfo_1a8ed760428ede16e813bd517eddd79550" prot="public" virt="non-virtual"><scope>idainfo</scope><name>big_arg_align</name></member>
+      <member refid="structidainfo_1a9c4ad1c79c4093ac2e186a97080f1bbe" prot="public" virt="non-virtual"><scope>idainfo</scope><name>bin_prefix_size</name></member>
+      <member refid="structidainfo_1afc34ca1c9144e25fd5be9ec6ec13a527" prot="public" virt="non-virtual"><scope>idainfo</scope><name>cc</name></member>
+      <member refid="structidainfo_1a8efad3782487ff56f0f8e5d2aab7cd11" prot="public" virt="non-virtual"><scope>idainfo</scope><name>comment</name></member>
+      <member refid="structidainfo_1aee503f2891e2d7075711a39c16c91b25" prot="public" virt="non-virtual"><scope>idainfo</scope><name>database_change_count</name></member>
+      <member refid="structidainfo_1aebb12858a353f671cb736cd0b7c1e2b6" prot="public" virt="non-virtual"><scope>idainfo</scope><name>datatypes</name></member>
+      <member refid="structidainfo_1ad2b89cb23a66b38f7c3b7e68b74cd732" prot="public" virt="non-virtual"><scope>idainfo</scope><name>demnames</name></member>
+      <member refid="structidainfo_1af444a741a118a18cb6c03206366ea785" prot="public" virt="non-virtual"><scope>idainfo</scope><name>EA64_ALIGN</name></member>
+      <member refid="structidainfo_1a9615918b0c5b94d037dd9b61f94d67c8" prot="public" virt="non-virtual"><scope>idainfo</scope><name>filetype</name></member>
+      <member refid="structidainfo_1a1321afe670c4b83ece4a16a1d253f313" prot="public" virt="non-virtual"><scope>idainfo</scope><name>gen_lzero</name></member>
+      <member refid="structidainfo_1ae21728189b9eeebe8653793eb2679231" prot="public" virt="non-virtual"><scope>idainfo</scope><name>gen_null</name></member>
+      <member refid="structidainfo_1acb9373fbfb6356b2a1d1094627c625e7" prot="public" virt="non-virtual"><scope>idainfo</scope><name>gen_tryblks</name></member>
+      <member refid="structidainfo_1a5f2f6848d56b810a9cebdd6b61a69023" prot="public" virt="non-virtual"><scope>idainfo</scope><name>get_demname_form</name></member>
+      <member refid="structidainfo_1a643d52eabb932e09360e8d120fc66a14" prot="public" virt="non-virtual"><scope>idainfo</scope><name>get_pack_mode</name></member>
+      <member refid="structidainfo_1a4a2cafeb82fc53775f00568c6100dab6" prot="public" virt="non-virtual"><scope>idainfo</scope><name>highoff</name></member>
+      <member refid="structidainfo_1a5b02cae28a47157507151c77a8668fd5" prot="public" virt="non-virtual"><scope>idainfo</scope><name>indent</name></member>
+      <member refid="structidainfo_1ae0e9cd2af19386ea5d99bf661a536e89" prot="public" virt="non-virtual"><scope>idainfo</scope><name>is_32bit</name></member>
+      <member refid="structidainfo_1a4e2520cbbe2e77c01a9a624ee0d1c912" prot="public" virt="non-virtual"><scope>idainfo</scope><name>is_64bit</name></member>
+      <member refid="structidainfo_1abf946948e23580cdfe2b98b4ae9af2f8" prot="public" virt="non-virtual"><scope>idainfo</scope><name>is_auto_enabled</name></member>
+      <member refid="structidainfo_1a3b13e62ad1c3d187bb208f74a56e0ddf" prot="public" virt="non-virtual"><scope>idainfo</scope><name>is_be</name></member>
+      <member refid="structidainfo_1afda7ea8ca3138d27b887d0d505132ddb" prot="public" virt="non-virtual"><scope>idainfo</scope><name>is_dll</name></member>
+      <member refid="structidainfo_1ab57b4a0ea002a16d818fa7bc0a9c2529" prot="public" virt="non-virtual"><scope>idainfo</scope><name>is_flat_off32</name></member>
+      <member refid="structidainfo_1a957303f63a6ec060764754f5287e7303" prot="public" virt="non-virtual"><scope>idainfo</scope><name>is_graph_view</name></member>
+      <member refid="structidainfo_1acf1f096609c4d95be270c6e4cdfeb1d3" prot="public" virt="non-virtual"><scope>idainfo</scope><name>is_hard_float</name></member>
+      <member refid="structidainfo_1a92046c82cc06c82360364a8ebf31817f" prot="public" virt="non-virtual"><scope>idainfo</scope><name>is_kernel_mode</name></member>
+      <member refid="structidainfo_1ac6f8e8f30981f7b544aef2bd27e9bcd6" prot="public" virt="non-virtual"><scope>idainfo</scope><name>is_mem_aligned4</name></member>
+      <member refid="structidainfo_1ac6d14e7a9518e04b09bfe04fcdcf6554" prot="public" virt="non-virtual"><scope>idainfo</scope><name>is_snapshot</name></member>
+      <member refid="structidainfo_1a4bfc4a043fc2cc35ced7b0b4a62a87c7" prot="public" virt="non-virtual"><scope>idainfo</scope><name>is_wide_high_byte_first</name></member>
+      <member refid="structidainfo_1a7e4320b2f55118a29bd9d3ebf9b97356" prot="public" virt="non-virtual"><scope>idainfo</scope><name>lenxref</name></member>
+      <member refid="structidainfo_1ae992797dc8a5dff27b8fa90ced1ee49a" prot="public" virt="non-virtual"><scope>idainfo</scope><name>lflags</name></member>
+      <member refid="structidainfo_1ad059be9423574205b09e9e190fdb3af4" prot="public" virt="non-virtual"><scope>idainfo</scope><name>like_binary</name></member>
+      <member refid="structidainfo_1a0602987bfe73a0b604be1666c9e16ce5" prot="public" virt="non-virtual"><scope>idainfo</scope><name>line_pref_with_seg</name></member>
+      <member refid="structidainfo_1a4c55f8c5b5457299a9e4cabddbf90bc4" prot="public" virt="non-virtual"><scope>idainfo</scope><name>listnames</name></member>
+      <member refid="structidainfo_1a72c1121f5f222b111042c90d2f1a9036" prot="public" virt="non-virtual"><scope>idainfo</scope><name>loading_idc</name></member>
+      <member refid="structidainfo_1a952d4e827a7ccbd2b0ce7c23569433d5" prot="public" virt="non-virtual"><scope>idainfo</scope><name>long_demnames</name></member>
+      <member refid="structidainfo_1a4db3d6290ce9f8b3b87a609e70cf3664" prot="public" virt="non-virtual"><scope>idainfo</scope><name>lowoff</name></member>
+      <member refid="structidainfo_1a2122a0ef22364edcb452537e942ff921" prot="public" virt="non-virtual"><scope>idainfo</scope><name>main</name></member>
+      <member refid="structidainfo_1a5555c617f44019c39cc4610a837a081c" prot="public" virt="non-virtual"><scope>idainfo</scope><name>margin</name></member>
+      <member refid="structidainfo_1ad646c2f856a8abe543a54395d397aeab" prot="public" virt="non-virtual"><scope>idainfo</scope><name>max_autoname_len</name></member>
+      <member refid="structidainfo_1a55a7952ae4d39577ce2bb2a5699a6fee" prot="public" virt="non-virtual"><scope>idainfo</scope><name>max_ea</name></member>
+      <member refid="structidainfo_1ae9f819e32c08c1e1dd41722c725bfb60" prot="public" virt="non-virtual"><scope>idainfo</scope><name>maxref</name></member>
+      <member refid="structidainfo_1a9414151d0f7241ac1369b98358b8c0cb" prot="public" virt="non-virtual"><scope>idainfo</scope><name>min_ea</name></member>
+      <member refid="structidainfo_1a9711d36d37ed4382a905e9a2653ade9b" prot="public" virt="non-virtual"><scope>idainfo</scope><name>nametype</name></member>
+      <member refid="structidainfo_1a17e09b24463f8bff921b137e28e36617" prot="public" virt="non-virtual"><scope>idainfo</scope><name>netdelta</name></member>
+      <member refid="structidainfo_1ac64109043ebacc93c04b0a4983023098" prot="public" virt="non-virtual"><scope>idainfo</scope><name>omax_ea</name></member>
+      <member refid="structidainfo_1a80258e5d86f9f360bb279cbacdc80773" prot="public" virt="non-virtual"><scope>idainfo</scope><name>omin_ea</name></member>
+      <member refid="structidainfo_1ab0dc9a59cf017a29a995a2879c9424f4" prot="public" virt="non-virtual"><scope>idainfo</scope><name>ostype</name></member>
+      <member refid="structidainfo_1a148ad5a0d473d0db53c8d4654b63c9de" prot="public" virt="non-virtual"><scope>idainfo</scope><name>outflags</name></member>
+      <member refid="structidainfo_1ad282b64b19e6e52fe525a728a8b53525" prot="public" virt="non-virtual"><scope>idainfo</scope><name>pack_stkargs</name></member>
+      <member refid="structidainfo_1a4665184d6fce41f44600dfab7b889f01" prot="public" virt="non-virtual"><scope>idainfo</scope><name>privrange</name></member>
+      <member refid="structidainfo_1aeae16f4dd4dda86f54c90390d021a281" prot="public" virt="non-virtual"><scope>idainfo</scope><name>procname</name></member>
+      <member refid="structidainfo_1a4a88fe3a628932b355d779b89a141f5c" prot="public" virt="non-virtual"><scope>idainfo</scope><name>readonly_idb</name></member>
+      <member refid="structidainfo_1a3791ffa2d48cff2ceb3d985b07aadeac" prot="public" virt="non-virtual"><scope>idainfo</scope><name>refcmtnum</name></member>
+      <member refid="structidainfo_1afd1f8d126391c38e6ead30396777cf3a" prot="public" virt="non-virtual"><scope>idainfo</scope><name>s_cmtflg</name></member>
+      <member refid="structidainfo_1a7e87c180440ba1682326e6b9f791dd70" prot="public" virt="non-virtual"><scope>idainfo</scope><name>s_genflags</name></member>
+      <member refid="structidainfo_1ad49d2047e80243cf294b7627c4e47d58" prot="public" virt="non-virtual"><scope>idainfo</scope><name>s_limiter</name></member>
+      <member refid="structidainfo_1a9f29d5654ebf47130f459f3125137d58" prot="public" virt="non-virtual"><scope>idainfo</scope><name>s_prefflag</name></member>
+      <member refid="structidainfo_1a11631cc167d16fb6bd318874e07c3e3d" prot="public" virt="non-virtual"><scope>idainfo</scope><name>s_xrefflag</name></member>
+      <member refid="structidainfo_1a06d2afe91287442bd24838523ec4fa49" prot="public" virt="non-virtual"><scope>idainfo</scope><name>set_64bit</name></member>
+      <member refid="structidainfo_1afe4fbb9e2625670e62c1381640782a42" prot="public" virt="non-virtual"><scope>idainfo</scope><name>set_auto_enabled</name></member>
+      <member refid="structidainfo_1a6d13ec2e0df1803290df1946816d5e48" prot="public" virt="non-virtual"><scope>idainfo</scope><name>set_be</name></member>
+      <member refid="structidainfo_1ac735d08469de52b1544ff249b70bc052" prot="public" virt="non-virtual"><scope>idainfo</scope><name>set_gen_lzero</name></member>
+      <member refid="structidainfo_1a74a610d9eb1588e0a8dd957ccd245213" prot="public" virt="non-virtual"><scope>idainfo</scope><name>set_gen_null</name></member>
+      <member refid="structidainfo_1a6381858b3f148859d821d774348e11bb" prot="public" virt="non-virtual"><scope>idainfo</scope><name>set_gen_tryblks</name></member>
+      <member refid="structidainfo_1a1cfff7c9ff838a3a9ec9d8a8e94aacaf" prot="public" virt="non-virtual"><scope>idainfo</scope><name>set_graph_view</name></member>
+      <member refid="structidainfo_1a89cfe17fc8afba69a42cd67f21c1e0ca" prot="public" virt="non-virtual"><scope>idainfo</scope><name>set_line_pref_with_seg</name></member>
+      <member refid="structidainfo_1ad186988e9e820ca6c447bd734af81031" prot="public" virt="non-virtual"><scope>idainfo</scope><name>set_pack_mode</name></member>
+      <member refid="structidainfo_1aa014578f6b156834768db21eeb2f97ad" prot="public" virt="non-virtual"><scope>idainfo</scope><name>set_show_auto</name></member>
+      <member refid="structidainfo_1acac06f9550e0d9c9e0092f978abee1c0" prot="public" virt="non-virtual"><scope>idainfo</scope><name>set_show_line_pref</name></member>
+      <member refid="structidainfo_1ab60cd976fb694714f7d50f8529fed5e0" prot="public" virt="non-virtual"><scope>idainfo</scope><name>set_show_void</name></member>
+      <member refid="structidainfo_1a3883440c4ce9f8eb47def56fccfea966" prot="public" virt="non-virtual"><scope>idainfo</scope><name>set_wide_high_byte_first</name></member>
+      <member refid="structidainfo_1aff8c8d841fe27365a286195bec9652dc" prot="public" virt="non-virtual"><scope>idainfo</scope><name>short_demnames</name></member>
+      <member refid="structidainfo_1ad184ad507b11fcfad11a2da82a3a0e98" prot="public" virt="non-virtual"><scope>idainfo</scope><name>show_auto</name></member>
+      <member refid="structidainfo_1a9ea34512ff5f92af96d64f1cbb85c8cd" prot="public" virt="non-virtual"><scope>idainfo</scope><name>show_line_pref</name></member>
+      <member refid="structidainfo_1a08d419d30a94186c6c633cdfcca8ee87" prot="public" virt="non-virtual"><scope>idainfo</scope><name>show_void</name></member>
+      <member refid="structidainfo_1aad581ee1e7dc34b773498f728c8a2cab" prot="public" virt="non-virtual"><scope>idainfo</scope><name>specsegs</name></member>
+      <member refid="structidainfo_1a9fb84c19316d582b4294fe5961986143" prot="public" virt="non-virtual"><scope>idainfo</scope><name>stack_ldbl</name></member>
+      <member refid="structidainfo_1a8b460659b03d2c4cc55ab3dc3dc4517c" prot="public" virt="non-virtual"><scope>idainfo</scope><name>stack_varargs</name></member>
+      <member refid="structidainfo_1a2854affbd7a3a1067ab6fffc313650e8" prot="public" virt="non-virtual"><scope>idainfo</scope><name>start_cs</name></member>
+      <member refid="structidainfo_1ab8b6edf1a30a7fcd0899d2ab657e692a" prot="public" virt="non-virtual"><scope>idainfo</scope><name>start_ea</name></member>
+      <member refid="structidainfo_1a9473e3b088fffeb3fc867f486a3b591e" prot="public" virt="non-virtual"><scope>idainfo</scope><name>start_ip</name></member>
+      <member refid="structidainfo_1ac3b3d93b8b7624b8a1782f4acad3b12d" prot="public" virt="non-virtual"><scope>idainfo</scope><name>start_sp</name></member>
+      <member refid="structidainfo_1a9eb87f540e8e4a2ea28aecf53ed452d5" prot="public" virt="non-virtual"><scope>idainfo</scope><name>start_ss</name></member>
+      <member refid="structidainfo_1a2db74815c84cc4cd3339875fb1ebb59c" prot="public" virt="non-virtual"><scope>idainfo</scope><name>store_user_info</name></member>
+      <member refid="structidainfo_1a3ea5d6e02338b270c49c545cfa278e7b" prot="public" virt="non-virtual"><scope>idainfo</scope><name>strlit_break</name></member>
+      <member refid="structidainfo_1a5fdb297b649c9dc7ee26b20fd6953cf6" prot="public" virt="non-virtual"><scope>idainfo</scope><name>strlit_flags</name></member>
+      <member refid="structidainfo_1afc8c12d223d315da476a2e86d3f2ea9c" prot="public" virt="non-virtual"><scope>idainfo</scope><name>strlit_pref</name></member>
+      <member refid="structidainfo_1a775a2455eec9e36d3013359b836a5ff1" prot="public" virt="non-virtual"><scope>idainfo</scope><name>strlit_sernum</name></member>
+      <member refid="structidainfo_1a78178fa5ff61e769f105614b26067964" prot="public" virt="non-virtual"><scope>idainfo</scope><name>strlit_zeroes</name></member>
+      <member refid="structidainfo_1aaf11e0c984294acc35d7a7897b8de510" prot="public" virt="non-virtual"><scope>idainfo</scope><name>strtype</name></member>
+      <member refid="structidainfo_1af32c06d23e5d729e030300d41e6cdb13" prot="public" virt="non-virtual"><scope>idainfo</scope><name>tag</name></member>
+      <member refid="structidainfo_1a22990d7f61459f22b659c2a53d52cf81" prot="public" virt="non-virtual"><scope>idainfo</scope><name>type_xrefnum</name></member>
+      <member refid="structidainfo_1a2c3c0b54a0ddc0660060a8e6b34b05da" prot="public" virt="non-virtual"><scope>idainfo</scope><name>use_allasm</name></member>
+      <member refid="structidainfo_1a2682ee9896dcd259a06919ae4e74ea90" prot="public" virt="non-virtual"><scope>idainfo</scope><name>use_gcc_layout</name></member>
+      <member refid="structidainfo_1a7159a5a207b9b474c24957f0acdddcb6" prot="public" virt="non-virtual"><scope>idainfo</scope><name>version</name></member>
+      <member refid="structidainfo_1a9df3bcb380713be1b7d4a6be024649f9" prot="public" virt="non-virtual"><scope>idainfo</scope><name>xrefnum</name></member>
+      <member refid="structidainfo_1ab4c002c8b8dbee1bd21ed2579f78dfbd" prot="public" virt="non-virtual"><scope>idainfo</scope><name>zero</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

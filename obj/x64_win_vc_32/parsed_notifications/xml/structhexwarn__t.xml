@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structhexwarn__t" kind="struct" language="C++" prot="public">
+    <compoundname>hexwarn_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structhexwarn__t_1a6e4d01b6ee325ddb6a5d8bf52e8431f5" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t hexwarn_t::ea</definition>
+        <argsstring></argsstring>
+        <name>ea</name>
+        <briefdescription>
+<para>Address where the warning occurred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4012" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4012" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhexwarn__t_1adf907146e8c811d45b81fd3b3d57b08e" prot="public" static="no" mutable="no">
+        <type>warnid_t</type>
+        <definition>warnid_t hexwarn_t::id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+<para>Warning id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4013" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4013" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhexwarn__t_1a9d18fcf921d402152d6e8d7258239077" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring hexwarn_t::text</definition>
+        <argsstring></argsstring>
+        <name>text</name>
+        <briefdescription>
+<para>Fully formatted text of the warning. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4014" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4014" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structhexwarn__t_1a3c4c55fb2256d02522b147caf65f8f61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hexwarn_t::if</definition>
+        <argsstring>(ea &gt; r.ea) return 1</argsstring>
+        <name>if</name>
+        <param>
+          <type><ref refid="structhexwarn__t_1a6e4d01b6ee325ddb6a5d8bf52e8431f5" kindref="member">ea</ref></type>
+        </param>
+        <param>
+          <type>r.</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4019" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structhexwarn__t_1a794ae0334fa5ab470d6c0a2abafa8b7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hexwarn_t::if</definition>
+        <argsstring>(id&lt; r.id) return -1</argsstring>
+        <name>if</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4021" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structhexwarn__t_1aa482a034a80c6ebe2de0813f0284298b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hexwarn_t::if</definition>
+        <argsstring>(id &gt; r.id) return 1</argsstring>
+        <name>if</name>
+        <param>
+          <type><ref refid="structhexwarn__t_1adf907146e8c811d45b81fd3b3d57b08e" kindref="member">id</ref></type>
+        </param>
+        <param>
+          <type>r.</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4023" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structhexwarn__t_1ac781e16c933a9c95d958f7f6a07466cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>return</type>
+        <definition>return hexwarn_t::strcmp</definition>
+        <argsstring>(text.c_str(), r.text.c_str())</argsstring>
+        <name>strcmp</name>
+        <param>
+          <type>text.</type>
+          <declname>c_str</declname>
+          <array>()</array>
+        </param>
+        <param>
+          <type>r.text.</type>
+          <declname>c_str</declname>
+          <array>()</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4025" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Warning instances. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1724">
+        <label>hexwarn_t</label>
+        <link refid="structhexwarn__t"/>
+        <childnode refid="1725" relation="usage">
+          <edgelabel>text</edgelabel>
+        </childnode>
+      </node>
+      <node id="1725">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4011" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4010" bodyend="4027"/>
+    <listofallmembers>
+      <member refid="structhexwarn__t_1a6e4d01b6ee325ddb6a5d8bf52e8431f5" prot="public" virt="non-virtual"><scope>hexwarn_t</scope><name>ea</name></member>
+      <member refid="structhexwarn__t_1adf907146e8c811d45b81fd3b3d57b08e" prot="public" virt="non-virtual"><scope>hexwarn_t</scope><name>id</name></member>
+      <member refid="structhexwarn__t_1a3c4c55fb2256d02522b147caf65f8f61" prot="public" virt="non-virtual"><scope>hexwarn_t</scope><name>if</name></member>
+      <member refid="structhexwarn__t_1a794ae0334fa5ab470d6c0a2abafa8b7c" prot="public" virt="non-virtual"><scope>hexwarn_t</scope><name>if</name></member>
+      <member refid="structhexwarn__t_1aa482a034a80c6ebe2de0813f0284298b" prot="public" virt="non-virtual"><scope>hexwarn_t</scope><name>if</name></member>
+      <member refid="structhexwarn__t_1ac781e16c933a9c95d958f7f6a07466cc" prot="public" virt="non-virtual"><scope>hexwarn_t</scope><name>strcmp</name></member>
+      <member refid="structhexwarn__t_1a9d18fcf921d402152d6e8d7258239077" prot="public" virt="non-virtual"><scope>hexwarn_t</scope><name>text</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

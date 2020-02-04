@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_o_l_o_r___p_f_x" kind="group">
+    <compoundname>COLOR_PFX</compoundname>
+    <title>Line prefix colors</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___c_o_l_o_r___p_f_x_1ga56e1aea61ee305e3648158362333b3a8" prot="public" static="no">
+        <name>COLOR_DEFAULT</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Default. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="194" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_o_l_o_r___p_f_x_1gaadcf88db7470d7487e31e5c25f1ddd57" prot="public" static="no">
+        <name>COLOR_SELECTED</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>Selected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="195" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_o_l_o_r___p_f_x_1ga19fc4201f02c0920f3a8017c5f7e7f69" prot="public" static="no">
+        <name>COLOR_LIBFUNC</name>
+        <initializer>0x03</initializer>
+        <briefdescription>
+<para>Library function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="196" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_o_l_o_r___p_f_x_1ga465d93679c4e20237772850ada119244" prot="public" static="no">
+        <name>COLOR_REGFUNC</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Regular function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="197" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_o_l_o_r___p_f_x_1ga2fc13677000f88e164a19129a8ec7e19" prot="public" static="no">
+        <name>COLOR_CODE</name>
+        <initializer>0x05</initializer>
+        <briefdescription>
+<para>Single instruction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="198" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_o_l_o_r___p_f_x_1ga94cb09ecaa20c3d9e12ee27e985cf56f" prot="public" static="no">
+        <name>COLOR_DATA</name>
+        <initializer>0x06</initializer>
+        <briefdescription>
+<para>Data bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="199" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_o_l_o_r___p_f_x_1gaeae63bffec753f28eca373ef5ebd1493" prot="public" static="no">
+        <name>COLOR_UNKNOWN</name>
+        <initializer>0x07</initializer>
+        <briefdescription>
+<para>Unexplored byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="200" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_o_l_o_r___p_f_x_1ga06b9e3be91062ffae781a656665735b3" prot="public" static="no">
+        <name>COLOR_EXTERN</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>External name definition segment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="201" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_o_l_o_r___p_f_x_1ga00e92939d4a12a362cf23ec35dcf3ab5" prot="public" static="no">
+        <name>COLOR_CURITEM</name>
+        <initializer>0x09</initializer>
+        <briefdescription>
+<para>Current item. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="202" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_o_l_o_r___p_f_x_1ga1d071188087919f14b720d0961e7ae58" prot="public" static="no">
+        <name>COLOR_CURLINE</name>
+        <initializer>0x0A</initializer>
+        <briefdescription>
+<para>Current line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="203" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_o_l_o_r___p_f_x_1gadb011e929f2a9195402a82d42176d95d" prot="public" static="no">
+        <name>COLOR_HIDLINE</name>
+        <initializer>0x0B</initializer>
+        <briefdescription>
+<para>Hidden line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="204" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_o_l_o_r___p_f_x_1ga7b0b35654cb82c5bb9c5d2acc67a9ed9" prot="public" static="no">
+        <name>COLOR_LUMFUNC</name>
+        <initializer>0x0C</initializer>
+        <briefdescription>
+<para>Lumina function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="205" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_o_l_o_r___p_f_x_1ga60d2b1f26bd871f63ad48cecc5bd14d6" prot="public" static="no">
+        <name>COLOR_BG_MAX</name>
+        <initializer>0x0D</initializer>
+        <briefdescription>
+<para>Max color number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="206" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_o_l_o_r___p_f_x_1ga0d5a8d0e21c3925cbf2ea6f4d5fb5643" prot="public" static="no">
+        <name>PALETTE_SIZE</name>
+        <initializer>(<ref refid="group___c_o_l_o_r___1ga4542d0e4c126f4f328771cb306b71a3a" kindref="member">COLOR_FG_MAX</ref>+<ref refid="group___c_o_l_o_r___p_f_x_1ga60d2b1f26bd871f63ad48cecc5bd14d6" kindref="member">COLOR_BG_MAX</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="208" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Note: line prefix colors are not used in processor modules </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

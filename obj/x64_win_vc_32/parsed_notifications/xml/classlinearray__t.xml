@@ -1,0 +1,456 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classlinearray__t" kind="class" language="C++" prot="public">
+    <compoundname>linearray_t</compoundname>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classlinearray__t_1a84726033fcf17e1048f7af85dbf8fd09" prot="private" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a823b67c620f6cdca97e1d969ea4a9b02" kindref="member">qstrvec_t</ref></type>
+        <definition>qstrvec_t linearray_t::lines</definition>
+        <argsstring></argsstring>
+        <name>lines</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1876" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1876" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlinearray__t_1a7e35a07c293ea02b2623268fd1e47eec" prot="private" static="no" mutable="no">
+        <type><ref refid="classplace__t" kindref="compound">place_t</ref> *</type>
+        <definition>place_t* linearray_t::at</definition>
+        <argsstring></argsstring>
+        <name>at</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1877" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1877" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlinearray__t_1a2e5dccf852a7b96fec3e427e31ad33d1" prot="private" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* linearray_t::ud</definition>
+        <argsstring></argsstring>
+        <name>ud</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1878" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1878" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlinearray__t_1a7d86b2eb0ae99f061d7be1fd9cbb2215" prot="private" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>color_t linearray_t::prefix_color</definition>
+        <argsstring></argsstring>
+        <name>prefix_color</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1880" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1880" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlinearray__t_1a02ab82ed319351896c299b5194568ac3" prot="private" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a3df5040891132e50157aee66affdf1de" kindref="member">bgcolor_t</ref></type>
+        <definition>bgcolor_t linearray_t::bg_color</definition>
+        <argsstring></argsstring>
+        <name>bg_color</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1881" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1881" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlinearray__t_1a984cea0658447f930644a6891a93f960" prot="private" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring linearray_t::extra</definition>
+        <argsstring></argsstring>
+        <name>extra</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1882" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1882" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlinearray__t_1a324ab67f36056bd421fb5446ec22c5c5" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int linearray_t::dlnnum</definition>
+        <argsstring></argsstring>
+        <name>dlnnum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1883" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1883" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classlinearray__t_1acedb7f2be870e6c512e2ba48044dc74b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int linearray_t::_set_place</definition>
+        <argsstring>(const place_t *new_at)</argsstring>
+        <name>_set_place</name>
+        <param>
+          <type>const <ref refid="classplace__t" kindref="compound">place_t</ref> *</type>
+          <declname>new_at</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1872" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1ac7133884a2b3b8f2e7757faa021d690f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+        <definition>const qstring* linearray_t::_down</definition>
+        <argsstring>(void)</argsstring>
+        <name>_down</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1873" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1a2c3a7e72b64a094130ea9c0c0b972c14" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+        <definition>const qstring* linearray_t::_up</definition>
+        <argsstring>(void)</argsstring>
+        <name>_up</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1874" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1a453c5c6f1984119fe3abadcdec1b5882" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int linearray_t::getlines</definition>
+        <argsstring>(void)</argsstring>
+        <name>getlines</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1885" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1ae75d47cbdae7173d895aec61ba982034" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linearray_t::cleanup</definition>
+        <argsstring>(void)</argsstring>
+        <name>cleanup</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1886" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classlinearray__t_1aca58b114e9416508765ef50a8bb14e51" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>linearray_t::linearray_t</definition>
+        <argsstring>(void *_ud)</argsstring>
+        <name>linearray_t</name>
+        <param>
+          <type>void *</type>
+          <declname>_ud</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1890" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1890" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1a406c06caffeb895ad4fefc10da987189" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>linearray_t::~linearray_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>~linearray_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1891" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1891" bodyend="1890"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1a0307137eebffb6d2d685dfb4fb18385a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int linearray_t::set_place</definition>
+        <argsstring>(const place_t *new_at)</argsstring>
+        <name>set_place</name>
+        <param>
+          <type>const <ref refid="classplace__t" kindref="compound">place_t</ref> *</type>
+          <declname>new_at</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Position the array. This function must be called before calling any other member functions.</para><para><ref refid="classlinearray__t" kindref="compound">linearray_t</ref> doesn&apos;t own <ref refid="classplace__t" kindref="compound">place_t</ref> structures. The caller must take care of <ref refid="classplace__t" kindref="compound">place_t</ref> objects.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>new_at</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new position of the array </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the delta of lines that the <ref refid="classlinearray__t" kindref="compound">linearray_t</ref> had to adjust the place by. <linebreak/>
+For example, if the <ref refid="classplace__t" kindref="compound">place_t</ref> has a lnnum of 5, but it turns out, upon generating lines, <linebreak/>
+that the number of lines for that particular place is only 2, then 3 will be returned. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1904" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1904" bodyend="1904"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1ac9bd3f124eaf19bf1051bacc5cafabb7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classplace__t" kindref="compound">place_t</ref> *</type>
+        <definition>place_t* linearray_t::get_place</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_place</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the current place. If called before <ref refid="classlinearray__t_1aa85eff25966af170c5953c2b6f5a9236" kindref="member">down()</ref>, then returns place of line which will be returned by <ref refid="classlinearray__t_1aa85eff25966af170c5953c2b6f5a9236" kindref="member">down()</ref>. If called after <ref refid="classlinearray__t_1af8dca8600ec4aa8cefc82424816c171f" kindref="member">up()</ref>, then returns place if line returned by <ref refid="classlinearray__t_1af8dca8600ec4aa8cefc82424816c171f" kindref="member">up()</ref>. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1909" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1909" bodyend="1909"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1a1e36e21bcb5af233aed5482c6c710ba0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a3df5040891132e50157aee66affdf1de" kindref="member">bgcolor_t</ref></type>
+        <definition>bgcolor_t linearray_t::get_bg_color</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_bg_color</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get current background color. (the same behavior as with <ref refid="classlinearray__t_1ac9bd3f124eaf19bf1051bacc5cafabb7" kindref="member">get_place()</ref>: good before <ref refid="classlinearray__t_1aa85eff25966af170c5953c2b6f5a9236" kindref="member">down()</ref> and after <ref refid="classlinearray__t_1af8dca8600ec4aa8cefc82424816c171f" kindref="member">up()</ref>) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1913" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1913" bodyend="1913"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1a9e56bc9e81d22efd86beb850f59d17b9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a3df5040891132e50157aee66affdf1de" kindref="member">bgcolor_t</ref></type>
+        <definition>bgcolor_t linearray_t::get_pfx_color</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_pfx_color</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get current prefix color. (the same behavior as with <ref refid="classlinearray__t_1ac9bd3f124eaf19bf1051bacc5cafabb7" kindref="member">get_place()</ref>: good before <ref refid="classlinearray__t_1aa85eff25966af170c5953c2b6f5a9236" kindref="member">down()</ref> and after <ref refid="classlinearray__t_1af8dca8600ec4aa8cefc82424816c171f" kindref="member">up()</ref>) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1917" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1917" bodyend="1917"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1ab4e56b75842f282dd99985f8bdaa0be0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int linearray_t::get_dlnnum</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_dlnnum</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get default line number. (the same behavior as with <ref refid="classlinearray__t_1ac9bd3f124eaf19bf1051bacc5cafabb7" kindref="member">get_place()</ref>: good before <ref refid="classlinearray__t_1aa85eff25966af170c5953c2b6f5a9236" kindref="member">down()</ref> and after <ref refid="classlinearray__t_1af8dca8600ec4aa8cefc82424816c171f" kindref="member">up()</ref>) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1921" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1921" bodyend="1921"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1a9f88c2a072a5555a3e998138d304b036" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int linearray_t::get_linecnt</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_linecnt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get number of lines for the current place. (the same behavior as with <ref refid="classlinearray__t_1ac9bd3f124eaf19bf1051bacc5cafabb7" kindref="member">get_place()</ref>: good before <ref refid="classlinearray__t_1aa85eff25966af170c5953c2b6f5a9236" kindref="member">down()</ref> and after <ref refid="classlinearray__t_1af8dca8600ec4aa8cefc82424816c171f" kindref="member">up()</ref>) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1925" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1925" bodyend="1925"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1a43e42cffe4f326ee06f8934e16592b7c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* linearray_t::userdata</definition>
+        <argsstring>(void) const</argsstring>
+        <name>userdata</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get pointer to user data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1928" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1928" bodyend="1928"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1ae606bef2abcb8dcdd18fa3fbaf92f9ee" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void linearray_t::set_userdata</definition>
+        <argsstring>(void *userd)</argsstring>
+        <name>set_userdata</name>
+        <param>
+          <type>void *</type>
+          <declname>userd</declname>
+        </param>
+        <briefdescription>
+<para>Change the user data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1931" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1931" bodyend="1931"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1a54e0d36b367c46aa4041b640040eae58" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool linearray_t::beginning</definition>
+        <argsstring>(void) const</argsstring>
+        <name>beginning</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Are we at the beginning? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1934" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1934" bodyend="1934"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1a4f6b92d3dca7f27b42502281a386fb38" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool linearray_t::ending</definition>
+        <argsstring>(void) const</argsstring>
+        <name>ending</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1937" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1937" bodyend="1937"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1aa85eff25966af170c5953c2b6f5a9236" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+        <definition>const qstring* linearray_t::down</definition>
+        <argsstring>(void)</argsstring>
+        <name>down</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get a line from down direction. place is ok BEFORE </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1941" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1941" bodyend="1942"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinearray__t_1af8dca8600ec4aa8cefc82424816c171f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+        <definition>const qstring* linearray_t::up</definition>
+        <argsstring>(void)</argsstring>
+        <name>up</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get a line from up direction. place is ok AFTER </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1946" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1946" bodyend="1947"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The group of lines corresponding to a single place within a view. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1870" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1869" bodyend="1949"/>
+    <listofallmembers>
+      <member refid="classlinearray__t_1ac7133884a2b3b8f2e7757faa021d690f" prot="private" virt="non-virtual"><scope>linearray_t</scope><name>_down</name></member>
+      <member refid="classlinearray__t_1acedb7f2be870e6c512e2ba48044dc74b" prot="private" virt="non-virtual"><scope>linearray_t</scope><name>_set_place</name></member>
+      <member refid="classlinearray__t_1a2c3a7e72b64a094130ea9c0c0b972c14" prot="private" virt="non-virtual"><scope>linearray_t</scope><name>_up</name></member>
+      <member refid="classlinearray__t_1a7e35a07c293ea02b2623268fd1e47eec" prot="private" virt="non-virtual"><scope>linearray_t</scope><name>at</name></member>
+      <member refid="classlinearray__t_1a54e0d36b367c46aa4041b640040eae58" prot="public" virt="non-virtual"><scope>linearray_t</scope><name>beginning</name></member>
+      <member refid="classlinearray__t_1a02ab82ed319351896c299b5194568ac3" prot="private" virt="non-virtual"><scope>linearray_t</scope><name>bg_color</name></member>
+      <member refid="classlinearray__t_1ae75d47cbdae7173d895aec61ba982034" prot="private" virt="non-virtual"><scope>linearray_t</scope><name>cleanup</name></member>
+      <member refid="classlinearray__t_1a324ab67f36056bd421fb5446ec22c5c5" prot="private" virt="non-virtual"><scope>linearray_t</scope><name>dlnnum</name></member>
+      <member refid="classlinearray__t_1aa85eff25966af170c5953c2b6f5a9236" prot="public" virt="non-virtual"><scope>linearray_t</scope><name>down</name></member>
+      <member refid="classlinearray__t_1a4f6b92d3dca7f27b42502281a386fb38" prot="public" virt="non-virtual"><scope>linearray_t</scope><name>ending</name></member>
+      <member refid="classlinearray__t_1a984cea0658447f930644a6891a93f960" prot="private" virt="non-virtual"><scope>linearray_t</scope><name>extra</name></member>
+      <member refid="classlinearray__t_1a1e36e21bcb5af233aed5482c6c710ba0" prot="public" virt="non-virtual"><scope>linearray_t</scope><name>get_bg_color</name></member>
+      <member refid="classlinearray__t_1ab4e56b75842f282dd99985f8bdaa0be0" prot="public" virt="non-virtual"><scope>linearray_t</scope><name>get_dlnnum</name></member>
+      <member refid="classlinearray__t_1a9f88c2a072a5555a3e998138d304b036" prot="public" virt="non-virtual"><scope>linearray_t</scope><name>get_linecnt</name></member>
+      <member refid="classlinearray__t_1a9e56bc9e81d22efd86beb850f59d17b9" prot="public" virt="non-virtual"><scope>linearray_t</scope><name>get_pfx_color</name></member>
+      <member refid="classlinearray__t_1ac9bd3f124eaf19bf1051bacc5cafabb7" prot="public" virt="non-virtual"><scope>linearray_t</scope><name>get_place</name></member>
+      <member refid="classlinearray__t_1a453c5c6f1984119fe3abadcdec1b5882" prot="private" virt="non-virtual"><scope>linearray_t</scope><name>getlines</name></member>
+      <member refid="classlinearray__t_1aca58b114e9416508765ef50a8bb14e51" prot="public" virt="non-virtual"><scope>linearray_t</scope><name>linearray_t</name></member>
+      <member refid="classlinearray__t_1a84726033fcf17e1048f7af85dbf8fd09" prot="private" virt="non-virtual"><scope>linearray_t</scope><name>lines</name></member>
+      <member refid="classlinearray__t_1a7d86b2eb0ae99f061d7be1fd9cbb2215" prot="private" virt="non-virtual"><scope>linearray_t</scope><name>prefix_color</name></member>
+      <member refid="classlinearray__t_1a0307137eebffb6d2d685dfb4fb18385a" prot="public" virt="non-virtual"><scope>linearray_t</scope><name>set_place</name></member>
+      <member refid="classlinearray__t_1ae606bef2abcb8dcdd18fa3fbaf92f9ee" prot="public" virt="non-virtual"><scope>linearray_t</scope><name>set_userdata</name></member>
+      <member refid="classlinearray__t_1a2e5dccf852a7b96fec3e427e31ad33d1" prot="private" virt="non-virtual"><scope>linearray_t</scope><name>ud</name></member>
+      <member refid="classlinearray__t_1af8dca8600ec4aa8cefc82424816c171f" prot="public" virt="non-virtual"><scope>linearray_t</scope><name>up</name></member>
+      <member refid="classlinearray__t_1a43e42cffe4f326ee06f8934e16592b7c" prot="public" virt="non-virtual"><scope>linearray_t</scope><name>userdata</name></member>
+      <member refid="classlinearray__t_1a406c06caffeb895ad4fefc10da987189" prot="public" virt="non-virtual"><scope>linearray_t</scope><name>~linearray_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structfunc__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>func_info_t</compoundname>
+    <derivedcompoundref refid="structfunc__info__and__frequency__t" prot="public" virt="non-virtual">func_info_and_frequency_t</derivedcompoundref>
+    <derivedcompoundref refid="structfunc__info__and__pattern__t" prot="public" virt="non-virtual">func_info_and_pattern_t</derivedcompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structfunc__info__t_1a5d359b10eed2a498e80b1766ca04b30c" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring func_info_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="342" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="342" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfunc__info__t_1a08e62c5a52d5caed1fab803a0cdf63d1" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 func_info_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="343" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="343" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfunc__info__t_1af989803a022b7ea43d1dd377cd6503f4" prot="public" static="no" mutable="no">
+        <type><ref refid="classmetadata__t" kindref="compound">metadata_t</ref></type>
+        <definition>metadata_t func_info_t::metadata</definition>
+        <argsstring></argsstring>
+        <name>metadata</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="344" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="344" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structfunc__info__t_1a76a5d5a725304273df4822c569eddb86" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>func_info_t::func_info_t</definition>
+        <argsstring>()</argsstring>
+        <name>func_info_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="345" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="345" bodyend="346"/>
+      </memberdef>
+      <memberdef kind="function" id="structfunc__info__t_1a01ea289f4662e830fe04b9b18e3b86f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void func_info_t::swap</definition>
+        <argsstring>(func_info_t &amp;other)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="structfunc__info__t" kindref="compound">func_info_t</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="348" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structfunc__info__t_1a16355f275172d5e1dce0ac876c975f62" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void func_info_t::serialize</definition>
+        <argsstring>(bytevec_t *out, int version) const</argsstring>
+        <name>serialize</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="349" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structfunc__info__t_1ac18ed069b4e64dbb3a3e0cb81274d1e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool func_info_t::deserialize</definition>
+        <argsstring>(const uchar **ptr, size_t len, int version)</argsstring>
+        <name>deserialize</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="350" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1631">
+        <label>func_info_and_pattern_t</label>
+        <link refid="structfunc__info__and__pattern__t"/>
+        <childnode refid="1629" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1629">
+        <label>func_info_t</label>
+        <link refid="structfunc__info__t"/>
+      </node>
+      <node id="1630">
+        <label>func_info_and_frequency_t</label>
+        <link refid="structfunc__info__and__frequency__t"/>
+        <childnode refid="1629" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1632">
+        <label>func_info_pattern_and_frequency_t</label>
+        <link refid="structfunc__info__pattern__and__frequency__t"/>
+        <childnode refid="1631" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1633">
+        <label>pop_fun_t</label>
+        <link refid="structpop__fun__t"/>
+        <childnode refid="1632" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1634">
+        <label>func_info_t</label>
+        <link refid="structfunc__info__t"/>
+        <childnode refid="1635" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="1636" relation="usage">
+          <edgelabel>metadata</edgelabel>
+        </childnode>
+      </node>
+      <node id="1638">
+        <label>qvector&lt; uchar &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1637">
+        <label>bytevec_t</label>
+        <link refid="classbytevec__t"/>
+        <childnode refid="1638" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1635">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="1636">
+        <label>metadata_t</label>
+        <link refid="classmetadata__t"/>
+        <childnode refid="1637" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="341" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="340" bodyend="351"/>
+    <listofallmembers>
+      <member refid="structfunc__info__t_1ac18ed069b4e64dbb3a3e0cb81274d1e8" prot="public" virt="non-virtual"><scope>func_info_t</scope><name>deserialize</name></member>
+      <member refid="structfunc__info__t_1a76a5d5a725304273df4822c569eddb86" prot="public" virt="non-virtual"><scope>func_info_t</scope><name>func_info_t</name></member>
+      <member refid="structfunc__info__t_1af989803a022b7ea43d1dd377cd6503f4" prot="public" virt="non-virtual"><scope>func_info_t</scope><name>metadata</name></member>
+      <member refid="structfunc__info__t_1a5d359b10eed2a498e80b1766ca04b30c" prot="public" virt="non-virtual"><scope>func_info_t</scope><name>name</name></member>
+      <member refid="structfunc__info__t_1a16355f275172d5e1dce0ac876c975f62" prot="public" virt="non-virtual"><scope>func_info_t</scope><name>serialize</name></member>
+      <member refid="structfunc__info__t_1a08e62c5a52d5caed1fab803a0cdf63d1" prot="public" virt="non-virtual"><scope>func_info_t</scope><name>size</name></member>
+      <member refid="structfunc__info__t_1a01ea289f4662e830fe04b9b18e3b86f8" prot="public" virt="non-virtual"><scope>func_info_t</scope><name>swap</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

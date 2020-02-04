@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="commerc_8hpp" kind="file" language="C++">
+    <compoundname>commerc.hpp</compoundname>
+    <includes refid="fpro_8h" local="no">fpro.h</includes>
+    <includes refid="loader_8hpp" local="no">loader.hpp</includes>
+    <incdepgraph>
+      <node id="140">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="120">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/commerc.hpp</label>
+        <link refid="commerc_8hpp"/>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+      </node>
+      <node id="124">
+        <label>stdarg.h</label>
+      </node>
+      <node id="127">
+        <label>assert.h</label>
+      </node>
+      <node id="143">
+        <label>ida.hpp</label>
+        <link refid="ida_8hpp"/>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+      </node>
+      <node id="142">
+        <label>loader.hpp</label>
+        <link refid="loader_8hpp"/>
+        <childnode refid="143" relation="include">
+        </childnode>
+      </node>
+      <node id="123">
+        <label>stdlib.h</label>
+      </node>
+      <node id="135">
+        <label>io.h</label>
+      </node>
+      <node id="138">
+        <label>fcntl.h</label>
+      </node>
+      <node id="141">
+        <label>llong.hpp</label>
+        <link refid="llong_8hpp_source"/>
+      </node>
+      <node id="133">
+        <label>malloc.h</label>
+      </node>
+      <node id="132">
+        <label>string</label>
+      </node>
+      <node id="137">
+        <label>map</label>
+      </node>
+      <node id="136">
+        <label>direct.h</label>
+      </node>
+      <node id="125">
+        <label>stddef.h</label>
+      </node>
+      <node id="128">
+        <label>limits.h</label>
+      </node>
+      <node id="139">
+        <label>sys/types.h</label>
+      </node>
+      <node id="134">
+        <label>string.h</label>
+      </node>
+      <node id="131">
+        <label>new</label>
+      </node>
+      <node id="122">
+        <label>pro.h</label>
+        <link refid="pro_8h"/>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+      </node>
+      <node id="130">
+        <label>time.h</label>
+      </node>
+      <node id="121">
+        <label>fpro.h</label>
+        <link refid="fpro_8h"/>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+      </node>
+      <node id="129">
+        <label>ctype.h</label>
+      </node>
+      <node id="144">
+        <label>range.hpp</label>
+        <link refid="range_8hpp"/>
+      </node>
+      <node id="126">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="commerc_8hpp_1ac23bdbdb94a74222a057d7941f2ae9a0" prot="public" static="no">
+        <name>unused_DEMO</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/commerc.hpp" line="6" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/commerc.hpp" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="commerc_8hpp_1a53eb27052bbcf997175d2c641b7b6461" prot="public" static="no">
+        <name>unused_NO_DEBUGGER</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/commerc.hpp" line="7" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/commerc.hpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/commerc.hpp"/>
+  </compounddef>
+</doxygen>

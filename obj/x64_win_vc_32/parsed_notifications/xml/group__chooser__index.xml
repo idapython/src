@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__chooser__index" kind="group">
+    <compoundname>chooser_index</compoundname>
+    <title>Special values of the chooser index</title>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__chooser__index_1ga6e8acc5ead68d124f9e463f7a9813365" prot="public" static="no">
+        <name>@2</name>
+        <enumvalue id="group__chooser__index_1gga6e8acc5ead68d124f9e463f7a9813365a100e0d1651b8811c7df60f02d991ef6e" prot="public">
+          <name>NO_SELECTION</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+<para>there is no selected item </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__chooser__index_1gga6e8acc5ead68d124f9e463f7a9813365a403da04064cc128f8b3c349032275bf0" prot="public">
+          <name>EMPTY_CHOOSER</name>
+          <initializer>= -2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>the chooser has no data and can not be displayed </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__chooser__index_1gga6e8acc5ead68d124f9e463f7a9813365a1c9909c9fe579274c2a3392f06fdab53" prot="public">
+          <name>ALREADY_EXISTS</name>
+          <initializer>= -3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>the non-modal chooser with the same data is already open </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__chooser__index_1gga6e8acc5ead68d124f9e463f7a9813365add3620f9706987cdd059fb99da30f6a1" prot="public">
+          <name>NO_ATTR</name>
+          <initializer>= -4</initializer>
+          <briefdescription>
+<para>reserved for IDAPython </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2373" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2372" bodyend="2380"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used in the following contexts:<orderedlist>
+<listitem><para>as the return value of the <ref refid="group__choosers_1gadefb0a59b077bb1872b25741366ca715" kindref="member">choose()</ref> function</para></listitem><listitem><para>as the <computeroutput>idx</computeroutput> field of the return value of the get_item_index(), ins(), del(), edit(), enter(), refresh() callbacks of the <computeroutput><ref refid="structchooser__t" kindref="compound">chooser_t</ref></computeroutput> structure and of the callback of type <computeroutput>chooser_cb_t</computeroutput> passed to the add_chooser_command()</para></listitem><listitem><para>as the parameter <computeroutput>n</computeroutput> of the <ref refid="structchooser__t_1a7217277c36ddf006b76190b8e589a2df" kindref="member">chooser_t::refresh()</ref> callback and of the callback of type <computeroutput>chooser_cb_t</computeroutput> passed to the add_chooser_command() Usage matrix </para></listitem></orderedlist>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

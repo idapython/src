@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___a_d_d_t_i_l___f" kind="group">
+    <compoundname>ADDTIL_F</compoundname>
+    <title>Load TIL flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___a_d_d_t_i_l___f_1gab0bdef9bff72c4d21c3499d5a5c98af4" prot="public" static="no">
+        <name>ADDTIL_DEFAULT</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>default behavior </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2121" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_d_d_t_i_l___f_1ga92892b6a857c38374ab2516f275f02fd" prot="public" static="no">
+        <name>ADDTIL_INCOMP</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>load incompatible tils </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2122" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_d_d_t_i_l___f_1ga150b63463349508a1eb9b89fee0f8405" prot="public" static="no">
+        <name>ADDTIL_SILENT</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>do not ask any questions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2123" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2123" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>passed as &apos;flags&apos; parameter to <ref refid="typeinf_8hpp_1a6ae3c9ab321e5107e8ba4df22de3fcbf" kindref="member">add_til()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

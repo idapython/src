@@ -1,0 +1,434 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classop__t" kind="class" language="C++" prot="public">
+    <compoundname>op_t</compoundname>
+    <includes refid="ua_8hpp" local="no">ua.hpp</includes>
+      <sectiondef kind="user-defined">
+      <header>Special flags</header>
+      <description><para>The following fields are used only in idp modules. You may use them as you want to store additional information about the operand. </para></description>
+      <memberdef kind="variable" id="classop__t_1aec72f131837b3fc28e54bc0bfa2ded44" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char op_t::specflag1</definition>
+        <argsstring></argsstring>
+        <name>specflag1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="315" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="315" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1afa6bd993b2583da0ef6104fdea58d018" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char op_t::specflag2</definition>
+        <argsstring></argsstring>
+        <name>specflag2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="316" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1aec11b11597687e6a78a1d26784b052bf" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char op_t::specflag3</definition>
+        <argsstring></argsstring>
+        <name>specflag3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="317" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="317" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1ace8112a00acbf6e77c83b5da8b79695e" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char op_t::specflag4</definition>
+        <argsstring></argsstring>
+        <name>specflag4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="318" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="318" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classop__t_1a05e897e5a8da719eff0ff98614adffc8" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar op_t::n</definition>
+        <argsstring></argsstring>
+        <name>n</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Number of operand (0,1,2). Initialized once at the start of work. You have no right to change its value. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="168" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1a866a7d0be0dce15c155d93d097ef54b3" prot="public" static="no" mutable="no">
+        <type><ref refid="ua_8hpp_1aaf9da6ae7e8b201108fc225adf13b4d9" kindref="member">optype_t</ref></type>
+        <definition>optype_t op_t::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+<para>Type of operand (see <ref refid="group__o__" kindref="compound">Operand types</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="171" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1aa9c6feff3830cbffaecea8fe87b926a0" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char op_t::offb</definition>
+        <argsstring></argsstring>
+        <name>offb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Offset of operand value from the instruction start (0 means unknown). Of course this field is meaningful only for certain types of operands. Leave it equal to zero if the operand has no offset. This offset should point to the &apos;interesting&apos; part of operand. For example, it may point to the address of a function in {call func} or it may point to bytes holding &apos;5&apos; in {mov ax, [bx+5]} Usually bytes pointed to this offset are relocated (have fixup information). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="182" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1a35f553bb6a9a7f5efe895617e575a2e1" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char op_t::offo</definition>
+        <argsstring></argsstring>
+        <name>offo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Same as <ref refid="classop__t_1aa9c6feff3830cbffaecea8fe87b926a0" kindref="member">offb</ref> (some operands have 2 numeric values used to form an operand). This field is used for the second part of operand if it exists. Currently this field is used only for outer offsets of Motorola processors. Leave it equal to zero if the operand has no offset. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="188" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1ae8f87e3147e90326420de6b78d97bd2a" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar op_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___o_f__" kindref="compound">Operand flags</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="190" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1a9d0ea64a2929fc998bca6cebd1b91c09" prot="public" static="no" mutable="no">
+        <type>op_dtype_t</type>
+        <definition>op_dtype_t op_t::dtype</definition>
+        <argsstring></argsstring>
+        <name>dtype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Type of operand value (see <ref refid="group__dt__" kindref="compound">Operand value types</ref>). Usually first 9 types are used. This is the type of the operand itself, not the size of the addressing mode. for example, byte ptr [epb+32_bit_offset] will have <ref refid="group__dt___1ga7b3131e3cc11e88be1e80a439829b293" kindref="member">dt_byte</ref> type. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="218" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1a428edf0d3e487135e3d08bd5a65772e4" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 op_t::reg</definition>
+        <argsstring></argsstring>
+        <name>reg</name>
+        <briefdescription>
+<para>number of register (<ref refid="group__o___1gab490f48c733f3d29c700bb5d70ecc198" kindref="member">o_reg</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="248" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1a583f4819af0dc38593765cd7e6ce17cf" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 op_t::phrase</definition>
+        <argsstring></argsstring>
+        <name>phrase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>number of register phrase (<ref refid="group__o___1ga622c0d3c3c8af0bed284a02b496ec288" kindref="member">o_phrase</ref>,<ref refid="group__o___1ga2ae70c4ac00043f25a469a506a6f504f" kindref="member">o_displ</ref>). you yourself define numbers of phrases as you like </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="249" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1ac35c12aa394af39d14800d4ec20453dc" prot="public" static="no" mutable="no">
+        <type>union op_t::@15</type>
+        <definition>union op_t::@15 op_t::@16</definition>
+        <argsstring></argsstring>
+        <name>@16</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="252" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1a6baa38b521c143a794640d82df109ae2" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+        <definition>uval_t op_t::value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>operand value (<ref refid="group__o___1ga85e77bd8098a47465cd8e1193b6e154c" kindref="member">o_imm</ref>) or outer displacement (<ref refid="group__o___1ga2ae70c4ac00043f25a469a506a6f504f" kindref="member">o_displ</ref>+<ref refid="group___o_f___1gaf5cdb56eaaa72c4beacc2c87a67eefc8" kindref="member">OF_OUTER_DISP</ref>). integer values should be in IDA&apos;s (little-endian) order. when using <ref refid="ieee_8h_1af8dc2b2c4e5843884838bb6a430cbf2f" kindref="member">ieee_realcvt()</ref>, floating point values should be in the processor&apos;s native byte order. <ref refid="group__dt___1ga8cb6ffc96fb9fec3a6fb00b57316bac9" kindref="member">dt_double</ref> values take up 8 bytes (value and addr fields for 32-bit modules). NB: in case a <ref refid="group__dt___1ga39d680a96eebfed96dbbd9c20d7066c3" kindref="member">dt_dword</ref>/<ref refid="group__dt___1gaa10505ff3777d1c702dc0fcb486a6f79" kindref="member">dt_qword</ref> immediate is forced to float by user, the kernel converts it to processor&apos;s native order before calling FP conversion routines. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="262" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1a029b857cc38051e1d99e71e56e42dc9d" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 op_t::low</definition>
+        <argsstring></argsstring>
+        <name>low</name>
+        <briefdescription>
+<para>IBM PC: segment register number (<ref refid="group__o___1gac180aea251826e5e5e484905e116c4cc" kindref="member">o_mem</ref>,<ref refid="group__o___1gac4a43a41f9a3a31b7bb6193e6d3cc447" kindref="member">o_far</ref>,<ref refid="group__o___1ga05209644e1ec11a2b0d96809bb60d6d8" kindref="member">o_near</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="274" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1a5f1ea4925feeb1b257cf9c65a2957553" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 op_t::high</definition>
+        <argsstring></argsstring>
+        <name>high</name>
+        <briefdescription>
+<para>IBM PC: segment selector value (<ref refid="group__o___1gac180aea251826e5e5e484905e116c4cc" kindref="member">o_mem</ref>,<ref refid="group__o___1gac4a43a41f9a3a31b7bb6193e6d3cc447" kindref="member">o_far</ref>,<ref refid="group__o___1ga05209644e1ec11a2b0d96809bb60d6d8" kindref="member">o_near</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="275" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1a103298f6b3df3ef77289b3922915849e" prot="public" static="no" mutable="no">
+        <type>struct op_t::@17::@23</type>
+        <definition>struct op_t::@17::@23  op_t::value_shorts</definition>
+        <argsstring></argsstring>
+        <name>value_shorts</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This structure is defined for your convenience only </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="276" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1a544637200eb2a3c246c6db3bb4500bd2" prot="public" static="no" mutable="no">
+        <type>union op_t::@17</type>
+        <definition>union op_t::@17 op_t::@18</definition>
+        <argsstring></argsstring>
+        <name>@18</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="277" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1acaaeff517df0b7156b4b8521a3900cdc" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t op_t::addr</definition>
+        <argsstring></argsstring>
+        <name>addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>virtual address pointed or used by the operand. (<ref refid="group__o___1gac180aea251826e5e5e484905e116c4cc" kindref="member">o_mem</ref>,<ref refid="group__o___1ga2ae70c4ac00043f25a469a506a6f504f" kindref="member">o_displ</ref>,<ref refid="group__o___1gac4a43a41f9a3a31b7bb6193e6d3cc447" kindref="member">o_far</ref>,<ref refid="group__o___1ga05209644e1ec11a2b0d96809bb60d6d8" kindref="member">o_near</ref>) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="285" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1a05a67a7a1a6a5eb4fbc7df5072bd129d" prot="public" static="no" mutable="no">
+        <type>struct op_t::@19::@24</type>
+        <definition>struct op_t::@19::@24  op_t::addr_shorts</definition>
+        <argsstring></argsstring>
+        <name>addr_shorts</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This structure is defined for your convenience only </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="294" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1a3d0e4d6351874fc9f0e925af33783fca" prot="public" static="no" mutable="no">
+        <type>union op_t::@19</type>
+        <definition>union op_t::@19 op_t::@20</definition>
+        <argsstring></argsstring>
+        <name>@20</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="295" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1afb5775d8aaa7bcefcb17d51c0b298135" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t op_t::specval</definition>
+        <argsstring></argsstring>
+        <name>specval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This field may be used as you want. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="300" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1abaa73c49002bae4a4a2c310d3f811455" prot="public" static="no" mutable="no">
+        <type>struct op_t::@21::@25</type>
+        <definition>struct op_t::@21::@25  op_t::specval_shorts</definition>
+        <argsstring></argsstring>
+        <name>specval_shorts</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This structure is defined for your convenience only </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="307" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classop__t_1a7c95dad1abd5897e4f8ce90daff259d2" prot="public" static="no" mutable="no">
+        <type>union op_t::@21</type>
+        <definition>union op_t::@21 op_t::@22</definition>
+        <argsstring></argsstring>
+        <name>@22</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="308" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classop__t_1a9d1070bb119d87604ada43417f8a4170" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void op_t::set_shown</definition>
+        <argsstring>()</argsstring>
+        <name>set_shown</name>
+        <briefdescription>
+<para>Set operand to be shown. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="209" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="209" bodyend="209"/>
+      </memberdef>
+      <memberdef kind="function" id="classop__t_1ad5e48d7a74b744f1153decb598fc721a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void op_t::clr_shown</definition>
+        <argsstring>()</argsstring>
+        <name>clr_shown</name>
+        <briefdescription>
+<para>Set operand to hidden. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="211" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="211" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="function" id="classop__t_1ae55326b628ec2d01bf1061bf714b9b06" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool op_t::shown</definition>
+        <argsstring>() const</argsstring>
+        <name>shown</name>
+        <briefdescription>
+<para>Is operand set to be shown? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="213" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="213" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="function" id="classop__t_1a0ada91fd5c4952f44f152362d0c2f542" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool op_t::is_reg</definition>
+        <argsstring>(int r) const</argsstring>
+        <name>is_reg</name>
+        <param>
+          <type>int</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Is register operand? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="255" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="255" bodyend="255"/>
+      </memberdef>
+      <memberdef kind="function" id="classop__t_1a5a472fd7aa76b68cbb4897d4b391ac30" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool op_t::is_imm</definition>
+        <argsstring>(uval_t v) const</argsstring>
+        <name>is_imm</name>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+<para>Is immediate operand? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="280" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="280" bodyend="280"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Operand of an instruction. This structure is filled by the analyzer. Upon entrance to the analyzer, some fields of this structure are initialized:<itemizedlist>
+<listitem><para><ref refid="classop__t_1a866a7d0be0dce15c155d93d097ef54b3" kindref="member">type</ref>: <ref refid="group__o___1gad68bb114d00bf1541955467158677fa6" kindref="member">o_void</ref></para></listitem><listitem><para><ref refid="classop__t_1aa9c6feff3830cbffaecea8fe87b926a0" kindref="member">offb</ref>: 0</para></listitem><listitem><para><ref refid="classop__t_1a35f553bb6a9a7f5efe895617e575a2e1" kindref="member">offo</ref>: 0</para></listitem><listitem><para><ref refid="classop__t_1ae8f87e3147e90326420de6b78d97bd2a" kindref="member">flags</ref>: <ref refid="group___o_f___1ga0b79d1666f5843ac4599ebb3d158adee" kindref="member">OF_SHOW</ref> </para></listitem></itemizedlist>
+</para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="163" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="162" bodyend="320"/>
+    <listofallmembers>
+      <member refid="classop__t_1acaaeff517df0b7156b4b8521a3900cdc" prot="public" virt="non-virtual"><scope>op_t</scope><name>addr</name></member>
+      <member refid="classop__t_1a05a67a7a1a6a5eb4fbc7df5072bd129d" prot="public" virt="non-virtual"><scope>op_t</scope><name>addr_shorts</name></member>
+      <member refid="classop__t_1ad5e48d7a74b744f1153decb598fc721a" prot="public" virt="non-virtual"><scope>op_t</scope><name>clr_shown</name></member>
+      <member refid="classop__t_1a9d0ea64a2929fc998bca6cebd1b91c09" prot="public" virt="non-virtual"><scope>op_t</scope><name>dtype</name></member>
+      <member refid="classop__t_1ae8f87e3147e90326420de6b78d97bd2a" prot="public" virt="non-virtual"><scope>op_t</scope><name>flags</name></member>
+      <member refid="classop__t_1a5f1ea4925feeb1b257cf9c65a2957553" prot="public" virt="non-virtual"><scope>op_t</scope><name>high</name></member>
+      <member refid="classop__t_1a5a472fd7aa76b68cbb4897d4b391ac30" prot="public" virt="non-virtual"><scope>op_t</scope><name>is_imm</name></member>
+      <member refid="classop__t_1a0ada91fd5c4952f44f152362d0c2f542" prot="public" virt="non-virtual"><scope>op_t</scope><name>is_reg</name></member>
+      <member refid="classop__t_1a029b857cc38051e1d99e71e56e42dc9d" prot="public" virt="non-virtual"><scope>op_t</scope><name>low</name></member>
+      <member refid="classop__t_1a05e897e5a8da719eff0ff98614adffc8" prot="public" virt="non-virtual"><scope>op_t</scope><name>n</name></member>
+      <member refid="classop__t_1aa9c6feff3830cbffaecea8fe87b926a0" prot="public" virt="non-virtual"><scope>op_t</scope><name>offb</name></member>
+      <member refid="classop__t_1a35f553bb6a9a7f5efe895617e575a2e1" prot="public" virt="non-virtual"><scope>op_t</scope><name>offo</name></member>
+      <member refid="classop__t_1a583f4819af0dc38593765cd7e6ce17cf" prot="public" virt="non-virtual"><scope>op_t</scope><name>phrase</name></member>
+      <member refid="classop__t_1a428edf0d3e487135e3d08bd5a65772e4" prot="public" virt="non-virtual"><scope>op_t</scope><name>reg</name></member>
+      <member refid="classop__t_1a9d1070bb119d87604ada43417f8a4170" prot="public" virt="non-virtual"><scope>op_t</scope><name>set_shown</name></member>
+      <member refid="classop__t_1ae55326b628ec2d01bf1061bf714b9b06" prot="public" virt="non-virtual"><scope>op_t</scope><name>shown</name></member>
+      <member refid="classop__t_1aec72f131837b3fc28e54bc0bfa2ded44" prot="public" virt="non-virtual"><scope>op_t</scope><name>specflag1</name></member>
+      <member refid="classop__t_1afa6bd993b2583da0ef6104fdea58d018" prot="public" virt="non-virtual"><scope>op_t</scope><name>specflag2</name></member>
+      <member refid="classop__t_1aec11b11597687e6a78a1d26784b052bf" prot="public" virt="non-virtual"><scope>op_t</scope><name>specflag3</name></member>
+      <member refid="classop__t_1ace8112a00acbf6e77c83b5da8b79695e" prot="public" virt="non-virtual"><scope>op_t</scope><name>specflag4</name></member>
+      <member refid="classop__t_1afb5775d8aaa7bcefcb17d51c0b298135" prot="public" virt="non-virtual"><scope>op_t</scope><name>specval</name></member>
+      <member refid="classop__t_1abaa73c49002bae4a4a2c310d3f811455" prot="public" virt="non-virtual"><scope>op_t</scope><name>specval_shorts</name></member>
+      <member refid="classop__t_1a866a7d0be0dce15c155d93d097ef54b3" prot="public" virt="non-virtual"><scope>op_t</scope><name>type</name></member>
+      <member refid="classop__t_1a6baa38b521c143a794640d82df109ae2" prot="public" virt="non-virtual"><scope>op_t</scope><name>value</name></member>
+      <member refid="classop__t_1a103298f6b3df3ef77289b3922915849e" prot="public" virt="non-virtual"><scope>op_t</scope><name>value_shorts</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

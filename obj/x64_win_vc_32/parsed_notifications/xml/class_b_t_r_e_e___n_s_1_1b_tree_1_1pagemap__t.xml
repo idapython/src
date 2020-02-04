@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t" kind="class" language="C++" prot="private">
+    <compoundname>BTREE_NS::bTree::pagemap_t</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1a77541a8c1eebc33be02db3e33f8772a7" prot="private" static="no" mutable="no">
+        <type>KEYPAGE</type>
+        <definition>KEYPAGE BTREE_NS::bTree::pagemap_t::nbits</definition>
+        <argsstring></argsstring>
+        <name>nbits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="569" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="569" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1a7605b92931de1e98f2e3217a03a4eac8" prot="private" static="no" mutable="no">
+        <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref></type>
+        <definition>bytevec_t BTREE_NS::bTree::pagemap_t::pmap</definition>
+        <argsstring></argsstring>
+        <name>pmap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="570" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="570" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1a5840c38ad32f06116cd8f756e9d60184" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>BTREE_NS::bTree::pagemap_t::pagemap_t</definition>
+        <argsstring>()</argsstring>
+        <name>pagemap_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="555" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="555" bodyend="555"/>
+      </memberdef>
+      <memberdef kind="function" id="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1a8d7feb72cfcc6587de81a5e355668036" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BTREE_NS::bTree::pagemap_t::alloc</definition>
+        <argsstring>(KEYPAGE count)</argsstring>
+        <name>alloc</name>
+        <param>
+          <type>KEYPAGE</type>
+          <declname>count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="556" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="556" bodyend="556"/>
+      </memberdef>
+      <memberdef kind="function" id="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1abded602932bc11ffbb6df443879f27aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BTREE_NS::bTree::pagemap_t::resize</definition>
+        <argsstring>(KEYPAGE count)</argsstring>
+        <name>resize</name>
+        <param>
+          <type>KEYPAGE</type>
+          <declname>count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="557" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="557" bodyend="557"/>
+      </memberdef>
+      <memberdef kind="function" id="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1af96340904870a9ebd750dee1fcf49429" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>KEYPAGE</type>
+        <definition>KEYPAGE BTREE_NS::bTree::pagemap_t::size</definition>
+        <argsstring>() const</argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="558" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="558" bodyend="558"/>
+      </memberdef>
+      <memberdef kind="function" id="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1a76a1464c5b8a1ac3aa4d089f3d4380df" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool BTREE_NS::bTree::pagemap_t::is_set</definition>
+        <argsstring>(KEYPAGE pgno) const</argsstring>
+        <name>is_set</name>
+        <param>
+          <type>KEYPAGE</type>
+          <declname>pgno</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="559" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="559" bodyend="560"/>
+      </memberdef>
+      <memberdef kind="function" id="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1ade7996d43b1e6ed6e1d04e552ae0119b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool BTREE_NS::bTree::pagemap_t::is_clear</definition>
+        <argsstring>(KEYPAGE pgno) const</argsstring>
+        <name>is_clear</name>
+        <param>
+          <type>KEYPAGE</type>
+          <declname>pgno</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="561" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="561" bodyend="562"/>
+      </memberdef>
+      <memberdef kind="function" id="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1a19774e6c28f582ccce63d2904d1ca7c0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BTREE_NS::bTree::pagemap_t::set</definition>
+        <argsstring>(KEYPAGE pgno)</argsstring>
+        <name>set</name>
+        <param>
+          <type>KEYPAGE</type>
+          <declname>pgno</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="563" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="563" bodyend="563"/>
+      </memberdef>
+      <memberdef kind="function" id="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1a966ac23bc9ed85a56172e8362aa98ec5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BTREE_NS::bTree::pagemap_t::cleanup</definition>
+        <argsstring>()</argsstring>
+        <name>cleanup</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="564" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="564" bodyend="564"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1a9a42cfbcadfbbddd624e13ab495d48c2" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool BTREE_NS::bTree::pagemap_t::test_bit</definition>
+        <argsstring>(KEYPAGE bit) const</argsstring>
+        <name>test_bit</name>
+        <param>
+          <type>KEYPAGE</type>
+          <declname>bit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="567" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="567" bodyend="567"/>
+      </memberdef>
+      <memberdef kind="function" id="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1ab0d3a7ba635c84a549596f49654a1170" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BTREE_NS::bTree::pagemap_t::set_bit</definition>
+        <argsstring>(KEYPAGE bit)</argsstring>
+        <name>set_bit</name>
+        <param>
+          <type>KEYPAGE</type>
+          <declname>bit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="568" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="568" bodyend="568"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="553" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="552" bodyend="571"/>
+    <listofallmembers>
+      <member refid="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1a8d7feb72cfcc6587de81a5e355668036" prot="public" virt="non-virtual"><scope>BTREE_NS::bTree::pagemap_t</scope><name>alloc</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1a966ac23bc9ed85a56172e8362aa98ec5" prot="public" virt="non-virtual"><scope>BTREE_NS::bTree::pagemap_t</scope><name>cleanup</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1ade7996d43b1e6ed6e1d04e552ae0119b" prot="public" virt="non-virtual"><scope>BTREE_NS::bTree::pagemap_t</scope><name>is_clear</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1a76a1464c5b8a1ac3aa4d089f3d4380df" prot="public" virt="non-virtual"><scope>BTREE_NS::bTree::pagemap_t</scope><name>is_set</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1a77541a8c1eebc33be02db3e33f8772a7" prot="private" virt="non-virtual"><scope>BTREE_NS::bTree::pagemap_t</scope><name>nbits</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1a5840c38ad32f06116cd8f756e9d60184" prot="public" virt="non-virtual"><scope>BTREE_NS::bTree::pagemap_t</scope><name>pagemap_t</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1a7605b92931de1e98f2e3217a03a4eac8" prot="private" virt="non-virtual"><scope>BTREE_NS::bTree::pagemap_t</scope><name>pmap</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1abded602932bc11ffbb6df443879f27aa" prot="public" virt="non-virtual"><scope>BTREE_NS::bTree::pagemap_t</scope><name>resize</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1a19774e6c28f582ccce63d2904d1ca7c0" prot="public" virt="non-virtual"><scope>BTREE_NS::bTree::pagemap_t</scope><name>set</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1ab0d3a7ba635c84a549596f49654a1170" prot="private" virt="non-virtual"><scope>BTREE_NS::bTree::pagemap_t</scope><name>set_bit</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1af96340904870a9ebd750dee1fcf49429" prot="public" virt="non-virtual"><scope>BTREE_NS::bTree::pagemap_t</scope><name>size</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t_1a9a42cfbcadfbbddd624e13ab495d48c2" prot="private" virt="non-virtual"><scope>BTREE_NS::bTree::pagemap_t</scope><name>test_bit</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___x_r_e_f___t" kind="group">
+    <compoundname>XREF_T</compoundname>
+    <title>Cross-Reference type flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___x_r_e_f___t_1ga6e9336e5f35291b76d7ffb966fb11269" prot="public" static="no">
+        <name>XREF_USER</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>User specified xref. This xref will not be deleted by IDA. This bit should be combined with the existing xref types (<ref refid="group__xref__type_1ga44e2b79869a9595bbe6265ff2026aa98" kindref="member">cref_t</ref> &amp; <ref refid="group__xref__type_1ga78aab6d0d6bd9cb4904bbdbb5ac4fa71" kindref="member">dref_t</ref>) Can not be used for fl_F xrefs </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="84" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___x_r_e_f___t_1ga5f6b85b621d20dee6cfcc6652d15d969" prot="public" static="no">
+        <name>XREF_TAIL</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+<para>Reference to tail byte in extrn symbols. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="89" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___x_r_e_f___t_1ga1b1b5743ee6d5808b075357fea6b94c2" prot="public" static="no">
+        <name>XREF_BASE</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+<para>Reference to the base part of an offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="90" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___x_r_e_f___t_1gaf4f7eac7c9fd9c04dc74655114419170" prot="public" static="no">
+        <name>XREF_MASK</name>
+        <initializer>0x1F</initializer>
+        <briefdescription>
+<para>Mask to get xref type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="91" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___x_r_e_f___t_1gab518ccb7e04e211486eaf7a24751200c" prot="public" static="no">
+        <name>XREF_PASTEND</name>
+        <initializer>0x100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Reference is past item. This bit may be passed to <ref refid="xref_8hpp_1a190d5d49c093bcf5b11f79c558cddad5" kindref="member">add_dref()</ref> functions but it won&apos;t be saved in the database. It will prevent the destruction of eventual alignment directives. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="93" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>These flags are combined with a <ref refid="group__xref__type_1ga44e2b79869a9595bbe6265ff2026aa98" kindref="member">cref_t</ref> or <ref refid="group__xref__type_1ga78aab6d0d6bd9cb4904bbdbb5ac4fa71" kindref="member">dref_t</ref> value to describe the type of a cross reference. These bits are accessible to the kernel. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

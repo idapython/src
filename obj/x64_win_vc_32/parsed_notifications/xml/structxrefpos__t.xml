@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structxrefpos__t" kind="struct" language="C++" prot="public">
+    <compoundname>xrefpos_t</compoundname>
+    <includes refid="nalt_8hpp" local="no">nalt.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structxrefpos__t_1a7597c38b026ad532d1491744263defb2" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t xrefpos_t::ea</definition>
+        <argsstring></argsstring>
+        <name>ea</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="199" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxrefpos__t_1a5ad9ed3b5796999d0c044a996176ceca" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar xrefpos_t::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="200" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structxrefpos__t_1a91aed125ba9a97d1ca6a450fce7d6371" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>xrefpos_t::xrefpos_t</definition>
+        <argsstring>(ea_t ea_=BADADDR, uchar type_=0)</argsstring>
+        <name>xrefpos_t</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea_</declname>
+          <defval><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref></defval>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>type_</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="201" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="201" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="structxrefpos__t_1a99165c0a7633ba322edcd4302bd2dd98" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool xrefpos_t::is_valid</definition>
+        <argsstring>() const</argsstring>
+        <name>is_valid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="202" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="202" bodyend="202"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Position of cursor in the window with cross-references to the address. Used by the user-interface. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="198" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="197" bodyend="203"/>
+    <listofallmembers>
+      <member refid="structxrefpos__t_1a7597c38b026ad532d1491744263defb2" prot="public" virt="non-virtual"><scope>xrefpos_t</scope><name>ea</name></member>
+      <member refid="structxrefpos__t_1a99165c0a7633ba322edcd4302bd2dd98" prot="public" virt="non-virtual"><scope>xrefpos_t</scope><name>is_valid</name></member>
+      <member refid="structxrefpos__t_1a5ad9ed3b5796999d0c044a996176ceca" prot="public" virt="non-virtual"><scope>xrefpos_t</scope><name>type</name></member>
+      <member refid="structxrefpos__t_1a91aed125ba9a97d1ca6a450fce7d6371" prot="public" virt="non-virtual"><scope>xrefpos_t</scope><name>xrefpos_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

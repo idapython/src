@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="tstfeat_8hpp" kind="file" language="C++">
+    <compoundname>tstfeat.hpp</compoundname>
+    <includes local="no">map</includes>
+    <includes refid="pro_8h" local="no">pro.h</includes>
+    <includes refid="lex_8hpp" local="no">lex.hpp</includes>
+    <includes refid="expr_8hpp" local="no">expr.hpp</includes>
+    <incdepgraph>
+      <node id="1429">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="1414">
+        <label>stdarg.h</label>
+      </node>
+      <node id="1417">
+        <label>assert.h</label>
+      </node>
+      <node id="1436">
+        <label>ida.hpp</label>
+        <link refid="ida_8hpp"/>
+        <childnode refid="1412" relation="include">
+        </childnode>
+        <childnode refid="1437" relation="include">
+        </childnode>
+      </node>
+      <node id="1413">
+        <label>stdlib.h</label>
+      </node>
+      <node id="1443">
+        <label>ua.hpp</label>
+        <link refid="ua_8hpp"/>
+        <childnode refid="1444" relation="include">
+        </childnode>
+        <childnode refid="1442" relation="include">
+        </childnode>
+        <childnode refid="1445" relation="include">
+        </childnode>
+        <childnode refid="1441" relation="include">
+        </childnode>
+      </node>
+      <node id="1446">
+        <label>bitrange.hpp</label>
+        <link refid="bitrange_8hpp"/>
+      </node>
+      <node id="1425">
+        <label>io.h</label>
+      </node>
+      <node id="1427">
+        <label>fcntl.h</label>
+      </node>
+      <node id="1430">
+        <label>llong.hpp</label>
+        <link refid="llong_8hpp_source"/>
+      </node>
+      <node id="1423">
+        <label>malloc.h</label>
+      </node>
+      <node id="1422">
+        <label>string</label>
+      </node>
+      <node id="1433">
+        <label>idp.hpp</label>
+        <link refid="idp_8hpp"/>
+        <childnode refid="1434" relation="include">
+        </childnode>
+        <childnode refid="1435" relation="include">
+        </childnode>
+        <childnode refid="1439" relation="include">
+        </childnode>
+        <childnode refid="1440" relation="include">
+        </childnode>
+        <childnode refid="1443" relation="include">
+        </childnode>
+        <childnode refid="1446" relation="include">
+        </childnode>
+        <childnode refid="1447" relation="include">
+        </childnode>
+      </node>
+      <node id="1411">
+        <label>map</label>
+      </node>
+      <node id="1426">
+        <label>direct.h</label>
+      </node>
+      <node id="1415">
+        <label>stddef.h</label>
+      </node>
+      <node id="1435">
+        <label>nalt.hpp</label>
+        <link refid="nalt_8hpp"/>
+        <childnode refid="1436" relation="include">
+        </childnode>
+        <childnode refid="1438" relation="include">
+        </childnode>
+      </node>
+      <node id="1442">
+        <label>lines.hpp</label>
+        <link refid="lines_8hpp"/>
+        <childnode refid="1436" relation="include">
+        </childnode>
+      </node>
+      <node id="1418">
+        <label>limits.h</label>
+      </node>
+      <node id="1428">
+        <label>sys/types.h</label>
+      </node>
+      <node id="1424">
+        <label>string.h</label>
+      </node>
+      <node id="1410">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp</label>
+        <link refid="tstfeat_8hpp"/>
+        <childnode refid="1411" relation="include">
+        </childnode>
+        <childnode refid="1412" relation="include">
+        </childnode>
+        <childnode refid="1431" relation="include">
+        </childnode>
+        <childnode refid="1432" relation="include">
+        </childnode>
+      </node>
+      <node id="1421">
+        <label>new</label>
+      </node>
+      <node id="1445">
+        <label>xref.hpp</label>
+        <link refid="xref_8hpp"/>
+      </node>
+      <node id="1440">
+        <label>funcs.hpp</label>
+        <link refid="funcs_8hpp"/>
+        <childnode refid="1437" relation="include">
+        </childnode>
+        <childnode refid="1441" relation="include">
+        </childnode>
+      </node>
+      <node id="1432">
+        <label>expr.hpp</label>
+        <link refid="expr_8hpp"/>
+        <childnode refid="1433" relation="include">
+        </childnode>
+      </node>
+      <node id="1412">
+        <label>pro.h</label>
+        <link refid="pro_8h"/>
+        <childnode refid="1413" relation="include">
+        </childnode>
+        <childnode refid="1414" relation="include">
+        </childnode>
+        <childnode refid="1415" relation="include">
+        </childnode>
+        <childnode refid="1416" relation="include">
+        </childnode>
+        <childnode refid="1417" relation="include">
+        </childnode>
+        <childnode refid="1418" relation="include">
+        </childnode>
+        <childnode refid="1419" relation="include">
+        </childnode>
+        <childnode refid="1420" relation="include">
+        </childnode>
+        <childnode refid="1421" relation="include">
+        </childnode>
+        <childnode refid="1422" relation="include">
+        </childnode>
+        <childnode refid="1423" relation="include">
+        </childnode>
+        <childnode refid="1424" relation="include">
+        </childnode>
+        <childnode refid="1425" relation="include">
+        </childnode>
+        <childnode refid="1426" relation="include">
+        </childnode>
+        <childnode refid="1411" relation="include">
+        </childnode>
+        <childnode refid="1427" relation="include">
+        </childnode>
+        <childnode refid="1428" relation="include">
+        </childnode>
+        <childnode refid="1429" relation="include">
+        </childnode>
+        <childnode refid="1430" relation="include">
+        </childnode>
+      </node>
+      <node id="1439">
+        <label>segment.hpp</label>
+        <link refid="segment_8hpp"/>
+        <childnode refid="1436" relation="include">
+        </childnode>
+        <childnode refid="1437" relation="include">
+        </childnode>
+      </node>
+      <node id="1420">
+        <label>time.h</label>
+      </node>
+      <node id="1434">
+        <label>fpro.h</label>
+        <link refid="fpro_8h"/>
+        <childnode refid="1412" relation="include">
+        </childnode>
+        <childnode refid="1416" relation="include">
+        </childnode>
+      </node>
+      <node id="1447">
+        <label>config.hpp</label>
+        <link refid="config_8hpp_source"/>
+      </node>
+      <node id="1441">
+        <label>bytes.hpp</label>
+        <link refid="bytes_8hpp"/>
+        <childnode refid="1435" relation="include">
+        </childnode>
+        <childnode refid="1442" relation="include">
+        </childnode>
+        <childnode refid="1437" relation="include">
+        </childnode>
+      </node>
+      <node id="1431">
+        <label>lex.hpp</label>
+        <link refid="lex_8hpp"/>
+      </node>
+      <node id="1419">
+        <label>ctype.h</label>
+      </node>
+      <node id="1437">
+        <label>range.hpp</label>
+        <link refid="range_8hpp"/>
+      </node>
+      <node id="1438">
+        <label>netnode.hpp</label>
+        <link refid="netnode_8hpp"/>
+        <childnode refid="1437" relation="include">
+        </childnode>
+      </node>
+      <node id="1444">
+        <label>kernwin.hpp</label>
+        <link refid="kernwin_8hpp"/>
+      </node>
+      <node id="1416">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classtest__features__t" prot="public">test_features_t</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="tstfeat_8hpp_1a51c5fe620af6af65bcbd55f241cbda65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi update_test_features</definition>
+        <argsstring>()</argsstring>
+        <name>update_test_features</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" line="57" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="tstfeat_8hpp_1abf39c72828c2ec9687e71f319f03edbe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi setup_test_features_update</definition>
+        <argsstring>()</argsstring>
+        <name>setup_test_features_update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" line="58" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp"/>
+  </compounddef>
+</doxygen>

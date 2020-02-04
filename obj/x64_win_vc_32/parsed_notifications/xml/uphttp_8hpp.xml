@@ -1,0 +1,448 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="uphttp_8hpp" kind="file" language="C++">
+    <compoundname>uphttp.hpp</compoundname>
+    <innerclass refid="structhttp__request__params__t" prot="public">http_request_params_t</innerclass>
+    <innerclass refid="structwrite__sync__t" prot="public">write_sync_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="uphttp_8hpp_1a27a08aff36563ca703915415456050c1" prot="public" static="no">
+        <name>HOPT_REQ_MASK</name>
+        <initializer>0x0000000F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="5" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="uphttp_8hpp_1a11cc592db0f3e88a2f0a66b347e99d22" prot="public" static="no">
+        <name>HOPT_REQ_GET</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="6" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="uphttp_8hpp_1a1dd4d1be121732fe769d2295c64276c5" prot="public" static="no">
+        <name>HOPT_REQ_POST</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="7" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="uphttp_8hpp_1ac88324c551c58f4ded0a8458c2e50832" prot="public" static="no">
+        <name>HOPT_USE_HTTP</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="8" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="uphttp_8hpp_1a9b8ade1910639dd04f0e4d39aa2e4d5c" prot="public" static="no">
+        <name>HOPT_USE_NOPROGRESS</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="9" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="uphttp_8hpp_1a5d716289aaf767942c7b2b07d1f04114" prot="public" static="no">
+        <name>HOPT_FOLLOWLOCATION</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="10" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="uphttp_8hpp_1a24cd3c37a165a8c4626d9e78df4574ff" prot="public" static="no">
+        <name>SERVER</name>
+        <initializer>&quot;www.hex-rays.com&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="69" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="uphttp_8hpp_1ae5c0c51a350b082e8c7cf867845f5add" prot="public" static="no">
+        <name>IDB_SERVER_CGI</name>
+        <initializer>&quot;/cgi-bin/upload.cgi&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="73" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="uphttp_8hpp_1a891891f714b1b86b9bfcde56e43d7f0a" prot="public" static="no">
+        <name>IDB_FILE_FIELD</name>
+        <initializer>&quot;FILE1&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="74" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="uphttp_8hpp_1a915315ec51a19e41a33f8e0d3e152128" prot="public" static="no">
+        <name>KEY_SERVER_CGI</name>
+        <initializer>&quot;/cgi-bin/oracle.cgi&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="75" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="uphttp_8hpp_1a224a1a4bd1d38bbb49f9b8bdd8cc5f92" prot="public" static="no">
+        <name>KEY_FILE_FIELD</name>
+        <initializer>&quot;idakey&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="76" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___u_p_i_d_b___1gaee3dc29a84fce22373328a7af7803af7" prot="public" static="no">
+        <name>UPIDB_AUTO0</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="81" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___u_p_i_d_b___1gade3565bbd45d7e2a3b99221f8083f249" prot="public" static="no">
+        <name>UPIDB_AUTO1</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="82" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___u_p_i_d_b___1ga7bdb8c99ce95d59662740413dc0ff66a" prot="public" static="no">
+        <name>UPIDB_AUTO2</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="83" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___u_p_i_d_b___1gad820b736bb1e41e9f464191a6e79b266" prot="public" static="no">
+        <name>UPIDB_AUTO_MASK</name>
+        <initializer>0x0F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="84" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___u_p_i_d_b___1ga7f978a94ea4e9b71b7970dc956864fee" prot="public" static="no">
+        <name>UPIDB_BACKGROUND</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="86" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___u_p_i_d_b___1ga2159a34a24089eaaa39e6759e9f037b1" prot="public" static="no">
+        <name>UPIDB_KEEPLOCAL</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="87" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___u_p_i_d_b___1ga122d8919a485c1542435154210ca7e80" prot="public" static="no">
+        <name>UPIDB_QUERYSTATE</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="88" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="uphttp_8hpp_1afae1095b068b8886163774fdf6b48826" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export http_request</definition>
+        <argsstring>(http_request_params_t *params)</argsstring>
+        <name>http_request</name>
+        <param>
+          <type><ref refid="structhttp__request__params__t" kindref="compound">http_request_params_t</ref> *</type>
+          <declname>params</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Upload a file to Hex-Rays server <parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok, replybuf contains server reply </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>HTTP error, replybuf contains error text </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>-1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>bad parameter. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="37" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="uphttp_8hpp_1a323b80ea687b9c06c6df89f397251ccd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export http_get_file</definition>
+        <argsstring>(const char *server, const char *path, uint32 options, write_sync_t *writer, qstring *errbuf=NULL)</argsstring>
+        <name>http_get_file</name>
+        <param>
+          <type>const char *</type>
+          <declname>server</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>options</declname>
+        </param>
+        <param>
+          <type><ref refid="structwrite__sync__t" kindref="compound">write_sync_t</ref> *</type>
+          <declname>writer</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="60" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="uphttp_8hpp_1a0d5da76ed2efa103db6682650cc0814c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export upload_idb</definition>
+        <argsstring>(int flags, const char *lid, const char *product, const char *build, const char *email, const char *local_file, const char *remote_file=NULL, const char *username=NULL, const char *subject=NULL, const char *text=NULL)</argsstring>
+        <name>upload_idb</name>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>lid</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>product</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>build</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>email</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>local_file</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>remote_file</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>username</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subject</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>text</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Send bug report and IDB <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___u_p_i_d_b__" kindref="compound">Upload IDB flags</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IDA license id </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>product</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>product id of the uploading software </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>build</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>product build </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>email</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>email </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>local_file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if NULL don&apos;t send IDB file. Usually the name of temporary file with compressed IDB. See UPIDB_KEEPLOCAL to preserve it. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>remote_file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if NULL use idb_path </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>username</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>user name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subject</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>report subject </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>text</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>report description </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="106" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="uphttp_8hpp_1a56c0c556fdc1122f41179541c3e4e6bf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_uploading_idb</definition>
+        <argsstring>(void)</argsstring>
+        <name>is_uploading_idb</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Check the uploading IDB thread state <parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>true</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the uploading is running </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>false</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>idle </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" line="122" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp" bodystart="122" bodyend="122"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/uphttp.hpp"/>
+  </compounddef>
+</doxygen>

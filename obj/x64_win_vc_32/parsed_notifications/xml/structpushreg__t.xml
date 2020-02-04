@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structpushreg__t" kind="struct" language="C++" prot="public">
+    <compoundname>pushreg_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structpushreg__t_1aa0b5260a7f07c50101679455add4aa23" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t pushreg_t::ea</definition>
+        <argsstring></argsstring>
+        <name>ea</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="912" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="912" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpushreg__t_1a2536949b3d341289fb5d330f334b3fb7" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+        <definition>sval_t pushreg_t::off</definition>
+        <argsstring></argsstring>
+        <name>off</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="913" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="913" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpushreg__t_1a2994a6929c4a8250a98c7d9147196cb0" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+        <definition>sval_t pushreg_t::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="914" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="914" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpushreg__t_1a3a6efc510eb4d0be77955cacb08cfbc3" prot="public" static="no" mutable="no">
+        <type>regnum_t</type>
+        <definition>regnum_t pushreg_t::reg</definition>
+        <argsstring></argsstring>
+        <name>reg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="915" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="915" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpushreg__t_1ab1a15d475f568da28718ec8715d5bcd3" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 pushreg_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="916" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="916" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="911" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="910" bodyend="921"/>
+    <listofallmembers>
+      <member refid="structpushreg__t_1aa0b5260a7f07c50101679455add4aa23" prot="public" virt="non-virtual"><scope>pushreg_t</scope><name>ea</name></member>
+      <member refid="structpushreg__t_1ab1a15d475f568da28718ec8715d5bcd3" prot="public" virt="non-virtual"><scope>pushreg_t</scope><name>flags</name></member>
+      <member refid="structpushreg__t_1a2536949b3d341289fb5d330f334b3fb7" prot="public" virt="non-virtual"><scope>pushreg_t</scope><name>off</name></member>
+      <member refid="structpushreg__t_1a3a6efc510eb4d0be77955cacb08cfbc3" prot="public" virt="non-virtual"><scope>pushreg_t</scope><name>reg</name></member>
+      <member refid="structpushreg__t_1a2994a6929c4a8250a98c7d9147196cb0" prot="public" virt="non-virtual"><scope>pushreg_t</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

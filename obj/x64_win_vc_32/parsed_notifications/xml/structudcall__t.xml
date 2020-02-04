@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structudcall__t" kind="struct" language="C++" prot="public">
+    <compoundname>udcall_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structudcall__t_1a50fefb55b3e8d6fc0599f365fbb54924" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring udcall_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1585" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1585" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structudcall__t_1ae205f06934380a568524d0c8fa44354e" prot="public" static="no" mutable="no">
+        <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref></type>
+        <definition>tinfo_t udcall_t::tif</definition>
+        <argsstring></argsstring>
+        <name>tif</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1586" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1586" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>User-defined function calls. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3517">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="3515">
+        <label>udcall_t</label>
+        <link refid="structudcall__t"/>
+        <childnode refid="3516" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="3517" relation="usage">
+          <edgelabel>tif</edgelabel>
+        </childnode>
+      </node>
+      <node id="3516">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1584" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1583" bodyend="1587"/>
+    <listofallmembers>
+      <member refid="structudcall__t_1a50fefb55b3e8d6fc0599f365fbb54924" prot="public" virt="non-virtual"><scope>udcall_t</scope><name>name</name></member>
+      <member refid="structudcall__t_1ae205f06934380a568524d0c8fa44354e" prot="public" virt="non-virtual"><scope>udcall_t</scope><name>tif</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

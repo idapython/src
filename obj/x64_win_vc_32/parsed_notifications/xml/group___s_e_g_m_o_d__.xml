@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_e_g_m_o_d__" kind="group">
+    <compoundname>SEGMOD_</compoundname>
+    <title>Segment modification flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_e_g_m_o_d___1ga9305d855a66ea14f3efc11dbba83236a" prot="public" static="no">
+        <name>SEGMOD_KILL</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>disable addresses if segment gets shrinked or deleted </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="610" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="610" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_g_m_o_d___1ga8c13b0da46d0f56b4a85158c48fe95eb" prot="public" static="no">
+        <name>SEGMOD_KEEP</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>keep information (code &amp; data, etc) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="611" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="611" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_g_m_o_d___1ga3c6914d8e96834d9f75c3271addef56d" prot="public" static="no">
+        <name>SEGMOD_SILENT</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>be silent </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="612" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="612" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_g_m_o_d___1gad1498b4080390eb46f9f905c4e67437a" prot="public" static="no">
+        <name>SEGMOD_KEEP0</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>flag for internal use, don&apos;t set </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="613" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="613" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_g_m_o_d___1ga6657a780db914630b7a156aac2549d88" prot="public" static="no">
+        <name>SEGMOD_KEEPSEL</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>do not try to delete unused selector </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="614" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="614" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_g_m_o_d___1gaa4d8f0e4d83b261bcc5de1600199230b" prot="public" static="no">
+        <name>SEGMOD_NOMOVE</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>(for <ref refid="group__seg__man_1gaffcd6c25a6d3bfc4bafeb786db81ec79" kindref="member">set_segm_start()</ref>) </para>        </briefdescription>
+        <detaileddescription>
+<para>don&apos;t move info from the start of segment to the new start address </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="615" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="615" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_g_m_o_d___1ga182c0e6bd2cba7e46f360464ffe38276" prot="public" static="no">
+        <name>SEGMOD_SPARSE</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+<para>(for <ref refid="group__seg__man_1gaffcd6c25a6d3bfc4bafeb786db81ec79" kindref="member">set_segm_start()</ref>, <ref refid="group__seg__man_1gaadde01303718a6cde673dca12ffac9d7" kindref="member">set_segm_end()</ref>) </para>        </briefdescription>
+        <detaileddescription>
+<para>use sparse storage if extending the segment </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="617" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="617" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by functions in <ref refid="group__seg__man" kindref="compound">Segment manipulation functions</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

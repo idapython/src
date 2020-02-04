@@ -123,7 +123,7 @@ public:
     bool ok;
     {
       PYW_GIL_CHECK_LOCKED_SCOPE();
-      ok = pycobject != NULL && PyCObject_Check(pycobject);
+      ok = pycobject != NULL && PyCapsule_IsValid(pycobject, VALID_CAPSULE_NAME);
     }
     if ( ok )
       _from_cobject(pycobject);
@@ -187,7 +187,7 @@ public:
   // This method can be used to pass a FILE* from C code
   static qfile_t *from_cobject(PyObject *pycobject)
   {
-    return PyCObject_Check(pycobject) ? from_fp((FILE *)PyCObject_AsVoidPtr(pycobject)) : NULL;
+    return PyCapsule_IsValid(pycobject, VALID_CAPSULE_NAME) ? from_fp((FILE *)PyCapsule_GetPointer(pycobject, VALID_CAPSULE_NAME)) : NULL;
   }
 
   //--------------------------------------------------------------------------
@@ -295,7 +295,7 @@ public:
         free(buf);
         break;
       }
-      PyObject *ret = PyString_FromString(buf);
+      PyObject *ret = IDAPyStr_FromUTF8(buf);
       free(buf);
       return ret;
     } while ( false );
@@ -309,7 +309,7 @@ public:
     void *buf;
     PYW_GIL_CHECK_LOCKED_SCOPE();
     sz = PyString_GET_SIZE(py_buf);
-    buf = (void *)PyString_AS_STRING(py_buf);
+    IDAPyBytes_AsMemAndSize(py_buf, &buf, &sz);
     int rc;
     Py_BEGIN_ALLOW_THREADS;
     rc = fwritebytes(fp, buf, int(sz), big_endian);
@@ -327,11 +327,10 @@ public:
     // 'PyString_AS_STRING' gets deallocated within the
     // Py_BEGIN|END_ALLOW_THREADS section.
     borref_t py_buf_ref(py_buf);
-    void *p = (void *)PyString_AS_STRING(py_buf);
-    Py_ssize_t sz = PyString_GET_SIZE(py_buf);
+    IDAPyStr_AsUTF8(&buf, py_buf);
     int rc;
     Py_BEGIN_ALLOW_THREADS;
-    rc = qfwrite(fp, p, sz);
+    rc = qfwrite(fp, buf.c_str(), buf.length());
     Py_END_ALLOW_THREADS;
     return rc;
   }
@@ -375,7 +374,7 @@ public:
   PyObject *filename()
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    return PyString_FromString(fn.c_str());
+    return IDAPyStr_FromUTF8(fn.c_str());
   }
 
   //--------------------------------------------------------------------------

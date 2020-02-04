@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_t_r_c_o_n_v__" kind="group">
+    <compoundname>STRCONV_</compoundname>
+    <title>string conversion flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_t_r_c_o_n_v___1ga888b2ff38fbe15c6647f35bbbd353c97" prot="public" static="no">
+        <name>STRCONV_ESCAPE</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>convert non-printable characters to C escapes (<linebreak/>
+, , ) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1519" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1519" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_c_o_n_v___1gac9d42fda7a9cebc1ae84bf61ce82286b" prot="public" static="no">
+        <name>STRCONV_REPLCHAR</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>convert non-printable characters to the Unicode replacement character (U+FFFD) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1520" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1520" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_c_o_n_v___1gafede03762eff206fbc9eb2f14aa011d5" prot="public" static="no">
+        <name>STRCONV_INCLLEN</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>for Pascal-style strings, include the prefixing length byte(s) as C-escaped sequence </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1521" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1521" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>passed as &apos;flags&apos; parameter to <ref refid="bytes_8hpp_1a57f1e913261ce74ace2abf13ac488069" kindref="member">get_strlit_contents()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

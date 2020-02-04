@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_s_i_d_l" kind="group">
+    <compoundname>CSIDL</compoundname>
+    <title>Common CSIDLs</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___c_s_i_d_l_1gabcb378cbd826789a5474d8f4bc85c208" prot="public" static="no">
+        <name>CSIDL_APPDATA</name>
+        <initializer>0x001a</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="103" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_s_i_d_l_1ga86443d3467c24dae3bb85d7a61940c18" prot="public" static="no">
+        <name>CSIDL_LOCAL_APPDATA</name>
+        <initializer>0x001c</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="106" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_s_i_d_l_1ga0d02acecee16f342f6a354142293aa01" prot="public" static="no">
+        <name>CSIDL_PROGRAM_FILES</name>
+        <initializer>0x0026</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="109" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_s_i_d_l_1ga921ca7a872716343b3793efa72bc06ac" prot="public" static="no">
+        <name>CSIDL_PROGRAM_FILES_COMMON</name>
+        <initializer>0x002b</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="112" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_s_i_d_l_1gaab2dbf30cf2f869ba6087cf8a4cc07ba" prot="public" static="no">
+        <name>CSIDL_PROGRAM_FILESX86</name>
+        <initializer>0x002a</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="115" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as &apos;csidl&apos; parameter to <ref refid="diskio_8hpp_1aba3966c5fe94390b019ebb3f6b0adb5e" kindref="member">get_special_folder()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,2050 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="namespaceidb__event" kind="namespace" language="C++">
+    <compoundname>idb_event</compoundname>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784" prot="public" static="no">
+        <name>event_code_t</name>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a26bc4216338ac6a5297ac4584ac31ede" prot="public">
+          <name>closebase</name>
+          <briefdescription>
+<para>The database will be closed now. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a9d10282f2e72107c2e66fd58726c5d53" prot="public">
+          <name>savebase</name>
+          <briefdescription>
+<para>The database is being saved. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a63eaa11d945a217f90fe980dafa55351" prot="public">
+          <name>upgraded</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>The database has been upgraded and the receiver can upgrade its info as well <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>from</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) - old IDB version </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784aca5f86d87035892c107b48ccee9f091d" prot="public">
+          <name>auto_empty</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Info: all analysis queues are empty. This callback is called once when the initial analysis is finished. If the queue is not empty upon the return from this callback, it will be called later again. </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a8d4508d4ede7ad33b0df402700a95740" prot="public">
+          <name>auto_empty_finally</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Info: all analysis queues are empty definitively. This callback is called only once. </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a6e9d92f352bffedb1babc5e9884b6e89" prot="public">
+          <name>determined_main</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>The main() function has been determined. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>main</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) address of the main() function </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a1bbc5612bdcc569e4e7969a6bb4df252" prot="public">
+          <name>local_types_changed</name>
+          <briefdescription>
+<para>Local types have been changed. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a203ca8f997033943dabfcb9ff9b34ca7" prot="public">
+          <name>extlang_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>The list of extlangs or the default extlang was changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>kind</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) 0: extlang installed 1: extlang removed 2: default extlang changed </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>el</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="structextlang__t" kindref="compound">extlang_t</ref> *) pointer to the extlang affected </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>idx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) extlang index </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a29c326fe5979f0bc4bef88df80db8ce0" prot="public">
+          <name>idasgn_loaded</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>FLIRT signature has been loaded for normal processing (not for recognition of startup sequences). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>short_sig_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784aae36e2779631c4d6d5b58250439be71a" prot="public">
+          <name>kernel_config_loaded</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>This event is issued when ida.cfg is parsed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>none</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784aee60741ee96f4ea5c2750c51c9e7bfca" prot="public">
+          <name>loader_finished</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>External file loader finished its work. Use this event to augment the existing loader functionality. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>li</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(linput_t *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>neflags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref>) <ref refid="group___n_e_f__" kindref="compound">Load file flags</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>filetypename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784ae9a333b9d312548b807a0c8c746eccb0" prot="public">
+          <name>flow_chart_created</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Gui has retrieved a function flow chart. Plugins may modify the flow chart in this callback. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classqflow__chart__t" kindref="compound">qflow_chart_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784aa6c2923fb3d14605ae60a35c92723974" prot="public">
+          <name>compiler_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>The kernel has changed the compiler information. ({cc} structure; <ref refid="group___c_c__funcs_1ga574b887360c437eb564122c17a82c4ef" kindref="member">get_abi_name</ref>) </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a371bef9a3bd062aa149c1923cfad750f" prot="public">
+          <name>changing_ti</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An item typestring (c/c++ prototype) is to be changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>new_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>new_fnames</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="typeinf_8hpp_1a828c7e985f83b1e74eb4ea7b716abfb1" kindref="member">p_list</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784ae76b0abed25c96968585a968d7f5056c" prot="public">
+          <name>ti_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An item typestring (c/c++ prototype) has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fnames</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="typeinf_8hpp_1a828c7e985f83b1e74eb4ea7b716abfb1" kindref="member">p_list</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a5ac8e97367f0aa3519dff27fa073aae2" prot="public">
+          <name>changing_op_ti</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An operand typestring (c/c++ prototype) is to be changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>new_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>new_fnames</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="typeinf_8hpp_1a828c7e985f83b1e74eb4ea7b716abfb1" kindref="member">p_list</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784ac1c43f6ce38ac74249e59cb200f62b1c" prot="public">
+          <name>op_ti_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An operand typestring (c/c++ prototype) has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fnames</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="typeinf_8hpp_1a828c7e985f83b1e74eb4ea7b716abfb1" kindref="member">p_list</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a28b2f4b59788f5c5fb549e514fd55c36" prot="public">
+          <name>changing_op_type</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An operand type (offset, hex, etc...) is to be changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) eventually or&apos;ed with OPND_OUTER or OPND_ALL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>opinfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="unionopinfo__t" kindref="compound">opinfo_t</ref> *) additional operand info </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a8bf4dd45e54b82752e0079441d395372" prot="public">
+          <name>op_type_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An operand type (offset, hex, etc...) has been set or deleted. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) eventually or&apos;ed with OPND_OUTER or OPND_ALL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a6717496f7f00ecdb2f19131768024bb4" prot="public">
+          <name>enum_created</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An enum type has been created. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="enum_8hpp_1a320dc6698b7075a653144bbdf202b30e" kindref="member">enum_t</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784ac7b2f8e2729a22e6e971a5724eeaa782" prot="public">
+          <name>deleting_enum</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An enum type is to be deleted. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="enum_8hpp_1a320dc6698b7075a653144bbdf202b30e" kindref="member">enum_t</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784ae24ed17290c146b434c68f7953262657" prot="public">
+          <name>enum_deleted</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An enum type has been deleted. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="enum_8hpp_1a320dc6698b7075a653144bbdf202b30e" kindref="member">enum_t</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a02e9cb1a1b63c87650d66c211924b085" prot="public">
+          <name>renaming_enum</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An enum or enum member is to be renamed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>is_enum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(bool) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a844af1fe1e1ab87325170e95bdcf0258" prot="public">
+          <name>enum_renamed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An enum or member has been renamed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a3d6beed7a92554959e7f07c2fdb096b1" prot="public">
+          <name>changing_enum_bf</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An enum type &apos;bitfield&apos; attribute is to be changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="enum_8hpp_1a320dc6698b7075a653144bbdf202b30e" kindref="member">enum_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>new_bf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(bool) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a18a310d24e698ea904493c2141c36a2f" prot="public">
+          <name>enum_bf_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An enum type &apos;bitfield&apos; attribute has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="enum_8hpp_1a320dc6698b7075a653144bbdf202b30e" kindref="member">enum_t</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784ab84084a44f501b6ad2fc73b2a6acc343" prot="public">
+          <name>changing_enum_cmt</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An enum or member type comment is to be changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>repeatable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(bool) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newcmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784aa13911ecb8b7ced3ec42160d656223a4" prot="public">
+          <name>enum_cmt_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An enum or member type comment has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>repeatable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(bool) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784abc1a7eac86a98eb1bfd2842dc278145a" prot="public">
+          <name>enum_member_created</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An enum member has been created. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="enum_8hpp_1a320dc6698b7075a653144bbdf202b30e" kindref="member">enum_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="enum_8hpp_1ae92726449792c6db974b4b5d3f04a501" kindref="member">const_t</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a2b8de2cc0eaf64b0e02b3b9d6517f410" prot="public">
+          <name>deleting_enum_member</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An enum member is to be deleted. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="enum_8hpp_1a320dc6698b7075a653144bbdf202b30e" kindref="member">enum_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="enum_8hpp_1ae92726449792c6db974b4b5d3f04a501" kindref="member">const_t</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a84771f8c05a35e886787d34d911abae5" prot="public">
+          <name>enum_member_deleted</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An enum member has been deleted. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="enum_8hpp_1a320dc6698b7075a653144bbdf202b30e" kindref="member">enum_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="enum_8hpp_1ae92726449792c6db974b4b5d3f04a501" kindref="member">const_t</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784ab2783962920562d834d7a56b19701293" prot="public">
+          <name>struc_created</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A new structure type has been created. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>struc_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a44c6e2d976e1c0eb57942319efc9a096" prot="public">
+          <name>deleting_struc</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure type is to be deleted. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classstruc__t" kindref="compound">struc_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784aa92de53a5a9f6f5b2afea7e3a3435438" prot="public">
+          <name>struc_deleted</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure type has been deleted. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>struc_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784add4da738fe67d278b4190b17bc67c9d3" prot="public">
+          <name>changing_struc_align</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure type is being changed (the struct alignment). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classstruc__t" kindref="compound">struc_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a2c1b43aa8a50c73b8afbcc2c4f85fbbc" prot="public">
+          <name>struc_align_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure type has been changed (the struct alignment). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classstruc__t" kindref="compound">struc_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a23c3c8150be41fb310a1a911630eb215" prot="public">
+          <name>renaming_struc</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure type is to be renamed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>oldname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a441c8d42d5e1b0b95c14f0eae90ff03f" prot="public">
+          <name>struc_renamed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure type has been renamed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classstruc__t" kindref="compound">struc_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a4a54f1c372b823505d94eb1d9c41bfcc" prot="public">
+          <name>expanding_struc</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure type is to be expanded/shrunk. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classstruc__t" kindref="compound">struc_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>delta</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::adiff_t) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a56f39c63568120f2cc6063f05b0387ab" prot="public">
+          <name>struc_expanded</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure type has been expanded/shrank. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classstruc__t" kindref="compound">struc_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784affe071e344988063c9628e479b572abe" prot="public">
+          <name>struc_member_created</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure member has been created. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classstruc__t" kindref="compound">struc_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classmember__t" kindref="compound">member_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a389a940f8dcefb0f97f361086efd4f65" prot="public">
+          <name>deleting_struc_member</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure member is to be deleted. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classstruc__t" kindref="compound">struc_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classmember__t" kindref="compound">member_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784acb3410768e73031b4115a4997c0d302c" prot="public">
+          <name>struc_member_deleted</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure member has been deleted. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classstruc__t" kindref="compound">struc_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>member_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a6d87a915206a68c1081da3b2b0ed65d6" prot="public">
+          <name>renaming_struc_member</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure member is to be renamed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classstruc__t" kindref="compound">struc_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classmember__t" kindref="compound">member_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a456485f3fd3c68bb61c98c4a8bac92b9" prot="public">
+          <name>struc_member_renamed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure member has been renamed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classstruc__t" kindref="compound">struc_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classmember__t" kindref="compound">member_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784aece3087ecd96086fe2e4c374f5efa2e5" prot="public">
+          <name>changing_struc_member</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure member is to be changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classstruc__t" kindref="compound">struc_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classmember__t" kindref="compound">member_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ti</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="unionopinfo__t" kindref="compound">opinfo_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nbytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::asize_t) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a10b1b102746a660dfb5d2c6b182a540b" prot="public">
+          <name>struc_member_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure member has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classstruc__t" kindref="compound">struc_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classmember__t" kindref="compound">member_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a52f0efff94852bb99a4e26343a6367d8" prot="public">
+          <name>changing_struc_cmt</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure type comment is to be changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>struc_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>repeatable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(bool) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newcmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a9432be20ce4fcf6a5837f842bf1c9504" prot="public">
+          <name>struc_cmt_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A structure type comment has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>struc_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>repeatable_cmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(bool) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784ac47bf8f2dc85bdd7e43a9ab9f8b42b82" prot="public">
+          <name>segm_added</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A new segment has been created. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classsegment__t" kindref="compound">segment_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a48c45781b6c39f448fb52f9f340e9d8f" prot="public">
+          <name>deleting_segm</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A segment is to be deleted. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>start_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a7a3545ea075ae05639425a1d4dbeb41a" prot="public">
+          <name>segm_deleted</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A segment has been deleted. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>start_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>end_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a4e1f7cb4b5d1983f79f738506453ce3b" prot="public">
+          <name>changing_segm_start</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Segment start address is to be changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classsegment__t" kindref="compound">segment_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>new_start</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>segmod_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a88eeff1a645f1ffe64130e5e915366ae" prot="public">
+          <name>segm_start_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Segment start address has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classsegment__t" kindref="compound">segment_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>oldstart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784ab1726a6f47618925b8f8100e07040919" prot="public">
+          <name>changing_segm_end</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Segment end address is to be changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classsegment__t" kindref="compound">segment_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>new_end</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>segmod_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a63319dfd2cd613bd42eecd86ad5045ee" prot="public">
+          <name>segm_end_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Segment end address has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classsegment__t" kindref="compound">segment_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>oldend</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a22cef808b0962e799cf5df5e1404fc12" prot="public">
+          <name>changing_segm_name</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Segment name is being changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classsegment__t" kindref="compound">segment_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>oldname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a3d4568393eae0d0531648effeeea4336" prot="public">
+          <name>segm_name_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Segment name has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classsegment__t" kindref="compound">segment_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a83a5970435869194227ce466e107de1d" prot="public">
+          <name>changing_segm_class</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Segment class is being changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classsegment__t" kindref="compound">segment_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784af625df046d04f5e248fe04d7ef95a713" prot="public">
+          <name>segm_class_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Segment class has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classsegment__t" kindref="compound">segment_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sclass</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a840c0ac4d0d5a7aa12ba77f3fcb29cc5" prot="public">
+          <name>segm_attrs_updated</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Segment attributes has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classsegment__t" kindref="compound">segment_t</ref> *) This event is generated for secondary segment attributes (examples: color, permissions, etc) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a9462c0eec099edd1bb2f0d7e65acf2e5" prot="public">
+          <name>segm_moved</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Segment has been moved. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>from</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>to</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::asize_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>changed_netmap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(bool) See also <ref refid="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a8ea711410c083b6d37d4dac1a066d4af" kindref="member">idb_event::allsegs_moved</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a8ea711410c083b6d37d4dac1a066d4af" prot="public">
+          <name>allsegs_moved</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Program rebasing is complete. This event is generated after series of segm_moved events <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="structsegm__move__infos__t" kindref="compound">segm_move_infos_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a73ebf3445f850cdb4b7e9053095ffd82" prot="public">
+          <name>func_added</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>The kernel has added a function. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classfunc__t" kindref="compound">func_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784aa4ebc1d72da6d725fb11ad29395cbe62" prot="public">
+          <name>func_updated</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>The kernel has updated a function. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classfunc__t" kindref="compound">func_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784aa050c49229aeafd2636e448fcaac7811" prot="public">
+          <name>set_func_start</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Function chunk start address will be changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classfunc__t" kindref="compound">func_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>new_start</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a850d750815ae6bf172c9d040d8d26422" prot="public">
+          <name>set_func_end</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Function chunk end address will be changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classfunc__t" kindref="compound">func_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>new_end</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a01e31dbb374e6676e19021e9a1a9e173" prot="public">
+          <name>deleting_func</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>The kernel is about to delete a function. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classfunc__t" kindref="compound">func_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a7a5b0f438a50aa4363fc64c260b197ef" prot="public">
+          <name>frame_deleted</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>The kernel has deleted a function frame. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classfunc__t" kindref="compound">func_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784aef498a8a62e9a4f68becbd67928b8d88" prot="public">
+          <name>thunk_func_created</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A thunk bit has been set for a function. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classfunc__t" kindref="compound">func_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a7f94a2b188ddde93f417e3804f531b12" prot="public">
+          <name>func_tail_appended</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A function tail chunk has been appended. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classfunc__t" kindref="compound">func_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tail</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classfunc__t" kindref="compound">func_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a7d66ea61c79fb963db5c402d0f1cad80" prot="public">
+          <name>deleting_func_tail</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A function tail chunk is to be removed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classfunc__t" kindref="compound">func_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tail</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="structrange__t" kindref="compound">range_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784aa3f4b76bc56233f7c6196066a0287663" prot="public">
+          <name>func_tail_deleted</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A function tail chunk has been removed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classfunc__t" kindref="compound">func_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tail_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a057444d07e4ee10802b467d547b43440" prot="public">
+          <name>tail_owner_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A tail chunk owner has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tail</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classfunc__t" kindref="compound">func_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>owner_func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>old_owner</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a69e2f9dc1fa971488ef6c9591c667784" prot="public">
+          <name>func_noret_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para><ref refid="group___f_u_n_c___1ga9f89bd6c0cf00b4e346266627a5e5b3a" kindref="member">FUNC_NORET</ref> bit has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classfunc__t" kindref="compound">func_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a9511a25831dcb3d2eb06e1e08415c4c2" prot="public">
+          <name>stkpnts_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Stack change points have been modified. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="classfunc__t" kindref="compound">func_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784ab65a268ecf5ac60ea67571766b46998a" prot="public">
+          <name>updating_tryblks</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>About to update tryblk information <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tbv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const ::tryblks_t *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a526f86749e633d5cfc21267b0058a8d5" prot="public">
+          <name>tryblks_updated</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Updated tryblk information <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tbv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const ::tryblks_t *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784afe226b112a06203f733e5a952b636ef6" prot="public">
+          <name>deleting_tryblks</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>About to delete tryblk information in given range <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>range</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="structrange__t" kindref="compound">range_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784aaa5fb42b80b87aaadb051fc8c1e1d80f" prot="public">
+          <name>sgr_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>The kernel has changed a segment register value. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>start_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>end_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>regnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::sel_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>old_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::sel_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref>) <ref refid="group___s_r__" kindref="compound">Segment register range tags</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a6f7864a144796bc439421efd01ef535d" prot="public">
+          <name>make_code</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An instruction is being created. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>insn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="classinsn__t" kindref="compound">insn_t</ref>*) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a809396c30cba6218d3a643b05c042bfa" prot="public">
+          <name>make_data</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A data item is being created. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::asize_t) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784ae772fc7fd57f4118c9ac9e9f451f23af" prot="public">
+          <name>destroyed_items</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Instructions/data have been destroyed in [ea1,ea2). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>will_disable_range</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(bool) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784ac13a7d21b742d9e2e1a6dc0e7bfd9310" prot="public">
+          <name>renamed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>The kernel has renamed a byte. See also the {rename} event <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>new_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>local_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(bool) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a3c5d487e400c9afa2d79c0dce3fa9c0c" prot="public">
+          <name>byte_patched</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>A byte has been patched. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>old_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a6e36568a63b6f1fb6f4430b2705c80b7" prot="public">
+          <name>changing_cmt</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An item comment is to be changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>repeatable_cmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(bool) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newcmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784aca501ed0fa93e2f02cab4fe5b47dee68" prot="public">
+          <name>cmt_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An item comment has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>repeatable_cmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(bool) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784abcf76dec4996d3cbc0416e967066cd44" prot="public">
+          <name>changing_range_cmt</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Range comment is to be changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>kind</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="range_8hpp_1a4129afc497d61109cc06b1699e62d06d" kindref="member">range_kind_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="structrange__t" kindref="compound">range_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>repeatable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(bool) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a61ac3acc89a3dc48f2d89250f4041df2" prot="public">
+          <name>range_cmt_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Range comment has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>kind</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="range_8hpp_1a4129afc497d61109cc06b1699e62d06d" kindref="member">range_kind_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="structrange__t" kindref="compound">range_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>repeatable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(bool) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784ac6c79757a7e2e85079cf483cc40a4154" prot="public">
+          <name>extra_cmt_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An extra comment has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>line_idx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a4dec8046e79687927f9eeb02ecc0e2d3" prot="public">
+          <name>item_color_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>An item color has been changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a3df5040891132e50157aee66affdf1de" kindref="member">bgcolor_t</ref>) if color==DEFCOLOR, the the color is deleted. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a12f4687b227f932bd642b828297f5daa" prot="public">
+          <name>callee_addr_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Callee address has been updated by the user. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>callee</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a09cae9e1349f02be6f33bf7167ba00d4" prot="public">
+          <name>bookmark_changed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Boomarked position changed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::const <ref refid="structlochist__entry__t" kindref="compound">lochist_entry_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>desc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::const char *) if desc==NULL, then the bookmark was deleted. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a545201aa8a061f41c60265793ad0e869" prot="public">
+          <name>sgr_deleted</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>The kernel has deleted a segment register value. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>start_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>end_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>regnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>IDB event codes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="2358" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="2357" bodyend="2727"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>IDB event group. Some events are still in the processor group, so you will need to hook to both groups. These events do not return anything.</para><para>The callback function should return 0 but the kernel won&apos;t check it. Use the <ref refid="ida_8hpp_1a9ff01a67acece6c7a82871ce43892508" kindref="member">hook_to_notification_point()</ref> function to install your callback. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="2353" column="1"/>
+  </compounddef>
+</doxygen>

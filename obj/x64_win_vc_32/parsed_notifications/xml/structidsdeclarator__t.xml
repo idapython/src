@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structidsdeclarator__t" kind="struct" language="C++" prot="public">
+    <compoundname>idsdeclarator_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structidsdeclarator__t_1a724a871aa8faaef9550c913bc3aa2d4c" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 idsdeclarator_t::anum</definition>
+        <argsstring></argsstring>
+        <name>anum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" line="10" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidsdeclarator__t_1a4e0e13bd48311198da2ac08155611c98" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* idsdeclarator_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" line="11" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidsdeclarator__t_1a5b9c51a18453ee11269d2831ddf97472" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 idsdeclarator_t::args</definition>
+        <argsstring></argsstring>
+        <name>args</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" line="13" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidsdeclarator__t_1a1ec612514f84484dda25dbf32879e6d8" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 idsdeclarator_t::drops</definition>
+        <argsstring></argsstring>
+        <name>drops</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" line="14" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidsdeclarator__t_1abd825bffd5266d3adb29641f3dd575ee" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* idsdeclarator_t::comment</definition>
+        <argsstring></argsstring>
+        <name>comment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" line="15" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidsdeclarator__t_1a422875b4dd50b8f0fd5d7085633c22e0" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* idsdeclarator_t::typeinfo</definition>
+        <argsstring></argsstring>
+        <name>typeinfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" line="17" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidsdeclarator__t_1ab1cb84697c0fc6da9e0c8e12d3b1610e" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 idsdeclarator_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" line="20" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" line="9" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" bodystart="8" bodyend="24"/>
+    <listofallmembers>
+      <member refid="structidsdeclarator__t_1a724a871aa8faaef9550c913bc3aa2d4c" prot="public" virt="non-virtual"><scope>idsdeclarator_t</scope><name>anum</name></member>
+      <member refid="structidsdeclarator__t_1a5b9c51a18453ee11269d2831ddf97472" prot="public" virt="non-virtual"><scope>idsdeclarator_t</scope><name>args</name></member>
+      <member refid="structidsdeclarator__t_1abd825bffd5266d3adb29641f3dd575ee" prot="public" virt="non-virtual"><scope>idsdeclarator_t</scope><name>comment</name></member>
+      <member refid="structidsdeclarator__t_1a1ec612514f84484dda25dbf32879e6d8" prot="public" virt="non-virtual"><scope>idsdeclarator_t</scope><name>drops</name></member>
+      <member refid="structidsdeclarator__t_1ab1cb84697c0fc6da9e0c8e12d3b1610e" prot="public" virt="non-virtual"><scope>idsdeclarator_t</scope><name>flags</name></member>
+      <member refid="structidsdeclarator__t_1a4e0e13bd48311198da2ac08155611c98" prot="public" virt="non-virtual"><scope>idsdeclarator_t</scope><name>name</name></member>
+      <member refid="structidsdeclarator__t_1a422875b4dd50b8f0fd5d7085633c22e0" prot="public" virt="non-virtual"><scope>idsdeclarator_t</scope><name>typeinfo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

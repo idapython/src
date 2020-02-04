@@ -1,0 +1,476 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_f__statespecf" kind="group">
+    <compoundname>FF_statespecf</compoundname>
+    <title>Functions: examine specific state information</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___f_f__statespecf_1ga91135484f1fd828f991423857a47dd08" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_flow</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_flow</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does the previous instruction exist and pass execution flow to the current byte? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="861" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="861" bodyend="861"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1gaaedc5e5b50a30af9e121475a5cad863d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi has_extra_cmts</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>has_extra_cmts</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does the current byte have additional anterior or posterior lines? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="866" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="866" bodyend="866"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1ga9e90cbac8ae1170432dbface4a5aac17" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_has_extra_cmts</definition>
+        <argsstring>(flags_t f, void *)</argsstring>
+        <name>f_has_extra_cmts</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="867" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="867" bodyend="867"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1ga35372965880ebb4235fee99081b5e9f3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi has_cmt</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>has_cmt</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does the current byte have an indented comment? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="871" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="871" bodyend="871"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1ga64274734da3ee122483a26187289647a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_has_cmt</definition>
+        <argsstring>(flags_t f, void *)</argsstring>
+        <name>f_has_cmt</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="872" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="872" bodyend="872"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1ga2810c5a18db9e9fb4926cc8c24edfc90" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi has_xref</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>has_xref</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does the current byte have cross-references to it? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="876" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="876" bodyend="876"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1ga7e5582d0698e71079958d214767e534d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_has_xref</definition>
+        <argsstring>(flags_t f, void *)</argsstring>
+        <name>f_has_xref</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>Does the current byte have cross-references to it? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="877" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="877" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1ga14316a34b2ad914de012d51dfcc85b97" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi has_name</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>has_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does the current byte have non-trivial (non-dummy) name? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="882" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="882" bodyend="882"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1ga3c9f82d682a2ec62756ee98fd07b179d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_has_name</definition>
+        <argsstring>(flags_t f, void *)</argsstring>
+        <name>f_has_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>Does the current byte have non-trivial (non-dummy) name? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="883" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="883" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1ga623deea4cebffb89e669173b1fb84262" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi has_dummy_name</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>has_dummy_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does the current byte have dummy (auto-generated, with special prefix) name? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="891" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="891" bodyend="891"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1ga5a910fc7e594e7198f660c8f1f85baf3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_has_dummy_name</definition>
+        <argsstring>(flags_t f, void *)</argsstring>
+        <name>f_has_dummy_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>Does the current byte have dummy (auto-generated, with special prefix) name? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="892" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="892" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1gaf532d282f0e3e784897d4ed4ceaf9581" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi has_auto_name</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>has_auto_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does the current byte have auto-generated (no special prefix) name? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="897" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="897" bodyend="897"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1ga56146ca3df41b8adfdb863b1eeabbaf7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi has_any_name</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>has_any_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does the current byte have any name? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="902" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="902" bodyend="902"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1ga85d4e8aefc0c09fe2d2da36956314dd5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi has_user_name</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>has_user_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does the current byte have user-specified name? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="907" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="907" bodyend="907"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1gae7e4b464dbc84b3b0071fa53e0ae8884" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_has_user_name</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_has_user_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>Does the current byte have user-specified name? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="908" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="908" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1ga85e8fdbcf073b1d4293333c9b390bfdb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export is_invsign</definition>
+        <argsstring>(ea_t ea, flags_t F, int n)</argsstring>
+        <name>is_invsign</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Should sign of n-th operand inverted during output?. allowed values of n: 0-first operand, 1-other operands </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="922" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1gad5a502d23bb9f0b468fd029eb3198f4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export toggle_sign</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>toggle_sign</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Toggle sign of n-th operand. allowed values of n: 0-first operand, 1-other operands </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="928" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1gaaf8bf3e77321ed6fc80240054d47555e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export is_bnot</definition>
+        <argsstring>(ea_t ea, flags_t F, int n)</argsstring>
+        <name>is_bnot</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Should we negate the operand?. {a_bnot} should be defined in the idp module in order to work with this function </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="936" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1ga318a24ff8222478f7f3a7a74867b1719" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export toggle_bnot</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>toggle_bnot</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>Toggle binary negation of operand. also see <ref refid="group___f_f__statespecf_1gaaf8bf3e77321ed6fc80240054d47555e" kindref="member">is_bnot()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="937" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1ga139412c7891bce63f6a60a9005c28384" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export is_lzero</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>is_lzero</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Display leading zeroes in operands. The global switch for the leading zeroes is in {s_genflags} The leading zeroes doesn&apos;t work if the octal numbers start with 0 Display leading zeroes? (takes into account {s_genflags}) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="945" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1ga96993e94d7866bef258bdb6c0ae91e06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_lzero</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>set_lzero</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>Set toggle lzero bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="947" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1gae09986a5cdd1cb36da5b9fca5a1f838d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export clr_lzero</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>clr_lzero</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>Clear lzero bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="948" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statespecf_1ga3c9ea0c1d37ac65ee89b5a982b6fa780" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi toggle_lzero</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>toggle_lzero</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+          <briefdescription><para>Toggle lzero bit </para></briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="949" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="949" bodyend="952"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___f_f__statespecf_1ga6aa5094f3e997ff568895358880357d9" prot="public" static="no">
+        <name>FF_ANYNAME</name>
+        <initializer>(<ref refid="group___f_f__statespecb_1ga46eea0cd558a2594c66d6cc3241833c6" kindref="member">FF_LABL</ref>|<ref refid="group___f_f__statespecb_1ga4bee89a4355fe06b0cf8f8881475960c" kindref="member">FF_NAME</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="887" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="887" bodyend="883"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

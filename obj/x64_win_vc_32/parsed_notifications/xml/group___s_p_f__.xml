@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_p_f__" kind="group">
+    <compoundname>SPF_</compoundname>
+    <title>Source info provider property bits</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_p_f___1ga0b1427e15e8838a32c5ac9926a9d5625" prot="public" static="no">
+        <name>SPF_DECOMPILER</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>is a decompiler? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2281" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_p_f___1ga7d48a270528a435aba790cc30a99007c" prot="public" static="no">
+        <name>SPF_ENABLED</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>(this bit is managed by ida) </para>        </briefdescription>
+        <detaileddescription>
+<para>enabled by the user </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2282" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_p_f___1ga4b17ed13d2cdfb4f7e7318edc1c1f936" prot="public" static="no">
+        <name>SPF_ACTIVE</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>(this bit is managed by ida) </para>        </briefdescription>
+        <detaileddescription>
+<para>is willing to work with the current idb </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2284" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_p_f___1ga7071d9eb5ab27b35f1ccb9a2276b6a26" prot="public" static="no">
+        <name>SPF_VERSION_MASK</name>
+        <initializer>0xFF000000</initializer>
+        <briefdescription>
+<para>No other flag should have a bit rank &gt; 23. </para>        </briefdescription>
+        <detaileddescription>
+<para>Version mask, in the flags. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2286" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2286" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="classsrcinfo__provider__t_1a18036604458140fd590c4a8cbd954929" kindref="member">srcinfo_provider_t::flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

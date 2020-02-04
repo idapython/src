@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="hitcnt_8hpp" kind="file" language="C++">
+    <compoundname>hitcnt.hpp</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="hitcnt_8hpp_1a952e6673ccb9e73dbf9315a939ebf7ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void print_all_counters</definition>
+        <argsstring>(const char *fname)</argsstring>
+        <name>print_all_counters</name>
+        <param>
+          <type>const char *</type>
+          <declname>fname</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hitcnt.hpp" line="13" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hitcnt.hpp"/>
+  </compounddef>
+</doxygen>

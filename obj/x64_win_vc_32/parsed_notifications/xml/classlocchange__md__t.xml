@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classlocchange__md__t" kind="class" language="C++" prot="public">
+    <compoundname>locchange_md_t</compoundname>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classlocchange__md__t_1aefd2d95ad8efdb2ff593c0c2342522d6" prot="protected" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar locchange_md_t::cb</definition>
+        <argsstring></argsstring>
+        <name>cb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3180" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlocchange__md__t_1a8e08fefcfb23552357b16cac54c91391" prot="protected" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar locchange_md_t::r</definition>
+        <argsstring></argsstring>
+        <name>r</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3181" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlocchange__md__t_1ac0adbe491b3c7133d6baf807ccca2da9" prot="protected" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar locchange_md_t::f</definition>
+        <argsstring></argsstring>
+        <name>f</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3182" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlocchange__md__t_1a1096abff6dd25dab35ee097cc64434f7" prot="protected" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar locchange_md_t::reserved</definition>
+        <argsstring></argsstring>
+        <name>reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3183" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3183" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classlocchange__md__t_1a247ed3014d7ed529e8fca527ecc6e88b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>locchange_md_t::locchange_md_t</definition>
+        <argsstring>(locchange_reason_t _reason, bool _sync)</argsstring>
+        <name>locchange_md_t</name>
+        <param>
+          <type>locchange_reason_t</type>
+          <declname>_reason</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_sync</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3186" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3186" bodyend="3187"/>
+      </memberdef>
+      <memberdef kind="function" id="classlocchange__md__t_1ada0c59272a48de45a6e39c3feddaf109" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>locchange_reason_t</type>
+        <definition>locchange_reason_t locchange_md_t::reason</definition>
+        <argsstring>() const</argsstring>
+        <name>reason</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3188" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3188" bodyend="3188"/>
+      </memberdef>
+      <memberdef kind="function" id="classlocchange__md__t_1ae9fb388fa3df98f235766a47036e20f0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool locchange_md_t::is_sync</definition>
+        <argsstring>() const</argsstring>
+        <name>is_sync</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3189" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3189" bodyend="3189"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3178" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3177" bodyend="3190"/>
+    <listofallmembers>
+      <member refid="classlocchange__md__t_1aefd2d95ad8efdb2ff593c0c2342522d6" prot="protected" virt="non-virtual"><scope>locchange_md_t</scope><name>cb</name></member>
+      <member refid="classlocchange__md__t_1ac0adbe491b3c7133d6baf807ccca2da9" prot="protected" virt="non-virtual"><scope>locchange_md_t</scope><name>f</name></member>
+      <member refid="classlocchange__md__t_1ae9fb388fa3df98f235766a47036e20f0" prot="public" virt="non-virtual"><scope>locchange_md_t</scope><name>is_sync</name></member>
+      <member refid="classlocchange__md__t_1a247ed3014d7ed529e8fca527ecc6e88b" prot="public" virt="non-virtual"><scope>locchange_md_t</scope><name>locchange_md_t</name></member>
+      <member refid="classlocchange__md__t_1a8e08fefcfb23552357b16cac54c91391" prot="protected" virt="non-virtual"><scope>locchange_md_t</scope><name>r</name></member>
+      <member refid="classlocchange__md__t_1ada0c59272a48de45a6e39c3feddaf109" prot="public" virt="non-virtual"><scope>locchange_md_t</scope><name>reason</name></member>
+      <member refid="classlocchange__md__t_1a1096abff6dd25dab35ee097cc64434f7" prot="protected" virt="non-virtual"><scope>locchange_md_t</scope><name>reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

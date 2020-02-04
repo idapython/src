@@ -1,0 +1,483 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classmcallinfo__t" kind="class" language="C++" prot="public">
+    <compoundname>mcallinfo_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classmcallinfo__t_1aa17f72cbbd4a61e293a91d51014d0d25" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t mcallinfo_t::callee</definition>
+        <argsstring></argsstring>
+        <name>callee</name>
+        <briefdescription>
+<para>address of the called function, if known </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2925" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2925" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcallinfo__t_1ae7dcb94bd62314b79db046b200834dab" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int mcallinfo_t::solid_args</definition>
+        <argsstring></argsstring>
+        <name>solid_args</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>number of solid args. there may be variadic args in addtion </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2926" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2926" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcallinfo__t_1a421ae69a73488cdb346d2de0170083ce" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int mcallinfo_t::call_spd</definition>
+        <argsstring></argsstring>
+        <name>call_spd</name>
+        <briefdescription>
+<para>sp value at call insn </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2928" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2928" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcallinfo__t_1ae4d5bbc2f2bd4b0cc1f2890be33c6e13" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int mcallinfo_t::stkargs_top</definition>
+        <argsstring></argsstring>
+        <name>stkargs_top</name>
+        <briefdescription>
+<para>first offset past stack arguments </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2929" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2929" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcallinfo__t_1a570dfd5a8fd11e6424b2bee4f4855c81" prot="public" static="no" mutable="no">
+        <type><ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>cm_t mcallinfo_t::cc</definition>
+        <argsstring></argsstring>
+        <name>cc</name>
+        <briefdescription>
+<para>calling convention </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2930" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2930" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcallinfo__t_1a1eb58c4f9fc45d4283d289c5653ea9ff" prot="public" static="no" mutable="no">
+        <type><ref refid="classqvector" kindref="compound">mcallargs_t</ref></type>
+        <definition>mcallargs_t mcallinfo_t::args</definition>
+        <argsstring></argsstring>
+        <name>args</name>
+        <briefdescription>
+<para>call arguments </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2931" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2931" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcallinfo__t_1abb1a195e2d46006be4d67472bfd1f374" prot="public" static="no" mutable="no">
+        <type><ref refid="classqvector" kindref="compound">mopvec_t</ref></type>
+        <definition>mopvec_t mcallinfo_t::retregs</definition>
+        <argsstring></argsstring>
+        <name>retregs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>return register(s) (e.g., AX, AX:DX, etc.) this vector is built from return_regs </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2932" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2932" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcallinfo__t_1adb6f7bcb50e8bf0df1a00df4ddc11d65" prot="public" static="no" mutable="no">
+        <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref></type>
+        <definition>tinfo_t mcallinfo_t::return_type</definition>
+        <argsstring></argsstring>
+        <name>return_type</name>
+        <briefdescription>
+<para>type of the returned value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2934" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2934" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcallinfo__t_1ae6716f24244acaea951bcdcebc2c57f3" prot="public" static="no" mutable="no">
+        <type><ref refid="classargloc__t" kindref="compound">argloc_t</ref></type>
+        <definition>argloc_t mcallinfo_t::return_argloc</definition>
+        <argsstring></argsstring>
+        <name>return_argloc</name>
+        <briefdescription>
+<para>location of the returned value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2935" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2935" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcallinfo__t_1a47b476359d145737dd510d1ca8e6649e" prot="public" static="no" mutable="no">
+        <type><ref refid="structmlist__t" kindref="compound">mlist_t</ref></type>
+        <definition>mlist_t mcallinfo_t::return_regs</definition>
+        <argsstring></argsstring>
+        <name>return_regs</name>
+        <briefdescription>
+<para>list of values returned by the function </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2937" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2937" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcallinfo__t_1a94f98b50d4a798a8b801cf35b50299ec" prot="public" static="no" mutable="no">
+        <type><ref refid="structmlist__t" kindref="compound">mlist_t</ref></type>
+        <definition>mlist_t mcallinfo_t::spoiled</definition>
+        <argsstring></argsstring>
+        <name>spoiled</name>
+        <briefdescription>
+<para>list of spoiled locations (includes return_regs) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2938" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2938" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcallinfo__t_1af329f108764209ec634c23e6df914c44" prot="public" static="no" mutable="no">
+        <type><ref refid="structmlist__t" kindref="compound">mlist_t</ref></type>
+        <definition>mlist_t mcallinfo_t::pass_regs</definition>
+        <argsstring></argsstring>
+        <name>pass_regs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>passthrough registers: registers that depend on input values (subset of spoiled) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2939" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2939" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcallinfo__t_1a5ed31655cbb6e5699d4a1443f3c7f0fc" prot="public" static="no" mutable="no">
+        <type><ref refid="structivlset__t" kindref="compound">ivlset_t</ref></type>
+        <definition>ivlset_t mcallinfo_t::visible_memory</definition>
+        <argsstring></argsstring>
+        <name>visible_memory</name>
+        <briefdescription>
+<para>what memory is visible to the call? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2941" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2941" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcallinfo__t_1ab768efe00e1b9ff43042611504c91963" prot="public" static="no" mutable="no">
+        <type><ref refid="structmlist__t" kindref="compound">mlist_t</ref></type>
+        <definition>mlist_t mcallinfo_t::dead_regs</definition>
+        <argsstring></argsstring>
+        <name>dead_regs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>registers defined by the function but never used. upon propagation we do the following:<itemizedlist>
+<listitem><para>dead_regs += return_regs</para></listitem><listitem><para>retregs.clear() since the call is propagated </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2942" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2942" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcallinfo__t_1a33f27e52c5cc704a08a2fd0c933b8c28" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int mcallinfo_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>combination of <ref refid="group___f_c_i__" kindref="compound">Call properties</ref>... bits </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2946" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2946" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcallinfo__t_1abca77d738b459ee9fd93339b6308e8b3" prot="public" static="no" mutable="no">
+        <type>funcrole_t</type>
+        <definition>funcrole_t mcallinfo_t::role</definition>
+        <argsstring></argsstring>
+        <name>role</name>
+        <briefdescription>
+<para>function role </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2961" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2961" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmcallinfo__t_1a33bb1728fccbe6c11861a1447753b82c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>mcallinfo_t::mcallinfo_t</definition>
+        <argsstring>(ea_t _callee=BADADDR, int _sargs=0)</argsstring>
+        <name>mcallinfo_t</name>
+        <param>
+          <type>ea_t</type>
+          <declname>_callee</declname>
+          <defval><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_sargs</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2963" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2963" bodyend="2965"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcallinfo__t_1a0f60421c5a35fe00b84de9ccf0126bda" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int hexapi</type>
+        <definition>int mcallinfo_t::lexcompare</definition>
+        <argsstring>(const mcallinfo_t &amp;f) const</argsstring>
+        <name>lexcompare</name>
+        <param>
+          <type>const <ref refid="classmcallinfo__t" kindref="compound">mcallinfo_t</ref> &amp;</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2967" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9995" bodyend="9998"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcallinfo__t_1af4f9f7d848567b66f1f76160697dad46" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool mcallinfo_t::set_type</definition>
+        <argsstring>(const tinfo_t &amp;type)</argsstring>
+        <name>set_type</name>
+        <param>
+          <type>const <ref refid="classtinfo__t" kindref="compound">tinfo_t</ref> &amp;</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2968" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10001" bodyend="10004"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcallinfo__t_1a643581dbed50e2c9a695210590d38f9c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref> hexapi</type>
+        <definition>tinfo_t mcallinfo_t::get_type</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_type</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2969" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10007" bodyend="10012"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcallinfo__t_1a6e0423c7cd56bb749ea2ca19ebded19c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool mcallinfo_t::is_vararg</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_vararg</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2970" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2970" bodyend="2970"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcallinfo__t_1a5cc21c2ee74c3b724680f2d636aa6698" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void mcallinfo_t::print</definition>
+        <argsstring>(qstring *vout, int size=-1, int shins_flags=SHINS_SHORT|SHINS_VALNUM) const</argsstring>
+        <name>print</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>vout</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>size</declname>
+          <defval>-1</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>shins_flags</declname>
+          <defval><ref refid="group___s_h_i_n_s___1gaceb2cb41ad1c22fcbe9d6d3caff51193" kindref="member">SHINS_SHORT</ref>|<ref refid="group___s_h_i_n_s___1ga699be2c17dc5ee9b5a55edb8851d6825" kindref="member">SHINS_VALNUM</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2971" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10015" bodyend="10018"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcallinfo__t_1aed3396d7a7a2fbe62d399501d3d76725" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *hexapi</type>
+        <definition>const char * mcallinfo_t::dstr</definition>
+        <argsstring>(void) const</argsstring>
+        <name>dstr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2972" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10021" bodyend="10024"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Information about a call argument. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2240">
+        <label>bitset_t</label>
+        <link refid="classbitset__t"/>
+      </node>
+      <node id="2238">
+        <label>mlist_t</label>
+        <link refid="structmlist__t"/>
+        <childnode refid="2235" relation="usage">
+          <edgelabel>mem</edgelabel>
+        </childnode>
+        <childnode refid="2239" relation="usage">
+          <edgelabel>reg</edgelabel>
+        </childnode>
+      </node>
+      <node id="2242">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="2243">
+        <label>qvector&lt; mop_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2235">
+        <label>ivlset_t</label>
+        <link refid="structivlset__t"/>
+        <childnode refid="2236" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2237">
+        <label>qvector&lt; ivl_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2241">
+        <label>qvector&lt; mcallarg_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2234">
+        <label>mcallinfo_t</label>
+        <link refid="classmcallinfo__t"/>
+        <childnode refid="2235" relation="usage">
+          <edgelabel>visible_memory</edgelabel>
+        </childnode>
+        <childnode refid="2238" relation="usage">
+          <edgelabel>pass_regs</edgelabel>
+          <edgelabel>spoiled</edgelabel>
+          <edgelabel>dead_regs</edgelabel>
+          <edgelabel>return_regs</edgelabel>
+        </childnode>
+        <childnode refid="2241" relation="usage">
+          <edgelabel>args</edgelabel>
+        </childnode>
+        <childnode refid="2242" relation="usage">
+          <edgelabel>return_type</edgelabel>
+        </childnode>
+        <childnode refid="2243" relation="usage">
+          <edgelabel>retregs</edgelabel>
+        </childnode>
+        <childnode refid="2244" relation="usage">
+          <edgelabel>return_argloc</edgelabel>
+        </childnode>
+      </node>
+      <node id="2236">
+        <label>ivlset_tpl&lt; ivl_t, uval_t &gt;</label>
+        <link refid="classivlset__tpl"/>
+        <childnode refid="2237" relation="usage">
+          <edgelabel>bag</edgelabel>
+        </childnode>
+      </node>
+      <node id="2245">
+        <label>scattered_aloc_t</label>
+        <link refid="classscattered__aloc__t"/>
+        <childnode refid="2246" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2246">
+        <label>qvector&lt; argpart_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2244">
+        <label>argloc_t</label>
+        <link refid="classargloc__t"/>
+        <childnode refid="2245" relation="usage">
+          <edgelabel>dist</edgelabel>
+        </childnode>
+        <childnode refid="2247" relation="usage">
+          <edgelabel>rrel</edgelabel>
+        </childnode>
+      </node>
+      <node id="2247">
+        <label>rrel_t</label>
+        <link refid="structrrel__t"/>
+      </node>
+      <node id="2239">
+        <label>rlist_t</label>
+        <link refid="classrlist__t"/>
+        <childnode refid="2240" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2923" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2922" bodyend="2973"/>
+    <listofallmembers>
+      <member refid="classmcallinfo__t_1a1eb58c4f9fc45d4283d289c5653ea9ff" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>args</name></member>
+      <member refid="classmcallinfo__t_1a421ae69a73488cdb346d2de0170083ce" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>call_spd</name></member>
+      <member refid="classmcallinfo__t_1aa17f72cbbd4a61e293a91d51014d0d25" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>callee</name></member>
+      <member refid="classmcallinfo__t_1a570dfd5a8fd11e6424b2bee4f4855c81" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>cc</name></member>
+      <member refid="classmcallinfo__t_1ab768efe00e1b9ff43042611504c91963" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>dead_regs</name></member>
+      <member refid="classmcallinfo__t_1aed3396d7a7a2fbe62d399501d3d76725" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>dstr</name></member>
+      <member refid="classmcallinfo__t_1a33f27e52c5cc704a08a2fd0c933b8c28" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>flags</name></member>
+      <member refid="classmcallinfo__t_1a643581dbed50e2c9a695210590d38f9c" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>get_type</name></member>
+      <member refid="classmcallinfo__t_1a6e0423c7cd56bb749ea2ca19ebded19c" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>is_vararg</name></member>
+      <member refid="classmcallinfo__t_1a0f60421c5a35fe00b84de9ccf0126bda" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>lexcompare</name></member>
+      <member refid="classmcallinfo__t_1a33bb1728fccbe6c11861a1447753b82c" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>mcallinfo_t</name></member>
+      <member refid="classmcallinfo__t_1af329f108764209ec634c23e6df914c44" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>pass_regs</name></member>
+      <member refid="classmcallinfo__t_1a5cc21c2ee74c3b724680f2d636aa6698" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>print</name></member>
+      <member refid="classmcallinfo__t_1abb1a195e2d46006be4d67472bfd1f374" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>retregs</name></member>
+      <member refid="classmcallinfo__t_1ae6716f24244acaea951bcdcebc2c57f3" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>return_argloc</name></member>
+      <member refid="classmcallinfo__t_1a47b476359d145737dd510d1ca8e6649e" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>return_regs</name></member>
+      <member refid="classmcallinfo__t_1adb6f7bcb50e8bf0df1a00df4ddc11d65" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>return_type</name></member>
+      <member refid="classmcallinfo__t_1abca77d738b459ee9fd93339b6308e8b3" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>role</name></member>
+      <member refid="classmcallinfo__t_1af4f9f7d848567b66f1f76160697dad46" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>set_type</name></member>
+      <member refid="classmcallinfo__t_1ae7dcb94bd62314b79db046b200834dab" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>solid_args</name></member>
+      <member refid="classmcallinfo__t_1a94f98b50d4a798a8b801cf35b50299ec" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>spoiled</name></member>
+      <member refid="classmcallinfo__t_1ae4d5bbc2f2bd4b0cc1f2890be33c6e13" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>stkargs_top</name></member>
+      <member refid="classmcallinfo__t_1a5ed31655cbb6e5699d4a1443f3c7f0fc" prot="public" virt="non-virtual"><scope>mcallinfo_t</scope><name>visible_memory</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

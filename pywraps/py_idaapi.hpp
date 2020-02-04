@@ -190,6 +190,7 @@ def disable_script_timeout():
 */
 idaman void ida_export disable_script_timeout();
 
+
 /*
 #<pydoc>
 def enable_extlang_python(enable):

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structtev__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>tev_info_t</compoundname>
+    <includes refid="dbg_8hpp" local="no">dbg.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structtev__info__t_1aec21f901b46f0dbf5fb5be8b490b63be" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dbg__funcs__trcev_1ga819324166f57b690cbd7a40dbb7de307" kindref="member">tev_type_t</ref></type>
+        <definition>tev_type_t tev_info_t::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+<para>trace event type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1501" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1501" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtev__info__t_1a6270c8b99dfef13a517fd03eb7c53d2d" prot="public" static="no" mutable="no">
+        <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+        <definition>thid_t tev_info_t::tid</definition>
+        <argsstring></argsstring>
+        <name>tid</name>
+        <briefdescription>
+<para>thread where the event was recorded </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1502" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1502" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtev__info__t_1a08baf749edf752d2a73121ad361465a4" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t tev_info_t::ea</definition>
+        <argsstring></argsstring>
+        <name>ea</name>
+        <briefdescription>
+<para>address where the event occurred </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1503" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1503" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Common information for all trace events. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1500" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1499" bodyend="1504"/>
+    <listofallmembers>
+      <member refid="structtev__info__t_1a08baf749edf752d2a73121ad361465a4" prot="public" virt="non-virtual"><scope>tev_info_t</scope><name>ea</name></member>
+      <member refid="structtev__info__t_1a6270c8b99dfef13a517fd03eb7c53d2d" prot="public" virt="non-virtual"><scope>tev_info_t</scope><name>tid</name></member>
+      <member refid="structtev__info__t_1aec21f901b46f0dbf5fb5be8b490b63be" prot="public" virt="non-virtual"><scope>tev_info_t</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

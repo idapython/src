@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__tattr__field" kind="group">
+    <compoundname>tattr_field</compoundname>
+    <title>Type attributes for udt fields</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__tattr__field_1ga0ab00c307a36c53a11b2dbcf7d727b88" prot="public" static="no">
+        <name>TAFLD_BASECLASS</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>field: do not include but inherit from the current field </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="472" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="472" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__tattr__field_1ga00b7e17baf9740c9798df7f0cf4d2aeb" prot="public" static="no">
+        <name>TAFLD_UNALIGNED</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+<para>field: unaligned field </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="473" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="473" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__tattr__field_1gaf8e55aa9978345a61f18ccdedc773d4a" prot="public" static="no">
+        <name>TAFLD_VIRTBASE</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para>field: virtual base (not supported yet) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="474" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="474" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__tattr__field_1ga9061798631889a6bfc3aaf846266cc02" prot="public" static="no">
+        <name>TAFLD_VFTABLE</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+<para>field: ptr to virtual function table </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="475" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="475" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

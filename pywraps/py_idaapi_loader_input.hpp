@@ -135,7 +135,7 @@ public:
   loader_input_t(PyObject *pycobject = NULL): li(NULL), own(OWN_NONE), __idc_cvt_id__(PY_ICID_OPAQUE)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( pycobject != NULL && PyCObject_Check(pycobject) )
+    if ( pycobject != NULL && PyCapsule_IsValid(pycobject, VALID_CAPSULE_NAME) )
       _from_cobject(pycobject);
   }
 
@@ -201,7 +201,7 @@ public:
   static loader_input_t *from_cobject(PyObject *pycobject)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( !PyCObject_Check(pycobject) )
+    if ( !PyCapsule_IsValid(pycobject, VALID_CAPSULE_NAME) )
       return NULL;
     loader_input_t *l = new loader_input_t();
     l->_from_cobject(pycobject);
@@ -284,7 +284,7 @@ public:
       Py_BEGIN_ALLOW_THREADS;
       qlgetz(li, fpos, buf, sz);
       Py_END_ALLOW_THREADS;
-      PyObject *ret = PyString_FromString(buf);
+      PyObject *ret = IDAPyStr_FromUTF8(buf);
       free(buf);
       return ret;
     } while ( false );
@@ -306,7 +306,7 @@ public:
       Py_END_ALLOW_THREADS;
       if ( !ok )
         buf[0] = '\0';
-      PyObject *ret = PyString_FromString(buf);
+      PyObject *ret = IDAPyStr_FromUTF8(buf);
       free(buf);
       return ret;
     } while ( false );
@@ -387,7 +387,7 @@ public:
   PyObject *filename()
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    return PyString_FromString(fn.c_str());
+    return IDAPyStr_FromUTF8(fn.c_str());
   }
 
   //--------------------------------------------------------------------------

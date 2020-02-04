@@ -17,8 +17,8 @@ parser.add_argument("-m", "--modules", required=True)
 parser.add_argument("-s", "--sdk", required=True)
 args = parser.parse_args()
 
-with open(args.input, "rb") as fin:
-    with open(args.output, "wb") as fout:
+with open(args.input) as fin:
+    with open(args.output, "w") as fout:
         parts = []
 
         def add_imports_from_dep(depname):
@@ -40,4 +40,5 @@ with open(args.input, "rb") as fin:
         # Can't use string.Template here, because it's a nightmare
         # to use with a file that has many '$' is it.
         template = fin.read()
-        fout.write(template.replace("${ALL_IMPORTS}", "\n".join(parts)))
+        result = template.replace("${ALL_IMPORTS}", "\n".join(parts))
+        fout.write(result)

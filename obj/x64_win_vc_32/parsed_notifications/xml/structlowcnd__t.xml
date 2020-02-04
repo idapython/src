@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structlowcnd__t" kind="struct" language="C++" prot="public">
+    <compoundname>lowcnd_t</compoundname>
+    <includes refid="idd_8hpp" local="no">idd.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structlowcnd__t_1ac166d15cd3d1dc2b6e0268c1280e79c4" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t lowcnd_t::ea</definition>
+        <argsstring></argsstring>
+        <name>ea</name>
+        <briefdescription>
+<para>address of the condition </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="659" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="659" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlowcnd__t_1a32544f1dbd630286b3b677893fcbd008" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring lowcnd_t::cndbody</definition>
+        <argsstring></argsstring>
+        <name>cndbody</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>new condition. empty means &apos;remove condition&apos; the following fields are valid only if condition is not empty: </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="660" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="660" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlowcnd__t_1a66862f453dbab80513eb620f0e85fdc8" prot="public" static="no" mutable="no">
+        <type><ref refid="idd_8hpp_1a773a43fff5c9bacc9f28d203baec542d" kindref="member">bpttype_t</ref></type>
+        <definition>bpttype_t lowcnd_t::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+<para>existing breakpoint type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="662" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="662" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlowcnd__t_1a98cf2066cc5d948fe02135c42935e997" prot="public" static="no" mutable="no">
+        <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref></type>
+        <definition>bytevec_t lowcnd_t::orgbytes</definition>
+        <argsstring></argsstring>
+        <name>orgbytes</name>
+        <briefdescription>
+<para>original bytes (if type==<ref refid="group___b_p_t___h_1ga002cf1299d50d3fb9b520e5f91a19b83" kindref="member">BPT_SOFT</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="663" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="663" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlowcnd__t_1a0a45e7bc4aef43fa6cc4b5d97d4b3154" prot="public" static="no" mutable="no">
+        <type><ref refid="classinsn__t" kindref="compound">insn_t</ref></type>
+        <definition>insn_t lowcnd_t::cmd</definition>
+        <argsstring></argsstring>
+        <name>cmd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>decoded instruction at &apos;ea&apos; (used for processors without single step feature, e.g. arm) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="664" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="664" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlowcnd__t_1a6835d2d943273415ad3ec6b26c71d53b" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool lowcnd_t::compiled</definition>
+        <argsstring></argsstring>
+        <name>compiled</name>
+        <briefdescription>
+<para>has &apos;cndbody&apos; already been compiled? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="666" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="666" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlowcnd__t_1a739a425d76d472024314f7046cbce267" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int lowcnd_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+<para>breakpoint size (if type!=<ref refid="group___b_p_t___h_1ga002cf1299d50d3fb9b520e5f91a19b83" kindref="member">BPT_SOFT</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="667" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="667" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Input argument for update_lowcnds(). Server-side low-level breakpoint conditions </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1966">
+        <label>qvector&lt; uchar &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1965">
+        <label>bytevec_t</label>
+        <link refid="classbytevec__t"/>
+        <childnode refid="1966" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1963">
+        <label>insn_t</label>
+        <link refid="classinsn__t"/>
+        <childnode refid="1964" relation="usage">
+          <edgelabel>ops</edgelabel>
+        </childnode>
+      </node>
+      <node id="1964">
+        <label>op_t</label>
+        <link refid="classop__t"/>
+      </node>
+      <node id="1962">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="1961">
+        <label>lowcnd_t</label>
+        <link refid="structlowcnd__t"/>
+        <childnode refid="1962" relation="usage">
+          <edgelabel>cndbody</edgelabel>
+        </childnode>
+        <childnode refid="1963" relation="usage">
+          <edgelabel>cmd</edgelabel>
+        </childnode>
+        <childnode refid="1965" relation="usage">
+          <edgelabel>orgbytes</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="658" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="657" bodyend="668"/>
+    <listofallmembers>
+      <member refid="structlowcnd__t_1a0a45e7bc4aef43fa6cc4b5d97d4b3154" prot="public" virt="non-virtual"><scope>lowcnd_t</scope><name>cmd</name></member>
+      <member refid="structlowcnd__t_1a32544f1dbd630286b3b677893fcbd008" prot="public" virt="non-virtual"><scope>lowcnd_t</scope><name>cndbody</name></member>
+      <member refid="structlowcnd__t_1a6835d2d943273415ad3ec6b26c71d53b" prot="public" virt="non-virtual"><scope>lowcnd_t</scope><name>compiled</name></member>
+      <member refid="structlowcnd__t_1ac166d15cd3d1dc2b6e0268c1280e79c4" prot="public" virt="non-virtual"><scope>lowcnd_t</scope><name>ea</name></member>
+      <member refid="structlowcnd__t_1a98cf2066cc5d948fe02135c42935e997" prot="public" virt="non-virtual"><scope>lowcnd_t</scope><name>orgbytes</name></member>
+      <member refid="structlowcnd__t_1a739a425d76d472024314f7046cbce267" prot="public" virt="non-virtual"><scope>lowcnd_t</scope><name>size</name></member>
+      <member refid="structlowcnd__t_1a66862f453dbab80513eb620f0e85fdc8" prot="public" virt="non-virtual"><scope>lowcnd_t</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

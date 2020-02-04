@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structqlist_1_1listnode__t" kind="struct" language="C++" prot="private">
+    <compoundname>qlist::listnode_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structqlist_1_1listnode__t_1a1c13c35305c3698356d4dc06dec0f6d3" prot="public" static="no" mutable="no">
+        <type>listnode_t *</type>
+        <definition>listnode_t* qlist&lt; T &gt;::listnode_t::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2954" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2954" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqlist_1_1listnode__t_1a8586ca3d7954894af771dbfa83e4fb33" prot="public" static="no" mutable="no">
+        <type>listnode_t *</type>
+        <definition>listnode_t* qlist&lt; T &gt;::listnode_t::prev</definition>
+        <argsstring></argsstring>
+        <name>prev</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2955" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2955" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structqlist_1_1listnode__t_1a8383979986edb7cfea900e11bfc79cd7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void qlist&lt; T &gt;::listnode_t::fix_links</definition>
+        <argsstring>(size_t len)</argsstring>
+        <name>fix_links</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2956" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2956" bodyend="2968"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1938">
+        <label>qlist&lt; T &gt;::listnode_t</label>
+        <childnode refid="1938" relation="usage">
+          <edgelabel>prev</edgelabel>
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2953" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2952" bodyend="2969"/>
+    <listofallmembers>
+      <member refid="structqlist_1_1listnode__t_1a8383979986edb7cfea900e11bfc79cd7" prot="public" virt="non-virtual"><scope>qlist::listnode_t</scope><name>fix_links</name></member>
+      <member refid="structqlist_1_1listnode__t_1a1c13c35305c3698356d4dc06dec0f6d3" prot="public" virt="non-virtual"><scope>qlist::listnode_t</scope><name>next</name></member>
+      <member refid="structqlist_1_1listnode__t_1a8586ca3d7954894af771dbfa83e4fb33" prot="public" virt="non-virtual"><scope>qlist::listnode_t</scope><name>prev</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

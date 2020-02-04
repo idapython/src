@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="struct_b_t_r_e_e___n_s_1_1stack__pos__t" kind="struct" language="C++" prot="public">
+    <compoundname>BTREE_NS::stack_pos_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_b_t_r_e_e___n_s_1_1stack__pos__t_1af5b8b9c39af3a714cf67c6085ec8e255" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int BTREE_NS::stack_pos_t::ind</definition>
+        <argsstring></argsstring>
+        <name>ind</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="361" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="361" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_t_r_e_e___n_s_1_1stack__pos__t_1a2768767502228a3f2b37db961a50dcd0" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool BTREE_NS::stack_pos_t::is_exact</definition>
+        <argsstring></argsstring>
+        <name>is_exact</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="362" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="362" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_t_r_e_e___n_s_1_1stack__pos__t_1a6d81085cce8b2533c0787af7c902cae2" prot="public" static="no" mutable="no">
+        <type>BTLEV</type>
+        <definition>BTLEV BTREE_NS::stack_pos_t::level</definition>
+        <argsstring></argsstring>
+        <name>level</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="364" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="364" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_b_t_r_e_e___n_s_1_1stack__pos__t_1a30e64a439fd168f5c3719e982c137fbb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BTREE_NS::stack_pos_t::set</definition>
+        <argsstring>(int pos, bool exact, int lev)</argsstring>
+        <name>set</name>
+        <param>
+          <type>int</type>
+          <declname>pos</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>exact</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>lev</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="366" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="366" bodyend="367"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_b_t_r_e_e___n_s_1_1stack__pos__t_1a8b132db1cfc4ed9fa69ab44ab7f0d613" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BTREE_NS::stack_pos_t::set_exact_pos</definition>
+        <argsstring>(int pos, int lev)</argsstring>
+        <name>set_exact_pos</name>
+        <param>
+          <type>int</type>
+          <declname>pos</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>lev</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="368" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="368" bodyend="368"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_b_t_r_e_e___n_s_1_1stack__pos__t_1a876cf8a459a41dde48edcb9a60b29303" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BTREE_NS::stack_pos_t::set_pos_before</definition>
+        <argsstring>(int pos, int lev)</argsstring>
+        <name>set_pos_before</name>
+        <param>
+          <type>int</type>
+          <declname>pos</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>lev</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="369" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="369" bodyend="369"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="360" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="359" bodyend="370"/>
+    <listofallmembers>
+      <member refid="struct_b_t_r_e_e___n_s_1_1stack__pos__t_1af5b8b9c39af3a714cf67c6085ec8e255" prot="public" virt="non-virtual"><scope>BTREE_NS::stack_pos_t</scope><name>ind</name></member>
+      <member refid="struct_b_t_r_e_e___n_s_1_1stack__pos__t_1a2768767502228a3f2b37db961a50dcd0" prot="public" virt="non-virtual"><scope>BTREE_NS::stack_pos_t</scope><name>is_exact</name></member>
+      <member refid="struct_b_t_r_e_e___n_s_1_1stack__pos__t_1a6d81085cce8b2533c0787af7c902cae2" prot="public" virt="non-virtual"><scope>BTREE_NS::stack_pos_t</scope><name>level</name></member>
+      <member refid="struct_b_t_r_e_e___n_s_1_1stack__pos__t_1a30e64a439fd168f5c3719e982c137fbb" prot="public" virt="non-virtual"><scope>BTREE_NS::stack_pos_t</scope><name>set</name></member>
+      <member refid="struct_b_t_r_e_e___n_s_1_1stack__pos__t_1a8b132db1cfc4ed9fa69ab44ab7f0d613" prot="public" virt="non-virtual"><scope>BTREE_NS::stack_pos_t</scope><name>set_exact_pos</name></member>
+      <member refid="struct_b_t_r_e_e___n_s_1_1stack__pos__t_1a876cf8a459a41dde48edcb9a60b29303" prot="public" virt="non-virtual"><scope>BTREE_NS::stack_pos_t</scope><name>set_pos_before</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

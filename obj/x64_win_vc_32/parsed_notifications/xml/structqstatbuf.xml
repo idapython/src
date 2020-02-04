@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structqstatbuf" kind="struct" language="C++" prot="public">
+    <compoundname>qstatbuf</compoundname>
+    <includes refid="pro_8h" local="no">pro.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structqstatbuf_1af1f004317ecbeed7c8fa2dca9ac7b9d4" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 qstatbuf::qst_dev</definition>
+        <argsstring></argsstring>
+        <name>qst_dev</name>
+        <briefdescription>
+<para>ID of device containing file. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="552" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="552" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqstatbuf_1a86eea3e20a70055e0cf2ca8d9733f49c" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 qstatbuf::qst_ino</definition>
+        <argsstring></argsstring>
+        <name>qst_ino</name>
+        <briefdescription>
+<para>inode number </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="553" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="553" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqstatbuf_1a4b5fec41c587a79a62bbd3c506682d9a" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 qstatbuf::qst_mode</definition>
+        <argsstring></argsstring>
+        <name>qst_mode</name>
+        <briefdescription>
+<para>protection </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="554" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="554" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqstatbuf_1a0827e477c6694714bcaaba741fc39ea2" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 qstatbuf::qst_nlink</definition>
+        <argsstring></argsstring>
+        <name>qst_nlink</name>
+        <briefdescription>
+<para>number of hard links </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="555" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="555" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqstatbuf_1abd015444ddddc98b217fc84f23e92cb2" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 qstatbuf::qst_uid</definition>
+        <argsstring></argsstring>
+        <name>qst_uid</name>
+        <briefdescription>
+<para>user ID of owner </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="556" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="556" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqstatbuf_1a3ac8b0ad3981116e6006945ee94fbf4e" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 qstatbuf::qst_gid</definition>
+        <argsstring></argsstring>
+        <name>qst_gid</name>
+        <briefdescription>
+<para>group ID of owner </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="557" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="557" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqstatbuf_1a86b2a37eb19a2f3aabe41bb63a1df423" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 qstatbuf::qst_rdev</definition>
+        <argsstring></argsstring>
+        <name>qst_rdev</name>
+        <briefdescription>
+<para>device ID (if special file) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="558" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="558" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqstatbuf_1a5d2d21321e6819c9cf17219d5f506ce9" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+        <definition>qoff64_t qstatbuf::qst_size</definition>
+        <argsstring></argsstring>
+        <name>qst_size</name>
+        <briefdescription>
+<para>total size, in bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="559" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="559" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqstatbuf_1aa5d6d0328eef7d085e9921c8863cfcab" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 qstatbuf::qst_blksize</definition>
+        <argsstring></argsstring>
+        <name>qst_blksize</name>
+        <briefdescription>
+<para>blocksize for file system I/O </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="560" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="560" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqstatbuf_1a57d84686eb8e971182361daf4f6eeb66" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 qstatbuf::qst_blocks</definition>
+        <argsstring></argsstring>
+        <name>qst_blocks</name>
+        <briefdescription>
+<para>number of 512B blocks allocated </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="561" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="561" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqstatbuf_1a4ac76320b8e9316da87a52bee6bcd9d4" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a608a3fbc2403cb7e0b2314675c13f1ce" kindref="member">qtime64_t</ref></type>
+        <definition>qtime64_t qstatbuf::qst_atime</definition>
+        <argsstring></argsstring>
+        <name>qst_atime</name>
+        <briefdescription>
+<para>time of last access </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="562" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="562" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqstatbuf_1a56041d70a02722f86deb0098ac620534" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a608a3fbc2403cb7e0b2314675c13f1ce" kindref="member">qtime64_t</ref></type>
+        <definition>qtime64_t qstatbuf::qst_mtime</definition>
+        <argsstring></argsstring>
+        <name>qst_mtime</name>
+        <briefdescription>
+<para>time of last modification </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="563" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="563" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqstatbuf_1a0253ffd442399a0670d8a28d3ef6af23" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a608a3fbc2403cb7e0b2314675c13f1ce" kindref="member">qtime64_t</ref></type>
+        <definition>qtime64_t qstatbuf::qst_ctime</definition>
+        <argsstring></argsstring>
+        <name>qst_ctime</name>
+        <briefdescription>
+<para>time of last status change </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="564" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="564" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Describes miscellaneous file attributes. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="551" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="550" bodyend="565"/>
+    <listofallmembers>
+      <member refid="structqstatbuf_1a4ac76320b8e9316da87a52bee6bcd9d4" prot="public" virt="non-virtual"><scope>qstatbuf</scope><name>qst_atime</name></member>
+      <member refid="structqstatbuf_1aa5d6d0328eef7d085e9921c8863cfcab" prot="public" virt="non-virtual"><scope>qstatbuf</scope><name>qst_blksize</name></member>
+      <member refid="structqstatbuf_1a57d84686eb8e971182361daf4f6eeb66" prot="public" virt="non-virtual"><scope>qstatbuf</scope><name>qst_blocks</name></member>
+      <member refid="structqstatbuf_1a0253ffd442399a0670d8a28d3ef6af23" prot="public" virt="non-virtual"><scope>qstatbuf</scope><name>qst_ctime</name></member>
+      <member refid="structqstatbuf_1af1f004317ecbeed7c8fa2dca9ac7b9d4" prot="public" virt="non-virtual"><scope>qstatbuf</scope><name>qst_dev</name></member>
+      <member refid="structqstatbuf_1a3ac8b0ad3981116e6006945ee94fbf4e" prot="public" virt="non-virtual"><scope>qstatbuf</scope><name>qst_gid</name></member>
+      <member refid="structqstatbuf_1a86eea3e20a70055e0cf2ca8d9733f49c" prot="public" virt="non-virtual"><scope>qstatbuf</scope><name>qst_ino</name></member>
+      <member refid="structqstatbuf_1a4b5fec41c587a79a62bbd3c506682d9a" prot="public" virt="non-virtual"><scope>qstatbuf</scope><name>qst_mode</name></member>
+      <member refid="structqstatbuf_1a56041d70a02722f86deb0098ac620534" prot="public" virt="non-virtual"><scope>qstatbuf</scope><name>qst_mtime</name></member>
+      <member refid="structqstatbuf_1a0827e477c6694714bcaaba741fc39ea2" prot="public" virt="non-virtual"><scope>qstatbuf</scope><name>qst_nlink</name></member>
+      <member refid="structqstatbuf_1a86b2a37eb19a2f3aabe41bb63a1df423" prot="public" virt="non-virtual"><scope>qstatbuf</scope><name>qst_rdev</name></member>
+      <member refid="structqstatbuf_1a5d2d21321e6819c9cf17219d5f506ce9" prot="public" virt="non-virtual"><scope>qstatbuf</scope><name>qst_size</name></member>
+      <member refid="structqstatbuf_1abd015444ddddc98b217fc84f23e92cb2" prot="public" virt="non-virtual"><scope>qstatbuf</scope><name>qst_uid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

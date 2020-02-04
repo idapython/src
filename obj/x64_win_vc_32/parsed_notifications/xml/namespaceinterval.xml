@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="namespaceinterval" kind="namespace" language="C++">
+    <compoundname>interval</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceinterval_1a55dfec467241db7ac7ca2334b19ccf84" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool</type>
+        <definition>THREAD_SAFE bool interval::overlap</definition>
+        <argsstring>(uval_t off1, asize_t s1, uval_t off2, asize_t s2)</argsstring>
+        <name>overlap</name>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>off1</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>s1</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>off2</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>s2</declname>
+        </param>
+        <briefdescription>
+<para>Do (off1,s1) and (off2,s2) overlap? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="1288" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="1288" bodyend="1291"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceinterval_1a1394a7a5d5c1cb5b1afb142b90a6188d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool</type>
+        <definition>THREAD_SAFE bool interval::includes</definition>
+        <argsstring>(uval_t off1, asize_t s1, uval_t off2, asize_t s2)</argsstring>
+        <name>includes</name>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>off1</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>s1</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>off2</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>s2</declname>
+        </param>
+        <briefdescription>
+<para>Does (off1,s1) include (off2,s2)? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="1293" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="1293" bodyend="1296"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceinterval_1aad484bba6854d8ea56c7a08ce34bef52" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool</type>
+        <definition>THREAD_SAFE bool interval::contains</definition>
+        <argsstring>(uval_t off1, asize_t s1, uval_t off)</argsstring>
+        <name>contains</name>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>off1</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>s1</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>off</declname>
+        </param>
+        <briefdescription>
+<para>Does (off1,s1) contain off? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="1298" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="1298" bodyend="1301"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Functions to work with intervals. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="1286" column="1"/>
+  </compounddef>
+</doxygen>

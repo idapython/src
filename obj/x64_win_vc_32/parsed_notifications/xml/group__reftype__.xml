@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__reftype__" kind="group">
+    <compoundname>reftype_</compoundname>
+    <title>Types of references</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__reftype___1ga0af7cb168b7f616fdfa430ea1d6b4ac7" prot="public" static="no" mutable="no">
+        <type>const <ref refid="nalt_8hpp_1aa749dc39c69b710b5fcd35616b8267a9" kindref="member">reftype_t</ref></type>
+        <definition>const reftype_t V695_REF_OFF8</definition>
+        <argsstring></argsstring>
+        <name>V695_REF_OFF8</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>reserved </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="856" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="856" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__reftype___1gaae74e842ed8ee99ddb41f72ecbab35af" prot="public" static="no" mutable="no">
+        <type>const <ref refid="nalt_8hpp_1aa749dc39c69b710b5fcd35616b8267a9" kindref="member">reftype_t</ref></type>
+        <definition>const reftype_t REF_OFF16</definition>
+        <argsstring></argsstring>
+        <name>REF_OFF16</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+<para>16bit full offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="857" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="857" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__reftype___1ga9514307c2327fdf250734a64943e1c67" prot="public" static="no" mutable="no">
+        <type>const <ref refid="nalt_8hpp_1aa749dc39c69b710b5fcd35616b8267a9" kindref="member">reftype_t</ref></type>
+        <definition>const reftype_t REF_OFF32</definition>
+        <argsstring></argsstring>
+        <name>REF_OFF32</name>
+        <initializer>= 2</initializer>
+        <briefdescription>
+<para>32bit full offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="858" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="858" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__reftype___1ga8a051a5ffb83801f1ef3be5ad7601d1a" prot="public" static="no" mutable="no">
+        <type>const <ref refid="nalt_8hpp_1aa749dc39c69b710b5fcd35616b8267a9" kindref="member">reftype_t</ref></type>
+        <definition>const reftype_t REF_LOW8</definition>
+        <argsstring></argsstring>
+        <name>REF_LOW8</name>
+        <initializer>= 3</initializer>
+        <briefdescription>
+<para>low 8bits of 16bit offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="859" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="859" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__reftype___1ga9826b3a2fb1f480b1a818853819c1b46" prot="public" static="no" mutable="no">
+        <type>const <ref refid="nalt_8hpp_1aa749dc39c69b710b5fcd35616b8267a9" kindref="member">reftype_t</ref></type>
+        <definition>const reftype_t REF_LOW16</definition>
+        <argsstring></argsstring>
+        <name>REF_LOW16</name>
+        <initializer>= 4</initializer>
+        <briefdescription>
+<para>low 16bits of 32bit offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="860" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="860" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__reftype___1ga6e761c2d3dbe60df38eea11920fd43d4" prot="public" static="no" mutable="no">
+        <type>const <ref refid="nalt_8hpp_1aa749dc39c69b710b5fcd35616b8267a9" kindref="member">reftype_t</ref></type>
+        <definition>const reftype_t REF_HIGH8</definition>
+        <argsstring></argsstring>
+        <name>REF_HIGH8</name>
+        <initializer>= 5</initializer>
+        <briefdescription>
+<para>high 8bits of 16bit offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="861" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="861" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__reftype___1ga40d752f558717d282a5332180c1e4808" prot="public" static="no" mutable="no">
+        <type>const <ref refid="nalt_8hpp_1aa749dc39c69b710b5fcd35616b8267a9" kindref="member">reftype_t</ref></type>
+        <definition>const reftype_t REF_HIGH16</definition>
+        <argsstring></argsstring>
+        <name>REF_HIGH16</name>
+        <initializer>= 6</initializer>
+        <briefdescription>
+<para>high 16bits of 32bit offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="862" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="862" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__reftype___1ga49262374b8da752a3b850d552be5aa21" prot="public" static="no" mutable="no">
+        <type>const <ref refid="nalt_8hpp_1aa749dc39c69b710b5fcd35616b8267a9" kindref="member">reftype_t</ref></type>
+        <definition>const reftype_t V695_REF_VHIGH</definition>
+        <argsstring></argsstring>
+        <name>V695_REF_VHIGH</name>
+        <initializer>= 7</initializer>
+        <briefdescription>
+<para>obsolete </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="863" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="863" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__reftype___1gac56e3cc10f9e0ceda8e85898bf9a5598" prot="public" static="no" mutable="no">
+        <type>const <ref refid="nalt_8hpp_1aa749dc39c69b710b5fcd35616b8267a9" kindref="member">reftype_t</ref></type>
+        <definition>const reftype_t V695_REF_VLOW</definition>
+        <argsstring></argsstring>
+        <name>V695_REF_VLOW</name>
+        <initializer>= 8</initializer>
+        <briefdescription>
+<para>obsolete </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="864" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="864" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__reftype___1ga9b3b8bd451e1e2ca3dd6984b69306ac6" prot="public" static="no" mutable="no">
+        <type>const <ref refid="nalt_8hpp_1aa749dc39c69b710b5fcd35616b8267a9" kindref="member">reftype_t</ref></type>
+        <definition>const reftype_t REF_OFF64</definition>
+        <argsstring></argsstring>
+        <name>REF_OFF64</name>
+        <initializer>= 9</initializer>
+        <briefdescription>
+<para>64bit full offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="865" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="865" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__reftype___1ga67f77788a531e1c925f610704430744a" prot="public" static="no" mutable="no">
+        <type>const <ref refid="nalt_8hpp_1aa749dc39c69b710b5fcd35616b8267a9" kindref="member">reftype_t</ref></type>
+        <definition>const reftype_t REF_OFF8</definition>
+        <argsstring></argsstring>
+        <name>REF_OFF8</name>
+        <initializer>= 10</initializer>
+        <briefdescription>
+<para>8bit full offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="866" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="866" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__reftype___1gaf65fc2b76bf46c6b58d7a41f3db3b266" prot="public" static="no" mutable="no">
+        <type>const <ref refid="nalt_8hpp_1aa749dc39c69b710b5fcd35616b8267a9" kindref="member">reftype_t</ref></type>
+        <definition>const reftype_t REF_LAST</definition>
+        <argsstring></argsstring>
+        <name>REF_LAST</name>
+        <initializer>= <ref refid="group__reftype___1ga67f77788a531e1c925f610704430744a" kindref="member">REF_OFF8</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="867" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="867" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>References are represented in the following form: <verbatim>    \v{target + tdelta - base}
+</verbatim></para><para>If the target is not present, then it will be calculated using <verbatim>    \v{target = operand_value - tdelta + base}
+</verbatim></para><para>The target must be present for LOW and HIGH reference types </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

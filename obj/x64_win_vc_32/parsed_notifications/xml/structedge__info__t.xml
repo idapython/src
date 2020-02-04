@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structedge__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>edge_info_t</compoundname>
+    <includes refid="graph_8hpp" local="no">graph.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structedge__info__t_1acd2337bff714781c866f1a38ed3717ea" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int edge_info_t::color</definition>
+        <argsstring></argsstring>
+        <name>color</name>
+        <briefdescription>
+<para>edge color </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="450" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="450" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structedge__info__t_1a0ff6c6acd501e7b9f86ff5a67d7b06e4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int edge_info_t::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+<para>edge width </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="451" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="451" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structedge__info__t_1a161d707e2bb04243a3f99ca2ed7e0595" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int edge_info_t::srcoff</definition>
+        <argsstring></argsstring>
+        <name>srcoff</name>
+        <briefdescription>
+<para>source: edge port offset from the left </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="452" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="452" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structedge__info__t_1a298a1d30a4f2c2bf6475d2ed079ace50" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int edge_info_t::dstoff</definition>
+        <argsstring></argsstring>
+        <name>dstoff</name>
+        <briefdescription>
+<para>destination: edge port offset from the left </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="453" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="453" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structedge__info__t_1a93ccca8925f85b4280e911a61c469835" prot="public" static="no" mutable="no">
+        <type><ref refid="classpointseq__t" kindref="compound">pointseq_t</ref></type>
+        <definition>pointseq_t edge_info_t::layout</definition>
+        <argsstring></argsstring>
+        <name>layout</name>
+        <briefdescription>
+<para>describes geometry of edge </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="454" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="454" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structedge__info__t_1a8bb18f6d469421b668044beb43672904" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi edge_info_t::add_layout_point</definition>
+        <argsstring>(point_t p)</argsstring>
+        <name>add_layout_point</name>
+        <param>
+          <type><ref refid="structpoint__t" kindref="compound">point_t</ref></type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="458" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structedge__info__t_1a30bb6bbd8cabe86cb6b80d1f142a885e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>idaapi</type>
+        <definition>idaapi edge_info_t::edge_info_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>edge_info_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="459" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="459" bodyend="459"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Attributes of a graph edge. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1490">
+        <label>pointvec_t</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1488">
+        <label>edge_info_t</label>
+        <link refid="structedge__info__t"/>
+        <childnode refid="1489" relation="usage">
+          <edgelabel>layout</edgelabel>
+        </childnode>
+      </node>
+      <node id="1489">
+        <label>pointseq_t</label>
+        <link refid="classpointseq__t"/>
+        <childnode refid="1490" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="449" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="448" bodyend="460"/>
+    <listofallmembers>
+      <member refid="structedge__info__t_1a8bb18f6d469421b668044beb43672904" prot="public" virt="non-virtual"><scope>edge_info_t</scope><name>add_layout_point</name></member>
+      <member refid="structedge__info__t_1acd2337bff714781c866f1a38ed3717ea" prot="public" virt="non-virtual"><scope>edge_info_t</scope><name>color</name></member>
+      <member refid="structedge__info__t_1a298a1d30a4f2c2bf6475d2ed079ace50" prot="public" virt="non-virtual"><scope>edge_info_t</scope><name>dstoff</name></member>
+      <member refid="structedge__info__t_1a30bb6bbd8cabe86cb6b80d1f142a885e" prot="public" virt="non-virtual"><scope>edge_info_t</scope><name>edge_info_t</name></member>
+      <member refid="structedge__info__t_1a93ccca8925f85b4280e911a61c469835" prot="public" virt="non-virtual"><scope>edge_info_t</scope><name>layout</name></member>
+      <member refid="structedge__info__t_1a161d707e2bb04243a3f99ca2ed7e0595" prot="public" virt="non-virtual"><scope>edge_info_t</scope><name>srcoff</name></member>
+      <member refid="structedge__info__t_1a0ff6c6acd501e7b9f86ff5a67d7b06e4" prot="public" virt="non-virtual"><scope>edge_info_t</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

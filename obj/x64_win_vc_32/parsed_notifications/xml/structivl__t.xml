@@ -1,0 +1,299 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structivl__t" kind="struct" language="C++" prot="public">
+    <compoundname>ivl_t</compoundname>
+    <basecompoundref refid="structivl__tpl" prot="public" virt="non-virtual">ivl_tpl&lt; uval_t &gt;</basecompoundref>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="structivl__t_1a571f6a62dd06f0de157858d0323a442c" prot="private" static="no">
+        <type><ref refid="structivl__tpl" kindref="compound">ivl_tpl</ref>&lt; <ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref> &gt;</type>
+        <definition>typedef ivl_tpl&lt;uval_t&gt; ivl_t::inherited</definition>
+        <argsstring></argsstring>
+        <name>inherited</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1773" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1773" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="structivl__t_1acf8ec7d503a030bb8709087d57c6f424" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class qvector&lt; ivl_t &gt;</definition>
+        <argsstring></argsstring>
+        <name>qvector&lt; ivl_t &gt;</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1775" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1777" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structivl__t_1aec70810dfea68cebc1d57c4cc11bfc46" prot="public" static="yes" mutable="no">
+        <type>const <ref refid="structivl__t" kindref="compound">ivl_t</ref></type>
+        <definition>const ivl_t ivl_t::allmem</definition>
+        <argsstring></argsstring>
+        <name>allmem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1838" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1837" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="structivl__t_1acd81dbb3271127cf1c5530a8aaa48491" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ivl_t::ivl_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>ivl_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1775" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1775" bodyend="1775"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structivl__t_1a9f9e1e9a61bd468729cfba97829501bd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ivl_t::ivl_t</definition>
+        <argsstring>(uval_t _off, uval_t _size)</argsstring>
+        <name>ivl_t</name>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>_off</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>_size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1780" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1780" bodyend="1780"/>
+      </memberdef>
+      <memberdef kind="function" id="structivl__t_1a039aee91d8d15829f347645d90bd01c4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivl_t::empty</definition>
+        <argsstring>(void) const</argsstring>
+        <name>empty</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1781" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1781" bodyend="1781"/>
+      </memberdef>
+      <memberdef kind="function" id="structivl__t_1ac75890c86dc47f0ab90a91306c44688e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ivl_t::clear</definition>
+        <argsstring>(void)</argsstring>
+        <name>clear</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1782" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1782" bodyend="1782"/>
+      </memberdef>
+      <memberdef kind="function" id="structivl__t_1a2c62bbb1f479b7b6bbf0eeb7cf8b05e0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ivl_t::print</definition>
+        <argsstring>(qstring *vout) const</argsstring>
+        <name>print</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>vout</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1783" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structivl__t_1a42faf3de7d2c4a89a50c6202041dddf2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *hexapi</type>
+        <definition>const char * ivl_t::dstr</definition>
+        <argsstring>(void) const</argsstring>
+        <name>dstr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1784" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9597" bodyend="9600"/>
+      </memberdef>
+      <memberdef kind="function" id="structivl__t_1a23d43b7a3f44c417ac7a79e9279858e4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivl_t::extend_to_cover</definition>
+        <argsstring>(const ivl_t &amp;r)</argsstring>
+        <name>extend_to_cover</name>
+        <param>
+          <type>const <ref refid="structivl__t" kindref="compound">ivl_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1786" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1786" bodyend="1803"/>
+      </memberdef>
+      <memberdef kind="function" id="structivl__t_1a468573930d69af6e94093392c9b76461" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ivl_t::intersect</definition>
+        <argsstring>(const ivl_t &amp;r)</argsstring>
+        <name>intersect</name>
+        <param>
+          <type>const <ref refid="structivl__t" kindref="compound">ivl_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1804" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1804" bodyend="1819"/>
+      </memberdef>
+      <memberdef kind="function" id="structivl__t_1a65f78c66ec21c6583b5fdb46a24a064d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivl_t::overlap</definition>
+        <argsstring>(const ivl_t &amp;ivl) const</argsstring>
+        <name>overlap</name>
+        <param>
+          <type>const <ref refid="structivl__t" kindref="compound">ivl_t</ref> &amp;</type>
+          <declname>ivl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1822" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1822" bodyend="1825"/>
+      </memberdef>
+      <memberdef kind="function" id="structivl__t_1ac0402f80867d3802980cbc355d2229d2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivl_t::includes</definition>
+        <argsstring>(const ivl_t &amp;ivl) const</argsstring>
+        <name>includes</name>
+        <param>
+          <type>const <ref refid="structivl__t" kindref="compound">ivl_t</ref> &amp;</type>
+          <declname>ivl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1827" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1827" bodyend="1830"/>
+      </memberdef>
+      <memberdef kind="function" id="structivl__t_1a0800f68083f1042265fd718779a8722d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivl_t::contains</definition>
+        <argsstring>(uval_t off2) const</argsstring>
+        <name>contains</name>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>off2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1832" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1832" bodyend="1835"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1866">
+        <label>ivl_tpl&lt; uval_t &gt;</label>
+        <link refid="structivl__tpl"/>
+      </node>
+      <node id="1865">
+        <label>ivl_t</label>
+        <link refid="structivl__t"/>
+        <childnode refid="1866" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1868">
+        <label>ivl_tpl&lt; uval_t &gt;</label>
+        <link refid="structivl__tpl"/>
+      </node>
+      <node id="1867">
+        <label>ivl_t</label>
+        <link refid="structivl__t"/>
+        <childnode refid="1868" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1867" relation="usage">
+          <edgelabel>allmem</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1771" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1770" bodyend="1840"/>
+    <listofallmembers>
+      <member refid="structivl__t_1aec70810dfea68cebc1d57c4cc11bfc46" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>allmem</name></member>
+      <member refid="structivl__t_1ac75890c86dc47f0ab90a91306c44688e" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>clear</name></member>
+      <member refid="structivl__tpl_1aedcb8cf326b10639a80715ca6280c300" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>compare</name></member>
+      <member refid="structivl__t_1a0800f68083f1042265fd718779a8722d" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>contains</name></member>
+      <member refid="structivl__t_1a42faf3de7d2c4a89a50c6202041dddf2" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>dstr</name></member>
+      <member refid="structivl__t_1a039aee91d8d15829f347645d90bd01c4" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>empty</name></member>
+      <member refid="structivl__tpl_1a2377da45447625655dc08b0fd21f1f0b" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>end</name></member>
+      <member refid="structivl__t_1a23d43b7a3f44c417ac7a79e9279858e4" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>extend_to_cover</name></member>
+      <member refid="structivl__t_1ac0402f80867d3802980cbc355d2229d2" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>includes</name></member>
+      <member refid="structivl__t_1a571f6a62dd06f0de157858d0323a442c" prot="private" virt="non-virtual"><scope>ivl_t</scope><name>inherited</name></member>
+      <member refid="structivl__t_1a468573930d69af6e94093392c9b76461" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>intersect</name></member>
+      <member refid="structivl__t_1acd81dbb3271127cf1c5530a8aaa48491" prot="private" virt="non-virtual"><scope>ivl_t</scope><name>ivl_t</name></member>
+      <member refid="structivl__t_1a9f9e1e9a61bd468729cfba97829501bd" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>ivl_t</name></member>
+      <member refid="structivl__tpl_1a3ad7bd89d13883d8c77087f47e743898" prot="protected" virt="non-virtual"><scope>ivl_t</scope><name>ivl_tpl</name></member>
+      <member refid="structivl__tpl_1a2d5b299343ce35323f6dacaadcfd0f59" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>ivl_tpl</name></member>
+      <member refid="structivl__tpl_1aa18e2bbc3d01ba27ee21bfd013e7fc2d" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>last</name></member>
+      <member refid="structivl__tpl_1a97e8d9d9b8ea6924d60367bc7bfa5bbd" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>off</name></member>
+      <member refid="structivl__t_1a65f78c66ec21c6583b5fdb46a24a064d" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>overlap</name></member>
+      <member refid="structivl__t_1a2c62bbb1f479b7b6bbf0eeb7cf8b05e0" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>print</name></member>
+      <member refid="structivl__t_1acf8ec7d503a030bb8709087d57c6f424" prot="private" virt="non-virtual"><scope>ivl_t</scope><name>qvector&lt; ivl_t &gt;</name></member>
+      <member refid="structivl__tpl_1aed7fdbae3c446b21d3d8845ceda3173a" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>size</name></member>
+      <member refid="structivl__tpl_1acbfbb0fa90de7f58f323974e4400fb80" prot="public" virt="non-virtual"><scope>ivl_t</scope><name>valid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

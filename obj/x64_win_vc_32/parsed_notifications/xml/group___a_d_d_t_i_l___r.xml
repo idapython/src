@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___a_d_d_t_i_l___r" kind="group">
+    <compoundname>ADDTIL_R</compoundname>
+    <title>Load TIL result codes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___a_d_d_t_i_l___r_1ga2a998ce8353062744feb51868a406ea1" prot="public" static="no">
+        <name>ADDTIL_FAILED</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>something bad, the warning is displayed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2129" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_d_d_t_i_l___r_1gaf86de707a0a8d30d9fbe3b234782b98f" prot="public" static="no">
+        <name>ADDTIL_OK</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>ok, til is loaded </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2130" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_d_d_t_i_l___r_1gaa45e1faf7bbc42c19c79ab78cc21ae94" prot="public" static="no">
+        <name>ADDTIL_COMP</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>ok, but til is not compatible with the current compiler </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2131" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2131" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>return values for <ref refid="typeinf_8hpp_1a6ae3c9ab321e5107e8ba4df22de3fcbf" kindref="member">add_til()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

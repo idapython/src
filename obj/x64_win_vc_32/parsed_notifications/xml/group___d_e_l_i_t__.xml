@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___d_e_l_i_t__" kind="group">
+    <compoundname>DELIT_</compoundname>
+    <title>Unexplored byte conversion flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___d_e_l_i_t___1ga9c15a46c8b13af0ca2eba81c518f6e85" prot="public" static="no">
+        <name>DELIT_SIMPLE</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>simply undefine the specified item(s) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="789" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="789" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_l_i_t___1ga22b692b10e0343910ae487c7b16be500" prot="public" static="no">
+        <name>DELIT_EXPAND</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>propagate undefined items; for example if removing an instruction removes all references to the next instruction, then plan to convert to unexplored the next instruction too. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="790" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="790" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_l_i_t___1gaa25f19f8244498e366ee6d4e67c1f87f" prot="public" static="no">
+        <name>DELIT_DELNAMES</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>delete any names at the specified address range (except for the starting address). this bit is valid if nbytes &gt; 1 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="795" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="795" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_l_i_t___1ga1474329a9302a019197e0c4b9bcc87cb" prot="public" static="no">
+        <name>DELIT_NOTRUNC</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>even if <ref refid="group___a_f___1ga3c25b68da3beb76b2710bbaf22481d1f" kindref="member">AF_TRFUNC</ref> is set </para>        </briefdescription>
+        <detaileddescription>
+<para>don&apos;t truncate the current function </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="798" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="798" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_l_i_t___1ga961a68bf588417b7af6b18f1e06a3188" prot="public" static="no">
+        <name>DELIT_NOUNAME</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>reject to delete if a user name is in address range (except for the starting address). this bit is valid if nbytes &gt; 1 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="800" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="800" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_l_i_t___1ga9449948e27d8358dfc5675a91af223c2" prot="public" static="no">
+        <name>DELIT_NOCMT</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>reject to delete if a comment is in address range (except for the starting address). this bit is valid if nbytes &gt; 1 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="803" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="803" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>passed as &apos;flags&apos; parameter to <ref refid="bytes_8hpp_1a8bc61ca4c590e8cb63db504217bb40bc" kindref="member">del_items()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

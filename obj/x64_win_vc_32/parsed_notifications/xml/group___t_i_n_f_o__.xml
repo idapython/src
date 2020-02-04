@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___t_i_n_f_o__" kind="group">
+    <compoundname>TINFO_</compoundname>
+    <title>Apply tinfo flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___t_i_n_f_o___1ga5cd0c6ab9a8d3e5c8efc95b5d3783265" prot="public" static="no">
+        <name>TINFO_GUESSED</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>this is a guessed type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2164" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_i_n_f_o___1ga2a831ce211c89ef0c30c59d7e893ba5a" prot="public" static="no">
+        <name>TINFO_DEFINITE</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>this is a definite type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2165" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_i_n_f_o___1ga9c75f13fbbb9bfab7a32f08d2f24c064" prot="public" static="no">
+        <name>TINFO_DELAYFUNC</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>if type is a function and no function exists at ea, schedule its creation and argument renaming to auto-analysis otherwise try to create it immediately </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2166" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_i_n_f_o___1ga083af7d8f46a0cae66ada17dbc613ed1" prot="public" static="no">
+        <name>TINFO_STRICT</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>never convert given type to another one before applying </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2169" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2169" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>passed as &apos;flags&apos; parameter to <ref refid="typeinf_8hpp_1a5d2fbecf8fbab5dbd9ea0510d82b7e99" kindref="member">apply_tinfo()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

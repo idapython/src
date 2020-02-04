@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structpkt__debug__sleep__t" kind="struct" language="C++" prot="public">
+    <compoundname>pkt_debug_sleep_t</compoundname>
+    <basecompoundref refid="structrpc__packet__data__t" prot="public" virt="non-virtual">rpc_packet_data_t</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structpkt__debug__sleep__t_1a8b0eebf2a3b7f69c4c10268170b7e4de" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 pkt_debug_sleep_t::msec</definition>
+        <argsstring></argsstring>
+        <name>msec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="739" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="739" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structpkt__debug__sleep__t_1a730d2e08f5f4a17e54e240aa8f183823" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>pkt_debug_sleep_t::pkt_debug_sleep_t</definition>
+        <argsstring>()</argsstring>
+        <name>pkt_debug_sleep_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="740" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="740" bodyend="741"/>
+      </memberdef>
+      <memberdef kind="function" id="structpkt__debug__sleep__t_1a301b2112c9fb13ad1a358c825e896b32" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual pkt_debug_sleep_t::~pkt_debug_sleep_t</definition>
+        <argsstring>()</argsstring>
+        <name>~pkt_debug_sleep_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="743" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structpkt__debug__sleep__t_1aa0ca44c417971956932366f155208baf" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void pkt_debug_sleep_t::serialize</definition>
+        <argsstring>(bytevec_t *out, int version) const</argsstring>
+        <name>serialize</name>
+        <reimplements refid="structrpc__packet__data__t_1a577ceb943847ae0b714a56b264b9cf65">serialize</reimplements>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="744" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structpkt__debug__sleep__t_1a88f7e655e7086139a5a65cd61c68d309" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool pkt_debug_sleep_t::deserialize</definition>
+        <argsstring>(const uchar **ptr, size_t len, int version)</argsstring>
+        <name>deserialize</name>
+        <reimplements refid="structrpc__packet__data__t_1a150454902741340968d1386c8277e857">deserialize</reimplements>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="745" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2796">
+        <label>pkt_debug_sleep_t</label>
+        <link refid="structpkt__debug__sleep__t"/>
+        <childnode refid="2797" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2797">
+        <label>rpc_packet_data_t</label>
+        <link refid="structrpc__packet__data__t"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2798">
+        <label>pkt_debug_sleep_t</label>
+        <link refid="structpkt__debug__sleep__t"/>
+        <childnode refid="2799" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2799">
+        <label>rpc_packet_data_t</label>
+        <link refid="structrpc__packet__data__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="738" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="737" bodyend="746"/>
+    <listofallmembers>
+      <member refid="structrpc__packet__data__t_1ae8f08a217a006f7a35f5fdb3f0e26a87" prot="public" virt="non-virtual"><scope>pkt_debug_sleep_t</scope><name>code</name></member>
+      <member refid="structpkt__debug__sleep__t_1a88f7e655e7086139a5a65cd61c68d309" prot="public" virt="virtual"><scope>pkt_debug_sleep_t</scope><name>deserialize</name></member>
+      <member refid="structpkt__debug__sleep__t_1a8b0eebf2a3b7f69c4c10268170b7e4de" prot="public" virt="non-virtual"><scope>pkt_debug_sleep_t</scope><name>msec</name></member>
+      <member refid="structpkt__debug__sleep__t_1a730d2e08f5f4a17e54e240aa8f183823" prot="public" virt="non-virtual"><scope>pkt_debug_sleep_t</scope><name>pkt_debug_sleep_t</name></member>
+      <member refid="structrpc__packet__data__t_1aa48c3e33219ccb723d7be7f18392f50b" prot="public" virt="non-virtual"><scope>pkt_debug_sleep_t</scope><name>rpc_packet_data_t</name></member>
+      <member refid="structpkt__debug__sleep__t_1aa0ca44c417971956932366f155208baf" prot="public" virt="virtual"><scope>pkt_debug_sleep_t</scope><name>serialize</name></member>
+      <member refid="structpkt__debug__sleep__t_1a301b2112c9fb13ad1a358c825e896b32" prot="public" virt="virtual"><scope>pkt_debug_sleep_t</scope><name>~pkt_debug_sleep_t</name></member>
+      <member refid="structrpc__packet__data__t_1af3d9b0008dfb68fb02fbc403c41fe396" prot="public" virt="virtual"><scope>pkt_debug_sleep_t</scope><name>~rpc_packet_data_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

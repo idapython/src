@@ -1,0 +1,802 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structcloop__t" kind="struct" language="C++" prot="public">
+    <compoundname>cloop_t</compoundname>
+    <basecompoundref refid="structceinsn__t" prot="public" virt="non-virtual">ceinsn_t</basecompoundref>
+    <derivedcompoundref refid="structcdo__t" prot="public" virt="non-virtual">cdo_t</derivedcompoundref>
+    <derivedcompoundref refid="structcfor__t" prot="public" virt="non-virtual">cfor_t</derivedcompoundref>
+    <derivedcompoundref refid="structcwhile__t" prot="public" virt="non-virtual">cwhile_t</derivedcompoundref>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcloop__t_1ac6da5055e5b256cc4c35b35fde189eb8" prot="public" static="no" mutable="no">
+        <type><ref refid="structcinsn__t" kindref="compound">cinsn_t</ref> *</type>
+        <definition>cinsn_t* cloop_t::body</definition>
+        <argsstring></argsstring>
+        <name>body</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5909" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5909" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structcloop__t_1a78a344486b865de41f15782af37c43e5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>cloop_t::cloop_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>cloop_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5910" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5910" bodyend="5910"/>
+      </memberdef>
+      <memberdef kind="function" id="structcloop__t_1a0842f38dcaa076d16d36ddadde399711" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>cloop_t::cloop_t</definition>
+        <argsstring>(cinsn_t *b)</argsstring>
+        <name>cloop_t</name>
+        <param>
+          <type><ref refid="structcinsn__t" kindref="compound">cinsn_t</ref> *</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5911" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5911" bodyend="5911"/>
+      </memberdef>
+      <memberdef kind="function" id="structcloop__t_1adab14741162d5ca8fe07d3d93fbcfaf6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>cloop_t::cloop_t</definition>
+        <argsstring>(const cloop_t &amp;r)</argsstring>
+        <name>cloop_t</name>
+        <param>
+          <type>const <ref refid="structcloop__t" kindref="compound">cloop_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5912" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5912" bodyend="5912"/>
+      </memberdef>
+      <memberdef kind="function" id="structcloop__t_1ae5e7db6ef4ef1bc6922b5f0b6260c38c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structcloop__t" kindref="compound">cloop_t</ref> &amp;</type>
+        <definition>cloop_t&amp; cloop_t::operator=</definition>
+        <argsstring>(const cloop_t &amp;r)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="structcloop__t" kindref="compound">cloop_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5913" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5913" bodyend="5913"/>
+      </memberdef>
+      <memberdef kind="function" id="structcloop__t_1af595e2e2bf503f41ae81e4e40f6c7509" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structcloop__t" kindref="compound">cloop_t</ref> &amp;hexapi</type>
+        <definition>cloop_t &amp; cloop_t::assign</definition>
+        <argsstring>(const cloop_t &amp;r)</argsstring>
+        <name>assign</name>
+        <param>
+          <type>const <ref refid="structcloop__t" kindref="compound">cloop_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5914" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10865" bodyend="10868"/>
+      </memberdef>
+      <memberdef kind="function" id="structcloop__t_1a877744dec95dc21578b6f8abb0646ea6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>cloop_t::~cloop_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>~cloop_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5915" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5915" bodyend="5915"/>
+      </memberdef>
+      <memberdef kind="function" id="structcloop__t_1a525374334b210ce2954d64bfa3a877b6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void cloop_t::cleanup</definition>
+        <argsstring>(void)</argsstring>
+        <name>cleanup</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5916" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6673" bodyend="6673"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Base class for loop statements. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="990">
+        <label>cfor_t</label>
+        <link refid="structcfor__t"/>
+        <childnode refid="987" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="991">
+        <label>cwhile_t</label>
+        <link refid="structcwhile__t"/>
+        <childnode refid="987" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="989">
+        <label>cdo_t</label>
+        <link refid="structcdo__t"/>
+        <childnode refid="987" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="988">
+        <label>ceinsn_t</label>
+        <link refid="structceinsn__t"/>
+      </node>
+      <node id="987">
+        <label>cloop_t</label>
+        <link refid="structcloop__t"/>
+        <childnode refid="988" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1050">
+        <label>ivl_tpl&lt; uval_t &gt;</label>
+        <link refid="structivl__tpl"/>
+      </node>
+      <node id="1026">
+        <label>bitset_t</label>
+        <link refid="classbitset__t"/>
+      </node>
+      <node id="1003">
+        <label>cinsn_t</label>
+        <link refid="structcinsn__t"/>
+        <childnode refid="995" relation="public-inheritance">
+        </childnode>
+        <childnode refid="994" relation="usage">
+          <edgelabel>cexpr</edgelabel>
+        </childnode>
+        <childnode refid="1004" relation="usage">
+          <edgelabel>cwhile</edgelabel>
+        </childnode>
+        <childnode refid="1005" relation="usage">
+          <edgelabel>cswitch</edgelabel>
+        </childnode>
+        <childnode refid="1008" relation="usage">
+          <edgelabel>cfor</edgelabel>
+        </childnode>
+        <childnode refid="1009" relation="usage">
+          <edgelabel>cdo</edgelabel>
+        </childnode>
+        <childnode refid="1010" relation="usage">
+          <edgelabel>casm</edgelabel>
+        </childnode>
+        <childnode refid="1012" relation="usage">
+          <edgelabel>cblock</edgelabel>
+        </childnode>
+        <childnode refid="1014" relation="usage">
+          <edgelabel>creturn</edgelabel>
+        </childnode>
+        <childnode refid="1015" relation="usage">
+          <edgelabel>cif</edgelabel>
+        </childnode>
+        <childnode refid="1016" relation="usage">
+          <edgelabel>cgoto</edgelabel>
+        </childnode>
+      </node>
+      <node id="1024">
+        <label>mlist_t</label>
+        <link refid="structmlist__t"/>
+        <childnode refid="1021" relation="usage">
+          <edgelabel>mem</edgelabel>
+        </childnode>
+        <childnode refid="1025" relation="usage">
+          <edgelabel>reg</edgelabel>
+        </childnode>
+      </node>
+      <node id="1048">
+        <label>ivl_with_name_t</label>
+        <link refid="structivl__with__name__t"/>
+        <childnode refid="1049" relation="usage">
+          <edgelabel>ivl</edgelabel>
+        </childnode>
+      </node>
+      <node id="1002">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="1012">
+        <label>cblock_t</label>
+        <link refid="structcblock__t"/>
+        <childnode refid="1013" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1013">
+        <label>qlist&lt; cinsn_t &gt;</label>
+        <link refid="classqlist"/>
+      </node>
+      <node id="1038">
+        <label>mop_addr_t</label>
+        <link refid="classmop__addr__t"/>
+        <childnode refid="1031" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1060">
+        <label>netnode</label>
+        <link refid="classnetnode"/>
+      </node>
+      <node id="1006">
+        <label>ccases_t</label>
+        <link refid="structccases__t"/>
+        <childnode refid="1007" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1042">
+        <label>qvector&lt; mop_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1021">
+        <label>ivlset_t</label>
+        <link refid="structivlset__t"/>
+        <childnode refid="1022" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1000">
+        <label>carglist_t</label>
+        <link refid="structcarglist__t"/>
+        <childnode refid="1001" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1002" relation="usage">
+          <edgelabel>functype</edgelabel>
+        </childnode>
+      </node>
+      <node id="1029">
+        <label>mblock_t</label>
+        <link refid="classmblock__t"/>
+        <childnode refid="1018" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="1024" relation="usage">
+          <edgelabel>maybuse</edgelabel>
+          <edgelabel>dnu</edgelabel>
+          <edgelabel>maybdef</edgelabel>
+          <edgelabel>mustbuse</edgelabel>
+          <edgelabel>mustbdef</edgelabel>
+          <edgelabel>dead_at_start</edgelabel>
+        </childnode>
+        <childnode refid="1027" relation="usage">
+          <edgelabel>succset</edgelabel>
+          <edgelabel>predset</edgelabel>
+        </childnode>
+        <childnode refid="1030" relation="usage">
+          <edgelabel>head</edgelabel>
+          <edgelabel>tail</edgelabel>
+        </childnode>
+        <childnode refid="1029" relation="usage">
+          <edgelabel>nextb</edgelabel>
+          <edgelabel>prevb</edgelabel>
+        </childnode>
+      </node>
+      <node id="1059">
+        <label>rangevec_base_t</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1008">
+        <label>cfor_t</label>
+        <link refid="structcfor__t"/>
+        <childnode refid="992" relation="public-inheritance">
+        </childnode>
+        <childnode refid="994" relation="usage">
+          <edgelabel>step</edgelabel>
+          <edgelabel>init</edgelabel>
+        </childnode>
+      </node>
+      <node id="1045">
+        <label>operand_locator_t</label>
+        <link refid="structoperand__locator__t"/>
+      </node>
+      <node id="997">
+        <label>cnumber_t</label>
+        <link refid="structcnumber__t"/>
+        <childnode refid="998" relation="usage">
+          <edgelabel>nf</edgelabel>
+        </childnode>
+      </node>
+      <node id="1023">
+        <label>qvector&lt; ivl_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1046">
+        <label>mcases_t</label>
+        <link refid="classmcases__t"/>
+        <childnode refid="1027" relation="usage">
+          <edgelabel>targets</edgelabel>
+        </childnode>
+      </node>
+      <node id="1041">
+        <label>qvector&lt; mcallarg_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1004">
+        <label>cwhile_t</label>
+        <link refid="structcwhile__t"/>
+        <childnode refid="992" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1014">
+        <label>creturn_t</label>
+        <link refid="structcreturn__t"/>
+        <childnode refid="993" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1052">
+        <label>func_t</label>
+        <link refid="classfunc__t"/>
+        <childnode refid="1053" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1054" relation="usage">
+          <edgelabel>regargs</edgelabel>
+        </childnode>
+        <childnode refid="1055" relation="usage">
+          <edgelabel>points</edgelabel>
+        </childnode>
+        <childnode refid="1053" relation="usage">
+          <edgelabel>tails</edgelabel>
+        </childnode>
+        <childnode refid="1056" relation="usage">
+          <edgelabel>regvars</edgelabel>
+        </childnode>
+        <childnode refid="1057" relation="usage">
+          <edgelabel>llabels</edgelabel>
+        </childnode>
+      </node>
+      <node id="1031">
+        <label>mop_t</label>
+        <link refid="classmop__t"/>
+        <childnode refid="1032" relation="usage">
+          <edgelabel>scif</edgelabel>
+        </childnode>
+        <childnode refid="996" relation="usage">
+          <edgelabel>fpc</edgelabel>
+        </childnode>
+        <childnode refid="1038" relation="usage">
+          <edgelabel>a</edgelabel>
+        </childnode>
+        <childnode refid="1039" relation="usage">
+          <edgelabel>pair</edgelabel>
+        </childnode>
+        <childnode refid="1040" relation="usage">
+          <edgelabel>f</edgelabel>
+        </childnode>
+        <childnode refid="1030" relation="usage">
+          <edgelabel>d</edgelabel>
+        </childnode>
+        <childnode refid="1043" relation="usage">
+          <edgelabel>l</edgelabel>
+        </childnode>
+        <childnode refid="1044" relation="usage">
+          <edgelabel>nnn</edgelabel>
+        </childnode>
+        <childnode refid="1046" relation="usage">
+          <edgelabel>c</edgelabel>
+        </childnode>
+        <childnode refid="1047" relation="usage">
+          <edgelabel>s</edgelabel>
+        </childnode>
+      </node>
+      <node id="1011">
+        <label>eavec_t</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1039">
+        <label>mop_pair_t</label>
+        <link refid="classmop__pair__t"/>
+        <childnode refid="1031" relation="usage">
+          <edgelabel>hop</edgelabel>
+          <edgelabel>lop</edgelabel>
+        </childnode>
+      </node>
+      <node id="1017">
+        <label>var_ref_t</label>
+        <link refid="structvar__ref__t"/>
+        <childnode refid="1018" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="1010">
+        <label>casm_t</label>
+        <link refid="structcasm__t"/>
+        <childnode refid="1011" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1054">
+        <label>regarg_t</label>
+        <link refid="structregarg__t"/>
+      </node>
+      <node id="994">
+        <label>cexpr_t</label>
+        <link refid="structcexpr__t"/>
+        <childnode refid="995" relation="public-inheritance">
+        </childnode>
+        <childnode refid="994" relation="usage">
+          <edgelabel>x</edgelabel>
+          <edgelabel>y</edgelabel>
+          <edgelabel>z</edgelabel>
+        </childnode>
+        <childnode refid="996" relation="usage">
+          <edgelabel>fpc</edgelabel>
+        </childnode>
+        <childnode refid="997" relation="usage">
+          <edgelabel>n</edgelabel>
+        </childnode>
+        <childnode refid="1000" relation="usage">
+          <edgelabel>a</edgelabel>
+        </childnode>
+        <childnode refid="1002" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+        <childnode refid="1003" relation="usage">
+          <edgelabel>insn</edgelabel>
+        </childnode>
+        <childnode refid="1017" relation="usage">
+          <edgelabel>v</edgelabel>
+        </childnode>
+      </node>
+      <node id="1007">
+        <label>qvector&lt; ccase_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="998">
+        <label>number_format_t</label>
+        <link refid="structnumber__format__t"/>
+        <childnode refid="999" relation="usage">
+          <edgelabel>type_name</edgelabel>
+        </childnode>
+      </node>
+      <node id="996">
+        <label>fnumber_t</label>
+        <link refid="structfnumber__t"/>
+      </node>
+      <node id="1018">
+        <label>mbl_array_t</label>
+        <link refid="classmbl__array__t"/>
+        <childnode refid="1019" relation="usage">
+          <edgelabel>vars</edgelabel>
+        </childnode>
+        <childnode refid="999" relation="usage">
+          <edgelabel>label</edgelabel>
+          <edgelabel>error_strarg</edgelabel>
+        </childnode>
+        <childnode refid="1021" relation="usage">
+          <edgelabel>gotoff_stkvars</edgelabel>
+          <edgelabel>restricted_memory</edgelabel>
+          <edgelabel>aliased_memory</edgelabel>
+        </childnode>
+        <childnode refid="1024" relation="usage">
+          <edgelabel>spoiled_list</edgelabel>
+          <edgelabel>nodel_memory</edgelabel>
+        </childnode>
+        <childnode refid="1027" relation="usage">
+          <edgelabel>argidx</edgelabel>
+        </childnode>
+        <childnode refid="1028" relation="usage">
+          <edgelabel>idb_spoiled</edgelabel>
+        </childnode>
+        <childnode refid="1029" relation="usage">
+          <edgelabel>blocks</edgelabel>
+          <edgelabel>natural</edgelabel>
+        </childnode>
+        <childnode refid="1025" relation="usage">
+          <edgelabel>consumed_argregs</edgelabel>
+        </childnode>
+        <childnode refid="1048" relation="usage">
+          <edgelabel>std_ivls</edgelabel>
+        </childnode>
+        <childnode refid="1002" relation="usage">
+          <edgelabel>idb_type</edgelabel>
+        </childnode>
+        <childnode refid="1051" relation="usage">
+          <edgelabel>mbr</edgelabel>
+        </childnode>
+        <childnode refid="1060" relation="usage">
+          <edgelabel>idb_node</edgelabel>
+        </childnode>
+        <childnode refid="1061" relation="usage">
+          <edgelabel>notes</edgelabel>
+        </childnode>
+        <childnode refid="1049" relation="usage">
+          <edgelabel>aliased_args</edgelabel>
+          <edgelabel>aliased_vars</edgelabel>
+        </childnode>
+      </node>
+      <node id="1040">
+        <label>mcallinfo_t</label>
+        <link refid="classmcallinfo__t"/>
+        <childnode refid="1021" relation="usage">
+          <edgelabel>visible_memory</edgelabel>
+        </childnode>
+        <childnode refid="1024" relation="usage">
+          <edgelabel>pass_regs</edgelabel>
+          <edgelabel>spoiled</edgelabel>
+          <edgelabel>dead_regs</edgelabel>
+          <edgelabel>return_regs</edgelabel>
+        </childnode>
+        <childnode refid="1041" relation="usage">
+          <edgelabel>args</edgelabel>
+        </childnode>
+        <childnode refid="1002" relation="usage">
+          <edgelabel>return_type</edgelabel>
+        </childnode>
+        <childnode refid="1042" relation="usage">
+          <edgelabel>retregs</edgelabel>
+        </childnode>
+        <childnode refid="1034" relation="usage">
+          <edgelabel>return_argloc</edgelabel>
+        </childnode>
+      </node>
+      <node id="1051">
+        <label>mba_ranges_t</label>
+        <link refid="structmba__ranges__t"/>
+        <childnode refid="1052" relation="usage">
+          <edgelabel>pfn</edgelabel>
+        </childnode>
+        <childnode refid="1058" relation="usage">
+          <edgelabel>ranges</edgelabel>
+        </childnode>
+      </node>
+      <node id="1022">
+        <label>ivlset_tpl&lt; ivl_t, uval_t &gt;</label>
+        <link refid="classivlset__tpl"/>
+        <childnode refid="1023" relation="usage">
+          <edgelabel>bag</edgelabel>
+        </childnode>
+      </node>
+      <node id="1032">
+        <label>scif_t</label>
+        <link refid="structscif__t"/>
+        <childnode refid="1033" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1018" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="999" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="1002" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+      </node>
+      <node id="1005">
+        <label>cswitch_t</label>
+        <link refid="structcswitch__t"/>
+        <childnode refid="993" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1006" relation="usage">
+          <edgelabel>cases</edgelabel>
+        </childnode>
+        <childnode refid="997" relation="usage">
+          <edgelabel>mvnf</edgelabel>
+        </childnode>
+      </node>
+      <node id="1027">
+        <label>qvector&lt; int &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1055">
+        <label>stkpnt_t</label>
+        <link refid="structstkpnt__t"/>
+      </node>
+      <node id="999">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="1001">
+        <label>qvector&lt; carg_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1030">
+        <label>minsn_t</label>
+        <link refid="classminsn__t"/>
+        <childnode refid="1030" relation="usage">
+          <edgelabel>prev</edgelabel>
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="1031" relation="usage">
+          <edgelabel>l</edgelabel>
+          <edgelabel>r</edgelabel>
+          <edgelabel>d</edgelabel>
+        </childnode>
+      </node>
+      <node id="995">
+        <label>citem_t</label>
+        <link refid="structcitem__t"/>
+      </node>
+      <node id="1035">
+        <label>scattered_aloc_t</label>
+        <link refid="classscattered__aloc__t"/>
+        <childnode refid="1036" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1036">
+        <label>qvector&lt; argpart_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1053">
+        <label>range_t</label>
+        <link refid="structrange__t"/>
+      </node>
+      <node id="1033">
+        <label>vdloc_t</label>
+        <link refid="classvdloc__t"/>
+        <childnode refid="1034" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1056">
+        <label>regvar_t</label>
+        <link refid="structregvar__t"/>
+        <childnode refid="1053" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1061">
+        <label>qvector&lt; hexwarn_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1044">
+        <label>mnumber_t</label>
+        <link refid="structmnumber__t"/>
+        <childnode refid="1045" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1019">
+        <label>lvars_t</label>
+        <link refid="structlvars__t"/>
+        <childnode refid="1020" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1034">
+        <label>argloc_t</label>
+        <link refid="classargloc__t"/>
+        <childnode refid="1035" relation="usage">
+          <edgelabel>dist</edgelabel>
+        </childnode>
+        <childnode refid="1037" relation="usage">
+          <edgelabel>rrel</edgelabel>
+        </childnode>
+      </node>
+      <node id="1016">
+        <label>cgoto_t</label>
+        <link refid="structcgoto__t"/>
+      </node>
+      <node id="1057">
+        <label>llabel_t</label>
+        <link refid="structllabel__t"/>
+      </node>
+      <node id="1043">
+        <label>lvar_ref_t</label>
+        <link refid="structlvar__ref__t"/>
+        <childnode refid="1018" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="1020">
+        <label>qvector&lt; lvar_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1047">
+        <label>stkvar_ref_t</label>
+        <link refid="structstkvar__ref__t"/>
+        <childnode refid="1018" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="1028">
+        <label>qvector&lt; reg_info_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1037">
+        <label>rrel_t</label>
+        <link refid="structrrel__t"/>
+      </node>
+      <node id="1009">
+        <label>cdo_t</label>
+        <link refid="structcdo__t"/>
+        <childnode refid="992" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="993">
+        <label>ceinsn_t</label>
+        <link refid="structceinsn__t"/>
+        <childnode refid="994" relation="usage">
+          <edgelabel>expr</edgelabel>
+        </childnode>
+      </node>
+      <node id="1025">
+        <label>rlist_t</label>
+        <link refid="classrlist__t"/>
+        <childnode refid="1026" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1015">
+        <label>cif_t</label>
+        <link refid="structcif__t"/>
+        <childnode refid="993" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1003" relation="usage">
+          <edgelabel>ithen</edgelabel>
+          <edgelabel>ielse</edgelabel>
+        </childnode>
+      </node>
+      <node id="992">
+        <label>cloop_t</label>
+        <link refid="structcloop__t"/>
+        <childnode refid="993" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1003" relation="usage">
+          <edgelabel>body</edgelabel>
+        </childnode>
+      </node>
+      <node id="1049">
+        <label>ivl_t</label>
+        <link refid="structivl__t"/>
+        <childnode refid="1050" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1049" relation="usage">
+          <edgelabel>allmem</edgelabel>
+        </childnode>
+      </node>
+      <node id="1058">
+        <label>rangevec_t</label>
+        <link refid="structrangevec__t"/>
+        <childnode refid="1059" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5908" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5907" bodyend="5917"/>
+    <listofallmembers>
+      <member refid="structcloop__t_1af595e2e2bf503f41ae81e4e40f6c7509" prot="public" virt="non-virtual"><scope>cloop_t</scope><name>assign</name></member>
+      <member refid="structcloop__t_1ac6da5055e5b256cc4c35b35fde189eb8" prot="public" virt="non-virtual"><scope>cloop_t</scope><name>body</name></member>
+      <member refid="structcloop__t_1a525374334b210ce2954d64bfa3a877b6" prot="public" virt="non-virtual"><scope>cloop_t</scope><name>cleanup</name></member>
+      <member refid="structcloop__t_1a78a344486b865de41f15782af37c43e5" prot="public" virt="non-virtual"><scope>cloop_t</scope><name>cloop_t</name></member>
+      <member refid="structcloop__t_1a0842f38dcaa076d16d36ddadde399711" prot="public" virt="non-virtual"><scope>cloop_t</scope><name>cloop_t</name></member>
+      <member refid="structcloop__t_1adab14741162d5ca8fe07d3d93fbcfaf6" prot="public" virt="non-virtual"><scope>cloop_t</scope><name>cloop_t</name></member>
+      <member refid="structceinsn__t_1ad75d6e56656d14584c355a3a4527e93a" prot="public" virt="non-virtual"><scope>cloop_t</scope><name>expr</name></member>
+      <member refid="structcloop__t_1ae5e7db6ef4ef1bc6922b5f0b6260c38c" prot="public" virt="non-virtual"><scope>cloop_t</scope><name>operator=</name></member>
+      <member refid="structcloop__t_1a877744dec95dc21578b6f8abb0646ea6" prot="public" virt="non-virtual"><scope>cloop_t</scope><name>~cloop_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

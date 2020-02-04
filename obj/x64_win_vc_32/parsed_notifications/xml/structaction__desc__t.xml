@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structaction__desc__t" kind="struct" language="C++" prot="public">
+    <compoundname>action_desc_t</compoundname>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structaction__desc__t_1ab585ba16641191a62a2d55da5bde30ed" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int action_desc_t::cb</definition>
+        <argsstring></argsstring>
+        <name>cb</name>
+        <briefdescription>
+<para>size of this structure </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3578" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3578" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaction__desc__t_1abbb41dc1dbf7969a542dc97b0a63ee2a" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* action_desc_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the internal name of the action; must be unique. a way to reduce possible conflicts is to prefix it with some specific prefix. E.g., &quot;myplugin:doSthg&quot;. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3579" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3579" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaction__desc__t_1a6843e3fdc5315319eb7e91e56736e3dc" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* action_desc_t::label</definition>
+        <argsstring></argsstring>
+        <name>label</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the label of the action, possibly with an accelerator key definition (e.g., &quot;~J~ump to operand&quot;) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3583" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3583" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaction__desc__t_1a8dace0476b13e352fbd631e318eef63b" prot="public" static="no" mutable="no">
+        <type><ref refid="structaction__handler__t" kindref="compound">action_handler_t</ref> *</type>
+        <definition>action_handler_t* action_desc_t::handler</definition>
+        <argsstring></argsstring>
+        <name>handler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the action handler, for activating/updating. please read the comments at <ref refid="kernwin_8hpp_1ac79586adc1b82bd19ac650a5e743efe7" kindref="member">register_action()</ref>. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3586" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3586" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaction__desc__t_1a7d0d817d16d0a61a7a6232eeb93838fe" prot="public" static="no" mutable="no">
+        <type>const <ref refid="classplugin__t" kindref="compound">plugin_t</ref> *</type>
+        <definition>const plugin_t* action_desc_t::owner</definition>
+        <argsstring></argsstring>
+        <name>owner</name>
+        <briefdescription>
+<para>plugin responsible for registering action, can be NULL </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3589" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3589" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaction__desc__t_1aa0566234916873ac0b9656c069b08498" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* action_desc_t::shortcut</definition>
+        <argsstring></argsstring>
+        <name>shortcut</name>
+        <briefdescription>
+<para>an optional shortcut definition. E.g., &quot;Ctrl+Enter&quot; </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3591" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3591" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaction__desc__t_1a4881725eecabbfba3bb2d3e5fe2d1847" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* action_desc_t::tooltip</definition>
+        <argsstring></argsstring>
+        <name>tooltip</name>
+        <briefdescription>
+<para>an optional tooltip for the action </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3592" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3592" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaction__desc__t_1ab5401d19369caafd1303a28afbf6ab95" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int action_desc_t::icon</definition>
+        <argsstring></argsstring>
+        <name>icon</name>
+        <briefdescription>
+<para>an optional icon ID to use </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3593" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3593" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaction__desc__t_1adac6f845047929282275845f4024ad62" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int action_desc_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+<para>See <ref refid="group___a_d_f__" kindref="compound">Action flags</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3602" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3602" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Describe an action to be registered (see <ref refid="kernwin_8hpp_1ac79586adc1b82bd19ac650a5e743efe7" kindref="member">register_action()</ref>) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="32">
+        <label>action_handler_t</label>
+        <link refid="structaction__handler__t"/>
+      </node>
+      <node id="31">
+        <label>action_desc_t</label>
+        <link refid="structaction__desc__t"/>
+        <childnode refid="32" relation="usage">
+          <edgelabel>handler</edgelabel>
+        </childnode>
+        <childnode refid="33" relation="usage">
+          <edgelabel>owner</edgelabel>
+        </childnode>
+      </node>
+      <node id="33">
+        <label>plugin_t</label>
+        <link refid="classplugin__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3577" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3576" bodyend="3603"/>
+    <listofallmembers>
+      <member refid="structaction__desc__t_1ab585ba16641191a62a2d55da5bde30ed" prot="public" virt="non-virtual"><scope>action_desc_t</scope><name>cb</name></member>
+      <member refid="structaction__desc__t_1adac6f845047929282275845f4024ad62" prot="public" virt="non-virtual"><scope>action_desc_t</scope><name>flags</name></member>
+      <member refid="structaction__desc__t_1a8dace0476b13e352fbd631e318eef63b" prot="public" virt="non-virtual"><scope>action_desc_t</scope><name>handler</name></member>
+      <member refid="structaction__desc__t_1ab5401d19369caafd1303a28afbf6ab95" prot="public" virt="non-virtual"><scope>action_desc_t</scope><name>icon</name></member>
+      <member refid="structaction__desc__t_1a6843e3fdc5315319eb7e91e56736e3dc" prot="public" virt="non-virtual"><scope>action_desc_t</scope><name>label</name></member>
+      <member refid="structaction__desc__t_1abbb41dc1dbf7969a542dc97b0a63ee2a" prot="public" virt="non-virtual"><scope>action_desc_t</scope><name>name</name></member>
+      <member refid="structaction__desc__t_1a7d0d817d16d0a61a7a6232eeb93838fe" prot="public" virt="non-virtual"><scope>action_desc_t</scope><name>owner</name></member>
+      <member refid="structaction__desc__t_1aa0566234916873ac0b9656c069b08498" prot="public" virt="non-virtual"><scope>action_desc_t</scope><name>shortcut</name></member>
+      <member refid="structaction__desc__t_1a4881725eecabbfba3bb2d3e5fe2d1847" prot="public" virt="non-virtual"><scope>action_desc_t</scope><name>tooltip</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

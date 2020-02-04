@@ -1,0 +1,704 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classplace__t" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>place_t</compoundname>
+    <derivedcompoundref refid="classenumplace__t" prot="public" virt="non-virtual">enumplace_t</derivedcompoundref>
+    <derivedcompoundref refid="classidaplace__t" prot="public" virt="non-virtual">idaplace_t</derivedcompoundref>
+    <derivedcompoundref refid="classsimpleline__place__t" prot="public" virt="non-virtual">simpleline_place_t</derivedcompoundref>
+    <derivedcompoundref refid="classstructplace__t" prot="public" virt="non-virtual">structplace_t</derivedcompoundref>
+    <derivedcompoundref refid="structuser__graph__place__t" prot="public" virt="non-virtual">user_graph_place_t</derivedcompoundref>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classplace__t_1a2290792667079b755a6f40979b241c0d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int place_t::lnnum</definition>
+        <argsstring></argsstring>
+        <name>lnnum</name>
+        <briefdescription>
+<para>Number of line within the current object. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1204" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1204" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classplace__t_1ae14ab4038d37fb100de804658e0ae407" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>place_t::place_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>place_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1205" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1a8519f60eee7c08ade01ba7bbf54651b9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>place_t::place_t</definition>
+        <argsstring>(int ln)</argsstring>
+        <name>place_t</name>
+        <param>
+          <type>int</type>
+          <declname>ln</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1206" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1206" bodyend="1205"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1a62149ac6731e1d55d48a056ac25e0ea1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>void idaapi</type>
+        <definition>virtual void idaapi place_t::print</definition>
+        <argsstring>(qstring *out_buf, void *ud) const =0</argsstring>
+        <name>print</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out_buf</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Generate a short description of the location. This description is used on the status bar. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out_buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to user-defined context data. Is supplied by <ref refid="classlinearray__t" kindref="compound">linearray_t</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1213" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1a834a8cc4961c1c57c3b354fe1fca6870" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref> idaapi</type>
+        <definition>virtual uval_t idaapi place_t::touval</definition>
+        <argsstring>(void *ud) const =0</argsstring>
+        <name>touval</name>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Map the location to a number. This mapping is used to draw the vertical scrollbar. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to user-defined context data. Is supplied by <ref refid="classlinearray__t" kindref="compound">linearray_t</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1218" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1aa4cf253af9a4980c7a4481ebcb292fe6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classplace__t" kindref="compound">place_t</ref> *idaapi</type>
+        <definition>virtual place_t* idaapi place_t::clone</definition>
+        <argsstring>(void) const =0</argsstring>
+        <name>clone</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Clone the location. <simplesect kind="return"><para>a pointer to a copy of the current location in dynamic memory </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1222" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1a93a239a8f6f2e6d23f6e5d24ab2b5584" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void idaapi</type>
+        <definition>virtual void idaapi place_t::copyfrom</definition>
+        <argsstring>(const place_t *from)=0</argsstring>
+        <name>copyfrom</name>
+        <param>
+          <type>const <ref refid="classplace__t" kindref="compound">place_t</ref> *</type>
+          <declname>from</declname>
+        </param>
+        <briefdescription>
+<para>Copy the specified location object to the current object. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1225" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1a2c5b119c1e71bb062ff40e6194eff383" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classplace__t" kindref="compound">place_t</ref> *idaapi</type>
+        <definition>virtual place_t* idaapi place_t::makeplace</definition>
+        <argsstring>(void *ud, uval_t x, int lnnum) const =0</argsstring>
+        <name>makeplace</name>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>lnnum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Map a number to a location. When the user clicks on the scrollbar and drags it, we need to determine the location corresponding to the new scrollbar position. This function is used to determine it. It builds a location object for the specified &apos;x&apos; and returns a pointer to it. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to user-defined context data. Is supplied by <ref refid="classlinearray__t" kindref="compound">linearray_t</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number to map </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lnnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line number to initialize &apos;lnnum&apos; </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a static object, no need to destroy it. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1236" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1adb067d4ab607933cf2b15b951457273c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi place_t::compare</definition>
+        <argsstring>(const place_t *t2) const =0</argsstring>
+        <name>compare</name>
+        <param>
+          <type>const <ref refid="classplace__t" kindref="compound">place_t</ref> *</type>
+          <declname>t2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare two locations except line numbers (lnnum). This function is used to organize loops. For example, if the user has selected an range, its boundaries are remembered as location objects. Any operation within the selection will have the following look: for ( loc=starting_location; loc &lt; ending_location; loc.next() ) In this loop, the comparison function is used. <parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>-1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if the current location is less than &apos;t2&apos; </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if the current location is equal to than &apos;t2&apos; </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if the current location is greater than &apos;t2&apos; </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1247" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1a3b16c13455ab860b9e24b796887f4740" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void idaapi</type>
+        <definition>virtual void idaapi place_t::adjust</definition>
+        <argsstring>(void *ud)=0</argsstring>
+        <name>adjust</name>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Adjust the current location to point to a displayable object. This function validates the location and makes sure that it points to an existing object. For example, if the location points to the middle of an instruction, it will be adjusted to point to the beginning of the instruction. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to user-defined context data. Is supplied by <ref refid="classlinearray__t" kindref="compound">linearray_t</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1255" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1a8039d5e4b13f624908a4a7377081e45c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi place_t::prev</definition>
+        <argsstring>(void *ud)=0</argsstring>
+        <name>prev</name>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Move to the previous displayable location. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to user-defined context data. Is supplied by <ref refid="classlinearray__t" kindref="compound">linearray_t</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1260" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1aea2b5b32abe1aa93e6e334140fdbae0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi place_t::next</definition>
+        <argsstring>(void *ud)=0</argsstring>
+        <name>next</name>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Move to the next displayable location. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to user-defined context data. Is supplied by <ref refid="classlinearray__t" kindref="compound">linearray_t</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1265" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1a1eb30fc9b839d8da28f05ce0ccbbc661" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi place_t::beginning</definition>
+        <argsstring>(void *ud) const =0</argsstring>
+        <name>beginning</name>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Are we at the first displayable object?. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to user-defined context data. Is supplied by <ref refid="classlinearray__t" kindref="compound">linearray_t</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the current location points to the first displayable object </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1270" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1af8a0747c609c749e5ac27fec0ccf7749" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi place_t::ending</definition>
+        <argsstring>(void *ud) const =0</argsstring>
+        <name>ending</name>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Are we at the last displayable object?. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to user-defined context data. Is supplied by <ref refid="classlinearray__t" kindref="compound">linearray_t</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the current location points to the last displayable object </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1275" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1ac5e9d9bb1c1e76313484c30669f17581" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi place_t::generate</definition>
+        <argsstring>(qstrvec_t *out, int *out_deflnnum, color_t *out_pfx_color, bgcolor_t *out_bgcolor, void *ud, int maxsize) const =0</argsstring>
+        <name>generate</name>
+        <param>
+          <type><ref refid="pro_8h_1a823b67c620f6cdca97e1d969ea4a9b02" kindref="member">qstrvec_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>out_deflnnum</declname>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref> *</type>
+          <declname>out_pfx_color</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a3df5040891132e50157aee66affdf1de" kindref="member">bgcolor_t</ref> *</type>
+          <declname>out_bgcolor</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>maxsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Generate text lines for the current location. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>storage for the lines </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>out_deflnnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the cell that will contain the number of the most &apos;interesting&apos; generated line </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>out_pfx_color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the cell that will contain the line prefix color </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>out_bgcolor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the cell that will contain the background color </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to user-defined context data. Is supplied by <ref refid="classlinearray__t" kindref="compound">linearray_t</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>maxsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the maximum number of lines to generate </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>number of generated lines </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1286" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1a6bac077150420a43060a136e1c7fb74f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>void idaapi</type>
+        <definition>virtual void idaapi place_t::serialize</definition>
+        <argsstring>(bytevec_t *out) const =0</argsstring>
+        <name>serialize</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Serialize this instance. It is fundamental that all instances of a particular subclass of of <ref refid="classplace__t" kindref="compound">place_t</ref> occupy the same number of bytes when serialized. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer to serialize into </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1298" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1af183cc97073e7ff7f59b881358b25ad8" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi place_t::deserialize</definition>
+        <argsstring>(const uchar **pptr, const uchar *end)=0</argsstring>
+        <name>deserialize</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>pptr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>De-serialize into this instance. &apos;pptr&apos; should be incremented by as many bytes as de-serialization consumed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to a serialized representation of a <ref refid="classplace__t" kindref="compound">place_t</ref> of this type. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>end</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to end of buffer. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>whether de-serialization was successful </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1306" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1a2d5a9daadc5ed9ebc58c292013013d9d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi place_t::id</definition>
+        <argsstring>() const =0</argsstring>
+        <name>id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the place&apos;s ID (i.e., the value returned by <ref refid="kernwin_8hpp_1a21e74833f8eedcf3cbc1447a691d5eb4" kindref="member">register_place_class()</ref>) <simplesect kind="return"><para>the id </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1310" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1ab31b8e0b9c635346da32da95849f860c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>const char *idaapi</type>
+        <definition>virtual const char* idaapi place_t::name</definition>
+        <argsstring>() const =0</argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get this place type name. All instances of a given class must return the same string. <simplesect kind="return"><para>the place type name. Please try and pick something that is not too generic, as it might clash w/ other plugins. A good practice is to prefix the class name with the name of your plugin. E.g., &quot;myplugin:srcplace_t&quot;. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1318" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1a4cfdfecee2e21b5f818c685f5c61e059" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>ea_t idaapi</type>
+        <definition>virtual ea_t idaapi place_t::toea</definition>
+        <argsstring>() const</argsstring>
+        <name>toea</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Map the location to an ea_t. <simplesect kind="return"><para>the corresponding ea_t, or BADADDR; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1322" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1322" bodyend="1322"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1a4ae4e2531f911f3f4876531cf54342c4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi place_t::rebase</definition>
+        <argsstring>(const segm_move_infos_t &amp;)</argsstring>
+        <name>rebase</name>
+        <param>
+          <type>const <ref refid="structsegm__move__infos__t" kindref="compound">segm_move_infos_t</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Rebase the place instance <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>infos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the segments that were moved </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if place was rebased, false otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1327" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1327" bodyend="1327"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1aa455b2b6db54bd27452456f7304363e3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="classplace__t" kindref="compound">place_t</ref> *idaapi</type>
+        <definition>virtual place_t* idaapi place_t::enter</definition>
+        <argsstring>(uint32 *) const</argsstring>
+        <name>enter</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Visit this place, possibly &apos;unhiding&apos; a section of text. If entering that place required some expanding, a <ref refid="classplace__t" kindref="compound">place_t</ref> should be returned that represents that section, plus some flags for later use by &apos;<ref refid="classplace__t_1ae4c35e91362b8095481cc80aa12eefa0" kindref="member">leave()</ref>&apos;. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>flags to be used together with the <ref refid="classplace__t" kindref="compound">place_t</ref> that is returned, in order to restore the section to its original state when <ref refid="classplace__t_1ae4c35e91362b8095481cc80aa12eefa0" kindref="member">leave()</ref> is called. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a <ref refid="classplace__t" kindref="compound">place_t</ref> corresponding to the beginning of the section of text that had to be expanded. That <ref refid="classplace__t" kindref="compound">place_t</ref>&apos;s <ref refid="classplace__t_1ae4c35e91362b8095481cc80aa12eefa0" kindref="member">leave()</ref> will be called with the flags contained in &apos;out_flags&apos; when the user navigates away from it. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1340" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1340" bodyend="1340"/>
+      </memberdef>
+      <memberdef kind="function" id="classplace__t_1ae4c35e91362b8095481cc80aa12eefa0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>void idaapi</type>
+        <definition>virtual void idaapi place_t::leave</definition>
+        <argsstring>(uint32) const</argsstring>
+        <name>leave</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Leave this place, possibly &apos;hiding&apos; a section of text that was previously expanded (at <ref refid="classplace__t_1aa455b2b6db54bd27452456f7304363e3" kindref="member">enter()</ref>-time.) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1344" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1344" bodyend="1344"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Denotes a displayed line. </para>    </briefdescription>
+    <detaileddescription>
+<para>(location_t would be a better name but it is too late to rename it now)</para><para>An object may be displayed on one or more lines. All lines of an object are generated at once and kept in a <ref refid="classlinearray__t" kindref="compound">linearray_t</ref> class.</para><para><ref refid="classplace__t" kindref="compound">place_t</ref> is an abstract class, another class must be derived from it. <linebreak/>
+Currently the following classes are used in IDA: <verbatim>        idaplace_t      - disassembly view                                      \n
+        enumplace_t     - enum view                                             \n
+        structplace_t   - structure view
+</verbatim></para><para>Example (<ref refid="classidaplace__t" kindref="compound">idaplace_t</ref>):<verbatim>  004015AC
+  004015AC loc_4015AC:                             ; CODE XREF: sub_4014B8+C5j
+  004015AC                 xor     eax, eax                                         </verbatim></para><para>The first line is denoted by <ref refid="classidaplace__t" kindref="compound">idaplace_t</ref> with ea=4015AC, lnnum=0 <linebreak/>
+The second line is denoted by <ref refid="classidaplace__t" kindref="compound">idaplace_t</ref> with ea=4015AC, lnnum=1 <linebreak/>
+The third line is denoted by <ref refid="classidaplace__t" kindref="compound">idaplace_t</ref> with ea=4015AC, lnnum=2</para><para>NB: the <ref refid="classplace__t" kindref="compound">place_t</ref> class may change in the future, do not rely on it </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="2866">
+        <label>idaplace_t</label>
+        <link refid="classidaplace__t"/>
+        <childnode refid="2864" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2869">
+        <label>structplace_t</label>
+        <link refid="classstructplace__t"/>
+        <childnode refid="2864" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2864">
+        <label>place_t</label>
+        <link refid="classplace__t"/>
+      </node>
+      <node id="2870">
+        <label>user_graph_place_t</label>
+        <link refid="structuser__graph__place__t"/>
+        <childnode refid="2864" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2867">
+        <label>hexplace_t</label>
+        <link refid="classhexplace__t"/>
+        <childnode refid="2866" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2868">
+        <label>simpleline_place_t</label>
+        <link refid="classsimpleline__place__t"/>
+        <childnode refid="2864" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2865">
+        <label>enumplace_t</label>
+        <link refid="classenumplace__t"/>
+        <childnode refid="2864" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1202" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1201" bodyend="1345"/>
+    <listofallmembers>
+      <member refid="classplace__t_1a3b16c13455ab860b9e24b796887f4740" prot="public" virt="pure-virtual"><scope>place_t</scope><name>adjust</name></member>
+      <member refid="classplace__t_1a1eb30fc9b839d8da28f05ce0ccbbc661" prot="public" virt="pure-virtual"><scope>place_t</scope><name>beginning</name></member>
+      <member refid="classplace__t_1aa4cf253af9a4980c7a4481ebcb292fe6" prot="public" virt="pure-virtual"><scope>place_t</scope><name>clone</name></member>
+      <member refid="classplace__t_1adb067d4ab607933cf2b15b951457273c" prot="public" virt="pure-virtual"><scope>place_t</scope><name>compare</name></member>
+      <member refid="classplace__t_1a93a239a8f6f2e6d23f6e5d24ab2b5584" prot="public" virt="pure-virtual"><scope>place_t</scope><name>copyfrom</name></member>
+      <member refid="classplace__t_1af183cc97073e7ff7f59b881358b25ad8" prot="public" virt="pure-virtual"><scope>place_t</scope><name>deserialize</name></member>
+      <member refid="classplace__t_1af8a0747c609c749e5ac27fec0ccf7749" prot="public" virt="pure-virtual"><scope>place_t</scope><name>ending</name></member>
+      <member refid="classplace__t_1aa455b2b6db54bd27452456f7304363e3" prot="public" virt="virtual"><scope>place_t</scope><name>enter</name></member>
+      <member refid="classplace__t_1ac5e9d9bb1c1e76313484c30669f17581" prot="public" virt="pure-virtual"><scope>place_t</scope><name>generate</name></member>
+      <member refid="classplace__t_1a2d5a9daadc5ed9ebc58c292013013d9d" prot="public" virt="pure-virtual"><scope>place_t</scope><name>id</name></member>
+      <member refid="classplace__t_1ae4c35e91362b8095481cc80aa12eefa0" prot="public" virt="virtual"><scope>place_t</scope><name>leave</name></member>
+      <member refid="classplace__t_1a2290792667079b755a6f40979b241c0d" prot="public" virt="non-virtual"><scope>place_t</scope><name>lnnum</name></member>
+      <member refid="classplace__t_1a2c5b119c1e71bb062ff40e6194eff383" prot="public" virt="pure-virtual"><scope>place_t</scope><name>makeplace</name></member>
+      <member refid="classplace__t_1ab31b8e0b9c635346da32da95849f860c" prot="public" virt="pure-virtual"><scope>place_t</scope><name>name</name></member>
+      <member refid="classplace__t_1aea2b5b32abe1aa93e6e334140fdbae0c" prot="public" virt="pure-virtual"><scope>place_t</scope><name>next</name></member>
+      <member refid="classplace__t_1ae14ab4038d37fb100de804658e0ae407" prot="public" virt="non-virtual"><scope>place_t</scope><name>place_t</name></member>
+      <member refid="classplace__t_1a8519f60eee7c08ade01ba7bbf54651b9" prot="public" virt="non-virtual"><scope>place_t</scope><name>place_t</name></member>
+      <member refid="classplace__t_1a8039d5e4b13f624908a4a7377081e45c" prot="public" virt="pure-virtual"><scope>place_t</scope><name>prev</name></member>
+      <member refid="classplace__t_1a62149ac6731e1d55d48a056ac25e0ea1" prot="public" virt="pure-virtual"><scope>place_t</scope><name>print</name></member>
+      <member refid="classplace__t_1a4ae4e2531f911f3f4876531cf54342c4" prot="public" virt="virtual"><scope>place_t</scope><name>rebase</name></member>
+      <member refid="classplace__t_1a6bac077150420a43060a136e1c7fb74f" prot="public" virt="pure-virtual"><scope>place_t</scope><name>serialize</name></member>
+      <member refid="classplace__t_1a4cfdfecee2e21b5f818c685f5c61e059" prot="public" virt="virtual"><scope>place_t</scope><name>toea</name></member>
+      <member refid="classplace__t_1a834a8cc4961c1c57c3b354fe1fca6870" prot="public" virt="pure-virtual"><scope>place_t</scope><name>touval</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

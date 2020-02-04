@@ -1,0 +1,1595 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="lumina_8hpp" kind="file" language="C++">
+    <compoundname>lumina.hpp</compoundname>
+    <includes refid="pro_8h" local="no">pro.h</includes>
+    <includes refid="network_8hpp" local="no">network.hpp</includes>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+    <incdepgraph>
+      <node id="976">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="960">
+        <label>stdarg.h</label>
+      </node>
+      <node id="963">
+        <label>assert.h</label>
+      </node>
+      <node id="979">
+        <label>ws2tcpip.h</label>
+      </node>
+      <node id="985">
+        <label>ida.hpp</label>
+        <link refid="ida_8hpp"/>
+        <childnode refid="958" relation="include">
+        </childnode>
+        <childnode refid="986" relation="include">
+        </childnode>
+      </node>
+      <node id="959">
+        <label>stdlib.h</label>
+      </node>
+      <node id="992">
+        <label>ua.hpp</label>
+        <link refid="ua_8hpp"/>
+        <childnode refid="980" relation="include">
+        </childnode>
+        <childnode refid="991" relation="include">
+        </childnode>
+        <childnode refid="993" relation="include">
+        </childnode>
+        <childnode refid="990" relation="include">
+        </childnode>
+      </node>
+      <node id="978">
+        <label>network.hpp</label>
+        <link refid="network_8hpp_source"/>
+        <childnode refid="973" relation="include">
+        </childnode>
+        <childnode refid="958" relation="include">
+        </childnode>
+        <childnode refid="979" relation="include">
+        </childnode>
+      </node>
+      <node id="994">
+        <label>bitrange.hpp</label>
+        <link refid="bitrange_8hpp"/>
+      </node>
+      <node id="971">
+        <label>io.h</label>
+      </node>
+      <node id="974">
+        <label>fcntl.h</label>
+      </node>
+      <node id="977">
+        <label>llong.hpp</label>
+        <link refid="llong_8hpp_source"/>
+      </node>
+      <node id="969">
+        <label>malloc.h</label>
+      </node>
+      <node id="968">
+        <label>string</label>
+      </node>
+      <node id="982">
+        <label>idp.hpp</label>
+        <link refid="idp_8hpp"/>
+        <childnode refid="983" relation="include">
+        </childnode>
+        <childnode refid="984" relation="include">
+        </childnode>
+        <childnode refid="988" relation="include">
+        </childnode>
+        <childnode refid="989" relation="include">
+        </childnode>
+        <childnode refid="992" relation="include">
+        </childnode>
+        <childnode refid="994" relation="include">
+        </childnode>
+        <childnode refid="995" relation="include">
+        </childnode>
+      </node>
+      <node id="973">
+        <label>map</label>
+      </node>
+      <node id="972">
+        <label>direct.h</label>
+      </node>
+      <node id="961">
+        <label>stddef.h</label>
+      </node>
+      <node id="984">
+        <label>nalt.hpp</label>
+        <link refid="nalt_8hpp"/>
+        <childnode refid="985" relation="include">
+        </childnode>
+        <childnode refid="987" relation="include">
+        </childnode>
+      </node>
+      <node id="991">
+        <label>lines.hpp</label>
+        <link refid="lines_8hpp"/>
+        <childnode refid="985" relation="include">
+        </childnode>
+      </node>
+      <node id="996">
+        <label>name.hpp</label>
+        <link refid="name_8hpp"/>
+        <childnode refid="985" relation="include">
+        </childnode>
+      </node>
+      <node id="964">
+        <label>limits.h</label>
+      </node>
+      <node id="975">
+        <label>sys/types.h</label>
+      </node>
+      <node id="970">
+        <label>string.h</label>
+      </node>
+      <node id="967">
+        <label>new</label>
+      </node>
+      <node id="993">
+        <label>xref.hpp</label>
+        <link refid="xref_8hpp"/>
+      </node>
+      <node id="989">
+        <label>funcs.hpp</label>
+        <link refid="funcs_8hpp"/>
+        <childnode refid="986" relation="include">
+        </childnode>
+        <childnode refid="990" relation="include">
+        </childnode>
+      </node>
+      <node id="958">
+        <label>pro.h</label>
+        <link refid="pro_8h"/>
+        <childnode refid="959" relation="include">
+        </childnode>
+        <childnode refid="960" relation="include">
+        </childnode>
+        <childnode refid="961" relation="include">
+        </childnode>
+        <childnode refid="962" relation="include">
+        </childnode>
+        <childnode refid="963" relation="include">
+        </childnode>
+        <childnode refid="964" relation="include">
+        </childnode>
+        <childnode refid="965" relation="include">
+        </childnode>
+        <childnode refid="966" relation="include">
+        </childnode>
+        <childnode refid="967" relation="include">
+        </childnode>
+        <childnode refid="968" relation="include">
+        </childnode>
+        <childnode refid="969" relation="include">
+        </childnode>
+        <childnode refid="970" relation="include">
+        </childnode>
+        <childnode refid="971" relation="include">
+        </childnode>
+        <childnode refid="972" relation="include">
+        </childnode>
+        <childnode refid="973" relation="include">
+        </childnode>
+        <childnode refid="974" relation="include">
+        </childnode>
+        <childnode refid="975" relation="include">
+        </childnode>
+        <childnode refid="976" relation="include">
+        </childnode>
+        <childnode refid="977" relation="include">
+        </childnode>
+      </node>
+      <node id="988">
+        <label>segment.hpp</label>
+        <link refid="segment_8hpp"/>
+        <childnode refid="985" relation="include">
+        </childnode>
+        <childnode refid="986" relation="include">
+        </childnode>
+      </node>
+      <node id="966">
+        <label>time.h</label>
+      </node>
+      <node id="983">
+        <label>fpro.h</label>
+        <link refid="fpro_8h"/>
+        <childnode refid="958" relation="include">
+        </childnode>
+        <childnode refid="962" relation="include">
+        </childnode>
+      </node>
+      <node id="995">
+        <label>config.hpp</label>
+        <link refid="config_8hpp_source"/>
+      </node>
+      <node id="990">
+        <label>bytes.hpp</label>
+        <link refid="bytes_8hpp"/>
+        <childnode refid="984" relation="include">
+        </childnode>
+        <childnode refid="991" relation="include">
+        </childnode>
+        <childnode refid="986" relation="include">
+        </childnode>
+      </node>
+      <node id="965">
+        <label>ctype.h</label>
+      </node>
+      <node id="986">
+        <label>range.hpp</label>
+        <link refid="range_8hpp"/>
+      </node>
+      <node id="981">
+        <label>typeinf.hpp</label>
+        <link refid="typeinf_8hpp"/>
+        <childnode refid="982" relation="include">
+        </childnode>
+        <childnode refid="996" relation="include">
+        </childnode>
+      </node>
+      <node id="987">
+        <label>netnode.hpp</label>
+        <link refid="netnode_8hpp"/>
+        <childnode refid="986" relation="include">
+        </childnode>
+      </node>
+      <node id="980">
+        <label>kernwin.hpp</label>
+        <link refid="kernwin_8hpp"/>
+      </node>
+      <node id="962">
+        <label>stdio.h</label>
+      </node>
+      <node id="957">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp</label>
+        <link refid="lumina_8hpp"/>
+        <childnode refid="958" relation="include">
+        </childnode>
+        <childnode refid="978" relation="include">
+        </childnode>
+        <childnode refid="980" relation="include">
+        </childnode>
+        <childnode refid="981" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structinsn__site__t" prot="public">insn_site_t</innerclass>
+    <innerclass refid="structinsn__cmt__t" prot="public">insn_cmt_t</innerclass>
+    <innerclass refid="structuser__stkpnt__t" prot="public">user_stkpnt_t</innerclass>
+    <innerclass refid="structextra__cmt__t" prot="public">extra_cmt_t</innerclass>
+    <innerclass refid="structoprepr__t" prot="public">oprepr_t</innerclass>
+    <innerclass refid="structinsn__ops__repr__t" prot="public">insn_ops_repr_t</innerclass>
+    <innerclass refid="classmetadata__t" prot="public">metadata_t</innerclass>
+    <innerclass refid="classmetadata__creator__t" prot="public">metadata_creator_t</innerclass>
+    <innerclass refid="classmetadata__iterator__t" prot="public">metadata_iterator_t</innerclass>
+    <innerclass refid="structpattern__id__t" prot="public">pattern_id_t</innerclass>
+    <innerclass refid="structfunc__info__t" prot="public">func_info_t</innerclass>
+    <innerclass refid="structmd5__t" prot="public">md5_t</innerclass>
+    <innerclass refid="structinput__file__t" prot="public">input_file_t</innerclass>
+    <innerclass refid="structfunc__info__and__frequency__t" prot="public">func_info_and_frequency_t</innerclass>
+    <innerclass refid="structfunc__info__and__pattern__t" prot="public">func_info_and_pattern_t</innerclass>
+    <innerclass refid="structfunc__info__pattern__and__frequency__t" prot="public">func_info_pattern_and_frequency_t</innerclass>
+    <innerclass refid="structpop__fun__t" prot="public">pop_fun_t</innerclass>
+    <innerclass refid="structserialized__tinfo" prot="public">serialized_tinfo</innerclass>
+    <innerclass refid="structframe__mem__t" prot="public">frame_mem_t</innerclass>
+    <innerclass refid="structframe__desc__t" prot="public">frame_desc_t</innerclass>
+    <innerclass refid="structskipped__func__t" prot="public">skipped_func_t</innerclass>
+    <innerclass refid="structuser__identification__t" prot="public">user_identification_t</innerclass>
+    <innerclass refid="structpkt__rpc__ok__t" prot="public">pkt_rpc_ok_t</innerclass>
+    <innerclass refid="structpkt__rpc__fail__t" prot="public">pkt_rpc_fail_t</innerclass>
+    <innerclass refid="structpkt__rpc__notify__t" prot="public">pkt_rpc_notify_t</innerclass>
+    <innerclass refid="structpkt__helo__t" prot="public">pkt_helo_t</innerclass>
+    <innerclass refid="structpkt__pull__md__t" prot="public">pkt_pull_md_t</innerclass>
+    <innerclass refid="structpkt__pull__md__result__t" prot="public">pkt_pull_md_result_t</innerclass>
+    <innerclass refid="structpkt__push__md__t" prot="public">pkt_push_md_t</innerclass>
+    <innerclass refid="structpkt__push__md__result__t" prot="public">pkt_push_md_result_t</innerclass>
+    <innerclass refid="structpkt__get__pop__t" prot="public">pkt_get_pop_t</innerclass>
+    <innerclass refid="structpkt__get__pop__result__t" prot="public">pkt_get_pop_result_t</innerclass>
+    <innerclass refid="structpkt__dump__md__t" prot="public">pkt_dump_md_t</innerclass>
+    <innerclass refid="structpkt__dump__md__result__t" prot="public">pkt_dump_md_result_t</innerclass>
+    <innerclass refid="structpkt__clean__db__t" prot="public">pkt_clean_db_t</innerclass>
+    <innerclass refid="structpkt__debug__sleep__t" prot="public">pkt_debug_sleep_t</innerclass>
+    <innerclass refid="structpush__md__opts__t" prot="public">push_md_opts_t</innerclass>
+    <innerclass refid="structpush__md__result__t" prot="public">push_md_result_t</innerclass>
+    <innerclass refid="classlumina__client__t" prot="public">lumina_client_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___p_m_f___1ga1fe08e36ba45a0ea19f6a144cc8a2fcd" prot="public" static="no">
+        <name>PMF_PUSH_MODE_MASK</name>
+        <initializer>0xF</initializer>
+        <briefdescription>
+<para>Conflict resolution mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="29" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_m_f___1ga5ff1c5f13c07b66a8d333fa1582d89c7" prot="public" static="no">
+        <name>PMF_PUSH_OVERRIDE_IF_BETTER</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="30" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_m_f___1ga9fe8d2a86996dea4250ec533f5f9682a" prot="public" static="no">
+        <name>PMF_PUSH_OVERRIDE</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="31" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_m_f___1gadcb606ccb0e3880ec2ffe0e13c4fe901" prot="public" static="no">
+        <name>PMF_PUSH_DO_NOT_OVERRIDE</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="32" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_m_f___1ga08d996afae08cad78d856236993743b3" prot="public" static="no">
+        <name>PMF_PUSH_MERGE</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="33" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lumina_8hpp_1a790de7bbba51f1c6d6853cd9dc9664e8" prot="public" static="no">
+        <name>DEFAULT_LUMINA_PORT_NUMBER</name>
+        <initializer>65432</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="42" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lumina_8hpp_1a08b138d218fe78f44ff68c9591e886d0" prot="public" static="no">
+        <name>LUMINA_GET_POP_DEFAULT_NRESULTS</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="44" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_m_d_f___1ga86a6045efda345f96b7c62604392c31b" prot="public" static="no">
+        <name>AMDF_UPGRADE</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>&quot;quality&quot; than what&apos;s currently in the IDB </para>        </briefdescription>
+        <detaileddescription>
+<para>apply kvps that seem to be of higher </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="291" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_m_d_f___1gab606ad0242df274cb1a1f18b66ca66fb" prot="public" static="no">
+        <name>AMDF_FORCE</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>apply kvps regardless of what&apos;s currently in the IDB, possibly removing some attributes currently present (e.g., name, or prototype could be lost) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="293" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lumina_8hpp_1a277f7abca2044f354abe265252cb9252" prot="public" static="no">
+        <name>PROTOCOL_VERSION</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="305" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lumina_8hpp_1a53f2ee8775b3f014eb2dd688cae614ac" prot="public" static="no">
+        <name>PULL_MD_AUTO_APPLY</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="799" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="799" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lumina_8hpp_1afe52c30c4acd3593f85d926aa04521bf" prot="public" static="no">
+        <name>PULL_MD_SEEN_FILE</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="802" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="802" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="lumina_8hpp_1a7aff401e7767ce663f764e822d8ddfda" prot="public" static="no">
+        <name>pattern_type_t</name>
+        <enumvalue id="lumina_8hpp_1a7aff401e7767ce663f764e822d8ddfdaaa3ecf09486db113a3e1e5eddb10ab29f" prot="public">
+          <name>PAT_TYPE_UNKNOWN</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a7aff401e7767ce663f764e822d8ddfdaa1acff5e290ebcc4002e17a875f672eae" prot="public">
+          <name>PAT_TYPE_MD5</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="12" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="11" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="enum" id="lumina_8hpp_1a10d5333f39fb568319808d97e1f6fecf" prot="public" static="no">
+        <name>lumina_op_res_t</name>
+        <enumvalue id="lumina_8hpp_1a10d5333f39fb568319808d97e1f6fecfae4d0a4df0b695242999565e05d18c640" prot="public">
+          <name>PDRES_BADPTN</name>
+          <initializer>= -3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a10d5333f39fb568319808d97e1f6fecfaf0106a07fae2efa9ab2882de89d9cee4" prot="public">
+          <name>PDRES_NOT_FOUND</name>
+          <initializer>= -2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a10d5333f39fb568319808d97e1f6fecfac5a9c48c4d7906b27b96ed40d2091ed5" prot="public">
+          <name>PDRES_ERROR</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a10d5333f39fb568319808d97e1f6fecfa9ddaf160eadc437d974b126482a3943c" prot="public">
+          <name>PDRES_OK</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a10d5333f39fb568319808d97e1f6fecfafd54f321d8699d8ab145b2cc6adc3e33" prot="public">
+          <name>PDRES_ADDED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="18" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="17" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="enum" id="lumina_8hpp_1a4d9ef87e42c27b0b6ee5a3dae327a134" prot="public" static="no">
+        <name>dump_md_sort_type_t</name>
+        <enumvalue id="lumina_8hpp_1a4d9ef87e42c27b0b6ee5a3dae327a134a7be3474531cabf63a18d2835f961bac6" prot="public">
+          <name>DMD_SORT_NONE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a4d9ef87e42c27b0b6ee5a3dae327a134a2abf0e3c328f1a14afcee1b615b9d382" prot="public">
+          <name>DMD_SORT_HASH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="37" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="36" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="enum" id="lumina_8hpp_1a7d35a5b47267f4fbab1a935590c962ec" prot="public" static="no">
+        <name>well_known_fail_code_t</name>
+        <enumvalue id="lumina_8hpp_1a7d35a5b47267f4fbab1a935590c962ecad9660238d50f8020bec65fdbea0913d8" prot="public">
+          <name>WKFC_INTERRUPTED</name>
+          <initializer>= 0xDEADBEEF</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="48" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="47" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="enum" id="lumina_8hpp_1a1ecad9a2a8b8420b099113dbcaf74c9c" prot="public" static="no">
+        <name>mdkey_t</name>
+        <enumvalue id="lumina_8hpp_1a1ecad9a2a8b8420b099113dbcaf74c9cafced2d782d44c81a45904261863ecdd6" prot="public">
+          <name>MDK_NONE</name>
+          <initializer>=  0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a1ecad9a2a8b8420b099113dbcaf74c9ca88db8b711b1e7b8927895fd3437b887d" prot="public">
+          <name>MDK_TYPE</name>
+          <initializer>=  1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a1ecad9a2a8b8420b099113dbcaf74c9cae5a343d8f546d0b38912062c850dc495" prot="public">
+          <name>MDK_VD_ELAPSED</name>
+          <initializer>=  2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a1ecad9a2a8b8420b099113dbcaf74c9ca42b2602a37eaa27297e7cc08dc4f7dec" prot="public">
+          <name>MDK_FCMT</name>
+          <initializer>=  3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a1ecad9a2a8b8420b099113dbcaf74c9ca23eed7ed61f2d31622e4be5ae8a7ba32" prot="public">
+          <name>MDK_FRPTCMT</name>
+          <initializer>=  4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a1ecad9a2a8b8420b099113dbcaf74c9cae38adc554c08f86c7c41032dfa2a3554" prot="public">
+          <name>MDK_CMTS</name>
+          <initializer>=  5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a1ecad9a2a8b8420b099113dbcaf74c9ca8203e278b59dd914522ee7ee0b55725e" prot="public">
+          <name>MDK_RPTCMTS</name>
+          <initializer>=  6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a1ecad9a2a8b8420b099113dbcaf74c9ca10567556d612d10e76f1adcf74b24c54" prot="public">
+          <name>MDK_EXTRACMTS</name>
+          <initializer>=  7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a1ecad9a2a8b8420b099113dbcaf74c9ca77927cc3f716f3a96985b97715487f8d" prot="public">
+          <name>MDK_USER_STKPNTS</name>
+          <initializer>=  8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a1ecad9a2a8b8420b099113dbcaf74c9ca11bd91736a4b8f7536b4825fc8a88f84" prot="public">
+          <name>MDK_FRAME_DESC</name>
+          <initializer>=  9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a1ecad9a2a8b8420b099113dbcaf74c9ca407c2e55cd78d1bbce9b2ceb40d8bf92" prot="public">
+          <name>MDK_OPS</name>
+          <initializer>= 10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a1ecad9a2a8b8420b099113dbcaf74c9ca45dca90c26030134f0a8082808fca340" prot="public">
+          <name>MDK_LAST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="54" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="53" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="enum" id="lumina_8hpp_1a3275be3654fa1e7f24e8cf5e89b99be3" prot="public" static="no">
+        <name>mdkey_format_t</name>
+        <enumvalue id="lumina_8hpp_1a3275be3654fa1e7f24e8cf5e89b99be3abe742fe49f1eeb3e90ed3163e423bf25" prot="public">
+          <name>MDKF_NONE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a3275be3654fa1e7f24e8cf5e89b99be3a5dff0084b8550dcc03cf5132a9927ce1" prot="public">
+          <name>MDKF_STR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a3275be3654fa1e7f24e8cf5e89b99be3afbcfb71a7950b6dfd335bf1d953d8209" prot="public">
+          <name>MDKF_TYPE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a3275be3654fa1e7f24e8cf5e89b99be3a823c0b2d9b38081b8cd5f0fe97f9b7ed" prot="public">
+          <name>MDKF_INT64</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a3275be3654fa1e7f24e8cf5e89b99be3a88130a4616a0e0939bb61eb4a337e889" prot="public">
+          <name>MDKF_UINT64</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a3275be3654fa1e7f24e8cf5e89b99be3a6ad9d9bdc0ab60267676d6f0a621cd4e" prot="public">
+          <name>MDKF_DCSTRLIST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a3275be3654fa1e7f24e8cf5e89b99be3a61f2792913a18a09214076bbd5300fab" prot="public">
+          <name>MDKF_DSVALLIST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a3275be3654fa1e7f24e8cf5e89b99be3ac8153dc4c2a7aa1a03ec2c01330fc56d" prot="public">
+          <name>MDKF_FRAME_DESC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a3275be3654fa1e7f24e8cf5e89b99be3abd690be4822bcf36299f88f86b27e5e3" prot="public">
+          <name>MDKF_NLSTRLIST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a3275be3654fa1e7f24e8cf5e89b99be3a86749996ad27b9c80f9fb042b8233b3e" prot="public">
+          <name>MDKF_DOPSLIST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="75" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="74" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="enum" id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6e" prot="public" static="no">
+        <name>lumina_rpc_packet_t</name>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6ea43f1139b3dd735a02a020e27f1cf869a" prot="public">
+          <name>PKT_RPC_OK</name>
+          <initializer>= 10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6ead74b95190e39ca15df6912ce993b17cf" prot="public">
+          <name>PKT_RPC_FAIL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6eae5540bad2ecd8cef90f83cb690c31903" prot="public">
+          <name>PKT_RPC_NOTIFY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6ea1f8f757f497b7aa1c018734fc5ebb101" prot="public">
+          <name>PKT_HELO</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6eaeac756a4adb2718edf8a7afc2906775d" prot="public">
+          <name>PKT_PULL_MD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6eaa1820a522a0e85c2635cac6d237567d6" prot="public">
+          <name>PKT_PULL_MD_RESULT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6eaeeaa1e86f49ca4d3ecc08af50253e5dd" prot="public">
+          <name>PKT_PUSH_MD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6ea8489c44cd8621902e5f02c7c5b681447" prot="public">
+          <name>PKT_PUSH_MD_RESULT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6ea9e9b45a002eedcc1f0bf882ec2b63cbe" prot="public">
+          <name>PKT_GET_POP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6eaf6bf10deb2d9e632964308b18d35f430" prot="public">
+          <name>PKT_GET_POP_RESULT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6ea4e81cca8e36ad2eff2a61926114e92d0" prot="public">
+          <name>__UNUSED_20</name>
+          <initializer>= 20</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6ead3e957af460fde4d4945ab33bee00708" prot="public">
+          <name>__UNUSED_21</name>
+          <initializer>= 21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6eac37e41a04567fa85c2081855662952c1" prot="public">
+          <name>__UNUSED_22</name>
+          <initializer>= 22</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6ea5b3e19d71e719b9a94912a462596f79f" prot="public">
+          <name>__UNUSED_23</name>
+          <initializer>= 23</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6ea805163767ff2d1cd1870ac25e5fdfdef" prot="public">
+          <name>PKT_DUMP_MD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6ea24527f67bc5a7b071e3c434649b94a58" prot="public">
+          <name>PKT_DUMP_MD_RESULT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6eadc629c2700891219f9e7765abcecca5c" prot="public">
+          <name>PKT_CLEAN_DB</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="lumina_8hpp_1a851a8dae61d12e335b2f227647d8eb6ea8b77e39c0a8918cbbe1b42c254bc0d7e" prot="public">
+          <name>PKT_DEBUG_SLEEP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="533" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="532" bodyend="552"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="lumina_8hpp_1a422afcef46ab17d7b5660377ea103b0a" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structinsn__cmt__t" kindref="compound">insn_cmt_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;insn_cmt_t&gt; insn_cmts_t</definition>
+        <argsstring></argsstring>
+        <name>insn_cmts_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="110" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="lumina_8hpp_1a75ff7b602a853ca009c5c4a42c24c93f" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structuser__stkpnt__t" kindref="compound">user_stkpnt_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;user_stkpnt_t&gt; user_stkpnts_t</definition>
+        <argsstring></argsstring>
+        <name>user_stkpnts_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="120" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="lumina_8hpp_1ac7051cb728fbbf424bde56cbd9d05725" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structextra__cmt__t" kindref="compound">extra_cmt_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;extra_cmt_t&gt; extra_cmts_t</definition>
+        <argsstring></argsstring>
+        <name>extra_cmts_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="130" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="lumina_8hpp_1a18d4b3eefcfb780f25cc055dcb603eec" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structinsn__ops__repr__t" kindref="compound">insn_ops_repr_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;insn_ops_repr_t&gt; insn_ops_reprs_t</definition>
+        <argsstring></argsstring>
+        <name>insn_ops_reprs_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="153" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="lumina_8hpp_1aec5ee0e4e2e73d66f8416663b05c3de3" prot="public" static="no">
+        <type>void idaapi</type>
+        <definition>typedef void idaapi metadata_appender_t(metadata_creator_t &amp;mcr, const func_t *pfn)</definition>
+        <argsstring>(metadata_creator_t &amp;mcr, const func_t *pfn)</argsstring>
+        <name>metadata_appender_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="234" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="lumina_8hpp_1a1c03a5d35252283c4963862c73f708bb" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; lumina_op_res_t &gt;</type>
+        <definition>typedef qvector&lt;lumina_op_res_t&gt; lumina_op_res_vec_t</definition>
+        <argsstring></argsstring>
+        <name>lumina_op_res_vec_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="313" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="313" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="lumina_8hpp_1a560e0ca10bb611734883a2bd9a8f4ef3" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; mdkey_t &gt;</type>
+        <definition>typedef qvector&lt;mdkey_t&gt; mdkey_vec_t</definition>
+        <argsstring></argsstring>
+        <name>mdkey_vec_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="316" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="lumina_8hpp_1a9f46d9d52bbfcc78bc1836f4f2683da4" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; ea_t &gt;</type>
+        <definition>typedef qvector&lt;ea_t&gt; eavec_t</definition>
+        <argsstring></argsstring>
+        <name>eavec_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="319" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="319" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="lumina_8hpp_1a62d3c96956cd3d64453dd25d8cb4bec0" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structpattern__id__t" kindref="compound">pattern_id_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;pattern_id_t&gt; pattern_ids_t</definition>
+        <argsstring></argsstring>
+        <name>pattern_ids_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="337" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="334" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="lumina_8hpp_1ae85243e65e66554961e59611d8e2a4f2" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structfunc__info__t" kindref="compound">func_info_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;func_info_t&gt; func_info_vec_t</definition>
+        <argsstring></argsstring>
+        <name>func_info_vec_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="355" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="352" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="lumina_8hpp_1a9f4636e1cf4a7dddabf164a178eef24c" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structfunc__info__and__frequency__t" kindref="compound">func_info_and_frequency_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;func_info_and_frequency_t&gt; func_info_and_frequency_vec_t</definition>
+        <argsstring></argsstring>
+        <name>func_info_and_frequency_vec_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="398" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="395" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="lumina_8hpp_1a186909db2a261810e549c6219670521d" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structfunc__info__and__pattern__t" kindref="compound">func_info_and_pattern_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;func_info_and_pattern_t&gt; func_info_and_pattern_vec_t</definition>
+        <argsstring></argsstring>
+        <name>func_info_and_pattern_vec_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="414" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="411" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="lumina_8hpp_1ab70b95c3d3512f15e5b402ebc84bc0da" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structfunc__info__pattern__and__frequency__t" kindref="compound">func_info_pattern_and_frequency_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;func_info_pattern_and_frequency_t&gt; func_info_pattern_and_frequency_vec_t</definition>
+        <argsstring></argsstring>
+        <name>func_info_pattern_and_frequency_vec_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="430" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="427" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="lumina_8hpp_1a09f1485423eda6a406718ef2b714aee7" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structpop__fun__t" kindref="compound">pop_fun_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;pop_fun_t&gt; pop_fun_vec_t</definition>
+        <argsstring></argsstring>
+        <name>pop_fun_vec_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="448" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="445" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="lumina_8hpp_1ad2d9e0908376c69f91687248d805708c" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structframe__mem__t" kindref="compound">frame_mem_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;frame_mem_t&gt; frame_mems_t</definition>
+        <argsstring></argsstring>
+        <name>frame_mems_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="481" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="478" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="lumina_8hpp_1afdf031822806af2c692eefbf235dc0f2" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structskipped__func__t" kindref="compound">skipped_func_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;skipped_func_t&gt; skipped_funcs_t</definition>
+        <argsstring></argsstring>
+        <name>skipped_funcs_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="512" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="509" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="lumina_8hpp_1ac95cc83eb437c868f8e56444236e04ec" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring lumina_host</definition>
+        <argsstring></argsstring>
+        <name>lumina_host</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="247" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="lumina_8hpp_1a82115a9353a4e45c8f67879c08a7e905" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+        <definition>ushort lumina_port</definition>
+        <argsstring></argsstring>
+        <name>lumina_port</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="248" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="lumina_8hpp_1a7ae671999dba3e767c1d222222638113" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool lumina_tls</definition>
+        <argsstring></argsstring>
+        <name>lumina_tls</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="249" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="lumina_8hpp_1a4cdf7f7f4ff997973d3da80a8d5c8dae" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int lumina_min_func_size</definition>
+        <argsstring></argsstring>
+        <name>lumina_min_func_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="250" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="lumina_8hpp_1a041fbf51fe5b3fb5f1ccbdc33fe3f77d" prot="public" static="no" mutable="no">
+        <type><ref refid="structrpc__packet__type__desc__t" kindref="compound">rpc_packet_type_desc_t</ref></type>
+        <definition>rpc_packet_type_desc_t lumina_rpc_packet_t_descs[18]</definition>
+        <argsstring>[18]</argsstring>
+        <name>lumina_rpc_packet_t_descs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="749" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="lumina_8hpp_1a2d2cb43e317147843dd5b422a95779e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* mdkey2str</definition>
+        <argsstring>(mdkey_t key)</argsstring>
+        <name>mdkey2str</name>
+        <param>
+          <type>mdkey_t</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="70" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1a89f16563376219c58ec9f55f61326e9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>mdkey_t</type>
+        <definition>mdkey_t str2mdkey</definition>
+        <argsstring>(const char *str)</argsstring>
+        <name>str2mdkey</name>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="71" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1af943fb72185e6354ec5ab7f11568a702" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>mdkey_format_t</type>
+        <definition>mdkey_format_t get_mdkey_preferred_format</definition>
+        <argsstring>(mdkey_t key)</argsstring>
+        <name>get_mdkey_preferred_format</name>
+        <param>
+          <type>mdkey_t</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="88" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1a1d8a77539ce41a646073d0ab126db6cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="structrpc__packet__data__t" kindref="compound">rpc_packet_data_t</ref> *ida_export</type>
+        <definition>idaman rpc_packet_data_t* ida_export new_packet</definition>
+        <argsstring>(uchar code, const uchar *ptr=NULL, size_t len=0, int version=-1)</argsstring>
+        <name>new_packet</name>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>code</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>ptr</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="244" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1a8c0b754160c92abf589758f5ae1055ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman asize_t ida_export</type>
+        <definition>idaman asize_t ida_export calc_func_metadata</definition>
+        <argsstring>(md5_t *out_hash, func_info_t *out_fi, const func_t *pfn, metadata_appender_t *append_metadata=NULL)</argsstring>
+        <name>calc_func_metadata</name>
+        <param>
+          <type><ref refid="structmd5__t" kindref="compound">md5_t</ref> *</type>
+          <declname>out_hash</declname>
+        </param>
+        <param>
+          <type><ref refid="structfunc__info__t" kindref="compound">func_info_t</ref> *</type>
+          <declname>out_fi</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>metadata_appender_t *</type>
+          <declname>append_metadata</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="252" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1a83cad118fc5c4954238ae940b3717e82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export extract_type_from_metadata</definition>
+        <argsstring>(bool *userti, qtype *type, qtype *fields, const uchar *ptr, const uchar *end)</argsstring>
+        <name>extract_type_from_metadata</name>
+        <param>
+          <type>bool *</type>
+          <declname>userti</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a7fad0f3973de5825c480e27517e159f3" kindref="member">qtype</ref> *</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a7fad0f3973de5825c480e27517e159f3" kindref="member">qtype</ref> *</type>
+          <declname>fields</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="258" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1a6686f045889c7362aa1c970cea6fd63e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export extract_insn_cmts_from_metadata</definition>
+        <argsstring>(insn_cmts_t *out, const uchar *ptr, const uchar *end)</argsstring>
+        <name>extract_insn_cmts_from_metadata</name>
+        <param>
+          <type><ref refid="classqvector" kindref="compound">insn_cmts_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="264" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1a305b84ee1dd061034d58964369c224a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export extract_extra_cmts_from_metadata</definition>
+        <argsstring>(extra_cmts_t *out, const uchar *ptr, const uchar *end)</argsstring>
+        <name>extract_extra_cmts_from_metadata</name>
+        <param>
+          <type><ref refid="classqvector" kindref="compound">extra_cmts_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="268" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1a52c48d7880a0491cbb23fdca228b2c50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export extract_user_stkpnts_from_metadata</definition>
+        <argsstring>(user_stkpnts_t *out, const uchar *ptr, const uchar *end)</argsstring>
+        <name>extract_user_stkpnts_from_metadata</name>
+        <param>
+          <type><ref refid="classqvector" kindref="compound">user_stkpnts_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="272" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1ad52aca30fdfc4bdf08ee1ac9d64450d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export extract_frame_desc_from_metadata</definition>
+        <argsstring>(frame_desc_t *out, const uchar *ptr, const uchar *end)</argsstring>
+        <name>extract_frame_desc_from_metadata</name>
+        <param>
+          <type><ref refid="structframe__desc__t" kindref="compound">frame_desc_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="276" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1aa24b60bf4a0421e5c608558d8a320f52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export extract_insn_opreprs_from_metadata</definition>
+        <argsstring>(insn_ops_reprs_t *out, const uchar *ptr, const uchar *end)</argsstring>
+        <name>extract_insn_opreprs_from_metadata</name>
+        <param>
+          <type><ref refid="classqvector" kindref="compound">insn_ops_reprs_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="280" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1a1cc52f0b9df6c74fa0df5347cc749201" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void close_server_connection</definition>
+        <argsstring>()</argsstring>
+        <name>close_server_connection</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="284" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1a40616140b01ce12a7cd35ad7e6cd4a5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classlumina__client__t" kindref="compound">lumina_client_t</ref> *ida_export</type>
+        <definition>idaman lumina_client_t* ida_export get_server_connection</definition>
+        <argsstring>()</argsstring>
+        <name>get_server_connection</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="286" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1a038869b21aa9248e90aced9163fd29c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export apply_metadata</definition>
+        <argsstring>(ea_t ea, const func_info_t &amp;fi, uint32 flags=AMDF_UPGRADE)</argsstring>
+        <name>apply_metadata</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structfunc__info__t" kindref="compound">func_info_t</ref> &amp;</type>
+          <declname>fi</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>flags</declname>
+          <defval><ref refid="group___a_m_d_f___1ga86a6045efda345f96b7c62604392c31b" kindref="member">AMDF_UPGRADE</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="299" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1a742dd368486a94086a92016222429274" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> ida_export</type>
+        <definition>idaman uint32 ida_export score_metadata</definition>
+        <argsstring>(const func_info_t &amp;fi)</argsstring>
+        <name>score_metadata</name>
+        <param>
+          <type>const <ref refid="structfunc__info__t" kindref="compound">func_info_t</ref> &amp;</type>
+          <declname>fi</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="300" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1aece9dbc53c48a66a84fe89283de4d9b8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar get_lumina_rpc_packet_t_index_from_base</definition>
+        <argsstring>(lumina_rpc_packet_t code)</argsstring>
+        <name>get_lumina_rpc_packet_t_index_from_base</name>
+        <param>
+          <type>lumina_rpc_packet_t</type>
+          <declname>code</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="555" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="555" bodyend="555"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1a325df7f236340abfcd89ee690569e9f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classlumina__client__t" kindref="compound">lumina_client_t</ref> *</type>
+        <definition>lumina_client_t* new_lumina_client</definition>
+        <argsstring>(const char *hostname, ushort port, const bytevec_t &amp;key, const uchar license_id[6], bool use_tls, qstring *errbuf)</argsstring>
+        <name>new_lumina_client</name>
+        <param>
+          <type>const char *</type>
+          <declname>hostname</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+          <declname>port</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>license_id</declname>
+          <array>[6]</array>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>use_tls</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="826" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1a9e0aba8bffa9944dc769cc237a3b624e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void swap_md5</definition>
+        <argsstring>(md5_t &amp;left, md5_t &amp;right)</argsstring>
+        <name>swap_md5</name>
+        <param>
+          <type><ref refid="structmd5__t" kindref="compound">md5_t</ref> &amp;</type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type><ref refid="structmd5__t" kindref="compound">md5_t</ref> &amp;</type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="835" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="835" bodyend="841"/>
+      </memberdef>
+      <memberdef kind="function" id="lumina_8hpp_1a1389dc8d3f37318d5f4b6e2666ed72aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool auto_apply_lumina</definition>
+        <argsstring>()</argsstring>
+        <name>auto_apply_lumina</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="843" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp"/>
+  </compounddef>
+</doxygen>

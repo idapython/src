@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___l_i_f__" kind="group">
+    <compoundname>LIF_</compoundname>
+    <title>loader info flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___l_i_f___1gac4724a3f2f382b39a23876212f758eb1" prot="public" static="no">
+        <name>LIF_ARCHLDR</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>archive loader </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="237" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="structload__info__t_1a4299e881a2923b997360cb42595c2d20" kindref="member">load_info_t::lflags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

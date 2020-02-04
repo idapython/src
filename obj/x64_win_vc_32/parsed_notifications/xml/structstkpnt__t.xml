@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structstkpnt__t" kind="struct" language="C++" prot="public">
+    <compoundname>stkpnt_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structstkpnt__t_1a089ed2e33ac5449d2e1fe767e81faf15" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t stkpnt_t::ea</definition>
+        <argsstring></argsstring>
+        <name>ea</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="56" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstkpnt__t_1a43fe7059eb7c7efbbf88578902d1fde7" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+        <definition>sval_t stkpnt_t::spd</definition>
+        <argsstring></argsstring>
+        <name>spd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="57" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structstkpnt__t_1a93fcdda0e4ff9f393214ae28520c2a97" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool stkpnt_t::operator&lt;</definition>
+        <argsstring>(const stkpnt_t &amp;r) const</argsstring>
+        <name>operator&lt;</name>
+        <param>
+          <type>const <ref refid="structstkpnt__t" kindref="compound">stkpnt_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="58" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="58" bodyend="58"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="55" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="54" bodyend="59"/>
+    <listofallmembers>
+      <member refid="structstkpnt__t_1a089ed2e33ac5449d2e1fe767e81faf15" prot="public" virt="non-virtual"><scope>stkpnt_t</scope><name>ea</name></member>
+      <member refid="structstkpnt__t_1a93fcdda0e4ff9f393214ae28520c2a97" prot="public" virt="non-virtual"><scope>stkpnt_t</scope><name>operator&lt;</name></member>
+      <member refid="structstkpnt__t_1a43fe7059eb7c7efbbf88578902d1fde7" prot="public" virt="non-virtual"><scope>stkpnt_t</scope><name>spd</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

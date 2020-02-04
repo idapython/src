@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_t_r_m_e_m__" kind="group">
+    <compoundname>STRMEM_</compoundname>
+    <title>Find UDT member flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_t_r_m_e_m___1gaf528bfd6d968b17ae57aee1dee443c29" prot="public" static="no">
+        <name>STRMEM_MASK</name>
+        <initializer>0x0007</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2861" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2861" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_m_e_m___1gafc7e55c621c65b2a81792e39a67d75b2" prot="public" static="no">
+        <name>STRMEM_OFFSET</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>get member by offset- in: udm-&gt;offset - is a member offset in bits </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2862" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2862" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_m_e_m___1gaad91f2151cfd8e41e7f937287bf18f56" prot="public" static="no">
+        <name>STRMEM_INDEX</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>get member by number- in: udm-&gt;offset - is a member number </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2864" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2864" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_m_e_m___1ga0b5ba39c4308bbc445aaa8bfc5315bfd" prot="public" static="no">
+        <name>STRMEM_AUTO</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>get member by offset if struct, or get member by index if union - nb: union: index is stored in the udm-&gt;offset field!<itemizedlist>
+<listitem><para>nb: struct: offset is in bytes (not in bits)! </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2866" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2866" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_m_e_m___1ga8c04aa29f158d3544957d5bf9513115a" prot="public" static="no">
+        <name>STRMEM_NAME</name>
+        <initializer>0x0003</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>get member by name- in: udm-&gt;name - the desired member name. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2869" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2869" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_m_e_m___1ga62e2d52ab4b1acb0ed5571b7135ee6dd" prot="public" static="no">
+        <name>STRMEM_TYPE</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>get member by type. - in: udm-&gt;type - the desired member type. member types are compared with tinfo_t::equals_to() </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2871" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2871" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_m_e_m___1ga0e3a31e8de28a5b68b31fd42d8465048" prot="public" static="no">
+        <name>STRMEM_SIZE</name>
+        <initializer>0x0005</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>get member by size.- in: udm-&gt;size - the desired member size. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2874" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2874" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_m_e_m___1gaecfb7742720049da887ac63077488b74" prot="public" static="no">
+        <name>STRMEM_MINS</name>
+        <initializer>0x0006</initializer>
+        <briefdescription>
+<para>get smallest member by size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2876" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2876" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_m_e_m___1ga85e977634794b06f003f4827d9df5028" prot="public" static="no">
+        <name>STRMEM_MAXS</name>
+        <initializer>0x0007</initializer>
+        <briefdescription>
+<para>get biggest member by size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2877" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2877" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_m_e_m___1gaa3a1dad69d95268c390c2d859b0334b3" prot="public" static="no">
+        <name>STRMEM_VFTABLE</name>
+        <initializer>0x10000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>can be combined with <ref refid="group___s_t_r_m_e_m___1gafc7e55c621c65b2a81792e39a67d75b2" kindref="member">STRMEM_OFFSET</ref>, <ref refid="group___s_t_r_m_e_m___1ga0b5ba39c4308bbc445aaa8bfc5315bfd" kindref="member">STRMEM_AUTO</ref> get vftable instead of the base class </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2878" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2878" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_m_e_m___1gaf9ab6d5aeb400abaec8c64d4849d049d" prot="public" static="no">
+        <name>STRMEM_SKIP_EMPTY</name>
+        <initializer>0x20000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>can be combined with <ref refid="group___s_t_r_m_e_m___1gafc7e55c621c65b2a81792e39a67d75b2" kindref="member">STRMEM_OFFSET</ref>, <ref refid="group___s_t_r_m_e_m___1ga0b5ba39c4308bbc445aaa8bfc5315bfd" kindref="member">STRMEM_AUTO</ref> skip empty members (i.e. having zero size) only last empty member can be returned </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2881" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2881" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_m_e_m___1ga454bfbfea961d64f7efdea9fa565a18a" prot="public" static="no">
+        <name>STRMEM_CASTABLE_TO</name>
+        <initializer>0x40000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>can be combined with <ref refid="group___s_t_r_m_e_m___1ga62e2d52ab4b1acb0ed5571b7135ee6dd" kindref="member">STRMEM_TYPE</ref>: member type must be castable to the specified type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2885" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2885" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_m_e_m___1gae70e5a781439aef62e61cdfe061f7170" prot="public" static="no">
+        <name>STRMEM_ANON</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>can be combined with <ref refid="group___s_t_r_m_e_m___1ga8c04aa29f158d3544957d5bf9513115a" kindref="member">STRMEM_NAME</ref>: look inside anonymous members too. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2888" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2888" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>used by &apos;strmem_flags&apos; parameter to <ref refid="classtinfo__t_1a361e41f3ee72212728cf508dba45aca0" kindref="member">find_udt_member()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structpush__md__result__t" kind="struct" language="C++" prot="public">
+    <compoundname>push_md_result_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structpush__md__result__t_1a901062e63d7c028ecdd466b85ed8cb58" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a9f46d9d52bbfcc78bc1836f4f2683da4" kindref="member">eavec_t</ref></type>
+        <definition>eavec_t push_md_result_t::eas</definition>
+        <argsstring></argsstring>
+        <name>eas</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="764" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="764" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpush__md__result__t_1a801c6f6f23afe0cdc4f4d090cc7e84e0" prot="public" static="no" mutable="no">
+        <type><ref refid="classqvector" kindref="compound">lumina_op_res_vec_t</ref></type>
+        <definition>lumina_op_res_vec_t push_md_result_t::codes</definition>
+        <argsstring></argsstring>
+        <name>codes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="765" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="765" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpush__md__result__t_1ac8804933874952cdc39f5ec117f349f0" prot="public" static="no" mutable="no">
+        <type><ref refid="classqvector" kindref="compound">func_info_and_pattern_vec_t</ref></type>
+        <definition>func_info_and_pattern_vec_t push_md_result_t::contents</definition>
+        <argsstring></argsstring>
+        <name>contents</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="766" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="766" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2932">
+        <label>qvector&lt; ea_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2931">
+        <label>qvector&lt; lumina_op_res_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2933">
+        <label>qvector&lt; func_info_and_pattern_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2930">
+        <label>push_md_result_t</label>
+        <link refid="structpush__md__result__t"/>
+        <childnode refid="2931" relation="usage">
+          <edgelabel>codes</edgelabel>
+        </childnode>
+        <childnode refid="2932" relation="usage">
+          <edgelabel>eas</edgelabel>
+        </childnode>
+        <childnode refid="2933" relation="usage">
+          <edgelabel>contents</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="763" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="762" bodyend="767"/>
+    <listofallmembers>
+      <member refid="structpush__md__result__t_1a801c6f6f23afe0cdc4f4d090cc7e84e0" prot="public" virt="non-virtual"><scope>push_md_result_t</scope><name>codes</name></member>
+      <member refid="structpush__md__result__t_1ac8804933874952cdc39f5ec117f349f0" prot="public" virt="non-virtual"><scope>push_md_result_t</scope><name>contents</name></member>
+      <member refid="structpush__md__result__t_1a901062e63d7c028ecdd466b85ed8cb58" prot="public" virt="non-virtual"><scope>push_md_result_t</scope><name>eas</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

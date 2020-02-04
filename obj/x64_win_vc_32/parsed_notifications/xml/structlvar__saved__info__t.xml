@@ -1,0 +1,386 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structlvar__saved__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>lvar_saved_info_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structlvar__saved__info__t_1aa1637fe4b6b105ea8efa881d96052423" prot="public" static="no" mutable="no">
+        <type><ref refid="structlvar__locator__t" kindref="compound">lvar_locator_t</ref></type>
+        <definition>lvar_locator_t lvar_saved_info_t::ll</definition>
+        <argsstring></argsstring>
+        <name>ll</name>
+        <briefdescription>
+<para>Variable locator. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1446" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1446" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlvar__saved__info__t_1ae5648df4cda4e084173db7975da78222" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring lvar_saved_info_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>Name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1447" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1447" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlvar__saved__info__t_1a8c23c065889a9a010b6a84c167db59ee" prot="public" static="no" mutable="no">
+        <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref></type>
+        <definition>tinfo_t lvar_saved_info_t::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+<para>Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1448" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1448" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlvar__saved__info__t_1a51b7950e24d52f046ea77a7a237d5679" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring lvar_saved_info_t::cmt</definition>
+        <argsstring></argsstring>
+        <name>cmt</name>
+        <briefdescription>
+<para>Comment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1449" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1449" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlvar__saved__info__t_1a227ea4bb9fd0b71ac751cb735726159b" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t lvar_saved_info_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+<para>Type size (if not initialized then -1) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1450" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1450" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlvar__saved__info__t_1a979c052aadbf67fc946c90722be17463" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int lvar_saved_info_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___l_v_i_n_f__" kindref="compound">saved user lvar info property bits</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1451" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1451" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structlvar__saved__info__t_1a7548f8bc3b400d3be3ff96fef3032f7f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>lvar_saved_info_t::lvar_saved_info_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>lvar_saved_info_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1466" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1466" bodyend="1466"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__saved__info__t_1ac883419b15de69441e471bff9c5314d7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lvar_saved_info_t::has_info</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_info</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1467" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1467" bodyend="1474"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__saved__info__t_1a802d07449b56ffe21aa446491e8b054e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lvar_saved_info_t::operator==</definition>
+        <argsstring>(const lvar_saved_info_t &amp;r) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structlvar__saved__info__t" kindref="compound">lvar_saved_info_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1475" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1475" bodyend="1481"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__saved__info__t_1a31ada19421fb50e6876d8e5067c30155" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lvar_saved_info_t::operator!=</definition>
+        <argsstring>(const lvar_saved_info_t &amp;r) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structlvar__saved__info__t" kindref="compound">lvar_saved_info_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1482" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1482" bodyend="1482"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__saved__info__t_1aad78d3a6376f4ae9eede96799bf892a9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lvar_saved_info_t::is_kept</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_kept</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1483" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1483" bodyend="1483"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__saved__info__t_1a6011feb837baa44c94356f61ba0f1fae" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lvar_saved_info_t::clear_keep</definition>
+        <argsstring>(void)</argsstring>
+        <name>clear_keep</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1484" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1484" bodyend="1484"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__saved__info__t_1aae814c67ebf455b97cb7e91ed29bf7f9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lvar_saved_info_t::set_keep</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_keep</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1485" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1485" bodyend="1485"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__saved__info__t_1a0439184588593db2d498cd2fb1f4f218" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lvar_saved_info_t::is_forced_lvar</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_forced_lvar</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1486" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1486" bodyend="1486"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__saved__info__t_1abc23a1963ed67b7ed388b4b1f693a46d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lvar_saved_info_t::set_forced_lvar</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_forced_lvar</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1487" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1487" bodyend="1487"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__saved__info__t_1ad407583241b4961a4fc091af2b490daf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lvar_saved_info_t::clr_forced_lvar</definition>
+        <argsstring>(void)</argsstring>
+        <name>clr_forced_lvar</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1488" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1488" bodyend="1488"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__saved__info__t_1ab065a1d1394d673cc7534bd8b8e58f83" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lvar_saved_info_t::is_noptr_lvar</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_noptr_lvar</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1489" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1489" bodyend="1489"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__saved__info__t_1afb29ccca3dd7c4a4d83ec57051d916a6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lvar_saved_info_t::set_noptr_lvar</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_noptr_lvar</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1490" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1490" bodyend="1490"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__saved__info__t_1a124c14026573e0fabf5c143469643f37" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lvar_saved_info_t::clr_noptr_lvar</definition>
+        <argsstring>(void)</argsstring>
+        <name>clr_noptr_lvar</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1491" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1491" bodyend="1491"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Saved user settings for local variables: name, type, comment. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2033">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="2034">
+        <label>lvar_locator_t</label>
+        <link refid="structlvar__locator__t"/>
+        <childnode refid="2035" relation="usage">
+          <edgelabel>location</edgelabel>
+        </childnode>
+      </node>
+      <node id="2031">
+        <label>lvar_saved_info_t</label>
+        <link refid="structlvar__saved__info__t"/>
+        <childnode refid="2032" relation="usage">
+          <edgelabel>cmt</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="2033" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+        <childnode refid="2034" relation="usage">
+          <edgelabel>ll</edgelabel>
+        </childnode>
+      </node>
+      <node id="2032">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="2037">
+        <label>scattered_aloc_t</label>
+        <link refid="classscattered__aloc__t"/>
+        <childnode refid="2038" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2038">
+        <label>qvector&lt; argpart_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2035">
+        <label>vdloc_t</label>
+        <link refid="classvdloc__t"/>
+        <childnode refid="2036" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2036">
+        <label>argloc_t</label>
+        <link refid="classargloc__t"/>
+        <childnode refid="2037" relation="usage">
+          <edgelabel>dist</edgelabel>
+        </childnode>
+        <childnode refid="2039" relation="usage">
+          <edgelabel>rrel</edgelabel>
+        </childnode>
+      </node>
+      <node id="2039">
+        <label>rrel_t</label>
+        <link refid="structrrel__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1445" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1444" bodyend="1492"/>
+    <listofallmembers>
+      <member refid="structlvar__saved__info__t_1a6011feb837baa44c94356f61ba0f1fae" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>clear_keep</name></member>
+      <member refid="structlvar__saved__info__t_1ad407583241b4961a4fc091af2b490daf" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>clr_forced_lvar</name></member>
+      <member refid="structlvar__saved__info__t_1a124c14026573e0fabf5c143469643f37" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>clr_noptr_lvar</name></member>
+      <member refid="structlvar__saved__info__t_1a51b7950e24d52f046ea77a7a237d5679" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>cmt</name></member>
+      <member refid="structlvar__saved__info__t_1a979c052aadbf67fc946c90722be17463" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>flags</name></member>
+      <member refid="structlvar__saved__info__t_1ac883419b15de69441e471bff9c5314d7" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>has_info</name></member>
+      <member refid="structlvar__saved__info__t_1a0439184588593db2d498cd2fb1f4f218" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>is_forced_lvar</name></member>
+      <member refid="structlvar__saved__info__t_1aad78d3a6376f4ae9eede96799bf892a9" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>is_kept</name></member>
+      <member refid="structlvar__saved__info__t_1ab065a1d1394d673cc7534bd8b8e58f83" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>is_noptr_lvar</name></member>
+      <member refid="structlvar__saved__info__t_1aa1637fe4b6b105ea8efa881d96052423" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>ll</name></member>
+      <member refid="structlvar__saved__info__t_1a7548f8bc3b400d3be3ff96fef3032f7f" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>lvar_saved_info_t</name></member>
+      <member refid="structlvar__saved__info__t_1ae5648df4cda4e084173db7975da78222" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>name</name></member>
+      <member refid="structlvar__saved__info__t_1a31ada19421fb50e6876d8e5067c30155" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>operator!=</name></member>
+      <member refid="structlvar__saved__info__t_1a802d07449b56ffe21aa446491e8b054e" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>operator==</name></member>
+      <member refid="structlvar__saved__info__t_1abc23a1963ed67b7ed388b4b1f693a46d" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>set_forced_lvar</name></member>
+      <member refid="structlvar__saved__info__t_1aae814c67ebf455b97cb7e91ed29bf7f9" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>set_keep</name></member>
+      <member refid="structlvar__saved__info__t_1afb29ccca3dd7c4a4d83ec57051d916a6" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>set_noptr_lvar</name></member>
+      <member refid="structlvar__saved__info__t_1a227ea4bb9fd0b71ac751cb735726159b" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>size</name></member>
+      <member refid="structlvar__saved__info__t_1a8c23c065889a9a010b6a84c167db59ee" prot="public" virt="non-virtual"><scope>lvar_saved_info_t</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

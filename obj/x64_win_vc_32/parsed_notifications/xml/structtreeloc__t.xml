@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structtreeloc__t" kind="struct" language="C++" prot="public">
+    <compoundname>treeloc_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structtreeloc__t_1a179ea55f8d532c54ba9a629cf7d5564b" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t treeloc_t::ea</definition>
+        <argsstring></argsstring>
+        <name>ea</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5486" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5486" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtreeloc__t_1a56c72c6818bbbce4d44af00cd1a5fa7a" prot="public" static="no" mutable="no">
+        <type>item_preciser_t</type>
+        <definition>item_preciser_t treeloc_t::itp</definition>
+        <argsstring></argsstring>
+        <name>itp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5487" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5487" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structtreeloc__t_1acd21bdb0d1e3eed03a480148fe509c79" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool treeloc_t::operator&lt;</definition>
+        <argsstring>(const treeloc_t &amp;r) const</argsstring>
+        <name>operator&lt;</name>
+        <param>
+          <type>const <ref refid="structtreeloc__t" kindref="compound">treeloc_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5488" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5488" bodyend="5492"/>
+      </memberdef>
+      <memberdef kind="function" id="structtreeloc__t_1a1e7ba0b293b2b99b2be02f69df292721" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool treeloc_t::operator==</definition>
+        <argsstring>(const treeloc_t &amp;r) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structtreeloc__t" kindref="compound">treeloc_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5493" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5493" bodyend="5496"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Ctree location. Used to denote comment locations. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5484" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5483" bodyend="5497"/>
+    <listofallmembers>
+      <member refid="structtreeloc__t_1a179ea55f8d532c54ba9a629cf7d5564b" prot="public" virt="non-virtual"><scope>treeloc_t</scope><name>ea</name></member>
+      <member refid="structtreeloc__t_1a56c72c6818bbbce4d44af00cd1a5fa7a" prot="public" virt="non-virtual"><scope>treeloc_t</scope><name>itp</name></member>
+      <member refid="structtreeloc__t_1acd21bdb0d1e3eed03a480148fe509c79" prot="public" virt="non-virtual"><scope>treeloc_t</scope><name>operator&lt;</name></member>
+      <member refid="structtreeloc__t_1a1e7ba0b293b2b99b2be02f69df292721" prot="public" virt="non-virtual"><scope>treeloc_t</scope><name>operator==</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

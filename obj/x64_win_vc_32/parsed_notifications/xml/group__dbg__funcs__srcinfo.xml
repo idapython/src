@@ -1,0 +1,339 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__dbg__funcs__srcinfo" kind="group">
+    <compoundname>dbg_funcs_srcinfo</compoundname>
+    <title>Source information providers</title>
+    <innerclass refid="classeval__ctx__t" prot="public">eval_ctx_t</innerclass>
+    <innerclass refid="classsource__file__t" prot="public">source_file_t</innerclass>
+    <innerclass refid="classsource__item__t" prot="public">source_item_t</innerclass>
+    <innerclass refid="classsrcinfo__provider__t" prot="public">srcinfo_provider_t</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__dbg__funcs__srcinfo_1gadd1590e46b67c1fbc2820300b894596f" prot="public" static="no">
+        <name>src_item_kind_t</name>
+        <enumvalue id="group__dbg__funcs__srcinfo_1ggadd1590e46b67c1fbc2820300b894596fae3bc838b695ab9b9fdf658061c686d78" prot="public">
+          <name>SRCIT_NONE</name>
+          <briefdescription>
+<para>unknown </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__srcinfo_1ggadd1590e46b67c1fbc2820300b894596fa0305e4e0bdd31bcbc8e5d06a9fdc0ea5" prot="public">
+          <name>SRCIT_MODULE</name>
+          <briefdescription>
+<para>module </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__srcinfo_1ggadd1590e46b67c1fbc2820300b894596fa92ff4a0d28f152d28c4fa11290b5f70e" prot="public">
+          <name>SRCIT_FUNC</name>
+          <briefdescription>
+<para>function </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__srcinfo_1ggadd1590e46b67c1fbc2820300b894596faaeceec779eabbd5638ff5ef4cf2e7b13" prot="public">
+          <name>SRCIT_STMT</name>
+          <briefdescription>
+<para>a statement (if/while/for...) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__srcinfo_1ggadd1590e46b67c1fbc2820300b894596fa41e645c3100c4427db006baee797bbb7" prot="public">
+          <name>SRCIT_EXPR</name>
+          <briefdescription>
+<para>an expression (a+b*c) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__srcinfo_1ggadd1590e46b67c1fbc2820300b894596fa30770beea0c08a727502a65f5d7a10a6" prot="public">
+          <name>SRCIT_STTVAR</name>
+          <briefdescription>
+<para>static variable/code </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__srcinfo_1ggadd1590e46b67c1fbc2820300b894596facf476c3b2312d06afd00a551671d997a" prot="public">
+          <name>SRCIT_LOCVAR</name>
+          <briefdescription>
+<para>a stack, register, or register-relative local variable or parameter </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Kinds of source items. Source items are organized into trees. Each tree starts with a MODULE. Each MODULE consists of FUNC and STTVAR global items. Each FUNC consists of STMTs (statements). Each STMT contains some EXPRs (expressions). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2137" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2136" bodyend="2145"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__dbg__funcs__srcinfo_1ga3c73aaf1eda8ff72a5a78ea13840afa5" prot="public" static="no">
+        <type><ref refid="classqrefcnt__t" kindref="compound">qrefcnt_t</ref>&lt; <ref refid="classsource__item__t" kindref="compound">source_item_t</ref> &gt;</type>
+        <definition>typedef qrefcnt_t&lt;source_item_t&gt; source_item_ptr</definition>
+        <argsstring></argsstring>
+        <name>source_item_ptr</name>
+        <briefdescription>
+<para>Maintain a reference count for source items. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2067" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2064" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dbg__funcs__srcinfo_1ga245336179be5f17b6bf77f5cc2481b24" prot="public" static="no">
+        <type><ref refid="classqiterator" kindref="compound">qiterator</ref>&lt; <ref refid="group__dbg__funcs__srcinfo_1ga3c73aaf1eda8ff72a5a78ea13840afa5" kindref="member">source_item_ptr</ref> &gt;</type>
+        <definition>typedef qiterator&lt;source_item_ptr&gt; _source_item_iterator</definition>
+        <argsstring></argsstring>
+        <name>_source_item_iterator</name>
+        <briefdescription>
+<para>Iterator for source items. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2069" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2069" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dbg__funcs__srcinfo_1gafdf5f52760e4ac48addc8b82986f6a8e" prot="public" static="no">
+        <type><ref refid="classqrefcnt__t" kindref="compound">qrefcnt_t</ref>&lt; <ref refid="group__dbg__funcs__srcinfo_1ga245336179be5f17b6bf77f5cc2481b24" kindref="member">_source_item_iterator</ref> &gt;</type>
+        <definition>typedef qrefcnt_t&lt;_source_item_iterator&gt; source_item_iterator</definition>
+        <argsstring></argsstring>
+        <name>source_item_iterator</name>
+        <briefdescription>
+<para>Maintain a reference count for source item iterators. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2071" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2071" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dbg__funcs__srcinfo_1ga9fd41e0ea321e1632c866f11f6bf1a30" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="group__dbg__funcs__srcinfo_1ga3c73aaf1eda8ff72a5a78ea13840afa5" kindref="member">source_item_ptr</ref> &gt;</type>
+        <definition>typedef qvector&lt;source_item_ptr&gt; source_items_t</definition>
+        <argsstring></argsstring>
+        <name>source_items_t</name>
+        <briefdescription>
+<para>Vector of source items. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2073" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2073" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dbg__funcs__srcinfo_1ga449f74352768d9ec163293dfa225a230" prot="public" static="no">
+        <type><ref refid="classqrefcnt__t" kindref="compound">qrefcnt_t</ref>&lt; <ref refid="classsource__file__t" kindref="compound">source_file_t</ref> &gt;</type>
+        <definition>typedef qrefcnt_t&lt;source_file_t&gt; source_file_ptr</definition>
+        <argsstring></argsstring>
+        <name>source_file_ptr</name>
+        <briefdescription>
+<para>Maintain a reference count for source file objects. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2124" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dbg__funcs__srcinfo_1ga446cabbb32a9738d276eb00538ba49ba" prot="public" static="no">
+        <type><ref refid="classqiterator" kindref="compound">qiterator</ref>&lt; <ref refid="group__dbg__funcs__srcinfo_1ga449f74352768d9ec163293dfa225a230" kindref="member">source_file_ptr</ref> &gt;</type>
+        <definition>typedef qiterator&lt;source_file_ptr&gt; _source_file_iterator</definition>
+        <argsstring></argsstring>
+        <name>_source_file_iterator</name>
+        <briefdescription>
+<para>Iterator for source files. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2126" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dbg__funcs__srcinfo_1ga3a88865b1c3ef359dea9675b081896ab" prot="public" static="no">
+        <type><ref refid="classqrefcnt__t" kindref="compound">qrefcnt_t</ref>&lt; <ref refid="group__dbg__funcs__srcinfo_1ga446cabbb32a9738d276eb00538ba49ba" kindref="member">_source_file_iterator</ref> &gt;</type>
+        <definition>typedef qrefcnt_t&lt;_source_file_iterator&gt; source_file_iterator</definition>
+        <argsstring></argsstring>
+        <name>source_file_iterator</name>
+        <briefdescription>
+<para>Maintain a reference count for source file iterators. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2128" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2128" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dbg__funcs__srcinfo_1ga42a22fbeafc7c75189a6d3963b149d4b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi register_srcinfo_provider</definition>
+        <argsstring>(srcinfo_provider_t *sp)</argsstring>
+        <name>register_srcinfo_provider</name>
+        <param>
+          <type><ref refid="classsrcinfo__provider__t" kindref="compound">srcinfo_provider_t</ref> *</type>
+          <declname>sp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Register a source information provider. Source information providers will call this function to register themselves with IDA kernel. Returns false: a service provider with this name already exists. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2397" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2397" bodyend="2397"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__srcinfo_1ga306b60366c9fae7f2790c48109c3fb73" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi unregister_srcinfo_provider</definition>
+        <argsstring>(srcinfo_provider_t *sp)</argsstring>
+        <name>unregister_srcinfo_provider</name>
+        <param>
+          <type><ref refid="classsrcinfo__provider__t" kindref="compound">srcinfo_provider_t</ref> *</type>
+          <declname>sp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Unregister a source information provider. Returns false: no such provider. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2403" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2403" bodyend="2403"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__srcinfo_1ga5460b2dfdb5376b5959d0c35c300f66c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>source_view_t *</type>
+        <definition>source_view_t* create_source_viewer</definition>
+        <argsstring>(TWidget **out_ccv, TWidget *parent, TWidget *custview, source_file_ptr sf, strvec_t *lines, int lnnum, int colnum, int flags)</argsstring>
+        <name>create_source_viewer</name>
+        <param>
+          <type>TWidget **</type>
+          <declname>out_ccv</declname>
+        </param>
+        <param>
+          <type>TWidget *</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>TWidget *</type>
+          <declname>custview</declname>
+        </param>
+        <param>
+          <type><ref refid="group__dbg__funcs__srcinfo_1ga449f74352768d9ec163293dfa225a230" kindref="member">source_file_ptr</ref></type>
+          <declname>sf</declname>
+        </param>
+        <param>
+          <type><ref refid="group__simpleline_1gac893a23d04b0b0ddc10cc44f4f9f01e6" kindref="member">strvec_t</ref> *</type>
+          <declname>lines</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>lnnum</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>colnum</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+<para>Create a source code view. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2411" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2411" bodyend="2424"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__srcinfo_1ga19c9275cbc976a1428975b221d7e0c1b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export get_dbg_byte</definition>
+        <argsstring>(uint32 *x, ea_t ea)</argsstring>
+        <name>get_dbg_byte</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get one byte of the debugged process memory. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to byte value </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true success </para></simplesect>
+<simplesect kind="return"><para>false address inaccessible or debugger not running </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2435" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__srcinfo_1ga5b67e95a556cf3d746676a676e04f15a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export put_dbg_byte</definition>
+        <argsstring>(ea_t ea, uint32 x)</argsstring>
+        <name>put_dbg_byte</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Change one byte of the debugged process memory. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>byte value </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the process memory has been modified </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2443" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__dbg__funcs__srcinfo_1gafa9ea79b7e23b09dfb6bb662308fe20d" prot="public" static="no">
+        <name>SRCDBG_PROV_VERSION</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2266" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2266" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>These providers supply information about the source files and lines to the source level debugger.</para><para><simplesect kind="note"><para>objects that inherit from <ref refid="classqrefcnt__obj__t" kindref="compound">qrefcnt_obj_t</ref> must be freed using the release() method. do not use the &apos;delete&apos; operator! See description for <ref refid="classqrefcnt__obj__t_1a745ea2234fa257ca04514ef78977ad84" kindref="member">qrefcnt_obj_t::release()</ref></para></simplesect>
+Currently this interface is not frozen and may change. We will freeze it once we settle things down. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

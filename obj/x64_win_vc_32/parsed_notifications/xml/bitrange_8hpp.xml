@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="bitrange_8hpp" kind="file" language="C++">
+    <compoundname>bitrange.hpp</compoundname>
+    <includedby refid="idp_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/idp.hpp</includedby>
+    <invincdepgraph>
+      <node id="39">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/intel.hpp</label>
+        <link refid="intel_8hpp_source"/>
+      </node>
+      <node id="32">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp</label>
+        <link refid="bitrange_8hpp"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp</label>
+        <link refid="ida__highlighter_8hpp_source"/>
+      </node>
+      <node id="33">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/idp.hpp</label>
+        <link refid="idp_8hpp"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp</label>
+        <link refid="dbg_8hpp"/>
+      </node>
+      <node id="40">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/graph.hpp</label>
+        <link refid="graph_8hpp"/>
+      </node>
+      <node id="43">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp</label>
+        <link refid="tstfeat_8hpp_source"/>
+      </node>
+      <node id="41">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/expr.hpp</label>
+        <link refid="expr_8hpp"/>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/frame.hpp</label>
+        <link refid="frame_8hpp"/>
+      </node>
+      <node id="36">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp</label>
+        <link refid="typeinf_8hpp"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp</label>
+        <link refid="hexrays_8hpp_source"/>
+      </node>
+      <node id="37">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp</label>
+        <link refid="lumina_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classbitrange__t" prot="public">bitrange_t</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Helper functions</header>
+      <description><para>Should not be called directly! </para></description>
+      <memberdef kind="function" id="bitrange_8hpp_1a24a6094c05d4c8e7555834cd254c8a44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export bitrange_t_extract_using_bitrange</definition>
+        <argsstring>(const bitrange_t *bm, void *dst, size_t dst_size, const void *src, size_t src_size, bool is_mf)</argsstring>
+        <name>bitrange_t_extract_using_bitrange</name>
+        <param>
+          <type>const <ref refid="classbitrange__t" kindref="compound">bitrange_t</ref> *</type>
+          <declname>bm</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>dst_size</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>src_size</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>is_mf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="249" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="bitrange_8hpp_1a8f42e1c35146e0ae6d10bea5c0d596e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export bitrange_t_inject_using_bitrange</definition>
+        <argsstring>(const bitrange_t *bm, void *dst, size_t dst_size, const void *src, size_t src_size, bool is_mf)</argsstring>
+        <name>bitrange_t_inject_using_bitrange</name>
+        <param>
+          <type>const <ref refid="classbitrange__t" kindref="compound">bitrange_t</ref> *</type>
+          <declname>bm</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>dst_size</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>src_size</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>is_mf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="250" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Definition of the <ref refid="classbitrange__t" kindref="compound">bitrange_t</ref> class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp"/>
+  </compounddef>
+</doxygen>

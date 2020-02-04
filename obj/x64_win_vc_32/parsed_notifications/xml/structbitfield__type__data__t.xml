@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structbitfield__type__data__t" kind="struct" language="C++" prot="public">
+    <compoundname>bitfield_type_data_t</compoundname>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbitfield__type__data__t_1a4d2101be372de2ce1445230d32839b73" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar bitfield_type_data_t::nbytes</definition>
+        <argsstring></argsstring>
+        <name>nbytes</name>
+        <briefdescription>
+<para>enclosing type size (1,2,4,8 bytes) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3479" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3479" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbitfield__type__data__t_1a702c400aa1f7af2bf422d3826459ef2e" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar bitfield_type_data_t::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+<para>number of bits </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3480" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3480" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbitfield__type__data__t_1a7a5c16c62d8c534429398526a0337c9e" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool bitfield_type_data_t::is_unsigned</definition>
+        <argsstring></argsstring>
+        <name>is_unsigned</name>
+        <briefdescription>
+<para>is bitfield unsigned? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3481" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3481" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbitfield__type__data__t_1a76dd3655cc05bb49ea96cd8844178618" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>bitfield_type_data_t::else</definition>
+        <argsstring></argsstring>
+        <name>else</name>
+        <initializer>{
+      if ( r.is_unsigned )
+        return -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3498" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3499" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbitfield__type__data__t_1a8b2a4b6a5b4770093de765a831ae0f44" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>bitfield_type_data_t::return</definition>
+        <argsstring></argsstring>
+        <name>return</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3503" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3503" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structbitfield__type__data__t_1af6ceba4754db27857d14a06eabcd8662" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>bitfield_type_data_t::bitfield_type_data_t</definition>
+        <argsstring>(uchar _nbytes=0, uchar _width=0, bool _is_unsigned=false)</argsstring>
+        <name>bitfield_type_data_t</name>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>_nbytes</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>_width</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_is_unsigned</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3482" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3482" bodyend="3485"/>
+      </memberdef>
+      <memberdef kind="function" id="structbitfield__type__data__t_1a7f188df9706b11924f8c21abc2791803" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bitfield_type_data_t::serialize</definition>
+        <argsstring>(qtype *type, type_t mods) const</argsstring>
+        <name>serialize</name>
+        <param>
+          <type><ref refid="pro_8h_1a7fad0f3973de5825c480e27517e159f3" kindref="member">qtype</ref> *</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type><ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+          <declname>mods</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3486" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structbitfield__type__data__t_1a29781028182e5c3b69e91ebb1d2f510a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void bitfield_type_data_t::swap</definition>
+        <argsstring>(bitfield_type_data_t &amp;r)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="structbitfield__type__data__t" kindref="compound">bitfield_type_data_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3505" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3505" bodyend="3505"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Bitfield type information (see <ref refid="classtinfo__t_1ad2e073cee94ccb0ed8b2e98db467ed8f" kindref="member">tinfo_t::get_bitfield_details()</ref>) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3478" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3477" bodyend="3506"/>
+    <listofallmembers>
+      <member refid="structbitfield__type__data__t_1af6ceba4754db27857d14a06eabcd8662" prot="public" virt="non-virtual"><scope>bitfield_type_data_t</scope><name>bitfield_type_data_t</name></member>
+      <member refid="structbitfield__type__data__t_1a76dd3655cc05bb49ea96cd8844178618" prot="public" virt="non-virtual"><scope>bitfield_type_data_t</scope><name>else</name></member>
+      <member refid="structbitfield__type__data__t_1a7a5c16c62d8c534429398526a0337c9e" prot="public" virt="non-virtual"><scope>bitfield_type_data_t</scope><name>is_unsigned</name></member>
+      <member refid="structbitfield__type__data__t_1a4d2101be372de2ce1445230d32839b73" prot="public" virt="non-virtual"><scope>bitfield_type_data_t</scope><name>nbytes</name></member>
+      <member refid="structbitfield__type__data__t_1a8b2a4b6a5b4770093de765a831ae0f44" prot="public" virt="non-virtual"><scope>bitfield_type_data_t</scope><name>return</name></member>
+      <member refid="structbitfield__type__data__t_1a7f188df9706b11924f8c21abc2791803" prot="public" virt="non-virtual"><scope>bitfield_type_data_t</scope><name>serialize</name></member>
+      <member refid="structbitfield__type__data__t_1a29781028182e5c3b69e91ebb1d2f510a" prot="public" virt="non-virtual"><scope>bitfield_type_data_t</scope><name>swap</name></member>
+      <member refid="structbitfield__type__data__t_1a702c400aa1f7af2bf422d3826459ef2e" prot="public" virt="non-virtual"><scope>bitfield_type_data_t</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

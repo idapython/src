@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structcustom__refinfo__handler__t" kind="struct" language="C++" prot="public">
+    <compoundname>custom_refinfo_handler_t</compoundname>
+    <includes refid="nalt_8hpp" local="no">nalt.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcustom__refinfo__handler__t_1a0c3055e466b82446cea9b01051f9848f" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 custom_refinfo_handler_t::cbsize</definition>
+        <argsstring></argsstring>
+        <name>cbsize</name>
+        <briefdescription>
+<para>size of this structure </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="945" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="945" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcustom__refinfo__handler__t_1aff610e2ab2e326fc7ed6b2066dd38c64" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* custom_refinfo_handler_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>Format name, must be unique. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="946" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="946" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcustom__refinfo__handler__t_1ac3181bac10d1cddc461c38045e2fe273" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* custom_refinfo_handler_t::desc</definition>
+        <argsstring></argsstring>
+        <name>desc</name>
+        <briefdescription>
+<para>Refinfo description to use in Ctrl-R dialog. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="947" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="947" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcustom__refinfo__handler__t_1ab0f73bd2bbbddc49b262d57ca5262345" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int custom_refinfo_handler_t::props</definition>
+        <argsstring></argsstring>
+        <name>props</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>properties (currently 0) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="948" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="948" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcustom__refinfo__handler__t_1a474fdd3cc71b737446cb69da5f765e48" prot="public" static="no" mutable="no">
+        <type>int(idaapi *</type>
+        <definition>int(idaapi * custom_refinfo_handler_t::gen_expr) (qstring *buf, qstring *format, ea_t ea, int opnum, const refinfo_t &amp;ri, ea_t from, adiff_t *opval, ea_t *target, ea_t *fullvalue, int getn_flags)</definition>
+        <argsstring>)(qstring *buf, qstring *format, ea_t ea, int opnum, const refinfo_t &amp;ri, ea_t from, adiff_t *opval, ea_t *target, ea_t *fullvalue, int getn_flags)</argsstring>
+        <name>gen_expr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="966" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="966" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcustom__refinfo__handler__t_1a59480dbbd92e23f076304c42b193d7b5" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * custom_refinfo_handler_t::calc_reference_data) (ea_t *target, ea_t *base, ea_t from, const refinfo_t &amp;ri, adiff_t opval)</definition>
+        <argsstring>)(ea_t *target, ea_t *base, ea_t from, const refinfo_t &amp;ri, adiff_t opval)</argsstring>
+        <name>calc_reference_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="983" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="983" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcustom__refinfo__handler__t_1ae34e40459d08f6eb7adbc2b2d7c46bc7" prot="public" static="no" mutable="no">
+        <type>void(idaapi *</type>
+        <definition>void(idaapi * custom_refinfo_handler_t::get_format) (qstring *format)</definition>
+        <argsstring>)(qstring *format)</argsstring>
+        <name>get_format</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="991" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="991" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Manage a custom refinfo type. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="944" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="943" bodyend="992"/>
+    <listofallmembers>
+      <member refid="structcustom__refinfo__handler__t_1a59480dbbd92e23f076304c42b193d7b5" prot="public" virt="non-virtual"><scope>custom_refinfo_handler_t</scope><name>calc_reference_data</name></member>
+      <member refid="structcustom__refinfo__handler__t_1a0c3055e466b82446cea9b01051f9848f" prot="public" virt="non-virtual"><scope>custom_refinfo_handler_t</scope><name>cbsize</name></member>
+      <member refid="structcustom__refinfo__handler__t_1ac3181bac10d1cddc461c38045e2fe273" prot="public" virt="non-virtual"><scope>custom_refinfo_handler_t</scope><name>desc</name></member>
+      <member refid="structcustom__refinfo__handler__t_1a474fdd3cc71b737446cb69da5f765e48" prot="public" virt="non-virtual"><scope>custom_refinfo_handler_t</scope><name>gen_expr</name></member>
+      <member refid="structcustom__refinfo__handler__t_1ae34e40459d08f6eb7adbc2b2d7c46bc7" prot="public" virt="non-virtual"><scope>custom_refinfo_handler_t</scope><name>get_format</name></member>
+      <member refid="structcustom__refinfo__handler__t_1aff610e2ab2e326fc7ed6b2066dd38c64" prot="public" virt="non-virtual"><scope>custom_refinfo_handler_t</scope><name>name</name></member>
+      <member refid="structcustom__refinfo__handler__t_1ab0f73bd2bbbddc49b262d57ca5262345" prot="public" virt="non-virtual"><scope>custom_refinfo_handler_t</scope><name>props</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

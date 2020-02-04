@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__layout__" kind="group">
+    <compoundname>layout_</compoundname>
+    <title>Proximity view layouts</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__layout___1gacec193bb7928fa8315c4158f6e8f3a8b" prot="public" static="no" mutable="no">
+        <type>const <ref refid="graph_8hpp_1a5b8e7dd25431c0cf4ca4709239f2e65f" kindref="member">layout_type_t</ref></type>
+        <definition>const layout_type_t layout_none</definition>
+        <argsstring></argsstring>
+        <name>layout_none</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="438" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="438" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__layout___1ga05c1558204716d74b4aa6120dcf6b7e0" prot="public" static="no" mutable="no">
+        <type>const <ref refid="graph_8hpp_1a5b8e7dd25431c0cf4ca4709239f2e65f" kindref="member">layout_type_t</ref></type>
+        <definition>const layout_type_t layout_digraph</definition>
+        <argsstring></argsstring>
+        <name>layout_digraph</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="439" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="439" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__layout___1ga34e479072f60f0554ec0dbc208b15b8f" prot="public" static="no" mutable="no">
+        <type>const <ref refid="graph_8hpp_1a5b8e7dd25431c0cf4ca4709239f2e65f" kindref="member">layout_type_t</ref></type>
+        <definition>const layout_type_t layout_tree</definition>
+        <argsstring></argsstring>
+        <name>layout_tree</name>
+        <initializer>= 2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="440" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="440" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__layout___1gafb394099b487dcda59c508630e6362b6" prot="public" static="no" mutable="no">
+        <type>const <ref refid="graph_8hpp_1a5b8e7dd25431c0cf4ca4709239f2e65f" kindref="member">layout_type_t</ref></type>
+        <definition>const layout_type_t layout_circle</definition>
+        <argsstring></argsstring>
+        <name>layout_circle</name>
+        <initializer>= 3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="441" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="441" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__layout___1gac808aefbae40a2d18fd34086465faa7e" prot="public" static="no" mutable="no">
+        <type>const <ref refid="graph_8hpp_1a5b8e7dd25431c0cf4ca4709239f2e65f" kindref="member">layout_type_t</ref></type>
+        <definition>const layout_type_t layout_polar_tree</definition>
+        <argsstring></argsstring>
+        <name>layout_polar_tree</name>
+        <initializer>= 4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="442" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="442" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__layout___1ga4f9fc4b98cf9121c80b8a6c4a38c0937" prot="public" static="no" mutable="no">
+        <type>const <ref refid="graph_8hpp_1a5b8e7dd25431c0cf4ca4709239f2e65f" kindref="member">layout_type_t</ref></type>
+        <definition>const layout_type_t layout_orthogonal</definition>
+        <argsstring></argsstring>
+        <name>layout_orthogonal</name>
+        <initializer>= 5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="443" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="443" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__layout___1gac3adfd94d7e49e686b06551a75e99f30" prot="public" static="no" mutable="no">
+        <type>const <ref refid="graph_8hpp_1a5b8e7dd25431c0cf4ca4709239f2e65f" kindref="member">layout_type_t</ref></type>
+        <definition>const layout_type_t layout_radial_tree</definition>
+        <argsstring></argsstring>
+        <name>layout_radial_tree</name>
+        <initializer>= 6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="444" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="444" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

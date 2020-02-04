@@ -1,0 +1,620 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classgdl__graph__t" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>gdl_graph_t</compoundname>
+    <derivedcompoundref refid="classabstract__graph__t" prot="public" virt="non-virtual">abstract_graph_t</derivedcompoundref>
+    <derivedcompoundref refid="classcancellable__graph__t" prot="public" virt="non-virtual">cancellable_graph_t</derivedcompoundref>
+    <derivedcompoundref refid="classsimple__graph__t" prot="public" virt="non-virtual">simple_graph_t</derivedcompoundref>
+    <includes refid="gdl_8hpp" local="no">gdl.hpp</includes>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classgdl__graph__t_1aaacc475deb230fe49497284d01117aee" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi gdl_graph_t::path</definition>
+        <argsstring>(node_set_t &amp;visited, int m, int n) const</argsstring>
+        <name>path</name>
+        <param>
+          <type><ref refid="classnode__set__t" kindref="compound">node_set_t</ref> &amp;</type>
+          <declname>visited</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="128" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgdl__graph__t_1a0ca7e78eb938af72407c106fde2b9778" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>char *idaapi</type>
+        <definition>virtual char* idaapi gdl_graph_t::get_node_label</definition>
+        <argsstring>(char *buf, int, int) const</argsstring>
+        <name>get_node_label</name>
+        <reimplementedby refid="classqflow__chart__t_1a0bb6575f57dad162ac65cb8c2d719840">get_node_label</reimplementedby>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>int</type>
+        </param>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="132" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="132" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1a4cde31a1b2c406d7813c09a839edd4ea" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>void idaapi</type>
+        <definition>virtual void idaapi gdl_graph_t::print_graph_attributes</definition>
+        <argsstring>(FILE *) const</argsstring>
+        <name>print_graph_attributes</name>
+        <param>
+          <type>FILE *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="133" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="133" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1ad1d859c9dacc717bb175e259a7ea3e70" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi gdl_graph_t::print_node</definition>
+        <argsstring>(FILE *, int) const</argsstring>
+        <name>print_node</name>
+        <param>
+          <type>FILE *</type>
+        </param>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="134" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="134" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1a5f00823ba18caa2ef90f779adc27dbcb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi gdl_graph_t::print_edge</definition>
+        <argsstring>(FILE *, int, int) const</argsstring>
+        <name>print_edge</name>
+        <param>
+          <type>FILE *</type>
+        </param>
+        <param>
+          <type>int</type>
+        </param>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="135" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="135" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1a2097da98314a6608f372e03ed8978227" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>void idaapi</type>
+        <definition>virtual void idaapi gdl_graph_t::print_node_attributes</definition>
+        <argsstring>(FILE *, int) const</argsstring>
+        <name>print_node_attributes</name>
+        <reimplementedby refid="classqflow__chart__t_1a143f4c9b2c6f74d129884b1b0373c428">print_node_attributes</reimplementedby>
+        <param>
+          <type>FILE *</type>
+        </param>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="136" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="136" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1ab9bd673accc6dec4ec3d7c198eef8a78" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi gdl_graph_t::size</definition>
+        <argsstring>(void) const =0</argsstring>
+        <name>size</name>
+        <reimplementedby refid="classqflow__chart__t_1a73d500fae6ab81d2c14022aabb03fc52">size</reimplementedby>
+        <reimplementedby refid="classmutable__graph__t_1a7ff0b93cadaacffdc536aa85f48195ff">size</reimplementedby>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="137" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1a62eb8090207b9cc4fa5220d4ee989596" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi gdl_graph_t::node_qty</definition>
+        <argsstring>(void) const</argsstring>
+        <name>node_qty</name>
+        <reimplementedby refid="classmutable__graph__t_1ac7446a3fe8f5ebd965af0aecdd446bf9">node_qty</reimplementedby>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="138" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="138" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1a8e26312ef1b714a18198bef6d799c258" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi gdl_graph_t::exists</definition>
+        <argsstring>(int) const</argsstring>
+        <name>exists</name>
+        <reimplementedby refid="classmutable__graph__t_1a126cbbe560c57bda332a38ee8fb92268">exists</reimplementedby>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="139" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="139" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1ac2c6eb82d3f53c7a0ec71803f691bc59" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi gdl_graph_t::entry</definition>
+        <argsstring>(void) const</argsstring>
+        <name>entry</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="140" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="140" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1a4860b7baf2db01da12f2b0c4f209bf9c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi gdl_graph_t::exit</definition>
+        <argsstring>(void) const</argsstring>
+        <name>exit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="141" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="141" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1a689fddb9fec8ae4cd95ce962934809d7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi gdl_graph_t::nsucc</definition>
+        <argsstring>(int node) const =0</argsstring>
+        <name>nsucc</name>
+        <reimplementedby refid="classqflow__chart__t_1acf8481c588706b312e3a196d6908d6c1">nsucc</reimplementedby>
+        <reimplementedby refid="classmutable__graph__t_1a349c6773f7f48ea36b49cf4b097c74d9">nsucc</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="142" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1a0047a77ba26534621019e9b1e4a4380a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi gdl_graph_t::npred</definition>
+        <argsstring>(int node) const =0</argsstring>
+        <name>npred</name>
+        <reimplementedby refid="classqflow__chart__t_1aedb8bf37244e164dd3559ce22d4d5e0e">npred</reimplementedby>
+        <reimplementedby refid="classmutable__graph__t_1ae9b760382cbcf2156c8a0c5ce24c6a0f">npred</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="143" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1a9df8cfd864e97acfc9237ff5b0a5de69" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi gdl_graph_t::succ</definition>
+        <argsstring>(int node, int i) const =0</argsstring>
+        <name>succ</name>
+        <reimplementedby refid="classqflow__chart__t_1aac7fb0a1f626130bf105dc6af46d55b0">succ</reimplementedby>
+        <reimplementedby refid="classmutable__graph__t_1a89f3c7a8a1e71ef8070664135c3b5e9b">succ</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="144" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1a1ff65cc040a928a19c2906757413b0da" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi gdl_graph_t::pred</definition>
+        <argsstring>(int node, int i) const =0</argsstring>
+        <name>pred</name>
+        <reimplementedby refid="classqflow__chart__t_1a51e4462e01dfa1ed5293b54ffeceaaeb">pred</reimplementedby>
+        <reimplementedby refid="classmutable__graph__t_1a9c1f9a7aeab63c5e87a495dd4ce020ba">pred</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="145" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1afd89c2f37ca474eeb80266263c52a1fd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi gdl_graph_t::empty</definition>
+        <argsstring>(void) const</argsstring>
+        <name>empty</name>
+        <reimplementedby refid="classmutable__graph__t_1aedb1b24c0fecd2935e9243be15f84480">empty</reimplementedby>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="146" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="146" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1a87253fc6388e7c3bb2c4ad72ee651a52" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="pro_8h_1a3df5040891132e50157aee66affdf1de" kindref="member">bgcolor_t</ref> idaapi</type>
+        <definition>virtual bgcolor_t idaapi gdl_graph_t::get_node_color</definition>
+        <argsstring>(int) const</argsstring>
+        <name>get_node_color</name>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="147" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="147" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1aadc912ba89cceed064de956bcf646d13" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="pro_8h_1a3df5040891132e50157aee66affdf1de" kindref="member">bgcolor_t</ref> idaapi</type>
+        <definition>virtual bgcolor_t idaapi gdl_graph_t::get_edge_color</definition>
+        <argsstring>(int, int) const</argsstring>
+        <name>get_edge_color</name>
+        <param>
+          <type>int</type>
+        </param>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="148" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="148" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1afed62cde1549127e49b34a5c03a8e344" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi gdl_graph_t::gen_gdl</definition>
+        <argsstring>(FILE *fp) const</argsstring>
+        <name>gen_gdl</name>
+        <param>
+          <type>FILE *</type>
+          <declname>fp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="149" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1a06e3dde67682f31cb54e30f612e1905b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi gdl_graph_t::gen_gdl</definition>
+        <argsstring>(const char *file) const</argsstring>
+        <name>gen_gdl</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="150" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1a0e8cf052ce990f41454cfa618f318645" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t idaapi</type>
+        <definition>size_t idaapi gdl_graph_t::nedge</definition>
+        <argsstring>(int node, bool ispred) const</argsstring>
+        <name>nedge</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>ispred</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="151" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="151" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1a0a40e432f6cef47a21cab2a600e407d8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi gdl_graph_t::edge</definition>
+        <argsstring>(int node, int i, bool ispred) const</argsstring>
+        <name>edge</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>ispred</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="152" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="152" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1aedc53d9164372f5aab637bf2b2e497a0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi gdl_graph_t::front</definition>
+        <argsstring>(void)</argsstring>
+        <name>front</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="153" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="153" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1aed9c469ba507f9e65c97db4647311e62" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classnode__iterator" kindref="compound">node_iterator</ref> idaapi</type>
+        <definition>node_iterator idaapi gdl_graph_t::begin</definition>
+        <argsstring>(void) const</argsstring>
+        <name>begin</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="154" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="154" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1a5b0ee999fad4d5a780fd3bf276715c7f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classnode__iterator" kindref="compound">node_iterator</ref> idaapi</type>
+        <definition>node_iterator idaapi gdl_graph_t::end</definition>
+        <argsstring>(void) const</argsstring>
+        <name>end</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="155" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="155" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1ad6ad9937897af84731a3e9bbdeea75f4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi gdl_graph_t::path_exists</definition>
+        <argsstring>(int m, int n) const</argsstring>
+        <name>path_exists</name>
+        <param>
+          <type>int</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="157" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="157" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1ab13037817c391fd6f7f3b53f169a8009" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi gdl_graph_t::gen_dot</definition>
+        <argsstring>(FILE *fp) const</argsstring>
+        <name>gen_dot</name>
+        <param>
+          <type>FILE *</type>
+          <declname>fp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="159" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgdl__graph__t_1a637ae3e6bed2ee4a4c5c1c3a36407bc0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi gdl_graph_t::gen_dot</definition>
+        <argsstring>(const char *file) const</argsstring>
+        <name>gen_dot</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="160" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>gdl graph interface - includes only functions required to draw it </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1679">
+        <label>simple_graph_t</label>
+        <link refid="classsimple__graph__t"/>
+        <childnode refid="1674" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1678">
+        <label>qflow_chart_t</label>
+        <link refid="classqflow__chart__t"/>
+        <childnode refid="1677" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1675">
+        <label>abstract_graph_t</label>
+        <link refid="classabstract__graph__t"/>
+        <childnode refid="1674" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1674">
+        <label>gdl_graph_t</label>
+        <link refid="classgdl__graph__t"/>
+      </node>
+      <node id="1676">
+        <label>mutable_graph_t</label>
+        <link refid="classmutable__graph__t"/>
+        <childnode refid="1675" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1680">
+        <label>mbl_graph_t</label>
+        <link refid="classmbl__graph__t"/>
+        <childnode refid="1679" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1677">
+        <label>cancellable_graph_t</label>
+        <link refid="classcancellable__graph__t"/>
+        <childnode refid="1674" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="126" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="125" bodyend="161"/>
+    <listofallmembers>
+      <member refid="classgdl__graph__t_1aed9c469ba507f9e65c97db4647311e62" prot="public" virt="non-virtual"><scope>gdl_graph_t</scope><name>begin</name></member>
+      <member refid="classgdl__graph__t_1a0a40e432f6cef47a21cab2a600e407d8" prot="public" virt="non-virtual"><scope>gdl_graph_t</scope><name>edge</name></member>
+      <member refid="classgdl__graph__t_1afd89c2f37ca474eeb80266263c52a1fd" prot="public" virt="virtual"><scope>gdl_graph_t</scope><name>empty</name></member>
+      <member refid="classgdl__graph__t_1a5b0ee999fad4d5a780fd3bf276715c7f" prot="public" virt="non-virtual"><scope>gdl_graph_t</scope><name>end</name></member>
+      <member refid="classgdl__graph__t_1ac2c6eb82d3f53c7a0ec71803f691bc59" prot="public" virt="virtual"><scope>gdl_graph_t</scope><name>entry</name></member>
+      <member refid="classgdl__graph__t_1a8e26312ef1b714a18198bef6d799c258" prot="public" virt="virtual"><scope>gdl_graph_t</scope><name>exists</name></member>
+      <member refid="classgdl__graph__t_1a4860b7baf2db01da12f2b0c4f209bf9c" prot="public" virt="virtual"><scope>gdl_graph_t</scope><name>exit</name></member>
+      <member refid="classgdl__graph__t_1aedc53d9164372f5aab637bf2b2e497a0" prot="public" virt="non-virtual"><scope>gdl_graph_t</scope><name>front</name></member>
+      <member refid="classgdl__graph__t_1ab13037817c391fd6f7f3b53f169a8009" prot="public" virt="non-virtual"><scope>gdl_graph_t</scope><name>gen_dot</name></member>
+      <member refid="classgdl__graph__t_1a637ae3e6bed2ee4a4c5c1c3a36407bc0" prot="public" virt="non-virtual"><scope>gdl_graph_t</scope><name>gen_dot</name></member>
+      <member refid="classgdl__graph__t_1afed62cde1549127e49b34a5c03a8e344" prot="public" virt="non-virtual"><scope>gdl_graph_t</scope><name>gen_gdl</name></member>
+      <member refid="classgdl__graph__t_1a06e3dde67682f31cb54e30f612e1905b" prot="public" virt="non-virtual"><scope>gdl_graph_t</scope><name>gen_gdl</name></member>
+      <member refid="classgdl__graph__t_1aadc912ba89cceed064de956bcf646d13" prot="public" virt="virtual"><scope>gdl_graph_t</scope><name>get_edge_color</name></member>
+      <member refid="classgdl__graph__t_1a87253fc6388e7c3bb2c4ad72ee651a52" prot="public" virt="virtual"><scope>gdl_graph_t</scope><name>get_node_color</name></member>
+      <member refid="classgdl__graph__t_1a0ca7e78eb938af72407c106fde2b9778" prot="public" virt="virtual"><scope>gdl_graph_t</scope><name>get_node_label</name></member>
+      <member refid="classgdl__graph__t_1a0e8cf052ce990f41454cfa618f318645" prot="public" virt="non-virtual"><scope>gdl_graph_t</scope><name>nedge</name></member>
+      <member refid="classgdl__graph__t_1a62eb8090207b9cc4fa5220d4ee989596" prot="public" virt="virtual"><scope>gdl_graph_t</scope><name>node_qty</name></member>
+      <member refid="classgdl__graph__t_1a0047a77ba26534621019e9b1e4a4380a" prot="public" virt="pure-virtual"><scope>gdl_graph_t</scope><name>npred</name></member>
+      <member refid="classgdl__graph__t_1a689fddb9fec8ae4cd95ce962934809d7" prot="public" virt="pure-virtual"><scope>gdl_graph_t</scope><name>nsucc</name></member>
+      <member refid="classgdl__graph__t_1aaacc475deb230fe49497284d01117aee" prot="private" virt="non-virtual"><scope>gdl_graph_t</scope><name>path</name></member>
+      <member refid="classgdl__graph__t_1ad6ad9937897af84731a3e9bbdeea75f4" prot="public" virt="non-virtual"><scope>gdl_graph_t</scope><name>path_exists</name></member>
+      <member refid="classgdl__graph__t_1a1ff65cc040a928a19c2906757413b0da" prot="public" virt="pure-virtual"><scope>gdl_graph_t</scope><name>pred</name></member>
+      <member refid="classgdl__graph__t_1a5f00823ba18caa2ef90f779adc27dbcb" prot="public" virt="virtual"><scope>gdl_graph_t</scope><name>print_edge</name></member>
+      <member refid="classgdl__graph__t_1a4cde31a1b2c406d7813c09a839edd4ea" prot="public" virt="virtual"><scope>gdl_graph_t</scope><name>print_graph_attributes</name></member>
+      <member refid="classgdl__graph__t_1ad1d859c9dacc717bb175e259a7ea3e70" prot="public" virt="virtual"><scope>gdl_graph_t</scope><name>print_node</name></member>
+      <member refid="classgdl__graph__t_1a2097da98314a6608f372e03ed8978227" prot="public" virt="virtual"><scope>gdl_graph_t</scope><name>print_node_attributes</name></member>
+      <member refid="classgdl__graph__t_1ab9bd673accc6dec4ec3d7c198eef8a78" prot="public" virt="pure-virtual"><scope>gdl_graph_t</scope><name>size</name></member>
+      <member refid="classgdl__graph__t_1a9df8cfd864e97acfc9237ff5b0a5de69" prot="public" virt="pure-virtual"><scope>gdl_graph_t</scope><name>succ</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

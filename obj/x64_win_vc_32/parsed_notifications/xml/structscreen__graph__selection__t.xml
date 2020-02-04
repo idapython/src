@@ -1,0 +1,269 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structscreen__graph__selection__t" kind="struct" language="C++" prot="public">
+    <compoundname>screen_graph_selection_t</compoundname>
+    <basecompoundref refid="classqvector" prot="public" virt="non-virtual">qvector&lt; selection_item_t &gt;</basecompoundref>
+    <includes refid="graph_8hpp" local="no">graph.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structscreen__graph__selection__t_1ab1b56c8d4482ab96b755c47c58b159af" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi screen_graph_selection_t::has</definition>
+        <argsstring>(const selection_item_t &amp;item) const</argsstring>
+        <name>has</name>
+        <param>
+          <type>const <ref refid="structselection__item__t" kindref="compound">selection_item_t</ref> &amp;</type>
+          <declname>item</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="525" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="525" bodyend="526"/>
+      </memberdef>
+      <memberdef kind="function" id="structscreen__graph__selection__t_1a7ccf1d9c641262223f495054f3b285e9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi screen_graph_selection_t::add</definition>
+        <argsstring>(const screen_graph_selection_t &amp;s)</argsstring>
+        <name>add</name>
+        <param>
+          <type>const <ref refid="structscreen__graph__selection__t" kindref="compound">screen_graph_selection_t</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="527" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="527" bodyend="531"/>
+      </memberdef>
+      <memberdef kind="function" id="structscreen__graph__selection__t_1a1bda36c3ef65fb136a175023fcfdb801" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi screen_graph_selection_t::sub</definition>
+        <argsstring>(const screen_graph_selection_t &amp;s)</argsstring>
+        <name>sub</name>
+        <param>
+          <type>const <ref refid="structscreen__graph__selection__t" kindref="compound">screen_graph_selection_t</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="532" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="532" bodyend="536"/>
+      </memberdef>
+      <memberdef kind="function" id="structscreen__graph__selection__t_1a87d0a86fee5705c15b4a423a55eb789b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi screen_graph_selection_t::add_node</definition>
+        <argsstring>(int node)</argsstring>
+        <name>add_node</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="537" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="537" bodyend="537"/>
+      </memberdef>
+      <memberdef kind="function" id="structscreen__graph__selection__t_1a6fda22b94607bfe6c2b610140c042141" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi screen_graph_selection_t::del_node</definition>
+        <argsstring>(int node)</argsstring>
+        <name>del_node</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="538" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="538" bodyend="538"/>
+      </memberdef>
+      <memberdef kind="function" id="structscreen__graph__selection__t_1adb7177a6eb5718638afaef94e3f8c5fb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi screen_graph_selection_t::add_point</definition>
+        <argsstring>(edge_t e, int idx)</argsstring>
+        <name>add_point</name>
+        <param>
+          <type><ref refid="structedge__t" kindref="compound">edge_t</ref></type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="539" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="539" bodyend="539"/>
+      </memberdef>
+      <memberdef kind="function" id="structscreen__graph__selection__t_1a7a4356f0afe1e035e3cb0a24cce69d44" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi screen_graph_selection_t::del_point</definition>
+        <argsstring>(edge_t e, int idx)</argsstring>
+        <name>del_point</name>
+        <param>
+          <type><ref refid="structedge__t" kindref="compound">edge_t</ref></type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="540" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="540" bodyend="540"/>
+      </memberdef>
+      <memberdef kind="function" id="structscreen__graph__selection__t_1a58616514d43598f8812a1084d272e7af" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t idaapi</type>
+        <definition>size_t idaapi screen_graph_selection_t::nodes_count</definition>
+        <argsstring>() const</argsstring>
+        <name>nodes_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="542" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="542" bodyend="542"/>
+      </memberdef>
+      <memberdef kind="function" id="structscreen__graph__selection__t_1a5a9c5cf20a33eff7221f69ef459afe47" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t idaapi</type>
+        <definition>size_t idaapi screen_graph_selection_t::points_count</definition>
+        <argsstring>() const</argsstring>
+        <name>points_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="543" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="543" bodyend="543"/>
+      </memberdef>
+      <memberdef kind="function" id="structscreen__graph__selection__t_1a1efec88cece51d7852d4bc8ff5d2b388" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t idaapi</type>
+        <definition>size_t idaapi screen_graph_selection_t::items_count</definition>
+        <argsstring>(bool look_for_nodes) const</argsstring>
+        <name>items_count</name>
+        <param>
+          <type>bool</type>
+          <declname>look_for_nodes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="544" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="544" bodyend="551"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Selection in a graph. (A list of nodes and edge layout points). This selection is used to move a subgraph on the screen. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="3257">
+        <label>screen_graph_selection_t</label>
+        <link refid="structscreen__graph__selection__t"/>
+        <childnode refid="3258" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3258">
+        <label>qvector&lt; selection_item_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3259">
+        <label>screen_graph_selection_t</label>
+        <link refid="structscreen__graph__selection__t"/>
+        <childnode refid="3260" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3260">
+        <label>qvector&lt; selection_item_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="524" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="523" bodyend="552"/>
+    <listofallmembers>
+      <member refid="structscreen__graph__selection__t_1a7ccf1d9c641262223f495054f3b285e9" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>add</name></member>
+      <member refid="classqvector_1aae20729cb52ff559b27b834e0bbb5528" prot="public" virt="non-virtual" ambiguityscope="qvector&lt; selection_item_t &gt;::"><scope>screen_graph_selection_t</scope><name>add</name></member>
+      <member refid="structscreen__graph__selection__t_1a87d0a86fee5705c15b4a423a55eb789b" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>add_node</name></member>
+      <member refid="structscreen__graph__selection__t_1adb7177a6eb5718638afaef94e3f8c5fb" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>add_point</name></member>
+      <member refid="classqvector_1af0e3de3e606a0b52de17e80ce710317c" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>add_unique</name></member>
+      <member refid="classqvector_1a7756bf02ed2b83370fc1d62acb49d3be" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>at</name></member>
+      <member refid="classqvector_1a8239a85aa07f560afcf35b8c7c53fd48" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>at</name></member>
+      <member refid="classqvector_1ae86d54e6a60b2f2e7eb254b181e4a4dc" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>back</name></member>
+      <member refid="classqvector_1aa9af4ff586a6b15e11e760e1f28766f3" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>back</name></member>
+      <member refid="classqvector_1ad907a7b2c09c0ca4dd437392ee34a50a" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>begin</name></member>
+      <member refid="classqvector_1a85630357a750889ffc6c204e98a8d4aa" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>begin</name></member>
+      <member refid="classqvector_1ae2f4823d02d814d50c6d198ff0c43a0c" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>capacity</name></member>
+      <member refid="classqvector_1a00ea674adc4b958966d78ba450621a46" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>clear</name></member>
+      <member refid="classqvector_1a194d7dff35eb2e50e2b98109a6a9c4da" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>const_iterator</name></member>
+      <member refid="classqvector_1a1f7772500942d63596a5c91249ad577c" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>del</name></member>
+      <member refid="structscreen__graph__selection__t_1a6fda22b94607bfe6c2b610140c042141" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>del_node</name></member>
+      <member refid="structscreen__graph__selection__t_1a7a4356f0afe1e035e3cb0a24cce69d44" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>del_point</name></member>
+      <member refid="classqvector_1ac78b72e26edaf62a9554b5a0fe3d6457" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>dstr</name></member>
+      <member refid="classqvector_1a557b1f774ef7d7e242ce4792ac83b572" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>empty</name></member>
+      <member refid="classqvector_1a6139abba869b7a488109c983445a34d1" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>end</name></member>
+      <member refid="classqvector_1adcc73c6c8ad31d17a5fdc57dffea90e1" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>end</name></member>
+      <member refid="classqvector_1a59661e16df1b8e3c69caf2b2a6ca2b59" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>erase</name></member>
+      <member refid="classqvector_1a16a369b4edb05a6feddd38f8612eab1b" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>erase</name></member>
+      <member refid="classqvector_1abf8f50b30972a829ad7affb27cdb80c7" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>extract</name></member>
+      <member refid="classqvector_1ab9b8ccda1db8948c10f1ea2936c59a5c" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>find</name></member>
+      <member refid="classqvector_1a4e77dc1a55ea19e725e8a22aa574ae28" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>find</name></member>
+      <member refid="classqvector_1a7cfc6f9d91d6495f92961c5ea37bb0d4" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>front</name></member>
+      <member refid="classqvector_1ae4595a6221e8a056b54fed4dced17f26" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>front</name></member>
+      <member refid="classqvector_1acd86e975d8aa56bee809e4176bb0d530" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>grow</name></member>
+      <member refid="structscreen__graph__selection__t_1ab1b56c8d4482ab96b755c47c58b159af" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>has</name></member>
+      <member refid="classqvector_1aeb58b3064e71399ce8f2bfaf9a582d29" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>index</name></member>
+      <member refid="classqvector_1a0e2ac6acfb0b5607cd6b77e8049633db" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>inject</name></member>
+      <member refid="classqvector_1a7c55d837eb4006430e5b300e79901ef1" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>insert</name></member>
+      <member refid="classqvector_1ad10cb71a7d5bfdd090dafd52f625eb20" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>insert</name></member>
+      <member refid="structscreen__graph__selection__t_1a1efec88cece51d7852d4bc8ff5d2b388" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>items_count</name></member>
+      <member refid="classqvector_1ad40f094ea07c84e9cab1077188893c5c" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>iterator</name></member>
+      <member refid="structscreen__graph__selection__t_1a58616514d43598f8812a1084d272e7af" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>nodes_count</name></member>
+      <member refid="classqvector_1a72ea097e75bccff811f3a98f050b90b2" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>operator!=</name></member>
+      <member refid="classqvector_1af24534fa1de39b829e85f573640f9f48" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>operator=</name></member>
+      <member refid="classqvector_1ace7ff39fb8ad735fdd45b86a46ba4fbc" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>operator==</name></member>
+      <member refid="classqvector_1a3ffbd25fbea3165cf3f8f7a6b4d5c86d" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>operator[]</name></member>
+      <member refid="classqvector_1a9743bfd5464506b812d9686d3ba40299" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>operator[]</name></member>
+      <member refid="structscreen__graph__selection__t_1a5a9c5cf20a33eff7221f69ef459afe47" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>points_count</name></member>
+      <member refid="classqvector_1ad0dfc171e75ac7ddf1de00309505d995" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>pop_back</name></member>
+      <member refid="classqvector_1a3a46bca9030a31c7e0a1596948797e37" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>push_back</name></member>
+      <member refid="classqvector_1ad54c35eca9074d6458a0f589f09d1750" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>push_back</name></member>
+      <member refid="classqvector_1a5e84e633cf9a05ebdc441af0780edb4a" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>qclear</name></member>
+      <member refid="classqvector_1ac1c66f1594aff3114ed1de62cf84410d" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>qvector</name></member>
+      <member refid="classqvector_1a53936d7ddf6df4efdf91eeed34894c41" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>qvector</name></member>
+      <member refid="classqvector_1a00e5c32c63732f5149e901c932d2f3c2" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>reserve</name></member>
+      <member refid="classqvector_1a86c07a20c0f081c2930118f0db280148" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>resize</name></member>
+      <member refid="classqvector_1ae4d55e7d94d1a247e10baeae524b53dc" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>resize</name></member>
+      <member refid="classqvector_1ae96fe88d3602362b063bd0540ff579dd" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>size</name></member>
+      <member refid="structscreen__graph__selection__t_1a1bda36c3ef65fb136a175023fcfdb801" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>sub</name></member>
+      <member refid="classqvector_1a2006754f99fb324709ae0972ddb20bb4" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>swap</name></member>
+      <member refid="classqvector_1a447062dc6a1a8318a9e0430d4bbe0ec6" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>truncate</name></member>
+      <member refid="classqvector_1a71bc4c4aa5df2fda5b070e74f01b5d28" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>value_type</name></member>
+      <member refid="classqvector_1a3c7294aeb604b9c9e1b47b3abd8cd71e" prot="public" virt="non-virtual"><scope>screen_graph_selection_t</scope><name>~qvector</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

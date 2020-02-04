@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___l_x_o_p_t__" kind="group">
+    <compoundname>LXOPT_</compoundname>
+    <title>Lexer options</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___l_x_o_p_t___1ga068126be2f22c1e330948652d5ce5025" prot="public" static="no">
+        <name>LXOPT_PARSE_FLOATS</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>enable floating point constants </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="256" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___l_x_o_p_t___1ga37c2344a1de5baa94ff11c504a0563e8" prot="public" static="no">
+        <name>LXOPT_REQ_SEPARATOR</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>require a separator between a number and an ident or a character/string constant or dot </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="257" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___l_x_o_p_t___1ga7c1718358d99f1ee5230241ce4915f31" prot="public" static="no">
+        <name>LXOPT_NOCASE_FILES</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>case-insensitive file search </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="258" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___l_x_o_p_t___1gaab71b38807f79493f7354238690db906" prot="public" static="no">
+        <name>LXOPT_C99_CONSTANTS</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the size and sign of constants depend on the value itself and the &apos;U&apos;, &apos;L&apos;, and &apos;LL&apos; modifier suffixes. otherwise the constant is always considered as signed and the size depends only on the number of bytes in the value </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="259" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as &apos;options&apos; parameter to <ref refid="lex_8hpp_1ac0f22dce54fbc1a27caaf77325d4f4da" kindref="member">lex_set_options()</ref>. By default all options are on. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

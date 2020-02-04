@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___n_e_f__" kind="group">
+    <compoundname>NEF_</compoundname>
+    <title>Load file flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___n_e_f___1ga3f5b9cfa74761b15d12189baa77675f0" prot="public" static="no">
+        <name>NEF_SEGS</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>Create segments. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="105" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_e_f___1ga883034000de9c1c1417912e08e2d5160" prot="public" static="no">
+        <name>NEF_RSCS</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>Load resources. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="106" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_e_f___1ga161760832f74975b7a617194956c0ced" prot="public" static="no">
+        <name>NEF_NAME</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>Rename entries. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="107" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_e_f___1ga010750734d8c2621cd74fed09b807440" prot="public" static="no">
+        <name>NEF_MAN</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>Manual load. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="108" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_e_f___1gace2d7cc234e0cf73e2dba41f6826ea07" prot="public" static="no">
+        <name>NEF_FILL</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>Fill segment gaps. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="109" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_e_f___1ga2f36ad0759e6b06a8ce703198bebd895" prot="public" static="no">
+        <name>NEF_IMPS</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>Create import segment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="110" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_e_f___1gaf656881a6f6cf5f94781f6b1daf225df" prot="public" static="no">
+        <name>NEF_FIRST</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para>into the database. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is the first file loaded </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="111" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_e_f___1gacfbe5b017d2e57b28012ed4523e6cbe1" prot="public" static="no">
+        <name>NEF_CODE</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+<para>load as a code segment </para>        </briefdescription>
+        <detaileddescription>
+<para>for <ref refid="loader_8hpp_1a5b08728a4c590e639d3eebca204e7194" kindref="member">load_binary_file()</ref>: </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="113" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_e_f___1ga1e82e9bb7ac0d602cdd774cda222c1a0" prot="public" static="no">
+        <name>NEF_RELOAD</name>
+        <initializer>0x0200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>reload the file at the same place: - don&apos;t create segments<itemizedlist>
+<listitem><para>don&apos;t create fixup info</para></listitem><listitem><para>don&apos;t import segments</para></listitem><listitem><para>etc load only the bytes into the base. a loader should have <ref refid="group___l_d_r_f___1gad84d752ae33d94062ef5dec8f2e82a0b" kindref="member">LDRF_RELOAD</ref> bit set </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="115" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_e_f___1ga9b0865b5611c7ed8e07c2e7f86e215aa" prot="public" static="no">
+        <name>NEF_FLAT</name>
+        <initializer>0x0400</initializer>
+        <briefdescription>
+<para>Autocreate FLAT group (PE) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="123" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_e_f___1ga36e889499ec4dabe90559972ee2d4636" prot="public" static="no">
+        <name>NEF_MINI</name>
+        <initializer>0x0800</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create mini database (do not copy segment bytes from the input file; use only the file header metadata) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="124" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_e_f___1gae5a6e5de2195e83575d8270f12e0e60c" prot="public" static="no">
+        <name>NEF_LOPT</name>
+        <initializer>0x1000</initializer>
+        <briefdescription>
+<para>Display additional loader options dialog. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="127" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_e_f___1gae47bae339b2cc06a2ec5fb30dab3adf0" prot="public" static="no">
+        <name>NEF_LALL</name>
+        <initializer>0x2000</initializer>
+        <briefdescription>
+<para>Load all segments without questions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="128" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as &apos;neflags&apos; parameter to <ref refid="structloader__t_1a06ce7bcf929568ec0e8860cebf235f32" kindref="member">loader_t::load_file</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

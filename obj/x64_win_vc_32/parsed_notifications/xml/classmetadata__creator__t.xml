@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classmetadata__creator__t" kind="class" language="C++" prot="public">
+    <compoundname>metadata_creator_t</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classmetadata__creator__t_1a3921ab0bb6e05e1974a44294c6b9e5dc" prot="private" static="no" mutable="no">
+        <type><ref refid="classmetadata__t" kindref="compound">metadata_t</ref> &amp;</type>
+        <definition>metadata_t&amp; metadata_creator_t::md</definition>
+        <argsstring></argsstring>
+        <name>md</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="178" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmetadata__creator__t_1a0485b308daac9dfac7ca7e37bcbff00e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>metadata_creator_t::metadata_creator_t</definition>
+        <argsstring>(metadata_t *_md)</argsstring>
+        <name>metadata_creator_t</name>
+        <param>
+          <type><ref refid="classmetadata__t" kindref="compound">metadata_t</ref> *</type>
+          <declname>_md</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="180" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="180" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="classmetadata__creator__t_1abc310455962e87a249ee0a99f9185179" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void metadata_creator_t::add</definition>
+        <argsstring>(mdkey_t key, const void *buf, size_t bufsize)</argsstring>
+        <name>add</name>
+        <param>
+          <type>mdkey_t</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="182" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmetadata__creator__t_1afdc6f0ee2dce6d92c658bf8cc62c9737" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void metadata_creator_t::add_uint64</definition>
+        <argsstring>(mdkey_t key, uint64 value)</argsstring>
+        <name>add_uint64</name>
+        <param>
+          <type>mdkey_t</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="183" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmetadata__creator__t_1a5e65faf255bf4d1ddac6be8d234f8f01" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+        <definition>virtual const uchar* metadata_creator_t::find</definition>
+        <argsstring>(mdkey_t key, const uchar **pend=NULL) const</argsstring>
+        <name>find</name>
+        <param>
+          <type>mdkey_t</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>pend</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="184" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmetadata__creator__t_1ab11c252110522af92b2fb539488a169e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void metadata_creator_t::add_str</definition>
+        <argsstring>(mdkey_t key, const qstring &amp;value)</argsstring>
+        <name>add_str</name>
+        <param>
+          <type>mdkey_t</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="186" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="186" bodyend="186"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="177" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="176" bodyend="187"/>
+    <listofallmembers>
+      <member refid="classmetadata__creator__t_1abc310455962e87a249ee0a99f9185179" prot="public" virt="virtual"><scope>metadata_creator_t</scope><name>add</name></member>
+      <member refid="classmetadata__creator__t_1ab11c252110522af92b2fb539488a169e" prot="public" virt="non-virtual"><scope>metadata_creator_t</scope><name>add_str</name></member>
+      <member refid="classmetadata__creator__t_1afdc6f0ee2dce6d92c658bf8cc62c9737" prot="public" virt="virtual"><scope>metadata_creator_t</scope><name>add_uint64</name></member>
+      <member refid="classmetadata__creator__t_1a5e65faf255bf4d1ddac6be8d234f8f01" prot="public" virt="virtual"><scope>metadata_creator_t</scope><name>find</name></member>
+      <member refid="classmetadata__creator__t_1a3921ab0bb6e05e1974a44294c6b9e5dc" prot="private" virt="non-virtual"><scope>metadata_creator_t</scope><name>md</name></member>
+      <member refid="classmetadata__creator__t_1a0485b308daac9dfac7ca7e37bcbff00e" prot="public" virt="non-virtual"><scope>metadata_creator_t</scope><name>metadata_creator_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

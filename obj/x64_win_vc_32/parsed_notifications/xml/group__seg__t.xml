@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__seg__t" kind="group">
+    <compoundname>seg_t</compoundname>
+    <title>Segment structure</title>
+    <innerclass refid="classsegment__t" prot="public">segment_t</innerclass>
+    <innerclass refid="classlock__segment" prot="public">lock_segment</innerclass>
+    <innergroup refid="group__sa__">Segment alignment codes</innergroup>
+    <innergroup refid="group__sc__">Segment combination codes</innergroup>
+    <innergroup refid="group___s_e_g_p_e_r_m__">Segment permissions</innergroup>
+    <innergroup refid="group___s_f_l__">Segment flags</innergroup>
+    <innergroup refid="group___s_e_g__">Segment types</innergroup>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__seg__t_1ga5971fa41ef8ad4588a189a9715c36186" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CASSERT</definition>
+        <argsstring>(sizeof(segment_t)==104)</argsstring>
+        <name>CASSERT</name>
+        <param>
+          <type>sizeof(<ref refid="classsegment__t" kindref="compound">segment_t</ref>)</type>
+          <defval>=104</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="293" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__t_1gab0317864374e984294b04693bb6b1f91" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_visible_segm</definition>
+        <argsstring>(segment_t *s)</argsstring>
+        <name>is_visible_segm</name>
+        <param>
+          <type><ref refid="classsegment__t" kindref="compound">segment_t</ref> *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___s_f_l___1gac31257ddd90ad0acab343cebc28c2233" kindref="member">SFL_HIDDEN</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="297" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="297" bodyend="297"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__t_1ga647d00f6f9abf3ca68071646eeecf833" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_finally_visible_segm</definition>
+        <argsstring>(segment_t *s)</argsstring>
+        <name>is_finally_visible_segm</name>
+        <param>
+          <type><ref refid="classsegment__t" kindref="compound">segment_t</ref> *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___s_f_l___1gac31257ddd90ad0acab343cebc28c2233" kindref="member">SFL_HIDDEN</ref>, <ref refid="group___s_w___c_1ga39f99672364821ce90aeed4d9b0f88c6" kindref="member">SW_SHHID_SEGM</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="299" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="299" bodyend="300"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__t_1ga4a5fcdb678001b56f1e193ae57ed938a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export set_visible_segm</definition>
+        <argsstring>(segment_t *s, bool visible)</argsstring>
+        <name>set_visible_segm</name>
+        <param>
+          <type><ref refid="classsegment__t" kindref="compound">segment_t</ref> *</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>visible</declname>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___s_f_l___1gac31257ddd90ad0acab343cebc28c2233" kindref="member">SFL_HIDDEN</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="302" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__t_1gaa20821d1751b3f47f92cc263e1552c7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export is_spec_segm</definition>
+        <argsstring>(uchar seg_type)</argsstring>
+        <name>is_spec_segm</name>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>seg_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Has segment a special type?. (<ref refid="group___s_e_g___1ga5c9bbede59653b945dacc70598306289" kindref="member">SEG_XTRN</ref>, <ref refid="group___s_e_g___1gab3bd0f97c65dd59b10ea76b16d444784" kindref="member">SEG_GRP</ref>, <ref refid="group___s_e_g___1ga5c130d299e48ff537068e03e8ae23d71" kindref="member">SEG_ABSSYM</ref>, <ref refid="group___s_e_g___1ga39a39aa78e00ea21899571a2b636976e" kindref="member">SEG_COMM</ref>) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="308" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__t_1ga80f10e64c09b833e76ca5f3b7954cc9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export is_spec_ea</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>is_spec_ea</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Does the address belong to a segment with a special type?. (<ref refid="group___s_e_g___1ga5c9bbede59653b945dacc70598306289" kindref="member">SEG_XTRN</ref>, <ref refid="group___s_e_g___1gab3bd0f97c65dd59b10ea76b16d444784" kindref="member">SEG_GRP</ref>, <ref refid="group___s_e_g___1ga5c130d299e48ff537068e03e8ae23d71" kindref="member">SEG_ABSSYM</ref>, <ref refid="group___s_e_g___1ga39a39aa78e00ea21899571a2b636976e" kindref="member">SEG_COMM</ref>) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="315" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__t_1ga63b6f6b1ceaff968314c9125a5206e60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export lock_segm</definition>
+        <argsstring>(const segment_t *segm, bool lock)</argsstring>
+        <name>lock_segm</name>
+        <param>
+          <type>const <ref refid="classsegment__t" kindref="compound">segment_t</ref> *</type>
+          <declname>segm</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>lock</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Lock segment pointer Locked pointers are guaranteed to remain valid until they are unlocked. Ranges with locked pointers can not be deleted or moved. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="322" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__t_1ga61e6c48b6b509790a83f5a78f77c4224" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export is_segm_locked</definition>
+        <argsstring>(const segment_t *segm)</argsstring>
+        <name>is_segm_locked</name>
+        <param>
+          <type>const <ref refid="classsegment__t" kindref="compound">segment_t</ref> *</type>
+          <declname>segm</declname>
+        </param>
+        <briefdescription>
+<para>Is a segment pointer locked? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="340" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Definition of <ref refid="classsegment__t" kindref="compound">segment_t</ref> and related functions </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

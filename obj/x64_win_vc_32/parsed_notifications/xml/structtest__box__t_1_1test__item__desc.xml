@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structtest__box__t_1_1test__item__desc" kind="struct" language="C++" prot="private">
+    <compoundname>test_box_t::test_item_desc</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structtest__box__t_1_1test__item__desc_1ab96cc27588d92d61dbf79bd30ac74024" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring test_box_t::test_item_desc::message</definition>
+        <argsstring></argsstring>
+        <name>message</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="26" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtest__box__t_1_1test__item__desc_1a0e58826b80ab6f0023aaa12eaa77dca4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int test_box_t::test_item_desc::line</definition>
+        <argsstring></argsstring>
+        <name>line</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="27" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtest__box__t_1_1test__item__desc_1af7aab18012ee3ddda3b60b6664ac19bd" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a608a3fbc2403cb7e0b2314675c13f1ce" kindref="member">qtime64_t</ref></type>
+        <definition>qtime64_t test_box_t::test_item_desc::started_at</definition>
+        <argsstring></argsstring>
+        <name>started_at</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="28" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structtest__box__t_1_1test__item__desc_1aab68068d600d6a9c17465bb3ff3955fe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>test_box_t::test_item_desc::test_item_desc</definition>
+        <argsstring>(const char *s=&quot;&quot;)</argsstring>
+        <name>test_item_desc</name>
+        <param>
+          <type>const char *</type>
+          <declname>s</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="29" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="29" bodyend="30"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3430">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="3429">
+        <label>test_box_t::test_item_desc</label>
+        <childnode refid="3430" relation="usage">
+          <edgelabel>message</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="25" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="24" bodyend="31"/>
+    <listofallmembers>
+      <member refid="structtest__box__t_1_1test__item__desc_1a0e58826b80ab6f0023aaa12eaa77dca4" prot="public" virt="non-virtual"><scope>test_box_t::test_item_desc</scope><name>line</name></member>
+      <member refid="structtest__box__t_1_1test__item__desc_1ab96cc27588d92d61dbf79bd30ac74024" prot="public" virt="non-virtual"><scope>test_box_t::test_item_desc</scope><name>message</name></member>
+      <member refid="structtest__box__t_1_1test__item__desc_1af7aab18012ee3ddda3b60b6664ac19bd" prot="public" virt="non-virtual"><scope>test_box_t::test_item_desc</scope><name>started_at</name></member>
+      <member refid="structtest__box__t_1_1test__item__desc_1aab68068d600d6a9c17465bb3ff3955fe" prot="public" virt="non-virtual"><scope>test_box_t::test_item_desc</scope><name>test_item_desc</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

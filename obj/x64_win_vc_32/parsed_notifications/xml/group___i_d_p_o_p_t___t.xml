@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___i_d_p_o_p_t___t" kind="group">
+    <compoundname>IDPOPT_T</compoundname>
+    <title>Option value types</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___i_d_p_o_p_t___t_1gac216775cfbb5b80faebf141c232ca6e1" prot="public" static="no">
+        <name>IDPOPT_STR</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>string constant (char *) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/config.hpp" line="15" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/config.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_p_o_p_t___t_1gad2eac856a1f31681b53742e38c474650" prot="public" static="no">
+        <name>IDPOPT_NUM</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>number (uval_t *) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/config.hpp" line="16" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/config.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_p_o_p_t___t_1ga1d94a7036c65a4c0e4edc674001d4756" prot="public" static="no">
+        <name>IDPOPT_BIT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>bit, yes/no (int *) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/config.hpp" line="17" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/config.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_p_o_p_t___t_1gac4e51c4b6b1dd1f9ac0d3b40c6331bf0" prot="public" static="no">
+        <name>IDPOPT_I64</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>64bit number (int64 *) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/config.hpp" line="18" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/config.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_p_o_p_t___t_1ga96f9878cef63c27341e53d1be3711452" prot="public" static="no">
+        <name>IDPOPT_CST</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>lexer (lexer_t*) Custom type, starting with a &apos;{&apos; Values of this type should be handled by ::set_options_t callbacks. E.g.,: <programlisting><codeline><highlight class="normal">&lt;<sp/>ERROR_STRINGS<sp/>=</highlight></codeline>
+<codeline><highlight class="normal">&lt;<sp/>{</highlight></codeline>
+<codeline><highlight class="normal">&lt;<sp/><sp/><sp/>{0,<sp/>&quot;Unknown<sp/>error&quot;},</highlight></codeline>
+<codeline><highlight class="normal">&lt;<sp/><sp/><sp/>{1,<sp/>&quot;Missing<sp/>filename&quot;},</highlight></codeline>
+<codeline><highlight class="normal">&lt;<sp/><sp/><sp/>{5,<sp/>&quot;Out-of-memory&quot;}</highlight></codeline>
+<codeline><highlight class="normal">&lt;<sp/>}</highlight></codeline>
+<codeline><highlight class="normal">&lt;</highlight></codeline>
+</programlisting> For values of this type, the data that will be passed as the callback&apos;s &apos;value&apos; parameter is the lexer instance that is being used to parse the configuration file. You can use parse_json() (see <ref refid="parsejson_8hpp" kindref="compound">parsejson.hpp</ref>) to parse JSON-format data NB: the &apos;{&apos; is already consumed by the parser, so you need to push it again if it&apos;s a part of the JSON object </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/config.hpp" line="19" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/config.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as &apos;value_type&apos; parameter to ::set_options_t callbacks </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structnode__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>node_info_t</compoundname>
+    <includes refid="graph_8hpp" local="no">graph.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="structnode__info__t_1aefa6724ad1d173685d81284d7162365f" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t node_info_t::cb</definition>
+        <argsstring></argsstring>
+        <name>cb</name>
+        <briefdescription>
+<para>size of this structure </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="53" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structnode__info__t_1a7caea4d93998d2198fcdc0dbb155f6ae" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a3df5040891132e50157aee66affdf1de" kindref="member">bgcolor_t</ref></type>
+        <definition>bgcolor_t node_info_t::bg_color</definition>
+        <argsstring></argsstring>
+        <name>bg_color</name>
+        <briefdescription>
+<para>background color </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="61" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnode__info__t_1a20de596f26b9c470230a1aa68f25155d" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a3df5040891132e50157aee66affdf1de" kindref="member">bgcolor_t</ref></type>
+        <definition>bgcolor_t node_info_t::frame_color</definition>
+        <argsstring></argsstring>
+        <name>frame_color</name>
+        <briefdescription>
+<para>color of enclosing frame </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="62" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnode__info__t_1a7bd92c36a8112663164baf83fda73646" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 node_info_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+<para>flags </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="64" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnode__info__t_1a6cca7ccf2fcdf3904bd05a1319ee2d81" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t node_info_t::ea</definition>
+        <argsstring></argsstring>
+        <name>ea</name>
+        <briefdescription>
+<para>address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="65" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnode__info__t_1a5d7c04d9d47f610a988868d8eb6eaef2" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring node_info_t::text</definition>
+        <argsstring></argsstring>
+        <name>text</name>
+        <briefdescription>
+<para>node contents </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="66" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structnode__info__t_1a36f3525a9db17386d95a3310f8482497" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>node_info_t::node_info_t</definition>
+        <argsstring>()</argsstring>
+        <name>node_info_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="55" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="55" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="structnode__info__t_1af2839ee92901ebeeea584ea155a6a306" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool node_info_t::valid_bg_color</definition>
+        <argsstring>() const</argsstring>
+        <name>valid_bg_color</name>
+        <briefdescription>
+<para>Has valid <ref refid="structnode__info__t_1a7caea4d93998d2198fcdc0dbb155f6ae" kindref="member">bg_color</ref>? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="69" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="69" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="structnode__info__t_1aedc15a9f526dce88e6715f9e3e45df62" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool node_info_t::valid_frame_color</definition>
+        <argsstring>() const</argsstring>
+        <name>valid_frame_color</name>
+        <briefdescription>
+<para>Has valid <ref refid="structnode__info__t_1a20de596f26b9c470230a1aa68f25155d" kindref="member">frame_color</ref>? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="71" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="71" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="structnode__info__t_1ada10e1cf636e79c1e796aeb1d6704df1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool node_info_t::valid_ea</definition>
+        <argsstring>() const</argsstring>
+        <name>valid_ea</name>
+        <briefdescription>
+<para>Has valid <ref refid="structnode__info__t_1a6cca7ccf2fcdf3904bd05a1319ee2d81" kindref="member">ea</ref>? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="73" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="73" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="structnode__info__t_1a8f063f8280f9d007d1f4118da80c2702" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool node_info_t::valid_text</definition>
+        <argsstring>() const</argsstring>
+        <name>valid_text</name>
+        <briefdescription>
+<para>Has non-empty <ref refid="structnode__info__t_1a5d7c04d9d47f610a988868d8eb6eaef2" kindref="member">text</ref>? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="75" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="75" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="structnode__info__t_1a37983a4f7960be5a48ed25d941540e63" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool node_info_t::valid_flags</definition>
+        <argsstring>() const</argsstring>
+        <name>valid_flags</name>
+        <briefdescription>
+<para>Has valid <ref refid="structnode__info__t_1a7bd92c36a8112663164baf83fda73646" kindref="member">flags</ref>? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="77" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="77" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="structnode__info__t_1a86ed4811da9c3e6d53ac582bea681242" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 node_info_t::get_flags_for_valid</definition>
+        <argsstring>() const</argsstring>
+        <name>get_flags_for_valid</name>
+        <briefdescription>
+<para>Get combination of <ref refid="group___n_i_f__" kindref="compound">Node info flags</ref> describing which attributes are valid. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="80" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="80" bodyend="94"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Information about a node in a graph. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2671">
+        <label>node_info_t</label>
+        <link refid="structnode__info__t"/>
+        <childnode refid="2672" relation="usage">
+          <edgelabel>text</edgelabel>
+        </childnode>
+      </node>
+      <node id="2672">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="51" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="50" bodyend="95"/>
+    <listofallmembers>
+      <member refid="structnode__info__t_1a7caea4d93998d2198fcdc0dbb155f6ae" prot="public" virt="non-virtual"><scope>node_info_t</scope><name>bg_color</name></member>
+      <member refid="structnode__info__t_1aefa6724ad1d173685d81284d7162365f" prot="private" virt="non-virtual"><scope>node_info_t</scope><name>cb</name></member>
+      <member refid="structnode__info__t_1a6cca7ccf2fcdf3904bd05a1319ee2d81" prot="public" virt="non-virtual"><scope>node_info_t</scope><name>ea</name></member>
+      <member refid="structnode__info__t_1a7bd92c36a8112663164baf83fda73646" prot="public" virt="non-virtual"><scope>node_info_t</scope><name>flags</name></member>
+      <member refid="structnode__info__t_1a20de596f26b9c470230a1aa68f25155d" prot="public" virt="non-virtual"><scope>node_info_t</scope><name>frame_color</name></member>
+      <member refid="structnode__info__t_1a86ed4811da9c3e6d53ac582bea681242" prot="public" virt="non-virtual"><scope>node_info_t</scope><name>get_flags_for_valid</name></member>
+      <member refid="structnode__info__t_1a36f3525a9db17386d95a3310f8482497" prot="public" virt="non-virtual"><scope>node_info_t</scope><name>node_info_t</name></member>
+      <member refid="structnode__info__t_1a5d7c04d9d47f610a988868d8eb6eaef2" prot="public" virt="non-virtual"><scope>node_info_t</scope><name>text</name></member>
+      <member refid="structnode__info__t_1af2839ee92901ebeeea584ea155a6a306" prot="public" virt="non-virtual"><scope>node_info_t</scope><name>valid_bg_color</name></member>
+      <member refid="structnode__info__t_1ada10e1cf636e79c1e796aeb1d6704df1" prot="public" virt="non-virtual"><scope>node_info_t</scope><name>valid_ea</name></member>
+      <member refid="structnode__info__t_1a37983a4f7960be5a48ed25d941540e63" prot="public" virt="non-virtual"><scope>node_info_t</scope><name>valid_flags</name></member>
+      <member refid="structnode__info__t_1aedc15a9f526dce88e6715f9e3e45df62" prot="public" virt="non-virtual"><scope>node_info_t</scope><name>valid_frame_color</name></member>
+      <member refid="structnode__info__t_1a8f063f8280f9d007d1f4118da80c2702" prot="public" virt="non-virtual"><scope>node_info_t</scope><name>valid_text</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

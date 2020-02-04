@@ -1,0 +1,674 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classvalrng__t" kind="class" language="C++" prot="public">
+    <compoundname>valrng_t</compoundname>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classvalrng__t_1a5bdfecf04d61ae7545a1cac1da7c1c85" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int valrng_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="325" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classvalrng__t_1a548ab79882956f779f84170b939af003" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int valrng_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="338" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="338" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classvalrng__t_1a97c0f1c851bae03d25947e23601976d5" prot="protected" static="no" mutable="no">
+        <type>union valrng_t::@101</type>
+        <definition>union valrng_t::@101 valrng_t::@102</definition>
+        <argsstring></argsstring>
+        <name>@102</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="357" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classvalrng__t_1a7289769dc94e12cd9c4833ff2ccdfd0c" prot="public" static="no" mutable="no">
+        <type>uvlr_t</type>
+        <definition>uvlr_t valrng_t::value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="345" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="345" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classvalrng__t_1ad21101bdfbebd88fd8e4c3c69e50e64d" prot="public" static="no" mutable="no">
+        <type>uvlr_t</type>
+        <definition>uvlr_t valrng_t::limit</definition>
+        <argsstring></argsstring>
+        <name>limit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="346" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="346" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classvalrng__t_1aa6fcc3984b6e38ee57d07fd0c60e3374" prot="public" static="no" mutable="no">
+        <type>svlr_t</type>
+        <definition>svlr_t valrng_t::stride</definition>
+        <argsstring></argsstring>
+        <name>stride</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="348" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="348" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classvalrng__t_1a31ed874931ac5e4a26f0525f0f8ef86b" prot="public" static="no" mutable="no">
+        <type>uvlr_t</type>
+        <definition>uvlr_t valrng_t::zeroes</definition>
+        <argsstring></argsstring>
+        <name>zeroes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="352" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="352" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classvalrng__t_1ad113f25de58444074ee940913c2b8203" prot="public" static="no" mutable="no">
+        <type>uvlr_t</type>
+        <definition>uvlr_t valrng_t::ones</definition>
+        <argsstring></argsstring>
+        <name>ones</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="353" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="353" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classvalrng__t_1a2e6ecb3e236d277889d0181000189492" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char valrng_t::reserved[sizeof(qvector&lt; int &gt;)]</definition>
+        <argsstring>[sizeof(qvector&lt; int &gt;)]</argsstring>
+        <name>reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="355" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="355" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classvalrng__t_1abc37a32e6e48411036718c7d1a62e2b5" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void valrng_t::clear</definition>
+        <argsstring>(void)</argsstring>
+        <name>clear</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="358" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="8983" bodyend="8986"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a4df77386534d9d0a2a1f34a5f63df9f7" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void valrng_t::copy</definition>
+        <argsstring>(const valrng_t &amp;r)</argsstring>
+        <name>copy</name>
+        <param>
+          <type>const <ref refid="classvalrng__t" kindref="compound">valrng_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="359" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="8989" bodyend="8992"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1abec58b8bced910ea301b62a009992d6e" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classvalrng__t" kindref="compound">valrng_t</ref> &amp;hexapi</type>
+        <definition>valrng_t &amp; valrng_t::assign</definition>
+        <argsstring>(const valrng_t &amp;r)</argsstring>
+        <name>assign</name>
+        <param>
+          <type>const <ref refid="classvalrng__t" kindref="compound">valrng_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="360" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="8995" bodyend="8998"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classvalrng__t_1a11a33719355b24245eb4467167c9c025" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>valrng_t::valrng_t</definition>
+        <argsstring>(int size_=MAX_VLR_SIZE)</argsstring>
+        <name>valrng_t</name>
+        <param>
+          <type>int</type>
+          <declname>size_</declname>
+          <defval>MAX_VLR_SIZE</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="363" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="363" bodyend="364"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a851f38ddba18f1b9f708dcd89b932851" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>valrng_t::valrng_t</definition>
+        <argsstring>(const valrng_t &amp;r)</argsstring>
+        <name>valrng_t</name>
+        <param>
+          <type>const <ref refid="classvalrng__t" kindref="compound">valrng_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="365" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="365" bodyend="365"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1ab1602d4525e1acfbf845c6314cf72048" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>valrng_t::~valrng_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>~valrng_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="366" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="366" bodyend="366"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a0d0e3cdd09d1fddb55b9c1283bd230ec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classvalrng__t" kindref="compound">valrng_t</ref> &amp;</type>
+        <definition>valrng_t&amp; valrng_t::operator=</definition>
+        <argsstring>(const valrng_t &amp;r)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="classvalrng__t" kindref="compound">valrng_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="367" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="367" bodyend="367"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a4fd1bb4927a4b61f9fc2ebc2af1c1aa9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void valrng_t::swap</definition>
+        <argsstring>(valrng_t &amp;r)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="classvalrng__t" kindref="compound">valrng_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="368" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="368" bodyend="368"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a6419ea665bafae4cda7b6e033a8d2fd1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void valrng_t::set_none</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_none</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="372" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="372" bodyend="372"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a20347bf4aee3b0c08621612817f9c59e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void valrng_t::set_all</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_all</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="373" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="373" bodyend="373"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a3acb39c24791b65c0a18a4e911d16ef9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void valrng_t::set_eq</definition>
+        <argsstring>(uvlr_t v)</argsstring>
+        <name>set_eq</name>
+        <param>
+          <type>uvlr_t</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="374" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9007" bodyend="9010"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a066f8ac2e2acb1423d81d4dddd1d9281" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void valrng_t::set_cmp</definition>
+        <argsstring>(cmpop_t cmp, uvlr_t _value)</argsstring>
+        <name>set_cmp</name>
+        <param>
+          <type>cmpop_t</type>
+          <declname>cmp</declname>
+        </param>
+        <param>
+          <type>uvlr_t</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="375" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9013" bodyend="9016"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1aa29717f2c88daa1c120c0150ba2ea906" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool valrng_t::reduce_size</definition>
+        <argsstring>(int new_size)</argsstring>
+        <name>reduce_size</name>
+        <param>
+          <type>int</type>
+          <declname>new_size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="384" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9019" bodyend="9022"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1af85f9230e32b57154c5b62e158474bc2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool valrng_t::intersect_with</definition>
+        <argsstring>(const valrng_t &amp;r)</argsstring>
+        <name>intersect_with</name>
+        <param>
+          <type>const <ref refid="classvalrng__t" kindref="compound">valrng_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="388" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9025" bodyend="9028"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a346cd0703ad6cff030ac886e7fef8113" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool valrng_t::unite_with</definition>
+        <argsstring>(const valrng_t &amp;r)</argsstring>
+        <name>unite_with</name>
+        <param>
+          <type>const <ref refid="classvalrng__t" kindref="compound">valrng_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="389" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9031" bodyend="9034"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1ab4b0a87605afe89997e7f7ba8e8005bb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void valrng_t::inverse</definition>
+        <argsstring>()</argsstring>
+        <name>inverse</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="390" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9037" bodyend="9040"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a820ff5a5d9797f971f0785943c8949d6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool valrng_t::empty</definition>
+        <argsstring>(void) const</argsstring>
+        <name>empty</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="392" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="392" bodyend="392"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a592698f3c691c5c6d66e21f6db9dccce" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool valrng_t::all_values</definition>
+        <argsstring>(void) const</argsstring>
+        <name>all_values</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="393" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="393" bodyend="393"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a6e6b47efba7382315e356d7a588f443f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool valrng_t::has</definition>
+        <argsstring>(uvlr_t v) const</argsstring>
+        <name>has</name>
+        <param>
+          <type>uvlr_t</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="394" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9043" bodyend="9046"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a8fc57f45708d54992b93738f4dffc825" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void valrng_t::print</definition>
+        <argsstring>(qstring *vout) const</argsstring>
+        <name>print</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>vout</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="396" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9049" bodyend="9052"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a778ec7db6fd1c351078f1e25d9450d8f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *hexapi</type>
+        <definition>const char * valrng_t::dstr</definition>
+        <argsstring>(void) const</argsstring>
+        <name>dstr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="397" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9055" bodyend="9058"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a126b30e2a9ffa2eba65a65b42624f67a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool valrng_t::cvt_to_single_value</definition>
+        <argsstring>(uvlr_t *v) const</argsstring>
+        <name>cvt_to_single_value</name>
+        <param>
+          <type>uvlr_t *</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="399" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9061" bodyend="9064"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a89f76b032c134e48ecb74db852e98a5f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool valrng_t::cvt_to_cmp</definition>
+        <argsstring>(cmpop_t *cmp, uvlr_t *val, bool strict) const</argsstring>
+        <name>cvt_to_cmp</name>
+        <param>
+          <type>cmpop_t *</type>
+          <declname>cmp</declname>
+        </param>
+        <param>
+          <type>uvlr_t *</type>
+          <declname>val</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>strict</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="400" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9067" bodyend="9070"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a8e25a45efe36a1e90693592388034d91" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int valrng_t::get_size</definition>
+        <argsstring>() const</argsstring>
+        <name>get_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="402" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="402" bodyend="402"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1af8ec713a1f07e6ab6ef192ae935dc7fe" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uvlr_t</type>
+        <definition>uvlr_t valrng_t::max_value</definition>
+        <argsstring>() const</argsstring>
+        <name>max_value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="421" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="421" bodyend="421"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1ac87896568439e852665f429b3503895d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uvlr_t</type>
+        <definition>uvlr_t valrng_t::min_svalue</definition>
+        <argsstring>() const</argsstring>
+        <name>min_svalue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="422" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="422" bodyend="422"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a0cf1b32f298729724c8bac706e62a3d1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uvlr_t</type>
+        <definition>uvlr_t valrng_t::max_svalue</definition>
+        <argsstring>() const</argsstring>
+        <name>max_svalue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="423" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="423" bodyend="423"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classvalrng__t_1a0a33c61e1ecce325432fa42a47f12973" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uvlr_t</type>
+        <definition>static uvlr_t valrng_t::max_value</definition>
+        <argsstring>(int size_)</argsstring>
+        <name>max_value</name>
+        <param>
+          <type>int</type>
+          <declname>size_</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="403" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="403" bodyend="408"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a43d05307f763dca112dca2467f58410e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uvlr_t</type>
+        <definition>static uvlr_t valrng_t::min_svalue</definition>
+        <argsstring>(int size_)</argsstring>
+        <name>min_svalue</name>
+        <param>
+          <type>int</type>
+          <declname>size_</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="409" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="409" bodyend="414"/>
+      </memberdef>
+      <memberdef kind="function" id="classvalrng__t_1a85b125047dde607013a6002fc6133010" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uvlr_t</type>
+        <definition>static uvlr_t valrng_t::max_svalue</definition>
+        <argsstring>(int size_)</argsstring>
+        <name>max_svalue</name>
+        <param>
+          <type>int</type>
+          <declname>size_</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="415" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="415" bodyend="420"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="323" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="322" bodyend="424"/>
+    <listofallmembers>
+      <member refid="classvalrng__t_1a592698f3c691c5c6d66e21f6db9dccce" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>all_values</name></member>
+      <member refid="classvalrng__t_1abec58b8bced910ea301b62a009992d6e" prot="protected" virt="non-virtual"><scope>valrng_t</scope><name>assign</name></member>
+      <member refid="classvalrng__t_1abc37a32e6e48411036718c7d1a62e2b5" prot="protected" virt="non-virtual"><scope>valrng_t</scope><name>clear</name></member>
+      <member refid="classvalrng__t_1a4df77386534d9d0a2a1f34a5f63df9f7" prot="protected" virt="non-virtual"><scope>valrng_t</scope><name>copy</name></member>
+      <member refid="classvalrng__t_1a89f76b032c134e48ecb74db852e98a5f" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>cvt_to_cmp</name></member>
+      <member refid="classvalrng__t_1a126b30e2a9ffa2eba65a65b42624f67a" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>cvt_to_single_value</name></member>
+      <member refid="classvalrng__t_1a778ec7db6fd1c351078f1e25d9450d8f" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>dstr</name></member>
+      <member refid="classvalrng__t_1a820ff5a5d9797f971f0785943c8949d6" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>empty</name></member>
+      <member refid="classvalrng__t_1a5bdfecf04d61ae7545a1cac1da7c1c85" prot="protected" virt="non-virtual"><scope>valrng_t</scope><name>flags</name></member>
+      <member refid="classvalrng__t_1a8e25a45efe36a1e90693592388034d91" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>get_size</name></member>
+      <member refid="classvalrng__t_1a6e6b47efba7382315e356d7a588f443f" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>has</name></member>
+      <member refid="classvalrng__t_1af85f9230e32b57154c5b62e158474bc2" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>intersect_with</name></member>
+      <member refid="classvalrng__t_1ab4b0a87605afe89997e7f7ba8e8005bb" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>inverse</name></member>
+      <member refid="classvalrng__t_1ad21101bdfbebd88fd8e4c3c69e50e64d" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>limit</name></member>
+      <member refid="classvalrng__t_1a85b125047dde607013a6002fc6133010" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>max_svalue</name></member>
+      <member refid="classvalrng__t_1a0cf1b32f298729724c8bac706e62a3d1" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>max_svalue</name></member>
+      <member refid="classvalrng__t_1a0a33c61e1ecce325432fa42a47f12973" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>max_value</name></member>
+      <member refid="classvalrng__t_1af8ec713a1f07e6ab6ef192ae935dc7fe" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>max_value</name></member>
+      <member refid="classvalrng__t_1a43d05307f763dca112dca2467f58410e" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>min_svalue</name></member>
+      <member refid="classvalrng__t_1ac87896568439e852665f429b3503895d" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>min_svalue</name></member>
+      <member refid="classvalrng__t_1ad113f25de58444074ee940913c2b8203" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>ones</name></member>
+      <member refid="classvalrng__t_1a0d0e3cdd09d1fddb55b9c1283bd230ec" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>operator=</name></member>
+      <member refid="classvalrng__t_1a8fc57f45708d54992b93738f4dffc825" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>print</name></member>
+      <member refid="classvalrng__t_1aa29717f2c88daa1c120c0150ba2ea906" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>reduce_size</name></member>
+      <member refid="classvalrng__t_1a2e6ecb3e236d277889d0181000189492" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>reserved</name></member>
+      <member refid="classvalrng__t_1a20347bf4aee3b0c08621612817f9c59e" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>set_all</name></member>
+      <member refid="classvalrng__t_1a066f8ac2e2acb1423d81d4dddd1d9281" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>set_cmp</name></member>
+      <member refid="classvalrng__t_1a3acb39c24791b65c0a18a4e911d16ef9" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>set_eq</name></member>
+      <member refid="classvalrng__t_1a6419ea665bafae4cda7b6e033a8d2fd1" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>set_none</name></member>
+      <member refid="classvalrng__t_1a548ab79882956f779f84170b939af003" prot="protected" virt="non-virtual"><scope>valrng_t</scope><name>size</name></member>
+      <member refid="classvalrng__t_1aa6fcc3984b6e38ee57d07fd0c60e3374" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>stride</name></member>
+      <member refid="classvalrng__t_1a4fd1bb4927a4b61f9fc2ebc2af1c1aa9" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>swap</name></member>
+      <member refid="classvalrng__t_1a346cd0703ad6cff030ac886e7fef8113" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>unite_with</name></member>
+      <member refid="classvalrng__t_1a11a33719355b24245eb4467167c9c025" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>valrng_t</name></member>
+      <member refid="classvalrng__t_1a851f38ddba18f1b9f708dcd89b932851" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>valrng_t</name></member>
+      <member refid="classvalrng__t_1a7289769dc94e12cd9c4833ff2ccdfd0c" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>value</name></member>
+      <member refid="classvalrng__t_1a31ed874931ac5e4a26f0525f0f8ef86b" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>zeroes</name></member>
+      <member refid="classvalrng__t_1ab1602d4525e1acfbf845c6314cf72048" prot="public" virt="non-virtual"><scope>valrng_t</scope><name>~valrng_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

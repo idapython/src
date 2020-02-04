@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structstrpath__t" kind="struct" language="C++" prot="public">
+    <compoundname>strpath_t</compoundname>
+    <includes refid="nalt_8hpp" local="no">nalt.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structstrpath__t_1ab809b83a4e4b19de2809cba9dbf3991c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int strpath_t::len</definition>
+        <argsstring></argsstring>
+        <name>len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1069" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1069" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstrpath__t_1a2322be43da1a501531195c6d2f43e87e" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+        <definition>tid_t strpath_t::ids[MAXSTRUCPATH]</definition>
+        <argsstring>[MAXSTRUCPATH]</argsstring>
+        <name>ids</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1070" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1070" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstrpath__t_1a14b7140d3fc7b5ecce19acdee5f97562" prot="public" static="no" mutable="no">
+        <type>adiff_t</type>
+        <definition>adiff_t strpath_t::delta</definition>
+        <argsstring></argsstring>
+        <name>delta</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1071" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1071" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Information for structure offsets. ids[0] contains the id of the structure. ids[1..len-1] contain ids of the structure members used in the structure offset expression. len is the length of the path, i.e. the number of elements in &apos;ids&apos; </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1068" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1067" bodyend="1072"/>
+    <listofallmembers>
+      <member refid="structstrpath__t_1a14b7140d3fc7b5ecce19acdee5f97562" prot="public" virt="non-virtual"><scope>strpath_t</scope><name>delta</name></member>
+      <member refid="structstrpath__t_1a2322be43da1a501531195c6d2f43e87e" prot="public" virt="non-virtual"><scope>strpath_t</scope><name>ids</name></member>
+      <member refid="structstrpath__t_1ab809b83a4e4b19de2809cba9dbf3991c" prot="public" virt="non-virtual"><scope>strpath_t</scope><name>len</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

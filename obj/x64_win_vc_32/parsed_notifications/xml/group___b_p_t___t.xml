@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___b_p_t___t" kind="group">
+    <compoundname>BPT_T</compoundname>
+    <title>Breakpoint property bits</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___b_p_t___t_1gacbd238deaf33381a2aa088196ddea23e" prot="public" static="no">
+        <name>BPT_BRK</name>
+        <initializer>0x001</initializer>
+        <briefdescription>
+<para>suspend execution upon hit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="870" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="870" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___t_1gadf73c238e0a67de390af45736faa776c" prot="public" static="no">
+        <name>BPT_TRACE</name>
+        <initializer>0x002</initializer>
+        <briefdescription>
+<para>add trace information upon hit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="871" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="871" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___t_1gaea2ea7c1d9fe71b74af6ccb27816909f" prot="public" static="no">
+        <name>BPT_UPDMEM</name>
+        <initializer>0x004</initializer>
+        <briefdescription>
+<para>refresh the memory layout and contents before evaluating bpt condition </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="872" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="872" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___t_1ga676933a01a999f920344a4bcf66d520a" prot="public" static="no">
+        <name>BPT_ENABLED</name>
+        <initializer>0x008</initializer>
+        <briefdescription>
+<para>enabled? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="873" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="873" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___t_1gaffc7f41a3b2727c763e7a6d3cca9f7f9" prot="public" static="no">
+        <name>BPT_LOWCND</name>
+        <initializer>0x010</initializer>
+        <briefdescription>
+<para>condition is calculated at low level (on the server side) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="874" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="874" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___t_1gafd47ed258135b5b73c3decb5333d98e7" prot="public" static="no">
+        <name>BPT_TRACEON</name>
+        <initializer>0x020</initializer>
+        <briefdescription>
+<para>enable tracing when the breakpoint is reached </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="875" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="875" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___t_1ga6222bf4262d21d808ab8b02bd00ac529" prot="public" static="no">
+        <name>BPT_TRACE_INSN</name>
+        <initializer>0x040</initializer>
+        <briefdescription>
+<para>instruction tracing </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="876" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="876" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___t_1ga6bf83919e074279985b267313da3d85a" prot="public" static="no">
+        <name>BPT_TRACE_FUNC</name>
+        <initializer>0x080</initializer>
+        <briefdescription>
+<para>function tracing </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="877" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="877" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___t_1ga875b2eb20e3fc94db53d820b41483ab9" prot="public" static="no">
+        <name>BPT_TRACE_BBLK</name>
+        <initializer>0x100</initializer>
+        <briefdescription>
+<para>basic block tracing </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="878" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="878" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___t_1ga25819cfb44b41490d5bbedac716a5370" prot="public" static="no">
+        <name>BPT_TRACE_TYPES</name>
+        <initializer>(<ref refid="group___b_p_t___t_1ga6222bf4262d21d808ab8b02bd00ac529" kindref="member">BPT_TRACE_INSN</ref>|<ref refid="group___b_p_t___t_1ga6bf83919e074279985b267313da3d85a" kindref="member">BPT_TRACE_FUNC</ref>|<ref refid="group___b_p_t___t_1ga875b2eb20e3fc94db53d820b41483ab9" kindref="member">BPT_TRACE_BBLK</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>trace insns, functions, and basic blocks. if any of <ref refid="group___b_p_t___t_1ga25819cfb44b41490d5bbedac716a5370" kindref="member">BPT_TRACE_TYPES</ref> bits are set but <ref refid="group___b_p_t___t_1gafd47ed258135b5b73c3decb5333d98e7" kindref="member">BPT_TRACEON</ref> is clear, then turn off tracing for the specified trace types </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="879" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="879" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___t_1ga94841ed3129ece45901d963b4b723745" prot="public" static="no">
+        <name>BPT_ELANG_MASK</name>
+        <initializer>0xF0000000u</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="883" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="883" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___t_1ga077a5d1f1a7c942b557e35f97a72e1fe" prot="public" static="no">
+        <name>BPT_ELANG_SHIFT</name>
+        <initializer>28</initializer>
+        <briefdescription>
+<para>index of the extlang (scripting language) of the condition </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="884" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="884" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="structbpt__t_1abc14bb9f84e91c2f02acd4cbb801d23d" kindref="member">bpt_t::flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

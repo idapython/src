@@ -1,0 +1,236 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structptr__type__data__t" kind="struct" language="C++" prot="public">
+    <compoundname>ptr_type_data_t</compoundname>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structptr__type__data__t_1aa66de98cc93204bd170eb6f709970fdb" prot="public" static="no" mutable="no">
+        <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref></type>
+        <definition>tinfo_t ptr_type_data_t::obj_type</definition>
+        <argsstring></argsstring>
+        <name>obj_type</name>
+        <briefdescription>
+<para>pointed object type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3167" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structptr__type__data__t_1ab79edff0567cde04493697e6c0391fa9" prot="public" static="no" mutable="no">
+        <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref></type>
+        <definition>tinfo_t ptr_type_data_t::closure</definition>
+        <argsstring></argsstring>
+        <name>closure</name>
+        <briefdescription>
+<para>can not have both closure and based_ptr_size </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3168" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structptr__type__data__t_1a4489cfd848b2bc59b8cb3fbec00844ec" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar ptr_type_data_t::based_ptr_size</definition>
+        <argsstring></argsstring>
+        <name>based_ptr_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3169" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structptr__type__data__t_1a9734ea53131fa400a087fe4abd3986c0" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar ptr_type_data_t::taptr_bits</definition>
+        <argsstring></argsstring>
+        <name>taptr_bits</name>
+        <briefdescription>
+<para>TAH bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3170" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structptr__type__data__t_1afb551224c3b0055e3790aec29de28eab" prot="public" static="no" mutable="no">
+        <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref></type>
+        <definition>tinfo_t ptr_type_data_t::parent</definition>
+        <argsstring></argsstring>
+        <name>parent</name>
+        <briefdescription>
+<para>Parent struct. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3171" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structptr__type__data__t_1a459046ab71bb4893e29101ff691a92de" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 ptr_type_data_t::delta</definition>
+        <argsstring></argsstring>
+        <name>delta</name>
+        <briefdescription>
+<para>Offset from the beginning of the parent struct. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3172" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3172" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structptr__type__data__t_1ac849754797e19141453d5e05f2ffb172" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ptr_type_data_t::ptr_type_data_t</definition>
+        <argsstring>(tinfo_t c=tinfo_t(), uchar bps=0, tinfo_t p=tinfo_t(), int32 d=0)</argsstring>
+        <name>ptr_type_data_t</name>
+        <param>
+          <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref></type>
+          <declname>c</declname>
+          <defval><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref>()</defval>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>bps</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref></type>
+          <declname>p</declname>
+          <defval><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref>()</defval>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+          <declname>d</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3173" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3173" bodyend="3178"/>
+      </memberdef>
+      <memberdef kind="function" id="structptr__type__data__t_1a02a9709c4725dd3dbbf7ca0af5eddd07" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ptr_type_data_t::swap</definition>
+        <argsstring>(ptr_type_data_t &amp;r)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="structptr__type__data__t" kindref="compound">ptr_type_data_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Set this = r and r = this. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3180" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structptr__type__data__t_1a5cd20efb739f917563e54a41458bcb90" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ptr_type_data_t::operator==</definition>
+        <argsstring>(const ptr_type_data_t &amp;r) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structptr__type__data__t" kindref="compound">ptr_type_data_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3181" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3181" bodyend="3186"/>
+      </memberdef>
+      <memberdef kind="function" id="structptr__type__data__t_1a06d363c1cf972ad407a3b1ac4cfb4184" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ptr_type_data_t::operator!=</definition>
+        <argsstring>(const ptr_type_data_t &amp;r) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structptr__type__data__t" kindref="compound">ptr_type_data_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3187" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3187" bodyend="3187"/>
+      </memberdef>
+      <memberdef kind="function" id="structptr__type__data__t_1a2f25fb8704ad178f12d3e740869698f6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ptr_type_data_t::is_code_ptr</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_code_ptr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Are we pointing to code? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3188" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structptr__type__data__t_1a94368c879d22267f54b339828aa1ccc5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ptr_type_data_t::is_shifted</definition>
+        <argsstring>() const</argsstring>
+        <name>is_shifted</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3189" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3189" bodyend="3189"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Pointer type information (see <ref refid="classtinfo__t_1a5e4c70cdadcbc8f14d8d91444f75e95d" kindref="member">tinfo_t::get_ptr_details()</ref>) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2925">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="2924">
+        <label>ptr_type_data_t</label>
+        <link refid="structptr__type__data__t"/>
+        <childnode refid="2925" relation="usage">
+          <edgelabel>closure</edgelabel>
+          <edgelabel>parent</edgelabel>
+          <edgelabel>obj_type</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3166" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3165" bodyend="3190"/>
+    <listofallmembers>
+      <member refid="structptr__type__data__t_1a4489cfd848b2bc59b8cb3fbec00844ec" prot="public" virt="non-virtual"><scope>ptr_type_data_t</scope><name>based_ptr_size</name></member>
+      <member refid="structptr__type__data__t_1ab79edff0567cde04493697e6c0391fa9" prot="public" virt="non-virtual"><scope>ptr_type_data_t</scope><name>closure</name></member>
+      <member refid="structptr__type__data__t_1a459046ab71bb4893e29101ff691a92de" prot="public" virt="non-virtual"><scope>ptr_type_data_t</scope><name>delta</name></member>
+      <member refid="structptr__type__data__t_1a2f25fb8704ad178f12d3e740869698f6" prot="public" virt="non-virtual"><scope>ptr_type_data_t</scope><name>is_code_ptr</name></member>
+      <member refid="structptr__type__data__t_1a94368c879d22267f54b339828aa1ccc5" prot="public" virt="non-virtual"><scope>ptr_type_data_t</scope><name>is_shifted</name></member>
+      <member refid="structptr__type__data__t_1aa66de98cc93204bd170eb6f709970fdb" prot="public" virt="non-virtual"><scope>ptr_type_data_t</scope><name>obj_type</name></member>
+      <member refid="structptr__type__data__t_1a06d363c1cf972ad407a3b1ac4cfb4184" prot="public" virt="non-virtual"><scope>ptr_type_data_t</scope><name>operator!=</name></member>
+      <member refid="structptr__type__data__t_1a5cd20efb739f917563e54a41458bcb90" prot="public" virt="non-virtual"><scope>ptr_type_data_t</scope><name>operator==</name></member>
+      <member refid="structptr__type__data__t_1afb551224c3b0055e3790aec29de28eab" prot="public" virt="non-virtual"><scope>ptr_type_data_t</scope><name>parent</name></member>
+      <member refid="structptr__type__data__t_1ac849754797e19141453d5e05f2ffb172" prot="public" virt="non-virtual"><scope>ptr_type_data_t</scope><name>ptr_type_data_t</name></member>
+      <member refid="structptr__type__data__t_1a02a9709c4725dd3dbbf7ca0af5eddd07" prot="public" virt="non-virtual"><scope>ptr_type_data_t</scope><name>swap</name></member>
+      <member refid="structptr__type__data__t_1a9734ea53131fa400a087fe4abd3986c0" prot="public" virt="non-virtual"><scope>ptr_type_data_t</scope><name>taptr_bits</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structvalue__u_1_1dq__t" kind="struct" language="C++" prot="public">
+    <compoundname>value_u::dq_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structvalue__u_1_1dq__t_1a0e44ec5cc0742016d58efabc1c9bab7a" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 value_u::dq_t::low</definition>
+        <argsstring></argsstring>
+        <name>low</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="563" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="563" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvalue__u_1_1dq__t_1a3156a881a189d181eba976311bf4328f" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 value_u::dq_t::high</definition>
+        <argsstring></argsstring>
+        <name>high</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="563" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="563" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="563" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="563" bodyend="563"/>
+    <listofallmembers>
+      <member refid="structvalue__u_1_1dq__t_1a3156a881a189d181eba976311bf4328f" prot="public" virt="non-virtual"><scope>value_u::dq_t</scope><name>high</name></member>
+      <member refid="structvalue__u_1_1dq__t_1a0e44ec5cc0742016d58efabc1c9bab7a" prot="public" virt="non-virtual"><scope>value_u::dq_t</scope><name>low</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

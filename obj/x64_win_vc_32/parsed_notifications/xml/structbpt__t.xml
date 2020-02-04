@@ -1,0 +1,726 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structbpt__t" kind="struct" language="C++" prot="public">
+    <compoundname>bpt_t</compoundname>
+    <includes refid="dbg_8hpp" local="no">dbg.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbpt__t_1afe65ffce093659794b63082ce38f85ff" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t bpt_t::cb</definition>
+        <argsstring></argsstring>
+        <name>cb</name>
+        <briefdescription>
+<para>size of this structure </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="857" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="857" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbpt__t_1aa350cca6d588bb08bcc4d724b43e83b4" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring bpt_t::cndbody</definition>
+        <argsstring></argsstring>
+        <name>cndbody</name>
+        <briefdescription>
+<para>Condition as entered by the user. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="858" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="858" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbpt__t_1aaf8f71a31b50f03d76384761a464fe68" prot="public" static="no" mutable="no">
+        <type><ref refid="structbpt__location__t" kindref="compound">bpt_location_t</ref></type>
+        <definition>bpt_location_t bpt_t::loc</definition>
+        <argsstring></argsstring>
+        <name>loc</name>
+        <briefdescription>
+<para>Location. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="859" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="859" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbpt__t_1a81f77f0e6e5b8b4c6de2c71611f89338" prot="public" static="no" mutable="no">
+        <type><ref refid="idd_8hpp_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref></type>
+        <definition>pid_t bpt_t::pid</definition>
+        <argsstring></argsstring>
+        <name>pid</name>
+        <briefdescription>
+<para>breakpoint process id </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="860" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="860" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbpt__t_1a6b788652f9e3edbcc3832bab8cf45958" prot="public" static="no" mutable="no">
+        <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+        <definition>thid_t bpt_t::tid</definition>
+        <argsstring></argsstring>
+        <name>tid</name>
+        <briefdescription>
+<para>breakpoint thread id </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="861" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="861" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbpt__t_1af1cefcb79aef35e29c9204b094f7f27e" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t bpt_t::ea</definition>
+        <argsstring></argsstring>
+        <name>ea</name>
+        <briefdescription>
+<para>Address, if known. For <ref refid="group__dbg__funcs__bpts_1ggaf5c25ba86cdf45fc0a619a356e20ff3ea698e1dfca593bbdd7d74769de204f2d6" kindref="member">BPLT_SRC</ref>, index into an internal data struct. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="862" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="862" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbpt__t_1aec6d504acf8e2217fb4bdfe6061cab37" prot="public" static="no" mutable="no">
+        <type><ref refid="idd_8hpp_1a773a43fff5c9bacc9f28d203baec542d" kindref="member">bpttype_t</ref></type>
+        <definition>bpttype_t bpt_t::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+<para>Breakpoint type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="863" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="863" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbpt__t_1a5be8cb9d4acc244b64afbdea5b8297a8" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int bpt_t::pass_count</definition>
+        <argsstring></argsstring>
+        <name>pass_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Number of times the breakpoint is hit before stopping (default is 0: stop always) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="864" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="864" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbpt__t_1abc14bb9f84e91c2f02acd4cbb801d23d" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 bpt_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___b_p_t___t" kindref="compound">Breakpoint property bits</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="866" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="866" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbpt__t_1a388a2b966e8842223ec0dfff69f6a799" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 bpt_t::props</definition>
+        <argsstring></argsstring>
+        <name>props</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___b_k_p_t__" kindref="compound">Internal breakpoint properties</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="887" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="887" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbpt__t_1a7e9e4eccca1699181f17c4cbc7371b4c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int bpt_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+<para>Size of the breakpoint (0 for software breakpoints) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="903" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="903" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbpt__t_1a4c5041455c7f3ae7f133c744d7c27b39" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int bpt_t::cndidx</definition>
+        <argsstring></argsstring>
+        <name>cndidx</name>
+        <briefdescription>
+<para>Internal number of the condition (&lt;0-none) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="904" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="904" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structbpt__t_1a91eb8875eebe3b6eab99aaaf33c6f55a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>bpt_t::bpt_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>bpt_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="906" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="906" bodyend="908"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1af1d08a366af571e237dd1a2c9496f2ac" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::is_hwbpt</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_hwbpt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is hardware breakpoint? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="910" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="910" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1a545a5c69434a5160f496fc62fab42412" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::enabled</definition>
+        <argsstring>(void) const</argsstring>
+        <name>enabled</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is breakpoint enabled? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="911" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="911" bodyend="910"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1ad07d7554776e9a8c0b58ce29c872def3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::is_low_level</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_low_level</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is bpt condition calculated at low level? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="912" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="912" bodyend="911"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1ae2271ce5923875db664e7f9b4539c47f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::badbpt</definition>
+        <argsstring>(void) const</argsstring>
+        <name>badbpt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Failed to write bpt to process memory? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="913" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="913" bodyend="912"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1ab6e006fce990431bcbe957bc8bcf16a2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::listbpt</definition>
+        <argsstring>(void) const</argsstring>
+        <name>listbpt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Include in the bpt list? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="914" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="914" bodyend="913"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1accca62a36187c076db667ed5b10dae26" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::is_compiled</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_compiled</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Condition has been compiled? </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="915" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="915" bodyend="914"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1a7560997706c4acae73fc1e9b7fb8c16a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::is_active</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_active</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Written completely to process? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="917" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="917" bodyend="917"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1aedc15577b29091f8a17d4c7cd21b9895" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::is_partially_active</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_partially_active</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Written partially to process? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="919" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="919" bodyend="919"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1abeebe5f346ed43f75414f001ef1937d6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::is_inactive</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_inactive</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Not written to process at all? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="921" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="921" bodyend="921"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1a7a3b8d95e2129a2e34f8a8bf2a981d22" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::is_page_bpt</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_page_bpt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Page breakpoint? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="923" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="923" bodyend="923"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1a3702fe3681d56c60bd9811862773ee5d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int bpt_t::get_size</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_size</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get bpt size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="926" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="926" bodyend="926"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1a288d2928b90faa36f2ad00b66ee40938" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void bpt_t::set_abs_bpt</definition>
+        <argsstring>(ea_t a)</argsstring>
+        <name>set_abs_bpt</name>
+        <param>
+          <type>ea_t</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+<para>Set bpt location to an absolute address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="928" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="928" bodyend="928"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1af972a1101746a1deab6c0e03f011b037" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void bpt_t::set_src_bpt</definition>
+        <argsstring>(const char *fn, int lineno)</argsstring>
+        <name>set_src_bpt</name>
+        <param>
+          <type>const char *</type>
+          <declname>fn</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>lineno</declname>
+        </param>
+        <briefdescription>
+<para>Set bpt location to a source line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="930" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="930" bodyend="930"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1a87f60fe8d5d63e0c9dd870d22522e96a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void bpt_t::set_sym_bpt</definition>
+        <argsstring>(const char *sym, uval_t o)</argsstring>
+        <name>set_sym_bpt</name>
+        <param>
+          <type>const char *</type>
+          <declname>sym</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+<para>Set bpt location to a symbol. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="932" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="932" bodyend="932"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1afd6e7c6f752effbfef5412972d44b456" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void bpt_t::set_rel_bpt</definition>
+        <argsstring>(const char *mod, uval_t o)</argsstring>
+        <name>set_rel_bpt</name>
+        <param>
+          <type>const char *</type>
+          <declname>mod</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+<para>Set bpt location to a relative address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="934" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="934" bodyend="934"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1ad7fd6a06060f55e88fd93d2f87ef4d63" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::is_absbpt</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_absbpt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is absolute address breakpoint? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="936" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="936" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1a9e6344e449bc5ba79da838f39abec9d2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::is_relbpt</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_relbpt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is relative address breakpoint? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="937" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="937" bodyend="936"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1a432c838ba26805a4a003b0c94673d0a9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::is_symbpt</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_symbpt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is symbolic breakpoint? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="938" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="938" bodyend="937"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1ad9bf7e28ca8d0c038a02769b05adfbc7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::is_srcbpt</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_srcbpt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is source level breakpoint? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="939" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="939" bodyend="938"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1a521846b910322d6a73325148e22be2db" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::is_tracemodebpt</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_tracemodebpt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Does breakpoint trace anything? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="942" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="942" bodyend="942"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1aabee4ac25d69414492ea9d612ddabbc3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::is_traceonbpt</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_traceonbpt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is this a tracing breakpoint, and is tracing enabled? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="944" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="944" bodyend="944"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1aca3c57b35f17947f93277c4c62176deb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::is_traceoffbpt</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_traceoffbpt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is this a tracing breakpoint, and is tracing disabled? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="946" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="946" bodyend="946"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1a4f57bc34146bce6133a340a38d91c78c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::set_trace_action</definition>
+        <argsstring>(bool enable, int trace_types)</argsstring>
+        <name>set_trace_action</name>
+        <param>
+          <type>bool</type>
+          <declname>enable</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>trace_types</declname>
+        </param>
+        <briefdescription>
+<para>Configure tracing options. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="948" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="948" bodyend="956"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gaff11b43cc13e61401fae304206a38d21" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * bpt_t::get_cnd_elang</definition>
+        <argsstring>() const</argsstring>
+        <name>get_cnd_elang</name>
+        <briefdescription>
+<para>Get the scripting language name for the condition string. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="959" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2545" bodyend="2545"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gaf059bf1ce65fa5f7312772869bca369f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::set_cnd_elang</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>set_cnd_elang</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set the scripting language name for the condition string <simplesect kind="return"><para>false if too many languages were used </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="963" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2546" bodyend="2546"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1a726396267a6eddb1be078b6965450c5b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t bpt_t::get_cnd_elang_idx</definition>
+        <argsstring>() const</argsstring>
+        <name>get_cnd_elang_idx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="965" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="965" bodyend="965"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1a7437647edb1f6083b50aec46a650d68b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void bpt_t::set_cond</definition>
+        <argsstring>(const char *cnd)</argsstring>
+        <name>set_cond</name>
+        <param>
+          <type>const char *</type>
+          <declname>cnd</declname>
+        </param>
+        <briefdescription>
+<para>Internal function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="967" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structbpt__t_1ad2675afab330de4ceba2d2854a6e4d46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::eval_cond</definition>
+        <argsstring>(ea_t ea, bool *fire, const char *bpt_type)</argsstring>
+        <name>eval_cond</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>bool *</type>
+          <declname>fire</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>bpt_type</declname>
+        </param>
+        <briefdescription>
+<para>Internal function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="968" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Characteristics of a breakpoint. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="111">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="110">
+        <label>bpt_location_t</label>
+        <link refid="structbpt__location__t"/>
+      </node>
+      <node id="109">
+        <label>bpt_t</label>
+        <link refid="structbpt__t"/>
+        <childnode refid="110" relation="usage">
+          <edgelabel>loc</edgelabel>
+        </childnode>
+        <childnode refid="111" relation="usage">
+          <edgelabel>cndbody</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="856" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="855" bodyend="969"/>
+    <listofallmembers>
+      <member refid="structbpt__t_1ae2271ce5923875db664e7f9b4539c47f" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>badbpt</name></member>
+      <member refid="structbpt__t_1a91eb8875eebe3b6eab99aaaf33c6f55a" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>bpt_t</name></member>
+      <member refid="structbpt__t_1afe65ffce093659794b63082ce38f85ff" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>cb</name></member>
+      <member refid="structbpt__t_1aa350cca6d588bb08bcc4d724b43e83b4" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>cndbody</name></member>
+      <member refid="structbpt__t_1a4c5041455c7f3ae7f133c744d7c27b39" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>cndidx</name></member>
+      <member refid="structbpt__t_1af1cefcb79aef35e29c9204b094f7f27e" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>ea</name></member>
+      <member refid="structbpt__t_1a545a5c69434a5160f496fc62fab42412" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>enabled</name></member>
+      <member refid="structbpt__t_1ad2675afab330de4ceba2d2854a6e4d46" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>eval_cond</name></member>
+      <member refid="structbpt__t_1abc14bb9f84e91c2f02acd4cbb801d23d" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>flags</name></member>
+      <member refid="group__dbg__funcs__conv_1gaff11b43cc13e61401fae304206a38d21" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>get_cnd_elang</name></member>
+      <member refid="structbpt__t_1a726396267a6eddb1be078b6965450c5b" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>get_cnd_elang_idx</name></member>
+      <member refid="structbpt__t_1a3702fe3681d56c60bd9811862773ee5d" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>get_size</name></member>
+      <member refid="structbpt__t_1ad7fd6a06060f55e88fd93d2f87ef4d63" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>is_absbpt</name></member>
+      <member refid="structbpt__t_1a7560997706c4acae73fc1e9b7fb8c16a" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>is_active</name></member>
+      <member refid="structbpt__t_1accca62a36187c076db667ed5b10dae26" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>is_compiled</name></member>
+      <member refid="structbpt__t_1af1d08a366af571e237dd1a2c9496f2ac" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>is_hwbpt</name></member>
+      <member refid="structbpt__t_1abeebe5f346ed43f75414f001ef1937d6" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>is_inactive</name></member>
+      <member refid="structbpt__t_1ad07d7554776e9a8c0b58ce29c872def3" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>is_low_level</name></member>
+      <member refid="structbpt__t_1a7a3b8d95e2129a2e34f8a8bf2a981d22" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>is_page_bpt</name></member>
+      <member refid="structbpt__t_1aedc15577b29091f8a17d4c7cd21b9895" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>is_partially_active</name></member>
+      <member refid="structbpt__t_1a9e6344e449bc5ba79da838f39abec9d2" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>is_relbpt</name></member>
+      <member refid="structbpt__t_1ad9bf7e28ca8d0c038a02769b05adfbc7" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>is_srcbpt</name></member>
+      <member refid="structbpt__t_1a432c838ba26805a4a003b0c94673d0a9" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>is_symbpt</name></member>
+      <member refid="structbpt__t_1a521846b910322d6a73325148e22be2db" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>is_tracemodebpt</name></member>
+      <member refid="structbpt__t_1aca3c57b35f17947f93277c4c62176deb" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>is_traceoffbpt</name></member>
+      <member refid="structbpt__t_1aabee4ac25d69414492ea9d612ddabbc3" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>is_traceonbpt</name></member>
+      <member refid="structbpt__t_1ab6e006fce990431bcbe957bc8bcf16a2" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>listbpt</name></member>
+      <member refid="structbpt__t_1aaf8f71a31b50f03d76384761a464fe68" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>loc</name></member>
+      <member refid="structbpt__t_1a5be8cb9d4acc244b64afbdea5b8297a8" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>pass_count</name></member>
+      <member refid="structbpt__t_1a81f77f0e6e5b8b4c6de2c71611f89338" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>pid</name></member>
+      <member refid="structbpt__t_1a388a2b966e8842223ec0dfff69f6a799" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>props</name></member>
+      <member refid="structbpt__t_1a288d2928b90faa36f2ad00b66ee40938" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>set_abs_bpt</name></member>
+      <member refid="group__dbg__funcs__conv_1gaf059bf1ce65fa5f7312772869bca369f" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>set_cnd_elang</name></member>
+      <member refid="structbpt__t_1a7437647edb1f6083b50aec46a650d68b" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>set_cond</name></member>
+      <member refid="structbpt__t_1afd6e7c6f752effbfef5412972d44b456" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>set_rel_bpt</name></member>
+      <member refid="structbpt__t_1af972a1101746a1deab6c0e03f011b037" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>set_src_bpt</name></member>
+      <member refid="structbpt__t_1a87f60fe8d5d63e0c9dd870d22522e96a" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>set_sym_bpt</name></member>
+      <member refid="structbpt__t_1a4f57bc34146bce6133a340a38d91c78c" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>set_trace_action</name></member>
+      <member refid="structbpt__t_1a7e9e4eccca1699181f17c4cbc7371b4c" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>size</name></member>
+      <member refid="structbpt__t_1a6b788652f9e3edbcc3832bab8cf45958" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>tid</name></member>
+      <member refid="structbpt__t_1aec6d504acf8e2217fb4bdfe6061cab37" prot="public" virt="non-virtual"><scope>bpt_t</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,476 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classsrcinfo__provider__t" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>srcinfo_provider_t</compoundname>
+    <includes refid="dbg_8hpp" local="no">dbg.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classsrcinfo__provider__t_1a28907a45ac19cf26117ee999fd9e206b" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t srcinfo_provider_t::cb</definition>
+        <argsstring></argsstring>
+        <name>cb</name>
+        <briefdescription>
+<para>size of this class </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2274" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrcinfo__provider__t_1a18036604458140fd590c4a8cbd954929" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int srcinfo_provider_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+<para><ref refid="group___s_p_f__" kindref="compound">Source info provider property bits</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2277" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrcinfo__provider__t_1a51b05c243028e2773e5b7d2f3ecbf648" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* srcinfo_provider_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>internal (unique) name of srcinfo provider </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2291" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrcinfo__provider__t_1a875ce99f130d021b48a07c3e85e28631" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* srcinfo_provider_t::display_name</definition>
+        <argsstring></argsstring>
+        <name>display_name</name>
+        <briefdescription>
+<para>external (displayable) name of srcinfo provider </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2294" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2294" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsrcinfo__provider__t_1abbb054b5171cd933a64704030ca871f1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>srcinfo_provider_t::srcinfo_provider_t</definition>
+        <argsstring>(const char *_name, const char *_display_name, int _flags=0)</argsstring>
+        <name>srcinfo_provider_t</name>
+        <param>
+          <type>const char *</type>
+          <declname>_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>_display_name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_flags</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2296" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2296" bodyend="2300"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrcinfo__provider__t_1a92aa46d43407075e7e6dd6096cfbe55a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool srcinfo_provider_t::is_decompiler</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_decompiler</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is the source info provider a decompiler? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2303" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2303" bodyend="2303"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrcinfo__provider__t_1aa474c1097b24c1f11a32914008db785a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool srcinfo_provider_t::is_enabled</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_enabled</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Has the provider been enabled by the user? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2305" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2305" bodyend="2305"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrcinfo__provider__t_1a7cd7235ba1a0035e9c8b29e72b9cd2e0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool srcinfo_provider_t::is_active</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_active</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is the provider willing to work with the current idb? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2307" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2307" bodyend="2307"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrcinfo__provider__t_1aff48b85b04577abda5eaf2c34b9cf3a6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref></type>
+        <definition>uint8 srcinfo_provider_t::get_version</definition>
+        <argsstring>() const</argsstring>
+        <name>get_version</name>
+        <briefdescription>
+<para>See <ref refid="group___s_p_f___1ga7071d9eb5ab27b35f1ccb9a2276b6a26" kindref="member">SPF_VERSION_MASK</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2310" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2310" bodyend="2310"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrcinfo__provider__t_1a3354025a88b142b003a50353dbe7d8f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi srcinfo_provider_t::enable_provider</definition>
+        <argsstring>(bool enable)=0</argsstring>
+        <name>enable_provider</name>
+        <param>
+          <type>bool</type>
+          <declname>enable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable or disable the provider. If the provider fails to initialize, it returns false, otherwise true </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2314" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrcinfo__provider__t_1acd5d0a33c2439d23492fde470abefbf7" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>const char *idaapi</type>
+        <definition>virtual const char* idaapi srcinfo_provider_t::set_options</definition>
+        <argsstring>(const char *keyword, int value_type, const void *value)=0</argsstring>
+        <name>set_options</name>
+        <param>
+          <type>const char *</type>
+          <declname>keyword</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>value_type</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Configure srcinfo provider. See the description of ::set_options_t </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2318" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrcinfo__provider__t_1abbe93da4b609d331ffd8fcfb9ebff1aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void idaapi</type>
+        <definition>virtual void idaapi srcinfo_provider_t::add_module</definition>
+        <argsstring>(const char *path, ea_t base, asize_t size)=0</argsstring>
+        <name>add_module</name>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>base</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Inform the provider that a module got loaded. The provider is not required to read the module information immediately; it may postpone it until really required. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2326" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrcinfo__provider__t_1aa9597db20f835f002481bb8b376951d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void idaapi</type>
+        <definition>virtual void idaapi srcinfo_provider_t::del_module</definition>
+        <argsstring>(ea_t base)=0</argsstring>
+        <name>del_module</name>
+        <param>
+          <type>ea_t</type>
+          <declname>base</declname>
+        </param>
+        <briefdescription>
+<para>Inform the provider that a module got unloaded. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2329" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrcinfo__provider__t_1ac01147482acfe62e42daaa292e790134" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void idaapi</type>
+        <definition>virtual void idaapi srcinfo_provider_t::get_ready</definition>
+        <argsstring>(void)=0</argsstring>
+        <name>get_ready</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Inform the provider that we will request for information now. This function must be called before calling all functions below. probably it will be called when the process gets suspended. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2334" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrcinfo__provider__t_1a5bfb5c37c50a2334474299a733690a88" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi srcinfo_provider_t::get_change_flags</definition>
+        <argsstring>(void)=0</argsstring>
+        <name>get_change_flags</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Ask the provider if the source information has changed and the screen should be refreshed. UI will call this function periodically (when idle). if it returns a flag value other than <ref refid="group___s_p_c_h___1ga446499ec545451329ebb9ba5f050d443" kindref="member">SPCH_NONE</ref>, then the source information must be refreshed. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2340" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrcinfo__provider__t_1af8696ab4b62686d49685686c77e6f899" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="group__dbg__funcs__srcinfo_1gafdf5f52760e4ac48addc8b82986f6a8e" kindref="member">source_item_iterator</ref> idaapi</type>
+        <definition>virtual source_item_iterator idaapi srcinfo_provider_t::find_source_items</definition>
+        <argsstring>(ea_t ea, asize_t size, src_item_kind_t level, bool may_decompile)=0</argsstring>
+        <name>find_source_items</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type><ref refid="group__dbg__funcs__srcinfo_1gadd1590e46b67c1fbc2820300b894596f" kindref="member">src_item_kind_t</ref></type>
+          <declname>level</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>may_decompile</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Locate source item by address. The kernel will inquire all registered providers and use the best reply. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of the item </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>level</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the desired item level:<itemizedlist>
+<listitem><para><ref refid="group__dbg__funcs__srcinfo_1ggadd1590e46b67c1fbc2820300b894596faaeceec779eabbd5638ff5ef4cf2e7b13" kindref="member">SRCIT_STMT</ref>: a statement</para></listitem><listitem><para><ref refid="group__dbg__funcs__srcinfo_1ggadd1590e46b67c1fbc2820300b894596fa41e645c3100c4427db006baee797bbb7" kindref="member">SRCIT_EXPR</ref>: an expression</para></listitem><listitem><para><ref refid="group__dbg__funcs__srcinfo_1ggadd1590e46b67c1fbc2820300b894596fa92ff4a0d28f152d28c4fa11290b5f70e" kindref="member">SRCIT_FUNC</ref>: a global code item</para></listitem><listitem><para>SRCIT_xxxVAR: a global data item (the exact type is not checked) </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>may_decompile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>meaningful only for the decompiler. if set to false and the function at &apos;ea&apos; has not been decompiled yet, fail. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2361" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrcinfo__provider__t_1a412e8a87cdbd66a6d597acad57002f34" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="group__dbg__funcs__srcinfo_1gafdf5f52760e4ac48addc8b82986f6a8e" kindref="member">source_item_iterator</ref> idaapi</type>
+        <definition>virtual source_item_iterator idaapi srcinfo_provider_t::find_source_items</definition>
+        <argsstring>(source_file_t *sf, int lnnum, int colnum=0)=0</argsstring>
+        <name>find_source_items</name>
+        <param>
+          <type><ref refid="classsource__file__t" kindref="compound">source_file_t</ref> *</type>
+          <declname>sf</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>lnnum</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>colnum</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Locate source item by a position in a source file. if colnum == 0, return the statement that starts at the specified line. if lnnum == 0, return information about all lines (colnum is ignored in this case) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2370" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrcinfo__provider__t_1a6321262474c2349188f272a6072fbf42" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="group__dbg__funcs__srcinfo_1ga3a88865b1c3ef359dea9675b081896ab" kindref="member">source_file_iterator</ref> idaapi</type>
+        <definition>virtual source_file_iterator idaapi srcinfo_provider_t::create_file_iterator</definition>
+        <argsstring>(const char *filename=NULL)=0</argsstring>
+        <name>create_file_iterator</name>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create iterators to enumerate files. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the source file to enumerate </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2374" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrcinfo__provider__t_1a714a273ef7920a883d3dccb6e5fcd166" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="group__dbg__funcs__srcinfo_1gafdf5f52760e4ac48addc8b82986f6a8e" kindref="member">source_item_iterator</ref> idaapi</type>
+        <definition>virtual source_item_iterator idaapi srcinfo_provider_t::create_item_iterator</definition>
+        <argsstring>(const source_file_t *sf)=0</argsstring>
+        <name>create_item_iterator</name>
+        <param>
+          <type>const <ref refid="classsource__file__t" kindref="compound">source_file_t</ref> *</type>
+          <declname>sf</declname>
+        </param>
+        <briefdescription>
+<para>Create iterators to enumerate items. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2377" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrcinfo__provider__t_1aebee9122a246be20c398f304bcccc848" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi srcinfo_provider_t::apply_module_info</definition>
+        <argsstring>(const char *)</argsstring>
+        <name>apply_module_info</name>
+        <param>
+          <type>const char *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Apply the debug information (types, functions, globals) from the module whose path is &apos;path&apos;, to the IDB </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2381" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2381" bodyend="2381"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrcinfo__provider__t_1a1752789cc7b998f111898e41d2b5fd3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="group__dbg__funcs__srcinfo_1ga3c73aaf1eda8ff72a5a78ea13840afa5" kindref="member">source_item_ptr</ref> idaapi</type>
+        <definition>virtual source_item_ptr idaapi srcinfo_provider_t::find_static_item</definition>
+        <argsstring>(const char *name, ea_t ea)=0</argsstring>
+        <name>find_static_item</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Locate a global variable by its name. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The variable name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The current address </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the source item, or NULL </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2387" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Describes the mechanism used to retrieve source file information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2271" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2270" bodyend="2388"/>
+    <listofallmembers>
+      <member refid="classsrcinfo__provider__t_1abbe93da4b609d331ffd8fcfb9ebff1aa" prot="public" virt="pure-virtual"><scope>srcinfo_provider_t</scope><name>add_module</name></member>
+      <member refid="classsrcinfo__provider__t_1aebee9122a246be20c398f304bcccc848" prot="public" virt="virtual"><scope>srcinfo_provider_t</scope><name>apply_module_info</name></member>
+      <member refid="classsrcinfo__provider__t_1a28907a45ac19cf26117ee999fd9e206b" prot="public" virt="non-virtual"><scope>srcinfo_provider_t</scope><name>cb</name></member>
+      <member refid="classsrcinfo__provider__t_1a6321262474c2349188f272a6072fbf42" prot="public" virt="pure-virtual"><scope>srcinfo_provider_t</scope><name>create_file_iterator</name></member>
+      <member refid="classsrcinfo__provider__t_1a714a273ef7920a883d3dccb6e5fcd166" prot="public" virt="pure-virtual"><scope>srcinfo_provider_t</scope><name>create_item_iterator</name></member>
+      <member refid="classsrcinfo__provider__t_1aa9597db20f835f002481bb8b376951d3" prot="public" virt="pure-virtual"><scope>srcinfo_provider_t</scope><name>del_module</name></member>
+      <member refid="classsrcinfo__provider__t_1a875ce99f130d021b48a07c3e85e28631" prot="public" virt="non-virtual"><scope>srcinfo_provider_t</scope><name>display_name</name></member>
+      <member refid="classsrcinfo__provider__t_1a3354025a88b142b003a50353dbe7d8f9" prot="public" virt="pure-virtual"><scope>srcinfo_provider_t</scope><name>enable_provider</name></member>
+      <member refid="classsrcinfo__provider__t_1af8696ab4b62686d49685686c77e6f899" prot="public" virt="pure-virtual"><scope>srcinfo_provider_t</scope><name>find_source_items</name></member>
+      <member refid="classsrcinfo__provider__t_1a412e8a87cdbd66a6d597acad57002f34" prot="public" virt="pure-virtual"><scope>srcinfo_provider_t</scope><name>find_source_items</name></member>
+      <member refid="classsrcinfo__provider__t_1a1752789cc7b998f111898e41d2b5fd3d" prot="public" virt="pure-virtual"><scope>srcinfo_provider_t</scope><name>find_static_item</name></member>
+      <member refid="classsrcinfo__provider__t_1a18036604458140fd590c4a8cbd954929" prot="public" virt="non-virtual"><scope>srcinfo_provider_t</scope><name>flags</name></member>
+      <member refid="classsrcinfo__provider__t_1a5bfb5c37c50a2334474299a733690a88" prot="public" virt="pure-virtual"><scope>srcinfo_provider_t</scope><name>get_change_flags</name></member>
+      <member refid="classsrcinfo__provider__t_1ac01147482acfe62e42daaa292e790134" prot="public" virt="pure-virtual"><scope>srcinfo_provider_t</scope><name>get_ready</name></member>
+      <member refid="classsrcinfo__provider__t_1aff48b85b04577abda5eaf2c34b9cf3a6" prot="public" virt="non-virtual"><scope>srcinfo_provider_t</scope><name>get_version</name></member>
+      <member refid="classsrcinfo__provider__t_1a7cd7235ba1a0035e9c8b29e72b9cd2e0" prot="public" virt="non-virtual"><scope>srcinfo_provider_t</scope><name>is_active</name></member>
+      <member refid="classsrcinfo__provider__t_1a92aa46d43407075e7e6dd6096cfbe55a" prot="public" virt="non-virtual"><scope>srcinfo_provider_t</scope><name>is_decompiler</name></member>
+      <member refid="classsrcinfo__provider__t_1aa474c1097b24c1f11a32914008db785a" prot="public" virt="non-virtual"><scope>srcinfo_provider_t</scope><name>is_enabled</name></member>
+      <member refid="classsrcinfo__provider__t_1a51b05c243028e2773e5b7d2f3ecbf648" prot="public" virt="non-virtual"><scope>srcinfo_provider_t</scope><name>name</name></member>
+      <member refid="classsrcinfo__provider__t_1acd5d0a33c2439d23492fde470abefbf7" prot="public" virt="pure-virtual"><scope>srcinfo_provider_t</scope><name>set_options</name></member>
+      <member refid="classsrcinfo__provider__t_1abbb054b5171cd933a64704030ca871f1" prot="public" virt="non-virtual"><scope>srcinfo_provider_t</scope><name>srcinfo_provider_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

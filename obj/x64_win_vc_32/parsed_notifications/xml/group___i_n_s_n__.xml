@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___i_n_s_n__" kind="group">
+    <compoundname>INSN_</compoundname>
+    <title>Instruction flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___i_n_s_n___1gab4130af67f276bd184f8102e27cfb1f2" prot="public" static="no">
+        <name>INSN_MACRO</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>macro instruction </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="407" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="407" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_n_s_n___1ga87aa3b5c2d1953db2656ef1e72e90e0f" prot="public" static="no">
+        <name>INSN_MODMAC</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>may modify the database to make room for the macro insn </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="408" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="408" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_n_s_n___1gab0505c608e47fbd9eb5111141171aa19" prot="public" static="no">
+        <name>INSN_64BIT</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>belongs to 64bit segment? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="409" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="409" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="classinsn__t_1ad665c6e37e937f98db8ef08091ecf3e3" kindref="member">insn_t::flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

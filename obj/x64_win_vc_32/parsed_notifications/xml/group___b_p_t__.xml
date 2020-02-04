@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___b_p_t__" kind="group">
+    <compoundname>BPT_</compoundname>
+    <title>Breakpoint verification codes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___b_p_t___1ga4ef69910527b44264eeb4dca72adabed" prot="public" static="no">
+        <name>BPT_OK</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>breakpoint can be set </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1466" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1466" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga92fe48da3658751322dede18607d66e8" prot="public" static="no">
+        <name>BPT_INTERNAL_ERR</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>interr occurred when verifying breakpoint </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1467" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1467" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1gaa71e89156a81ab3612190df0a100d9e0" prot="public" static="no">
+        <name>BPT_BAD_TYPE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>bpt type is not supported </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1468" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1468" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga71d6a264c733aa30ab67c247acc39126" prot="public" static="no">
+        <name>BPT_BAD_ALIGN</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>alignment is invalid </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1469" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1469" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga65420c975495a9d3c72517cdcd7405c2" prot="public" static="no">
+        <name>BPT_BAD_ADDR</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>ea is invalid </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1470" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1470" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga2230181a212400420bb42832616d5fd4" prot="public" static="no">
+        <name>BPT_BAD_LEN</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>bpt len is invalid </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1471" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1471" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga69251374de0ab7313f630e355c6133cf" prot="public" static="no">
+        <name>BPT_TOO_MANY</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>reached max number of supported breakpoints </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1472" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1472" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga5011bfbca4c4e3c1f2c97f67ed5bc6a3" prot="public" static="no">
+        <name>BPT_READ_ERROR</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>failed to read memory at bpt ea </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1473" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1473" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga4268acaccfe4b97f48a93b10882b246a" prot="public" static="no">
+        <name>BPT_WRITE_ERROR</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>failed to write memory at bpt ea </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1474" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1474" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga2682e6af3ce2049b46f8afb6126d2b40" prot="public" static="no">
+        <name>BPT_SKIP</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>update_bpts(): do not process bpt </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1475" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1475" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1gacacac8358c175dd7592b2ea04cab42bd" prot="public" static="no">
+        <name>BPT_PAGE_OK</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>update_bpts(): ok, added a page bpt </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1476" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1476" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Return values for debugger_t::check_bpt </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

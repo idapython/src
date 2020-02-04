@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___i_d_b__" kind="group">
+    <compoundname>IDB_</compoundname>
+    <title>Line prefix options</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___i_d_b___1ga0dd18f5ff2856fdde77d8c790d7e0213" prot="public" static="no">
+        <name>IDB_UNPACKED</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>leave database components unpacked </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="171" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_b___1gafa3552eb8fa57f32845117c63ece5a37" prot="public" static="no">
+        <name>IDB_PACKED</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>pack database components into .idb </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="172" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_b___1gadc1457caefd3ceeb5f6337f0efae674c" prot="public" static="no">
+        <name>IDB_COMPRESSED</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>compress &amp; pack database components </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="173" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by idainfo::get_pack_mode </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

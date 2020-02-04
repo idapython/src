@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__ui__gaa__funcs" kind="group">
+    <compoundname>ui_gaa_funcs</compoundname>
+    <title>Functions: get action attributes</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Convenience functions for <ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a7c3259468d0368cf9ffed03ef759fe6a" kindref="member">ui_get_action_attr</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

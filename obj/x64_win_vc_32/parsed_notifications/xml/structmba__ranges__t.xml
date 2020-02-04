@@ -1,0 +1,251 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structmba__ranges__t" kind="struct" language="C++" prot="public">
+    <compoundname>mba_ranges_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structmba__ranges__t_1af046730f0b0582653887863dc7f452be" prot="public" static="no" mutable="no">
+        <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+        <definition>func_t* mba_ranges_t::pfn</definition>
+        <argsstring></argsstring>
+        <name>pfn</name>
+        <briefdescription>
+<para>function to decompile </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4062" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4062" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmba__ranges__t_1ad532a02a9e35710288722a6951b6c938" prot="public" static="no" mutable="no">
+        <type><ref refid="structrangevec__t" kindref="compound">rangevec_t</ref></type>
+        <definition>rangevec_t mba_ranges_t::ranges</definition>
+        <argsstring></argsstring>
+        <name>ranges</name>
+        <briefdescription>
+<para>empty ? function_mode : snippet mode </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4063" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4063" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structmba__ranges__t_1a7295925ee5cab5568fd4c5c8188706b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>mba_ranges_t::mba_ranges_t</definition>
+        <argsstring>(func_t *_pfn=NULL)</argsstring>
+        <name>mba_ranges_t</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>_pfn</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4064" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4064" bodyend="4064"/>
+      </memberdef>
+      <memberdef kind="function" id="structmba__ranges__t_1abf6553e2c7ebfab27ced28f4b1426e0d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>mba_ranges_t::mba_ranges_t</definition>
+        <argsstring>(const rangevec_t &amp;r)</argsstring>
+        <name>mba_ranges_t</name>
+        <param>
+          <type>const <ref refid="structrangevec__t" kindref="compound">rangevec_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4065" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4065" bodyend="4065"/>
+      </memberdef>
+      <memberdef kind="function" id="structmba__ranges__t_1a522b574915703885db557a7f3fd00494" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t mba_ranges_t::start</definition>
+        <argsstring>(void) const</argsstring>
+        <name>start</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4066" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4066" bodyend="4066"/>
+      </memberdef>
+      <memberdef kind="function" id="structmba__ranges__t_1a0eac3e18f44f6bfdde75c5fc70465347" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool mba_ranges_t::empty</definition>
+        <argsstring>(void) const</argsstring>
+        <name>empty</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4067" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4067" bodyend="4067"/>
+      </memberdef>
+      <memberdef kind="function" id="structmba__ranges__t_1ac86ec76f64f8841e38edc3260ab66e27" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void mba_ranges_t::clear</definition>
+        <argsstring>(void)</argsstring>
+        <name>clear</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4068" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4068" bodyend="4068"/>
+      </memberdef>
+      <memberdef kind="function" id="structmba__ranges__t_1afa309e7e1942fad103ceb5012dc3d17b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool mba_ranges_t::is_snippet</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_snippet</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4069" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4069" bodyend="4069"/>
+      </memberdef>
+      <memberdef kind="function" id="structmba__ranges__t_1a5d2b90780adc251c2d408ddc1bee0fe2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool mba_ranges_t::range_contains</definition>
+        <argsstring>(ea_t ea) const</argsstring>
+        <name>range_contains</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4070" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structmba__ranges__t_1af8542581e75130ea9905215b625382ba" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool mba_ranges_t::is_fragmented</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_fragmented</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4071" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4071" bodyend="4071"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Ranges to decompile. Either a function or an explicit vector of ranges. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2079">
+        <label>rangevec_base_t</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2072">
+        <label>func_t</label>
+        <link refid="classfunc__t"/>
+        <childnode refid="2073" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2074" relation="usage">
+          <edgelabel>regargs</edgelabel>
+        </childnode>
+        <childnode refid="2075" relation="usage">
+          <edgelabel>points</edgelabel>
+        </childnode>
+        <childnode refid="2073" relation="usage">
+          <edgelabel>tails</edgelabel>
+        </childnode>
+        <childnode refid="2076" relation="usage">
+          <edgelabel>regvars</edgelabel>
+        </childnode>
+        <childnode refid="2077" relation="usage">
+          <edgelabel>llabels</edgelabel>
+        </childnode>
+      </node>
+      <node id="2074">
+        <label>regarg_t</label>
+        <link refid="structregarg__t"/>
+      </node>
+      <node id="2071">
+        <label>mba_ranges_t</label>
+        <link refid="structmba__ranges__t"/>
+        <childnode refid="2072" relation="usage">
+          <edgelabel>pfn</edgelabel>
+        </childnode>
+        <childnode refid="2078" relation="usage">
+          <edgelabel>ranges</edgelabel>
+        </childnode>
+      </node>
+      <node id="2075">
+        <label>stkpnt_t</label>
+        <link refid="structstkpnt__t"/>
+      </node>
+      <node id="2073">
+        <label>range_t</label>
+        <link refid="structrange__t"/>
+      </node>
+      <node id="2076">
+        <label>regvar_t</label>
+        <link refid="structregvar__t"/>
+        <childnode refid="2073" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2077">
+        <label>llabel_t</label>
+        <link refid="structllabel__t"/>
+      </node>
+      <node id="2078">
+        <label>rangevec_t</label>
+        <link refid="structrangevec__t"/>
+        <childnode refid="2079" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4061" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4060" bodyend="4072"/>
+    <listofallmembers>
+      <member refid="structmba__ranges__t_1ac86ec76f64f8841e38edc3260ab66e27" prot="public" virt="non-virtual"><scope>mba_ranges_t</scope><name>clear</name></member>
+      <member refid="structmba__ranges__t_1a0eac3e18f44f6bfdde75c5fc70465347" prot="public" virt="non-virtual"><scope>mba_ranges_t</scope><name>empty</name></member>
+      <member refid="structmba__ranges__t_1af8542581e75130ea9905215b625382ba" prot="public" virt="non-virtual"><scope>mba_ranges_t</scope><name>is_fragmented</name></member>
+      <member refid="structmba__ranges__t_1afa309e7e1942fad103ceb5012dc3d17b" prot="public" virt="non-virtual"><scope>mba_ranges_t</scope><name>is_snippet</name></member>
+      <member refid="structmba__ranges__t_1a7295925ee5cab5568fd4c5c8188706b3" prot="public" virt="non-virtual"><scope>mba_ranges_t</scope><name>mba_ranges_t</name></member>
+      <member refid="structmba__ranges__t_1abf6553e2c7ebfab27ced28f4b1426e0d" prot="public" virt="non-virtual"><scope>mba_ranges_t</scope><name>mba_ranges_t</name></member>
+      <member refid="structmba__ranges__t_1af046730f0b0582653887863dc7f452be" prot="public" virt="non-virtual"><scope>mba_ranges_t</scope><name>pfn</name></member>
+      <member refid="structmba__ranges__t_1a5d2b90780adc251c2d408ddc1bee0fe2" prot="public" virt="non-virtual"><scope>mba_ranges_t</scope><name>range_contains</name></member>
+      <member refid="structmba__ranges__t_1ad532a02a9e35710288722a6951b6c938" prot="public" virt="non-virtual"><scope>mba_ranges_t</scope><name>ranges</name></member>
+      <member refid="structmba__ranges__t_1a522b574915703885db557a7f3fd00494" prot="public" virt="non-virtual"><scope>mba_ranges_t</scope><name>start</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

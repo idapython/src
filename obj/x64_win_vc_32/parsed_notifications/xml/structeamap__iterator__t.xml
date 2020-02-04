@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structeamap__iterator__t" kind="struct" language="C++" prot="public">
+    <compoundname>eamap_iterator_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structeamap__iterator__t_1ab9c1275e1a9b4a6e46b643ceadba8c1f" prot="public" static="no" mutable="no">
+        <type>iterator_word</type>
+        <definition>iterator_word eamap_iterator_t::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="8650" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="8650" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structeamap__iterator__t_1a8e6acd8c336b3e8cc250410e319136ea" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool eamap_iterator_t::operator==</definition>
+        <argsstring>(const eamap_iterator_t &amp;p) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structeamap__iterator__t" kindref="compound">eamap_iterator_t</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="8651" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="8651" bodyend="8651"/>
+      </memberdef>
+      <memberdef kind="function" id="structeamap__iterator__t_1ade2ace418884b0fb5ab7deb91088223a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool eamap_iterator_t::operator!=</definition>
+        <argsstring>(const eamap_iterator_t &amp;p) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structeamap__iterator__t" kindref="compound">eamap_iterator_t</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="8652" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="8652" bodyend="8652"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="8649" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="8648" bodyend="8653"/>
+    <listofallmembers>
+      <member refid="structeamap__iterator__t_1ade2ace418884b0fb5ab7deb91088223a" prot="public" virt="non-virtual"><scope>eamap_iterator_t</scope><name>operator!=</name></member>
+      <member refid="structeamap__iterator__t_1a8e6acd8c336b3e8cc250410e319136ea" prot="public" virt="non-virtual"><scope>eamap_iterator_t</scope><name>operator==</name></member>
+      <member refid="structeamap__iterator__t_1ab9c1275e1a9b4a6e46b643ceadba8c1f" prot="public" virt="non-virtual"><scope>eamap_iterator_t</scope><name>x</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

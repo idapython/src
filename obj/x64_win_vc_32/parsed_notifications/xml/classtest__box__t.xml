@@ -1,0 +1,429 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classtest__box__t" kind="class" language="C++" prot="public">
+    <compoundname>test_box_t</compoundname>
+    <innerclass refid="structtest__box__t_1_1test__item__desc" prot="private">test_box_t::test_item_desc</innerclass>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classtest__box__t_1a18b6352fe09d33b7f3729e6051a5c190" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int test_box_t::err</definition>
+        <argsstring></argsstring>
+        <name>err</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="21" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classtest__box__t_1ac4bd0c21ee99fff56bea98b1a14cc343" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int test_box_t::verbose</definition>
+        <argsstring></argsstring>
+        <name>verbose</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="22" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classtest__box__t_1addcc036d2118b9bf46588eb64926cd60" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool test_box_t::show_time</definition>
+        <argsstring></argsstring>
+        <name>show_time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="23" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classtest__box__t_1ac05b0de82278c6cdd93f87b212dc77e2" prot="private" static="no" mutable="no">
+        <type><ref refid="classqstack" kindref="compound">qstack</ref>&lt; test_item_desc &gt;</type>
+        <definition>qstack&lt;test_item_desc&gt; test_box_t::messages</definition>
+        <argsstring></argsstring>
+        <name>messages</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="32" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classtest__box__t_1ae6d123c8d3e76b43caf45ecbf3769ca2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>test_box_t::test_box_t</definition>
+        <argsstring>()</argsstring>
+        <name>test_box_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="8" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="8" bodyend="8"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__box__t_1a97c9007f3856d14b406f6d4ded8008f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void test_box_t::testmsg_pre</definition>
+        <argsstring>(const char *text, int line)</argsstring>
+        <name>testmsg_pre</name>
+        <param>
+          <type>const char *</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>line</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="9" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__box__t_1a2011edc2745cf35de5533ae82708e699" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void test_box_t::testmsg_pre</definition>
+        <argsstring>(qstring text, int line)</argsstring>
+        <name>testmsg_pre</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>line</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="10" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="111" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__box__t_1a6de87f7d0d94357acdda699ce8082c81" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void test_box_t::test_val</definition>
+        <argsstring>(int64 val, int64 expected)</argsstring>
+        <name>test_val</name>
+        <param>
+          <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref></type>
+          <declname>val</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref></type>
+          <declname>expected</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="11" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="156" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__box__t_1a8b670f7919605b1e6da62e43f4bad93f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int test_box_t::test_cond</definition>
+        <argsstring>(bool cond)</argsstring>
+        <name>test_cond</name>
+        <param>
+          <type>bool</type>
+          <declname>cond</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="12" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="172" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__box__t_1afeec0b5b0d760890b72fcac1b9dac2df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool test_box_t::process_cmdopts</definition>
+        <argsstring>(int argc, const char **argv, int &amp;index)</argsstring>
+        <name>process_cmdopts</name>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>const char **</type>
+          <declname>argv</declname>
+        </param>
+        <param>
+          <type>int &amp;</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="13" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="206" bodyend="232"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__box__t_1a05ae93660a9bae00dcb99cbc78889a88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring test_box_t::make_desc</definition>
+        <argsstring>(const char *fmt,...)</argsstring>
+        <name>make_desc</name>
+        <param>
+          <type>const char *</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="14" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="188" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__box__t_1aa78ec09a9c717d5679377256fff4bfc1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int test_box_t::get_err</definition>
+        <argsstring>()</argsstring>
+        <name>get_err</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="16" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="16" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__box__t_1a49bb6d49bec1675d8634349376609a82" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void test_box_t::reset_err</definition>
+        <argsstring>()</argsstring>
+        <name>reset_err</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="17" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="17" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__box__t_1ae4e60424c8933279c9efbe7ee055411f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int test_box_t::verbocity</definition>
+        <argsstring>()</argsstring>
+        <name>verbocity</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="18" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="18" bodyend="18"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classtest__box__t_1af8218cce067edc889b005e27e1106f52" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void test_box_t::testmsg_ok</definition>
+        <argsstring>()</argsstring>
+        <name>testmsg_ok</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="34" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="123" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__box__t_1aaaa28b4cdb2ca80a1fcc637507ebe091" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool test_box_t::testmsg_err</definition>
+        <argsstring>(const char *fmt,...)</argsstring>
+        <name>testmsg_err</name>
+        <param>
+          <type>const char *</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="35" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="135" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__box__t_1a3caf84514f56240c9e39d38bc1e91e1a" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool test_box_t::msg_print_if_ok</definition>
+        <argsstring>(const char *text)</argsstring>
+        <name>msg_print_if_ok</name>
+        <param>
+          <type>const char *</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="38" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="72" bodyend="75"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classtest__box__t_1a3f57b784e153686c38970cb6a953661a" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void test_box_t::tperror</definition>
+        <argsstring>(const char *format,...)</argsstring>
+        <name>tperror</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="36" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="46" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__box__t_1a9cbdb044695c75e0a01c2b8e3080d69b" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * test_box_t::msg_text</definition>
+        <argsstring>(const char *text)</argsstring>
+        <name>msg_text</name>
+        <param>
+          <type>const char *</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="37" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="64" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__box__t_1a24832eec7ecf29f86ca7ee5668aab9b5" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool test_box_t::msg_continue_if_err</definition>
+        <argsstring>(const char *text)</argsstring>
+        <name>msg_continue_if_err</name>
+        <param>
+          <type>const char *</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="39" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="78" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__box__t_1a6bdfaba74d16b888c95a6f66d818eede" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * test_box_t::strtime</definition>
+        <argsstring>()</argsstring>
+        <name>strtime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="40" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="84" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__box__t_1afabb9d89db5431a37287c5ae6e96e9fb" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * test_box_t::strtime_diff</definition>
+        <argsstring>(qtime64_t from, qtime64_t to)</argsstring>
+        <name>strtime_diff</name>
+        <param>
+          <type><ref refid="pro_8h_1a608a3fbc2403cb7e0b2314675c13f1ce" kindref="member">qtime64_t</ref></type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a608a3fbc2403cb7e0b2314675c13f1ce" kindref="member">qtime64_t</ref></type>
+          <declname>to</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="41" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="96" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__box__t_1a9042e06d74e3cdb94e0a51266ee96b4c" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void test_box_t::nooptarg</definition>
+        <argsstring>(const char *cmdarg)</argsstring>
+        <name>nooptarg</name>
+        <param>
+          <type>const char *</type>
+          <declname>cmdarg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="42" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="199" bodyend="203"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" line="6" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp" bodystart="5" bodyend="43"/>
+    <listofallmembers>
+      <member refid="classtest__box__t_1a18b6352fe09d33b7f3729e6051a5c190" prot="private" virt="non-virtual"><scope>test_box_t</scope><name>err</name></member>
+      <member refid="classtest__box__t_1aa78ec09a9c717d5679377256fff4bfc1" prot="public" virt="non-virtual"><scope>test_box_t</scope><name>get_err</name></member>
+      <member refid="classtest__box__t_1a05ae93660a9bae00dcb99cbc78889a88" prot="public" virt="non-virtual"><scope>test_box_t</scope><name>make_desc</name></member>
+      <member refid="classtest__box__t_1ac05b0de82278c6cdd93f87b212dc77e2" prot="private" virt="non-virtual"><scope>test_box_t</scope><name>messages</name></member>
+      <member refid="classtest__box__t_1a24832eec7ecf29f86ca7ee5668aab9b5" prot="private" virt="non-virtual"><scope>test_box_t</scope><name>msg_continue_if_err</name></member>
+      <member refid="classtest__box__t_1a3caf84514f56240c9e39d38bc1e91e1a" prot="private" virt="non-virtual"><scope>test_box_t</scope><name>msg_print_if_ok</name></member>
+      <member refid="classtest__box__t_1a9cbdb044695c75e0a01c2b8e3080d69b" prot="private" virt="non-virtual"><scope>test_box_t</scope><name>msg_text</name></member>
+      <member refid="classtest__box__t_1a9042e06d74e3cdb94e0a51266ee96b4c" prot="private" virt="non-virtual"><scope>test_box_t</scope><name>nooptarg</name></member>
+      <member refid="classtest__box__t_1afeec0b5b0d760890b72fcac1b9dac2df" prot="public" virt="non-virtual"><scope>test_box_t</scope><name>process_cmdopts</name></member>
+      <member refid="classtest__box__t_1a49bb6d49bec1675d8634349376609a82" prot="public" virt="non-virtual"><scope>test_box_t</scope><name>reset_err</name></member>
+      <member refid="classtest__box__t_1addcc036d2118b9bf46588eb64926cd60" prot="private" virt="non-virtual"><scope>test_box_t</scope><name>show_time</name></member>
+      <member refid="classtest__box__t_1a6bdfaba74d16b888c95a6f66d818eede" prot="private" virt="non-virtual"><scope>test_box_t</scope><name>strtime</name></member>
+      <member refid="classtest__box__t_1afabb9d89db5431a37287c5ae6e96e9fb" prot="private" virt="non-virtual"><scope>test_box_t</scope><name>strtime_diff</name></member>
+      <member refid="classtest__box__t_1ae6d123c8d3e76b43caf45ecbf3769ca2" prot="public" virt="non-virtual"><scope>test_box_t</scope><name>test_box_t</name></member>
+      <member refid="classtest__box__t_1a8b670f7919605b1e6da62e43f4bad93f" prot="public" virt="non-virtual"><scope>test_box_t</scope><name>test_cond</name></member>
+      <member refid="classtest__box__t_1a6de87f7d0d94357acdda699ce8082c81" prot="public" virt="non-virtual"><scope>test_box_t</scope><name>test_val</name></member>
+      <member refid="classtest__box__t_1aaaa28b4cdb2ca80a1fcc637507ebe091" prot="private" virt="non-virtual"><scope>test_box_t</scope><name>testmsg_err</name></member>
+      <member refid="classtest__box__t_1af8218cce067edc889b005e27e1106f52" prot="private" virt="non-virtual"><scope>test_box_t</scope><name>testmsg_ok</name></member>
+      <member refid="classtest__box__t_1a97c9007f3856d14b406f6d4ded8008f1" prot="public" virt="non-virtual"><scope>test_box_t</scope><name>testmsg_pre</name></member>
+      <member refid="classtest__box__t_1a2011edc2745cf35de5533ae82708e699" prot="public" virt="non-virtual"><scope>test_box_t</scope><name>testmsg_pre</name></member>
+      <member refid="classtest__box__t_1a3f57b784e153686c38970cb6a953661a" prot="private" virt="non-virtual"><scope>test_box_t</scope><name>tperror</name></member>
+      <member refid="classtest__box__t_1ae4e60424c8933279c9efbe7ee055411f" prot="public" virt="non-virtual"><scope>test_box_t</scope><name>verbocity</name></member>
+      <member refid="classtest__box__t_1ac4bd0c21ee99fff56bea98b1a14cc343" prot="private" virt="non-virtual"><scope>test_box_t</scope><name>verbose</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

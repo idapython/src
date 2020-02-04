@@ -1,0 +1,331 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="unioncallui__t" kind="union" language="C++" prot="public">
+    <compoundname>callui_t</compoundname>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="unioncallui__t_1a33417d6f509241d355d02eafcaa7c962" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool callui_t::cnd</definition>
+        <argsstring></argsstring>
+        <name>cnd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="174" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unioncallui__t_1a20be434422be6b7d9c47f690e4341824" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char callui_t::i8</definition>
+        <argsstring></argsstring>
+        <name>i8</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="175" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unioncallui__t_1ae5d48957b76070e6d1a6a424bdbc9baa" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int callui_t::i</definition>
+        <argsstring></argsstring>
+        <name>i</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="176" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unioncallui__t_1a7dfa885a3b497b27174ffc1119a4534c" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short callui_t::i16</definition>
+        <argsstring></argsstring>
+        <name>i16</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="177" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unioncallui__t_1addcc74dc8f6454034ce34de3ba29c518" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 callui_t::i32</definition>
+        <argsstring></argsstring>
+        <name>i32</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="178" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unioncallui__t_1a2fc71a2c3e3bc0ed30f726c7c41c06c5" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar callui_t::u8</definition>
+        <argsstring></argsstring>
+        <name>u8</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="179" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unioncallui__t_1a2a2110822613e2bcd5ebb8d045cef6d5" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+        <definition>ushort callui_t::u16</definition>
+        <argsstring></argsstring>
+        <name>u16</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="180" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unioncallui__t_1aa0eef7b88d212c98973228c53ca36254" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 callui_t::u32</definition>
+        <argsstring></argsstring>
+        <name>u32</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="181" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unioncallui__t_1a4203a59e5564b88ee3da8942bdf70932" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* callui_t::cptr</definition>
+        <argsstring></argsstring>
+        <name>cptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="182" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unioncallui__t_1a9acb2a1ffe0206a42ebfac00bcd3651d" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* callui_t::vptr</definition>
+        <argsstring></argsstring>
+        <name>vptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="183" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unioncallui__t_1afdea0ddd5ebd41c933cc92b2bd3cafd1" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t callui_t::ssize</definition>
+        <argsstring></argsstring>
+        <name>ssize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="184" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unioncallui__t_1ae15874d28d212fe8c59aad8be4578f7e" prot="public" static="no" mutable="no">
+        <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+        <definition>func_t* callui_t::fptr</definition>
+        <argsstring></argsstring>
+        <name>fptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="185" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unioncallui__t_1aed96b21ec691a035ec0ba53f99ba37f1" prot="public" static="no" mutable="no">
+        <type><ref refid="classsegment__t" kindref="compound">segment_t</ref> *</type>
+        <definition>segment_t* callui_t::segptr</definition>
+        <argsstring></argsstring>
+        <name>segptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="186" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unioncallui__t_1a78348761401865fba7e767a1346b7e7d" prot="public" static="no" mutable="no">
+        <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+        <definition>struc_t* callui_t::strptr</definition>
+        <argsstring></argsstring>
+        <name>strptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="187" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unioncallui__t_1a3edb9f4cf15143b42cded9fea3568d07" prot="public" static="no" mutable="no">
+        <type><ref refid="classplugin__t" kindref="compound">plugin_t</ref> *</type>
+        <definition>plugin_t* callui_t::pluginptr</definition>
+        <argsstring></argsstring>
+        <name>pluginptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="188" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unioncallui__t_1ac98a776ad32db2a499790ad158399963" prot="public" static="no" mutable="no">
+        <type><ref refid="structsreg__range__t" kindref="compound">sreg_range_t</ref> *</type>
+        <definition>sreg_range_t* callui_t::sraptr</definition>
+        <argsstring></argsstring>
+        <name>sraptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="189" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Callui return codes. The size of this type should be 4 bytes at most, otherwise different compilers return it differently </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="145">
+        <label>member_t</label>
+        <link refid="classmember__t"/>
+      </node>
+      <node id="136">
+        <label>callui_t</label>
+        <link refid="unioncallui__t"/>
+        <childnode refid="137" relation="usage">
+          <edgelabel>sraptr</edgelabel>
+        </childnode>
+        <childnode refid="139" relation="usage">
+          <edgelabel>fptr</edgelabel>
+        </childnode>
+        <childnode refid="144" relation="usage">
+          <edgelabel>strptr</edgelabel>
+        </childnode>
+        <childnode refid="146" relation="usage">
+          <edgelabel>segptr</edgelabel>
+        </childnode>
+        <childnode refid="147" relation="usage">
+          <edgelabel>pluginptr</edgelabel>
+        </childnode>
+      </node>
+      <node id="139">
+        <label>func_t</label>
+        <link refid="classfunc__t"/>
+        <childnode refid="138" relation="public-inheritance">
+        </childnode>
+        <childnode refid="140" relation="usage">
+          <edgelabel>regargs</edgelabel>
+        </childnode>
+        <childnode refid="141" relation="usage">
+          <edgelabel>points</edgelabel>
+        </childnode>
+        <childnode refid="138" relation="usage">
+          <edgelabel>tails</edgelabel>
+        </childnode>
+        <childnode refid="142" relation="usage">
+          <edgelabel>regvars</edgelabel>
+        </childnode>
+        <childnode refid="143" relation="usage">
+          <edgelabel>llabels</edgelabel>
+        </childnode>
+      </node>
+      <node id="137">
+        <label>sreg_range_t</label>
+        <link refid="structsreg__range__t"/>
+        <childnode refid="138" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="140">
+        <label>regarg_t</label>
+        <link refid="structregarg__t"/>
+      </node>
+      <node id="146">
+        <label>segment_t</label>
+        <link refid="classsegment__t"/>
+        <childnode refid="138" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="141">
+        <label>stkpnt_t</label>
+        <link refid="structstkpnt__t"/>
+      </node>
+      <node id="144">
+        <label>struc_t</label>
+        <link refid="classstruc__t"/>
+        <childnode refid="145" relation="usage">
+          <edgelabel>members</edgelabel>
+        </childnode>
+      </node>
+      <node id="138">
+        <label>range_t</label>
+        <link refid="structrange__t"/>
+      </node>
+      <node id="142">
+        <label>regvar_t</label>
+        <link refid="structregvar__t"/>
+        <childnode refid="138" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="147">
+        <label>plugin_t</label>
+        <link refid="classplugin__t"/>
+      </node>
+      <node id="143">
+        <label>llabel_t</label>
+        <link refid="structllabel__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="173" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="172" bodyend="190"/>
+    <listofallmembers>
+      <member refid="unioncallui__t_1a33417d6f509241d355d02eafcaa7c962" prot="public" virt="non-virtual"><scope>callui_t</scope><name>cnd</name></member>
+      <member refid="unioncallui__t_1a4203a59e5564b88ee3da8942bdf70932" prot="public" virt="non-virtual"><scope>callui_t</scope><name>cptr</name></member>
+      <member refid="unioncallui__t_1ae15874d28d212fe8c59aad8be4578f7e" prot="public" virt="non-virtual"><scope>callui_t</scope><name>fptr</name></member>
+      <member refid="unioncallui__t_1ae5d48957b76070e6d1a6a424bdbc9baa" prot="public" virt="non-virtual"><scope>callui_t</scope><name>i</name></member>
+      <member refid="unioncallui__t_1a7dfa885a3b497b27174ffc1119a4534c" prot="public" virt="non-virtual"><scope>callui_t</scope><name>i16</name></member>
+      <member refid="unioncallui__t_1addcc74dc8f6454034ce34de3ba29c518" prot="public" virt="non-virtual"><scope>callui_t</scope><name>i32</name></member>
+      <member refid="unioncallui__t_1a20be434422be6b7d9c47f690e4341824" prot="public" virt="non-virtual"><scope>callui_t</scope><name>i8</name></member>
+      <member refid="unioncallui__t_1a3edb9f4cf15143b42cded9fea3568d07" prot="public" virt="non-virtual"><scope>callui_t</scope><name>pluginptr</name></member>
+      <member refid="unioncallui__t_1aed96b21ec691a035ec0ba53f99ba37f1" prot="public" virt="non-virtual"><scope>callui_t</scope><name>segptr</name></member>
+      <member refid="unioncallui__t_1ac98a776ad32db2a499790ad158399963" prot="public" virt="non-virtual"><scope>callui_t</scope><name>sraptr</name></member>
+      <member refid="unioncallui__t_1afdea0ddd5ebd41c933cc92b2bd3cafd1" prot="public" virt="non-virtual"><scope>callui_t</scope><name>ssize</name></member>
+      <member refid="unioncallui__t_1a78348761401865fba7e767a1346b7e7d" prot="public" virt="non-virtual"><scope>callui_t</scope><name>strptr</name></member>
+      <member refid="unioncallui__t_1a2a2110822613e2bcd5ebb8d045cef6d5" prot="public" virt="non-virtual"><scope>callui_t</scope><name>u16</name></member>
+      <member refid="unioncallui__t_1aa0eef7b88d212c98973228c53ca36254" prot="public" virt="non-virtual"><scope>callui_t</scope><name>u32</name></member>
+      <member refid="unioncallui__t_1a2fc71a2c3e3bc0ed30f726c7c41c06c5" prot="public" virt="non-virtual"><scope>callui_t</scope><name>u8</name></member>
+      <member refid="unioncallui__t_1a9acb2a1ffe0206a42ebfac00bcd3651d" prot="public" virt="non-virtual"><scope>callui_t</scope><name>vptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

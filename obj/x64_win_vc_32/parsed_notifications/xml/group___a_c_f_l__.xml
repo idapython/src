@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___a_c_f_l__" kind="group">
+    <compoundname>ACFL_</compoundname>
+    <title>Bits for analyze_calls()</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___a_c_f_l___1ga2e5c95e007e82831b2daee9dc12a5854" prot="public" static="no">
+        <name>ACFL_LOCOPT</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>perform local propagation (requires ACFL_BLKOPT) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4467" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4467" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_c_f_l___1gab7c986dc790fd09e35d5daf6ff31fc8d" prot="public" static="no">
+        <name>ACFL_BLKOPT</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>perform interblock transformations </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4468" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4468" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_c_f_l___1ga55ce9942ccdb99ed16fa0d5444d8e059" prot="public" static="no">
+        <name>ACFL_GLBPROP</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>perform global propagation </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4469" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4469" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_c_f_l___1ga04ca2ba3441d3f24c2a6f45508c596f0" prot="public" static="no">
+        <name>ACFL_GLBDEL</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>perform dead code eliminition </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4470" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4470" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_c_f_l___1gacd789976bcb9fc19118483acdb3f462c" prot="public" static="no">
+        <name>ACFL_GUESS</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>may guess calling conventions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4471" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4471" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

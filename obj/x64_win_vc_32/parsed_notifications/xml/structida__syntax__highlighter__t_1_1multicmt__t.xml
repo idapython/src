@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structida__syntax__highlighter__t_1_1multicmt__t" kind="struct" language="C++" prot="protected">
+    <compoundname>ida_syntax_highlighter_t::multicmt_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structida__syntax__highlighter__t_1_1multicmt__t_1aab9be1ab62f182a005d1a0719c8d4b98" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring ida_syntax_highlighter_t::multicmt_t::open_multicmt</definition>
+        <argsstring></argsstring>
+        <name>open_multicmt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="45" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structida__syntax__highlighter__t_1_1multicmt__t_1a52f852c25265c157e0796bd74af233e4" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring ida_syntax_highlighter_t::multicmt_t::close_multicmt</definition>
+        <argsstring></argsstring>
+        <name>close_multicmt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="46" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structida__syntax__highlighter__t_1_1multicmt__t_1a6068a54974c63bff195c4667d6456969" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ida_syntax_highlighter_t::multicmt_t::multicmt_t</definition>
+        <argsstring>()</argsstring>
+        <name>multicmt_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="47" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" bodystart="47" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="structida__syntax__highlighter__t_1_1multicmt__t_1a84a04bcf2cc9aa0cd2c221554e2563ac" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ida_syntax_highlighter_t::multicmt_t::multicmt_t</definition>
+        <argsstring>(const char *_open_multicmt, const char *_close_multicmt)</argsstring>
+        <name>multicmt_t</name>
+        <param>
+          <type>const char *</type>
+          <declname>_open_multicmt</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>_close_multicmt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="48" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" bodystart="48" bodyend="51"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2651">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="2650">
+        <label>ida_syntax_highlighter_t::multicmt_t</label>
+        <link refid="structida__syntax__highlighter__t_1_1multicmt__t"/>
+        <childnode refid="2651" relation="usage">
+          <edgelabel>open_multicmt</edgelabel>
+          <edgelabel>close_multicmt</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="44" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" bodystart="43" bodyend="52"/>
+    <listofallmembers>
+      <member refid="structida__syntax__highlighter__t_1_1multicmt__t_1a52f852c25265c157e0796bd74af233e4" prot="public" virt="non-virtual"><scope>ida_syntax_highlighter_t::multicmt_t</scope><name>close_multicmt</name></member>
+      <member refid="structida__syntax__highlighter__t_1_1multicmt__t_1a6068a54974c63bff195c4667d6456969" prot="public" virt="non-virtual"><scope>ida_syntax_highlighter_t::multicmt_t</scope><name>multicmt_t</name></member>
+      <member refid="structida__syntax__highlighter__t_1_1multicmt__t_1a84a04bcf2cc9aa0cd2c221554e2563ac" prot="public" virt="non-virtual"><scope>ida_syntax_highlighter_t::multicmt_t</scope><name>multicmt_t</name></member>
+      <member refid="structida__syntax__highlighter__t_1_1multicmt__t_1aab9be1ab62f182a005d1a0719c8d4b98" prot="public" virt="non-virtual"><scope>ida_syntax_highlighter_t::multicmt_t</scope><name>open_multicmt</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

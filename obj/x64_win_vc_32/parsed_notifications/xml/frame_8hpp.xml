@@ -1,0 +1,2014 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="frame_8hpp" kind="file" language="C++">
+    <compoundname>frame.hpp</compoundname>
+    <includes refid="idp_8hpp" local="no">idp.hpp</includes>
+    <incdepgraph>
+      <node id="371">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="355">
+        <label>stdarg.h</label>
+      </node>
+      <node id="358">
+        <label>assert.h</label>
+      </node>
+      <node id="374">
+        <label>ida.hpp</label>
+        <link refid="ida_8hpp"/>
+        <childnode refid="353" relation="include">
+        </childnode>
+        <childnode refid="375" relation="include">
+        </childnode>
+      </node>
+      <node id="354">
+        <label>stdlib.h</label>
+      </node>
+      <node id="381">
+        <label>ua.hpp</label>
+        <link refid="ua_8hpp"/>
+        <childnode refid="382" relation="include">
+        </childnode>
+        <childnode refid="380" relation="include">
+        </childnode>
+        <childnode refid="383" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+      </node>
+      <node id="384">
+        <label>bitrange.hpp</label>
+        <link refid="bitrange_8hpp"/>
+      </node>
+      <node id="366">
+        <label>io.h</label>
+      </node>
+      <node id="369">
+        <label>fcntl.h</label>
+      </node>
+      <node id="372">
+        <label>llong.hpp</label>
+        <link refid="llong_8hpp_source"/>
+      </node>
+      <node id="364">
+        <label>malloc.h</label>
+      </node>
+      <node id="363">
+        <label>string</label>
+      </node>
+      <node id="368">
+        <label>map</label>
+      </node>
+      <node id="351">
+        <label>idp.hpp</label>
+        <link refid="idp_8hpp"/>
+        <childnode refid="352" relation="include">
+        </childnode>
+        <childnode refid="373" relation="include">
+        </childnode>
+        <childnode refid="377" relation="include">
+        </childnode>
+        <childnode refid="378" relation="include">
+        </childnode>
+        <childnode refid="381" relation="include">
+        </childnode>
+        <childnode refid="384" relation="include">
+        </childnode>
+        <childnode refid="385" relation="include">
+        </childnode>
+      </node>
+      <node id="367">
+        <label>direct.h</label>
+      </node>
+      <node id="356">
+        <label>stddef.h</label>
+      </node>
+      <node id="373">
+        <label>nalt.hpp</label>
+        <link refid="nalt_8hpp"/>
+        <childnode refid="374" relation="include">
+        </childnode>
+        <childnode refid="376" relation="include">
+        </childnode>
+      </node>
+      <node id="380">
+        <label>lines.hpp</label>
+        <link refid="lines_8hpp"/>
+        <childnode refid="374" relation="include">
+        </childnode>
+      </node>
+      <node id="359">
+        <label>limits.h</label>
+      </node>
+      <node id="370">
+        <label>sys/types.h</label>
+      </node>
+      <node id="365">
+        <label>string.h</label>
+      </node>
+      <node id="362">
+        <label>new</label>
+      </node>
+      <node id="383">
+        <label>xref.hpp</label>
+        <link refid="xref_8hpp"/>
+      </node>
+      <node id="378">
+        <label>funcs.hpp</label>
+        <link refid="funcs_8hpp"/>
+        <childnode refid="375" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+      </node>
+      <node id="353">
+        <label>pro.h</label>
+        <link refid="pro_8h"/>
+        <childnode refid="354" relation="include">
+        </childnode>
+        <childnode refid="355" relation="include">
+        </childnode>
+        <childnode refid="356" relation="include">
+        </childnode>
+        <childnode refid="357" relation="include">
+        </childnode>
+        <childnode refid="358" relation="include">
+        </childnode>
+        <childnode refid="359" relation="include">
+        </childnode>
+        <childnode refid="360" relation="include">
+        </childnode>
+        <childnode refid="361" relation="include">
+        </childnode>
+        <childnode refid="362" relation="include">
+        </childnode>
+        <childnode refid="363" relation="include">
+        </childnode>
+        <childnode refid="364" relation="include">
+        </childnode>
+        <childnode refid="365" relation="include">
+        </childnode>
+        <childnode refid="366" relation="include">
+        </childnode>
+        <childnode refid="367" relation="include">
+        </childnode>
+        <childnode refid="368" relation="include">
+        </childnode>
+        <childnode refid="369" relation="include">
+        </childnode>
+        <childnode refid="370" relation="include">
+        </childnode>
+        <childnode refid="371" relation="include">
+        </childnode>
+        <childnode refid="372" relation="include">
+        </childnode>
+      </node>
+      <node id="350">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/frame.hpp</label>
+        <link refid="frame_8hpp"/>
+        <childnode refid="351" relation="include">
+        </childnode>
+      </node>
+      <node id="377">
+        <label>segment.hpp</label>
+        <link refid="segment_8hpp"/>
+        <childnode refid="374" relation="include">
+        </childnode>
+        <childnode refid="375" relation="include">
+        </childnode>
+      </node>
+      <node id="361">
+        <label>time.h</label>
+      </node>
+      <node id="352">
+        <label>fpro.h</label>
+        <link refid="fpro_8h"/>
+        <childnode refid="353" relation="include">
+        </childnode>
+        <childnode refid="357" relation="include">
+        </childnode>
+      </node>
+      <node id="385">
+        <label>config.hpp</label>
+        <link refid="config_8hpp_source"/>
+      </node>
+      <node id="379">
+        <label>bytes.hpp</label>
+        <link refid="bytes_8hpp"/>
+        <childnode refid="373" relation="include">
+        </childnode>
+        <childnode refid="380" relation="include">
+        </childnode>
+        <childnode refid="375" relation="include">
+        </childnode>
+      </node>
+      <node id="360">
+        <label>ctype.h</label>
+      </node>
+      <node id="375">
+        <label>range.hpp</label>
+        <link refid="range_8hpp"/>
+      </node>
+      <node id="376">
+        <label>netnode.hpp</label>
+        <link refid="netnode_8hpp"/>
+        <childnode refid="375" relation="include">
+        </childnode>
+      </node>
+      <node id="382">
+        <label>kernwin.hpp</label>
+        <link refid="kernwin_8hpp"/>
+      </node>
+      <node id="357">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structstkpnt__t" prot="public">stkpnt_t</innerclass>
+    <innerclass refid="structstkpnts__t" prot="public">stkpnts_t</innerclass>
+    <innerclass refid="structregvar__t" prot="public">regvar_t</innerclass>
+    <innerclass refid="structllabel__t" prot="public">llabel_t</innerclass>
+    <innerclass refid="structxreflist__entry__t" prot="public">xreflist_entry_t</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Local Labels</header>
+      <description><para>These are LOW LEVEL FUNCTIONS. When possible, they should not be used. Use high level functions from &lt;<ref refid="name_8hpp" kindref="compound">name.hpp</ref>&gt; </para></description>
+      <memberdef kind="function" id="frame_8hpp_1a022a5bdf03044a322c82659e31706064" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool set_llabel</definition>
+        <argsstring>(func_t *pfn, ea_t ea, const char *name)</argsstring>
+        <name>set_llabel</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Define/rename/delete a local label. THIS IS A LOW LEVEL FUNCTION - use <ref refid="name_8hpp_1aa75fb1ba89bb22f323472e329eb4a486" kindref="member">set_name()</ref> instead of it! <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>function in which the definition will be created </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address of the label </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the label. If NULL or empty string, name will be removed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="457" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a5cd218c962d48aac137397c4ac22f7b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t get_llabel_ea</definition>
+        <argsstring>(func_t *pfn, const char *name)</argsstring>
+        <name>get_llabel_ea</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get address of a local label. THIS IS A LOW LEVEL FUNCTION - use <ref refid="name_8hpp_1ad14a47ac26d57e3926296e9c0c729075" kindref="member">get_name_ea()</ref> instead of it! <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>function in question </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the label </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> if not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="466" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a14ca5d88634f1980c167690fca210744" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* get_llabel</definition>
+        <argsstring>(func_t *pfn, ea_t ea)</argsstring>
+        <name>get_llabel</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get local label at the specified address. THIS IS A LOW LEVEL FUNCTION - use get_name() instead of it! <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>function in question </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address of the label </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>NULL or ptr to the name </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="475" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_t_k_v_a_r__1_1gadea83308bbe3028f66bde2b06d3931e1" prot="public" static="no">
+        <name>STKVAR_VALID_SIZE</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>x.dtyp contains correct variable type (for insns like &apos;lea&apos; this bit must be off) in general, dr_O references do not allow to determine the variable size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="274" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_g_v_a_r___e_r_r_o_r___1ga583c0f5683ebbc2fda4b3d17f9a44484" prot="public" static="no">
+        <name>REGVAR_ERROR_OK</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>all ok </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="377" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="377" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_g_v_a_r___e_r_r_o_r___1ga9174f12f12b7415326bb4baa0bcaa416" prot="public" static="no">
+        <name>REGVAR_ERROR_ARG</name>
+        <initializer>(-1)</initializer>
+        <briefdescription>
+<para>function arguments are bad </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="378" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="378" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_g_v_a_r___e_r_r_o_r___1gacde3e058bcbf2f1e663b5565cea5c40c" prot="public" static="no">
+        <name>REGVAR_ERROR_RANGE</name>
+        <initializer>(-2)</initializer>
+        <briefdescription>
+<para>the definition range is bad </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="379" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="379" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_g_v_a_r___e_r_r_o_r___1ga812754dcd62f1afa4789f66c29caf530" prot="public" static="no">
+        <name>REGVAR_ERROR_NAME</name>
+        <initializer>(-3)</initializer>
+        <briefdescription>
+<para>the provided name(s) can&apos;t be accepted </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="380" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="frame_8hpp_1a7277e4b0fbb084261a7e828ec29c88e7" prot="public" static="no">
+        <name>frame_part_t</name>
+        <enumvalue id="frame_8hpp_1a7277e4b0fbb084261a7e828ec29c88e7a22fd6bc0c58bef5f2e0b40d01eb52ed0" prot="public">
+          <name>FPC_ARGS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="frame_8hpp_1a7277e4b0fbb084261a7e828ec29c88e7abca0f537295e7c3845b89bf428804c8b" prot="public">
+          <name>FPC_RETADDR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="frame_8hpp_1a7277e4b0fbb084261a7e828ec29c88e7afaaf72196d4304222527e36918c52825" prot="public">
+          <name>FPC_SAVREGS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="frame_8hpp_1a7277e4b0fbb084261a7e828ec29c88e7a0befcb193b4eae42fea6f39d21f6a20b" prot="public">
+          <name>FPC_LVARS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Parts of a frame. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="130" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="129" bodyend="135"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="frame_8hpp_1a88d80d5d38b062a7743afc80d32e8a2c" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structxreflist__entry__t" kindref="compound">xreflist_entry_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;xreflist_entry_t&gt; xreflist_t</definition>
+        <argsstring></argsstring>
+        <name>xreflist_t</name>
+        <briefdescription>
+<para>vector of xrefs to variables in a function&apos;s stack frame </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="569" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="568" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="frame_8hpp_1a248f3def030aba4ba4b0ac2fec67a472" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export add_frame</definition>
+        <argsstring>(func_t *pfn, sval_t frsize, ushort frregs, asize_t argsize)</argsstring>
+        <name>add_frame</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>frsize</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+          <declname>frregs</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>argsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add function frame. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>frsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of function local variables </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>frregs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of saved registers </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>argsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of function arguments range which will be purged upon return. this parameter is used for __stdcall and __pascal calling conventions. for other calling conventions please pass 0. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>failed (no function, frame already exists) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="80" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a8f27311ac95915332fec813bc65f3dc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export del_frame</definition>
+        <argsstring>(func_t *pfn)</argsstring>
+        <name>del_frame</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delete a function frame. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function structure </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="91" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a713c7440f3458dfe4318bd1e92743f2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_frame_size</definition>
+        <argsstring>(func_t *pfn, asize_t frsize, ushort frregs, asize_t argsize)</argsstring>
+        <name>set_frame_size</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>frsize</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+          <declname>frregs</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>argsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set size of function frame. Note: The returned size may not include all stack arguments. It does so only for __stdcall and __fastcall calling conventions. To get the entire frame size for all cases use get_struc_size(get_frame(pfn)). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>frsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of function local variables </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>frregs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of saved registers </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>argsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of function arguments that will be purged from the stack upon return </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="105" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a06cd09a14b5832965ad746d5e605ef87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman asize_t ida_export</type>
+        <definition>idaman asize_t ida_export get_frame_size</definition>
+        <argsstring>(const func_t *pfn)</argsstring>
+        <name>get_frame_size</name>
+        <param>
+          <type>const <ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get full size of a function frame. This function takes into account size of local variables + size of saved registers + size of return address + number of purged bytes. The purged bytes correspond to the arguments of the functions with __stdcall and __fastcall calling conventions. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function structure, may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>size of frame in bytes or zero </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="120" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a1f585fc61fb88ad3ee8b90b2d0993a2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export get_frame_retsize</definition>
+        <argsstring>(const func_t *pfn)</argsstring>
+        <name>get_frame_retsize</name>
+        <param>
+          <type>const <ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get size of function return address. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function structure, can&apos;t be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="126" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a227ca109bc1fdf781d018c037901eeec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export get_frame_part</definition>
+        <argsstring>(range_t *range, const func_t *pfn, frame_part_t part)</argsstring>
+        <name>get_frame_part</name>
+        <param>
+          <type><ref refid="structrange__t" kindref="compound">range_t</ref> *</type>
+          <declname>range</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type><ref refid="frame_8hpp_1a7277e4b0fbb084261a7e828ec29c88e7" kindref="member">frame_part_t</ref></type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get offsets of the frame part in the frame. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>range</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the output buffer with the frame part start/end(exclusive) offsets, can&apos;t be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function structure, can&apos;t be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>part</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>frame part </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="143" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a47f814fdfb6e3307611f60491be7386f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t frame_off_args</definition>
+        <argsstring>(const func_t *pfn)</argsstring>
+        <name>frame_off_args</name>
+        <param>
+          <type>const <ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <briefdescription>
+<para>Get starting address of arguments section. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="147" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="147" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a2075164225d9cc53c6964a5adcfaf0dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t frame_off_retaddr</definition>
+        <argsstring>(const func_t *pfn)</argsstring>
+        <name>frame_off_retaddr</name>
+        <param>
+          <type>const <ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <briefdescription>
+<para>Get starting address of return address section. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="156" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="156" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1abd88c894a96749d393dcd369e64cfa23" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t frame_off_savregs</definition>
+        <argsstring>(const func_t *pfn)</argsstring>
+        <name>frame_off_savregs</name>
+        <param>
+          <type>const <ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <briefdescription>
+<para>Get starting address of saved registers section. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="165" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="165" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1af2508cc9a0bc14d2a4b36a6434ffdebc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t frame_off_lvars</definition>
+        <argsstring>(const func_t *pfn)</argsstring>
+        <name>frame_off_lvars</name>
+        <param>
+          <type>const <ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <briefdescription>
+<para>Get start address of local variables section. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="174" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="174" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a1e70af40f19141e2d723a35664d684f5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_funcarg_off</definition>
+        <argsstring>(const func_t *pfn, uval_t frameoff)</argsstring>
+        <name>is_funcarg_off</name>
+        <param>
+          <type>const <ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>frameoff</declname>
+        </param>
+        <briefdescription>
+<para>Does the given offset lie within the arguments section? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="183" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="183" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a59480473a546fd2d53c39ab677f32480" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+        <definition>sval_t lvar_off</definition>
+        <argsstring>(const func_t *pfn, uval_t frameoff)</argsstring>
+        <name>lvar_off</name>
+        <param>
+          <type>const <ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>frameoff</declname>
+        </param>
+        <briefdescription>
+<para>Does the given offset lie within the local variables section? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="194" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="194" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a538eae24587b7931ea67d9d110d68193" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classstruc__t" kindref="compound">struc_t</ref> *ida_export</type>
+        <definition>idaman struc_t* ida_export get_frame</definition>
+        <argsstring>(const func_t *pfn)</argsstring>
+        <name>get_frame</name>
+        <param>
+          <type>const <ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get pointer to function frame. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function structure </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="206" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a683e2bb3e5d2f33dc81fc81035f6660c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+        <definition>struc_t* get_frame</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>get_frame</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get pointer to function frame. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>any address in the function </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="211" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="211" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a8284122ba3ea987a183ead63859b4902" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export update_fpd</definition>
+        <argsstring>(func_t *pfn, asize_t fpd)</argsstring>
+        <name>update_fpd</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>fpd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Update frame pointer delta. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fpd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new fpd value. can not be bigger than the local variable range size. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="220" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a7d7b4155b3c9bb4143f43a1905f62e26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_purged</definition>
+        <argsstring>(ea_t ea, int nbytes, bool override_old_value)</argsstring>
+        <name>set_purged</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nbytes</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>override_old_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set the number of purged bytes for a function or data item (funcptr). This function will update the database and plan to reanalyze items referencing the specified address. It works only for processors with <ref refid="group___p_r___1ga5fbd4b03256088198824f6d375caeb54" kindref="member">PR_PURGING</ref> bit in 16 and 32 bit modes. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>address of the function of item </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nbytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of purged bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>override_old_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>may overwrite old information about purged bytes </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="232" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a50781e1dc737efc6b1db5552fe0be9f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export get_func_by_frame</definition>
+        <argsstring>(tid_t frame_id)</argsstring>
+        <name>get_func_by_frame</name>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>frame_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get function by its frame id. <simplesect kind="warning"><para>this function works only with databases created by IDA &gt; 5.6 </para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>frame_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>id of the function frame </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>start address of the function or <ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="240" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1ad5f8f39b118f4e2eddea74e54e077866" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classmember__t" kindref="compound">member_t</ref> *ida_export</type>
+        <definition>idaman member_t* ida_export get_stkvar</definition>
+        <argsstring>(sval_t *actval, const insn_t &amp;insn, const op_t &amp;x, sval_t v)</argsstring>
+        <name>get_stkvar</name>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref> *</type>
+          <declname>actval</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classinsn__t" kindref="compound">insn_t</ref> &amp;</type>
+          <declname>insn</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classop__t" kindref="compound">op_t</ref> &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get pointer to stack variable. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>actval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>actual value used to fetch stack variable this pointer may point to &apos;v&apos; </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>insn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the instruction </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>reference to instruction operand </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>immediate value in the operand (usually x.addr) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>NULL or ptr to stack variable </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="255" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a6ecc3558ed60be999ec7b3e7d682dad3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export add_stkvar</definition>
+        <argsstring>(const insn_t &amp;insn, const op_t &amp;x, sval_t v, int flags)</argsstring>
+        <name>add_stkvar</name>
+        <param>
+          <type>const <ref refid="classinsn__t" kindref="compound">insn_t</ref> &amp;</type>
+          <declname>insn</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classop__t" kindref="compound">op_t</ref> &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Automatically add stack variable if doesn&apos;t exist. Processor modules should use <ref refid="classinsn__t_1abaeb6683f9b328932887c458550edd50" kindref="member">insn_t::create_stkvar()</ref>. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>insn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the instruction </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>reference to instruction operand </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>immediate value in the operand (usually x.addr) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___s_t_k_v_a_r__1" kindref="compound">Add stkvar flags</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="269" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a3d0e8e0703f8f54b1c219d3774fd050f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export define_stkvar</definition>
+        <argsstring>(func_t *pfn, const char *name, sval_t off, flags_t flags, const opinfo_t *ti, asize_t nbytes)</argsstring>
+        <name>define_stkvar</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>off</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>flags</declname>
+        </param>
+        <param>
+          <type>const <ref refid="unionopinfo__t" kindref="compound">opinfo_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>nbytes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Define/redefine a stack variable. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>variable name, NULL means autogenerate a name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>off</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>offset of the stack variable in the frame. negative values denote local variables, positive - function arguments. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>variable type flags (<ref refid="group___f_f__datafuncs1_1gaa14a627f4353a5bdd533c6bbd020e90e" kindref="member">byte_flag()</ref> for a byte variable, for example) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ti</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>additional type information (like offsets, structs, etc) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nbytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of bytes occupied by the variable </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="290" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1aeb089d29a4ea64752af90dc32a4baf2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export build_stkvar_name</definition>
+        <argsstring>(qstring *buf, const func_t *pfn, sval_t v)</argsstring>
+        <name>build_stkvar_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Build automatic stack variable name. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function (can&apos;t be NULL!) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value of variable offset </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>length of stack variable name or -1 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="305" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1af3161147e2b4325883c73c86034d71ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export calc_stkvar_struc_offset</definition>
+        <argsstring>(func_t *pfn, const insn_t &amp;insn, int n)</argsstring>
+        <name>calc_stkvar_struc_offset</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classinsn__t" kindref="compound">insn_t</ref> &amp;</type>
+          <declname>insn</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calculate offset of stack variable in the frame structure. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function (can&apos;t be NULL!) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>insn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the instruction </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of operand: (0..<ref refid="ida_8hpp_1ae2018a7cee04a8a790fc5fc445fb473a" kindref="member">UA_MAXOP</ref>-1) -1 if error, return <ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> if some error (issue a warning if stack frame is bad) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="318" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1aacaa7150097393bae7091d317ad8ac79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export delete_wrong_frame_info</definition>
+        <argsstring>(func_t *pfn, bool idaapi should_reanalyze(const insn_t &amp;insn))</argsstring>
+        <name>delete_wrong_frame_info</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>bool idaapi </type>
+          <declname>should_reanalyze</declname>
+          <array>const insn_t &amp;insn</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find and delete wrong frame info. Namely, we delete:<itemizedlist>
+<listitem><para>unreferenced stack variable definitions</para></listitem><listitem><para>references to dead stack variables (i.e. operands displayed in red) these operands will be untyped and most likely displayed in hex. We also plan to reanalyze instruction with the stack frame references <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the function </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>should_reanalyze</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>callback to determine which instructions to reanalyze </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>number of deleted definitions </para></simplesect>
+</para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="334" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__regvar_1ga5f77d2c231f8faeb5939be2bc8e2a298" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export add_regvar</definition>
+        <argsstring>(func_t *pfn, ea_t ea1, ea_t ea2, const char *canon, const char *user, const char *cmt)</argsstring>
+        <name>add_regvar</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea1</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea2</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>canon</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>user</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>cmt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Define a register variable. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>function in which the definition will be created </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea1</parametername>
+<parametername>ea2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>range of addresses within the function where the definition will be used </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>canon</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of a general register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>user</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>user-defined name for the register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>comment for the definition </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="group___r_e_g_v_a_r___e_r_r_o_r__" kindref="compound">Register variable error codes</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="367" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__regvar_1ga7125fa606d55badfcfb905bf0a40e2e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="structregvar__t" kindref="compound">regvar_t</ref> *ida_export</type>
+        <definition>idaman regvar_t* ida_export find_regvar</definition>
+        <argsstring>(func_t *pfn, ea_t ea1, ea_t ea2, const char *canon, const char *user)</argsstring>
+        <name>find_regvar</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea1</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea2</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>canon</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>user</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find a register variable definition (powerful version). One of &apos;canon&apos; and &apos;user&apos; should be NULL. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>function in question </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea1</parametername>
+<parametername>ea2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>range of addresses to search. ea1==BADADDR means the entire function </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>canon</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of a general register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>user</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>user-defined name for the register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>NULL-not found, otherwise ptr to <ref refid="structregvar__t" kindref="compound">regvar_t</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="392" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__regvar_1gad1a35ab3f412436bc8e42980ebf119dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structregvar__t" kindref="compound">regvar_t</ref> *</type>
+        <definition>regvar_t* find_regvar</definition>
+        <argsstring>(func_t *pfn, ea_t ea, const char *canon)</argsstring>
+        <name>find_regvar</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>canon</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find a register variable definition. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>function in question </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>current address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>canon</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of a general register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>NULL-not found, otherwise ptr to <ref refid="structregvar__t" kindref="compound">regvar_t</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="401" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="401" bodyend="404"/>
+      </memberdef>
+      <memberdef kind="function" id="group__regvar_1ga28f5e5e05bd45253e8e546e8d7048e44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export rename_regvar</definition>
+        <argsstring>(func_t *pfn, regvar_t *v, const char *user)</argsstring>
+        <name>rename_regvar</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type><ref refid="structregvar__t" kindref="compound">regvar_t</ref> *</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>user</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Rename a register variable. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>function in question </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>variable to rename </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>user</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new user-defined name for the register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="group___r_e_g_v_a_r___e_r_r_o_r__" kindref="compound">Register variable error codes</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="413" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__regvar_1ga864c220a61416541dcbc6b0d35353b5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export set_regvar_cmt</definition>
+        <argsstring>(func_t *pfn, regvar_t *v, const char *cmt)</argsstring>
+        <name>set_regvar_cmt</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type><ref refid="structregvar__t" kindref="compound">regvar_t</ref> *</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>cmt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set comment for a register variable. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>function in question </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>variable to rename </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new comment </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="group___r_e_g_v_a_r___e_r_r_o_r__" kindref="compound">Register variable error codes</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="422" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__regvar_1gae28b200b6ffb1dfe1dad1683ac87d112" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export del_regvar</definition>
+        <argsstring>(func_t *pfn, ea_t ea1, ea_t ea2, const char *canon)</argsstring>
+        <name>del_regvar</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea1</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea2</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>canon</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delete a register variable definition. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>function in question </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea1</parametername>
+<parametername>ea2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>range of addresses within the function where the definition holds </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>canon</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of a general register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="group___r_e_g_v_a_r___e_r_r_o_r__" kindref="compound">Register variable error codes</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="431" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a245da2e9f6e1f65ca306d0bab0db5368" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export add_auto_stkpnt</definition>
+        <argsstring>(func_t *pfn, ea_t ea, sval_t delta)</argsstring>
+        <name>add_auto_stkpnt</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>delta</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add automatic SP register change point. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function. may be NULL. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address where SP changes. usually this is the end of the instruction which modifies the stack pointer ({ea}+{size}) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>delta</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>difference between old and new values of SP </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="490" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1ab13680589c0aea771a34d1fd0d63c37f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export add_user_stkpnt</definition>
+        <argsstring>(ea_t ea, sval_t delta)</argsstring>
+        <name>add_user_stkpnt</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>delta</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add user-defined SP register change point. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address where SP changes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>delta</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>difference between old and new values of SP </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="498" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1ac68a1de58fbd9e15b5a46d0189369467" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export del_stkpnt</definition>
+        <argsstring>(func_t *pfn, ea_t ea)</argsstring>
+        <name>del_stkpnt</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delete SP register change point. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function. may be NULL. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="506" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a5be01e2fa6c64579f40540d42c6d598e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref> ida_export</type>
+        <definition>idaman sval_t ida_export get_spd</definition>
+        <argsstring>(func_t *pfn, ea_t ea)</argsstring>
+        <name>get_spd</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get difference between the initial and current values of ESP. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function. may be NULL. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address of an instruction </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 or the difference, usually a negative number. returns the sp-diff before executing the instruction. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="515" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a32cbc5afee0af39cfbca5de4c9d62dfb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref> ida_export</type>
+        <definition>idaman sval_t ida_export get_effective_spd</definition>
+        <argsstring>(func_t *pfn, ea_t ea)</argsstring>
+        <name>get_effective_spd</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get effective difference between the initial and current values of ESP. This function returns the sp-diff used by the instruction. The difference between <ref refid="frame_8hpp_1a5be01e2fa6c64579f40540d42c6d598e" kindref="member">get_spd()</ref> and <ref refid="frame_8hpp_1a32cbc5afee0af39cfbca5de4c9d62dfb" kindref="member">get_effective_spd()</ref> is present only for instructions like &quot;pop [esp+N]&quot;: they modify sp and use the modified value. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function. may be NULL. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 or the difference, usually a negative number </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="526" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1a5928077ab43a648f05af0d7dd168a6c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref> ida_export</type>
+        <definition>idaman sval_t ida_export get_sp_delta</definition>
+        <argsstring>(func_t *pfn, ea_t ea)</argsstring>
+        <name>get_sp_delta</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get modification of SP made at the specified location <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function. may be NULL. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 if the specified location doesn&apos;t contain a SP change point. otherwise return delta of SP modification. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="535" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1ae937235a31f9216d185337a3425551eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export recalc_spd</definition>
+        <argsstring>(ea_t cur_ea)</argsstring>
+        <name>recalc_spd</name>
+        <param>
+          <type>ea_t</type>
+          <declname>cur_ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Recalculate SP delta for an instruction that stops execution. The next instruction is not reached from the current instruction. We need to recalculate SP for the next instruction.</para><para>This function will create a new automatic SP register change point if necessary. It should be called from the emulator (emu.cpp) when auto_state == <ref refid="group___a_u___1ga26484b0dda0e7740b5db01459e9da421" kindref="member">AU_USED</ref> if the current instruction doesn&apos;t pass the execution flow to the next instruction. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cur_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address of the current instruction </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new stkpnt is added </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>nothing is changed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="550" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="frame_8hpp_1aaeba4d56367ba26fb9a04923cfc89bb6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export build_stkvar_xrefs</definition>
+        <argsstring>(xreflist_t *out, func_t *pfn, const member_t *mptr)</argsstring>
+        <name>build_stkvar_xrefs</name>
+        <param>
+          <type><ref refid="frame_8hpp_1a88d80d5d38b062a7743afc80d32e8a2c" kindref="member">xreflist_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classmember__t" kindref="compound">member_t</ref> *</type>
+          <declname>mptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Fill &apos;out&apos; with a list of all the xrefs made from function &apos;pfn&apos;, to the argument or variable &apos;mptr&apos; in &apos;pfn&apos;s stack frame. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the list of xrefs to fill. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the function to scan. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the argument/variable in pfn&apos;s stack frame. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="577" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Routines to manipulate function stack frames, stack variables, register variables and local labels. </para>    </briefdescription>
+    <detaileddescription>
+<para>The frame is represented as a structure: <preformatted>
+  +------------------------------------------------+
+  | function arguments                             |
+  +------------------------------------------------+
+  | return address (isn&apos;t stored in <ref refid="classfunc__t" kindref="compound">func_t</ref>)        |
+  +------------------------------------------------+
+  | saved registers (SI, DI, etc - <ref refid="classfunc__t_1aaae89da99feeba7a2d3440d8582d85be" kindref="member">func_t::frregs</ref>) |
+  +------------------------------------------------+ &lt;- typical BP
+  |                                                |  |
+  |                                                |  | <ref refid="classfunc__t_1a676f92e8f23adfdb5f5bc5be5a3345c4" kindref="member">func_t::fpd</ref>
+  |                                                |  |
+  |                                                | &lt;- real BP
+  | local variables (<ref refid="classfunc__t_1af7831991ec87f4696d51599ef59b97fc" kindref="member">func_t::frsize</ref>)               |
+  |                                                |
+  |                                                |
+  +------------------------------------------------+ &lt;- SP
+</preformatted></para><para>To access the structure of a function frame, use:<itemizedlist>
+<listitem><para><ref refid="struct_8hpp_1a4f7d9419fc4616db2450413427bd1e45" kindref="member">get_struc()</ref> (use <ref refid="classfunc__t_1a38a4fc253b5d88c343d973dbd2032dbe" kindref="member">func_t::frame</ref> as structure ID)</para></listitem><listitem><para><ref refid="frame_8hpp_1a538eae24587b7931ea67d9d110d68193" kindref="member">get_frame(const func_t *pfn)</ref></para></listitem><listitem><para><ref refid="frame_8hpp_1a683e2bb3e5d2f33dc81fc81035f6660c" kindref="member">get_frame(ea_t ea)</ref> </para></listitem></itemizedlist>
+</para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp"/>
+  </compounddef>
+</doxygen>

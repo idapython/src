@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_e_t___m_e_m_t_i__" kind="group">
+    <compoundname>SET_MEMTI_</compoundname>
+    <title>Set member tinfo flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_e_t___m_e_m_t_i___1ga8a1c6621ffba3c30a6377af284fbe1eb" prot="public" static="no">
+        <name>SET_MEMTI_MAY_DESTROY</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>may destroy other members </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="510" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="510" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_t___m_e_m_t_i___1ga2df3838e610f16430d9df4da57656a88" prot="public" static="no">
+        <name>SET_MEMTI_COMPATIBLE</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>new type must be compatible with the old </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="511" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="511" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_t___m_e_m_t_i___1ga7e810dcdad667bc02fc400a115b57e72" prot="public" static="no">
+        <name>SET_MEMTI_FUNCARG</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>mptr is function argument (can not create arrays) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="512" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="512" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_t___m_e_m_t_i___1ga8b1457187807a21538bfd999f0c05514" prot="public" static="no">
+        <name>SET_MEMTI_BYTIL</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>new type was created by the type subsystem </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="513" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="513" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_t___m_e_m_t_i___1gaa79b78eb8c34a4f4fe940a15ae88b11f" prot="public" static="no">
+        <name>SET_MEMTI_USERTI</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>user-specified type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="514" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="514" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as &apos;flags&apos; parameter to <ref refid="struct_8hpp_1aaa3683a4790b5ad049a50afc0e0a961e" kindref="member">set_member_tinfo()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

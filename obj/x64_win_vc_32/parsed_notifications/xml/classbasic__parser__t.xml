@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classbasic__parser__t" kind="class" language="C++" prot="public">
+    <compoundname>basic_parser_t</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classbasic__parser__t_1a7d1939a16b67ff46fb9d6834efb37a19" prot="private" static="no" mutable="no">
+        <type>nexttoken_t</type>
+        <definition>nexttoken_t basic_parser_t::gettok</definition>
+        <argsstring></argsstring>
+        <name>gettok</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" line="38" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classbasic__parser__t_1afc5b94c23ef385e6ffe396d838f03395" prot="private" static="no" mutable="no">
+        <type>const <ref refid="structpsymbol__t" kindref="compound">psymbol_t</ref> *const  *</type>
+        <definition>const psymbol_t* const* basic_parser_t::Table</definition>
+        <argsstring></argsstring>
+        <name>Table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" line="39" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classbasic__parser__t_1a7f33574c772b8e259a2e02ff2261f6cf" prot="private" static="no" mutable="no">
+        <type>const action_t *</type>
+        <definition>const action_t* basic_parser_t::Actions</definition>
+        <argsstring></argsstring>
+        <name>Actions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" line="40" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classbasic__parser__t_1add61962b47c47a63e9af8675b5825d2d" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool basic_parser_t::got_token</definition>
+        <argsstring></argsstring>
+        <name>got_token</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" line="41" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classbasic__parser__t_1a9e946e47181acb9e3123aa8c2dac1ea2" prot="public" static="no" mutable="no">
+        <type><ref refid="structtoken__t" kindref="compound">token_t</ref></type>
+        <definition>token_t basic_parser_t::ahead</definition>
+        <argsstring></argsstring>
+        <name>ahead</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" line="43" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classbasic__parser__t_1acc11d43e4645ff9e666a3edcb514b53d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>basic_parser_t::basic_parser_t</definition>
+        <argsstring>(const psymbol_t *const symbols[], const action_t *act, nexttoken_t nextToken)</argsstring>
+        <name>basic_parser_t</name>
+        <param>
+          <type>const <ref refid="structpsymbol__t" kindref="compound">psymbol_t</ref> *const</type>
+          <declname>symbols</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const action_t *</type>
+          <declname>act</declname>
+        </param>
+        <param>
+          <type>nexttoken_t</type>
+          <declname>nextToken</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" line="44" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" bodystart="44" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classbasic__parser__t_1ae66ea8d129aa7ce9e8cea8e8fbc79fb4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool basic_parser_t::parse</definition>
+        <argsstring>(int goal)</argsstring>
+        <name>parse</name>
+        <param>
+          <type>int</type>
+          <declname>goal</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" line="54" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classbasic__parser__t_1a0d7b47eee76b476ae3c8820b352da93a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool basic_parser_t::exported_parse</definition>
+        <argsstring>(int goal)</argsstring>
+        <name>exported_parse</name>
+        <param>
+          <type>int</type>
+          <declname>goal</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" line="55" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" bodystart="55" bodyend="55"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="82">
+        <label>basic_parser_t</label>
+        <link refid="classbasic__parser__t"/>
+        <childnode refid="83" relation="usage">
+          <edgelabel>ahead</edgelabel>
+        </childnode>
+      </node>
+      <node id="83">
+        <label>token_t</label>
+        <link refid="structtoken__t"/>
+        <childnode refid="84" relation="usage">
+          <edgelabel>str</edgelabel>
+        </childnode>
+      </node>
+      <node id="84">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" line="37" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parse.hpp" bodystart="36" bodyend="56"/>
+    <listofallmembers>
+      <member refid="classbasic__parser__t_1a7f33574c772b8e259a2e02ff2261f6cf" prot="private" virt="non-virtual"><scope>basic_parser_t</scope><name>Actions</name></member>
+      <member refid="classbasic__parser__t_1a9e946e47181acb9e3123aa8c2dac1ea2" prot="public" virt="non-virtual"><scope>basic_parser_t</scope><name>ahead</name></member>
+      <member refid="classbasic__parser__t_1acc11d43e4645ff9e666a3edcb514b53d" prot="public" virt="non-virtual"><scope>basic_parser_t</scope><name>basic_parser_t</name></member>
+      <member refid="classbasic__parser__t_1a0d7b47eee76b476ae3c8820b352da93a" prot="public" virt="non-virtual"><scope>basic_parser_t</scope><name>exported_parse</name></member>
+      <member refid="classbasic__parser__t_1a7d1939a16b67ff46fb9d6834efb37a19" prot="private" virt="non-virtual"><scope>basic_parser_t</scope><name>gettok</name></member>
+      <member refid="classbasic__parser__t_1add61962b47c47a63e9af8675b5825d2d" prot="private" virt="non-virtual"><scope>basic_parser_t</scope><name>got_token</name></member>
+      <member refid="classbasic__parser__t_1ae66ea8d129aa7ce9e8cea8e8fbc79fb4" prot="public" virt="non-virtual"><scope>basic_parser_t</scope><name>parse</name></member>
+      <member refid="classbasic__parser__t_1afc5b94c23ef385e6ffe396d838f03395" prot="private" virt="non-virtual"><scope>basic_parser_t</scope><name>Table</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

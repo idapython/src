@@ -473,7 +473,7 @@ private:
     }
     else
     {
-      ok = PyInt_Check(obj.o);
+      ok = IDAPyInt_Check(obj.o);
       if ( ok )
         *out = uint32(IDAPyInt_AsLong(obj.o));
     }
@@ -812,7 +812,7 @@ public:
   static py_simplecustview_t *get_this(PyObject *py_this)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    return PyCObject_Check(py_this) ? (py_simplecustview_t *) PyCObject_AsVoidPtr(py_this) : NULL;
+    return PyCapsule_IsValid(py_this, VALID_CAPSULE_NAME) ? (py_simplecustview_t *) PyCapsule_GetPointer(py_this, VALID_CAPSULE_NAME) : NULL;
   }
 
   PyObject *get_pythis()
@@ -882,7 +882,7 @@ PyObject *pyscv_get_current_line(PyObject *py_this, bool mouse, bool notags)
   const char *line;
   if ( _this == NULL || (line = _this->get_current_line(mouse, notags)) == NULL )
     Py_RETURN_NONE;
-  return PyString_FromString(line);
+  return IDAPyStr_FromUTF8(line);
 }
 
 //--------------------------------------------------------------------------
@@ -1006,7 +1006,7 @@ PyObject *pyscv_get_current_word(PyObject *py_this, bool mouse)
   {
     qstring word;
     if ( _this->get_current_word(mouse, word) )
-      return PyString_FromString(word.c_str());
+      return IDAPyStr_FromUTF8(word.c_str());
   }
   Py_RETURN_NONE;
 }

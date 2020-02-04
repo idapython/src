@@ -1,0 +1,798 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__seg__man" kind="group">
+    <compoundname>seg_man</compoundname>
+    <title>Segment manipulation functions</title>
+    <innergroup refid="group___a_d_d_s_e_g__">Add segment flags</innergroup>
+    <innergroup refid="group___s_e_g_m_o_d__">Segment modification flags</innergroup>
+    <innergroup refid="group___m_s_f__">Move segment flags</innergroup>
+    <innergroup refid="group___m_o_v_e___s_e_g_m__">Move segment result codes</innergroup>
+    <innergroup refid="group___c_s_s__">Change segment status result codes</innergroup>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__seg__man_1ga9c959024724f499c3c1b3c2ddb1f63b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export add_segm_ex</definition>
+        <argsstring>(segment_t *s, const char *name, const char *sclass, int flags)</argsstring>
+        <name>add_segm_ex</name>
+        <param>
+          <type><ref refid="classsegment__t" kindref="compound">segment_t</ref> *</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>sclass</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add a new segment. If a segment already exists at the specified range of addresses, this segment will be truncated. Instructions and data in the old segment will be deleted if the new segment has another addressing mode or another segment base address. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to filled segment structure. segment selector should have proper mapping (see <ref refid="group__seg__sel_1gaee421bd585e301aea9452c84ac735c6a" kindref="member">set_selector()</ref>).<itemizedlist>
+<listitem><para>if s.start_ea==<ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> then s.start_ea &lt;- get_segm_base(&amp;s)</para></listitem><listitem><para>if s.end_ea==<ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref>, then a segment up to the next segment will be created (if the next segment doesn&apos;t exist, then 1 byte segment will be created).</para></listitem><listitem><para>if the s.end_ea &lt; s.start_ea, then fail.</para></listitem><listitem><para>if s.end_ea is too high and the new segment would overlap the next segment, s.end_ea is adjusted properly. </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of new segment. may be NULL. if specified, the segment is immediately renamed </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sclass</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>class of the segment. may be NULL. if specified, the segment class is immediately changed </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___a_d_d_s_e_g__" kindref="compound">Add segment flags</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>failed, a warning message is displayed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="525" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1ga59f6ee9677c2605aeac9541e38e54025" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export add_segm</definition>
+        <argsstring>(ea_t para, ea_t start, ea_t end, const char *name, const char *sclass, int flags=0)</argsstring>
+        <name>add_segm</name>
+        <param>
+          <type>ea_t</type>
+          <declname>para</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>end</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>sclass</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add a new segment, second form. Segment alignment is set to <ref refid="group__sa___1ga0aecfd12e64028f0712d6cad0403b66b" kindref="member">saRelByte</ref>. Segment combination is &quot;public&quot; or &quot;stack&quot; (if segment class is &quot;STACK&quot;). Addressing mode of segment is taken as default (16bit or 32bit). Default segment registers are set to <ref refid="pro_8h_1a893ddf307fae0a3bbca667ee917cddc7" kindref="member">BADSEL</ref>. If a segment already exists at the specified range of addresses, this segment will be truncated. Instructions and data in the old segment will be deleted if the new segment has another addressing mode or another segment base address. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>para</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>segment base paragraph. if paragraph can&apos;t fit in 16bit, then a new selector is allocated and mapped to the paragraph. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>start</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>start address of the segment. if start==<ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> then start &lt;- to_ea(para,0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>end</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>end address of the segment. end address should be higher than start address. For emulate empty segments, use <ref refid="group___s_e_g___1ga594f82f31d1ed7189ad21c3af3279269" kindref="member">SEG_NULL</ref> segment type. If the end address is lower than start address, then fail. If end==<ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref>, then a segment up to the next segment will be created (if the next segment doesn&apos;t exist, then 1 byte segment will be created). If &apos;end&apos; is too high and the new segment would overlap the next segment, &apos;end&apos; is adjusted properly. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of new segment. may be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sclass</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>class of the segment. may be NULL. type of the new segment is modified if class is one of predefined names:<itemizedlist>
+<listitem><para>&quot;CODE&quot; -&gt; <ref refid="group___s_e_g___1gacfc10101b1288e858b747c0a9c329226" kindref="member">SEG_CODE</ref></para></listitem><listitem><para>&quot;DATA&quot; -&gt; <ref refid="group___s_e_g___1ga9f583dca1a7fef2948458048c70b2f1c" kindref="member">SEG_DATA</ref></para></listitem><listitem><para>&quot;CONST&quot; -&gt; <ref refid="group___s_e_g___1ga9f583dca1a7fef2948458048c70b2f1c" kindref="member">SEG_DATA</ref></para></listitem><listitem><para>&quot;STACK&quot; -&gt; <ref refid="group___s_e_g___1ga0e7d8517210b3c56679eca1111e4c0fc" kindref="member">SEG_BSS</ref></para></listitem><listitem><para>&quot;BSS&quot; -&gt; <ref refid="group___s_e_g___1ga0e7d8517210b3c56679eca1111e4c0fc" kindref="member">SEG_BSS</ref></para></listitem><listitem><para>&quot;XTRN&quot; -&gt; <ref refid="group___s_e_g___1ga5c9bbede59653b945dacc70598306289" kindref="member">SEG_XTRN</ref></para></listitem><listitem><para>&quot;COMM&quot; -&gt; <ref refid="group___s_e_g___1ga39a39aa78e00ea21899571a2b636976e" kindref="member">SEG_COMM</ref></para></listitem><listitem><para>&quot;ABS&quot; -&gt; <ref refid="group___s_e_g___1ga5c130d299e48ff537068e03e8ae23d71" kindref="member">SEG_ABSSYM</ref> </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>failed, a warning message is displayed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="590" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1gabebbd185abaf370753d5ea59d32d9985" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export del_segm</definition>
+        <argsstring>(ea_t ea, int flags)</argsstring>
+        <name>del_segm</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delete a segment. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>any address belonging to the segment </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___s_e_g_m_o_d__" kindref="compound">Segment modification flags</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>failed, no segment at &apos;ea&apos;. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="605" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1ga9e848ee2505a32634309a914195fe141" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export get_segm_qty</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_segm_qty</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get number of segments. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="624" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1gafe3790d2192e868f169f36b97b9afb38" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classsegment__t" kindref="compound">segment_t</ref> *ida_export</type>
+        <definition>idaman segment_t* ida_export getseg</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>getseg</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get pointer to segment by linear address. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address belonging to the segment </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>NULL or pointer to segment structure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="631" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1ga981ad2476fa596106a40f407583413cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classsegment__t" kindref="compound">segment_t</ref> *ida_export</type>
+        <definition>idaman segment_t* ida_export getnseg</definition>
+        <argsstring>(int n)</argsstring>
+        <name>getnseg</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get pointer to segment by its number. <simplesect kind="warning"><para>Obsoleted because it can slow down the debugger (it has to refresh the whole memory segmentation to calculate the correct answer) </para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>segment number in the range (0..<ref refid="group__seg__man_1ga9e848ee2505a32634309a914195fe141" kindref="member">get_segm_qty()</ref>-1) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>NULL or pointer to segment structure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="640" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1gab73fd60fa5ec55b12441ecbf3224f742" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export get_segm_num</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>get_segm_num</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get number of segment by address. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address belonging to the segment </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>-1 if no segment occupies the specified address. otherwise returns number of the specified segment (0..<ref refid="group__seg__man_1ga9e848ee2505a32634309a914195fe141" kindref="member">get_segm_qty()</ref>-1) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="647" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1ga0d41eff5ac1b01d2c2f1455100d0450e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classsegment__t" kindref="compound">segment_t</ref> *ida_export</type>
+        <definition>idaman segment_t* ida_export get_next_seg</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>get_next_seg</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+<para>Get pointer to the next segment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="651" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1gabcd68779bb7c22bc90b0659caac7da7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classsegment__t" kindref="compound">segment_t</ref> *ida_export</type>
+        <definition>idaman segment_t* ida_export get_prev_seg</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>get_prev_seg</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+<para>Get pointer to the previous segment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="653" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1gadd01f4c4e74fa760a8f2fd99ae2836e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classsegment__t" kindref="compound">segment_t</ref> *ida_export</type>
+        <definition>idaman segment_t* ida_export get_first_seg</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_first_seg</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get pointer to the first segment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="656" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1ga94a1aa4658af45e1e21904bc3169fe1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classsegment__t" kindref="compound">segment_t</ref> *ida_export</type>
+        <definition>idaman segment_t* ida_export get_last_seg</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_last_seg</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get pointer to the last segment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="658" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1ga6f20bda4f664e25e179a391ee9690e1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classsegment__t" kindref="compound">segment_t</ref> *ida_export</type>
+        <definition>idaman segment_t* ida_export get_segm_by_name</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>get_segm_by_name</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get pointer to segment by its name. If there are several segments with the same name, returns the first of them. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>segment name. may be NULL. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>NULL or pointer to segment structure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="666" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1gaadde01303718a6cde673dca12ffac9d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_segm_end</definition>
+        <argsstring>(ea_t ea, ea_t newend, int flags)</argsstring>
+        <name>set_segm_end</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>newend</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set segment end address. The next segment is shrinked to allow expansion of the specified segment. The kernel might even delete the next segment if necessary. The kernel will ask the user for a permission to destroy instructions or data going out of segment scope if such instructions exist. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>any address belonging to the segment </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newend</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new end address of the segment </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___s_e_g_m_o_d__" kindref="compound">Segment modification flags</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>failed, a warning message is displayed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="680" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1gaffcd6c25a6d3bfc4bafeb786db81ec79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_segm_start</definition>
+        <argsstring>(ea_t ea, ea_t newstart, int flags)</argsstring>
+        <name>set_segm_start</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>newstart</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set segment start address. The previous segment is trimmed to allow expansion of the specified segment. The kernel might even delete the previous segment if necessary. The kernel will ask the user for a permission to destroy instructions or data going out of segment scope if such instructions exist. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>any address belonging to the segment </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newstart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new start address of the segment note that segment start address should be higher than segment base linear address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___s_e_g_m_o_d__" kindref="compound">Segment modification flags</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>failed, a warning message is displayed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="696" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1gaa93c02cc5dccb84dc5d302dc8dcf67dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export move_segm_start</definition>
+        <argsstring>(ea_t ea, ea_t newstart, int mode)</argsstring>
+        <name>move_segm_start</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>newstart</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Move segment start. The main difference between this function and <ref refid="group__seg__man_1gaffcd6c25a6d3bfc4bafeb786db81ec79" kindref="member">set_segm_start()</ref> is that this function may expand the previous segment while <ref refid="group__seg__man_1gaffcd6c25a6d3bfc4bafeb786db81ec79" kindref="member">set_segm_start()</ref> never does it. So, this function allows to change bounds of two segments simultaneously. If the previous segment and the specified segment have the same addressing mode and segment base, then instructions and data are not destroyed - they simply move from one segment to another. Otherwise all instructions/data which migrate from one segment to another are destroyed. <simplesect kind="note"><para>this function never disables addresses. </para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>any address belonging to the segment </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newstart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new start address of the segment note that segment start address should be higher than segment base linear address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>policy for destroying defined items<itemizedlist>
+<listitem><para>0: if it is necessary to destroy defined items, display a dialog box and ask confirmation</para></listitem><listitem><para>1: if it is necessary to destroy defined items, just destroy them without asking the user</para></listitem><listitem><para>-1: if it is necessary to destroy defined items, don&apos;t destroy them (i.e. function will fail)</para></listitem><listitem><para>-2: don&apos;t destroy defined items (function will succeed) </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>failed, a warning message is displayed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="724" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1gab3c11fbdf0ac345cb618b8b0ad3ef04c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export move_segm</definition>
+        <argsstring>(segment_t *s, ea_t to, int flags=0)</argsstring>
+        <name>move_segm</name>
+        <param>
+          <type><ref refid="classsegment__t" kindref="compound">segment_t</ref> *</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Move a segment to a new address. This function moves all information to the new address. It fixes up address sensitive information in the kernel. The total effect is equal to reloading the segment to the target address. For the file format dependent address sensitive information, <ref refid="structloader__t_1a7a329922101a4e28a2b7018e565a3b5d" kindref="member">loader_t::move_segm</ref> is called. Also IDB notification event <ref refid="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784a9462c0eec099edd1bb2f0d7e65acf2e5" kindref="member">idb_event::segm_moved</ref> is called. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>segment to move </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>to</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new segment start address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___m_s_f__" kindref="compound">Move segment flags</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="group___m_o_v_e___s_e_g_m__" kindref="compound">Move segment result codes</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="738" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1gaa5f20d1b84b6cbccb5a4b173f26e3599" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export rebase_program</definition>
+        <argsstring>(adiff_t delta, int flags)</argsstring>
+        <name>rebase_program</name>
+        <param>
+          <type>adiff_t</type>
+          <declname>delta</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Rebase the whole program by &apos;delta&apos; bytes. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>delta</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of bytes to move the program </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___m_s_f__" kindref="compound">Move segment flags</ref> it is recommended to use <ref refid="group___m_s_f___1ga89693134e1c29045c8c9a1b77f106813" kindref="member">MSF_FIXONCE</ref> so that the loader takes care of global variables it stored in the database </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="group___m_o_v_e___s_e_g_m__" kindref="compound">Move segment result codes</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="775" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1ga4ad15e77b3eb0f53f1b5083aa0c3a70b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export change_segment_status</definition>
+        <argsstring>(segment_t *s, bool is_deb_segm)</argsstring>
+        <name>change_segment_status</name>
+        <param>
+          <type><ref refid="classsegment__t" kindref="compound">segment_t</ref> *</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>is_deb_segm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Convert a debugger segment to a regular segment and vice versa. When converting debug-&gt;regular, the memory contents will be copied to the database. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>segment to modify </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>is_deb_segm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new status of the segment </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="group___c_s_s__" kindref="compound">Change segment status result codes</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="785" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1gae35ca9fdec8cedd3d0fb74cf66506dfd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export take_memory_snapshot</definition>
+        <argsstring>(bool only_loader_segs)</argsstring>
+        <name>take_memory_snapshot</name>
+        <param>
+          <type>bool</type>
+          <declname>only_loader_segs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Take a memory snapshot of the running process. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>only_loader_segs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>only is_loader_segm() segments will be affected </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="803" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1gac6e9fffcb08d5be5a4d94b5f30a84be2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export is_miniidb</definition>
+        <argsstring>(void)</argsstring>
+        <name>is_miniidb</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is the database a miniidb created by the debugger?. <simplesect kind="return"><para>true if the database contains no segments or only debugger segments </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="810" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__man_1gacdb1707a8b4bec1a05923aa43c4c06f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_segm_base</definition>
+        <argsstring>(segment_t *s, ea_t newbase)</argsstring>
+        <name>set_segm_base</name>
+        <param>
+          <type><ref refid="classsegment__t" kindref="compound">segment_t</ref> *</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>newbase</declname>
+        </param>
+        <briefdescription>
+<para>Internal function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="815" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Add/Delete/Modify segments </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__seg__grp" kind="group">
+    <compoundname>seg_grp</compoundname>
+    <title>Segment groups</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__seg__grp_1gac0011ca67788905ff2b401b3376f8802" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export set_group_selector</definition>
+        <argsstring>(sel_t grp, sel_t sel)</argsstring>
+        <name>set_group_selector</name>
+        <param>
+          <type>sel_t</type>
+          <declname>grp</declname>
+        </param>
+        <param>
+          <type>sel_t</type>
+          <declname>sel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Initialize groups. The kernel calls this function at the start of work.Create a new group of segments (used OMF files). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>grp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>selector of group segment (segment type is <ref refid="group___s_e_g___1gab3bd0f97c65dd59b10ea76b16d444784" kindref="member">SEG_GRP</ref>) You should create an &apos;empty&apos; (1 byte) group segment It won&apos;t contain anything and will be used to redirect references to the group of segments to the common selector. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>common selector of all segments belonging to the segment You should create all segments within the group with the same selector value. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 ok </para></simplesect>
+<simplesect kind="return"><para>0 too many groups (see <ref refid="group__seg__grp_1ga36d20ba74425036fd66f863bb89adeda" kindref="member">MAX_GROUPS</ref>) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="846" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__grp_1ga38dfb9e4396914c0118978a77897c427" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman sel_t ida_export</type>
+        <definition>idaman sel_t ida_export get_group_selector</definition>
+        <argsstring>(sel_t grpsel)</argsstring>
+        <name>get_group_selector</name>
+        <param>
+          <type>sel_t</type>
+          <declname>grpsel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get common selector for a group of segments. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>grpsel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>selector of group segment </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>common selector of the group or &apos;grpsel&apos; if no such group is found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="855" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__seg__grp_1ga36d20ba74425036fd66f863bb89adeda" prot="public" static="no">
+        <name>MAX_GROUPS</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>max number of segment groups </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="848" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="848" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

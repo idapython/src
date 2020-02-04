@@ -1,0 +1,572 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__named__types" kind="group">
+    <compoundname>named_types</compoundname>
+    <title>Named types</title>
+    <innergroup refid="group___n_t_f__">Flags for named types</innergroup>
+    <innergroup refid="group___c_c_n__">C/C++ naming flags</innergroup>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__named__types_1ga4b2c98771820db5f78f2e754c97c0aaa" prot="public" static="no">
+        <name>tinfo_code_t</name>
+        <enumvalue id="group__named__types_1gga4b2c98771820db5f78f2e754c97c0aaaaf1e302c7895bfa27324ea87b2613f934" prot="public">
+          <name>TERR_OK</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>ok </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__named__types_1gga4b2c98771820db5f78f2e754c97c0aaaab5040c8d0d7d40aaec3229056feeb441" prot="public">
+          <name>TERR_SAVE</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+<para>failed to save </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__named__types_1gga4b2c98771820db5f78f2e754c97c0aaaa8d887bee845b2f1ef5f2b91509a7d8a7" prot="public">
+          <name>TERR_SERIALIZE</name>
+          <initializer>= -2</initializer>
+          <briefdescription>
+<para>failed to serialize </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__named__types_1gga4b2c98771820db5f78f2e754c97c0aaaaed75b318f4c08674eb57ba88cdd7c420" prot="public">
+          <name>TERR_WRONGNAME</name>
+          <initializer>= -3</initializer>
+          <briefdescription>
+<para>name is not acceptable </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__named__types_1gga4b2c98771820db5f78f2e754c97c0aaaad5b485a8aea98a39638a33b0fdf3aece" prot="public">
+          <name>TERR_BADSYNC</name>
+          <initializer>= -4</initializer>
+          <briefdescription>
+<para>failed to synchronize with IDB </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Error codes for save_tinfo functions: </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1802" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1801" bodyend="1808"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__named__types_1ga5ffa914dc0eff13ba02d9a1c9722db0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export get_named_type</definition>
+        <argsstring>(const til_t *ti, const char *name, int ntf_flags, const type_t **type=NULL, const p_list **fields=NULL, const char **cmt=NULL, const p_list **fieldcmts=NULL, sclass_t *sclass=NULL, uint32 *value=NULL)</argsstring>
+        <name>get_named_type</name>
+        <param>
+          <type>const <ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ntf_flags</declname>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref> **</type>
+          <declname>type</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a828c7e985f83b1e74eb4ea7b716abfb1" kindref="member">p_list</ref> **</type>
+          <declname>fields</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const char **</type>
+          <declname>cmt</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a828c7e985f83b1e74eb4ea7b716abfb1" kindref="member">p_list</ref> **</type>
+          <declname>fieldcmts</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="typeinf_8hpp_1a9c9a05934a8418932a82a2d39476d97d" kindref="member">sclass_t</ref> *</type>
+          <declname>sclass</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+          <declname>value</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get named typeinfo. The returned pointers are pointers to static storage. <linebreak/>
+They are valid until <ref refid="typeinf_8hpp_1a7fc9cf4e476ff8d150c1e77bb0746301" kindref="member">free_til()</ref>, set_named_type(), <ref refid="group__named__types_1ga1790476ab86ed2767f5c9c81ec3274ff" kindref="member">del_named_type()</ref>, <linebreak/>
+rename_named_type(), <ref refid="group__numbered__types_1gaf2052794beeb4a5968dcf0b12a525801" kindref="member">set_numbered_type()</ref>, <ref refid="group__numbered__types_1ga63cf655e113e97c7d0abc8d42e7e98f4" kindref="member">del_numbered_type()</ref>, <linebreak/>
+and idb structure/enum manipulation (in other words, until <ref refid="structtil__t" kindref="compound">til_t</ref> is changed). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ti</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to type information library </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ntf_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>combination of <ref refid="group___n_t_f__" kindref="compound">Flags for named types</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ptr to ptr to output buffer for the type info </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fields</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ptr to ptr to the field/args names. may be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ptr to ptr to the main comment. may be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fieldcmts</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ptr to ptr to the field/args comments. may be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sclass</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ptr to storage class </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ptr to symbol value. for types, ptr to the ordinal number </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>can&apos;t find the named type (or name==NULL) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok, the buffers are filled with information (if not NULL) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok, found it in a base til </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1748" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__named__types_1ga4455587bd938c7dbec64f0e1189204c1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi get_named_type64</definition>
+        <argsstring>(const til_t *ti, const char *name, int ntf_flags, const type_t **type=NULL, const p_list **fields=NULL, const char **cmt=NULL, const p_list **fieldcmts=NULL, sclass_t *sclass=NULL, uint64 *value=NULL)</argsstring>
+        <name>get_named_type64</name>
+        <param>
+          <type>const <ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ntf_flags</declname>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref> **</type>
+          <declname>type</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a828c7e985f83b1e74eb4ea7b716abfb1" kindref="member">p_list</ref> **</type>
+          <declname>fields</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const char **</type>
+          <declname>cmt</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a828c7e985f83b1e74eb4ea7b716abfb1" kindref="member">p_list</ref> **</type>
+          <declname>fieldcmts</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="typeinf_8hpp_1a9c9a05934a8418932a82a2d39476d97d" kindref="member">sclass_t</ref> *</type>
+          <declname>sclass</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref> *</type>
+          <declname>value</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>See <ref refid="group__named__types_1ga5ffa914dc0eff13ba02d9a1c9722db0d" kindref="member">get_named_type()</ref> above. <simplesect kind="note"><para>If the value in the &apos;ti&apos; library is 32-bit, it will be sign-extended before being stored in the &apos;value&apos; pointer. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1784" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1784" bodyend="1797"/>
+      </memberdef>
+      <memberdef kind="function" id="group__named__types_1ga1790476ab86ed2767f5c9c81ec3274ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export del_named_type</definition>
+        <argsstring>(til_t *ti, const char *name, int ntf_flags)</argsstring>
+        <name>del_named_type</name>
+        <param>
+          <type><ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ntf_flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delete information about a symbol. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ti</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type library </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of symbol </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ntf_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>combination of <ref refid="group___n_t_f__" kindref="compound">Flags for named types</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1817" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__named__types_1gabf9c17f9c6bbf44ead03d36ed482e370" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman const char *ida_export</type>
+        <definition>idaman const char* ida_export first_named_type</definition>
+        <argsstring>(const til_t *ti, int ntf_flags)</argsstring>
+        <name>first_named_type</name>
+        <param>
+          <type>const <ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ntf_flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enumerate types. Returns mangled names. Never returns anonymous types. To include it, enumerate types by ordinals. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1824" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__named__types_1ga9f87865992b1a307b5c5a2d6fffc0967" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman const char *ida_export</type>
+        <definition>idaman const char* ida_export next_named_type</definition>
+        <argsstring>(const til_t *ti, const char *name, int ntf_flags)</argsstring>
+        <name>next_named_type</name>
+        <param>
+          <type>const <ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ntf_flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enumerate types. Returns mangled names. Never returns anonymous types. To include it, enumerate types by ordinals. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1829" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__named__types_1gad7fb8bcab798445a464639d699b6126f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> ida_export</type>
+        <definition>idaman uint32 ida_export copy_named_type</definition>
+        <argsstring>(til_t *dsttil, const til_t *srctil, const char *name)</argsstring>
+        <name>copy_named_type</name>
+        <param>
+          <type><ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>dsttil</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>srctil</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Copy a named type from one til to another. This function will copy the specified type and all dependent types from the source type library to the destination library. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dsttil</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination til. It must have orginal types enabled </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>srctil</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source til. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the type to copy </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>ordinal number of the copied type. 0 means error </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1840" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__named__types_1ga85975fda1d0ba5c6a19b9b482f3007d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export decorate_name</definition>
+        <argsstring>(qstring *out, const char *name, bool mangle, cm_t cc=CM_CC_UNKNOWN, const tinfo_t *type=NULL)</argsstring>
+        <name>decorate_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>mangle</declname>
+        </param>
+        <param>
+          <type><ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+          <declname>cc</declname>
+          <defval><ref refid="group___c_m___c_c___1ga1d8607c930b67577c7f39ac7a5d24612" kindref="member">CM_CC_UNKNOWN</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="classtinfo__t" kindref="compound">tinfo_t</ref> *</type>
+          <declname>type</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Decorate/undecorate a C symbol name. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of symbol </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mangle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>true-mangle, false-unmangle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>calling convention </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name type (NULL-unknown) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1854" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__named__types_1gad6cf1ca0ea27834794b8034bc86a7087" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export gen_decorate_name</definition>
+        <argsstring>(qstring *out, const char *name, bool mangle, cm_t cc, const tinfo_t *type)</argsstring>
+        <name>gen_decorate_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>mangle</declname>
+        </param>
+        <param>
+          <type><ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+          <declname>cc</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classtinfo__t" kindref="compound">tinfo_t</ref> *</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+<para>Generic function for <ref refid="group__named__types_1ga85975fda1d0ba5c6a19b9b482f3007d5" kindref="member">decorate_name()</ref> (may be used in IDP modules) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1864" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__named__types_1ga059b898c85f397e3aadf4c409ec66c59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export calc_c_cpp_name</definition>
+        <argsstring>(qstring *out, const char *name, const tinfo_t *type, int ccn_flags)</argsstring>
+        <name>calc_c_cpp_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classtinfo__t" kindref="compound">tinfo_t</ref> *</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ccn_flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get C or C++ form of the name. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>original (mangled or decorated) name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name type if known, otherwise NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ccn_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>one of <ref refid="group___c_c_n__" kindref="compound">C/C++ naming flags</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1878" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>functions to work with named types </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

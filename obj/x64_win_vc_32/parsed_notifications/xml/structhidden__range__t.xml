@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structhidden__range__t" kind="struct" language="C++" prot="public">
+    <compoundname>hidden_range_t</compoundname>
+    <basecompoundref refid="structrange__t" prot="public" virt="non-virtual">range_t</basecompoundref>
+    <includes refid="bytes_8hpp" local="no">bytes.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structhidden__range__t_1ad0da94e68397ab3c26982f52ed853562" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* hidden_range_t::description</definition>
+        <argsstring></argsstring>
+        <name>description</name>
+        <briefdescription>
+<para>description to display if the range is collapsed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="2250" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="2250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhidden__range__t_1ac201ce5db03db4d916c4bb90586959a3" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* hidden_range_t::header</definition>
+        <argsstring></argsstring>
+        <name>header</name>
+        <briefdescription>
+<para>header lines to display if the range is expanded </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="2251" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="2251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhidden__range__t_1a4344f2c150d2add0c1a188efa08ecdf4" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* hidden_range_t::footer</definition>
+        <argsstring></argsstring>
+        <name>footer</name>
+        <briefdescription>
+<para>footer lines to display if the range is expanded </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="2252" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="2252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhidden__range__t_1a8d0e8ffb35ee0aea80d68839cf1d5711" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool hidden_range_t::visible</definition>
+        <argsstring></argsstring>
+        <name>visible</name>
+        <briefdescription>
+<para>the range state </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="2253" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="2253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhidden__range__t_1abbd53af6dacdc10f6ce41549b5d6addd" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a3df5040891132e50157aee66affdf1de" kindref="member">bgcolor_t</ref></type>
+        <definition>bgcolor_t hidden_range_t::color</definition>
+        <argsstring></argsstring>
+        <name>color</name>
+        <briefdescription>
+<para>range color </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="2254" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="2254" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Hidden ranges - address ranges which can be replaced by their descriptions. There is also a possibility to hide individual items completely (<ref refid="nalt_8hpp" kindref="compound">nalt.hpp</ref>, hide_item) <simplesect kind="note"><para>After modifying any of this struct&apos;s fields please call <ref refid="bytes_8hpp_1aab2b026ae2fc396277270cf6886ea8e9" kindref="member">update_hidden_range()</ref> </para></simplesect>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="1726">
+        <label>hidden_range_t</label>
+        <link refid="structhidden__range__t"/>
+        <childnode refid="1727" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1727">
+        <label>range_t</label>
+        <link refid="structrange__t"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1728">
+        <label>hidden_range_t</label>
+        <link refid="structhidden__range__t"/>
+        <childnode refid="1729" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1729">
+        <label>range_t</label>
+        <link refid="structrange__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="2249" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="2248" bodyend="2255"/>
+    <listofallmembers>
+      <member refid="structrange__t_1af69f6653edafca6c68050cc689f6a34a" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>clear</name></member>
+      <member refid="structhidden__range__t_1abbd53af6dacdc10f6ce41549b5d6addd" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>color</name></member>
+      <member refid="structrange__t_1a0830eb0562430bfc98c8ffd89c34c38b" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>compare</name></member>
+      <member refid="structrange__t_1a639ccf2de4dc8a2272fdb2937427616b" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>contains</name></member>
+      <member refid="structrange__t_1a188429d8f3c57001a60f2b0f4e5a9c88" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>contains</name></member>
+      <member refid="structhidden__range__t_1ad0da94e68397ab3c26982f52ed853562" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>description</name></member>
+      <member refid="structrange__t_1a07d4ba9971d45948b8efdad8bedb2773" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>empty</name></member>
+      <member refid="structrange__t_1a31e62b2ecbc6b543945e3c2fcaa5ae3d" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>end_ea</name></member>
+      <member refid="structrange__t_1a2fbe9a8accdb83fe775b546ae4aca51b" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>extend</name></member>
+      <member refid="structhidden__range__t_1a4344f2c150d2add0c1a188efa08ecdf4" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>footer</name></member>
+      <member refid="structhidden__range__t_1ac201ce5db03db4d916c4bb90586959a3" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>header</name></member>
+      <member refid="structrange__t_1ab4b7e2856112ddbf081134b3d71ed7a5" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>intersect</name></member>
+      <member refid="structrange__t_1ac9f6c3adeb6af420bcaa2d2c624fd1f1" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>operator!=</name></member>
+      <member refid="structrange__t_1a9041a2aa65b7181856d9e110b0b9fbef" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>operator&lt;</name></member>
+      <member refid="structrange__t_1aa7f77c097f903e791eefca4a81e6b3d3" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>operator==</name></member>
+      <member refid="structrange__t_1a5972a592e712ca2e09bfff8037561ef2" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>operator&gt;</name></member>
+      <member refid="structrange__t_1ac063ce03653e4456e408aea12ffa80e1" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>overlaps</name></member>
+      <member refid="structrange__t_1a5e4a06ff3c34f53d752985274c39a3a1" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>print</name></member>
+      <member refid="structrange__t_1a43ae77e02b4b42dca95b04a5b72b4381" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>range_t</name></member>
+      <member refid="structrange__t_1a1994b8457d9394a0f50723fc67eef06a" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>range_t</name></member>
+      <member refid="structrange__t_1acf22d1af607f5bef81df4862f6ad5ac8" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>size</name></member>
+      <member refid="structrange__t_1a69799eeea6c081e327fed05bcc617585" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>start_ea</name></member>
+      <member refid="structhidden__range__t_1a8d0e8ffb35ee0aea80d68839cf1d5711" prot="public" virt="non-virtual"><scope>hidden_range_t</scope><name>visible</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structpkt__helo__t" kind="struct" language="C++" prot="public">
+    <compoundname>pkt_helo_t</compoundname>
+    <basecompoundref refid="structrpc__packet__data__t" prot="public" virt="non-virtual">rpc_packet_data_t</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structpkt__helo__t_1a0f4e6d8d5a597d74c6687515a9b65560" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int pkt_helo_t::client_version</definition>
+        <argsstring></argsstring>
+        <name>client_version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="602" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="602" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpkt__helo__t_1a159271a22054c31c24089356841aad26" prot="public" static="no" mutable="no">
+        <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref></type>
+        <definition>bytevec_t pkt_helo_t::key</definition>
+        <argsstring></argsstring>
+        <name>key</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="603" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="603" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpkt__helo__t_1a34b29631c65ad55fe7a7bcb40fc9404e" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar pkt_helo_t::license_id[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>license_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="604" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="604" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpkt__helo__t_1a88cc6db1414d95f795079769e40a32e9" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool pkt_helo_t::record_conv</definition>
+        <argsstring></argsstring>
+        <name>record_conv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="605" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="605" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structpkt__helo__t_1a6f54c5d506b6ff428b0a7a5b73b794c5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>pkt_helo_t::pkt_helo_t</definition>
+        <argsstring>()</argsstring>
+        <name>pkt_helo_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="606" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="606" bodyend="610"/>
+      </memberdef>
+      <memberdef kind="function" id="structpkt__helo__t_1a47c78edc95d69e8e488cbeb219e0fb66" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual pkt_helo_t::~pkt_helo_t</definition>
+        <argsstring>()</argsstring>
+        <name>~pkt_helo_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="612" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structpkt__helo__t_1a2f0196edbf04f16bda5431137f3e7b47" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void pkt_helo_t::serialize</definition>
+        <argsstring>(bytevec_t *out, int version) const</argsstring>
+        <name>serialize</name>
+        <reimplements refid="structrpc__packet__data__t_1a577ceb943847ae0b714a56b264b9cf65">serialize</reimplements>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="613" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structpkt__helo__t_1a46cf9cffd7064c8dd8fd7cee980cdd34" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool pkt_helo_t::deserialize</definition>
+        <argsstring>(const uchar **ptr, size_t len, int version)</argsstring>
+        <name>deserialize</name>
+        <reimplements refid="structrpc__packet__data__t_1a150454902741340968d1386c8277e857">deserialize</reimplements>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="614" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2819">
+        <label>rpc_packet_data_t</label>
+        <link refid="structrpc__packet__data__t"/>
+      </node>
+      <node id="2818">
+        <label>pkt_helo_t</label>
+        <link refid="structpkt__helo__t"/>
+        <childnode refid="2819" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2823">
+        <label>qvector&lt; uchar &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2822">
+        <label>bytevec_t</label>
+        <link refid="classbytevec__t"/>
+        <childnode refid="2823" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2821">
+        <label>rpc_packet_data_t</label>
+        <link refid="structrpc__packet__data__t"/>
+      </node>
+      <node id="2820">
+        <label>pkt_helo_t</label>
+        <link refid="structpkt__helo__t"/>
+        <childnode refid="2821" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2822" relation="usage">
+          <edgelabel>key</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="601" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="600" bodyend="615"/>
+    <listofallmembers>
+      <member refid="structpkt__helo__t_1a0f4e6d8d5a597d74c6687515a9b65560" prot="public" virt="non-virtual"><scope>pkt_helo_t</scope><name>client_version</name></member>
+      <member refid="structrpc__packet__data__t_1ae8f08a217a006f7a35f5fdb3f0e26a87" prot="public" virt="non-virtual"><scope>pkt_helo_t</scope><name>code</name></member>
+      <member refid="structpkt__helo__t_1a46cf9cffd7064c8dd8fd7cee980cdd34" prot="public" virt="virtual"><scope>pkt_helo_t</scope><name>deserialize</name></member>
+      <member refid="structpkt__helo__t_1a159271a22054c31c24089356841aad26" prot="public" virt="non-virtual"><scope>pkt_helo_t</scope><name>key</name></member>
+      <member refid="structpkt__helo__t_1a34b29631c65ad55fe7a7bcb40fc9404e" prot="public" virt="non-virtual"><scope>pkt_helo_t</scope><name>license_id</name></member>
+      <member refid="structpkt__helo__t_1a6f54c5d506b6ff428b0a7a5b73b794c5" prot="public" virt="non-virtual"><scope>pkt_helo_t</scope><name>pkt_helo_t</name></member>
+      <member refid="structpkt__helo__t_1a88cc6db1414d95f795079769e40a32e9" prot="public" virt="non-virtual"><scope>pkt_helo_t</scope><name>record_conv</name></member>
+      <member refid="structrpc__packet__data__t_1aa48c3e33219ccb723d7be7f18392f50b" prot="public" virt="non-virtual"><scope>pkt_helo_t</scope><name>rpc_packet_data_t</name></member>
+      <member refid="structpkt__helo__t_1a2f0196edbf04f16bda5431137f3e7b47" prot="public" virt="virtual"><scope>pkt_helo_t</scope><name>serialize</name></member>
+      <member refid="structpkt__helo__t_1a47c78edc95d69e8e488cbeb219e0fb66" prot="public" virt="virtual"><scope>pkt_helo_t</scope><name>~pkt_helo_t</name></member>
+      <member refid="structrpc__packet__data__t_1af3d9b0008dfb68fb02fbc403c41fe396" prot="public" virt="virtual"><scope>pkt_helo_t</scope><name>~rpc_packet_data_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

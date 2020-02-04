@@ -1,0 +1,429 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="libfuncs_8hpp" kind="file" language="C++">
+    <compoundname>libfuncs.hpp</compoundname>
+    <innerclass refid="structlibfunc__t" prot="public">libfunc_t</innerclass>
+    <innerclass refid="structlibmod__t" prot="public">libmod_t</innerclass>
+    <innerclass refid="structidasgn__header__t" prot="public">idasgn_header_t</innerclass>
+    <innerclass refid="classidasgn__t" prot="public">idasgn_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="libfuncs_8hpp_1a140d08617db6f945e45739cb0804c8ae" prot="public" static="no">
+        <name>LFF_DATA</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="35" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a60f79b57d6ef27160f7f449d40b9174e" prot="public" static="no">
+        <name>LFF_LOCAL</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="36" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a5ee2c05fa382ce71f5976ef8f075e324" prot="public" static="no">
+        <name>LFF_DOUBT</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="37" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a5dab6845d46d584789dce19ed3b057fd" prot="public" static="no">
+        <name>LFF_COLL</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="38" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1ac2cb2e33ddc684c44f5a4427575e783d" prot="public" static="no">
+        <name>LFF_NEG</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="39" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1aaa4b58ee3ef027e64684969e345885fe" prot="public" static="no">
+        <name>SIGN_HEADER_MAGIC</name>
+        <initializer>&quot;IDASGN&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="54" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a3292021f7bfc03980c5f8098e09d887f" prot="public" static="no">
+        <name>SIGN_HEADER_VERSION</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="56" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a49028665311f5c210cd3c62c1be7b01c" prot="public" static="no">
+        <name>OSTYPE_MSDOS</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="60" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a460d9654905fb216c5a0188d8414e45e" prot="public" static="no">
+        <name>OSTYPE_WIN</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="61" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a27d106c9c0614afce05498c9af468e09" prot="public" static="no">
+        <name>OSTYPE_OS2</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="62" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1aee70f5118a7be58b15ffa44521d38467" prot="public" static="no">
+        <name>OSTYPE_NETW</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="63" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a71e4300184b98dead7834adaa7a89c25" prot="public" static="no">
+        <name>OSTYPE_UNIX</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="64" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1abbec53d3930e102139b6f5ae3eb43d8b" prot="public" static="no">
+        <name>OSTYPE_OTHER</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="65" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a093854d46cc86cae991f9f91b7b03946" prot="public" static="no">
+        <name>APPT_CONSOLE</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="67" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a4d2a318546d662e3eb13933219d7f12b" prot="public" static="no">
+        <name>APPT_GRAPHIC</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="68" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a98237312670791754a63c2fbe2c1d848" prot="public" static="no">
+        <name>APPT_PROGRAM</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="69" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1aab26930aa90367414fbf4c1311900dbb" prot="public" static="no">
+        <name>APPT_LIBRARY</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="70" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a1f3f56d9374dd49d0453a52cc3cb787e" prot="public" static="no">
+        <name>APPT_DRIVER</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="71" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a2629b8382b88d8b4e9ceb65e3aa2fa41" prot="public" static="no">
+        <name>APPT_1THREAD</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="72" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1aaf74f18cab68ab5459145b1b9eca71f6" prot="public" static="no">
+        <name>APPT_MTHREAD</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="73" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a2dbd3412326ead3e53d1deaa00d35350" prot="public" static="no">
+        <name>APPT_16BIT</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="74" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1af7467707b94a2886380d39b7cb94f5fe" prot="public" static="no">
+        <name>APPT_32BIT</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="75" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1aeec5ccf724da34c36c7f505071b866e5" prot="public" static="no">
+        <name>APPT_64BIT</name>
+        <initializer>0x0200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="76" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a75860fb24932adcf04531d434f52ba89" prot="public" static="no">
+        <name>LS_STARTUP</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="81" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1ad6a9f8e83addfb038c3d1be67bf60d0a" prot="public" static="no">
+        <name>LS_CTYPE</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="82" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a5c42e2dfc7802684cb61e6292ce85f25" prot="public" static="no">
+        <name>LS_CTYPE2</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="83" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a54b3ddefb0d71dc5496c6aa69e70bfb2" prot="public" static="no">
+        <name>LS_CTYPE_ALT</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="84" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1ad05cadac5816a03cb060364834005100" prot="public" static="no">
+        <name>LS_ZIP</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="85" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="libfuncs_8hpp_1a116c57421646d04401ae9008e37bf6a5" prot="public" static="no">
+        <name>LS_CTYPE_3V</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="86" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="libfuncs_8hpp_1a4d31997876e5b2c1c7a5c7c3cf5095ed" prot="public" static="no">
+        <type><ref refid="structjanitor__t" kindref="compound">janitor_t</ref>&lt; <ref refid="classidasgn__t" kindref="compound">idasgn_t</ref> * &gt;</type>
+        <definition>typedef janitor_t&lt;idasgn_t*&gt; idasgn_janitor_t</definition>
+        <argsstring></argsstring>
+        <name>idasgn_janitor_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="118" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="libfuncs_8hpp_1aae7e399f306ba1bcbf2b0c2dee4fd8fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classidasgn__t" kindref="compound">idasgn_t</ref> *</type>
+        <definition>idasgn_t* get_idasgn_header</definition>
+        <argsstring>(const char *file)</argsstring>
+        <name>get_idasgn_header</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="112" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="libfuncs_8hpp_1afa19ef822e93fdc35671aa5ce99f6979" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classidasgn__t" kindref="compound">idasgn_t</ref> *</type>
+        <definition>idasgn_t* load_idasgn</definition>
+        <argsstring>(const char *file)</argsstring>
+        <name>load_idasgn</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="113" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="libfuncs_8hpp_1a2e372e7ea6c1775ef41be5f30afa859d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export free_idasgn</definition>
+        <argsstring>(idasgn_t *sf)</argsstring>
+        <name>free_idasgn</name>
+        <param>
+          <type><ref refid="classidasgn__t" kindref="compound">idasgn_t</ref> *</type>
+          <declname>sf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="114" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="libfuncs_8hpp_1a1ea01befd871408b4eabd06e145be804" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structlibmod__t" kindref="compound">libmod_t</ref> *</type>
+        <definition>libmod_t* is_library_module</definition>
+        <argsstring>(const idasgn_t *sf, ea_t ea, int *extra_pass_may_help)</argsstring>
+        <name>is_library_module</name>
+        <param>
+          <type>const <ref refid="classidasgn__t" kindref="compound">idasgn_t</ref> *</type>
+          <declname>sf</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>extra_pass_may_help</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="115" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp"/>
+  </compounddef>
+</doxygen>

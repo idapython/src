@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structdata__type__t" kind="struct" language="C++" prot="public">
+    <compoundname>data_type_t</compoundname>
+    <includes refid="bytes_8hpp" local="no">bytes.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdata__type__t_1a1b4ff140fd32a5e2222a5698f7c5e7ad" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int data_type_t::cbsize</definition>
+        <argsstring></argsstring>
+        <name>cbsize</name>
+        <briefdescription>
+<para>size of this structure </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1759" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1759" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdata__type__t_1a8b886dfe21a87737ec0d16fcd8b667c9" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* data_type_t::ud</definition>
+        <argsstring></argsstring>
+        <name>ud</name>
+        <briefdescription>
+<para>user-defined data to be passed to callbacks </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1760" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1760" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdata__type__t_1ac12a20073b00383f0867a9da5d12deae" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int data_type_t::props</definition>
+        <argsstring></argsstring>
+        <name>props</name>
+        <briefdescription>
+<para>properties </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1761" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1761" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdata__type__t_1afff1662287d740f7b0a970d0a9b8af30" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* data_type_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>name of the data type. must be unique </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1763" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1763" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdata__type__t_1a27e86ace0aa6fc9a04107e01b7907d38" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* data_type_t::menu_name</definition>
+        <argsstring></argsstring>
+        <name>menu_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Visible data type name to use in menus if NULL, no menu item will be created </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1764" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1764" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdata__type__t_1adc6e955bf788a12e00fbcf6803ddd4f1" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* data_type_t::hotkey</definition>
+        <argsstring></argsstring>
+        <name>hotkey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Hotkey for the corresponding menu item if NULL, no hotkey will be associated with the menu item </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1766" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1766" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdata__type__t_1a07bf4a45490e0caa2c92c1187d3d9d1b" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* data_type_t::asm_keyword</definition>
+        <argsstring></argsstring>
+        <name>asm_keyword</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>keyword to use for this type in the assembly if NULL, the data type can not be used in the listing it can still be used in cpuregs window </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1768" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1768" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdata__type__t_1ae450c0293ce0e74037fbc7ff9ed477e2" prot="public" static="no" mutable="no">
+        <type>asize_t</type>
+        <definition>asize_t data_type_t::value_size</definition>
+        <argsstring></argsstring>
+        <name>value_size</name>
+        <briefdescription>
+<para>size of the value in bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1771" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1771" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdata__type__t_1a6c9a35c40180ae14d5c2cb303de83ddc" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * data_type_t::may_create_at) (void *ud, ea_t ea, size_t nbytes)</definition>
+        <argsstring>)(void *ud, ea_t ea, size_t nbytes)</argsstring>
+        <name>may_create_at</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>May create data? NULL means always may <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>user-defined data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>address of the future item </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nbytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of the future item </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1781" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1781" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdata__type__t_1aa62760b91c14aaaaeef838a784b0c9aa" prot="public" static="no" mutable="no">
+        <type>asize_t(idaapi *</type>
+        <definition>asize_t(idaapi * data_type_t::calc_item_size) (void *ud, ea_t ea, asize_t maxsize)</definition>
+        <argsstring>)(void *ud, ea_t ea, asize_t maxsize)</argsstring>
+        <name>calc_item_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This function is used to determine size of the (possible) item at &apos;ea&apos;. This callback is required only for varsize datatypes. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>user-defined data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>address of the item </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>maxsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>maximal size of the item </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 if no such item can be created/displayed </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1792" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1792" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structdata__type__t_1a3e968907a1655d8e6e2e1f4cace325a5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool data_type_t::is_present_in_menus</definition>
+        <argsstring>() const</argsstring>
+        <name>is_present_in_menus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Should this type be shown in UI menus <simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1775" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1775" bodyend="1775"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Information about a data type. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1758" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1757" bodyend="1796"/>
+    <listofallmembers>
+      <member refid="structdata__type__t_1a07bf4a45490e0caa2c92c1187d3d9d1b" prot="public" virt="non-virtual"><scope>data_type_t</scope><name>asm_keyword</name></member>
+      <member refid="structdata__type__t_1aa62760b91c14aaaaeef838a784b0c9aa" prot="public" virt="non-virtual"><scope>data_type_t</scope><name>calc_item_size</name></member>
+      <member refid="structdata__type__t_1a1b4ff140fd32a5e2222a5698f7c5e7ad" prot="public" virt="non-virtual"><scope>data_type_t</scope><name>cbsize</name></member>
+      <member refid="structdata__type__t_1adc6e955bf788a12e00fbcf6803ddd4f1" prot="public" virt="non-virtual"><scope>data_type_t</scope><name>hotkey</name></member>
+      <member refid="structdata__type__t_1a3e968907a1655d8e6e2e1f4cace325a5" prot="public" virt="non-virtual"><scope>data_type_t</scope><name>is_present_in_menus</name></member>
+      <member refid="structdata__type__t_1a6c9a35c40180ae14d5c2cb303de83ddc" prot="public" virt="non-virtual"><scope>data_type_t</scope><name>may_create_at</name></member>
+      <member refid="structdata__type__t_1a27e86ace0aa6fc9a04107e01b7907d38" prot="public" virt="non-virtual"><scope>data_type_t</scope><name>menu_name</name></member>
+      <member refid="structdata__type__t_1afff1662287d740f7b0a970d0a9b8af30" prot="public" virt="non-virtual"><scope>data_type_t</scope><name>name</name></member>
+      <member refid="structdata__type__t_1ac12a20073b00383f0867a9da5d12deae" prot="public" virt="non-virtual"><scope>data_type_t</scope><name>props</name></member>
+      <member refid="structdata__type__t_1a8b886dfe21a87737ec0d16fcd8b667c9" prot="public" virt="non-virtual"><scope>data_type_t</scope><name>ud</name></member>
+      <member refid="structdata__type__t_1ae450c0293ce0e74037fbc7ff9ed477e2" prot="public" virt="non-virtual"><scope>data_type_t</scope><name>value_size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

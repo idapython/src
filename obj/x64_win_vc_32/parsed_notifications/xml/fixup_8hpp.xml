@@ -1,0 +1,965 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="fixup_8hpp" kind="file" language="C++">
+    <compoundname>fixup.hpp</compoundname>
+    <includes refid="nalt_8hpp" local="no">nalt.hpp</includes>
+    <includes refid="segment_8hpp" local="no">segment.hpp</includes>
+    <incdepgraph>
+      <node id="307">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="291">
+        <label>stdarg.h</label>
+      </node>
+      <node id="294">
+        <label>assert.h</label>
+      </node>
+      <node id="288">
+        <label>ida.hpp</label>
+        <link refid="ida_8hpp"/>
+        <childnode refid="289" relation="include">
+        </childnode>
+        <childnode refid="309" relation="include">
+        </childnode>
+      </node>
+      <node id="290">
+        <label>stdlib.h</label>
+      </node>
+      <node id="302">
+        <label>io.h</label>
+      </node>
+      <node id="305">
+        <label>fcntl.h</label>
+      </node>
+      <node id="308">
+        <label>llong.hpp</label>
+        <link refid="llong_8hpp_source"/>
+      </node>
+      <node id="300">
+        <label>malloc.h</label>
+      </node>
+      <node id="299">
+        <label>string</label>
+      </node>
+      <node id="304">
+        <label>map</label>
+      </node>
+      <node id="303">
+        <label>direct.h</label>
+      </node>
+      <node id="292">
+        <label>stddef.h</label>
+      </node>
+      <node id="287">
+        <label>nalt.hpp</label>
+        <link refid="nalt_8hpp"/>
+        <childnode refid="288" relation="include">
+        </childnode>
+        <childnode refid="310" relation="include">
+        </childnode>
+      </node>
+      <node id="295">
+        <label>limits.h</label>
+      </node>
+      <node id="306">
+        <label>sys/types.h</label>
+      </node>
+      <node id="301">
+        <label>string.h</label>
+      </node>
+      <node id="298">
+        <label>new</label>
+      </node>
+      <node id="289">
+        <label>pro.h</label>
+        <link refid="pro_8h"/>
+        <childnode refid="290" relation="include">
+        </childnode>
+        <childnode refid="291" relation="include">
+        </childnode>
+        <childnode refid="292" relation="include">
+        </childnode>
+        <childnode refid="293" relation="include">
+        </childnode>
+        <childnode refid="294" relation="include">
+        </childnode>
+        <childnode refid="295" relation="include">
+        </childnode>
+        <childnode refid="296" relation="include">
+        </childnode>
+        <childnode refid="297" relation="include">
+        </childnode>
+        <childnode refid="298" relation="include">
+        </childnode>
+        <childnode refid="299" relation="include">
+        </childnode>
+        <childnode refid="300" relation="include">
+        </childnode>
+        <childnode refid="301" relation="include">
+        </childnode>
+        <childnode refid="302" relation="include">
+        </childnode>
+        <childnode refid="303" relation="include">
+        </childnode>
+        <childnode refid="304" relation="include">
+        </childnode>
+        <childnode refid="305" relation="include">
+        </childnode>
+        <childnode refid="306" relation="include">
+        </childnode>
+        <childnode refid="307" relation="include">
+        </childnode>
+        <childnode refid="308" relation="include">
+        </childnode>
+      </node>
+      <node id="286">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp</label>
+        <link refid="fixup_8hpp"/>
+        <childnode refid="287" relation="include">
+        </childnode>
+        <childnode refid="311" relation="include">
+        </childnode>
+      </node>
+      <node id="311">
+        <label>segment.hpp</label>
+        <link refid="segment_8hpp"/>
+        <childnode refid="288" relation="include">
+        </childnode>
+        <childnode refid="309" relation="include">
+        </childnode>
+      </node>
+      <node id="297">
+        <label>time.h</label>
+      </node>
+      <node id="296">
+        <label>ctype.h</label>
+      </node>
+      <node id="309">
+        <label>range.hpp</label>
+        <link refid="range_8hpp"/>
+      </node>
+      <node id="310">
+        <label>netnode.hpp</label>
+        <link refid="netnode_8hpp"/>
+        <childnode refid="309" relation="include">
+        </childnode>
+      </node>
+      <node id="293">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structfixup__data__t" prot="public">fixup_data_t</innerclass>
+    <innerclass refid="structfixup__handler__t" prot="public">fixup_handler_t</innerclass>
+    <innerclass refid="structfixup__info__t" prot="public">fixup_info_t</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Fixup standard types</header>
+      <memberdef kind="define" id="fixup_8hpp_1ae38203e0680cf6c514fd6b5cb2e4b4b5" prot="public" static="no">
+        <name>FIXUP_OFF8</name>
+        <initializer>13</initializer>
+        <briefdescription>
+<para>8-bit offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="35" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fixup_8hpp_1a7547b563be7f9c13fd88097a42653f17" prot="public" static="no">
+        <name>FIXUP_OFF16</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>16-bit offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="36" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fixup_8hpp_1a44a3aec11e00512000ea1828df038de1" prot="public" static="no">
+        <name>FIXUP_SEG16</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>16-bit base<ndash/>logical segment base (selector) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="37" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fixup_8hpp_1a0fcf51b5a7780cd38e48b2a3dee5fcc0" prot="public" static="no">
+        <name>FIXUP_PTR16</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>offset) </para>        </briefdescription>
+        <detaileddescription>
+<para>32-bit long pointer (16-bit base:16-bit </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="38" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fixup_8hpp_1a6cc416569d664d93e71ff31fe94440cf" prot="public" static="no">
+        <name>FIXUP_OFF32</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>32-bit offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="40" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fixup_8hpp_1a8fe61403139ce4ca3b1ddc20498621aa" prot="public" static="no">
+        <name>FIXUP_PTR32</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>48-bit pointer (16-bit base:32-bit offset) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="41" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fixup_8hpp_1a2e43d02f52d910cd0ef40bad083c845f" prot="public" static="no">
+        <name>FIXUP_HI8</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>high 8 bits of 16bit offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="42" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fixup_8hpp_1aa988bb9a8415c41bb253474b43724d81" prot="public" static="no">
+        <name>FIXUP_HI16</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>high 16 bits of 32bit offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="43" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fixup_8hpp_1ad2afefe915e0eed29f30f1f2ec72b5e0" prot="public" static="no">
+        <name>FIXUP_LOW8</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>low 8 bits of 16bit offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="44" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fixup_8hpp_1aaf6f3fa8ddcb0d04df160bdd66d5b095" prot="public" static="no">
+        <name>FIXUP_LOW16</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>low 16 bits of 32bit offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="45" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fixup_8hpp_1ae6ba6648875bb91c86391fcd5455c746" prot="public" static="no">
+        <name>V695_FIXUP_VHIGH</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>obsolete </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="46" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fixup_8hpp_1a26e49e6cacd22999bc70151d4f70bf04" prot="public" static="no">
+        <name>V695_FIXUP_VLOW</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>obsolete </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="47" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fixup_8hpp_1a3b4f4977e68210480eb01324c682b10b" prot="public" static="no">
+        <name>FIXUP_OFF64</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>64-bit offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="48" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fixup_8hpp_1aa42a23251d64692899bce5bc115e822c" prot="public" static="no">
+        <name>FIXUP_CUSTOM</name>
+        <initializer>0x8000</initializer>
+        <briefdescription>
+<para>start of the custom types range </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="50" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Enumerate addresses with fixup information:</header>
+      <memberdef kind="function" id="fixup_8hpp_1ad434af144ea41201b88c3aa9c7a3eaf1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export get_first_fixup_ea</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_first_fixup_ea</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the first address with fixup information</para><para><simplesect kind="return"><para>the first address with fixup information, or BADADDR </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="229" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1a1171b1258513ca76e41db29b65a384f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export get_next_fixup_ea</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>get_next_fixup_ea</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find next address with fixup information</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>current address </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the next address with fixup information, or BADADDR </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="235" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1a31bcb4a6f4c4b8877585f26841f62bb8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export get_prev_fixup_ea</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>get_prev_fixup_ea</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find previous address with fixup information</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>current address </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the previous address with fixup information, or BADADDR </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="241" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>std_get_value()</header>
+      <description><para>This internal function takes <ref refid="group__fh__options" kindref="compound">Tuning options</ref> to determine how to get the operand value. It is opposite in meaning to the <computeroutput>std_patch_value()</computeroutput>. 1) it gets the <ref refid="group__fh__options_1gae7b3073ac6e4a2099b965824e0c1966d" kindref="member">fixup_handler_t::size</ref> bytes at the given address, 2) it shifts the result left by <ref refid="group__fh__options_1ga6de49b5dbb84d7af99012416767d288b" kindref="member">fixup_handler_t::shift</ref> bits, 3) it returns the rightmost <ref refid="group__fh__options_1gaf430f824beaa0786e687e16756554065" kindref="member">fixup_handler_t::width</ref> bits as a signed value. </para></description>
+      <memberdef kind="function" id="fixup_8hpp_1a718c4e75f94fa9cbe5708c77a8061ff4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="fixup_8hpp_1ac369f50f71892a7215812ab85eb45860" kindref="member">fixup_type_t</ref> ida_export</type>
+        <definition>idaman fixup_type_t ida_export register_custom_fixup</definition>
+        <argsstring>(const fixup_handler_t *cfh)</argsstring>
+        <name>register_custom_fixup</name>
+        <param>
+          <type>const <ref refid="structfixup__handler__t" kindref="compound">fixup_handler_t</ref> *</type>
+          <declname>cfh</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Register a new custom fixup. This function must be called by a processor module or plugin, but not by a file loader. File loaders should use <ref refid="fixup_8hpp_1a099e7027b6c7b540770dda3823cd71e0" kindref="member">find_custom_fixup()</ref> function to find the handler created by the processor module. <simplesect kind="return"><para>id of the new custom fixup handler with FIXUP_CUSTOM bit set or 0 (e.g. when the custom fixup handler with the same name was already registered). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="457" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1a2e61d4027bed174c5e4cbc16a6ef8432" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export unregister_custom_fixup</definition>
+        <argsstring>(fixup_type_t type)</argsstring>
+        <name>unregister_custom_fixup</name>
+        <param>
+          <type><ref refid="fixup_8hpp_1ac369f50f71892a7215812ab85eb45860" kindref="member">fixup_type_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Unregister a new custom fixup format. Should be called by the processor module before the database gets closed. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="464" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1a099e7027b6c7b540770dda3823cd71e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="fixup_8hpp_1ac369f50f71892a7215812ab85eb45860" kindref="member">fixup_type_t</ref> ida_export</type>
+        <definition>idaman fixup_type_t ida_export find_custom_fixup</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>find_custom_fixup</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get id of a custom fixup handler. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the custom fixup handler </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>id with FIXUP_CUSTOM bit set or 0 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="471" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___f_i_x_u_p_f___1ga7d5afa5124de3de63a567b93034e922e" prot="public" static="no">
+        <name>FIXUPF_REL</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>fixup is relative to the linear address `base&apos;. Otherwise fixup is relative to the start of the segment with `sel&apos; selector. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="64" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_i_x_u_p_f___1gae5df6c8b7d32965534929591332ed0b2" prot="public" static="no">
+        <name>FIXUPF_EXTDEF</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>target is a location (otherwise - segment). Use this bit if the target is a symbol rather than an offset from the beginning of a segment. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="68" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_i_x_u_p_f___1ga67d48e9da47eb2bdc927759d11afca52" prot="public" static="no">
+        <name>FIXUPF_UNUSED</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>fixup is ignored by IDA<itemizedlist>
+<listitem><para>disallows the kernel to convert operands</para></listitem><listitem><para>this fixup is not used during output </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="72" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_i_x_u_p_f___1ga902ed4e52cff9d3f0df562c4f7254390" prot="public" static="no">
+        <name>FIXUPF_CREATED</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>fixup was not present in the input file </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="74" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_i_x_u_p_f___1gaa2d6ff800fd5fd5602e35a6fac05bb5b" prot="public" static="no">
+        <name>FIXUPF_LOADER_MASK</name>
+        <initializer>0xF0000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>additional flags. The bits from this mask are not stored in the database and can be used by the loader at its discretion. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="77" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_h_f___1ga1e127f488352c7179afd0ad1d4cbad03" prot="public" static="no">
+        <name>FHF_VERIFY</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>verify that the value fits into `width&apos; bits. If this property is not set we just truncate the value. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="371" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="371" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="fixup_8hpp_1ac369f50f71892a7215812ab85eb45860" prot="public" static="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>typedef uint16 fixup_type_t</definition>
+        <argsstring></argsstring>
+        <name>fixup_type_t</name>
+        <briefdescription>
+<para>Fixup information structure. </para>        </briefdescription>
+        <detaileddescription>
+<para>see <ref refid="group__fixup__type__t" kindref="compound">Types of fixups</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="27" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="fixup_8hpp_1a26561dc38a14d505ddad5ba807f269bb" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structfixup__info__t" kindref="compound">fixup_info_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;fixup_info_t&gt; fixups_t</definition>
+        <argsstring></argsstring>
+        <name>fixups_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="487" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="486" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="fixup_8hpp_1a3f9c41db199c27607d9643b6e1cf13e7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool</type>
+        <definition>THREAD_SAFE bool is_fixup_custom</definition>
+        <argsstring>(fixup_type_t type)</argsstring>
+        <name>is_fixup_custom</name>
+        <param>
+          <type><ref refid="fixup_8hpp_1ac369f50f71892a7215812ab85eb45860" kindref="member">fixup_type_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+<para>Is fixup processed by processor module? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="54" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="54" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1a86151adf9a021e455eb27a58b9bba553" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export get_fixup</definition>
+        <argsstring>(fixup_data_t *fd, ea_t source)</argsstring>
+        <name>get_fixup</name>
+        <param>
+          <type><ref refid="structfixup__data__t" kindref="compound">fixup_data_t</ref> *</type>
+          <declname>fd</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>source</declname>
+        </param>
+        <briefdescription>
+<para>Get fixup information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="199" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1a7185b96f4f59fd2f11e4cfa6118e1611" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool exists_fixup</definition>
+        <argsstring>(ea_t source)</argsstring>
+        <name>exists_fixup</name>
+        <param>
+          <type>ea_t</type>
+          <declname>source</declname>
+        </param>
+        <briefdescription>
+<para>Check that a fixup exists at the given address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="204" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="204" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1a16e38ac5dc6d9ab1620b0dc0dbcd107f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export set_fixup</definition>
+        <argsstring>(ea_t source, const fixup_data_t &amp;fd)</argsstring>
+        <name>set_fixup</name>
+        <param>
+          <type>ea_t</type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structfixup__data__t" kindref="compound">fixup_data_t</ref> &amp;</type>
+          <declname>fd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set fixup information. You should fill <ref refid="structfixup__data__t" kindref="compound">fixup_data_t</ref> and call this function and the kernel will remember information in the database. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the fixup source address, i.e. the address modified by the fixup </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>fixup data </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="216" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1a1850e31eab2d3eb416d94f8d1b70fe2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export del_fixup</definition>
+        <argsstring>(ea_t source)</argsstring>
+        <name>del_fixup</name>
+        <param>
+          <type>ea_t</type>
+          <declname>source</declname>
+        </param>
+        <briefdescription>
+<para>Delete fixup information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="221" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1ac18e1843b682851009998cc96f221249" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman const <ref refid="structfixup__handler__t" kindref="compound">fixup_handler_t</ref> *ida_export</type>
+        <definition>idaman const fixup_handler_t* ida_export get_fixup_handler</definition>
+        <argsstring>(fixup_type_t type)</argsstring>
+        <name>get_fixup_handler</name>
+        <param>
+          <type><ref refid="fixup_8hpp_1ac369f50f71892a7215812ab85eb45860" kindref="member">fixup_type_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+<para>Get handler of standard or custom fixup. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="247" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1ab0a42c2b927e6a87c6bfbc97694e5546" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export apply_fixup</definition>
+        <argsstring>(ea_t item_ea, ea_t fixup_ea, int n, bool is_macro)</argsstring>
+        <name>apply_fixup</name>
+        <param>
+          <type>ea_t</type>
+          <declname>item_ea</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>fixup_ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>is_macro</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Use fixup information for an address. This function converts item_ea flags to offsets/segments. For undefined bytes, you may set item_ea == fixup_ea. In this case this function will create an item (byte, word, dword) there. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>item_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>start address of item to modify </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fixup_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>address of fixup record </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of operand. may be 0, 1, 2, or OPND_ALL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>is_macro</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the instruction at &apos;item_ea&apos; a macro? if yes, then partial fixups (HIGH, LOW) won&apos;t be applied </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>false</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>no fixup at fixup_ea or it has <ref refid="group___f_i_x_u_p_f___1ga67d48e9da47eb2bdc927759d11afca52" kindref="member">FIXUPF_UNUSED</ref> flag </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>true</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok, the fixup information was applied </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="262" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1ae68a51805b27c4eae6e0b8efa2a32880" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref> ida_export</type>
+        <definition>idaman uval_t ida_export get_fixup_value</definition>
+        <argsstring>(ea_t ea, fixup_type_t type)</argsstring>
+        <name>get_fixup_value</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="fixup_8hpp_1ac369f50f71892a7215812ab85eb45860" kindref="member">fixup_type_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the operand value. This function get fixup bytes from data or an instruction at `ea&apos; and convert them to the operand value (maybe partially). It is opposite in meaning to the <computeroutput><ref refid="fixup_8hpp_1a2a07510903124f52ac5c9fd57496a4b2" kindref="member">patch_fixup_value()</ref></computeroutput>. For example, FIXUP_HI8 read a byte at `ea&apos; and shifts it left by 8 bits, or AArch64&apos;s custom fixup BRANCH26 get low 26 bits of the insn at `ea&apos; and shifts it left by 2 bits. This function is mainly used to get a relocation addend. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>address to get fixup bytes from, the size of the fixup bytes depends on the fixup type. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para><ref refid="group__fh__options_1gae7b3073ac6e4a2099b965824e0c1966d" kindref="member">fixup_handler_t::size</ref> </para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>fixup type </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>operand</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="279" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1a2a07510903124f52ac5c9fd57496a4b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export patch_fixup_value</definition>
+        <argsstring>(ea_t ea, const fixup_data_t &amp;fd)</argsstring>
+        <name>patch_fixup_value</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structfixup__data__t" kindref="compound">fixup_data_t</ref> &amp;</type>
+          <declname>fd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Patch the fixup bytes. This function updates data or an instruction at `ea&apos; to the fixup bytes. For example, FIXUP_HI8 updates a byte at `ea&apos; to the high byte of `fd-&gt;off&apos;, or AArch64&apos;s custom fixup BRANCH26 updates low 26 bits of the insn at `ea&apos; to the value of `fd-&gt;off&apos; shifted right by 2. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>address where data are changed, the size of the changed data depends on the fixup type. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para><ref refid="group__fh__options_1gae7b3073ac6e4a2099b965824e0c1966d" kindref="member">fixup_handler_t::size</ref> </para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>fixup data </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>false</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the fixup bytes do not fit (e.g. `fd-&gt;off&apos; is greater than 0xFFFFFFC for BRANCH26). The database is changed even in this case. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="295" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1ae1a3cf324852ff00e0a124a2274d6c32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman const char *ida_export</type>
+        <definition>idaman const char* ida_export get_fixup_desc</definition>
+        <argsstring>(qstring *buf, ea_t source, const fixup_data_t &amp;fd)</argsstring>
+        <name>get_fixup_desc</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structfixup__data__t" kindref="compound">fixup_data_t</ref> &amp;</type>
+          <declname>fd</declname>
+        </param>
+        <briefdescription>
+<para>Get FIXUP description comment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="300" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1a8e045ed2795cce5645c2b795a189d558" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export calc_fixup_size</definition>
+        <argsstring>(fixup_type_t type)</argsstring>
+        <name>calc_fixup_size</name>
+        <param>
+          <type><ref refid="fixup_8hpp_1ac369f50f71892a7215812ab85eb45860" kindref="member">fixup_type_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calculate size of fixup in bytes (the number of bytes the fixup patches) <parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>-1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>means error </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="309" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1ac712904b63bf9a58182c0260d781c675" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export get_fixups</definition>
+        <argsstring>(fixups_t *out, ea_t ea, asize_t size)</argsstring>
+        <name>get_fixups</name>
+        <param>
+          <type><ref refid="classqvector" kindref="compound">fixups_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="489" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1a36a53820023781f2b57cb31920d7c6b8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool contains_fixups</definition>
+        <argsstring>(ea_t ea, asize_t size)</argsstring>
+        <name>contains_fixups</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+<para>Does the specified address range contain any fixup information? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="494" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="494" bodyend="497"/>
+      </memberdef>
+      <memberdef kind="function" id="fixup_8hpp_1a2df9b7d78085ab2e921f34084677e314" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export gen_fix_fixups</definition>
+        <argsstring>(ea_t from, ea_t to, asize_t size)</argsstring>
+        <name>gen_fix_fixups</name>
+        <param>
+          <type>ea_t</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Relocate the bytes with fixup information once more (generic function). This function may be called from <ref refid="structloader__t_1a7a329922101a4e28a2b7018e565a3b5d" kindref="member">loader_t::move_segm()</ref> if it suits the goal. If <ref refid="structloader__t_1a7a329922101a4e28a2b7018e565a3b5d" kindref="member">loader_t::move_segm</ref> is not defined then this function will be called automatically when moving segments or rebasing the entire program. Special parameter values (from = BADADDR, size = 0, to = delta) are used when the function is called from rebase_program(delta). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="507" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Functions that deal with fixup information. </para>    </briefdescription>
+    <detaileddescription>
+<para>A loader should setup fixup information using <ref refid="fixup_8hpp_1a16e38ac5dc6d9ab1620b0dc0dbcd107f" kindref="member">set_fixup()</ref>. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp"/>
+  </compounddef>
+</doxygen>

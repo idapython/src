@@ -1,0 +1,701 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_f__op" kind="group">
+    <compoundname>FF_op</compoundname>
+    <title>Instruction/Data operands</title>
+    <innergroup refid="group___f_f__opbits">Bits: instruction operand types</innergroup>
+    <innergroup refid="group___f_f__opfuncs1">Functions: examine operand flags (specific operands)</innergroup>
+    <innergroup refid="group___f_f__opfuncs2">Functions: examine operand flags (arbitrary operand)</innergroup>
+    <innergroup refid="group___f_f__opfuncs3">Functions: get type information bits for flags</innergroup>
+    <innergroup refid="group___f_f__opfuncs4">Functions: set operand representation</innergroup>
+    <innergroup refid="group___f_f__databits">Bits: data bytes</innergroup>
+    <innergroup refid="group___f_f__datafuncs1">Functions: examine data bits</innergroup>
+    <innergroup refid="group___f_f__datafuncs2">Functions: manipulate data bits</innergroup>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___f_f__op_1ga7723b53fa36706b3e0e81e7907288e78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export op_adds_xrefs</definition>
+        <argsstring>(flags_t F, int n)</argsstring>
+        <name>op_adds_xrefs</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Should processor module create xrefs from the operand?. Currently &apos;offset&apos; and &apos;structure offset&apos; operands create xrefs </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1161" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__op_1ga8b28b22efcf9dfcbed00bfedb371dc93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_op_type</definition>
+        <argsstring>(ea_t ea, flags_t type, int n)</argsstring>
+        <name>set_op_type</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>(internal function) change representation of operand(s). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new flag value (should be obtained from <ref refid="group___f_f__opfuncs3_1ga2afc147b3d4d195096d1d48318be4fc9" kindref="member">char_flag()</ref>, <ref refid="group___f_f__opfuncs3_1gaa2b780d9ba5eddf86fcbea6cad730bd0" kindref="member">num_flag()</ref> and similar functions) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of operand (0, 1, -1) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>failed (applied to a tail byte) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1172" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__op_1gab8b0a61cca8477694fe22002746db49b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export op_seg</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>op_seg</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set operand representation to be &apos;segment&apos;. If applied to unexplored bytes, converts them to 16/32bit word data <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of operand (0, 1, -1) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1182" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__op_1ga86d475b8d1d98eb38c5652370d46f25b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export op_enum</definition>
+        <argsstring>(ea_t ea, int n, enum_t id, uchar serial)</argsstring>
+        <name>op_enum</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1a320dc6698b7075a653144bbdf202b30e" kindref="member">enum_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>serial</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set operand representation to be &apos;enum_t&apos;. If applied to unexplored bytes, converts them to 16/32bit word data <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of operand (0, 1, -1) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>id of enum </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>serial</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the serial number of the constant in the enumeration, usually 0. the serial numbers are used if the enumeration contains several constants with the same value </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1195" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__op_1ga0306c235939b0bfc270772909020e853" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="kernwin_8hpp_1a320dc6698b7075a653144bbdf202b30e" kindref="member">enum_t</ref> ida_export</type>
+        <definition>idaman enum_t ida_export get_enum_id</definition>
+        <argsstring>(uchar *serial, ea_t ea, int n)</argsstring>
+        <name>get_enum_id</name>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>serial</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get enum id of &apos;enum&apos; operand. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of operand (0, 1, -1) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>serial</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to variable to hold the serial number of the constant in the enumeration </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>id of enum or <ref refid="netnode_8hpp_1ab745219216aec4e8abf2c1dcc5d5eac0" kindref="member">BADNODE</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1205" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__op_1ga045f11dbaa25bef9d56e63c0a3bbdb08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export op_stroff</definition>
+        <argsstring>(const insn_t &amp;insn, int n, const tid_t *path, int path_len, adiff_t delta)</argsstring>
+        <name>op_stroff</name>
+        <param>
+          <type>const <ref refid="classinsn__t" kindref="compound">insn_t</ref> &amp;</type>
+          <declname>insn</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref> *</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>path_len</declname>
+        </param>
+        <param>
+          <type>adiff_t</type>
+          <declname>delta</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set operand representation to be &apos;struct offset&apos;. If applied to unexplored bytes, converts them to 16/32bit word data <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>insn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the instruction </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of operand (0, 1, -1) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>structure path (strpath). see <ref refid="nalt_8hpp" kindref="compound">nalt.hpp</ref> for more info. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path_len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>length of the structure path </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>delta</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>struct offset delta. usually 0. denotes the difference between the structure base and the pointer into the structure. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1218" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__op_1ga05b9a68c2c5d67ce0155d56fe9070d92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export get_stroff_path</definition>
+        <argsstring>(tid_t *path, adiff_t *delta, ea_t ea, int n)</argsstring>
+        <name>get_stroff_path</name>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref> *</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>adiff_t *</type>
+          <declname>delta</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get struct path of operand. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer for structure path (strpath). see <ref refid="nalt_8hpp" kindref="compound">nalt.hpp</ref> for more info. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>delta</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>struct offset delta </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of operand (0, 1, -1) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>length of strpath </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1233" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__op_1gaa01aa1c70776d2b8b2c62d5e676cd80b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export op_stkvar</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>op_stkvar</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set operand representation to be &apos;stack variable&apos;. Should be applied to an instruction within a function. Should be applied after creating a stack var using <ref refid="classinsn__t_1abaeb6683f9b328932887c458550edd50" kindref="member">insn_t::create_stkvar()</ref>. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of operand (0, 1, -1) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1243" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__op_1ga30692393915a1ac0c0129f778e4f81fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_forced_operand</definition>
+        <argsstring>(ea_t ea, int n, const char *op)</argsstring>
+        <name>set_forced_operand</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>op</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set forced operand. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of operand (0, 1, 2) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>op</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>text of operand<itemizedlist>
+<listitem><para>NULL: do nothing (return 0)</para></listitem><listitem><para>&quot;&quot; : delete forced operand </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1254" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__op_1ga0c5020260196a9d4b57633a762c0c3f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export get_forced_operand</definition>
+        <argsstring>(qstring *buf, ea_t ea, int n)</argsstring>
+        <name>get_forced_operand</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get forced operand. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output buffer, may be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of operand (0, 1, 2) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>size of forced operand or -1 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1263" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__op_1ga34b34b8cb7a47c749063f436b4848a2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export is_forced_operand</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>is_forced_operand</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is operand manually defined?. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of operand (0, 1, 2) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1270" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__op_1gabca3f9ede442712637f767efafeb1d47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export op_custfmt</definition>
+        <argsstring>(ea_t ea, int n, int fid)</argsstring>
+        <name>op_custfmt</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fid</declname>
+        </param>
+        <briefdescription>
+<para>Set custom data format for operand (fid-custom data format id) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1317" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__op_1gaa2af9a3b5eaf1be072e8052ac0322b90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export clr_op_type</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>clr_op_type</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Remove operand representation information. (set operand representation to be &apos;undefined&apos;) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of operand (0, 1, -1) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1326" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__op_1gaa6154881265dd78649e6f4c526e70528" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export get_default_radix</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_default_radix</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get default base of number for the current processor. <simplesect kind="return"><para>2, 8, 10, 16 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1332" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__op_1ga84e4b675b5f2ba425c1882e8491b5a2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export get_radix</definition>
+        <argsstring>(flags_t F, int n)</argsstring>
+        <name>get_radix</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get radix of the operand, in: flags. If the operand is not a number, returns <ref refid="group___f_f__op_1gaa6154881265dd78649e6f4c526e70528" kindref="member">get_default_radix()</ref> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>F</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>flags </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of operand (0, 1, -1) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>2, 8, 10, 16 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1341" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___f_f__op_1gae3ff56ce8ed4030acdca9d9314038dfb" prot="public" static="no">
+        <name>OPND_OUTER</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+<para>used only in set, get, del_offset() functions </para>        </briefdescription>
+        <detaileddescription>
+<para>outer offset base (combined with operand number). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1131" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__op_1ga3177b4c883cc4b74938f6fb7559587c0" prot="public" static="no">
+        <name>OPND_MASK</name>
+        <initializer>0x0F</initializer>
+        <briefdescription>
+<para>mask for operand number </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1133" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__op_1ga88c9062b3ef1f5460266a4a6426ff0fe" prot="public" static="no">
+        <name>OPND_ALL</name>
+        <initializer><ref refid="group___f_f__op_1ga3177b4c883cc4b74938f6fb7559587c0" kindref="member">OPND_MASK</ref></initializer>
+        <briefdescription>
+<para>all operands </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1134" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1134" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Represent instruction/data operands.</para><para>IDA keeps 2 bitmasks:<itemizedlist>
+<listitem><para>representation of the first operand</para></listitem><listitem><para>representation of other operands (we will call this &apos;representation of second operand&apos; although it is also applied to third, fourth, etc operands too)</para></listitem></itemizedlist>
+</para><para>For data bytes, only the first bitmask is used (i.e. all elements of an array have the same type). </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

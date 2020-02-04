@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structreg__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>reg_info_t</compoundname>
+    <includes refid="idp_8hpp" local="no">idp.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structreg__info__t_1af88682d7a097746e2278a7d4dbee86e8" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int reg_info_t::reg</definition>
+        <argsstring></argsstring>
+        <name>reg</name>
+        <briefdescription>
+<para>register number </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="2239" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="2239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structreg__info__t_1ac91ce4c712d35cfe09ef24bbc2fdfa4b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int reg_info_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+<para>register size </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="2240" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="2240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structreg__info__t_1af39175f81d9a0710b927a2e3c26d06a0" prot="public" static="no" mutable="no">
+        <type>if(<ref refid="structreg__info__t_1ac91ce4c712d35cfe09ef24bbc2fdfa4b" kindref="member">size</ref> !=r.size) return <ref refid="structreg__info__t_1ac91ce4c712d35cfe09ef24bbc2fdfa4b" kindref="member">size</ref> &gt; r.size ? 1</type>
+        <definition>if ( size != r.size ) return size &gt; r.size ? 1 reg_info_t::return</definition>
+        <argsstring></argsstring>
+        <name>return</name>
+        <initializer>{
+    if ( <ref refid="structreg__info__t_1af88682d7a097746e2278a7d4dbee86e8" kindref="member">reg</ref> != r.reg )
+      return <ref refid="structreg__info__t_1af88682d7a097746e2278a7d4dbee86e8" kindref="member">reg</ref> &gt; r.reg ? 1 : -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="2247" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="2245" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Get register number and size from register name. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="2238" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="2237" bodyend="2249"/>
+    <listofallmembers>
+      <member refid="structreg__info__t_1af88682d7a097746e2278a7d4dbee86e8" prot="public" virt="non-virtual"><scope>reg_info_t</scope><name>reg</name></member>
+      <member refid="structreg__info__t_1af39175f81d9a0710b927a2e3c26d06a0" prot="public" virt="non-virtual"><scope>reg_info_t</scope><name>return</name></member>
+      <member refid="structreg__info__t_1ac91ce4c712d35cfe09ef24bbc2fdfa4b" prot="public" virt="non-virtual"><scope>reg_info_t</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structidp__name__t" kind="struct" language="C++" prot="public">
+    <compoundname>idp_name_t</compoundname>
+    <includes refid="loader_8hpp" local="no">loader.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structidp__name__t_1a3265133692f2270c8b5dda7c4bc40809" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring idp_name_t::lname</definition>
+        <argsstring></argsstring>
+        <name>lname</name>
+        <briefdescription>
+<para>long processor name </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="694" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="694" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidp__name__t_1aedfc3d576618d48057e169ee2f73724e" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring idp_name_t::sname</definition>
+        <argsstring></argsstring>
+        <name>sname</name>
+        <briefdescription>
+<para>short processor name </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="695" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="695" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidp__name__t_1aa4bc594afbd02c13063a345b4ec11a6e" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool idp_name_t::hidden</definition>
+        <argsstring></argsstring>
+        <name>hidden</name>
+        <briefdescription>
+<para>is hidden </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="696" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="696" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structidp__name__t_1aa24b0cc177f3f5190454df34ea42e5a3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>idp_name_t::idp_name_t</definition>
+        <argsstring>()</argsstring>
+        <name>idp_name_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="697" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="697" bodyend="697"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Processor name. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1789">
+        <label>idp_name_t</label>
+        <link refid="structidp__name__t"/>
+        <childnode refid="1790" relation="usage">
+          <edgelabel>lname</edgelabel>
+          <edgelabel>sname</edgelabel>
+        </childnode>
+      </node>
+      <node id="1790">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="693" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="692" bodyend="698"/>
+    <listofallmembers>
+      <member refid="structidp__name__t_1aa4bc594afbd02c13063a345b4ec11a6e" prot="public" virt="non-virtual"><scope>idp_name_t</scope><name>hidden</name></member>
+      <member refid="structidp__name__t_1aa24b0cc177f3f5190454df34ea42e5a3" prot="public" virt="non-virtual"><scope>idp_name_t</scope><name>idp_name_t</name></member>
+      <member refid="structidp__name__t_1a3265133692f2270c8b5dda7c4bc40809" prot="public" virt="non-virtual"><scope>idp_name_t</scope><name>lname</name></member>
+      <member refid="structidp__name__t_1aedfc3d576618d48057e169ee2f73724e" prot="public" virt="non-virtual"><scope>idp_name_t</scope><name>sname</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

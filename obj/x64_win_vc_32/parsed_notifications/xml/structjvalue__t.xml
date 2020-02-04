@@ -1,0 +1,478 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structjvalue__t" kind="struct" language="C++" prot="public">
+    <compoundname>jvalue_t</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="structjvalue__t_1a856a07d7b15c7c9c92d48da9ae8836d0" prot="private" static="no" mutable="no">
+        <type>jtype_t</type>
+        <definition>jtype_t jvalue_t::_type</definition>
+        <argsstring></argsstring>
+        <name>_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="78" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjvalue__t_1a81e3f534156c6276026f2325103dfc72" prot="private" static="no" mutable="no">
+        <type>union jvalue_t::@6</type>
+        <definition>union jvalue_t::@6 jvalue_t::@7</definition>
+        <argsstring></argsstring>
+        <name>@7</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="87" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structjvalue__t_1a25cabad89c92b3451cfe1da79c7b9375" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref></type>
+        <definition>int64 jvalue_t::_num</definition>
+        <argsstring></argsstring>
+        <name>_num</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="82" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjvalue__t_1a4341aba44c0c502680a15e6f832d89a3" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+        <definition>qstring* jvalue_t::_str</definition>
+        <argsstring></argsstring>
+        <name>_str</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="83" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjvalue__t_1a410001ef461bb5bad9744ddceee0868f" prot="public" static="no" mutable="no">
+        <type><ref refid="structjobj__t" kindref="compound">jobj_t</ref> *</type>
+        <definition>jobj_t* jvalue_t::_obj</definition>
+        <argsstring></argsstring>
+        <name>_obj</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="84" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjvalue__t_1a6336f445693b43abdf99ad795c61aa52" prot="public" static="no" mutable="no">
+        <type><ref refid="structjarr__t" kindref="compound">jarr_t</ref> *</type>
+        <definition>jarr_t* jvalue_t::_arr</definition>
+        <argsstring></argsstring>
+        <name>_arr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="85" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjvalue__t_1a5b4ab2f307da090cd86cd54bcc59ffb9" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool jvalue_t::_bool</definition>
+        <argsstring></argsstring>
+        <name>_bool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="86" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structjvalue__t_1aebff9e54bf82e1dd048458965782f4bc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jvalue_t::jvalue_t</definition>
+        <argsstring>()</argsstring>
+        <name>jvalue_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="45" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1a2d56d9bc5140e056f4776599e6e2742d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jvalue_t::jvalue_t</definition>
+        <argsstring>(const jvalue_t &amp;o)</argsstring>
+        <name>jvalue_t</name>
+        <param>
+          <type>const <ref refid="structjvalue__t" kindref="compound">jvalue_t</ref> &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="46" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="46" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1ae88ff723f1444550ae051ae5d0610b87" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jvalue_t::~jvalue_t</definition>
+        <argsstring>()</argsstring>
+        <name>~jvalue_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="47" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="47" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1a27d0f9a76ed7a7b016c5aa23e491141a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jvalue_t::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="49" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="49" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1a93b7f6aec62438cfd5ae5b4bdf0c92fb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structjvalue__t" kindref="compound">jvalue_t</ref> &amp;</type>
+        <definition>jvalue_t&amp; jvalue_t::operator=</definition>
+        <argsstring>(const jvalue_t &amp;o)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="structjvalue__t" kindref="compound">jvalue_t</ref> &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="51" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="51" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1a77bc134e1bb3828561c6e6338fafcb00" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>jtype_t</type>
+        <definition>jtype_t jvalue_t::type</definition>
+        <argsstring>() const</argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="53" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="53" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1a2469c04214e3ac71c692aa0cc64127a7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref></type>
+        <definition>int64 jvalue_t::num</definition>
+        <argsstring>() const</argsstring>
+        <name>num</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="54" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="54" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1ab9277907e14adfd47c35aba2c5ac0f67" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* jvalue_t::str</definition>
+        <argsstring>() const</argsstring>
+        <name>str</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="55" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="55" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1a354bcc33b33a4768bba282277ddb350c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> &amp;</type>
+        <definition>const qstring&amp; jvalue_t::qstr</definition>
+        <argsstring>() const</argsstring>
+        <name>qstr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="56" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="56" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1a1d31d18dd1347ee239f1a04bb5e04598" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="structjobj__t" kindref="compound">jobj_t</ref> &amp;</type>
+        <definition>const jobj_t&amp; jvalue_t::obj</definition>
+        <argsstring>() const</argsstring>
+        <name>obj</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="57" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="57" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1a386a5e63c79d6d090876ca55c24d4d4b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="structjarr__t" kindref="compound">jarr_t</ref> &amp;</type>
+        <definition>const jarr_t&amp; jvalue_t::arr</definition>
+        <argsstring>() const</argsstring>
+        <name>arr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="58" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="58" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1a09372b5c2447bb2600bacd78bdb7b636" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jvalue_t::vbool</definition>
+        <argsstring>() const</argsstring>
+        <name>vbool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="59" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="59" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1a1e65e86a6d85d71875c879edf3154d93" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structjobj__t" kindref="compound">jobj_t</ref> &amp;</type>
+        <definition>jobj_t&amp; jvalue_t::obj</definition>
+        <argsstring>()</argsstring>
+        <name>obj</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="60" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="60" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1a59d0dc8679d6186f34488efdf5ce8394" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structjarr__t" kindref="compound">jarr_t</ref> &amp;</type>
+        <definition>jarr_t&amp; jvalue_t::arr</definition>
+        <argsstring>()</argsstring>
+        <name>arr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="61" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="61" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1abc5e0355b8def240d492e9fe43362cbc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jvalue_t::set_num</definition>
+        <argsstring>(int64 i)</argsstring>
+        <name>set_num</name>
+        <param>
+          <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref></type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="66" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="66" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1a75d52142ae9699e764f1a70185dbf508" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jvalue_t::set_str</definition>
+        <argsstring>(qstring *s)</argsstring>
+        <name>set_str</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="67" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="67" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1a1a04ae626fd0da07f1335d01dc7280cf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jvalue_t::set_obj</definition>
+        <argsstring>(jobj_t *o)</argsstring>
+        <name>set_obj</name>
+        <param>
+          <type><ref refid="structjobj__t" kindref="compound">jobj_t</ref> *</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="68" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="68" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1a054a92a9b30da3aa052dd955350f867e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jvalue_t::set_arr</definition>
+        <argsstring>(jarr_t *a)</argsstring>
+        <name>set_arr</name>
+        <param>
+          <type><ref refid="structjarr__t" kindref="compound">jarr_t</ref> *</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="69" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="69" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1a0cc6c260e0367e77f081d1feea7b327f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jvalue_t::set_bool</definition>
+        <argsstring>(bool b)</argsstring>
+        <name>set_bool</name>
+        <param>
+          <type>bool</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="70" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="70" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1abeac625ea679236c2f92791dfe70e0ba" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structjobj__t" kindref="compound">jobj_t</ref> *</type>
+        <definition>jobj_t* jvalue_t::extract_obj</definition>
+        <argsstring>()</argsstring>
+        <name>extract_obj</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="72" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="72" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="structjvalue__t_1af63d38e522832ff66e636dfefd17d387" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structjarr__t" kindref="compound">jarr_t</ref> *</type>
+        <definition>jarr_t* jvalue_t::extract_arr</definition>
+        <argsstring>()</argsstring>
+        <name>extract_arr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="73" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="73" bodyend="73"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1904">
+        <label>jarr_t</label>
+        <link refid="structjarr__t"/>
+        <childnode refid="1905" relation="usage">
+          <edgelabel>values</edgelabel>
+        </childnode>
+      </node>
+      <node id="1906">
+        <label>_qstring&lt; qchar &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="1903">
+        <label>qvector&lt; kvp_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1902">
+        <label>jobj_t</label>
+        <link refid="structjobj__t"/>
+        <childnode refid="1903" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1901">
+        <label>jvalue_t</label>
+        <link refid="structjvalue__t"/>
+        <childnode refid="1902" relation="usage">
+          <edgelabel>_obj</edgelabel>
+        </childnode>
+        <childnode refid="1904" relation="usage">
+          <edgelabel>_arr</edgelabel>
+        </childnode>
+        <childnode refid="1906" relation="usage">
+          <edgelabel>_str</edgelabel>
+        </childnode>
+      </node>
+      <node id="1905">
+        <label>qvector&lt; jvalue_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="44" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="43" bodyend="88"/>
+    <listofallmembers>
+      <member refid="structjvalue__t_1a6336f445693b43abdf99ad795c61aa52" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>_arr</name></member>
+      <member refid="structjvalue__t_1a5b4ab2f307da090cd86cd54bcc59ffb9" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>_bool</name></member>
+      <member refid="structjvalue__t_1a25cabad89c92b3451cfe1da79c7b9375" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>_num</name></member>
+      <member refid="structjvalue__t_1a410001ef461bb5bad9744ddceee0868f" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>_obj</name></member>
+      <member refid="structjvalue__t_1a4341aba44c0c502680a15e6f832d89a3" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>_str</name></member>
+      <member refid="structjvalue__t_1a856a07d7b15c7c9c92d48da9ae8836d0" prot="private" virt="non-virtual"><scope>jvalue_t</scope><name>_type</name></member>
+      <member refid="structjvalue__t_1a386a5e63c79d6d090876ca55c24d4d4b" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>arr</name></member>
+      <member refid="structjvalue__t_1a59d0dc8679d6186f34488efdf5ce8394" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>arr</name></member>
+      <member refid="structjvalue__t_1a27d0f9a76ed7a7b016c5aa23e491141a" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>clear</name></member>
+      <member refid="structjvalue__t_1af63d38e522832ff66e636dfefd17d387" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>extract_arr</name></member>
+      <member refid="structjvalue__t_1abeac625ea679236c2f92791dfe70e0ba" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>extract_obj</name></member>
+      <member refid="structjvalue__t_1aebff9e54bf82e1dd048458965782f4bc" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>jvalue_t</name></member>
+      <member refid="structjvalue__t_1a2d56d9bc5140e056f4776599e6e2742d" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>jvalue_t</name></member>
+      <member refid="structjvalue__t_1a2469c04214e3ac71c692aa0cc64127a7" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>num</name></member>
+      <member refid="structjvalue__t_1a1d31d18dd1347ee239f1a04bb5e04598" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>obj</name></member>
+      <member refid="structjvalue__t_1a1e65e86a6d85d71875c879edf3154d93" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>obj</name></member>
+      <member refid="structjvalue__t_1a93b7f6aec62438cfd5ae5b4bdf0c92fb" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>operator=</name></member>
+      <member refid="structjvalue__t_1a354bcc33b33a4768bba282277ddb350c" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>qstr</name></member>
+      <member refid="structjvalue__t_1a054a92a9b30da3aa052dd955350f867e" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>set_arr</name></member>
+      <member refid="structjvalue__t_1a0cc6c260e0367e77f081d1feea7b327f" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>set_bool</name></member>
+      <member refid="structjvalue__t_1abc5e0355b8def240d492e9fe43362cbc" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>set_num</name></member>
+      <member refid="structjvalue__t_1a1a04ae626fd0da07f1335d01dc7280cf" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>set_obj</name></member>
+      <member refid="structjvalue__t_1a75d52142ae9699e764f1a70185dbf508" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>set_str</name></member>
+      <member refid="structjvalue__t_1ab9277907e14adfd47c35aba2c5ac0f67" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>str</name></member>
+      <member refid="structjvalue__t_1a77bc134e1bb3828561c6e6338fafcb00" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>type</name></member>
+      <member refid="structjvalue__t_1a09372b5c2447bb2600bacd78bdb7b636" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>vbool</name></member>
+      <member refid="structjvalue__t_1ae88ff723f1444550ae051ae5d0610b87" prot="public" virt="non-virtual"><scope>jvalue_t</scope><name>~jvalue_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

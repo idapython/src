@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___p_l_u_g_i_n__" kind="group">
+    <compoundname>PLUGIN_</compoundname>
+    <title>Plugin features</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___p_l_u_g_i_n___1ga053458a32fa2a7bceaa884706e9fec3f" prot="public" static="no">
+        <name>PLUGIN_MOD</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Plugin changes the database. IDA won&apos;t call the plugin if the processor module prohibited any changes. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="569" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="569" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_l_u_g_i_n___1ga25ee3ee8e48712bde6186f39f729cf66" prot="public" static="no">
+        <name>PLUGIN_DRAW</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>IDA should redraw everything after calling the plugin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="572" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="572" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_l_u_g_i_n___1ga0c08231bd50bf07d8f35470becbc36f4" prot="public" static="no">
+        <name>PLUGIN_SEG</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>Plugin may be applied only if the current address belongs to a segment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="573" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="573" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_l_u_g_i_n___1gaef9f42b5012e3213d8e3b4719e73a961" prot="public" static="no">
+        <name>PLUGIN_UNL</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Unload the plugin immediately after calling &apos;run&apos;. This flag may be set anytime. The kernel checks it after each call to &apos;run&apos; The main purpose of this flag is to ease the debugging of new plugins. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="574" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="574" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_l_u_g_i_n___1ga84260e966b157a4277779b1783d87a56" prot="public" static="no">
+        <name>PLUGIN_HIDE</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>This flag is checked at the start. </para>        </briefdescription>
+        <detaileddescription>
+<para>Plugin should not appear in the Edit, Plugins menu. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="579" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="579" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_l_u_g_i_n___1ga1136f920c68618a68d8563fe6b0808d1" prot="public" static="no">
+        <name>PLUGIN_DBG</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>the address of <ref refid="structdebugger__t" kindref="compound">debugger_t</ref> to dbg. </para>        </briefdescription>
+        <detaileddescription>
+<para>A debugger plugin. init() should put </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="581" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="581" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_l_u_g_i_n___1gaa6d068238960312fa4da65a6e3130b9f" prot="public" static="no">
+        <name>PLUGIN_PROC</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+<para>until the processor module is unloaded) </para>        </briefdescription>
+        <detaileddescription>
+<para>Load plugin when a processor module is loaded. (and keep it </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="583" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="583" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_l_u_g_i_n___1ga4f3f72fdbc0ba0395224cf8f7de6f7b4" prot="public" static="no">
+        <name>PLUGIN_FIX</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para>Load plugin when IDA starts and keep it in the memory until IDA stops. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="585" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="585" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_l_u_g_i_n___1gad4621944ec5253bccdbcbe7f4e157d63" prot="public" static="no">
+        <name>PLUGIN_SCRIPTED</name>
+        <initializer>0x8000</initializer>
+        <briefdescription>
+<para>the kernel sets it automatically. </para>        </briefdescription>
+        <detaileddescription>
+<para>Scripted plugin. Should not be used by plugins, </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="586" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="586" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="classplugin__t_1a42ce3b5fcda2b4835a92a8c6f965b995" kindref="member">plugin_t::flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

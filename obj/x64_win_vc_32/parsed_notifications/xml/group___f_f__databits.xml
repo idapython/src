@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_f__databits" kind="group">
+    <compoundname>FF_databits</compoundname>
+    <title>Bits: data bytes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___f_f__databits_1gaa15fa9a90fbd9080a18471dcc51c5f63" prot="public" static="no">
+        <name>DT_TYPE</name>
+        <initializer>0xF0000000</initializer>
+        <briefdescription>
+<para>Mask for DATA typing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1347" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1347" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__databits_1ga31e184e1e9e9986dccb2bf75a5cc281a" prot="public" static="no">
+        <name>FF_BYTE</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>byte </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1349" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1349" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__databits_1ga700e6fe75ce2d59afe9f0337419e5fb3" prot="public" static="no">
+        <name>FF_WORD</name>
+        <initializer>0x10000000</initializer>
+        <briefdescription>
+<para>word </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1350" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1350" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__databits_1ga113c39256aa0eb30138fc3dcbbb1b224" prot="public" static="no">
+        <name>FF_DWORD</name>
+        <initializer>0x20000000</initializer>
+        <briefdescription>
+<para>double word </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1351" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1351" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__databits_1ga74d61c8ba1d3bedefbd3e619f1f4116a" prot="public" static="no">
+        <name>FF_QWORD</name>
+        <initializer>0x30000000</initializer>
+        <briefdescription>
+<para>quadro word </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1352" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1352" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__databits_1ga8b0cb6734338e1ed1a3188d6b4c70b8f" prot="public" static="no">
+        <name>FF_TBYTE</name>
+        <initializer>0x40000000</initializer>
+        <briefdescription>
+<para>tbyte </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1353" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1353" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__databits_1gaa320c33a480cc1403e0c7912ee1bd522" prot="public" static="no">
+        <name>FF_STRLIT</name>
+        <initializer>0x50000000</initializer>
+        <briefdescription>
+<para>string literal </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1354" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1354" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__databits_1ga303e1d05f0fd18c165ff0c2c7e4aa4de" prot="public" static="no">
+        <name>FF_STRUCT</name>
+        <initializer>0x60000000</initializer>
+        <briefdescription>
+<para>struct variable </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1355" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1355" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__databits_1ga6102a6e3eebb8350527c7613792080ae" prot="public" static="no">
+        <name>FF_OWORD</name>
+        <initializer>0x70000000</initializer>
+        <briefdescription>
+<para>octaword/xmm word (16 bytes/128 bits) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1356" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1356" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__databits_1gadc1e062047911a7fda90a84959fa49bc" prot="public" static="no">
+        <name>FF_FLOAT</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>float </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1357" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1357" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__databits_1ga709bb154304e65d8991bc081a182ce2e" prot="public" static="no">
+        <name>FF_DOUBLE</name>
+        <initializer>0x90000000</initializer>
+        <briefdescription>
+<para>double </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1358" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1358" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__databits_1gaa0adb817e6662035bd7d06346c01c864" prot="public" static="no">
+        <name>FF_PACKREAL</name>
+        <initializer>0xA0000000</initializer>
+        <briefdescription>
+<para>packed decimal real </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1359" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1359" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__databits_1ga61f222cbe3cbe2570892096fc7dc1e8c" prot="public" static="no">
+        <name>FF_ALIGN</name>
+        <initializer>0xB0000000</initializer>
+        <briefdescription>
+<para>alignment directive </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1360" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1360" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__databits_1ga19f933094d6c5c52e6f9861d533d1382" prot="public" static="no">
+        <name>FF_CUSTOM</name>
+        <initializer>0xD0000000</initializer>
+        <briefdescription>
+<para>custom data type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1362" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1362" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__databits_1ga4c5878e95aef45b3816e5cfcf16cacb9" prot="public" static="no">
+        <name>FF_YWORD</name>
+        <initializer>0xE0000000</initializer>
+        <briefdescription>
+<para>ymm word (32 bytes/256 bits) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1363" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1363" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__databits_1ga3c513c72624ec1d284f2c3e9f295a6e8" prot="public" static="no">
+        <name>FF_ZWORD</name>
+        <initializer>0xF0000000</initializer>
+        <briefdescription>
+<para>zmm word (64 bytes/512 bits) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1364" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1364" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structctree__parentee__t" kind="struct" language="C++" prot="public">
+    <compoundname>ctree_parentee_t</compoundname>
+    <basecompoundref refid="structctree__visitor__t" prot="public" virt="non-virtual">ctree_visitor_t</basecompoundref>
+    <derivedcompoundref refid="structcfunc__parentee__t" prot="public" virt="non-virtual">cfunc_parentee_t</derivedcompoundref>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structctree__parentee__t_1ae9e74e4e590a8f1ce0c735b802de143d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ctree_parentee_t::ctree_parentee_t</definition>
+        <argsstring>(bool post=false)</argsstring>
+        <name>ctree_parentee_t</name>
+        <param>
+          <type>bool</type>
+          <declname>post</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5396" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5396" bodyend="5397"/>
+      </memberdef>
+      <memberdef kind="function" id="structctree__parentee__t_1a5ed65a1b8f884fd5617fc6f2a4ee63ae" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool ctree_parentee_t::recalc_parent_types</definition>
+        <argsstring>(void)</argsstring>
+        <name>recalc_parent_types</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Recalculate types of parent node. If a node type has been changed, the visitor must recalculate all parent types, otherwise the ctree becomes inconsistent. If during this recalculation a parent node is added/deleted, this function returns true. In this case it is recommended to restart the traversal because the information about parent nodes is stale. <simplesect kind="return"><para>false-ok to continue the traversal, true-must stop. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5407" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10725" bodyend="10728"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A helper ctree traversal class that maintains parent information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1361">
+        <label>ctree_parentee_t</label>
+        <link refid="structctree__parentee__t"/>
+        <childnode refid="1362" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1362">
+        <label>ctree_visitor_t</label>
+        <link refid="structctree__visitor__t"/>
+      </node>
+      <node id="1363">
+        <label>cfunc_parentee_t</label>
+        <link refid="structcfunc__parentee__t"/>
+        <childnode refid="1361" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1364">
+        <label>ctree_parentee_t</label>
+        <link refid="structctree__parentee__t"/>
+        <childnode refid="1365" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1365">
+        <label>ctree_visitor_t</label>
+        <link refid="structctree__visitor__t"/>
+        <childnode refid="1366" relation="usage">
+          <edgelabel>parents</edgelabel>
+        </childnode>
+      </node>
+      <node id="1366">
+        <label>qvector&lt; T &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5395" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5394" bodyend="5408"/>
+    <listofallmembers>
+      <member refid="structctree__visitor__t_1a517e8ea89250c27082fcaccf05562536" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>apply_to</name></member>
+      <member refid="structctree__visitor__t_1afbc6f6be87a1eda300bfdae95fbd10fc" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>apply_to_exprs</name></member>
+      <member refid="structctree__visitor__t_1a4ffce52d05a95c331504000f4d4853f9" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>clr_prune</name></member>
+      <member refid="structctree__visitor__t_1aedb8513d05e694551c4f9b1117176129" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>clr_restart</name></member>
+      <member refid="structctree__parentee__t_1ae9e74e4e590a8f1ce0c735b802de143d" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>ctree_parentee_t</name></member>
+      <member refid="structctree__visitor__t_1a3ae6712cf4d6cbe728271b50720d1d1a" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>ctree_visitor_t</name></member>
+      <member refid="structctree__visitor__t_1ab9f328f14cba3408273e5312b36f6b6c" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>cv_flags</name></member>
+      <member refid="structctree__visitor__t_1a2080c808900cced04d86c1ce19c2c9d6" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>DEFINE_VIRTUAL_DTOR</name></member>
+      <member refid="structctree__visitor__t_1a5f204e44a57e3395043ee7d5304a27b8" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>is_postorder</name></member>
+      <member refid="structctree__visitor__t_1ac2eeb74a3af63b308f1854ad841433cc" prot="public" virt="virtual"><scope>ctree_parentee_t</scope><name>leave_expr</name></member>
+      <member refid="structctree__visitor__t_1ae7ecb9e327546dbf3537f085fdc52a26" prot="public" virt="virtual"><scope>ctree_parentee_t</scope><name>leave_insn</name></member>
+      <member refid="structctree__visitor__t_1a9cb5b62625be997d9d0ae05e2ba19ace" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>maintain_parents</name></member>
+      <member refid="structctree__visitor__t_1a99e573446f6b036b34e69b519b72a907" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>must_prune</name></member>
+      <member refid="structctree__visitor__t_1a6badab23e955cae5c687b2aeb6f0f84e" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>must_restart</name></member>
+      <member refid="structctree__visitor__t_1a655d2e340fe8430a2c8f5769bdc0e375" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>only_insns</name></member>
+      <member refid="structctree__visitor__t_1a859e53605be246707122950ddf772ab9" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>parent_expr</name></member>
+      <member refid="structctree__visitor__t_1ac01ca10a2a426cbb58c51c26ad469b78" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>parent_insn</name></member>
+      <member refid="structctree__visitor__t_1a379fa1c12dbbb0385a971fdd3a7cb75f" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>parents</name></member>
+      <member refid="structctree__visitor__t_1a5dc5f0c355714910e368c90ad2e6b89e" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>prune_now</name></member>
+      <member refid="structctree__parentee__t_1a5ed65a1b8f884fd5617fc6f2a4ee63ae" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>recalc_parent_types</name></member>
+      <member refid="structctree__visitor__t_1a6e4110d5385bc3d7e753a5fe6eb8f629" prot="public" virt="non-virtual"><scope>ctree_parentee_t</scope><name>set_restart</name></member>
+      <member refid="structctree__visitor__t_1abe7d79b70265170a0068262ecf0426de" prot="public" virt="virtual"><scope>ctree_parentee_t</scope><name>visit_expr</name></member>
+      <member refid="structctree__visitor__t_1ab8d26a871ef07d16049741c0d6caf755" prot="public" virt="virtual"><scope>ctree_parentee_t</scope><name>visit_insn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

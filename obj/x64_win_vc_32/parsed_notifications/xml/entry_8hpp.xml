@@ -1,0 +1,350 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="entry_8hpp" kind="file" language="C++">
+    <compoundname>entry.hpp</compoundname>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___a_e_f___1ga4df6c862a26b22139b6aee53e9cfe471" prot="public" static="no">
+        <name>AEF_UTF8</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>the name is given in UTF-8 (default) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/entry.hpp" line="31" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/entry.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_e_f___1gadb709bc15443b42fdc8715367339bb2a" prot="public" static="no">
+        <name>AEF_IDBENC</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+<para>non-ASCII bytes will be decoded accordingly </para>        </briefdescription>
+        <detaileddescription>
+<para>the name is given in the IDB encoding; </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/entry.hpp" line="32" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/entry.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="entry_8hpp_1a3476dbf78bdb477a3d42280ed7ce6c88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export get_entry_qty</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_entry_qty</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get number of entry points. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/entry.hpp" line="26" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8hpp_1a7f0a3a874789647af9d4524937d02634" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export add_entry</definition>
+        <argsstring>(uval_t ord, ea_t ea, const char *name, bool makecode, int flags=AEF_UTF8)</argsstring>
+        <name>add_entry</name>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>ord</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>makecode</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+          <defval><ref refid="group___a_e_f___1ga4df6c862a26b22139b6aee53e9cfe471" kindref="member">AEF_UTF8</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add an entry point to the list of entry points. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ord</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ordinal number if ordinal number is equal to &apos;ea&apos; then ordinal is not used </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of entry point. If the specified location already has a name, the old name will be appended to the regular comment. If name == NULL, then the old name will be retained. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>makecode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>should the kernel convert bytes at the entry point to instruction(s) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>See AEF_* </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success (currently always true) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/entry.hpp" line="49" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8hpp_1ac104cb94f69ed0118ec040f09647f28e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref> ida_export</type>
+        <definition>idaman uval_t ida_export get_entry_ordinal</definition>
+        <argsstring>(size_t idx)</argsstring>
+        <name>get_entry_ordinal</name>
+        <param>
+          <type>size_t</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get ordinal number of an entry point. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>idx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>internal number of entry point. Should be in the range 0..<ref refid="entry_8hpp_1a3476dbf78bdb477a3d42280ed7ce6c88" kindref="member">get_entry_qty()</ref>-1 </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>ordinal number or 0. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/entry.hpp" line="57" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8hpp_1a03a65b133f599169377d3a63dc944c80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export get_entry</definition>
+        <argsstring>(uval_t ord)</argsstring>
+        <name>get_entry</name>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>ord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get entry point address by its ordinal <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ord</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ordinal number of entry point </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>address or <ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/entry.hpp" line="64" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8hpp_1a989a2228aaa8f1959248ff4323c6dda3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export get_entry_name</definition>
+        <argsstring>(qstring *buf, uval_t ord)</argsstring>
+        <name>get_entry_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>ord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get name of the entry point by its ordinal. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output buffer, may be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ord</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ordinal number of entry point </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>size of entry name or -1 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/entry.hpp" line="72" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8hpp_1af89f73165b28bbb79278bf8db0ccbbb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export rename_entry</definition>
+        <argsstring>(uval_t ord, const char *name, int flags=AEF_UTF8)</argsstring>
+        <name>rename_entry</name>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>ord</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+          <defval><ref refid="group___a_e_f___1ga4df6c862a26b22139b6aee53e9cfe471" kindref="member">AEF_UTF8</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Rename entry point. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ord</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ordinal number of the entry point </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of entry point. If the specified location already has a name, the old name will be appended to a repeatable comment. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>See AEF_* </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/entry.hpp" line="83" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8hpp_1afa530cf627b81c558a8d6258064ade4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_entry_forwarder</definition>
+        <argsstring>(uval_t ord, const char *name, int flags=AEF_UTF8)</argsstring>
+        <name>set_entry_forwarder</name>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>ord</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+          <defval><ref refid="group___a_e_f___1ga4df6c862a26b22139b6aee53e9cfe471" kindref="member">AEF_UTF8</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set forwarder name for ordinal. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ord</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ordinal number of the entry point </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>forwarder name for entry point. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>See AEF_* </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/entry.hpp" line="92" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8hpp_1ac25d9c9f41fa974949fe06ab06de3305" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export get_entry_forwarder</definition>
+        <argsstring>(qstring *buf, uval_t ord)</argsstring>
+        <name>get_entry_forwarder</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>ord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get forwarder name for the entry point by its ordinal. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output buffer, may be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ord</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ordinal number of entry point </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>size of entry forwarder name or -1 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/entry.hpp" line="100" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Functions that deal with entry points. </para>    </briefdescription>
+    <detaileddescription>
+<para>Exported functions are considered as entry points as well.</para><para>IDA maintains list of entry points to the program. Each entry point:<itemizedlist>
+<listitem><para>has an address</para></listitem><listitem><para>has a name</para></listitem><listitem><para>may have an ordinal number </para></listitem></itemizedlist>
+</para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/entry.hpp"/>
+  </compounddef>
+</doxygen>

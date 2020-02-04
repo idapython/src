@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___m_s_f__" kind="group">
+    <compoundname>MSF_</compoundname>
+    <title>Move segment flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___m_s_f___1ga74cba55c4f444b0a4c51653e1f5877aa" prot="public" static="no">
+        <name>MSF_SILENT</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>don&apos;t display a &quot;please wait&quot; box on the screen </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="743" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="743" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_s_f___1ga95498cd45f2b9b85103fcac3c9a1df32" prot="public" static="no">
+        <name>MSF_NOFIX</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>don&apos;t call the loader to fix relocations </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="744" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="744" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_s_f___1ga6375a028748826abee3c02826f37e8af" prot="public" static="no">
+        <name>MSF_LDKEEP</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>keep the loader in the memory (optimization) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="745" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="745" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_s_f___1ga89693134e1c29045c8c9a1b77f106813" prot="public" static="no">
+        <name>MSF_FIXONCE</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>valid for <ref refid="group__seg__man_1gaa5f20d1b84b6cbccb5a4b173f26e3599" kindref="member">rebase_program()</ref>. see <ref refid="structloader__t_1a7a329922101a4e28a2b7018e565a3b5d" kindref="member">loader_t::move_segm</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>call loader only once with the special calling method. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="746" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="746" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_s_f___1ga28e685194c0e3c2d88cf814b6aa5a766" prot="public" static="no">
+        <name>MFS_NETMAP</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>valid for <ref refid="group__seg__man_1gaa5f20d1b84b6cbccb5a4b173f26e3599" kindref="member">rebase_program()</ref> </para>        </briefdescription>
+        <detaileddescription>
+<para>change inf.netdelta if possible (this is faster) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="748" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="748" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_s_f___1ga2c8b83720e61ef7c1cd29ea477ace306" prot="public" static="no">
+        <name>MSF_PRIORITY</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>valid for <ref refid="group__seg__man_1gab3c11fbdf0ac345cb618b8b0ad3ef04c" kindref="member">move_segm()</ref> </para>        </briefdescription>
+        <detaileddescription>
+<para>loader segments will overwrite any existing debugger segments when moved. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="750" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="750" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as &apos;flags&apos; parameter to <ref refid="group__seg__man_1gab3c11fbdf0ac345cb618b8b0ad3ef04c" kindref="member">move_segm()</ref> and <ref refid="group__seg__man_1gaa5f20d1b84b6cbccb5a4b173f26e3599" kindref="member">rebase_program()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

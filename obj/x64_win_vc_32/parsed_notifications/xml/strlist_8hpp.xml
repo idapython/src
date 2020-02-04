@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="strlist_8hpp" kind="file" language="C++">
+    <compoundname>strlist.hpp</compoundname>
+    <innerclass refid="structstrwinsetup__t" prot="public">strwinsetup_t</innerclass>
+    <innerclass refid="structstring__info__t" prot="public">string_info_t</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="strlist_8hpp_1a980d5fbb50ef79df57c222cbfe9c2444" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="structstrwinsetup__t" kindref="compound">strwinsetup_t</ref> *ida_export</type>
+        <definition>idaman strwinsetup_t* ida_export get_strlist_options</definition>
+        <argsstring>()</argsstring>
+        <name>get_strlist_options</name>
+        <briefdescription>
+<para>Get access to the static string list options. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/strlist.hpp" line="54" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="strlist_8hpp_1a3349e27b9e2180d2d76d0691d3f0ec49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export build_strlist</definition>
+        <argsstring>()</argsstring>
+        <name>build_strlist</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Build the string list. You should initialize options before this call using the restore_config() or setup_strings_window() methods. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/strlist.hpp" line="61" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="strlist_8hpp_1a79a562364ead2499b7913587f625e0a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export clear_strlist</definition>
+        <argsstring>()</argsstring>
+        <name>clear_strlist</name>
+        <briefdescription>
+<para>Clear the string list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/strlist.hpp" line="66" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="strlist_8hpp_1a38b5768814a967d85fc7d55718ed2451" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export get_strlist_qty</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_strlist_qty</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get number of elements in the string list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/strlist.hpp" line="71" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="strlist_8hpp_1ab13487aac359c8da56dcfdb019796519" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export get_strlist_item</definition>
+        <argsstring>(string_info_t *si, size_t n)</argsstring>
+        <name>get_strlist_item</name>
+        <param>
+          <type><ref refid="structstring__info__t" kindref="compound">string_info_t</ref> *</type>
+          <declname>si</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>Get nth element of the string list (n=0..<ref refid="strlist_8hpp_1a38b5768814a967d85fc7d55718ed2451" kindref="member">get_strlist_qty()</ref>-1) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/strlist.hpp" line="76" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Functions that deal with the string list. </para>    </briefdescription>
+    <detaileddescription>
+<para>While the kernel keeps the strings list, it does not update it. The string list is not used by the kernel because keeping it up-to-date would slow down IDA without any benefit.</para><para>The users of this list should <ref refid="strlist_8hpp_1a3349e27b9e2180d2d76d0691d3f0ec49" kindref="member">build_strlist()</ref> before accessing it. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/strlist.hpp"/>
+  </compounddef>
+</doxygen>

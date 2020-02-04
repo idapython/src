@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="unionvalue__u" kind="union" language="C++" prot="public">
+    <compoundname>value_u</compoundname>
+    <includes refid="ua_8hpp" local="no">ua.hpp</includes>
+    <innerclass refid="structvalue__u_1_1d128__t" prot="public">value_u::d128_t</innerclass>
+    <innerclass refid="structvalue__u_1_1dq__t" prot="public">value_u::dq_t</innerclass>
+    <innerclass refid="structvalue__u_1_1dt__t" prot="public">value_u::dt_t</innerclass>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="unionvalue__u_1a4e1335f1c5658824177d07d7c41be2a1" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref></type>
+        <definition>uint8 value_u::v_char</definition>
+        <argsstring></argsstring>
+        <name>v_char</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="558" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="558" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionvalue__u_1ad76b0d218404246ee6d387a6db1f4f30" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 value_u::v_short</definition>
+        <argsstring></argsstring>
+        <name>v_short</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="559" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="559" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionvalue__u_1a4d9f16e45402592e4310c211793eddc7" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 value_u::v_long</definition>
+        <argsstring></argsstring>
+        <name>v_long</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="560" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="560" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionvalue__u_1a1d53cb336584a637b531290dcf7854dd" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 value_u::v_int64</definition>
+        <argsstring></argsstring>
+        <name>v_int64</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="561" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="561" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionvalue__u_1a52cb713a1f6b04011beeca90ffb51806" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+        <definition>uval_t value_u::v_uval</definition>
+        <argsstring></argsstring>
+        <name>v_uval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="562" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="562" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionvalue__u_1ac8d0fabb86d0220e3df76b66aa40a161" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structvalue__u_1_1dq__t" kindref="compound">value_u::dq_t</ref></type>
+        <definition>struct value_u::dq_t  value_u::_dq</definition>
+        <argsstring></argsstring>
+        <name>_dq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="563" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionvalue__u_1a994b7f337b3c303bd4a17837379c1a4f" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structvalue__u_1_1dt__t" kindref="compound">value_u::dt_t</ref></type>
+        <definition>struct value_u::dt_t  value_u::dt</definition>
+        <argsstring></argsstring>
+        <name>dt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="564" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionvalue__u_1afbb8580dc336d09ed7c8edef2c514431" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structvalue__u_1_1d128__t" kindref="compound">value_u::d128_t</ref></type>
+        <definition>struct value_u::d128_t  value_u::d128</definition>
+        <argsstring></argsstring>
+        <name>d128</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="565" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionvalue__u_1a124f43c9f2395a5c86137b307d875dde" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref></type>
+        <definition>uint8 value_u::byte16[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>byte16</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="566" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="566" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionvalue__u_1add6f692f61139f1f06820a57cd79bc86" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 value_u::dword3[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>dword3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="567" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="567" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure is used to pass values of bytes to helper functions. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3596">
+        <label>value_u::dq_t</label>
+        <link refid="structvalue__u_1_1dq__t"/>
+      </node>
+      <node id="3595">
+        <label>value_u::dt_t</label>
+        <link refid="structvalue__u_1_1dt__t"/>
+      </node>
+      <node id="3597">
+        <label>value_u::d128_t</label>
+        <link refid="structvalue__u_1_1d128__t"/>
+      </node>
+      <node id="3594">
+        <label>value_u</label>
+        <link refid="unionvalue__u"/>
+        <childnode refid="3595" relation="usage">
+          <edgelabel>dt</edgelabel>
+        </childnode>
+        <childnode refid="3596" relation="usage">
+          <edgelabel>_dq</edgelabel>
+        </childnode>
+        <childnode refid="3597" relation="usage">
+          <edgelabel>d128</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="557" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="556" bodyend="568"/>
+    <listofallmembers>
+      <member refid="unionvalue__u_1ac8d0fabb86d0220e3df76b66aa40a161" prot="public" virt="non-virtual"><scope>value_u</scope><name>_dq</name></member>
+      <member refid="unionvalue__u_1a124f43c9f2395a5c86137b307d875dde" prot="public" virt="non-virtual"><scope>value_u</scope><name>byte16</name></member>
+      <member refid="unionvalue__u_1afbb8580dc336d09ed7c8edef2c514431" prot="public" virt="non-virtual"><scope>value_u</scope><name>d128</name></member>
+      <member refid="unionvalue__u_1a994b7f337b3c303bd4a17837379c1a4f" prot="public" virt="non-virtual"><scope>value_u</scope><name>dt</name></member>
+      <member refid="unionvalue__u_1add6f692f61139f1f06820a57cd79bc86" prot="public" virt="non-virtual"><scope>value_u</scope><name>dword3</name></member>
+      <member refid="unionvalue__u_1a4e1335f1c5658824177d07d7c41be2a1" prot="public" virt="non-virtual"><scope>value_u</scope><name>v_char</name></member>
+      <member refid="unionvalue__u_1a1d53cb336584a637b531290dcf7854dd" prot="public" virt="non-virtual"><scope>value_u</scope><name>v_int64</name></member>
+      <member refid="unionvalue__u_1a4d9f16e45402592e4310c211793eddc7" prot="public" virt="non-virtual"><scope>value_u</scope><name>v_long</name></member>
+      <member refid="unionvalue__u_1ad76b0d218404246ee6d387a6db1f4f30" prot="public" virt="non-virtual"><scope>value_u</scope><name>v_short</name></member>
+      <member refid="unionvalue__u_1a52cb713a1f6b04011beeca90ffb51806" prot="public" virt="non-virtual"><scope>value_u</scope><name>v_uval</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

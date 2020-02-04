@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structioport__bit__t" kind="struct" language="C++" prot="public">
+    <compoundname>ioport_bit_t</compoundname>
+    <includes refid="diskio_8hpp" local="no">diskio.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structioport__bit__t_1aa55bdb66ad1c0c4f0426e3d014a75286" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring ioport_bit_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>name of the bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="244" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structioport__bit__t_1ab7e3d4274f1599a388c660bd22d98317" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring ioport_bit_t::cmt</definition>
+        <argsstring></argsstring>
+        <name>cmt</name>
+        <briefdescription>
+<para>comment </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="245" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Describes an I/O port bit. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1855">
+        <label>ioport_bit_t</label>
+        <link refid="structioport__bit__t"/>
+        <childnode refid="1856" relation="usage">
+          <edgelabel>cmt</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+      </node>
+      <node id="1856">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="243" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="242" bodyend="246"/>
+    <listofallmembers>
+      <member refid="structioport__bit__t_1ab7e3d4274f1599a388c660bd22d98317" prot="public" virt="non-virtual"><scope>ioport_bit_t</scope><name>cmt</name></member>
+      <member refid="structioport__bit__t_1aa55bdb66ad1c0c4f0426e3d014a75286" prot="public" virt="non-virtual"><scope>ioport_bit_t</scope><name>name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

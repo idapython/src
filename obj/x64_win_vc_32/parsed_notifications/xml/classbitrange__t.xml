@@ -1,0 +1,483 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classbitrange__t" kind="class" language="C++" prot="public">
+    <compoundname>bitrange_t</compoundname>
+    <includes refid="bitrange_8hpp" local="no">bitrange.hpp</includes>
+      <sectiondef kind="user-defined">
+      <header>Extract</header>
+      <description><para>Extract a value from &apos;src&apos; according to the bitrange <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>vector the extracted value will be stored to </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>source buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>src_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of source buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>is_mf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Msb First? (TRUE-big endian, FALSE-little endian) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para></description>
+      <memberdef kind="function" id="classbitrange__t_1a6ce10a8e9fadd4cbbb9c899bcf462968" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bitrange_t::extract</definition>
+        <argsstring>(bytevec_t *dst, const void *src, size_t src_size, bool is_mf) const</argsstring>
+        <name>extract</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> *</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>src_size</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>is_mf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="61" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="267" bodyend="279"/>
+      </memberdef>
+      <memberdef kind="function" id="classbitrange__t_1ad19d7f02de81c95e06dddb93d4bfe348" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bitrange_t::extract</definition>
+        <argsstring>(void *dst, size_t dst_size, const void *src, size_t src_size, bool is_mf) const</argsstring>
+        <name>extract</name>
+        <param>
+          <type>void *</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>dst_size</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>src_size</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>is_mf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="66" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="256" bodyend="264"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Inject</header>
+      <description><para>Inject a value into &apos;dst&apos; according to the bitrange <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a buffer the value will be injected into </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dst_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>source value </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>is_mf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Msb First? (TRUE-big endian, FALSE-little endian) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para></description>
+      <memberdef kind="function" id="classbitrange__t_1a5f8decae88519c785fdfe5f20a3cd3d6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bitrange_t::inject</definition>
+        <argsstring>(void *dst, size_t dst_size, const void *src, size_t src_size, bool is_mf) const</argsstring>
+        <name>inject</name>
+        <param>
+          <type>void *</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>dst_size</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>src_size</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>is_mf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="81" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="282" bodyend="290"/>
+      </memberdef>
+      <memberdef kind="function" id="classbitrange__t_1a3ea2ca8213bf616ee26a7e435f2e49ab" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bitrange_t::inject</definition>
+        <argsstring>(void *dst, size_t dst_size, const bytevec_t &amp;src, bool is_mf) const</argsstring>
+        <name>inject</name>
+        <param>
+          <type>void *</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>dst_size</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> &amp;</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>is_mf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="87" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="293" bodyend="303"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classbitrange__t_1a7a817b2728516e957d61f43d666331ec" prot="private" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 bitrange_t::offset</definition>
+        <argsstring></argsstring>
+        <name>offset</name>
+        <briefdescription>
+<para>offset of 1st bit starting with the lowest bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="97" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classbitrange__t_1a4f4c026c9ba2434d8afc67d550059fe9" prot="private" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 bitrange_t::nbits</definition>
+        <argsstring></argsstring>
+        <name>nbits</name>
+        <briefdescription>
+<para>size of the value in bits </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="98" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classbitrange__t_1ab27da7389c0616c8f2003640a42d80dc" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>bitrange_t::bitrange_t</definition>
+        <argsstring>(uint16 bit_ofs=0, uint16 size_in_bits=0)</argsstring>
+        <name>bitrange_t</name>
+        <param>
+          <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+          <declname>bit_ofs</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+          <declname>size_in_bits</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="19" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="102" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="classbitrange__t_1af8fb71b6bc4ef1f4f6eba8c8386b32c0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void bitrange_t::init</definition>
+        <argsstring>(uint16 bit_ofs, uint16 size_in_bits)</argsstring>
+        <name>init</name>
+        <param>
+          <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+          <declname>bit_ofs</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+          <declname>size_in_bits</declname>
+        </param>
+        <briefdescription>
+<para>Initialize offset and size to given values. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="21" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="108" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="classbitrange__t_1af7f962852013d6eb3037a449a0c9e8b4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void bitrange_t::reset</definition>
+        <argsstring>()</argsstring>
+        <name>reset</name>
+        <briefdescription>
+<para>Make the bitrange empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="24" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="115" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classbitrange__t_1a18ca5f3517c2dc0a853318d38b0420b4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bitrange_t::empty</definition>
+        <argsstring>() const</argsstring>
+        <name>empty</name>
+        <briefdescription>
+<para>Is the bitrange empty? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="26" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="121" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="classbitrange__t_1a9d66e049802d97c00a7aabd1cb0b52e3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14" kindref="member">uint</ref></type>
+        <definition>uint bitrange_t::bitoff</definition>
+        <argsstring>() const</argsstring>
+        <name>bitoff</name>
+        <briefdescription>
+<para>Get offset of 1st bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="29" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="127" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classbitrange__t_1af984f293ac42aaaffa70dcf55f1131a6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14" kindref="member">uint</ref></type>
+        <definition>uint bitrange_t::bitsize</definition>
+        <argsstring>() const</argsstring>
+        <name>bitsize</name>
+        <briefdescription>
+<para>Get size of the value in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="31" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="133" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="classbitrange__t_1a08524db1cc9bfc70eb833000306b4f90" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14" kindref="member">uint</ref></type>
+        <definition>uint bitrange_t::bytesize</definition>
+        <argsstring>() const</argsstring>
+        <name>bytesize</name>
+        <briefdescription>
+<para>Size of the value in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="33" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="139" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="classbitrange__t_1a58e36758134ee429fdaddb837f90f828" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 bitrange_t::mask64</definition>
+        <argsstring>() const</argsstring>
+        <name>mask64</name>
+        <briefdescription>
+<para>Convert to mask of 64 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="35" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="145" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="classbitrange__t_1a506620bff47b52c6efd4fcddc5048925" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bitrange_t::combine</definition>
+        <argsstring>(const bitrange_t &amp;subrange)</argsstring>
+        <name>combine</name>
+        <param>
+          <type>const <ref refid="classbitrange__t" kindref="compound">bitrange_t</ref> &amp;</type>
+          <declname>subrange</declname>
+        </param>
+        <briefdescription>
+<para>Make the superposition of the current bitrange and given bitrange. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="38" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="151" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="classbitrange__t_1afd4dccf7dde35528485e54872f44fde3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void bitrange_t::intersect</definition>
+        <argsstring>(const bitrange_t &amp;r)</argsstring>
+        <name>intersect</name>
+        <param>
+          <type>const <ref refid="classbitrange__t" kindref="compound">bitrange_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Intersect two ranges. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="41" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="160" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="function" id="classbitrange__t_1afa4df9f99135a4ec855b2bade986d4ad" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void bitrange_t::create_union</definition>
+        <argsstring>(const bitrange_t &amp;r)</argsstring>
+        <name>create_union</name>
+        <param>
+          <type>const <ref refid="classbitrange__t" kindref="compound">bitrange_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Create union of 2 ranges including the hole between them. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="44" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="175" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="classbitrange__t_1a518c3a49d84356c6c29052a3503bbce0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void bitrange_t::shift_down</definition>
+        <argsstring>(uint cnt)</argsstring>
+        <name>shift_down</name>
+        <param>
+          <type><ref refid="pro_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14" kindref="member">uint</ref></type>
+          <declname>cnt</declname>
+        </param>
+        <briefdescription>
+<para>Shift range down (left) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="47" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="195" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="classbitrange__t_1a6b6889b1e0a6a5cd3b84213f52d71747" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void bitrange_t::shift_up</definition>
+        <argsstring>(uint cnt)</argsstring>
+        <name>shift_up</name>
+        <param>
+          <type><ref refid="pro_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14" kindref="member">uint</ref></type>
+          <declname>cnt</declname>
+        </param>
+        <briefdescription>
+<para>Shift range up (right) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="49" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="213" bodyend="216"/>
+      </memberdef>
+      <memberdef kind="function" id="classbitrange__t_1af8ad6e100eec0e3167b9cfc642377943" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void bitrange_t::assign_max_nonzero</definition>
+        <argsstring>(T mask)</argsstring>
+        <name>assign_max_nonzero</name>
+        <param>
+          <type>T</type>
+          <declname>mask</declname>
+        </param>
+        <briefdescription>
+<para>Initialize <ref refid="classbitrange__t" kindref="compound">bitrange_t</ref> with offset/size defined by given mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="52" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="219" bodyend="242"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This class manages the offset and size of a value that occupies a number of contiguous bits within some container - generally a byte array. A special state - empty range (both offset and size are zeroes) - determines the value as all bits of the container. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" line="16" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bitrange.hpp" bodystart="15" bodyend="99"/>
+    <listofallmembers>
+      <member refid="classbitrange__t_1af8ad6e100eec0e3167b9cfc642377943" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>assign_max_nonzero</name></member>
+      <member refid="classbitrange__t_1a9d66e049802d97c00a7aabd1cb0b52e3" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>bitoff</name></member>
+      <member refid="classbitrange__t_1ab27da7389c0616c8f2003640a42d80dc" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>bitrange_t</name></member>
+      <member refid="classbitrange__t_1af984f293ac42aaaffa70dcf55f1131a6" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>bitsize</name></member>
+      <member refid="classbitrange__t_1a08524db1cc9bfc70eb833000306b4f90" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>bytesize</name></member>
+      <member refid="classbitrange__t_1a506620bff47b52c6efd4fcddc5048925" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>combine</name></member>
+      <member refid="classbitrange__t_1afa4df9f99135a4ec855b2bade986d4ad" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>create_union</name></member>
+      <member refid="classbitrange__t_1a18ca5f3517c2dc0a853318d38b0420b4" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>empty</name></member>
+      <member refid="classbitrange__t_1a6ce10a8e9fadd4cbbb9c899bcf462968" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>extract</name></member>
+      <member refid="classbitrange__t_1ad19d7f02de81c95e06dddb93d4bfe348" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>extract</name></member>
+      <member refid="classbitrange__t_1af8fb71b6bc4ef1f4f6eba8c8386b32c0" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>init</name></member>
+      <member refid="classbitrange__t_1a5f8decae88519c785fdfe5f20a3cd3d6" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>inject</name></member>
+      <member refid="classbitrange__t_1a3ea2ca8213bf616ee26a7e435f2e49ab" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>inject</name></member>
+      <member refid="classbitrange__t_1afd4dccf7dde35528485e54872f44fde3" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>intersect</name></member>
+      <member refid="classbitrange__t_1a58e36758134ee429fdaddb837f90f828" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>mask64</name></member>
+      <member refid="classbitrange__t_1a4f4c026c9ba2434d8afc67d550059fe9" prot="private" virt="non-virtual"><scope>bitrange_t</scope><name>nbits</name></member>
+      <member refid="classbitrange__t_1a7a817b2728516e957d61f43d666331ec" prot="private" virt="non-virtual"><scope>bitrange_t</scope><name>offset</name></member>
+      <member refid="classbitrange__t_1af7f962852013d6eb3037a449a0c9e8b4" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>reset</name></member>
+      <member refid="classbitrange__t_1a518c3a49d84356c6c29052a3503bbce0" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>shift_down</name></member>
+      <member refid="classbitrange__t_1a6b6889b1e0a6a5cd3b84213f52d71747" prot="public" virt="non-virtual"><scope>bitrange_t</scope><name>shift_up</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

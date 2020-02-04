@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__xref__type" kind="group">
+    <compoundname>xref_type</compoundname>
+    <title>Cross-Reference types</title>
+    <innergroup refid="group___x_r_e_f___t">Cross-Reference type flags</innergroup>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xref__type_1ga44e2b79869a9595bbe6265ff2026aa98" prot="public" static="no">
+        <name>cref_t</name>
+        <enumvalue id="group__xref__type_1gga44e2b79869a9595bbe6265ff2026aa98a6627e6d9db50f3625e888d466ab84ca3" prot="public">
+          <name>fl_U</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>unknown <ndash/> for compatibility with old versions. Should not be used anymore. </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xref__type_1gga44e2b79869a9595bbe6265ff2026aa98ac029a58e2aa63c79f31c29e61041bdd3" prot="public">
+          <name>fl_CF</name>
+          <initializer>= 16</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Call Far This xref creates a function at the referenced location </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xref__type_1gga44e2b79869a9595bbe6265ff2026aa98ab5e46d23c9228eef4b1155b4cc23768d" prot="public">
+          <name>fl_CN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Call Near This xref creates a function at the referenced location </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xref__type_1gga44e2b79869a9595bbe6265ff2026aa98aa48a431ce68718619dedb6ba8749579c" prot="public">
+          <name>fl_JF</name>
+          <briefdescription>
+<para>Jump Far. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xref__type_1gga44e2b79869a9595bbe6265ff2026aa98a007fe7f90598217133498c08591f7bab" prot="public">
+          <name>fl_JN</name>
+          <briefdescription>
+<para>Jump Near. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xref__type_1gga44e2b79869a9595bbe6265ff2026aa98ac202ffb980cd5146ae5011209d4c113f" prot="public">
+          <name>fl_USobsolete</name>
+          <briefdescription>
+<para>User specified (obsolete) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xref__type_1gga44e2b79869a9595bbe6265ff2026aa98a75869336a10857ebd2ee498b944a5f2f" prot="public">
+          <name>fl_F</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Ordinary flow: used to specify execution flow to the next instruction. </para>          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>CODE xref types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="41" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="40" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xref__type_1ga78aab6d0d6bd9cb4904bbdbb5ac4fa71" prot="public" static="no">
+        <name>dref_t</name>
+        <enumvalue id="group__xref__type_1gga78aab6d0d6bd9cb4904bbdbb5ac4fa71a69736399da1e73ad9d0140a666a58527" prot="public">
+          <name>dr_U</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Unknown <ndash/> for compatibility with old versions. Should not be used anymore. </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xref__type_1gga78aab6d0d6bd9cb4904bbdbb5ac4fa71a2f2dbd4d9d446cb18dbfcb091dda8681" prot="public">
+          <name>dr_O</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Offset The reference uses &apos;offset&apos; of data rather than its value OR The reference appeared because the &quot;OFFSET&quot; flag of instruction is set. The meaning of this type is IDP dependent. </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xref__type_1gga78aab6d0d6bd9cb4904bbdbb5ac4fa71a4249e6b7ca4e03c6179ca8c5ed1afb37" prot="public">
+          <name>dr_W</name>
+          <briefdescription>
+<para>Write access. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xref__type_1gga78aab6d0d6bd9cb4904bbdbb5ac4fa71ac0aa5db1ff61115c61128b0c78a92ff4" prot="public">
+          <name>dr_R</name>
+          <briefdescription>
+<para>Read access. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xref__type_1gga78aab6d0d6bd9cb4904bbdbb5ac4fa71add0f68bf2d83279e94d6b2d66156d6a4" prot="public">
+          <name>dr_T</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Text (for forced operands only) Name of data is used in manual operand </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xref__type_1gga78aab6d0d6bd9cb4904bbdbb5ac4fa71a57d1a0edaf907d264ec8e97b9b9ba36c" prot="public">
+          <name>dr_I</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Informational (a derived java class references its base class informationally) </para>          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>DATA xref types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="59" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="58" bodyend="76"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xref__type_1ga36716f163bdee48c9e94ff947deb7d65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman char ida_export</type>
+        <definition>idaman char ida_export xrefchar</definition>
+        <argsstring>(char xrtype)</argsstring>
+        <name>xrefchar</name>
+        <param>
+          <type>char</type>
+          <declname>xrtype</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get character describing the xref type. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>xrtype</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>combination of <ref refid="group___x_r_e_f___t" kindref="compound">Cross-Reference type flags</ref> and a <ref refid="group__xref__type_1ga44e2b79869a9595bbe6265ff2026aa98" kindref="member">cref_t</ref> of <ref refid="group__xref__type_1ga78aab6d0d6bd9cb4904bbdbb5ac4fa71" kindref="member">dref_t</ref> value </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="101" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Describe categories of code/data xrefs. <simplesect kind="note"><para>IDA handles the xrefs automatically and may delete an xref added by the user if it does not contain the <ref refid="group___x_r_e_f___t_1ga6e9336e5f35291b76d7ffb966fb11269" kindref="member">XREF_USER</ref> bit. </para></simplesect>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

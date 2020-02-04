@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structexehdr__full" kind="struct" language="C++" prot="public">
+    <compoundname>exehdr_full</compoundname>
+    <basecompoundref refid="structexehdr" prot="public" virt="non-virtual">exehdr</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structexehdr__full_1acebaae1771944f80255bd00342c5b703" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr_full::res[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>res</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="57" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr__full_1ad85a4edcb65c45a3721148d89943b590" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr_full::oemid</definition>
+        <argsstring></argsstring>
+        <name>oemid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="58" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr__full_1aa74519b5eff428507eb3d6da8b060795" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr_full::oeminfo</definition>
+        <argsstring></argsstring>
+        <name>oeminfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="59" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr__full_1afdf17223b79ed7e6a547b6e3fd613089" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr_full::res2[10]</definition>
+        <argsstring>[10]</argsstring>
+        <name>res2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="60" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr__full_1ad8e7e391b457d9a3a7122d99a200b069" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 exehdr_full::lfanew</definition>
+        <argsstring></argsstring>
+        <name>lfanew</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="61" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1534">
+        <label>exehdr</label>
+        <link refid="structexehdr"/>
+      </node>
+      <node id="1533">
+        <label>exehdr_full</label>
+        <link refid="structexehdr__full"/>
+        <childnode refid="1534" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1536">
+        <label>exehdr</label>
+        <link refid="structexehdr"/>
+      </node>
+      <node id="1535">
+        <label>exehdr_full</label>
+        <link refid="structexehdr__full"/>
+        <childnode refid="1536" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="56" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="55" bodyend="62"/>
+    <listofallmembers>
+      <member refid="structexehdr_1a809e0d50ebb97ef777bbe9c3aed49d4c" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>CalcEXE_Length</name></member>
+      <member refid="structexehdr_1a7fdf358dd1afe6f77da771d33d81ab63" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>CalcEXE_Pages</name></member>
+      <member refid="structexehdr_1a0ff15cf952906bd54d171afc48582d94" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>ChkSum</name></member>
+      <member refid="structexehdr_1a29e07af4ba0204d20e9281c84110b4f0" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>exe_ident</name></member>
+      <member refid="structexehdr_1aa50c0652663e7a118793e38a489dfd6e" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>ExeIP</name></member>
+      <member refid="structexehdr_1a2a791010a718c337238b7e05f612ceaa" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>ExeSP</name></member>
+      <member refid="structexehdr_1a6f6ee9c915316c3fd33fb3a30b5346c7" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>HdrSize</name></member>
+      <member refid="structexehdr__full_1ad8e7e391b457d9a3a7122d99a200b069" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>lfanew</name></member>
+      <member refid="structexehdr_1af91a90878284856b9bb4b3d2013769fe" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>MaxMem</name></member>
+      <member refid="structexehdr_1ab3810b5c8faed219c8b79e8ecb2bf5f5" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>MinMem</name></member>
+      <member refid="structexehdr__full_1ad85a4edcb65c45a3721148d89943b590" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>oemid</name></member>
+      <member refid="structexehdr__full_1aa74519b5eff428507eb3d6da8b060795" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>oeminfo</name></member>
+      <member refid="structexehdr_1abf21f47651d49e40bb5cb886d46d54f2" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>Overlay</name></member>
+      <member refid="structexehdr_1a47d8e460ea43ad44710a9a40857e2942" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>PageCnt</name></member>
+      <member refid="structexehdr_1a5f786dc4569ca32ddb218c49da7639d5" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>PartPag</name></member>
+      <member refid="structexehdr_1a73be30a459438ebb08fac070084b958a" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>ReloCnt</name></member>
+      <member refid="structexehdr_1a0fae482c7b51126a174867f41423467b" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>ReloCS</name></member>
+      <member refid="structexehdr_1a9e8189f6833a716f13d836d5d34f7d12" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>ReloSS</name></member>
+      <member refid="structexehdr__full_1acebaae1771944f80255bd00342c5b703" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>res</name></member>
+      <member refid="structexehdr__full_1afdf17223b79ed7e6a547b6e3fd613089" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>res2</name></member>
+      <member refid="structexehdr_1afc71bf8e7332c662548c97944b8e0192" prot="public" virt="non-virtual"><scope>exehdr_full</scope><name>TablOff</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

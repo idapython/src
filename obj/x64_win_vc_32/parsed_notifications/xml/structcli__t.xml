@@ -1,0 +1,267 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structcli__t" kind="struct" language="C++" prot="public">
+    <compoundname>cli_t</compoundname>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcli__t_1a7ed831a1cead17c6cb05da342e96a81f" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t cli_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+<para>size of this structure </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3256" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcli__t_1a20701884f205ee79d132073da60777ca" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 cli_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___c_l_i_f__" kindref="compound">CLI attributes</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3257" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcli__t_1a5f3146833c9d903792033840ec374f6c" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* cli_t::sname</definition>
+        <argsstring></argsstring>
+        <name>sname</name>
+        <briefdescription>
+<para>short name (displayed on the button) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3263" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcli__t_1a47d58e37ea034d8f30dd3dd975d6ee2e" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* cli_t::lname</definition>
+        <argsstring></argsstring>
+        <name>lname</name>
+        <briefdescription>
+<para>long name (displayed in the menu) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3264" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcli__t_1a8d1326e0885bc0b369d38d446d497910" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* cli_t::hint</definition>
+        <argsstring></argsstring>
+        <name>hint</name>
+        <briefdescription>
+<para>hint for the input line </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3265" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcli__t_1aa5ff09b640ffb0644be756b812761f4a" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * cli_t::execute_line) (const char *line)</definition>
+        <argsstring>)(const char *line)</argsstring>
+        <name>execute_line</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Callback: the user pressed Enter. CLI is free to execute the line immediately or ask for more lines. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>line</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>command to execute (utf-8-encoded) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>true</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>executed line </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>false</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ask for more lines </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3272" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcli__t_1a973d98221b5a2e8d98f619f6de7b97dd" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* cli_t::unused</definition>
+        <argsstring></argsstring>
+        <name>unused</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3274" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcli__t_1a74f002fcb7ca09b2bfc1429d4a574997" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * cli_t::keydown) (qstring *line, int *p_x, int *p_sellen, int *p_vk_key, int shift)</definition>
+        <argsstring>)(qstring *line, int *p_x, int *p_sellen, int *p_vk_key, int shift)</argsstring>
+        <name>keydown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Callback: a keyboard key has been pressed. This callback is optional. It is a generic callback and the CLI is free to do whatever it wants. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>line</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>current input line (in/out argument) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to current x coordinate of the cursor (in/out) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_sellen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to current selection length (usually 0) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_vk_key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to virtual key code (in/out). if the key has been handled, it should be reset to 0 by CLI </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shift</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>shift state </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>true</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>modified input line or x coordinate or selection length </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>false</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>otherwise </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3287" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcli__t_1aef3336c19ea287ac9ca687a71b70f880" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * cli_t::find_completions) (qstrvec_t *out_completions, int *out_match_start, int *out_match_end, const char *line, int x)</definition>
+        <argsstring>)(qstrvec_t *out_completions, int *out_match_start, int *out_match_end, const char *line, int x)</argsstring>
+        <name>find_completions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Callback: the user pressed Tab/Shift+Tab. This callback is optional. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">out_completions</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>results of completion </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">out_match_start</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the codepoint index in the line, where match starts </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">out_match_end</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the codepoint index in the line, where ends ends </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>line</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>command line </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>codepoint index of the cursor in line </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>true</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>got results </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>false</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>otherwise </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3303" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3303" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Command line interpreter. Provides functionality for the command line (located at the bottom of the main window). Only GUI version of IDA supports CLIs. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3255" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3254" bodyend="3309"/>
+    <listofallmembers>
+      <member refid="structcli__t_1aa5ff09b640ffb0644be756b812761f4a" prot="public" virt="non-virtual"><scope>cli_t</scope><name>execute_line</name></member>
+      <member refid="structcli__t_1aef3336c19ea287ac9ca687a71b70f880" prot="public" virt="non-virtual"><scope>cli_t</scope><name>find_completions</name></member>
+      <member refid="structcli__t_1a20701884f205ee79d132073da60777ca" prot="public" virt="non-virtual"><scope>cli_t</scope><name>flags</name></member>
+      <member refid="structcli__t_1a8d1326e0885bc0b369d38d446d497910" prot="public" virt="non-virtual"><scope>cli_t</scope><name>hint</name></member>
+      <member refid="structcli__t_1a74f002fcb7ca09b2bfc1429d4a574997" prot="public" virt="non-virtual"><scope>cli_t</scope><name>keydown</name></member>
+      <member refid="structcli__t_1a47d58e37ea034d8f30dd3dd975d6ee2e" prot="public" virt="non-virtual"><scope>cli_t</scope><name>lname</name></member>
+      <member refid="structcli__t_1a7ed831a1cead17c6cb05da342e96a81f" prot="public" virt="non-virtual"><scope>cli_t</scope><name>size</name></member>
+      <member refid="structcli__t_1a5f3146833c9d903792033840ec374f6c" prot="public" virt="non-virtual"><scope>cli_t</scope><name>sname</name></member>
+      <member refid="structcli__t_1a973d98221b5a2e8d98f619f6de7b97dd" prot="public" virt="non-virtual"><scope>cli_t</scope><name>unused</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

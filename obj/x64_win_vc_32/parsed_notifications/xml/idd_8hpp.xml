@@ -1,0 +1,2378 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="idd_8hpp" kind="file" language="C++">
+    <compoundname>idd.hpp</compoundname>
+    <includes refid="range_8hpp" local="no">range.hpp</includes>
+    <includes refid="ua_8hpp" local="no">ua.hpp</includes>
+    <includedby refid="dbg_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp</includedby>
+    <incdepgraph>
+      <node id="668">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="652">
+        <label>stdarg.h</label>
+      </node>
+      <node id="655">
+        <label>assert.h</label>
+      </node>
+      <node id="649">
+        <label>ida.hpp</label>
+        <link refid="ida_8hpp"/>
+        <childnode refid="650" relation="include">
+        </childnode>
+        <childnode refid="645" relation="include">
+        </childnode>
+      </node>
+      <node id="651">
+        <label>stdlib.h</label>
+      </node>
+      <node id="646">
+        <label>ua.hpp</label>
+        <link refid="ua_8hpp"/>
+        <childnode refid="647" relation="include">
+        </childnode>
+        <childnode refid="648" relation="include">
+        </childnode>
+        <childnode refid="670" relation="include">
+        </childnode>
+        <childnode refid="671" relation="include">
+        </childnode>
+      </node>
+      <node id="663">
+        <label>io.h</label>
+      </node>
+      <node id="666">
+        <label>fcntl.h</label>
+      </node>
+      <node id="669">
+        <label>llong.hpp</label>
+        <link refid="llong_8hpp_source"/>
+      </node>
+      <node id="661">
+        <label>malloc.h</label>
+      </node>
+      <node id="644">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/idd.hpp</label>
+        <link refid="idd_8hpp"/>
+        <childnode refid="645" relation="include">
+        </childnode>
+        <childnode refid="646" relation="include">
+        </childnode>
+      </node>
+      <node id="660">
+        <label>string</label>
+      </node>
+      <node id="665">
+        <label>map</label>
+      </node>
+      <node id="664">
+        <label>direct.h</label>
+      </node>
+      <node id="653">
+        <label>stddef.h</label>
+      </node>
+      <node id="672">
+        <label>nalt.hpp</label>
+        <link refid="nalt_8hpp"/>
+        <childnode refid="649" relation="include">
+        </childnode>
+        <childnode refid="673" relation="include">
+        </childnode>
+      </node>
+      <node id="648">
+        <label>lines.hpp</label>
+        <link refid="lines_8hpp"/>
+        <childnode refid="649" relation="include">
+        </childnode>
+      </node>
+      <node id="656">
+        <label>limits.h</label>
+      </node>
+      <node id="667">
+        <label>sys/types.h</label>
+      </node>
+      <node id="662">
+        <label>string.h</label>
+      </node>
+      <node id="659">
+        <label>new</label>
+      </node>
+      <node id="670">
+        <label>xref.hpp</label>
+        <link refid="xref_8hpp"/>
+      </node>
+      <node id="650">
+        <label>pro.h</label>
+        <link refid="pro_8h"/>
+        <childnode refid="651" relation="include">
+        </childnode>
+        <childnode refid="652" relation="include">
+        </childnode>
+        <childnode refid="653" relation="include">
+        </childnode>
+        <childnode refid="654" relation="include">
+        </childnode>
+        <childnode refid="655" relation="include">
+        </childnode>
+        <childnode refid="656" relation="include">
+        </childnode>
+        <childnode refid="657" relation="include">
+        </childnode>
+        <childnode refid="658" relation="include">
+        </childnode>
+        <childnode refid="659" relation="include">
+        </childnode>
+        <childnode refid="660" relation="include">
+        </childnode>
+        <childnode refid="661" relation="include">
+        </childnode>
+        <childnode refid="662" relation="include">
+        </childnode>
+        <childnode refid="663" relation="include">
+        </childnode>
+        <childnode refid="664" relation="include">
+        </childnode>
+        <childnode refid="665" relation="include">
+        </childnode>
+        <childnode refid="666" relation="include">
+        </childnode>
+        <childnode refid="667" relation="include">
+        </childnode>
+        <childnode refid="668" relation="include">
+        </childnode>
+        <childnode refid="669" relation="include">
+        </childnode>
+      </node>
+      <node id="658">
+        <label>time.h</label>
+      </node>
+      <node id="671">
+        <label>bytes.hpp</label>
+        <link refid="bytes_8hpp"/>
+        <childnode refid="672" relation="include">
+        </childnode>
+        <childnode refid="648" relation="include">
+        </childnode>
+        <childnode refid="645" relation="include">
+        </childnode>
+      </node>
+      <node id="657">
+        <label>ctype.h</label>
+      </node>
+      <node id="645">
+        <label>range.hpp</label>
+        <link refid="range_8hpp"/>
+      </node>
+      <node id="673">
+        <label>netnode.hpp</label>
+        <link refid="netnode_8hpp"/>
+        <childnode refid="645" relation="include">
+        </childnode>
+      </node>
+      <node id="647">
+        <label>kernwin.hpp</label>
+        <link refid="kernwin_8hpp"/>
+      </node>
+      <node id="654">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="674">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/idd.hpp</label>
+        <link refid="idd_8hpp"/>
+        <childnode refid="675" relation="include">
+        </childnode>
+      </node>
+      <node id="675">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp</label>
+        <link refid="dbg_8hpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structprocess__info__t" prot="public">process_info_t</innerclass>
+    <innerclass refid="structdebapp__attrs__t" prot="public">debapp_attrs_t</innerclass>
+    <innerclass refid="structregister__info__t" prot="public">register_info_t</innerclass>
+    <innerclass refid="structmemory__info__t" prot="public">memory_info_t</innerclass>
+    <innerclass refid="structscattered__segm__t" prot="public">scattered_segm_t</innerclass>
+    <innerclass refid="structmodinfo__t" prot="public">modinfo_t</innerclass>
+    <innerclass refid="structbptaddr__t" prot="public">bptaddr_t</innerclass>
+    <innerclass refid="structexcinfo__t" prot="public">excinfo_t</innerclass>
+    <innerclass refid="structdebug__event__t" prot="public">debug_event_t</innerclass>
+    <innerclass refid="structexception__info__t" prot="public">exception_info_t</innerclass>
+    <innerclass refid="structregval__t" prot="public">regval_t</innerclass>
+    <innerclass refid="structidd__opinfo__t" prot="public">idd_opinfo_t</innerclass>
+    <innerclass refid="structcall__stack__info__t" prot="public">call_stack_info_t</innerclass>
+    <innerclass refid="structupdate__bpt__info__t" prot="public">update_bpt_info_t</innerclass>
+    <innerclass refid="structlowcnd__t" prot="public">lowcnd_t</innerclass>
+    <innerclass refid="structthread__name__t" prot="public">thread_name_t</innerclass>
+    <innerclass refid="structdebugger__t" prot="public">debugger_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="idd_8hpp_1a5b46b2a423380b8fa861267e47e50875" prot="public" static="no">
+        <name>IDD_INTERFACE_VERSION</name>
+        <initializer>25</initializer>
+        <briefdescription>
+<para>The IDD interface version number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="22" column="17" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a4bb96cbe4ed99a94352b5cb0fc5b660a" prot="public" static="no">
+        <name>NO_PROCESS</name>
+        <initializer><ref refid="idd_8hpp_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref>(-1)</initializer>
+        <briefdescription>
+<para>No process. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="35" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a3fec2238e4b2b608273f3a6c5f7a31de" prot="public" static="no">
+        <name>NO_THREAD</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>No thread. in <ref refid="idd_8hpp_1a0e4c82840d549d876223416d8ae11356ae9f38fd7102f887f8140c43beda4d2c9" kindref="member">PROCESS_STARTED</ref> this value can be used to specify that the main thread has not been created. It will be initialized later by a <ref refid="idd_8hpp_1a0e4c82840d549d876223416d8ae11356aa3eb50f956b29db5c542afeb16e713d5" kindref="member">THREAD_STARTED</ref> event. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="36" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1ad25b77ee7187b568f109687cdc0ee7a2" prot="public" static="no">
+        <name>DEF_ADDRSIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="75" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_g_i_s_t_e_r___1gaabb9ddda6bc416d8cc77bf3d66ce1f3a" prot="public" static="no">
+        <name>REGISTER_READONLY</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>the user can&apos;t modify the current value of this register </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="105" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_g_i_s_t_e_r___1gaf2a3a8feb73324e923e10388700ef706" prot="public" static="no">
+        <name>REGISTER_IP</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>instruction pointer </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="106" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_g_i_s_t_e_r___1ga330fc9a69bb50ae60e72557164377c67" prot="public" static="no">
+        <name>REGISTER_SP</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>stack pointer </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="107" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_g_i_s_t_e_r___1gac23f85e71d93232ed9d2bf3eb18096d2" prot="public" static="no">
+        <name>REGISTER_FP</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>frame pointer </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="108" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_g_i_s_t_e_r___1ga546f6222a314aa97943d3ee703a6be3b" prot="public" static="no">
+        <name>REGISTER_ADDRESS</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>may contain an address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="109" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_g_i_s_t_e_r___1ga3c55a30194f0299dc39b4a47b3c4bdcc" prot="public" static="no">
+        <name>REGISTER_CS</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>code segment </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="110" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_g_i_s_t_e_r___1gae8ab1cdbb25b5898f522788d74d7287f" prot="public" static="no">
+        <name>REGISTER_SS</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+<para>stack segment </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="111" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_g_i_s_t_e_r___1gac29b8f58f78dd00927e8b7536e66b9fc" prot="public" static="no">
+        <name>REGISTER_NOLF</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para>allowing the next register to be displayed to its right (on the same line) </para>        </briefdescription>
+        <detaileddescription>
+<para>displays this register without returning to the next line </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="112" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_g_i_s_t_e_r___1gad6008323b4db5d3c705b870b4da05dd7" prot="public" static="no">
+        <name>REGISTER_CUSTFMT</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>register should be displayed using a custom data format. the format name is in bit_strings[0] the corresponding <ref refid="structregval__t" kindref="compound">regval_t</ref> will use <ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="114" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___e_x_c___1ga515f08b4a8746bc318264bd58a8234b4" prot="public" static="no">
+        <name>EXC_BREAK</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>break on the exception </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="405" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="405" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___e_x_c___1ga51c715343d222d7e58ed312e36d5f940" prot="public" static="no">
+        <name>EXC_HANDLE</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>should be handled by the debugger? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="406" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="406" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___e_x_c___1gaa3ca938cf226301b0d88ba21a3a38767" prot="public" static="no">
+        <name>EXC_MSG</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>instead of a warning, log the exception to the output window </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="407" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="407" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___e_x_c___1ga5209691dded5421b236b03cdf001c955" prot="public" static="no">
+        <name>EXC_SILENT</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>do not warn or log to the output window </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="408" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="408" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_v_t___1gace86c5cf47d920bc7aa4bbd745b49311" prot="public" static="no">
+        <name>RVT_INT</name>
+        <initializer>(-1)</initializer>
+        <briefdescription>
+<para>integer </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="436" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="436" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_v_t___1gaab32738e7258ef855bb27cc84260fc34" prot="public" static="no">
+        <name>RVT_FLOAT</name>
+        <initializer>(-2)</initializer>
+        <briefdescription>
+<para>floating point </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="437" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="437" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_v_t___1gaffc5fd59ac43986b1200a7398450c91c" prot="public" static="no">
+        <name>RVT_UNAVAILABLE</name>
+        <initializer>(-3)</initializer>
+        <briefdescription>
+<para>other values mean custom data type </para>        </briefdescription>
+        <detaileddescription>
+<para>unavailable </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="438" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="438" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1aa590c1c418a0d726463f6b33b1e50b5a" prot="public" static="no">
+        <name>STEP_TRACE</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="699" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="699" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1ad13f4869a49f4730744e816bd90496f4" prot="public" static="no">
+        <name>INSN_TRACE</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="700" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="700" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a086d3ae4c86c505d241a6b4b8ee9536e" prot="public" static="no">
+        <name>FUNC_TRACE</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="701" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="701" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a4137fe876e99b65ef5261d01c85330b3" prot="public" static="no">
+        <name>BBLK_TRACE</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="702" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="702" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga99cb53f6322146eb360df1fe3aba489e" prot="public" static="no">
+        <name>DEBUGGER_ID_X86_IA32_WIN32_USER</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Userland win32 processes (win32 debugging APIs) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="739" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="739" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga1854f7aee9aa474b47d7b3d8b3151783" prot="public" static="no">
+        <name>DEBUGGER_ID_X86_IA32_LINUX_USER</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Userland linux processes (ptrace()) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="740" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="740" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1gaa817237e306ba27fb199f255d167348c" prot="public" static="no">
+        <name>DEBUGGER_ID_X86_IA32_MACOSX_USER</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Userland MAC OS X processes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="741" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="741" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga48526acac5f02162d62fdc02bc74414f" prot="public" static="no">
+        <name>DEBUGGER_ID_ARM_IPHONE_USER</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>iPhone 1.x </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="742" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="742" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga9b22df901942d920506c600e3122814d" prot="public" static="no">
+        <name>DEBUGGER_ID_X86_IA32_BOCHS</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>BochsDbg.exe 32. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="743" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="743" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga630e549e682bed7e2be1097e7bf2ff01" prot="public" static="no">
+        <name>DEBUGGER_ID_6811_EMULATOR</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>MC6812 emulator (beta) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="744" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="744" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga18bbdbfcb5b638e20d7571bb782471b9" prot="public" static="no">
+        <name>DEBUGGER_ID_GDB_USER</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>GDB remote. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="745" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="745" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1gaa5c6d28ffa6c4e718f0ec25844559763" prot="public" static="no">
+        <name>DEBUGGER_ID_WINDBG</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>WinDBG using Microsoft Debug engine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="746" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="746" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1gac3e623948ffc0a51d31fc587856911ff" prot="public" static="no">
+        <name>DEBUGGER_ID_X86_DOSBOX_EMULATOR</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>Dosbox MS-DOS emulator. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="747" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="747" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga41c32fa0414bac2f4ae551dcbbcddf4d" prot="public" static="no">
+        <name>DEBUGGER_ID_ARM_LINUX_USER</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>Userland arm linux. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="748" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="748" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga8baba6ce9a44fc296105521e5ef1f5e8" prot="public" static="no">
+        <name>DEBUGGER_ID_TRACE_REPLAYER</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Fake debugger to replay recorded traces. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="749" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="749" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1gafeeec229773a92b59ff6cd1a11d4eafb" prot="public" static="no">
+        <name>DEBUGGER_ID_X86_PIN_TRACER</name>
+        <initializer>14</initializer>
+        <briefdescription>
+<para>PIN Tracer module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="750" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="750" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga772cc70612af617f8f1b30323a73630a" prot="public" static="no">
+        <name>DEBUGGER_ID_DALVIK_USER</name>
+        <initializer>15</initializer>
+        <briefdescription>
+<para>Dalvik. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="751" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="751" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga8e92be34c098ff5cc3c8555d3dc518fd" prot="public" static="no">
+        <name>DBG_FLAG_REMOTE</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Remote debugger (requires remote host name unless <ref refid="group___d_b_g___f_l_a_g___1ga584fec50d0580701170eb23c8c5467c7" kindref="member">DBG_FLAG_NOHOST</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="765" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="765" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga584fec50d0580701170eb23c8c5467c7" prot="public" static="no">
+        <name>DBG_FLAG_NOHOST</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>(a unique device connected to the machine) </para>        </briefdescription>
+        <detaileddescription>
+<para>Remote debugger with does not require network params (host/port/pass). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="766" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="766" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga24c222dba509cb02e5a0bd572c77c10b" prot="public" static="no">
+        <name>DBG_FLAG_FAKE_ATTACH</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>and does not suspend the execution </para>        </briefdescription>
+        <detaileddescription>
+<para><ref refid="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a0aa061ebfe8277ed602bcdc5ec1c47d4" kindref="member">PROCESS_ATTACHED</ref> is a fake event </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="768" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="768" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga7be8702d0faec636f5ee3fccbc65d62b" prot="public" static="no">
+        <name>DBG_FLAG_HWDATBPT_ONE</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>one byte size by default </para>        </briefdescription>
+        <detaileddescription>
+<para>Hardware data breakpoints are </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="770" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="770" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1gadff938dc1c4cab1f4bc69dc0a014a995" prot="public" static="no">
+        <name>DBG_FLAG_CAN_CONT_BPT</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Debugger knows to continue from a bpt. This flag also means that the debugger module hides breakpoints from ida upon read_memory </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="772" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="772" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga7d672811f0e5bf910391d5cde4be0472" prot="public" static="no">
+        <name>DBG_FLAG_NEEDPORT</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Remote debugger requires port number (to be used with DBG_FLAG_NOHOST) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="775" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="775" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1gae0c598cb1c0fe8e8d016acebb6d01551" prot="public" static="no">
+        <name>DBG_FLAG_DONT_DISTURB</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Debugger can handle only <ref refid="group__dbg__funcs__high_1ga9b5f5bec1ed0c449555449a875de3ae7" kindref="member">get_debug_event()</ref>, request_pause(), <ref refid="group__dbg__funcs__cmds_1ga2aaee8c71618ffef3f2562599b314316" kindref="member">exit_process()</ref>. when the debugged process is running. The kernel may also call service functions (file I/O, map_address, etc) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="776" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="776" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga5014045353a5319d89dee7a68c780d2a" prot="public" static="no">
+        <name>DBG_FLAG_SAFE</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>without really running it) </para>        </briefdescription>
+        <detaileddescription>
+<para>The debugger is safe (probably because it just emulates the application </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="783" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="783" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga83e77c88388575a1a3e60961d4dbea7a" prot="public" static="no">
+        <name>DBG_FLAG_CLEAN_EXIT</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>IDA must suspend the application and remove all breakpoints before terminating the application. Usually this is not required because the application memory disappears upon termination. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="785" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="785" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga93099c972ac63c2660f44554ecbe72ce" prot="public" static="no">
+        <name>DBG_FLAG_USE_SREGS</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>Take segment register values into account (non flat memory) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="789" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="789" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga3f8939c2d1b3fa6e54b9a56b9377ad84" prot="public" static="no">
+        <name>DBG_FLAG_NOSTARTDIR</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>Debugger module doesn&apos;t use startup directory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="790" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="790" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga7da96c39911b30346f9c464035bcabc2" prot="public" static="no">
+        <name>DBG_FLAG_NOPARAMETERS</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>Debugger module doesn&apos;t use commandline parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="791" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="791" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1gab17ce4b4650a869303265187300faa12" prot="public" static="no">
+        <name>DBG_FLAG_NOPASSWORD</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>Remote debugger doesn&apos;t use password. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="792" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="792" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga8e45c7590152a300948c4bbbacf98b9e" prot="public" static="no">
+        <name>DBG_FLAG_CONNSTRING</name>
+        <initializer>0x00002000</initializer>
+        <briefdescription>
+<para>Display &quot;Connection string&quot; instead of &quot;Hostname&quot; and hide the &quot;Port&quot; field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="793" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="793" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga9656735fbe68b8e13f1af87f171a36d4" prot="public" static="no">
+        <name>DBG_FLAG_SMALLBLKS</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+<para>Otherwise, 1024-byte blocks are used. </para>        </briefdescription>
+        <detaileddescription>
+<para>If set, IDA uses 256-byte blocks for caching memory contents. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="794" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="794" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1gacac4d57b9b0ee8224a925fd8453145e8" prot="public" static="no">
+        <name>DBG_FLAG_MANMEMINFO</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>If set, manual memory region manipulation commands will be available. Use this bit for debugger modules that can not return memory layout information </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="796" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="796" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1gac1a1d91931d207bec0738ac9dfdc9b08" prot="public" static="no">
+        <name>DBG_FLAG_EXITSHOTOK</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+<para>IDA may take a memory snapshot at <ref refid="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a38cb54b7fd7aaf4ad0271c399417105a" kindref="member">PROCESS_EXITED</ref> event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="799" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="799" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga8f43a05b5a33f4ff30ea6cd119271c68" prot="public" static="no">
+        <name>DBG_FLAG_VIRTHREADS</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+<para>(to be used for virtual threads that represent cpus for windbg kmode) </para>        </briefdescription>
+        <detaileddescription>
+<para>Thread IDs may be shuffled after each debug event. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="800" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="800" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga971e61b7456ef434ea86f4aa7fb5ae39" prot="public" static="no">
+        <name>DBG_FLAG_LOWCNDS</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+<para>Low level breakpoint conditions are supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="802" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="802" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1gaff47e2dbf1d46099cb0cce35bd36ad1e" prot="public" static="no">
+        <name>DBG_FLAG_DEBTHREAD</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Supports creation of a separate thread in ida for the debugger (the debthread). Most debugger functions will be called from debthread (exceptions are marked below) The debugger module may directly call only <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> functions. To call other functions please use <ref refid="kernwin_8hpp_1a69761082f4ed4caa6fb527da4bf5268d" kindref="member">execute_sync()</ref>. The debthread significantly increases debugging speed, especially if debug events occur frequently (to be tested) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="803" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="803" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1gabb363aa6833062299ddc023de2b373be" prot="public" static="no">
+        <name>DBG_FLAG_DEBUG_DLL</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+<para>For example, Bochs debugger can debug any snippet of code. </para>        </briefdescription>
+        <detaileddescription>
+<para>Can debug standalone DLLs. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="810" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="810" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga312fb3e8840b367ca0f4c9de2e3c6d9b" prot="public" static="no">
+        <name>DBG_FLAG_FAKE_MEMORY</name>
+        <initializer>0x00200000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>get_memory_info()/read_memory()/write_memory() work with the idb. (there is no real process to read from, as for the replayer module) the kernel will not call these functions if this flag is set. however, third party plugins may call them, they must be implemented. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="812" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="812" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga4869ea226c3df8c87bb75428bf439b7f" prot="public" static="no">
+        <name>DBG_FLAG_ANYSIZE_HWBPT</name>
+        <initializer>0x00400000</initializer>
+        <briefdescription>
+<para>The debugger supports arbitrary size hardware breakpoints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="816" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="816" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga6601ee11c1e00e8fe9d6df55b9192697" prot="public" static="no">
+        <name>DBG_FLAG_TRACER_MODULE</name>
+        <initializer>0x00800000</initializer>
+        <briefdescription>
+<para>The module is a tracer, not a full featured debugger module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="817" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="817" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g___1ga775207dbc650ddeb636640bbbb36f400" prot="public" static="no">
+        <name>DBG_FLAG_PREFER_SWBPTS</name>
+        <initializer>0x01000000</initializer>
+        <briefdescription>
+<para>Prefer to use software breakpoints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="818" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="818" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g2___1gacb2c21601fc78f93ff05b952e47438d9" prot="public" static="no">
+        <name>DBG_HAS_GET_PROCESSES</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>supports ev_get_processes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="824" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="824" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g2___1ga516d7473e33f7a627bdaf7882a9b4605" prot="public" static="no">
+        <name>DBG_HAS_ATTACH_PROCESS</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>supports ev_attach_process </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="825" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="825" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g2___1ga5f01695e7206f07d7837b1dc31c74b0e" prot="public" static="no">
+        <name>DBG_HAS_DETACH_PROCESS</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>supports ev_detach_process </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="826" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="826" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g2___1ga0249da62747a3888468e6ab909101eb6" prot="public" static="no">
+        <name>DBG_HAS_REQUEST_PAUSE</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>supports ev_request_pause </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="827" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="827" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g2___1gacb2d53dd094b2cdc8a329f3dd3471720" prot="public" static="no">
+        <name>DBG_HAS_SET_EXCEPTION_INFO</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>supports ev_set_exception_info </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="828" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="828" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g2___1ga61c944e989671fb70de5056bb6ffb6ec" prot="public" static="no">
+        <name>DBG_HAS_THREAD_SUSPEND</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>supports ev_thread_suspend </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="830" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="830" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g2___1ga14434e83835ec3129ced05f949a4fe75" prot="public" static="no">
+        <name>DBG_HAS_THREAD_CONTINUE</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>supports ev_thread_continue </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="831" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="831" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g2___1ga3b5df3edb91838582d5ffaa7d30a13d4" prot="public" static="no">
+        <name>DBG_HAS_SET_RESUME_MODE</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>can not be set inside the debugger_t::init_debugger() </para>        </briefdescription>
+        <detaileddescription>
+<para>supports ev_set_resume_mode </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="832" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="832" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g2___1ga402fbf23a3d2eff33e8a338804c30eab" prot="public" static="no">
+        <name>DBG_HAS_THREAD_GET_SREG_BASE</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>supports ev_thread_get_sreg_base </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="834" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="834" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g2___1gac5dc3577a5904e5f0f65f8b986d36db9" prot="public" static="no">
+        <name>DBG_HAS_CHECK_BPT</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>supports ev_check_bpt </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="836" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="836" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g2___1gae95f32139365405db4f89006693070f9" prot="public" static="no">
+        <name>DBG_HAS_OPEN_FILE</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>supports ev_open_file, ev_close_file, ev_read_file, ev_write_file </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="837" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="837" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g2___1gaf1a5c5ab6017e69549ae28dac33388b9" prot="public" static="no">
+        <name>DBG_HAS_UPDATE_CALL_STACK</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>supports ev_update_call_stack </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="838" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="838" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g2___1ga6a903fed97794a2b61655979ed9fb8ee" prot="public" static="no">
+        <name>DBG_HAS_APPCALL</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>supports ev_appcall, ev_cleanup_appcall </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="840" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="840" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g2___1ga13372bcc2e0d65338bcb77fdddb039f9" prot="public" static="no">
+        <name>DBG_HAS_REXEC</name>
+        <initializer>0x00002000</initializer>
+        <briefdescription>
+<para>supports ev_rexec </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="841" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="841" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___f_l_a_g2___1ga501ac7acc0ad527574e1dcb6d927f65b" prot="public" static="no">
+        <name>DBG_HAS_MAP_ADDRESS</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>supports ev_map_address, avoid using this bit, especially together with DBG_FLAG_DEBTHREAD because it may cause big slow downs </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="842" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="842" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___r_e_s_m_o_d___1gaa5853f6a0e18a61ff5e9c08b21793dc2" prot="public" static="no">
+        <name>DBG_RESMOD_STEP_INTO</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaeafa5c63fd9204cd2aafebc4d4890e275e" kindref="member">RESMOD_INTO</ref> is available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="925" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="925" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___r_e_s_m_o_d___1ga9839ba09c7bf598ae671d7208e42ca4b" prot="public" static="no">
+        <name>DBG_RESMOD_STEP_OVER</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea900185369bfda1663e1a03741609c42e" kindref="member">RESMOD_OVER</ref> is available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="926" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="926" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___r_e_s_m_o_d___1gaac19c817769f89508ab5fa65b12ab867" prot="public" static="no">
+        <name>DBG_RESMOD_STEP_OUT</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea16146392bd5318fc08437fcd157ff9f7" kindref="member">RESMOD_OUT</ref> is available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="927" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="927" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___r_e_s_m_o_d___1gaf2026583f9a9178a6e8bc6ede496a835" prot="public" static="no">
+        <name>DBG_RESMOD_STEP_SRCINTO</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea8e67c21e6e7fd1c414480e9a31db566d" kindref="member">RESMOD_SRCINTO</ref> is available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="928" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="928" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___r_e_s_m_o_d___1gacef08947ab56d7fb9f308e63961cf2db" prot="public" static="no">
+        <name>DBG_RESMOD_STEP_SRCOVER</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea56caaad3c6ec3488ac139960a67966b1" kindref="member">RESMOD_SRCOVER</ref> is available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="929" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="929" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___r_e_s_m_o_d___1ga502a4b4700773a163fc1d8cef8b012e8" prot="public" static="no">
+        <name>DBG_RESMOD_STEP_SRCOUT</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea2002f2336fba17754729ad37d1bb1a9a" kindref="member">RESMOD_SRCOUT</ref> is available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="930" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="930" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___r_e_s_m_o_d___1ga68c3f41a2df39bb1530efa8660cb8798" prot="public" static="no">
+        <name>DBG_RESMOD_STEP_USER</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+<para><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaeab887f0923cbb33a3090a25f27da0d682" kindref="member">RESMOD_USER</ref> is available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="931" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="931" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___r_e_s_m_o_d___1ga8a234cc33384c5faec033a0a8937c314" prot="public" static="no">
+        <name>DBG_RESMOD_STEP_HANDLE</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaeac758429cea11dbc0e453da7249bf4523" kindref="member">RESMOD_HANDLE</ref> is available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="932" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="932" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a88b42b2483377b43d006b4e1f2989617" prot="public" static="no">
+        <name>DEBUGGER_PORT_NUMBER</name>
+        <initializer>23946</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="941" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="941" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___p_r_o_c___1gac20d2bc8350dd3e6b24fe7fa3d41447d" prot="public" static="no">
+        <name>DBG_PROC_IS_DLL</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>database contains a dll (not exe) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1455" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1455" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___p_r_o_c___1ga20829addcb6606e8d5704dc6fb97eaaa" prot="public" static="no">
+        <name>DBG_PROC_IS_GUI</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>using gui version of ida </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1456" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1456" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___p_r_o_c___1ga5b96e583f32dfc5b807d829cd0e419ab" prot="public" static="no">
+        <name>DBG_PROC_32BIT</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>application is 32-bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1457" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1457" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___p_r_o_c___1ga592b2ef2c024aa2aed0003989600550a" prot="public" static="no">
+        <name>DBG_PROC_64BIT</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>application is 64-bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1458" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1458" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___p_r_o_c___1ga9a4c9c43587c9a974172bac373e78cc8" prot="public" static="no">
+        <name>DBG_NO_TRACE</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>do not trace the application (mac/linux) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1459" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1459" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___p_r_o_c___1ga1432952d55887f74d5f5a77b3d71a7d0" prot="public" static="no">
+        <name>DBG_HIDE_WINDOW</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>application should be hidden on startup (windows) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1460" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1460" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga4ef69910527b44264eeb4dca72adabed" prot="public" static="no">
+        <name>BPT_OK</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>breakpoint can be set </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1466" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1466" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga92fe48da3658751322dede18607d66e8" prot="public" static="no">
+        <name>BPT_INTERNAL_ERR</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>interr occurred when verifying breakpoint </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1467" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1467" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1gaa71e89156a81ab3612190df0a100d9e0" prot="public" static="no">
+        <name>BPT_BAD_TYPE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>bpt type is not supported </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1468" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1468" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga71d6a264c733aa30ab67c247acc39126" prot="public" static="no">
+        <name>BPT_BAD_ALIGN</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>alignment is invalid </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1469" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1469" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga65420c975495a9d3c72517cdcd7405c2" prot="public" static="no">
+        <name>BPT_BAD_ADDR</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>ea is invalid </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1470" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1470" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga2230181a212400420bb42832616d5fd4" prot="public" static="no">
+        <name>BPT_BAD_LEN</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>bpt len is invalid </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1471" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1471" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga69251374de0ab7313f630e355c6133cf" prot="public" static="no">
+        <name>BPT_TOO_MANY</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>reached max number of supported breakpoints </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1472" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1472" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga5011bfbca4c4e3c1f2c97f67ed5bc6a3" prot="public" static="no">
+        <name>BPT_READ_ERROR</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>failed to read memory at bpt ea </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1473" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1473" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga4268acaccfe4b97f48a93b10882b246a" prot="public" static="no">
+        <name>BPT_WRITE_ERROR</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>failed to write memory at bpt ea </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1474" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1474" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1ga2682e6af3ce2049b46f8afb6126d2b40" prot="public" static="no">
+        <name>BPT_SKIP</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>update_bpts(): do not process bpt </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1475" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1475" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t___1gacacac8358c175dd7592b2ea04cab42bd" prot="public" static="no">
+        <name>BPT_PAGE_OK</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>update_bpts(): ok, added a page bpt </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1476" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1476" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_p_p_c_a_l_l___1gaa1a104a113d31a3d4167791663d617af" prot="public" static="no">
+        <name>APPCALL_MANUAL</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>debugger_t::cleanup_appcall will not be generated by ida! </para>        </briefdescription>
+        <detaileddescription>
+<para>Only set up the appcall, do not run. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1482" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1482" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_p_p_c_a_l_l___1ga805adda8d1138c0d1d40ee53c7b2b1e7" prot="public" static="no">
+        <name>APPCALL_DEBEV</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>Return debug event information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1484" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1484" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_p_p_c_a_l_l___1ga9f653d48956fc9a11294ed04f7ed35b3" prot="public" static="no">
+        <name>APPCALL_TIMEOUT</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Appcall with timeout. If timed out, errbuf will contain &quot;timeout&quot;. See <ref refid="group___a_p_p_c_a_l_l___1gad5658474d57b14910a1ae8c9ee22b13d" kindref="member">SET_APPCALL_TIMEOUT</ref> and <ref refid="group___a_p_p_c_a_l_l___1ga64659b60ac7f30edfd9f6fc6dc245c80" kindref="member">GET_APPCALL_TIMEOUT</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1485" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1485" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_p_p_c_a_l_l___1gad5658474d57b14910a1ae8c9ee22b13d" prot="public" static="no">
+        <name>SET_APPCALL_TIMEOUT</name>
+        <param><defname>msecs</defname></param>
+        <initializer>((<ref refid="pro_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14" kindref="member">uint</ref>(msecs) &lt;&lt; 16)|<ref refid="group___a_p_p_c_a_l_l___1ga9f653d48956fc9a11294ed04f7ed35b3" kindref="member">APPCALL_TIMEOUT</ref>)</initializer>
+        <briefdescription>
+<para>Set appcall timeout in milliseconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1489" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1489" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_p_p_c_a_l_l___1ga64659b60ac7f30edfd9f6fc6dc245c80" prot="public" static="no">
+        <name>GET_APPCALL_TIMEOUT</name>
+        <param><defname>options</defname></param>
+        <initializer>(<ref refid="pro_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14" kindref="member">uint</ref>(options) &gt;&gt; 16)</initializer>
+        <briefdescription>
+<para>Timeout value is contained in high 2 bytes of &apos;options&apos; parameter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1491" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1491" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a4795cfd6d468554cf7236e4fc8e1a35c" prot="public" static="no">
+        <name>RQ_MASKING</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1568" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1568" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a97765e50e0ead183335ae7c7fe4b05a3" prot="public" static="no">
+        <name>RQ_SUSPEND</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1570" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1570" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a9cfa4f8e28de9c718659d74932373a6f" prot="public" static="no">
+        <name>RQ_NOSUSP</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1572" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1572" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1acf37f51a9fd042b9c3e575ce8de706ac" prot="public" static="no">
+        <name>RQ_IGNWERR</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1573" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1573" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1ac2d03421c98f74afaae16b885a8bf385" prot="public" static="no">
+        <name>RQ_SILENT</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1574" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1574" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a8daaf0d52acab3de8ca1b33d47444f43" prot="public" static="no">
+        <name>RQ_VERBOSE</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1575" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1575" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a604416de2500f78fa6828a5a5bbae15c" prot="public" static="no">
+        <name>RQ_SWSCREEN</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1576" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1576" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a3a9ad8dd6997e01799909af97f092b64" prot="public" static="no">
+        <name>RQ__NOTHRRF</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1577" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1577" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1afd200bd1bb4d4f49f5e3be66a62c5a8a" prot="public" static="no">
+        <name>RQ_PROCEXIT</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1579" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1579" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a7306d01c1eaf3011156f7ab72c2ec458" prot="public" static="no">
+        <name>RQ_IDAIDLE</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1580" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1580" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a6d63453d58194b46435c7bab782d162f" prot="public" static="no">
+        <name>RQ_SUSPRUN</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1581" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1581" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a361a46163d44b977a7fe52abb529e185" prot="public" static="no">
+        <name>RQ_RESUME</name>
+        <initializer>0x0200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1582" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1582" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a8d4d022431dc552fe2b939c335007cd6" prot="public" static="no">
+        <name>RQ_RESMOD</name>
+        <initializer>0xF000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1583" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1583" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a2ad284707bc02b06f240937b7f6fcbbc" prot="public" static="no">
+        <name>RQ_RESMOD_SHIFT</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1584" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1584" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="idd_8hpp_1a5c0827f933ee06e89de00bdb6bdc0d44" prot="public" static="no">
+        <name>RQ_INTO</name>
+        <initializer>(<ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaeafa5c63fd9204cd2aafebc4d4890e275e" kindref="member">RESMOD_INTO</ref> &lt;&lt; RQ_RESMOD_SHIFT)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1585" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1585" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="idd_8hpp_1a0e4c82840d549d876223416d8ae11356" prot="public" static="no">
+        <name>event_id_t</name>
+        <enumvalue id="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a5856f037cd70ecf6fca11999c11a4a0d" prot="public">
+          <name>NO_EVENT</name>
+          <initializer>= 0x00000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Not an interesting event. This event can be used if the debugger module needs to return an event but there are no valid events. </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a0e4c82840d549d876223416d8ae11356ae9f38fd7102f887f8140c43beda4d2c9" prot="public">
+          <name>PROCESS_STARTED</name>
+          <initializer>= 0x00000001</initializer>
+          <briefdescription>
+<para>New process has been started. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a38cb54b7fd7aaf4ad0271c399417105a" prot="public">
+          <name>PROCESS_EXITED</name>
+          <initializer>= 0x00000002</initializer>
+          <briefdescription>
+<para>Process has been stopped. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a0e4c82840d549d876223416d8ae11356aa3eb50f956b29db5c542afeb16e713d5" prot="public">
+          <name>THREAD_STARTED</name>
+          <initializer>= 0x00000004</initializer>
+          <briefdescription>
+<para>New thread has been started. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a0e4c82840d549d876223416d8ae11356ac9087b7375864c084808109e1e1af5bb" prot="public">
+          <name>THREAD_EXITED</name>
+          <initializer>= 0x00000008</initializer>
+          <briefdescription>
+<para>Thread has been stopped. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a6aa885639b9e8fafc14f77f6d418fc1b" prot="public">
+          <name>BREAKPOINT</name>
+          <initializer>= 0x00000010</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Breakpoint has been reached. IDA will complain about unknown breakpoints, they should be reported as exceptions. </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a0e4c82840d549d876223416d8ae11356ac0ba526afb7f54207517b48a892961c2" prot="public">
+          <name>STEP</name>
+          <initializer>= 0x00000020</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>One instruction has been executed. Spurious events of this kind are silently ignored by IDA. </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a0e4c82840d549d876223416d8ae11356ab8fa9515ef8cac50a79988c978b31fa0" prot="public">
+          <name>EXCEPTION</name>
+          <initializer>= 0x00000040</initializer>
+          <briefdescription>
+<para>Exception. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a8ec79a298f8676dc062d122a1deead11" prot="public">
+          <name>LIB_LOADED</name>
+          <initializer>= 0x00000080</initializer>
+          <briefdescription>
+<para>New library has been loaded. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a52d98e129bbde382aa11d0977657f33e" prot="public">
+          <name>LIB_UNLOADED</name>
+          <initializer>= 0x00000100</initializer>
+          <briefdescription>
+<para>Library has been unloaded. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a0e4c82840d549d876223416d8ae11356ad2d78669dc69197336728cd0b2845b96" prot="public">
+          <name>INFORMATION</name>
+          <initializer>= 0x00000200</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>User-defined information. This event can be used to return empty information This will cause IDA to call <ref refid="group__dbg__funcs__high_1ga9b5f5bec1ed0c449555449a875de3ae7" kindref="member">get_debug_event()</ref> immediately once more. </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a0aa061ebfe8277ed602bcdc5ec1c47d4" prot="public">
+          <name>PROCESS_ATTACHED</name>
+          <initializer>= 0x00000400</initializer>
+          <briefdescription>
+<para>Successfully attached to running process. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a569d43820b864614a4d21438e3368955" prot="public">
+          <name>PROCESS_DETACHED</name>
+          <initializer>= 0x00000800</initializer>
+          <briefdescription>
+<para>Successfully detached from process. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a0e4c82840d549d876223416d8ae11356ab99a62ca7a81e419e3b602e8fa65c8e2" prot="public">
+          <name>PROCESS_SUSPENDED</name>
+          <initializer>= 0x00001000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Process has been suspended. This event can be used by the debugger module to signal if the process spontaneously gets suspended (not because of an exception, breakpoint, or single step). IDA will silently switch to the &apos;suspended process&apos; mode without displaying any messages. </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a3567df76670886afe0bb96fcc61592b8" prot="public">
+          <name>TRACE_FULL</name>
+          <initializer>= 0x00002000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>The trace buffer of the tracer module is full and IDA needs to read it before continuing </para>          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Debug event codes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="173" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="172" bodyend="204"/>
+      </memberdef>
+      <memberdef kind="enum" id="idd_8hpp_1a76833d18d68fb2c7408eee02d8e8464e" prot="public" static="no">
+        <name>gdecode_t</name>
+        <enumvalue id="idd_8hpp_1a76833d18d68fb2c7408eee02d8e8464ea63fd7c1304ade7c874b5b51a8f35119f" prot="public">
+          <name>GDE_ERROR</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+<para>error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a76833d18d68fb2c7408eee02d8e8464eab4b04a6a0a657fd9b2e4e44239493bb1" prot="public">
+          <name>GDE_NO_EVENT</name>
+          <briefdescription>
+<para>no debug events are available </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a76833d18d68fb2c7408eee02d8e8464eab9da60473d41558d58f710c23d7aeb21" prot="public">
+          <name>GDE_ONE_EVENT</name>
+          <briefdescription>
+<para>got one event, no more available yet </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a76833d18d68fb2c7408eee02d8e8464eaa51cb295e50bc3e6b63045194c9be6ab" prot="public">
+          <name>GDE_MANY_EVENTS</name>
+          <briefdescription>
+<para>got one event, more events available </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Return values for <ref refid="group__dbg__funcs__high_1ga9b5f5bec1ed0c449555449a875de3ae7" kindref="member">get_debug_event()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="624" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="623" bodyend="629"/>
+      </memberdef>
+      <memberdef kind="enum" id="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafae" prot="public" static="no">
+        <name>resume_mode_t</name>
+        <enumvalue id="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea0aeb8554ffecf8323da07c6e0bfa1f04" prot="public">
+          <name>RESMOD_NONE</name>
+          <briefdescription>
+<para>no stepping, run freely </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaeafa5c63fd9204cd2aafebc4d4890e275e" prot="public">
+          <name>RESMOD_INTO</name>
+          <briefdescription>
+<para>step into call (the most typical single stepping) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea900185369bfda1663e1a03741609c42e" prot="public">
+          <name>RESMOD_OVER</name>
+          <briefdescription>
+<para>step over call </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea16146392bd5318fc08437fcd157ff9f7" prot="public">
+          <name>RESMOD_OUT</name>
+          <briefdescription>
+<para>step out of the current function (run until return) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea8e67c21e6e7fd1c414480e9a31db566d" prot="public">
+          <name>RESMOD_SRCINTO</name>
+          <briefdescription>
+<para>until control reaches a different source line </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea56caaad3c6ec3488ac139960a67966b1" prot="public">
+          <name>RESMOD_SRCOVER</name>
+          <briefdescription>
+<para>next source line in the current stack frame </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea2002f2336fba17754729ad37d1bb1a9a" prot="public">
+          <name>RESMOD_SRCOUT</name>
+          <briefdescription>
+<para>next source line in the previous stack frame </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaeab887f0923cbb33a3090a25f27da0d682" prot="public">
+          <name>RESMOD_USER</name>
+          <briefdescription>
+<para>step out to the user code </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaeac758429cea11dbc0e453da7249bf4523" prot="public">
+          <name>RESMOD_HANDLE</name>
+          <briefdescription>
+<para>step into the exception handler </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea40f1a264ce9e76658052eed3c170ef7d" prot="public">
+          <name>RESMOD_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>How to resume the application. The corresponding bit for <ref refid="group___d_b_g___f_l_a_g__" kindref="compound">Debugger module features</ref> must be set in order to use a resume mode. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="684" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="683" bodyend="695"/>
+      </memberdef>
+      <memberdef kind="enum" id="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" prot="public" static="no">
+        <name>drc_t</name>
+        <enumvalue id="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dcafd1f4e5fafa53cb4a9ba8a532b3eea08" prot="public">
+          <name>DRC_EVENTS</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>success, there are pending events </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca19055832ce1ca43fcd682ed197f46705" prot="public">
+          <name>DRC_CRC</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>success, but the input file crc does not match </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" prot="public">
+          <name>DRC_OK</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>success </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" prot="public">
+          <name>DRC_NONE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>reaction to the event not implemented </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" prot="public">
+          <name>DRC_FAILED</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+<para>failed or false </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" prot="public">
+          <name>DRC_NETERR</name>
+          <initializer>= -2</initializer>
+          <briefdescription>
+<para>network error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca8812b00524f5c8d33ece258b4b21c70a" prot="public">
+          <name>DRC_NOFILE</name>
+          <initializer>= -3</initializer>
+          <briefdescription>
+<para>file not found </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9c987e9b35c81bbee4ceeb6cdddef6e8" prot="public">
+          <name>DRC_IDBSEG</name>
+          <initializer>= -4</initializer>
+          <briefdescription>
+<para>use idb segmentation </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dcab780d3ed9587c7cf969bbc7c6079d58b" prot="public">
+          <name>DRC_NOPROC</name>
+          <initializer>= -5</initializer>
+          <briefdescription>
+<para>the process does not exist anymore </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dcac2ea3836d88ef6fa6d1ecfbf3c0cdd81" prot="public">
+          <name>DRC_NOCHG</name>
+          <initializer>= -6</initializer>
+          <briefdescription>
+<para>no changes </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dcaea09fdaf29aef178687fd5a066d83a75" prot="public">
+          <name>DRC_ERROR</name>
+          <initializer>= -7</initializer>
+          <briefdescription>
+<para>unclassified error, may be complemented by errbuf </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Debugger return codes. Success if positive (&gt; DRC_NONE). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="708" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="707" bodyend="720"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="idd_8hpp_1a288e13e815d43b06e75819f8939524df" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int pid_t</definition>
+        <argsstring></argsstring>
+        <name>pid_t</name>
+        <briefdescription>
+<para>process id </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="32" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int thid_t</definition>
+        <argsstring></argsstring>
+        <name>thid_t</name>
+        <briefdescription>
+<para>thread id </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="33" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="idd_8hpp_1a78e34bc8104edc8e0ed7652011c58cea" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structprocess__info__t" kindref="compound">process_info_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;process_info_t&gt; procinfo_vec_t</definition>
+        <argsstring></argsstring>
+        <name>procinfo_vec_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="50" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="idd_8hpp_1a7075bb56248e91e8549512c21b7be329" prot="public" static="no">
+        <type>unsigned char</type>
+        <definition>typedef unsigned char register_class_t</definition>
+        <argsstring></argsstring>
+        <name>register_class_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Each register is associated to a register class. example: &quot;segment&quot;, &quot;mmx&quot;, ... </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="93" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="idd_8hpp_1ab53dc5825c9fb9e10963d2f321721169" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structmemory__info__t" kindref="compound">memory_info_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;memory_info_t&gt; meminfo_vec_t</definition>
+        <argsstring></argsstring>
+        <name>meminfo_vec_t</name>
+        <briefdescription>
+<para>vector of memory info objects </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="156" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="idd_8hpp_1a79b80d607e1de855663a0c82c9aab3e7" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structscattered__segm__t" kindref="compound">scattered_segm_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;scattered_segm_t&gt; scattered_image_t</definition>
+        <argsstring></argsstring>
+        <name>scattered_image_t</name>
+        <briefdescription>
+<para>vector of scattered segments </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="164" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="idd_8hpp_1ad3e2f419c7025a9604d3d25cfc37c7a8" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structmodinfo__t" kindref="compound">modinfo_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;modinfo_t&gt; modinfovec_t</definition>
+        <argsstring></argsstring>
+        <name>modinfovec_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="222" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="idd_8hpp_1a773a43fff5c9bacc9f28d203baec542d" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int bpttype_t</definition>
+        <argsstring></argsstring>
+        <name>bpttype_t</name>
+        <briefdescription>
+<para>hardware breakpoint type (see <ref refid="group___b_p_t___h" kindref="compound">Hardware breakpoint ids</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="383" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="381" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="idd_8hpp_1a02a27f4719742e3279fcac277cb82668" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structexception__info__t" kindref="compound">exception_info_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;exception_info_t&gt; excvec_t</definition>
+        <argsstring></argsstring>
+        <name>excvec_t</name>
+        <briefdescription>
+<para>vector of exception info objects </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="425" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="424" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="idd_8hpp_1adcf217a83692874b868fa0c97a339517" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structregval__t" kindref="compound">regval_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;regval_t&gt; regvals_t</definition>
+        <argsstring></argsstring>
+        <name>regvals_t</name>
+        <briefdescription>
+<para>vector register value objects </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="557" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="556" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="idd_8hpp_1a3dd459e927baac4323e45b95b5946bcc" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structcall__stack__info__t" kindref="compound">call_stack_info_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;call_stack_info_t&gt; call_stack_t</definition>
+        <argsstring></argsstring>
+        <name>call_stack_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="589" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="588" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="idd_8hpp_1a319280c361657220d62202d56158b3a8" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structupdate__bpt__info__t" kindref="compound">update_bpt_info_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;update_bpt_info_t&gt; update_bpt_vec_t</definition>
+        <argsstring></argsstring>
+        <name>update_bpt_vec_t</name>
+        <briefdescription>
+<para>vector of update breakpoint info objects </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="653" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="652" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="idd_8hpp_1a815b3a707f2bafbf8765353a4d79aa1f" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structlowcnd__t" kindref="compound">lowcnd_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;lowcnd_t&gt; lowcnd_vec_t</definition>
+        <argsstring></argsstring>
+        <name>lowcnd_vec_t</name>
+        <briefdescription>
+<para>vector of low-level breakpoint conditions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="669" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="669" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="idd_8hpp_1a7d67a8dedc0bc1a9f02e16377408b41d" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structthread__name__t" kindref="compound">thread_name_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;thread_name_t&gt; thread_name_vec_t</definition>
+        <argsstring></argsstring>
+        <name>thread_name_vec_t</name>
+        <briefdescription>
+<para>vector of thread names </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="678" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="678" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group___b_p_t___h_1ga0342b8f7cc6b818ef3da3ebe12e9f7b1" prot="public" static="no" mutable="no">
+        <type>const <ref refid="idd_8hpp_1a773a43fff5c9bacc9f28d203baec542d" kindref="member">bpttype_t</ref></type>
+        <definition>const bpttype_t BPT_WRITE</definition>
+        <argsstring></argsstring>
+        <name>BPT_WRITE</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+<para>Write access. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="389" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="389" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___b_p_t___h_1ga99cbdea0245231393b858b019696bfe3" prot="public" static="no" mutable="no">
+        <type>const <ref refid="idd_8hpp_1a773a43fff5c9bacc9f28d203baec542d" kindref="member">bpttype_t</ref></type>
+        <definition>const bpttype_t BPT_READ</definition>
+        <argsstring></argsstring>
+        <name>BPT_READ</name>
+        <initializer>= 2</initializer>
+        <briefdescription>
+<para>Read access. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="390" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="390" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___b_p_t___h_1gaea1b1080b418a588f1b540505e2a6c93" prot="public" static="no" mutable="no">
+        <type>const <ref refid="idd_8hpp_1a773a43fff5c9bacc9f28d203baec542d" kindref="member">bpttype_t</ref></type>
+        <definition>const bpttype_t BPT_RDWR</definition>
+        <argsstring></argsstring>
+        <name>BPT_RDWR</name>
+        <initializer>= 3</initializer>
+        <briefdescription>
+<para>Read/write access. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="391" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="391" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___b_p_t___h_1ga002cf1299d50d3fb9b520e5f91a19b83" prot="public" static="no" mutable="no">
+        <type>const <ref refid="idd_8hpp_1a773a43fff5c9bacc9f28d203baec542d" kindref="member">bpttype_t</ref></type>
+        <definition>const bpttype_t BPT_SOFT</definition>
+        <argsstring></argsstring>
+        <name>BPT_SOFT</name>
+        <initializer>= 4</initializer>
+        <briefdescription>
+<para>Software breakpoint. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="392" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="392" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___b_p_t___h_1gab08ccc411ade99a94afc7059d11280ab" prot="public" static="no" mutable="no">
+        <type>const <ref refid="idd_8hpp_1a773a43fff5c9bacc9f28d203baec542d" kindref="member">bpttype_t</ref></type>
+        <definition>const bpttype_t BPT_EXEC</definition>
+        <argsstring></argsstring>
+        <name>BPT_EXEC</name>
+        <initializer>= 8</initializer>
+        <briefdescription>
+<para>Execute instruction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="393" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="393" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___b_p_t___h_1ga53a732ad6558824e26a608a40c52d057" prot="public" static="no" mutable="no">
+        <type>const <ref refid="idd_8hpp_1a773a43fff5c9bacc9f28d203baec542d" kindref="member">bpttype_t</ref></type>
+        <definition>const bpttype_t BPT_DEFAULT</definition>
+        <argsstring></argsstring>
+        <name>BPT_DEFAULT</name>
+        <initializer>= (<ref refid="group___b_p_t___h_1ga002cf1299d50d3fb9b520e5f91a19b83" kindref="member">BPT_SOFT</ref>|<ref refid="group___b_p_t___h_1gab08ccc411ade99a94afc7059d11280ab" kindref="member">BPT_EXEC</ref>)</initializer>
+        <briefdescription>
+<para>Choose bpt type automatically. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="394" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="394" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="idd_8hpp_1ac59ac8eb41de64f51656f77afa634e0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export free_debug_event</definition>
+        <argsstring>(debug_event_t *ev)</argsstring>
+        <name>free_debug_event</name>
+        <param>
+          <type><ref refid="structdebug__event__t" kindref="compound">debug_event_t</ref> *</type>
+          <declname>ev</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="208" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="idd_8hpp_1aebb201245ae1e4b167e188cca27a5324" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export copy_debug_event</definition>
+        <argsstring>(debug_event_t *ev, const debug_event_t &amp;r)</argsstring>
+        <name>copy_debug_event</name>
+        <param>
+          <type><ref refid="structdebug__event__t" kindref="compound">debug_event_t</ref> *</type>
+          <declname>ev</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structdebug__event__t" kindref="compound">debug_event_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="209" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="idd_8hpp_1a0d9c0d3281878a8d3149fd3ebc90b898" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export set_debug_event_code</definition>
+        <argsstring>(debug_event_t *ev, event_id_t id)</argsstring>
+        <name>set_debug_event_code</name>
+        <param>
+          <type><ref refid="structdebug__event__t" kindref="compound">debug_event_t</ref> *</type>
+          <declname>ev</declname>
+        </param>
+        <param>
+          <type><ref refid="idd_8hpp_1a0e4c82840d549d876223416d8ae11356" kindref="member">event_id_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="210" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="idd_8hpp_1ae90450f0cb5c2d7933e1b1d43e725aa0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref> ida_export</type>
+        <definition>idaman error_t ida_export dbg_appcall</definition>
+        <argsstring>(idc_value_t *retval, ea_t func_ea, thid_t tid, const tinfo_t *ptif, idc_value_t *argv, size_t argnum)</argsstring>
+        <name>dbg_appcall</name>
+        <param>
+          <type><ref refid="classidc__value__t" kindref="compound">idc_value_t</ref> *</type>
+          <declname>retval</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>func_ea</declname>
+        </param>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classtinfo__t" kindref="compound">tinfo_t</ref> *</type>
+          <declname>ptif</declname>
+        </param>
+        <param>
+          <type><ref refid="classidc__value__t" kindref="compound">idc_value_t</ref> *</type>
+          <declname>argv</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>argnum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Call a function from the debugged application. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">r</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>function return value<itemizedlist>
+<listitem><para>for <ref refid="group___a_p_p_c_a_l_l___1gaa1a104a113d31a3d4167791663d617af" kindref="member">APPCALL_MANUAL</ref>, r will hold the new stack point value</para></listitem><listitem><para>for <ref refid="group___a_p_p_c_a_l_l___1ga805adda8d1138c0d1d40ee53c7b2b1e7" kindref="member">APPCALL_DEBEV</ref>, r will hold the exception information upon failure and the return code will be eExecThrow </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>func_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>address to call </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>thread to use. <ref refid="idd_8hpp_1a3fec2238e4b2b608273f3a6c5f7a31de" kindref="member">NO_THREAD</ref> means to use the current thread </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ptif</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to type of the function to call </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>argv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>array of arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>argnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of actual arguments </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="pro_8h_1a95be41bd6cf74b2cc935923eef55435d" kindref="member">eOk</ref> if successful, otherwise an error code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="604" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="idd_8hpp_1a85b4954a5bf8ab705bc6d022f955eda2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref> ida_export</type>
+        <definition>idaman error_t ida_export cleanup_appcall</definition>
+        <argsstring>(thid_t tid)</argsstring>
+        <name>cleanup_appcall</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Cleanup after manual appcall. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>thread to use. <ref refid="idd_8hpp_1a3fec2238e4b2b608273f3a6c5f7a31de" kindref="member">NO_THREAD</ref> means to use the current thread The application state is restored as it was before calling the last appcall(). Nested appcalls are supported. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="pro_8h_1a95be41bd6cf74b2cc935923eef55435d" kindref="member">eOk</ref> if successful, otherwise an error code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="619" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="idd_8hpp_1adc0ccdb540fe966878b532f58e28a6e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CASSERT</definition>
+        <argsstring>(sizeof(debugger_t)==60)</argsstring>
+        <name>CASSERT</name>
+        <param>
+          <type>sizeof(<ref refid="structdebugger__t" kindref="compound">debugger_t</ref>)</type>
+          <defval>=60</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1564" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains definition of the interface to IDD modules. </para>    </briefdescription>
+    <detaileddescription>
+<para>The interface consists of structures describing the target debugged processor and a debugging API. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp"/>
+  </compounddef>
+</doxygen>

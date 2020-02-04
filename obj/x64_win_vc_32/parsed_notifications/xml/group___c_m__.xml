@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_m__" kind="group">
+    <compoundname>CM_</compoundname>
+    <title>CM</title>
+    <innergroup refid="group___c_m__ptr">Default pointer size</innergroup>
+    <innergroup refid="group___c_m___m__">Model</innergroup>
+    <innergroup refid="group___c_m___c_c__">Calling convention</innergroup>
+    <innergroup refid="group__argloc">Argument locations</innergroup>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Calling convention &amp; Model </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

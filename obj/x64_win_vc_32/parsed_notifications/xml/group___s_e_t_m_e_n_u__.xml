@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_e_t_m_e_n_u__" kind="group">
+    <compoundname>SETMENU_</compoundname>
+    <title>Set menu flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_e_t_m_e_n_u___1ga349e32e770b941ea7d68ec39ac33980e" prot="public" static="no">
+        <name>SETMENU_POSMASK</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="141" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_t_m_e_n_u___1gab7ce6fd8f9e8784ef881217e088cec9d" prot="public" static="no">
+        <name>SETMENU_INS</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>add menu item before the specified path (default) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="142" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_t_m_e_n_u___1gabae5051c0892d2f7c076225ce55745be" prot="public" static="no">
+        <name>SETMENU_APP</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+<para>add menu item after the specified path </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="143" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_t_m_e_n_u___1gab05ac9ef60e9d4f781fe69ee5be55068" prot="public" static="no">
+        <name>SETMENU_FIRST</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+<para>add item to the beginning of menu </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="144" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as &apos;flags&apos; parameter to <ref refid="kernwin_8hpp_1a381b694726bffe05b02b2a236124801e" kindref="member">attach_action_to_menu()</ref> In case menupath == NULL new item will be added to the end of menu even when SETMENU_APP is not set. SETMENU_FIRST can be used to change this behaviour </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

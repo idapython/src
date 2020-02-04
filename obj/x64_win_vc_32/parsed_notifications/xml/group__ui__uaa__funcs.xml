@@ -1,0 +1,309 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__ui__uaa__funcs" kind="group">
+    <compoundname>ui_uaa_funcs</compoundname>
+    <title>Functions: update actions</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__ui__uaa__funcs_1gaceff5f0fc4124e24ba30d4fccb170123" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool update_action_label</definition>
+        <argsstring>(const char *name, const char *label)</argsstring>
+        <name>update_action_label</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>label</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Update an action&apos;s label (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a9e18029a1d55951baacce0a745dcf91e" kindref="member">ui_update_action_attr</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>action name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>label</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new label </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4438" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4438" bodyend="4441"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__uaa__funcs_1ga024d67540af40abe540f7540809ca743" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool update_action_shortcut</definition>
+        <argsstring>(const char *name, const char *shortcut)</argsstring>
+        <name>update_action_shortcut</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>shortcut</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Update an action&apos;s shortcut (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a9e18029a1d55951baacce0a745dcf91e" kindref="member">ui_update_action_attr</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>action name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shortcut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new shortcut </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4449" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4449" bodyend="4452"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__uaa__funcs_1ga89c92cc9f9e50c88a22b054d713a1a17" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool update_action_tooltip</definition>
+        <argsstring>(const char *name, const char *tooltip)</argsstring>
+        <name>update_action_tooltip</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>tooltip</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Update an action&apos;s tooltip (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a9e18029a1d55951baacce0a745dcf91e" kindref="member">ui_update_action_attr</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>action name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tooltip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new tooltip </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4460" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4460" bodyend="4463"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__uaa__funcs_1ga1e8cddfeef193389f1ac689ac439cc77" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool update_action_icon</definition>
+        <argsstring>(const char *name, int icon)</argsstring>
+        <name>update_action_icon</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>icon</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Update an action&apos;s icon (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a9e18029a1d55951baacce0a745dcf91e" kindref="member">ui_update_action_attr</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>action name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>icon</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new icon id </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4471" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4471" bodyend="4474"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__uaa__funcs_1ga69d4738692d65fa6dd4a5e0883a6b3b2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool update_action_state</definition>
+        <argsstring>(const char *name, action_state_t state)</argsstring>
+        <name>update_action_state</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1ac55f790129202f8c4cea693fe570ead6" kindref="member">action_state_t</ref></type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Update an action&apos;s state (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a9e18029a1d55951baacce0a745dcf91e" kindref="member">ui_update_action_attr</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>action name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>state</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new state </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4482" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4482" bodyend="4485"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__uaa__funcs_1gaa3f83cd5de26cfec3e6a0e34807c09d1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool update_action_checkable</definition>
+        <argsstring>(const char *name, bool checkable)</argsstring>
+        <name>update_action_checkable</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>checkable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Update an action&apos;s checkability (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a9e18029a1d55951baacce0a745dcf91e" kindref="member">ui_update_action_attr</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>action name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>checkable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new checkability </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4493" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4493" bodyend="4496"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__uaa__funcs_1ga8e0065e63d3fe107eba7a9b5d0ff57d4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool update_action_checked</definition>
+        <argsstring>(const char *name, bool checked)</argsstring>
+        <name>update_action_checked</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>checked</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Update an action&apos;s checked state (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a9e18029a1d55951baacce0a745dcf91e" kindref="member">ui_update_action_attr</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>action name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>checked</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new checked state </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4504" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4504" bodyend="4507"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__uaa__funcs_1ga443e6593a319ad8244daec0961740543" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool update_action_visibility</definition>
+        <argsstring>(const char *name, bool visible)</argsstring>
+        <name>update_action_visibility</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>visible</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Update an action&apos;s visibility (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a9e18029a1d55951baacce0a745dcf91e" kindref="member">ui_update_action_attr</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>action name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>visible</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new visibility </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4515" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4515" bodyend="4518"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Convenience functions for <ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a9e18029a1d55951baacce0a745dcf91e" kindref="member">ui_update_action_attr</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

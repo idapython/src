@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___d_e_c_o_m_p__" kind="group">
+    <compoundname>DECOMP_</compoundname>
+    <title>decompile() flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___d_e_c_o_m_p___1gac6d1339ec4433df8f57ec2fcb9dac3ad" prot="public" static="no">
+        <name>DECOMP_NO_WAIT</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>do not display waitbox </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6584" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6584" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_c_o_m_p___1gaa2583dff1010f5fd5fedf36d85275c6d" prot="public" static="no">
+        <name>DECOMP_NO_CACHE</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>do not use decompilation cache </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6585" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6585" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_c_o_m_p___1ga00815eb7bce52dba1707ee4c7ebb4cab" prot="public" static="no">
+        <name>DECOMP_NO_FRAME</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>do not use function frame info (only snippet mode) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6586" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6586" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_c_o_m_p___1ga79881f4dfb22869210c4cfae7b05c1b3" prot="public" static="no">
+        <name>DECOMP_WARNINGS</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>display warnings in the output window </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6587" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6587" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

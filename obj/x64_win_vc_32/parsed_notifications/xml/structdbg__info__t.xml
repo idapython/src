@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structdbg__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>dbg_info_t</compoundname>
+    <includes refid="loader_8hpp" local="no">loader.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdbg__info__t_1a7a2df9135fea0b2c4581acdd4228c502" prot="public" static="no" mutable="no">
+        <type><ref refid="structplugin__info__t" kindref="compound">plugin_info_t</ref> *</type>
+        <definition>plugin_info_t* dbg_info_t::pi</definition>
+        <argsstring></argsstring>
+        <name>pi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="794" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="794" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdbg__info__t_1a31e4690ba1349e4b47bcc203f253f9fb" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structdebugger__t" kindref="compound">debugger_t</ref> *</type>
+        <definition>struct debugger_t* dbg_info_t::dbg</definition>
+        <argsstring></argsstring>
+        <name>dbg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="795" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="795" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structdbg__info__t_1a65a9d6dbf86998ac8c04b9ca47b08852" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>dbg_info_t::dbg_info_t</definition>
+        <argsstring>(plugin_info_t *_pi, struct debugger_t *_dbg)</argsstring>
+        <name>dbg_info_t</name>
+        <param>
+          <type><ref refid="structplugin__info__t" kindref="compound">plugin_info_t</ref> *</type>
+          <declname>_pi</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structdebugger__t" kindref="compound">debugger_t</ref> *</type>
+          <declname>_dbg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="796" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="796" bodyend="796"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Information for the user interface about available debuggers. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1465">
+        <label>dbg_info_t</label>
+        <link refid="structdbg__info__t"/>
+        <childnode refid="1466" relation="usage">
+          <edgelabel>dbg</edgelabel>
+        </childnode>
+        <childnode refid="1468" relation="usage">
+          <edgelabel>pi</edgelabel>
+        </childnode>
+      </node>
+      <node id="1466">
+        <label>debugger_t</label>
+        <link refid="structdebugger__t"/>
+        <childnode refid="1467" relation="usage">
+          <edgelabel>registers</edgelabel>
+        </childnode>
+      </node>
+      <node id="1467">
+        <label>register_info_t</label>
+        <link refid="structregister__info__t"/>
+      </node>
+      <node id="1469">
+        <label>plugin_t</label>
+        <link refid="classplugin__t"/>
+      </node>
+      <node id="1468">
+        <label>plugin_info_t</label>
+        <link refid="structplugin__info__t"/>
+        <childnode refid="1468" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="1469" relation="usage">
+          <edgelabel>entry</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="793" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="792" bodyend="797"/>
+    <listofallmembers>
+      <member refid="structdbg__info__t_1a31e4690ba1349e4b47bcc203f253f9fb" prot="public" virt="non-virtual"><scope>dbg_info_t</scope><name>dbg</name></member>
+      <member refid="structdbg__info__t_1a65a9d6dbf86998ac8c04b9ca47b08852" prot="public" virt="non-virtual"><scope>dbg_info_t</scope><name>dbg_info_t</name></member>
+      <member refid="structdbg__info__t_1a7a2df9135fea0b2c4581acdd4228c502" prot="public" virt="non-virtual"><scope>dbg_info_t</scope><name>pi</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

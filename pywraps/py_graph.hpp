@@ -204,7 +204,7 @@ private:
     int i;
     intvec_t::const_iterator p;
     for ( i = 0, p=my_nodes->begin(); p != my_nodes->end(); ++p, ++i )
-      PyList_SetItem(py_nodes.o, i, PyInt_FromLong(*p));
+      PyList_SetItem(py_nodes.o, i, IDAPyInt_FromLong(*p));
     newref_t py_result(
             PyObject_CallMethod(
                     self.o,
@@ -212,7 +212,7 @@ private:
                     "O",
                     py_nodes.o));
     PyW_ShowCbErr(S_ON_CREATING_GROUP);
-    return (py_result == NULL || !PyInt_Check(py_result.o)) ? 1 : IDAPyInt_AsLong(py_result.o);
+    return (py_result == NULL || !IDAPyInt_Check(py_result.o)) ? 1 : IDAPyInt_AsLong(py_result.o);
   }
 
   // a group is being deleted
@@ -439,7 +439,7 @@ void py_graph_t::on_user_refresh(mutable_graph_t *g)
           for ( j=0; j < qnumber(edge_ids); j++ )
           {
             newref_t id(PySequence_GetItem(item.o, j));
-            if ( id == NULL || !PyInt_Check(id.o) )
+            if ( id == NULL || !IDAPyInt_Check(id.o) )
               break;
             int v = int(PyInt_AS_LONG(id.o));
             if ( v > max_nodes )

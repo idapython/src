@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structlvar__uservec__t" kind="struct" language="C++" prot="public">
+    <compoundname>lvar_uservec_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structlvar__uservec__t_1aa73b9ce020d91ebc2be9c9aa78dcdd23" prot="public" static="no" mutable="no">
+        <type><ref refid="classqvector" kindref="compound">lvar_saved_infos_t</ref></type>
+        <definition>lvar_saved_infos_t lvar_uservec_t::lvvec</definition>
+        <argsstring></argsstring>
+        <name>lvvec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>User-specified names, types, comments for lvars. Variables without user-specified info are not present in this vector. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1504" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1504" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlvar__uservec__t_1a94ac42d6395e060e88f028415e439563" prot="public" static="no" mutable="no">
+        <type>lvar_mapping_t</type>
+        <definition>lvar_mapping_t lvar_uservec_t::lmaps</definition>
+        <argsstring></argsstring>
+        <name>lmaps</name>
+        <briefdescription>
+<para>Local variable mapping (used for merging variables) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1507" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1507" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlvar__uservec__t_1a7b675607ddab431f3185ba50c6951d86" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+        <definition>uval_t lvar_uservec_t::stkoff_delta</definition>
+        <argsstring></argsstring>
+        <name>stkoff_delta</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delta to add to IDA stack offset to calculate Hex-Rays stack offsets. Should be set by the caller before calling save_user_lvar_settings(); </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1511" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1511" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlvar__uservec__t_1a218459bc7abb185a0990d0ea474e00ad" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int lvar_uservec_t::ulv_flags</definition>
+        <argsstring></argsstring>
+        <name>ulv_flags</name>
+        <briefdescription>
+<para>Various flags. Possible values are from <ref refid="group___u_l_v__" kindref="compound">lvar_uservec_t property bits</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1514" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1514" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structlvar__uservec__t_1ac9938a5526f510a6af30045ce7360b8f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>lvar_uservec_t::lvar_uservec_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>lvar_uservec_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1521" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1521" bodyend="1521"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__uservec__t_1a10a7d9a4e5adf2e7aaa28fc56b0adf58" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lvar_uservec_t::swap</definition>
+        <argsstring>(lvar_uservec_t &amp;r)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="structlvar__uservec__t" kindref="compound">lvar_uservec_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1522" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1522" bodyend="1528"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__uservec__t_1ac0722f21a5094bcc6f7f3a7224e1ab6d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structlvar__saved__info__t" kindref="compound">lvar_saved_info_t</ref> *</type>
+        <definition>lvar_saved_info_t* lvar_uservec_t::find_info</definition>
+        <argsstring>(const lvar_locator_t &amp;vloc)</argsstring>
+        <name>find_info</name>
+        <param>
+          <type>const <ref refid="structlvar__locator__t" kindref="compound">lvar_locator_t</ref> &amp;</type>
+          <declname>vloc</declname>
+        </param>
+        <briefdescription>
+<para>find saved user settings for given var </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1531" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1531" bodyend="1539"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__uservec__t_1af515b62b37f9b6f2d4cc053d085e1373" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lvar_uservec_t::keep_info</definition>
+        <argsstring>(const lvar_t &amp;v)</argsstring>
+        <name>keep_info</name>
+        <param>
+          <type>const <ref refid="classlvar__t" kindref="compound">lvar_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+<para>Preserve user settings for given var. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1542" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1542" bodyend="1547"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>All user-defined information about local variables. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2052">
+        <label>lvar_uservec_t</label>
+        <link refid="structlvar__uservec__t"/>
+        <childnode refid="2053" relation="usage">
+          <edgelabel>lvvec</edgelabel>
+        </childnode>
+      </node>
+      <node id="2053">
+        <label>qvector&lt; lvar_saved_info_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1501" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1500" bodyend="1548"/>
+    <listofallmembers>
+      <member refid="structlvar__uservec__t_1ac0722f21a5094bcc6f7f3a7224e1ab6d" prot="public" virt="non-virtual"><scope>lvar_uservec_t</scope><name>find_info</name></member>
+      <member refid="structlvar__uservec__t_1af515b62b37f9b6f2d4cc053d085e1373" prot="public" virt="non-virtual"><scope>lvar_uservec_t</scope><name>keep_info</name></member>
+      <member refid="structlvar__uservec__t_1a94ac42d6395e060e88f028415e439563" prot="public" virt="non-virtual"><scope>lvar_uservec_t</scope><name>lmaps</name></member>
+      <member refid="structlvar__uservec__t_1ac9938a5526f510a6af30045ce7360b8f" prot="public" virt="non-virtual"><scope>lvar_uservec_t</scope><name>lvar_uservec_t</name></member>
+      <member refid="structlvar__uservec__t_1aa73b9ce020d91ebc2be9c9aa78dcdd23" prot="public" virt="non-virtual"><scope>lvar_uservec_t</scope><name>lvvec</name></member>
+      <member refid="structlvar__uservec__t_1a7b675607ddab431f3185ba50c6951d86" prot="public" virt="non-virtual"><scope>lvar_uservec_t</scope><name>stkoff_delta</name></member>
+      <member refid="structlvar__uservec__t_1a10a7d9a4e5adf2e7aaa28fc56b0adf58" prot="public" virt="non-virtual"><scope>lvar_uservec_t</scope><name>swap</name></member>
+      <member refid="structlvar__uservec__t_1a218459bc7abb185a0990d0ea474e00ad" prot="public" virt="non-virtual"><scope>lvar_uservec_t</scope><name>ulv_flags</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

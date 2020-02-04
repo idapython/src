@@ -1,0 +1,1145 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="ieee_8h" kind="file" language="C++">
+    <compoundname>ieee.h</compoundname>
+    <includedby refid="hexrays_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp</includedby>
+    <invincdepgraph>
+      <node id="747">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/ieee.h</label>
+        <link refid="ieee_8h"/>
+        <childnode refid="748" relation="include">
+        </childnode>
+      </node>
+      <node id="748">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp</label>
+        <link refid="hexrays_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Prototypes</header>
+      <description><para>IDP module event prototype <ndash/> should be implemented in idp </para></description>
+      <memberdef kind="function" id="ieee_8h_1a236e96bab295bd7292d14604355699c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi realcvt</definition>
+        <argsstring>(void *m, eNE e, uint16 swt)</argsstring>
+        <name>realcvt</name>
+        <param>
+          <type>void *</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type><ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+          <declname>swt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Floating point conversion function: implemented by {realcvt}. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>e</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>internal IEEE format data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>swt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>operation:<itemizedlist>
+<listitem><para>000: load trunc. float (DEC ^F) 2 bytes (m-&gt;e)</para></listitem><listitem><para>001: load float 4 bytes (m-&gt;e)</para></listitem><listitem><para>003: load double 8 bytes (m-&gt;e)</para></listitem><listitem><para>004: load long double 10 bytes (m-&gt;e)</para></listitem><listitem><para>005: load long double 12 bytes (m-&gt;e)</para></listitem><listitem><para>010: store trunc. float (DEC ^F) 2 bytes (e-&gt;m)</para></listitem><listitem><para>011: store float 4 bytes (e-&gt;m)</para></listitem><listitem><para>013: store double 8 bytes (e-&gt;m)</para></listitem><listitem><para>014: store long double 10 bytes (e-&gt;m)</para></listitem><listitem><para>015: store long double 12 bytes (e-&gt;m) </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+</parameternamelist>
+<parameterdescription>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="144" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1acdf865055ad78e361bdb1e4517c67858" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int l_realcvt</definition>
+        <argsstring>(void *m, eNE e, uint16 swt)</argsstring>
+        <name>l_realcvt</name>
+        <param>
+          <type>void *</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type><ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+          <declname>swt</declname>
+        </param>
+        <briefdescription>
+<para>Little endian. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="149" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1a3a9b6274b1fd69ad17766651e0a6d537" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int b_realcvt</definition>
+        <argsstring>(void *m, eNE e, uint16 swt)</argsstring>
+        <name>b_realcvt</name>
+        <param>
+          <type>void *</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type><ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+          <declname>swt</declname>
+        </param>
+        <briefdescription>
+<para>Big endian. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="154" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Misc arithmetic/conversion functions</header>
+      <description><para><parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>overfloat / underfloat </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>illegal data (<ref refid="ieee_8h_1ac4ecbd1614f3e107ed5acc4b937dc260" kindref="member">asctoreal()</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>3</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>divide by 0 (<ref refid="ieee_8h_1a47c8cd7fe7f6ac9c5781369cb7638635" kindref="member">ediv()</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>4</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>too big for integer (<ref refid="ieee_8h_1a59827436e4cd54ee6fbeffe30100e58b" kindref="member">eetol()</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para></description>
+      <memberdef kind="define" id="ieee_8h_1a9f60aa869aca8efc4afd4d26b3d6b481" prot="public" static="no">
+        <name>eclear</name>
+        <param><defname>a</defname></param>
+        <initializer>memset(a, 0, sizeof(<ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref>))</initializer>
+        <briefdescription>
+<para>x = 0 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="247" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ieee_8h_1a65cb43413c36b0d1388ed92d3c571259" prot="public" static="no">
+        <name>emov</name>
+        <param><defname>a</defname></param>
+        <param><defname>b</defname></param>
+        <initializer>memcpy(b, a, sizeof(<ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref>))</initializer>
+        <briefdescription>
+<para>b = a </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="250" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ieee_8h_1ac768c4ce417eaa48eaaa02974dd4fe52" prot="public" static="no">
+        <name>eabs</name>
+        <param><defname>x</defname></param>
+        <initializer>(x[<ref refid="ieee_8h_1a78efb829b2f4723621535c1fd4401515" kindref="member">IEEE_NE</ref>-1] &amp;= 0x7fff)</initializer>
+        <briefdescription>
+<para>x = |x| </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="253" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ieee_8h_1ae9b22cce00c13d0f8f8446b1266f9837" prot="public" static="no">
+        <name>esign</name>
+        <param><defname>x</defname></param>
+        <initializer>(x[<ref refid="ieee_8h_1a78efb829b2f4723621535c1fd4401515" kindref="member">IEEE_NE</ref>-1] &amp; 0x8000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>x &lt; 0 ? <simplesect kind="note"><para>non standard answer is returned </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="266" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1a6b04162ee5e20d1964213f6e4b1ec518" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export realtoasc</definition>
+        <argsstring>(char *buf, size_t bufsize, const eNE x, uint mode)</argsstring>
+        <name>realtoasc</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14" kindref="member">uint</ref></type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>IEEE to ascii string. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>broken down into:<itemizedlist>
+<listitem><para>low byte: number of digits after &apos;.&apos;</para></listitem><listitem><para>second byte: FPNUM_LENGTH</para></listitem><listitem><para>third byte: FPNUM_DIGITS </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="179" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1ac4ecbd1614f3e107ed5acc4b937dc260" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export asctoreal</definition>
+        <argsstring>(const char **sss, eNE y)</argsstring>
+        <name>asctoreal</name>
+        <param>
+          <type>const char **</type>
+          <declname>sss</declname>
+        </param>
+        <param>
+          <type><ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+<para>ascii string to IEEE </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="184" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1a52899a55af1f9421ca6e7c7870b77331" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export eltoe</definition>
+        <argsstring>(sval_t l, eNE e)</argsstring>
+        <name>eltoe</name>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>l</declname>
+        </param>
+        <param>
+          <type><ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+<para>long to IEEE </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="189" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1a5cb0d887cbbf03cfbe4deb05621864d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export eltoe64</definition>
+        <argsstring>(int64 l, eNE e)</argsstring>
+        <name>eltoe64</name>
+        <param>
+          <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref></type>
+          <declname>l</declname>
+        </param>
+        <param>
+          <type><ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+<para>int64 to IEEE </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="194" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1abde65b1bb2e5e8f8786834857baa0763" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export eltoe64u</definition>
+        <argsstring>(uint64 l, eNE e)</argsstring>
+        <name>eltoe64u</name>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>l</declname>
+        </param>
+        <param>
+          <type><ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+<para>uint64 to IEEE </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="199" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1a59827436e4cd54ee6fbeffe30100e58b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export eetol</definition>
+        <argsstring>(sval_t *l, const eNE a, bool roundflg)</argsstring>
+        <name>eetol</name>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref> *</type>
+          <declname>l</declname>
+        </param>
+        <param>
+          <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>roundflg</declname>
+        </param>
+        <briefdescription>
+<para>IEEE to long (+-0.5 if flg) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="204" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1a34360ccf8062037c216be74fea6a82b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export eetol64</definition>
+        <argsstring>(int64 *l, const eNE a, bool roundflg)</argsstring>
+        <name>eetol64</name>
+        <param>
+          <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref> *</type>
+          <declname>l</declname>
+        </param>
+        <param>
+          <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>roundflg</declname>
+        </param>
+        <briefdescription>
+<para>IEEE to long (+-0.5 if flg) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="209" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1a98c38efe4fdd5f24450d6f8568db3f57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export eetol64u</definition>
+        <argsstring>(uint64 *l, const eNE a, bool roundflg)</argsstring>
+        <name>eetol64u</name>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref> *</type>
+          <declname>l</declname>
+        </param>
+        <param>
+          <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>roundflg</declname>
+        </param>
+        <briefdescription>
+<para>IEEE to ulong (+-0.5 if flg) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="214" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1a84546479e945de50ed33610eb153e8f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export eldexp</definition>
+        <argsstring>(const eNE a, int32 pwr2, eNE b)</argsstring>
+        <name>eldexp</name>
+        <param>
+          <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+          <declname>pwr2</declname>
+        </param>
+        <param>
+          <type><ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+<para>b = a*(2**pwr2) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="219" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1a79355d3e74093117f201624330f9ec4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export eadd</definition>
+        <argsstring>(const eNE a, const eNE b, eNE c, int subflg)</argsstring>
+        <name>eadd</name>
+        <param>
+          <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type><ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>subflg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>if(!subflg) c = a + b, else c = a - b </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="225" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1ad5a846dcc4cdfa42278b782e6b16a839" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export emul</definition>
+        <argsstring>(const eNE a, const eNE b, eNE c)</argsstring>
+        <name>emul</name>
+        <param>
+          <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type><ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>c = a * b </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="230" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1a47c8cd7fe7f6ac9c5781369cb7638635" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export ediv</definition>
+        <argsstring>(const eNE a, const eNE b, eNE c)</argsstring>
+        <name>ediv</name>
+        <param>
+          <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type><ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>c = a / b </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="235" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1adcce80b8f80cf9eabd39f09114874582" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void eneg</definition>
+        <argsstring>(eNE x)</argsstring>
+        <name>eneg</name>
+        <param>
+          <type><ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>x = -x </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="257" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="257" bodyend="261"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>max_exp values</header>
+      <description><para>common values for max_exp (for IEEE floating point values) </para></description>
+      <memberdef kind="variable" id="ieee_8h_1a5e60977839507b894f71a17dbc05eafe" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>const uint32 MAXEXP_FLOAT</definition>
+        <argsstring></argsstring>
+        <name>MAXEXP_FLOAT</name>
+        <initializer>= 0x80</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="293" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ieee_8h_1a647156b63c70910f5d4a68f75ee0075f" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>const uint32 MAXEXP_DOUBLE</definition>
+        <argsstring></argsstring>
+        <name>MAXEXP_DOUBLE</name>
+        <initializer>= 0x400</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="294" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="294" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ieee_8h_1a5bec8602cb8587b27e8e5696001230b5" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>const uint32 MAXEXP_LNGDBL</definition>
+        <argsstring></argsstring>
+        <name>MAXEXP_LNGDBL</name>
+        <initializer>= 0x4000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="295" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="295" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="ieee_8h_1a78efb829b2f4723621535c1fd4401515" prot="public" static="no">
+        <name>IEEE_NE</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>Number of 16 bit words in <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="23" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ieee_8h_1a1d76abdae5ebad3de5185c7f4aa38f5b" prot="public" static="no">
+        <name>IEEE_NI</name>
+        <initializer>(<ref refid="ieee_8h_1a78efb829b2f4723621535c1fd4401515" kindref="member">IEEE_NE</ref>+3)</initializer>
+        <briefdescription>
+<para>Number of 16 bit words in <ref refid="ieee_8h_1aaefd3e78670988d3cf33d1d4a6926acf" kindref="member">eNI</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="26" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ieee_8h_1aa9dca6f16d74bb2c7d4e9c6da5adf698" prot="public" static="no">
+        <name>IEEE_E</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Array offset to exponent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="30" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ieee_8h_1aa67d21e45b5c3fe6fc9acab5225f153f" prot="public" static="no">
+        <name>IEEE_M</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Array offset to high guard word. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="33" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ieee_8h_1ad8c1ce91a75105c0098a97c23976487c" prot="public" static="no">
+        <name>IEEE_EXONE</name>
+        <initializer>(0x3fff)</initializer>
+        <briefdescription>
+<para>The exponent of 1.0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="36" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ieee_8h_1ab69f1956f8f39bc59db7edd497522a99" prot="public" static="no">
+        <name>EZERO</name>
+        <initializer>{ 0, 0000000,0000000,0000000,0000000,0000000 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="50" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ieee_8h_1abfd7d05ebbd6d6fe254f7ef865fb2c7d" prot="public" static="no">
+        <name>EONE</name>
+        <initializer>{ 0, 0000000,0000000,0000000,0100000,0x3fff }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="54" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_a_l___e_r_r_o_r___1ga6beaa5d42f93b35f614c00a23f79b3a8" prot="public" static="no">
+        <name>REAL_ERROR_FORMAT</name>
+        <initializer>-1</initializer>
+        <briefdescription>
+<para>not supported format for current .idp </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="118" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_a_l___e_r_r_o_r___1ga0f4d9faf4810023c7f90fda94323e1df" prot="public" static="no">
+        <name>REAL_ERROR_RANGE</name>
+        <initializer>-2</initializer>
+        <briefdescription>
+<para>number too big (small) for store (mem NOT modified) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="119" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_a_l___e_r_r_o_r___1gafc94216b80532712f4141de79e104110" prot="public" static="no">
+        <name>REAL_ERROR_BADDATA</name>
+        <initializer>-3</initializer>
+        <briefdescription>
+<para>illegal real data for load (IEEE data not filled) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="120" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="ieee_8h_1afd7db9674dd083cd2392546f83bd609c" prot="public" static="no">
+        <name>fpvalue_kind_t</name>
+        <enumvalue id="ieee_8h_1afd7db9674dd083cd2392546f83bd609cabc1812963fd891d578ad0669bb159815" prot="public">
+          <name>FPV_BADARG</name>
+          <briefdescription>
+<para>wrong value of max_exp </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ieee_8h_1afd7db9674dd083cd2392546f83bd609ca857ababd9fcc4563e5428fd2dcf10851" prot="public">
+          <name>FPV_NORM</name>
+          <briefdescription>
+<para>regular value </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ieee_8h_1afd7db9674dd083cd2392546f83bd609cab88c092ee2b39ff66c2aa33837f3c6ae" prot="public">
+          <name>FPV_NAN</name>
+          <briefdescription>
+<para>NaN. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ieee_8h_1afd7db9674dd083cd2392546f83bd609ca53a5310a99e043c9010578d72d2c41a6" prot="public">
+          <name>FPV_PINF</name>
+          <briefdescription>
+<para>positive infinity </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ieee_8h_1afd7db9674dd083cd2392546f83bd609ca0cf45c8ea2d6f35abb302b207ca9b106" prot="public">
+          <name>FPV_NINF</name>
+          <briefdescription>
+<para>negative infinity </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Check for NaN/Inf. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="281" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="280" bodyend="287"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" prot="public" static="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>typedef uint16 eNE[IEEE_NE]</definition>
+        <argsstring>[IEEE_NE]</argsstring>
+        <name>eNE</name>
+        <briefdescription>
+<para>External x type format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="40" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ieee_8h_1aaefd3e78670988d3cf33d1d4a6926acf" prot="public" static="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>typedef uint16 eNI[IEEE_NI]</definition>
+        <argsstring>[IEEE_NI]</argsstring>
+        <name>eNI</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Internal format:<itemizedlist>
+<listitem><para>0 : sign (0/1)</para></listitem><listitem><para>1 : exponent (based of <ref refid="ieee_8h_1ad8c1ce91a75105c0098a97c23976487c" kindref="member">IEEE_EXONE</ref>). If exp = 0, value = 0.</para></listitem><listitem><para>2 : high word of mantissa (always zero after normalize) </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="46" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="ieee_8h_1a78e89dd9b5f92713b3f77ff897bfdb6f" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+        <definition>const eNE ieee_ezero</definition>
+        <argsstring></argsstring>
+        <name>ieee_ezero</name>
+        <briefdescription>
+<para>0.0 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="49" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ieee_8h_1a8af113977f1c3d169b2700155fb32569" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+        <definition>const eNE ieee_eone</definition>
+        <argsstring></argsstring>
+        <name>ieee_eone</name>
+        <briefdescription>
+<para>1.0 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="53" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ieee_8h_1a6b968ded4466a071f034f056c1783c32" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+        <definition>const eNE ieee_etwo</definition>
+        <argsstring></argsstring>
+        <name>ieee_etwo</name>
+        <briefdescription>
+<para>2.0 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="57" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ieee_8h_1ae7ad858c701a6453aa03e563463e7642" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+        <definition>const eNE ieee_e32</definition>
+        <argsstring></argsstring>
+        <name>ieee_e32</name>
+        <briefdescription>
+<para>32.0 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="60" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ieee_8h_1a58bc33c14020e4172d7ac114a4a4812c" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+        <definition>const eNE ieee_elog2</definition>
+        <argsstring></argsstring>
+        <name>ieee_elog2</name>
+        <briefdescription>
+<para>6.93147180559945309417232121458176568075500134360255E-1 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="63" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ieee_8h_1af3b4089b07e6f802490c3a271a3ad899" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+        <definition>const eNE ieee_esqrt2</definition>
+        <argsstring></argsstring>
+        <name>ieee_esqrt2</name>
+        <briefdescription>
+<para>1.41421356237309504880168872420969807856967187537695E0 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="66" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ieee_8h_1a8240e4a83c75b9d841b9fbd38bc1ace3" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+        <definition>const eNE ieee_eoneopi</definition>
+        <argsstring></argsstring>
+        <name>ieee_eoneopi</name>
+        <briefdescription>
+<para>2/sqrt(PI) = 1.12837916709551257389615890312154517168810125865800E0 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="69" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ieee_8h_1a918a216c8db1215ac43fe201ba886f9b" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+        <definition>const eNE ieee_epi</definition>
+        <argsstring></argsstring>
+        <name>ieee_epi</name>
+        <briefdescription>
+<para>3.14159265358979323846264338327950288419716939937511E0 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="72" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ieee_8h_1a1df7529dadef9805bfee030b6b5e3b7a" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+        <definition>const eNE ieee_eeul</definition>
+        <argsstring></argsstring>
+        <name>ieee_eeul</name>
+        <briefdescription>
+<para>5.7721566490153286060651209008240243104215933593992E-1 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="75" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="ieee_8h_1a032d36652fce013d2be200b1d2cfb381" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ecleaz</definition>
+        <argsstring>(eNI x)</argsstring>
+        <name>ecleaz</name>
+        <param>
+          <type><ref refid="ieee_8h_1aaefd3e78670988d3cf33d1d4a6926acf" kindref="member">eNI</ref></type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Clear (zero-out) the given value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="80" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="80" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1a39a676e3bf5d44a40a001e0ea05840d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export emovo</definition>
+        <argsstring>(const eNI a, eNE b)</argsstring>
+        <name>emovo</name>
+        <param>
+          <type>const <ref refid="ieee_8h_1aaefd3e78670988d3cf33d1d4a6926acf" kindref="member">eNI</ref></type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type><ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+<para>Move eNI =&gt; eNE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="85" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1add3d2e06f6ffae4a9c4a8722525c12dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export emovi</definition>
+        <argsstring>(const eNE a, eNI b)</argsstring>
+        <name>emovi</name>
+        <param>
+          <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type><ref refid="ieee_8h_1aaefd3e78670988d3cf33d1d4a6926acf" kindref="member">eNI</ref></type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+<para>Move eNE =&gt; eNI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="90" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1a927c5e7f349de235abdf5f892ef6410c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export eshift</definition>
+        <argsstring>(eNI x, int sc)</argsstring>
+        <name>eshift</name>
+        <param>
+          <type><ref refid="ieee_8h_1aaefd3e78670988d3cf33d1d4a6926acf" kindref="member">eNI</ref></type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sc</declname>
+        </param>
+        <briefdescription>
+<para>Shift NI format up (+) or down. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="95" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1adb79a47192393172e44435affd66ce35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export emdnorm</definition>
+        <argsstring>(eNI s, int lost, int subflg, int32 exp, int rndbase)</argsstring>
+        <name>emdnorm</name>
+        <param>
+          <type><ref refid="ieee_8h_1aaefd3e78670988d3cf33d1d4a6926acf" kindref="member">eNI</ref></type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>lost</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>subflg</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+          <declname>exp</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rndbase</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Normalize and round off. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the internal format number to be rounded </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lost</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates whether or not the number is exact. this is the so-called sticky bit. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subflg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates whether the number was obtained by a subtraction operation. In that case if lost is nonzero then the number is slightly smaller than indicated. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the biased exponent, which may be negative. the exponent field of &quot;s&quot; is ignored but is replaced by &quot;exp&quot; as adjusted by normalization and rounding. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rndbase</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if 0 =&gt; is the rounding control. else is processor defined base (rndprc) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="112" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1af8dc2b2c4e5843884838bb6a430cbf2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export ieee_realcvt</definition>
+        <argsstring>(void *m, eNE e, uint16 swt)</argsstring>
+        <name>ieee_realcvt</name>
+        <param>
+          <type>void *</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type><ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+          <declname>swt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Standard IEEE 754 floating point conversion function. See comment for <ref refid="ieee_8h_1a236e96bab295bd7292d14604355699c6" kindref="member">realcvt()</ref>. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="162" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1a476af80e93057b8919602fc054b8bd42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export ecmp</definition>
+        <argsstring>(const eNE a, const eNE b)</argsstring>
+        <name>ecmp</name>
+        <param>
+          <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Comparison. <parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if a = b </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if a &gt; b </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>-1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if a &lt; b </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="276" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="ieee_8h_1a0d3979360dcd5b0d795e277563f8846a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="ieee_8h_1afd7db9674dd083cd2392546f83bd609c" kindref="member">fpvalue_kind_t</ref> ida_export</type>
+        <definition>idaman THREAD_SAFE fpvalue_kind_t ida_export get_fpvalue_kind</definition>
+        <argsstring>(const eNE a, uint16 max_exp)</argsstring>
+        <name>get_fpvalue_kind</name>
+        <param>
+          <type>const <ref refid="ieee_8h_1a254b3481cb2770a1c99fce7a5226b375" kindref="member">eNE</ref></type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+          <declname>max_exp</declname>
+        </param>
+        <briefdescription>
+<para>See <ref refid="ieee_8h_1afd7db9674dd083cd2392546f83bd609c" kindref="member">fpvalue_kind_t</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="301" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>IEEE floating point functions. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h"/>
+  </compounddef>
+</doxygen>

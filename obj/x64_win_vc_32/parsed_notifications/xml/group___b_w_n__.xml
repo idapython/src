@@ -1,0 +1,585 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___b_w_n__" kind="group">
+    <compoundname>BWN_</compoundname>
+    <title>Window types</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___b_w_n___1gacfa68f805687da98f473e662ddbc7c4c" prot="public" static="no">
+        <name>BWN_UNKNOWN</name>
+        <initializer>-1</initializer>
+        <briefdescription>
+<para>unknown window </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1977" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1977" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga00e0b0613d6ae816a62a2c89d6d56c2a" prot="public" static="no">
+        <name>BWN_EXPORTS</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>exports </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1978" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1978" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga995618eb695b01635221ccf9c60f3f15" prot="public" static="no">
+        <name>BWN_IMPORTS</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>imports </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1979" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1979" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gade4e9f41c23263fe2a308436a19e29c6" prot="public" static="no">
+        <name>BWN_NAMES</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>names </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1980" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1980" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gaf03baa030d90ed48d6bef8948ac22517" prot="public" static="no">
+        <name>BWN_FUNCS</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>functions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1981" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1981" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gaed5c02416d4f0a071a253f69e22ea9b4" prot="public" static="no">
+        <name>BWN_STRINGS</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>strings </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1982" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1982" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gab166b93a84b02ccf3eaa57d55501ae50" prot="public" static="no">
+        <name>BWN_SEGS</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>segments </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1983" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1983" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga3113f254e9f628bc9adb11e4df0e647b" prot="public" static="no">
+        <name>BWN_SEGREGS</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>segment registers </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1984" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1984" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gabb3f753fc19dbb7fba8a7f04327ab59c" prot="public" static="no">
+        <name>BWN_SELS</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>selectors </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1985" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1985" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga3fc497a7c36e4fcae042cad84b2ce52b" prot="public" static="no">
+        <name>BWN_SIGNS</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>signatures </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1986" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1986" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gacba9ef77e1dc81ab76ba6e67c440b532" prot="public" static="no">
+        <name>BWN_TILS</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>type libraries </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1987" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1987" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gac2f2c6a46c6e1b14a9804da087b9414e" prot="public" static="no">
+        <name>BWN_LOCTYPS</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>local types </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1988" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1988" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga2ac8927ce36d7268458d92af5dd170b8" prot="public" static="no">
+        <name>BWN_CALLS</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>function calls </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1989" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1989" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gacd9c6dca8e0523b9c56143143502b2f9" prot="public" static="no">
+        <name>BWN_PROBS</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>problems </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1990" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1990" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga61d1d3ca8ce31c0514df4f9a1e5f881a" prot="public" static="no">
+        <name>BWN_BPTS</name>
+        <initializer>13</initializer>
+        <briefdescription>
+<para>breakpoints </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1991" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1991" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga8928bd6f78cb17f2399052de132eee7b" prot="public" static="no">
+        <name>BWN_THREADS</name>
+        <initializer>14</initializer>
+        <briefdescription>
+<para>threads </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1992" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1992" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga1b2d8d5c61d44c90b4e3197804cb2221" prot="public" static="no">
+        <name>BWN_MODULES</name>
+        <initializer>15</initializer>
+        <briefdescription>
+<para>modules </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1993" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1993" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga1dea7f6cc7de359d7fa3e3e3157428d6" prot="public" static="no">
+        <name>BWN_TRACE</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>trace view </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1994" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1994" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga0c330db82517a02d8039fef692fa3da3" prot="public" static="no">
+        <name>BWN_CALL_STACK</name>
+        <initializer>17</initializer>
+        <briefdescription>
+<para>call stack </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1995" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1995" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gad79a98063f3aeab5ac960f2f166a4584" prot="public" static="no">
+        <name>BWN_XREFS</name>
+        <initializer>18</initializer>
+        <briefdescription>
+<para>xrefs </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1996" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1996" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gac816df26b8277ae3428174581e4c35a6" prot="public" static="no">
+        <name>BWN_SEARCH</name>
+        <initializer>19</initializer>
+        <briefdescription>
+<para>search results </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1997" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1997" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga556f5fe9fc67694bf69e668b475e42a8" prot="public" static="no">
+        <name>BWN_FRAME</name>
+        <initializer>25</initializer>
+        <briefdescription>
+<para>function frame </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1998" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1998" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga05d45e050697c0e13adb13c7190fa625" prot="public" static="no">
+        <name>BWN_NAVBAND</name>
+        <initializer>26</initializer>
+        <briefdescription>
+<para>navigation band </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1999" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1999" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga481d03dc2cc436709bc96aee6a3b688f" prot="public" static="no">
+        <name>BWN_ENUMS</name>
+        <initializer>27</initializer>
+        <briefdescription>
+<para>enumerations </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2000" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2000" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga60c0de72bcd7f4c9c960d2f7cfc57b74" prot="public" static="no">
+        <name>BWN_STRUCTS</name>
+        <initializer>28</initializer>
+        <briefdescription>
+<para>structures </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2001" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2001" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gad74c8462b04c39534b3d2d84397eede8" prot="public" static="no">
+        <name>BWN_DISASM</name>
+        <initializer>29</initializer>
+        <briefdescription>
+<para>disassembly views </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2002" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2002" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gac77b5e691b031a57977ef9b3dae3f651" prot="public" static="no">
+        <name>BWN_DUMP</name>
+        <initializer>30</initializer>
+        <briefdescription>
+<para>hex dumps </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2003" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2003" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga5f700a35e3c92fda1530805969c6705e" prot="public" static="no">
+        <name>BWN_NOTEPAD</name>
+        <initializer>31</initializer>
+        <briefdescription>
+<para>notepad </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2004" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2004" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga4a79cf5216aba67d269fb23ba9c4cabd" prot="public" static="no">
+        <name>BWN_OUTPUT</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>the text area, in the output window </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2005" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2005" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga17aea9cb90e2f7fa0801696a2eea6bdd" prot="public" static="no">
+        <name>BWN_CLI</name>
+        <initializer>33</initializer>
+        <briefdescription>
+<para>the command-line, in the output window </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2006" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2006" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gad52eb8b2ee7da229b337baa9792bfd01" prot="public" static="no">
+        <name>BWN_WATCH</name>
+        <initializer>34</initializer>
+        <briefdescription>
+<para>the &apos;watches&apos; debugger window </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2007" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2007" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga388f8cf4d532826fb0bf635633cdc851" prot="public" static="no">
+        <name>BWN_LOCALS</name>
+        <initializer>35</initializer>
+        <briefdescription>
+<para>the &apos;locals&apos; debugger window </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2008" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2008" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga268df1b930f3a992b543a9f8294e527d" prot="public" static="no">
+        <name>BWN_STKVIEW</name>
+        <initializer>36</initializer>
+        <briefdescription>
+<para>the &apos;Stack view&apos; debugger window </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2009" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2009" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga483ba9ff08fa2acb26854d5e6d60f0e6" prot="public" static="no">
+        <name>BWN_CHOOSER</name>
+        <initializer>37</initializer>
+        <briefdescription>
+<para>a non-builtin chooser </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2010" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2010" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gadec46fb0e87e2f4dce60c64853d0aa09" prot="public" static="no">
+        <name>BWN_SHORTCUTCSR</name>
+        <initializer>38</initializer>
+        <briefdescription>
+<para>the shortcuts chooser (Qt version only) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2011" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2011" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gaba3be18f45cdb9d8429fa06ce4bb5928" prot="public" static="no">
+        <name>BWN_SHORTCUTWIN</name>
+        <initializer>39</initializer>
+        <briefdescription>
+<para>the shortcuts window (Qt version only) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2012" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2012" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gaf9e213904884e602ccc113f364fbe88d" prot="public" static="no">
+        <name>BWN_CPUREGS</name>
+        <initializer>40</initializer>
+        <briefdescription>
+<para>one of the &apos;General registers&apos;, &apos;FPU register&apos;, ... debugger windows </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2013" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2013" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga482553633a14ac0ef230827be3868dc2" prot="public" static="no">
+        <name>BWN_SO_STRUCTS</name>
+        <initializer>41</initializer>
+        <briefdescription>
+<para>the &apos;Structure offsets&apos; dialog&apos;s &apos;Structures and Unions&apos; panel </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2014" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2014" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gafe283123268f8961b3b76dcd518bc07e" prot="public" static="no">
+        <name>BWN_SO_OFFSETS</name>
+        <initializer>42</initializer>
+        <briefdescription>
+<para>the &apos;Structure offsets&apos; dialog&apos;s offset panel </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2015" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2015" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga6b37820f0c88fc2df0c6737a2a144bbf" prot="public" static="no">
+        <name>BWN_CMDPALCSR</name>
+        <initializer>43</initializer>
+        <briefdescription>
+<para>the command palette chooser (Qt version only) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2016" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2016" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gae29f72e60081f5cc5d25fc986108b9b8" prot="public" static="no">
+        <name>BWN_CMDPALWIN</name>
+        <initializer>44</initializer>
+        <briefdescription>
+<para>the command palette window (Qt version only) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2017" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2017" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gac4f1621f8ccee025fb78fe68a37a8db1" prot="public" static="no">
+        <name>BWN_SNIPPETS</name>
+        <initializer>45</initializer>
+        <briefdescription>
+<para>the &apos;Execute script&apos; window </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2018" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2018" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga733e65fce4f79411307eef60c1db724f" prot="public" static="no">
+        <name>BWN_CUSTVIEW</name>
+        <initializer>46</initializer>
+        <briefdescription>
+<para>custom viewers </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2019" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2019" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gabf06a034c540c6ff2b827b77ca3a45d5" prot="public" static="no">
+        <name>BWN_ADDRWATCH</name>
+        <initializer>47</initializer>
+        <briefdescription>
+<para>the &apos;Watch List&apos; window </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2020" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2020" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga24a72c6f92f178eb703414d24093c92c" prot="public" static="no">
+        <name>BWN_PSEUDOCODE</name>
+        <initializer>48</initializer>
+        <briefdescription>
+<para>hexrays decompiler views </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2021" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2021" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga4f2ddbc85244068a0f3e1104123226d4" prot="public" static="no">
+        <name>BWN_CALLS_CALLERS</name>
+        <initializer>49</initializer>
+        <briefdescription>
+<para>function calls, callers </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2022" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2022" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga46aa1856af14ce7ee520e77f454cfd45" prot="public" static="no">
+        <name>BWN_CALLS_CALLEES</name>
+        <initializer>50</initializer>
+        <briefdescription>
+<para>function calls, callees </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2023" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2023" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gae9da7aef1e6e56d8fe8d940e54401291" prot="public" static="no">
+        <name>BWN_MDVIEWCSR</name>
+        <initializer>51</initializer>
+        <briefdescription>
+<para>lumina metadata view chooser </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2024" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2024" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga6397eadc3b490ee9d9f34b0a03f41231" prot="public" static="no">
+        <name>BWN_STACK</name>
+        <initializer><ref refid="group___b_w_n___1ga0c330db82517a02d8039fef692fa3da3" kindref="member">BWN_CALL_STACK</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Alias. Some BWN_* were confusing, and thus have been renamed. This is to ensure bw-compat. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2028" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2028" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1gaf1f7b94dcee441f3e99166f86c44176a" prot="public" static="no">
+        <name>BWN_DISASMS</name>
+        <initializer><ref refid="group___b_w_n___1gad74c8462b04c39534b3d2d84397eede8" kindref="member">BWN_DISASM</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Alias. Some BWN_* were confusing, and thus have been renamed. This is to ensure bw-compat. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2029" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2029" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga64f43690836005e7e1400fe75dfb59ed" prot="public" static="no">
+        <name>BWN_DUMPS</name>
+        <initializer><ref refid="group___b_w_n___1gac77b5e691b031a57977ef9b3dae3f651" kindref="member">BWN_DUMP</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Alias. Some BWN_* were confusing, and thus have been renamed. This is to ensure bw-compat. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2030" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2030" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_w_n___1ga7524c872700e9521f7e751dd9988e1d2" prot="public" static="no">
+        <name>BWN_SEARCHS</name>
+        <initializer><ref refid="group___b_w_n___1gac816df26b8277ae3428174581e4c35a6" kindref="member">BWN_SEARCH</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Alias. Some BWN_* were confusing, and thus have been renamed. This is to ensure bw-compat. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2031" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2031" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>also see <ref refid="group__ui__open__builtin__funcs" kindref="compound">Functions: open built-in windows</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,765 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classcodegen__t" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>codegen_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classcodegen__t_1afc302d6ae1f1ff6db1295b863d19269f" prot="public" static="no" mutable="no">
+        <type><ref refid="classmbl__array__t" kindref="compound">mbl_array_t</ref> *</type>
+        <definition>mbl_array_t* codegen_t::mba</definition>
+        <argsstring></argsstring>
+        <name>mba</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4700" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4700" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcodegen__t_1ad2cb6678a9ddde376729245445b7614c" prot="public" static="no" mutable="no">
+        <type><ref refid="classmblock__t" kindref="compound">mblock_t</ref> *</type>
+        <definition>mblock_t* codegen_t::mb</definition>
+        <argsstring></argsstring>
+        <name>mb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4701" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4701" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcodegen__t_1ae224243aa044b1fb95c8db5cc0b55b94" prot="public" static="no" mutable="no">
+        <type><ref refid="classinsn__t" kindref="compound">insn_t</ref></type>
+        <definition>insn_t codegen_t::insn</definition>
+        <argsstring></argsstring>
+        <name>insn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4702" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4702" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcodegen__t_1a6a703757fde4127e311c7dcda2e94520" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char codegen_t::ignore_micro</definition>
+        <argsstring></argsstring>
+        <name>ignore_micro</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4703" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4703" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classcodegen__t_1af8a75d8d0ae1aa8347dc0aeb86f6fa2e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>codegen_t::codegen_t</definition>
+        <argsstring>(mbl_array_t *m)</argsstring>
+        <name>codegen_t</name>
+        <param>
+          <type><ref refid="classmbl__array__t" kindref="compound">mbl_array_t</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4705" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4705" bodyend="4706"/>
+      </memberdef>
+      <memberdef kind="function" id="classcodegen__t_1a5d4e2a0a9dad4e31d4ae0d9b650909d2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual codegen_t::~codegen_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>~codegen_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4707" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4707" bodyend="4709"/>
+      </memberdef>
+      <memberdef kind="function" id="classcodegen__t_1abc9ccf4a3ca180ddba518aafc4a70664" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="group___m_e_r_r___1ga124713999eb84ddba531f5c2e9eedcab" kindref="member">merror_t</ref> idaapi</type>
+        <definition>virtual merror_t idaapi codegen_t::analyze_prolog</definition>
+        <argsstring>(const class qflow_chart_t &amp;fc, const class bitset_t &amp;reachable)=0</argsstring>
+        <name>analyze_prolog</name>
+        <param>
+          <type>const class <ref refid="classqflow__chart__t" kindref="compound">qflow_chart_t</ref> &amp;</type>
+          <declname>fc</declname>
+        </param>
+        <param>
+          <type>const class <ref refid="classbitset__t" kindref="compound">bitset_t</ref> &amp;</type>
+          <declname>reachable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Analyze prolog/epilog of the function to decompile. If prolog is found, allocate and fill &apos;mba-&gt;pi&apos; structure. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>flow chart </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reachable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>bitmap of reachable blocks </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>error code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4716" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classcodegen__t_1a8fbd995409ba433a914cd448fe8ef714" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="group___m_e_r_r___1ga124713999eb84ddba531f5c2e9eedcab" kindref="member">merror_t</ref> idaapi</type>
+        <definition>virtual merror_t idaapi codegen_t::gen_micro</definition>
+        <argsstring>()=0</argsstring>
+        <name>gen_micro</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Generate microcode for one instruction. The instruction is in INSN <simplesect kind="return"><para>MERR_OK - all ok MERR_BLOCK - all ok, need to switch to new block MERR_BADBLK - delete current block and continue other error codes are fatal </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4726" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classcodegen__t_1abecbca72b3f6f6cd0ecb3a368cec7f69" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>mreg_t idaapi</type>
+        <definition>virtual mreg_t idaapi codegen_t::load_operand</definition>
+        <argsstring>(int opnum)=0</argsstring>
+        <name>load_operand</name>
+        <param>
+          <type>int</type>
+          <declname>opnum</declname>
+        </param>
+        <briefdescription>
+<para>Generate microcode to load one operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4729" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classcodegen__t_1ad501963c92aed3aa049e30c88b89d3f7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="classminsn__t" kindref="compound">minsn_t</ref> *idaapi</type>
+        <definition>virtual minsn_t* idaapi codegen_t::emit_micro_mvm</definition>
+        <argsstring>(mcode_t code, op_dtype_t dtype, uval_t l, uval_t r, uval_t d, int offsize)</argsstring>
+        <name>emit_micro_mvm</name>
+        <param>
+          <type>mcode_t</type>
+          <declname>code</declname>
+        </param>
+        <param>
+          <type>op_dtype_t</type>
+          <declname>dtype</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>l</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Emit one microinstruction. See explanations for <ref refid="classcodegen__t_1ad5dcc73ffefa3da0bd33b38eaf04e314" kindref="member">emit()</ref>. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4733" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4733" bodyend="4742"/>
+      </memberdef>
+      <memberdef kind="function" id="classcodegen__t_1ad5dcc73ffefa3da0bd33b38eaf04e314" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classminsn__t" kindref="compound">minsn_t</ref> *hexapi</type>
+        <definition>minsn_t * codegen_t::emit</definition>
+        <argsstring>(mcode_t code, int width, uval_t l, uval_t r, uval_t d, int offsize)</argsstring>
+        <name>emit</name>
+        <param>
+          <type>mcode_t</type>
+          <declname>code</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>l</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Emit one microinstruction. The L, R, D arguments usually mean the register number. However, they depend on CODE. For example:<itemizedlist>
+<listitem><para>for m_goto and m_jcnd L is the target address</para></listitem><listitem><para>for m_ldc L is the constant value to load <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>code</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>instruction opcode </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>operand size in bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>l</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>left operand </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>r</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>right operand </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>d</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>destination operand </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for ldx/stx, the size of the offset operand. for ldc, operand number of the constant value </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>created microinstruction. can be NULL if the instruction got immediately optimized away. </para></simplesect>
+</para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4758" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10565" bodyend="10568"/>
+      </memberdef>
+      <memberdef kind="function" id="classcodegen__t_1a44917839cafff9a370ba14d5721e323e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classminsn__t" kindref="compound">minsn_t</ref> *hexapi</type>
+        <definition>minsn_t * codegen_t::emit</definition>
+        <argsstring>(mcode_t code, const mop_t *l, const mop_t *r, const mop_t *d)</argsstring>
+        <name>emit</name>
+        <param>
+          <type>mcode_t</type>
+          <declname>code</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classmop__t" kindref="compound">mop_t</ref> *</type>
+          <declname>l</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classmop__t" kindref="compound">mop_t</ref> *</type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classmop__t" kindref="compound">mop_t</ref> *</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Emit one microinstruction. This variant accepts pointers to operands. It is more difficult to use but permits to create virtually any instruction. Operands may be NULL when it makes sense. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4764" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10571" bodyend="10574"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Helper class to generate the initial microcode. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1105">
+        <label>ivl_tpl&lt; uval_t &gt;</label>
+        <link refid="structivl__tpl"/>
+      </node>
+      <node id="1079">
+        <label>bitset_t</label>
+        <link refid="classbitset__t"/>
+      </node>
+      <node id="1077">
+        <label>mlist_t</label>
+        <link refid="structmlist__t"/>
+        <childnode refid="1074" relation="usage">
+          <edgelabel>mem</edgelabel>
+        </childnode>
+        <childnode refid="1078" relation="usage">
+          <edgelabel>reg</edgelabel>
+        </childnode>
+      </node>
+      <node id="1103">
+        <label>ivl_with_name_t</label>
+        <link refid="structivl__with__name__t"/>
+        <childnode refid="1104" relation="usage">
+          <edgelabel>ivl</edgelabel>
+        </childnode>
+      </node>
+      <node id="1091">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="1093">
+        <label>mop_addr_t</label>
+        <link refid="classmop__addr__t"/>
+        <childnode refid="1084" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1115">
+        <label>netnode</label>
+        <link refid="classnetnode"/>
+      </node>
+      <node id="1097">
+        <label>qvector&lt; mop_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1074">
+        <label>ivlset_t</label>
+        <link refid="structivlset__t"/>
+        <childnode refid="1075" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1082">
+        <label>mblock_t</label>
+        <link refid="classmblock__t"/>
+        <childnode refid="1070" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="1077" relation="usage">
+          <edgelabel>maybuse</edgelabel>
+          <edgelabel>dnu</edgelabel>
+          <edgelabel>maybdef</edgelabel>
+          <edgelabel>mustbuse</edgelabel>
+          <edgelabel>mustbdef</edgelabel>
+          <edgelabel>dead_at_start</edgelabel>
+        </childnode>
+        <childnode refid="1080" relation="usage">
+          <edgelabel>succset</edgelabel>
+          <edgelabel>predset</edgelabel>
+        </childnode>
+        <childnode refid="1083" relation="usage">
+          <edgelabel>head</edgelabel>
+          <edgelabel>tail</edgelabel>
+        </childnode>
+        <childnode refid="1082" relation="usage">
+          <edgelabel>nextb</edgelabel>
+          <edgelabel>prevb</edgelabel>
+        </childnode>
+      </node>
+      <node id="1114">
+        <label>rangevec_base_t</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1100">
+        <label>operand_locator_t</label>
+        <link refid="structoperand__locator__t"/>
+      </node>
+      <node id="1076">
+        <label>qvector&lt; ivl_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1101">
+        <label>mcases_t</label>
+        <link refid="classmcases__t"/>
+        <childnode refid="1080" relation="usage">
+          <edgelabel>targets</edgelabel>
+        </childnode>
+      </node>
+      <node id="1096">
+        <label>qvector&lt; mcallarg_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1107">
+        <label>func_t</label>
+        <link refid="classfunc__t"/>
+        <childnode refid="1108" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1109" relation="usage">
+          <edgelabel>regargs</edgelabel>
+        </childnode>
+        <childnode refid="1110" relation="usage">
+          <edgelabel>points</edgelabel>
+        </childnode>
+        <childnode refid="1108" relation="usage">
+          <edgelabel>tails</edgelabel>
+        </childnode>
+        <childnode refid="1111" relation="usage">
+          <edgelabel>regvars</edgelabel>
+        </childnode>
+        <childnode refid="1112" relation="usage">
+          <edgelabel>llabels</edgelabel>
+        </childnode>
+      </node>
+      <node id="1084">
+        <label>mop_t</label>
+        <link refid="classmop__t"/>
+        <childnode refid="1085" relation="usage">
+          <edgelabel>scif</edgelabel>
+        </childnode>
+        <childnode refid="1092" relation="usage">
+          <edgelabel>fpc</edgelabel>
+        </childnode>
+        <childnode refid="1093" relation="usage">
+          <edgelabel>a</edgelabel>
+        </childnode>
+        <childnode refid="1094" relation="usage">
+          <edgelabel>pair</edgelabel>
+        </childnode>
+        <childnode refid="1095" relation="usage">
+          <edgelabel>f</edgelabel>
+        </childnode>
+        <childnode refid="1083" relation="usage">
+          <edgelabel>d</edgelabel>
+        </childnode>
+        <childnode refid="1098" relation="usage">
+          <edgelabel>l</edgelabel>
+        </childnode>
+        <childnode refid="1099" relation="usage">
+          <edgelabel>nnn</edgelabel>
+        </childnode>
+        <childnode refid="1101" relation="usage">
+          <edgelabel>c</edgelabel>
+        </childnode>
+        <childnode refid="1102" relation="usage">
+          <edgelabel>s</edgelabel>
+        </childnode>
+      </node>
+      <node id="1117">
+        <label>insn_t</label>
+        <link refid="classinsn__t"/>
+        <childnode refid="1118" relation="usage">
+          <edgelabel>ops</edgelabel>
+        </childnode>
+      </node>
+      <node id="1094">
+        <label>mop_pair_t</label>
+        <link refid="classmop__pair__t"/>
+        <childnode refid="1084" relation="usage">
+          <edgelabel>hop</edgelabel>
+          <edgelabel>lop</edgelabel>
+        </childnode>
+      </node>
+      <node id="1109">
+        <label>regarg_t</label>
+        <link refid="structregarg__t"/>
+      </node>
+      <node id="1092">
+        <label>fnumber_t</label>
+        <link refid="structfnumber__t"/>
+      </node>
+      <node id="1070">
+        <label>mbl_array_t</label>
+        <link refid="classmbl__array__t"/>
+        <childnode refid="1071" relation="usage">
+          <edgelabel>vars</edgelabel>
+        </childnode>
+        <childnode refid="1073" relation="usage">
+          <edgelabel>label</edgelabel>
+          <edgelabel>error_strarg</edgelabel>
+        </childnode>
+        <childnode refid="1074" relation="usage">
+          <edgelabel>gotoff_stkvars</edgelabel>
+          <edgelabel>restricted_memory</edgelabel>
+          <edgelabel>aliased_memory</edgelabel>
+        </childnode>
+        <childnode refid="1077" relation="usage">
+          <edgelabel>spoiled_list</edgelabel>
+          <edgelabel>nodel_memory</edgelabel>
+        </childnode>
+        <childnode refid="1080" relation="usage">
+          <edgelabel>argidx</edgelabel>
+        </childnode>
+        <childnode refid="1081" relation="usage">
+          <edgelabel>idb_spoiled</edgelabel>
+        </childnode>
+        <childnode refid="1082" relation="usage">
+          <edgelabel>blocks</edgelabel>
+          <edgelabel>natural</edgelabel>
+        </childnode>
+        <childnode refid="1078" relation="usage">
+          <edgelabel>consumed_argregs</edgelabel>
+        </childnode>
+        <childnode refid="1103" relation="usage">
+          <edgelabel>std_ivls</edgelabel>
+        </childnode>
+        <childnode refid="1091" relation="usage">
+          <edgelabel>idb_type</edgelabel>
+        </childnode>
+        <childnode refid="1106" relation="usage">
+          <edgelabel>mbr</edgelabel>
+        </childnode>
+        <childnode refid="1115" relation="usage">
+          <edgelabel>idb_node</edgelabel>
+        </childnode>
+        <childnode refid="1116" relation="usage">
+          <edgelabel>notes</edgelabel>
+        </childnode>
+        <childnode refid="1104" relation="usage">
+          <edgelabel>aliased_args</edgelabel>
+          <edgelabel>aliased_vars</edgelabel>
+        </childnode>
+      </node>
+      <node id="1095">
+        <label>mcallinfo_t</label>
+        <link refid="classmcallinfo__t"/>
+        <childnode refid="1074" relation="usage">
+          <edgelabel>visible_memory</edgelabel>
+        </childnode>
+        <childnode refid="1077" relation="usage">
+          <edgelabel>pass_regs</edgelabel>
+          <edgelabel>spoiled</edgelabel>
+          <edgelabel>dead_regs</edgelabel>
+          <edgelabel>return_regs</edgelabel>
+        </childnode>
+        <childnode refid="1096" relation="usage">
+          <edgelabel>args</edgelabel>
+        </childnode>
+        <childnode refid="1091" relation="usage">
+          <edgelabel>return_type</edgelabel>
+        </childnode>
+        <childnode refid="1097" relation="usage">
+          <edgelabel>retregs</edgelabel>
+        </childnode>
+        <childnode refid="1087" relation="usage">
+          <edgelabel>return_argloc</edgelabel>
+        </childnode>
+      </node>
+      <node id="1106">
+        <label>mba_ranges_t</label>
+        <link refid="structmba__ranges__t"/>
+        <childnode refid="1107" relation="usage">
+          <edgelabel>pfn</edgelabel>
+        </childnode>
+        <childnode refid="1113" relation="usage">
+          <edgelabel>ranges</edgelabel>
+        </childnode>
+      </node>
+      <node id="1075">
+        <label>ivlset_tpl&lt; ivl_t, uval_t &gt;</label>
+        <link refid="classivlset__tpl"/>
+        <childnode refid="1076" relation="usage">
+          <edgelabel>bag</edgelabel>
+        </childnode>
+      </node>
+      <node id="1085">
+        <label>scif_t</label>
+        <link refid="structscif__t"/>
+        <childnode refid="1086" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1070" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="1073" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="1091" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+      </node>
+      <node id="1080">
+        <label>qvector&lt; int &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1118">
+        <label>op_t</label>
+        <link refid="classop__t"/>
+      </node>
+      <node id="1110">
+        <label>stkpnt_t</label>
+        <link refid="structstkpnt__t"/>
+      </node>
+      <node id="1073">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="1083">
+        <label>minsn_t</label>
+        <link refid="classminsn__t"/>
+        <childnode refid="1083" relation="usage">
+          <edgelabel>prev</edgelabel>
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="1084" relation="usage">
+          <edgelabel>l</edgelabel>
+          <edgelabel>r</edgelabel>
+          <edgelabel>d</edgelabel>
+        </childnode>
+      </node>
+      <node id="1088">
+        <label>scattered_aloc_t</label>
+        <link refid="classscattered__aloc__t"/>
+        <childnode refid="1089" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1089">
+        <label>qvector&lt; argpart_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1108">
+        <label>range_t</label>
+        <link refid="structrange__t"/>
+      </node>
+      <node id="1086">
+        <label>vdloc_t</label>
+        <link refid="classvdloc__t"/>
+        <childnode refid="1087" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1111">
+        <label>regvar_t</label>
+        <link refid="structregvar__t"/>
+        <childnode refid="1108" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1116">
+        <label>qvector&lt; hexwarn_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1099">
+        <label>mnumber_t</label>
+        <link refid="structmnumber__t"/>
+        <childnode refid="1100" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1071">
+        <label>lvars_t</label>
+        <link refid="structlvars__t"/>
+        <childnode refid="1072" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1087">
+        <label>argloc_t</label>
+        <link refid="classargloc__t"/>
+        <childnode refid="1088" relation="usage">
+          <edgelabel>dist</edgelabel>
+        </childnode>
+        <childnode refid="1090" relation="usage">
+          <edgelabel>rrel</edgelabel>
+        </childnode>
+      </node>
+      <node id="1112">
+        <label>llabel_t</label>
+        <link refid="structllabel__t"/>
+      </node>
+      <node id="1098">
+        <label>lvar_ref_t</label>
+        <link refid="structlvar__ref__t"/>
+        <childnode refid="1070" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="1072">
+        <label>qvector&lt; lvar_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1102">
+        <label>stkvar_ref_t</label>
+        <link refid="structstkvar__ref__t"/>
+        <childnode refid="1070" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="1081">
+        <label>qvector&lt; reg_info_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1090">
+        <label>rrel_t</label>
+        <link refid="structrrel__t"/>
+      </node>
+      <node id="1069">
+        <label>codegen_t</label>
+        <link refid="classcodegen__t"/>
+        <childnode refid="1070" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="1117" relation="usage">
+          <edgelabel>insn</edgelabel>
+        </childnode>
+        <childnode refid="1082" relation="usage">
+          <edgelabel>mb</edgelabel>
+        </childnode>
+      </node>
+      <node id="1078">
+        <label>rlist_t</label>
+        <link refid="classrlist__t"/>
+        <childnode refid="1079" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1104">
+        <label>ivl_t</label>
+        <link refid="structivl__t"/>
+        <childnode refid="1105" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1104" relation="usage">
+          <edgelabel>allmem</edgelabel>
+        </childnode>
+      </node>
+      <node id="1113">
+        <label>rangevec_t</label>
+        <link refid="structrangevec__t"/>
+        <childnode refid="1114" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4698" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4697" bodyend="4766"/>
+    <listofallmembers>
+      <member refid="classcodegen__t_1abc9ccf4a3ca180ddba518aafc4a70664" prot="public" virt="pure-virtual"><scope>codegen_t</scope><name>analyze_prolog</name></member>
+      <member refid="classcodegen__t_1af8a75d8d0ae1aa8347dc0aeb86f6fa2e" prot="public" virt="non-virtual"><scope>codegen_t</scope><name>codegen_t</name></member>
+      <member refid="classcodegen__t_1ad5dcc73ffefa3da0bd33b38eaf04e314" prot="public" virt="non-virtual"><scope>codegen_t</scope><name>emit</name></member>
+      <member refid="classcodegen__t_1a44917839cafff9a370ba14d5721e323e" prot="public" virt="non-virtual"><scope>codegen_t</scope><name>emit</name></member>
+      <member refid="classcodegen__t_1ad501963c92aed3aa049e30c88b89d3f7" prot="public" virt="virtual"><scope>codegen_t</scope><name>emit_micro_mvm</name></member>
+      <member refid="classcodegen__t_1a8fbd995409ba433a914cd448fe8ef714" prot="public" virt="pure-virtual"><scope>codegen_t</scope><name>gen_micro</name></member>
+      <member refid="classcodegen__t_1a6a703757fde4127e311c7dcda2e94520" prot="public" virt="non-virtual"><scope>codegen_t</scope><name>ignore_micro</name></member>
+      <member refid="classcodegen__t_1ae224243aa044b1fb95c8db5cc0b55b94" prot="public" virt="non-virtual"><scope>codegen_t</scope><name>insn</name></member>
+      <member refid="classcodegen__t_1abecbca72b3f6f6cd0ecb3a368cec7f69" prot="public" virt="pure-virtual"><scope>codegen_t</scope><name>load_operand</name></member>
+      <member refid="classcodegen__t_1ad2cb6678a9ddde376729245445b7614c" prot="public" virt="non-virtual"><scope>codegen_t</scope><name>mb</name></member>
+      <member refid="classcodegen__t_1afc302d6ae1f1ff6db1295b863d19269f" prot="public" virt="non-virtual"><scope>codegen_t</scope><name>mba</name></member>
+      <member refid="classcodegen__t_1a5d4e2a0a9dad4e31d4ae0d9b650909d2" prot="public" virt="virtual"><scope>codegen_t</scope><name>~codegen_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,244 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_f__" kind="group">
+    <compoundname>CF_</compoundname>
+    <title>Instruction feature bits</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___c_f___1ga1d6543d4600a0d208f6b4c466a2394b0" prot="public" static="no">
+        <name>CF_STOP</name>
+        <initializer>0x00001</initializer>
+        <briefdescription>
+<para>next instruction </para>        </briefdescription>
+        <detaileddescription>
+<para>Instruction doesn&apos;t pass execution to the </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="63" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1ga1629b52b2450f8665eb71648e377d3fe" prot="public" static="no">
+        <name>CF_CALL</name>
+        <initializer>0x00002</initializer>
+        <briefdescription>
+<para>CALL instruction (should make a procedure here) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="65" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1gaa0473eca46d640d94212f378c7988f68" prot="public" static="no">
+        <name>CF_CHG1</name>
+        <initializer>0x00004</initializer>
+        <briefdescription>
+<para>The instruction modifies the first operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="66" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1gaedfa5241b0024453e3eb0f8e48645667" prot="public" static="no">
+        <name>CF_CHG2</name>
+        <initializer>0x00008</initializer>
+        <briefdescription>
+<para>The instruction modifies the second operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="67" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1ga0aade4b83f5c48411d0767d4c299a699" prot="public" static="no">
+        <name>CF_CHG3</name>
+        <initializer>0x00010</initializer>
+        <briefdescription>
+<para>The instruction modifies the third operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="68" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1gabf64c54459932fb0f131303516884401" prot="public" static="no">
+        <name>CF_CHG4</name>
+        <initializer>0x00020</initializer>
+        <briefdescription>
+<para>The instruction modifies 4 operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="69" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1ga9681cb84e3b334d900a2c2f1c497533f" prot="public" static="no">
+        <name>CF_CHG5</name>
+        <initializer>0x00040</initializer>
+        <briefdescription>
+<para>The instruction modifies 5 operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="70" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1gaaba6f7c37994358283af54fc3467b1e9" prot="public" static="no">
+        <name>CF_CHG6</name>
+        <initializer>0x00080</initializer>
+        <briefdescription>
+<para>The instruction modifies 6 operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="71" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1gac8eb94b87477ea6e5b98c32c911e96b0" prot="public" static="no">
+        <name>CF_USE1</name>
+        <initializer>0x00100</initializer>
+        <briefdescription>
+<para>The instruction uses value of the first operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="72" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1gad583aa7ea6018590706dcb3d9a6c36c8" prot="public" static="no">
+        <name>CF_USE2</name>
+        <initializer>0x00200</initializer>
+        <briefdescription>
+<para>The instruction uses value of the second operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="73" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1gaf368f97ba9028af8de9c17357b83411b" prot="public" static="no">
+        <name>CF_USE3</name>
+        <initializer>0x00400</initializer>
+        <briefdescription>
+<para>The instruction uses value of the third operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="74" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1ga8864275efe42cf68cef15ccc40dadbac" prot="public" static="no">
+        <name>CF_USE4</name>
+        <initializer>0x00800</initializer>
+        <briefdescription>
+<para>The instruction uses value of the 4 operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="75" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1ga34bc121252c0356520cf786f7a7f5a8a" prot="public" static="no">
+        <name>CF_USE5</name>
+        <initializer>0x01000</initializer>
+        <briefdescription>
+<para>The instruction uses value of the 5 operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="76" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1ga2e0803341bfaa5ca8218dab44f0a8422" prot="public" static="no">
+        <name>CF_USE6</name>
+        <initializer>0x02000</initializer>
+        <briefdescription>
+<para>The instruction uses value of the 6 operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="77" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1gafd76ed40dfacb78082bc6f5683375379" prot="public" static="no">
+        <name>CF_JUMP</name>
+        <initializer>0x04000</initializer>
+        <briefdescription>
+<para>jump or call (thus needs additional analysis) </para>        </briefdescription>
+        <detaileddescription>
+<para>The instruction passes execution using indirect </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="78" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1ga61c38cff266cc3b1855f46045b1d812a" prot="public" static="no">
+        <name>CF_SHFT</name>
+        <initializer>0x08000</initializer>
+        <briefdescription>
+<para>Bit-shift instruction (shl,shr...) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="80" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1ga5afe6b1c045008da7c9fd81c7701a921" prot="public" static="no">
+        <name>CF_HLL</name>
+        <initializer>0x10000</initializer>
+        <briefdescription>
+<para>language function. </para>        </briefdescription>
+        <detaileddescription>
+<para>Instruction may be present in a high level </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="81" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1gacee1bd453003d8d7d65cc1581cce622b" prot="public" static="no">
+        <name>CF_CHG7</name>
+        <initializer>0x020000</initializer>
+        <briefdescription>
+<para>The instruction modifies the 7th operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="83" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1gaf521ab2319749e2db6904338a59a7348" prot="public" static="no">
+        <name>CF_CHG8</name>
+        <initializer>0x040000</initializer>
+        <briefdescription>
+<para>The instruction modifies the 8th operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="84" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1ga347b80bf083d45df03a3ba7444ec70f0" prot="public" static="no">
+        <name>CF_USE7</name>
+        <initializer>0x080000</initializer>
+        <briefdescription>
+<para>The instruction uses value of the 7th operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="85" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_f___1gab53e36c99f69e7c9de95a2c4379821f4" prot="public" static="no">
+        <name>CF_USE8</name>
+        <initializer>0x100000</initializer>
+        <briefdescription>
+<para>The instruction uses value of the 8th operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="86" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="structinstruc__t_1a6fc6925bdc9bbca7b8c54ec2c5333810" kindref="member">instruc_t::feature</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

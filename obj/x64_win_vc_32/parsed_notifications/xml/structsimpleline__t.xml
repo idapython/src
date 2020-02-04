@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structsimpleline__t" kind="struct" language="C++" prot="public">
+    <compoundname>simpleline_t</compoundname>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structsimpleline__t_1a681b2e2e36ee467e354bcf33d1521083" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring simpleline_t::line</definition>
+        <argsstring></argsstring>
+        <name>line</name>
+        <briefdescription>
+<para>line text </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1473" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1473" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsimpleline__t_1a937e1a0f68ab1a30cca8056aa1fe7452" prot="public" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>color_t simpleline_t::color</definition>
+        <argsstring></argsstring>
+        <name>color</name>
+        <briefdescription>
+<para>line prefix color </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1474" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1474" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsimpleline__t_1a3abafcfd06dca7d0c7d7317cc6ed9383" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a3df5040891132e50157aee66affdf1de" kindref="member">bgcolor_t</ref></type>
+        <definition>bgcolor_t simpleline_t::bgcolor</definition>
+        <argsstring></argsstring>
+        <name>bgcolor</name>
+        <briefdescription>
+<para>line background color </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1475" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1475" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structsimpleline__t_1a06e5a629ff0d7582f5d7a20c3fda333a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>simpleline_t::simpleline_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>simpleline_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Constructor (default colors) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1476" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1476" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structsimpleline__t_1a3a89a208888d14968839f784d3a4f511" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>simpleline_t::simpleline_t</definition>
+        <argsstring>(color_t c, const char *str)</argsstring>
+        <name>simpleline_t</name>
+        <param>
+          <type><ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1477" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1477" bodyend="1476"/>
+      </memberdef>
+      <memberdef kind="function" id="structsimpleline__t_1a74e215a22c3215c9968de6c0095e4182" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>simpleline_t::simpleline_t</definition>
+        <argsstring>(const char *str)</argsstring>
+        <name>simpleline_t</name>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1478" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1478" bodyend="1477"/>
+      </memberdef>
+      <memberdef kind="function" id="structsimpleline__t_1a2434c82c909b35867669b5f4e7f27e3c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>simpleline_t::simpleline_t</definition>
+        <argsstring>(const qstring &amp;str)</argsstring>
+        <name>simpleline_t</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> &amp;</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1479" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1479" bodyend="1478"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Maintain basic information for a line in a custom view. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3314">
+        <label>simpleline_t</label>
+        <link refid="structsimpleline__t"/>
+        <childnode refid="3315" relation="usage">
+          <edgelabel>line</edgelabel>
+        </childnode>
+      </node>
+      <node id="3315">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1472" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1471" bodyend="1481"/>
+    <listofallmembers>
+      <member refid="structsimpleline__t_1a3abafcfd06dca7d0c7d7317cc6ed9383" prot="public" virt="non-virtual"><scope>simpleline_t</scope><name>bgcolor</name></member>
+      <member refid="structsimpleline__t_1a937e1a0f68ab1a30cca8056aa1fe7452" prot="public" virt="non-virtual"><scope>simpleline_t</scope><name>color</name></member>
+      <member refid="structsimpleline__t_1a681b2e2e36ee467e354bcf33d1521083" prot="public" virt="non-virtual"><scope>simpleline_t</scope><name>line</name></member>
+      <member refid="structsimpleline__t_1a06e5a629ff0d7582f5d7a20c3fda333a" prot="public" virt="non-virtual"><scope>simpleline_t</scope><name>simpleline_t</name></member>
+      <member refid="structsimpleline__t_1a3a89a208888d14968839f784d3a4f511" prot="public" virt="non-virtual"><scope>simpleline_t</scope><name>simpleline_t</name></member>
+      <member refid="structsimpleline__t_1a74e215a22c3215c9968de6c0095e4182" prot="public" virt="non-virtual"><scope>simpleline_t</scope><name>simpleline_t</name></member>
+      <member refid="structsimpleline__t_1a2434c82c909b35867669b5f4e7f27e3c" prot="public" virt="non-virtual"><scope>simpleline_t</scope><name>simpleline_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

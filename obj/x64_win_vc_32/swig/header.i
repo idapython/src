@@ -1,0 +1,1152 @@
+%{
+#ifndef USE_DANGEROUS_FUNCTIONS
+  #define USE_DANGEROUS_FUNCTIONS 1
+#endif
+#include <pro.h>
+%}
+
+// Auto-inserted header
+// generate directors for all classes that have virtual methods
+%feature("director");
+// exceptions
+%feature("nodirector") enumplace_t;
+%feature("nodirector") generic_linput64_t;
+%feature("nodirector") generic_linput_t;
+%feature("nodirector") place_t;
+%feature("nodirector") idaplace_t;
+%feature("nodirector") qrefcnt_obj_t;
+%feature("nodirector") qstring_printer_t;
+%feature("nodirector") simpleline_place_t;
+%feature("nodirector") structplace_t;
+%feature("nodirector") vc_printer_t;
+%feature("nodirector") vd_printer_t;
+%feature("nodirector") qflow_chart_t;
+%feature("nodirector") lowertype_helper_t;
+%feature("nodirector") ida_lowertype_helper_t;
+%warnfilter(473) user_lvar_visitor_t::get_info_mapping_for_saving; // Returning a pointer or reference in a director method is not recommended
+// * http://swig.10945.n7.nabble.com/How-to-release-Python-GIL-td5027.html
+// * http://stackoverflow.com/questions/1576737/releasing-python-gil-in-c-code
+// * http://matt.eifelle.com/2007/11/23/enabling-thread-support-in-swig-and-python/
+%nothread; // We don't want SWIG to release the GIL for *every* IDA API call.
+// Suppress 'previous definition of XX' warnings
+#pragma SWIG nowarn=302
+// and others...
+#pragma SWIG nowarn=312
+#pragma SWIG nowarn=325
+#pragma SWIG nowarn=314
+#pragma SWIG nowarn=362
+#pragma SWIG nowarn=383
+#pragma SWIG nowarn=389
+#pragma SWIG nowarn=401
+#pragma SWIG nowarn=451
+#pragma SWIG nowarn=454 // Setting a pointer/reference variable may leak memory
+#pragma SWIG nowarn=514 // Director base class 'x' has no virtual destructor.
+
+// Do not create separate wrappers for default arguments
+%feature("compactdefaultargs");
+
+%ignore qvector::at(size_t);
+%ignore qvector::front;
+%ignore qvector::back;
+
+%define %uncomparable_elements_qvector(ELEMENT_TYPE, VECTOR_TYPE)
+%ignore qvector<ELEMENT_TYPE>::operator==;
+%ignore qvector<ELEMENT_TYPE>::operator!=;
+%ignore qvector<ELEMENT_TYPE>::find;
+%ignore qvector<ELEMENT_TYPE>::has;
+%ignore qvector<ELEMENT_TYPE>::del;
+%ignore qvector<ELEMENT_TYPE>::add_unique;
+%template(VECTOR_TYPE) qvector<ELEMENT_TYPE>;
+%enddef
+
+%ignore wchar2char;
+%ignore hit_counter_t;
+%ignore reg_hit_counter;
+%ignore create_hit_counter;
+%ignore hit_counter_timer;
+%ignore print_all_counters;
+%ignore incrementer_t;
+%ignore reloc_info_t; // swig under mac chokes on this
+%ignore qmutex_create;
+%ignore qiterator;
+%ignore qmutex_free;
+%ignore qmutex_lock;
+%ignore qmutex_t;
+%ignore qmutex_unlock;
+%ignore qsem_create;
+%ignore qsem_free;
+%ignore qsem_post;
+%ignore qsem_wait;
+%ignore qsemaphore_t;
+%ignore qthread_cb_t;
+%ignore qthread_create;
+%ignore qthread_free;
+%ignore qthread_join;
+%ignore qthread_kill;
+%ignore qthread_self;
+%ignore qthread_same;
+%ignore qthread_t;
+%ignore qhandle_t;
+%ignore qpipe_create;
+%ignore qpipe_read;
+%ignore qpipe_write;
+%ignore qpipe_close;
+%ignore qstrlen;
+%ignore qstrcmp;
+%ignore qstrstr;
+%ignore qstrchr;
+%ignore qstrrchr;
+%ignore bytevec_t;
+%ignore qstrvec_t;
+%ignore reloc_info_t;
+%ignore relobj_t;
+%ignore wchar2char;
+%ignore u2cstr;
+%ignore c2ustr;
+%ignore base64_encode;
+%ignore base64_decode;
+%ignore replace_tabs;
+%ignore utf8_unicode;
+%ignore unicode_utf8;
+%ignore win_utf2idb;
+%ignore char2oem;
+%ignore oem2char;
+%ignore set_codepages;
+%ignore get_codepages;
+%ignore convert_codepage;
+%ignore test_bit;
+%ignore set_bit;
+%ignore clear_bit;
+%ignore set_all_bits;
+%ignore clear_all_bits;
+%ignore interval::overlap;
+%ignore interval::includes;
+%ignore interval::contains;
+%ignore qrotl;
+%ignore qrotr;
+%ignore setflag;
+%ignore read2bytes;
+%ignore rotate_left;
+//%ignore qswap;
+%ignore swap32;
+%ignore swap16;
+%ignore swap_value;
+%ignore qalloc_or_throw;
+%ignore qrealloc_or_throw;
+%ignore get_buffer_for_sysdir;
+%ignore get_buffer_for_winerr;
+%ignore call_atexits;
+%ignore launch_process_params_t;
+%ignore launch_process;
+%ignore term_process;
+%ignore get_process_exit_code;
+%ignore BELOW_NORMAL_PRIORITY_CLASS;
+%ignore parse_command_line;
+%ignore parse_command_line2;
+%ignore parse_command_line3;
+%rename (parse_command_line3) py_parse_command_line;
+%ignore qgetenv;
+%ignore qsetenv;
+%ignore qctime;
+%ignore qlocaltime;
+%ignore qstrftime;
+%ignore qstrftime64;
+%ignore qstrtok;
+%ignore qstrlwr;
+%ignore qstrupr;
+
+// Do not move this. We need to override the define from pro.h
+#define CASSERT(type)
+
+// If the module is 'pro', don't import pro.h, or the %include
+// at the beginning of pro.i won't have any effect. Same for all
+// modules.
+#if defined(IDA_MODULE_PRO)
+// nothing; has to be handled in pro.i
+#else
+  #ifndef HAS_DEP_ON_INTERFACE_PRO
+  %import "pro.h"
+  #endif
+
+  #ifndef HAS_DEP_ON_INTERFACE_IDA
+  %import "ida.hpp"
+  #endif
+
+  #ifndef HAS_DEP_ON_INTERFACE_XREF
+  %import "xref.hpp"
+  #endif
+
+  #ifndef HAS_DEP_ON_INTERFACE_TYPEINF
+  %import "typeinf.hpp"
+  #endif
+
+  #ifndef HAS_DEP_ON_INTERFACE_ENUM
+  %import "enum.hpp"
+  #endif
+
+  #ifndef HAS_DEP_ON_INTERFACE_NETNODE
+  %import "netnode.hpp"
+  #endif
+
+  #ifndef HAS_DEP_ON_INTERFACE_RANGE
+  %import "range.hpp"
+  #endif
+
+  #ifndef HAS_DEP_ON_INTERFACE_LINES
+  %import "lines.hpp"
+  #endif
+
+  #ifndef HAS_DEP_ON_INTERFACE_KERNWIN
+  %import "kernwin.hpp"
+  #endif
+
+  #ifndef HAS_DEP_ON_INTERFACE_BYTES
+  %import "bytes.hpp"
+  #endif
+
+  #ifndef HAS_DEP_ON_INTERFACE_AUTO
+  %import "auto.hpp"
+  #endif
+
+  #ifndef HAS_DEP_ON_INTERFACE_NALT
+  %import "nalt.hpp"
+  #endif
+
+#endif
+
+%pythoncode {
+import ida_idaapi
+}
+
+#ifdef BC695
+%pythoncode {
+import sys
+_BC695 = sys.modules["__main__"].IDAPYTHON_COMPAT_695_API
+
+if _BC695:
+    # This is a helper for replacing an existing function, with a wrapper
+    # providing backwards-compatibility for API 6.95 -- typically because
+    # the number/types of arguments changed, while the function name itself
+    # remained the same in 7.0.
+    # (Note that this shouldn't be used for functions that don't exist
+    # in the vanilla 7.0 API, such as 'choose_named_type2'.)
+    def bc695redef(func):
+        ida_idaapi._BC695.replace_fun(func)
+        return func
+}
+#endif // BC695
+
+//---------------------------------------------------------------------
+%extend qvector {
+  inline size_t __len__() const { return $self->size(); }
+
+  // The fact that we are returning a const version of a reference to the
+  // type is what allows SWIG to generate a wrapper for this method, that
+  // will build an proper object (int, unsigned int, ...) instead
+  // of a pointer. Remove the 'const', and you'll see that, in
+  // SWIGINTERN PyObject *_wrap_uvalvec_t___getitem__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  // it will produce this:
+  //    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_unsigned_int, 0 |  0 );
+  // instead of that:
+  //    resultobj = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(*result));
+  inline const T& __getitem__(size_t i) const {
+    if (i >= $self->size() || i < 0)
+      throw std::out_of_range("out of bounds access");
+    return $self->at(i);
+  }
+
+  inline void __setitem__(size_t i, const T& v) {
+    if (i >= $self->size() || i < 0)
+      throw std::out_of_range("out of bounds access");
+    $self->at(i) = v;
+  }
+
+  inline const T &at(size_t i) {
+    return __getitem__(i);
+  }
+
+  %pythoncode {
+    front = ida_idaapi._qvector_front
+    back = ida_idaapi._qvector_back
+    __iter__ = ida_idaapi._bounded_getitem_iterator
+  }
+}
+
+%{
+static void __raise_ba(const std::bad_alloc &ba)
+{
+  PyErr_SetString(PyExc_MemoryError, "Out of memory (bad_alloc)");
+}
+
+static void __raise_u()
+{
+  PyErr_SetString(PyExc_RuntimeError, "Unknown exception");
+}
+
+static void __raise_e(const std::exception &e)
+{
+  const char *what = e.what();
+  if ( what == NULL || what[0] == '\0' )
+  {
+    __raise_u();
+  }
+  else
+  {
+    PyErr_SetString(PyExc_RuntimeError, what);
+  }
+}
+
+static void __raise_ie(const interr_exc_t &ie)
+{
+  qstring emsg;
+  emsg.sprnt(INTERR_EXC_FMT, ie.code);
+  PyErr_SetString(PyExc_RuntimeError, emsg.begin());
+}
+
+static void __raise_de(const Swig::DirectorException &e)
+{
+  PyErr_SetString(PyExc_RuntimeError, e.getMessage());
+}
+
+static void __raise_oor(const std::out_of_range &e)
+{
+  PyErr_SetString(PyExc_IndexError, e.what());
+}
+
+static bool __chkthr()
+{
+  bool ok = is_main_thread();
+  if ( !ok )
+    PyErr_SetString(PyExc_RuntimeError, "Function can be called from the main thread only");
+  return ok;
+}
+
+%}
+
+%define %exception_set_default_handlers()
+%exception {
+    try
+    {
+      $action
+    }
+    catch ( const std::bad_alloc &ba ) { __raise_ba(ba); SWIG_fail; }
+    catch ( const std::out_of_range &e ) { __raise_oor(e); SWIG_fail; }
+    catch ( const interr_exc_t &e ) { __raise_ie(e); SWIG_fail; }
+    catch ( const std::exception &e ) { __raise_e(e); SWIG_fail; }
+    catch ( const Swig::DirectorException &e ) { __raise_de(e); SWIG_fail; }
+    catch ( ... ) { __raise_u(); SWIG_fail; }
+}
+%enddef
+%exception_set_default_handlers();
+
+// Enable automatic docstring generation
+%feature(autodoc,0);
+
+%{
+/* strnlen() arrived on OSX at v10.7. Provide it ourselves if needed. */
+#ifdef __MAC__
+#ifndef MAC_OS_X_VERSION_10_7
+#define MAC_OS_X_VERSION_10_7 1070
+#endif
+#if (MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_7)
+inline size_t strnlen(const char *s, size_t maxlen)
+{
+  const char *found = (const char *) memchr(s, 0, maxlen);
+  return found != NULL ? size_t(found - s) : maxlen;
+}
+#endif
+#endif
+%}
+
+%define SWIG_DECLARE_PY_CLINKED_OBJECT(type)
+%inline %{
+static PyObject *type##_create()
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  return PyCapsule_New(new type(), VALID_CAPSULE_NAME, NULL);
+}
+static bool type##_destroy(PyObject *py_obj)
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  if ( !PyCapsule_IsValid(py_obj, VALID_CAPSULE_NAME) )
+    return false;
+  delete (type *)PyCapsule_GetPointer(py_obj, VALID_CAPSULE_NAME);
+  return true;
+}
+static type *type##_get_clink(PyObject *self)
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  return (type *)pyobj_get_clink(self);
+}
+static PyObject *type##_get_clink_ptr(PyObject *self)
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  return PyLong_FromUnsignedLongLong(
+          PTR2U64(pyobj_get_clink(self)));
+}
+%}
+%enddef
+
+// We use those special maps because SWIG wraps passed PyObject* with 'SwigPtr_PyObject' and 'SwigVar_PyObject'
+// They act like autoptr and decrement the reference of the object when the scope ends
+// We need to keep a reference outside SWIG and let the caller manage its references
+%typemap(directorin)  PyObject * "/*%din%*/Py_XINCREF($1_name);$input = $1_name;"
+%typemap(directorout) PyObject * "/*%dout%*/$result = result;Py_XINCREF($result);"
+
+//---------------------------------------------------------------------
+%define %treat_serialized_tinfo_raw_pointer_as_str(TYPE)
+%apply char * { TYPE * }
+%apply const char * { const TYPE * }
+%enddef
+%treat_serialized_tinfo_raw_pointer_as_str(type_t);
+%treat_serialized_tinfo_raw_pointer_as_str(p_list);
+
+//-------------------------------------------------------------------------
+// For some reason, SWIG converts char arrays by computing the size
+// from the end of the array, and stops when it encounters a '\0'.
+// That doesn't work for us, as our API doesn't guarantee that
+// bytes past the length we are interested in will be zeroed-out.
+// In other words, the following code should *never* be present
+// in idaapi_include.cpp:
+// -------------------------
+//  while (size && (<name-of-variable>[size - 1] == '\0')) --size;
+// -------------------------
+//
+%typemap(out) char [ANY], const char[ANY]
+{
+  %set_output(SWIG_FromCharPtrAndSize($1, strnlen($1, $1_dim0)));
+}
+
+%typemap(varout) char [ANY], const char[ANY]
+{
+  %set_output(SWIG_FromCharPtrAndSize($1, strnlen($1, $1_dim0)));
+}
+
+%apply unsigned long long { size_t }
+%apply long long { ssize_t }
+
+//---------------------------------------------------------------------
+// Convert an incoming Python list to a tid_t[] array
+%typemap(in) tid_t[ANY](tid_t temp[$1_dim0]) {
+    int i, len;
+
+    if (!PySequence_Check($input))
+    {
+        PyErr_SetString(PyExc_TypeError,"Expecting a sequence");
+        return NULL;
+    }
+
+    /* Cap the number of elements to copy */
+    len = PySequence_Length($input) < $1_dim0 ? PySequence_Length($input) : $1_dim0;
+
+    for (i =0; i < len; i++)
+    {
+        newref_t item(PySequence_GetItem($input,i));
+        if (!PyLong_Check(item.o))
+        {
+            PyErr_SetString(PyExc_ValueError,"Expecting a sequence of long integers");
+            return NULL;
+        }
+
+        temp[i] = PyLong_AsUnsignedLong(item.o);
+    }
+    $1 = &temp[0];
+}
+
+//-------------------------------------------------------------------------
+// Same, but with non-fixed sized arrays.
+%typemap(in) (const tid_t *path, int plen) (qvector<tid_t> temp) {
+    if (!PySequence_Check($input))
+    {
+        PyErr_SetString(PyExc_TypeError,"Expecting a sequence");
+        return NULL;
+    }
+    int plen = PySequence_Length($input);
+    if ( plen <= 0 )
+    {
+        PyErr_SetString(PyExc_TypeError, "Sequence must have at least 1 item");
+        return NULL;
+    }
+    temp.resize(plen);
+    for ( int i =0; i < plen; ++i )
+    {
+        newref_t item(PySequence_GetItem($input,i));
+        if (!PyLong_Check(item.o))
+        {
+            PyErr_SetString(PyExc_ValueError,"Expecting a sequence of long integers");
+            return NULL;
+        }
+
+        temp[i] = PyLong_AsUnsignedLong(item.o);
+    }
+    $1 = temp.begin();
+    $2 = int(temp.size());
+}
+
+//---------------------------------------------------------------------
+%define %cstring_output_maxstr_none(TYPEMAP, SIZE)
+%typemap (default) SIZE {
+    $1 = MAXSTR;
+ }
+%typemap(in,numinputs=0) (TYPEMAP, SIZE) {
+    $1 = ($1_ltype) qalloc(MAXSTR+1);
+}
+%typemap(argout) (TYPEMAP,SIZE) {
+    Py_XDECREF(resultobj);
+    if (result > 0)
+    {
+        resultobj = IDAPyStr_FromUTF8($1);
+    }
+    else
+    {
+        Py_INCREF(Py_None);
+        resultobj = Py_None;
+    }
+    qfree($1);
+}
+%enddef
+
+//---------------------------------------------------------------------
+%define %binary_output_or_none(TYPEMAP, SIZE)
+%typemap (default) SIZE {
+    $1 = MAXSPECSIZE;
+}
+%typemap(in,numinputs=0) (TYPEMAP, SIZE) {
+    $1 = (char *) qalloc(MAXSPECSIZE+1);
+}
+%typemap(argout) (TYPEMAP,SIZE) {
+    Py_XDECREF(resultobj);
+    if (result > 0)
+    {
+        resultobj = IDAPyStr_FromUTF8AndSize((char *)$1, result);
+    }
+    else
+    {
+        Py_INCREF(Py_None);
+        resultobj = Py_None;
+    }
+    qfree((void *)$1);
+}
+%enddef
+
+//-------------------------------------------------------------------------
+// and a helper for overriding the 'argout' of some of those functions,
+// that return the input char* as return code; those build on recent
+// versions of Xcode (>= 9.0), and need special care
+%define %cstring_output_buf_and_size_returning_charptr(BUFIDX, ...)
+%typemap(argout) (__VA_ARGS__) {
+    // cstring_output_buf_and_size_returning_charptr's argout
+    Py_XDECREF(resultobj);
+    if (result != NULL)
+    {
+        resultobj = IDAPyStr_FromUTF8($BUFIDX);
+    }
+    else
+    {
+        Py_INCREF(Py_None);
+        resultobj = Py_None;
+    }
+    qfree($BUFIDX);
+}
+%enddef
+
+//-------------------------------------------------------------------------
+// see %cstring_output_buf_and_size_returning_charptr above
+%define %cstring_output_qstring_returning_charptr(BUFIDX, ...)
+%typemap(argout) (__VA_ARGS__)
+{
+  // %cstring_output_qstring_returning_charptr typemap(argout) __VA_ARGS__
+  Py_XDECREF(resultobj);
+  if (result != NULL)
+  {
+    resultobj = IDAPyStr_FromUTF8AndSize($BUFIDX->begin(), $BUFIDX->length());
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    resultobj = Py_None;
+  }
+}
+%enddef
+
+//-------------------------------------------------------------------------
+//                            OUT qstrvec_t
+//-------------------------------------------------------------------------
+%typemap(in,numinputs=0) qstrvec_t *out (qstrvec_t temp) {
+    $1 = &temp;
+}
+%typemap(argout) qstrvec_t *out
+{
+  Py_XDECREF(resultobj);
+  resultobj = qstrvec2pylist(*($1));
+}
+%typemap(freearg) qstrvec_t* out
+{
+  // Nothing. We certainly don't want 'temp' to be deleted.
+}
+
+//-------------------------------------------------------------------------
+//          md5/sha256 hash retrieval (as hex representation)
+//-------------------------------------------------------------------------
+%define %byte_array_as_hex_or_none(PARAM_NAME)
+%typemap(in, numinputs=0) uchar PARAM_NAME[ANY] (uchar temp[$1_dim0])
+{ // byte_array_as_hex_or_none typemap(in, numinputs=0) uchar PARAM_NAME[ANY] (uchar temp[$1_dim0])
+  $1 = temp;
+}
+%typemap(argout) uchar PARAM_NAME[ANY]
+{ // byte_array_as_hex_or_none typemap(argout) uchar PARAM_NAME[ANY]
+  Py_XDECREF(resultobj);
+  if (result)
+  {
+    char buf[2*$1_dim0 + 1];
+    get_hex_string(buf, sizeof(buf), $1, $1_dim0);
+    resultobj = IDAPyStr_FromUTF8(buf);
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    resultobj = Py_None;
+  }
+}
+%enddef
+%byte_array_as_hex_or_none(hash);
+
+// Check that the argument is a callable Python object
+//---------------------------------------------------------------------
+%typemap(in) PyObject *pyfunc {
+    if (!PyCallable_Check($input)) {
+        PyErr_SetString(PyExc_TypeError, "Expected a callable object");
+        return NULL;
+    }
+    $1 = $input;
+}
+// Check that the argument is None or a callable Python object
+//---------------------------------------------------------------------
+%typemap(in) PyObject *pyfunc_or_none {
+    if ($input != Py_None && !PyCallable_Check($input)) {
+        PyErr_SetString(PyExc_TypeError, "Expected None or a callable object");
+        return NULL;
+    }
+    $1 = $input;
+}
+// Check that the argument is None or a tuple
+//---------------------------------------------------------------------
+%typemap(in) PyObject *tuple_or_none {
+    if ($input != Py_None && !PyTuple_Check($input)) {
+        PyErr_SetString(PyExc_TypeError, "Expected None or a tuple");
+        return NULL;
+    }
+    $1 = $input;
+}
+%typemap(in) ea_t
+{ // %typemap(in) ea_t
+  uint64 $1_temp;
+  if ( !PyW_GetNumber($input, &$1_temp) )
+    SWIG_exception_fail(
+            SWIG_TypeError,
+            "in method '" "$symname" "', argument " "$argnum"" of type 'ea_t'");
+  $1 = ea_t($1_temp);
+}
+%typemap(in) sval_t
+{ // %typemap(in) sval_t
+  uint64 $1_temp;
+  if ( !PyW_GetNumber($input, &$1_temp) )
+    SWIG_exception_fail(
+            SWIG_TypeError,
+            "in method '" "$symname" "', argument " "$argnum"" of type 'sval_t'");
+  $1 = sval_t($1_temp);
+}
+// Use PyLong_FromUnsignedLongLong, because 'long' is 4 bytes on
+// windows, and thus the ea_t would be truncated at the
+// PyLong_FromUnsignedLong(unsigned int) call time.
+%typemap(out) ea_t "$result = PyLong_FromUnsignedLongLong($1);"
+
+%typemap(in) qtime64_t "$1 = PyLong_AsUnsignedLongLong($input);"
+%typemap(out) qtime64_t "$result = PyLong_FromUnsignedLongLong($1);"
+
+//---------------------------------------------------------------------
+//                       IN/OUT qstring/bytevec_t
+//---------------------------------------------------------------------
+%define %bytes_container(REFTYPE, CONTAINER_TYPE, START_ACCESSOR, SIZE_ACCESSOR, INSTANCE_CAST)
+%typemap(in) REFTYPE
+{ // bytes_container REFTYPE, CONTAINER_TYPE typemap(in)
+  if ( IDAPyStr_Check($input) )
+  {
+    // init properly, so ctor can't crash
+    char *buf = NULL;
+    Py_ssize_t length = 0;
+    /*int success =*/ IDAPyBytes_AsStringAndSize($input, &buf, &length);
+    $1 = new CONTAINER_TYPE(INSTANCE_CAST buf, length); // build regardless of success
+  }
+  else
+  {
+    SWIG_exception_fail(
+            SWIG_ValueError,
+            "Expected string " "in method '" "$symname" "', argument " "$argnum"" of type 'str'");
+  }
+}
+%typemap(freearg) REFTYPE
+{ // bytes_container REFTYPE typemap(freearg)
+  delete $1;
+}
+%typemap(out) REFTYPE // e.g., %typemap(out) qstring*
+{ // bytes_container typemap(out) REFTYPE
+  $result = IDAPyStr_FromUTF8AndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
+}
+%typemap(out) CONTAINER_TYPE // e.g., %typemap(out) qstring
+{ // bytes_container typemap(out) CONTAINER_TYPE
+  $result = IDAPyStr_FromUTF8AndSize((const char *) $1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
+}
+%typemap(varout) CONTAINER_TYPE // e.g., %typemap(varout) qstring
+{ // bytes_container typemap(varout) CONTAINER_TYPE
+  $result = IDAPyStr_FromUTF8AndSize((const char *) $1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
+}
+// the following is used to turn a '... *result' output parameter,
+// into an actual return value.
+%typemap(in,numinputs=0) CONTAINER_TYPE *result (CONTAINER_TYPE temp)
+{
+  // bytes_container typemap(in,numinputs=0) CONTAINER_TYPE *result (CONTAINER_TYPE temp)
+  $1 = &temp;
+}
+%typemap(argout) CONTAINER_TYPE *result
+{
+  // bytes_container typemap(argout) CONTAINER_TYPE *result
+  Py_XDECREF(resultobj);
+  if (result > 0)
+  {
+    resultobj = IDAPyStr_FromUTF8AndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    resultobj = Py_None;
+  }
+}
+%typemap(freearg) CONTAINER_TYPE* result
+{
+  // bytes_container typemap(freearg) CONTAINER_TYPE *result
+  // Nothing. We certainly don't want 'temp' to be deleted.
+}
+// We determine that the following parameter: "CONTAINER_TYPE *vout" has the
+// following characteristics:
+//   - the C function being called returns void
+//   - other than that, it's the same as for the "CONTAINER_TYPE *result" parameter
+//     (i.e., requires a temporary 'qstring', etc...)
+//
+// Re-use the 'CONTAINER_TYPE *result' typemaps, ...
+%apply CONTAINER_TYPE *result { CONTAINER_TYPE *vout };
+// ...but override the argout one, so that it doesn't rely on a 'result'
+%typemap(argout) (CONTAINER_TYPE *vout)
+{
+  // bytes_container typemap(argout) (CONTAINER_TYPE *vout)
+  Py_XDECREF(resultobj);
+  resultobj = IDAPyStr_FromUTF8AndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
+}
+%enddef
+
+%bytes_container(qstring *, qstring, c_str, length,);
+%bytes_container(qstring &, qstring, c_str, length,);
+%bytes_container(bytevec_t *, bytevec_t, begin, size,);
+%bytes_container(bytevec_t &, bytevec_t, begin, size,);
+%bytes_container(qtype *, qtype, begin, length, (const uchar *));
+%bytes_container(qtype &, qtype, begin, length, (const uchar *));
+
+//---------------------------------------------------------------------
+//                      varargs (mostly kernwin.hpp)
+//---------------------------------------------------------------------
+// This is used for functions like warning(), info() and so on
+%typemap(in) (const char *format, ...)
+{
+    $1 = "%s";                                /* Fix format string to %s */
+    $2 = (void *) IDAPyBytes_AsString($input);  /* Get string argument */
+    /* Note: we cannot rely on 'nonnul_argument_prototype' for */
+    /* these, since we fiddle with the arguments number */
+    if ( $2 == NULL )
+      SWIG_exception_fail(
+              SWIG_ValueError,
+              "invalid null pointer " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
+};
+
+//-------------------------------------------------------------------------
+// for use with insn_t, op_t wrappers
+%typemap(in) (size_t ptrval)
+{
+  $1 = size_t(PyLong_AsUnsignedLongLong($input));
+}
+
+// Help SWIG to figure out the ulonglong type
+#ifdef SWIGWIN
+typedef unsigned __int64 ulonglong;
+typedef          __int64 longlong;
+#else
+typedef unsigned long long ulonglong;
+typedef          long long longlong;
+#endif
+
+#ifdef __EA64__
+%apply longlong  *INOUT { sval_t  *value };
+%apply longlong  *INOUT { adiff_t *disp };
+%apply ulonglong *INOUT { ea_t    *addr };
+%apply ulonglong *INOUT { sel_t   *sel };
+%apply ulonglong *OUTPUT { ea_t *ea1, ea_t *ea2 }; // read_range_selection()
+%apply ulonglong *OUTPUT { ea_t *from, ea_t *to, asize_t *size }; // get_mapping()
+#else
+%apply int          *INOUT { sval_t  *value };
+%apply int          *INOUT { adiff_t *disp };
+%apply unsigned int *INOUT { ea_t    *addr };
+%apply unsigned int *INOUT { sel_t   *sel };
+%apply unsigned int *OUTPUT { ea_t *ea1, ea_t *ea2 }; // read_range_selection()
+%apply unsigned int *OUTPUT { ea_t *from, ea_t *to, asize_t *size }; // get_mapping()
+#endif
+
+%apply long long { qoff64_t };
+
+%apply qstring *result { qstring *label };
+%apply qstring *result { qstring *shortcut };
+%apply qstring *result { qstring *tooltip };
+%apply qstring *result { qstring *out };
+%apply qstring *result { qstring *buf };
+%apply qstring *result { qstring *errbuf };
+%apply int *OUTPUT { int *icon };
+%apply int *OUTPUT { action_state_t *state };
+%apply bool *OUTPUT { bool *checkable };
+%apply bool *OUTPUT { bool *checked };
+%apply bool *OUTPUT { bool *visibility };
+
+//-------------------------------------------------------------------------
+// The following is to be used to expose an array of items
+// to IDAPython. This will not make a copy (on purpose!).
+//-------------------------------------------------------------------------
+//
+// (Very) heavily inspired by:
+// http://stackoverflow.com/questions/7713318/nested-structure-array-access-in-python-using-swig?rq=1
+//
+// NOTE: This should probably hold a (weak?) reference
+// to the parent PyObject, because it is technically possible
+// to end up with dangling pointers otherwise
+// See also dynamic_wrapped_array_t
+%immutable;
+%inline %{
+template <typename Type, size_t N>
+struct wrapped_array_t {
+  Type (&data)[N];
+  wrapped_array_t(Type (&data)[N]) : data(data) { }
+};
+%}
+%mutable;
+
+%extend wrapped_array_t {
+  inline size_t __len__() const { return N; }
+
+  inline const Type& __getitem__(size_t i) const throw(std::out_of_range) {
+    if (i >= N || i < 0)
+      throw std::out_of_range("out of bounds access");
+    return $self->data[i];
+  }
+
+  inline void __setitem__(size_t i, const Type& v) throw(std::out_of_range) {
+    if (i >= N || i < 0)
+      throw std::out_of_range("out of bounds access");
+    $self->data[i] = v;
+  }
+
+  %pythoncode {
+    __iter__ = ida_idaapi._bounded_getitem_iterator
+  }
+}
+
+//-------------------------------------------------------------------------
+// NOTE: see note for wrapped_array_t
+%immutable;
+%inline %{
+template <typename Type>
+struct dynamic_wrapped_array_t {
+  Type *data;
+  size_t count;
+  dynamic_wrapped_array_t(Type *_data, size_t _count)
+    : data(_data), count(_count) { }
+};
+%}
+%mutable;
+
+%extend dynamic_wrapped_array_t {
+  inline size_t __len__() const { return $self->count; }
+
+  inline const Type& __getitem__(size_t i) const throw(std::out_of_range) {
+    if (i >= $self->count || i < 0)
+      throw std::out_of_range("out of bounds access");
+    return $self->data[i];
+  }
+
+  inline void __setitem__(size_t i, const Type& v) throw(std::out_of_range) {
+    if (i >= $self->count || i < 0)
+      throw std::out_of_range("out of bounds access");
+    $self->data[i] = v;
+  }
+
+  %pythoncode {
+    __iter__ = ida_idaapi._bounded_getitem_iterator
+  }
+}
+
+//-------------------------------------------------------------------------
+#if SWIG_VERSION == 0x20012
+%typemap(out) tinfo_t {}
+%typemap(ret) tinfo_t
+{
+  // ret tinfo_t
+  tinfo_t *ni = new tinfo_t($1);
+  til_register_python_tinfo_t_instance(ni);
+  $result = SWIG_NewPointerObj(ni, $&1_descriptor, SWIG_POINTER_OWN | 0);
+}
+
+
+// KLUDGE: We'll let the compiler (or at worse the runtime)
+// decide of the flags to use, depending on the method we are currently
+// wrapping: at new-time, a SWIG_POINTER_NEW is required.
+%typemap(out) tinfo_t* {}
+%typemap(ret) tinfo_t*
+{
+  // ret tinfo_t*
+  tinfo_t *ni = new tinfo_t(*($1));
+  til_register_python_tinfo_t_instance(ni);
+  if ( strcmp("new_tinfo_t", "$symname") == 0 )
+  {
+    $result = SWIG_NewPointerObj(SWIG_as_voidptr(ni), $1_descriptor, SWIG_POINTER_NEW | 0);
+    delete $1;
+  }
+  else
+  {
+    $result = SWIG_NewPointerObj(SWIG_as_voidptr(ni), $1_descriptor, SWIG_POINTER_OWN | 0);
+  }
+}
+
+%typemap(check) tinfo_t*
+{
+  if ( $1 == NULL )
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
+}
+#else
+#error Ensure tinfo_t wrapping is compatible with this version of SWIG
+#endif
+
+// Convert all of these
+%cstring_output_maxstr_none(char *buf, size_t bufsize);
+%cstring_output_maxstr_none(char *buf, int bufsize);
+%binary_output_or_none(void *buf, size_t bufsize);
+%binary_output_with_size(void *buf, size_t *bufsize);
+
+
+// Accept single Python string for const void * + size input arguments
+// For example: put_many_bytes() and patch_many_bytes()
+%apply (char *STRING, int LENGTH) { (const void *buf, size_t size) };
+%apply (char *STRING, int LENGTH) { (const void *buf, size_t len) };
+%apply (char *STRING, int LENGTH) { (const void *value, size_t length) };
+%apply (char *STRING, int LENGTH) { (const void *dataptr,size_t len) };
+
+// Create wrapper classes for basic type arrays
+%array_class(uchar, uchar_array);
+%array_class(tid_t, tid_array);
+%array_class(ea_t, ea_array);
+%array_class(sel_t, sel_array);
+%array_class(uval_t, uval_array);
+%pointer_class(int, int_pointer);
+%pointer_class(ea_t, ea_pointer);
+%pointer_class(sval_t, sval_pointer);
+%pointer_class(sel_t, sel_pointer);
+
+
+%{
+static PyObject *qstrvec2pylist(const qstrvec_t &vec)
+{
+  size_t n = vec.size();
+  PyObject *py_list = PyList_New(n);
+  for ( size_t i=0; i < n; ++i )
+    PyList_SetItem(
+            py_list,
+            i,
+            IDAPyStr_FromUTF8AndSize(vec[i].c_str(), vec[i].length()));
+  return py_list;
+}
+%}
+
+//---------------------------------------------------------------------
+%typemap(out) uint64
+{
+  // %typemap(out) uint64
+  $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
+}
+
+%typemap(in) uint64
+{
+  // %typemap(in) uint64
+  uint64 $1_temp;
+  if ( !PyW_GetNumber($input, &$1_temp) )
+  {
+    PyErr_SetString(PyExc_TypeError, "Expected an uint64 type");
+    return NULL;
+  }
+  $1 = $1_temp;
+}
+
+//-------------------------------------------------------------------------
+%define %uint_result_as_output(TYPE, CONVFUNC)
+%typemap(in,numinputs=0) TYPE *result (TYPE temp)
+{
+  // %typemap(in,numinputs=0) TYPE *result
+  $1 = &temp;
+}
+%typemap(argout) TYPE *result
+{
+  // %typemap(argout) TYPE *result
+  Py_XDECREF(resultobj);
+  if (result > 0)
+  {
+    resultobj = CONVFUNC(*(TYPE *) $1);
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    resultobj = Py_None;
+  }
+}
+%enddef
+%uint_result_as_output(uint32, PyLong_FromUnsignedLong);
+%uint_result_as_output(uint64, PyLong_FromUnsignedLongLong);
+%apply uint32 *result { uint32 *out };
+%apply uint64 *result { uint64 *out };
+#ifdef __EA64__
+%apply uint64 *result { ea_t *result };
+#else
+%apply uint32 *result { ea_t *result };
+#endif
+// helpers to turn result into multiple values (just %apply, renaming 'appended_ea')
+%typemap(argout) ea_t *appended_ea
+{
+  // %typemap(argout) ea_t *appended_ea
+#ifdef __EA64__
+  $result = SWIG_Python_AppendOutput($result, PyLong_FromUnsignedLongLong(*($1)));
+#else
+  $result = SWIG_Python_AppendOutput($result, PyLong_FromUnsignedLong(*($1)));
+#endif
+}
+
+//-------------------------------------------------------------------------
+// Make get_any_cmt() work
+%apply unsigned char *OUTPUT { color_t *cmttype };
+
+// For get_enum_id()
+%apply unsigned char *OUTPUT { uchar *serial };
+
+// get_[first|last]_serial_enum_member() won't take serials as input; it'll be present as output
+%apply unsigned char *OUTPUT { uchar *out_serial };
+// get_[next|prev]_serial_enum_member() take serials as input, and have the result present as output
+%apply unsigned char *INOUT { uchar *in_out_serial };
+
+%define %nonnul_argument_prototype(PROTO, ARGSIG)
+/* first, define the typemap */
+%typemap(check) (ARGSIG)
+{
+  if ( $1 == NULL )
+    SWIG_exception_fail(SWIG_ValueError, "invalid null pointer " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
+}
+/* Then, redeclare prototype. Note that we want this prototype _only_ seen */
+/* by SWiG, but not by the later compile phase: because of the defines */
+/* in pro.h, 'idaapi', 'ida_export', etc... will disappear, causing */
+/* VisualStudio to exit with a "same prototype, different modifiers" error. */
+%inline %{
+#ifndef _MSC_VER
+  PROTO;
+#endif
+%}
+%enddef
+
+
+%define %numbers_list_to_values_vec_helper(VECTYPE, SWIGTYPE, PYLIST_CONVERTOR, REFTYPE)
+%typemap(arginit) VECTYPE REFTYPE "VECTYPE $1_local_storage; // %numbers_list_to_values_vec(VECTYPE) %typemap(arginit) VECTYPE REFTYPE" // *MUST NOT* be within '{}'s
+%typemap(in) VECTYPE REFTYPE
+{ // %numbers_list_to_values_vec(VECTYPE) %typemap(in) VECTYPE REFTYPE
+  if ( PySequence_Check($input) )
+  {
+    if ( PYLIST_CONVERTOR(&$1_local_storage, $input) < 0 )
+      SWIG_fail;
+    $1 = &$1_local_storage;
+  }
+  else
+  {
+    void *$1_vptr = 0;
+    int res$argnum = SWIG_ConvertPtr($input, &$1_vptr, SWIGTYPE, 0 | 0);
+    if ( !SWIG_IsOK(res$argnum) )
+      SWIG_exception_fail(SWIG_ArgError(res$argnum), "in method '$symname', argument $argnum of type $1_type");
+    $1 = reinterpret_cast<VECTYPE*>($1_vptr);
+  }
+}
+%typecheck(SWIG_TYPECHECK_POINTER) VECTYPE REFTYPE
+{
+  // %numbers_list_to_values_vec(VECTYPE) %typecheck(SWIG_TYPECHECK_POINTER) VECTYPE REFTYPE
+  if ( PySequence_Check($input) > 0 )
+  {
+    $1 = 1;
+  }
+  else
+  {
+    int res = SWIG_ConvertPtr($input, 0, SWIGTYPE, 0);
+    $1 = SWIG_CheckState(res);
+  }
+}
+%enddef
+
+//-------------------------------------------------------------------------
+// For e.g., get_idainfo_by_type()
+%apply uint32 * OUTPUT { flags_t *out_flags };
+%apply size_t * OUTPUT { size_t *out_size };
+%apply size_t * OUTPUT { size_t *out_alsize };
+%typemap(check) size_t *out_size "*($1) = 0; // %typemap(check) size_t *out_size";
+%typemap(check) size_t *out_alsize "*($1) = 0; // %typemap(check) size_t *out_alsize";
+%typemap(check) flags_t *out_flags "*($1) = 0; // %typemap(check) flags_t *out_flags";
+
+%typemap(in,numinputs=0) opinfo_t *out_mt (opinfo_t temp) {
+  // typemap(in,numinputs=0) opinfo_t *out_mt
+  $1 = &temp;
+}
+%typemap(argout) opinfo_t *out_mt
+{
+  // typemap(argout) opinfo_t *out_mt
+  if ( result )
+  {
+    PyObject *py_opinfo = SWIG_NewPointerObj(SWIG_as_voidptr(new opinfo_t(*($1))), SWIGTYPE_p_opinfo_t, SWIG_POINTER_NEW );
+    $result = SWIG_Python_AppendOutput($result, py_opinfo);
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    $result = SWIG_Python_AppendOutput($result, Py_None);
+  }
+}
+%typemap(freearg) opinfo_t *out_mt
+{
+  // typemap(freearg) opinfo_t *out_mt
+  // Nothing. We certainly don't want 'temp' to be deleted.
+}
+
+//-------------------------------------------------------------------------
+%define %numbers_list_to_values_vec(VECTYPE, SWIGTYPE, PYLIST_CONVERTOR)
+%numbers_list_to_values_vec_helper(VECTYPE, SWIGTYPE, PYLIST_CONVERTOR, *);
+%numbers_list_to_values_vec_helper(VECTYPE, SWIGTYPE, PYLIST_CONVERTOR, &);
+%enddef
+%numbers_list_to_values_vec(eavec_t, SWIGTYPE_p_qvectorT_unsigned_int_t, PyW_PyListToEaVec);
+
+//-------------------------------------------------------------------------
+// Make sure the GIL is released, in case 'NAME' is calling execute_sync
+// either directly, or indirectly
+%define %calls_execute_sync(NAME)
+%thread NAME;
+%enddef
+
+%{
+#include <expr.hpp>
+#include <ieee.h>
+#include "../../../pywraps.hpp"
+%}
+
+// END: auto-inserted header

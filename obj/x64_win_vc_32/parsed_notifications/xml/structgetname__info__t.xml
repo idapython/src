@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structgetname__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>getname_info_t</compoundname>
+    <includes refid="name_8hpp" local="no">name.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structgetname__info__t_1ac92dcf5587656e7978a735fb24dc25a9" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t getname_info_t::cb</definition>
+        <argsstring></argsstring>
+        <name>cb</name>
+        <briefdescription>
+<para>size of this struct </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" line="289" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgetname__info__t_1a0055efc3e47dcd00dbce43b7271e1d93" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 getname_info_t::inhibitor</definition>
+        <argsstring></argsstring>
+        <name>inhibitor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>codes to inhibit parts of demangled name (see MNG_). Usually this is one of {short_demnames} or {long_demnames}. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" line="290" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgetname__info__t_1ac96bcd211aece06b7d4b45be0d5e6ced" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 getname_info_t::demform</definition>
+        <argsstring></argsstring>
+        <name>demform</name>
+        <briefdescription>
+<para>demangle only if {demnames} is equal to &apos;demform&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" line="292" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgetname__info__t_1ab22ed566ef28bcd40a579ed3fa2e8185" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 getname_info_t::demcode</definition>
+        <argsstring></argsstring>
+        <name>demcode</name>
+        <briefdescription>
+<para>out: return value of demangler </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" line="293" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structgetname__info__t_1aed8c0d927a7f43d16c3f4ab7e891016f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>getname_info_t::getname_info_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>getname_info_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" line="294" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" bodystart="294" bodyend="294"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Additional information for <ref refid="name_8hpp_1a6051c8467e9c050a8823b4d0b991d2b6" kindref="member">get_ea_name()</ref> function. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" line="288" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" bodystart="287" bodyend="295"/>
+    <listofallmembers>
+      <member refid="structgetname__info__t_1ac92dcf5587656e7978a735fb24dc25a9" prot="public" virt="non-virtual"><scope>getname_info_t</scope><name>cb</name></member>
+      <member refid="structgetname__info__t_1ab22ed566ef28bcd40a579ed3fa2e8185" prot="public" virt="non-virtual"><scope>getname_info_t</scope><name>demcode</name></member>
+      <member refid="structgetname__info__t_1ac96bcd211aece06b7d4b45be0d5e6ced" prot="public" virt="non-virtual"><scope>getname_info_t</scope><name>demform</name></member>
+      <member refid="structgetname__info__t_1aed8c0d927a7f43d16c3f4ab7e891016f" prot="public" virt="non-virtual"><scope>getname_info_t</scope><name>getname_info_t</name></member>
+      <member refid="structgetname__info__t_1a0055efc3e47dcd00dbce43b7271e1d93" prot="public" virt="non-virtual"><scope>getname_info_t</scope><name>inhibitor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

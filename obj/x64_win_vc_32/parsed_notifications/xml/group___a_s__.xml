@@ -1,0 +1,543 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___a_s__" kind="group">
+    <compoundname>AS_</compoundname>
+    <title>Assembler feature bits</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___a_s___1ga844fc7df15d713f1b4809f78c7ad2eb5" prot="public" static="no">
+        <name>AS_OFFST</name>
+        <initializer>0x00000001L</initializer>
+        <briefdescription>
+<para>offsets are &apos;offset xxx&apos; ? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="156" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga8773f0a90cb87a28f3b84080d3956625" prot="public" static="no">
+        <name>AS_COLON</name>
+        <initializer>0x00000002L</initializer>
+        <briefdescription>
+<para>create colons after data names ? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="157" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga3d706d958b5cbfdc37da83fe5a312947" prot="public" static="no">
+        <name>AS_UDATA</name>
+        <initializer>0x00000004L</initializer>
+        <briefdescription>
+<para>can use &apos;?&apos; in data directives </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="158" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga26c6d9e4ae183059b0bd1c0050b99c69" prot="public" static="no">
+        <name>AS_2CHRE</name>
+        <initializer>0x00000008L</initializer>
+        <briefdescription>
+<para>double char constants are: "xy </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="160" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga2149957915669f6f74349b52600a11f4" prot="public" static="no">
+        <name>AS_NCHRE</name>
+        <initializer>0x00000010L</initializer>
+        <briefdescription>
+<para>char constants are: &apos;x </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="161" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga2a206e41379a06c4fa6c14d7eb8d0f4f" prot="public" static="no">
+        <name>AS_N2CHR</name>
+        <initializer>0x00000020L</initializer>
+        <briefdescription>
+<para>can&apos;t have 2 byte char consts </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="162" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gae31e42bad6ee54ff5ece2552365a5ab3" prot="public" static="no">
+        <name>AS_1TEXT</name>
+        <initializer>0x00000040L</initializer>
+        <briefdescription>
+<para>1 text per line, no bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="165" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gae7011ec3b89b08edabf520bd46005319" prot="public" static="no">
+        <name>AS_NHIAS</name>
+        <initializer>0x00000080L</initializer>
+        <briefdescription>
+<para>no characters with high bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="166" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gafbb4b6b5600dcf8c6ccc7c92a366808c" prot="public" static="no">
+        <name>AS_NCMAS</name>
+        <initializer>0x00000100L</initializer>
+        <briefdescription>
+<para>no commas in ascii directives </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="167" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gaa5b37ce368ea89728ab2dc52eb78e4ba" prot="public" static="no">
+        <name>AS_HEXFM</name>
+        <initializer>0x00000E00L</initializer>
+        <briefdescription>
+<para>mask - hex number format </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="169" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gaf22d00b95adbbf0142077d77a71ca8c0" prot="public" static="no">
+        <name>ASH_HEXF0</name>
+        <initializer>0x00000000L</initializer>
+        <briefdescription>
+<para>34h </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="170" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga789ba79f27a16c4b324c157f1a142af1" prot="public" static="no">
+        <name>ASH_HEXF1</name>
+        <initializer>0x00000200L</initializer>
+        <briefdescription>
+<para>h&apos;34 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="171" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gafde8a561633c351bb6f443ef413a44ed" prot="public" static="no">
+        <name>ASH_HEXF2</name>
+        <initializer>0x00000400L</initializer>
+        <briefdescription>
+<para>34 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="172" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga91ab9d2cb5ed3f10fbb3801ece52d4d8" prot="public" static="no">
+        <name>ASH_HEXF3</name>
+        <initializer>0x00000600L</initializer>
+        <briefdescription>
+<para>0x34 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="173" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gaff323ec13d551aa17fb6af081246df96" prot="public" static="no">
+        <name>ASH_HEXF4</name>
+        <initializer>0x00000800L</initializer>
+        <briefdescription>
+<para>$34 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="174" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gaf96a9f3d0e96740c40a610903bd2ecf5" prot="public" static="no">
+        <name>ASH_HEXF5</name>
+        <initializer>0x00000A00L</initializer>
+        <briefdescription>
+<para>&lt;^R &gt; (radix) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="175" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga14643ce556c2383e5e72ced79fd450bf" prot="public" static="no">
+        <name>AS_DECFM</name>
+        <initializer>0x00003000L</initializer>
+        <briefdescription>
+<para>mask - decimal number format </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="176" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga6e892f55bdf298ab5e0b1c490d6bd737" prot="public" static="no">
+        <name>ASD_DECF0</name>
+        <initializer>0x00000000L</initializer>
+        <briefdescription>
+<para>34 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="177" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga6a060412771fd600167299151eb2fa22" prot="public" static="no">
+        <name>ASD_DECF1</name>
+        <initializer>0x00001000L</initializer>
+        <briefdescription>
+<para>#34 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="178" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga57c938cfcc8d65213e65c7280a16e4ef" prot="public" static="no">
+        <name>ASD_DECF2</name>
+        <initializer>0x00002000L</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><orderedlist>
+<listitem></listitem></orderedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="179" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga4d724c404f85245c59e1decc2eddd941" prot="public" static="no">
+        <name>ASD_DECF3</name>
+        <initializer>0x00003000L</initializer>
+        <briefdescription>
+<para>.34 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="180" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gad414cc5b0b6f064d3fbf0d2447b9651d" prot="public" static="no">
+        <name>AS_OCTFM</name>
+        <initializer>0x0001C000L</initializer>
+        <briefdescription>
+<para>mask - octal number format </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="181" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gacc6e55f0a9f200cce88a58fa2f7d671d" prot="public" static="no">
+        <name>ASO_OCTF0</name>
+        <initializer>0x00000000L</initializer>
+        <briefdescription>
+<para>123o </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="182" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gac7c2e2fc1b3ce6237f414e0019e68906" prot="public" static="no">
+        <name>ASO_OCTF1</name>
+        <initializer>0x00004000L</initializer>
+        <briefdescription>
+<para>0123 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="183" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gab5a836c6f5697badc7f9c6bc7f2e9742" prot="public" static="no">
+        <name>ASO_OCTF2</name>
+        <initializer>0x00008000L</initializer>
+        <briefdescription>
+<para>123 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="184" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gadc16b0f1ad65d7e94efbc4c08ef98f34" prot="public" static="no">
+        <name>ASO_OCTF3</name>
+        <initializer>0x0000C000L</initializer>
+        <briefdescription>
+<para>@123 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="185" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga7b8f4b472ab72b4e370aa5aa47284013" prot="public" static="no">
+        <name>ASO_OCTF4</name>
+        <initializer>0x00010000L</initializer>
+        <briefdescription>
+<para>o&apos;123 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="186" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gafa1e84d35e64a75bc1d59b765e7544cc" prot="public" static="no">
+        <name>ASO_OCTF5</name>
+        <initializer>0x00014000L</initializer>
+        <briefdescription>
+<para>123q </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="187" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga07e50d055b24de247d923534e120f07f" prot="public" static="no">
+        <name>ASO_OCTF6</name>
+        <initializer>0x00018000L</initializer>
+        <briefdescription>
+<para>~123 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="188" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga6945b0ae3344c429a39993f9ae2c4282" prot="public" static="no">
+        <name>ASO_OCTF7</name>
+        <initializer>0x0001C000L</initializer>
+        <briefdescription>
+<para>q&apos;123 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="189" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gaea6b95c101706e7988f6d49b8509cdd8" prot="public" static="no">
+        <name>AS_BINFM</name>
+        <initializer>0x000E0000L</initializer>
+        <briefdescription>
+<para>mask - binary number format </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="190" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gafb453c515e32b9935b0adcbe873bb871" prot="public" static="no">
+        <name>ASB_BINF0</name>
+        <initializer>0x00000000L</initializer>
+        <briefdescription>
+<para>010101b </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="191" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gab18b77f94611fd63d2d97519eac8c370" prot="public" static="no">
+        <name>ASB_BINF1</name>
+        <initializer>0x00020000L</initializer>
+        <briefdescription>
+<para>^B010101 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="192" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga5fcdaecb0ebdfcfcf38c261556b424b9" prot="public" static="no">
+        <name>ASB_BINF2</name>
+        <initializer>0x00040000L</initializer>
+        <briefdescription>
+<para>%010101 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="193" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga04dfcb36e2322773e8d5454c351d2425" prot="public" static="no">
+        <name>ASB_BINF3</name>
+        <initializer>0x00060000L</initializer>
+        <briefdescription>
+<para>0b1010101 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="194" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga21c469a71d2945e318d29af61721bd7c" prot="public" static="no">
+        <name>ASB_BINF4</name>
+        <initializer>0x00080000L</initializer>
+        <briefdescription>
+<para>b&apos;1010101 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="195" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1gab2e01cc6cd8897218035dfb870e42913" prot="public" static="no">
+        <name>ASB_BINF5</name>
+        <initializer>0x000A0000L</initializer>
+        <briefdescription>
+<para>b&apos;1010101&apos; </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="196" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga44ad4039ab67661230bb87e64c69bbda" prot="public" static="no">
+        <name>AS_UNEQU</name>
+        <initializer>0x00100000L</initializer>
+        <briefdescription>
+<para>replace undefined data items with EQU (for ANTA&apos;s A80) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="198" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga1dd9b63488395612839f5ebfc9e17f24" prot="public" static="no">
+        <name>AS_ONEDUP</name>
+        <initializer>0x00200000L</initializer>
+        <briefdescription>
+<para>One array definition per line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="199" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga6754f916c55cb56cc22e6e4925b25354" prot="public" static="no">
+        <name>AS_NOXRF</name>
+        <initializer>0x00400000L</initializer>
+        <briefdescription>
+<para>Disable xrefs during the output file generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="200" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga9c545ee6f465574342d791255e9654ff" prot="public" static="no">
+        <name>AS_XTRNTYPE</name>
+        <initializer>0x00800000L</initializer>
+        <briefdescription>
+<para>Assembler understands type of extern symbols as &quot;:type&quot; suffix. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="201" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga355703d68baa8b50b6f49b10f7e77557" prot="public" static="no">
+        <name>AS_RELSUP</name>
+        <initializer>0x01000000L</initializer>
+        <briefdescription>
+<para>Checkarg: &apos;and&apos;,&apos;or&apos;,&apos;xor&apos; operations with addresses are possible. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="202" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga16fb3d110261d82a98aa1e96bbedc568" prot="public" static="no">
+        <name>AS_LALIGN</name>
+        <initializer>0x02000000L</initializer>
+        <briefdescription>
+<para>Labels at &quot;align&quot; keyword are supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="203" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga6d8e31a3e1c483f448d17bcb7bf0a589" prot="public" static="no">
+        <name>AS_NOCODECLN</name>
+        <initializer>0x04000000L</initializer>
+        <briefdescription>
+<para>don&apos;t create colons after code names </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="204" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga19df51c3d5fb12056bba5da54af8f52d" prot="public" static="no">
+        <name>AS_NOSPACE</name>
+        <initializer>0x10000000L</initializer>
+        <briefdescription>
+<para>No spaces in expressions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="205" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga64424aafb0d80645a6d36607a831fc88" prot="public" static="no">
+        <name>AS_ALIGN2</name>
+        <initializer>0x20000000L</initializer>
+        <briefdescription>
+<para>(.align 5 means to align at 32byte boundary) </para>        </briefdescription>
+        <detaileddescription>
+<para>.align directive expects an exponent rather than a power of 2 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="206" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga5ec02c532f491ae26ff3cd02a2fdc207" prot="public" static="no">
+        <name>AS_ASCIIC</name>
+        <initializer>0x40000000L</initializer>
+        <briefdescription>
+<para>(\n,\x01 and similar) </para>        </briefdescription>
+        <detaileddescription>
+<para>ascii directive accepts C-like escape sequences </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="208" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s___1ga33c4cf0f794294ad0d85267de92aec5a" prot="public" static="no">
+        <name>AS_ASCIIZ</name>
+        <initializer>0x80000000L</initializer>
+        <briefdescription>
+<para>ascii directive inserts implicit zero byte at the end </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="210" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="structasm__t_1a8d77b70483b269fe19595559f6a5f74c" kindref="member">asm_t::flag</ref>. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

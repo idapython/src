@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___g_m_b__" kind="group">
+    <compoundname>GMB_</compoundname>
+    <title>flags for get_bytes()</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___g_m_b___1gad0d8f0e465c80c8fe55a935559d80fcf" prot="public" static="no">
+        <name>GMB_READALL</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>if this bit is not set, fail at first uninited byte </para>        </briefdescription>
+        <detaileddescription>
+<para>try to read all bytes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="679" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="679" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___g_m_b___1ga99481a092dc371f6636721f11bb0e450" prot="public" static="no">
+        <name>GMB_WAITBOX</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>show wait box (may return -1 in this case) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="681" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="681" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

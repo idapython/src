@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structmodinfo__t" kind="struct" language="C++" prot="public">
+    <compoundname>modinfo_t</compoundname>
+    <includes refid="idd_8hpp" local="no">idd.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structmodinfo__t_1aaae48214a643f1c37fc52944cd033a79" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring modinfo_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>full name of the module </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="216" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmodinfo__t_1ab0abe89ce9b9c6b8b6a78e6c548c6160" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t modinfo_t::base</definition>
+        <argsstring></argsstring>
+        <name>base</name>
+        <briefdescription>
+<para>module base address. if unknown pass <ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="217" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmodinfo__t_1a0c976b9962e75c20480b6ef14b44e207" prot="public" static="no" mutable="no">
+        <type>asize_t</type>
+        <definition>asize_t modinfo_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+<para>module size. if unknown pass 0 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="218" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmodinfo__t_1aa32583323110ff9b455fd2044fdbefa0" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t modinfo_t::rebase_to</definition>
+        <argsstring></argsstring>
+        <name>rebase_to</name>
+        <briefdescription>
+<para>if not <ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref>, then rebase the program to the specified address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="219" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Describes a module load event. (see <ref refid="idd_8hpp_1a0e4c82840d549d876223416d8ae11356ae9f38fd7102f887f8140c43beda4d2c9" kindref="member">PROCESS_STARTED</ref>, <ref refid="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a0aa061ebfe8277ed602bcdc5ec1c47d4" kindref="member">PROCESS_ATTACHED</ref>, <ref refid="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a8ec79a298f8676dc062d122a1deead11" kindref="member">LIB_LOADED</ref>) </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2442">
+        <label>modinfo_t</label>
+        <link refid="structmodinfo__t"/>
+        <childnode refid="2443" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+      </node>
+      <node id="2443">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="215" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="214" bodyend="220"/>
+    <listofallmembers>
+      <member refid="structmodinfo__t_1ab0abe89ce9b9c6b8b6a78e6c548c6160" prot="public" virt="non-virtual"><scope>modinfo_t</scope><name>base</name></member>
+      <member refid="structmodinfo__t_1aaae48214a643f1c37fc52944cd033a79" prot="public" virt="non-virtual"><scope>modinfo_t</scope><name>name</name></member>
+      <member refid="structmodinfo__t_1aa32583323110ff9b455fd2044fdbefa0" prot="public" virt="non-virtual"><scope>modinfo_t</scope><name>rebase_to</name></member>
+      <member refid="structmodinfo__t_1a0c976b9962e75c20480b6ef14b44e207" prot="public" virt="non-virtual"><scope>modinfo_t</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,329 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structcitem__t" kind="struct" language="C++" prot="public">
+    <compoundname>citem_t</compoundname>
+    <derivedcompoundref refid="structcexpr__t" prot="public" virt="non-virtual">cexpr_t</derivedcompoundref>
+    <derivedcompoundref refid="structcinsn__t" prot="public" virt="non-virtual">cinsn_t</derivedcompoundref>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcitem__t_1af00396e7913ec06b2b2f8935cf8f7fb2" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t citem_t::ea</definition>
+        <argsstring></argsstring>
+        <name>ea</name>
+        <briefdescription>
+<para>address that corresponds to the item </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5569" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5569" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcitem__t_1a33d356c09a0788470e7cf211b13f6215" prot="public" static="no" mutable="no">
+        <type>ctype_t</type>
+        <definition>ctype_t citem_t::op</definition>
+        <argsstring></argsstring>
+        <name>op</name>
+        <briefdescription>
+<para>element type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5570" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5570" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcitem__t_1ab61378fb46647d677357d927fa83b770" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int citem_t::label_num</definition>
+        <argsstring></argsstring>
+        <name>label_num</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>label number. -1 means no label. items of expression types (cot_...) should not have labels at the final maturity level, but at the intermediate levels any ctree element may have a label. Labels must be unique. Usually they correspond to the basic block numbers. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5571" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5571" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcitem__t_1ab7a994cf8aa6189e9f76bc7137ba19d1" prot="public" static="no" mutable="yes">
+        <type>int</type>
+        <definition>int citem_t::index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <briefdescription>
+<para>item index. meaningful only after print_func() </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5576" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5576" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structcitem__t_1a68e6534549ef56240f63223ce2cb9511" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>citem_t::citem_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>citem_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5577" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5577" bodyend="5577"/>
+      </memberdef>
+      <memberdef kind="function" id="structcitem__t_1a8ed7508d9cdd428897e5ab86cff6d51c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>citem_t::citem_t</definition>
+        <argsstring>(ctype_t o)</argsstring>
+        <name>citem_t</name>
+        <param>
+          <type>ctype_t</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5578" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5578" bodyend="5578"/>
+      </memberdef>
+      <memberdef kind="function" id="structcitem__t_1acd07d680aacae7bd9a4c57e6aefbf19f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void citem_t::swap</definition>
+        <argsstring>(citem_t &amp;r)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="structcitem__t" kindref="compound">citem_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Swap two <ref refid="structcitem__t" kindref="compound">citem_t</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5580" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5580" bodyend="5585"/>
+      </memberdef>
+      <memberdef kind="function" id="structcitem__t_1a3cd0a66665b25a4e0fb37f0142f61177" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool citem_t::is_expr</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_expr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is an expression? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5587" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5587" bodyend="5587"/>
+      </memberdef>
+      <memberdef kind="function" id="structcitem__t_1a304ea880814cfd2d766ced8ac9d63d6a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool citem_t::contains_expr</definition>
+        <argsstring>(const cexpr_t *e) const</argsstring>
+        <name>contains_expr</name>
+        <param>
+          <type>const <ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+<para>Does the item contain an expression? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5589" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10743" bodyend="10746"/>
+      </memberdef>
+      <memberdef kind="function" id="structcitem__t_1abcfd9281359d7cc9073396fb20a1a379" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool citem_t::contains_label</definition>
+        <argsstring>(void) const</argsstring>
+        <name>contains_label</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Does the item contain a label? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5591" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10749" bodyend="10752"/>
+      </memberdef>
+      <memberdef kind="function" id="structcitem__t_1adc6157bf70af53c0a3b2d18605b45e47" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="structcitem__t" kindref="compound">citem_t</ref> *hexapi</type>
+        <definition>const citem_t * citem_t::find_parent_of</definition>
+        <argsstring>(const citem_t *sitem) const</argsstring>
+        <name>find_parent_of</name>
+        <param>
+          <type>const <ref refid="structcitem__t" kindref="compound">citem_t</ref> *</type>
+          <declname>sitem</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find parent of the specified item. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sitem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Item to find the parent of. The search will be performed among the children of the item pointed by <computeroutput>this</computeroutput>. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>NULL if not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5596" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10755" bodyend="10758"/>
+      </memberdef>
+      <memberdef kind="function" id="structcitem__t_1a71afa2c61889ebb945079417dd2ffdbb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structcitem__t" kindref="compound">citem_t</ref> *</type>
+        <definition>citem_t* citem_t::find_parent_of</definition>
+        <argsstring>(const citem_t *item)</argsstring>
+        <name>find_parent_of</name>
+        <param>
+          <type>const <ref refid="structcitem__t" kindref="compound">citem_t</ref> *</type>
+          <declname>item</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5597" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5597" bodyend="5598"/>
+      </memberdef>
+      <memberdef kind="function" id="structcitem__t_1a6eb0a116ba9cc474ecacc1eb6760c989" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structcitem__t" kindref="compound">citem_t</ref> *hexapi</type>
+        <definition>citem_t * citem_t::find_closest_addr</definition>
+        <argsstring>(ea_t _ea)</argsstring>
+        <name>find_closest_addr</name>
+        <param>
+          <type>ea_t</type>
+          <declname>_ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5599" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10761" bodyend="10764"/>
+      </memberdef>
+      <memberdef kind="function" id="structcitem__t_1a94cca5fe6cb73b156fc41b09221d8c9a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void citem_t::print1</definition>
+        <argsstring>(qstring *vout, const cfunc_t *func) const</argsstring>
+        <name>print1</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>vout</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structcfunc__t" kindref="compound">cfunc_t</ref> *</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Print item into one line. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>vout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>parent function. This argument is used to find out the referenced variable names. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>length of the generated text. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5600" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6680" bodyend="6686"/>
+      </memberdef>
+      <memberdef kind="function" id="structcitem__t_1ad1359d2dcb00069b1c29a0e08bcdbc18" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>citem_t::~citem_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>~citem_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5601" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5601" bodyend="5604"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Basic ctree element. This is an abstract class (but we don&apos;t use virtual functions in ctree, so the compiler will not disallow you to create <ref refid="structcitem__t" kindref="compound">citem_t</ref> instances). However, elements of pure <ref refid="structcitem__t" kindref="compound">citem_t</ref> type must never be created. Two classes, <ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> and <ref refid="structcinsn__t" kindref="compound">cinsn_t</ref> are derived from it. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="976">
+        <label>cinsn_t</label>
+        <link refid="structcinsn__t"/>
+        <childnode refid="973" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="977">
+        <label>ccase_t</label>
+        <link refid="structccase__t"/>
+        <childnode refid="976" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="974">
+        <label>cexpr_t</label>
+        <link refid="structcexpr__t"/>
+        <childnode refid="973" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="973">
+        <label>citem_t</label>
+        <link refid="structcitem__t"/>
+      </node>
+      <node id="975">
+        <label>carg_t</label>
+        <link refid="structcarg__t"/>
+        <childnode refid="974" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5568" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5567" bodyend="5606"/>
+    <listofallmembers>
+      <member refid="structcitem__t_1a68e6534549ef56240f63223ce2cb9511" prot="public" virt="non-virtual"><scope>citem_t</scope><name>citem_t</name></member>
+      <member refid="structcitem__t_1a8ed7508d9cdd428897e5ab86cff6d51c" prot="public" virt="non-virtual"><scope>citem_t</scope><name>citem_t</name></member>
+      <member refid="structcitem__t_1a304ea880814cfd2d766ced8ac9d63d6a" prot="public" virt="non-virtual"><scope>citem_t</scope><name>contains_expr</name></member>
+      <member refid="structcitem__t_1abcfd9281359d7cc9073396fb20a1a379" prot="public" virt="non-virtual"><scope>citem_t</scope><name>contains_label</name></member>
+      <member refid="structcitem__t_1af00396e7913ec06b2b2f8935cf8f7fb2" prot="public" virt="non-virtual"><scope>citem_t</scope><name>ea</name></member>
+      <member refid="structcitem__t_1a6eb0a116ba9cc474ecacc1eb6760c989" prot="public" virt="non-virtual"><scope>citem_t</scope><name>find_closest_addr</name></member>
+      <member refid="structcitem__t_1adc6157bf70af53c0a3b2d18605b45e47" prot="public" virt="non-virtual"><scope>citem_t</scope><name>find_parent_of</name></member>
+      <member refid="structcitem__t_1a71afa2c61889ebb945079417dd2ffdbb" prot="public" virt="non-virtual"><scope>citem_t</scope><name>find_parent_of</name></member>
+      <member refid="structcitem__t_1ab7a994cf8aa6189e9f76bc7137ba19d1" prot="public" virt="non-virtual"><scope>citem_t</scope><name>index</name></member>
+      <member refid="structcitem__t_1a3cd0a66665b25a4e0fb37f0142f61177" prot="public" virt="non-virtual"><scope>citem_t</scope><name>is_expr</name></member>
+      <member refid="structcitem__t_1ab61378fb46647d677357d927fa83b770" prot="public" virt="non-virtual"><scope>citem_t</scope><name>label_num</name></member>
+      <member refid="structcitem__t_1a33d356c09a0788470e7cf211b13f6215" prot="public" virt="non-virtual"><scope>citem_t</scope><name>op</name></member>
+      <member refid="structcitem__t_1a94cca5fe6cb73b156fc41b09221d8c9a" prot="public" virt="non-virtual"><scope>citem_t</scope><name>print1</name></member>
+      <member refid="structcitem__t_1acd07d680aacae7bd9a4c57e6aefbf19f" prot="public" virt="non-virtual"><scope>citem_t</scope><name>swap</name></member>
+      <member refid="structcitem__t_1ad1359d2dcb00069b1c29a0e08bcdbc18" prot="public" virt="non-virtual"><scope>citem_t</scope><name>~citem_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

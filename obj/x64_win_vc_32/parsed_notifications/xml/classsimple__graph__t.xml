@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classsimple__graph__t" kind="class" language="C++" prot="public">
+    <compoundname>simple_graph_t</compoundname>
+    <basecompoundref refid="classgdl__graph__t" prot="public" virt="non-virtual">gdl_graph_t</basecompoundref>
+    <derivedcompoundref refid="classmbl__graph__t" prot="public" virt="non-virtual">mbl_graph_t</derivedcompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classsimple__graph__t_1abac06c2d89f9b70d3b0eac0a787ccaf7" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring simple_graph_t::title</definition>
+        <argsstring></argsstring>
+        <name>title</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2001" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2001" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsimple__graph__t_1a5b003fc13cd962af79e1983c56020047" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool simple_graph_t::colored_gdl_edges</definition>
+        <argsstring></argsstring>
+        <name>colored_gdl_edges</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2002" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2002" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classsimple__graph__t_1a67171474c4da6cc8efe0c7fafefd2b2d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class iterator</definition>
+        <argsstring></argsstring>
+        <name>iterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2004" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2004" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classsimple__graph__t_1a7b878a3f7e9f1540da302b489fb5796e" prot="private" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>virtual int simple_graph_t::goup</definition>
+        <argsstring>(int node) const</argsstring>
+        <name>goup</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2005" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3303">
+        <label>simple_graph_t</label>
+        <link refid="classsimple__graph__t"/>
+        <childnode refid="3304" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3304">
+        <label>gdl_graph_t</label>
+        <link refid="classgdl__graph__t"/>
+      </node>
+      <node id="3305">
+        <label>mbl_graph_t</label>
+        <link refid="classmbl__graph__t"/>
+        <childnode refid="3303" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3306">
+        <label>simple_graph_t</label>
+        <link refid="classsimple__graph__t"/>
+        <childnode refid="3307" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3308" relation="usage">
+          <edgelabel>title</edgelabel>
+        </childnode>
+      </node>
+      <node id="3308">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="3307">
+        <label>gdl_graph_t</label>
+        <link refid="classgdl__graph__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1999" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1998" bodyend="2006"/>
+    <listofallmembers>
+      <member refid="classgdl__graph__t_1aed9c469ba507f9e65c97db4647311e62" prot="public" virt="non-virtual"><scope>simple_graph_t</scope><name>begin</name></member>
+      <member refid="classsimple__graph__t_1a5b003fc13cd962af79e1983c56020047" prot="public" virt="non-virtual"><scope>simple_graph_t</scope><name>colored_gdl_edges</name></member>
+      <member refid="classgdl__graph__t_1a0a40e432f6cef47a21cab2a600e407d8" prot="public" virt="non-virtual"><scope>simple_graph_t</scope><name>edge</name></member>
+      <member refid="classgdl__graph__t_1afd89c2f37ca474eeb80266263c52a1fd" prot="public" virt="virtual"><scope>simple_graph_t</scope><name>empty</name></member>
+      <member refid="classgdl__graph__t_1a5b0ee999fad4d5a780fd3bf276715c7f" prot="public" virt="non-virtual"><scope>simple_graph_t</scope><name>end</name></member>
+      <member refid="classgdl__graph__t_1ac2c6eb82d3f53c7a0ec71803f691bc59" prot="public" virt="virtual"><scope>simple_graph_t</scope><name>entry</name></member>
+      <member refid="classgdl__graph__t_1a8e26312ef1b714a18198bef6d799c258" prot="public" virt="virtual"><scope>simple_graph_t</scope><name>exists</name></member>
+      <member refid="classgdl__graph__t_1a4860b7baf2db01da12f2b0c4f209bf9c" prot="public" virt="virtual"><scope>simple_graph_t</scope><name>exit</name></member>
+      <member refid="classgdl__graph__t_1aedc53d9164372f5aab637bf2b2e497a0" prot="public" virt="non-virtual"><scope>simple_graph_t</scope><name>front</name></member>
+      <member refid="classgdl__graph__t_1ab13037817c391fd6f7f3b53f169a8009" prot="public" virt="non-virtual"><scope>simple_graph_t</scope><name>gen_dot</name></member>
+      <member refid="classgdl__graph__t_1a637ae3e6bed2ee4a4c5c1c3a36407bc0" prot="public" virt="non-virtual"><scope>simple_graph_t</scope><name>gen_dot</name></member>
+      <member refid="classgdl__graph__t_1afed62cde1549127e49b34a5c03a8e344" prot="public" virt="non-virtual"><scope>simple_graph_t</scope><name>gen_gdl</name></member>
+      <member refid="classgdl__graph__t_1a06e3dde67682f31cb54e30f612e1905b" prot="public" virt="non-virtual"><scope>simple_graph_t</scope><name>gen_gdl</name></member>
+      <member refid="classgdl__graph__t_1aadc912ba89cceed064de956bcf646d13" prot="public" virt="virtual"><scope>simple_graph_t</scope><name>get_edge_color</name></member>
+      <member refid="classgdl__graph__t_1a87253fc6388e7c3bb2c4ad72ee651a52" prot="public" virt="virtual"><scope>simple_graph_t</scope><name>get_node_color</name></member>
+      <member refid="classgdl__graph__t_1a0ca7e78eb938af72407c106fde2b9778" prot="public" virt="virtual"><scope>simple_graph_t</scope><name>get_node_label</name></member>
+      <member refid="classsimple__graph__t_1a7b878a3f7e9f1540da302b489fb5796e" prot="private" virt="virtual"><scope>simple_graph_t</scope><name>goup</name></member>
+      <member refid="classsimple__graph__t_1a67171474c4da6cc8efe0c7fafefd2b2d" prot="private" virt="non-virtual"><scope>simple_graph_t</scope><name>iterator</name></member>
+      <member refid="classgdl__graph__t_1a0e8cf052ce990f41454cfa618f318645" prot="public" virt="non-virtual"><scope>simple_graph_t</scope><name>nedge</name></member>
+      <member refid="classgdl__graph__t_1a62eb8090207b9cc4fa5220d4ee989596" prot="public" virt="virtual"><scope>simple_graph_t</scope><name>node_qty</name></member>
+      <member refid="classgdl__graph__t_1a0047a77ba26534621019e9b1e4a4380a" prot="public" virt="pure-virtual"><scope>simple_graph_t</scope><name>npred</name></member>
+      <member refid="classgdl__graph__t_1a689fddb9fec8ae4cd95ce962934809d7" prot="public" virt="pure-virtual"><scope>simple_graph_t</scope><name>nsucc</name></member>
+      <member refid="classgdl__graph__t_1ad6ad9937897af84731a3e9bbdeea75f4" prot="public" virt="non-virtual"><scope>simple_graph_t</scope><name>path_exists</name></member>
+      <member refid="classgdl__graph__t_1a1ff65cc040a928a19c2906757413b0da" prot="public" virt="pure-virtual"><scope>simple_graph_t</scope><name>pred</name></member>
+      <member refid="classgdl__graph__t_1a5f00823ba18caa2ef90f779adc27dbcb" prot="public" virt="virtual"><scope>simple_graph_t</scope><name>print_edge</name></member>
+      <member refid="classgdl__graph__t_1a4cde31a1b2c406d7813c09a839edd4ea" prot="public" virt="virtual"><scope>simple_graph_t</scope><name>print_graph_attributes</name></member>
+      <member refid="classgdl__graph__t_1ad1d859c9dacc717bb175e259a7ea3e70" prot="public" virt="virtual"><scope>simple_graph_t</scope><name>print_node</name></member>
+      <member refid="classgdl__graph__t_1a2097da98314a6608f372e03ed8978227" prot="public" virt="virtual"><scope>simple_graph_t</scope><name>print_node_attributes</name></member>
+      <member refid="classgdl__graph__t_1ab9bd673accc6dec4ec3d7c198eef8a78" prot="public" virt="pure-virtual"><scope>simple_graph_t</scope><name>size</name></member>
+      <member refid="classgdl__graph__t_1a9df8cfd864e97acfc9237ff5b0a5de69" prot="public" virt="pure-virtual"><scope>simple_graph_t</scope><name>succ</name></member>
+      <member refid="classsimple__graph__t_1abac06c2d89f9b70d3b0eac0a787ccaf7" prot="public" virt="non-virtual"><scope>simple_graph_t</scope><name>title</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

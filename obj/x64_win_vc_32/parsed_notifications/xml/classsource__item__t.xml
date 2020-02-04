@@ -1,0 +1,545 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classsource__item__t" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>source_item_t</compoundname>
+    <basecompoundref refid="classqrefcnt__obj__t" prot="public" virt="non-virtual">qrefcnt_obj_t</basecompoundref>
+    <includes refid="dbg_8hpp" local="no">dbg.hpp</includes>
+      <sectiondef kind="user-defined">
+      <header>Getters (for modification)</header>
+      <description><para>The following functions can be used to extract the item information in order to modify it. For example, if the user wants to modify a variable we will find what exactly needs to be modified. </para></description>
+      <memberdef kind="function" id="classsource__item__t_1a99539784868892f786d8e2067f606407" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="group__dbg__funcs__srcinfo_1gadd1590e46b67c1fbc2820300b894596f" kindref="member">src_item_kind_t</ref> idaapi</type>
+        <definition>virtual src_item_kind_t idaapi source_item_t::get_item_kind</definition>
+        <argsstring>(const eval_ctx_t *) const</argsstring>
+        <name>get_item_kind</name>
+        <param>
+          <type>const <ref refid="classeval__ctx__t" kindref="compound">eval_ctx_t</ref> *</type>
+        </param>
+        <briefdescription>
+<para>Get item kind. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2240" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2240" bodyend="2240"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1a4949391d074a177c8ee1d7d5621b00e3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool source_item_t::is_stmt</definition>
+        <argsstring>(const eval_ctx_t *ctx) const</argsstring>
+        <name>is_stmt</name>
+        <param>
+          <type>const <ref refid="classeval__ctx__t" kindref="compound">eval_ctx_t</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Does this source item represent a statement? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2242" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2242" bodyend="2242"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1aadd03cd6d20f6294133526f282e7133c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool source_item_t::is_module</definition>
+        <argsstring>(const eval_ctx_t *ctx) const</argsstring>
+        <name>is_module</name>
+        <param>
+          <type>const <ref refid="classeval__ctx__t" kindref="compound">eval_ctx_t</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Does this source item represent a module? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2244" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2244" bodyend="2244"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1a7e4ff4f9e16d79fd920a0f549e688254" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool source_item_t::is_func</definition>
+        <argsstring>(const eval_ctx_t *ctx) const</argsstring>
+        <name>is_func</name>
+        <param>
+          <type>const <ref refid="classeval__ctx__t" kindref="compound">eval_ctx_t</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Does this source item represent a function? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2246" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2246" bodyend="2246"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1a9d0c571c99aa8dcc3006611ee803441f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool source_item_t::is_expr</definition>
+        <argsstring>(const eval_ctx_t *ctx) const</argsstring>
+        <name>is_expr</name>
+        <param>
+          <type>const <ref refid="classeval__ctx__t" kindref="compound">eval_ctx_t</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Does this source item represent an expression? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2248" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2248" bodyend="2248"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1abb107c1ba68005a007f057c1f353add7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool source_item_t::is_locvar</definition>
+        <argsstring>(const eval_ctx_t *ctx) const</argsstring>
+        <name>is_locvar</name>
+        <param>
+          <type>const <ref refid="classeval__ctx__t" kindref="compound">eval_ctx_t</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Does this source item represent a stack, register, or register-relative local variable or parameter? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2250" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2250" bodyend="2250"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1aa7a8300b8e8e3634f8276c8e07c7a911" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool source_item_t::is_sttvar</definition>
+        <argsstring>(const eval_ctx_t *ctx) const</argsstring>
+        <name>is_sttvar</name>
+        <param>
+          <type>const <ref refid="classeval__ctx__t" kindref="compound">eval_ctx_t</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Does this source item represent a static variable or code? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2252" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2252" bodyend="2252"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1a5221d75a22df47f0bfa84aeda3d78ba4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classsrcinfo__provider__t" kindref="compound">srcinfo_provider_t</ref> *idaapi</type>
+        <definition>virtual srcinfo_provider_t* idaapi source_item_t::get_provider</definition>
+        <argsstring>(void) const =0</argsstring>
+        <name>get_provider</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get source info provider. The instance shouldn&apos;t be freed or released after using </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2256" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1a61ae73d9f8b22986452dd76561cbe6e4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi source_item_t::get_location</definition>
+        <argsstring>(argloc_t *, const eval_ctx_t *) const</argsstring>
+        <name>get_location</name>
+        <param>
+          <type><ref refid="classargloc__t" kindref="compound">argloc_t</ref> *</type>
+        </param>
+        <param>
+          <type>const <ref refid="classeval__ctx__t" kindref="compound">eval_ctx_t</ref> *</type>
+        </param>
+        <briefdescription>
+<para>Get the location for this source item. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2259" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2259" bodyend="2259"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1a987db52e39e721806183d8a6caa54ed1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi source_item_t::get_expr_tinfo</definition>
+        <argsstring>(tinfo_t *tif) const =0</argsstring>
+        <name>get_expr_tinfo</name>
+        <param>
+          <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref> *</type>
+          <declname>tif</declname>
+        </param>
+        <briefdescription>
+<para>Get expression type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2262" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsource__item__t_1ac4d949c9f53d0b02c493b87c3b2c7506" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void idaapi</type>
+        <definition>virtual void idaapi source_item_t::release</definition>
+        <argsstring>()=0</argsstring>
+        <name>release</name>
+        <reimplements refid="classqrefcnt__obj__t_1a745ea2234fa257ca04514ef78977ad84">release</reimplements>
+        <briefdescription>
+<para>Call this function to free <ref refid="classsource__item__t" kindref="compound">source_item_t</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2153" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1a35c80f5af1582bdbbb4e0f50dab3dff4" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="group__dbg__funcs__srcinfo_1ga3a88865b1c3ef359dea9675b081896ab" kindref="member">source_file_iterator</ref> idaapi</type>
+        <definition>virtual source_file_iterator idaapi source_item_t::get_source_files</definition>
+        <argsstring>()=0</argsstring>
+        <name>get_source_files</name>
+        <briefdescription>
+<para>Get source files of the item. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2156" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1a7c29e73cec388f6a7a8a1fa45e9b735e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi source_item_t::get_name</definition>
+        <argsstring>(qstring *buf) const =0</argsstring>
+        <name>get_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <briefdescription>
+<para>Get name of the item. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2159" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1a79216aafe9d32eefa67cd41f36e28a6f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi source_item_t::get_lnnum</definition>
+        <argsstring>() const =0</argsstring>
+        <name>get_lnnum</name>
+        <briefdescription>
+<para>Get line number of the item (1-based) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2162" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1ae611c5f56ebee660aa1f65cac07f877f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi source_item_t::get_end_lnnum</definition>
+        <argsstring>() const =0</argsstring>
+        <name>get_end_lnnum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get ending line number (1-based.) The returned line number is the next line after the expression </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2167" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1a8c6eb1b1ec75a97aed5c82a3430b0c4c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi source_item_t::get_colnum</definition>
+        <argsstring>() const =0</argsstring>
+        <name>get_colnum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get column number of the item. If unknown, return -1 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2171" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1a7ae38b75388a3e9e879b86cd63eaec8b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi source_item_t::get_end_colnum</definition>
+        <argsstring>() const =0</argsstring>
+        <name>get_end_colnum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get ending column number. The returned column number is the next column after the expression. If unknown, return -1 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2177" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1acd301f980c3d0b0106d3e65984219d8c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>ea_t idaapi</type>
+        <definition>virtual ea_t idaapi source_item_t::get_ea</definition>
+        <argsstring>() const =0</argsstring>
+        <name>get_ea</name>
+        <briefdescription>
+<para>Get starting address of the item. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2180" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1ad015b477b8aff29ba4034bad69236dc3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>asize_t idaapi</type>
+        <definition>virtual asize_t idaapi source_item_t::get_size</definition>
+        <argsstring>() const =0</argsstring>
+        <name>get_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get size of the item in bytes. If the item is fragmented, return size of the main fragment. if unknown, return 0. On error, return (asize_t) -1. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2187" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1abf4a29071ce948251416d757f2ae355f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi source_item_t::get_item_bounds</definition>
+        <argsstring>(rangeset_t *set) const =0</argsstring>
+        <name>get_item_bounds</name>
+        <param>
+          <type><ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *</type>
+          <declname>set</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get item boundaries as a set of ranges. This function will be used to determine what breakpoints to set for stepping into/stepping over the item. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2192" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1ab2609330bed2ebab493e451554783cd0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="group__dbg__funcs__srcinfo_1ga3c73aaf1eda8ff72a5a78ea13840afa5" kindref="member">source_item_ptr</ref> idaapi</type>
+        <definition>virtual source_item_ptr idaapi source_item_t::get_parent</definition>
+        <argsstring>(src_item_kind_t max_kind) const =0</argsstring>
+        <name>get_parent</name>
+        <param>
+          <type><ref refid="group__dbg__funcs__srcinfo_1gadd1590e46b67c1fbc2820300b894596f" kindref="member">src_item_kind_t</ref></type>
+          <declname>max_kind</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get parent of the item. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>max_kind</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>maximal source item kind we are interested in. for example, if max_kinds==<ref refid="group__dbg__funcs__srcinfo_1ggadd1590e46b67c1fbc2820300b894596faaeceec779eabbd5638ff5ef4cf2e7b13" kindref="member">SRCIT_STMT</ref>, we are not interested in expressions, only in the enclosing statement or function </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2198" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1abd340b3b34a30bfd7336f66506a3d55b" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="group__dbg__funcs__srcinfo_1gafdf5f52760e4ac48addc8b82986f6a8e" kindref="member">source_item_iterator</ref> idaapi</type>
+        <definition>virtual source_item_iterator idaapi source_item_t::create_children_iterator</definition>
+        <argsstring>()=0</argsstring>
+        <name>create_children_iterator</name>
+        <briefdescription>
+<para>Create an iterator to enumerate all children of the item. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2201" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1a290e2867d81d9ec61cd5eb53e22e6c84" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi source_item_t::get_hint</definition>
+        <argsstring>(qstring *hint, const eval_ctx_t *ctx, int *nlines) const =0</argsstring>
+        <name>get_hint</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>hint</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classeval__ctx__t" kindref="compound">eval_ctx_t</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>nlines</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calculate a string to display as a hint. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>hint</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output buffer for the hint (may by multiline &amp; with colors) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>execution context. NULL means missing context. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nlines</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of important lines in the hint </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2207" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1abf0d900a8407bc69908347e7e391ec24" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi source_item_t::evaluate</definition>
+        <argsstring>(const eval_ctx_t *ctx, idc_value_t *res, qstring *errbuf) const =0</argsstring>
+        <name>evaluate</name>
+        <param>
+          <type>const <ref refid="classeval__ctx__t" kindref="compound">eval_ctx_t</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="classidc__value__t" kindref="compound">idc_value_t</ref> *</type>
+          <declname>res</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Evaluate item value (meaningful only for expression items). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>execution context. NULL means missing context. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>res</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer for the result (or exception if evaluation failed) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer for the error message </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2216" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__item__t_1a039d0bfa12b1cf19ee87ad2d1bb9f9fa" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi source_item_t::equals</definition>
+        <argsstring>(const source_item_t *other) const =0</argsstring>
+        <name>equals</name>
+        <param>
+          <type>const <ref refid="classsource__item__t" kindref="compound">source_item_t</ref> *</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Do these two items have the same source?. <parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>false</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the source of the underlying data differs between the two items. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>true</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>when either the source of the underlying data is the same for the two items, or when such information is not available.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+E.g., A DWARF implementation of <ref refid="classsource__item__t" kindref="compound">source_item_t</ref> will return true if the two items are backed by DIEs that have the same file offset. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2231" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Describes a subdivision of source information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3329">
+        <label>qrefcnt_obj_t</label>
+        <link refid="classqrefcnt__obj__t"/>
+      </node>
+      <node id="3328">
+        <label>source_item_t</label>
+        <link refid="classsource__item__t"/>
+        <childnode refid="3329" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3331">
+        <label>qrefcnt_obj_t</label>
+        <link refid="classqrefcnt__obj__t"/>
+      </node>
+      <node id="3330">
+        <label>source_item_t</label>
+        <link refid="classsource__item__t"/>
+        <childnode refid="3331" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2150" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2149" bodyend="2264"/>
+    <listofallmembers>
+      <member refid="classsource__item__t_1abd340b3b34a30bfd7336f66506a3d55b" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>create_children_iterator</name></member>
+      <member refid="classsource__item__t_1a039d0bfa12b1cf19ee87ad2d1bb9f9fa" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>equals</name></member>
+      <member refid="classsource__item__t_1abf0d900a8407bc69908347e7e391ec24" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>evaluate</name></member>
+      <member refid="classsource__item__t_1a8c6eb1b1ec75a97aed5c82a3430b0c4c" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>get_colnum</name></member>
+      <member refid="classsource__item__t_1acd301f980c3d0b0106d3e65984219d8c" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>get_ea</name></member>
+      <member refid="classsource__item__t_1a7ae38b75388a3e9e879b86cd63eaec8b" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>get_end_colnum</name></member>
+      <member refid="classsource__item__t_1ae611c5f56ebee660aa1f65cac07f877f" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>get_end_lnnum</name></member>
+      <member refid="classsource__item__t_1a987db52e39e721806183d8a6caa54ed1" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>get_expr_tinfo</name></member>
+      <member refid="classsource__item__t_1a290e2867d81d9ec61cd5eb53e22e6c84" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>get_hint</name></member>
+      <member refid="classsource__item__t_1abf4a29071ce948251416d757f2ae355f" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>get_item_bounds</name></member>
+      <member refid="classsource__item__t_1a99539784868892f786d8e2067f606407" prot="public" virt="virtual"><scope>source_item_t</scope><name>get_item_kind</name></member>
+      <member refid="classsource__item__t_1a79216aafe9d32eefa67cd41f36e28a6f" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>get_lnnum</name></member>
+      <member refid="classsource__item__t_1a61ae73d9f8b22986452dd76561cbe6e4" prot="public" virt="virtual"><scope>source_item_t</scope><name>get_location</name></member>
+      <member refid="classsource__item__t_1a7c29e73cec388f6a7a8a1fa45e9b735e" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>get_name</name></member>
+      <member refid="classsource__item__t_1ab2609330bed2ebab493e451554783cd0" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>get_parent</name></member>
+      <member refid="classsource__item__t_1a5221d75a22df47f0bfa84aeda3d78ba4" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>get_provider</name></member>
+      <member refid="classsource__item__t_1ad015b477b8aff29ba4034bad69236dc3" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>get_size</name></member>
+      <member refid="classsource__item__t_1a35c80f5af1582bdbbb4e0f50dab3dff4" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>get_source_files</name></member>
+      <member refid="classsource__item__t_1a9d0c571c99aa8dcc3006611ee803441f" prot="public" virt="non-virtual"><scope>source_item_t</scope><name>is_expr</name></member>
+      <member refid="classsource__item__t_1a7e4ff4f9e16d79fd920a0f549e688254" prot="public" virt="non-virtual"><scope>source_item_t</scope><name>is_func</name></member>
+      <member refid="classsource__item__t_1abb107c1ba68005a007f057c1f353add7" prot="public" virt="non-virtual"><scope>source_item_t</scope><name>is_locvar</name></member>
+      <member refid="classsource__item__t_1aadd03cd6d20f6294133526f282e7133c" prot="public" virt="non-virtual"><scope>source_item_t</scope><name>is_module</name></member>
+      <member refid="classsource__item__t_1a4949391d074a177c8ee1d7d5621b00e3" prot="public" virt="non-virtual"><scope>source_item_t</scope><name>is_stmt</name></member>
+      <member refid="classsource__item__t_1aa7a8300b8e8e3634f8276c8e07c7a911" prot="public" virt="non-virtual"><scope>source_item_t</scope><name>is_sttvar</name></member>
+      <member refid="classqrefcnt__obj__t_1abca79ba34587bd7253077569aee4d137" prot="public" virt="non-virtual"><scope>source_item_t</scope><name>qrefcnt_obj_t</name></member>
+      <member refid="classqrefcnt__obj__t_1ab8d5e88bdc5903c5d918b6150c57f454" prot="public" virt="non-virtual"><scope>source_item_t</scope><name>refcnt</name></member>
+      <member refid="classsource__item__t_1ac4d949c9f53d0b02c493b87c3b2c7506" prot="public" virt="pure-virtual"><scope>source_item_t</scope><name>release</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

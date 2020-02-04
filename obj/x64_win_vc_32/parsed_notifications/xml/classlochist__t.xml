@@ -1,0 +1,410 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classlochist__t" kind="class" language="C++" prot="public">
+    <compoundname>lochist_t</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classlochist__t_1a391d097f773e3ebe2f3dfd8b6145baa5" prot="private" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* lochist_t::ud</definition>
+        <argsstring></argsstring>
+        <name>ud</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="230" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlochist__t_1a6646d35ffa8178a55582ea120fea8332" prot="private" static="no" mutable="no">
+        <type><ref refid="structlochist__entry__t" kindref="compound">lochist_entry_t</ref></type>
+        <definition>lochist_entry_t lochist_t::cur</definition>
+        <argsstring></argsstring>
+        <name>cur</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="234" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlochist__t_1afdb4aae0c3b126dfd9512d98c87fc908" prot="private" static="no" mutable="no">
+        <type><ref refid="classnetnode" kindref="compound">netnode</ref></type>
+        <definition>netnode lochist_t::node</definition>
+        <argsstring></argsstring>
+        <name>node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="235" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlochist__t_1a7182082ce7453ad803a086f38d8c56cd" prot="private" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 lochist_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="238" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classlochist__t_1ac2af4bb8b1bf5d72d63afb21c2415782" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>lochist_t::lochist_t</definition>
+        <argsstring>()</argsstring>
+        <name>lochist_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="241" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="241" bodyend="241"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1a8e4165ee3b9c5846204b62d00eaf06a3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>lochist_t::~lochist_t</definition>
+        <argsstring>()</argsstring>
+        <name>~lochist_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="242" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="242" bodyend="242"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1a01187fd6b97638690bce5cbe968b8a05" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lochist_t::is_history_enabled</definition>
+        <argsstring>() const</argsstring>
+        <name>is_history_enabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="243" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="243" bodyend="243"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1a8522277a5acb2b79336b960492992d91" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int lochist_t::get_place_id</definition>
+        <argsstring>() const</argsstring>
+        <name>get_place_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="244" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="244" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1a5ae42bbc5a5d62f88c91dff039f7b304" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lochist_t::init</definition>
+        <argsstring>(const char *stream_name, const place_t *_defpos, void *_ud, uint32 _flags)</argsstring>
+        <name>init</name>
+        <param>
+          <type>const char *</type>
+          <declname>stream_name</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classplace__t" kindref="compound">place_t</ref> *</type>
+          <declname>_defpos</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>_ud</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>_flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="249" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="249" bodyend="250"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1afe96258733ae2c5751c962d6931e473a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>nodeidx_t</type>
+        <definition>nodeidx_t lochist_t::netcode</definition>
+        <argsstring>() const</argsstring>
+        <name>netcode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="252" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="252" bodyend="253"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1aab93e99bf78af096dd362d31e8bb3289" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lochist_t::jump</definition>
+        <argsstring>(bool try_to_unhide, const lochist_entry_t &amp;e)</argsstring>
+        <name>jump</name>
+        <param>
+          <type>bool</type>
+          <declname>try_to_unhide</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structlochist__entry__t" kindref="compound">lochist_entry_t</ref> &amp;</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="255" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="255" bodyend="256"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1aaa45ccaf377051c7b49b313592ef5ac2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 lochist_t::current_index</definition>
+        <argsstring>() const</argsstring>
+        <name>current_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="258" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="258" bodyend="259"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1acc874c7dd5da6fcd62033ff07bdf1433" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lochist_t::seek</definition>
+        <argsstring>(uint32 index, bool try_to_unhide)</argsstring>
+        <name>seek</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>try_to_unhide</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="261" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="261" bodyend="262"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1a97766c1fbde1c97ef09df82b2b3313e4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lochist_t::fwd</definition>
+        <argsstring>(uint32 cnt, bool try_to_unhide)</argsstring>
+        <name>fwd</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>cnt</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>try_to_unhide</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="264" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="264" bodyend="265"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1a9f5f1c9910f4739a8781c73d5c7332af" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lochist_t::back</definition>
+        <argsstring>(uint32 cnt, bool try_to_unhide)</argsstring>
+        <name>back</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>cnt</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>try_to_unhide</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="267" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="267" bodyend="268"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1a158080ecc72066564ca17a01ea63bcc1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lochist_t::save</definition>
+        <argsstring>() const</argsstring>
+        <name>save</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="270" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="270" bodyend="271"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1a2f479ebbd5bbd89c747a4adbcdd15ac3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lochist_t::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="273" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="273" bodyend="274"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1a350707573bfdea40df1de7e3cd99d34f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="structlochist__entry__t" kindref="compound">lochist_entry_t</ref> &amp;</type>
+        <definition>const lochist_entry_t&amp; lochist_t::get_current</definition>
+        <argsstring>() const</argsstring>
+        <name>get_current</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="276" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="276" bodyend="277"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1afeb30228ce250d2e6d63bb7c49e732f6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lochist_t::set_current</definition>
+        <argsstring>(const lochist_entry_t &amp;e)</argsstring>
+        <name>set_current</name>
+        <param>
+          <type>const <ref refid="structlochist__entry__t" kindref="compound">lochist_entry_t</ref> &amp;</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="279" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="279" bodyend="280"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1a6f640fee32f6934448a0f6729778257b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lochist_t::set</definition>
+        <argsstring>(uint32 index, const lochist_entry_t &amp;e)</argsstring>
+        <name>set</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structlochist__entry__t" kindref="compound">lochist_entry_t</ref> &amp;</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="282" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="282" bodyend="283"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1a34c864586c385e3805c263906ad57f00" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lochist_t::get</definition>
+        <argsstring>(lochist_entry_t *out, uint32 index) const</argsstring>
+        <name>get</name>
+        <param>
+          <type><ref refid="structlochist__entry__t" kindref="compound">lochist_entry_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="285" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="285" bodyend="286"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1a085947a301785c182463d255cfb8b1ce" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 lochist_t::size</definition>
+        <argsstring>(void) const</argsstring>
+        <name>size</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="288" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="288" bodyend="289"/>
+      </memberdef>
+      <memberdef kind="function" id="classlochist__t_1a98a5efdfc44174378fcf6de55b8cc876" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classplace__t" kindref="compound">place_t</ref> *</type>
+        <definition>const place_t* lochist_t::get_template_place</definition>
+        <argsstring>() const</argsstring>
+        <name>get_template_place</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="291" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="291" bodyend="292"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="229" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="228" bodyend="293"/>
+    <listofallmembers>
+      <member refid="classlochist__t_1a9f5f1c9910f4739a8781c73d5c7332af" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>back</name></member>
+      <member refid="classlochist__t_1a2f479ebbd5bbd89c747a4adbcdd15ac3" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>clear</name></member>
+      <member refid="classlochist__t_1a6646d35ffa8178a55582ea120fea8332" prot="private" virt="non-virtual"><scope>lochist_t</scope><name>cur</name></member>
+      <member refid="classlochist__t_1aaa45ccaf377051c7b49b313592ef5ac2" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>current_index</name></member>
+      <member refid="classlochist__t_1a7182082ce7453ad803a086f38d8c56cd" prot="private" virt="non-virtual"><scope>lochist_t</scope><name>flags</name></member>
+      <member refid="classlochist__t_1a97766c1fbde1c97ef09df82b2b3313e4" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>fwd</name></member>
+      <member refid="classlochist__t_1a34c864586c385e3805c263906ad57f00" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>get</name></member>
+      <member refid="classlochist__t_1a350707573bfdea40df1de7e3cd99d34f" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>get_current</name></member>
+      <member refid="classlochist__t_1a8522277a5acb2b79336b960492992d91" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>get_place_id</name></member>
+      <member refid="classlochist__t_1a98a5efdfc44174378fcf6de55b8cc876" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>get_template_place</name></member>
+      <member refid="classlochist__t_1a5ae42bbc5a5d62f88c91dff039f7b304" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>init</name></member>
+      <member refid="classlochist__t_1a01187fd6b97638690bce5cbe968b8a05" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>is_history_enabled</name></member>
+      <member refid="classlochist__t_1aab93e99bf78af096dd362d31e8bb3289" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>jump</name></member>
+      <member refid="classlochist__t_1ac2af4bb8b1bf5d72d63afb21c2415782" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>lochist_t</name></member>
+      <member refid="classlochist__t_1afe96258733ae2c5751c962d6931e473a" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>netcode</name></member>
+      <member refid="classlochist__t_1afdb4aae0c3b126dfd9512d98c87fc908" prot="private" virt="non-virtual"><scope>lochist_t</scope><name>node</name></member>
+      <member refid="classlochist__t_1a158080ecc72066564ca17a01ea63bcc1" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>save</name></member>
+      <member refid="classlochist__t_1acc874c7dd5da6fcd62033ff07bdf1433" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>seek</name></member>
+      <member refid="classlochist__t_1a6f640fee32f6934448a0f6729778257b" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>set</name></member>
+      <member refid="classlochist__t_1afeb30228ce250d2e6d63bb7c49e732f6" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>set_current</name></member>
+      <member refid="classlochist__t_1a085947a301785c182463d255cfb8b1ce" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>size</name></member>
+      <member refid="classlochist__t_1a391d097f773e3ebe2f3dfd8b6145baa5" prot="private" virt="non-virtual"><scope>lochist_t</scope><name>ud</name></member>
+      <member refid="classlochist__t_1a8e4165ee3b9c5846204b62d00eaf06a3" prot="public" virt="non-virtual"><scope>lochist_t</scope><name>~lochist_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

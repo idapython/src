@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___g_l_n__" kind="group">
+    <compoundname>GLN_</compoundname>
+    <title>get_label_num control</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___g_l_n___1ga8467a1fc9cc304e25c944dd44b651b79" prot="public" static="no">
+        <name>GLN_CURRENT</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>get label of the current item </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6213" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___g_l_n___1ga6ed2581a821f03b0d216261b9a13fcdd" prot="public" static="no">
+        <name>GLN_GOTO_TARGET</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>get goto target </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6214" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___g_l_n___1gadebe307b05f7cce5bb9a7c65b49ebe6e" prot="public" static="no">
+        <name>GLN_ALL</name>
+        <initializer>0x03</initializer>
+        <briefdescription>
+<para>get both </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6215" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6215" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

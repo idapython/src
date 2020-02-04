@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="unionview__mouse__event__location__t" kind="union" language="C++" prot="public">
+    <compoundname>view_mouse_event_location_t</compoundname>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="unionview__mouse__event__location__t_1a25fc5029dca838b4fb1dc2b39a539ca6" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t view_mouse_event_location_t::ea</definition>
+        <argsstring></argsstring>
+        <name>ea</name>
+        <briefdescription>
+<para>flat view (rtype == <ref refid="kernwin_8hpp_1a35329d63b9cd10f0e8064ab3e39c3232ad23ca1328ba2ec561416f1a93dba26fe" kindref="member">TCCRT_FLAT</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2984" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2984" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionview__mouse__event__location__t_1a4d0799dcc4a2ef40a26642af9c686e34" prot="public" static="no" mutable="no">
+        <type>const <ref refid="structselection__item__t" kindref="compound">selection_item_t</ref> *</type>
+        <definition>const selection_item_t* view_mouse_event_location_t::item</definition>
+        <argsstring></argsstring>
+        <name>item</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>graph views (rtype != <ref refid="kernwin_8hpp_1a35329d63b9cd10f0e8064ab3e39c3232ad23ca1328ba2ec561416f1a93dba26fe" kindref="member">TCCRT_FLAT</ref>). NULL if mouse is not currently over an item. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2985" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2985" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Abstraction of location in flat view/graph views (out of &apos;<ref refid="structview__mouse__event__t" kindref="compound">view_mouse_event_t</ref>&apos; to make it easy for SWiG to wrap) </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="3849">
+        <label>edge_t</label>
+        <link refid="structedge__t"/>
+      </node>
+      <node id="3848">
+        <label>edge_layout_point_t</label>
+        <link refid="structedge__layout__point__t"/>
+        <childnode refid="3849" relation="usage">
+          <edgelabel>e</edgelabel>
+        </childnode>
+      </node>
+      <node id="3847">
+        <label>selection_item_t</label>
+        <link refid="structselection__item__t"/>
+        <childnode refid="3848" relation="usage">
+          <edgelabel>elp</edgelabel>
+        </childnode>
+      </node>
+      <node id="3846">
+        <label>view_mouse_event_location_t</label>
+        <link refid="unionview__mouse__event__location__t"/>
+        <childnode refid="3847" relation="usage">
+          <edgelabel>item</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2983" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2982" bodyend="2987"/>
+    <listofallmembers>
+      <member refid="unionview__mouse__event__location__t_1a25fc5029dca838b4fb1dc2b39a539ca6" prot="public" virt="non-virtual"><scope>view_mouse_event_location_t</scope><name>ea</name></member>
+      <member refid="unionview__mouse__event__location__t_1a4d0799dcc4a2ef40a26642af9c686e34" prot="public" virt="non-virtual"><scope>view_mouse_event_location_t</scope><name>item</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

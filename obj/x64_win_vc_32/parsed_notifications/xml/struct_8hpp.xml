@@ -1,0 +1,2054 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="struct_8hpp" kind="file" language="C++">
+    <compoundname>struct.hpp</compoundname>
+    <includes refid="bytes_8hpp" local="no">bytes.hpp</includes>
+    <incdepgraph>
+      <node id="1378">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="1362">
+        <label>stdarg.h</label>
+      </node>
+      <node id="1365">
+        <label>assert.h</label>
+      </node>
+      <node id="1359">
+        <label>ida.hpp</label>
+        <link refid="ida_8hpp"/>
+        <childnode refid="1360" relation="include">
+        </childnode>
+        <childnode refid="1380" relation="include">
+        </childnode>
+      </node>
+      <node id="1361">
+        <label>stdlib.h</label>
+      </node>
+      <node id="1373">
+        <label>io.h</label>
+      </node>
+      <node id="1376">
+        <label>fcntl.h</label>
+      </node>
+      <node id="1379">
+        <label>llong.hpp</label>
+        <link refid="llong_8hpp_source"/>
+      </node>
+      <node id="1371">
+        <label>malloc.h</label>
+      </node>
+      <node id="1370">
+        <label>string</label>
+      </node>
+      <node id="1375">
+        <label>map</label>
+      </node>
+      <node id="1374">
+        <label>direct.h</label>
+      </node>
+      <node id="1363">
+        <label>stddef.h</label>
+      </node>
+      <node id="1358">
+        <label>nalt.hpp</label>
+        <link refid="nalt_8hpp"/>
+        <childnode refid="1359" relation="include">
+        </childnode>
+        <childnode refid="1381" relation="include">
+        </childnode>
+      </node>
+      <node id="1356">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/struct.hpp</label>
+        <link refid="struct_8hpp"/>
+        <childnode refid="1357" relation="include">
+        </childnode>
+      </node>
+      <node id="1382">
+        <label>lines.hpp</label>
+        <link refid="lines_8hpp"/>
+        <childnode refid="1359" relation="include">
+        </childnode>
+      </node>
+      <node id="1366">
+        <label>limits.h</label>
+      </node>
+      <node id="1377">
+        <label>sys/types.h</label>
+      </node>
+      <node id="1372">
+        <label>string.h</label>
+      </node>
+      <node id="1369">
+        <label>new</label>
+      </node>
+      <node id="1360">
+        <label>pro.h</label>
+        <link refid="pro_8h"/>
+        <childnode refid="1361" relation="include">
+        </childnode>
+        <childnode refid="1362" relation="include">
+        </childnode>
+        <childnode refid="1363" relation="include">
+        </childnode>
+        <childnode refid="1364" relation="include">
+        </childnode>
+        <childnode refid="1365" relation="include">
+        </childnode>
+        <childnode refid="1366" relation="include">
+        </childnode>
+        <childnode refid="1367" relation="include">
+        </childnode>
+        <childnode refid="1368" relation="include">
+        </childnode>
+        <childnode refid="1369" relation="include">
+        </childnode>
+        <childnode refid="1370" relation="include">
+        </childnode>
+        <childnode refid="1371" relation="include">
+        </childnode>
+        <childnode refid="1372" relation="include">
+        </childnode>
+        <childnode refid="1373" relation="include">
+        </childnode>
+        <childnode refid="1374" relation="include">
+        </childnode>
+        <childnode refid="1375" relation="include">
+        </childnode>
+        <childnode refid="1376" relation="include">
+        </childnode>
+        <childnode refid="1377" relation="include">
+        </childnode>
+        <childnode refid="1378" relation="include">
+        </childnode>
+        <childnode refid="1379" relation="include">
+        </childnode>
+      </node>
+      <node id="1368">
+        <label>time.h</label>
+      </node>
+      <node id="1357">
+        <label>bytes.hpp</label>
+        <link refid="bytes_8hpp"/>
+        <childnode refid="1358" relation="include">
+        </childnode>
+        <childnode refid="1382" relation="include">
+        </childnode>
+        <childnode refid="1380" relation="include">
+        </childnode>
+      </node>
+      <node id="1367">
+        <label>ctype.h</label>
+      </node>
+      <node id="1380">
+        <label>range.hpp</label>
+        <link refid="range_8hpp"/>
+      </node>
+      <node id="1381">
+        <label>netnode.hpp</label>
+        <link refid="netnode_8hpp"/>
+        <childnode refid="1380" relation="include">
+        </childnode>
+      </node>
+      <node id="1364">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classmember__t" prot="public">member_t</innerclass>
+    <innerclass refid="classstruc__t" prot="public">struc_t</innerclass>
+    <innerclass refid="structstruct__field__visitor__t" prot="public">struct_field_visitor_t</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Internal structures list</header>
+      <description><para>IDA maintains an internal vector of known structures. Use these functions to work with this vector. </para></description>
+      <memberdef kind="function" id="struct_8hpp_1a3b42dbf3a42f5d3276bcd200a55a5889" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export get_struc_qty</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_struc_qty</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get number of known structures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="134" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a85d2ea8f387b1b07aeaab63ba524a610" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref> ida_export</type>
+        <definition>idaman uval_t ida_export get_first_struc_idx</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_first_struc_idx</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get index of first structure. <simplesect kind="return"><para><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> if no known structures, 0 otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="140" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1aaf74b0f354956a690bc8c770bbfa27a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref> ida_export</type>
+        <definition>idaman uval_t ida_export get_last_struc_idx</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_last_struc_idx</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get index of last structure. <simplesect kind="return"><para><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> if no known structures, <ref refid="struct_8hpp_1a3b42dbf3a42f5d3276bcd200a55a5889" kindref="member">get_struc_qty()</ref>-1 otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="146" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a46cde2a9b63c3a8d173ac253e7d49314" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+        <definition>THREAD_SAFE uval_t get_prev_struc_idx</definition>
+        <argsstring>(uval_t idx)</argsstring>
+        <name>get_prev_struc_idx</name>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get previous struct index. <simplesect kind="return"><para><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> if resulting index is negative, otherwise idx - 1 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="152" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="152" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a57063f026ec4e0aca498adc1f55d01ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref> ida_export</type>
+        <definition>idaman uval_t ida_export get_next_struc_idx</definition>
+        <argsstring>(uval_t idx)</argsstring>
+        <name>get_next_struc_idx</name>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get next struct index. <simplesect kind="return"><para><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> if resulting index is out of bounds, otherwise idx++ </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="158" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1ad42189a9c7e10a0df284428dfcd7e334" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref> ida_export</type>
+        <definition>idaman uval_t ida_export get_struc_idx</definition>
+        <argsstring>(tid_t id)</argsstring>
+        <name>get_struc_idx</name>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+<para>Get internal number of the structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="163" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a94b7fc0c2093f385012ddb5b1d05743a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref> ida_export</type>
+        <definition>idaman tid_t ida_export get_struc_by_idx</definition>
+        <argsstring>(uval_t idx)</argsstring>
+        <name>get_struc_by_idx</name>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+<para>Get struct id by struct number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="168" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a4f7d9419fc4616db2450413427bd1e45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classstruc__t" kindref="compound">struc_t</ref> *ida_export</type>
+        <definition>idaman struc_t* ida_export get_struc</definition>
+        <argsstring>(tid_t id)</argsstring>
+        <name>get_struc</name>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+<para>Get pointer to struct type info. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="173" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Struct offsets</header>
+      <description><para><simplesect kind="note"><para>for unions, soff == number of the current member </para></simplesect>
+</para></description>
+      <memberdef kind="function" id="struct_8hpp_1a50759fd85eebb25000c9a4b7e28b5be3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export get_struc_prev_offset</definition>
+        <argsstring>(const struc_t *sptr, ea_t offset)</argsstring>
+        <name>get_struc_prev_offset</name>
+        <param>
+          <type>const <ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get offset of member with largest offset less than &apos;offset&apos;. <simplesect kind="return"><para><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> if no prev offset </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="219" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1afe11be18398d534be6b5f4c33a23bf0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export get_struc_next_offset</definition>
+        <argsstring>(const struc_t *sptr, ea_t offset)</argsstring>
+        <name>get_struc_next_offset</name>
+        <param>
+          <type>const <ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get offset of member with smallest offset larger than &apos;offset&apos;. <simplesect kind="return"><para><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> if no next offset </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="225" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1ae9c8cc9e81856e49de9697688e7d14c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export get_struc_last_offset</definition>
+        <argsstring>(const struc_t *sptr)</argsstring>
+        <name>get_struc_last_offset</name>
+        <param>
+          <type>const <ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get offset of last member. <simplesect kind="return"><para><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> if memqty == 0 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="231" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a79228860947a6137908c25949a91ad5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export get_struc_first_offset</definition>
+        <argsstring>(const struc_t *sptr)</argsstring>
+        <name>get_struc_first_offset</name>
+        <param>
+          <type>const <ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get offset of first member. <simplesect kind="return"><para><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> if memqty == 0 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="237" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a71a834e05b1fc81234b99e6c22cfc898" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t get_max_offset</definition>
+        <argsstring>(struc_t *sptr)</argsstring>
+        <name>get_max_offset</name>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <briefdescription>
+<para>For unions: returns number of members, for structs: returns size of structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="242" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="242" bodyend="249"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="struct_8hpp_1aeb8e473dff428ee0345f5f055a121748" prot="public" static="no">
+        <name>STRUC_SEPARATOR</name>
+        <initializer>&apos;.&apos;</initializer>
+        <briefdescription>
+<para>structname.fieldname </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="18" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_f___1gaccfe4bd98a5a647372d6a78cec974b24" prot="public" static="no">
+        <name>MF_OK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>is the member ok? (always yes) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="33" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_f___1ga89b7269b6e37b1ac4bb174d975c8b317" prot="public" static="no">
+        <name>MF_UNIMEM</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>is a member of a union? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="34" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_f___1gab2762034a9926a1b10785fd30441180a" prot="public" static="no">
+        <name>MF_HASUNI</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>has members of type &quot;union&quot;? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="35" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_f___1ga4ccee9f4292a0f5b3a1cf762487f561e" prot="public" static="no">
+        <name>MF_BYTIL</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>the member was created due to the type system </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="36" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_f___1ga52a54e365e7a771b3ce5740f1c3754da" prot="public" static="no">
+        <name>MF_HASTI</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>has type information? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="37" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_f___1gafe9528b58e4ac4ed1ac2cc5a0a5d16e3" prot="public" static="no">
+        <name>MF_BASECLASS</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>a special member representing base class </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="38" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_f___1gaa5b4e5ac2bc14b75c0f7307911893717" prot="public" static="no">
+        <name>MF_DTOR</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>a special member representing destructor </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="39" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_f___1ga661d6153ee27a6311899fd78c6da79d7" prot="public" static="no">
+        <name>MF_DUPNAME</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>duplicate name resolved with _N suffix (N==soff) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="40" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1gab2887ca1c10ddaf7ec691ee1a7c506d9" prot="public" static="no">
+        <name>SF_VAR</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>is variable size structure (varstruct)? a variable size structure is one with the zero size last member. if the last member is a varstruct, then the current structure is a varstruct too. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="78" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1ga179c261302637756337e83e8a8bfde06" prot="public" static="no">
+        <name>SF_UNION</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>varunions are prohibited! </para>        </briefdescription>
+        <detaileddescription>
+<para>is a union? </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="83" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1ga9f266f43562a29fa4495652be7c479d3" prot="public" static="no">
+        <name>SF_HASUNI</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>has members of type &quot;union&quot;? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="85" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1gac555d5d6421d2526a0256b9dfd0a89ea" prot="public" static="no">
+        <name>SF_NOLIST</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>don&apos;t include in the chooser list </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="86" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1ga6cf9168b96cf9628391f20a2eef3f67c" prot="public" static="no">
+        <name>SF_TYPLIB</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>the structure comes from type library </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="87" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1ga4e6ed7a6362dc0e44e0f0e4e33249a73" prot="public" static="no">
+        <name>SF_HIDDEN</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>the structure is collapsed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="88" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1ga1b395347ef66eb4a1faa5c584421a3e8" prot="public" static="no">
+        <name>SF_FRAME</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>the structure is a function frame </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="89" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1ga758f228e585003ae05f1d9e476ccbdd7" prot="public" static="no">
+        <name>SF_ALIGN</name>
+        <initializer>0x00000F80</initializer>
+        <briefdescription>
+<para>alignment (shift amount: 0..31) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="90" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_f___1gad19e7396164061042fb789b0ae8dde88" prot="public" static="no">
+        <name>SF_GHOST</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>ghost copy of a local type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="91" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_t___m_e_m_t_i___1ga8a1c6621ffba3c30a6377af284fbe1eb" prot="public" static="no">
+        <name>SET_MEMTI_MAY_DESTROY</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>may destroy other members </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="510" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="510" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_t___m_e_m_t_i___1ga2df3838e610f16430d9df4da57656a88" prot="public" static="no">
+        <name>SET_MEMTI_COMPATIBLE</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>new type must be compatible with the old </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="511" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="511" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_t___m_e_m_t_i___1ga7e810dcdad667bc02fc400a115b57e72" prot="public" static="no">
+        <name>SET_MEMTI_FUNCARG</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>mptr is function argument (can not create arrays) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="512" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="512" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_t___m_e_m_t_i___1ga8b1457187807a21538bfd999f0c05514" prot="public" static="no">
+        <name>SET_MEMTI_BYTIL</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>new type was created by the type subsystem </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="513" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="513" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_t___m_e_m_t_i___1gaa79b78eb8c34a4f4fe940a15ae88b11f" prot="public" static="no">
+        <name>SET_MEMTI_USERTI</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>user-specified type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="514" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="514" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="struct_8hpp_1a7e006e866b807ff36125e69097de8a48" prot="public" static="no">
+        <name>struc_error_t</name>
+        <enumvalue id="struct_8hpp_1a7e006e866b807ff36125e69097de8a48a7863b4c99228b653a0f9237ff4a9cc79" prot="public">
+          <name>STRUC_ERROR_MEMBER_OK</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>success </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_8hpp_1a7e006e866b807ff36125e69097de8a48ae71fb6b1f4371ee4f25d99c9e6548462" prot="public">
+          <name>STRUC_ERROR_MEMBER_NAME</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+<para>already has member with this name (bad name) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_8hpp_1a7e006e866b807ff36125e69097de8a48a6afa947f335ba64eadf32f3a15f6715e" prot="public">
+          <name>STRUC_ERROR_MEMBER_OFFSET</name>
+          <initializer>= -2</initializer>
+          <briefdescription>
+<para>already has member at this offset </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_8hpp_1a7e006e866b807ff36125e69097de8a48a805242b8970597654ade0e741a841ed0" prot="public">
+          <name>STRUC_ERROR_MEMBER_SIZE</name>
+          <initializer>= -3</initializer>
+          <briefdescription>
+<para>bad number of bytes or bad sizeof(type) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_8hpp_1a7e006e866b807ff36125e69097de8a48a291cb4fd7ae811bc7deda3c7ebac0001" prot="public">
+          <name>STRUC_ERROR_MEMBER_TINFO</name>
+          <initializer>= -4</initializer>
+          <briefdescription>
+<para>bad typeid parameter </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_8hpp_1a7e006e866b807ff36125e69097de8a48a018a34286c09650cf855a03209987c4e" prot="public">
+          <name>STRUC_ERROR_MEMBER_STRUCT</name>
+          <initializer>= -5</initializer>
+          <briefdescription>
+<para>bad struct id (the 1st argument) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_8hpp_1a7e006e866b807ff36125e69097de8a48a5e0299347c70fb398057d8c3e3bf6855" prot="public">
+          <name>STRUC_ERROR_MEMBER_UNIVAR</name>
+          <initializer>= -6</initializer>
+          <briefdescription>
+<para>unions can&apos;t have variable sized members </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_8hpp_1a7e006e866b807ff36125e69097de8a48a14b7a50ae1cfd4f23d7a60498fa5ea2d" prot="public">
+          <name>STRUC_ERROR_MEMBER_VARLAST</name>
+          <initializer>= -7</initializer>
+          <briefdescription>
+<para>variable sized member should be the last member in the structure </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_8hpp_1a7e006e866b807ff36125e69097de8a48a549fb77ade937758f3a92462631d0afb" prot="public">
+          <name>STRUC_ERROR_MEMBER_NESTED</name>
+          <initializer>= -8</initializer>
+          <briefdescription>
+<para>recursive structure nesting is forbidden </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Return values for <ref refid="struct_8hpp_1aac091455bceeadbd384f57292a3dc2a2" kindref="member">add_struc_member()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="382" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="381" bodyend="392"/>
+      </memberdef>
+      <memberdef kind="enum" id="struct_8hpp_1addab072d470c849945079dbd99ee1e21" prot="public" static="no">
+        <name>smt_code_t</name>
+        <enumvalue id="struct_8hpp_1addab072d470c849945079dbd99ee1e21ae3524f3e3504ead335b5875996df21aa" prot="public">
+          <name>SMT_BADARG</name>
+          <initializer>= -6</initializer>
+          <briefdescription>
+<para>bad parameters </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_8hpp_1addab072d470c849945079dbd99ee1e21a3171ec61b11eabd4fa0cca7c44c76f74" prot="public">
+          <name>SMT_NOCOMPAT</name>
+          <initializer>= -5</initializer>
+          <briefdescription>
+<para>the new type is not compatible with the old type </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_8hpp_1addab072d470c849945079dbd99ee1e21ae9a9caecdd11765cdc5cd0059d43b6e2" prot="public">
+          <name>SMT_WORSE</name>
+          <initializer>= -4</initializer>
+          <briefdescription>
+<para>the new type is worse than the old type </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_8hpp_1addab072d470c849945079dbd99ee1e21a288f91cdac82c34a7fa0632026d78430" prot="public">
+          <name>SMT_SIZE</name>
+          <initializer>= -3</initializer>
+          <briefdescription>
+<para>the new type is incompatible with the member size </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_8hpp_1addab072d470c849945079dbd99ee1e21af94655ab46422318fcc774a033c4c851" prot="public">
+          <name>SMT_ARRAY</name>
+          <initializer>= -2</initializer>
+          <briefdescription>
+<para>arrays are forbidden as function arguments </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_8hpp_1addab072d470c849945079dbd99ee1e21ade46ab40e111029e415c77129043fdd5" prot="public">
+          <name>SMT_OVERLAP</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+<para>member would overlap with members that can not be deleted </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_8hpp_1addab072d470c849945079dbd99ee1e21a40b1a482baceefc13b2c2293517931d2" prot="public">
+          <name>SMT_FAILED</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>failed to set new member type </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_8hpp_1addab072d470c849945079dbd99ee1e21af84edb20e8e29624b8f18c9da7516b12" prot="public">
+          <name>SMT_OK</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>success: changed the member type </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_8hpp_1addab072d470c849945079dbd99ee1e21ad8239f9d550dcebe4cc4a2583e640e93" prot="public">
+          <name>SMT_KEEP</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>no need to change the member type, the old type is better </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Member type information (return values for <ref refid="struct_8hpp_1aaa3683a4790b5ad049a50afc0e0a961e" kindref="member">set_member_tinfo()</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="470" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="469" bodyend="480"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="struct_8hpp_1a7539b7f02dcfc0a79a53adbdef2fad7d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+        <definition>tid_t get_struc_id</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>get_struc_id</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Get struct id by name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="180" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="180" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a8204b13d9b77d5a3cab5281c67f2c01b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t get_struc_name</definition>
+        <argsstring>(qstring *out, tid_t id)</argsstring>
+        <name>get_struc_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+<para>Get struct name by id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="189" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="189" bodyend="189"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1afae3c34d36eefa73393909842c357b8b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring get_struc_name</definition>
+        <argsstring>(tid_t id)</argsstring>
+        <name>get_struc_name</name>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="191" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="191" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1afb015b8375a2c6de54b439c027feabe0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t get_struc_cmt</definition>
+        <argsstring>(qstring *buf, tid_t id, bool repeatable)</argsstring>
+        <name>get_struc_cmt</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>repeatable</declname>
+        </param>
+        <briefdescription>
+<para>Get struct comment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="200" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="200" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1adb57f21963ace541e201cdd0d7ffedd3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman asize_t ida_export</type>
+        <definition>idaman asize_t ida_export get_struc_size</definition>
+        <argsstring>(const struc_t *sptr)</argsstring>
+        <name>get_struc_size</name>
+        <param>
+          <type>const <ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <briefdescription>
+<para>Get struct size (also see <ref refid="struct_8hpp_1abcfd34601634f9dbe96a9402ba717368" kindref="member">get_struc_size(tid_t)</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="205" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1abcfd34601634f9dbe96a9402ba717368" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>asize_t</type>
+        <definition>asize_t get_struc_size</definition>
+        <argsstring>(tid_t id)</argsstring>
+        <name>get_struc_size</name>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+<para>Get struct size (also see <ref refid="struct_8hpp_1adb57f21963ace541e201cdd0d7ffedd3" kindref="member">get_struc_size(const struc_t *)</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="209" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="209" bodyend="209"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a1e5ae2a74257f36f352a253bac20fa6e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_varstr</definition>
+        <argsstring>(tid_t id)</argsstring>
+        <name>is_varstr</name>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+<para>Is variable size structure? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="255" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="255" bodyend="259"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a1a0595fd6aacc279748170b4893c55eb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_union</definition>
+        <argsstring>(tid_t id)</argsstring>
+        <name>is_union</name>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+<para>Is a union? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="263" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="263" bodyend="267"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a2cc691f03d3778c6982002e5db1bd6e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classstruc__t" kindref="compound">struc_t</ref> *ida_export</type>
+        <definition>idaman struc_t* ida_export get_member_struc</definition>
+        <argsstring>(const char *fullname)</argsstring>
+        <name>get_member_struc</name>
+        <param>
+          <type>const char *</type>
+          <declname>fullname</declname>
+        </param>
+        <briefdescription>
+<para>Get containing structure of member by its full name &quot;struct.field&quot;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="272" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a04ebe9ca9d37aa7149d9be50f48a5293" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classstruc__t" kindref="compound">struc_t</ref> *ida_export</type>
+        <definition>idaman struc_t* ida_export get_sptr</definition>
+        <argsstring>(const member_t *mptr)</argsstring>
+        <name>get_sptr</name>
+        <param>
+          <type>const <ref refid="classmember__t" kindref="compound">member_t</ref> *</type>
+          <declname>mptr</declname>
+        </param>
+        <briefdescription>
+<para>Get child struct if member is a struct. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="277" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a2cdeea94352c3a8b93ba68aa5b1c554a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classmember__t" kindref="compound">member_t</ref> *ida_export</type>
+        <definition>idaman member_t* ida_export get_member</definition>
+        <argsstring>(const struc_t *sptr, asize_t offset)</argsstring>
+        <name>get_member</name>
+        <param>
+          <type>const <ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+<para>Get member at given offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="282" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1ae4780c8f896ad64396589e602dfe13b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classmember__t" kindref="compound">member_t</ref> *ida_export</type>
+        <definition>idaman member_t* ida_export get_member_by_name</definition>
+        <argsstring>(const struc_t *sptr, const char *membername)</argsstring>
+        <name>get_member_by_name</name>
+        <param>
+          <type>const <ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>membername</declname>
+        </param>
+        <briefdescription>
+<para>Get a member by its name, like &quot;field44&quot;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="287" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a897e9fcdf9aac7b8e15aa76399ed119d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classmember__t" kindref="compound">member_t</ref> *ida_export</type>
+        <definition>idaman member_t* ida_export get_member_by_fullname</definition>
+        <argsstring>(struc_t **sptr_place, const char *fullname)</argsstring>
+        <name>get_member_by_fullname</name>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> **</type>
+          <declname>sptr_place</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>fullname</declname>
+        </param>
+        <briefdescription>
+<para>Get a member by its fully qualified name, &quot;struct.field&quot;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="292" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a8318186ee2be83dcd5b74d4513d711fa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>ssize_t idaapi get_member_fullname</definition>
+        <argsstring>(qstring *out, tid_t mid)</argsstring>
+        <name>get_member_fullname</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>mid</declname>
+        </param>
+        <briefdescription>
+<para>Get a member&apos;s fully qualified name, &quot;struct.field&quot;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="297" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="297" bodyend="297"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1af4c9b167158af60380f6afdceab2ca74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export get_member_name</definition>
+        <argsstring>(qstring *out, tid_t mid)</argsstring>
+        <name>get_member_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>mid</declname>
+        </param>
+        <briefdescription>
+<para>Get name of structure member. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="302" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a3ad9f5c50186a6008160af39a0b0865b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring get_member_name</definition>
+        <argsstring>(tid_t mid)</argsstring>
+        <name>get_member_name</name>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>mid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="304" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="304" bodyend="309"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a83f68814f41b8c22aaa7607f819f5f8b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>ssize_t idaapi get_member_cmt</definition>
+        <argsstring>(qstring *buf, tid_t mid, bool repeatable)</argsstring>
+        <name>get_member_cmt</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>mid</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>repeatable</declname>
+        </param>
+        <briefdescription>
+<para>Get comment of structure member. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="314" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="314" bodyend="314"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a7b26cd7eac6dcd15d1458992c4efa4b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>asize_t</type>
+        <definition>asize_t get_member_size</definition>
+        <argsstring>(const member_t *mptr)</argsstring>
+        <name>get_member_size</name>
+        <param>
+          <type>const <ref refid="classmember__t" kindref="compound">member_t</ref> *</type>
+          <declname>mptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get size of structure member. May return 0 for the last member of varstruct. For union members, returns <ref refid="classmember__t_1acc1698d4bdd05601d40c915a80235a38" kindref="member">member_t::eoff</ref>. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="321" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="321" bodyend="321"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a999286bc99d7381de5cd467966f12d1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export is_varmember</definition>
+        <argsstring>(const member_t *mptr)</argsstring>
+        <name>is_varmember</name>
+        <param>
+          <type>const <ref refid="classmember__t" kindref="compound">member_t</ref> *</type>
+          <declname>mptr</declname>
+        </param>
+        <briefdescription>
+<para>Is variable size member? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="326" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a63118e9b36f696afcb269228c5b38459" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classmember__t" kindref="compound">member_t</ref> *ida_export</type>
+        <definition>idaman member_t* ida_export get_best_fit_member</definition>
+        <argsstring>(const struc_t *sptr, asize_t offset)</argsstring>
+        <name>get_best_fit_member</name>
+        <param>
+          <type>const <ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get member that is most likely referenced by the specified offset. Useful for offsets &gt; sizeof(struct). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="332" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a6053c84e7d10bb4bfeedc4561af9dcb6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export get_next_member_idx</definition>
+        <argsstring>(const struc_t *sptr, asize_t off)</argsstring>
+        <name>get_next_member_idx</name>
+        <param>
+          <type>const <ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>off</declname>
+        </param>
+        <briefdescription>
+<para>Get the next member idx, if it does not exist, return -1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="337" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a55e715f683f9866b727d12232de89659" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export get_prev_member_idx</definition>
+        <argsstring>(const struc_t *sptr, asize_t off)</argsstring>
+        <name>get_prev_member_idx</name>
+        <param>
+          <type>const <ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>off</declname>
+        </param>
+        <briefdescription>
+<para>Get the prev member idx, if it does not exist, return -1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="342" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1ae824ee337c3e36cb1d55cf6d9dbd0fc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref> ida_export</type>
+        <definition>idaman tid_t ida_export add_struc</definition>
+        <argsstring>(uval_t idx, const char *name, bool is_union=false)</argsstring>
+        <name>add_struc</name>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>is_union</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create a structure type. if idx==<ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> then add as the last idx. if name==NULL then a name will be generated &quot;struct_%d&quot;. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="351" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a8e632561dfb0ff00236fd34b7d93d708" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export del_struc</definition>
+        <argsstring>(struc_t *sptr)</argsstring>
+        <name>del_struc</name>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <briefdescription>
+<para>Delete a structure type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="356" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a4f64fada72a83ec4eebb1d50f53acaad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_struc_idx</definition>
+        <argsstring>(const struc_t *sptr, uval_t idx)</argsstring>
+        <name>set_struc_idx</name>
+        <param>
+          <type>const <ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set internal number of struct. Also see <ref refid="struct_8hpp_1ad42189a9c7e10a0df284428dfcd7e334" kindref="member">get_struc_idx()</ref>, <ref refid="struct_8hpp_1a94b7fc0c2093f385012ddb5b1d05743a" kindref="member">get_struc_by_idx()</ref>. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="362" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a8ecda082089d4e107b072e8cf1df8101" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_struc_align</definition>
+        <argsstring>(struc_t *sptr, int shift)</argsstring>
+        <name>set_struc_align</name>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>shift</declname>
+        </param>
+        <briefdescription>
+<para>Set structure alignment (<ref refid="group___s_f___1ga758f228e585003ae05f1d9e476ccbdd7" kindref="member">SF_ALIGN</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="367" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a246899acae2bab0d259f0f44fd50b67d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_struc_name</definition>
+        <argsstring>(tid_t id, const char *name)</argsstring>
+        <name>set_struc_name</name>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Set structure name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="372" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1ac19a8af44f5e0726c488b0eff62ef6b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_struc_cmt</definition>
+        <argsstring>(tid_t id, const char *cmt, bool repeatable)</argsstring>
+        <name>set_struc_cmt</name>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>cmt</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>repeatable</declname>
+        </param>
+        <briefdescription>
+<para>Set structure comment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="377" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1aac091455bceeadbd384f57292a3dc2a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="struct_8hpp_1a7e006e866b807ff36125e69097de8a48" kindref="member">struc_error_t</ref> ida_export</type>
+        <definition>idaman struc_error_t ida_export add_struc_member</definition>
+        <argsstring>(struc_t *sptr, const char *fieldname, ea_t offset, flags_t flag, const opinfo_t *mt, asize_t nbytes)</argsstring>
+        <name>add_struc_member</name>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>fieldname</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>flag</declname>
+        </param>
+        <param>
+          <type>const <ref refid="unionopinfo__t" kindref="compound">opinfo_t</ref> *</type>
+          <declname>mt</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>nbytes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add member to existing structure. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>structure to modify </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fieldname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if NULL, then &quot;anonymous_#&quot; name will be generated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> means add to the end of structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type + representation bits </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>additional info about member type. must be present for structs, offsets, enums, strings, struct offsets. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nbytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if == 0 then the structure will be a varstruct. in this case the member should be the last member in the structure </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="409" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1aee19ab243a3ea3bb160d42db31fe261b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export del_struc_member</definition>
+        <argsstring>(struc_t *sptr, ea_t offset)</argsstring>
+        <name>del_struc_member</name>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+<para>Delete member at given offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="420" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a74df0b6078b09eb1d865adc4ea8b07b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export del_struc_members</definition>
+        <argsstring>(struc_t *sptr, ea_t off1, ea_t off2)</argsstring>
+        <name>del_struc_members</name>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>off1</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>off2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delete members which occupy range of offsets (off1..off2). <simplesect kind="return"><para>number of deleted members or -1 on error </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="426" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1aee95c35fae8c287a2628f8667e8d1c9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_member_name</definition>
+        <argsstring>(struc_t *sptr, ea_t offset, const char *name)</argsstring>
+        <name>set_member_name</name>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Set name of member at given offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="431" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a34d268b5b8bef320fffe76187605a410" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_member_type</definition>
+        <argsstring>(struc_t *sptr, ea_t offset, flags_t flag, const opinfo_t *mt, asize_t nbytes)</argsstring>
+        <name>set_member_type</name>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>flag</declname>
+        </param>
+        <param>
+          <type>const <ref refid="unionopinfo__t" kindref="compound">opinfo_t</ref> *</type>
+          <declname>mt</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>nbytes</declname>
+        </param>
+        <briefdescription>
+<para>Set type of member at given offset (also see <ref refid="struct_8hpp_1aac091455bceeadbd384f57292a3dc2a2" kindref="member">add_struc_member()</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="436" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a4aaafc1a6aed486c4d49153e7aac1c01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_member_cmt</definition>
+        <argsstring>(member_t *mptr, const char *cmt, bool repeatable)</argsstring>
+        <name>set_member_cmt</name>
+        <param>
+          <type><ref refid="classmember__t" kindref="compound">member_t</ref> *</type>
+          <declname>mptr</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>cmt</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>repeatable</declname>
+        </param>
+        <briefdescription>
+<para>Set member comment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="441" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1af47e2aadfb39daa9c568c494d595b9ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export expand_struc</definition>
+        <argsstring>(struc_t *sptr, ea_t offset, adiff_t delta, bool recalc=true)</argsstring>
+        <name>expand_struc</name>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>adiff_t</type>
+          <declname>delta</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>recalc</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Expand/Shrink structure type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="446" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a2c207e3ad2f55100a66fec857481aff4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export save_struc</definition>
+        <argsstring>(struc_t *sptr, bool may_update_ltypes=true)</argsstring>
+        <name>save_struc</name>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>may_update_ltypes</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Update struct information in the database (internal function) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="451" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1ae780a9169f9ccf4bbdb9dc1efd912f6f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi set_struc_hidden</definition>
+        <argsstring>(struc_t *sptr, bool is_hidden)</argsstring>
+        <name>set_struc_hidden</name>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>is_hidden</declname>
+        </param>
+        <briefdescription>
+<para>Hide/unhide a struct type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="455" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="455" bodyend="459"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a628a86bdbaffebb147414d63652d60c7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi set_struc_listed</definition>
+        <argsstring>(struc_t *sptr, bool is_listed)</argsstring>
+        <name>set_struc_listed</name>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>is_listed</declname>
+        </param>
+        <briefdescription>
+<para>Add/remove a struct type from the struct list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="462" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="462" bodyend="466"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1af4d1f49726830ad01024d7b6e92d0914" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export get_member_tinfo</definition>
+        <argsstring>(tinfo_t *tif, const member_t *mptr)</argsstring>
+        <name>get_member_tinfo</name>
+        <param>
+          <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref> *</type>
+          <declname>tif</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classmember__t" kindref="compound">member_t</ref> *</type>
+          <declname>mptr</declname>
+        </param>
+        <briefdescription>
+<para>Get tinfo for given member. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="485" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a0baf59d4c878690b5e91cd5d0ce3a68b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export del_member_tinfo</definition>
+        <argsstring>(struc_t *sptr, member_t *mptr)</argsstring>
+        <name>del_member_tinfo</name>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type><ref refid="classmember__t" kindref="compound">member_t</ref> *</type>
+          <declname>mptr</declname>
+        </param>
+        <briefdescription>
+<para>Delete tinfo for given member. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="490" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1aaa3683a4790b5ad049a50afc0e0a961e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="struct_8hpp_1addab072d470c849945079dbd99ee1e21" kindref="member">smt_code_t</ref> ida_export</type>
+        <definition>idaman smt_code_t ida_export set_member_tinfo</definition>
+        <argsstring>(struc_t *sptr, member_t *mptr, uval_t memoff, const tinfo_t &amp;tif, int flags)</argsstring>
+        <name>set_member_tinfo</name>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type><ref refid="classmember__t" kindref="compound">member_t</ref> *</type>
+          <declname>mptr</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>memoff</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classtinfo__t" kindref="compound">tinfo_t</ref> &amp;</type>
+          <declname>tif</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set tinfo for given member. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>containing struct </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>target member </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>memoff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>offset within member </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tif</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type info </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___s_e_t___m_e_m_t_i__" kindref="compound">Set member tinfo flags</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="500" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a781bca8e23e3b3512e15ff0dae577b23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export get_or_guess_member_tinfo</definition>
+        <argsstring>(tinfo_t *tif, const member_t *mptr)</argsstring>
+        <name>get_or_guess_member_tinfo</name>
+        <param>
+          <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref> *</type>
+          <declname>tif</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classmember__t" kindref="compound">member_t</ref> *</type>
+          <declname>mptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Try to get tinfo for given member - if failed, generate a tinfo using information about the member id from the disassembly </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="521" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a466886d2ec738ec0b5fc6dc2025c4cb5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="unionopinfo__t" kindref="compound">opinfo_t</ref> *</type>
+        <definition>opinfo_t* retrieve_member_info</definition>
+        <argsstring>(opinfo_t *buf, const member_t *mptr)</argsstring>
+        <name>retrieve_member_info</name>
+        <param>
+          <type><ref refid="unionopinfo__t" kindref="compound">opinfo_t</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classmember__t" kindref="compound">member_t</ref> *</type>
+          <declname>mptr</declname>
+        </param>
+        <briefdescription>
+<para>Get operand type info for member. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="526" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="526" bodyend="531"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1ac09f9c2f040026d9f1fdb7023f7597ac" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool</type>
+        <definition>THREAD_SAFE bool is_anonymous_member_name</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>is_anonymous_member_name</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Is member name prefixed with &quot;anonymous&quot;? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="536" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="536" bodyend="540"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a1977b4b76b7643a319a1efb888807e27" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool</type>
+        <definition>THREAD_SAFE bool is_dummy_member_name</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>is_dummy_member_name</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Is member name an auto-generated name? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="545" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="545" bodyend="551"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a3f229cba1e325893f6145f622f7ca0c8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classmember__t" kindref="compound">member_t</ref> *idaapi</type>
+        <definition>member_t* idaapi get_member_by_id</definition>
+        <argsstring>(qstring *out_mname, tid_t mid, struc_t **sptr_place)</argsstring>
+        <name>get_member_by_id</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out_mname</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>mid</declname>
+        </param>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> **</type>
+          <declname>sptr_place</declname>
+        </param>
+        <briefdescription>
+<para>Check if the specified member id points to a struct member. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="556" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="556" bodyend="564"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a5cd2c370abfa7f0e5b8e2dfc82b7762a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classmember__t" kindref="compound">member_t</ref> *idaapi</type>
+        <definition>member_t* idaapi get_member_by_id</definition>
+        <argsstring>(tid_t mid, struc_t **sptr_place=NULL)</argsstring>
+        <name>get_member_by_id</name>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>mid</declname>
+        </param>
+        <param>
+          <type><ref refid="classstruc__t" kindref="compound">struc_t</ref> **</type>
+          <declname>sptr_place</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+<para>Check if the specified member id points to a struct member. convenience function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="569" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="569" bodyend="573"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1aa6343b1bdec02edf36d8620e8da7582d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_member_id</definition>
+        <argsstring>(tid_t mid)</argsstring>
+        <name>is_member_id</name>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>mid</declname>
+        </param>
+        <briefdescription>
+<para>Is a member id? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="578" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="578" bodyend="581"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1af36f0c122f48b2ff43aa082074c1d325" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export is_special_member</definition>
+        <argsstring>(tid_t id)</argsstring>
+        <name>is_special_member</name>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+<para>Is a special member with the name beginning with &apos; &apos;? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="586" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a55f8f177dc0b2e79220fe8147314626a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref> ida_export</type>
+        <definition>idaman flags_t ida_export visit_stroff_fields</definition>
+        <argsstring>(struct_field_visitor_t &amp;sfv, const tid_t *path, int plen, adiff_t *disp, bool appzero)</argsstring>
+        <name>visit_stroff_fields</name>
+        <param>
+          <type><ref refid="structstruct__field__visitor__t" kindref="compound">struct_field_visitor_t</ref> &amp;</type>
+          <declname>sfv</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref> *</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>plen</declname>
+        </param>
+        <param>
+          <type>adiff_t *</type>
+          <declname>disp</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>appzero</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Visit structure fields in a stroff expression or in a reference to a struct data variable. This function can be used to enumerate all components of an expression like &apos;a.b.c&apos;. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sfv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>visitor object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>struct path (path[0] contains the initial struct id) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>plen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>len </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">disp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>offset into structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>appzero</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>should visit field at offset zero? </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="605" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_8hpp_1a8cd86275b146d73936cdd92cf4d09934" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool stroff_as_size</definition>
+        <argsstring>(int plen, const struc_t *sptr, asize_t value)</argsstring>
+        <name>stroff_as_size</name>
+        <param>
+          <type>int</type>
+          <declname>plen</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classstruc__t" kindref="compound">struc_t</ref> *</type>
+          <declname>sptr</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Should display a structure offset expression as the structure size? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="616" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="616" bodyend="623"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure type management (assembly level types) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp"/>
+  </compounddef>
+</doxygen>

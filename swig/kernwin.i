@@ -192,7 +192,7 @@ struct py_action_handler_t : public action_handler_t
     PYW_GIL_GET_AND_REPORT_ERROR;
     newref_t pyctx(SWIG_NewPointerObj(SWIG_as_voidptr(ctx), SWIGTYPE_p_action_ctx_base_t, 0));
     newref_t pyres(PyObject_CallMethod(pyah.o, (char *)"activate", (char *) "O", pyctx.o));
-    return PyErr_Occurred() ? 0 : ((pyres != NULL && PyInt_Check(pyres.o)) ? IDAPyInt_AsLong(pyres.o) : 0);
+    return PyErr_Occurred() ? 0 : ((pyres != NULL && IDAPyInt_Check(pyres.o)) ? IDAPyInt_AsLong(pyres.o) : 0);
   }
   virtual action_state_t idaapi update(action_update_ctx_t *ctx)
   {
@@ -201,7 +201,7 @@ struct py_action_handler_t : public action_handler_t
     PYW_GIL_GET_AND_REPORT_ERROR;
     newref_t pyctx(SWIG_NewPointerObj(SWIG_as_voidptr(ctx), SWIGTYPE_p_action_ctx_base_t, 0));
     newref_t pyres(PyObject_CallMethod(pyah.o, (char *)"update", (char *) "O", pyctx.o));
-    return PyErr_Occurred() ? AST_DISABLE_ALWAYS : ((pyres != NULL && PyInt_Check(pyres.o)) ? action_state_t(IDAPyInt_AsLong(pyres.o)) : AST_DISABLE);
+    return PyErr_Occurred() ? AST_DISABLE_ALWAYS : ((pyres != NULL && IDAPyInt_Check(pyres.o)) ? action_state_t(IDAPyInt_AsLong(pyres.o)) : AST_DISABLE);
   }
 
 private:

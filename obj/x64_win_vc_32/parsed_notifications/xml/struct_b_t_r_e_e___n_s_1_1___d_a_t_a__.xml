@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="struct_b_t_r_e_e___n_s_1_1___d_a_t_a__" kind="struct" language="C++" prot="public">
+    <compoundname>BTREE_NS::_DATA_</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_b_t_r_e_e___n_s_1_1___d_a_t_a___1ac07f46d67734a60555dfaccff1d388cd" prot="public" static="no" mutable="no">
+        <type>DATASIZE</type>
+        <definition>DATASIZE BTREE_NS::_DATA_::datasize</definition>
+        <argsstring></argsstring>
+        <name>datasize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="234" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_t_r_e_e___n_s_1_1___d_a_t_a___1ae89b5a006a2f8bfdb1d001f7f3ff95ef" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char BTREE_NS::_DATA_::data[MAXDATASIZE]</definition>
+        <argsstring>[MAXDATASIZE]</argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="235" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_b_t_r_e_e___n_s_1_1___d_a_t_a___1a1281479e8f65d59bf1ecf2d0b83ceaf0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>DATASIZE</type>
+        <definition>DATASIZE BTREE_NS::_DATA_::get_dataSize</definition>
+        <argsstring>() const</argsstring>
+        <name>get_dataSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="236" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="236" bodyend="236"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_b_t_r_e_e___n_s_1_1___d_a_t_a___1a9657dd753f27e9993dc5ebacf57c65e3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BTREE_NS::_DATA_::set_dataSize</definition>
+        <argsstring>(DATASIZE d)</argsstring>
+        <name>set_dataSize</name>
+        <param>
+          <type>DATASIZE</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="237" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="237" bodyend="237"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="233" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="232" bodyend="238"/>
+    <listofallmembers>
+      <member refid="struct_b_t_r_e_e___n_s_1_1___d_a_t_a___1ae89b5a006a2f8bfdb1d001f7f3ff95ef" prot="public" virt="non-virtual"><scope>BTREE_NS::_DATA_</scope><name>data</name></member>
+      <member refid="struct_b_t_r_e_e___n_s_1_1___d_a_t_a___1ac07f46d67734a60555dfaccff1d388cd" prot="public" virt="non-virtual"><scope>BTREE_NS::_DATA_</scope><name>datasize</name></member>
+      <member refid="struct_b_t_r_e_e___n_s_1_1___d_a_t_a___1a1281479e8f65d59bf1ecf2d0b83ceaf0" prot="public" virt="non-virtual"><scope>BTREE_NS::_DATA_</scope><name>get_dataSize</name></member>
+      <member refid="struct_b_t_r_e_e___n_s_1_1___d_a_t_a___1a9657dd753f27e9993dc5ebacf57c65e3" prot="public" virt="non-virtual"><scope>BTREE_NS::_DATA_</scope><name>set_dataSize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

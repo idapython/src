@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___a_u__" kind="group">
+    <compoundname>AU_</compoundname>
+    <title>Autoanalysis queues</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group___a_u___1ga78a2f1b6138026dd91c96081b2d83f19" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_NONE</definition>
+        <argsstring></argsstring>
+        <name>AU_NONE</name>
+        <initializer>= 00</initializer>
+        <briefdescription>
+<para>placeholder, not used </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="37" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga98e7f11534af297d111dd3c9051fc348" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_UNK</definition>
+        <argsstring></argsstring>
+        <name>AU_UNK</name>
+        <initializer>= 10</initializer>
+        <briefdescription>
+<para>0: convert to unexplored </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="38" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga3a89b1cc6b3d65e5d9e22904f0f246cf" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_CODE</definition>
+        <argsstring></argsstring>
+        <name>AU_CODE</name>
+        <initializer>= 20</initializer>
+        <briefdescription>
+<para>1: convert to instruction </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="39" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga7de3a7d07cf227b12b60e8a0a66a3455" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_WEAK</definition>
+        <argsstring></argsstring>
+        <name>AU_WEAK</name>
+        <initializer>= 25</initializer>
+        <briefdescription>
+<para>2: convert to instruction (ida decision) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="40" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga6c8c6714aab66de78750b3d9628c4b4b" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_PROC</definition>
+        <argsstring></argsstring>
+        <name>AU_PROC</name>
+        <initializer>= 30</initializer>
+        <briefdescription>
+<para>3: convert to procedure start </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="41" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga54ec315619467793b115e94d1399854b" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_TAIL</definition>
+        <argsstring></argsstring>
+        <name>AU_TAIL</name>
+        <initializer>= 35</initializer>
+        <briefdescription>
+<para>4: add a procedure tail </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="42" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga31e07b41b109a0594abb19e81baed50c" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_TRSP</definition>
+        <argsstring></argsstring>
+        <name>AU_TRSP</name>
+        <initializer>= 38</initializer>
+        <briefdescription>
+<para>5: trace stack pointer (not used yet) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="43" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga26484b0dda0e7740b5db01459e9da421" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_USED</definition>
+        <argsstring></argsstring>
+        <name>AU_USED</name>
+        <initializer>= 40</initializer>
+        <briefdescription>
+<para>6: reanalyze </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="44" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga0a3fb4b4da36a8283991dc74dc3e6f75" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_TYPE</definition>
+        <argsstring></argsstring>
+        <name>AU_TYPE</name>
+        <initializer>= 50</initializer>
+        <briefdescription>
+<para>7: apply type information </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="45" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga9edd46be7bba6098daf188599ff50286" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_LIBF</definition>
+        <argsstring></argsstring>
+        <name>AU_LIBF</name>
+        <initializer>= 60</initializer>
+        <briefdescription>
+<para>8: apply signature to address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="46" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga5412bee3c9d8f6ac0d00e5f8bbd190b6" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_LBF2</definition>
+        <argsstring></argsstring>
+        <name>AU_LBF2</name>
+        <initializer>= 70</initializer>
+        <briefdescription>
+<para>9: the same, second pass </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="47" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1gaefc0139ffd8f1b68634376e9de9ee569" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_LBF3</definition>
+        <argsstring></argsstring>
+        <name>AU_LBF3</name>
+        <initializer>= 80</initializer>
+        <briefdescription>
+<para>10: the same, third pass </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="48" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga70e27a7454682a700a5bb57d97b2ecfb" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_CHLB</definition>
+        <argsstring></argsstring>
+        <name>AU_CHLB</name>
+        <initializer>= 90</initializer>
+        <briefdescription>
+<para>11: load signature file (file name is kept separately) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="49" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1gac2f58ed6b5200cd0e459faaabc76f26d" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_FINAL</definition>
+        <argsstring></argsstring>
+        <name>AU_FINAL</name>
+        <initializer>=200</initializer>
+        <briefdescription>
+<para>12: final pass </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="50" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Names and priorities of the analyzer queues </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

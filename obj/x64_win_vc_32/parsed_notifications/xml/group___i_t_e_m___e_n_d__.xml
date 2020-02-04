@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___i_t_e_m___e_n_d__" kind="group">
+    <compoundname>ITEM_END_</compoundname>
+    <title>Item end search flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___i_t_e_m___e_n_d___1ga9e19f02291abf44b1085a054451b2fa4" prot="public" static="no">
+        <name>ITEM_END_FIXUP</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>stop at the first fixup </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="252" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_t_e_m___e_n_d___1gacd4b59c6b40268ce8458dd8ac3943744" prot="public" static="no">
+        <name>ITEM_END_INITED</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>stop when initialization changes i.e.<itemizedlist>
+<listitem><para>if is_loaded(ea): stop if uninitialized byte is encountered</para></listitem><listitem><para>if !is_loaded(ea): stop if initialized byte is encountered </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="253" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_t_e_m___e_n_d___1gaea13487068716c9257da0bae472f8871" prot="public" static="no">
+        <name>ITEM_END_NAME</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>stop at the first named location </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="257" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_t_e_m___e_n_d___1ga8fb7e759f8c4385e37eb5dc5dd715df7" prot="public" static="no">
+        <name>ITEM_END_XREF</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>stop at the first referenced location </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="258" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>passed as &apos;how&apos; parameter to <ref refid="bytes_8hpp_1ab8309ae0c7eaca34bdd287da8efdabef" kindref="member">calc_max_item_end()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

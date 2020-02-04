@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___p_l_u_g_i_n___i_n_i_t" kind="group">
+    <compoundname>PLUGIN_INIT</compoundname>
+    <title>Plugin initialization codes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___p_l_u_g_i_n___i_n_i_t_1ga8c9497652471d2816127ea0a9eb259f4" prot="public" static="no">
+        <name>PLUGIN_SKIP</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Plugin doesn&apos;t want to be loaded. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="594" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="594" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_l_u_g_i_n___i_n_i_t_1gad00d87ffd3407913fdb864e3f2187c74" prot="public" static="no">
+        <name>PLUGIN_OK</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>It will be loaded as soon as the user presses the hotkey. </para>        </briefdescription>
+        <detaileddescription>
+<para>Plugin agrees to work with the current database. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="595" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="595" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_l_u_g_i_n___i_n_i_t_1gadf25be6696b26feb331ab647f0a51bdb" prot="public" static="no">
+        <name>PLUGIN_KEEP</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Plugin agrees to work with the current database and wants to stay in the memory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="597" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="597" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Return values for <ref refid="classplugin__t_1af28ff1f503d576299d7c1b0aa42220b2" kindref="member">plugin_t::init()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

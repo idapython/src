@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="struct_varray_1_1vaptr__t" kind="struct" language="C++" prot="public">
+    <compoundname>Varray::vaptr_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_varray_1_1vaptr__t_1a9b384b3aa8469b095b76e0f9da503ab1" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t Varray::vaptr_t::start</definition>
+        <argsstring></argsstring>
+        <name>start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="118" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_varray_1_1vaptr__t_1ab74de2f3927176d8948bc29f079d82ae" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t Varray::vaptr_t::end</definition>
+        <argsstring></argsstring>
+        <name>end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="119" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_varray_1_1vaptr__t_1aa5075a49084337823712b04a5cd95aec" prot="public" static="no" mutable="no">
+        <type>va_offset_t</type>
+        <definition>va_offset_t Varray::vaptr_t::offset</definition>
+        <argsstring></argsstring>
+        <name>offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="120" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_varray_1_1vaptr__t_1a89fdc98538c28db3ee5635f42eb5dcac" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Varray::vaptr_t::contains</definition>
+        <argsstring>(ea_t addr)</argsstring>
+        <name>contains</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="122" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="122" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_varray_1_1vaptr__t_1acb25d881e0625aa582e7737c2e7305c4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>asize_t</type>
+        <definition>asize_t Varray::vaptr_t::size</definition>
+        <argsstring>() const</argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="123" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="123" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_varray_1_1vaptr__t_1a9e0735ad366551d8a28cd77a3a151aa9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>va_offset_t</type>
+        <definition>va_offset_t Varray::vaptr_t::size_in_bytes</definition>
+        <argsstring>() const</argsstring>
+        <name>size_in_bytes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="124" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="124" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_varray_1_1vaptr__t_1ac72f2c9b21a256a083ea31ca19c1b156" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>va_offset_t</type>
+        <definition>va_offset_t Varray::vaptr_t::endofs</definition>
+        <argsstring>() const</argsstring>
+        <name>endofs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="126" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="126" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_varray_1_1vaptr__t_1a33f921e2b43e611df457f3175c78e240" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>va_offset_t</type>
+        <definition>va_offset_t Varray::vaptr_t::ofs_by_addr</definition>
+        <argsstring>(ea_t addr) const</argsstring>
+        <name>ofs_by_addr</name>
+        <param>
+          <type>ea_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="127" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="127" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_varray_1_1vaptr__t_1a4e314af071b610f7158da96367c8075c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t Varray::vaptr_t::addr_by_offs</definition>
+        <argsstring>(va_offset_t ofs) const</argsstring>
+        <name>addr_by_offs</name>
+        <param>
+          <type>va_offset_t</type>
+          <declname>ofs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="129" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="129" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_varray_1_1vaptr__t_1a82b75ec520310e71f926029a8fc0b697" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Varray::vaptr_t::set</definition>
+        <argsstring>(ea_t startea, ea_t endea, va_offset_t off)</argsstring>
+        <name>set</name>
+        <param>
+          <type>ea_t</type>
+          <declname>startea</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>endea</declname>
+        </param>
+        <param>
+          <type>va_offset_t</type>
+          <declname>off</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="131" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="131" bodyend="132"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="struct_varray_1_1vaptr__t_1a6185fd81a8c3a55710c20bff207ab9c0" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>va_offset_t</type>
+        <definition>static va_offset_t Varray::vaptr_t::byteoff</definition>
+        <argsstring>(ea_t wordofs)</argsstring>
+        <name>byteoff</name>
+        <param>
+          <type>ea_t</type>
+          <declname>wordofs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="133" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="133" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_varray_1_1vaptr__t_1a1edc455d6f00fa5e9e9cc9433b83e174" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>static ea_t Varray::vaptr_t::wordoff</definition>
+        <argsstring>(va_offset_t byteofs)</argsstring>
+        <name>wordoff</name>
+        <param>
+          <type>va_offset_t</type>
+          <declname>byteofs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="135" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="135" bodyend="136"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="117" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="116" bodyend="137"/>
+    <listofallmembers>
+      <member refid="struct_varray_1_1vaptr__t_1a4e314af071b610f7158da96367c8075c" prot="public" virt="non-virtual"><scope>Varray::vaptr_t</scope><name>addr_by_offs</name></member>
+      <member refid="struct_varray_1_1vaptr__t_1a6185fd81a8c3a55710c20bff207ab9c0" prot="public" virt="non-virtual"><scope>Varray::vaptr_t</scope><name>byteoff</name></member>
+      <member refid="struct_varray_1_1vaptr__t_1a89fdc98538c28db3ee5635f42eb5dcac" prot="public" virt="non-virtual"><scope>Varray::vaptr_t</scope><name>contains</name></member>
+      <member refid="struct_varray_1_1vaptr__t_1ab74de2f3927176d8948bc29f079d82ae" prot="public" virt="non-virtual"><scope>Varray::vaptr_t</scope><name>end</name></member>
+      <member refid="struct_varray_1_1vaptr__t_1ac72f2c9b21a256a083ea31ca19c1b156" prot="public" virt="non-virtual"><scope>Varray::vaptr_t</scope><name>endofs</name></member>
+      <member refid="struct_varray_1_1vaptr__t_1aa5075a49084337823712b04a5cd95aec" prot="public" virt="non-virtual"><scope>Varray::vaptr_t</scope><name>offset</name></member>
+      <member refid="struct_varray_1_1vaptr__t_1a33f921e2b43e611df457f3175c78e240" prot="public" virt="non-virtual"><scope>Varray::vaptr_t</scope><name>ofs_by_addr</name></member>
+      <member refid="struct_varray_1_1vaptr__t_1a82b75ec520310e71f926029a8fc0b697" prot="public" virt="non-virtual"><scope>Varray::vaptr_t</scope><name>set</name></member>
+      <member refid="struct_varray_1_1vaptr__t_1acb25d881e0625aa582e7737c2e7305c4" prot="public" virt="non-virtual"><scope>Varray::vaptr_t</scope><name>size</name></member>
+      <member refid="struct_varray_1_1vaptr__t_1a9e0735ad366551d8a28cd77a3a151aa9" prot="public" virt="non-virtual"><scope>Varray::vaptr_t</scope><name>size_in_bytes</name></member>
+      <member refid="struct_varray_1_1vaptr__t_1a9b384b3aa8469b095b76e0f9da503ab1" prot="public" virt="non-virtual"><scope>Varray::vaptr_t</scope><name>start</name></member>
+      <member refid="struct_varray_1_1vaptr__t_1a1edc455d6f00fa5e9e9cc9433b83e174" prot="public" virt="non-virtual"><scope>Varray::vaptr_t</scope><name>wordoff</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

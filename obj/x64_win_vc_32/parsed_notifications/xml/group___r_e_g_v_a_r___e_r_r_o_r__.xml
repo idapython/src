@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___r_e_g_v_a_r___e_r_r_o_r__" kind="group">
+    <compoundname>REGVAR_ERROR_</compoundname>
+    <title>Register variable error codes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___r_e_g_v_a_r___e_r_r_o_r___1ga583c0f5683ebbc2fda4b3d17f9a44484" prot="public" static="no">
+        <name>REGVAR_ERROR_OK</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>all ok </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="377" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="377" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_g_v_a_r___e_r_r_o_r___1ga9174f12f12b7415326bb4baa0bcaa416" prot="public" static="no">
+        <name>REGVAR_ERROR_ARG</name>
+        <initializer>(-1)</initializer>
+        <briefdescription>
+<para>function arguments are bad </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="378" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="378" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_g_v_a_r___e_r_r_o_r___1gacde3e058bcbf2f1e663b5565cea5c40c" prot="public" static="no">
+        <name>REGVAR_ERROR_RANGE</name>
+        <initializer>(-2)</initializer>
+        <briefdescription>
+<para>the definition range is bad </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="379" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="379" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_g_v_a_r___e_r_r_o_r___1ga812754dcd62f1afa4789f66c29caf530" prot="public" static="no">
+        <name>REGVAR_ERROR_NAME</name>
+        <initializer>(-3)</initializer>
+        <briefdescription>
+<para>the provided name(s) can&apos;t be accepted </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="380" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Return values for functions in described in <ref refid="group__regvar" kindref="compound">Register variables</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

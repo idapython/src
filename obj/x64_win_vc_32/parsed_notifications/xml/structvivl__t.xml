@@ -1,0 +1,395 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structvivl__t" kind="struct" language="C++" prot="public">
+    <compoundname>vivl_t</compoundname>
+    <basecompoundref refid="structvoff__t" prot="public" virt="non-virtual">voff_t</basecompoundref>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structvivl__t_1ab4cbfc3d6874034d5183688dd989f3c8" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int vivl_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+<para>Interval size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3034" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3034" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvivl__t_1a637ad99573441af39d3d0dced79f1460" prot="public" static="no" mutable="no">
+        <type>return</type>
+        <definition>return vivl_t::code</definition>
+        <argsstring></argsstring>
+        <name>code</name>
+        <initializer>{
+    int code = <ref refid="pro_8h_1a6d76b0cbdd0016e7cfd98cd42fbde81d" kindref="member">voff_t::compare</ref>(r)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3081" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3079" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structvivl__t_1a3b692844a72e16efef2cfceceb0f63b4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>vivl_t::vivl_t</definition>
+        <argsstring>(mopt_t _type=mop_z, sval_t _off=-1, int _size=0)</argsstring>
+        <name>vivl_t</name>
+        <param>
+          <type>mopt_t</type>
+          <declname>_type</declname>
+          <defval>mop_z</defval>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>_off</declname>
+          <defval>-1</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_size</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3036" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3036" bodyend="3037"/>
+      </memberdef>
+      <memberdef kind="function" id="structvivl__t_1aab5f25fa193692de347a36afeee9ebda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>vivl_t::vivl_t</definition>
+        <argsstring>(const class chain_t &amp;ch)</argsstring>
+        <name>vivl_t</name>
+        <param>
+          <type>const class <ref refid="classchain__t" kindref="compound">chain_t</ref> &amp;</type>
+          <declname>ch</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3038" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structvivl__t_1ae898b77d98fcaa378ca76675d8c03f64" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>vivl_t::vivl_t</definition>
+        <argsstring>(const mop_t &amp;op)</argsstring>
+        <name>vivl_t</name>
+        <param>
+          <type>const <ref refid="classmop__t" kindref="compound">mop_t</ref> &amp;</type>
+          <declname>op</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3039" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3039" bodyend="3039"/>
+      </memberdef>
+      <memberdef kind="function" id="structvivl__t_1a2a598a34815d410c17a0ed5edbaaa314" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void vivl_t::set</definition>
+        <argsstring>(mopt_t _type, sval_t _off, int _size=0)</argsstring>
+        <name>set</name>
+        <param>
+          <type>mopt_t</type>
+          <declname>_type</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>_off</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_size</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3042" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3042" bodyend="3043"/>
+      </memberdef>
+      <memberdef kind="function" id="structvivl__t_1a38e95e066927291e8ebb1763631c97b1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void vivl_t::set</definition>
+        <argsstring>(const voff_t &amp;voff, int _size)</argsstring>
+        <name>set</name>
+        <param>
+          <type>const <ref refid="structvoff__t" kindref="compound">voff_t</ref> &amp;</type>
+          <declname>voff</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3044" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3044" bodyend="3045"/>
+      </memberdef>
+      <memberdef kind="function" id="structvivl__t_1aab0c0d1b8d295ca7db8c287e2397f390" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void vivl_t::set_stkoff</definition>
+        <argsstring>(sval_t stkoff, int sz=0)</argsstring>
+        <name>set_stkoff</name>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>stkoff</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sz</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3046" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3046" bodyend="3046"/>
+      </memberdef>
+      <memberdef kind="function" id="structvivl__t_1ab62bb0a1423d44fcbd86d18185fd2931" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void vivl_t::set_reg</definition>
+        <argsstring>(mreg_t mreg, int sz=0)</argsstring>
+        <name>set_reg</name>
+        <param>
+          <type>mreg_t</type>
+          <declname>mreg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sz</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3047" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3047" bodyend="3047"/>
+      </memberdef>
+      <memberdef kind="function" id="structvivl__t_1adc116a9b184e4a88184ad8d482ed4d69" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool vivl_t::extend_to_cover</definition>
+        <argsstring>(const vivl_t &amp;r)</argsstring>
+        <name>extend_to_cover</name>
+        <param>
+          <type>const <ref refid="structvivl__t" kindref="compound">vivl_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Extend a value interval using another value interval of the same type <simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3051" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10045" bodyend="10048"/>
+      </memberdef>
+      <memberdef kind="function" id="structvivl__t_1a236ea8ab7b8fdb703827eb3c5c325183" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref> hexapi</type>
+        <definition>uval_t vivl_t::intersect</definition>
+        <argsstring>(const vivl_t &amp;r)</argsstring>
+        <name>intersect</name>
+        <param>
+          <type>const <ref refid="structvivl__t" kindref="compound">vivl_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Intersect value intervals the same type <simplesect kind="return"><para>size of the resulting intersection </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3055" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10051" bodyend="10056"/>
+      </memberdef>
+      <memberdef kind="function" id="structvivl__t_1a7bd793b1f7e889eb4d14d82a3f9b25a6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool vivl_t::overlap</definition>
+        <argsstring>(const vivl_t &amp;r) const</argsstring>
+        <name>overlap</name>
+        <param>
+          <type>const <ref refid="structvivl__t" kindref="compound">vivl_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Do two value intervals overlap? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3058" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3058" bodyend="3062"/>
+      </memberdef>
+      <memberdef kind="function" id="structvivl__t_1abddb856e76cccddb9dcd334700841f66" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool vivl_t::includes</definition>
+        <argsstring>(const vivl_t &amp;r) const</argsstring>
+        <name>includes</name>
+        <param>
+          <type>const <ref refid="structvivl__t" kindref="compound">vivl_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Does our value interval include another? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3064" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3064" bodyend="3068"/>
+      </memberdef>
+      <memberdef kind="function" id="structvivl__t_1a90cf3cf4c5ba5b8c2d27b3c8169c87bb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool vivl_t::contains</definition>
+        <argsstring>(const voff_t &amp;voff2) const</argsstring>
+        <name>contains</name>
+        <param>
+          <type>const <ref refid="structvoff__t" kindref="compound">voff_t</ref> &amp;</type>
+          <declname>voff2</declname>
+        </param>
+        <briefdescription>
+<para>Does our value interval contain the specified value offset? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3071" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3071" bodyend="3075"/>
+      </memberdef>
+      <memberdef kind="function" id="structvivl__t_1ad5392fd023f4aa796e510feae23096ce" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool vivl_t::operator==</definition>
+        <argsstring>(const mop_t &amp;mop) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="classmop__t" kindref="compound">mop_t</ref> &amp;</type>
+          <declname>mop</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3083" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3083" bodyend="3086"/>
+      </memberdef>
+      <memberdef kind="function" id="structvivl__t_1a35df6456236ac8fb75badfe58c862bd8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void vivl_t::print</definition>
+        <argsstring>(qstring *vout) const</argsstring>
+        <name>print</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>vout</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3087" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10059" bodyend="10062"/>
+      </memberdef>
+      <memberdef kind="function" id="structvivl__t_1a5ab39f983453b6aa0d529f3f79de5e99" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *hexapi</type>
+        <definition>const char * vivl_t::dstr</definition>
+        <argsstring>(void) const</argsstring>
+        <name>dstr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3088" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10065" bodyend="10068"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Value interval (register or stack range) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3857">
+        <label>vivl_t</label>
+        <link refid="structvivl__t"/>
+        <childnode refid="3858" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3858">
+        <label>voff_t</label>
+        <link refid="structvoff__t"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3859">
+        <label>vivl_t</label>
+        <link refid="structvivl__t"/>
+        <childnode refid="3860" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3860">
+        <label>voff_t</label>
+        <link refid="structvoff__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3033" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3032" bodyend="3089"/>
+    <listofallmembers>
+      <member refid="structvoff__t_1a8bd0e146c7ce6d7721acdcbb9f4f6c7b" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>add</name></member>
+      <member refid="structvivl__t_1a637ad99573441af39d3d0dced79f1460" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>code</name></member>
+      <member refid="structvivl__t_1a90cf3cf4c5ba5b8c2d27b3c8169c87bb" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>contains</name></member>
+      <member refid="structvoff__t_1a6ac8d0f2ac39ae0b909e94b78c9e2249" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>defined</name></member>
+      <member refid="structvoff__t_1a13db8967343fdb62c14731fef3d2d898" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>diff</name></member>
+      <member refid="structvivl__t_1a5ab39f983453b6aa0d529f3f79de5e99" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>dstr</name></member>
+      <member refid="structvivl__t_1adc116a9b184e4a88184ad8d482ed4d69" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>extend_to_cover</name></member>
+      <member refid="structvoff__t_1a0b2a73a2ba7a2c910e8a6448f15292d0" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>get_reg</name></member>
+      <member refid="structvoff__t_1ac0492b27e69077fbbfaead71ccd709fd" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>get_stkoff</name></member>
+      <member refid="structvoff__t_1a6f903db1eb031fc392e4bafb3d2bf4a4" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>inc</name></member>
+      <member refid="structvivl__t_1abddb856e76cccddb9dcd334700841f66" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>includes</name></member>
+      <member refid="structvivl__t_1a236ea8ab7b8fdb703827eb3c5c325183" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>intersect</name></member>
+      <member refid="structvoff__t_1af0c2372db5620136ab8a46c86b5bb47f" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>is_reg</name></member>
+      <member refid="structvoff__t_1a3fc1841036894ab53ea07e85bead08a8" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>is_stkoff</name></member>
+      <member refid="structvoff__t_1a5c8599f1766ec8df4e027828e7f0c1d8" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>off</name></member>
+      <member refid="structvivl__t_1ad5392fd023f4aa796e510feae23096ce" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>operator==</name></member>
+      <member refid="structvivl__t_1a7bd793b1f7e889eb4d14d82a3f9b25a6" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>overlap</name></member>
+      <member refid="structvivl__t_1a35df6456236ac8fb75badfe58c862bd8" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>print</name></member>
+      <member refid="structvivl__t_1a2a598a34815d410c17a0ed5edbaaa314" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>set</name></member>
+      <member refid="structvivl__t_1a38e95e066927291e8ebb1763631c97b1" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>set</name></member>
+      <member refid="structvoff__t_1a13fabb0e7fbcbc8ad4c9cdf3dc317132" prot="public" virt="non-virtual" ambiguityscope="voff_t::"><scope>vivl_t</scope><name>set</name></member>
+      <member refid="structvivl__t_1ab62bb0a1423d44fcbd86d18185fd2931" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>set_reg</name></member>
+      <member refid="structvoff__t_1aad7ff2ed8b115baee53f64f87106aca5" prot="public" virt="non-virtual" ambiguityscope="voff_t::"><scope>vivl_t</scope><name>set_reg</name></member>
+      <member refid="structvivl__t_1aab0c0d1b8d295ca7db8c287e2397f390" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>set_stkoff</name></member>
+      <member refid="structvoff__t_1ad3729dcf249e936a4ad9a1e0a32c8c61" prot="public" virt="non-virtual" ambiguityscope="voff_t::"><scope>vivl_t</scope><name>set_stkoff</name></member>
+      <member refid="structvivl__t_1ab4cbfc3d6874034d5183688dd989f3c8" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>size</name></member>
+      <member refid="structvoff__t_1abca16389b51cdb5bc0b9282fbf44a4d7" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>type</name></member>
+      <member refid="structvoff__t_1a3d6adee21694ab9226b4d2a51e0a616f" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>undef</name></member>
+      <member refid="structvivl__t_1a3b692844a72e16efef2cfceceb0f63b4" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>vivl_t</name></member>
+      <member refid="structvivl__t_1aab5f25fa193692de347a36afeee9ebda" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>vivl_t</name></member>
+      <member refid="structvivl__t_1ae898b77d98fcaa378ca76675d8c03f64" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>vivl_t</name></member>
+      <member refid="structvoff__t_1af284e4edfd9fbd380661f4a5bce3d889" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>voff_t</name></member>
+      <member refid="structvoff__t_1aaaadc97ba9882f99b2513fca7654879a" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>voff_t</name></member>
+      <member refid="structvoff__t_1a4918f56be0fc20d9b8c599e901b42d22" prot="public" virt="non-virtual"><scope>vivl_t</scope><name>voff_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

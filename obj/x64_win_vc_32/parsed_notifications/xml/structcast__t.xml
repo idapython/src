@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structcast__t" kind="struct" language="C++" prot="public">
+    <compoundname>cast_t</compoundname>
+    <includes refid="lex_8hpp" local="no">lex.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcast__t_1a033129f633cc48cb717036281539fce8" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool cast_t::is_unsigned</definition>
+        <argsstring></argsstring>
+        <name>is_unsigned</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="90" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcast__t_1aa0cd4b8caf7e37c2f0d5e67d52d21979" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int cast_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="91" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structcast__t_1affa81c932d40a186c072f6dcf9b6b7a4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>cast_t::cast_t</definition>
+        <argsstring>()</argsstring>
+        <name>cast_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="85" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="85" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="structcast__t_1a0e8c53f85227b2af27dfaf8065d3e2af" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void cast_t::reset</definition>
+        <argsstring>(void)</argsstring>
+        <name>reset</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="93" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="93" bodyend="97"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Preprocessor cast. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="84" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="83" bodyend="98"/>
+    <listofallmembers>
+      <member refid="structcast__t_1affa81c932d40a186c072f6dcf9b6b7a4" prot="public" virt="non-virtual"><scope>cast_t</scope><name>cast_t</name></member>
+      <member refid="structcast__t_1a033129f633cc48cb717036281539fce8" prot="public" virt="non-virtual"><scope>cast_t</scope><name>is_unsigned</name></member>
+      <member refid="structcast__t_1a0e8c53f85227b2af27dfaf8065d3e2af" prot="public" virt="non-virtual"><scope>cast_t</scope><name>reset</name></member>
+      <member refid="structcast__t_1aa0cd4b8caf7e37c2f0d5e67d52d21979" prot="public" virt="non-virtual"><scope>cast_t</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

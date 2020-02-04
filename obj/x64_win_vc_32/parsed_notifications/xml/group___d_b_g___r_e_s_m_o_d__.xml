@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___d_b_g___r_e_s_m_o_d__" kind="group">
+    <compoundname>DBG_RESMOD_</compoundname>
+    <title>Resume modes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___d_b_g___r_e_s_m_o_d___1gaa5853f6a0e18a61ff5e9c08b21793dc2" prot="public" static="no">
+        <name>DBG_RESMOD_STEP_INTO</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaeafa5c63fd9204cd2aafebc4d4890e275e" kindref="member">RESMOD_INTO</ref> is available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="925" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="925" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___r_e_s_m_o_d___1ga9839ba09c7bf598ae671d7208e42ca4b" prot="public" static="no">
+        <name>DBG_RESMOD_STEP_OVER</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea900185369bfda1663e1a03741609c42e" kindref="member">RESMOD_OVER</ref> is available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="926" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="926" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___r_e_s_m_o_d___1gaac19c817769f89508ab5fa65b12ab867" prot="public" static="no">
+        <name>DBG_RESMOD_STEP_OUT</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea16146392bd5318fc08437fcd157ff9f7" kindref="member">RESMOD_OUT</ref> is available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="927" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="927" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___r_e_s_m_o_d___1gaf2026583f9a9178a6e8bc6ede496a835" prot="public" static="no">
+        <name>DBG_RESMOD_STEP_SRCINTO</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea8e67c21e6e7fd1c414480e9a31db566d" kindref="member">RESMOD_SRCINTO</ref> is available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="928" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="928" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___r_e_s_m_o_d___1gacef08947ab56d7fb9f308e63961cf2db" prot="public" static="no">
+        <name>DBG_RESMOD_STEP_SRCOVER</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea56caaad3c6ec3488ac139960a67966b1" kindref="member">RESMOD_SRCOVER</ref> is available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="929" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="929" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___r_e_s_m_o_d___1ga502a4b4700773a163fc1d8cef8b012e8" prot="public" static="no">
+        <name>DBG_RESMOD_STEP_SRCOUT</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaea2002f2336fba17754729ad37d1bb1a9a" kindref="member">RESMOD_SRCOUT</ref> is available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="930" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="930" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___r_e_s_m_o_d___1ga68c3f41a2df39bb1530efa8660cb8798" prot="public" static="no">
+        <name>DBG_RESMOD_STEP_USER</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+<para><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaeab887f0923cbb33a3090a25f27da0d682" kindref="member">RESMOD_USER</ref> is available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="931" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="931" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_b_g___r_e_s_m_o_d___1ga8a234cc33384c5faec033a0a8937c314" prot="public" static="no">
+        <name>DBG_RESMOD_STEP_HANDLE</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafaeac758429cea11dbc0e453da7249bf4523" kindref="member">RESMOD_HANDLE</ref> is available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="932" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="932" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="structdebugger__t_1a71ed80f2b468eb868a4c1cfcbe1d7493" kindref="member">debugger_t::resume_modes</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

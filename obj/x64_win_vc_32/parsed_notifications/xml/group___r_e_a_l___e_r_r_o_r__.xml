@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___r_e_a_l___e_r_r_o_r__" kind="group">
+    <compoundname>REAL_ERROR_</compoundname>
+    <title>Floating point/IEEE Conversion codes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___r_e_a_l___e_r_r_o_r___1ga6beaa5d42f93b35f614c00a23f79b3a8" prot="public" static="no">
+        <name>REAL_ERROR_FORMAT</name>
+        <initializer>-1</initializer>
+        <briefdescription>
+<para>not supported format for current .idp </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="118" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_a_l___e_r_r_o_r___1ga0f4d9faf4810023c7f90fda94323e1df" prot="public" static="no">
+        <name>REAL_ERROR_RANGE</name>
+        <initializer>-2</initializer>
+        <briefdescription>
+<para>number too big (small) for store (mem NOT modified) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="119" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_a_l___e_r_r_o_r___1gafc94216b80532712f4141de79e104110" prot="public" static="no">
+        <name>REAL_ERROR_BADDATA</name>
+        <initializer>-3</initializer>
+        <briefdescription>
+<para>illegal real data for load (IEEE data not filled) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" line="120" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ieee.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Return values for and processor_t::realcvt_t request </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

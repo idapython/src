@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_l_i_f__" kind="group">
+    <compoundname>CLIF_</compoundname>
+    <title>CLI attributes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___c_l_i_f___1gadcfa0b5639264b8ee21a6f32b3791743" prot="public" static="no">
+        <name>CLIF_QT_AWARE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>keydown event will use Qt key codes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3261" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3261" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>used by <ref refid="structcli__t_1a20701884f205ee79d132073da60777ca" kindref="member">cli_t::flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___o_p_t_i__" kind="group">
+    <compoundname>OPTI_</compoundname>
+    <title>optimization flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___o_p_t_i___1gadd32f0f8010c841d875b966d78bd4d29" prot="public" static="no">
+        <name>OPTI_ADDREXPRS</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>optimize all address expressions (&amp;x+N; &amp;x-&amp;y) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3392" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3392" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_p_t_i___1gaaf4d77e28c2c47799ae30d7822ea62b0" prot="public" static="no">
+        <name>OPTI_MINSTKREF</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>may update minstkref </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3393" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3393" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_p_t_i___1ga7ae17560e84c49d82779694aeccbdee4" prot="public" static="no">
+        <name>OPTI_COMBINSNS</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>may combine insns (only for optimize_insn) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3394" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3394" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

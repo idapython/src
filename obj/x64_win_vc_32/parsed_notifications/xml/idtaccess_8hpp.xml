@@ -1,0 +1,367 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="idtaccess_8hpp" kind="file" language="C++">
+    <compoundname>idtaccess.hpp</compoundname>
+    <includes refid="pro_8h" local="no">pro.h</includes>
+    <incdepgraph>
+      <node id="743">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="727">
+        <label>stdarg.h</label>
+      </node>
+      <node id="730">
+        <label>assert.h</label>
+      </node>
+      <node id="726">
+        <label>stdlib.h</label>
+      </node>
+      <node id="738">
+        <label>io.h</label>
+      </node>
+      <node id="741">
+        <label>fcntl.h</label>
+      </node>
+      <node id="744">
+        <label>llong.hpp</label>
+        <link refid="llong_8hpp_source"/>
+      </node>
+      <node id="736">
+        <label>malloc.h</label>
+      </node>
+      <node id="724">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp</label>
+        <link refid="idtaccess_8hpp"/>
+        <childnode refid="725" relation="include">
+        </childnode>
+      </node>
+      <node id="735">
+        <label>string</label>
+      </node>
+      <node id="740">
+        <label>map</label>
+      </node>
+      <node id="739">
+        <label>direct.h</label>
+      </node>
+      <node id="728">
+        <label>stddef.h</label>
+      </node>
+      <node id="731">
+        <label>limits.h</label>
+      </node>
+      <node id="742">
+        <label>sys/types.h</label>
+      </node>
+      <node id="737">
+        <label>string.h</label>
+      </node>
+      <node id="734">
+        <label>new</label>
+      </node>
+      <node id="725">
+        <label>pro.h</label>
+        <link refid="pro_8h"/>
+        <childnode refid="726" relation="include">
+        </childnode>
+        <childnode refid="727" relation="include">
+        </childnode>
+        <childnode refid="728" relation="include">
+        </childnode>
+        <childnode refid="729" relation="include">
+        </childnode>
+        <childnode refid="730" relation="include">
+        </childnode>
+        <childnode refid="731" relation="include">
+        </childnode>
+        <childnode refid="732" relation="include">
+        </childnode>
+        <childnode refid="733" relation="include">
+        </childnode>
+        <childnode refid="734" relation="include">
+        </childnode>
+        <childnode refid="735" relation="include">
+        </childnode>
+        <childnode refid="736" relation="include">
+        </childnode>
+        <childnode refid="737" relation="include">
+        </childnode>
+        <childnode refid="738" relation="include">
+        </childnode>
+        <childnode refid="739" relation="include">
+        </childnode>
+        <childnode refid="740" relation="include">
+        </childnode>
+        <childnode refid="741" relation="include">
+        </childnode>
+        <childnode refid="742" relation="include">
+        </childnode>
+        <childnode refid="743" relation="include">
+        </childnode>
+        <childnode refid="744" relation="include">
+        </childnode>
+      </node>
+      <node id="733">
+        <label>time.h</label>
+      </node>
+      <node id="732">
+        <label>ctype.h</label>
+      </node>
+      <node id="729">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structidt__info__t" prot="public">idt_info_t</innerclass>
+    <innerclass refid="structidt__entry__t" prot="public">idt_entry_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="idtaccess_8hpp_1a656794257b7513949beb2fec18ced3f4" prot="public" static="no">
+        <name>IDTF_NORET</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="135" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="idtaccess_8hpp_1a542c6925e90a8ec29148250abf09ab34" prot="public" static="no">
+        <name>idt_event_t</name>
+        <enumvalue id="idtaccess_8hpp_1a542c6925e90a8ec29148250abf09ab34ae77e6d6eea25abe0e74f85e4a249e3ae" prot="public">
+          <name>idt_autotils</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idtaccess_8hpp_1a542c6925e90a8ec29148250abf09ab34a338f453cb8e71182774f2408a1303e91" prot="public">
+          <name>idt_opened</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="10" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" bodystart="9" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="enum" id="idtaccess_8hpp_1a64fa53f9b20574f15e9fea3825ccf8c1" prot="public" static="no">
+        <name>idt_code_t</name>
+        <enumvalue id="idtaccess_8hpp_1a64fa53f9b20574f15e9fea3825ccf8c1a7b51e2a2484f26c3f250472cbd2b5882" prot="public">
+          <name>idt_ok</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idtaccess_8hpp_1a64fa53f9b20574f15e9fea3825ccf8c1af2f83f1e521044308ab0855382fd39b0" prot="public">
+          <name>idt_err_open</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idtaccess_8hpp_1a64fa53f9b20574f15e9fea3825ccf8c1ac2323bbede0e362518b5c8653bef6a23" prot="public">
+          <name>idt_err_data</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idtaccess_8hpp_1a64fa53f9b20574f15e9fea3825ccf8c1a74a9649ac067f396f4f738df8c3f9e45" prot="public">
+          <name>idt_err_not_found</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idtaccess_8hpp_1a64fa53f9b20574f15e9fea3825ccf8c1a01453ba4367fea415d83708b7e24446f" prot="public">
+          <name>idt_err_end</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idtaccess_8hpp_1a64fa53f9b20574f15e9fea3825ccf8c1ad16f2125a371a1f1eba664d0eb2589cf" prot="public">
+          <name>idt_err_no_mem</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="idtaccess_8hpp_1a64fa53f9b20574f15e9fea3825ccf8c1a75008ed6b57ae6619d71043626c80545" prot="public">
+          <name>idt_err_unknown</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="35" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" bodystart="34" bodyend="43"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="idtaccess_8hpp_1a6b0e42824e6c5d2da0557273c2edf9d5" prot="public" static="no">
+        <type>int idaapi</type>
+        <definition>typedef int idaapi idt_callback_t(const idt_info_t *info, idt_event_t event,...)</definition>
+        <argsstring>(const idt_info_t *info, idt_event_t event,...)</argsstring>
+        <name>idt_callback_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="90" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="idtaccess_8hpp_1a478783708e7f9ec84c179e223a6635db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman idt_code_t ida_export</type>
+        <definition>idaman idt_code_t ida_export idt_open</definition>
+        <argsstring>(idt_info_t *idt_info, idt_callback_t callback)</argsstring>
+        <name>idt_open</name>
+        <param>
+          <type><ref refid="structidt__info__t" kindref="compound">idt_info_t</ref> *</type>
+          <declname>idt_info</declname>
+        </param>
+        <param>
+          <type>idt_callback_t</type>
+          <declname>callback</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="112" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="idtaccess_8hpp_1aeeb3bb4909880c961882691bb366f9c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export idt_count_entries</definition>
+        <argsstring>(const idt_handle_t *handle)</argsstring>
+        <name>idt_count_entries</name>
+        <param>
+          <type>const idt_handle_t *</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="120" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="idtaccess_8hpp_1a1f646728803745529df0b03cad165473" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman idt_code_t ida_export</type>
+        <definition>idaman idt_code_t ida_export idt_get_initial</definition>
+        <argsstring>(const idt_handle_t *handle, const idt_entry_t **entry)</argsstring>
+        <name>idt_get_initial</name>
+        <param>
+          <type>const idt_handle_t *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structidt__entry__t" kindref="compound">idt_entry_t</ref> **</type>
+          <declname>entry</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="156" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="idtaccess_8hpp_1ad0f580e717f06ff1524f9794dc63779a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman idt_code_t ida_export</type>
+        <definition>idaman idt_code_t ida_export idt_get_next</definition>
+        <argsstring>(idt_handle_t *handle, const idt_entry_t **entry)</argsstring>
+        <name>idt_get_next</name>
+        <param>
+          <type>idt_handle_t *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structidt__entry__t" kindref="compound">idt_entry_t</ref> **</type>
+          <declname>entry</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="167" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="idtaccess_8hpp_1ab0f0da96ba47062d73d341306e005872" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman idt_code_t ida_export</type>
+        <definition>idaman idt_code_t ida_export idt_get_by_ordinal</definition>
+        <argsstring>(idt_handle_t *handle, int32 ordinal, const idt_entry_t **entry)</argsstring>
+        <name>idt_get_by_ordinal</name>
+        <param>
+          <type>idt_handle_t *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+          <declname>ordinal</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structidt__entry__t" kindref="compound">idt_entry_t</ref> **</type>
+          <declname>entry</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="179" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="idtaccess_8hpp_1a6b7f14763dc6da79a99ccf66ed587fd2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export idt_format_error</definition>
+        <argsstring>(qstring *out, const char *file, idt_code_t code)</argsstring>
+        <name>idt_format_error</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>idt_code_t</type>
+          <declname>code</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="189" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp"/>
+  </compounddef>
+</doxygen>

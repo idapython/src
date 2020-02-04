@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_t_i__" kind="group">
+    <compoundname>FTI_</compoundname>
+    <title>Function type data property bits</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___f_t_i___1ga8df339dbafd18e09dff205606dd74ef7" prot="public" static="no">
+        <name>FTI_SPOILED</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>information about spoiled registers is present </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3247" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_t_i___1ga22493ebc3efb1464a49a1da0a51743ca" prot="public" static="no">
+        <name>FTI_NORET</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>noreturn </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3248" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_t_i___1ga3e26f297fe482ab7a5c7cb2251d013f0" prot="public" static="no">
+        <name>FTI_PURE</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>__pure </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3249" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_t_i___1ga59c49eb47a2f43c602070b01684ba871" prot="public" static="no">
+        <name>FTI_HIGH</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>high level prototype (with possibly hidden args) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3250" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_t_i___1gac532957fbd5ccc4e337b40d112dd7c54" prot="public" static="no">
+        <name>FTI_STATIC</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>static </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3251" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_t_i___1ga5467592f5c51d137ea24c78d8d4a8e45" prot="public" static="no">
+        <name>FTI_VIRTUAL</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>virtual </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3252" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_t_i___1ga05b1697e6881a620be7decafeabea9bb" prot="public" static="no">
+        <name>FTI_CALLTYPE</name>
+        <initializer>0x00C0</initializer>
+        <briefdescription>
+<para>mask for FTI_*CALL </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3253" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_t_i___1gaa8ac9279d74c695f58e7a06109748443" prot="public" static="no">
+        <name>FTI_DEFCALL</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>default call </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3254" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_t_i___1ga165cf2a53a0f7a76e0149c3078fee21a" prot="public" static="no">
+        <name>FTI_NEARCALL</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+<para>near call </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3255" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_t_i___1gace01167eeb994769a54d1e1ea40de29c" prot="public" static="no">
+        <name>FTI_FARCALL</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para>far call </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3256" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_t_i___1gab5100aea70d3aa7ba318cf1d83b3685b" prot="public" static="no">
+        <name>FTI_INTCALL</name>
+        <initializer>0x00C0</initializer>
+        <briefdescription>
+<para>interrupt call </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3257" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_t_i___1gae2d459fcaacc13e99f99317207c1b7c6" prot="public" static="no">
+        <name>FTI_ARGLOCS</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+<para>(stkargs and retloc too) </para>        </briefdescription>
+        <detaileddescription>
+<para>info about argument locations has been calculated </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3258" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_t_i___1ga0f8e33f82e8adebf5a6a837c58b92040" prot="public" static="no">
+        <name>FTI_ALL</name>
+        <initializer>0x01FF</initializer>
+        <briefdescription>
+<para>all defined bits </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3260" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3260" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>used by <ref refid="structfunc__type__data__t_1a54c21f102d1142c3419048ecc2ea80e7" kindref="member">func_type_data_t::flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -13,12 +13,12 @@ if ( __argcnt == 2 )
 {
   if ( result == Py_None )
   {
-    result = PyInt_FromLong(0);
+    result = IDAPyInt_FromLong(0);
   }
-  else if ( PyInt_Check(result) )
+  else if ( IDAPyInt_Check(result) )
   {
     *color = bgcolor_t(IDAPyInt_AsLong(result));
-    result = PyInt_FromLong(1);
+    result = IDAPyInt_FromLong(1);
   }
 }
 """)),

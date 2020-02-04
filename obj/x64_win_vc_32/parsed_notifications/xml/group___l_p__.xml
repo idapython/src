@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___l_p__" kind="group">
+    <compoundname>LP_</compoundname>
+    <title>Launch process flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___l_p___1ga6a72f961d93bee3e84920f010aa396b5" prot="public" static="no">
+        <name>LP_NEW_CONSOLE</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>create new console (only ms windows) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3740" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3740" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___l_p___1ga2a68a94201de80e7b38a99f7521fa479" prot="public" static="no">
+        <name>LP_TRACE</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>debug: unix: ptrace(TRACEME), windows: DEBUG_PROCESS </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3741" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3741" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___l_p___1gaaf7d57c6fd05fd8a992d28d924310092" prot="public" static="no">
+        <name>LP_PATH_WITH_ARGS</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>&apos;args&apos; contains executable path too </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3742" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3742" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___l_p___1gaa327ff3c5b75dc1f0386d2706f44bc9b" prot="public" static="no">
+        <name>LP_USE_SHELL</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>&apos;path&apos; is ignored in this case. </para>        </briefdescription>
+        <detaileddescription>
+<para>use shell to launch the command. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3743" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3743" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___l_p___1ga636e8219625f894dd0c51053df1c5ed9" prot="public" static="no">
+        <name>LP_LAUNCH_32_BIT</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>prefer to launch 32-bit part of file (only mac) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3745" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3745" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___l_p___1gab69b1c1794fcf8f988177f1d348d27ef" prot="public" static="no">
+        <name>LP_LAUNCH_64_BIT</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>only one of LP_LAUNCH_*_BIT bits can be specified </para>        </briefdescription>
+        <detaileddescription>
+<para>prefer to launch 64-bit part of file (only mac) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3746" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3746" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___l_p___1ga4a52d1cd9ba5d6ac517cb824d7768ec0" prot="public" static="no">
+        <name>LP_NO_ASLR</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+<para>disable ASLR (only mac) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3748" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3748" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___l_p___1ga61dd4175be8f944fe1102f1c2947d0c2" prot="public" static="no">
+        <name>LP_DETACH_TTY</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para>detach the current tty (unix) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3749" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3749" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___l_p___1ga3799601cb3277fddf6e07fe9ad67874f" prot="public" static="no">
+        <name>LP_HIDE_WINDOW</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+<para>tries to hide new window on startup (only windows) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3750" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3750" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>used by <ref refid="structlaunch__process__params__t_1a591c07e79418ffe297f256e793334dc5" kindref="member">launch_process_params_t::flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

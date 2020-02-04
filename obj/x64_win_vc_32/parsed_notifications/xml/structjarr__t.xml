@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structjarr__t" kind="struct" language="C++" prot="public">
+    <compoundname>jarr_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structjarr__t_1af25823db59a3e9d28a8933b7cb37d300" prot="public" static="no" mutable="no">
+        <type><ref refid="classqvector" kindref="compound">jvalues_t</ref></type>
+        <definition>jvalues_t jarr_t::values</definition>
+        <argsstring></argsstring>
+        <name>values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="191" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structjarr__t_1abb3e9300d85bcbe3727178e606d2f1a6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t jarr_t::count_items_with_type</definition>
+        <argsstring>(jtype_t t) const</argsstring>
+        <name>count_items_with_type</name>
+        <param>
+          <type>jtype_t</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="193" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="193" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="structjarr__t_1a348f9f4ebbe8a6f47c8ad044d0637aa8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jarr_t::is_homogeneous</definition>
+        <argsstring>(jtype_t t) const</argsstring>
+        <name>is_homogeneous</name>
+        <param>
+          <type>jtype_t</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="202" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="202" bodyend="205"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1887">
+        <label>jarr_t</label>
+        <link refid="structjarr__t"/>
+        <childnode refid="1888" relation="usage">
+          <edgelabel>values</edgelabel>
+        </childnode>
+      </node>
+      <node id="1888">
+        <label>qvector&lt; jvalue_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="190" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="189" bodyend="206"/>
+    <listofallmembers>
+      <member refid="structjarr__t_1abb3e9300d85bcbe3727178e606d2f1a6" prot="public" virt="non-virtual"><scope>jarr_t</scope><name>count_items_with_type</name></member>
+      <member refid="structjarr__t_1a348f9f4ebbe8a6f47c8ad044d0637aa8" prot="public" virt="non-virtual"><scope>jarr_t</scope><name>is_homogeneous</name></member>
+      <member refid="structjarr__t_1af25823db59a3e9d28a8933b7cb37d300" prot="public" virt="non-virtual"><scope>jarr_t</scope><name>values</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

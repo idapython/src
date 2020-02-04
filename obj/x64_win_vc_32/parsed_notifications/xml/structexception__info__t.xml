@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structexception__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>exception_info_t</compoundname>
+    <includes refid="idd_8hpp" local="no">idd.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structexception__info__t_1a609b3f00bf0d7a0499f4df29dd7ecf6d" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14" kindref="member">uint</ref></type>
+        <definition>uint exception_info_t::code</definition>
+        <argsstring></argsstring>
+        <name>code</name>
+        <briefdescription>
+<para>exception code </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="400" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="400" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexception__info__t_1aee2fcd79d267fb7a88d47ddb4b7e56ef" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 exception_info_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___e_x_c__" kindref="compound">Exception info flags</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="401" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="401" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexception__info__t_1a62bba5d5ff287f68985bbcb7fbe2fb83" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring exception_info_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>Exception standard name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="417" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="417" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexception__info__t_1ad46fdbdc4b1131a1e658510a08934c0e" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring exception_info_t::desc</definition>
+        <argsstring></argsstring>
+        <name>desc</name>
+        <briefdescription>
+<para>Long message used to display info about the exception. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="418" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="418" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structexception__info__t_1a4300a50c715f9ba7b2ed2e33dcd8bb3c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool exception_info_t::break_on</definition>
+        <argsstring>(void) const</argsstring>
+        <name>break_on</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Should we break on the exception? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="412" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="412" bodyend="412"/>
+      </memberdef>
+      <memberdef kind="function" id="structexception__info__t_1a976944a3bcef0fd8f823f658a17ebbdb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool exception_info_t::handle</definition>
+        <argsstring>(void) const</argsstring>
+        <name>handle</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Should we handle the exception? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="415" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="415" bodyend="415"/>
+      </memberdef>
+      <memberdef kind="function" id="structexception__info__t_1a77c12dc0c3aa640f5044c322affa3cf7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>exception_info_t::exception_info_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>exception_info_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="420" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="420" bodyend="420"/>
+      </memberdef>
+      <memberdef kind="function" id="structexception__info__t_1aebe910816b9a0c5a781bece2cacc9313" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>exception_info_t::exception_info_t</definition>
+        <argsstring>(uint _code, uint32 _flags, const char *_name, const char *_desc)</argsstring>
+        <name>exception_info_t</name>
+        <param>
+          <type><ref refid="pro_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14" kindref="member">uint</ref></type>
+          <declname>_code</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>_flags</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>_desc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="421" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="421" bodyend="422"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Exception information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1524">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="1523">
+        <label>exception_info_t</label>
+        <link refid="structexception__info__t"/>
+        <childnode refid="1524" relation="usage">
+          <edgelabel>desc</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="399" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="398" bodyend="423"/>
+    <listofallmembers>
+      <member refid="structexception__info__t_1a4300a50c715f9ba7b2ed2e33dcd8bb3c" prot="public" virt="non-virtual"><scope>exception_info_t</scope><name>break_on</name></member>
+      <member refid="structexception__info__t_1a609b3f00bf0d7a0499f4df29dd7ecf6d" prot="public" virt="non-virtual"><scope>exception_info_t</scope><name>code</name></member>
+      <member refid="structexception__info__t_1ad46fdbdc4b1131a1e658510a08934c0e" prot="public" virt="non-virtual"><scope>exception_info_t</scope><name>desc</name></member>
+      <member refid="structexception__info__t_1a77c12dc0c3aa640f5044c322affa3cf7" prot="public" virt="non-virtual"><scope>exception_info_t</scope><name>exception_info_t</name></member>
+      <member refid="structexception__info__t_1aebe910816b9a0c5a781bece2cacc9313" prot="public" virt="non-virtual"><scope>exception_info_t</scope><name>exception_info_t</name></member>
+      <member refid="structexception__info__t_1aee2fcd79d267fb7a88d47ddb4b7e56ef" prot="public" virt="non-virtual"><scope>exception_info_t</scope><name>flags</name></member>
+      <member refid="structexception__info__t_1a976944a3bcef0fd8f823f658a17ebbdb" prot="public" virt="non-virtual"><scope>exception_info_t</scope><name>handle</name></member>
+      <member refid="structexception__info__t_1a62bba5d5ff287f68985bbcb7fbe2fb83" prot="public" virt="non-virtual"><scope>exception_info_t</scope><name>name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

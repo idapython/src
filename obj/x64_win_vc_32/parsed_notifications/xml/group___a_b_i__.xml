@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___a_b_i__" kind="group">
+    <compoundname>ABI_</compoundname>
+    <title>abi options</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___a_b_i___1ga91c126b455d4fada0912c7b1ae5e258b" prot="public" static="no">
+        <name>ABI_8ALIGN4</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>4 byte alignment for 8byte scalars (__int64/double) inside structures? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="441" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="441" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_b_i___1ga6893b269d0f5f9c3f8f709828a7ef9a9" prot="public" static="no">
+        <name>ABI_PACK_STKARGS</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>do not align stack arguments to stack slots </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="442" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="442" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_b_i___1ga028c4198f01a5cbfb81bd5aee977f851" prot="public" static="no">
+        <name>ABI_BIGARG_ALIGN</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>(e.g. __int64 argument should be 8byte aligned on some 32bit platforms) </para>        </briefdescription>
+        <detaileddescription>
+<para>use natural type alignment for argument if the alignment exceeds native word size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="443" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="443" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_b_i___1ga903fccb41d7d0a4b0d6d3df545a731ee" prot="public" static="no">
+        <name>ABI_STACK_LDBL</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>long double areuments are passed on stack </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="445" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="445" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_b_i___1ga4467638ae0081e9fafc5cdf40f94ba2f" prot="public" static="no">
+        <name>ABI_STACK_VARARGS</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>varargs are always passed on stack (even when there are free registers) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="446" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="446" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_b_i___1ga72d8d17d5ef6355351f681185c7d01d4" prot="public" static="no">
+        <name>ABI_HARD_FLOAT</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>use the floating-point register set </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="447" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="447" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_b_i___1ga4d4724d0f3753898d508089584e4c5dd" prot="public" static="no">
+        <name>ABI_SET_BY_USER</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>compiler/abi were set by user flag and require SETCOMP_BY_USER flag to be changed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="448" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="448" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_b_i___1gaa79639295c9c49ac8f735b3a13f6b59d" prot="public" static="no">
+        <name>ABI_GCC_LAYOUT</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>use gcc layout for udts (used for mingw) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="449" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="449" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="structidainfo_1a47e0d906c1be5e2764bc0c3fd9c4b8b2" kindref="member">idainfo::abibits</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

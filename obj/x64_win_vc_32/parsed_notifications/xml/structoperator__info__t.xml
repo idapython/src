@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structoperator__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>operator_info_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structoperator__info__t_1afd25478aa21b062732c0b0194f597d5f" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* operator_info_t::text</definition>
+        <argsstring></argsstring>
+        <name>text</name>
+        <briefdescription>
+<para>Text representation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5122" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structoperator__info__t_1a283aa441a36c42b928738c1f7e088ee1" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar operator_info_t::precedence</definition>
+        <argsstring></argsstring>
+        <name>precedence</name>
+        <briefdescription>
+<para>Operator precedence (lower: more priority) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5123" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structoperator__info__t_1ac062b4a620c5f2a801c551c02ffd6324" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar operator_info_t::valency</definition>
+        <argsstring></argsstring>
+        <name>valency</name>
+        <briefdescription>
+<para>Number of operator arguments. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5124" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structoperator__info__t_1a023c7c91f2e1f08d4638e59604a9f784" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar operator_info_t::fixtype</definition>
+        <argsstring></argsstring>
+        <name>fixtype</name>
+        <briefdescription>
+<para><ref refid="group__fixtype__t" kindref="compound">C operator writing styles</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5125" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structoperator__info__t_1a0a167748b4852bfaacbc266d6acb8445" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar operator_info_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+<para><ref refid="group__opattrs__t" kindref="compound">C operator attributes</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5126" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5126" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Information about C operator. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5120" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5119" bodyend="5127"/>
+    <listofallmembers>
+      <member refid="structoperator__info__t_1a023c7c91f2e1f08d4638e59604a9f784" prot="public" virt="non-virtual"><scope>operator_info_t</scope><name>fixtype</name></member>
+      <member refid="structoperator__info__t_1a0a167748b4852bfaacbc266d6acb8445" prot="public" virt="non-virtual"><scope>operator_info_t</scope><name>flags</name></member>
+      <member refid="structoperator__info__t_1a283aa441a36c42b928738c1f7e088ee1" prot="public" virt="non-virtual"><scope>operator_info_t</scope><name>precedence</name></member>
+      <member refid="structoperator__info__t_1afd25478aa21b062732c0b0194f597d5f" prot="public" virt="non-virtual"><scope>operator_info_t</scope><name>text</name></member>
+      <member refid="structoperator__info__t_1ac062b4a620c5f2a801c551c02ffd6324" prot="public" virt="non-virtual"><scope>operator_info_t</scope><name>valency</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

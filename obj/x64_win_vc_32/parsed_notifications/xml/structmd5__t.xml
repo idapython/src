@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structmd5__t" kind="struct" language="C++" prot="public">
+    <compoundname>md5_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structmd5__t_1a52ee35c5d973170d3975cc8c5d4dc060" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar md5_t::hash[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>hash</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="360" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="360" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structmd5__t_1aa705dbae7e12cf742ca1c6ebaad7ec76" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>md5_t::md5_t</definition>
+        <argsstring>()</argsstring>
+        <name>md5_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="361" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="361" bodyend="364"/>
+      </memberdef>
+      <memberdef kind="function" id="structmd5__t_1ac80164f147eb4ab1df7aae7317e67f0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void md5_t::swap</definition>
+        <argsstring>(md5_t &amp;other)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="structmd5__t" kindref="compound">md5_t</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="366" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structmd5__t_1a8633d07ee2b8396748d32c1d226947ef" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void md5_t::serialize</definition>
+        <argsstring>(bytevec_t *out, int version) const</argsstring>
+        <name>serialize</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="367" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structmd5__t_1a2d9507185028090fb3bc8d813dd590c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool md5_t::deserialize</definition>
+        <argsstring>(const uchar **ptr, size_t len, int version)</argsstring>
+        <name>deserialize</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="368" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="359" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="358" bodyend="369"/>
+    <listofallmembers>
+      <member refid="structmd5__t_1a2d9507185028090fb3bc8d813dd590c9" prot="public" virt="non-virtual"><scope>md5_t</scope><name>deserialize</name></member>
+      <member refid="structmd5__t_1a52ee35c5d973170d3975cc8c5d4dc060" prot="public" virt="non-virtual"><scope>md5_t</scope><name>hash</name></member>
+      <member refid="structmd5__t_1aa705dbae7e12cf742ca1c6ebaad7ec76" prot="public" virt="non-virtual"><scope>md5_t</scope><name>md5_t</name></member>
+      <member refid="structmd5__t_1a8633d07ee2b8396748d32c1d226947ef" prot="public" virt="non-virtual"><scope>md5_t</scope><name>serialize</name></member>
+      <member refid="structmd5__t_1ac80164f147eb4ab1df7aae7317e67f0b" prot="public" virt="non-virtual"><scope>md5_t</scope><name>swap</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

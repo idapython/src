@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structidsinfo__t" kind="struct" language="C++" prot="public">
+    <compoundname>idsinfo_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structidsinfo__t_1adaa0c2059288a787711c61c5b5483711" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 idsinfo_t::file_size</definition>
+        <argsstring></argsstring>
+        <name>file_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" line="28" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidsinfo__t_1a8141c0b5c22de57e5cd4ece81cc06ba5" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 idsinfo_t::expcnt</definition>
+        <argsstring></argsstring>
+        <name>expcnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" line="30" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" line="27" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ids.hpp" bodystart="26" bodyend="31"/>
+    <listofallmembers>
+      <member refid="structidsinfo__t_1a8141c0b5c22de57e5cd4ece81cc06ba5" prot="public" virt="non-virtual"><scope>idsinfo_t</scope><name>expcnt</name></member>
+      <member refid="structidsinfo__t_1adaa0c2059288a787711c61c5b5483711" prot="public" virt="non-virtual"><scope>idsinfo_t</scope><name>file_size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__seg" kind="group">
+    <compoundname>seg</compoundname>
+    <title>Segments</title>
+    <innergroup refid="group__seg__t">Segment structure</innergroup>
+    <innergroup refid="group__seg__sel">Segment selectors</innergroup>
+    <innergroup refid="group__seg__man">Segment manipulation functions</innergroup>
+    <innergroup refid="group__seg__grp">Segment groups</innergroup>
+    <innergroup refid="group__seg__trans">Segment translations</innergroup>
+    <innergroup refid="group__seg__cmt">Segment comments</innergroup>
+    <innergroup refid="group__seg__name">Segment names</innergroup>
+    <innergroup refid="group__seg__type">Segment classes and types</innergroup>
+    <innergroup refid="group__seg__align">Segment alignment and combination</innergroup>
+    <innergroup refid="group__seg__addr">Segment addressing</innergroup>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Functions that deal with program segmentation. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

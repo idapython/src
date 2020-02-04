@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classnode__ordering__t" kind="class" language="C++" prot="public">
+    <compoundname>node_ordering_t</compoundname>
+    <includes refid="graph_8hpp" local="no">graph.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classnode__ordering__t_1a653e3a5cd1bf56a10229ff047d5950cd" prot="private" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref></type>
+        <definition>intvec_t node_ordering_t::node_by_order</definition>
+        <argsstring></argsstring>
+        <name>node_by_order</name>
+        <briefdescription>
+<para>ordered sequence of node numbers </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="141" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classnode__ordering__t_1ac24b67f52fc977ede1299b321e28986f" prot="private" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref></type>
+        <definition>intvec_t node_ordering_t::order_by_node</definition>
+        <argsstring></argsstring>
+        <name>order_by_node</name>
+        <briefdescription>
+<para>node number =&gt; index in #node_by_order </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="142" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classnode__ordering__t_1aa16637351facac5726d1bd2a3e879aa1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi node_ordering_t::clear</definition>
+        <argsstring>(void)</argsstring>
+        <name>clear</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="145" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="145" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="classnode__ordering__t_1a1ff76547ab04574e511bda76ca10fccb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi node_ordering_t::resize</definition>
+        <argsstring>(int n)</argsstring>
+        <name>resize</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="150" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="150" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="classnode__ordering__t_1a1db59cc18b59bf5be65bb301d9e9e20f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t idaapi</type>
+        <definition>size_t idaapi node_ordering_t::size</definition>
+        <argsstring>(void) const</argsstring>
+        <name>size</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="155" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="155" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="classnode__ordering__t_1a519c01c24ec880bc90b2533b6d8dfead" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi node_ordering_t::set</definition>
+        <argsstring>(int _node, int num)</argsstring>
+        <name>set</name>
+        <param>
+          <type>int</type>
+          <declname>_node</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>num</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="156" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="156" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="classnode__ordering__t_1a142928b057a2358c101da62362bf99ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi node_ordering_t::clr</definition>
+        <argsstring>(int _node)</argsstring>
+        <name>clr</name>
+        <param>
+          <type>int</type>
+          <declname>_node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="162" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classnode__ordering__t_1a5b26b12fc4c2464a26e17f864d6571d9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi node_ordering_t::node</definition>
+        <argsstring>(size_t _order) const</argsstring>
+        <name>node</name>
+        <param>
+          <type>size_t</type>
+          <declname>_order</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="163" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="163" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="classnode__ordering__t_1a42f890f4a7c5bf33465c1298910b3f58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi node_ordering_t::order</definition>
+        <argsstring>(int _node)</argsstring>
+        <name>order</name>
+        <param>
+          <type>int</type>
+          <declname>_node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="164" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Node ordering in a graph. Maps a node number to a number describing its order in the graph (and vice versa). </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="140" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="139" bodyend="165"/>
+    <listofallmembers>
+      <member refid="classnode__ordering__t_1aa16637351facac5726d1bd2a3e879aa1" prot="public" virt="non-virtual"><scope>node_ordering_t</scope><name>clear</name></member>
+      <member refid="classnode__ordering__t_1a142928b057a2358c101da62362bf99ca" prot="public" virt="non-virtual"><scope>node_ordering_t</scope><name>clr</name></member>
+      <member refid="classnode__ordering__t_1a5b26b12fc4c2464a26e17f864d6571d9" prot="public" virt="non-virtual"><scope>node_ordering_t</scope><name>node</name></member>
+      <member refid="classnode__ordering__t_1a653e3a5cd1bf56a10229ff047d5950cd" prot="private" virt="non-virtual"><scope>node_ordering_t</scope><name>node_by_order</name></member>
+      <member refid="classnode__ordering__t_1a42f890f4a7c5bf33465c1298910b3f58" prot="public" virt="non-virtual"><scope>node_ordering_t</scope><name>order</name></member>
+      <member refid="classnode__ordering__t_1ac24b67f52fc977ede1299b321e28986f" prot="private" virt="non-virtual"><scope>node_ordering_t</scope><name>order_by_node</name></member>
+      <member refid="classnode__ordering__t_1a1ff76547ab04574e511bda76ca10fccb" prot="public" virt="non-virtual"><scope>node_ordering_t</scope><name>resize</name></member>
+      <member refid="classnode__ordering__t_1a519c01c24ec880bc90b2533b6d8dfead" prot="public" virt="non-virtual"><scope>node_ordering_t</scope><name>set</name></member>
+      <member refid="classnode__ordering__t_1a1db59cc18b59bf5be65bb301d9e9e20f" prot="public" virt="non-virtual"><scope>node_ordering_t</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

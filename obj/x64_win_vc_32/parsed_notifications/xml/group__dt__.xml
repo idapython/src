@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__dt__" kind="group">
+    <compoundname>dt_</compoundname>
+    <title>Operand value types</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__dt___1ga7b3131e3cc11e88be1e80a439829b293" prot="public" static="no">
+        <name>dt_byte</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>8 bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="224" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1gabb5cde4fad79943866df6e120315c98c" prot="public" static="no">
+        <name>dt_word</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>16 bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="225" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1ga39d680a96eebfed96dbbd9c20d7066c3" prot="public" static="no">
+        <name>dt_dword</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>32 bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="226" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1gaad9eb178bad28892ed548f9e56d90dc9" prot="public" static="no">
+        <name>dt_float</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>4 byte </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="227" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1ga8cb6ffc96fb9fec3a6fb00b57316bac9" prot="public" static="no">
+        <name>dt_double</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>8 byte </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="228" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1gac7069d33cabaaddb5191cc7e53252222" prot="public" static="no">
+        <name>dt_tbyte</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>variable size ({tbyte_size}) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="229" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1gae74028429ed869e7420e452dcef43317" prot="public" static="no">
+        <name>dt_packreal</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>packed real format for mc68040 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="230" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1gaa10505ff3777d1c702dc0fcb486a6f79" prot="public" static="no">
+        <name>dt_qword</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>64 bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="232" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1ga3bd291eb83aaa19325154d5f45637d6d" prot="public" static="no">
+        <name>dt_byte16</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>128 bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="233" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1ga268be91f07064dcff0353727c59c8cdf" prot="public" static="no">
+        <name>dt_code</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>ptr to code (not used?) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="234" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1ga1c6c4bf7dd30fcd7f2e47de52325da4c" prot="public" static="no">
+        <name>dt_void</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>none </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="235" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1ga91b41c919ba1d4c42ea307ea6e8d4e81" prot="public" static="no">
+        <name>dt_fword</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>48 bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="236" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1gab211db421bf77e573550e7fda075028c" prot="public" static="no">
+        <name>dt_bitfild</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>bit field (mc680x0) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="237" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1ga46f3a4c39450bc50572ea6d2dd51c2f2" prot="public" static="no">
+        <name>dt_string</name>
+        <initializer>13</initializer>
+        <briefdescription>
+<para>pointer to asciiz string </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="238" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1ga846b51cfcb3d1ce299ad9f891a2b20b0" prot="public" static="no">
+        <name>dt_unicode</name>
+        <initializer>14</initializer>
+        <briefdescription>
+<para>pointer to unicode string </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="239" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1gaccb3747e107f807c752e9929a1433886" prot="public" static="no">
+        <name>dt_ldbl</name>
+        <initializer>15</initializer>
+        <briefdescription>
+<para>long double (which may be different from tbyte) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="240" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1ga4f1f6d814f621a30c37e3d9a613d14c9" prot="public" static="no">
+        <name>dt_byte32</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>256 bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="241" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dt___1ga70b4ee93fa2b39ad741baea204dba8b7" prot="public" static="no">
+        <name>dt_byte64</name>
+        <initializer>17</initializer>
+        <briefdescription>
+<para>512 bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="242" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="classop__t_1a9d0ea64a2929fc998bca6cebd1b91c09" kindref="member">op_t::dtype</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

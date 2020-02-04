@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structlicense__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>license_info_t</compoundname>
+    <basecompoundref refid="structencrypted__block__t" prot="public" virt="non-virtual">encrypted_block_t</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structlicense__info__t_1aac692c98400c19a53972ef8f8c26f84a" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char license_info_t::email[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>email</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="64" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlicense__info__t_1ac3313d710b7747792abbe614a9f83fef" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char license_info_t::cstr[33]</definition>
+        <argsstring>[33]</argsstring>
+        <name>cstr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="65" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlicense__info__t_1a7b93a5b047e48b2cfdca60343ce26c3a" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar license_info_t::idalid[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>idalid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="66" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1929">
+        <label>license_info_t</label>
+        <link refid="structlicense__info__t"/>
+        <childnode refid="1930" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1930">
+        <label>encrypted_block_t</label>
+        <link refid="structencrypted__block__t"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1931">
+        <label>license_info_t</label>
+        <link refid="structlicense__info__t"/>
+        <childnode refid="1932" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1932">
+        <label>encrypted_block_t</label>
+        <link refid="structencrypted__block__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="63" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="62" bodyend="68"/>
+    <listofallmembers>
+      <member refid="structlicense__info__t_1ac3313d710b7747792abbe614a9f83fef" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>cstr</name></member>
+      <member refid="structlicense__info__t_1aac692c98400c19a53972ef8f8c26f84a" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>email</name></member>
+      <member refid="structencrypted__block__t_1a1e55c3d509612512c926fda620241d37" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>expires</name></member>
+      <member refid="structencrypted__block__t_1aa429baba809e7f775e8a3b97ee5eb049" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>flags</name></member>
+      <member refid="structencrypted__block__t_1a22fd3ffc680f1e46bec79d6b0001cd1e" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>hash</name></member>
+      <member refid="structlicense__info__t_1a7b93a5b047e48b2cfdca60343ce26c3a" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>idalid</name></member>
+      <member refid="structencrypted__block__t_1a5ac82958328f74fe3c3ee9419db65e73" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>is_floating_license</name></member>
+      <member refid="structencrypted__block__t_1a561f12a34c032cece68412b0aa01f787" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>issued</name></member>
+      <member refid="structencrypted__block__t_1a5a16faf79b442b97ed4baefc4397a8c9" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>iv</name></member>
+      <member refid="structencrypted__block__t_1a54787312790aebb87b90138b702e92f8" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>lid</name></member>
+      <member refid="structencrypted__block__t_1a8a17e5e2e8741ebd960431640c1bf3e6" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>name</name></member>
+      <member refid="structencrypted__block__t_1a6e8f90505fa7dfc7e538d921472b3e72" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>nseats</name></member>
+      <member refid="structencrypted__block__t_1af572d4b0214eeb371e2823c994ee203c" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>print_lid</name></member>
+      <member refid="structencrypted__block__t_1a49e80653991f9dc6137a08a6921aa815" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>procbits1</name></member>
+      <member refid="structencrypted__block__t_1ac433ad22641a936154f8d50c3a7ac51b" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>procbits2</name></member>
+      <member refid="structencrypted__block__t_1ac2aaa9e258a9ba25a49e6b61904d4fd0" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>support</name></member>
+      <member refid="structencrypted__block__t_1a7e35c6c7419cc0bbdc2e0d0fac950b30" prot="public" virt="non-virtual"><scope>license_info_t</scope><name>version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,667 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classivlset__tpl" kind="class" language="C++" prot="public">
+    <compoundname>ivlset_tpl</compoundname>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>Ivl</declname>
+        <defname>Ivl</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="protected-type">
+      <memberdef kind="typedef" id="classivlset__tpl_1aab83da3728d91a5d9d306a3a2cf5c8a7" prot="protected" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; Ivl &gt;</type>
+        <definition>typedef qvector&lt;Ivl&gt; ivlset_tpl&lt; Ivl, T &gt;::bag_t</definition>
+        <argsstring></argsstring>
+        <name>bag_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1858" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1858" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classivlset__tpl_1a89345adcd0c39baf6d5fa5ef7593fbfa" prot="public" static="no">
+        <type>bag_t::iterator</type>
+        <definition>typedef bag_t::iterator ivlset_tpl&lt; Ivl, T &gt;::iterator</definition>
+        <argsstring></argsstring>
+        <name>iterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1897" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1897" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classivlset__tpl_1aeef45ca445cc6ec6d705b9b24415637c" prot="public" static="no">
+        <type>bag_t::const_iterator</type>
+        <definition>typedef bag_t::const_iterator ivlset_tpl&lt; Ivl, T &gt;::const_iterator</definition>
+        <argsstring></argsstring>
+        <name>const_iterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1898" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1898" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classivlset__tpl_1a227daacb8ad5a176da63d4248aa82ceb" prot="protected" static="no" mutable="no">
+        <type><ref refid="classqvector" kindref="compound">bag_t</ref></type>
+        <definition>bag_t ivlset_tpl&lt; Ivl, T &gt;::bag</definition>
+        <argsstring></argsstring>
+        <name>bag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1859" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1859" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classivlset__tpl_1a67d9e3322370a971f780e0eb2835f516" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivlset_tpl&lt; Ivl, T &gt;::verify</definition>
+        <argsstring>(void) const</argsstring>
+        <name>verify</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1860" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-static-func">
+      <memberdef kind="function" id="classivlset__tpl_1aa6ea74a5c03d0254a5c95002ca22a853" prot="protected" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool ivlset_tpl&lt; Ivl, T &gt;::ivl_all_values</definition>
+        <argsstring>(const Ivl &amp;ivl)</argsstring>
+        <name>ivl_all_values</name>
+        <param>
+          <type>const Ivl &amp;</type>
+          <declname>ivl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1863" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1863" bodyend="1863"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classivlset__tpl_1aaaa3dae20425993f3f370405286197d7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ivlset_tpl&lt; Ivl, T &gt;::ivlset_tpl</definition>
+        <argsstring>(void)</argsstring>
+        <name>ivlset_tpl</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1866" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1866" bodyend="1866"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1ab98e0b663945830332722899a96d683c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ivlset_tpl&lt; Ivl, T &gt;::ivlset_tpl</definition>
+        <argsstring>(const Ivl &amp;ivl)</argsstring>
+        <name>ivlset_tpl</name>
+        <param>
+          <type>const Ivl &amp;</type>
+          <declname>ivl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1867" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1867" bodyend="1867"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a8088a29a6944e7bee43290e9cc0c3b1b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ivlset_tpl&lt; Ivl, T &gt;::swap</definition>
+        <argsstring>(ivlset_tpl &amp;r)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="classivlset__tpl" kindref="compound">ivlset_tpl</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1870" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1870" bodyend="1870"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a1cfeb647c25a8f41d1608d30adf86a37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivlset_tpl&lt; Ivl, T &gt;::add</definition>
+        <argsstring>(const Ivl &amp;ivl)</argsstring>
+        <name>add</name>
+        <param>
+          <type>const Ivl &amp;</type>
+          <declname>ivl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1871" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a5ee342d3d0466f0a812233623efbfd9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivlset_tpl&lt; Ivl, T &gt;::add</definition>
+        <argsstring>(const ivlset_tpl &amp;ivs)</argsstring>
+        <name>add</name>
+        <param>
+          <type>const <ref refid="classivlset__tpl" kindref="compound">ivlset_tpl</ref> &amp;</type>
+          <declname>ivs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1872" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a4d940fb26f9651078d2d20a05e506bdc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivlset_tpl&lt; Ivl, T &gt;::sub</definition>
+        <argsstring>(const Ivl &amp;ivl)</argsstring>
+        <name>sub</name>
+        <param>
+          <type>const Ivl &amp;</type>
+          <declname>ivl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1873" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a13c674f40b28c0e8895ef42af3a9c4d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivlset_tpl&lt; Ivl, T &gt;::sub</definition>
+        <argsstring>(const ivlset_tpl &amp;ivs)</argsstring>
+        <name>sub</name>
+        <param>
+          <type>const <ref refid="classivlset__tpl" kindref="compound">ivlset_tpl</ref> &amp;</type>
+          <declname>ivs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1874" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1ad7e73cae808d02f1005283be268ca292" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivlset_tpl&lt; Ivl, T &gt;::has_common</definition>
+        <argsstring>(const Ivl &amp;ivl, bool strict=false) const</argsstring>
+        <name>has_common</name>
+        <param>
+          <type>const Ivl &amp;</type>
+          <declname>ivl</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>strict</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1875" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a17e3649fe38a11e052feeaa3f6581ba3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>T</type>
+        <definition>T ivlset_tpl&lt; Ivl, T &gt;::count</definition>
+        <argsstring>(void) const</argsstring>
+        <name>count</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1876" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a4d8df086ab420f50ef3bc89abab24844" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const Ivl &amp;</type>
+        <definition>const Ivl&amp; ivlset_tpl&lt; Ivl, T &gt;::getivl</definition>
+        <argsstring>(int idx) const</argsstring>
+        <name>getivl</name>
+        <param>
+          <type>int</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1877" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1877" bodyend="1877"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a2f675a20c926ab02b6b724f37681adf6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const Ivl &amp;</type>
+        <definition>const Ivl&amp; ivlset_tpl&lt; Ivl, T &gt;::lastivl</definition>
+        <argsstring>(void) const</argsstring>
+        <name>lastivl</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1878" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1878" bodyend="1878"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a60b07d8dbea33936d325df779eaa62ee" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t ivlset_tpl&lt; Ivl, T &gt;::nivls</definition>
+        <argsstring>(void) const</argsstring>
+        <name>nivls</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1879" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1879" bodyend="1879"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a3807c6a30bee3668659859e1f6b74643" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivlset_tpl&lt; Ivl, T &gt;::empty</definition>
+        <argsstring>(void) const</argsstring>
+        <name>empty</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1880" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1880" bodyend="1880"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1af635207ac4e951ecf2cf9f63e062055c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ivlset_tpl&lt; Ivl, T &gt;::clear</definition>
+        <argsstring>(void)</argsstring>
+        <name>clear</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1881" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1881" bodyend="1881"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a79a84273150a1dae0a9fe6bda2f70ea5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ivlset_tpl&lt; Ivl, T &gt;::qclear</definition>
+        <argsstring>(void)</argsstring>
+        <name>qclear</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1882" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1882" bodyend="1882"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1ab356a19cad85803c90e27b16e65dd85e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivlset_tpl&lt; Ivl, T &gt;::all_values</definition>
+        <argsstring>() const</argsstring>
+        <name>all_values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1883" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1883" bodyend="1883"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a1571b2c68074399adf551e29a1f9dc67" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ivlset_tpl&lt; Ivl, T &gt;::set_all_values</definition>
+        <argsstring>()</argsstring>
+        <name>set_all_values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1884" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1884" bodyend="1884"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1ae62fe83240cb92435291a9953facc001" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivlset_tpl&lt; Ivl, T &gt;::has_common</definition>
+        <argsstring>(const ivlset_tpl &amp;ivs) const</argsstring>
+        <name>has_common</name>
+        <param>
+          <type>const <ref refid="classivlset__tpl" kindref="compound">ivlset_tpl</ref> &amp;</type>
+          <declname>ivs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1885" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a9560671258dae772c2ea5b55c8a94801" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivlset_tpl&lt; Ivl, T &gt;::contains</definition>
+        <argsstring>(T off) const</argsstring>
+        <name>contains</name>
+        <param>
+          <type>T</type>
+          <declname>off</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1886" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a2445a776f0dd6c6a3115c50acfd089f9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivlset_tpl&lt; Ivl, T &gt;::includes</definition>
+        <argsstring>(const ivlset_tpl &amp;ivs) const</argsstring>
+        <name>includes</name>
+        <param>
+          <type>const <ref refid="classivlset__tpl" kindref="compound">ivlset_tpl</ref> &amp;</type>
+          <declname>ivs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1887" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a00d6f6a0ecb420decfbfcc1ca117b8c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivlset_tpl&lt; Ivl, T &gt;::intersect</definition>
+        <argsstring>(const ivlset_tpl &amp;ivs)</argsstring>
+        <name>intersect</name>
+        <param>
+          <type>const <ref refid="classivlset__tpl" kindref="compound">ivlset_tpl</ref> &amp;</type>
+          <declname>ivs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1888" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a4e0902463e7ca16f2bd424c034bb84bd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivlset_tpl&lt; Ivl, T &gt;::is_subset_of</definition>
+        <argsstring>(const ivlset_tpl &amp;ivs) const</argsstring>
+        <name>is_subset_of</name>
+        <param>
+          <type>const <ref refid="classivlset__tpl" kindref="compound">ivlset_tpl</ref> &amp;</type>
+          <declname>ivs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1889" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1889" bodyend="1889"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1aca7d9e624400c9bdae0e0065b8e3b3ea" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivlset_tpl&lt; Ivl, T &gt;::single_value</definition>
+        <argsstring>(T v) const</argsstring>
+        <name>single_value</name>
+        <param>
+          <type>T</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1890" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1890" bodyend="1890"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1af0e170fcbf7cc6cf1156aaf27fee474f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ivlset_tpl&lt; Ivl, T &gt;::compare</definition>
+        <argsstring>(const ivlset_tpl &amp;r) const</argsstring>
+        <name>compare</name>
+        <param>
+          <type>const <ref refid="classivlset__tpl" kindref="compound">ivlset_tpl</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1893" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1adf0c1d9f02f6b9d7b00887bec1f9227c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivlset_tpl&lt; Ivl, T &gt;::operator==</definition>
+        <argsstring>(const Ivl &amp;v) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const Ivl &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1894" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1894" bodyend="1894"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a50e62827abbb13e130816c74b93d2c30" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ivlset_tpl&lt; Ivl, T &gt;::operator!=</definition>
+        <argsstring>(const Ivl &amp;v) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const Ivl &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1895" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1895" bodyend="1895"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a4bd91ec361a5356e8da7fd0f8a0fcdd0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const_iterator</type>
+        <definition>const_iterator ivlset_tpl&lt; Ivl, T &gt;::begin</definition>
+        <argsstring>(void) const</argsstring>
+        <name>begin</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1899" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1899" bodyend="1899"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1a5be7b96d9179c8e3925906a92499e7d8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const_iterator</type>
+        <definition>const_iterator ivlset_tpl&lt; Ivl, T &gt;::end</definition>
+        <argsstring>(void) const</argsstring>
+        <name>end</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1900" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1900" bodyend="1900"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1af544e5ce53ac31d0fbade75ba04a56b1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>iterator ivlset_tpl&lt; Ivl, T &gt;::begin</definition>
+        <argsstring>(void)</argsstring>
+        <name>begin</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1901" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1901" bodyend="1901"/>
+      </memberdef>
+      <memberdef kind="function" id="classivlset__tpl_1adad9873255594cf4e9a58919499e0c38" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>iterator ivlset_tpl&lt; Ivl, T &gt;::end</definition>
+        <argsstring>(void)</argsstring>
+        <name>end</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1902" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1902" bodyend="1902"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1883">
+        <label>qvector&lt; Ivl &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1882">
+        <label>ivlset_tpl&lt; Ivl, T &gt;</label>
+        <link refid="classivlset__tpl"/>
+        <childnode refid="1883" relation="usage">
+          <edgelabel>bag</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1856" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1855" bodyend="1903"/>
+    <listofallmembers>
+      <member refid="classivlset__tpl_1a1cfeb647c25a8f41d1608d30adf86a37" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>add</name></member>
+      <member refid="classivlset__tpl_1a5ee342d3d0466f0a812233623efbfd9c" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>add</name></member>
+      <member refid="classivlset__tpl_1ab356a19cad85803c90e27b16e65dd85e" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>all_values</name></member>
+      <member refid="classivlset__tpl_1a227daacb8ad5a176da63d4248aa82ceb" prot="protected" virt="non-virtual"><scope>ivlset_tpl</scope><name>bag</name></member>
+      <member refid="classivlset__tpl_1aab83da3728d91a5d9d306a3a2cf5c8a7" prot="protected" virt="non-virtual"><scope>ivlset_tpl</scope><name>bag_t</name></member>
+      <member refid="classivlset__tpl_1a4bd91ec361a5356e8da7fd0f8a0fcdd0" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>begin</name></member>
+      <member refid="classivlset__tpl_1af544e5ce53ac31d0fbade75ba04a56b1" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>begin</name></member>
+      <member refid="classivlset__tpl_1af635207ac4e951ecf2cf9f63e062055c" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>clear</name></member>
+      <member refid="classivlset__tpl_1af0e170fcbf7cc6cf1156aaf27fee474f" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>compare</name></member>
+      <member refid="classivlset__tpl_1aeef45ca445cc6ec6d705b9b24415637c" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>const_iterator</name></member>
+      <member refid="classivlset__tpl_1a9560671258dae772c2ea5b55c8a94801" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>contains</name></member>
+      <member refid="classivlset__tpl_1a17e3649fe38a11e052feeaa3f6581ba3" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>count</name></member>
+      <member refid="classivlset__tpl_1a3807c6a30bee3668659859e1f6b74643" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>empty</name></member>
+      <member refid="classivlset__tpl_1a5be7b96d9179c8e3925906a92499e7d8" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>end</name></member>
+      <member refid="classivlset__tpl_1adad9873255594cf4e9a58919499e0c38" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>end</name></member>
+      <member refid="classivlset__tpl_1a4d8df086ab420f50ef3bc89abab24844" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>getivl</name></member>
+      <member refid="classivlset__tpl_1ad7e73cae808d02f1005283be268ca292" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>has_common</name></member>
+      <member refid="classivlset__tpl_1ae62fe83240cb92435291a9953facc001" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>has_common</name></member>
+      <member refid="classivlset__tpl_1a2445a776f0dd6c6a3115c50acfd089f9" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>includes</name></member>
+      <member refid="classivlset__tpl_1a00d6f6a0ecb420decfbfcc1ca117b8c3" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>intersect</name></member>
+      <member refid="classivlset__tpl_1a4e0902463e7ca16f2bd424c034bb84bd" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>is_subset_of</name></member>
+      <member refid="classivlset__tpl_1a89345adcd0c39baf6d5fa5ef7593fbfa" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>iterator</name></member>
+      <member refid="classivlset__tpl_1aa6ea74a5c03d0254a5c95002ca22a853" prot="protected" virt="non-virtual"><scope>ivlset_tpl</scope><name>ivl_all_values</name></member>
+      <member refid="classivlset__tpl_1aaaa3dae20425993f3f370405286197d7" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>ivlset_tpl</name></member>
+      <member refid="classivlset__tpl_1ab98e0b663945830332722899a96d683c" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>ivlset_tpl</name></member>
+      <member refid="classivlset__tpl_1a2f675a20c926ab02b6b724f37681adf6" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>lastivl</name></member>
+      <member refid="classivlset__tpl_1a60b07d8dbea33936d325df779eaa62ee" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>nivls</name></member>
+      <member refid="classivlset__tpl_1a50e62827abbb13e130816c74b93d2c30" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>operator!=</name></member>
+      <member refid="classivlset__tpl_1adf0c1d9f02f6b9d7b00887bec1f9227c" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>operator==</name></member>
+      <member refid="classivlset__tpl_1a79a84273150a1dae0a9fe6bda2f70ea5" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>qclear</name></member>
+      <member refid="classivlset__tpl_1a1571b2c68074399adf551e29a1f9dc67" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>set_all_values</name></member>
+      <member refid="classivlset__tpl_1aca7d9e624400c9bdae0e0065b8e3b3ea" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>single_value</name></member>
+      <member refid="classivlset__tpl_1a4d940fb26f9651078d2d20a05e506bdc" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>sub</name></member>
+      <member refid="classivlset__tpl_1a13c674f40b28c0e8895ef42af3a9c4d5" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>sub</name></member>
+      <member refid="classivlset__tpl_1a8088a29a6944e7bee43290e9cc0c3b1b" prot="public" virt="non-virtual"><scope>ivlset_tpl</scope><name>swap</name></member>
+      <member refid="classivlset__tpl_1a67d9e3322370a971f780e0eb2835f516" prot="protected" virt="non-virtual"><scope>ivlset_tpl</scope><name>verify</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

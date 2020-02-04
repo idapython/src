@@ -1,0 +1,407 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="range_8hpp" kind="file" language="C++">
+    <compoundname>range.hpp</compoundname>
+    <includedby refid="segregs_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp</includedby>
+    <includedby refid="netnode_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp</includedby>
+    <includedby refid="funcs_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp</includedby>
+    <includedby refid="bytes_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp</includedby>
+    <includedby refid="idd_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/idd.hpp</includedby>
+    <includedby refid="parseucdr_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp</includedby>
+    <includedby refid="ida_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/ida.hpp</includedby>
+    <includedby refid="segment_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/segment.hpp</includedby>
+    <includedby refid="ucd_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp</includedby>
+    <invincdepgraph>
+      <node id="1279">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/commerc.hpp</label>
+        <link refid="commerc_8hpp_source"/>
+      </node>
+      <node id="1281">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/auto.hpp</label>
+        <link refid="auto_8hpp"/>
+      </node>
+      <node id="1277">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/ida.hpp</label>
+        <link refid="ida_8hpp"/>
+        <childnode refid="1254" relation="include">
+        </childnode>
+        <childnode refid="1278" relation="include">
+        </childnode>
+        <childnode refid="1280" relation="include">
+        </childnode>
+        <childnode refid="1263" relation="include">
+        </childnode>
+        <childnode refid="1281" relation="include">
+        </childnode>
+        <childnode refid="1282" relation="include">
+        </childnode>
+        <childnode refid="1283" relation="include">
+        </childnode>
+      </node>
+      <node id="1278">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/loader.hpp</label>
+        <link refid="loader_8hpp"/>
+        <childnode refid="1263" relation="include">
+        </childnode>
+        <childnode refid="1279" relation="include">
+        </childnode>
+      </node>
+      <node id="1264">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/intel.hpp</label>
+        <link refid="intel_8hpp_source"/>
+      </node>
+      <node id="1272">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/ua.hpp</label>
+        <link refid="ua_8hpp"/>
+        <childnode refid="1256" relation="include">
+        </childnode>
+        <childnode refid="1258" relation="include">
+        </childnode>
+        <childnode refid="1264" relation="include">
+        </childnode>
+        <childnode refid="1273" relation="include">
+        </childnode>
+      </node>
+      <node id="1269">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/enum.hpp</label>
+        <link refid="enum_8hpp"/>
+      </node>
+      <node id="1267">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp</label>
+        <link refid="ida__highlighter_8hpp_source"/>
+      </node>
+      <node id="1273">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/idd.hpp</label>
+        <link refid="idd_8hpp"/>
+        <childnode refid="1259" relation="include">
+        </childnode>
+      </node>
+      <node id="1252">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp</label>
+        <link refid="segregs_8hpp"/>
+      </node>
+      <node id="1258">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/idp.hpp</label>
+        <link refid="idp_8hpp"/>
+        <childnode refid="1259" relation="include">
+        </childnode>
+        <childnode refid="1260" relation="include">
+        </childnode>
+        <childnode refid="1261" relation="include">
+        </childnode>
+        <childnode refid="1263" relation="include">
+        </childnode>
+        <childnode refid="1265" relation="include">
+        </childnode>
+        <childnode refid="1266" relation="include">
+        </childnode>
+      </node>
+      <node id="1276">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp</label>
+        <link refid="parseucdr_8hpp_source"/>
+      </node>
+      <node id="1259">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp</label>
+        <link refid="dbg_8hpp"/>
+      </node>
+      <node id="1256">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/jumptable.hpp</label>
+        <link refid="jumptable_8hpp_source"/>
+      </node>
+      <node id="1271">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/struct.hpp</label>
+        <link refid="struct_8hpp"/>
+      </node>
+      <node id="1254">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp</label>
+        <link refid="nalt_8hpp"/>
+        <childnode refid="1255" relation="include">
+        </childnode>
+        <childnode refid="1256" relation="include">
+        </childnode>
+        <childnode refid="1257" relation="include">
+        </childnode>
+        <childnode refid="1258" relation="include">
+        </childnode>
+        <childnode refid="1269" relation="include">
+        </childnode>
+        <childnode refid="1270" relation="include">
+        </childnode>
+      </node>
+      <node id="1265">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/graph.hpp</label>
+        <link refid="graph_8hpp"/>
+      </node>
+      <node id="1283">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/lines.hpp</label>
+        <link refid="lines_8hpp"/>
+        <childnode refid="1272" relation="include">
+        </childnode>
+        <childnode refid="1270" relation="include">
+        </childnode>
+      </node>
+      <node id="1280">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/name.hpp</label>
+        <link refid="name_8hpp"/>
+        <childnode refid="1261" relation="include">
+        </childnode>
+      </node>
+      <node id="1275">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp</label>
+        <link refid="gdl_8hpp"/>
+        <childnode refid="1263" relation="include">
+        </childnode>
+        <childnode refid="1265" relation="include">
+        </childnode>
+      </node>
+      <node id="1268">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp</label>
+        <link refid="tstfeat_8hpp_source"/>
+      </node>
+      <node id="1284">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/ucd.hpp</label>
+        <link refid="ucd_8hpp_source"/>
+        <childnode refid="1276" relation="include">
+        </childnode>
+      </node>
+      <node id="1274">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp</label>
+        <link refid="funcs_8hpp"/>
+        <childnode refid="1258" relation="include">
+        </childnode>
+        <childnode refid="1275" relation="include">
+        </childnode>
+      </node>
+      <node id="1266">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/expr.hpp</label>
+        <link refid="expr_8hpp"/>
+        <childnode refid="1267" relation="include">
+        </childnode>
+        <childnode refid="1268" relation="include">
+        </childnode>
+      </node>
+      <node id="1257">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp</label>
+        <link refid="fixup_8hpp"/>
+      </node>
+      <node id="1260">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/frame.hpp</label>
+        <link refid="frame_8hpp"/>
+      </node>
+      <node id="1282">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/segment.hpp</label>
+        <link refid="segment_8hpp"/>
+        <childnode refid="1255" relation="include">
+        </childnode>
+        <childnode refid="1257" relation="include">
+        </childnode>
+        <childnode refid="1258" relation="include">
+        </childnode>
+      </node>
+      <node id="1270">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp</label>
+        <link refid="bytes_8hpp"/>
+        <childnode refid="1271" relation="include">
+        </childnode>
+        <childnode refid="1272" relation="include">
+        </childnode>
+        <childnode refid="1274" relation="include">
+        </childnode>
+      </node>
+      <node id="1255">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/offset.hpp</label>
+        <link refid="offset_8hpp"/>
+      </node>
+      <node id="1251">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/range.hpp</label>
+        <link refid="range_8hpp"/>
+        <childnode refid="1252" relation="include">
+        </childnode>
+        <childnode refid="1253" relation="include">
+        </childnode>
+        <childnode refid="1274" relation="include">
+        </childnode>
+        <childnode refid="1270" relation="include">
+        </childnode>
+        <childnode refid="1273" relation="include">
+        </childnode>
+        <childnode refid="1276" relation="include">
+        </childnode>
+        <childnode refid="1277" relation="include">
+        </childnode>
+        <childnode refid="1282" relation="include">
+        </childnode>
+        <childnode refid="1284" relation="include">
+        </childnode>
+      </node>
+      <node id="1261">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp</label>
+        <link refid="typeinf_8hpp"/>
+        <childnode refid="1262" relation="include">
+        </childnode>
+        <childnode refid="1263" relation="include">
+        </childnode>
+        <childnode refid="1264" relation="include">
+        </childnode>
+      </node>
+      <node id="1253">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp</label>
+        <link refid="netnode_8hpp"/>
+        <childnode refid="1254" relation="include">
+        </childnode>
+      </node>
+      <node id="1263">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp</label>
+        <link refid="hexrays_8hpp_source"/>
+      </node>
+      <node id="1262">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp</label>
+        <link refid="lumina_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structrange__t" prot="public">range_t</innerclass>
+    <innerclass refid="structrangevec__t" prot="public">rangevec_t</innerclass>
+    <innerclass refid="classrangeset__t" prot="public">rangeset_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="range_8hpp_1a772671b2a9cb2b4ecdfffca0c74df5f2" prot="public" static="no">
+        <name>RANGESET_HELPER_DEFINITIONS</name>
+        <param><defname>decl</defname></param>
+        <initializer>decl bool ida_export rangeset_t_add(<ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *, const <ref refid="structrange__t" kindref="compound">range_t</ref> &amp;range);\
+decl bool ida_export rangeset_t_sub(<ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *, const <ref refid="structrange__t" kindref="compound">range_t</ref> &amp;range);\
+decl bool ida_export rangeset_t_add2(<ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *, const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> &amp;aset);\
+decl bool ida_export rangeset_t_sub2(<ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *, const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> &amp;aset);\
+decl bool ida_export rangeset_t_has_common(const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *, const <ref refid="structrange__t" kindref="compound">range_t</ref> &amp;range, bool strict);\
+decl bool ida_export rangeset_t_has_common2(const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *, const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> &amp;aset);\
+decl bool ida_export rangeset_t_contains(const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *, const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> &amp;aset);\
+decl size_t ida_export rangeset_t_print(const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *, char *buf, size_t bufsize);\
+decl bool ida_export rangeset_t_intersect(<ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *, const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> &amp;aset);\
+decl const <ref refid="structrange__t" kindref="compound">range_t</ref> *ida_export rangeset_t_find_range(const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *, ea_t ea);\
+decl ea_t ida_export rangeset_t_next_addr(const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *, ea_t ea);\
+decl ea_t ida_export rangeset_t_prev_addr(const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *, ea_t ea);\
+decl ea_t ida_export rangeset_t_next_range(const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *, ea_t ea);\
+decl ea_t ida_export rangeset_t_prev_range(const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *, ea_t ea);\
+decl rangevec_t::const_iterator ida_export rangeset_t_lower_bound(const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *, ea_t ea);\
+decl rangevec_t::const_iterator ida_export rangeset_t_upper_bound(const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *, ea_t ea);</initializer>
+        <briefdescription>
+<para>Helper functions. Should not be called directly! </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/range.hpp" line="121" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/range.hpp" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="range_8hpp_1a4129afc497d61109cc06b1699e62d06d" prot="public" static="no">
+        <name>range_kind_t</name>
+        <enumvalue id="range_8hpp_1a4129afc497d61109cc06b1699e62d06da58e952814b58e6fd32261138d9b422cd" prot="public">
+          <name>RANGE_KIND_UNKNOWN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="range_8hpp_1a4129afc497d61109cc06b1699e62d06da4ed54db04cc26590b66411c72c5d04e1" prot="public">
+          <name>RANGE_KIND_FUNC</name>
+          <briefdescription>
+<para><ref refid="classfunc__t" kindref="compound">func_t</ref> </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="range_8hpp_1a4129afc497d61109cc06b1699e62d06da530277a9de79b79bb3e451c72572aad3" prot="public">
+          <name>RANGE_KIND_SEGMENT</name>
+          <briefdescription>
+<para><ref refid="classsegment__t" kindref="compound">segment_t</ref> </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="range_8hpp_1a4129afc497d61109cc06b1699e62d06dacfbad62243e4417ad37313552756e2c8" prot="public">
+          <name>RANGE_KIND_HIDDEN_RANGE</name>
+          <briefdescription>
+<para><ref refid="structhidden__range__t" kindref="compound">hidden_range_t</ref> </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/range.hpp" line="111" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/range.hpp" bodystart="110" bodyend="116"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="range_8hpp_1a250363a352a65517cc5789f31a4b29b1" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structrange__t" kindref="compound">range_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;range_t&gt; rangevec_base_t</definition>
+        <argsstring></argsstring>
+        <name>rangevec_base_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/range.hpp" line="101" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/range.hpp" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="range_8hpp_1abf9903791f04f72b18585c1fae481a59" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;rangeset_t&gt; array_of_rangesets</definition>
+        <argsstring></argsstring>
+        <name>array_of_rangesets</name>
+        <briefdescription>
+<para>Array of <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> objects. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/range.hpp" line="286" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/range.hpp" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="range_8hpp_1a6b5123923d4d787a82acb6f6dc613ff3" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> * &gt;</type>
+        <definition>typedef qvector&lt;const rangeset_t*&gt; rangeset_crefvec_t</definition>
+        <argsstring></argsstring>
+        <name>rangeset_crefvec_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/range.hpp" line="287" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/range.hpp" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="range_8hpp_1a092c3340bf2e4774d94f9d2844e2ef2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export range_t_print</definition>
+        <argsstring>(const range_t *, char *buf, size_t bufsize)</argsstring>
+        <name>range_t_print</name>
+        <param>
+          <type>const <ref refid="structrange__t" kindref="compound">range_t</ref> *</type>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <briefdescription>
+<para>Helper function. Should not be called directly! </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/range.hpp" line="32" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains the definition of ::rangecb_t. </para>    </briefdescription>
+    <detaileddescription>
+<para>This is a base class used by many parts of IDA. It is a collection of address ranges in the program. It conceptually consists of separate <ref refid="structrange__t" kindref="compound">range_t</ref> instances.</para><para>A range is a non-empty continuous range of addresses (specified by its start and end addresses, the end address is excluded from the range) with some characteristics. For example, the ensemble of program segments is represented by an &quot;rangecb_t&quot; called &quot;segs&quot;.</para><para>Ranges are stored in the Btree part of the IDA database. To learn more about Btrees (Balanced Trees): <ulink url="http://www.bluerwhite.org/btree/">http://www.bluerwhite.org/btree/</ulink> </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/range.hpp"/>
+  </compounddef>
+</doxygen>

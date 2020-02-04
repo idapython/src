@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__c__str__conv" kind="group">
+    <compoundname>c_str_conv</compoundname>
+    <title>Functions: c strings</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__c__str__conv_1gaf1e6165c701ac9fb7d20958aff93f012" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> char *ida_export</type>
+        <definition>idaman THREAD_SAFE char* ida_export str2user</definition>
+        <argsstring>(char *dst, const char *src, size_t dstsize)</argsstring>
+        <name>str2user</name>
+        <param>
+          <type>char *</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>dstsize</declname>
+        </param>
+        <briefdescription>
+<para>Make a user representation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3368" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__c__str__conv_1gad65d8d0c79f8761d8551ca2b85436d59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> char *ida_export</type>
+        <definition>idaman THREAD_SAFE char* ida_export user2str</definition>
+        <argsstring>(char *dst, const char *src, size_t dstsize)</argsstring>
+        <name>user2str</name>
+        <param>
+          <type>char *</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>dstsize</declname>
+        </param>
+        <briefdescription>
+<para>Make an internal representation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3369" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__c__str__conv_1gaf07498922444526a1697fc58456dfc25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> char ida_export</type>
+        <definition>idaman THREAD_SAFE char ida_export back_char</definition>
+        <argsstring>(const char *&amp;p)</argsstring>
+        <name>back_char</name>
+        <param>
+          <type>const char *&amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Translate char after &apos;\&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3371" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__c__str__conv_1gaf90e18cf75dd11e9428f1048bceef522" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export qstr2user</definition>
+        <argsstring>(qstring *dst, const char *src, int nsyms=-1)</argsstring>
+        <name>qstr2user</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nsyms</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+<para>see <ref refid="group__c__str__conv_1gaf1e6165c701ac9fb7d20958aff93f012" kindref="member">str2user()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3372" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__c__str__conv_1gac5190d20bd91d0630d23e9a488fc0b23" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void</type>
+        <definition>THREAD_SAFE void qstr2user</definition>
+        <argsstring>(qstring *dst, const qstring &amp;src)</argsstring>
+        <name>qstr2user</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> &amp;</type>
+          <declname>src</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3373" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3373" bodyend="3373"/>
+      </memberdef>
+      <memberdef kind="function" id="group__c__str__conv_1ga86d364d8894c49d87500393a832f2ae1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export user2qstr</definition>
+        <argsstring>(qstring *dst, const qstring &amp;src)</argsstring>
+        <name>user2qstr</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> &amp;</type>
+          <declname>src</declname>
+        </param>
+        <briefdescription>
+<para>see <ref refid="group__c__str__conv_1gad65d8d0c79f8761d8551ca2b85436d59" kindref="member">user2str()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3374" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>String C-style conversions (convert \n to a newline and vice versa) </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

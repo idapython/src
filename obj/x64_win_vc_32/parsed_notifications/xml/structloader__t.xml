@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structloader__t" kind="struct" language="C++" prot="public">
+    <compoundname>loader_t</compoundname>
+    <includes refid="loader_8hpp" local="no">loader.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structloader__t_1ae4ae78ca8369c4216b4e3708445f995b" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 loader_t::version</definition>
+        <argsstring></argsstring>
+        <name>version</name>
+        <briefdescription>
+<para>api version, should be <ref refid="idp_8hpp_1af4b4e4966302754b758c8cc16f964a15" kindref="member">IDP_INTERFACE_VERSION</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="45" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structloader__t_1a049dfabd4bddd202488ce4ff3a263ff0" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 loader_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___l_d_r_f__" kindref="compound">Loader flags</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="46" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structloader__t_1a71ddfdd15d4c7ff137acd776f21ece60" prot="public" static="no" mutable="no">
+        <type>int(idaapi *</type>
+        <definition>int(idaapi * loader_t::accept_file) (qstring *fileformatname, qstring *processor, linput_t *li, const char *filename)</definition>
+        <argsstring>)(qstring *fileformatname, qstring *processor, linput_t *li, const char *filename)</argsstring>
+        <name>accept_file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Check input file format. This function will be called one or more times depending on the result value. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">fileformat</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of file format </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">processor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>desired processor (optional) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>li</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>input file </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the input file, if it is an archive member name then the actual file doesn&apos;t exist </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if file format is recognized, and fills &apos;fileformatname&apos;, otherwise returns 0. This function may return a unique file format number instead of 1. To get this unique number, please contact the author. If the return value is ORed with <ref refid="loader_8hpp_1a95d411e4e7c809664e1ba33c61b0bffa" kindref="member">ACCEPT_ARCHIVE</ref>, then it is an archive loader. Its <ref refid="structloader__t_1a9f5ef40830d55bde46d1487214ce478a" kindref="member">process_archive()</ref> will be called instead of <ref refid="structloader__t_1a06ce7bcf929568ec0e8860cebf235f32" kindref="member">load_file()</ref>. If the return value is ORed with <ref refid="loader_8hpp_1a60fb3c4f4605753d48e4c437f924e7be" kindref="member">ACCEPT_CONTINUE</ref>, then this function will be called another time. If the return value is ORed with <ref refid="loader_8hpp_1ac4a513b8be5b7a4aa5984ea4f43eacd1" kindref="member">ACCEPT_FIRST</ref>, then this format should be placed first in the &quot;load file&quot; dialog box. In the sorting order of file formats the archive formats have priority. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="75" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structloader__t_1a06ce7bcf929568ec0e8860cebf235f32" prot="public" static="no" mutable="no">
+        <type>void(idaapi *</type>
+        <definition>void(idaapi * loader_t::load_file) (linput_t *li, ushort neflags, const char *fileformatname)</definition>
+        <argsstring>)(linput_t *li, ushort neflags, const char *fileformatname)</argsstring>
+        <name>load_file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Load file into the database. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>li</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>input file </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>neflags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___n_e_f__" kindref="compound">Load file flags</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fileformatname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of type of the file (it was returned by <ref refid="structloader__t_1a71ddfdd15d4c7ff137acd776f21ece60" kindref="member">accept_file</ref>)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+If this function fails, <ref refid="loader_8hpp_1ac5e3189d54cc0c34924fb28ebacbbbc3" kindref="member">loader_failure()</ref> should be called </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="98" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structloader__t_1afa6dedd156dfe5849199d34b0c89692a" prot="public" static="no" mutable="no">
+        <type>int(idaapi *</type>
+        <definition>int(idaapi * loader_t::save_file) (FILE *fp, const char *fileformatname)</definition>
+        <argsstring>)(FILE *fp, const char *fileformatname)</argsstring>
+        <name>save_file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create output file from the database. This function may be absent. If fp == NULL, then this function returns:<itemizedlist>
+<listitem><para>0: can&apos;t create file of this type</para></listitem><listitem><para>1: ok, can create file of this type</para></listitem></itemizedlist>
+</para><para>If fp != NULL, then this function should create the output file </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="138" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structloader__t_1a7a329922101a4e28a2b7018e565a3b5d" prot="public" static="no" mutable="no">
+        <type>int(idaapi *</type>
+        <definition>int(idaapi * loader_t::move_segm) (ea_t from, ea_t to, asize_t size, const char *fileformatname)</definition>
+        <argsstring>)(ea_t from, ea_t to, asize_t size, const char *fileformatname)</argsstring>
+        <name>move_segm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Take care of a moved segment (fix up relocations, for example). This function may be absent. A special calling method<programlisting><codeline><highlight class="normal">move_segm(BADADDR,<sp/>delta,<sp/>0,<sp/>formatname);<sp/></highlight></codeline>
+</programlisting> means that the whole program has been moved in the memory (rebased) by delta bytes <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>from</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>previous linear address of the segment </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>to</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>current linear address of the segment </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of the moved segment </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fileformatname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the file format </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>failure </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="150" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structloader__t_1a9f5ef40830d55bde46d1487214ce478a" prot="public" static="no" mutable="no">
+        <type>int(idaapi *</type>
+        <definition>int(idaapi * loader_t::process_archive) (qstring *temp_file, linput_t *li, qstring *module_name, ushort *neflags, const char *fileformatname, const char *defmember, qstring *errbuf)</definition>
+        <argsstring>)(qstring *temp_file, linput_t *li, qstring *module_name, ushort *neflags, const char *fileformatname, const char *defmember, qstring *errbuf)</argsstring>
+        <name>process_archive</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Display list of archive members and let the user select one. Extract the selected archive member into a temporary file. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">temp_file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the file with the extracted archive member. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>li</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>input file </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">module_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>in: name of archive out: name of the extracted archive member </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">neflags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___n_e_f__" kindref="compound">Load file flags</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fileformatname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of type of the file (it was returned by <ref refid="structloader__t_1a71ddfdd15d4c7ff137acd776f21ece60" kindref="member">accept_file</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>defmember</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>extract the specified member, for example &quot;subdir/member.exe&quot;, may be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>error message if 0 is returned, may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>-1-cancelled by the user, 1-ok, 0-error, see errbuf for details </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="171" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Loader description block - must be exported from the loader module. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="44" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="43" bodyend="179"/>
+    <listofallmembers>
+      <member refid="structloader__t_1a71ddfdd15d4c7ff137acd776f21ece60" prot="public" virt="non-virtual"><scope>loader_t</scope><name>accept_file</name></member>
+      <member refid="structloader__t_1a049dfabd4bddd202488ce4ff3a263ff0" prot="public" virt="non-virtual"><scope>loader_t</scope><name>flags</name></member>
+      <member refid="structloader__t_1a06ce7bcf929568ec0e8860cebf235f32" prot="public" virt="non-virtual"><scope>loader_t</scope><name>load_file</name></member>
+      <member refid="structloader__t_1a7a329922101a4e28a2b7018e565a3b5d" prot="public" virt="non-virtual"><scope>loader_t</scope><name>move_segm</name></member>
+      <member refid="structloader__t_1a9f5ef40830d55bde46d1487214ce478a" prot="public" virt="non-virtual"><scope>loader_t</scope><name>process_archive</name></member>
+      <member refid="structloader__t_1afa6dedd156dfe5849199d34b0c89692a" prot="public" virt="non-virtual"><scope>loader_t</scope><name>save_file</name></member>
+      <member refid="structloader__t_1ae4ae78ca8369c4216b4e3708445f995b" prot="public" virt="non-virtual"><scope>loader_t</scope><name>version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

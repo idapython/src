@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__tf__nontrivial" kind="group">
+    <compoundname>tf_nontrivial</compoundname>
+    <title>Nontrivial types</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__tf__nontrivial_1ga41407e17da4d0e535fb1384b498ebb43" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int FIRST_NONTRIVIAL_TYPID</definition>
+        <argsstring></argsstring>
+        <name>FIRST_NONTRIVIAL_TYPID</name>
+        <initializer>= 0x100</initializer>
+        <briefdescription>
+<para>Denotes the first bit describing a nontrivial type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2422" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2422" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__nontrivial_1ga54d99d30a296a37f01b39f6d84986ebf" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int TYPID_ISREF</definition>
+        <argsstring></argsstring>
+        <name>TYPID_ISREF</name>
+        <initializer>= 0x100</initializer>
+        <briefdescription>
+<para>Identifies that a type that is a typeref. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2423" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2423" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__nontrivial_1ga21aa59fbf8ebded3aa6b709cd8c0d782" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int TYPID_SHIFT</definition>
+        <argsstring></argsstring>
+        <name>TYPID_SHIFT</name>
+        <initializer>= 9</initializer>
+        <briefdescription>
+<para>First type detail bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2424" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2424" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>bits 0..5: base type <linebreak/>
+bits 6..7: const &amp; volatile bits <linebreak/>
+bit 8: &apos;is_typeref&apos; bit <linebreak/>
+bits 9..31: type detail idx </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

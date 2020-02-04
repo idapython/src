@@ -1,0 +1,523 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structstkvar__ref__t" kind="struct" language="C++" prot="public">
+    <compoundname>stkvar_ref_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structstkvar__ref__t_1a1dcd268e1db40eb8c64a7d2c9f0e9c51" prot="public" static="no" mutable="no">
+        <type><ref refid="classmbl__array__t" kindref="compound">mbl_array_t</ref> *const</type>
+        <definition>mbl_array_t* const stkvar_ref_t::mba</definition>
+        <argsstring></argsstring>
+        <name>mba</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Pointer to the parent <ref refid="classmbl__array__t" kindref="compound">mbl_array_t</ref> object. We need it in order to retrieve the referenced stack variable. See notes for <ref refid="structlvar__ref__t_1a479c3683633430bbd38a57fbb82d4c24" kindref="member">lvar_ref_t::mba</ref>. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2145" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstkvar__ref__t_1a0c66977a52a3d3672996418c889f9c99" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+        <definition>sval_t stkvar_ref_t::off</definition>
+        <argsstring></argsstring>
+        <name>off</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Offset to the stack variable from the bottom of the stack frame. It is called &apos;decompiler stkoff&apos; and it is different from IDA stkoff. See a note and a picture about &apos;decompiler stkoff&apos; below. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2150" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2150" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structstkvar__ref__t_1a47f36c251ecaf505b9b992511984c657" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>stkvar_ref_t::stkvar_ref_t</definition>
+        <argsstring>(mbl_array_t *m, sval_t o)</argsstring>
+        <name>stkvar_ref_t</name>
+        <param>
+          <type><ref refid="classmbl__array__t" kindref="compound">mbl_array_t</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2152" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2152" bodyend="2152"/>
+      </memberdef>
+      <memberdef kind="function" id="structstkvar__ref__t_1afe85f7b32710cc7983c64e0a9e667e9d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void stkvar_ref_t::swap</definition>
+        <argsstring>(stkvar_ref_t &amp;r)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="structstkvar__ref__t" kindref="compound">stkvar_ref_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2155" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2155" bodyend="2158"/>
+      </memberdef>
+      <memberdef kind="function" id="structstkvar__ref__t_1a9d632a85f335547d978ff56046c2096f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classmember__t" kindref="compound">member_t</ref> *hexapi</type>
+        <definition>member_t * stkvar_ref_t::get_stkvar</definition>
+        <argsstring>(uval_t *p_off=NULL) const</argsstring>
+        <name>get_stkvar</name>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref> *</type>
+          <declname>p_off</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieve the referenced stack variable. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>p_off</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if specified, will hold IDA stkoff after the call. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to the stack variable </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2162" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9755" bodyend="9758"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Reference to a stack variable. Used for mop_S. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3387">
+        <label>ivl_tpl&lt; uval_t &gt;</label>
+        <link refid="structivl__tpl"/>
+      </node>
+      <node id="3362">
+        <label>bitset_t</label>
+        <link refid="classbitset__t"/>
+      </node>
+      <node id="3360">
+        <label>mlist_t</label>
+        <link refid="structmlist__t"/>
+        <childnode refid="3357" relation="usage">
+          <edgelabel>mem</edgelabel>
+        </childnode>
+        <childnode refid="3361" relation="usage">
+          <edgelabel>reg</edgelabel>
+        </childnode>
+      </node>
+      <node id="3385">
+        <label>ivl_with_name_t</label>
+        <link refid="structivl__with__name__t"/>
+        <childnode refid="3386" relation="usage">
+          <edgelabel>ivl</edgelabel>
+        </childnode>
+      </node>
+      <node id="3374">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="3376">
+        <label>mop_addr_t</label>
+        <link refid="classmop__addr__t"/>
+        <childnode refid="3367" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3397">
+        <label>netnode</label>
+        <link refid="classnetnode"/>
+      </node>
+      <node id="3380">
+        <label>qvector&lt; mop_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="3357">
+        <label>ivlset_t</label>
+        <link refid="structivlset__t"/>
+        <childnode refid="3358" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3365">
+        <label>mblock_t</label>
+        <link refid="classmblock__t"/>
+        <childnode refid="3353" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="3360" relation="usage">
+          <edgelabel>maybuse</edgelabel>
+          <edgelabel>dnu</edgelabel>
+          <edgelabel>maybdef</edgelabel>
+          <edgelabel>mustbuse</edgelabel>
+          <edgelabel>mustbdef</edgelabel>
+          <edgelabel>dead_at_start</edgelabel>
+        </childnode>
+        <childnode refid="3363" relation="usage">
+          <edgelabel>succset</edgelabel>
+          <edgelabel>predset</edgelabel>
+        </childnode>
+        <childnode refid="3366" relation="usage">
+          <edgelabel>head</edgelabel>
+          <edgelabel>tail</edgelabel>
+        </childnode>
+        <childnode refid="3365" relation="usage">
+          <edgelabel>nextb</edgelabel>
+          <edgelabel>prevb</edgelabel>
+        </childnode>
+      </node>
+      <node id="3396">
+        <label>rangevec_base_t</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="3383">
+        <label>operand_locator_t</label>
+        <link refid="structoperand__locator__t"/>
+      </node>
+      <node id="3359">
+        <label>qvector&lt; ivl_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="3384">
+        <label>mcases_t</label>
+        <link refid="classmcases__t"/>
+        <childnode refid="3363" relation="usage">
+          <edgelabel>targets</edgelabel>
+        </childnode>
+      </node>
+      <node id="3379">
+        <label>qvector&lt; mcallarg_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="3389">
+        <label>func_t</label>
+        <link refid="classfunc__t"/>
+        <childnode refid="3390" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3391" relation="usage">
+          <edgelabel>regargs</edgelabel>
+        </childnode>
+        <childnode refid="3392" relation="usage">
+          <edgelabel>points</edgelabel>
+        </childnode>
+        <childnode refid="3390" relation="usage">
+          <edgelabel>tails</edgelabel>
+        </childnode>
+        <childnode refid="3393" relation="usage">
+          <edgelabel>regvars</edgelabel>
+        </childnode>
+        <childnode refid="3394" relation="usage">
+          <edgelabel>llabels</edgelabel>
+        </childnode>
+      </node>
+      <node id="3367">
+        <label>mop_t</label>
+        <link refid="classmop__t"/>
+        <childnode refid="3368" relation="usage">
+          <edgelabel>scif</edgelabel>
+        </childnode>
+        <childnode refid="3375" relation="usage">
+          <edgelabel>fpc</edgelabel>
+        </childnode>
+        <childnode refid="3376" relation="usage">
+          <edgelabel>a</edgelabel>
+        </childnode>
+        <childnode refid="3377" relation="usage">
+          <edgelabel>pair</edgelabel>
+        </childnode>
+        <childnode refid="3378" relation="usage">
+          <edgelabel>f</edgelabel>
+        </childnode>
+        <childnode refid="3366" relation="usage">
+          <edgelabel>d</edgelabel>
+        </childnode>
+        <childnode refid="3381" relation="usage">
+          <edgelabel>l</edgelabel>
+        </childnode>
+        <childnode refid="3382" relation="usage">
+          <edgelabel>nnn</edgelabel>
+        </childnode>
+        <childnode refid="3384" relation="usage">
+          <edgelabel>c</edgelabel>
+        </childnode>
+        <childnode refid="3352" relation="usage">
+          <edgelabel>s</edgelabel>
+        </childnode>
+      </node>
+      <node id="3377">
+        <label>mop_pair_t</label>
+        <link refid="classmop__pair__t"/>
+        <childnode refid="3367" relation="usage">
+          <edgelabel>hop</edgelabel>
+          <edgelabel>lop</edgelabel>
+        </childnode>
+      </node>
+      <node id="3391">
+        <label>regarg_t</label>
+        <link refid="structregarg__t"/>
+      </node>
+      <node id="3375">
+        <label>fnumber_t</label>
+        <link refid="structfnumber__t"/>
+      </node>
+      <node id="3353">
+        <label>mbl_array_t</label>
+        <link refid="classmbl__array__t"/>
+        <childnode refid="3354" relation="usage">
+          <edgelabel>vars</edgelabel>
+        </childnode>
+        <childnode refid="3356" relation="usage">
+          <edgelabel>label</edgelabel>
+          <edgelabel>error_strarg</edgelabel>
+        </childnode>
+        <childnode refid="3357" relation="usage">
+          <edgelabel>gotoff_stkvars</edgelabel>
+          <edgelabel>restricted_memory</edgelabel>
+          <edgelabel>aliased_memory</edgelabel>
+        </childnode>
+        <childnode refid="3360" relation="usage">
+          <edgelabel>spoiled_list</edgelabel>
+          <edgelabel>nodel_memory</edgelabel>
+        </childnode>
+        <childnode refid="3363" relation="usage">
+          <edgelabel>argidx</edgelabel>
+        </childnode>
+        <childnode refid="3364" relation="usage">
+          <edgelabel>idb_spoiled</edgelabel>
+        </childnode>
+        <childnode refid="3365" relation="usage">
+          <edgelabel>blocks</edgelabel>
+          <edgelabel>natural</edgelabel>
+        </childnode>
+        <childnode refid="3361" relation="usage">
+          <edgelabel>consumed_argregs</edgelabel>
+        </childnode>
+        <childnode refid="3385" relation="usage">
+          <edgelabel>std_ivls</edgelabel>
+        </childnode>
+        <childnode refid="3374" relation="usage">
+          <edgelabel>idb_type</edgelabel>
+        </childnode>
+        <childnode refid="3388" relation="usage">
+          <edgelabel>mbr</edgelabel>
+        </childnode>
+        <childnode refid="3397" relation="usage">
+          <edgelabel>idb_node</edgelabel>
+        </childnode>
+        <childnode refid="3398" relation="usage">
+          <edgelabel>notes</edgelabel>
+        </childnode>
+        <childnode refid="3386" relation="usage">
+          <edgelabel>aliased_args</edgelabel>
+          <edgelabel>aliased_vars</edgelabel>
+        </childnode>
+      </node>
+      <node id="3378">
+        <label>mcallinfo_t</label>
+        <link refid="classmcallinfo__t"/>
+        <childnode refid="3357" relation="usage">
+          <edgelabel>visible_memory</edgelabel>
+        </childnode>
+        <childnode refid="3360" relation="usage">
+          <edgelabel>pass_regs</edgelabel>
+          <edgelabel>spoiled</edgelabel>
+          <edgelabel>dead_regs</edgelabel>
+          <edgelabel>return_regs</edgelabel>
+        </childnode>
+        <childnode refid="3379" relation="usage">
+          <edgelabel>args</edgelabel>
+        </childnode>
+        <childnode refid="3374" relation="usage">
+          <edgelabel>return_type</edgelabel>
+        </childnode>
+        <childnode refid="3380" relation="usage">
+          <edgelabel>retregs</edgelabel>
+        </childnode>
+        <childnode refid="3370" relation="usage">
+          <edgelabel>return_argloc</edgelabel>
+        </childnode>
+      </node>
+      <node id="3388">
+        <label>mba_ranges_t</label>
+        <link refid="structmba__ranges__t"/>
+        <childnode refid="3389" relation="usage">
+          <edgelabel>pfn</edgelabel>
+        </childnode>
+        <childnode refid="3395" relation="usage">
+          <edgelabel>ranges</edgelabel>
+        </childnode>
+      </node>
+      <node id="3358">
+        <label>ivlset_tpl&lt; ivl_t, uval_t &gt;</label>
+        <link refid="classivlset__tpl"/>
+        <childnode refid="3359" relation="usage">
+          <edgelabel>bag</edgelabel>
+        </childnode>
+      </node>
+      <node id="3368">
+        <label>scif_t</label>
+        <link refid="structscif__t"/>
+        <childnode refid="3369" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3353" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="3356" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="3374" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+      </node>
+      <node id="3363">
+        <label>qvector&lt; int &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="3392">
+        <label>stkpnt_t</label>
+        <link refid="structstkpnt__t"/>
+      </node>
+      <node id="3356">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="3366">
+        <label>minsn_t</label>
+        <link refid="classminsn__t"/>
+        <childnode refid="3366" relation="usage">
+          <edgelabel>prev</edgelabel>
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="3367" relation="usage">
+          <edgelabel>l</edgelabel>
+          <edgelabel>r</edgelabel>
+          <edgelabel>d</edgelabel>
+        </childnode>
+      </node>
+      <node id="3371">
+        <label>scattered_aloc_t</label>
+        <link refid="classscattered__aloc__t"/>
+        <childnode refid="3372" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3372">
+        <label>qvector&lt; argpart_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="3390">
+        <label>range_t</label>
+        <link refid="structrange__t"/>
+      </node>
+      <node id="3369">
+        <label>vdloc_t</label>
+        <link refid="classvdloc__t"/>
+        <childnode refid="3370" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3393">
+        <label>regvar_t</label>
+        <link refid="structregvar__t"/>
+        <childnode refid="3390" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3398">
+        <label>qvector&lt; hexwarn_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="3382">
+        <label>mnumber_t</label>
+        <link refid="structmnumber__t"/>
+        <childnode refid="3383" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3354">
+        <label>lvars_t</label>
+        <link refid="structlvars__t"/>
+        <childnode refid="3355" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3370">
+        <label>argloc_t</label>
+        <link refid="classargloc__t"/>
+        <childnode refid="3371" relation="usage">
+          <edgelabel>dist</edgelabel>
+        </childnode>
+        <childnode refid="3373" relation="usage">
+          <edgelabel>rrel</edgelabel>
+        </childnode>
+      </node>
+      <node id="3394">
+        <label>llabel_t</label>
+        <link refid="structllabel__t"/>
+      </node>
+      <node id="3381">
+        <label>lvar_ref_t</label>
+        <link refid="structlvar__ref__t"/>
+        <childnode refid="3353" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="3355">
+        <label>qvector&lt; lvar_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="3352">
+        <label>stkvar_ref_t</label>
+        <link refid="structstkvar__ref__t"/>
+        <childnode refid="3353" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="3364">
+        <label>qvector&lt; reg_info_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="3373">
+        <label>rrel_t</label>
+        <link refid="structrrel__t"/>
+      </node>
+      <node id="3361">
+        <label>rlist_t</label>
+        <link refid="classrlist__t"/>
+        <childnode refid="3362" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3386">
+        <label>ivl_t</label>
+        <link refid="structivl__t"/>
+        <childnode refid="3387" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3386" relation="usage">
+          <edgelabel>allmem</edgelabel>
+        </childnode>
+      </node>
+      <node id="3395">
+        <label>rangevec_t</label>
+        <link refid="structrangevec__t"/>
+        <childnode refid="3396" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2141" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2140" bodyend="2163"/>
+    <listofallmembers>
+      <member refid="structstkvar__ref__t_1a9d632a85f335547d978ff56046c2096f" prot="public" virt="non-virtual"><scope>stkvar_ref_t</scope><name>get_stkvar</name></member>
+      <member refid="structstkvar__ref__t_1a1dcd268e1db40eb8c64a7d2c9f0e9c51" prot="public" virt="non-virtual"><scope>stkvar_ref_t</scope><name>mba</name></member>
+      <member refid="structstkvar__ref__t_1a0c66977a52a3d3672996418c889f9c99" prot="public" virt="non-virtual"><scope>stkvar_ref_t</scope><name>off</name></member>
+      <member refid="structstkvar__ref__t_1a47f36c251ecaf505b9b992511984c657" prot="public" virt="non-virtual"><scope>stkvar_ref_t</scope><name>stkvar_ref_t</name></member>
+      <member refid="structstkvar__ref__t_1afe85f7b32710cc7983c64e0a9e667e9d" prot="public" virt="non-virtual"><scope>stkvar_ref_t</scope><name>swap</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

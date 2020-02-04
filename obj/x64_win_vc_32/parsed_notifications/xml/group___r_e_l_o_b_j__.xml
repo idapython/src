@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___r_e_l_o_b_j__" kind="group">
+    <compoundname>RELOBJ_</compoundname>
+    <title>Relocatable object info flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___r_e_l_o_b_j___1gad500f63bfe91b069379095060dea4d6d" prot="public" static="no">
+        <name>RELOBJ_MASK</name>
+        <initializer>0xF</initializer>
+        <briefdescription>
+<para>the first byte describes the relocation entry types </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2925" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2925" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_l_o_b_j___1ga68662ac9e3c829db2a6899ee80f002ab" prot="public" static="no">
+        <name>RELSIZE_1</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>8-bit relocations </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2926" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2926" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_l_o_b_j___1ga5df24be363ba05e7f6aa4cbbe43fa212" prot="public" static="no">
+        <name>RELSIZE_2</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>16-bit relocations </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2927" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2927" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_l_o_b_j___1gaebca938729f9a0915fca7582ad4fc381" prot="public" static="no">
+        <name>RELSIZE_4</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>32-bit relocations </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2928" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2928" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_l_o_b_j___1gae5dfc40b205e3ef27188a1e2072b5c58" prot="public" static="no">
+        <name>RELSIZE_8</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>64-bit relocations </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2929" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2929" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_l_o_b_j___1ga4942fa0a7e7c6bc090c0d71cfe034840" prot="public" static="no">
+        <name>RELSIZE_CUST</name>
+        <initializer>15</initializer>
+        <briefdescription>
+<para>custom relocations, should be handled internally </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2930" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2930" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_l_o_b_j___1ga48541017d2effc866bd5f15d6d769893" prot="public" static="no">
+        <name>RELOBJ_CNT</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+<para>counter present (not used yet) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2931" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2931" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>used by <ref refid="structrelobj__t_1aa1cb7cbcbd192104e555978bf937cfac" kindref="member">relobj_t::ri</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

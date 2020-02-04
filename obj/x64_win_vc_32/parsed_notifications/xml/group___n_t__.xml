@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___n_t__" kind="group">
+    <compoundname>NT_</compoundname>
+    <title>Name value result codes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___n_t___1ga4de219a37da79e15eef267e9c2779c99" prot="public" static="no">
+        <name>NT_NONE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>name doesn&apos;t exist or has no value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" line="273" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t___1ga7cb20321455bb23e97b9a01a7b894cfa" prot="public" static="no">
+        <name>NT_BYTE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>name is byte name (regular name) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" line="274" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t___1ga3f0fef47f0ff2129d0c97b6deac0ec84" prot="public" static="no">
+        <name>NT_LOCAL</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>name is local label </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" line="275" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t___1ga8df1731f818635633fb4f778be4e0e0a" prot="public" static="no">
+        <name>NT_STKVAR</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>name is stack variable name </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" line="276" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t___1gab96c9ab46de6d8a989c982e94cd0c5b9" prot="public" static="no">
+        <name>NT_ENUM</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>name is symbolic constant </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" line="277" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t___1ga6468e1435a25f7b2156f1be7eacc1e5e" prot="public" static="no">
+        <name>NT_ABS</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>name is absolute symbol (<ref refid="group___s_e_g___1ga5c130d299e48ff537068e03e8ae23d71" kindref="member">SEG_ABSSYM</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" line="278" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t___1ga72908de84dbd9fe5cefe18ace88f484e" prot="public" static="no">
+        <name>NT_SEG</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>name is segment or segment register name </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" line="279" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t___1ga64c2fde5a1cbc8a7cf3da8b10bae1467" prot="public" static="no">
+        <name>NT_STROFF</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>name is structure member </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" line="280" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t___1ga36fb600ff0ae72ab4ae0662e4a37f785" prot="public" static="no">
+        <name>NT_BMASK</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>name is a bit group mask name </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" line="281" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t___1ga29201df21dd3954b735cbf0219b10781" prot="public" static="no">
+        <name>NT_REGVAR</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>name is a renamed register (*value is idx into pfn-&gt;regvars) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" line="282" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/name.hpp" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Return values for <ref refid="name_8hpp_1a610d30c00b8ec32d1d9147589d75c0a6" kindref="member">get_name_value()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

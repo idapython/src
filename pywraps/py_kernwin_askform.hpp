@@ -157,7 +157,7 @@ static PyObject *formchgcbfa_get_field_value(
       {
         qstring val;
         if ( fa->get_combobox_value(fid, &val) )
-          return PyString_FromString(val.c_str());
+          return IDAPyStr_FromUTF8(val.c_str());
       }
       break;
 
@@ -190,7 +190,7 @@ static PyObject *formchgcbfa_get_field_value(
       {
         char val[MAXSTR];
         if ( fa->get_string_value(fid, val, sizeof(val)) )
-          return PyString_FromString(val);
+          return IDAPyStr_FromUTF8(val);
         break;
       }
     // string input
@@ -199,7 +199,7 @@ static PyObject *formchgcbfa_get_field_value(
         qstring val;
         val.resize(sz + 1);
         if ( fa->get_string_value(fid, val.begin(), val.size()) )
-          return PyString_FromString(val.begin());
+          return IDAPyStr_FromUTF8(val.begin());
         break;
       }
     case 5:

@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structuser__stkpnt__t" kind="struct" language="C++" prot="public">
+    <compoundname>user_stkpnt_t</compoundname>
+    <basecompoundref refid="structinsn__site__t" prot="public" virt="non-virtual">insn_site_t</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structuser__stkpnt__t_1ae07b9250c70c2ede6c371d50c1e0cf7c" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+        <definition>sval_t user_stkpnt_t::delta</definition>
+        <argsstring></argsstring>
+        <name>delta</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="115" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structuser__stkpnt__t_1a3fa2e3c01d4224b90aa83aec16f59747" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>user_stkpnt_t::user_stkpnt_t</definition>
+        <argsstring>()</argsstring>
+        <name>user_stkpnt_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="117" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="117" bodyend="117"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3555">
+        <label>user_stkpnt_t</label>
+        <link refid="structuser__stkpnt__t"/>
+        <childnode refid="3556" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3556">
+        <label>insn_site_t</label>
+        <link refid="structinsn__site__t"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3557">
+        <label>user_stkpnt_t</label>
+        <link refid="structuser__stkpnt__t"/>
+        <childnode refid="3558" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3558">
+        <label>insn_site_t</label>
+        <link refid="structinsn__site__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="114" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="113" bodyend="118"/>
+    <listofallmembers>
+      <member refid="structuser__stkpnt__t_1ae07b9250c70c2ede6c371d50c1e0cf7c" prot="public" virt="non-virtual"><scope>user_stkpnt_t</scope><name>delta</name></member>
+      <member refid="structinsn__site__t_1a7c4bfdc0c62de9e8a5e5d3ecf46aff3c" prot="public" virt="non-virtual"><scope>user_stkpnt_t</scope><name>fchunk_nr</name></member>
+      <member refid="structinsn__site__t_1a280efb59e1660a48d675bffe09b7bd0c" prot="public" virt="non-virtual"><scope>user_stkpnt_t</scope><name>fchunk_off</name></member>
+      <member refid="structinsn__site__t_1ae6a1b34432e32dd7def2a93870aebe92" prot="public" virt="non-virtual"><scope>user_stkpnt_t</scope><name>insn_site_t</name></member>
+      <member refid="structinsn__site__t_1aa0904e9348ff33b62efbaeb71e5e43d1" prot="public" virt="non-virtual"><scope>user_stkpnt_t</scope><name>toea</name></member>
+      <member refid="structuser__stkpnt__t_1a3fa2e3c01d4224b90aa83aec16f59747" prot="public" virt="non-virtual"><scope>user_stkpnt_t</scope><name>user_stkpnt_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

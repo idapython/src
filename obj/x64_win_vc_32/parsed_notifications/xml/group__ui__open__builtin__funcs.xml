@@ -1,0 +1,676 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__ui__open__builtin__funcs" kind="group">
+    <compoundname>ui_open_builtin_funcs</compoundname>
+    <title>Functions: open built-in windows</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1ga9f6b7714ac96f8b006e033afd9bc47cc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_exports_window</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>open_exports_window</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the exports window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of entry to select by default </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5136" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5136" bodyend="5139"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1ga704382f288943e298a0d0e84a24c4f29" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_imports_window</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>open_imports_window</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the exports window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of entry to select by default </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5146" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5146" bodyend="5149"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1ga3cd10410ee788ae678a234fdc3067137" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_names_window</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>open_names_window</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the names window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of entry to select by default </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5156" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5156" bodyend="5159"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1gac71c755a45c414b5c7072f6e1482eb00" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_funcs_window</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>open_funcs_window</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the functions window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of entry to select by default </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5166" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5166" bodyend="5169"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1ga2ce08c9d177fa1f4fe9fdcc58c8ba865" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_strings_window</definition>
+        <argsstring>(ea_t ea, ea_t selstart=BADADDR, ea_t selend=BADADDR)</argsstring>
+        <name>open_strings_window</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>selstart</declname>
+          <defval><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref></defval>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>selend</declname>
+          <defval><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the strings window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of entry to select by default </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>selstart</parametername>
+<parametername>selend</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>only display strings that occur within this range </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5177" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5177" bodyend="5180"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1ga8edf2bfccb31c55bbdbc59538a921a83" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_segments_window</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>open_segments_window</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the segments window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of entry to select by default </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5187" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5187" bodyend="5190"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1ga3f6619ff21bb44b2f7c9fb92fa5ba191" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_segregs_window</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>open_segregs_window</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the segment registers window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of entry to select by default </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5197" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5197" bodyend="5200"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1ga99bcaf4b27e0bc318479c0ac6020eb8c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_selectors_window</definition>
+        <argsstring>(void)</argsstring>
+        <name>open_selectors_window</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the selectors window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5206" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5206" bodyend="5209"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1gac0d31f5c69b86e18e8389d84139a8135" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_signatures_window</definition>
+        <argsstring>(void)</argsstring>
+        <name>open_signatures_window</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the signatures window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5215" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5215" bodyend="5218"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1ga883cc3d7b41a631af4522ce900d2076a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_tils_window</definition>
+        <argsstring>(void)</argsstring>
+        <name>open_tils_window</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the type libraries window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5224" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5224" bodyend="5227"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1gad9b4b97983df27f24b01270634eb250f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_loctypes_window</definition>
+        <argsstring>(int ordinal)</argsstring>
+        <name>open_loctypes_window</name>
+        <param>
+          <type>int</type>
+          <declname>ordinal</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the local types window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ordinal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ordinal of type to select by default </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5234" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5234" bodyend="5237"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1ga32dcfc3a1abe6b5c4f5113cf493d82b5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_calls_window</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>open_calls_window</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the function calls window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5243" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5243" bodyend="5246"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1gadf2281f4d4de17825996bdd46d5f8182" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_problems_window</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>open_problems_window</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the problems window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of entry to select by default </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5252" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5252" bodyend="5255"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1ga3d91ff05e33ee59febd74745e410898b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_bpts_window</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>open_bpts_window</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the breakpoints window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of entry to select by default </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5262" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5262" bodyend="5265"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1gad504e30615030159fe8626bd57306557" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_threads_window</definition>
+        <argsstring>(void)</argsstring>
+        <name>open_threads_window</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the threads window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5271" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5271" bodyend="5274"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1gac93bbeb563b49ff6386550095b2ae062" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_modules_window</definition>
+        <argsstring>(void)</argsstring>
+        <name>open_modules_window</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the modules window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5280" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5280" bodyend="5283"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1ga5c023d4f78e69be14a1507f9dd65430e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_trace_window</definition>
+        <argsstring>(void)</argsstring>
+        <name>open_trace_window</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the trace window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5289" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5289" bodyend="5292"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1gafc1a9ef94b8cd1d97ed8a39f4e009b38" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_stack_window</definition>
+        <argsstring>(void)</argsstring>
+        <name>open_stack_window</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the call stack window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5298" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5298" bodyend="5301"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1gaec1fa9f8015379fe3f0abba04f6d997e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_xrefs_window</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>open_xrefs_window</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the cross references window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of entry to select by default </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5308" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5308" bodyend="5311"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1ga61f5f3a5e1e47222d6cada1be4b810d2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_frame_window</definition>
+        <argsstring>(func_t *pfn, uval_t offset)</argsstring>
+        <name>open_frame_window</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>pfn</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the frame window for the given function (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pfn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>function to analyze </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>offset where the cursor is placed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window if &apos;pfn&apos; is a valid function and the window was displayed, <linebreak/>
+ NULL otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5320" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5320" bodyend="5323"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1ga906ba3c34cc11011cf4eb3d2a3e49722" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_navband_window</definition>
+        <argsstring>(ea_t ea, int zoom)</argsstring>
+        <name>open_navband_window</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>zoom</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the navigation band window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the address of the navband arrow </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>zoom</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the navband zoom level </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5331" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5331" bodyend="5334"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1ga967c1da6710304ac0352ae780db407fd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_enums_window</definition>
+        <argsstring>(tid_t const_id=BADADDR)</argsstring>
+        <name>open_enums_window</name>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>const_id</declname>
+          <defval><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the enums window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>const_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of entry to select by default </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5341" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5341" bodyend="5344"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1ga033054bdb3ee090bfbd020b6ab692889" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_structs_window</definition>
+        <argsstring>(tid_t id=BADADDR, uval_t offset=0)</argsstring>
+        <name>open_structs_window</name>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>id</declname>
+          <defval><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref></defval>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>offset</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the structs window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of entry to select by default </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>offset where the cursor is placed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5352" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5352" bodyend="5355"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1ga0c431cd1ea2687d69cb138e287d20727" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_disasm_window</definition>
+        <argsstring>(const char *window_title, const rangevec_t *ranges=NULL)</argsstring>
+        <name>open_disasm_window</name>
+        <param>
+          <type>const char *</type>
+          <declname>window_title</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structrangevec__t" kindref="compound">rangevec_t</ref> *</type>
+          <declname>ranges</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open a disassembly view (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>window_title</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>title of view to open </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ranges</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if != NULL, then display a flow chart with the specified ranges </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5363" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5363" bodyend="5366"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1gac37d8256670221103ab5417d18b3404e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_hexdump_window</definition>
+        <argsstring>(const char *window_title)</argsstring>
+        <name>open_hexdump_window</name>
+        <param>
+          <type>const char *</type>
+          <declname>window_title</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open a hexdump view (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>window_title</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>title of view to open </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5373" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5373" bodyend="5376"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__open__builtin__funcs_1gaaece85f5f77c6c33059dd8a2a7c60a39" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TWidget *</type>
+        <definition>TWidget* open_notepad_window</definition>
+        <argsstring>(void)</argsstring>
+        <name>open_notepad_window</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open the notepad window (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref>). <simplesect kind="return"><para>pointer to resulting window </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="5382" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="5382" bodyend="5385"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Convenience functions for <ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a760bb508680e0dfd16fb9c9270273d4f" kindref="member">ui_open_builtin</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

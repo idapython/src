@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classgraph__visitor__t" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>graph_visitor_t</compoundname>
+    <includes refid="graph_8hpp" local="no">graph.hpp</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classgraph__visitor__t_1a649f36bc56524ecf642500fec859d6c2" prot="protected" static="no" mutable="no">
+        <type><ref refid="classabstract__graph__t" kindref="compound">abstract_graph_t</ref> *</type>
+        <definition>abstract_graph_t* graph_visitor_t::g</definition>
+        <argsstring></argsstring>
+        <name>g</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="992" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="992" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classgraph__visitor__t_1ab97440e10fdb743208437a92919c3b8b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi graph_visitor_t::visit_node</definition>
+        <argsstring>(int n, rect_t &amp;r)=0</argsstring>
+        <name>visit_node</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type><ref refid="structrect__t" kindref="compound">rect_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="993" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgraph__visitor__t_1ad69ef1da0443e945ec5d32bca0dfe570" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi graph_visitor_t::visit_edge</definition>
+        <argsstring>(edge_t e, edge_info_t *ei)=0</argsstring>
+        <name>visit_edge</name>
+        <param>
+          <type><ref refid="structedge__t" kindref="compound">edge_t</ref></type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type><ref refid="structedge__info__t" kindref="compound">edge_info_t</ref> *</type>
+          <declname>ei</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="994" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classgraph__visitor__t_1aa2c23fa587de2c94148e7a66d5656499" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend int idaapi</type>
+        <definition>int idaapi abstract_graph_t::for_all_nodes_edges</definition>
+        <argsstring>(graph_visitor_t &amp;nev, bool visit_nodes)</argsstring>
+        <name>abstract_graph_t::for_all_nodes_edges</name>
+        <param>
+          <type><ref refid="classgraph__visitor__t" kindref="compound">graph_visitor_t</ref> &amp;</type>
+          <declname>nev</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>visit_nodes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="995" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Visit all nodes and edges in a graph. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1703">
+        <label>graph_visitor_t</label>
+        <link refid="classgraph__visitor__t"/>
+        <childnode refid="1704" relation="usage">
+          <edgelabel>g</edgelabel>
+        </childnode>
+      </node>
+      <node id="1707">
+        <label>point_t</label>
+        <link refid="structpoint__t"/>
+      </node>
+      <node id="1704">
+        <label>abstract_graph_t</label>
+        <link refid="classabstract__graph__t"/>
+        <childnode refid="1705" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1706" relation="usage">
+          <edgelabel>title</edgelabel>
+        </childnode>
+        <childnode refid="1707" relation="usage">
+          <edgelabel>circle_center</edgelabel>
+        </childnode>
+      </node>
+      <node id="1706">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="1705">
+        <label>gdl_graph_t</label>
+        <link refid="classgdl__graph__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="990" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="989" bodyend="996"/>
+    <listofallmembers>
+      <member refid="classgraph__visitor__t_1aa2c23fa587de2c94148e7a66d5656499" prot="protected" virt="non-virtual"><scope>graph_visitor_t</scope><name>abstract_graph_t::for_all_nodes_edges</name></member>
+      <member refid="classgraph__visitor__t_1a649f36bc56524ecf642500fec859d6c2" prot="protected" virt="non-virtual"><scope>graph_visitor_t</scope><name>g</name></member>
+      <member refid="classgraph__visitor__t_1ad69ef1da0443e945ec5d32bca0dfe570" prot="protected" virt="pure-virtual"><scope>graph_visitor_t</scope><name>visit_edge</name></member>
+      <member refid="classgraph__visitor__t_1ab97440e10fdb743208437a92919c3b8b" prot="protected" virt="pure-virtual"><scope>graph_visitor_t</scope><name>visit_node</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

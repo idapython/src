@@ -392,13 +392,13 @@ protected:
     {
       {
         newref_t item(PySequence_GetItem(py_ret, 0));
-        if ( item.o != NULL && PyInt_Check(item.o) )
+        if ( item.o != NULL && IDAPyInt_Check(item.o) )
           ret.changed = cbres_t(IDAPyInt_AsLong(item.o));
       }
       if ( ret.changed != NOTHING_CHANGED )
       {
         newref_t item(PySequence_GetItem(py_ret, 1));
-        if ( item.o != NULL && PyInt_Check(item.o) )
+        if ( item.o != NULL && IDAPyInt_Check(item.o) )
           ret.idx = ssize_t(PyInt_AsSsize_t(item.o));
       }
     }
@@ -542,7 +542,7 @@ int py_choose_t::create()
   ref_t flags_attr(PyW_TryGetAttrString(self, S_FLAGS));
   if ( flags_attr == NULL )
     return chooser_base_t::NO_ATTR;
-  if ( PyInt_Check(flags_attr.o) )
+  if ( IDAPyInt_Check(flags_attr.o) )
     flags = uint32(IDAPyInt_AsLong(flags_attr.o));
   // instruct TChooser destructor to delete this chooser when window
   // closes
@@ -612,7 +612,7 @@ int py_choose_t::create()
   // we can forbid some callbacks explicitly
   uint32 forbidden_cb = 0;
   ref_t forbidden_cb_attr(PyW_TryGetAttrString(self, "forbidden_cb"));
-  if ( forbidden_cb_attr != NULL && PyInt_Check(forbidden_cb_attr.o) )
+  if ( forbidden_cb_attr != NULL && IDAPyInt_Check(forbidden_cb_attr.o) )
     forbidden_cb = uint32(IDAPyInt_AsLong(forbidden_cb_attr.o));
   cb_flags = 0;
   for ( int i = 0; i < qnumber(callbacks); ++i )
@@ -813,7 +813,7 @@ PyObject *py_get_chooser_data(const char *chooser_caption, int n)
     Py_RETURN_NONE;
   PyObject *py_list = PyList_New(data.size());
   for ( size_t i = 0; i < data.size(); ++i )
-    PyList_SetItem(py_list, i, PyString_FromString(data[i].c_str()));
+    PyList_SetItem(py_list, i, IDAPyStr_FromUTF8(data[i].c_str()));
   return py_list;
 }
 

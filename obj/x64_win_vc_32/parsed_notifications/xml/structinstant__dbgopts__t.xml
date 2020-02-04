@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structinstant__dbgopts__t" kind="struct" language="C++" prot="public">
+    <compoundname>instant_dbgopts_t</compoundname>
+    <includes refid="pro_8h" local="no">pro.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structinstant__dbgopts__t_1a2fd511d39e603d79764b440a83c4275a" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring instant_dbgopts_t::debmod</definition>
+        <argsstring></argsstring>
+        <name>debmod</name>
+        <briefdescription>
+<para>name of debugger module </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3706" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3706" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structinstant__dbgopts__t_1a8ac2f31935930d773e689ac623725065" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring instant_dbgopts_t::env</definition>
+        <argsstring></argsstring>
+        <name>env</name>
+        <briefdescription>
+<para>config variables for debmod. example: DEFAULT_CPU=13;MAXPACKETSIZE=-1 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3707" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3707" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structinstant__dbgopts__t_1a46497b3a3c3c739acd536d24768d8129" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring instant_dbgopts_t::host</definition>
+        <argsstring></argsstring>
+        <name>host</name>
+        <briefdescription>
+<para>remote hostname (if remote debugging) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3708" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3708" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structinstant__dbgopts__t_1a775a52ef29304ffb2665c47c8e348bd6" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring instant_dbgopts_t::pass</definition>
+        <argsstring></argsstring>
+        <name>pass</name>
+        <briefdescription>
+<para>password for the remote debugger server </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3709" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3709" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structinstant__dbgopts__t_1a6de79438b4cbc0a7bfc7dbb195ac1eb3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int instant_dbgopts_t::port</definition>
+        <argsstring></argsstring>
+        <name>port</name>
+        <briefdescription>
+<para>port number for the remote debugger server </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3710" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3710" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structinstant__dbgopts__t_1a344af457ea378ab9f2cb2c63bfcfe8f0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int instant_dbgopts_t::pid</definition>
+        <argsstring></argsstring>
+        <name>pid</name>
+        <briefdescription>
+<para>process to attach to (-1: ask the user) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3711" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3711" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structinstant__dbgopts__t_1a20b4bfc990573cae51bc1e50d49e3f38" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int instant_dbgopts_t::event_id</definition>
+        <argsstring></argsstring>
+        <name>event_id</name>
+        <briefdescription>
+<para>event to trigger upon attaching </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3712" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3712" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structinstant__dbgopts__t_1a4eb245ade6daf01d4d80407b60aaa680" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool instant_dbgopts_t::attach</definition>
+        <argsstring></argsstring>
+        <name>attach</name>
+        <briefdescription>
+<para>should attach to a process? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3713" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3713" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Options for instant debugging. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1834">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="1833">
+        <label>instant_dbgopts_t</label>
+        <link refid="structinstant__dbgopts__t"/>
+        <childnode refid="1834" relation="usage">
+          <edgelabel>debmod</edgelabel>
+          <edgelabel>pass</edgelabel>
+          <edgelabel>env</edgelabel>
+          <edgelabel>host</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3705" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3704" bodyend="3714"/>
+    <listofallmembers>
+      <member refid="structinstant__dbgopts__t_1a4eb245ade6daf01d4d80407b60aaa680" prot="public" virt="non-virtual"><scope>instant_dbgopts_t</scope><name>attach</name></member>
+      <member refid="structinstant__dbgopts__t_1a2fd511d39e603d79764b440a83c4275a" prot="public" virt="non-virtual"><scope>instant_dbgopts_t</scope><name>debmod</name></member>
+      <member refid="structinstant__dbgopts__t_1a8ac2f31935930d773e689ac623725065" prot="public" virt="non-virtual"><scope>instant_dbgopts_t</scope><name>env</name></member>
+      <member refid="structinstant__dbgopts__t_1a20b4bfc990573cae51bc1e50d49e3f38" prot="public" virt="non-virtual"><scope>instant_dbgopts_t</scope><name>event_id</name></member>
+      <member refid="structinstant__dbgopts__t_1a46497b3a3c3c739acd536d24768d8129" prot="public" virt="non-virtual"><scope>instant_dbgopts_t</scope><name>host</name></member>
+      <member refid="structinstant__dbgopts__t_1a775a52ef29304ffb2665c47c8e348bd6" prot="public" virt="non-virtual"><scope>instant_dbgopts_t</scope><name>pass</name></member>
+      <member refid="structinstant__dbgopts__t_1a344af457ea378ab9f2cb2c63bfcfe8f0" prot="public" virt="non-virtual"><scope>instant_dbgopts_t</scope><name>pid</name></member>
+      <member refid="structinstant__dbgopts__t_1a6de79438b4cbc0a7bfc7dbb195ac1eb3" prot="public" virt="non-virtual"><scope>instant_dbgopts_t</scope><name>port</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

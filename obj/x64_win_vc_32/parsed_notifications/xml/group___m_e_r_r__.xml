@@ -1,0 +1,303 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___m_e_r_r__" kind="group">
+    <compoundname>MERR_</compoundname>
+    <title>Microcode error codes</title>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group___m_e_r_r___1ga124713999eb84ddba531f5c2e9eedcab" prot="public" static="no">
+        <name>merror_t</name>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba828d4b355538f8be784e181fe31c81b6" prot="public">
+          <name>MERR_OK</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>ok </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba68b0d57d3cddc5440c9b6ab0a2225893" prot="public">
+          <name>MERR_BLOCK</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>no error, switch to new block </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcabae97ffaf6a530a2615dabe4a5ff56eb2f" prot="public">
+          <name>MERR_INTERR</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+<para>internal error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba83f4df23022f1613014b3e41447c8866" prot="public">
+          <name>MERR_INSN</name>
+          <initializer>= -2</initializer>
+          <briefdescription>
+<para>can not convert to microcode </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcabafe1f012abeacb3a827f9f2f96a29744d" prot="public">
+          <name>MERR_MEM</name>
+          <initializer>= -3</initializer>
+          <briefdescription>
+<para>not enough memory </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba4ad1dd951937c72db8e3b350622be233" prot="public">
+          <name>MERR_BADBLK</name>
+          <initializer>= -4</initializer>
+          <briefdescription>
+<para>bad block found </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcabaecb0b359efb51d8e01603fa94d107ed8" prot="public">
+          <name>MERR_BADSP</name>
+          <initializer>= -5</initializer>
+          <briefdescription>
+<para>positive sp value has been found </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcabae6179e1f06d68931573cf02fc94f2bc7" prot="public">
+          <name>MERR_PROLOG</name>
+          <initializer>= -6</initializer>
+          <briefdescription>
+<para>prolog analysis failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcabaeef0df7fa07cb56835778cee12f2ce93" prot="public">
+          <name>MERR_SWITCH</name>
+          <initializer>= -7</initializer>
+          <briefdescription>
+<para>wrong switch idiom </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba5c2899a4f850a838b24886077aac8836" prot="public">
+          <name>MERR_EXCEPTION</name>
+          <initializer>= -8</initializer>
+          <briefdescription>
+<para>exception analysis failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba4230a517b31fe744ccd19c3af711afcc" prot="public">
+          <name>MERR_HUGESTACK</name>
+          <initializer>= -9</initializer>
+          <briefdescription>
+<para>stack frame is too big </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcabae94fce8ec92a80b153553d3efaa29519" prot="public">
+          <name>MERR_LVARS</name>
+          <initializer>= -10</initializer>
+          <briefdescription>
+<para>local variable allocation failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcabab854826da84451d9db934d4d457a15f3" prot="public">
+          <name>MERR_BITNESS</name>
+          <initializer>= -11</initializer>
+          <briefdescription>
+<para>only 32/16bit functions can be decompiled </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcabaa604a61090fae9ed33ebdd8a0ddb993b" prot="public">
+          <name>MERR_BADCALL</name>
+          <initializer>= -12</initializer>
+          <briefdescription>
+<para>could not determine call arguments </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba2c7b88015ade2287151e2f02baa09b68" prot="public">
+          <name>MERR_BADFRAME</name>
+          <initializer>= -13</initializer>
+          <briefdescription>
+<para>function frame is wrong </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba187a5b4e63e4d0ceb37ce9e3b0866da9" prot="public">
+          <name>MERR_UNKTYPE</name>
+          <initializer>= -14</initializer>
+          <briefdescription>
+<para>undefined type s (currently unused error code) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba4b9faf0162e87c7ecdb7831494d75dc5" prot="public">
+          <name>MERR_BADIDB</name>
+          <initializer>= -15</initializer>
+          <briefdescription>
+<para>inconsistent database information </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcabaaceef4c306d51fc589007c86519d55ca" prot="public">
+          <name>MERR_SIZEOF</name>
+          <initializer>= -16</initializer>
+          <briefdescription>
+<para>wrong basic type sizes in compiler settings </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcabad0c491229fbe00eb203c509ecf229389" prot="public">
+          <name>MERR_REDO</name>
+          <initializer>= -17</initializer>
+          <briefdescription>
+<para>redecompilation has been requested </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba1843ee7cac69b0cca3c1d412ac46bf0f" prot="public">
+          <name>MERR_CANCELED</name>
+          <initializer>= -18</initializer>
+          <briefdescription>
+<para>decompilation has been cancelled </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba98228398169970e1ed347894871db41d" prot="public">
+          <name>MERR_RECDEPTH</name>
+          <initializer>= -19</initializer>
+          <briefdescription>
+<para>max recursion depth reached during lvar allocation </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcabaea7661aa23e57a4449d43493ed85a124" prot="public">
+          <name>MERR_OVERLAP</name>
+          <initializer>= -20</initializer>
+          <briefdescription>
+<para>variables would overlap: s </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba70df27ba45b9e33cb7009d5a59bb6e36" prot="public">
+          <name>MERR_PARTINIT</name>
+          <initializer>= -21</initializer>
+          <briefdescription>
+<para>partially initialized variable s </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba8cee9f236554c523fe6c868a855476e6" prot="public">
+          <name>MERR_COMPLEX</name>
+          <initializer>= -22</initializer>
+          <briefdescription>
+<para>too complex function </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba0a3d7044b7712c306d319d8b3c9f231e" prot="public">
+          <name>MERR_LICENSE</name>
+          <initializer>= -23</initializer>
+          <briefdescription>
+<para>no license available </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba021d29fc4a49eef6e53b7ade91b6ea77" prot="public">
+          <name>MERR_ONLY32</name>
+          <initializer>= -24</initializer>
+          <briefdescription>
+<para>only 32-bit functions can be decompiled for the current database </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba98020aa51de595a2259e45a30cf8a9d2" prot="public">
+          <name>MERR_ONLY64</name>
+          <initializer>= -25</initializer>
+          <briefdescription>
+<para>only 64-bit functions can be decompiled for the current database </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba41f0de7d818dd6fa3b1627c6857e8bcd" prot="public">
+          <name>MERR_BUSY</name>
+          <initializer>= -26</initializer>
+          <briefdescription>
+<para>already decompiling a function </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba996ec0581737326d79c79f5551ac685b" prot="public">
+          <name>MERR_FARPTR</name>
+          <initializer>= -27</initializer>
+          <briefdescription>
+<para>far memory model is supported only for pc </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcabaaf7017b89c358c8e2c1ce07b8c067d90" prot="public">
+          <name>MERR_EXTERN</name>
+          <initializer>= -28</initializer>
+          <briefdescription>
+<para>special segments can not be decompiled </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba6ecc8b50367996ea3a546698bcdb7e23" prot="public">
+          <name>MERR_FUNCSIZE</name>
+          <initializer>= -29</initializer>
+          <briefdescription>
+<para>too big function </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba769ba5b4ea369b905656b05e73fc4e06" prot="public">
+          <name>MERR_BADRANGES</name>
+          <initializer>= -30</initializer>
+          <briefdescription>
+<para>bad input ranges </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcaba9ca3829309621ade0c278386a2fd9e82" prot="public">
+          <name>MERR_STOP</name>
+          <initializer>= -31</initializer>
+          <briefdescription>
+<para>no error, stop the analysis </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcabaf8b57e9ffe76a9f9563838c84a3ae50e" prot="public">
+          <name>MERR_MAX_ERR</name>
+          <initializer>= 31</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___m_e_r_r___1gga124713999eb84ddba531f5c2e9eedcabac3c1a466ad675fd8adac1d02413bd761" prot="public">
+          <name>MERR_LOOP</name>
+          <initializer>= -32</initializer>
+          <briefdescription>
+<para>internal code: redo last loop (never reported) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="481" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="480" bodyend="517"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

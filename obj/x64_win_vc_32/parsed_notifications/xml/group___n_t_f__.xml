@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___n_t_f__" kind="group">
+    <compoundname>NTF_</compoundname>
+    <title>Flags for named types</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___n_t_f___1ga4844995290490378ae0dd75d3acf1e9c" prot="public" static="no">
+        <name>NTF_TYPE</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>type name </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1761" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1761" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t_f___1gafcee89fdd77d983c812bc8d42053cf2a" prot="public" static="no">
+        <name>NTF_SYMU</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>symbol, name is unmangled (&apos;func&apos;) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1762" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1762" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t_f___1gacd3cda8cc0f916fe6af7c2227c096ca6" prot="public" static="no">
+        <name>NTF_SYMM</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>only one of <ref refid="group___n_t_f___1ga4844995290490378ae0dd75d3acf1e9c" kindref="member">NTF_TYPE</ref> and <ref refid="group___n_t_f___1gafcee89fdd77d983c812bc8d42053cf2a" kindref="member">NTF_SYMU</ref>, <ref refid="group___n_t_f___1gacd3cda8cc0f916fe6af7c2227c096ca6" kindref="member">NTF_SYMM</ref> can be used </para>        </briefdescription>
+        <detaileddescription>
+<para>symbol, name is mangled (&apos;_func&apos;) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1763" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1763" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t_f___1ga59f1cf2eee24fa287b41be608cd5c82e" prot="public" static="no">
+        <name>NTF_NOBASE</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>don&apos;t inspect base tils (for get_named_type) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1765" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1765" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t_f___1ga99d425180386ad9f256f191e88ff1ffe" prot="public" static="no">
+        <name>NTF_REPLACE</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>replace original type (for set_named_type) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1766" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1766" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t_f___1gaf45f8c82851006366914ec555fe963f8" prot="public" static="no">
+        <name>NTF_UMANGLED</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>name is unmangled (don&apos;t use this flag) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1767" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1767" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t_f___1ga73410ff512a73114b2c564717dcfa58a" prot="public" static="no">
+        <name>NTF_NOCUR</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>don&apos;t inspect current til file (for get_named_type) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1768" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1768" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t_f___1gac6c63d1c35028b20e395e0a5bc814404" prot="public" static="no">
+        <name>NTF_64BIT</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+<para>value is 64bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1769" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1769" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t_f___1ga298db04cef52eff57f0c2d719eb023aa" prot="public" static="no">
+        <name>NTF_FIXNAME</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para>(set_named_type, set_numbered_type only) </para>        </briefdescription>
+        <detaileddescription>
+<para>force-validate the name of the type when setting </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1770" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1770" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t_f___1ga7ebc3745a16bce97c72110fa02f73abd" prot="public" static="no">
+        <name>NTF_IDBENC</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the name is given in the IDB encoding; non-ASCII bytes will be decoded accordingly (set_named_type, set_numbered_type only) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1772" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1772" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_t_f___1ga30e3d4dd73519597bbf1ae60c7fad21c" prot="public" static="no">
+        <name>NTF_CHKSYNC</name>
+        <initializer>0x0200</initializer>
+        <briefdescription>
+<para>(set_numbered_type, set_named_type) </para>        </briefdescription>
+        <detaileddescription>
+<para>check that synchronization to IDB passed OK </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1775" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1775" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,257 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structucdr__entry__t" kind="struct" language="C++" prot="public">
+    <compoundname>ucdr_entry_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structucdr__entry__t_1a22076b6315b67b3135224ded25c1eed5" prot="public" static="no" mutable="no">
+        <type><ref refid="structucdr__atom__t" kindref="compound">ucdr_atom_t</ref></type>
+        <definition>ucdr_atom_t ucdr_entry_t::op0</definition>
+        <argsstring></argsstring>
+        <name>op0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" line="50" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structucdr__entry__t_1a4b6f29606c56c00cabf3a0de637b5d91" prot="public" static="no" mutable="no">
+        <type><ref refid="structucdr__atom__t" kindref="compound">ucdr_atom_t</ref></type>
+        <definition>ucdr_atom_t ucdr_entry_t::op1</definition>
+        <argsstring></argsstring>
+        <name>op1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" line="51" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structucdr__entry__t_1acc9919e086bb3555bf4507a5ce853939" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ucdr_entry_t::negate</definition>
+        <argsstring></argsstring>
+        <name>negate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" line="52" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structucdr__entry__t_1aaab9cabc2750ddcb7ff2ef24775a55de" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ucdr_entry_t::intersect</definition>
+        <argsstring></argsstring>
+        <name>intersect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" line="53" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structucdr__entry__t_1a6e2c22e81e8fa89cebc15422f4decaeb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ucdr_entry_t::ucdr_entry_t</definition>
+        <argsstring>()</argsstring>
+        <name>ucdr_entry_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" line="55" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" bodystart="55" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="structucdr__entry__t_1abd81e640a66f51209d94a54aea5f218d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structucdr__atom__t" kindref="compound">ucdr_atom_t</ref> &amp;</type>
+        <definition>ucdr_atom_t&amp; ucdr_entry_t::get_current_atom</definition>
+        <argsstring>()</argsstring>
+        <name>get_current_atom</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" line="57" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" bodystart="57" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="structucdr__entry__t_1a69ee6fbb7cb8bed43280ba0b4e81fd28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+        <definition>error_t ucdr_entry_t::set_negate</definition>
+        <argsstring>()</argsstring>
+        <name>set_negate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" line="59" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structucdr__entry__t_1acd4013cbd2a9c302331520cfa006fcb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+        <definition>error_t ucdr_entry_t::set_intersect</definition>
+        <argsstring>()</argsstring>
+        <name>set_intersect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" line="60" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structucdr__entry__t_1a99c674009c48841b13736369a0cbe334" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+        <definition>error_t ucdr_entry_t::set_range</definition>
+        <argsstring>()</argsstring>
+        <name>set_range</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" line="61" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structucdr__entry__t_1adaabc7e9ebf03651efaf3ad177e9cf73" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+        <definition>error_t ucdr_entry_t::handle_cp</definition>
+        <argsstring>(wchar32_t cp)</argsstring>
+        <name>handle_cp</name>
+        <param>
+          <type>wchar32_t</type>
+          <declname>cp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" line="63" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structucdr__entry__t_1aeb7bb7485eb5bacf8c7cd30858fb6110" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+        <definition>error_t ucdr_entry_t::handle_cat</definition>
+        <argsstring>(cp_category_t cat)</argsstring>
+        <name>handle_cat</name>
+        <param>
+          <type>cp_category_t</type>
+          <declname>cat</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" line="64" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structucdr__entry__t_1a7133a6cecbf7f10ea0ade0adc04cb27e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+        <definition>error_t ucdr_entry_t::handle_blk</definition>
+        <argsstring>(cp_block_t blk)</argsstring>
+        <name>handle_blk</name>
+        <param>
+          <type>cp_block_t</type>
+          <declname>blk</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" line="65" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structucdr__entry__t_1aa2f772dc4f62185b74134592e13c95ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+        <definition>error_t ucdr_entry_t::handle_culture</definition>
+        <argsstring>(const char *culture)</argsstring>
+        <name>handle_culture</name>
+        <param>
+          <type>const char *</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" line="66" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structucdr__entry__t_1a0851ef1c41de18f2148de0bd9802146c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+        <definition>error_t ucdr_entry_t::handle_current_culture</definition>
+        <argsstring>()</argsstring>
+        <name>handle_current_culture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" line="67" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structucdr__entry__t_1a9e72589e3ca01f0d2ff8ae9b57eff931" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ucdr_entry_t::has_ucd_cat</definition>
+        <argsstring>() const</argsstring>
+        <name>has_ucd_cat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" line="69" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" bodystart="69" bodyend="73"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3506">
+        <label>ucdr_entry_t</label>
+        <link refid="structucdr__entry__t"/>
+        <childnode refid="3507" relation="usage">
+          <edgelabel>op0</edgelabel>
+          <edgelabel>op1</edgelabel>
+        </childnode>
+      </node>
+      <node id="3507">
+        <label>ucdr_atom_t</label>
+        <link refid="structucdr__atom__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" line="49" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parseucdr.hpp" bodystart="48" bodyend="75"/>
+    <listofallmembers>
+      <member refid="structucdr__entry__t_1abd81e640a66f51209d94a54aea5f218d" prot="public" virt="non-virtual"><scope>ucdr_entry_t</scope><name>get_current_atom</name></member>
+      <member refid="structucdr__entry__t_1a7133a6cecbf7f10ea0ade0adc04cb27e" prot="public" virt="non-virtual"><scope>ucdr_entry_t</scope><name>handle_blk</name></member>
+      <member refid="structucdr__entry__t_1aeb7bb7485eb5bacf8c7cd30858fb6110" prot="public" virt="non-virtual"><scope>ucdr_entry_t</scope><name>handle_cat</name></member>
+      <member refid="structucdr__entry__t_1adaabc7e9ebf03651efaf3ad177e9cf73" prot="public" virt="non-virtual"><scope>ucdr_entry_t</scope><name>handle_cp</name></member>
+      <member refid="structucdr__entry__t_1aa2f772dc4f62185b74134592e13c95ec" prot="public" virt="non-virtual"><scope>ucdr_entry_t</scope><name>handle_culture</name></member>
+      <member refid="structucdr__entry__t_1a0851ef1c41de18f2148de0bd9802146c" prot="public" virt="non-virtual"><scope>ucdr_entry_t</scope><name>handle_current_culture</name></member>
+      <member refid="structucdr__entry__t_1a9e72589e3ca01f0d2ff8ae9b57eff931" prot="public" virt="non-virtual"><scope>ucdr_entry_t</scope><name>has_ucd_cat</name></member>
+      <member refid="structucdr__entry__t_1aaab9cabc2750ddcb7ff2ef24775a55de" prot="public" virt="non-virtual"><scope>ucdr_entry_t</scope><name>intersect</name></member>
+      <member refid="structucdr__entry__t_1acc9919e086bb3555bf4507a5ce853939" prot="public" virt="non-virtual"><scope>ucdr_entry_t</scope><name>negate</name></member>
+      <member refid="structucdr__entry__t_1a22076b6315b67b3135224ded25c1eed5" prot="public" virt="non-virtual"><scope>ucdr_entry_t</scope><name>op0</name></member>
+      <member refid="structucdr__entry__t_1a4b6f29606c56c00cabf3a0de637b5d91" prot="public" virt="non-virtual"><scope>ucdr_entry_t</scope><name>op1</name></member>
+      <member refid="structucdr__entry__t_1acd4013cbd2a9c302331520cfa006fcb1" prot="public" virt="non-virtual"><scope>ucdr_entry_t</scope><name>set_intersect</name></member>
+      <member refid="structucdr__entry__t_1a69ee6fbb7cb8bed43280ba0b4e81fd28" prot="public" virt="non-virtual"><scope>ucdr_entry_t</scope><name>set_negate</name></member>
+      <member refid="structucdr__entry__t_1a99c674009c48841b13736369a0cbe334" prot="public" virt="non-virtual"><scope>ucdr_entry_t</scope><name>set_range</name></member>
+      <member refid="structucdr__entry__t_1a6e2c22e81e8fa89cebc15422f4decaeb" prot="public" virt="non-virtual"><scope>ucdr_entry_t</scope><name>ucdr_entry_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

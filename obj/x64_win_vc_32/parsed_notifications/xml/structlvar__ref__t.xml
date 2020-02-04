@@ -1,0 +1,567 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structlvar__ref__t" kind="struct" language="C++" prot="public">
+    <compoundname>lvar_ref_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structlvar__ref__t_1a479c3683633430bbd38a57fbb82d4c24" prot="public" static="no" mutable="no">
+        <type><ref refid="classmbl__array__t" kindref="compound">mbl_array_t</ref> *const</type>
+        <definition>mbl_array_t* const lvar_ref_t::mba</definition>
+        <argsstring></argsstring>
+        <name>mba</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Pointer to the parent <ref refid="classmbl__array__t" kindref="compound">mbl_array_t</ref> object. Since we need to access the &apos;mba-&gt;vars&apos; array in order to retrieve the referenced variable, we keep a pointer to <ref refid="classmbl__array__t" kindref="compound">mbl_array_t</ref> here. Note: this means this class and consequently <ref refid="classmop__t" kindref="compound">mop_t</ref>, <ref refid="classminsn__t" kindref="compound">minsn_t</ref>, <ref refid="classmblock__t" kindref="compound">mblock_t</ref> are specific to a <ref refid="classmbl__array__t" kindref="compound">mbl_array_t</ref> object and can not migrate between them. fortunately this is not something we need to do. second, <ref refid="structlvar__ref__t" kindref="compound">lvar_ref_t</ref>&apos;s appear only after MMAT_LVARS. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2117" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlvar__ref__t_1a4e54e3f9a67b28d942ff719280f92160" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+        <definition>sval_t lvar_ref_t::off</definition>
+        <argsstring></argsstring>
+        <name>off</name>
+        <briefdescription>
+<para>offset from the beginning of the variable </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2118" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlvar__ref__t_1a1e2aaa9c2974596030a5a4af26bb848e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int lvar_ref_t::idx</definition>
+        <argsstring></argsstring>
+        <name>idx</name>
+        <briefdescription>
+<para>index into mba-&gt;vars </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2119" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2119" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structlvar__ref__t_1a9be873a1f510d8a1577af467245fbc84" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>lvar_ref_t::lvar_ref_t</definition>
+        <argsstring>(mbl_array_t *m, int i, sval_t o=0)</argsstring>
+        <name>lvar_ref_t</name>
+        <param>
+          <type><ref refid="classmbl__array__t" kindref="compound">mbl_array_t</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>o</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2120" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2120" bodyend="2120"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__ref__t_1a7509f23be340f9ce8b2f2bf6da952014" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>lvar_ref_t::lvar_ref_t</definition>
+        <argsstring>(const lvar_ref_t &amp;r)</argsstring>
+        <name>lvar_ref_t</name>
+        <param>
+          <type>const <ref refid="structlvar__ref__t" kindref="compound">lvar_ref_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2121" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2121" bodyend="2121"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__ref__t_1ad13486d33b22f0f2c65b8b27c0278fc3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structlvar__ref__t" kindref="compound">lvar_ref_t</ref> &amp;</type>
+        <definition>lvar_ref_t&amp; lvar_ref_t::operator=</definition>
+        <argsstring>(const lvar_ref_t &amp;r)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="structlvar__ref__t" kindref="compound">lvar_ref_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2122" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2122" bodyend="2127"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__ref__t_1af21a810134c6dad5c76fa6197d5267b6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lvar_ref_t::swap</definition>
+        <argsstring>(lvar_ref_t &amp;r)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="structlvar__ref__t" kindref="compound">lvar_ref_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2130" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2130" bodyend="2134"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__ref__t_1a82d96ecf1f1a837f219ed832806b43c0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classlvar__t" kindref="compound">lvar_t</ref> &amp;hexapi</type>
+        <definition>lvar_t &amp; lvar_ref_t::var</definition>
+        <argsstring>(void) const</argsstring>
+        <name>var</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Retrieve the referenced variable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2135" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9743" bodyend="9746"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Reference to a local variable. Used by mop_l. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2018">
+        <label>ivl_tpl&lt; uval_t &gt;</label>
+        <link refid="structivl__tpl"/>
+      </node>
+      <node id="1993">
+        <label>bitset_t</label>
+        <link refid="classbitset__t"/>
+      </node>
+      <node id="1991">
+        <label>mlist_t</label>
+        <link refid="structmlist__t"/>
+        <childnode refid="1988" relation="usage">
+          <edgelabel>mem</edgelabel>
+        </childnode>
+        <childnode refid="1992" relation="usage">
+          <edgelabel>reg</edgelabel>
+        </childnode>
+      </node>
+      <node id="2016">
+        <label>ivl_with_name_t</label>
+        <link refid="structivl__with__name__t"/>
+        <childnode refid="2017" relation="usage">
+          <edgelabel>ivl</edgelabel>
+        </childnode>
+      </node>
+      <node id="2005">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="2007">
+        <label>mop_addr_t</label>
+        <link refid="classmop__addr__t"/>
+        <childnode refid="1998" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2028">
+        <label>netnode</label>
+        <link refid="classnetnode"/>
+      </node>
+      <node id="2011">
+        <label>qvector&lt; mop_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1988">
+        <label>ivlset_t</label>
+        <link refid="structivlset__t"/>
+        <childnode refid="1989" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1996">
+        <label>mblock_t</label>
+        <link refid="classmblock__t"/>
+        <childnode refid="1984" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="1991" relation="usage">
+          <edgelabel>maybuse</edgelabel>
+          <edgelabel>dnu</edgelabel>
+          <edgelabel>maybdef</edgelabel>
+          <edgelabel>mustbuse</edgelabel>
+          <edgelabel>mustbdef</edgelabel>
+          <edgelabel>dead_at_start</edgelabel>
+        </childnode>
+        <childnode refid="1994" relation="usage">
+          <edgelabel>succset</edgelabel>
+          <edgelabel>predset</edgelabel>
+        </childnode>
+        <childnode refid="1997" relation="usage">
+          <edgelabel>head</edgelabel>
+          <edgelabel>tail</edgelabel>
+        </childnode>
+        <childnode refid="1996" relation="usage">
+          <edgelabel>nextb</edgelabel>
+          <edgelabel>prevb</edgelabel>
+        </childnode>
+      </node>
+      <node id="2027">
+        <label>rangevec_base_t</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2013">
+        <label>operand_locator_t</label>
+        <link refid="structoperand__locator__t"/>
+      </node>
+      <node id="1990">
+        <label>qvector&lt; ivl_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2014">
+        <label>mcases_t</label>
+        <link refid="classmcases__t"/>
+        <childnode refid="1994" relation="usage">
+          <edgelabel>targets</edgelabel>
+        </childnode>
+      </node>
+      <node id="2010">
+        <label>qvector&lt; mcallarg_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2020">
+        <label>func_t</label>
+        <link refid="classfunc__t"/>
+        <childnode refid="2021" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2022" relation="usage">
+          <edgelabel>regargs</edgelabel>
+        </childnode>
+        <childnode refid="2023" relation="usage">
+          <edgelabel>points</edgelabel>
+        </childnode>
+        <childnode refid="2021" relation="usage">
+          <edgelabel>tails</edgelabel>
+        </childnode>
+        <childnode refid="2024" relation="usage">
+          <edgelabel>regvars</edgelabel>
+        </childnode>
+        <childnode refid="2025" relation="usage">
+          <edgelabel>llabels</edgelabel>
+        </childnode>
+      </node>
+      <node id="1998">
+        <label>mop_t</label>
+        <link refid="classmop__t"/>
+        <childnode refid="1999" relation="usage">
+          <edgelabel>scif</edgelabel>
+        </childnode>
+        <childnode refid="2006" relation="usage">
+          <edgelabel>fpc</edgelabel>
+        </childnode>
+        <childnode refid="2007" relation="usage">
+          <edgelabel>a</edgelabel>
+        </childnode>
+        <childnode refid="2008" relation="usage">
+          <edgelabel>pair</edgelabel>
+        </childnode>
+        <childnode refid="2009" relation="usage">
+          <edgelabel>f</edgelabel>
+        </childnode>
+        <childnode refid="1997" relation="usage">
+          <edgelabel>d</edgelabel>
+        </childnode>
+        <childnode refid="1983" relation="usage">
+          <edgelabel>l</edgelabel>
+        </childnode>
+        <childnode refid="2012" relation="usage">
+          <edgelabel>nnn</edgelabel>
+        </childnode>
+        <childnode refid="2014" relation="usage">
+          <edgelabel>c</edgelabel>
+        </childnode>
+        <childnode refid="2015" relation="usage">
+          <edgelabel>s</edgelabel>
+        </childnode>
+      </node>
+      <node id="2008">
+        <label>mop_pair_t</label>
+        <link refid="classmop__pair__t"/>
+        <childnode refid="1998" relation="usage">
+          <edgelabel>hop</edgelabel>
+          <edgelabel>lop</edgelabel>
+        </childnode>
+      </node>
+      <node id="2022">
+        <label>regarg_t</label>
+        <link refid="structregarg__t"/>
+      </node>
+      <node id="2006">
+        <label>fnumber_t</label>
+        <link refid="structfnumber__t"/>
+      </node>
+      <node id="1984">
+        <label>mbl_array_t</label>
+        <link refid="classmbl__array__t"/>
+        <childnode refid="1985" relation="usage">
+          <edgelabel>vars</edgelabel>
+        </childnode>
+        <childnode refid="1987" relation="usage">
+          <edgelabel>label</edgelabel>
+          <edgelabel>error_strarg</edgelabel>
+        </childnode>
+        <childnode refid="1988" relation="usage">
+          <edgelabel>gotoff_stkvars</edgelabel>
+          <edgelabel>restricted_memory</edgelabel>
+          <edgelabel>aliased_memory</edgelabel>
+        </childnode>
+        <childnode refid="1991" relation="usage">
+          <edgelabel>spoiled_list</edgelabel>
+          <edgelabel>nodel_memory</edgelabel>
+        </childnode>
+        <childnode refid="1994" relation="usage">
+          <edgelabel>argidx</edgelabel>
+        </childnode>
+        <childnode refid="1995" relation="usage">
+          <edgelabel>idb_spoiled</edgelabel>
+        </childnode>
+        <childnode refid="1996" relation="usage">
+          <edgelabel>blocks</edgelabel>
+          <edgelabel>natural</edgelabel>
+        </childnode>
+        <childnode refid="1992" relation="usage">
+          <edgelabel>consumed_argregs</edgelabel>
+        </childnode>
+        <childnode refid="2016" relation="usage">
+          <edgelabel>std_ivls</edgelabel>
+        </childnode>
+        <childnode refid="2005" relation="usage">
+          <edgelabel>idb_type</edgelabel>
+        </childnode>
+        <childnode refid="2019" relation="usage">
+          <edgelabel>mbr</edgelabel>
+        </childnode>
+        <childnode refid="2028" relation="usage">
+          <edgelabel>idb_node</edgelabel>
+        </childnode>
+        <childnode refid="2029" relation="usage">
+          <edgelabel>notes</edgelabel>
+        </childnode>
+        <childnode refid="2017" relation="usage">
+          <edgelabel>aliased_args</edgelabel>
+          <edgelabel>aliased_vars</edgelabel>
+        </childnode>
+      </node>
+      <node id="2009">
+        <label>mcallinfo_t</label>
+        <link refid="classmcallinfo__t"/>
+        <childnode refid="1988" relation="usage">
+          <edgelabel>visible_memory</edgelabel>
+        </childnode>
+        <childnode refid="1991" relation="usage">
+          <edgelabel>pass_regs</edgelabel>
+          <edgelabel>spoiled</edgelabel>
+          <edgelabel>dead_regs</edgelabel>
+          <edgelabel>return_regs</edgelabel>
+        </childnode>
+        <childnode refid="2010" relation="usage">
+          <edgelabel>args</edgelabel>
+        </childnode>
+        <childnode refid="2005" relation="usage">
+          <edgelabel>return_type</edgelabel>
+        </childnode>
+        <childnode refid="2011" relation="usage">
+          <edgelabel>retregs</edgelabel>
+        </childnode>
+        <childnode refid="2001" relation="usage">
+          <edgelabel>return_argloc</edgelabel>
+        </childnode>
+      </node>
+      <node id="2019">
+        <label>mba_ranges_t</label>
+        <link refid="structmba__ranges__t"/>
+        <childnode refid="2020" relation="usage">
+          <edgelabel>pfn</edgelabel>
+        </childnode>
+        <childnode refid="2026" relation="usage">
+          <edgelabel>ranges</edgelabel>
+        </childnode>
+      </node>
+      <node id="1989">
+        <label>ivlset_tpl&lt; ivl_t, uval_t &gt;</label>
+        <link refid="classivlset__tpl"/>
+        <childnode refid="1990" relation="usage">
+          <edgelabel>bag</edgelabel>
+        </childnode>
+      </node>
+      <node id="1999">
+        <label>scif_t</label>
+        <link refid="structscif__t"/>
+        <childnode refid="2000" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1984" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="1987" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="2005" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+      </node>
+      <node id="1994">
+        <label>qvector&lt; int &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2023">
+        <label>stkpnt_t</label>
+        <link refid="structstkpnt__t"/>
+      </node>
+      <node id="1987">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="1997">
+        <label>minsn_t</label>
+        <link refid="classminsn__t"/>
+        <childnode refid="1997" relation="usage">
+          <edgelabel>prev</edgelabel>
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="1998" relation="usage">
+          <edgelabel>l</edgelabel>
+          <edgelabel>r</edgelabel>
+          <edgelabel>d</edgelabel>
+        </childnode>
+      </node>
+      <node id="2002">
+        <label>scattered_aloc_t</label>
+        <link refid="classscattered__aloc__t"/>
+        <childnode refid="2003" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2003">
+        <label>qvector&lt; argpart_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2021">
+        <label>range_t</label>
+        <link refid="structrange__t"/>
+      </node>
+      <node id="2000">
+        <label>vdloc_t</label>
+        <link refid="classvdloc__t"/>
+        <childnode refid="2001" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2024">
+        <label>regvar_t</label>
+        <link refid="structregvar__t"/>
+        <childnode refid="2021" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2029">
+        <label>qvector&lt; hexwarn_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2012">
+        <label>mnumber_t</label>
+        <link refid="structmnumber__t"/>
+        <childnode refid="2013" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1985">
+        <label>lvars_t</label>
+        <link refid="structlvars__t"/>
+        <childnode refid="1986" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2001">
+        <label>argloc_t</label>
+        <link refid="classargloc__t"/>
+        <childnode refid="2002" relation="usage">
+          <edgelabel>dist</edgelabel>
+        </childnode>
+        <childnode refid="2004" relation="usage">
+          <edgelabel>rrel</edgelabel>
+        </childnode>
+      </node>
+      <node id="2025">
+        <label>llabel_t</label>
+        <link refid="structllabel__t"/>
+      </node>
+      <node id="1983">
+        <label>lvar_ref_t</label>
+        <link refid="structlvar__ref__t"/>
+        <childnode refid="1984" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="1986">
+        <label>qvector&lt; lvar_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2015">
+        <label>stkvar_ref_t</label>
+        <link refid="structstkvar__ref__t"/>
+        <childnode refid="1984" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="1995">
+        <label>qvector&lt; reg_info_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2004">
+        <label>rrel_t</label>
+        <link refid="structrrel__t"/>
+      </node>
+      <node id="1992">
+        <label>rlist_t</label>
+        <link refid="classrlist__t"/>
+        <childnode refid="1993" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2017">
+        <label>ivl_t</label>
+        <link refid="structivl__t"/>
+        <childnode refid="2018" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2017" relation="usage">
+          <edgelabel>allmem</edgelabel>
+        </childnode>
+      </node>
+      <node id="2026">
+        <label>rangevec_t</label>
+        <link refid="structrangevec__t"/>
+        <childnode refid="2027" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2109" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2108" bodyend="2136"/>
+    <listofallmembers>
+      <member refid="structlvar__ref__t_1a1e2aaa9c2974596030a5a4af26bb848e" prot="public" virt="non-virtual"><scope>lvar_ref_t</scope><name>idx</name></member>
+      <member refid="structlvar__ref__t_1a9be873a1f510d8a1577af467245fbc84" prot="public" virt="non-virtual"><scope>lvar_ref_t</scope><name>lvar_ref_t</name></member>
+      <member refid="structlvar__ref__t_1a7509f23be340f9ce8b2f2bf6da952014" prot="public" virt="non-virtual"><scope>lvar_ref_t</scope><name>lvar_ref_t</name></member>
+      <member refid="structlvar__ref__t_1a479c3683633430bbd38a57fbb82d4c24" prot="public" virt="non-virtual"><scope>lvar_ref_t</scope><name>mba</name></member>
+      <member refid="structlvar__ref__t_1a4e54e3f9a67b28d942ff719280f92160" prot="public" virt="non-virtual"><scope>lvar_ref_t</scope><name>off</name></member>
+      <member refid="structlvar__ref__t_1ad13486d33b22f0f2c65b8b27c0278fc3" prot="public" virt="non-virtual"><scope>lvar_ref_t</scope><name>operator=</name></member>
+      <member refid="structlvar__ref__t_1af21a810134c6dad5c76fa6197d5267b6" prot="public" virt="non-virtual"><scope>lvar_ref_t</scope><name>swap</name></member>
+      <member refid="structlvar__ref__t_1a82d96ecf1f1a837f219ed832806b43c0" prot="public" virt="non-virtual"><scope>lvar_ref_t</scope><name>var</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

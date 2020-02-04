@@ -1,0 +1,1556 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="class__qstring" kind="class" language="C++" prot="public">
+    <compoundname>_qstring</compoundname>
+    <includes refid="pro_8h" local="no">pro.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>qchar</declname>
+        <defname>qchar</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class__qstring_1a9e49a3664d60c9299e94f8e6eb7cf755" prot="public" static="no">
+        <type>qchar *</type>
+        <definition>typedef qchar* _qstring&lt; qchar &gt;::iterator</definition>
+        <argsstring></argsstring>
+        <name>iterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2379" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2379" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class__qstring_1a20b106350efc924c7d3791918af9f42b" prot="public" static="no">
+        <type>const qchar *</type>
+        <definition>typedef const qchar* _qstring&lt; qchar &gt;::const_iterator</definition>
+        <argsstring></argsstring>
+        <name>const_iterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2380" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2380" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class__qstring_1abb752493a2d69670c9566520a809c4cc" prot="private" static="no" mutable="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; qchar &gt;</type>
+        <definition>qvector&lt;qchar&gt; _qstring&lt; qchar &gt;::body</definition>
+        <argsstring></argsstring>
+        <name>body</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2303" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2303" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="class__qstring_1a698a0a43ae57046fd2a211f408e753ae" prot="public" static="yes" mutable="no">
+        <type>const size_t</type>
+        <definition>const size_t _qstring&lt; qchar &gt;::npos</definition>
+        <argsstring></argsstring>
+        <name>npos</name>
+        <initializer>= (size_t) -1</initializer>
+        <briefdescription>
+<para>Invalid position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2835" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2835" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class__qstring_1a943351420087d9a35df251e1cb3479f6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>_qstring&lt; qchar &gt;::_qstring</definition>
+        <argsstring>(void)</argsstring>
+        <name>_qstring</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2306" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2306" bodyend="2306"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a2f1b9aabb4ff02085ddba0823ac2dec5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>_qstring&lt; qchar &gt;::_qstring</definition>
+        <argsstring>(const qchar *ptr)</argsstring>
+        <name>_qstring</name>
+        <param>
+          <type>const qchar *</type>
+          <declname>ptr</declname>
+        </param>
+        <briefdescription>
+<para>Constructor - creates a new qstring from an existing char *. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2308" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2308" bodyend="2316"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a3ad3a59e82e60bfd0287811004fd7fcb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>_qstring&lt; qchar &gt;::_qstring</definition>
+        <argsstring>(const qchar *ptr, size_t len)</argsstring>
+        <name>_qstring</name>
+        <param>
+          <type>const qchar *</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+<para>Constructor - creates a new qstring using first &apos;len&apos; chars from &apos;ptr&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2318" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2318" bodyend="2325"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a0fb6a9b57f3f59aafd27e3eead876f7f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void _qstring&lt; qchar &gt;::swap</definition>
+        <argsstring>(_qstring&lt; qchar &gt; &amp;r)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="class__qstring" kindref="compound">_qstring</ref>&lt; qchar &gt; &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Swap contents of two qstrings. see <ref refid="classqvector_1a2006754f99fb324709ae0972ddb20bb4" kindref="member">qvector::swap()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2326" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a889a9b45e9cc296f6af9b74dac29198e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t _qstring&lt; qchar &gt;::length</definition>
+        <argsstring>(void) const</argsstring>
+        <name>length</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get number of chars in this qstring (not including terminating zero) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2327" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2327" bodyend="2326"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a6672bef9207b117a0eaf8b0729122639" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t _qstring&lt; qchar &gt;::size</definition>
+        <argsstring>(void) const</argsstring>
+        <name>size</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get number of chars in this qstring (including terminating zero) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2328" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2328" bodyend="2327"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a80e30b8aa72977c490e8c5a0e66c0747" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t _qstring&lt; qchar &gt;::capacity</definition>
+        <argsstring>(void) const</argsstring>
+        <name>capacity</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get number of chars this qstring can contain (including terminating zero) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2329" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2329" bodyend="2328"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a52dc587560ecfab8ba866f676cd9a5c5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void _qstring&lt; qchar &gt;::resize</definition>
+        <argsstring>(size_t s, qchar c)</argsstring>
+        <name>resize</name>
+        <param>
+          <type>size_t</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>qchar</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Resize to the given size. The resulting qstring will have <ref refid="class__qstring_1a889a9b45e9cc296f6af9b74dac29198e" kindref="member">length()</ref> = s, and <ref refid="class__qstring_1a6672bef9207b117a0eaf8b0729122639" kindref="member">size()</ref> = s+1 <linebreak/>
+if &apos;s&apos; is greater than the current size then the extra space is filled with &apos;c&apos;. <linebreak/>
+if &apos;s&apos; is less than the current size then the trailing chars are removed </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2335" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2335" bodyend="2342"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1ac0333cce055ee38fabe97896bdb679e2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void _qstring&lt; qchar &gt;::resize</definition>
+        <argsstring>(size_t s)</argsstring>
+        <name>resize</name>
+        <param>
+          <type>size_t</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+<para>Similar to <ref refid="class__qstring_1a52dc587560ecfab8ba866f676cd9a5c5" kindref="member">resize(size_t, qchar)</ref> - but any extra space is filled with zeroes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2344" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2344" bodyend="2355"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a81652ec4f2fc266be837f6a5042180d1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void _qstring&lt; qchar &gt;::remove_last</definition>
+        <argsstring>(int cnt=1)</argsstring>
+        <name>remove_last</name>
+        <param>
+          <type>int</type>
+          <declname>cnt</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2356" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2356" bodyend="2368"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1aa92cae889fce283929b3e61cf16829cd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void _qstring&lt; qchar &gt;::reserve</definition>
+        <argsstring>(size_t cnt)</argsstring>
+        <name>reserve</name>
+        <param>
+          <type>size_t</type>
+          <declname>cnt</declname>
+        </param>
+        <briefdescription>
+<para>Increase capacity the qstring. see <ref refid="classqvector_1a00e5c32c63732f5149e901c932d2f3c2" kindref="member">qvector::reserve()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2369" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2369" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1ae98af3d493734adb8ea116e04449438e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void _qstring&lt; qchar &gt;::clear</definition>
+        <argsstring>(void)</argsstring>
+        <name>clear</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Clear qstring and free memory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2370" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2370" bodyend="2369"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a670c220ff444e4a58612cd7c4b5792b2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void _qstring&lt; qchar &gt;::qclear</definition>
+        <argsstring>(void)</argsstring>
+        <name>qclear</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Clear qstring but do not free memory yet. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2371" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2371" bodyend="2370"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a23c49bd56b77afb954b5b4926405b3fa" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool _qstring&lt; qchar &gt;::empty</definition>
+        <argsstring>(void) const</argsstring>
+        <name>empty</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Does the qstring have 0 non-null elements? </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2372" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2372" bodyend="2371"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a3654f6526e5d6ec5fc03ff9ed1a29fed" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const qchar *</type>
+        <definition>const qchar* _qstring&lt; qchar &gt;::c_str</definition>
+        <argsstring>(void) const</argsstring>
+        <name>c_str</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Convert the qstring to a char *. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2374" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2374" bodyend="2378"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a6ab2cbf78583adeb7cb0634a3b459c68" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>iterator _qstring&lt; qchar &gt;::begin</definition>
+        <argsstring>(void)</argsstring>
+        <name>begin</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a pointer to the beginning of the qstring. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2381" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2381" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a430bf44621e6806e44c15900185bca9d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const_iterator</type>
+        <definition>const_iterator _qstring&lt; qchar &gt;::begin</definition>
+        <argsstring>(void) const</argsstring>
+        <name>begin</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a const pointer to the beginning of the qstring. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2382" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2382" bodyend="2381"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1aa548fad9195fded7940f48f968bfcde9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>iterator _qstring&lt; qchar &gt;::end</definition>
+        <argsstring>(void)</argsstring>
+        <name>end</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a pointer to the end of the qstring (this is not the terminating zero) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2383" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2383" bodyend="2382"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a585f069ea1ee14e8b9d1983d1733337a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const_iterator</type>
+        <definition>const_iterator _qstring&lt; qchar &gt;::end</definition>
+        <argsstring>(void) const</argsstring>
+        <name>end</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get a const pointer to the end of the qstring (this is not the terminating zero) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2384" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2384" bodyend="2383"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a7707cca3ac636a491a2717b705457d29" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::operator=</definition>
+        <argsstring>(const qchar *str)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const qchar *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>Allow assignment of qstrings using &apos;=&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2386" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2386" bodyend="2400"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1add116f53ee1c43c08b44171d7d985b07" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::operator=</definition>
+        <argsstring>(const _qstring &amp;qstr)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+          <declname>qstr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2401" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2401" bodyend="2418"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a26de9f8e100021e1c32b0b7ba100a97d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::operator+=</definition>
+        <argsstring>(qchar c)</argsstring>
+        <name>operator+=</name>
+        <param>
+          <type>qchar</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Append a char using &apos;+=&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2420" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2420" bodyend="2423"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a9146829e4e6cc9f11880b1c208137098" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::operator+=</definition>
+        <argsstring>(const _qstring &amp;r)</argsstring>
+        <name>operator+=</name>
+        <param>
+          <type>const <ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Append another qstring using &apos;+=&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2425" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2425" bodyend="2428"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a2f3b0fdd91fd48946de1f95298ba93af" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref></type>
+        <definition>_qstring _qstring&lt; qchar &gt;::operator+</definition>
+        <argsstring>(const _qstring &amp;r) const</argsstring>
+        <name>operator+</name>
+        <param>
+          <type>const <ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Get result of appending two qstrings using &apos;+&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2430" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2430" bodyend="2435"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1ac478c4158afa3aa92d79c8d8aa0914d9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool _qstring&lt; qchar &gt;::operator==</definition>
+        <argsstring>(const _qstring &amp;r) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Test equality of two qstrings using &apos;==&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2437" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2437" bodyend="2440"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1ad274e2ee884b8c2f07eb9d07f2415133" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool _qstring&lt; qchar &gt;::operator==</definition>
+        <argsstring>(const qchar *r) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const qchar *</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Test equality of a qstring and a const char* using &apos;==&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2442" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2442" bodyend="2445"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1aed4ddad1663fc7b86b2f30380e429f3b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool _qstring&lt; qchar &gt;::operator!=</definition>
+        <argsstring>(const _qstring &amp;r) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Test equality of two qstrings using &apos;!=&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2446" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2446" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1ac37bcdbd4cdd4be7254d285e58455f80" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool _qstring&lt; qchar &gt;::operator!=</definition>
+        <argsstring>(const qchar *r) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const qchar *</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Test equality of a qstring and a const char* with &apos;!=&apos; </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2447" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2447" bodyend="2446"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a5d7d7f5ed96ba85f5dc7b66c27846023" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool _qstring&lt; qchar &gt;::operator&lt;</definition>
+        <argsstring>(const _qstring &amp;r) const</argsstring>
+        <name>operator&lt;</name>
+        <param>
+          <type>const <ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Compare two qstrings using &apos;&lt;&apos;. see qstrcmp() </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2449" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2449" bodyend="2452"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1aa4125e077d7b27083d84440e458d3942" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool _qstring&lt; qchar &gt;::operator&lt;</definition>
+        <argsstring>(const qchar *r) const</argsstring>
+        <name>operator&lt;</name>
+        <param>
+          <type>const qchar *</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Compare two qstrings using &apos;&lt;&apos;. see qstrcmp() </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2454" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2454" bodyend="2457"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a2a50a084cc050e867672d2585fea2a23" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const qchar &amp;</type>
+        <definition>const qchar&amp; _qstring&lt; qchar &gt;::operator[]</definition>
+        <argsstring>(size_t idx) const</argsstring>
+        <name>operator[]</name>
+        <param>
+          <type>size_t</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve char at index &apos;idx&apos; using &apos;[]&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2459" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2459" bodyend="2465"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a6295d86e364c0726dd34a58400eea991" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>qchar &amp;</type>
+        <definition>qchar&amp; _qstring&lt; qchar &gt;::operator[]</definition>
+        <argsstring>(size_t idx)</argsstring>
+        <name>operator[]</name>
+        <param>
+          <type>size_t</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve char at index &apos;idx&apos; using &apos;[]&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2467" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2467" bodyend="2473"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a924d91aed4ebc3d9f7c5e5215912c3a3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const qchar &amp;</type>
+        <definition>const qchar&amp; _qstring&lt; qchar &gt;::at</definition>
+        <argsstring>(size_t idx) const</argsstring>
+        <name>at</name>
+        <param>
+          <type>size_t</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve const char at index &apos;idx&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2474" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2474" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1ab4c651f130ad98c5d478ace6aae171ec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>qchar &amp;</type>
+        <definition>qchar&amp; _qstring&lt; qchar &gt;::at</definition>
+        <argsstring>(size_t idx)</argsstring>
+        <name>at</name>
+        <param>
+          <type>size_t</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieve char at index &apos;idx&apos; </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2475" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2475" bodyend="2474"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1ab2f9dbbc0bd629ae09b54d182d2c837e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>qchar *</type>
+        <definition>qchar* _qstring&lt; qchar &gt;::extract</definition>
+        <argsstring>(void)</argsstring>
+        <name>extract</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Extract C string from <ref refid="class__qstring" kindref="compound">_qstring</ref>. Must <ref refid="pro_8h_1a69f9c35c61878b9b72795fa0f47afa26" kindref="member">qfree()</ref> it. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2477" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2477" bodyend="2477"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a07fedef2542f179637de73f20eb550fd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void _qstring&lt; qchar &gt;::inject</definition>
+        <argsstring>(qchar *s, size_t len)</argsstring>
+        <name>inject</name>
+        <param>
+          <type>qchar *</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Assign this qstring to an existing char *. See <ref refid="classqvector_1a0e2ac6acfb0b5607cd6b77e8049633db" kindref="member">qvector::inject(T *, size_t)</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2480" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2480" bodyend="2483"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1aabfc95980140e33a7922a4d179d18588" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void _qstring&lt; qchar &gt;::inject</definition>
+        <argsstring>(qchar *s)</argsstring>
+        <name>inject</name>
+        <param>
+          <type>qchar *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+<para>Same as to <ref refid="class__qstring_1a07fedef2542f179637de73f20eb550fd" kindref="member">inject(qchar *, size_t)</ref>, with len = strlen(s) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2485" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2485" bodyend="2492"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1ab0c1317d29391b413a86045ba3f145d5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>qchar</type>
+        <definition>qchar _qstring&lt; qchar &gt;::last</definition>
+        <argsstring>(void) const</argsstring>
+        <name>last</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get the last qchar in the string (for concatenation checks) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2494" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2494" bodyend="2498"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a9fe87bd1e01d5fa7af1461967c812476" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t _qstring&lt; qchar &gt;::find</definition>
+        <argsstring>(const qchar *str, size_t pos=0) const</argsstring>
+        <name>find</name>
+        <param>
+          <type>const qchar *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>pos</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find a substring. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the substring to look for </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>starting position </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the position of the beginning of the first occurrence of str, <ref refid="class__qstring_1a698a0a43ae57046fd2a211f408e753ae" kindref="member">_qstring::npos</ref> of none exists </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2503" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2503" bodyend="2513"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1abe25ad29fc9aeb24727eee08cfe977a6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool _qstring&lt; qchar &gt;::replace</definition>
+        <argsstring>(const qchar *what, const qchar *with)</argsstring>
+        <name>replace</name>
+        <param>
+          <type>const qchar *</type>
+          <declname>what</declname>
+        </param>
+        <param>
+          <type>const qchar *</type>
+          <declname>with</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Replace all occurrences of &apos;what&apos; with &apos;with&apos;. <simplesect kind="return"><para>false if &apos;what&apos; is not found in the qstring, true otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2516" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2516" bodyend="2541"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a8526ec86c6e5dae382f32806ff070e46" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t _qstring&lt; qchar &gt;::find</definition>
+        <argsstring>(const _qstring &amp;str, size_t pos=0) const</argsstring>
+        <name>find</name>
+        <param>
+          <type>const <ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>pos</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Same as find(const qchar *, size_t), but takes a qstring parameter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2543" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2543" bodyend="2543"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a42212c638d7ebd0a2b4b160f96f226b6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t _qstring&lt; qchar &gt;::find</definition>
+        <argsstring>(qchar c, size_t pos=0) const</argsstring>
+        <name>find</name>
+        <param>
+          <type>qchar</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>pos</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find a character in the qstring. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the character to look for </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>starting position </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>index of first occurrence of &apos;c&apos; if c is found, <ref refid="class__qstring_1a698a0a43ae57046fd2a211f408e753ae" kindref="member">_qstring::npos</ref> otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2548" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2548" bodyend="2558"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a3d2d47368fedec6f9027404db04231ef" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t _qstring&lt; qchar &gt;::rfind</definition>
+        <argsstring>(qchar c, size_t pos=0) const</argsstring>
+        <name>rfind</name>
+        <param>
+          <type>qchar</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>pos</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Search backwards for a character in the qstring. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the char to look for </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>starting position </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>index of first occurrence of &apos;c&apos; if c is found, <ref refid="class__qstring_1a698a0a43ae57046fd2a211f408e753ae" kindref="member">_qstring::npos</ref> otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2563" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2563" bodyend="2573"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a5553d867e41148b05d118bf6c7ec0887" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref>&lt; qchar &gt;</type>
+        <definition>_qstring&lt;qchar&gt; _qstring&lt; qchar &gt;::substr</definition>
+        <argsstring>(size_t pos=0, size_t n=npos) const</argsstring>
+        <name>substr</name>
+        <param>
+          <type>size_t</type>
+          <declname>pos</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+          <defval><ref refid="class__qstring_1a698a0a43ae57046fd2a211f408e753ae" kindref="member">npos</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get a substring. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>starting position </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ending position (non-inclusive) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the resulting substring </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2578" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2578" bodyend="2584"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1af74365a385eb17914f083a66b1a28da5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::remove</definition>
+        <argsstring>(size_t idx, size_t cnt)</argsstring>
+        <name>remove</name>
+        <param>
+          <type>size_t</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cnt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Remove characters from the qstring. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>idx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>starting position </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cnt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of characters to remove </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2588" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2588" bodyend="2605"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1ada17d4fff09f9840b8fb9b834f4c9d4c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::insert</definition>
+        <argsstring>(size_t idx, qchar c)</argsstring>
+        <name>insert</name>
+        <param>
+          <type>size_t</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>qchar</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Insert a character into the qstring. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>idx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>position of insertion (if idx &gt;= <ref refid="class__qstring_1a889a9b45e9cc296f6af9b74dac29198e" kindref="member">length()</ref>, the effect is the same as append) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>char to insert </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2609" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2609" bodyend="2622"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a1781327bf2dc10d63ee3b0c7591dcf94" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::insert</definition>
+        <argsstring>(size_t idx, const qchar *str, size_t addlen)</argsstring>
+        <name>insert</name>
+        <param>
+          <type>size_t</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>const qchar *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>addlen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Insert a string into the qstring. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>idx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>position of insertion (if idx &gt;= <ref refid="class__qstring_1a889a9b45e9cc296f6af9b74dac29198e" kindref="member">length()</ref>, the effect is the same as append) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the string to insert </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>addlen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of chars from &apos;str&apos; to insert </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2627" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2627" bodyend="2641"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a5af7fd980f8510df6f5d9341cde7b70f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::insert</definition>
+        <argsstring>(size_t idx, const qchar *str)</argsstring>
+        <name>insert</name>
+        <param>
+          <type>size_t</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>const qchar *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>Same as <ref refid="class__qstring_1a1781327bf2dc10d63ee3b0c7591dcf94" kindref="member">insert(size_t, const qchar *, size_t)</ref>, but all chars in str are inserted. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2643" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2643" bodyend="2651"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1ae8cef31949e3678c2588bbca081b3695" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::insert</definition>
+        <argsstring>(size_t idx, const _qstring &amp;qstr)</argsstring>
+        <name>insert</name>
+        <param>
+          <type>size_t</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+          <declname>qstr</declname>
+        </param>
+        <briefdescription>
+<para>Same as <ref refid="class__qstring_1a5af7fd980f8510df6f5d9341cde7b70f" kindref="member">insert(size_t, const qchar *)</ref>, but takes a qstring parameter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2653" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2653" bodyend="2668"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a0407a3fefff7fae2a335b29aa0719c19" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::insert</definition>
+        <argsstring>(qchar c)</argsstring>
+        <name>insert</name>
+        <param>
+          <type>qchar</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Prepend the qstring with &apos;c&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2669" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2669" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a0a25fbd856828eb68955229d73f4f8dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::insert</definition>
+        <argsstring>(const qchar *str)</argsstring>
+        <name>insert</name>
+        <param>
+          <type>const qchar *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>Prepend the qstring with &apos;str&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2670" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2670" bodyend="2669"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1ab388c6c4d84653a78967b64f2e1330e9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::insert</definition>
+        <argsstring>(const _qstring &amp;qstr)</argsstring>
+        <name>insert</name>
+        <param>
+          <type>const <ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+          <declname>qstr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Prepend the qstring with &apos;qstr&apos; </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2671" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2671" bodyend="2670"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a5c0f2a13a1201bccf2b0e4b1c38ca522" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::append</definition>
+        <argsstring>(qchar c)</argsstring>
+        <name>append</name>
+        <param>
+          <type>qchar</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Append c to the end of the qstring. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2673" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2673" bodyend="2680"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1aaf109dc77299b6b53ed09230547c1e29" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::append</definition>
+        <argsstring>(const qchar *str, size_t addlen)</argsstring>
+        <name>append</name>
+        <param>
+          <type>const qchar *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>addlen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Append a string to the qstring. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the string to append </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>addlen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of characters from &apos;str&apos; to append </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2684" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2684" bodyend="2691"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a3ed61cc4555948a7d2ce37850baf4bc1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::append</definition>
+        <argsstring>(const qchar *str)</argsstring>
+        <name>append</name>
+        <param>
+          <type>const qchar *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>Same as <ref refid="class__qstring_1aaf109dc77299b6b53ed09230547c1e29" kindref="member">append(const qchar *, size_t)</ref>, but all chars in &apos;str&apos; are appended. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2693" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2693" bodyend="2701"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a20e4e9f5b040cfee9769326db8a6e793" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::append</definition>
+        <argsstring>(const _qstring &amp;qstr)</argsstring>
+        <name>append</name>
+        <param>
+          <type>const <ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+          <declname>qstr</declname>
+        </param>
+        <briefdescription>
+<para>Same as <ref refid="class__qstring_1a3ed61cc4555948a7d2ce37850baf4bc1" kindref="member">append(const qchar *)</ref>, but takes a qstring argument. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2703" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2703" bodyend="2714"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a288e80536c6b7a9eb36cabb5c2e17ec8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::cat_vsprnt</definition>
+        <argsstring>(const char *format, va_list va)</argsstring>
+        <name>cat_vsprnt</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>va_list</type>
+          <declname>va</declname>
+        </param>
+        <briefdescription>
+<para>Append result of <ref refid="group__qsnprintf_1gaf45ba32528a64944837773def69b19ff" kindref="member">qvsnprintf()</ref> to qstring. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2716" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2716" bodyend="2728"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a620711d3ad518cb2d2110189c078dbfa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::vsprnt</definition>
+        <argsstring>(const char *format, va_list va)</argsstring>
+        <name>vsprnt</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>va_list</type>
+          <declname>va</declname>
+        </param>
+        <briefdescription>
+<para>Replace qstring with the result of <ref refid="group__qsnprintf_1gaf45ba32528a64944837773def69b19ff" kindref="member">qvsnprintf()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2730" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2730" bodyend="2742"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a6f5ffedbd9a35e5a6469f76050cbe25d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::cat_sprnt</definition>
+        <argsstring>(const char *format,...)</argsstring>
+        <name>cat_sprnt</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>Append result of <ref refid="group__qsnprintf_1ga82e5d2c150c3a1d1eed598ea21baf879" kindref="member">qsnprintf()</ref> to qstring. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2744" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2744" bodyend="2751"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1ab854d5ae057581f9266236e577a8c503" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::sprnt</definition>
+        <argsstring>(const char *format,...)</argsstring>
+        <name>sprnt</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>Replace qstring with the result of <ref refid="group__qsnprintf_1ga82e5d2c150c3a1d1eed598ea21baf879" kindref="member">qsnprintf()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2753" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2753" bodyend="2760"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1adcce584ca565b662f7ca365a4382429a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_qstring&lt; qchar &gt;::GCC_DIAG_OFF</definition>
+        <argsstring>(format-nonliteral)</argsstring>
+        <name>GCC_DIAG_OFF</name>
+        <param>
+          <type>format-</type>
+          <declname>nonliteral</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Replace qstring with the result of <ref refid="group__qsnprintf_1ga82e5d2c150c3a1d1eed598ea21baf879" kindref="member">qsnprintf()</ref> <simplesect kind="see"><para>inline int nowarn_qsnprintf(char *buf, size_t <ref refid="class__qstring_1a6672bef9207b117a0eaf8b0729122639" kindref="member">size</ref>, const char *format, ...) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2763" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a603b759cd85920181545bd60b5d56252" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::nowarn_sprnt</definition>
+        <argsstring>(const char *format,...)</argsstring>
+        <name>nowarn_sprnt</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2764" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2764" bodyend="2771"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a6fcdc25e931226b78ec551cd5dbcca45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_qstring&lt; qchar &gt;::GCC_DIAG_ON</definition>
+        <argsstring>(format-nonliteral)</argsstring>
+        <name>GCC_DIAG_ON</name>
+        <param>
+          <type>format-</type>
+          <declname>nonliteral</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2772" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a77a5cb21ece6c7d19542948749acc950" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::fill</definition>
+        <argsstring>(size_t pos, qchar c, size_t len)</argsstring>
+        <name>fill</name>
+        <param>
+          <type>size_t</type>
+          <declname>pos</declname>
+        </param>
+        <param>
+          <type>qchar</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Fill qstring with a character. The qstring is resized if necessary until &apos;len&apos; chars have been filled <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>starting position </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the character to fill </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of positions to fill with &apos;c&apos; </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2778" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2778" bodyend="2788"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1a461c97f7e5bbe013dc6aeb36a2b34fdc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::fill</definition>
+        <argsstring>(qchar c, size_t len)</argsstring>
+        <name>fill</name>
+        <param>
+          <type>qchar</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+<para>Clear contents of qstring and fill with &apos;c&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2790" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2790" bodyend="2796"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1aa49e8d6cf0c58b1a14aadf9a12a90f82" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::ltrim</definition>
+        <argsstring>(qchar blank=&apos; &apos;)</argsstring>
+        <name>ltrim</name>
+        <param>
+          <type>qchar</type>
+          <declname>blank</declname>
+          <defval>&apos; &apos;</defval>
+        </param>
+        <briefdescription>
+<para>Remove all instances of the specified char from the beginning of the qstring. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2798" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2798" bodyend="2813"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1aa0f127cd84709acd91c08c355ae72617" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::rtrim</definition>
+        <argsstring>(qchar blank=&apos; &apos;)</argsstring>
+        <name>rtrim</name>
+        <param>
+          <type>qchar</type>
+          <declname>blank</declname>
+          <defval>&apos; &apos;</defval>
+        </param>
+        <briefdescription>
+<para>Remove all instances of the specified char from the end of the qstring. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2815" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2815" bodyend="2826"/>
+      </memberdef>
+      <memberdef kind="function" id="class__qstring_1adbf975b9a92ad69b863b91c971fe4156" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class__qstring" kindref="compound">_qstring</ref> &amp;</type>
+        <definition>_qstring&amp; _qstring&lt; qchar &gt;::trim2</definition>
+        <argsstring>(qchar blank=&apos; &apos;)</argsstring>
+        <name>trim2</name>
+        <param>
+          <type>qchar</type>
+          <declname>blank</declname>
+          <defval>&apos; &apos;</defval>
+        </param>
+        <briefdescription>
+<para>Remove all instances of the specified char from both ends of the qstring. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2828" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2828" bodyend="2833"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Reimplementation of the string class from STL. Only the most essential functions are implemented. The reason why we have this is because it is not compiler dependent (hopefully) and therefore can be used in IDA API </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2302" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2301" bodyend="2836"/>
+    <listofallmembers>
+      <member refid="class__qstring_1a943351420087d9a35df251e1cb3479f6" prot="public" virt="non-virtual"><scope>_qstring</scope><name>_qstring</name></member>
+      <member refid="class__qstring_1a2f1b9aabb4ff02085ddba0823ac2dec5" prot="public" virt="non-virtual"><scope>_qstring</scope><name>_qstring</name></member>
+      <member refid="class__qstring_1a3ad3a59e82e60bfd0287811004fd7fcb" prot="public" virt="non-virtual"><scope>_qstring</scope><name>_qstring</name></member>
+      <member refid="class__qstring_1a5c0f2a13a1201bccf2b0e4b1c38ca522" prot="public" virt="non-virtual"><scope>_qstring</scope><name>append</name></member>
+      <member refid="class__qstring_1aaf109dc77299b6b53ed09230547c1e29" prot="public" virt="non-virtual"><scope>_qstring</scope><name>append</name></member>
+      <member refid="class__qstring_1a3ed61cc4555948a7d2ce37850baf4bc1" prot="public" virt="non-virtual"><scope>_qstring</scope><name>append</name></member>
+      <member refid="class__qstring_1a20e4e9f5b040cfee9769326db8a6e793" prot="public" virt="non-virtual"><scope>_qstring</scope><name>append</name></member>
+      <member refid="class__qstring_1a924d91aed4ebc3d9f7c5e5215912c3a3" prot="public" virt="non-virtual"><scope>_qstring</scope><name>at</name></member>
+      <member refid="class__qstring_1ab4c651f130ad98c5d478ace6aae171ec" prot="public" virt="non-virtual"><scope>_qstring</scope><name>at</name></member>
+      <member refid="class__qstring_1a6ab2cbf78583adeb7cb0634a3b459c68" prot="public" virt="non-virtual"><scope>_qstring</scope><name>begin</name></member>
+      <member refid="class__qstring_1a430bf44621e6806e44c15900185bca9d" prot="public" virt="non-virtual"><scope>_qstring</scope><name>begin</name></member>
+      <member refid="class__qstring_1abb752493a2d69670c9566520a809c4cc" prot="private" virt="non-virtual"><scope>_qstring</scope><name>body</name></member>
+      <member refid="class__qstring_1a3654f6526e5d6ec5fc03ff9ed1a29fed" prot="public" virt="non-virtual"><scope>_qstring</scope><name>c_str</name></member>
+      <member refid="class__qstring_1a80e30b8aa72977c490e8c5a0e66c0747" prot="public" virt="non-virtual"><scope>_qstring</scope><name>capacity</name></member>
+      <member refid="class__qstring_1a6f5ffedbd9a35e5a6469f76050cbe25d" prot="public" virt="non-virtual"><scope>_qstring</scope><name>cat_sprnt</name></member>
+      <member refid="class__qstring_1a288e80536c6b7a9eb36cabb5c2e17ec8" prot="public" virt="non-virtual"><scope>_qstring</scope><name>cat_vsprnt</name></member>
+      <member refid="class__qstring_1ae98af3d493734adb8ea116e04449438e" prot="public" virt="non-virtual"><scope>_qstring</scope><name>clear</name></member>
+      <member refid="class__qstring_1a20b106350efc924c7d3791918af9f42b" prot="public" virt="non-virtual"><scope>_qstring</scope><name>const_iterator</name></member>
+      <member refid="class__qstring_1a23c49bd56b77afb954b5b4926405b3fa" prot="public" virt="non-virtual"><scope>_qstring</scope><name>empty</name></member>
+      <member refid="class__qstring_1aa548fad9195fded7940f48f968bfcde9" prot="public" virt="non-virtual"><scope>_qstring</scope><name>end</name></member>
+      <member refid="class__qstring_1a585f069ea1ee14e8b9d1983d1733337a" prot="public" virt="non-virtual"><scope>_qstring</scope><name>end</name></member>
+      <member refid="class__qstring_1ab2f9dbbc0bd629ae09b54d182d2c837e" prot="public" virt="non-virtual"><scope>_qstring</scope><name>extract</name></member>
+      <member refid="class__qstring_1a77a5cb21ece6c7d19542948749acc950" prot="public" virt="non-virtual"><scope>_qstring</scope><name>fill</name></member>
+      <member refid="class__qstring_1a461c97f7e5bbe013dc6aeb36a2b34fdc" prot="public" virt="non-virtual"><scope>_qstring</scope><name>fill</name></member>
+      <member refid="class__qstring_1a9fe87bd1e01d5fa7af1461967c812476" prot="public" virt="non-virtual"><scope>_qstring</scope><name>find</name></member>
+      <member refid="class__qstring_1a8526ec86c6e5dae382f32806ff070e46" prot="public" virt="non-virtual"><scope>_qstring</scope><name>find</name></member>
+      <member refid="class__qstring_1a42212c638d7ebd0a2b4b160f96f226b6" prot="public" virt="non-virtual"><scope>_qstring</scope><name>find</name></member>
+      <member refid="class__qstring_1adcce584ca565b662f7ca365a4382429a" prot="public" virt="non-virtual"><scope>_qstring</scope><name>GCC_DIAG_OFF</name></member>
+      <member refid="class__qstring_1a6fcdc25e931226b78ec551cd5dbcca45" prot="public" virt="non-virtual"><scope>_qstring</scope><name>GCC_DIAG_ON</name></member>
+      <member refid="class__qstring_1a07fedef2542f179637de73f20eb550fd" prot="public" virt="non-virtual"><scope>_qstring</scope><name>inject</name></member>
+      <member refid="class__qstring_1aabfc95980140e33a7922a4d179d18588" prot="public" virt="non-virtual"><scope>_qstring</scope><name>inject</name></member>
+      <member refid="class__qstring_1ada17d4fff09f9840b8fb9b834f4c9d4c" prot="public" virt="non-virtual"><scope>_qstring</scope><name>insert</name></member>
+      <member refid="class__qstring_1a1781327bf2dc10d63ee3b0c7591dcf94" prot="public" virt="non-virtual"><scope>_qstring</scope><name>insert</name></member>
+      <member refid="class__qstring_1a5af7fd980f8510df6f5d9341cde7b70f" prot="public" virt="non-virtual"><scope>_qstring</scope><name>insert</name></member>
+      <member refid="class__qstring_1ae8cef31949e3678c2588bbca081b3695" prot="public" virt="non-virtual"><scope>_qstring</scope><name>insert</name></member>
+      <member refid="class__qstring_1a0407a3fefff7fae2a335b29aa0719c19" prot="public" virt="non-virtual"><scope>_qstring</scope><name>insert</name></member>
+      <member refid="class__qstring_1a0a25fbd856828eb68955229d73f4f8dd" prot="public" virt="non-virtual"><scope>_qstring</scope><name>insert</name></member>
+      <member refid="class__qstring_1ab388c6c4d84653a78967b64f2e1330e9" prot="public" virt="non-virtual"><scope>_qstring</scope><name>insert</name></member>
+      <member refid="class__qstring_1a9e49a3664d60c9299e94f8e6eb7cf755" prot="public" virt="non-virtual"><scope>_qstring</scope><name>iterator</name></member>
+      <member refid="class__qstring_1ab0c1317d29391b413a86045ba3f145d5" prot="public" virt="non-virtual"><scope>_qstring</scope><name>last</name></member>
+      <member refid="class__qstring_1a889a9b45e9cc296f6af9b74dac29198e" prot="public" virt="non-virtual"><scope>_qstring</scope><name>length</name></member>
+      <member refid="class__qstring_1aa49e8d6cf0c58b1a14aadf9a12a90f82" prot="public" virt="non-virtual"><scope>_qstring</scope><name>ltrim</name></member>
+      <member refid="class__qstring_1a603b759cd85920181545bd60b5d56252" prot="public" virt="non-virtual"><scope>_qstring</scope><name>nowarn_sprnt</name></member>
+      <member refid="class__qstring_1a698a0a43ae57046fd2a211f408e753ae" prot="public" virt="non-virtual"><scope>_qstring</scope><name>npos</name></member>
+      <member refid="class__qstring_1aed4ddad1663fc7b86b2f30380e429f3b" prot="public" virt="non-virtual"><scope>_qstring</scope><name>operator!=</name></member>
+      <member refid="class__qstring_1ac37bcdbd4cdd4be7254d285e58455f80" prot="public" virt="non-virtual"><scope>_qstring</scope><name>operator!=</name></member>
+      <member refid="class__qstring_1a2f3b0fdd91fd48946de1f95298ba93af" prot="public" virt="non-virtual"><scope>_qstring</scope><name>operator+</name></member>
+      <member refid="class__qstring_1a26de9f8e100021e1c32b0b7ba100a97d" prot="public" virt="non-virtual"><scope>_qstring</scope><name>operator+=</name></member>
+      <member refid="class__qstring_1a9146829e4e6cc9f11880b1c208137098" prot="public" virt="non-virtual"><scope>_qstring</scope><name>operator+=</name></member>
+      <member refid="class__qstring_1a5d7d7f5ed96ba85f5dc7b66c27846023" prot="public" virt="non-virtual"><scope>_qstring</scope><name>operator&lt;</name></member>
+      <member refid="class__qstring_1aa4125e077d7b27083d84440e458d3942" prot="public" virt="non-virtual"><scope>_qstring</scope><name>operator&lt;</name></member>
+      <member refid="class__qstring_1a7707cca3ac636a491a2717b705457d29" prot="public" virt="non-virtual"><scope>_qstring</scope><name>operator=</name></member>
+      <member refid="class__qstring_1add116f53ee1c43c08b44171d7d985b07" prot="public" virt="non-virtual"><scope>_qstring</scope><name>operator=</name></member>
+      <member refid="class__qstring_1ac478c4158afa3aa92d79c8d8aa0914d9" prot="public" virt="non-virtual"><scope>_qstring</scope><name>operator==</name></member>
+      <member refid="class__qstring_1ad274e2ee884b8c2f07eb9d07f2415133" prot="public" virt="non-virtual"><scope>_qstring</scope><name>operator==</name></member>
+      <member refid="class__qstring_1a2a50a084cc050e867672d2585fea2a23" prot="public" virt="non-virtual"><scope>_qstring</scope><name>operator[]</name></member>
+      <member refid="class__qstring_1a6295d86e364c0726dd34a58400eea991" prot="public" virt="non-virtual"><scope>_qstring</scope><name>operator[]</name></member>
+      <member refid="class__qstring_1a670c220ff444e4a58612cd7c4b5792b2" prot="public" virt="non-virtual"><scope>_qstring</scope><name>qclear</name></member>
+      <member refid="class__qstring_1af74365a385eb17914f083a66b1a28da5" prot="public" virt="non-virtual"><scope>_qstring</scope><name>remove</name></member>
+      <member refid="class__qstring_1a81652ec4f2fc266be837f6a5042180d1" prot="public" virt="non-virtual"><scope>_qstring</scope><name>remove_last</name></member>
+      <member refid="class__qstring_1abe25ad29fc9aeb24727eee08cfe977a6" prot="public" virt="non-virtual"><scope>_qstring</scope><name>replace</name></member>
+      <member refid="class__qstring_1aa92cae889fce283929b3e61cf16829cd" prot="public" virt="non-virtual"><scope>_qstring</scope><name>reserve</name></member>
+      <member refid="class__qstring_1a52dc587560ecfab8ba866f676cd9a5c5" prot="public" virt="non-virtual"><scope>_qstring</scope><name>resize</name></member>
+      <member refid="class__qstring_1ac0333cce055ee38fabe97896bdb679e2" prot="public" virt="non-virtual"><scope>_qstring</scope><name>resize</name></member>
+      <member refid="class__qstring_1a3d2d47368fedec6f9027404db04231ef" prot="public" virt="non-virtual"><scope>_qstring</scope><name>rfind</name></member>
+      <member refid="class__qstring_1aa0f127cd84709acd91c08c355ae72617" prot="public" virt="non-virtual"><scope>_qstring</scope><name>rtrim</name></member>
+      <member refid="class__qstring_1a6672bef9207b117a0eaf8b0729122639" prot="public" virt="non-virtual"><scope>_qstring</scope><name>size</name></member>
+      <member refid="class__qstring_1ab854d5ae057581f9266236e577a8c503" prot="public" virt="non-virtual"><scope>_qstring</scope><name>sprnt</name></member>
+      <member refid="class__qstring_1a5553d867e41148b05d118bf6c7ec0887" prot="public" virt="non-virtual"><scope>_qstring</scope><name>substr</name></member>
+      <member refid="class__qstring_1a0fb6a9b57f3f59aafd27e3eead876f7f" prot="public" virt="non-virtual"><scope>_qstring</scope><name>swap</name></member>
+      <member refid="class__qstring_1adbf975b9a92ad69b863b91c971fe4156" prot="public" virt="non-virtual"><scope>_qstring</scope><name>trim2</name></member>
+      <member refid="class__qstring_1a620711d3ad518cb2d2110189c078dbfa" prot="public" virt="non-virtual"><scope>_qstring</scope><name>vsprnt</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,312 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structrefinfo__t" kind="struct" language="C++" prot="public">
+    <compoundname>refinfo_t</compoundname>
+    <includes refid="nalt_8hpp" local="no">nalt.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrefinfo__t_1a46b9104c11a53399cecff99b07d603f3" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t refinfo_t::target</definition>
+        <argsstring></argsstring>
+        <name>target</name>
+        <briefdescription>
+<para>reference target (<ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref>-none) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="883" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="883" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrefinfo__t_1a7c866d752cb0b7004616162c07578f40" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t refinfo_t::base</definition>
+        <argsstring></argsstring>
+        <name>base</name>
+        <briefdescription>
+<para>base of reference (may be BADADDR) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="884" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="884" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrefinfo__t_1a0f7bf925958334bb9feac99ab07f5500" prot="public" static="no" mutable="no">
+        <type>adiff_t</type>
+        <definition>adiff_t refinfo_t::tdelta</definition>
+        <argsstring></argsstring>
+        <name>tdelta</name>
+        <briefdescription>
+<para>offset from the target </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="885" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="885" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrefinfo__t_1ae0ce0d7662ed10030f30dd11fc778259" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 refinfo_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___r_e_f_i_n_f_o__" kindref="compound">Reference info flags</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="886" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="886" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structrefinfo__t_1ad1964e599de43a20d365a59d6c921a80" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="nalt_8hpp_1aa749dc39c69b710b5fcd35616b8267a9" kindref="member">reftype_t</ref></type>
+        <definition>reftype_t refinfo_t::type</definition>
+        <argsstring>(void) const</argsstring>
+        <name>type</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="909" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="909" bodyend="909"/>
+      </memberdef>
+      <memberdef kind="function" id="structrefinfo__t_1ac3badef5000f6b52b2053fa6322a1d06" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool refinfo_t::is_target_optional</definition>
+        <argsstring>() const</argsstring>
+        <name>is_target_optional</name>
+        <briefdescription>
+<para>&lt; <ref refid="nalt_8hpp_1a9a067a2581e5e842ec2866797d38adff" kindref="member">is_reftype_target_optional()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="911" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="911" bodyend="915"/>
+      </memberdef>
+      <memberdef kind="function" id="structrefinfo__t_1a6d5c899e69bf6ed25b99b02ad6afe3fe" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool refinfo_t::no_base_xref</definition>
+        <argsstring>(void) const</argsstring>
+        <name>no_base_xref</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="917" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="917" bodyend="917"/>
+      </memberdef>
+      <memberdef kind="function" id="structrefinfo__t_1ad385501298e3b310320c6dea9a9f0baa" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool refinfo_t::is_pastend</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_pastend</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="918" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="918" bodyend="918"/>
+      </memberdef>
+      <memberdef kind="function" id="structrefinfo__t_1a9c86629110d8e4987d866ddb24e3357b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool refinfo_t::is_rvaoff</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_rvaoff</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="919" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="919" bodyend="919"/>
+      </memberdef>
+      <memberdef kind="function" id="structrefinfo__t_1a297d4633590a7197d3fcb4c79fc41af1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool refinfo_t::is_custom</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_custom</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="920" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="920" bodyend="920"/>
+      </memberdef>
+      <memberdef kind="function" id="structrefinfo__t_1ad5b1d6244e2d61bbb1ac5e7609b81bc5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool refinfo_t::is_subtract</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_subtract</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="921" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="921" bodyend="921"/>
+      </memberdef>
+      <memberdef kind="function" id="structrefinfo__t_1a2cbb9f9f30a404019f7fabbe242cd2d0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool refinfo_t::is_signed</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_signed</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="922" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="922" bodyend="922"/>
+      </memberdef>
+      <memberdef kind="function" id="structrefinfo__t_1a51fd38e20de982d8fdccd5383fdc194c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void refinfo_t::set_type</definition>
+        <argsstring>(reftype_t t)</argsstring>
+        <name>set_type</name>
+        <param>
+          <type><ref refid="nalt_8hpp_1aa749dc39c69b710b5fcd35616b8267a9" kindref="member">reftype_t</ref></type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="924" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="924" bodyend="924"/>
+      </memberdef>
+      <memberdef kind="function" id="structrefinfo__t_1ac7f692bb2b3cdf6816c10303f700a438" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void refinfo_t::init</definition>
+        <argsstring>(uint32 reft_and_flags, ea_t _base=0, ea_t _target=BADADDR, adiff_t _tdelta=0)</argsstring>
+        <name>init</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>reft_and_flags</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>_base</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>_target</declname>
+          <defval><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref></defval>
+        </param>
+        <param>
+          <type>adiff_t</type>
+          <declname>_tdelta</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="928" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="928" bodyend="934"/>
+      </memberdef>
+      <memberdef kind="function" id="structrefinfo__t_1a2301d1758de37f793c4f6699c2c9400f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t refinfo_t::_get_target</definition>
+        <argsstring>(adiff_t opval) const</argsstring>
+        <name>_get_target</name>
+        <param>
+          <type>adiff_t</type>
+          <declname>opval</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="937" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structrefinfo__t_1a3135f6962103081470193547af3ed6ef" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t refinfo_t::_get_value</definition>
+        <argsstring>(ea_t target) const</argsstring>
+        <name>_get_value</name>
+        <param>
+          <type>ea_t</type>
+          <declname>target</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="938" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structrefinfo__t_1a40d9eb74ae0c4f5b308431177e259f36" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>adiff_t</type>
+        <definition>adiff_t refinfo_t::_get_opval</definition>
+        <argsstring>(adiff_t opval) const</argsstring>
+        <name>_get_opval</name>
+        <param>
+          <type>adiff_t</type>
+          <declname>opval</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="939" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Information about a reference. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="882" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="881" bodyend="940"/>
+    <listofallmembers>
+      <member refid="structrefinfo__t_1a40d9eb74ae0c4f5b308431177e259f36" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>_get_opval</name></member>
+      <member refid="structrefinfo__t_1a2301d1758de37f793c4f6699c2c9400f" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>_get_target</name></member>
+      <member refid="structrefinfo__t_1a3135f6962103081470193547af3ed6ef" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>_get_value</name></member>
+      <member refid="structrefinfo__t_1a7c866d752cb0b7004616162c07578f40" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>base</name></member>
+      <member refid="structrefinfo__t_1ae0ce0d7662ed10030f30dd11fc778259" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>flags</name></member>
+      <member refid="structrefinfo__t_1ac7f692bb2b3cdf6816c10303f700a438" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>init</name></member>
+      <member refid="structrefinfo__t_1a297d4633590a7197d3fcb4c79fc41af1" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>is_custom</name></member>
+      <member refid="structrefinfo__t_1ad385501298e3b310320c6dea9a9f0baa" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>is_pastend</name></member>
+      <member refid="structrefinfo__t_1a9c86629110d8e4987d866ddb24e3357b" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>is_rvaoff</name></member>
+      <member refid="structrefinfo__t_1a2cbb9f9f30a404019f7fabbe242cd2d0" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>is_signed</name></member>
+      <member refid="structrefinfo__t_1ad5b1d6244e2d61bbb1ac5e7609b81bc5" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>is_subtract</name></member>
+      <member refid="structrefinfo__t_1ac3badef5000f6b52b2053fa6322a1d06" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>is_target_optional</name></member>
+      <member refid="structrefinfo__t_1a6d5c899e69bf6ed25b99b02ad6afe3fe" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>no_base_xref</name></member>
+      <member refid="structrefinfo__t_1a51fd38e20de982d8fdccd5383fdc194c" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>set_type</name></member>
+      <member refid="structrefinfo__t_1a46b9104c11a53399cecff99b07d603f3" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>target</name></member>
+      <member refid="structrefinfo__t_1a0f7bf925958334bb9feac99ab07f5500" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>tdelta</name></member>
+      <member refid="structrefinfo__t_1ad1964e599de43a20d365a59d6c921a80" prot="public" virt="non-virtual"><scope>refinfo_t</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

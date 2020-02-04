@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_h_i_n_s__" kind="group">
+    <compoundname>SHINS_</compoundname>
+    <title>Bits to control how we print instructions</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_h_i_n_s___1gac1a56ceb3c5f41aac97e14b5e0b31aa5" prot="public" static="no">
+        <name>SHINS_NUMADDR</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>display definition addresses for numbers </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2244" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_h_i_n_s___1ga699be2c17dc5ee9b5a55edb8851d6825" prot="public" static="no">
+        <name>SHINS_VALNUM</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>display value numbers </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2245" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_h_i_n_s___1gaceb2cb41ad1c22fcbe9d6d3caff51193" prot="public" static="no">
+        <name>SHINS_SHORT</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>do not display use-def chains and other attrs </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2246" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_h_i_n_s___1ga72b1e02f58e19300dbceb80879850791" prot="public" static="no">
+        <name>SHINS_LDXEA</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>display address of ldx expressions (not used) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2247" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2247" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_h_a_r_t__1" kind="group">
+    <compoundname>CHART_1</compoundname>
+    <title>Flow graph building flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___c_h_a_r_t__1_1ga62540274d300f2717736ca15a5283fc3" prot="public" static="no">
+        <name>CHART_PRINT_NAMES</name>
+        <initializer>0x1000</initializer>
+        <briefdescription>
+<para>print labels for each block? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="204" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_a_r_t__1_1gaf7fd4d296b9ac7d6c999430c36ba5928" prot="public" static="no">
+        <name>CHART_GEN_DOT</name>
+        <initializer>0x2000</initializer>
+        <briefdescription>
+<para>generate .dot file (file extension is forced to .dot) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="205" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_a_r_t__1_1ga491a489656cc152f2e33cde871b3dfeb" prot="public" static="no">
+        <name>CHART_GEN_GDL</name>
+        <initializer>0x4000</initializer>
+        <briefdescription>
+<para>generate .gdl file (file extension is forced to .gdl) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="206" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_a_r_t__1_1ga824745a58fb5f6df32a410ff1f5e8cb9" prot="public" static="no">
+        <name>CHART_WINGRAPH</name>
+        <initializer>0x8000</initializer>
+        <briefdescription>
+<para>call grapher to display the graph </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="207" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as flags parameter to:<itemizedlist>
+<listitem><para><ref refid="gdl_8hpp_1a93196a671ccab264b2295fba6649842e" kindref="member">gen_flow_graph()</ref></para></listitem><listitem><para><ref refid="gdl_8hpp_1a5a274129caa64ff5ec5916f2fc77a8da" kindref="member">gen_simple_call_chart()</ref></para></listitem><listitem><para><ref refid="gdl_8hpp_1aac8b0045428d6613e1ed4b7dac3fb486" kindref="member">gen_complex_call_chart()</ref> </para></listitem></itemizedlist>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__sc__" kind="group">
+    <compoundname>sc_</compoundname>
+    <title>Segment combination codes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__sc___1ga38ed1a87ad2b2dd47313a29e07811dc4" prot="public" static="no">
+        <name>scPriv</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>segment. </para>        </briefdescription>
+        <detaileddescription>
+<para>Private. Do not combine with any other program </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="110" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sc___1ga018cbd3b983fd7b03dccaf9817397b8c" prot="public" static="no">
+        <name>scGroup</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Segment group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="112" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sc___1gaca4d1acba99d1b265076d884ba2ec250" prot="public" static="no">
+        <name>scPub</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>the alignment requirement. </para>        </briefdescription>
+        <detaileddescription>
+<para>Public. Combine by appending at an offset that meets </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="113" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sc___1gab79af580de4cec4a9b836c070cba9de2" prot="public" static="no">
+        <name>scPub2</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>As defined by Microsoft, same as C=2 (public). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="115" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sc___1gaeee8fe69cf688dc99b8baa848e3bec54" prot="public" static="no">
+        <name>scStack</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>byte alignment. </para>        </briefdescription>
+        <detaileddescription>
+<para>Stack. Combine as for C=2. This combine type forces </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="116" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sc___1ga433bb6d9f37f3cfb6139534aedfac6e6" prot="public" static="no">
+        <name>scCommon</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>Common. Combine by overlay using maximum size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="118" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sc___1ga823a88802af7bc72222190bbd5ff26e1" prot="public" static="no">
+        <name>scPub3</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>As defined by Microsoft, same as C=2 (public). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="119" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sc___1ga627f8aa059efe19465b30eb56e2769d1" prot="public" static="no">
+        <name>sc_MAX_COMB_CODE</name>
+        <initializer><ref refid="group__sc___1ga823a88802af7bc72222190bbd5ff26e1" kindref="member">scPub3</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="120" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="classsegment__t_1a047c9cf9c9e87f5bf7a042bd0fa8d041" kindref="member">segment_t::comb</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

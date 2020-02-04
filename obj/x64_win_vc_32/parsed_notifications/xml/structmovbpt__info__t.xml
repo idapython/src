@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structmovbpt__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>movbpt_info_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structmovbpt__info__t_1a8817a6751afffb8b02982d0024f2159e" prot="public" static="no" mutable="no">
+        <type><ref refid="structbpt__location__t" kindref="compound">bpt_location_t</ref></type>
+        <definition>bpt_location_t movbpt_info_t::from</definition>
+        <argsstring></argsstring>
+        <name>from</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="984" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="984" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmovbpt__info__t_1a04631d6530173423804c5e72c8b3a532" prot="public" static="no" mutable="no">
+        <type><ref refid="structbpt__location__t" kindref="compound">bpt_location_t</ref></type>
+        <definition>bpt_location_t movbpt_info_t::to</definition>
+        <argsstring></argsstring>
+        <name>to</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="985" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="985" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2644">
+        <label>bpt_location_t</label>
+        <link refid="structbpt__location__t"/>
+      </node>
+      <node id="2643">
+        <label>movbpt_info_t</label>
+        <link refid="structmovbpt__info__t"/>
+        <childnode refid="2644" relation="usage">
+          <edgelabel>from</edgelabel>
+          <edgelabel>to</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="983" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="982" bodyend="986"/>
+    <listofallmembers>
+      <member refid="structmovbpt__info__t_1a8817a6751afffb8b02982d0024f2159e" prot="public" virt="non-virtual"><scope>movbpt_info_t</scope><name>from</name></member>
+      <member refid="structmovbpt__info__t_1a04631d6530173423804c5e72c8b3a532" prot="public" virt="non-virtual"><scope>movbpt_info_t</scope><name>to</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structfixup__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>fixup_info_t</compoundname>
+    <includes refid="fixup_8hpp" local="no">fixup.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structfixup__info__t_1a8f4b23d0c69fdf4787b72be988cbcb64" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t fixup_info_t::ea</definition>
+        <argsstring></argsstring>
+        <name>ea</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="483" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="483" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfixup__info__t_1ad1b0a02fed95d60ff21c9045e0c10b67" prot="public" static="no" mutable="no">
+        <type><ref refid="structfixup__data__t" kindref="compound">fixup_data_t</ref></type>
+        <definition>fixup_data_t fixup_info_t::fd</definition>
+        <argsstring></argsstring>
+        <name>fd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="484" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="484" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Collect fixup records for the specified range. Partially overlapping records will be reported too. <simplesect kind="return"><para>success (false means no fixup info have been found) </para></simplesect>
+</para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1562">
+        <label>fixup_info_t</label>
+        <link refid="structfixup__info__t"/>
+        <childnode refid="1563" relation="usage">
+          <edgelabel>fd</edgelabel>
+        </childnode>
+      </node>
+      <node id="1563">
+        <label>fixup_data_t</label>
+        <link refid="structfixup__data__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" line="482" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp" bodystart="481" bodyend="485"/>
+    <listofallmembers>
+      <member refid="structfixup__info__t_1a8f4b23d0c69fdf4787b72be988cbcb64" prot="public" virt="non-virtual"><scope>fixup_info_t</scope><name>ea</name></member>
+      <member refid="structfixup__info__t_1ad1b0a02fed95d60ff21c9045e0c10b67" prot="public" virt="non-virtual"><scope>fixup_info_t</scope><name>fd</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

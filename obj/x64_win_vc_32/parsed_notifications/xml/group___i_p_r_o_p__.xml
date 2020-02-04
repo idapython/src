@@ -1,0 +1,244 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___i_p_r_o_p__" kind="group">
+    <compoundname>IPROP_</compoundname>
+    <title>instruction property bits</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___i_p_r_o_p___1ga09c99c3d0fdab277ee8125ebe85c9efa" prot="public" static="no">
+        <name>IPROP_OPTIONAL</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>optional instruction </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3268" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1ga29010d9634aea8b31ba1e365c5545efc" prot="public" static="no">
+        <name>IPROP_PERSIST</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>persistent insn; they are not destroyed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3269" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1ga4305fcb44e8edcc8fc7945129c2f5577" prot="public" static="no">
+        <name>IPROP_WILDMATCH</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>match multiple insns </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3270" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1ga548898d3e5ef546aac7c56c98f6acb28" prot="public" static="no">
+        <name>IPROP_CLNPOP</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>(e.g. &quot;pop ecx&quot; is often used for that) </para>        </briefdescription>
+        <detaileddescription>
+<para>the purpose of the instruction is to clean stack </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3273" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1gad9d5ed4a40f0aae9b67671a8c00c5733" prot="public" static="no">
+        <name>IPROP_FPINSN</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>floating point insn </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3275" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1ga6b569852b37e8090b936d207f45a5bc6" prot="public" static="no">
+        <name>IPROP_FARCALL</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>call of a far function using push cs/call sequence </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3276" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1gaad6b06fbf13e978c9740faef3c18c727" prot="public" static="no">
+        <name>IPROP_TAILCALL</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+<para>tail call </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3277" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1gaee04ae254c04502ea1d8d64ecc551c3c" prot="public" static="no">
+        <name>IPROP_ASSERT</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>assertion: usually mov #val, op. assertions are used to help the optimizer. assertions are ignored when generating ctree </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3278" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1ga7fad4ba9ab0dd259008c2302089c80e8" prot="public" static="no">
+        <name>IPROP_SPLIT</name>
+        <initializer>0x0700</initializer>
+        <briefdescription>
+<para>the instruction has been split: </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3283" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1ga6095edd96b0b97e761733ecae096216a" prot="public" static="no">
+        <name>IPROP_SPLIT1</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+<para>into 1 byte </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3284" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1gac3d9ecb5fb567ae267042bb3806531b2" prot="public" static="no">
+        <name>IPROP_SPLIT2</name>
+        <initializer>0x0200</initializer>
+        <briefdescription>
+<para>into 2 bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3285" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1ga24bf9e71eca4b5bebd362d500d33941f" prot="public" static="no">
+        <name>IPROP_SPLIT4</name>
+        <initializer>0x0300</initializer>
+        <briefdescription>
+<para>into 4 bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3286" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1gac7b47f84c3955893db1ac26f3c10489c" prot="public" static="no">
+        <name>IPROP_SPLIT8</name>
+        <initializer>0x0400</initializer>
+        <briefdescription>
+<para>into 8 bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3287" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1ga9cd2c420b4abb01eab66ba9d169bbe7c" prot="public" static="no">
+        <name>IPROP_COMBINED</name>
+        <initializer>0x0800</initializer>
+        <briefdescription>
+<para>insn has been modified because of a partial reference </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3288" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1gadc42e5bc93d9f6c989d7fdd50ce21887" prot="public" static="no">
+        <name>IPROP_EXTSTX</name>
+        <initializer>0x1000</initializer>
+        <briefdescription>
+<para>this is m_ext propagated into m_stx </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3289" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1gae1154df8c951983db01cca50a6492880" prot="public" static="no">
+        <name>IPROP_IGNLOWSRC</name>
+        <initializer>0x2000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>low part of the instruction source operand has been created artificially (this bit is used only for &apos;and x, 80...&apos;) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3290" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1ga7cea7c381f96c44a83e1488fe97ab137" prot="public" static="no">
+        <name>IPROP_INV_JX</name>
+        <initializer>0x4000</initializer>
+        <briefdescription>
+<para>inverted conditional jump </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3293" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1ga16dd577ad799a76a9496857493ea5263" prot="public" static="no">
+        <name>IPROP_WAS_NORET</name>
+        <initializer>0x8000</initializer>
+        <briefdescription>
+<para>was noret icall </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3294" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3294" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1gadfec3a6c2784904a58f2e7c6f2ae035f" prot="public" static="no">
+        <name>IPROP_MULTI_MOV</name>
+        <initializer>0x10000</initializer>
+        <briefdescription>
+<para>(example: STM on ARM may transfer multiple registers) </para>        </briefdescription>
+        <detaileddescription>
+<para>the minsn was generated as part of insn that moves multiple registersbits that can be set by plugins: </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3295" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3295" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1gafb70e8dd332ec8c1a13e6692dcb24ad5" prot="public" static="no">
+        <name>IPROP_DONT_PROP</name>
+        <initializer>0x20000</initializer>
+        <briefdescription>
+<para>may not propagate </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3299" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_p_r_o_p___1gac039ef7f8ab666f5780c9490b5a15a4d" prot="public" static="no">
+        <name>IPROP_DONT_COMB</name>
+        <initializer>0x40000</initializer>
+        <briefdescription>
+<para>may not combine this instruction with others </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3300" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3300" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

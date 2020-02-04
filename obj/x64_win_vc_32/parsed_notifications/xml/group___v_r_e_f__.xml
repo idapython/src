@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___v_r_e_f__" kind="group">
+    <compoundname>VREF_</compoundname>
+    <title>Dereference IDC variable flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___v_r_e_f___1ga76814172bcf72fc547553e677932946a" prot="public" static="no">
+        <name>VREF_LOOP</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>dereference until we get a non <ref refid="group___v_t___1ga37d8aaba00cee490d64289da4a1a7bc2" kindref="member">VT_REF</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="279" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___v_r_e_f___1ga5c6467e1d21776687a218d81863c1794" prot="public" static="no">
+        <name>VREF_ONCE</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>dereference only once, do not loop </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="280" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___v_r_e_f___1ga190b9a602630d4aac07a18f0a6d59c07" prot="public" static="no">
+        <name>VREF_COPY</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>copy the result to the input var (v) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="281" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as &apos;vref_flags&apos; parameter to <ref refid="expr_8hpp_1a5fc339aecf348322a78ab301de9d581a" kindref="member">deref_idcv()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

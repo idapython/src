@@ -1,0 +1,322 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classlumina__client__t" kind="class" language="C++" prot="public">
+    <compoundname>lumina_client_t</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classlumina__client__t_1ab302b813ddb8f47eddae9493cddaedae" prot="private" static="no" mutable="no">
+        <type>lumina_client_rpc_engine_t *</type>
+        <definition>lumina_client_rpc_engine_t* lumina_client_t::rpc_engine</definition>
+        <argsstring></argsstring>
+        <name>rpc_engine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="773" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="773" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlumina__client__t_1a992941acf8cc9b73f0c86854448f7c1d" prot="private" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring lumina_client_t::wait_dialog_contents</definition>
+        <argsstring></argsstring>
+        <name>wait_dialog_contents</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="774" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="774" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlumina__client__t_1a6b4a665b0b5d6b3d633168682fb26df9" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool lumina_client_t::started_receiving_response</definition>
+        <argsstring></argsstring>
+        <name>started_receiving_response</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="775" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="775" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlumina__client__t_1ac9373d1572a0cada9d78fd0e2bc7a8f0" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool lumina_client_t::was_user_cancelled</definition>
+        <argsstring></argsstring>
+        <name>was_user_cancelled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="776" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="776" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classlumina__client__t_1a3546044fe6a984dd0942f7c7c7eacc8c" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void lumina_client_t::init</definition>
+        <argsstring>(idarpc_stream_t *_irs)</argsstring>
+        <name>init</name>
+        <param>
+          <type>idarpc_stream_t *</type>
+          <declname>_irs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="778" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classlumina__client__t_1aae95fd854f4d8a33e08d384f0c29ab13" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>lumina_client_t::lumina_client_t</definition>
+        <argsstring>(idarpc_stream_t *_irs)</argsstring>
+        <name>lumina_client_t</name>
+        <param>
+          <type>idarpc_stream_t *</type>
+          <declname>_irs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="781" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="781" bodyend="782"/>
+      </memberdef>
+      <memberdef kind="function" id="classlumina__client__t_1ab70fca1d0f17fa067c23ad55b6b8e2a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual lumina_client_t::~lumina_client_t</definition>
+        <argsstring>()</argsstring>
+        <name>~lumina_client_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="783" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classlumina__client__t_1a5cf7839e23d08a5977d51f0c2aeed231" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void lumina_client_t::set_pattern_id_md5</definition>
+        <argsstring>(pattern_id_t *out, const md5_t &amp;md5) const</argsstring>
+        <name>set_pattern_id_md5</name>
+        <param>
+          <type><ref refid="structpattern__id__t" kindref="compound">pattern_id_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structmd5__t" kindref="compound">md5_t</ref> &amp;</type>
+          <declname>md5</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="785" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classlumina__client__t_1ad809b9920770c46c0aa86e2b6088e242" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lumina_client_t::send_helo</definition>
+        <argsstring>(const bytevec_t &amp;key_data, const uchar license_id[6], qstring *errbuf)</argsstring>
+        <name>send_helo</name>
+        <param>
+          <type>const <ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> &amp;</type>
+          <declname>key_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>license_id</declname>
+          <array>[6]</array>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="787" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classlumina__client__t_1a44bd9f8e9a1e8785bf5f0c9c6d854c44" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="structpkt__pull__md__result__t" kindref="compound">pkt_pull_md_result_t</ref> *</type>
+        <definition>virtual pkt_pull_md_result_t* lumina_client_t::pull_md</definition>
+        <argsstring>(pattern_ids_t &amp;pattern_ids, qstring *errbuf, uint32 pull_md_flags=0)</argsstring>
+        <name>pull_md</name>
+        <param>
+          <type><ref refid="classqvector" kindref="compound">pattern_ids_t</ref> &amp;</type>
+          <declname>pattern_ids</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>pull_md_flags</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="791" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classlumina__client__t_1a6ffb519fb31ee142896e32d845bbebc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="structpkt__pull__md__result__t" kindref="compound">pkt_pull_md_result_t</ref> *</type>
+        <definition>virtual pkt_pull_md_result_t* lumina_client_t::pull_md</definition>
+        <argsstring>(eavec_t *funcs, qstring *errbuf, uint32 pull_md_flags=0)</argsstring>
+        <name>pull_md</name>
+        <param>
+          <type><ref refid="pro_8h_1a9f46d9d52bbfcc78bc1836f4f2683da4" kindref="member">eavec_t</ref> *</type>
+          <declname>funcs</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>pull_md_flags</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="795" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classlumina__client__t_1adda694918ce0f004b8b63db092263b37" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool lumina_client_t::push_md</definition>
+        <argsstring>(push_md_result_t *result, func_info_and_pattern_vec_t &amp;contents, eavec_t &amp;eas, qstring *errbuf, uint32 flags=0)</argsstring>
+        <name>push_md</name>
+        <param>
+          <type><ref refid="structpush__md__result__t" kindref="compound">push_md_result_t</ref> *</type>
+          <declname>result</declname>
+        </param>
+        <param>
+          <type><ref refid="classqvector" kindref="compound">func_info_and_pattern_vec_t</ref> &amp;</type>
+          <declname>contents</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a9f46d9d52bbfcc78bc1836f4f2683da4" kindref="member">eavec_t</ref> &amp;</type>
+          <declname>eas</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>flags</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="805" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classlumina__client__t_1a0cef7b6c0a1aa6ca24e475e44a62d327" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool lumina_client_t::push_md</definition>
+        <argsstring>(push_md_result_t *result, const push_md_opts_t &amp;opts, qstring *errbuf, metadata_appender_t *append_metadata=NULL, uint32 flags=0)</argsstring>
+        <name>push_md</name>
+        <param>
+          <type><ref refid="structpush__md__result__t" kindref="compound">push_md_result_t</ref> *</type>
+          <declname>result</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structpush__md__opts__t" kindref="compound">push_md_opts_t</ref> &amp;</type>
+          <declname>opts</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+        </param>
+        <param>
+          <type>metadata_appender_t *</type>
+          <declname>append_metadata</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>flags</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="811" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classlumina__client__t_1a5c47fc9f933c836b8c8e3394778cbe57" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="structpkt__get__pop__result__t" kindref="compound">pkt_get_pop_result_t</ref> *</type>
+        <definition>virtual pkt_get_pop_result_t* lumina_client_t::get_pop</definition>
+        <argsstring>(qstring *errbuf, uint32 nresults=LUMINA_GET_POP_DEFAULT_NRESULTS)</argsstring>
+        <name>get_pop</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>nresults</declname>
+          <defval>LUMINA_GET_POP_DEFAULT_NRESULTS</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="818" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="772" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="771" bodyend="822"/>
+    <listofallmembers>
+      <member refid="classlumina__client__t_1a5c47fc9f933c836b8c8e3394778cbe57" prot="public" virt="virtual"><scope>lumina_client_t</scope><name>get_pop</name></member>
+      <member refid="classlumina__client__t_1a3546044fe6a984dd0942f7c7c7eacc8c" prot="private" virt="virtual"><scope>lumina_client_t</scope><name>init</name></member>
+      <member refid="classlumina__client__t_1aae95fd854f4d8a33e08d384f0c29ab13" prot="public" virt="non-virtual"><scope>lumina_client_t</scope><name>lumina_client_t</name></member>
+      <member refid="classlumina__client__t_1a44bd9f8e9a1e8785bf5f0c9c6d854c44" prot="public" virt="virtual"><scope>lumina_client_t</scope><name>pull_md</name></member>
+      <member refid="classlumina__client__t_1a6ffb519fb31ee142896e32d845bbebc6" prot="public" virt="virtual"><scope>lumina_client_t</scope><name>pull_md</name></member>
+      <member refid="classlumina__client__t_1adda694918ce0f004b8b63db092263b37" prot="public" virt="virtual"><scope>lumina_client_t</scope><name>push_md</name></member>
+      <member refid="classlumina__client__t_1a0cef7b6c0a1aa6ca24e475e44a62d327" prot="public" virt="virtual"><scope>lumina_client_t</scope><name>push_md</name></member>
+      <member refid="classlumina__client__t_1ab302b813ddb8f47eddae9493cddaedae" prot="private" virt="non-virtual"><scope>lumina_client_t</scope><name>rpc_engine</name></member>
+      <member refid="classlumina__client__t_1ad809b9920770c46c0aa86e2b6088e242" prot="public" virt="non-virtual"><scope>lumina_client_t</scope><name>send_helo</name></member>
+      <member refid="classlumina__client__t_1a5cf7839e23d08a5977d51f0c2aeed231" prot="public" virt="virtual"><scope>lumina_client_t</scope><name>set_pattern_id_md5</name></member>
+      <member refid="classlumina__client__t_1a6b4a665b0b5d6b3d633168682fb26df9" prot="private" virt="non-virtual"><scope>lumina_client_t</scope><name>started_receiving_response</name></member>
+      <member refid="classlumina__client__t_1a992941acf8cc9b73f0c86854448f7c1d" prot="private" virt="non-virtual"><scope>lumina_client_t</scope><name>wait_dialog_contents</name></member>
+      <member refid="classlumina__client__t_1ac9373d1572a0cada9d78fd0e2bc7a8f0" prot="private" virt="non-virtual"><scope>lumina_client_t</scope><name>was_user_cancelled</name></member>
+      <member refid="classlumina__client__t_1ab70fca1d0f17fa067c23ad55b6b8e2a3" prot="public" virt="virtual"><scope>lumina_client_t</scope><name>~lumina_client_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structrange__chunk__iterator__t" kind="struct" language="C++" prot="public">
+    <compoundname>range_chunk_iterator_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrange__chunk__iterator__t_1a599e2d001fbac9f8d3bb830bd744b78b" prot="public" static="no" mutable="no">
+        <type>const <ref refid="structrange__t" kindref="compound">range_t</ref> *</type>
+        <definition>const range_t* range_chunk_iterator_t::rptr</definition>
+        <argsstring></argsstring>
+        <name>rptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4115" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrange__chunk__iterator__t_1a91f97661b27aad582bf0609827f06a10" prot="public" static="no" mutable="no">
+        <type>const <ref refid="structrange__t" kindref="compound">range_t</ref> *</type>
+        <definition>const range_t* range_chunk_iterator_t::rend</definition>
+        <argsstring></argsstring>
+        <name>rend</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4116" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4116" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structrange__chunk__iterator__t_1ab4ec921dde403570c4f4cebdc8d75937" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>range_chunk_iterator_t::range_chunk_iterator_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>range_chunk_iterator_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4117" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4117" bodyend="4117"/>
+      </memberdef>
+      <memberdef kind="function" id="structrange__chunk__iterator__t_1afd89b1e128c190633d842a6546e06479" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool range_chunk_iterator_t::set</definition>
+        <argsstring>(const rangevec_t &amp;r)</argsstring>
+        <name>set</name>
+        <param>
+          <type>const <ref refid="structrangevec__t" kindref="compound">rangevec_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4118" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4118" bodyend="4118"/>
+      </memberdef>
+      <memberdef kind="function" id="structrange__chunk__iterator__t_1ab8791bade4e4436aa60474295ecc36f2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool range_chunk_iterator_t::next</definition>
+        <argsstring>(void)</argsstring>
+        <name>next</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4119" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4119" bodyend="4119"/>
+      </memberdef>
+      <memberdef kind="function" id="structrange__chunk__iterator__t_1aaad208a72b2d932222dd9b2dc140eb27" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="structrange__t" kindref="compound">range_t</ref> &amp;</type>
+        <definition>const range_t&amp; range_chunk_iterator_t::chunk</definition>
+        <argsstring>(void) const</argsstring>
+        <name>chunk</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4120" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4120" bodyend="4120"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Chunk iterator of arbitrary rangevec items. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3082">
+        <label>range_t</label>
+        <link refid="structrange__t"/>
+      </node>
+      <node id="3081">
+        <label>range_chunk_iterator_t</label>
+        <link refid="structrange__chunk__iterator__t"/>
+        <childnode refid="3082" relation="usage">
+          <edgelabel>rend</edgelabel>
+          <edgelabel>rptr</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4114" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4113" bodyend="4121"/>
+    <listofallmembers>
+      <member refid="structrange__chunk__iterator__t_1aaad208a72b2d932222dd9b2dc140eb27" prot="public" virt="non-virtual"><scope>range_chunk_iterator_t</scope><name>chunk</name></member>
+      <member refid="structrange__chunk__iterator__t_1ab8791bade4e4436aa60474295ecc36f2" prot="public" virt="non-virtual"><scope>range_chunk_iterator_t</scope><name>next</name></member>
+      <member refid="structrange__chunk__iterator__t_1ab4ec921dde403570c4f4cebdc8d75937" prot="public" virt="non-virtual"><scope>range_chunk_iterator_t</scope><name>range_chunk_iterator_t</name></member>
+      <member refid="structrange__chunk__iterator__t_1a91f97661b27aad582bf0609827f06a10" prot="public" virt="non-virtual"><scope>range_chunk_iterator_t</scope><name>rend</name></member>
+      <member refid="structrange__chunk__iterator__t_1a599e2d001fbac9f8d3bb830bd744b78b" prot="public" virt="non-virtual"><scope>range_chunk_iterator_t</scope><name>rptr</name></member>
+      <member refid="structrange__chunk__iterator__t_1afd89b1e128c190633d842a6546e06479" prot="public" virt="non-virtual"><scope>range_chunk_iterator_t</scope><name>set</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1780 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classmutable__graph__t" kind="class" language="C++" prot="public">
+    <compoundname>mutable_graph_t</compoundname>
+    <basecompoundref refid="classabstract__graph__t" prot="public" virt="non-virtual">abstract_graph_t</basecompoundref>
+    <includes refid="graph_8hpp" local="no">graph.hpp</includes>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classmutable__graph__t_1aebda17b57c9ce6f7b3e27e73999c217c" prot="private" static="no">
+        <type><ref refid="classabstract__graph__t" kindref="compound">abstract_graph_t</ref></type>
+        <definition>typedef abstract_graph_t mutable_graph_t::inherited</definition>
+        <argsstring></argsstring>
+        <name>inherited</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="871" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="871" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classmutable__graph__t_1ab2b5b3b4d8352faa8d933ef5abeb009b" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structrect__t" kindref="compound">rect_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;rect_t&gt; mutable_graph_t::node_layout_t</definition>
+        <argsstring></argsstring>
+        <name>node_layout_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="906" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="906" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classmutable__graph__t_1ace192a1557464e0ce725a58f309dec00" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+        <definition>uval_t mutable_graph_t::gid</definition>
+        <argsstring></argsstring>
+        <name>gid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>graph id - unique for the database for flowcharts it is equal to the function start_ea </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="888" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="888" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmutable__graph__t_1a6cc39e106660b1c0d680608c32988968" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref></type>
+        <definition>intvec_t mutable_graph_t::belongs</definition>
+        <argsstring></argsstring>
+        <name>belongs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the subgraph the node belongs to INT_MAX means that the node doesn&apos;t exist sign bit means collapsed node </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="890" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="890" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmutable__graph__t_1ad984c4adc8b3d97c7da214cf121daa1f" prot="public" static="no" mutable="no">
+        <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref></type>
+        <definition>bytevec_t mutable_graph_t::node_flags</definition>
+        <argsstring></argsstring>
+        <name>node_flags</name>
+        <briefdescription>
+<para>node flags </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="893" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="893" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmutable__graph__t_1a521e43ed023e811ed7203e2e8d72dff7" prot="public" static="no" mutable="no">
+        <type><ref refid="classqvector" kindref="compound">array_of_intvec_t</ref></type>
+        <definition>array_of_intvec_t mutable_graph_t::org_succs</definition>
+        <argsstring></argsstring>
+        <name>org_succs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="901" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="901" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmutable__graph__t_1a215d40704d8aefc9af0130c9b32dcbb9" prot="public" static="no" mutable="no">
+        <type><ref refid="classqvector" kindref="compound">array_of_intvec_t</ref></type>
+        <definition>array_of_intvec_t mutable_graph_t::org_preds</definition>
+        <argsstring></argsstring>
+        <name>org_preds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="902" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="902" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmutable__graph__t_1af674bf648956de1d19bc173ea095aa10" prot="public" static="no" mutable="no">
+        <type><ref refid="classqvector" kindref="compound">array_of_intvec_t</ref></type>
+        <definition>array_of_intvec_t mutable_graph_t::succs</definition>
+        <argsstring></argsstring>
+        <name>succs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="904" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="904" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmutable__graph__t_1aefb2ba270924b72ad31aefe8bd1bff52" prot="public" static="no" mutable="no">
+        <type><ref refid="classqvector" kindref="compound">array_of_intvec_t</ref></type>
+        <definition>array_of_intvec_t mutable_graph_t::preds</definition>
+        <argsstring></argsstring>
+        <name>preds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="905" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="905" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmutable__graph__t_1abbfe962dd4546bd6cca342ac65ce7876" prot="public" static="no" mutable="no">
+        <type><ref refid="classqvector" kindref="compound">node_layout_t</ref></type>
+        <definition>node_layout_t mutable_graph_t::nodes</definition>
+        <argsstring></argsstring>
+        <name>nodes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="907" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="907" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmutable__graph__t_1ab96cb250d9f8fc487845b8110588ae78" prot="public" static="no" mutable="no">
+        <type><ref refid="structedge__infos__wrapper__t" kindref="compound">edge_infos_wrapper_t</ref></type>
+        <definition>edge_infos_wrapper_t mutable_graph_t::edges</definition>
+        <argsstring></argsstring>
+        <name>edges</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="908" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="908" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classmutable__graph__t_1a26ca3e29e54459238443d11ba8232919" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>ssize_t idaapi graph_dispatcher</definition>
+        <argsstring>(void *, int code, va_list va)</argsstring>
+        <name>graph_dispatcher</name>
+        <param>
+          <type>void *</type>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>code</declname>
+        </param>
+        <param>
+          <type>va_list</type>
+          <declname>va</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="872" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classmutable__graph__t_1adac5a243854de83e6ffe5d712698e9ec" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi mutable_graph_t::_find_subgraph_node</definition>
+        <argsstring>(int group, int n) const</argsstring>
+        <name>_find_subgraph_node</name>
+        <param>
+          <type>int</type>
+          <declname>group</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="873" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1467" bodyend="1467"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1ab83687026653c6c34bbf61b3b1a21cc3" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::collapse_edges</definition>
+        <argsstring>(const intvec_t &amp;nodes, int group)</argsstring>
+        <name>collapse_edges</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;</type>
+          <declname>nodes</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>group</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="874" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a6915961fd0e66109ec4382f139445012" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::del_node_keep_edges</definition>
+        <argsstring>(int n)</argsstring>
+        <name>del_node_keep_edges</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="875" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a974ebf088e2875ad4c3810e28731871f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::add_dest</definition>
+        <argsstring>(destset_t &amp;ne, edge_t e, int g)</argsstring>
+        <name>add_dest</name>
+        <param>
+          <type>destset_t &amp;</type>
+          <declname>ne</declname>
+        </param>
+        <param>
+          <type><ref refid="structedge__t" kindref="compound">edge_t</ref></type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>g</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="876" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a7186547c09c5c37a6ed6b68a85ba7eb9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::reverse_edges</definition>
+        <argsstring>(const edgeset_t &amp;back_edges, edge_infos_t &amp;self_edges, node_set_t &amp;entries)</argsstring>
+        <name>reverse_edges</name>
+        <param>
+          <type>const edgeset_t &amp;</type>
+          <declname>back_edges</declname>
+        </param>
+        <param>
+          <type>edge_infos_t &amp;</type>
+          <declname>self_edges</declname>
+        </param>
+        <param>
+          <type><ref refid="classnode__set__t" kindref="compound">node_set_t</ref> &amp;</type>
+          <declname>entries</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="877" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a5daffcc45ca7554efbedef336f2cbb38" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::layout_self_reference_edges</definition>
+        <argsstring>(const edge_infos_t &amp;selfrefs)</argsstring>
+        <name>layout_self_reference_edges</name>
+        <param>
+          <type>const edge_infos_t &amp;</type>
+          <declname>selfrefs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="881" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a8623ba58bdfa9a95e5bf549107a0f3e6" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::restore_edges</definition>
+        <argsstring>(int first_reserver_node, bool failed)</argsstring>
+        <name>restore_edges</name>
+        <param>
+          <type>int</type>
+          <declname>first_reserver_node</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>failed</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="882" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a85b602f8ee52695f653e5be048d59ccb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::add_layer_nodes</definition>
+        <argsstring>(graph_row_info_t &amp;gri, intvec_t &amp;tops)</argsstring>
+        <name>add_layer_nodes</name>
+        <param>
+          <type><ref refid="graph_8hpp_1aad0d514605345a6a88e930c152ce48ff" kindref="member">graph_row_info_t</ref> &amp;</type>
+          <declname>gri</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;</type>
+          <declname>tops</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="884" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a065f62c6211fea88a17a25895752c921" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::del_layer_nodes</definition>
+        <argsstring>(graph_row_info_t &amp;gri, int first_added_node)</argsstring>
+        <name>del_layer_nodes</name>
+        <param>
+          <type><ref refid="graph_8hpp_1aad0d514605345a6a88e930c152ce48ff" kindref="member">graph_row_info_t</ref> &amp;</type>
+          <declname>gri</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>first_added_node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="885" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmutable__graph__t_1a2366d3a3ad4aa7224e1a45499034224d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaapi</type>
+        <definition>idaapi mutable_graph_t::mutable_graph_t</definition>
+        <argsstring>(uval_t id)</argsstring>
+        <name>mutable_graph_t</name>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="910" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1aabf50d49b11360e3ee80ac3efdafd356" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaapi</type>
+        <definition>idaapi mutable_graph_t::mutable_graph_t</definition>
+        <argsstring>(const abstract_graph_t &amp;g, uval_t id)</argsstring>
+        <name>mutable_graph_t</name>
+        <param>
+          <type>const <ref refid="classabstract__graph__t" kindref="compound">abstract_graph_t</ref> &amp;</type>
+          <declname>g</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="911" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1aba9cd4f9b4784790e0e7d79f2f36b064" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>mutable_graph_t::DEFINE_VIRTUAL_DTOR</definition>
+        <argsstring>(mutable_graph_t)</argsstring>
+        <name>DEFINE_VIRTUAL_DTOR</name>
+        <param>
+          <type><ref refid="classmutable__graph__t" kindref="compound">mutable_graph_t</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="912" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a7ff0b93cadaacffdc536aa85f48195ff" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi mutable_graph_t::size</definition>
+        <argsstring>(void) const</argsstring>
+        <name>size</name>
+        <reimplements refid="classgdl__graph__t_1ab9bd673accc6dec4ec3d7c198eef8a78">size</reimplements>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="913" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="913" bodyend="913"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1ac7446a3fe8f5ebd965af0aecdd446bf9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi mutable_graph_t::node_qty</definition>
+        <argsstring>(void) const</argsstring>
+        <name>node_qty</name>
+        <reimplements refid="classgdl__graph__t_1a62eb8090207b9cc4fa5220d4ee989596">node_qty</reimplements>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="914" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1476" bodyend="1476"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1aa53d3dc74fa19bf097b4ca60e7cf3a22" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::clear</definition>
+        <argsstring>(void)</argsstring>
+        <name>clear</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="915" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1462" bodyend="1462"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1aedb1b24c0fecd2935e9243be15f84480" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::empty</definition>
+        <argsstring>(void) const</argsstring>
+        <name>empty</name>
+        <reimplements refid="classgdl__graph__t_1afd89c2f37ca474eeb80266263c52a1fd">empty</reimplements>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="916" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1471" bodyend="1471"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a126cbbe560c57bda332a38ee8fb92268" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::exists</definition>
+        <argsstring>(int node) const</argsstring>
+        <name>exists</name>
+        <reimplements refid="classgdl__graph__t_1a8e26312ef1b714a18198bef6d799c258">exists</reimplements>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="917" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="917" bodyend="917"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a6dc08bdb738142075dbf289c2bd5b3de" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi mutable_graph_t::get_node_representative</definition>
+        <argsstring>(int node)</argsstring>
+        <name>get_node_representative</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="919" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1466" bodyend="1466"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1ae4e6c3591a5b5341c65415d9494846bd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi mutable_graph_t::get_node_group</definition>
+        <argsstring>(int node) const</argsstring>
+        <name>get_node_group</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="920" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="920" bodyend="920"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a50e57eed77fcc2aa7919e6cccfe26304" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::set_node_group</definition>
+        <argsstring>(int node, int group)</argsstring>
+        <name>set_node_group</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>group</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="921" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="921" bodyend="921"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1abaf32f9723aa3427015e2b8c333c5bd2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::is_deleted_node</definition>
+        <argsstring>(int node) const</argsstring>
+        <name>is_deleted_node</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="922" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="922" bodyend="922"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1aae71f4678f01cf536452dd70ba884b36" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::set_deleted_node</definition>
+        <argsstring>(int node)</argsstring>
+        <name>set_deleted_node</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="923" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="923" bodyend="923"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1af36709fb5b13e138ae8dbd57f87dfbda" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::is_subgraph_node</definition>
+        <argsstring>(int node) const</argsstring>
+        <name>is_subgraph_node</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="924" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="924" bodyend="924"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a0354961790f181e62eab4282c74adca7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::is_dot_node</definition>
+        <argsstring>(int node) const</argsstring>
+        <name>is_dot_node</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="925" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="925" bodyend="925"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1ab41a9ed8f5847fd25e841b44cab5448a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::is_group_node</definition>
+        <argsstring>(int node) const</argsstring>
+        <name>is_group_node</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="926" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="926" bodyend="926"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a6d951d693971541100da35eb9d915b8c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::is_displayable_node</definition>
+        <argsstring>(int node) const</argsstring>
+        <name>is_displayable_node</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="927" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="927" bodyend="927"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a2c1ff6d448b8439d6397db11fb1d6d49" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::is_simple_node</definition>
+        <argsstring>(int node) const</argsstring>
+        <name>is_simple_node</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="928" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="928" bodyend="928"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a4769fbf47659ac552d36aa8444573ee2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::is_collapsed_node</definition>
+        <argsstring>(int node) const</argsstring>
+        <name>is_collapsed_node</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="929" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="929" bodyend="929"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a80ef8f5c1b1474b35e0dc873e3d22f8b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::is_uncollapsed_node</definition>
+        <argsstring>(int node) const</argsstring>
+        <name>is_uncollapsed_node</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="930" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="930" bodyend="930"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1afe2591c1b074ca8c46ef25531a146dbd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::is_visible_node</definition>
+        <argsstring>(int node) const</argsstring>
+        <name>is_visible_node</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="931" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1472" bodyend="1472"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a2356f896d8ec5844de4f6336b988d162" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::groups_are_present</definition>
+        <argsstring>(void) const</argsstring>
+        <name>groups_are_present</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="932" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1aebd5f6a9c44956295abdee0d1d70b5f1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi mutable_graph_t::get_first_subgraph_node</definition>
+        <argsstring>(int group) const</argsstring>
+        <name>get_first_subgraph_node</name>
+        <param>
+          <type>int</type>
+          <declname>group</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="934" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="934" bodyend="934"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1abe8aa10cd2a63ec251cd8f540b1cd804" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi mutable_graph_t::get_next_subgraph_node</definition>
+        <argsstring>(int group, int current) const</argsstring>
+        <name>get_next_subgraph_node</name>
+        <param>
+          <type>int</type>
+          <declname>group</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>current</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="935" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="935" bodyend="935"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a90fd27633b17885f2e9feba59472a5af" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::insert_visible_nodes</definition>
+        <argsstring>(intvec_t &amp;nodes, int group) const</argsstring>
+        <name>insert_visible_nodes</name>
+        <param>
+          <type><ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;</type>
+          <declname>nodes</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>group</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="936" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1acb3d42958ea936086bebfd817fb7c2da" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::insert_simple_nodes</definition>
+        <argsstring>(intvec_t &amp;nodes, int group) const</argsstring>
+        <name>insert_simple_nodes</name>
+        <param>
+          <type><ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;</type>
+          <declname>nodes</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>group</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="937" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a7b441ae926799d1777d5e50d70615fbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::check_new_group</definition>
+        <argsstring>(const intvec_t &amp;nodes, intvec_t &amp;refined)</argsstring>
+        <name>check_new_group</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;</type>
+          <declname>nodes</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;</type>
+          <declname>refined</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="938" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1abd808e47142800a9ef70d7c3d449c14e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi mutable_graph_t::create_group</definition>
+        <argsstring>(const intvec_t &amp;nodes)</argsstring>
+        <name>create_group</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;</type>
+          <declname>nodes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="939" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1468" bodyend="1468"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a694f7724a3bcaf05c1440bac44c6bd00" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::delete_group</definition>
+        <argsstring>(int group)</argsstring>
+        <name>delete_group</name>
+        <param>
+          <type>int</type>
+          <declname>group</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="940" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1473" bodyend="1473"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1aae4f6dd15b539d9e7d9702d034ca4eaa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::change_group_visibility</definition>
+        <argsstring>(int group, bool expand)</argsstring>
+        <name>change_group_visibility</name>
+        <param>
+          <type>int</type>
+          <declname>group</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>expand</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="941" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1474" bodyend="1474"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a8bc8d2cd94fe02b52e5b8b96174caf0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::change_visibility</definition>
+        <argsstring>(const intvec_t &amp;nodes, bool expand)</argsstring>
+        <name>change_visibility</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;</type>
+          <declname>nodes</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>expand</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="942" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a41e31619efa3e8d8920b1aa7e511fd5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::fix_collapsed_group_edges</definition>
+        <argsstring>(void)</argsstring>
+        <name>fix_collapsed_group_edges</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="943" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a349c6773f7f48ea36b49cf4b097c74d9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi mutable_graph_t::nsucc</definition>
+        <argsstring>(int b) const</argsstring>
+        <name>nsucc</name>
+        <reimplements refid="classgdl__graph__t_1a689fddb9fec8ae4cd95ce962934809d7">nsucc</reimplements>
+        <param>
+          <type>int</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="944" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="944" bodyend="944"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1ae9b760382cbcf2156c8a0c5ce24c6a0f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi mutable_graph_t::npred</definition>
+        <argsstring>(int b) const</argsstring>
+        <name>npred</name>
+        <reimplements refid="classgdl__graph__t_1a0047a77ba26534621019e9b1e4a4380a">npred</reimplements>
+        <param>
+          <type>int</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="945" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="945" bodyend="945"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a89f3c7a8a1e71ef8070664135c3b5e9b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi mutable_graph_t::succ</definition>
+        <argsstring>(int b, int i) const</argsstring>
+        <name>succ</name>
+        <reimplements refid="classgdl__graph__t_1a9df8cfd864e97acfc9237ff5b0a5de69">succ</reimplements>
+        <param>
+          <type>int</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="946" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="946" bodyend="946"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a9c1f9a7aeab63c5e87a495dd4ce020ba" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi mutable_graph_t::pred</definition>
+        <argsstring>(int b, int i) const</argsstring>
+        <name>pred</name>
+        <reimplements refid="classgdl__graph__t_1a1ff65cc040a928a19c2906757413b0da">pred</reimplements>
+        <param>
+          <type>int</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="947" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="947" bodyend="947"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a47dd7fea70b9e104b8b18d4cd4432742" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;idaapi</type>
+        <definition>const intvec_t&amp; idaapi mutable_graph_t::succset</definition>
+        <argsstring>(int b) const</argsstring>
+        <name>succset</name>
+        <param>
+          <type>int</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="948" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="948" bodyend="948"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a715c247fec567e306eacb49503cf046a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;idaapi</type>
+        <definition>const intvec_t&amp; idaapi mutable_graph_t::predset</definition>
+        <argsstring>(int b) const</argsstring>
+        <name>predset</name>
+        <param>
+          <type>int</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="949" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="949" bodyend="949"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a2fb8b4a4183714b6acfdca12d590d4e3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::reset</definition>
+        <argsstring>(void)</argsstring>
+        <name>reset</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="951" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="951" bodyend="951"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a93fbab5492c75053086bee882251cf58" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi mutable_graph_t::redo_layout</definition>
+        <argsstring>(void) GCC_PUREVIRT</argsstring>
+        <name>redo_layout</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="952" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1aa2a7972ba4ba264d7c9e3c944b1268a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void idaapi</type>
+        <definition>virtual void idaapi mutable_graph_t::resize</definition>
+        <argsstring>(int n) GCC_PUREVIRT</argsstring>
+        <name>resize</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="953" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1af239e801861a87ae8f2cff4922716a91" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi mutable_graph_t::add_node</definition>
+        <argsstring>(const rect_t *r) GCC_PUREVIRT</argsstring>
+        <name>add_node</name>
+        <param>
+          <type>const <ref refid="structrect__t" kindref="compound">rect_t</ref> *</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="954" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a4b43c2e16da2a86f3c289991456017b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>virtual ssize_t idaapi mutable_graph_t::del_node</definition>
+        <argsstring>(int n) GCC_PUREVIRT</argsstring>
+        <name>del_node</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="955" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a92a0a1bc117551e8f9518ce8196016d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi mutable_graph_t::add_edge</definition>
+        <argsstring>(int i, int j, const edge_info_t *ei) GCC_PUREVIRT</argsstring>
+        <name>add_edge</name>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>j</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structedge__info__t" kindref="compound">edge_info_t</ref> *</type>
+          <declname>ei</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="956" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1ad8dd5a5a854f2b876fbd6e4d5cd72e18" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi mutable_graph_t::del_edge</definition>
+        <argsstring>(int i, int j) GCC_PUREVIRT</argsstring>
+        <name>del_edge</name>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>j</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="957" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a703efd883bc9526cca9bf06f571e63d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi mutable_graph_t::replace_edge</definition>
+        <argsstring>(int i, int j, int x, int y) GCC_PUREVIRT</argsstring>
+        <name>replace_edge</name>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>j</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="958" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a3dedce76ec85e88fe47b00fe3010f333" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi mutable_graph_t::refresh</definition>
+        <argsstring>(void) GCC_PUREVIRT</argsstring>
+        <name>refresh</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="959" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1aee22370690bae46510ede98f262e0243" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classmutable__graph__t" kindref="compound">mutable_graph_t</ref> *idaapi</type>
+        <definition>virtual mutable_graph_t* idaapi mutable_graph_t::clone</definition>
+        <argsstring>(void) const GCC_PUREVIRT</argsstring>
+        <name>clone</name>
+        <reimplements refid="classabstract__graph__t_1ac3a0184bca994cd53f10628450a3263e">clone</reimplements>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="960" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a215d3366eb5b427669bb20ab445fffc6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="structrect__t" kindref="compound">rect_t</ref> &amp;idaapi</type>
+        <definition>const rect_t&amp; idaapi mutable_graph_t::nrect</definition>
+        <argsstring>(int n) const</argsstring>
+        <name>nrect</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="963" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="963" bodyend="964"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a25b11e363b5f5ec678e7a85972c78dfb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="structrect__t" kindref="compound">rect_t</ref> &amp;idaapi</type>
+        <definition>rect_t &amp;idaapi mutable_graph_t::nrect</definition>
+        <argsstring>(int n)</argsstring>
+        <name>nrect</name>
+        <reimplements refid="classabstract__graph__t_1aea3c3336fc9034cb272c848850dbc106">nrect</reimplements>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="965" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1477" bodyend="1477"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a75c0b7286db23fed8f0d04dc330c7e36" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="structedge__info__t" kindref="compound">edge_info_t</ref> *idaapi</type>
+        <definition>virtual edge_info_t* idaapi mutable_graph_t::get_edge</definition>
+        <argsstring>(edge_t e) GCC_PUREVIRT</argsstring>
+        <name>get_edge</name>
+        <reimplements refid="classabstract__graph__t_1a038b7c5abca69ed48db3023513d01ff2">get_edge</reimplements>
+        <param>
+          <type><ref refid="structedge__t" kindref="compound">edge_t</ref></type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="966" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1acdf14b251a0e8e7fe94cdb93913fb65d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi mutable_graph_t::set_nrect</definition>
+        <argsstring>(int n, const rect_t &amp;r) GCC_PUREVIRT</argsstring>
+        <name>set_nrect</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structrect__t" kindref="compound">rect_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="968" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1ab0f3d40fe8ba5d5e2fcd006a88130a12" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::set_edge</definition>
+        <argsstring>(edge_t e, const edge_info_t *ei) GCC_PUREVIRT</argsstring>
+        <name>set_edge</name>
+        <param>
+          <type><ref refid="structedge__t" kindref="compound">edge_t</ref></type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structedge__info__t" kindref="compound">edge_info_t</ref> *</type>
+          <declname>ei</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="969" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1475" bodyend="1475"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a7045f8e59187231d049dd97cfb1a69c5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::create_digraph_layout</definition>
+        <argsstring>(void)</argsstring>
+        <name>create_digraph_layout</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="971" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1463" bodyend="1463"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a3a5136ac9f6ae9c931572e2e2e99170e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::del_custom_layout</definition>
+        <argsstring>(void)</argsstring>
+        <name>del_custom_layout</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="973" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1459" bodyend="1459"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a4a7114e05a3516ef86b5b765fa75d44b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::get_custom_layout</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_custom_layout</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="974" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1469" bodyend="1469"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a75c0d36a09abac52755f029dc38d3efe" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::set_custom_layout</definition>
+        <argsstring>(void) const</argsstring>
+        <name>set_custom_layout</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="975" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1460" bodyend="1460"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1af38cc5b392564a3d7179837f95ce64eb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi mutable_graph_t::get_graph_groups</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_graph_groups</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="976" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1470" bodyend="1470"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a5643a5478e7c022ce7eccf3a11e6d076" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::set_graph_groups</definition>
+        <argsstring>(void) const</argsstring>
+        <name>set_graph_groups</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="977" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="1461" bodyend="1461"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1a59561a3fc66f2a7de77f0e3474dfda57" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>ea_t idaapi</type>
+        <definition>virtual ea_t idaapi mutable_graph_t::calc_group_ea</definition>
+        <argsstring>(const intvec_t &amp;)</argsstring>
+        <name>calc_group_ea</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="978" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="978" bodyend="978"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1ae87f094ce6189b4d9071d80ecd526310" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structpoint__t" kindref="compound">point_t</ref> idaapi</type>
+        <definition>point_t idaapi mutable_graph_t::calc_center_of</definition>
+        <argsstring>(const intvec_t &amp;nodes) const</argsstring>
+        <name>calc_center_of</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;</type>
+          <declname>nodes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="980" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1aa87b9e5e4dab76fa70ebad251b97b721" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::move_to_same_place</definition>
+        <argsstring>(const intvec_t &amp;collapsing_nodes, point_t p)</argsstring>
+        <name>move_to_same_place</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;</type>
+          <declname>collapsing_nodes</declname>
+        </param>
+        <param>
+          <type><ref refid="structpoint__t" kindref="compound">point_t</ref></type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="981" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1ade60e17f0c694d0f11e0bb76bc71c0b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi mutable_graph_t::move_grouped_nodes</definition>
+        <argsstring>(const intvec_t &amp;groups, const mutable_graph_t *ng)</argsstring>
+        <name>move_grouped_nodes</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;</type>
+          <declname>groups</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classmutable__graph__t" kindref="compound">mutable_graph_t</ref> *</type>
+          <declname>ng</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="982" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classmutable__graph__t_1abe4326647315c1bb1a02646acc956170" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi mutable_graph_t::is_user_graph</definition>
+        <argsstring>()</argsstring>
+        <name>is_user_graph</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="984" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="984" bodyend="984"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Base class used by graphs in IDA. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2653">
+        <label>abstract_graph_t</label>
+        <link refid="classabstract__graph__t"/>
+        <childnode refid="2654" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2654">
+        <label>gdl_graph_t</label>
+        <link refid="classgdl__graph__t"/>
+      </node>
+      <node id="2652">
+        <label>mutable_graph_t</label>
+        <link refid="classmutable__graph__t"/>
+        <childnode refid="2653" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2662">
+        <label>qvector&lt; rect_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2663">
+        <label>edge_infos_wrapper_t</label>
+        <link refid="structedge__infos__wrapper__t"/>
+      </node>
+      <node id="2659">
+        <label>point_t</label>
+        <link refid="structpoint__t"/>
+      </node>
+      <node id="2665">
+        <label>qvector&lt; uchar &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2664">
+        <label>bytevec_t</label>
+        <link refid="classbytevec__t"/>
+        <childnode refid="2665" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2661">
+        <label>qvector&lt; intvec_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2656">
+        <label>abstract_graph_t</label>
+        <link refid="classabstract__graph__t"/>
+        <childnode refid="2657" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2658" relation="usage">
+          <edgelabel>title</edgelabel>
+        </childnode>
+        <childnode refid="2659" relation="usage">
+          <edgelabel>circle_center</edgelabel>
+        </childnode>
+      </node>
+      <node id="2660">
+        <label>qvector&lt; int &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2658">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="2657">
+        <label>gdl_graph_t</label>
+        <link refid="classgdl__graph__t"/>
+      </node>
+      <node id="2655">
+        <label>mutable_graph_t</label>
+        <link refid="classmutable__graph__t"/>
+        <childnode refid="2656" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2660" relation="usage">
+          <edgelabel>belongs</edgelabel>
+        </childnode>
+        <childnode refid="2661" relation="usage">
+          <edgelabel>org_succs</edgelabel>
+          <edgelabel>succs</edgelabel>
+          <edgelabel>preds</edgelabel>
+          <edgelabel>org_preds</edgelabel>
+        </childnode>
+        <childnode refid="2662" relation="usage">
+          <edgelabel>nodes</edgelabel>
+        </childnode>
+        <childnode refid="2663" relation="usage">
+          <edgelabel>edges</edgelabel>
+        </childnode>
+        <childnode refid="2664" relation="usage">
+          <edgelabel>node_flags</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="870" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="869" bodyend="985"/>
+    <listofallmembers>
+      <member refid="classmutable__graph__t_1adac5a243854de83e6ffe5d712698e9ec" prot="private" virt="non-virtual"><scope>mutable_graph_t</scope><name>_find_subgraph_node</name></member>
+      <member refid="classabstract__graph__t_1a6ef038b88867cadadfa591067a8fdd07" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>abstract_graph_t</name></member>
+      <member refid="classmutable__graph__t_1a974ebf088e2875ad4c3810e28731871f" prot="private" virt="non-virtual"><scope>mutable_graph_t</scope><name>add_dest</name></member>
+      <member refid="classmutable__graph__t_1a92a0a1bc117551e8f9518ce8196016d4" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>add_edge</name></member>
+      <member refid="classmutable__graph__t_1a85b602f8ee52695f653e5be048d59ccb" prot="private" virt="non-virtual"><scope>mutable_graph_t</scope><name>add_layer_nodes</name></member>
+      <member refid="classmutable__graph__t_1af239e801861a87ae8f2cff4922716a91" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>add_node</name></member>
+      <member refid="classabstract__graph__t_1a3ab8a1cbf9059e7beaf0316fafb75b32" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>add_node_edges</name></member>
+      <member refid="classabstract__graph__t_1a829d9f62d89a3f92e9e6df10cb3cb6bb" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>assign_edge_ports</name></member>
+      <member refid="classgdl__graph__t_1aed9c469ba507f9e65c97db4647311e62" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>begin</name></member>
+      <member refid="classmutable__graph__t_1a6cc39e106660b1c0d680608c32988968" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>belongs</name></member>
+      <member refid="classabstract__graph__t_1a87df7b42fd7d8af786d0270b17d62ec9" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>calc_bounds</name></member>
+      <member refid="classmutable__graph__t_1ae87f094ce6189b4d9071d80ecd526310" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>calc_center_of</name></member>
+      <member refid="classabstract__graph__t_1adfb320020fb111c84f3e81f63ecbf1a0" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>calc_fitting_params</name></member>
+      <member refid="classmutable__graph__t_1a59561a3fc66f2a7de77f0e3474dfda57" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>calc_group_ea</name></member>
+      <member refid="classabstract__graph__t_1afbba9750fa8af070ac4db3518605f656" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>calc_longest_pathes</name></member>
+      <member refid="classabstract__graph__t_1ad50090a0dfeab27bf30b8453ce19ae67" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>calc_row_heights</name></member>
+      <member refid="classabstract__graph__t_1ab9426dc8f191d3064121eaf06482f050" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>callback</name></member>
+      <member refid="classabstract__graph__t_1ae0b63c027a023df00339d30c66f2854b" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>callback_ud</name></member>
+      <member refid="classmutable__graph__t_1aae4f6dd15b539d9e7d9702d034ca4eaa" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>change_group_visibility</name></member>
+      <member refid="classmutable__graph__t_1a8bc8d2cd94fe02b52e5b8b96174caf0c" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>change_visibility</name></member>
+      <member refid="classmutable__graph__t_1a7b441ae926799d1777d5e50d70615fbc" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>check_new_group</name></member>
+      <member refid="classabstract__graph__t_1afc4f317f4641327fcad7c814bc938a2a" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>circle_center</name></member>
+      <member refid="classabstract__graph__t_1ab0c7e25aca53e75ebd99e8b4dcdeadde" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>circle_radius</name></member>
+      <member refid="classmutable__graph__t_1aa53d3dc74fa19bf097b4ca60e7cf3a22" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>clear</name></member>
+      <member refid="classabstract__graph__t_1a15f85acf76be7b529731f9c8c56577cc" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>clear_layout_info</name></member>
+      <member refid="classmutable__graph__t_1aee22370690bae46510ede98f262e0243" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>clone</name></member>
+      <member refid="classmutable__graph__t_1ab83687026653c6c34bbf61b3b1a21cc3" prot="private" virt="non-virtual"><scope>mutable_graph_t</scope><name>collapse_edges</name></member>
+      <member refid="classabstract__graph__t_1af215b353b9afcd56f68e2c5c5e8355df" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>create_circle_layout</name></member>
+      <member refid="classmutable__graph__t_1a7045f8e59187231d049dd97cfb1a69c5" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>create_digraph_layout</name></member>
+      <member refid="classabstract__graph__t_1ac47c33ae477458d53789c1bf07b36ae2" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>create_graph_row_info</name></member>
+      <member refid="classmutable__graph__t_1abd808e47142800a9ef70d7c3d449c14e" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>create_group</name></member>
+      <member refid="classabstract__graph__t_1add1a2a70d5eb20e4f7e78864a21e9a89" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>create_orthogonal_layout</name></member>
+      <member refid="classabstract__graph__t_1af5e5c56baa38376df124ec09efc90908" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>create_polar_tree_layout</name></member>
+      <member refid="classabstract__graph__t_1acd30bf5e87669bdfd32676de0ad0fde3" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>create_radial_tree_layout</name></member>
+      <member refid="classabstract__graph__t_1af47d1ce594f73e13aefee87cec67ff8f" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>create_spanning_tree</name></member>
+      <member refid="classabstract__graph__t_1a0bfe2ec916f9983c9b27c5ba743ef8ac" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>create_tree_layout</name></member>
+      <member refid="classabstract__graph__t_1abed2d7043d91a2a36a59954a96477bfc" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>current_layout</name></member>
+      <member refid="classmutable__graph__t_1aba9cd4f9b4784790e0e7d79f2f36b064" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>DEFINE_VIRTUAL_DTOR</name></member>
+      <member refid="classmutable__graph__t_1a3a5136ac9f6ae9c931572e2e2e99170e" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>del_custom_layout</name></member>
+      <member refid="classmutable__graph__t_1ad8dd5a5a854f2b876fbd6e4d5cd72e18" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>del_edge</name></member>
+      <member refid="classmutable__graph__t_1a065f62c6211fea88a17a25895752c921" prot="private" virt="non-virtual"><scope>mutable_graph_t</scope><name>del_layer_nodes</name></member>
+      <member refid="classmutable__graph__t_1a4b43c2e16da2a86f3c289991456017b5" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>del_node</name></member>
+      <member refid="classmutable__graph__t_1a6915961fd0e66109ec4382f139445012" prot="private" virt="non-virtual"><scope>mutable_graph_t</scope><name>del_node_keep_edges</name></member>
+      <member refid="classmutable__graph__t_1a694f7724a3bcaf05c1440bac44c6bd00" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>delete_group</name></member>
+      <member refid="classabstract__graph__t_1ae24bb7c20fbaaa0dc09545eb00f395cb" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>depth_first</name></member>
+      <member refid="classabstract__graph__t_1a93d04fe2a2e9f239ec0e9337201b79f9" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>dump_graph</name></member>
+      <member refid="classgdl__graph__t_1a0a40e432f6cef47a21cab2a600e407d8" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>edge</name></member>
+      <member refid="classmutable__graph__t_1ab96cb250d9f8fc487845b8110588ae78" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>edges</name></member>
+      <member refid="classmutable__graph__t_1aedb1b24c0fecd2935e9243be15f84480" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>empty</name></member>
+      <member refid="classgdl__graph__t_1a5b0ee999fad4d5a780fd3bf276715c7f" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>end</name></member>
+      <member refid="classgdl__graph__t_1ac2c6eb82d3f53c7a0ec71803f691bc59" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>entry</name></member>
+      <member refid="classmutable__graph__t_1a126cbbe560c57bda332a38ee8fb92268" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>exists</name></member>
+      <member refid="classgdl__graph__t_1a4860b7baf2db01da12f2b0c4f209bf9c" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>exit</name></member>
+      <member refid="classmutable__graph__t_1a41e31619efa3e8d8920b1aa7e511fd5b" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>fix_collapsed_group_edges</name></member>
+      <member refid="classabstract__graph__t_1a773bebe7c94430a60b6c2f4b98d5b5c2" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>for_all_nodes_edges</name></member>
+      <member refid="classgdl__graph__t_1aedc53d9164372f5aab637bf2b2e497a0" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>front</name></member>
+      <member refid="classabstract__graph__t_1ad9339641ed5522ad2a4ee6bca0ff94e8" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>gather_edge_segments</name></member>
+      <member refid="classgdl__graph__t_1ab13037817c391fd6f7f3b53f169a8009" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>gen_dot</name></member>
+      <member refid="classgdl__graph__t_1a637ae3e6bed2ee4a4c5c1c3a36407bc0" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>gen_dot</name></member>
+      <member refid="classgdl__graph__t_1afed62cde1549127e49b34a5c03a8e344" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>gen_gdl</name></member>
+      <member refid="classgdl__graph__t_1a06e3dde67682f31cb54e30f612e1905b" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>gen_gdl</name></member>
+      <member refid="classabstract__graph__t_1a7596d1f5d7b08437e5970d6ef5643f45" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>get_connected_components</name></member>
+      <member refid="classmutable__graph__t_1a4a7114e05a3516ef86b5b765fa75d44b" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>get_custom_layout</name></member>
+      <member refid="classmutable__graph__t_1a75c0b7286db23fed8f0d04dc330c7e36" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>get_edge</name></member>
+      <member refid="classabstract__graph__t_1af5ebee41d3730d40a4be1bda917db435" prot="public" virt="non-virtual" ambiguityscope="abstract_graph_t::"><scope>mutable_graph_t</scope><name>get_edge</name></member>
+      <member refid="classgdl__graph__t_1aadc912ba89cceed064de956bcf646d13" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>get_edge_color</name></member>
+      <member refid="classabstract__graph__t_1abd1c577e57aed22c636de895e9ff7d69" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>get_edge_ports</name></member>
+      <member refid="classmutable__graph__t_1aebd5f6a9c44956295abdee0d1d70b5f1" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>get_first_subgraph_node</name></member>
+      <member refid="classmutable__graph__t_1af38cc5b392564a3d7179837f95ce64eb" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>get_graph_groups</name></member>
+      <member refid="classmutable__graph__t_1abe8aa10cd2a63ec251cd8f540b1cd804" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>get_next_subgraph_node</name></member>
+      <member refid="classgdl__graph__t_1a87253fc6388e7c3bb2c4ad72ee651a52" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>get_node_color</name></member>
+      <member refid="classmutable__graph__t_1ae4e6c3591a5b5341c65415d9494846bd" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>get_node_group</name></member>
+      <member refid="classgdl__graph__t_1a0ca7e78eb938af72407c106fde2b9778" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>get_node_label</name></member>
+      <member refid="classmutable__graph__t_1a6dc08bdb738142075dbf289c2bd5b3de" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>get_node_representative</name></member>
+      <member refid="classmutable__graph__t_1ace192a1557464e0ce725a58f309dec00" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>gid</name></member>
+      <member refid="classmutable__graph__t_1a26ca3e29e54459238443d11ba8232919" prot="private" virt="non-virtual"><scope>mutable_graph_t</scope><name>graph_dispatcher</name></member>
+      <member refid="classabstract__graph__t_1a4c2b7d917970556258f026bc5ff67c96" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>grcall</name></member>
+      <member refid="classmutable__graph__t_1a2356f896d8ec5844de4f6336b988d162" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>groups_are_present</name></member>
+      <member refid="classmutable__graph__t_1aebda17b57c9ce6f7b3e27e73999c217c" prot="private" virt="non-virtual"><scope>mutable_graph_t</scope><name>inherited</name></member>
+      <member refid="classmutable__graph__t_1acb3d42958ea936086bebfd817fb7c2da" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>insert_simple_nodes</name></member>
+      <member refid="classmutable__graph__t_1a90fd27633b17885f2e9feba59472a5af" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>insert_visible_nodes</name></member>
+      <member refid="classmutable__graph__t_1a4769fbf47659ac552d36aa8444573ee2" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>is_collapsed_node</name></member>
+      <member refid="classmutable__graph__t_1abaf32f9723aa3427015e2b8c333c5bd2" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>is_deleted_node</name></member>
+      <member refid="classmutable__graph__t_1a6d951d693971541100da35eb9d915b8c" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>is_displayable_node</name></member>
+      <member refid="classmutable__graph__t_1a0354961790f181e62eab4282c74adca7" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>is_dot_node</name></member>
+      <member refid="classmutable__graph__t_1ab41a9ed8f5847fd25e841b44cab5448a" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>is_group_node</name></member>
+      <member refid="classmutable__graph__t_1a2c1ff6d448b8439d6397db11fb1d6d49" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>is_simple_node</name></member>
+      <member refid="classmutable__graph__t_1af36709fb5b13e138ae8dbd57f87dfbda" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>is_subgraph_node</name></member>
+      <member refid="classmutable__graph__t_1a80ef8f5c1b1474b35e0dc873e3d22f8b" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>is_uncollapsed_node</name></member>
+      <member refid="classmutable__graph__t_1abe4326647315c1bb1a02646acc956170" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>is_user_graph</name></member>
+      <member refid="classmutable__graph__t_1afe2591c1b074ca8c46ef25531a146dbd" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>is_visible_node</name></member>
+      <member refid="classmutable__graph__t_1a5daffcc45ca7554efbedef336f2cbb38" prot="private" virt="non-virtual"><scope>mutable_graph_t</scope><name>layout_self_reference_edges</name></member>
+      <member refid="classabstract__graph__t_1acc65ca2c3f754f626fce3a96c028cf5c" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>make_rect_edges</name></member>
+      <member refid="classabstract__graph__t_1a3847848b851902dd4bb2892f8143ddb3" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>minimize_crossings</name></member>
+      <member refid="classmutable__graph__t_1ade60e17f0c694d0f11e0bb76bc71c0b6" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>move_grouped_nodes</name></member>
+      <member refid="classabstract__graph__t_1a388178f4d78beb9752a1c71da9503a14" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>move_nodes_down</name></member>
+      <member refid="classmutable__graph__t_1aa87b9e5e4dab76fa70ebad251b97b721" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>move_to_same_place</name></member>
+      <member refid="classmutable__graph__t_1a2366d3a3ad4aa7224e1a45499034224d" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>mutable_graph_t</name></member>
+      <member refid="classmutable__graph__t_1aabf50d49b11360e3ee80ac3efdafd356" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>mutable_graph_t</name></member>
+      <member refid="classgdl__graph__t_1a0e8cf052ce990f41454cfa618f318645" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>nedge</name></member>
+      <member refid="classmutable__graph__t_1ad984c4adc8b3d97c7da214cf121daa1f" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>node_flags</name></member>
+      <member refid="classmutable__graph__t_1ab2b5b3b4d8352faa8d933ef5abeb009b" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>node_layout_t</name></member>
+      <member refid="classmutable__graph__t_1ac7446a3fe8f5ebd965af0aecdd446bf9" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>node_qty</name></member>
+      <member refid="classmutable__graph__t_1abbfe962dd4546bd6cca342ac65ce7876" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>nodes</name></member>
+      <member refid="classmutable__graph__t_1ae9b760382cbcf2156c8a0c5ce24c6a0f" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>npred</name></member>
+      <member refid="classmutable__graph__t_1a215d3366eb5b427669bb20ab445fffc6" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>nrect</name></member>
+      <member refid="classmutable__graph__t_1a25b11e363b5f5ec678e7a85972c78dfb" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>nrect</name></member>
+      <member refid="classmutable__graph__t_1a349c6773f7f48ea36b49cf4b097c74d9" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>nsucc</name></member>
+      <member refid="classmutable__graph__t_1a215d40704d8aefc9af0130c9b32dcbb9" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>org_preds</name></member>
+      <member refid="classmutable__graph__t_1a521e43ed023e811ed7203e2e8d72dff7" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>org_succs</name></member>
+      <member refid="classabstract__graph__t_1a3207dc7538a4ac12fb71cb4eb893c976" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>path_back</name></member>
+      <member refid="classabstract__graph__t_1ab946a5d8537fd1b9039be0cd04acba38" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>path_back</name></member>
+      <member refid="classgdl__graph__t_1ad6ad9937897af84731a3e9bbdeea75f4" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>path_exists</name></member>
+      <member refid="classmutable__graph__t_1a9c1f9a7aeab63c5e87a495dd4ce020ba" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>pred</name></member>
+      <member refid="classmutable__graph__t_1aefb2ba270924b72ad31aefe8bd1bff52" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>preds</name></member>
+      <member refid="classmutable__graph__t_1a715c247fec567e306eacb49503cf046a" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>predset</name></member>
+      <member refid="classgdl__graph__t_1a5f00823ba18caa2ef90f779adc27dbcb" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>print_edge</name></member>
+      <member refid="classgdl__graph__t_1a4cde31a1b2c406d7813c09a839edd4ea" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>print_graph_attributes</name></member>
+      <member refid="classgdl__graph__t_1ad1d859c9dacc717bb175e259a7ea3e70" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>print_node</name></member>
+      <member refid="classgdl__graph__t_1a2097da98314a6608f372e03ed8978227" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>print_node_attributes</name></member>
+      <member refid="classabstract__graph__t_1a011688754fd6c5afb59d0b9e868755d0" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>recalc_edge_widths</name></member>
+      <member refid="classabstract__graph__t_1a18f4333cbb5733868b944a378c441128" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>rect_edges_made</name></member>
+      <member refid="classmutable__graph__t_1a93fbab5492c75053086bee882251cf58" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>redo_layout</name></member>
+      <member refid="classmutable__graph__t_1a3dedce76ec85e88fe47b00fe3010f333" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>refresh</name></member>
+      <member refid="classmutable__graph__t_1a703efd883bc9526cca9bf06f571e63d5" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>replace_edge</name></member>
+      <member refid="classmutable__graph__t_1a2fb8b4a4183714b6acfdca12d590d4e3" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>reset</name></member>
+      <member refid="classmutable__graph__t_1aa2a7972ba4ba264d7c9e3c944b1268a6" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>resize</name></member>
+      <member refid="classmutable__graph__t_1a8623ba58bdfa9a95e5bf549107a0f3e6" prot="private" virt="non-virtual"><scope>mutable_graph_t</scope><name>restore_edges</name></member>
+      <member refid="classmutable__graph__t_1a7186547c09c5c37a6ed6b68a85ba7eb9" prot="private" virt="non-virtual"><scope>mutable_graph_t</scope><name>reverse_edges</name></member>
+      <member refid="classabstract__graph__t_1ae2c3b360def7c741ba3bb6f615ef4a5a" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>set_callback</name></member>
+      <member refid="classmutable__graph__t_1a75c0d36a09abac52755f029dc38d3efe" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>set_custom_layout</name></member>
+      <member refid="classmutable__graph__t_1aae71f4678f01cf536452dd70ba884b36" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>set_deleted_node</name></member>
+      <member refid="classmutable__graph__t_1ab0f3d40fe8ba5d5e2fcd006a88130a12" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>set_edge</name></member>
+      <member refid="classmutable__graph__t_1a5643a5478e7c022ce7eccf3a11e6d076" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>set_graph_groups</name></member>
+      <member refid="classmutable__graph__t_1a50e57eed77fcc2aa7919e6cccfe26304" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>set_node_group</name></member>
+      <member refid="classmutable__graph__t_1acdf14b251a0e8e7fe94cdb93913fb65d" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>set_nrect</name></member>
+      <member refid="classabstract__graph__t_1a42908d6ce30968bd5bd88424736c124f" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>set_x_coords</name></member>
+      <member refid="classmutable__graph__t_1a7ff0b93cadaacffdc536aa85f48195ff" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>size</name></member>
+      <member refid="classmutable__graph__t_1a89f3c7a8a1e71ef8070664135c3b5e9b" prot="public" virt="virtual"><scope>mutable_graph_t</scope><name>succ</name></member>
+      <member refid="classmutable__graph__t_1af674bf648956de1d19bc173ea095aa10" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>succs</name></member>
+      <member refid="classmutable__graph__t_1a47dd7fea70b9e104b8b18d4cd4432742" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>succset</name></member>
+      <member refid="classabstract__graph__t_1a97db2f403faeb9b33ae919dd379b08d7" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>title</name></member>
+      <member refid="classabstract__graph__t_1aefef04f756b215e600c2c967ffff4aa7" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>tree_layout</name></member>
+      <member refid="classabstract__graph__t_1a77ecc84d6797982155ebfb1ff3fde22e" prot="public" virt="non-virtual"><scope>mutable_graph_t</scope><name>vgrcall</name></member>
+      <member refid="classabstract__graph__t_1a57fbf665e421e950a2acc1324500398a" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>visit_nodes</name></member>
+      <member refid="classabstract__graph__t_1ad12e3c561147dfbf0ad289b8a548dfd6" prot="protected" virt="non-virtual"><scope>mutable_graph_t</scope><name>visit_paths</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

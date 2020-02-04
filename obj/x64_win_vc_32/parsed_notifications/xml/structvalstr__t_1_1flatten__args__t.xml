@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structvalstr__t_1_1flatten__args__t" kind="struct" language="C++" prot="private">
+    <compoundname>valstr_t::flatten_args_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structvalstr__t_1_1flatten__args__t_1a7db4f5c072bc254a92442e6c815a96e6" prot="public" static="no" mutable="no">
+        <type>const <ref refid="classvalstr__t" kindref="compound">valstr_t</ref> *</type>
+        <definition>const valstr_t* valstr_t::flatten_args_t::may_not_collapse</definition>
+        <argsstring></argsstring>
+        <name>may_not_collapse</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3989" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3989" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvalstr__t_1_1flatten__args__t_1a0c1e59345edd95b2289738a5d68acbe9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int valstr_t::flatten_args_t::ptvf</definition>
+        <argsstring></argsstring>
+        <name>ptvf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3990" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3990" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvalstr__t_1_1flatten__args__t_1ae8a3c27e06be29e0b69e5f622a5be4f4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int valstr_t::flatten_args_t::max_length</definition>
+        <argsstring></argsstring>
+        <name>max_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3991" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3991" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvalstr__t_1_1flatten__args__t_1ab2c9ce87c7efeee0d72cd696f6eea2d8" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int valstr_t::flatten_args_t::margin</definition>
+        <argsstring></argsstring>
+        <name>margin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3992" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3992" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvalstr__t_1_1flatten__args__t_1a34d61adec8a6a6364abba9b641055cae" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int valstr_t::flatten_args_t::indent</definition>
+        <argsstring></argsstring>
+        <name>indent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3993" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3993" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1571">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="1568">
+        <label>qvector&lt; valstr_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1569">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="1565">
+        <label>valstr_t::flatten_args_t</label>
+        <childnode refid="1566" relation="usage">
+          <edgelabel>may_not_collapse</edgelabel>
+        </childnode>
+      </node>
+      <node id="1573">
+        <label>scattered_aloc_t</label>
+        <link refid="classscattered__aloc__t"/>
+        <childnode refid="1574" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1574">
+        <label>qvector&lt; argpart_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1567">
+        <label>valstrs_t</label>
+        <link refid="structvalstrs__t"/>
+        <childnode refid="1568" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1570">
+        <label>valinfo_t</label>
+        <link refid="structvalinfo__t"/>
+        <childnode refid="1569" relation="usage">
+          <edgelabel>label</edgelabel>
+        </childnode>
+        <childnode refid="1571" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+        <childnode refid="1572" relation="usage">
+          <edgelabel>loc</edgelabel>
+        </childnode>
+      </node>
+      <node id="1566">
+        <label>valstr_t</label>
+        <link refid="classvalstr__t"/>
+        <childnode refid="1567" relation="usage">
+          <edgelabel>members</edgelabel>
+        </childnode>
+        <childnode refid="1569" relation="usage">
+          <edgelabel>oneline</edgelabel>
+        </childnode>
+        <childnode refid="1570" relation="usage">
+          <edgelabel>info</edgelabel>
+        </childnode>
+      </node>
+      <node id="1572">
+        <label>argloc_t</label>
+        <link refid="classargloc__t"/>
+        <childnode refid="1573" relation="usage">
+          <edgelabel>dist</edgelabel>
+        </childnode>
+        <childnode refid="1575" relation="usage">
+          <edgelabel>rrel</edgelabel>
+        </childnode>
+      </node>
+      <node id="1575">
+        <label>rrel_t</label>
+        <link refid="structrrel__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3988" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3987" bodyend="3994"/>
+    <listofallmembers>
+      <member refid="structvalstr__t_1_1flatten__args__t_1a34d61adec8a6a6364abba9b641055cae" prot="public" virt="non-virtual"><scope>valstr_t::flatten_args_t</scope><name>indent</name></member>
+      <member refid="structvalstr__t_1_1flatten__args__t_1ab2c9ce87c7efeee0d72cd696f6eea2d8" prot="public" virt="non-virtual"><scope>valstr_t::flatten_args_t</scope><name>margin</name></member>
+      <member refid="structvalstr__t_1_1flatten__args__t_1ae8a3c27e06be29e0b69e5f622a5be4f4" prot="public" virt="non-virtual"><scope>valstr_t::flatten_args_t</scope><name>max_length</name></member>
+      <member refid="structvalstr__t_1_1flatten__args__t_1a7db4f5c072bc254a92442e6c815a96e6" prot="public" virt="non-virtual"><scope>valstr_t::flatten_args_t</scope><name>may_not_collapse</name></member>
+      <member refid="structvalstr__t_1_1flatten__args__t_1a0c1e59345edd95b2289738a5d68acbe9" prot="public" virt="non-virtual"><scope>valstr_t::flatten_args_t</scope><name>ptvf</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

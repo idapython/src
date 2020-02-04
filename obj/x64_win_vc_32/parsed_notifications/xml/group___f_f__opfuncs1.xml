@@ -1,0 +1,387 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_f__opfuncs1" kind="group">
+    <compoundname>FF_opfuncs1</compoundname>
+    <title>Functions: examine operand flags (specific operands)</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___f_f__opfuncs1_1ga24708f86e2118505c0869f3090a210ae" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_defarg0</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_defarg0</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the first operand defined? Initially operand has no defined representation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1017" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1017" bodyend="1017"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1ga45a85d6f222855ae1013151a030c869f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_defarg1</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_defarg1</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the second operand defined? Initially operand has no defined representation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1022" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1022" bodyend="1022"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1ga4e85052161133751597a0b9a6ee6c360" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_off0</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_off0</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the first operand offset? (example: push offset xxx) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1027" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1027" bodyend="1027"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1ga457ddd8a99861b66740a8c4a2fa5570d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_off1</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_off1</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the second operand offset? (example: mov ax, offset xxx) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1032" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1032" bodyend="1032"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1ga720d01e1130a026839907f6a3541d935" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_char0</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_char0</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the first operand character constant? (example: push &apos;a&apos;) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1037" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1037" bodyend="1037"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1ga25c1a5427768b04c62ddc0de0b98cff7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_char1</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_char1</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the second operand character constant? (example: mov al, &apos;a&apos;) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1042" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1042" bodyend="1042"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1ga6d24d868e90d1664e2a7b139ba204a2f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_seg0</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_seg0</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the first operand segment selector? (example: push seg seg001) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1047" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1047" bodyend="1047"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1gae1d140c628f5144248a5c32a99b68b77" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_seg1</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_seg1</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the second operand segment selector? (example: mov dx, seg dseg) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1052" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1052" bodyend="1052"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1ga672a76703a1eaa0239035bf84e41cc53" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_enum0</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_enum0</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the first operand a symbolic constant (enum member)? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1057" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1057" bodyend="1057"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1ga01d448dd33de4dd1052e69ae4d5e7267" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_enum1</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_enum1</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the second operand a symbolic constant (enum member)? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1062" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1062" bodyend="1062"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1gad450ed1f4de6cd977444e47a7c615c6b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_stroff0</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_stroff0</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the first operand an offset within a struct? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1068" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1068" bodyend="1068"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1ga298b00b143a13a385901a73ae56b5aa6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_stroff1</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_stroff1</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the second operand an offset within a struct? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1073" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1073" bodyend="1073"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1gaab4ed7d4dacebe645493c40f10aaaf5e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_stkvar0</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_stkvar0</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the first operand a stack variable? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1078" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1078" bodyend="1078"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1gaf837fd01597f033bea0a38d36b021b55" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_stkvar1</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_stkvar1</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the second operand a stack variable? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1083" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1083" bodyend="1083"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1ga9b3181de6fdd5a622c5a80b17ecced1e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_float0</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_float0</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the first operand a floating point number? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1088" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1088" bodyend="1088"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1gacccef780be6fa7273f1bce875ed59893" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_float1</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_float1</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the second operand a floating point number? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1093" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1093" bodyend="1093"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1gaf19768d49f88e6b9301c95d7da80d189" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_custfmt0</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_custfmt0</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does the first operand use a custom data representation? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1098" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1098" bodyend="1098"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1gafa0fae49fc4c99ad5bbbd6b90418571c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_custfmt1</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_custfmt1</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does the second operand use a custom data representation? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1103" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1103" bodyend="1103"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1gae0562a9883ef0c7afdbe73fffe1bbd3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export is_numop0</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_numop0</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the first operand a number (i.e. binary, octal, decimal or hex?) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1108" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1ga6e8bc4c3407aace546645a4630aab5fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export is_numop1</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_numop1</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Is the second operand a number (i.e. binary, octal, decimal or hex?) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1113" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1ga6c19cf7794a1a1b1a9ae2cebb5e2bf33" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+        <definition>THREAD_SAFE flags_t get_optype_flags0</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>get_optype_flags0</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Get flags for first operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1118" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1118" bodyend="1118"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs1_1ga1ea4aa2dfdef5dbca787f6c2e98f0712" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+        <definition>THREAD_SAFE flags_t get_optype_flags1</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>get_optype_flags1</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Get flags for second operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1123" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1123" bodyend="1123"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

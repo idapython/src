@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classbookmarks__t" kind="class" language="C++" prot="public">
+    <compoundname>bookmarks_t</compoundname>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classbookmarks__t_1a537924e9cb496ccbfeaf96d7fcf20733" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>bookmarks_t::bookmarks_t</definition>
+        <argsstring>()</argsstring>
+        <name>bookmarks_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="309" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classbookmarks__t_1a2a2c89d7f4ff0405facb5f5805aa41b7" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>bookmarks_t::~bookmarks_t</definition>
+        <argsstring>()</argsstring>
+        <name>~bookmarks_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="310" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="310" bodyend="310"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classbookmarks__t_1a5a333aeacdbf62f4beded9aaca04cf44" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>static uint32 bookmarks_t::mark</definition>
+        <argsstring>(const lochist_entry_t &amp;e, uint32 index, const char *title, const char *desc, void *ud)</argsstring>
+        <name>mark</name>
+        <param>
+          <type>const <ref refid="structlochist__entry__t" kindref="compound">lochist_entry_t</ref> &amp;</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>title</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>desc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="324" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="324" bodyend="330"/>
+      </memberdef>
+      <memberdef kind="function" id="classbookmarks__t_1ac685754e16107149af89eefd6994ebac" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool bookmarks_t::get</definition>
+        <argsstring>(lochist_entry_t *out_entry, qstring *out_desc, uint32 *index, void *ud)</argsstring>
+        <name>get</name>
+        <param>
+          <type><ref refid="structlochist__entry__t" kindref="compound">lochist_entry_t</ref> *</type>
+          <declname>out_entry</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out_desc</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="335" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="335" bodyend="340"/>
+      </memberdef>
+      <memberdef kind="function" id="classbookmarks__t_1a1c9009b430ec579897bca980bb33959b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool bookmarks_t::get_desc</definition>
+        <argsstring>(qstring *out, const lochist_entry_t &amp;e, uint32 index, void *ud)</argsstring>
+        <name>get_desc</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structlochist__entry__t" kindref="compound">lochist_entry_t</ref> &amp;</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="342" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="342" bodyend="347"/>
+      </memberdef>
+      <memberdef kind="function" id="classbookmarks__t_1af78591b9c1a9dd15a5725ffe2a3a9c83" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>static uint32 bookmarks_t::find_index</definition>
+        <argsstring>(const lochist_entry_t &amp;e, void *ud)</argsstring>
+        <name>find_index</name>
+        <param>
+          <type>const <ref refid="structlochist__entry__t" kindref="compound">lochist_entry_t</ref> &amp;</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="349" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="349" bodyend="352"/>
+      </memberdef>
+      <memberdef kind="function" id="classbookmarks__t_1aa04a84e3b1eb9994d2d9527d77766cd0" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>static uint32 bookmarks_t::size</definition>
+        <argsstring>(const lochist_entry_t &amp;e, void *ud)</argsstring>
+        <name>size</name>
+        <param>
+          <type>const <ref refid="structlochist__entry__t" kindref="compound">lochist_entry_t</ref> &amp;</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="354" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="354" bodyend="357"/>
+      </memberdef>
+      <memberdef kind="function" id="classbookmarks__t_1a74084433813941deaee38b9d263967d3" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool bookmarks_t::erase</definition>
+        <argsstring>(const lochist_entry_t &amp;e, uint32 index, void *ud)</argsstring>
+        <name>erase</name>
+        <param>
+          <type>const <ref refid="structlochist__entry__t" kindref="compound">lochist_entry_t</ref> &amp;</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="359" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="359" bodyend="363"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="308" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="307" bodyend="364"/>
+    <listofallmembers>
+      <member refid="classbookmarks__t_1a537924e9cb496ccbfeaf96d7fcf20733" prot="private" virt="non-virtual"><scope>bookmarks_t</scope><name>bookmarks_t</name></member>
+      <member refid="classbookmarks__t_1a74084433813941deaee38b9d263967d3" prot="public" virt="non-virtual"><scope>bookmarks_t</scope><name>erase</name></member>
+      <member refid="classbookmarks__t_1af78591b9c1a9dd15a5725ffe2a3a9c83" prot="public" virt="non-virtual"><scope>bookmarks_t</scope><name>find_index</name></member>
+      <member refid="classbookmarks__t_1ac685754e16107149af89eefd6994ebac" prot="public" virt="non-virtual"><scope>bookmarks_t</scope><name>get</name></member>
+      <member refid="classbookmarks__t_1a1c9009b430ec579897bca980bb33959b" prot="public" virt="non-virtual"><scope>bookmarks_t</scope><name>get_desc</name></member>
+      <member refid="classbookmarks__t_1a5a333aeacdbf62f4beded9aaca04cf44" prot="public" virt="non-virtual"><scope>bookmarks_t</scope><name>mark</name></member>
+      <member refid="classbookmarks__t_1aa04a84e3b1eb9994d2d9527d77766cd0" prot="public" virt="non-virtual"><scope>bookmarks_t</scope><name>size</name></member>
+      <member refid="classbookmarks__t_1a2a2c89d7f4ff0405facb5f5805aa41b7" prot="private" virt="non-virtual"><scope>bookmarks_t</scope><name>~bookmarks_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

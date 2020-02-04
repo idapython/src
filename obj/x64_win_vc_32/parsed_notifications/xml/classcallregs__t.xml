@@ -1,0 +1,348 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classcallregs__t" kind="class" language="C++" prot="public">
+    <compoundname>callregs_t</compoundname>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classcallregs__t_1a345776a6f548f44dd790ef95d0135a8e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__argloc_1ga1213616e618bb2e2eeef3789c5a3066a" kindref="member">argreg_policy_t</ref></type>
+        <definition>argreg_policy_t callregs_t::policy</definition>
+        <argsstring></argsstring>
+        <name>policy</name>
+        <briefdescription>
+<para>argument policy </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1327" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcallregs__t_1acd55be3287974aaa431af0ec8c2327c0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int callregs_t::nregs</definition>
+        <argsstring></argsstring>
+        <name>nregs</name>
+        <briefdescription>
+<para>max number of registers that can be used in a call </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1328" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1328" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcallregs__t_1ad872c716a82e26335c0c26dc84c1ed19" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref></type>
+        <definition>intvec_t callregs_t::gpregs</definition>
+        <argsstring></argsstring>
+        <name>gpregs</name>
+        <briefdescription>
+<para>array of gp registers </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1329" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcallregs__t_1ab978c10c5f46216c1b5eaeb3fdcc70a0" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref></type>
+        <definition>intvec_t callregs_t::fpregs</definition>
+        <argsstring></argsstring>
+        <name>fpregs</name>
+        <briefdescription>
+<para>array of fp registers </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1330" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1330" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classcallregs__t_1a07f499951ed289d94d16a830cec9729d" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool callregs_t::set_inds</definition>
+        <argsstring>(int *p_ind1, int *p_ind2, int ind) const</argsstring>
+        <name>set_inds</name>
+        <param>
+          <type>int *</type>
+          <declname>p_ind1</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>p_ind2</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ind</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1302" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1302" bodyend="1309"/>
+      </memberdef>
+      <memberdef kind="function" id="classcallregs__t_1a448c27dafbb196366b2aa254551262af" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void callregs_t::calc_nregs</definition>
+        <argsstring>()</argsstring>
+        <name>calc_nregs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1319" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1319" bodyend="1324"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classcallregs__t_1ad236d29ebafe8420e053634c5cbd8ef5" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void callregs_t::set_regarray</definition>
+        <argsstring>(intvec_t *regvec, const int *regarray)</argsstring>
+        <name>set_regarray</name>
+        <param>
+          <type><ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> *</type>
+          <declname>regvec</declname>
+        </param>
+        <param>
+          <type>const int *</type>
+          <declname>regarray</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1312" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1312" bodyend="1318"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classcallregs__t_1aea175de26ac293f6523b9256728e3452" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>callregs_t::callregs_t</definition>
+        <argsstring>()</argsstring>
+        <name>callregs_t</name>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1333" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1333" bodyend="1333"/>
+      </memberdef>
+      <memberdef kind="function" id="classcallregs__t_1a6cbf70498c035226bd920eafb69209cc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>callregs_t::callregs_t</definition>
+        <argsstring>(cm_t cc)</argsstring>
+        <name>callregs_t</name>
+        <param>
+          <type><ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+          <declname>cc</declname>
+        </param>
+        <briefdescription>
+<para>Constructor - initialize with the given request (see <ref refid="classcallregs__t_1a75649fda5329dce03dfe7011e27420a7" kindref="member">init_regs()</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1336" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1336" bodyend="1339"/>
+      </memberdef>
+      <memberdef kind="function" id="classcallregs__t_1a75649fda5329dce03dfe7011e27420a7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void callregs_t::init_regs</definition>
+        <argsstring>(cm_t cc)</argsstring>
+        <name>init_regs</name>
+        <param>
+          <type><ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+          <declname>cc</declname>
+        </param>
+        <briefdescription>
+<para>Init policy &amp; registers for given CC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1342" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1342" bodyend="1345"/>
+      </memberdef>
+      <memberdef kind="function" id="classcallregs__t_1a86bb75da7958e0636171f0fbcd3c64ec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void callregs_t::set</definition>
+        <argsstring>(argreg_policy_t _policy, const int *gprs, const int *fprs)</argsstring>
+        <name>set</name>
+        <param>
+          <type><ref refid="group__argloc_1ga1213616e618bb2e2eeef3789c5a3066a" kindref="member">argreg_policy_t</ref></type>
+          <declname>_policy</declname>
+        </param>
+        <param>
+          <type>const int *</type>
+          <declname>gprs</declname>
+        </param>
+        <param>
+          <type>const int *</type>
+          <declname>fprs</declname>
+        </param>
+        <briefdescription>
+<para>Init policy &amp; registers (arrays are -1-terminated) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1348" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1348" bodyend="1354"/>
+      </memberdef>
+      <memberdef kind="function" id="classcallregs__t_1a586253a7f82bcf6893013d498cffaff3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void callregs_t::reset</definition>
+        <argsstring>()</argsstring>
+        <name>reset</name>
+        <briefdescription>
+<para>Set policy and registers to invalid values. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1357" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1357" bodyend="1360"/>
+      </memberdef>
+      <memberdef kind="function" id="classcallregs__t_1a4c0322687e4886f1d76686bedbf23ce5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool callregs_t::reginds</definition>
+        <argsstring>(int *gp_ind, int *fp_ind, int r) const</argsstring>
+        <name>reginds</name>
+        <param>
+          <type>int *</type>
+          <declname>gp_ind</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>fp_ind</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get register indexes within GP/FP arrays. (-1 -&gt; is not present in the corresponding array) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1377" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1377" bodyend="1380"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classcallregs__t_1aa4d436a745c4746532d3692bc2c5d5d2" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int callregs_t::regcount</definition>
+        <argsstring>(cm_t cc)</argsstring>
+        <name>regcount</name>
+        <param>
+          <type><ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+          <declname>cc</declname>
+        </param>
+        <briefdescription>
+<para>Get max number of registers may be used in a function call. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1363" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1363" bodyend="1366"/>
+      </memberdef>
+      <memberdef kind="function" id="classcallregs__t_1a45f967e27e7d8ba1830ed98b08242184" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int callregs_t::findreg</definition>
+        <argsstring>(const intvec_t &amp;regs, int r)</argsstring>
+        <name>findreg</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;</type>
+          <declname>regs</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1369" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1369" bodyend="1373"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classcallregs__t_1ac7cdea96c181ba0430e104779274c1b6" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool callregs_t::findregs</definition>
+        <argsstring>(int *gp_ind, int *fp_ind, int r, const intvec_t &amp;gprs, const intvec_t &amp;fprs) const</argsstring>
+        <name>findregs</name>
+        <param>
+          <type>int *</type>
+          <declname>gp_ind</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>fp_ind</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;</type>
+          <declname>gprs</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &amp;</type>
+          <declname>fprs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Search for register r in gprs and fprs. If found, fill gp_ind and fp_ind based on <ref refid="classcallregs__t_1a345776a6f548f44dd790ef95d0135a8e" kindref="member">policy</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1385" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1385" bodyend="1390"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Register allocation calling convention. (allocation policy, arrays of GP and FP registers) </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="134">
+        <label>qvector&lt; int &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="133">
+        <label>callregs_t</label>
+        <link refid="classcallregs__t"/>
+        <childnode refid="134" relation="usage">
+          <edgelabel>gpregs</edgelabel>
+          <edgelabel>fpregs</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1301" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1300" bodyend="1391"/>
+    <listofallmembers>
+      <member refid="classcallregs__t_1a448c27dafbb196366b2aa254551262af" prot="private" virt="non-virtual"><scope>callregs_t</scope><name>calc_nregs</name></member>
+      <member refid="classcallregs__t_1aea175de26ac293f6523b9256728e3452" prot="public" virt="non-virtual"><scope>callregs_t</scope><name>callregs_t</name></member>
+      <member refid="classcallregs__t_1a6cbf70498c035226bd920eafb69209cc" prot="public" virt="non-virtual"><scope>callregs_t</scope><name>callregs_t</name></member>
+      <member refid="classcallregs__t_1a45f967e27e7d8ba1830ed98b08242184" prot="public" virt="non-virtual"><scope>callregs_t</scope><name>findreg</name></member>
+      <member refid="classcallregs__t_1ac7cdea96c181ba0430e104779274c1b6" prot="protected" virt="non-virtual"><scope>callregs_t</scope><name>findregs</name></member>
+      <member refid="classcallregs__t_1ab978c10c5f46216c1b5eaeb3fdcc70a0" prot="public" virt="non-virtual"><scope>callregs_t</scope><name>fpregs</name></member>
+      <member refid="classcallregs__t_1ad872c716a82e26335c0c26dc84c1ed19" prot="public" virt="non-virtual"><scope>callregs_t</scope><name>gpregs</name></member>
+      <member refid="classcallregs__t_1a75649fda5329dce03dfe7011e27420a7" prot="public" virt="non-virtual"><scope>callregs_t</scope><name>init_regs</name></member>
+      <member refid="classcallregs__t_1acd55be3287974aaa431af0ec8c2327c0" prot="public" virt="non-virtual"><scope>callregs_t</scope><name>nregs</name></member>
+      <member refid="classcallregs__t_1a345776a6f548f44dd790ef95d0135a8e" prot="public" virt="non-virtual"><scope>callregs_t</scope><name>policy</name></member>
+      <member refid="classcallregs__t_1aa4d436a745c4746532d3692bc2c5d5d2" prot="public" virt="non-virtual"><scope>callregs_t</scope><name>regcount</name></member>
+      <member refid="classcallregs__t_1a4c0322687e4886f1d76686bedbf23ce5" prot="public" virt="non-virtual"><scope>callregs_t</scope><name>reginds</name></member>
+      <member refid="classcallregs__t_1a586253a7f82bcf6893013d498cffaff3" prot="public" virt="non-virtual"><scope>callregs_t</scope><name>reset</name></member>
+      <member refid="classcallregs__t_1a86bb75da7958e0636171f0fbcd3c64ec" prot="public" virt="non-virtual"><scope>callregs_t</scope><name>set</name></member>
+      <member refid="classcallregs__t_1a07f499951ed289d94d16a830cec9729d" prot="private" virt="non-virtual"><scope>callregs_t</scope><name>set_inds</name></member>
+      <member refid="classcallregs__t_1ad236d29ebafe8420e053634c5cbd8ef5" prot="private" virt="non-virtual"><scope>callregs_t</scope><name>set_regarray</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

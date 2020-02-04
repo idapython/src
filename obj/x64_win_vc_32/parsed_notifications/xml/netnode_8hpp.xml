@@ -1,0 +1,2140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="netnode_8hpp" kind="file" language="C++">
+    <compoundname>netnode.hpp</compoundname>
+    <includes refid="range_8hpp" local="no">range.hpp</includes>
+    <includedby refid="nalt_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp</includedby>
+    <incdepgraph>
+      <node id="1077">
+        <label>range.hpp</label>
+        <link refid="range_8hpp"/>
+      </node>
+      <node id="1076">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp</label>
+        <link refid="netnode_8hpp"/>
+        <childnode refid="1077" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1089">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/intel.hpp</label>
+        <link refid="intel_8hpp_source"/>
+      </node>
+      <node id="1097">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/ua.hpp</label>
+        <link refid="ua_8hpp"/>
+        <childnode refid="1081" relation="include">
+        </childnode>
+        <childnode refid="1083" relation="include">
+        </childnode>
+        <childnode refid="1089" relation="include">
+        </childnode>
+        <childnode refid="1098" relation="include">
+        </childnode>
+      </node>
+      <node id="1094">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/enum.hpp</label>
+        <link refid="enum_8hpp"/>
+      </node>
+      <node id="1092">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp</label>
+        <link refid="ida__highlighter_8hpp_source"/>
+      </node>
+      <node id="1098">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/idd.hpp</label>
+        <link refid="idd_8hpp"/>
+        <childnode refid="1084" relation="include">
+        </childnode>
+      </node>
+      <node id="1083">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/idp.hpp</label>
+        <link refid="idp_8hpp"/>
+        <childnode refid="1084" relation="include">
+        </childnode>
+        <childnode refid="1085" relation="include">
+        </childnode>
+        <childnode refid="1086" relation="include">
+        </childnode>
+        <childnode refid="1088" relation="include">
+        </childnode>
+        <childnode refid="1090" relation="include">
+        </childnode>
+        <childnode refid="1091" relation="include">
+        </childnode>
+      </node>
+      <node id="1084">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp</label>
+        <link refid="dbg_8hpp"/>
+      </node>
+      <node id="1081">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/jumptable.hpp</label>
+        <link refid="jumptable_8hpp_source"/>
+      </node>
+      <node id="1096">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/struct.hpp</label>
+        <link refid="struct_8hpp"/>
+      </node>
+      <node id="1079">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp</label>
+        <link refid="nalt_8hpp"/>
+        <childnode refid="1080" relation="include">
+        </childnode>
+        <childnode refid="1081" relation="include">
+        </childnode>
+        <childnode refid="1082" relation="include">
+        </childnode>
+        <childnode refid="1083" relation="include">
+        </childnode>
+        <childnode refid="1094" relation="include">
+        </childnode>
+        <childnode refid="1095" relation="include">
+        </childnode>
+      </node>
+      <node id="1090">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/graph.hpp</label>
+        <link refid="graph_8hpp"/>
+      </node>
+      <node id="1100">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp</label>
+        <link refid="gdl_8hpp"/>
+        <childnode refid="1088" relation="include">
+        </childnode>
+        <childnode refid="1090" relation="include">
+        </childnode>
+      </node>
+      <node id="1093">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp</label>
+        <link refid="tstfeat_8hpp_source"/>
+      </node>
+      <node id="1099">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp</label>
+        <link refid="funcs_8hpp"/>
+        <childnode refid="1083" relation="include">
+        </childnode>
+        <childnode refid="1100" relation="include">
+        </childnode>
+      </node>
+      <node id="1091">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/expr.hpp</label>
+        <link refid="expr_8hpp"/>
+        <childnode refid="1092" relation="include">
+        </childnode>
+        <childnode refid="1093" relation="include">
+        </childnode>
+      </node>
+      <node id="1082">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/fixup.hpp</label>
+        <link refid="fixup_8hpp"/>
+      </node>
+      <node id="1085">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/frame.hpp</label>
+        <link refid="frame_8hpp"/>
+      </node>
+      <node id="1095">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp</label>
+        <link refid="bytes_8hpp"/>
+        <childnode refid="1096" relation="include">
+        </childnode>
+        <childnode refid="1097" relation="include">
+        </childnode>
+        <childnode refid="1099" relation="include">
+        </childnode>
+      </node>
+      <node id="1080">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/offset.hpp</label>
+        <link refid="offset_8hpp"/>
+      </node>
+      <node id="1086">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp</label>
+        <link refid="typeinf_8hpp"/>
+        <childnode refid="1087" relation="include">
+        </childnode>
+        <childnode refid="1088" relation="include">
+        </childnode>
+        <childnode refid="1089" relation="include">
+        </childnode>
+      </node>
+      <node id="1078">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp</label>
+        <link refid="netnode_8hpp"/>
+        <childnode refid="1079" relation="include">
+        </childnode>
+      </node>
+      <node id="1088">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp</label>
+        <link refid="hexrays_8hpp_source"/>
+      </node>
+      <node id="1087">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp</label>
+        <link refid="lumina_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classnetnode" prot="public">netnode</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Helper functions</header>
+      <description><para>They should not be called directly! See <ref refid="classnetnode" kindref="compound">netnode</ref> </para></description>
+      <memberdef kind="function" id="netnode_8hpp_1a62c24a23e5d226af1804da3ce7b6f93f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_check</definition>
+        <argsstring>(netnode *, const char *name, size_t namlen, bool create)</argsstring>
+        <name>netnode_check</name>
+        <param>
+          <type><ref refid="classnetnode" kindref="compound">netnode</ref> *</type>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>namlen</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>create</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="144" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1aa4e191055db809d8fe6535486a7c4bb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export netnode_kill</definition>
+        <argsstring>(netnode *)</argsstring>
+        <name>netnode_kill</name>
+        <param>
+          <type><ref refid="classnetnode" kindref="compound">netnode</ref> *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="145" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a13a1349fb52a1e6e5ff6aee30e1b7603" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_start</definition>
+        <argsstring>(netnode *)</argsstring>
+        <name>netnode_start</name>
+        <param>
+          <type><ref refid="classnetnode" kindref="compound">netnode</ref> *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="146" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a76d17417434baaaaa874831175369a7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_end</definition>
+        <argsstring>(netnode *)</argsstring>
+        <name>netnode_end</name>
+        <param>
+          <type><ref refid="classnetnode" kindref="compound">netnode</ref> *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="147" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a82d1eabc06a7c11b81307f5f522096d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_next</definition>
+        <argsstring>(netnode *)</argsstring>
+        <name>netnode_next</name>
+        <param>
+          <type><ref refid="classnetnode" kindref="compound">netnode</ref> *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="148" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1ae1a279501422214917099de4f564c863" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_prev</definition>
+        <argsstring>(netnode *)</argsstring>
+        <name>netnode_prev</name>
+        <param>
+          <type><ref refid="classnetnode" kindref="compound">netnode</ref> *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="149" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a399bc8f210703c2ae809f034821a915e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_get_name</definition>
+        <argsstring>(nodeidx_t num, qstring *out)</argsstring>
+        <name>netnode_get_name</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="150" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a36ddc49a71acf1da7228a4f6f382927a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_rename</definition>
+        <argsstring>(nodeidx_t num, const char *newname, size_t namlen)</argsstring>
+        <name>netnode_rename</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>newname</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>namlen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="151" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a9973d404f708cfc9901f02522c4ba0cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_valobj</definition>
+        <argsstring>(nodeidx_t num, void *buf, size_t bufsize)</argsstring>
+        <name>netnode_valobj</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="152" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1aa255891bcdc436560ee7da9af6bd7ff2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_valstr</definition>
+        <argsstring>(nodeidx_t num, char *buf, size_t bufsize)</argsstring>
+        <name>netnode_valstr</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="153" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a8259fdb4d5b09c866c27283973d82818" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_qvalstr</definition>
+        <argsstring>(nodeidx_t num, qstring *buf)</argsstring>
+        <name>netnode_qvalstr</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="154" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a2c6b6cc3132a9687ac51c99036d43970" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_set</definition>
+        <argsstring>(nodeidx_t num, const void *value, size_t length)</argsstring>
+        <name>netnode_set</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="155" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a7d2c84e33bdde1199d9cd3afa3d4aceb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_delvalue</definition>
+        <argsstring>(nodeidx_t num)</argsstring>
+        <name>netnode_delvalue</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="156" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a53da310cec244577118f97b5057e7200" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman nodeidx_t ida_export</type>
+        <definition>idaman nodeidx_t ida_export netnode_altval</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t alt, int tag)</argsstring>
+        <name>netnode_altval</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="157" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a6b0b0e19be0b851ab86cee41d5620b59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> ida_export</type>
+        <definition>idaman uchar ida_export netnode_charval</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t alt, int tag)</argsstring>
+        <name>netnode_charval</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="158" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a1509439038c089e7e065be777b6fbefb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman nodeidx_t ida_export</type>
+        <definition>idaman nodeidx_t ida_export netnode_altval_idx8</definition>
+        <argsstring>(nodeidx_t num, uchar alt, int tag)</argsstring>
+        <name>netnode_altval_idx8</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="159" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a5f44736ac53f06f976d03b556c76503e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> ida_export</type>
+        <definition>idaman uchar ida_export netnode_charval_idx8</definition>
+        <argsstring>(nodeidx_t num, uchar alt, int tag)</argsstring>
+        <name>netnode_charval_idx8</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="160" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a6199b452d132014c049be7b740673aa8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_supval</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t alt, void *buf, size_t bufsize, int tag)</argsstring>
+        <name>netnode_supval</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="161" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a148d2be2610567275a9c33e014f8fbca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_supstr</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t alt, char *buf, size_t bufsize, int tag)</argsstring>
+        <name>netnode_supstr</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="162" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a522f2106542b23a2b47cdb99bd25f025" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_qsupstr</definition>
+        <argsstring>(nodeidx_t num, qstring *buf, nodeidx_t alt, int tag)</argsstring>
+        <name>netnode_qsupstr</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="163" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1ae2a4b42664c0925128530aac60141dbe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_supset</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t alt, const void *value, size_t length, int tag)</argsstring>
+        <name>netnode_supset</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="164" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1ac11c56688c9c4da106665849c691459b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_supdel</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t alt, int tag)</argsstring>
+        <name>netnode_supdel</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="165" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a0f619fe63b8008ce4b0c5b9f27cdbd94" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman nodeidx_t ida_export</type>
+        <definition>idaman nodeidx_t ida_export netnode_lower_bound</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t cur, int tag)</argsstring>
+        <name>netnode_lower_bound</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>cur</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="166" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a0bf1e279627f81c8c7ce1bceaf8ca343" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman nodeidx_t ida_export</type>
+        <definition>idaman nodeidx_t ida_export netnode_supfirst</definition>
+        <argsstring>(nodeidx_t num, int tag)</argsstring>
+        <name>netnode_supfirst</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="167" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1ae6bc50209cb68d6ac1b5c477b516ba60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman nodeidx_t ida_export</type>
+        <definition>idaman nodeidx_t ida_export netnode_supnext</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t cur, int tag)</argsstring>
+        <name>netnode_supnext</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>cur</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="168" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a93d18e53e94062285766c2254a026184" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman nodeidx_t ida_export</type>
+        <definition>idaman nodeidx_t ida_export netnode_suplast</definition>
+        <argsstring>(nodeidx_t num, int tag)</argsstring>
+        <name>netnode_suplast</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="169" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a4e011650ca04b1a1ffe271eeb5bbc234" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman nodeidx_t ida_export</type>
+        <definition>idaman nodeidx_t ida_export netnode_supprev</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t cur, int tag)</argsstring>
+        <name>netnode_supprev</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>cur</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="170" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a6f1c81062236c16ac271f564ca632bf5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_supval_idx8</definition>
+        <argsstring>(nodeidx_t num, uchar alt, void *buf, size_t bufsize, int tag)</argsstring>
+        <name>netnode_supval_idx8</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="171" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a5d1a0ec495b05f4409ce443f0c91c3b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_supstr_idx8</definition>
+        <argsstring>(nodeidx_t num, uchar alt, char *buf, size_t bufsize, int tag)</argsstring>
+        <name>netnode_supstr_idx8</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="172" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1add933acd5b47bd35cdbf7b8cd6f54222" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_qsupstr_idx8</definition>
+        <argsstring>(nodeidx_t num, qstring *buf, uchar alt, int tag)</argsstring>
+        <name>netnode_qsupstr_idx8</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="173" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1aa83fb229e8ea226d388efbdd78ff016e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_supset_idx8</definition>
+        <argsstring>(nodeidx_t num, uchar alt, const void *value, size_t length, int tag)</argsstring>
+        <name>netnode_supset_idx8</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="174" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a43d053b090405a31ddc745c12309465b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_supdel_idx8</definition>
+        <argsstring>(nodeidx_t num, uchar alt, int tag)</argsstring>
+        <name>netnode_supdel_idx8</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="175" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1acd14e7efccfee1449266ce2df291b4c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman nodeidx_t ida_export</type>
+        <definition>idaman nodeidx_t ida_export netnode_lower_bound_idx8</definition>
+        <argsstring>(nodeidx_t num, uchar alt, int tag)</argsstring>
+        <name>netnode_lower_bound_idx8</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="176" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a1dc1af1cdfaceb5346257872e74b9c21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman nodeidx_t ida_export</type>
+        <definition>idaman nodeidx_t ida_export netnode_supfirst_idx8</definition>
+        <argsstring>(nodeidx_t num, int tag)</argsstring>
+        <name>netnode_supfirst_idx8</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="177" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a57e9619c0be729533ddd9a0317e6f39a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman nodeidx_t ida_export</type>
+        <definition>idaman nodeidx_t ida_export netnode_supnext_idx8</definition>
+        <argsstring>(nodeidx_t num, uchar alt, int tag)</argsstring>
+        <name>netnode_supnext_idx8</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="178" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a0218574ac78c3b9978b045347f10ce1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman nodeidx_t ida_export</type>
+        <definition>idaman nodeidx_t ida_export netnode_suplast_idx8</definition>
+        <argsstring>(nodeidx_t num, int tag)</argsstring>
+        <name>netnode_suplast_idx8</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="179" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a3028b19981c4bdfb1980ea4943585deb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman nodeidx_t ida_export</type>
+        <definition>idaman nodeidx_t ida_export netnode_supprev_idx8</definition>
+        <argsstring>(nodeidx_t num, uchar alt, int tag)</argsstring>
+        <name>netnode_supprev_idx8</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>alt</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="180" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1aa8895e0b4c01953a2ec99bfe41c09f70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_supdel_all</definition>
+        <argsstring>(nodeidx_t num, int tag)</argsstring>
+        <name>netnode_supdel_all</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="181" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1ab17804cc94ff032dc1b04adbf13fbd70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export netnode_supdel_range</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t idx1, nodeidx_t idx2, int tag)</argsstring>
+        <name>netnode_supdel_range</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>idx1</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>idx2</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="182" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a69e98c96e63b68b243fcb546afe224e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export netnode_supdel_range_idx8</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t idx1, nodeidx_t idx2, int tag)</argsstring>
+        <name>netnode_supdel_range_idx8</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>idx1</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>idx2</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="183" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a1dd6dec44deb7d6de5634d2b81b85067" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_hashval</definition>
+        <argsstring>(nodeidx_t num, const char *idx, void *buf, size_t bufsize, int tag)</argsstring>
+        <name>netnode_hashval</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="184" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1ae984c26c8bfb1c1ad137f3fc6e0898ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_hashstr</definition>
+        <argsstring>(nodeidx_t num, const char *idx, char *buf, size_t bufsize, int tag)</argsstring>
+        <name>netnode_hashstr</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="185" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a3b2f1fe3a7e3cc8676a153be3896f251" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_qhashstr</definition>
+        <argsstring>(nodeidx_t num, qstring *buf, const char *idx, int tag)</argsstring>
+        <name>netnode_qhashstr</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="186" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a28f2425617f3d9317997e2a06c0cf559" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman nodeidx_t ida_export</type>
+        <definition>idaman nodeidx_t ida_export netnode_hashval_long</definition>
+        <argsstring>(nodeidx_t num, const char *idx, int tag)</argsstring>
+        <name>netnode_hashval_long</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="187" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1afbb259ea46553ae42179437543107797" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_hashset</definition>
+        <argsstring>(nodeidx_t num, const char *idx, const void *value, size_t length, int tag)</argsstring>
+        <name>netnode_hashset</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="188" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1aec323f755c089a904c20b8d7cefe42f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_hashdel</definition>
+        <argsstring>(nodeidx_t num, const char *idx, int tag)</argsstring>
+        <name>netnode_hashdel</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="189" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1aa87802d352a10e65dcb88560f79bf407" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_hashfirst</definition>
+        <argsstring>(nodeidx_t num, char *buf, size_t bufsize, int tag)</argsstring>
+        <name>netnode_hashfirst</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="190" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a79df1113a2413ab3a6712556ea63b695" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_qhashfirst</definition>
+        <argsstring>(nodeidx_t num, qstring *buf, int tag)</argsstring>
+        <name>netnode_qhashfirst</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="191" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a35aa0c136503d60f94197087c14c1680" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_hashnext</definition>
+        <argsstring>(nodeidx_t num, const char *idx, char *buf, size_t bufsize, int tag)</argsstring>
+        <name>netnode_hashnext</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="192" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a12c8ef609e43fead038ac6a7ddbb6d46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_qhashnext</definition>
+        <argsstring>(nodeidx_t num, qstring *buf, const char *idx, int tag)</argsstring>
+        <name>netnode_qhashnext</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="193" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1aaf50e91817d988525871644e9bef928b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_hashlast</definition>
+        <argsstring>(nodeidx_t num, char *buf, size_t bufsize, int tag)</argsstring>
+        <name>netnode_hashlast</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="194" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a30f87f58e48fc23d33280862e123436a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_qhashlast</definition>
+        <argsstring>(nodeidx_t num, qstring *buf, int tag)</argsstring>
+        <name>netnode_qhashlast</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="195" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1af5b64159c133d9656f2814a7b2de130b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_hashprev</definition>
+        <argsstring>(nodeidx_t num, const char *idx, char *buf, size_t bufsize, int tag)</argsstring>
+        <name>netnode_hashprev</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="196" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a159695642f332b00c683ca3ec103b877" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_qhashprev</definition>
+        <argsstring>(nodeidx_t num, qstring *buf, const char *idx, int tag)</argsstring>
+        <name>netnode_qhashprev</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="197" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a3bddd8daedaffccd16302b68fdcf5bc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export netnode_blobsize</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t start, int tag)</argsstring>
+        <name>netnode_blobsize</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="198" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a990b121a962f7627e8d573bf0270b76b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void *ida_export</type>
+        <definition>idaman void* ida_export netnode_getblob</definition>
+        <argsstring>(nodeidx_t num, void *buf, size_t *bufsize, nodeidx_t start, int tag)</argsstring>
+        <name>netnode_getblob</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t *</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="199" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1afbd3e9ea661b706d9de3ba7c176a840b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export netnode_qgetblob</definition>
+        <argsstring>(nodeidx_t num, bytevec_t *buf, size_t elsize, nodeidx_t start, int tag)</argsstring>
+        <name>netnode_qgetblob</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>elsize</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="200" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1aeaead997d23e9dd951fc497722b4584d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_setblob</definition>
+        <argsstring>(nodeidx_t num, const void *buf, size_t size, nodeidx_t start, int tag)</argsstring>
+        <name>netnode_setblob</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="201" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a2516634061459a8df1d41d4c08a4187f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export netnode_delblob</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t start, int tag)</argsstring>
+        <name>netnode_delblob</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="202" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a841101aa9419fc40bd35ac11eefa3547" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_inited</definition>
+        <argsstring>(void)</argsstring>
+        <name>netnode_inited</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="203" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a35d3cbdc7e8038b8fb3b7765a17e7b09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export netnode_copy</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t count, nodeidx_t target, bool move)</argsstring>
+        <name>netnode_copy</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>count</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>move</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="204" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1abf0204c59dcadd8881cbc8a71224bc87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export netnode_altshift</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t from, nodeidx_t to, nodeidx_t size, int tag)</argsstring>
+        <name>netnode_altshift</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="205" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1a9cf24adc5d5f4eead359e3fa98be7aed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export netnode_charshift</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t from, nodeidx_t to, nodeidx_t size, int tag)</argsstring>
+        <name>netnode_charshift</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="206" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1acd34f9a54f2ed4be122de7f5d89d80ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export netnode_supshift</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t from, nodeidx_t to, nodeidx_t size, int tag)</argsstring>
+        <name>netnode_supshift</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="207" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1ab212b28cc7a8a1a61ad3bf7f8a43d7b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export netnode_altadjust</definition>
+        <argsstring>(nodeidx_t num, nodeidx_t from, nodeidx_t to, nodeidx_t size, bool(idaapi *should_skip)(nodeidx_t ea))</argsstring>
+        <name>netnode_altadjust</name>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type>nodeidx_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>bool(idaapi *)(nodeidx_t ea)</type>
+          <declname>should_skip</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="208" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="netnode_8hpp_1af606199b50087336ce6d89f24831c423" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export netnode_exist</definition>
+        <argsstring>(const netnode &amp;n)</argsstring>
+        <name>netnode_exist</name>
+        <param>
+          <type>const <ref refid="classnetnode" kindref="compound">netnode</ref> &amp;</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="209" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="netnode_8hpp_1ab745219216aec4e8abf2c1dcc5d5eac0" prot="public" static="no">
+        <name>BADNODE</name>
+        <initializer>nodeidx_t(-1)</initializer>
+        <briefdescription>
+<para>A number to represent a bad netnode reference. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="116" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="netnode_8hpp_1afac05ae87b94f6a07e5f9a4a26d67777" prot="public" static="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>typedef uint32 nodeidx_t</definition>
+        <argsstring></argsstring>
+        <name>nodeidx_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="112" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="netnode_8hpp_1a6902c2799f85aec0a0d8a09555e8f67c" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int MAXNAMESIZE</definition>
+        <argsstring></argsstring>
+        <name>MAXNAMESIZE</name>
+        <initializer>= 512</initializer>
+        <briefdescription>
+<para>Maximum length of a netnode name. WILL BE REMOVED IN THE FUTURE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="100" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="netnode_8hpp_1a6d6c30763d8a9b7c73b0b30bc063f20f" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int MAX_NODENAME_SIZE</definition>
+        <argsstring></argsstring>
+        <name>MAX_NODENAME_SIZE</name>
+        <initializer>= 32*1024</initializer>
+        <briefdescription>
+<para>Maximum length of a name. We permit names up to 32KB-1 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="103" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="netnode_8hpp_1ae8c4a26e225e65819ce7f26e69022c47" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int MAXSPECSIZE</definition>
+        <argsstring></argsstring>
+        <name>MAXSPECSIZE</name>
+        <initializer>= 1024</initializer>
+        <briefdescription>
+<para>Maximum length of strings or objects stored in a supval array element. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="106" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__nn__res_1ga510bd25a8aa555688d611db3a33e3902" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar atag</definition>
+        <argsstring></argsstring>
+        <name>atag</name>
+        <initializer>= &apos;A&apos;</initializer>
+        <briefdescription>
+<para>Array of altvals. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="122" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__nn__res_1gae6dbe815b6c62ada91022a3f3e1a0f3c" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar stag</definition>
+        <argsstring></argsstring>
+        <name>stag</name>
+        <initializer>= &apos;S&apos;</initializer>
+        <briefdescription>
+<para>Array of supvals. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="123" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__nn__res_1ga2d24406d0dc001d3d7a6e99adf73ad20" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar htag</definition>
+        <argsstring></argsstring>
+        <name>htag</name>
+        <initializer>= &apos;H&apos;</initializer>
+        <briefdescription>
+<para>Array of hashvals. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="124" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__nn__res_1ga992c58c30acc9f68a9b1446d2279cb4f" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar vtag</definition>
+        <argsstring></argsstring>
+        <name>vtag</name>
+        <initializer>= &apos;V&apos;</initializer>
+        <briefdescription>
+<para>Value of netnode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="125" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__nn__res_1gaaa3b1b5fea2dee1b99152b40e78c32f5" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar ntag</definition>
+        <argsstring></argsstring>
+        <name>ntag</name>
+        <initializer>= &apos;N&apos;</initializer>
+        <briefdescription>
+<para>Name of netnode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="126" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__nn__res_1ga66cd76c0f46611ada012ccafd12be096" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar ltag</definition>
+        <argsstring></argsstring>
+        <name>ltag</name>
+        <initializer>= &apos;L&apos;</initializer>
+        <briefdescription>
+<para>Links between netnodes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="127" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="netnode_8hpp_1ac1a7a89672bf770ea2b109475e3ce1f6" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int NETMAP_IDX</definition>
+        <argsstring></argsstring>
+        <name>NETMAP_IDX</name>
+        <initializer>= 0x100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="131" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="netnode_8hpp_1a0b2e9f0e84b46a2b8b8fa76de14843f0" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int NETMAP_VAL</definition>
+        <argsstring></argsstring>
+        <name>NETMAP_VAL</name>
+        <initializer>= 0x200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="134" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="netnode_8hpp_1ad4e7a14d80fc1dc62c7712c427dfcb18" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int NETMAP_STR</definition>
+        <argsstring></argsstring>
+        <name>NETMAP_STR</name>
+        <initializer>= 0x400</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="137" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="netnode_8hpp_1af38be6706ea9a8e60b9730cdc1aa87c0" prot="public" static="no" mutable="no">
+        <type>idaman <ref refid="classnetnode" kindref="compound">netnode</ref> ida_export_data</type>
+        <definition>idaman netnode ida_export_data root_node</definition>
+        <argsstring></argsstring>
+        <name>root_node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The root node is used by the kernel, do not use it directly in your modules. Its name: &quot;Root Node&quot; </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="1151" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="1151" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Functions that provide the lowest level public interface to the database. </para>    </briefdescription>
+    <detaileddescription>
+<para>(Namely, Btree). To learn more about Balanced Trees: <ulink url="http://www.bluerwhite.org/btree/">http://www.bluerwhite.org/btree/</ulink></para><para>We don&apos;t use Btree directly. Instead, we have another layer built on the top of Btree. Here is a brief explanation of this layer.</para><para>An object called &quot;netnode&quot; is modeled on the top of Btree. Each netnode has a unique id: a 32-bit value (64-bit for ida64). Usually there is a trivial mapping of the linear addresses used in the program to netnodes. If we have additional information about an address (a comment is attached to it, for example), this information is stored in the corresponding netnode. See <ref refid="nalt_8hpp" kindref="compound">nalt.hpp</ref> to see how the kernel uses netnodes. Also, some netnodes have no corresponding linear address (however, they still have an id). They are used to store information not related to a particular address.</para><para>Each netnode <emphasis>may</emphasis> have the following attributes:</para><para><itemizedlist>
+<listitem><para>a name: an arbitrary non-empty string, up to 255KB-1 bytes</para></listitem><listitem><para>a value: arbitrary sized object, max size is MAXSPECSIZE</para></listitem><listitem><para>altvals: a sparse array of 32-bit values. indexes in this array may be 8-bit or 32-bit values</para></listitem><listitem><para>supvals: an array of arbitrary sized objects. (size of each object is limited by MAXSPECSIZE) indexes in this array may be 8-bit or 32-bit values</para></listitem><listitem><para>charvals: a sparse array of 8-bit values. indexes in this array may be 8-bit or 32-bit values</para></listitem><listitem><para>hashvals: a hash (an associative array). indexes in this array are strings values are arbitrary sized (max size is MAXSPECSIZE)</para></listitem></itemizedlist>
+</para><para>Initially a new netnode contains no information at all so no disk space is used for it. As you add new information, the netnode grows.</para><para>All arrays that are attached to the netnode behave in the same manner. Initially:<itemizedlist>
+<listitem><para>all members of altvals/charvals array are zeroes</para></listitem><listitem><para>all members of supvals/hashvals array are undefined</para></listitem></itemizedlist>
+</para><para>If you need to store objects bigger that MAXSPECSIZE, please note that there are high-level functions to store arbitrary sized objects in supvals. See setblog/getblob and other blob-related functions.</para><para>You may use netnodes to store additional information about the program. Limitations on the use of netnodes are the following:</para><para><itemizedlist>
+<listitem><para>use netnodes only if you could not find a kernel service to store your type of information</para></listitem><listitem><para>do not create netnodes with valid identifier names. Use the &quot;$ &quot; prefix (or any other prefix with characters not allowed in the identifiers for the names of your netnodes. Although you will probably not destroy anything by accident, using already defined names for the names of your netnodes is still discouraged.</para></listitem><listitem><para>you may create as many netnodes as you want (creation of an unnamed netnode does not increase the size of the database). however, since each netnode has a number, creating too many netnodes could lead to the exhaustion of the netnode numbers (the numbering starts at 0xFF000000)</para></listitem><listitem><para>remember that netnodes are automatically saved to the disk by the kernel.</para></listitem></itemizedlist>
+</para><para>Advanced info:</para><para>In fact a netnode may contain up to 256 arrays of arbitrary sized objects (not only the 4 listed above). Each array has an 8-bit tag. Usually tags are represented by character constants. For example, altvals and supvals are simply 2 of 256 arrays, with the tags &apos;A&apos; and &apos;S&apos; respectively. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structidp__desc__t" kind="struct" language="C++" prot="public">
+    <compoundname>idp_desc_t</compoundname>
+    <includes refid="loader_8hpp" local="no">loader.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structidp__desc__t_1a2994813f147705529ef1b0f73578f0b1" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring idp_desc_t::path</definition>
+        <argsstring></argsstring>
+        <name>path</name>
+        <briefdescription>
+<para>module file name </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="705" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="705" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidp__desc__t_1a887e241e605811fe163303af27ff3daa" prot="public" static="no" mutable="no">
+        <type>time_t</type>
+        <definition>time_t idp_desc_t::mtime</definition>
+        <argsstring></argsstring>
+        <name>mtime</name>
+        <briefdescription>
+<para>time of last modification </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="706" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="706" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidp__desc__t_1a48b899e4a842fe2db94e2e530d2dcbfc" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring idp_desc_t::family</definition>
+        <argsstring></argsstring>
+        <name>family</name>
+        <briefdescription>
+<para>processor&apos;s family </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="707" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="707" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidp__desc__t_1a65864f78af9366a4b5ffa02660f16893" prot="public" static="no" mutable="no">
+        <type><ref refid="loader_8hpp_1ad04ad05effd5fed8829a56648ccc1520" kindref="member">idp_names_t</ref></type>
+        <definition>idp_names_t idp_desc_t::names</definition>
+        <argsstring></argsstring>
+        <name>names</name>
+        <briefdescription>
+<para>processor names </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="708" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="708" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidp__desc__t_1acdccf6c08c5fee7e7c28d32da8e4044a" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool idp_desc_t::is_script</definition>
+        <argsstring></argsstring>
+        <name>is_script</name>
+        <briefdescription>
+<para>the processor module is a script </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="709" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="709" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidp__desc__t_1aa6ae01fcb72999cb5fc2f776d93f3aed" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool idp_desc_t::checked</definition>
+        <argsstring></argsstring>
+        <name>checked</name>
+        <briefdescription>
+<para>internal, for cache management </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="710" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="710" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structidp__desc__t_1a52c80cbe59540c9566ab7fe1c7eb4cab" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>idp_desc_t::idp_desc_t</definition>
+        <argsstring>()</argsstring>
+        <name>idp_desc_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="711" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="711" bodyend="711"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Processor module description. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1787">
+        <label>qvector&lt; idp_name_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1786">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="1785">
+        <label>idp_desc_t</label>
+        <link refid="structidp__desc__t"/>
+        <childnode refid="1786" relation="usage">
+          <edgelabel>family</edgelabel>
+          <edgelabel>path</edgelabel>
+        </childnode>
+        <childnode refid="1787" relation="usage">
+          <edgelabel>names</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="704" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="703" bodyend="712"/>
+    <listofallmembers>
+      <member refid="structidp__desc__t_1aa6ae01fcb72999cb5fc2f776d93f3aed" prot="public" virt="non-virtual"><scope>idp_desc_t</scope><name>checked</name></member>
+      <member refid="structidp__desc__t_1a48b899e4a842fe2db94e2e530d2dcbfc" prot="public" virt="non-virtual"><scope>idp_desc_t</scope><name>family</name></member>
+      <member refid="structidp__desc__t_1a52c80cbe59540c9566ab7fe1c7eb4cab" prot="public" virt="non-virtual"><scope>idp_desc_t</scope><name>idp_desc_t</name></member>
+      <member refid="structidp__desc__t_1acdccf6c08c5fee7e7c28d32da8e4044a" prot="public" virt="non-virtual"><scope>idp_desc_t</scope><name>is_script</name></member>
+      <member refid="structidp__desc__t_1a887e241e605811fe163303af27ff3daa" prot="public" virt="non-virtual"><scope>idp_desc_t</scope><name>mtime</name></member>
+      <member refid="structidp__desc__t_1a65864f78af9366a4b5ffa02660f16893" prot="public" virt="non-virtual"><scope>idp_desc_t</scope><name>names</name></member>
+      <member refid="structidp__desc__t_1a2994813f147705529ef1b0f73578f0b1" prot="public" virt="non-virtual"><scope>idp_desc_t</scope><name>path</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

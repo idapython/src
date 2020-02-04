@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__tf__func" kind="group">
+    <compoundname>tf_func</compoundname>
+    <title>Derived type: function</title>
+    <innergroup refid="group___b_f_a__">Function attribute byte</innergroup>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__tf__func_1ga7b7fee21f21237beb6d91e854410e0fa" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BT_FUNC</definition>
+        <argsstring></argsstring>
+        <name>BT_FUNC</name>
+        <initializer>= 0x0C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>function. format: <preformatted>
+      optional: <ref refid="group___c_m___c_c___1ga81fe26502529dff431e52823a24db36b" kindref="member">CM_CC_SPOILED</ref> | num_of_spoiled_regs
+                if num_of_spoiled_reg == 15:
+                  next byte is function attribute byte (see <ref refid="group___b_f_a__" kindref="compound">Function attribute byte</ref>...)
+                else:
+                  num_of_spoiled_reg times: spoiled reg info (see extract_spoiledreg)
+      <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref> ... calling convention and memory model
+      [tah-typeattrs];
+      <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref> ... return type;
+      [serialized <ref refid="classargloc__t" kindref="compound">argloc_t</ref> of returned value (if <ref refid="group___c_m___c_c___1ga377054c414ac35be6e5e9bf6c550b390" kindref="member">CM_CC_SPECIAL</ref>{PE} &amp;&amp; !return void);
+      if !<ref refid="group___c_m___c_c___1gaecea308116df480106f38d080f73ab8e" kindref="member">CM_CC_VOIDARG</ref>:
+        dt N (N=number of parameters)
+        if ( N == 0 )
+        if <ref refid="group___c_m___c_c___1ga8e4d072bec04a20754290978b8b141be" kindref="member">CM_CC_ELLIPSIS</ref> or <ref refid="group___c_m___c_c___1ga6c042d42c6daf03444d06907a8498b06" kindref="member">CM_CC_SPECIALE</ref>
+            func(...)
+          else
+            parameters are unknown
+        else
+          N records:
+            <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref> ... (i.e. type of each parameter)
+            [serialized <ref refid="classargloc__t" kindref="compound">argloc_t</ref> (if <ref refid="group___c_m___c_c___1ga377054c414ac35be6e5e9bf6c550b390" kindref="member">CM_CC_SPECIAL</ref>{PE})] (i.e. place of each parameter)
+            [<ref refid="group__tattr_1gab68b66c0853e4271d2ab199fa3a50f3f" kindref="member">FAH_BYTE</ref> + de( <ref refid="structfuncarg__t_1ad8e3c72762a709b04a234fbb8cc1c9ec" kindref="member">funcarg_t::flags</ref> )] </preformatted> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="168" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__func_1ga5147e087dec7232a85eac3899ba2f4b9" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BTMT_DEFCALL</definition>
+        <argsstring></argsstring>
+        <name>BTMT_DEFCALL</name>
+        <initializer>= 0x00</initializer>
+        <briefdescription>
+<para>call method - default for model or unknown </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="192" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__func_1ga85ede61600f614010e42d95f261c4114" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BTMT_NEARCALL</definition>
+        <argsstring></argsstring>
+        <name>BTMT_NEARCALL</name>
+        <initializer>= 0x10</initializer>
+        <briefdescription>
+<para>function returns by retn </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="193" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__func_1ga45c5f0228b87ce9cfb16925be2d41ea3" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BTMT_FARCALL</definition>
+        <argsstring></argsstring>
+        <name>BTMT_FARCALL</name>
+        <initializer>= 0x20</initializer>
+        <briefdescription>
+<para>function returns by retf </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="194" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__func_1gaf9a3fbfc64a1aea9f98765619e1628fc" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BTMT_INTCALL</definition>
+        <argsstring></argsstring>
+        <name>BTMT_INTCALL</name>
+        <initializer>= 0x30</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>function returns by iret in this case cc MUST be &apos;unknown&apos; </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="195" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Ellipsis is not taken into account in the number of parameters The return type can not be <ref refid="group__tf__array_1ga8c17124d38e796e7cd8804808e4bb5b3" kindref="member">BT_ARRAY</ref> or <ref refid="group__tf__func_1ga7b7fee21f21237beb6d91e854410e0fa" kindref="member">BT_FUNC</ref>. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

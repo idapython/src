@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_h_i_t_e_m__" kind="group">
+    <compoundname>CHITEM_</compoundname>
+    <title>Chooser item property bits</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___c_h_i_t_e_m___1ga46f6d83d159cddfdd228fb9eec4ff6e6" prot="public" static="no">
+        <name>CHITEM_BOLD</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>display the item in bold </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2284" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_i_t_e_m___1ga441cecc28cd637e4a2bf2ba731a3fa37" prot="public" static="no">
+        <name>CHITEM_ITALIC</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>display the item in italic </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2285" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_i_t_e_m___1gaaa85fef9517948003800f46bad5c7b3d" prot="public" static="no">
+        <name>CHITEM_UNDER</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>underline the item </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2286" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_i_t_e_m___1ga493dc22a43c8442f4ca21643a5a07a28" prot="public" static="no">
+        <name>CHITEM_STRIKE</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>strikeout the item </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2287" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_i_t_e_m___1gace35025346d1b912fac437855cb145f8" prot="public" static="no">
+        <name>CHITEM_GRAY</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>gray out the item </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2288" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2288" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>used by <ref refid="structchooser__item__attrs__t_1ab03ecf02dcdd3219a749ad0beeb01f70" kindref="member">chooser_item_attrs_t::flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

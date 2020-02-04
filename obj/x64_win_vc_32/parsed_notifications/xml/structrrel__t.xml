@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structrrel__t" kind="struct" language="C++" prot="public">
+    <compoundname>rrel_t</compoundname>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrrel__t_1a512056878e5959d7f262168d236ca5af" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+        <definition>sval_t rrel_t::off</definition>
+        <argsstring></argsstring>
+        <name>off</name>
+        <briefdescription>
+<para>displacement from the address pointed by the register </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="822" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="822" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrrel__t_1ae05644dca96aea2d8411fa171a186d0a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rrel_t::reg</definition>
+        <argsstring></argsstring>
+        <name>reg</name>
+        <briefdescription>
+<para>register index (into {ph,<ref refid="structprocessor__t" kindref="compound">processor_t</ref>,reg_names}) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="823" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="823" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Register-relative argument location. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="821" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="820" bodyend="824"/>
+    <listofallmembers>
+      <member refid="structrrel__t_1a512056878e5959d7f262168d236ca5af" prot="public" virt="non-virtual"><scope>rrel_t</scope><name>off</name></member>
+      <member refid="structrrel__t_1ae05644dca96aea2d8411fa171a186d0a" prot="public" virt="non-virtual"><scope>rrel_t</scope><name>reg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

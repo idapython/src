@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___i_d_c_h_k__" kind="group">
+    <compoundname>IDCHK_</compoundname>
+    <title>IDC hotkey error codes</title>
+      <sectiondef kind="">
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___i_d_c_h_k___1gac9445aeab0d1469ee14d4c0859570c56" prot="public" static="no">
+        <name>IDCHK_OK</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>ok </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="322" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_c_h_k___1ga88c35e41dd97643b0479563457591b9d" prot="public" static="no">
+        <name>IDCHK_ARG</name>
+        <initializer>-1</initializer>
+        <briefdescription>
+<para>bad argument(s) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="323" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_c_h_k___1gad847eddec08c757058dca242f8b6177d" prot="public" static="no">
+        <name>IDCHK_KEY</name>
+        <initializer>-2</initializer>
+        <briefdescription>
+<para>bad hotkey name </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="324" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_c_h_k___1gae72cd145f7411d9438fac56b72c2e1f8" prot="public" static="no">
+        <name>IDCHK_MAX</name>
+        <initializer>-3</initializer>
+        <briefdescription>
+<para>too many IDC hotkeys </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="325" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>return values for <ref refid="kernwin_8hpp_1a47a6d4c81363b9a9a887f3974241da9f" kindref="member">add_idc_hotkey()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

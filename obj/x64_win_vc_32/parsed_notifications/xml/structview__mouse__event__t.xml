@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structview__mouse__event__t" kind="struct" language="C++" prot="public">
+    <compoundname>view_mouse_event_t</compoundname>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structview__mouse__event__t_1adc86d3bc04da274652590cf167d884a2" prot="public" static="no">
+        <type><ref refid="unionview__mouse__event__location__t" kindref="compound">view_mouse_event_location_t</ref></type>
+        <definition>typedef view_mouse_event_location_t view_mouse_event_t::location_t</definition>
+        <argsstring></argsstring>
+        <name>location_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2998" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2998" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structview__mouse__event__t_1ad518befd77b155d6cf506b1c08bfc7ba" prot="public" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1a35329d63b9cd10f0e8064ab3e39c3232" kindref="member">tcc_renderer_type_t</ref></type>
+        <definition>tcc_renderer_type_t view_mouse_event_t::rtype</definition>
+        <argsstring></argsstring>
+        <name>rtype</name>
+        <briefdescription>
+<para>type of renderer that received the event </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2993" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2993" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structview__mouse__event__t_1a9e638ff2a2b2236ce8bff94ba1e71bd7" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 view_mouse_event_t::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+<para>screen x coordinate </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2995" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2995" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structview__mouse__event__t_1a288adc088c6e164bc3b04822e2aa2bfb" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 view_mouse_event_t::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+<para>screen y coordinate </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2996" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2996" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structview__mouse__event__t_1a6cd6f25297a6d4a94fc798845c0ff849" prot="public" static="no" mutable="no">
+        <type><ref refid="unionview__mouse__event__location__t" kindref="compound">location_t</ref></type>
+        <definition>location_t view_mouse_event_t::location</definition>
+        <argsstring></argsstring>
+        <name>location</name>
+        <briefdescription>
+<para>location where event was generated </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2999" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2999" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structview__mouse__event__t_1a5d0bc4463e3569982344dc0067eecfd6" prot="public" static="no" mutable="no">
+        <type>view_event_state_t</type>
+        <definition>view_event_state_t view_mouse_event_t::state</definition>
+        <argsstring></argsstring>
+        <name>state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>contains information about what buttons are CURRENTLY pressed on the keyboard and mouse. <ref refid="structview__mouse__event__t" kindref="compound">view_mouse_event_t</ref> instances created in functions like mouseReleaseEvent() won&apos;t contain any information about the mouse, because it has been released. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3001" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3001" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structview__mouse__event__t_1aae770d7ea2b5a178dcc649bbbcdcbd3b" prot="public" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1a5a89e9b3519915d64f1752d146c76ac4" kindref="member">vme_button_t</ref></type>
+        <definition>vme_button_t view_mouse_event_t::button</definition>
+        <argsstring></argsstring>
+        <name>button</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>represents which mouse button was responsible for generating the event. This field does not care about the current state of the mouse. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3006" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3006" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structview__mouse__event__t_1a8a7691068f0e9831c11bcc2192181ed2" prot="public" static="no" mutable="no">
+        <type><ref refid="structrenderer__pos__info__t" kindref="compound">renderer_pos_info_t</ref></type>
+        <definition>renderer_pos_info_t view_mouse_event_t::renderer_pos</definition>
+        <argsstring></argsstring>
+        <name>renderer_pos</name>
+        <briefdescription>
+<para>position where event was generated, relative to the renderer </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3009" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3009" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Information about a mouse action within a view. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3856">
+        <label>edge_t</label>
+        <link refid="structedge__t"/>
+      </node>
+      <node id="3855">
+        <label>edge_layout_point_t</label>
+        <link refid="structedge__layout__point__t"/>
+        <childnode refid="3856" relation="usage">
+          <edgelabel>e</edgelabel>
+        </childnode>
+      </node>
+      <node id="3852">
+        <label>renderer_pos_info_t</label>
+        <link refid="structrenderer__pos__info__t"/>
+      </node>
+      <node id="3854">
+        <label>selection_item_t</label>
+        <link refid="structselection__item__t"/>
+        <childnode refid="3855" relation="usage">
+          <edgelabel>elp</edgelabel>
+        </childnode>
+      </node>
+      <node id="3851">
+        <label>view_mouse_event_t</label>
+        <link refid="structview__mouse__event__t"/>
+        <childnode refid="3852" relation="usage">
+          <edgelabel>renderer_pos</edgelabel>
+        </childnode>
+        <childnode refid="3853" relation="usage">
+          <edgelabel>location</edgelabel>
+        </childnode>
+      </node>
+      <node id="3853">
+        <label>view_mouse_event_location_t</label>
+        <link refid="unionview__mouse__event__location__t"/>
+        <childnode refid="3854" relation="usage">
+          <edgelabel>item</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2992" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2991" bodyend="3010"/>
+    <listofallmembers>
+      <member refid="structview__mouse__event__t_1aae770d7ea2b5a178dcc649bbbcdcbd3b" prot="public" virt="non-virtual"><scope>view_mouse_event_t</scope><name>button</name></member>
+      <member refid="structview__mouse__event__t_1a6cd6f25297a6d4a94fc798845c0ff849" prot="public" virt="non-virtual"><scope>view_mouse_event_t</scope><name>location</name></member>
+      <member refid="structview__mouse__event__t_1adc86d3bc04da274652590cf167d884a2" prot="public" virt="non-virtual"><scope>view_mouse_event_t</scope><name>location_t</name></member>
+      <member refid="structview__mouse__event__t_1a8a7691068f0e9831c11bcc2192181ed2" prot="public" virt="non-virtual"><scope>view_mouse_event_t</scope><name>renderer_pos</name></member>
+      <member refid="structview__mouse__event__t_1ad518befd77b155d6cf506b1c08bfc7ba" prot="public" virt="non-virtual"><scope>view_mouse_event_t</scope><name>rtype</name></member>
+      <member refid="structview__mouse__event__t_1a5d0bc4463e3569982344dc0067eecfd6" prot="public" virt="non-virtual"><scope>view_mouse_event_t</scope><name>state</name></member>
+      <member refid="structview__mouse__event__t_1a9e638ff2a2b2236ce8bff94ba1e71bd7" prot="public" virt="non-virtual"><scope>view_mouse_event_t</scope><name>x</name></member>
+      <member refid="structview__mouse__event__t_1a288adc088c6e164bc3b04822e2aa2bfb" prot="public" virt="non-virtual"><scope>view_mouse_event_t</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

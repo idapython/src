@@ -1,0 +1,306 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structnumber__format__t" kind="struct" language="C++" prot="public">
+    <compoundname>number_format_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structnumber__format__t_1a68e47f6b866085242995b8286ae061df" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+        <definition>flags_t number_format_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+<para>ida flags, which describe number radix, enum, etc </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="855" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="855" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnumber__format__t_1a22ee58737d3647613bd0df537c69e242" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char number_format_t::opnum</definition>
+        <argsstring></argsstring>
+        <name>opnum</name>
+        <briefdescription>
+<para>operand number: 0..UA_MAXOP </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="856" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="856" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnumber__format__t_1a58237f85e7a536a6030b5f00b0b32a86" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char number_format_t::props</definition>
+        <argsstring></argsstring>
+        <name>props</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>properties: combination of NF_ bits (<ref refid="group___n_f__" kindref="compound">Number format property bits</ref>) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="857" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="857" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnumber__format__t_1a8adf9cc0a07a6861d012bb2347636c51" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar number_format_t::serial</definition>
+        <argsstring></argsstring>
+        <name>serial</name>
+        <briefdescription>
+<para>for enums: constant serial number </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="868" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="868" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnumber__format__t_1a8477a8434892eee1e1ed366dd13cbbc4" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char number_format_t::org_nbytes</definition>
+        <argsstring></argsstring>
+        <name>org_nbytes</name>
+        <briefdescription>
+<para>original number size in bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="869" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="869" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnumber__format__t_1a084cb615ced0751481b4a29619eeea15" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring number_format_t::type_name</definition>
+        <argsstring></argsstring>
+        <name>type_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>for stroffs: structure for offsetof()<linebreak/>
+for enums: enum name </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="870" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="870" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structnumber__format__t_1a0c796521a5435c39a66d28a26bf3278b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>number_format_t::number_format_t</definition>
+        <argsstring>(int _opnum=0)</argsstring>
+        <name>number_format_t</name>
+        <param>
+          <type>int</type>
+          <declname>_opnum</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Contructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="873" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="873" bodyend="874"/>
+      </memberdef>
+      <memberdef kind="function" id="structnumber__format__t_1a28c3564aeaef7b6d8a563e8224f799db" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int number_format_t::get_radix</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_radix</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get number radix <simplesect kind="return"><para>2,8,10, or 16 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="877" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="877" bodyend="877"/>
+      </memberdef>
+      <memberdef kind="function" id="structnumber__format__t_1a6af7b4c260bcd419810bb623c434e716" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool number_format_t::is_fixed</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_fixed</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is number representation fixed? Fixed representation can not be modified by the decompiler </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="880" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="880" bodyend="880"/>
+      </memberdef>
+      <memberdef kind="function" id="structnumber__format__t_1aaf1758169011503ade364eed2490f60d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool number_format_t::is_hex</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_hex</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is a hexadecimal number? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="882" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="882" bodyend="882"/>
+      </memberdef>
+      <memberdef kind="function" id="structnumber__format__t_1a9a0ec8f848a725441f6cf2042e6783f3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool number_format_t::is_dec</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_dec</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is a decimal number? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="884" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="884" bodyend="884"/>
+      </memberdef>
+      <memberdef kind="function" id="structnumber__format__t_1ac9fff9c0c433897f66963c0abe3f843c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool number_format_t::is_oct</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_oct</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is a octal number? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="886" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="886" bodyend="886"/>
+      </memberdef>
+      <memberdef kind="function" id="structnumber__format__t_1a6cd89b8f9601f7ab16ea632c616a4c50" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool number_format_t::is_enum</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_enum</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is a symbolic constant? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="888" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="888" bodyend="888"/>
+      </memberdef>
+      <memberdef kind="function" id="structnumber__format__t_1aeb9e223b608618a7c803059c517a5e70" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool number_format_t::is_char</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_char</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is a character constant? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="890" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="890" bodyend="890"/>
+      </memberdef>
+      <memberdef kind="function" id="structnumber__format__t_1abd4afc420f76c7f555fd0e3b83e68d22" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool number_format_t::is_stroff</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_stroff</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is a structure field offset? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="892" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="892" bodyend="892"/>
+      </memberdef>
+      <memberdef kind="function" id="structnumber__format__t_1ab5b2de8db1ebc6fdb1009f1af2ea47a3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool number_format_t::is_numop</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_numop</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is a number? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="894" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="894" bodyend="894"/>
+      </memberdef>
+      <memberdef kind="function" id="structnumber__format__t_1ab041470d10a74beeacab8f1e64bedeb0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool number_format_t::needs_to_be_inverted</definition>
+        <argsstring>(void) const</argsstring>
+        <name>needs_to_be_inverted</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Does the number need to be negated or bitwise negated? Returns true if the user requested a negation but it is not done yet </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="897" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="897" bodyend="901"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Number representation. This structure holds information about a number format. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2684">
+        <label>number_format_t</label>
+        <link refid="structnumber__format__t"/>
+        <childnode refid="2685" relation="usage">
+          <edgelabel>type_name</edgelabel>
+        </childnode>
+      </node>
+      <node id="2685">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="853" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="852" bodyend="902"/>
+    <listofallmembers>
+      <member refid="structnumber__format__t_1a68e47f6b866085242995b8286ae061df" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>flags</name></member>
+      <member refid="structnumber__format__t_1a28c3564aeaef7b6d8a563e8224f799db" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>get_radix</name></member>
+      <member refid="structnumber__format__t_1aeb9e223b608618a7c803059c517a5e70" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>is_char</name></member>
+      <member refid="structnumber__format__t_1a9a0ec8f848a725441f6cf2042e6783f3" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>is_dec</name></member>
+      <member refid="structnumber__format__t_1a6cd89b8f9601f7ab16ea632c616a4c50" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>is_enum</name></member>
+      <member refid="structnumber__format__t_1a6af7b4c260bcd419810bb623c434e716" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>is_fixed</name></member>
+      <member refid="structnumber__format__t_1aaf1758169011503ade364eed2490f60d" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>is_hex</name></member>
+      <member refid="structnumber__format__t_1ab5b2de8db1ebc6fdb1009f1af2ea47a3" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>is_numop</name></member>
+      <member refid="structnumber__format__t_1ac9fff9c0c433897f66963c0abe3f843c" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>is_oct</name></member>
+      <member refid="structnumber__format__t_1abd4afc420f76c7f555fd0e3b83e68d22" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>is_stroff</name></member>
+      <member refid="structnumber__format__t_1ab041470d10a74beeacab8f1e64bedeb0" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>needs_to_be_inverted</name></member>
+      <member refid="structnumber__format__t_1a0c796521a5435c39a66d28a26bf3278b" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>number_format_t</name></member>
+      <member refid="structnumber__format__t_1a22ee58737d3647613bd0df537c69e242" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>opnum</name></member>
+      <member refid="structnumber__format__t_1a8477a8434892eee1e1ed366dd13cbbc4" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>org_nbytes</name></member>
+      <member refid="structnumber__format__t_1a58237f85e7a536a6030b5f00b0b32a86" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>props</name></member>
+      <member refid="structnumber__format__t_1a8adf9cc0a07a6861d012bb2347636c51" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>serial</name></member>
+      <member refid="structnumber__format__t_1a084cb615ced0751481b4a29619eeea15" prot="public" virt="non-virtual"><scope>number_format_t</scope><name>type_name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

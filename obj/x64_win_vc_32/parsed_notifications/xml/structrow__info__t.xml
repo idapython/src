@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structrow__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>row_info_t</compoundname>
+    <includes refid="graph_8hpp" local="no">graph.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrow__info__t_1ab3bdf81aef7f8df81304cd675485f57e" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref></type>
+        <definition>intvec_t row_info_t::nodes</definition>
+        <argsstring></argsstring>
+        <name>nodes</name>
+        <briefdescription>
+<para>list of nodes at the row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="649" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="649" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrow__info__t_1ad1ca2c5eb9fd2c5635956febbfe32d83" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int row_info_t::top</definition>
+        <argsstring></argsstring>
+        <name>top</name>
+        <briefdescription>
+<para>top y coord of the row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="650" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="650" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrow__info__t_1a90d5a11f6e4f2a5513b3b5932dd49748" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int row_info_t::bottom</definition>
+        <argsstring></argsstring>
+        <name>bottom</name>
+        <briefdescription>
+<para>bottom y coord of the row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="651" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="651" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structrow__info__t_1a44d9cf963e6b35711ffa049e26dcec32" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int row_info_t::height</definition>
+        <argsstring>(void) const</argsstring>
+        <name>height</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="652" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="652" bodyend="652"/>
+      </memberdef>
+      <memberdef kind="function" id="structrow__info__t_1a6c9db8a67ece7ee141e1581ef400e8ac" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>row_info_t::row_info_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>row_info_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="653" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="653" bodyend="653"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Organize graph nodes by row. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3170">
+        <label>row_info_t</label>
+        <link refid="structrow__info__t"/>
+        <childnode refid="3171" relation="usage">
+          <edgelabel>nodes</edgelabel>
+        </childnode>
+      </node>
+      <node id="3171">
+        <label>qvector&lt; int &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="648" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="647" bodyend="654"/>
+    <listofallmembers>
+      <member refid="structrow__info__t_1a90d5a11f6e4f2a5513b3b5932dd49748" prot="public" virt="non-virtual"><scope>row_info_t</scope><name>bottom</name></member>
+      <member refid="structrow__info__t_1a44d9cf963e6b35711ffa049e26dcec32" prot="public" virt="non-virtual"><scope>row_info_t</scope><name>height</name></member>
+      <member refid="structrow__info__t_1ab3bdf81aef7f8df81304cd675485f57e" prot="public" virt="non-virtual"><scope>row_info_t</scope><name>nodes</name></member>
+      <member refid="structrow__info__t_1a6c9db8a67ece7ee141e1581ef400e8ac" prot="public" virt="non-virtual"><scope>row_info_t</scope><name>row_info_t</name></member>
+      <member refid="structrow__info__t_1ad1ca2c5eb9fd2c5635956febbfe32d83" prot="public" virt="non-virtual"><scope>row_info_t</scope><name>top</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

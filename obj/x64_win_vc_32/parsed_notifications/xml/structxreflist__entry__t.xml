@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structxreflist__entry__t" kind="struct" language="C++" prot="public">
+    <compoundname>xreflist_entry_t</compoundname>
+    <includes refid="frame_8hpp" local="no">frame.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structxreflist__entry__t_1a43e8470454f74e05ebfa054a5c3583cf" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t xreflist_entry_t::ea</definition>
+        <argsstring></argsstring>
+        <name>ea</name>
+        <briefdescription>
+<para>Location of the insn referencing the stack frame member. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="556" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="556" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxreflist__entry__t_1a7263cf02b037d28bc7215e4454bbce29" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar xreflist_entry_t::opnum</definition>
+        <argsstring></argsstring>
+        <name>opnum</name>
+        <briefdescription>
+<para>Number of the operand of that instruction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="557" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="557" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxreflist__entry__t_1a65416af0b4eecfb2611cdcc800ce55a4" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar xreflist_entry_t::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+<para>The type of xref (<ref refid="group__xref__type_1ga44e2b79869a9595bbe6265ff2026aa98" kindref="member">cref_t</ref> &amp; <ref refid="group__xref__type_1ga78aab6d0d6bd9cb4904bbdbb5ac4fa71" kindref="member">dref_t</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="558" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="558" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structxreflist__entry__t_1acdf395ec181352a7bb55ee2b12122b24" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool xreflist_entry_t::operator==</definition>
+        <argsstring>(const xreflist_entry_t &amp;r) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structxreflist__entry__t" kindref="compound">xreflist_entry_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="560" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="560" bodyend="565"/>
+      </memberdef>
+      <memberdef kind="function" id="structxreflist__entry__t_1aafb08629a9f3b0ca62d48ccad63a1d81" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool xreflist_entry_t::operator!=</definition>
+        <argsstring>(const xreflist_entry_t &amp;r) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structxreflist__entry__t" kindref="compound">xreflist_entry_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="566" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="566" bodyend="566"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>An xref to an argument or variable located in a function&apos;s stack frame. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" line="555" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/frame.hpp" bodystart="554" bodyend="567"/>
+    <listofallmembers>
+      <member refid="structxreflist__entry__t_1a43e8470454f74e05ebfa054a5c3583cf" prot="public" virt="non-virtual"><scope>xreflist_entry_t</scope><name>ea</name></member>
+      <member refid="structxreflist__entry__t_1aafb08629a9f3b0ca62d48ccad63a1d81" prot="public" virt="non-virtual"><scope>xreflist_entry_t</scope><name>operator!=</name></member>
+      <member refid="structxreflist__entry__t_1acdf395ec181352a7bb55ee2b12122b24" prot="public" virt="non-virtual"><scope>xreflist_entry_t</scope><name>operator==</name></member>
+      <member refid="structxreflist__entry__t_1a7263cf02b037d28bc7215e4454bbce29" prot="public" virt="non-virtual"><scope>xreflist_entry_t</scope><name>opnum</name></member>
+      <member refid="structxreflist__entry__t_1a65416af0b4eecfb2611cdcc800ce55a4" prot="public" virt="non-virtual"><scope>xreflist_entry_t</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___h_i_f__" kind="group">
+    <compoundname>HIF_</compoundname>
+    <title>set_highlightr flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___h_i_f___1ga575085d5a3dd9badccf4ada0c3352b1e" prot="public" static="no">
+        <name>HIF_IDENTIFIER</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+<para>text is an identifier (i.e., when searching for the current highlight, SEARCH_IDENT will be used) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="157" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___h_i_f___1ga1233c27b78cc1a473d8bdcb4cef543b4" prot="public" static="no">
+        <name>HIF_REGISTER</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+<para>text represents a register (aliases/subregisters will be highlit as well) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="158" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___h_i_f___1ga815bbc9407529deb25e8e77c125a47a4" prot="public" static="no">
+        <name>HIF_LOCKED</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+<para>locked; clicking/moving the cursor around doesn&apos;t change the highlight </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="159" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as &apos;flags&apos; parameter to <ref refid="kernwin_8hpp_1afde9ed4badae30a3c1b6e53a86aaebe5" kindref="member">set_highlight()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

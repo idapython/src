@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classenumplace__t" kind="class" language="C++" prot="public">
+    <compoundname>enumplace_t</compoundname>
+    <basecompoundref refid="classplace__t" prot="public" virt="non-virtual">place_t</basecompoundref>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classenumplace__t_1a02358ab1715724868ed8b119e0e812d8" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t enumplace_t::idx</definition>
+        <argsstring></argsstring>
+        <name>idx</name>
+        <briefdescription>
+<para>enum serial number </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1522" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1522" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classenumplace__t_1af48d9b1f5c870080d3f7482ac55241e8" prot="public" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1ad89cffcdd1a8ff71e302854832f95f7a" kindref="member">bmask_t</ref></type>
+        <definition>bmask_t enumplace_t::bmask</definition>
+        <argsstring></argsstring>
+        <name>bmask</name>
+        <briefdescription>
+<para>enum member bitmask </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1523" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1523" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classenumplace__t_1acd4084f1391dc39e79d73a10a13ac9fd" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+        <definition>uval_t enumplace_t::value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <briefdescription>
+<para>enum member value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1524" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1524" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classenumplace__t_1a8ffbd5bc38c7960fd0209d57a00b1a1f" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar enumplace_t::serial</definition>
+        <argsstring></argsstring>
+        <name>serial</name>
+        <briefdescription>
+<para>enum member serial number </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1525" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1525" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classenumplace__t_1a55db377148b9972c3731797b7d99e1b4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>enumplace_t::enumplace_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>enumplace_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1526" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1526" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="classenumplace__t_1a0365e8087b3ce7ed545272a22b91eddb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>enumplace_t::enumplace_t</definition>
+        <argsstring>(size_t i, bmask_t m, uval_t v, uchar s, int ln)</argsstring>
+        <name>enumplace_t</name>
+        <param>
+          <type>size_t</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1ad89cffcdd1a8ff71e302854832f95f7a" kindref="member">bmask_t</ref></type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ln</declname>
+          <briefdescription><para>Constructor </para></briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1527" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1527" bodyend="1528"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A location in an enum view. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1517">
+        <label>place_t</label>
+        <link refid="classplace__t"/>
+      </node>
+      <node id="1516">
+        <label>enumplace_t</label>
+        <link refid="classenumplace__t"/>
+        <childnode refid="1517" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1519">
+        <label>place_t</label>
+        <link refid="classplace__t"/>
+      </node>
+      <node id="1518">
+        <label>enumplace_t</label>
+        <link refid="classenumplace__t"/>
+        <childnode refid="1519" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1520" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1519" bodyend="1530"/>
+    <listofallmembers>
+      <member refid="classplace__t_1a3b16c13455ab860b9e24b796887f4740" prot="public" virt="pure-virtual"><scope>enumplace_t</scope><name>adjust</name></member>
+      <member refid="classplace__t_1a1eb30fc9b839d8da28f05ce0ccbbc661" prot="public" virt="pure-virtual"><scope>enumplace_t</scope><name>beginning</name></member>
+      <member refid="classenumplace__t_1af48d9b1f5c870080d3f7482ac55241e8" prot="public" virt="non-virtual"><scope>enumplace_t</scope><name>bmask</name></member>
+      <member refid="classplace__t_1aa4cf253af9a4980c7a4481ebcb292fe6" prot="public" virt="pure-virtual"><scope>enumplace_t</scope><name>clone</name></member>
+      <member refid="classplace__t_1adb067d4ab607933cf2b15b951457273c" prot="public" virt="pure-virtual"><scope>enumplace_t</scope><name>compare</name></member>
+      <member refid="classplace__t_1a93a239a8f6f2e6d23f6e5d24ab2b5584" prot="public" virt="pure-virtual"><scope>enumplace_t</scope><name>copyfrom</name></member>
+      <member refid="classplace__t_1af183cc97073e7ff7f59b881358b25ad8" prot="public" virt="pure-virtual"><scope>enumplace_t</scope><name>deserialize</name></member>
+      <member refid="classplace__t_1af8a0747c609c749e5ac27fec0ccf7749" prot="public" virt="pure-virtual"><scope>enumplace_t</scope><name>ending</name></member>
+      <member refid="classplace__t_1aa455b2b6db54bd27452456f7304363e3" prot="public" virt="virtual"><scope>enumplace_t</scope><name>enter</name></member>
+      <member refid="classenumplace__t_1a55db377148b9972c3731797b7d99e1b4" prot="public" virt="non-virtual"><scope>enumplace_t</scope><name>enumplace_t</name></member>
+      <member refid="classenumplace__t_1a0365e8087b3ce7ed545272a22b91eddb" prot="public" virt="non-virtual"><scope>enumplace_t</scope><name>enumplace_t</name></member>
+      <member refid="classplace__t_1ac5e9d9bb1c1e76313484c30669f17581" prot="public" virt="pure-virtual"><scope>enumplace_t</scope><name>generate</name></member>
+      <member refid="classplace__t_1a2d5a9daadc5ed9ebc58c292013013d9d" prot="public" virt="pure-virtual"><scope>enumplace_t</scope><name>id</name></member>
+      <member refid="classenumplace__t_1a02358ab1715724868ed8b119e0e812d8" prot="public" virt="non-virtual"><scope>enumplace_t</scope><name>idx</name></member>
+      <member refid="classplace__t_1ae4c35e91362b8095481cc80aa12eefa0" prot="public" virt="virtual"><scope>enumplace_t</scope><name>leave</name></member>
+      <member refid="classplace__t_1a2290792667079b755a6f40979b241c0d" prot="public" virt="non-virtual"><scope>enumplace_t</scope><name>lnnum</name></member>
+      <member refid="classplace__t_1a2c5b119c1e71bb062ff40e6194eff383" prot="public" virt="pure-virtual"><scope>enumplace_t</scope><name>makeplace</name></member>
+      <member refid="classplace__t_1ab31b8e0b9c635346da32da95849f860c" prot="public" virt="pure-virtual"><scope>enumplace_t</scope><name>name</name></member>
+      <member refid="classplace__t_1aea2b5b32abe1aa93e6e334140fdbae0c" prot="public" virt="pure-virtual"><scope>enumplace_t</scope><name>next</name></member>
+      <member refid="classplace__t_1ae14ab4038d37fb100de804658e0ae407" prot="public" virt="non-virtual"><scope>enumplace_t</scope><name>place_t</name></member>
+      <member refid="classplace__t_1a8519f60eee7c08ade01ba7bbf54651b9" prot="public" virt="non-virtual"><scope>enumplace_t</scope><name>place_t</name></member>
+      <member refid="classplace__t_1a8039d5e4b13f624908a4a7377081e45c" prot="public" virt="pure-virtual"><scope>enumplace_t</scope><name>prev</name></member>
+      <member refid="classplace__t_1a62149ac6731e1d55d48a056ac25e0ea1" prot="public" virt="pure-virtual"><scope>enumplace_t</scope><name>print</name></member>
+      <member refid="classplace__t_1a4ae4e2531f911f3f4876531cf54342c4" prot="public" virt="virtual"><scope>enumplace_t</scope><name>rebase</name></member>
+      <member refid="classenumplace__t_1a8ffbd5bc38c7960fd0209d57a00b1a1f" prot="public" virt="non-virtual"><scope>enumplace_t</scope><name>serial</name></member>
+      <member refid="classplace__t_1a6bac077150420a43060a136e1c7fb74f" prot="public" virt="pure-virtual"><scope>enumplace_t</scope><name>serialize</name></member>
+      <member refid="classplace__t_1a4cfdfecee2e21b5f818c685f5c61e059" prot="public" virt="virtual"><scope>enumplace_t</scope><name>toea</name></member>
+      <member refid="classplace__t_1a834a8cc4961c1c57c3b354fe1fca6870" prot="public" virt="pure-virtual"><scope>enumplace_t</scope><name>touval</name></member>
+      <member refid="classenumplace__t_1acd4084f1391dc39e79d73a10a13ac9fd" prot="public" virt="non-virtual"><scope>enumplace_t</scope><name>value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

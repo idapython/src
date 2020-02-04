@@ -1,0 +1,630 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structextlang__t" kind="struct" language="C++" prot="public">
+    <compoundname>extlang_t</compoundname>
+    <includes refid="expr_8hpp" local="no">expr.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structextlang__t_1ab6a83577aedf218db38bf394224b9298" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t extlang_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+<para>Size of this structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="641" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="641" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structextlang__t_1a822bce7958ba24869f8d37ec7272139a" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 extlang_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+<para>Language features. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="642" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="642" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structextlang__t_1a47dccc8e01f8f5dc0ed531c0807f8c87" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 extlang_t::refcnt</definition>
+        <argsstring></argsstring>
+        <name>refcnt</name>
+        <briefdescription>
+<para>Reference count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="645" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="645" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structextlang__t_1a7904d4ab597c2358f401342429f5d821" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* extlang_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>Language name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="646" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="646" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structextlang__t_1a60fc7e808bea09b4e01d143281b51309" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* extlang_t::fileext</definition>
+        <argsstring></argsstring>
+        <name>fileext</name>
+        <briefdescription>
+<para>File name extension for the language. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="647" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="647" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structextlang__t_1a7eaaf1a19c88360644117e42ebbd51f1" prot="public" static="no" mutable="no">
+        <type><ref refid="structsyntax__highlighter__t" kindref="compound">syntax_highlighter_t</ref> *</type>
+        <definition>syntax_highlighter_t* extlang_t::highlighter</definition>
+        <argsstring></argsstring>
+        <name>highlighter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="648" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="648" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structextlang__t_1aa0a48e0be9c79f61a32cf35968ff2f01" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * extlang_t::compile_expr) (const char *name, ea_t current_ea, const char *expr, qstring *errbuf)</definition>
+        <argsstring>)(const char *name, ea_t current_ea, const char *expr, qstring *errbuf)</argsstring>
+        <name>compile_expr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compile an expression. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the function which will hold the compiled expression </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>current_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>current address. if unknown then <ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>expr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>expression to compile </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>error message if compilation fails </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="657" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="657" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structextlang__t_1ad4e09b473ce4186fbbb985545d8d9a97" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * extlang_t::compile_file) (const char *file, qstring *errbuf)</definition>
+        <argsstring>)(const char *file, qstring *errbuf)</argsstring>
+        <name>compile_file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compile (load) a file.</para><para>If an <ref refid="structextlang__t" kindref="compound">extlang_t</ref> object claims to be namespace-aware, it means its &apos;<ref refid="structextlang__t_1ad4e09b473ce4186fbbb985545d8d9a97" kindref="member">compile_file()</ref>&apos; will have to create namespaces for <emphasis>certain</emphasis> paths:<itemizedlist>
+<listitem><para>plugins,</para></listitem><listitem><para>loaders.</para></listitem></itemizedlist>
+</para><para>For example, if <ref refid="structextlang__t_1ad4e09b473ce4186fbbb985545d8d9a97" kindref="member">compile_file()</ref> receives a hypothetical path: .../loaders/myloader.py, the namespace-aware <ref refid="structextlang__t" kindref="compound">extlang_t</ref> handling &apos;py&apos; files will have to create a namespace derived from the loader file name (without its extension), i.e., &apos;__loaders__myloader&apos;, into which the file will be compiled.</para><para>Then, <ref refid="structextlang__t_1ab2075aceebcd646b67fa017a5131aa08" kindref="member">call_func()</ref> has to be prepared to receive a function name that is namespace-qualified: &quot;__loaders__myloader.accept_file()&quot;.</para><para><ref refid="structextlang__t_1ad4e09b473ce4186fbbb985545d8d9a97" kindref="member">compile_file()</ref> must handle the following &apos;special&apos; paths, and create the following namespaces to compile them into: .../loaders/&lt;filename&gt; =&gt; &apos;<bold>loaders</bold>&lt;filename-noext&gt;&apos; .../plugins/&lt;filename&gt; =&gt; &apos;<bold>plugins</bold>&lt;filename-noext&gt;&apos;</para><para>Similarly, a namespace-aware <ref refid="structextlang__t" kindref="compound">extlang_t</ref>&apos;s <ref refid="structextlang__t_1a80a1afabb3eeed0b8e7148f1a725b766" kindref="member">load_procmod()</ref> will have to load the processor module in its own namespace: .../procs/&lt;filename&gt; =&gt; &apos;<bold>procs</bold>&lt;filename-noext&gt;&apos;</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>file name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>error message if compilation fails </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="690" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="690" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structextlang__t_1ab2075aceebcd646b67fa017a5131aa08" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * extlang_t::call_func) (idc_value_t *result, const char *name, const idc_value_t args[], size_t nargs, qstring *errbuf)</definition>
+        <argsstring>)(idc_value_t *result, const char *name, const idc_value_t args[], size_t nargs, qstring *errbuf)</argsstring>
+        <name>call_func</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Evaluate a previously compiled expression. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">result</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>function result or exception </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>function to call </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nargs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of input arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>input arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>error message if evaluation fails </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="699" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="699" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structextlang__t_1a4ad91a372e99cd77cd1e6ebe3b18399d" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * extlang_t::eval_expr) (idc_value_t *rv, ea_t current_ea, const char *expr, qstring *errbuf)</definition>
+        <argsstring>)(idc_value_t *rv, ea_t current_ea, const char *expr, qstring *errbuf)</argsstring>
+        <name>eval_expr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compile and evaluate an expression. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">rv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>expression value or exception </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>current_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>current address. if unknown then BADADDR </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>expr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>expression to evaluate </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>error message if evaluation fails </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="712" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="712" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structextlang__t_1a1308ddd7b14f4e552d9746dfeb0318a5" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * extlang_t::eval_snippet) (const char *str, qstring *errbuf)</definition>
+        <argsstring>)(const char *str, qstring *errbuf)</argsstring>
+        <name>eval_snippet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compile and execute a string with statements. (see also: <ref refid="structextlang__t_1a4ad91a372e99cd77cd1e6ebe3b18399d" kindref="member">eval_expr()</ref> which works with expressions) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>input string to execute </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>error message </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="723" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="723" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structextlang__t_1af6f9b442c33a5ed0b3efdf43b2258ce0" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * extlang_t::create_object) (idc_value_t *result, const char *name, const idc_value_t args[], size_t nargs, qstring *errbuf)</definition>
+        <argsstring>)(idc_value_t *result, const char *name, const idc_value_t args[], size_t nargs, qstring *errbuf)</argsstring>
+        <name>create_object</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create an object instance. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>result</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>created object or exception </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>object class name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>input arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nargs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of input arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>error message if evaluation fails </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="734" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="734" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structextlang__t_1a2440e21ff405faf58f1c0912bc3ab1d7" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * extlang_t::get_attr) (idc_value_t *result, const idc_value_t *obj, const char *attr)</definition>
+        <argsstring>)(idc_value_t *result, const idc_value_t *obj, const char *attr)</argsstring>
+        <name>get_attr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the attribute value of a given object from the global scope. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">result</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>attribute value </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>object (may be NULL) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>attr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>attribute name. if NULL or empty string then the object instance name (i.e. class name) should be returned. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="748" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="748" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structextlang__t_1a69774d973331abf0d1dec4e7c64dc892" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * extlang_t::set_attr) (idc_value_t *obj, const char *attr, const idc_value_t &amp;value)</definition>
+        <argsstring>)(idc_value_t *obj, const char *attr, const idc_value_t &amp;value)</argsstring>
+        <name>set_attr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets the attribute value of a given object in the global scope. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>object (may be NULL) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>attr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>attribute name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>attribute value </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="758" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="758" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structextlang__t_1ab790534b728b1a4bb75e0c8fed7717e7" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * extlang_t::call_method) (idc_value_t *result, const idc_value_t *obj, const char *name, const idc_value_t args[], size_t nargs, qstring *errbuf)</definition>
+        <argsstring>)(idc_value_t *result, const idc_value_t *obj, const char *name, const idc_value_t args[], size_t nargs, qstring *errbuf)</argsstring>
+        <name>call_method</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calls a member function. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">result</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>function result or exception </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>object instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>method name to call </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>input arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nargs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of input arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>error message if evaluation fails </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="771" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="771" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structextlang__t_1a80a1afabb3eeed0b8e7148f1a725b766" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * extlang_t::load_procmod) (idc_value_t *procobj, const char *path, qstring *errbuf)</definition>
+        <argsstring>)(idc_value_t *procobj, const char *path, qstring *errbuf)</argsstring>
+        <name>load_procmod</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compile (load) a file with processor module.</para><para>See the note about namespace-awareness in <ref refid="structextlang__t_1ad4e09b473ce4186fbbb985545d8d9a97" kindref="member">compile_file()</ref></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">procobj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>created object or exception </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>processor module file name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>error message if compilation fails </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>true</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>success </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>false</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if errbuf is empty then file has been loaded (compiled) successfully but it doesn&apos;t contain processor module </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="790" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="790" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structextlang__t_1af5df90638bac7f4ab1a45425a0186284" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * extlang_t::unload_procmod) (const char *path, qstring *errbuf)</definition>
+        <argsstring>)(const char *path, qstring *errbuf)</argsstring>
+        <name>unload_procmod</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Unload previously loaded processor module. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>processor module file name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">errbuff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>error message if compilation fails </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="799" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="799" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structextlang__t_1af3cee9885c08e4ee4785f9d05b9e1da7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool extlang_t::is_idc</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_idc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="803" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="803" bodyend="803"/>
+      </memberdef>
+      <memberdef kind="function" id="structextlang__t_1a7e8b438acfe4e75b6c9b6bbb914cf0f8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool extlang_t::is_namespace_aware</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_namespace_aware</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="804" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="804" bodyend="804"/>
+      </memberdef>
+      <memberdef kind="function" id="structextlang__t_1af6022b5da5c3bd214f1c5caaa210cca6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void extlang_t::release</definition>
+        <argsstring>(void)</argsstring>
+        <name>release</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="805" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="805" bodyend="805"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>External language (to support third party language interpreters) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1542">
+        <label>syntax_highlighter_t</label>
+        <link refid="structsyntax__highlighter__t"/>
+      </node>
+      <node id="1541">
+        <label>extlang_t</label>
+        <link refid="structextlang__t"/>
+        <childnode refid="1542" relation="usage">
+          <edgelabel>highlighter</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="640" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="639" bodyend="806"/>
+    <listofallmembers>
+      <member refid="structextlang__t_1ab2075aceebcd646b67fa017a5131aa08" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>call_func</name></member>
+      <member refid="structextlang__t_1ab790534b728b1a4bb75e0c8fed7717e7" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>call_method</name></member>
+      <member refid="structextlang__t_1aa0a48e0be9c79f61a32cf35968ff2f01" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>compile_expr</name></member>
+      <member refid="structextlang__t_1ad4e09b473ce4186fbbb985545d8d9a97" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>compile_file</name></member>
+      <member refid="structextlang__t_1af6f9b442c33a5ed0b3efdf43b2258ce0" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>create_object</name></member>
+      <member refid="structextlang__t_1a4ad91a372e99cd77cd1e6ebe3b18399d" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>eval_expr</name></member>
+      <member refid="structextlang__t_1a1308ddd7b14f4e552d9746dfeb0318a5" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>eval_snippet</name></member>
+      <member refid="structextlang__t_1a60fc7e808bea09b4e01d143281b51309" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>fileext</name></member>
+      <member refid="structextlang__t_1a822bce7958ba24869f8d37ec7272139a" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>flags</name></member>
+      <member refid="structextlang__t_1a2440e21ff405faf58f1c0912bc3ab1d7" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>get_attr</name></member>
+      <member refid="structextlang__t_1a7eaaf1a19c88360644117e42ebbd51f1" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>highlighter</name></member>
+      <member refid="structextlang__t_1af3cee9885c08e4ee4785f9d05b9e1da7" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>is_idc</name></member>
+      <member refid="structextlang__t_1a7e8b438acfe4e75b6c9b6bbb914cf0f8" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>is_namespace_aware</name></member>
+      <member refid="structextlang__t_1a80a1afabb3eeed0b8e7148f1a725b766" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>load_procmod</name></member>
+      <member refid="structextlang__t_1a7904d4ab597c2358f401342429f5d821" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>name</name></member>
+      <member refid="structextlang__t_1a47dccc8e01f8f5dc0ed531c0807f8c87" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>refcnt</name></member>
+      <member refid="structextlang__t_1af6022b5da5c3bd214f1c5caaa210cca6" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>release</name></member>
+      <member refid="structextlang__t_1a69774d973331abf0d1dec4e7c64dc892" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>set_attr</name></member>
+      <member refid="structextlang__t_1ab6a83577aedf218db38bf394224b9298" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>size</name></member>
+      <member refid="structextlang__t_1af5df90638bac7f4ab1a45425a0186284" prot="public" virt="non-virtual"><scope>extlang_t</scope><name>unload_procmod</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

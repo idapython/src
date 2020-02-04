@@ -1,0 +1,347 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="ida__highlighter_8hpp" kind="file" language="C++">
+    <compoundname>ida_highlighter.hpp</compoundname>
+    <includes refid="expr_8hpp" local="no">expr.hpp</includes>
+    <incdepgraph>
+      <node id="624">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="608">
+        <label>stdarg.h</label>
+      </node>
+      <node id="611">
+        <label>assert.h</label>
+      </node>
+      <node id="627">
+        <label>ida.hpp</label>
+        <link refid="ida_8hpp"/>
+        <childnode refid="606" relation="include">
+        </childnode>
+        <childnode refid="628" relation="include">
+        </childnode>
+      </node>
+      <node id="607">
+        <label>stdlib.h</label>
+      </node>
+      <node id="634">
+        <label>ua.hpp</label>
+        <link refid="ua_8hpp"/>
+        <childnode refid="635" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+        <childnode refid="636" relation="include">
+        </childnode>
+        <childnode refid="632" relation="include">
+        </childnode>
+      </node>
+      <node id="637">
+        <label>bitrange.hpp</label>
+        <link refid="bitrange_8hpp"/>
+      </node>
+      <node id="619">
+        <label>io.h</label>
+      </node>
+      <node id="622">
+        <label>fcntl.h</label>
+      </node>
+      <node id="625">
+        <label>llong.hpp</label>
+        <link refid="llong_8hpp_source"/>
+      </node>
+      <node id="617">
+        <label>malloc.h</label>
+      </node>
+      <node id="602">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp</label>
+        <link refid="ida__highlighter_8hpp"/>
+        <childnode refid="603" relation="include">
+        </childnode>
+      </node>
+      <node id="616">
+        <label>string</label>
+      </node>
+      <node id="621">
+        <label>map</label>
+      </node>
+      <node id="604">
+        <label>idp.hpp</label>
+        <link refid="idp_8hpp"/>
+        <childnode refid="605" relation="include">
+        </childnode>
+        <childnode refid="626" relation="include">
+        </childnode>
+        <childnode refid="630" relation="include">
+        </childnode>
+        <childnode refid="631" relation="include">
+        </childnode>
+        <childnode refid="634" relation="include">
+        </childnode>
+        <childnode refid="637" relation="include">
+        </childnode>
+        <childnode refid="638" relation="include">
+        </childnode>
+      </node>
+      <node id="620">
+        <label>direct.h</label>
+      </node>
+      <node id="609">
+        <label>stddef.h</label>
+      </node>
+      <node id="626">
+        <label>nalt.hpp</label>
+        <link refid="nalt_8hpp"/>
+        <childnode refid="627" relation="include">
+        </childnode>
+        <childnode refid="629" relation="include">
+        </childnode>
+      </node>
+      <node id="633">
+        <label>lines.hpp</label>
+        <link refid="lines_8hpp"/>
+        <childnode refid="627" relation="include">
+        </childnode>
+      </node>
+      <node id="612">
+        <label>limits.h</label>
+      </node>
+      <node id="623">
+        <label>sys/types.h</label>
+      </node>
+      <node id="618">
+        <label>string.h</label>
+      </node>
+      <node id="615">
+        <label>new</label>
+      </node>
+      <node id="636">
+        <label>xref.hpp</label>
+        <link refid="xref_8hpp"/>
+      </node>
+      <node id="631">
+        <label>funcs.hpp</label>
+        <link refid="funcs_8hpp"/>
+        <childnode refid="628" relation="include">
+        </childnode>
+        <childnode refid="632" relation="include">
+        </childnode>
+      </node>
+      <node id="603">
+        <label>expr.hpp</label>
+        <link refid="expr_8hpp"/>
+        <childnode refid="604" relation="include">
+        </childnode>
+      </node>
+      <node id="606">
+        <label>pro.h</label>
+        <link refid="pro_8h"/>
+        <childnode refid="607" relation="include">
+        </childnode>
+        <childnode refid="608" relation="include">
+        </childnode>
+        <childnode refid="609" relation="include">
+        </childnode>
+        <childnode refid="610" relation="include">
+        </childnode>
+        <childnode refid="611" relation="include">
+        </childnode>
+        <childnode refid="612" relation="include">
+        </childnode>
+        <childnode refid="613" relation="include">
+        </childnode>
+        <childnode refid="614" relation="include">
+        </childnode>
+        <childnode refid="615" relation="include">
+        </childnode>
+        <childnode refid="616" relation="include">
+        </childnode>
+        <childnode refid="617" relation="include">
+        </childnode>
+        <childnode refid="618" relation="include">
+        </childnode>
+        <childnode refid="619" relation="include">
+        </childnode>
+        <childnode refid="620" relation="include">
+        </childnode>
+        <childnode refid="621" relation="include">
+        </childnode>
+        <childnode refid="622" relation="include">
+        </childnode>
+        <childnode refid="623" relation="include">
+        </childnode>
+        <childnode refid="624" relation="include">
+        </childnode>
+        <childnode refid="625" relation="include">
+        </childnode>
+      </node>
+      <node id="630">
+        <label>segment.hpp</label>
+        <link refid="segment_8hpp"/>
+        <childnode refid="627" relation="include">
+        </childnode>
+        <childnode refid="628" relation="include">
+        </childnode>
+      </node>
+      <node id="614">
+        <label>time.h</label>
+      </node>
+      <node id="605">
+        <label>fpro.h</label>
+        <link refid="fpro_8h"/>
+        <childnode refid="606" relation="include">
+        </childnode>
+        <childnode refid="610" relation="include">
+        </childnode>
+      </node>
+      <node id="638">
+        <label>config.hpp</label>
+        <link refid="config_8hpp_source"/>
+      </node>
+      <node id="632">
+        <label>bytes.hpp</label>
+        <link refid="bytes_8hpp"/>
+        <childnode refid="626" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+        <childnode refid="628" relation="include">
+        </childnode>
+      </node>
+      <node id="613">
+        <label>ctype.h</label>
+      </node>
+      <node id="628">
+        <label>range.hpp</label>
+        <link refid="range_8hpp"/>
+      </node>
+      <node id="629">
+        <label>netnode.hpp</label>
+        <link refid="netnode_8hpp"/>
+        <childnode refid="628" relation="include">
+        </childnode>
+      </node>
+      <node id="635">
+        <label>kernwin.hpp</label>
+        <link refid="kernwin_8hpp"/>
+      </node>
+      <node id="610">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structida__syntax__highlighter__t" prot="public">ida_syntax_highlighter_t</innerclass>
+    <innerclass refid="structida__syntax__highlighter__t_1_1plain__char__ptr__t" prot="protected">ida_syntax_highlighter_t::plain_char_ptr_t</innerclass>
+    <innerclass refid="structida__syntax__highlighter__t_1_1multicmt__t" prot="protected">ida_syntax_highlighter_t::multicmt_t</innerclass>
+    <innerclass refid="structida__syntax__highlighter__t_1_1keywords__style__t" prot="protected">ida_syntax_highlighter_t::keywords_style_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="ida__highlighter_8hpp_1acc694c774d80f06ff720ec3e732efb61" prot="public" static="no">
+        <name>MLTCMTMASK</name>
+        <initializer>0xF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="18" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ida__highlighter_8hpp_1a63776d86776f80b5e4415b951350a4c3" prot="public" static="no">
+        <name>PREPROC_FLAG</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="19" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="ida__highlighter_8hpp_1a6e9c142db0d310ca33a276f5380b755f" prot="public" static="no">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>typedef ssize_t idaapi external_colorizer_t(syntax_highlight_style *color, const char *str)</definition>
+        <argsstring>(syntax_highlight_style *color, const char *str)</argsstring>
+        <name>external_colorizer_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="10" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ida__highlighter_8hpp_1ab059d4adb8e3062635d29282d38cb579" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; external_colorizer_t * &gt;</type>
+        <definition>typedef qvector&lt;external_colorizer_t *&gt; external_colorizers_t</definition>
+        <argsstring></argsstring>
+        <name>external_colorizers_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="11" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ida__highlighter_8hpp_1a8a507b77b34f406bb4768121583e86f8" prot="public" static="no">
+        <type>bool idaapi</type>
+        <definition>typedef bool idaapi external_ident_colorizer_t(syntax_highlight_style *color, const qstring &amp;ident)</definition>
+        <argsstring>(syntax_highlight_style *color, const qstring &amp;ident)</argsstring>
+        <name>external_ident_colorizer_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="14" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ida__highlighter_8hpp_1af8cfbe1c3f5c14c4d749cfbfc75d685d" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; external_ident_colorizer_t * &gt;</type>
+        <definition>typedef qvector&lt;external_ident_colorizer_t *&gt; external_ident_colorizers_t</definition>
+        <argsstring></argsstring>
+        <name>external_ident_colorizers_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="15" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="ida__highlighter_8hpp_1ad945b69abbf488c07ac5ff2f9ad6a2c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export code_highlight_block</definition>
+        <argsstring>(void *context, highlighter_cbs_t *highlighter_cbs, const qstring &amp;text)</argsstring>
+        <name>code_highlight_block</name>
+        <param>
+          <type>void *</type>
+          <declname>context</declname>
+        </param>
+        <param>
+          <type><ref refid="structhighlighter__cbs__t" kindref="compound">highlighter_cbs_t</ref> *</type>
+          <declname>highlighter_cbs</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> &amp;</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="6" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp"/>
+  </compounddef>
+</doxygen>

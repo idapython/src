@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structcompiler__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>compiler_info_t</compoundname>
+    <includes refid="ida_8hpp" local="no">ida.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcompiler__info__t_1a219e384af9aa3f6491854cba1f01a960" prot="public" static="no" mutable="no">
+        <type><ref refid="ida_8hpp_1ae36605f575cb0bd001d6b89877734fa2" kindref="member">comp_t</ref></type>
+        <definition>comp_t compiler_info_t::id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+<para>compiler id (see <ref refid="group___c_o_m_p__" kindref="compound">Compiler IDs</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="70" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcompiler__info__t_1a6f4a63611802f78c707638a7642458f0" prot="public" static="no" mutable="no">
+        <type><ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>cm_t compiler_info_t::cm</definition>
+        <argsstring></argsstring>
+        <name>cm</name>
+        <briefdescription>
+<para>memory model and calling convention (see <ref refid="group___c_m__" kindref="compound">CM</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="71" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcompiler__info__t_1a8462a9b5ce3941e7f99371995c6377dd" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar compiler_info_t::size_i</definition>
+        <argsstring></argsstring>
+        <name>size_i</name>
+        <briefdescription>
+<para>sizeof(int) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="72" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcompiler__info__t_1a79ea383b5bd4d879f861199d89bcaf37" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar compiler_info_t::size_b</definition>
+        <argsstring></argsstring>
+        <name>size_b</name>
+        <briefdescription>
+<para>sizeof(bool) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="73" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcompiler__info__t_1ae5631a95e6a98484a7f8de8647765363" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar compiler_info_t::size_e</definition>
+        <argsstring></argsstring>
+        <name>size_e</name>
+        <briefdescription>
+<para>sizeof(enum) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="74" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcompiler__info__t_1aa607e1c8e98ada9f60731d04d43379e0" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar compiler_info_t::defalign</definition>
+        <argsstring></argsstring>
+        <name>defalign</name>
+        <briefdescription>
+<para>default alignment for structures </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="75" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcompiler__info__t_1a022796d4ef065ed1ed9b0ea56f66c179" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar compiler_info_t::size_s</definition>
+        <argsstring></argsstring>
+        <name>size_s</name>
+        <briefdescription>
+<para>short </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="76" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcompiler__info__t_1ae4137c6e2027c07c1848287681440384" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar compiler_info_t::size_l</definition>
+        <argsstring></argsstring>
+        <name>size_l</name>
+        <briefdescription>
+<para>long </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="77" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcompiler__info__t_1ad35cc5d4ecf0824d4cd8524d65a8a7e0" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar compiler_info_t::size_ll</definition>
+        <argsstring></argsstring>
+        <name>size_ll</name>
+        <briefdescription>
+<para>longlong </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="78" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcompiler__info__t_1a9487a440da938e295d46ec93dd1ef440" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar compiler_info_t::size_ldbl</definition>
+        <argsstring></argsstring>
+        <name>size_ldbl</name>
+        <briefdescription>
+<para>longdouble (if different from {tbyte_size}) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="79" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structcompiler__info__t_1a1738e3f94895444e2781ff648073975e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void compiler_info_t::set_64bit_pointer_size</definition>
+        <argsstring>()</argsstring>
+        <name>set_64bit_pointer_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="80" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="771" bodyend="775"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Information about the target compiler. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="69" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="68" bodyend="81"/>
+    <listofallmembers>
+      <member refid="structcompiler__info__t_1a6f4a63611802f78c707638a7642458f0" prot="public" virt="non-virtual"><scope>compiler_info_t</scope><name>cm</name></member>
+      <member refid="structcompiler__info__t_1aa607e1c8e98ada9f60731d04d43379e0" prot="public" virt="non-virtual"><scope>compiler_info_t</scope><name>defalign</name></member>
+      <member refid="structcompiler__info__t_1a219e384af9aa3f6491854cba1f01a960" prot="public" virt="non-virtual"><scope>compiler_info_t</scope><name>id</name></member>
+      <member refid="structcompiler__info__t_1a1738e3f94895444e2781ff648073975e" prot="public" virt="non-virtual"><scope>compiler_info_t</scope><name>set_64bit_pointer_size</name></member>
+      <member refid="structcompiler__info__t_1a79ea383b5bd4d879f861199d89bcaf37" prot="public" virt="non-virtual"><scope>compiler_info_t</scope><name>size_b</name></member>
+      <member refid="structcompiler__info__t_1ae5631a95e6a98484a7f8de8647765363" prot="public" virt="non-virtual"><scope>compiler_info_t</scope><name>size_e</name></member>
+      <member refid="structcompiler__info__t_1a8462a9b5ce3941e7f99371995c6377dd" prot="public" virt="non-virtual"><scope>compiler_info_t</scope><name>size_i</name></member>
+      <member refid="structcompiler__info__t_1ae4137c6e2027c07c1848287681440384" prot="public" virt="non-virtual"><scope>compiler_info_t</scope><name>size_l</name></member>
+      <member refid="structcompiler__info__t_1a9487a440da938e295d46ec93dd1ef440" prot="public" virt="non-virtual"><scope>compiler_info_t</scope><name>size_ldbl</name></member>
+      <member refid="structcompiler__info__t_1ad35cc5d4ecf0824d4cd8524d65a8a7e0" prot="public" virt="non-virtual"><scope>compiler_info_t</scope><name>size_ll</name></member>
+      <member refid="structcompiler__info__t_1a022796d4ef065ed1ed9b0ea56f66c179" prot="public" virt="non-virtual"><scope>compiler_info_t</scope><name>size_s</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

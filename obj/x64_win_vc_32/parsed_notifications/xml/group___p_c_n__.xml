@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___p_c_n__" kind="group">
+    <compoundname>PCN_</compoundname>
+    <title>C Number formatting flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___p_c_n___1ga7756d1cbc54de302daabf331a5acb409" prot="public" static="no">
+        <name>PCN_RADIX</name>
+        <initializer>0x07</initializer>
+        <briefdescription>
+<para>number base to use </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="4116" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="4116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_c_n___1ga01db281c510426448f4ba6690093bb1f" prot="public" static="no">
+        <name>PCN_DEC</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>decimal </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="4117" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="4117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_c_n___1gaa1d28f6fee65104f5348690ea800904f" prot="public" static="no">
+        <name>PCN_HEX</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>hexadecimal </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="4118" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="4118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_c_n___1ga4236f5ff0be0d8954080a8d88356c12f" prot="public" static="no">
+        <name>PCN_OCT</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>octal </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="4119" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="4119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_c_n___1gaa0ad228fd673e70dc3520b8ecb5af13a" prot="public" static="no">
+        <name>PCN_CHR</name>
+        <initializer>0x03</initializer>
+        <briefdescription>
+<para>character </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="4120" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="4120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_c_n___1ga0a8cdf42eea0a4b38d69701b8f66ee0b" prot="public" static="no">
+        <name>PCN_UNSIGNED</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>add &apos;u&apos; suffix </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="4121" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="4121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_c_n___1ga198c99d83d30fe9c74e1db215a6c4b21" prot="public" static="no">
+        <name>PCN_LZHEX</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>print leading zeroes for hexdecimal number </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="4122" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="4122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_c_n___1ga72e49c27b6a7848a5d13f7f86d1ce8e8" prot="public" static="no">
+        <name>PCN_NEGSIGN</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>print negated value (-N) for negative numbers </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="4123" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="4123" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>passed as &apos;pcn&apos; parameter to <ref refid="typeinf_8hpp_1a9ba339494aea0462baa7558b05480e17" kindref="member">format_c_number()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

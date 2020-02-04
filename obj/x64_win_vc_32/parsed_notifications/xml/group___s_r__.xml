@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_r__" kind="group">
+    <compoundname>SR_</compoundname>
+    <title>Segment register range tags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_r___1ga07656db9b0285c23ffb8e369fc436e1b" prot="public" static="no">
+        <name>SR_inherit</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>the value is inherited from the previous range </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="46" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_r___1gabf8620dbc2c3ffa1c7d748285bf7560a" prot="public" static="no">
+        <name>SR_user</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>the value is specified by the user </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="47" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_r___1gaeb67da3fe0748d5e2239474ad08dae36" prot="public" static="no">
+        <name>SR_auto</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>the value is determined by IDA </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="48" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_r___1ga925f115d3bf41f20e9e103466fba195f" prot="public" static="no">
+        <name>SR_autostart</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>used as <ref refid="group___s_r___1gaeb67da3fe0748d5e2239474ad08dae36" kindref="member">SR_auto</ref> for segment starting address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="49" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="structsreg__range__t_1ac32406e38af0c128acf0a78afbe16d1a" kindref="member">sreg_range_t::tag</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

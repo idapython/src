@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structedge__layout__point__t" kind="struct" language="C++" prot="public">
+    <compoundname>edge_layout_point_t</compoundname>
+    <includes refid="graph_8hpp" local="no">graph.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structedge__layout__point__t_1a53d90de0e41250a102d02f9430619a79" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int edge_layout_point_t::pidx</definition>
+        <argsstring></argsstring>
+        <name>pidx</name>
+        <briefdescription>
+<para>index into <ref refid="structedge__info__t_1a93ccca8925f85b4280e911a61c469835" kindref="member">edge_info_t::layout</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="466" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="466" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structedge__layout__point__t_1a5b73a10df04f360aff288e8340a16d19" prot="public" static="no" mutable="no">
+        <type><ref refid="structedge__t" kindref="compound">edge_t</ref></type>
+        <definition>edge_t edge_layout_point_t::e</definition>
+        <argsstring></argsstring>
+        <name>e</name>
+        <briefdescription>
+<para>parent edge </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="467" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="467" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structedge__layout__point__t_1ab38ad4905b442159b44c6d54a9f41d75" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>idaapi</type>
+        <definition>idaapi edge_layout_point_t::edge_layout_point_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>edge_layout_point_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="468" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="468" bodyend="468"/>
+      </memberdef>
+      <memberdef kind="function" id="structedge__layout__point__t_1a78f8e5dc6fb4b4dc5d1526e86ad926cf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>idaapi</type>
+        <definition>idaapi edge_layout_point_t::edge_layout_point_t</definition>
+        <argsstring>(const edge_layout_point_t &amp;r)</argsstring>
+        <name>edge_layout_point_t</name>
+        <param>
+          <type>const <ref refid="structedge__layout__point__t" kindref="compound">edge_layout_point_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="469" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="469" bodyend="469"/>
+      </memberdef>
+      <memberdef kind="function" id="structedge__layout__point__t_1adc3be47c2491d2bf9c0ebfe5ff721314" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>idaapi</type>
+        <definition>idaapi edge_layout_point_t::edge_layout_point_t</definition>
+        <argsstring>(const edge_t &amp;_e, int _pidx)</argsstring>
+        <name>edge_layout_point_t</name>
+        <param>
+          <type>const <ref refid="structedge__t" kindref="compound">edge_t</ref> &amp;</type>
+          <declname>_e</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_pidx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="470" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="470" bodyend="470"/>
+      </memberdef>
+      <memberdef kind="function" id="structedge__layout__point__t_1ac1ea002bf1d8ec6b661eebf7f968f14a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi edge_layout_point_t::compare</definition>
+        <argsstring>(const edge_layout_point_t &amp;r) const</argsstring>
+        <name>compare</name>
+        <param>
+          <type>const <ref refid="structedge__layout__point__t" kindref="compound">edge_layout_point_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="471" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="471" bodyend="478"/>
+      </memberdef>
+      <memberdef kind="function" id="structedge__layout__point__t_1a9380d444aa37b568a1c630f6a56e2c19" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi edge_layout_point_t::operator==</definition>
+        <argsstring>(const edge_layout_point_t &amp;r) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structedge__layout__point__t" kindref="compound">edge_layout_point_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="479" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="479" bodyend="482"/>
+      </memberdef>
+      <memberdef kind="function" id="structedge__layout__point__t_1a6910b975111674943bdf29fa002d2262" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi edge_layout_point_t::operator!=</definition>
+        <argsstring>(const edge_layout_point_t &amp;r) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structedge__layout__point__t" kindref="compound">edge_layout_point_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="483" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="483" bodyend="486"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Edge layout point. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1495">
+        <label>edge_t</label>
+        <link refid="structedge__t"/>
+      </node>
+      <node id="1494">
+        <label>edge_layout_point_t</label>
+        <link refid="structedge__layout__point__t"/>
+        <childnode refid="1495" relation="usage">
+          <edgelabel>e</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="465" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="464" bodyend="487"/>
+    <listofallmembers>
+      <member refid="structedge__layout__point__t_1ac1ea002bf1d8ec6b661eebf7f968f14a" prot="public" virt="non-virtual"><scope>edge_layout_point_t</scope><name>compare</name></member>
+      <member refid="structedge__layout__point__t_1a5b73a10df04f360aff288e8340a16d19" prot="public" virt="non-virtual"><scope>edge_layout_point_t</scope><name>e</name></member>
+      <member refid="structedge__layout__point__t_1ab38ad4905b442159b44c6d54a9f41d75" prot="public" virt="non-virtual"><scope>edge_layout_point_t</scope><name>edge_layout_point_t</name></member>
+      <member refid="structedge__layout__point__t_1a78f8e5dc6fb4b4dc5d1526e86ad926cf" prot="public" virt="non-virtual"><scope>edge_layout_point_t</scope><name>edge_layout_point_t</name></member>
+      <member refid="structedge__layout__point__t_1adc3be47c2491d2bf9c0ebfe5ff721314" prot="public" virt="non-virtual"><scope>edge_layout_point_t</scope><name>edge_layout_point_t</name></member>
+      <member refid="structedge__layout__point__t_1a6910b975111674943bdf29fa002d2262" prot="public" virt="non-virtual"><scope>edge_layout_point_t</scope><name>operator!=</name></member>
+      <member refid="structedge__layout__point__t_1a9380d444aa37b568a1c630f6a56e2c19" prot="public" virt="non-virtual"><scope>edge_layout_point_t</scope><name>operator==</name></member>
+      <member refid="structedge__layout__point__t_1a53d90de0e41250a102d02f9430619a79" prot="public" virt="non-virtual"><scope>edge_layout_point_t</scope><name>pidx</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

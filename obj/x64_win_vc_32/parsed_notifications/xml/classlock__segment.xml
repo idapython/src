@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classlock__segment" kind="class" language="C++" prot="public">
+    <compoundname>lock_segment</compoundname>
+    <includes refid="segment_8hpp" local="no">segment.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classlock__segment_1a3a3d850bdcbf142684b6abba050580f2" prot="private" static="no" mutable="no">
+        <type>const <ref refid="classsegment__t" kindref="compound">segment_t</ref> *</type>
+        <definition>const segment_t* lock_segment::segm</definition>
+        <argsstring></argsstring>
+        <name>segm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="327" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classlock__segment_1ae9fee98f7fc4321b2c836b00aebafe27" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>lock_segment::lock_segment</definition>
+        <argsstring>(const segment_t *_segm)</argsstring>
+        <name>lock_segment</name>
+        <param>
+          <type>const <ref refid="classsegment__t" kindref="compound">segment_t</ref> *</type>
+          <declname>_segm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="329" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="329" bodyend="332"/>
+      </memberdef>
+      <memberdef kind="function" id="classlock__segment_1ab86c3ed3ee51348334a317e4e5db8d71" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>lock_segment::~lock_segment</definition>
+        <argsstring>(void)</argsstring>
+        <name>~lock_segment</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="333" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="333" bodyend="336"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Helper class to lock a segment pointer so it stays valid. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="326" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="325" bodyend="337"/>
+    <listofallmembers>
+      <member refid="classlock__segment_1ae9fee98f7fc4321b2c836b00aebafe27" prot="public" virt="non-virtual"><scope>lock_segment</scope><name>lock_segment</name></member>
+      <member refid="classlock__segment_1a3a3d850bdcbf142684b6abba050580f2" prot="private" virt="non-virtual"><scope>lock_segment</scope><name>segm</name></member>
+      <member refid="classlock__segment_1ab86c3ed3ee51348334a317e4e5db8d71" prot="public" virt="non-virtual"><scope>lock_segment</scope><name>~lock_segment</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

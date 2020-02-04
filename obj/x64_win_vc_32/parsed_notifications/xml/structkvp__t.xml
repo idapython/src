@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structkvp__t" kind="struct" language="C++" prot="public">
+    <compoundname>kvp_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structkvp__t_1a18e948dc7378413f45797907a39d3c52" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring kvp_t::key</definition>
+        <argsstring></argsstring>
+        <name>key</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="95" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structkvp__t_1a998cce5a26bd6a8154718c6f1d6b3fff" prot="public" static="no" mutable="no">
+        <type><ref refid="structjvalue__t" kindref="compound">jvalue_t</ref></type>
+        <definition>jvalue_t kvp_t::value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="96" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1916">
+        <label>jarr_t</label>
+        <link refid="structjarr__t"/>
+        <childnode refid="1917" relation="usage">
+          <edgelabel>values</edgelabel>
+        </childnode>
+      </node>
+      <node id="1918">
+        <label>_qstring&lt; qchar &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="1915">
+        <label>qvector&lt; kvp_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1914">
+        <label>jobj_t</label>
+        <link refid="structjobj__t"/>
+        <childnode refid="1915" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1912">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="1913">
+        <label>jvalue_t</label>
+        <link refid="structjvalue__t"/>
+        <childnode refid="1914" relation="usage">
+          <edgelabel>_obj</edgelabel>
+        </childnode>
+        <childnode refid="1916" relation="usage">
+          <edgelabel>_arr</edgelabel>
+        </childnode>
+        <childnode refid="1918" relation="usage">
+          <edgelabel>_str</edgelabel>
+        </childnode>
+      </node>
+      <node id="1917">
+        <label>qvector&lt; jvalue_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1911">
+        <label>kvp_t</label>
+        <link refid="structkvp__t"/>
+        <childnode refid="1912" relation="usage">
+          <edgelabel>key</edgelabel>
+        </childnode>
+        <childnode refid="1913" relation="usage">
+          <edgelabel>value</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="94" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="93" bodyend="97"/>
+    <listofallmembers>
+      <member refid="structkvp__t_1a18e948dc7378413f45797907a39d3c52" prot="public" virt="non-virtual"><scope>kvp_t</scope><name>key</name></member>
+      <member refid="structkvp__t_1a998cce5a26bd6a8154718c6f1d6b3fff" prot="public" virt="non-virtual"><scope>kvp_t</scope><name>value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

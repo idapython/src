@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="aes_8h" kind="file" language="C++">
+    <compoundname>aes.h</compoundname>
+    <innerclass refid="structaes__key__t" prot="public">aes_key_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="aes_8h_1a91e721bca5c6db6402fc3a4781d69b10" prot="public" static="no">
+        <name>AES_ENCRYPT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/aes.h" line="4" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/aes.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="aes_8h_1a8a3cf36dc3c8860519f33907bad182c9" prot="public" static="no">
+        <name>AES_DECRYPT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/aes.h" line="5" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/aes.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="aes_8h_1ada58fde7bf969a2336f27fc9c8d4f6ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool ida_export</type>
+        <definition>idaman THREAD_SAFE bool ida_export aes_setkey_enc</definition>
+        <argsstring>(aes_key_t *key, const uchar *keydata, uint32 keybits)</argsstring>
+        <name>aes_setkey_enc</name>
+        <param>
+          <type><ref refid="structaes__key__t" kindref="compound">aes_key_t</ref> *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>keydata</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>keybits</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/aes.h" line="14" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="aes_8h_1afb57eea41924b331bd374443f051780d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool ida_export</type>
+        <definition>idaman THREAD_SAFE bool ida_export aes_setkey_dec</definition>
+        <argsstring>(aes_key_t *key, const uchar *keydata, uint32 keybits)</argsstring>
+        <name>aes_setkey_dec</name>
+        <param>
+          <type><ref refid="structaes__key__t" kindref="compound">aes_key_t</ref> *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>keydata</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>keybits</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/aes.h" line="15" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="aes_8h_1ac4712ca9ccc0b9ec8578edfef8c06f2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export aes_crypt_ecb</definition>
+        <argsstring>(uchar output[16], const uchar input[16], const aes_key_t &amp;key, int mode)</argsstring>
+        <name>aes_crypt_ecb</name>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>output</declname>
+          <array>[16]</array>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>input</declname>
+          <array>[16]</array>
+        </param>
+        <param>
+          <type>const <ref refid="structaes__key__t" kindref="compound">aes_key_t</ref> &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/aes.h" line="17" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="aes_8h_1ae47f70867efe7e8f5a5dab0d1859dfd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export aes_crypt_cbc</definition>
+        <argsstring>(uchar *output, const uchar *input, size_t length, const aes_key_t &amp;key, uchar iv[16], int mode)</argsstring>
+        <name>aes_crypt_cbc</name>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>output</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>input</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structaes__key__t" kindref="compound">aes_key_t</ref> &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>iv</declname>
+          <array>[16]</array>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/aes.h" line="23" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/aes.h"/>
+  </compounddef>
+</doxygen>

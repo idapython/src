@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__add__chooser__command" kind="group">
+    <compoundname>add_chooser_command</compoundname>
+    <title>Obsolete add_chooser_command()</title>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__add__chooser__command_1ga1e555752c06a12f625b626659e2e36f5" prot="public" static="no">
+        <type><ref refid="structchooser__t_1_1cbret__t" kindref="compound">chooser_t::cbret_t</ref> idaapi</type>
+        <definition>typedef chooser_t::cbret_t idaapi chooser_cb_t(chooser_t *chobj, ssize_t n)</definition>
+        <argsstring>(chooser_t *chobj, ssize_t n)</argsstring>
+        <name>chooser_cb_t</name>
+        <briefdescription>
+<para>single selection chooser callback </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2804" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2804" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__add__chooser__command_1ga620257e72596dd5599bab462aed01e9e" prot="public" static="no">
+        <type><ref refid="structchooser__base__t_1a753ae8c73ea5a644ee31571ab5c0e27f" kindref="member">chooser_base_t::cbres_t</ref> idaapi</type>
+        <definition>typedef chooser_base_t::cbres_t idaapi chooser_multi_cb_t(chooser_multi_t *chobj, sizevec_t *sel)</definition>
+        <argsstring>(chooser_multi_t *chobj, sizevec_t *sel)</argsstring>
+        <name>chooser_multi_cb_t</name>
+        <briefdescription>
+<para>multi selection chooser callback </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2808" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2808" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__add__chooser__command_1gac513bb09268d5a16bea0f81bdba71a15" prot="public" static="no">
+        <name>CHOOSER_NO_SELECTION</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Flags. </para>        </briefdescription>
+        <detaileddescription>
+<para>enable even if there&apos;s no selected item. <computeroutput>n</computeroutput> will be NO_SELECTION for a callback. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2813" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2813" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__add__chooser__command_1ga90b5a1229c0c2de003e4958491c4b992" prot="public" static="no">
+        <name>CHOOSER_MULTI_SELECTION</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>enable for multiple selections. A callback of type <computeroutput>chooser_multi_cb_t</computeroutput> will be called for all selected items. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2816" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2816" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__add__chooser__command_1ga279bb390c370299e10efd7df8f7e2675" prot="public" static="no">
+        <name>CHOOSER_POPUP_MENU</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Add command to the popup menu. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2820" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2820" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__add__chooser__command_1ga4c4495be1f66e4e0c60761dfa43f555f" prot="public" static="no">
+        <name>CHOOSER_MENU_EDIT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Values of the <computeroutput>menu_index</computeroutput> parameter. </para>        </briefdescription>
+        <detaileddescription>
+<para>Obsolete. Please don&apos;t use </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2825" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2825" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__add__chooser__command_1ga79cd090af6c8ef9f3a31df551d727cf4" prot="public" static="no">
+        <name>CHOOSER_MENU_JUMP</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Obsolete. Please don&apos;t use. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2826" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2826" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__add__chooser__command_1ga5e8891c5348f18d91757991128371df8" prot="public" static="no">
+        <name>CHOOSER_MENU_SEARCH</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Obsolete. Please don&apos;t use. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2827" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2827" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

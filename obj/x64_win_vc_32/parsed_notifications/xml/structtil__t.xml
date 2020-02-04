@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structtil__t" kind="struct" language="C++" prot="public">
+    <compoundname>til_t</compoundname>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structtil__t_1a95aaf41f845b0ccae958d198f5bae59d" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* til_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>short file name (without path and extension) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="609" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="609" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtil__t_1a0f1cc6a42d42d17115136ecc1631229e" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* til_t::desc</definition>
+        <argsstring></argsstring>
+        <name>desc</name>
+        <briefdescription>
+<para>human readable til description </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="610" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="610" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtil__t_1a9ccb9f157e70a916cb9e644bff593aa2" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int til_t::nbases</definition>
+        <argsstring></argsstring>
+        <name>nbases</name>
+        <briefdescription>
+<para>number of base tils </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="611" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="611" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtil__t_1abfc247fb295e61b260ca303ee8f13c31" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structtil__t" kindref="compound">til_t</ref> **</type>
+        <definition>struct til_t** til_t::base</definition>
+        <argsstring></argsstring>
+        <name>base</name>
+        <briefdescription>
+<para>tils that our til is based on </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="612" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="612" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtil__t_1a0a02b7d87df6c926115b69c9937acee8" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 til_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___t_i_l__" kindref="compound">Type info library property bits</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="613" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="613" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtil__t_1a142b41f9e7f4ac0e1548e35010016a93" prot="public" static="no" mutable="no">
+        <type><ref refid="structcompiler__info__t" kindref="compound">compiler_info_t</ref></type>
+        <definition>compiler_info_t til_t::cc</definition>
+        <argsstring></argsstring>
+        <name>cc</name>
+        <briefdescription>
+<para>information about the target compiler </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="631" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="631" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtil__t_1a5e12f1ceea06b1fb8f205c423a7db586" prot="public" static="no" mutable="no">
+        <type>struct til_bucket_t *</type>
+        <definition>struct til_bucket_t* til_t::syms</definition>
+        <argsstring></argsstring>
+        <name>syms</name>
+        <briefdescription>
+<para>symbols </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="632" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="632" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtil__t_1ab6b7504d7cbcd7179d29dd240e576d0f" prot="public" static="no" mutable="no">
+        <type>struct til_bucket_t *</type>
+        <definition>struct til_bucket_t* til_t::types</definition>
+        <argsstring></argsstring>
+        <name>types</name>
+        <briefdescription>
+<para>types </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="633" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="633" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtil__t_1a7203ee9adb9a5f929e035d58892bb602" prot="public" static="no" mutable="no">
+        <type>struct til_bucket_t *</type>
+        <definition>struct til_bucket_t* til_t::macros</definition>
+        <argsstring></argsstring>
+        <name>macros</name>
+        <briefdescription>
+<para>macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="634" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="634" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtil__t_1af8332a519b352a0c69a357eee73571bb" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int til_t::nrefs</definition>
+        <argsstring></argsstring>
+        <name>nrefs</name>
+        <briefdescription>
+<para>number of references to the til </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="635" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="635" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtil__t_1a929253405fda6a038ec1f47b0a916b0f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int til_t::nstreams</definition>
+        <argsstring></argsstring>
+        <name>nstreams</name>
+        <briefdescription>
+<para>number of extra streams </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="636" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="636" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtil__t_1a8394f7b3bd9193ab8cf1eda91206b47f" prot="public" static="no" mutable="no">
+        <type>struct til_stream_t **</type>
+        <definition>struct til_stream_t** til_t::streams</definition>
+        <argsstring></argsstring>
+        <name>streams</name>
+        <briefdescription>
+<para>symbol stream storage </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="637" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="637" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structtil__t_1a6acb930d3aa160a0fca002d98141cd61" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool til_t::is_dirty</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_dirty</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Has the til been modified? (<ref refid="group___t_i_l___1gaff79474fab46b219eb0c3742ad8a7760" kindref="member">TIL_MOD</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="628" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="628" bodyend="628"/>
+      </memberdef>
+      <memberdef kind="function" id="structtil__t_1ae2c7d55da359723aff7468086e589587" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void til_t::set_dirty</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_dirty</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Mark the til as modified (<ref refid="group___t_i_l___1gaff79474fab46b219eb0c3742ad8a7760" kindref="member">TIL_MOD</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="630" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="630" bodyend="630"/>
+      </memberdef>
+      <memberdef kind="function" id="structtil__t_1a99f6fb7ad6c6f9d08340f46911964e97" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>til_t::til_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>til_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="638" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="638" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Type Information Library. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3453">
+        <label>til_t</label>
+        <link refid="structtil__t"/>
+        <childnode refid="3453" relation="usage">
+          <edgelabel>base</edgelabel>
+        </childnode>
+        <childnode refid="3454" relation="usage">
+          <edgelabel>cc</edgelabel>
+        </childnode>
+      </node>
+      <node id="3454">
+        <label>compiler_info_t</label>
+        <link refid="structcompiler__info__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="608" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="607" bodyend="639"/>
+    <listofallmembers>
+      <member refid="structtil__t_1abfc247fb295e61b260ca303ee8f13c31" prot="public" virt="non-virtual"><scope>til_t</scope><name>base</name></member>
+      <member refid="structtil__t_1a142b41f9e7f4ac0e1548e35010016a93" prot="public" virt="non-virtual"><scope>til_t</scope><name>cc</name></member>
+      <member refid="structtil__t_1a0f1cc6a42d42d17115136ecc1631229e" prot="public" virt="non-virtual"><scope>til_t</scope><name>desc</name></member>
+      <member refid="structtil__t_1a0a02b7d87df6c926115b69c9937acee8" prot="public" virt="non-virtual"><scope>til_t</scope><name>flags</name></member>
+      <member refid="structtil__t_1a6acb930d3aa160a0fca002d98141cd61" prot="public" virt="non-virtual"><scope>til_t</scope><name>is_dirty</name></member>
+      <member refid="structtil__t_1a7203ee9adb9a5f929e035d58892bb602" prot="public" virt="non-virtual"><scope>til_t</scope><name>macros</name></member>
+      <member refid="structtil__t_1a95aaf41f845b0ccae958d198f5bae59d" prot="public" virt="non-virtual"><scope>til_t</scope><name>name</name></member>
+      <member refid="structtil__t_1a9ccb9f157e70a916cb9e644bff593aa2" prot="public" virt="non-virtual"><scope>til_t</scope><name>nbases</name></member>
+      <member refid="structtil__t_1af8332a519b352a0c69a357eee73571bb" prot="public" virt="non-virtual"><scope>til_t</scope><name>nrefs</name></member>
+      <member refid="structtil__t_1a929253405fda6a038ec1f47b0a916b0f" prot="public" virt="non-virtual"><scope>til_t</scope><name>nstreams</name></member>
+      <member refid="structtil__t_1ae2c7d55da359723aff7468086e589587" prot="public" virt="non-virtual"><scope>til_t</scope><name>set_dirty</name></member>
+      <member refid="structtil__t_1a8394f7b3bd9193ab8cf1eda91206b47f" prot="public" virt="non-virtual"><scope>til_t</scope><name>streams</name></member>
+      <member refid="structtil__t_1a5e12f1ceea06b1fb8f205c423a7db586" prot="public" virt="non-virtual"><scope>til_t</scope><name>syms</name></member>
+      <member refid="structtil__t_1a99f6fb7ad6c6f9d08340f46911964e97" prot="public" virt="non-virtual"><scope>til_t</scope><name>til_t</name></member>
+      <member refid="structtil__t_1ab6b7504d7cbcd7179d29dd240e576d0f" prot="public" virt="non-virtual"><scope>til_t</scope><name>types</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structxrefblk__t" kind="struct" language="C++" prot="public">
+    <compoundname>xrefblk_t</compoundname>
+    <includes refid="xref_8hpp" local="no">xref.hpp</includes>
+      <sectiondef kind="user-defined">
+      <header>Get first/next</header>
+      <description><para>The following functions first return code references, then data references. If you need only code references, you need to check &apos;iscode&apos; after each call. If you need only data references, use <ref refid="group___x_r_e_f___1ga0aebd80585c10650d16fd59ea35ba27d" kindref="member">XREF_DATA</ref> bit. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___x_r_e_f__" kindref="compound">Xref enumeration flags</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>no more xrefs </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para></description>
+      <memberdef kind="function" id="structxrefblk__t_1a3f5a64818451a5d2ac69ef941e02039d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool xrefblk_t::first_from</definition>
+        <argsstring>(ea_t _from, int flags)</argsstring>
+        <name>first_from</name>
+        <param>
+          <type>ea_t</type>
+          <declname>_from</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+<para>Get first xref from the given address (store in <ref refid="structxrefblk__t_1a06337a92135467162f348e65fb1d0c98" kindref="member">to</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="213" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="213" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="structxrefblk__t_1af36d63b3cf0675e4c677802300611d2e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool xrefblk_t::next_from</definition>
+        <argsstring>(void)</argsstring>
+        <name>next_from</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get next xref from address provided to <ref refid="structxrefblk__t_1a3f5a64818451a5d2ac69ef941e02039d" kindref="member">first_from()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="217" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="217" bodyend="218"/>
+      </memberdef>
+      <memberdef kind="function" id="structxrefblk__t_1a2036ac0f693d1b0c63523b992dbb4e29" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool xrefblk_t::first_to</definition>
+        <argsstring>(ea_t _to, int flags)</argsstring>
+        <name>first_to</name>
+        <param>
+          <type>ea_t</type>
+          <declname>_to</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+<para>Get xref to given address (store in <ref refid="structxrefblk__t_1a302b9b572de110399749d80379d38b00" kindref="member">from</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="221" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="221" bodyend="222"/>
+      </memberdef>
+      <memberdef kind="function" id="structxrefblk__t_1a1c2dcf4afcc5aa629402094d0d4de54a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool xrefblk_t::next_to</definition>
+        <argsstring>(void)</argsstring>
+        <name>next_to</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get next xref to address provided to <ref refid="structxrefblk__t_1a2036ac0f693d1b0c63523b992dbb4e29" kindref="member">first_to()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="225" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="225" bodyend="226"/>
+      </memberdef>
+      <memberdef kind="function" id="structxrefblk__t_1ab53ce1c9cc889824cfa2e5f2d016fb93" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool xrefblk_t::next_from</definition>
+        <argsstring>(ea_t _from, ea_t _to, int flags)</argsstring>
+        <name>next_from</name>
+        <param>
+          <type>ea_t</type>
+          <declname>_from</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>_to</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+<para>Get xref from &apos;_from&apos; that comes after &apos;_to&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="229" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="229" bodyend="237"/>
+      </memberdef>
+      <memberdef kind="function" id="structxrefblk__t_1a1f078092e307a8766c381682ace4410e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool xrefblk_t::next_to</definition>
+        <argsstring>(ea_t _from, ea_t _to, int flags)</argsstring>
+        <name>next_to</name>
+        <param>
+          <type>ea_t</type>
+          <declname>_from</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>_to</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+<para>Get xref to &apos;_to&apos; that comes after &apos;_from&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="240" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="240" bodyend="248"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structxrefblk__t_1a302b9b572de110399749d80379d38b00" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t xrefblk_t::from</definition>
+        <argsstring></argsstring>
+        <name>from</name>
+        <briefdescription>
+<para>the referencing address - filled by <ref refid="structxrefblk__t_1a2036ac0f693d1b0c63523b992dbb4e29" kindref="member">first_to()</ref>,<ref refid="structxrefblk__t_1a1c2dcf4afcc5aa629402094d0d4de54a" kindref="member">next_to()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="189" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxrefblk__t_1a06337a92135467162f348e65fb1d0c98" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t xrefblk_t::to</definition>
+        <argsstring></argsstring>
+        <name>to</name>
+        <briefdescription>
+<para>the referenced address - filled by <ref refid="structxrefblk__t_1a3f5a64818451a5d2ac69ef941e02039d" kindref="member">first_from()</ref>, <ref refid="structxrefblk__t_1af36d63b3cf0675e4c677802300611d2e" kindref="member">next_from()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="190" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxrefblk__t_1a5bebc678e2b1418b3744ddbf2a35bc31" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar xrefblk_t::iscode</definition>
+        <argsstring></argsstring>
+        <name>iscode</name>
+        <briefdescription>
+<para>1-is code reference; 0-is data reference </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="191" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxrefblk__t_1a7ce94b5cd067ea6e4368d2f0883106e5" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar xrefblk_t::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+<para>type of the last returned reference (<ref refid="group__xref__type_1ga44e2b79869a9595bbe6265ff2026aa98" kindref="member">cref_t</ref> &amp; <ref refid="group__xref__type_1ga78aab6d0d6bd9cb4904bbdbb5ac4fa71" kindref="member">dref_t</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="192" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxrefblk__t_1ab4d447ac9a7638a0dd7399aa4c3a58a8" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar xrefblk_t::user</definition>
+        <argsstring></argsstring>
+        <name>user</name>
+        <briefdescription>
+<para>1-is user defined xref, 0-defined by ida </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="193" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Structure to enumerate all xrefs. This structure provides a way to access cross-references from a given address. For example:</para><para><programlisting><codeline><highlight class="normal">xrefblk_t<sp/>xb;</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>(<sp/>bool<sp/>ok=xb.first_from(ea,<sp/>XREF_ALL);<sp/>ok;<sp/>ok=xb.next_from()<sp/>)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>//<sp/>xb.to<sp/>-<sp/>contains<sp/>the<sp/>referenced<sp/>address</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting> or: <programlisting><codeline><highlight class="normal">xrefblk_t<sp/>xb;</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>(<sp/>bool<sp/>ok=xb.first_to(ea,<sp/>XREF_ALL);<sp/>ok;<sp/>ok=xb.next_to()<sp/>)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>//<sp/>xb.from<sp/>-<sp/>contains<sp/>the<sp/>referencing<sp/>address</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para><para>First, all code references will be returned, then all data references. If you need only code references, stop calling next() as soon as you get a dref.</para><para>If you need only data references, pass <ref refid="group___x_r_e_f___1ga0aebd80585c10650d16fd59ea35ba27d" kindref="member">XREF_DATA</ref> flag to first(). You may not modify the contents of a <ref refid="structxrefblk__t" kindref="compound">xrefblk_t</ref> structure! It is read only. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" line="188" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/xref.hpp" bodystart="187" bodyend="251"/>
+    <listofallmembers>
+      <member refid="structxrefblk__t_1a3f5a64818451a5d2ac69ef941e02039d" prot="public" virt="non-virtual"><scope>xrefblk_t</scope><name>first_from</name></member>
+      <member refid="structxrefblk__t_1a2036ac0f693d1b0c63523b992dbb4e29" prot="public" virt="non-virtual"><scope>xrefblk_t</scope><name>first_to</name></member>
+      <member refid="structxrefblk__t_1a302b9b572de110399749d80379d38b00" prot="public" virt="non-virtual"><scope>xrefblk_t</scope><name>from</name></member>
+      <member refid="structxrefblk__t_1a5bebc678e2b1418b3744ddbf2a35bc31" prot="public" virt="non-virtual"><scope>xrefblk_t</scope><name>iscode</name></member>
+      <member refid="structxrefblk__t_1af36d63b3cf0675e4c677802300611d2e" prot="public" virt="non-virtual"><scope>xrefblk_t</scope><name>next_from</name></member>
+      <member refid="structxrefblk__t_1ab53ce1c9cc889824cfa2e5f2d016fb93" prot="public" virt="non-virtual"><scope>xrefblk_t</scope><name>next_from</name></member>
+      <member refid="structxrefblk__t_1a1c2dcf4afcc5aa629402094d0d4de54a" prot="public" virt="non-virtual"><scope>xrefblk_t</scope><name>next_to</name></member>
+      <member refid="structxrefblk__t_1a1f078092e307a8766c381682ace4410e" prot="public" virt="non-virtual"><scope>xrefblk_t</scope><name>next_to</name></member>
+      <member refid="structxrefblk__t_1a06337a92135467162f348e65fb1d0c98" prot="public" virt="non-virtual"><scope>xrefblk_t</scope><name>to</name></member>
+      <member refid="structxrefblk__t_1a7ce94b5cd067ea6e4368d2f0883106e5" prot="public" virt="non-virtual"><scope>xrefblk_t</scope><name>type</name></member>
+      <member refid="structxrefblk__t_1ab4d447ac9a7638a0dd7399aa4c3a58a8" prot="public" virt="non-virtual"><scope>xrefblk_t</scope><name>user</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

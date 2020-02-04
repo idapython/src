@@ -100,7 +100,7 @@ bool request_run_to(ea_t ea, pid_t pid = NO_PROCESS, thid_t tid = NO_THREAD);
 %{
 PyObject *bpt_t_condition_get(bpt_t *bpt)
 {
-  return PyString_FromString(bpt->cndbody.c_str());
+  return IDAPyStr_FromUTF8(bpt->cndbody.c_str());
 }
 
 void bpt_t_condition_set(bpt_t *bpt, PyObject *val)
@@ -113,7 +113,7 @@ void bpt_t_condition_set(bpt_t *bpt, PyObject *val)
 
 PyObject *bpt_t_elang_get(bpt_t *bpt)
 {
-  return PyString_FromString(bpt->get_cnd_elang());
+  return IDAPyStr_FromUTF8(bpt->get_cnd_elang());
 }
 
 void bpt_t_elang_set(bpt_t *bpt, PyObject *val)

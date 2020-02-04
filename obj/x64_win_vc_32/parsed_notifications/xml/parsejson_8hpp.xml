@@ -1,0 +1,278 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="parsejson_8hpp" kind="file" language="C++">
+    <compoundname>parsejson.hpp</compoundname>
+    <includes refid="lex_8hpp" local="no">lex.hpp</includes>
+    <incdepgraph>
+      <node id="1155">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp</label>
+        <link refid="parsejson_8hpp"/>
+        <childnode refid="1156" relation="include">
+        </childnode>
+      </node>
+      <node id="1156">
+        <label>lex.hpp</label>
+        <link refid="lex_8hpp"/>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structjvalue__t" prot="public">jvalue_t</innerclass>
+    <innerclass refid="structkvp__t" prot="public">kvp_t</innerclass>
+    <innerclass refid="structjobj__t" prot="public">jobj_t</innerclass>
+    <innerclass refid="structjarr__t" prot="public">jarr_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="parsejson_8hpp_1a55c641eb935927639a6d3d9f4f404a14" prot="public" static="no">
+        <name>DECLARE_JVALUE_HELPERS</name>
+        <param><defname>decl</defname></param>
+        <initializer>decl void ida_export jvalue_t_clear(<ref refid="structjvalue__t" kindref="compound">jvalue_t</ref> *);                      \
+  decl void ida_export jvalue_t_copy(<ref refid="structjvalue__t" kindref="compound">jvalue_t</ref> *, const <ref refid="structjvalue__t" kindref="compound">jvalue_t</ref> &amp;);</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="34" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="parsejson_8hpp_1af6c01db45a5090d485c61bb073a4d6b1" prot="public" static="no">
+        <name>DEFINE_FLAG_GETTER</name>
+        <param><defname>Type</defname></param>
+        <param><defname>JType</defname></param>
+        <param><defname>GetExpr</defname></param>
+        <initializer>bool get(Type *out, const char *k) const              \
+  {                                                     \
+    const <ref refid="structjvalue__t" kindref="compound">jvalue_t</ref> *v = get_value(k, JType);            \
+    bool ok = v != NULL;                                \
+    if ( ok )                                           \
+      *out = GetExpr;                                   \
+    return ok;                                          \
+  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="149" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="parsejson_8hpp_1a89a43d9e1804d75982edfb2e6d527a49" prot="public" static="no">
+        <name>DEFINE_DFLT_GETTER</name>
+        <param><defname>Type</defname></param>
+        <param><defname>JType</defname></param>
+        <param><defname>GetExpr</defname></param>
+        <initializer>Type get(const char *k, Type dflt) const        \
+  {                                               \
+    const <ref refid="structjvalue__t" kindref="compound">jvalue_t</ref> *v = get_value(k, JType);      \
+    return v != NULL ? GetExpr : dflt;            \
+  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="158" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="parsejson_8hpp_1a947364b0c5462c1bee88a8ef468de301" prot="public" static="no">
+        <name>DEFINE_SETTER</name>
+        <param><defname>Type</defname></param>
+        <param><defname>SetExpr</defname></param>
+        <initializer>void put(const char *key, Type value)         \
+  {                                             \
+    <ref refid="structjvalue__t" kindref="compound">jvalue_t</ref> *v = get_value_or_new(key);        \
+    SetExpr;                                    \
+  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="164" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="parsejson_8hpp_1a6c511149dc4c61e90c28bb77a17f1325" prot="public" static="no">
+        <name>DEFINE_ACCESSORS</name>
+        <param><defname>Type</defname></param>
+        <param><defname>ConstType</defname></param>
+        <param><defname>JType</defname></param>
+        <param><defname>GetExpr</defname></param>
+        <param><defname>SetExpr</defname></param>
+        <initializer>DEFINE_FLAG_GETTER(ConstType, JType, GetExpr)                          \
+  DEFINE_DFLT_GETTER(ConstType, JType, GetExpr)                         \
+  DEFINE_SETTER(Type, SetExpr)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="170" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="parsejson_8hpp_1a7f12e5278b137c3078f439ae285287d6" prot="public" static="no">
+        <name>SJF_PRETTY</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="214" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="parsejson_8hpp_1a15ace7e1b68bd5c4870fb95d391a744e" prot="public" static="no">
+        <name>jtype_t</name>
+        <enumvalue id="parsejson_8hpp_1a15ace7e1b68bd5c4870fb95d391a744eae2bf41c92b36403f5858ed215fece93a" prot="public">
+          <name>JT_UNKNOWN</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="parsejson_8hpp_1a15ace7e1b68bd5c4870fb95d391a744ea3335b10a871e6efd24ed09d73a64c6f9" prot="public">
+          <name>JT_NUM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="parsejson_8hpp_1a15ace7e1b68bd5c4870fb95d391a744eaf11f550d933ceb3c4124bd483a08a032" prot="public">
+          <name>JT_STR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="parsejson_8hpp_1a15ace7e1b68bd5c4870fb95d391a744ea801fab5a3d8835c9207b5f1ab67256a0" prot="public">
+          <name>JT_OBJ</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="parsejson_8hpp_1a15ace7e1b68bd5c4870fb95d391a744eaddf754096a60ad6091b664bb63fbd017" prot="public">
+          <name>JT_ARR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="parsejson_8hpp_1a15ace7e1b68bd5c4870fb95d391a744eabfe424efafd87f157e3d7f5f7a1127c5" prot="public">
+          <name>JT_BOOL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="21" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="20" bodyend="28"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="parsejson_8hpp_1ab44b80268c5f5fda9fe44c493810fbed" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structjvalue__t" kindref="compound">jvalue_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;jvalue_t&gt; jvalues_t</definition>
+        <argsstring></argsstring>
+        <name>jvalues_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="90" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="parsejson_8hpp_1a15be2da652a65dfc83a7cc998dc31e32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref> ida_export</type>
+        <definition>idaman THREAD_SAFE error_t ida_export parse_json</definition>
+        <argsstring>(jvalue_t *out, lexer_t *lx, tokenstack_t *ungot_tokens=NULL)</argsstring>
+        <name>parse_json</name>
+        <param>
+          <type><ref refid="structjvalue__t" kindref="compound">jvalue_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>lexer_t *</type>
+          <declname>lx</declname>
+        </param>
+        <param>
+          <type><ref refid="lex_8hpp_1ab32c8e62185bb40333dc7fa5e52c83f7" kindref="member">tokenstack_t</ref> *</type>
+          <declname>ungot_tokens</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="211" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="parsejson_8hpp_1a5bc2afdd6c20eed690540dada4a59fc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool ida_export</type>
+        <definition>idaman THREAD_SAFE bool ida_export serialize_json</definition>
+        <argsstring>(qstring *out, const jvalue_t &amp;v, uint32 flags=0)</argsstring>
+        <name>serialize_json</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjvalue__t" kindref="compound">jvalue_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>flags</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="215" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="parsejson_8hpp_1ab8ee7bb0c5952cff94cfae31614d0f04" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool</type>
+        <definition>THREAD_SAFE bool serialize_json</definition>
+        <argsstring>(qstring *out, const jobj_t *o, uint32 flags=0)</argsstring>
+        <name>serialize_json</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structjobj__t" kindref="compound">jobj_t</ref> *</type>
+          <declname>o</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>flags</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" line="220" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp" bodystart="220" bodyend="230"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Tools for parsing JSON-formatted input. </para>    </briefdescription>
+    <detaileddescription>
+<para>See also <ref refid="lex_8hpp" kindref="compound">lex.hpp</ref>/parse.hpp for finer-grained functions &amp; documentation. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/parsejson.hpp"/>
+  </compounddef>
+</doxygen>

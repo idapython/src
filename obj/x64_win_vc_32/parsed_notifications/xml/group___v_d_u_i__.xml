@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___v_d_u_i__" kind="group">
+    <compoundname>VDUI_</compoundname>
+    <title>Properties of pseudocode window</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___v_d_u_i___1ga4f201bb67a5f0cb14d0299488eb8b98d" prot="public" static="no">
+        <name>VDUI_VISIBLE</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>is visible? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6991" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6991" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___v_d_u_i___1gacf0e1b6ef0b81c9922adc0e62c4a23dc" prot="public" static="no">
+        <name>VDUI_VALID</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>is valid? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6992" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6992" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___v_d_u_i___1ga95871315aeaa6cd0ebe405cb470886fa" prot="public" static="no">
+        <name>VDUI_LOCKED</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>is locked? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6993" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6993" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used in <ref refid="structvdui__t_1ad2b4476a057e7338c8a3988d73815c8e" kindref="member">vdui_t::flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

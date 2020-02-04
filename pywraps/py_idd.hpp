@@ -12,11 +12,11 @@ PyObject *py_appcall(
   if ( !PyList_Check(arg_list) )
     return NULL;
 
-  const char *type   = py_type == Py_None ? NULL : PyString_AS_STRING(py_type);
-  const char *fields = py_fields == Py_None ? NULL : PyString_AS_STRING(py_fields);
+  const type_t *type   = (const type_t *) _type_or_none.begin();
+  const type_t *fields = (const p_list *) _fields.begin();
   tinfo_t tif;
   tinfo_t *ptif = NULL;
-  if ( tif.deserialize(NULL, (const type_t **)&type, (const p_list **)&fields) )
+  if ( tif.deserialize(NULL, &type, &fields) )
     ptif = &tif;
 
   // Convert Python arguments into IDC values
@@ -185,7 +185,7 @@ static PyObject *dbg_get_registers()
       for ( int i=0; i < nbits; i++ )
       {
         const char *s = ri.bit_strings[i];
-        PyList_SetItem(py_bits, i, PyString_FromString(s == NULL ? "" : s));
+        PyList_SetItem(py_bits, i, IDAPyStr_FromUTF8(s == NULL ? "" : s));
       }
     }
     else
@@ -227,8 +227,8 @@ static PyObject *dbg_get_thread_sreg_base(PyObject *py_tid, PyObject *py_sreg_va
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
   if ( !dbg_can_query()
-    || (!PyInt_Check(py_tid) && !PyLong_Check(py_tid))
-    || (!PyInt_Check(py_sreg_value) && !PyLong_Check(py_sreg_value)) )
+    || (!IDAPyInt_Check(py_tid) && !PyLong_Check(py_tid))
+    || (!IDAPyInt_Check(py_sreg_value) && !PyLong_Check(py_sreg_value)) )
   {
     Py_RETURN_NONE;
   }
@@ -301,9 +301,8 @@ static PyObject *dbg_write_memory(PyObject *py_ea, PyObject *py_buf)
   if ( !dbg_can_query() || !IDAPyStr_Check(py_buf) || !PyW_GetNumber(py_ea, &ea) )
     Py_RETURN_NONE;
 
-  size_t sz = PyString_GET_SIZE(py_buf);
-  void *buf = (void *)PyString_AS_STRING(py_buf);
-  if ( write_dbg_memory(ea_t(ea), buf, sz) != sz )
+  IDAPyStr_AsUTF8(&buf, py_buf);
+  if ( write_dbg_memory(ea, buf.begin(), buf.size()) != buf.size() )
     Py_RETURN_FALSE;
   Py_RETURN_TRUE;
 }
@@ -326,7 +325,7 @@ static PyObject *dbg_get_name()
   if ( dbg == NULL )
     Py_RETURN_NONE;
   else
-    return PyString_FromString(dbg->name);
+    return IDAPyStr_FromUTF8(dbg->name);
 }
 
 //-------------------------------------------------------------------------

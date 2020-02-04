@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_u_b_d_i_r" kind="group">
+    <compoundname>SUBDIR</compoundname>
+    <title>IDA subdirectories</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_u_b_d_i_r_1ga2aad3ea7f9cdeb2c80420bd8bb5b4f88" prot="public" static="no">
+        <name>CFG_SUBDIR</name>
+        <initializer>&quot;cfg&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="55" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_u_b_d_i_r_1gaf903627db4c1778bbd6046adb3d0a0a0" prot="public" static="no">
+        <name>IDC_SUBDIR</name>
+        <initializer>&quot;idc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="56" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_u_b_d_i_r_1ga20aeb2f45e55769a7498db93b2142485" prot="public" static="no">
+        <name>IDS_SUBDIR</name>
+        <initializer>&quot;ids&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="57" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_u_b_d_i_r_1ga704ac794dd46d9d0ae6da99a2f8820bc" prot="public" static="no">
+        <name>IDP_SUBDIR</name>
+        <initializer>&quot;procs&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="58" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_u_b_d_i_r_1gae9d911a561011cea8bafadcd8b0219a1" prot="public" static="no">
+        <name>LDR_SUBDIR</name>
+        <initializer>&quot;loaders&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="59" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_u_b_d_i_r_1gaae51517110937f194ef8dfef5f615afb" prot="public" static="no">
+        <name>SIG_SUBDIR</name>
+        <initializer>&quot;sig&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="60" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_u_b_d_i_r_1gae4de3781eb2695b7e9d8581a0e941a26" prot="public" static="no">
+        <name>TIL_SUBDIR</name>
+        <initializer>&quot;til&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="61" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_u_b_d_i_r_1gab867659532e53ec819273ff11322d826" prot="public" static="no">
+        <name>PLG_SUBDIR</name>
+        <initializer>&quot;plugins&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="62" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as &apos;subdir&apos; parameter to <ref refid="diskio_8hpp_1a16380d8091698918e517829fd3dd2f7f" kindref="member">idadir()</ref>, <ref refid="diskio_8hpp_1a167af169b3e9ef95c00b0c793ddca17b" kindref="member">getsysfile()</ref>, and others. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,499 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_f__datafuncs2" kind="group">
+    <compoundname>FF_datafuncs2</compoundname>
+    <title>Functions: manipulate data bits</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___f_f__datafuncs2_1gaf3bedcff83c11d490b914f2893c43ed3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export create_data</definition>
+        <argsstring>(ea_t ea, flags_t dataflag, asize_t size, tid_t tid)</argsstring>
+        <name>create_data</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>dataflag</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Convert to data (byte, word, dword, etc). This function may be used to create arrays. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dataflag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of data. Value of function <ref refid="group___f_f__datafuncs1_1gaa14a627f4353a5bdd533c6bbd020e90e" kindref="member">byte_flag()</ref>, <ref refid="group___f_f__datafuncs1_1gabf79b38da271c551fed0bada7c5d8337" kindref="member">word_flag()</ref>, etc. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of array in bytes. should be divisible by the size of one item of the specified type. for variable sized items it can be specified as 0, and the kernel will try to calculate the size. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type id. If the specified type is a structure, then tid is structure id. Otherwise should be <ref refid="netnode_8hpp_1ab745219216aec4e8abf2c1dcc5d5eac0" kindref="member">BADNODE</ref>. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1449" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1ga293876f6be066f531d06a1bacc150b78" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi create_byte</definition>
+        <argsstring>(ea_t ea, asize_t length)</argsstring>
+        <name>create_byte</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Convert to byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1455" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1455" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1ga47d8280e846861ca6981011f5ace8f17" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi create_word</definition>
+        <argsstring>(ea_t ea, asize_t length)</argsstring>
+        <name>create_word</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Convert to word. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1456" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1456" bodyend="1455"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1ga16678964eb864e33ad263b16a76c9e08" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi create_dword</definition>
+        <argsstring>(ea_t ea, asize_t length)</argsstring>
+        <name>create_dword</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Convert to dword. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1457" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1457" bodyend="1456"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1gaa9c6494b8490c1ddb24ffacd81e6d939" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi create_qword</definition>
+        <argsstring>(ea_t ea, asize_t length)</argsstring>
+        <name>create_qword</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Convert to quadword. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1458" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1458" bodyend="1457"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1ga2e8dfff063754d4c0c39048f7361fcb4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi create_oword</definition>
+        <argsstring>(ea_t ea, asize_t length)</argsstring>
+        <name>create_oword</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Convert to octaword/xmm word. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1459" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1459" bodyend="1458"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1ga0317e5fcb975fcedb66039f534d51503" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi create_yword</definition>
+        <argsstring>(ea_t ea, asize_t length)</argsstring>
+        <name>create_yword</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Convert to ymm word. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1460" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1460" bodyend="1459"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1ga9cac45e01c4c8254b07b73615f25cb1b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi create_zword</definition>
+        <argsstring>(ea_t ea, asize_t length)</argsstring>
+        <name>create_zword</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Convert to zmm word. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1461" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1461" bodyend="1460"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1ga858e487dedf1eac66149128aed6760d3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi create_tbyte</definition>
+        <argsstring>(ea_t ea, asize_t length)</argsstring>
+        <name>create_tbyte</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Convert to tbyte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1462" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1462" bodyend="1461"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1ga8f5a0499d61f8f7cfca0a79f10a80f86" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi create_float</definition>
+        <argsstring>(ea_t ea, asize_t length)</argsstring>
+        <name>create_float</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Convert to float. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1463" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1463" bodyend="1462"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1ga4abbe119badbae6312776aa91c530428" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi create_double</definition>
+        <argsstring>(ea_t ea, asize_t length)</argsstring>
+        <name>create_double</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Convert to double. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1464" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1464" bodyend="1463"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1ga7c6f50a158a436c6d941b982e1c6bc29" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi create_packed_real</definition>
+        <argsstring>(ea_t ea, asize_t length)</argsstring>
+        <name>create_packed_real</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Convert to packed decimal real. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1465" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1465" bodyend="1464"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1ga541172cb78c41659dbddf6ea04e21279" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi create_struct</definition>
+        <argsstring>(ea_t ea, asize_t length, tid_t tid)</argsstring>
+        <name>create_struct</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Convert to struct </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1466" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1466" bodyend="1465"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1ga37a60af5845655d87f48e4e5d5d38554" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi create_custdata</definition>
+        <argsstring>(ea_t ea, asize_t length, int dtid, int fid)</argsstring>
+        <name>create_custdata</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>dtid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fid</declname>
+        </param>
+        <briefdescription>
+<para>Convert to custom data type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1468" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1468" bodyend="1471"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1ga558590c540b5f825b138f31d357f0f6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export create_align</definition>
+        <argsstring>(ea_t ea, asize_t length, int alignment)</argsstring>
+        <name>create_align</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>alignment</declname>
+        </param>
+        <briefdescription>
+<para>Alignment: 0 or 2..32. If it is 0, is will be calculated. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1473" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1ga4bbe5e1ed0c0f7c5141880523c14a46a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export calc_min_align</definition>
+        <argsstring>(asize_t length)</argsstring>
+        <name>calc_min_align</name>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Returns: 1..32. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1474" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1gabf03a6d16a635ed68c28d57d0c66f2d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export calc_max_align</definition>
+        <argsstring>(ea_t endea)</argsstring>
+        <name>calc_max_align</name>
+        <param>
+          <type>ea_t</type>
+          <declname>endea</declname>
+        </param>
+        <briefdescription>
+<para>Returns: 0..32. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1475" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1ga3d40bbff5669625ef0b2d033f1257e0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export calc_def_align</definition>
+        <argsstring>(ea_t ea, int mina, int maxa)</argsstring>
+        <name>calc_def_align</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>mina</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>maxa</declname>
+        </param>
+        <briefdescription>
+<para>Calculate default alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1476" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1gaf2fded8a83079e589ff8406e1f20148a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export create_16bit_data</definition>
+        <argsstring>(ea_t ea, asize_t length)</argsstring>
+        <name>create_16bit_data</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Convert to 16-bit quantity (take byte size into account) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1477" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__datafuncs2_1gaf2b0e11ca8002f2e699a2e1244cafe6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export create_32bit_data</definition>
+        <argsstring>(ea_t ea, asize_t length)</argsstring>
+        <name>create_32bit_data</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Convert to 32-bit quantity (take byte size into account) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1478" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of array in bytes. should be divisible by the size of one item of the specified type. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

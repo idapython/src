@@ -1,0 +1,384 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__seg__sel" kind="group">
+    <compoundname>seg_sel</compoundname>
+    <title>Segment selectors</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__seg__sel_1gad14f8b09f7f016cd4b179a4820129ecf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export getn_selector</definition>
+        <argsstring>(sel_t *sel, ea_t *base, int n)</argsstring>
+        <name>getn_selector</name>
+        <param>
+          <type>sel_t *</type>
+          <declname>sel</declname>
+        </param>
+        <param>
+          <type>ea_t *</type>
+          <declname>base</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>Get description of selector (0..<ref refid="group__seg__sel_1gabf03e7f51765884a04843fbb39f55152" kindref="member">get_selector_qty()</ref>-1) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="363" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__sel_1gabf03e7f51765884a04843fbb39f55152" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export get_selector_qty</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_selector_qty</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get number of defined selectors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="368" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__sel_1ga95b819f125c442c7476c1a844cee22d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman sel_t ida_export</type>
+        <definition>idaman sel_t ida_export setup_selector</definition>
+        <argsstring>(ea_t segbase)</argsstring>
+        <name>setup_selector</name>
+        <param>
+          <type>ea_t</type>
+          <declname>segbase</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Allocate a selector for a segment if necessary. You must call this function before calling <ref refid="group__seg__man_1ga9c959024724f499c3c1b3c2ddb1f63b4" kindref="member">add_segm_ex()</ref>. <ref refid="group__seg__man_1ga59f6ee9677c2605aeac9541e38e54025" kindref="member">add_segm()</ref> calls this function itself, so you don&apos;t need to allocate a selector. This function will allocate a selector if &apos;segbase&apos; requires more than 16 bits and the current processor is IBM PC. Otherwise it will return the segbase value. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>segbase</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a new segment base paragraph </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the allocated selector number </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="381" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__sel_1ga0bc493dc34c0cc8268be321fc89a72fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman sel_t ida_export</type>
+        <definition>idaman sel_t ida_export allocate_selector</definition>
+        <argsstring>(ea_t segbase)</argsstring>
+        <name>allocate_selector</name>
+        <param>
+          <type>ea_t</type>
+          <declname>segbase</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Allocate a selector for a segment unconditionally. You must call this function before calling <ref refid="group__seg__man_1ga9c959024724f499c3c1b3c2ddb1f63b4" kindref="member">add_segm_ex()</ref>. <ref refid="group__seg__man_1ga59f6ee9677c2605aeac9541e38e54025" kindref="member">add_segm()</ref> calls this function itself, so you don&apos;t need to allocate a selector. This function will allocate a new free selector and setup its mapping using <ref refid="group__seg__sel_1gae9d8d263928e1700026ab15eabf10480" kindref="member">find_free_selector()</ref> and <ref refid="group__seg__sel_1gaee421bd585e301aea9452c84ac735c6a" kindref="member">set_selector()</ref> functions. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>segbase</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a new segment base paragraph </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the allocated selector number </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="393" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__sel_1gae9d8d263928e1700026ab15eabf10480" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman sel_t ida_export</type>
+        <definition>idaman sel_t ida_export find_free_selector</definition>
+        <argsstring>(void)</argsstring>
+        <name>find_free_selector</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find first unused selector. <simplesect kind="return"><para>a number &gt;= 1 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="399" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__sel_1gaee421bd585e301aea9452c84ac735c6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export set_selector</definition>
+        <argsstring>(sel_t selector, ea_t paragraph)</argsstring>
+        <name>set_selector</name>
+        <param>
+          <type>sel_t</type>
+          <declname>selector</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>paragraph</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set mapping of selector to a paragraph. You should call this function <emphasis>before</emphasis> creating a segment which uses the selector, otherwise the creation of the segment will fail. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>selector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of selector to map<itemizedlist>
+<listitem><para>if selector == <ref refid="pro_8h_1a893ddf307fae0a3bbca667ee917cddc7" kindref="member">BADSEL</ref>, then return 0 (fail)</para></listitem><listitem><para>if the selector has had a mapping, old mapping is destroyed</para></listitem><listitem><para>if the selector number is equal to paragraph value, then the mapping is destroyed because we don&apos;t need to keep trivial mappings. </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>paragraph</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>paragraph to map selector </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>failure (bad selector or too many mappings) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="414" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__sel_1ga30f786fe1f285b2a2df2c7c6a18d57a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export del_selector</definition>
+        <argsstring>(sel_t selector)</argsstring>
+        <name>del_selector</name>
+        <param>
+          <type>sel_t</type>
+          <declname>selector</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delete mapping of a selector. Be wary of deleting selectors that are being used in the program, this can make a mess in the segments. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>selector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of selector to remove from the translation table </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="422" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__sel_1ga8416e3237013eadfd32dfafc87953e3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export sel2para</definition>
+        <argsstring>(sel_t selector)</argsstring>
+        <name>sel2para</name>
+        <param>
+          <type>sel_t</type>
+          <declname>selector</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get mapping of a selector. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>selector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of selector to translate </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>paragraph the specified selector is mapped to. if there is no mapping, returns &apos;selector&apos;. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="430" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__sel_1ga0bf8f3ddf2be4616b37609bf3d302c8e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t idaapi</type>
+        <definition>ea_t idaapi sel2ea</definition>
+        <argsstring>(sel_t selector)</argsstring>
+        <name>sel2ea</name>
+        <param>
+          <type>sel_t</type>
+          <declname>selector</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get mapping of a selector as a linear address. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>selector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of selector to translate to linear address </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>linear address the specified selector is mapped to. if there is no mapping, returns to_ea(selector,0); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="438" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="438" bodyend="443"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__sel_1gaf4a5a8ead1db6a02fe332395bb0f1e25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman sel_t ida_export</type>
+        <definition>idaman sel_t ida_export find_selector</definition>
+        <argsstring>(ea_t base)</argsstring>
+        <name>find_selector</name>
+        <param>
+          <type>ea_t</type>
+          <declname>base</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find a selector that has mapping to the specified paragraph. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>base</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>paragraph to search in the translation table </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>selector value or base </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="450" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__sel_1ga6e6e924cc3dd3971f5576a4569afc3c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export enumerate_selectors</definition>
+        <argsstring>(int(idaapi *func)(sel_t sel, ea_t para))</argsstring>
+        <name>enumerate_selectors</name>
+        <param>
+          <type>int(idaapi *)(sel_t sel, ea_t para)</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enumerate all selectors from the translation table. This function calls &apos;func&apos; for each selector in the translation table. If &apos;func&apos; returns non-zero code, enumeration is stopped and this code is returned. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>callback function<itemizedlist>
+<listitem><para>sel: selector number</para></listitem><listitem><para>para: selector mapping </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 or code returned by &apos;func&apos;. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="462" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__sel_1ga9500c2b6c5a4a9e32b30926e92979d1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export enumerate_segments_with_selector</definition>
+        <argsstring>(sel_t selector, ea_t(idaapi *func)(segment_t *s, void *ud), void *ud=NULL)</argsstring>
+        <name>enumerate_segments_with_selector</name>
+        <param>
+          <type>sel_t</type>
+          <declname>selector</declname>
+        </param>
+        <param>
+          <type>ea_t(idaapi *)(<ref refid="classsegment__t" kindref="compound">segment_t</ref> *s, void *ud)</type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enumerate all segments with the specified selector. This function will call the callback function &apos;func&apos; for each segment that has the specified selector. Enumeration starts from the last segment and stops at the first segment (reverse order). If the callback function &apos;func&apos; returns a value != <ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref>, the enumeration is stopped and this value is returned to the caller. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>selector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>segments that have this selector are enumerated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>callback function<itemizedlist>
+<listitem><para>s: pointer to segment structure</para></listitem><listitem><para>ud: user data </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to user data. this pointer will be passed to the callback function </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> or the value returned by the callback function &apos;func&apos; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="479" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__seg__sel_1ga18c1993675118da58f537e441edb4a66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="classsegment__t" kindref="compound">segment_t</ref> *ida_export</type>
+        <definition>idaman segment_t* ida_export get_segm_by_sel</definition>
+        <argsstring>(sel_t selector)</argsstring>
+        <name>get_segm_by_sel</name>
+        <param>
+          <type>sel_t</type>
+          <declname>selector</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get pointer to segment structure. This function finds a segment by its selector. If there are several segments with the same selectors, the last one will be returned. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>selector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a segment with the specified selector will be returned </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to segment or NULL </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="491" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>The kernel maintains a table to translate selector values to segment base paragraphs. A Paragraph is a 16byte quantity. This table and translation is necessary because IBM PC uses 16bit selectors in instructions but segments may reside anywhere in the linear addressing space. For example, if a segment with selector 5 resides at 0x400000, we need to have selector translation 5 -&gt; 0x400000. For 16bit programs the selector translation table is usually empty, selector values are equal to segment base paragraphs. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

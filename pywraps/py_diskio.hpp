@@ -9,7 +9,7 @@ int idaapi py_enumerate_files_cb(const char *file, void *ud)
   // and from the same thread as the one that executes
   // 'py_enumerate_files'.
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  newref_t py_file(PyString_FromString(file));
+  newref_t py_file(IDAPyStr_FromUTF8(file));
   newref_t py_ret(
           PyObject_CallFunctionObjArgs(
                   (PyObject *)ud,

@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structformat__data__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>format_data_info_t</compoundname>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structformat__data__info__t_1a8126db951e81f28c115181dca0d8271a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int format_data_info_t::ptvf</definition>
+        <argsstring></argsstring>
+        <name>ptvf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3908" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3908" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structformat__data__info__t_1ae9ab158a09cdfc12e1777d1068d6297f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int format_data_info_t::radix</definition>
+        <argsstring></argsstring>
+        <name>radix</name>
+        <briefdescription>
+<para>number representation (8,10,16) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3931" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3931" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structformat__data__info__t_1aa26ac5420ec7757631d627d0836f6e30" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int format_data_info_t::max_length</definition>
+        <argsstring></argsstring>
+        <name>max_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>max length of the formatted text (0 means no limit) should be used to format huge arrays for the screen, we can not display the whole array anyway if this limit is hit, the function returns false and qerrno is set to eMaxLengthExceeded </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3932" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3932" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structformat__data__info__t_1aab6240ea5270cc4fe31f1f05545410d4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int format_data_info_t::arrbase</definition>
+        <argsstring></argsstring>
+        <name>arrbase</name>
+        <briefdescription>
+<para>for arrays: the first element of array to print </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3937" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3937" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structformat__data__info__t_1a2dc1e139051f7ceaa88f26010415944d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int format_data_info_t::arrnelems</definition>
+        <argsstring></argsstring>
+        <name>arrnelems</name>
+        <briefdescription>
+<para>for arrays: number of elements to print </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3938" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3938" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structformat__data__info__t_1ab3117443521ecc930475c04002f25a8a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int format_data_info_t::margin</definition>
+        <argsstring></argsstring>
+        <name>margin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>length of one line (0 means to print everything on one line) if an item can not be printed in a shorter way, some output lines can be considerably longer 1 means each item on its own line </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3939" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3939" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structformat__data__info__t_1a9b64df28e4d74f761fe3cd15e9a9ae48" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int format_data_info_t::indent</definition>
+        <argsstring></argsstring>
+        <name>indent</name>
+        <briefdescription>
+<para>how many spaces to use to indent nested structures/arrays </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3943" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3943" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structformat__data__info__t_1a3bf271b9e6315839949b644114947375" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>format_data_info_t::format_data_info_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>format_data_info_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3945" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3945" bodyend="3948"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>See <ref refid="typeinf_8hpp_1a605a5f30a0a65c28675f011e216449dc" kindref="member">format_cdata()</ref> </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3907" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3906" bodyend="3949"/>
+    <listofallmembers>
+      <member refid="structformat__data__info__t_1aab6240ea5270cc4fe31f1f05545410d4" prot="public" virt="non-virtual"><scope>format_data_info_t</scope><name>arrbase</name></member>
+      <member refid="structformat__data__info__t_1a2dc1e139051f7ceaa88f26010415944d" prot="public" virt="non-virtual"><scope>format_data_info_t</scope><name>arrnelems</name></member>
+      <member refid="structformat__data__info__t_1a3bf271b9e6315839949b644114947375" prot="public" virt="non-virtual"><scope>format_data_info_t</scope><name>format_data_info_t</name></member>
+      <member refid="structformat__data__info__t_1a9b64df28e4d74f761fe3cd15e9a9ae48" prot="public" virt="non-virtual"><scope>format_data_info_t</scope><name>indent</name></member>
+      <member refid="structformat__data__info__t_1ab3117443521ecc930475c04002f25a8a" prot="public" virt="non-virtual"><scope>format_data_info_t</scope><name>margin</name></member>
+      <member refid="structformat__data__info__t_1aa26ac5420ec7757631d627d0836f6e30" prot="public" virt="non-virtual"><scope>format_data_info_t</scope><name>max_length</name></member>
+      <member refid="structformat__data__info__t_1a8126db951e81f28c115181dca0d8271a" prot="public" virt="non-virtual"><scope>format_data_info_t</scope><name>ptvf</name></member>
+      <member refid="structformat__data__info__t_1ae9ab158a09cdfc12e1777d1068d6297f" prot="public" virt="non-virtual"><scope>format_data_info_t</scope><name>radix</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

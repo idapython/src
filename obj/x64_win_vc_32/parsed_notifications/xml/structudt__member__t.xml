@@ -1,0 +1,526 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structudt__member__t" kind="struct" language="C++" prot="public">
+    <compoundname>udt_member_t</compoundname>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structudt__member__t_1a0c6a45599e00ca54dabeb60f18d6d2a5" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 udt_member_t::offset</definition>
+        <argsstring></argsstring>
+        <name>offset</name>
+        <briefdescription>
+<para>member offset in bits </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3372" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3372" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structudt__member__t_1ab3c7cc1bc656fd36861dadf72665dccf" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 udt_member_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+<para>size in bits </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3373" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3373" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structudt__member__t_1ab101c0d10fb6dd753413e00f865b2659" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring udt_member_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>member name </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3374" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3374" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structudt__member__t_1a76f7bc61a4a732c97afa79edca8d1bee" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring udt_member_t::cmt</definition>
+        <argsstring></argsstring>
+        <name>cmt</name>
+        <briefdescription>
+<para>member comment </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3375" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3375" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structudt__member__t_1aa847c10450aa28383517a6953ec68fa4" prot="public" static="no" mutable="no">
+        <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref></type>
+        <definition>tinfo_t udt_member_t::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+<para>member type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3376" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3376" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structudt__member__t_1a46a43a0194946226c8cbb839d73b5239" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int udt_member_t::effalign</definition>
+        <argsstring></argsstring>
+        <name>effalign</name>
+        <briefdescription>
+<para>effective field alignment (in bytes) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3377" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3377" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structudt__member__t_1a67d3bdd835d04fe6a2361db98bfa4b68" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 udt_member_t::tafld_bits</definition>
+        <argsstring></argsstring>
+        <name>tafld_bits</name>
+        <briefdescription>
+<para>TAH bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3378" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3378" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structudt__member__t_1aa2531c429ae5d76784c359fd1ef07105" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar udt_member_t::fda</definition>
+        <argsstring></argsstring>
+        <name>fda</name>
+        <briefdescription>
+<para>field alignment (shift amount) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3379" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3379" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structudt__member__t_1ac68b96fa076798bf3988eb9900511fac" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>udt_member_t::udt_member_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>udt_member_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3380" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3380" bodyend="3383"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1ae37a40f41872049c501bc558266bc9de" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool udt_member_t::is_bitfield</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_bitfield</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3384" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3384" bodyend="3384"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1ac044cb0c0f627a04b1c499b9e8cc313c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool udt_member_t::is_zero_bitfield</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_zero_bitfield</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3385" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3385" bodyend="3385"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1a7181838981690d9817490c8a82ffece1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool udt_member_t::is_unaligned</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_unaligned</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3386" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3386" bodyend="3386"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1aa8f006dab01796850bddf0dd1ab54fa5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool udt_member_t::is_baseclass</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_baseclass</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3387" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3387" bodyend="3387"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1aad8d0cf1f2671a136211ece9970eb8d5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool udt_member_t::is_virtbase</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_virtbase</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3388" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3388" bodyend="3388"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1aafdd1af6dfa498c8ff880e9118bcf15f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool udt_member_t::is_vftable</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_vftable</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3389" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3389" bodyend="3389"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1a6797dc73a18087949b8050edba20240d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void udt_member_t::set_unaligned</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_unaligned</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3390" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3390" bodyend="3390"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1a954814cf01bab696b67438e32041ac89" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void udt_member_t::set_baseclass</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_baseclass</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3391" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3391" bodyend="3391"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1a2d678dc1144d6d718bfbc84e335fbc5b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void udt_member_t::set_virtbase</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_virtbase</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3392" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3392" bodyend="3392"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1aa2c79eb1876eac24e45d013f26fdc7f3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void udt_member_t::set_vftable</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_vftable</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3393" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3393" bodyend="3393"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1a2b716567ada90422b137b59fb1e6353d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void udt_member_t::clr_unaligned</definition>
+        <argsstring>(void)</argsstring>
+        <name>clr_unaligned</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3394" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3394" bodyend="3394"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1adc39b3326d6d34252abcf21cd5da5848" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void udt_member_t::clr_baseclass</definition>
+        <argsstring>(void)</argsstring>
+        <name>clr_baseclass</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3395" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3395" bodyend="3395"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1a26ed416c3b2bf46e7efec25c7a07affd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void udt_member_t::clr_virtbase</definition>
+        <argsstring>(void)</argsstring>
+        <name>clr_virtbase</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3396" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3396" bodyend="3396"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1ad939e3053be24d060c33ebd3f6314904" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void udt_member_t::clr_vftable</definition>
+        <argsstring>(void)</argsstring>
+        <name>clr_vftable</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3397" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3397" bodyend="3397"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1a6adc39ba574ca00d34f8f000d36d8990" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 udt_member_t::begin</definition>
+        <argsstring>(void) const</argsstring>
+        <name>begin</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3398" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3398" bodyend="3398"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1ad50d34ce422bda74593181038c84889b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 udt_member_t::end</definition>
+        <argsstring>(void) const</argsstring>
+        <name>end</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3399" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3399" bodyend="3399"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1ae5c4b55a168d4eb7cfeb2bd5273ba396" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool udt_member_t::operator&lt;</definition>
+        <argsstring>(const udt_member_t &amp;r) const</argsstring>
+        <name>operator&lt;</name>
+        <param>
+          <type>const <ref refid="structudt__member__t" kindref="compound">udt_member_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3400" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3400" bodyend="3403"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1abad966b59cf308f18ad1a5e21c712f61" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool udt_member_t::operator==</definition>
+        <argsstring>(const udt_member_t &amp;r) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structudt__member__t" kindref="compound">udt_member_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3404" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3404" bodyend="3414"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1a61e3a92dea7331bf700a52014de2f86c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool udt_member_t::operator!=</definition>
+        <argsstring>(const udt_member_t &amp;r) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structudt__member__t" kindref="compound">udt_member_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3415" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3415" bodyend="3415"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1a83a1619e39fd011291c4ce299e8a200c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void udt_member_t::swap</definition>
+        <argsstring>(udt_member_t &amp;r)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="structudt__member__t" kindref="compound">udt_member_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3417" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3417" bodyend="3417"/>
+      </memberdef>
+      <memberdef kind="function" id="structudt__member__t_1a1caaac41de4c8d305840e6c66d412c8d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool udt_member_t::is_anonymous_udm</definition>
+        <argsstring>() const</argsstring>
+        <name>is_anonymous_udm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3421" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3421" bodyend="3424"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>An object to represent struct or union members. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3521">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="3520">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="3519">
+        <label>udt_member_t</label>
+        <link refid="structudt__member__t"/>
+        <childnode refid="3520" relation="usage">
+          <edgelabel>cmt</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="3521" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3371" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3370" bodyend="3425"/>
+    <listofallmembers>
+      <member refid="structudt__member__t_1a6adc39ba574ca00d34f8f000d36d8990" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>begin</name></member>
+      <member refid="structudt__member__t_1adc39b3326d6d34252abcf21cd5da5848" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>clr_baseclass</name></member>
+      <member refid="structudt__member__t_1a2b716567ada90422b137b59fb1e6353d" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>clr_unaligned</name></member>
+      <member refid="structudt__member__t_1ad939e3053be24d060c33ebd3f6314904" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>clr_vftable</name></member>
+      <member refid="structudt__member__t_1a26ed416c3b2bf46e7efec25c7a07affd" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>clr_virtbase</name></member>
+      <member refid="structudt__member__t_1a76f7bc61a4a732c97afa79edca8d1bee" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>cmt</name></member>
+      <member refid="structudt__member__t_1a46a43a0194946226c8cbb839d73b5239" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>effalign</name></member>
+      <member refid="structudt__member__t_1ad50d34ce422bda74593181038c84889b" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>end</name></member>
+      <member refid="structudt__member__t_1aa2531c429ae5d76784c359fd1ef07105" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>fda</name></member>
+      <member refid="structudt__member__t_1a1caaac41de4c8d305840e6c66d412c8d" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>is_anonymous_udm</name></member>
+      <member refid="structudt__member__t_1aa8f006dab01796850bddf0dd1ab54fa5" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>is_baseclass</name></member>
+      <member refid="structudt__member__t_1ae37a40f41872049c501bc558266bc9de" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>is_bitfield</name></member>
+      <member refid="structudt__member__t_1a7181838981690d9817490c8a82ffece1" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>is_unaligned</name></member>
+      <member refid="structudt__member__t_1aafdd1af6dfa498c8ff880e9118bcf15f" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>is_vftable</name></member>
+      <member refid="structudt__member__t_1aad8d0cf1f2671a136211ece9970eb8d5" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>is_virtbase</name></member>
+      <member refid="structudt__member__t_1ac044cb0c0f627a04b1c499b9e8cc313c" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>is_zero_bitfield</name></member>
+      <member refid="structudt__member__t_1ab101c0d10fb6dd753413e00f865b2659" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>name</name></member>
+      <member refid="structudt__member__t_1a0c6a45599e00ca54dabeb60f18d6d2a5" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>offset</name></member>
+      <member refid="structudt__member__t_1a61e3a92dea7331bf700a52014de2f86c" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>operator!=</name></member>
+      <member refid="structudt__member__t_1ae5c4b55a168d4eb7cfeb2bd5273ba396" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>operator&lt;</name></member>
+      <member refid="structudt__member__t_1abad966b59cf308f18ad1a5e21c712f61" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>operator==</name></member>
+      <member refid="structudt__member__t_1a954814cf01bab696b67438e32041ac89" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>set_baseclass</name></member>
+      <member refid="structudt__member__t_1a6797dc73a18087949b8050edba20240d" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>set_unaligned</name></member>
+      <member refid="structudt__member__t_1aa2c79eb1876eac24e45d013f26fdc7f3" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>set_vftable</name></member>
+      <member refid="structudt__member__t_1a2d678dc1144d6d718bfbc84e335fbc5b" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>set_virtbase</name></member>
+      <member refid="structudt__member__t_1ab3c7cc1bc656fd36861dadf72665dccf" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>size</name></member>
+      <member refid="structudt__member__t_1a83a1619e39fd011291c4ce299e8a200c" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>swap</name></member>
+      <member refid="structudt__member__t_1a67d3bdd835d04fe6a2361db98bfa4b68" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>tafld_bits</name></member>
+      <member refid="structudt__member__t_1aa847c10450aa28383517a6953ec68fa4" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>type</name></member>
+      <member refid="structudt__member__t_1ac68b96fa076798bf3988eb9900511fac" prot="public" virt="non-virtual"><scope>udt_member_t</scope><name>udt_member_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

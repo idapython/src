@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structchain__visitor__t" kind="struct" language="C++" prot="public" abstract="yes">
+    <compoundname>chain_visitor_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structchain__visitor__t_1ad7157a52e947a1b96c5586afc6c8aa89" prot="public" static="no" mutable="no">
+        <type><ref refid="classblock__chains__t" kindref="compound">block_chains_t</ref> *</type>
+        <definition>block_chains_t* chain_visitor_t::parent</definition>
+        <argsstring></argsstring>
+        <name>parent</name>
+        <briefdescription>
+<para>parent of the current chain </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3207" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3207" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structchain__visitor__t_1a2aba4385d0755f57c3de98ae5051eb2b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>chain_visitor_t::chain_visitor_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>chain_visitor_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3208" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3208" bodyend="3208"/>
+      </memberdef>
+      <memberdef kind="function" id="structchain__visitor__t_1adc68db42121869131501ed456ce3a3ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi chain_visitor_t::visit_chain</definition>
+        <argsstring>(int nblock, chain_t &amp;ch)=0</argsstring>
+        <name>visit_chain</name>
+        <param>
+          <type>int</type>
+          <declname>nblock</declname>
+        </param>
+        <param>
+          <type><ref refid="classchain__t" kindref="compound">chain_t</ref> &amp;</type>
+          <declname>ch</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3209" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Chain visitor class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="794">
+        <label>chain_visitor_t</label>
+        <link refid="structchain__visitor__t"/>
+        <childnode refid="795" relation="usage">
+          <edgelabel>parent</edgelabel>
+        </childnode>
+      </node>
+      <node id="795">
+        <label>block_chains_t</label>
+        <link refid="classblock__chains__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3206" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3205" bodyend="3210"/>
+    <listofallmembers>
+      <member refid="structchain__visitor__t_1a2aba4385d0755f57c3de98ae5051eb2b" prot="public" virt="non-virtual"><scope>chain_visitor_t</scope><name>chain_visitor_t</name></member>
+      <member refid="structchain__visitor__t_1ad7157a52e947a1b96c5586afc6c8aa89" prot="public" virt="non-virtual"><scope>chain_visitor_t</scope><name>parent</name></member>
+      <member refid="structchain__visitor__t_1adc68db42121869131501ed456ce3a3ff" prot="public" virt="pure-virtual"><scope>chain_visitor_t</scope><name>visit_chain</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

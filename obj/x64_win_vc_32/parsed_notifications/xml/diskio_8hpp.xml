@@ -1,0 +1,1495 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="diskio_8hpp" kind="file" language="C++">
+    <compoundname>diskio.hpp</compoundname>
+    <includes local="no">stdio.h</includes>
+    <includedby refid="idadcr_8h" local="no">obj/x64_linux_gcc_32_opt/idasdk/idadcr.h</includedby>
+    <includedby refid="compress_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/compress.hpp</includedby>
+    <includedby refid="vm_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/vm.hpp</includedby>
+    <includedby refid="btree_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/btree.hpp</includedby>
+    <incdepgraph>
+      <node id="204">
+        <label>stdio.h</label>
+      </node>
+      <node id="203">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp</label>
+        <link refid="diskio_8hpp"/>
+        <childnode refid="204" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="210">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/btree.hpp</label>
+        <link refid="btree_8hpp_source"/>
+      </node>
+      <node id="206">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/idadcr.h</label>
+        <link refid="idadcr_8h_source"/>
+      </node>
+      <node id="208">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/vm.hpp</label>
+        <link refid="vm_8hpp_source"/>
+        <childnode refid="209" relation="include">
+        </childnode>
+      </node>
+      <node id="207">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/compress.hpp</label>
+        <link refid="compress_8hpp"/>
+      </node>
+      <node id="209">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/va.hpp</label>
+        <link refid="va_8hpp_source"/>
+      </node>
+      <node id="205">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp</label>
+        <link refid="diskio_8hpp"/>
+        <childnode refid="206" relation="include">
+        </childnode>
+        <childnode refid="207" relation="include">
+        </childnode>
+        <childnode refid="208" relation="include">
+        </childnode>
+        <childnode refid="210" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structioport__bit__t" prot="public">ioport_bit_t</innerclass>
+    <innerclass refid="structioport__t" prot="public">ioport_t</innerclass>
+    <innerclass refid="structgeneric__linput__t" prot="public">generic_linput_t</innerclass>
+    <innerclass refid="classlinput__buffer__t" prot="public">linput_buffer_t</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Open/Read/Write/Close Files</header>
+      <description><para>There are two sets of &quot;open file&quot; functions. The first set tries to open a file and returns success or failure. The second set is &quot;open or die&quot;: if the file cannot be opened then the function will display an error message and exit. </para></description>
+      <memberdef kind="function" id="diskio_8hpp_1af148cbe6ea37d7a666688f31c118f10a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> FILE *ida_export</type>
+        <definition>idaman THREAD_SAFE FILE* ida_export fopenWT</definition>
+        <argsstring>(const char *file)</argsstring>
+        <name>fopenWT</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open a new file for write in text mode, deny write. If a file exists, it will be removed. <simplesect kind="return"><para>NULL if failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="160" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a6a49a3324187b97c5ad0cf4f1699f2b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> FILE *ida_export</type>
+        <definition>idaman THREAD_SAFE FILE* ida_export fopenWB</definition>
+        <argsstring>(const char *file)</argsstring>
+        <name>fopenWB</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open a new file for write in binary mode, deny read/write. If a file exists, it will be removed. <simplesect kind="return"><para>NULL if failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="167" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1ac4935dc4d05adf818f17c3851d0a5595" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> FILE *ida_export</type>
+        <definition>idaman THREAD_SAFE FILE* ida_export fopenRT</definition>
+        <argsstring>(const char *file)</argsstring>
+        <name>fopenRT</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open a file for read in text mode, deny none. <simplesect kind="return"><para>NULL if failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="173" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1afb8ea0ca1111bf2f0f9d0ea5ad0478c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> FILE *ida_export</type>
+        <definition>idaman THREAD_SAFE FILE* ida_export fopenRB</definition>
+        <argsstring>(const char *file)</argsstring>
+        <name>fopenRB</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open a file for read in binary mode, deny none. <simplesect kind="return"><para>NULL if failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="179" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1ae46f396e65c2f610432d06358d8b2649" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> FILE *ida_export</type>
+        <definition>idaman THREAD_SAFE FILE* ida_export fopenM</definition>
+        <argsstring>(const char *file)</argsstring>
+        <name>fopenM</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open a file for read/write in binary mode, deny write. <simplesect kind="return"><para>NULL if failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="185" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1ac9ccc5bffdcb90a0f49a45db3c503765" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> FILE *ida_export</type>
+        <definition>idaman THREAD_SAFE FILE* ida_export fopenA</definition>
+        <argsstring>(const char *file)</argsstring>
+        <name>fopenA</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open a file for append in text mode, deny none. <simplesect kind="return"><para>NULL if failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="191" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a4ce96205d54dd19e2bf896b5731fb6e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> FILE *ida_export</type>
+        <definition>idaman THREAD_SAFE FILE* ida_export openR</definition>
+        <argsstring>(const char *file)</argsstring>
+        <name>openR</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open a file for read in binary mode or die, deny none. If a file cannot be opened, this function displays a message and exits. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="197" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a38e9b7c807e18f8304b3f6ea2647fa3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> FILE *ida_export</type>
+        <definition>idaman THREAD_SAFE FILE* ida_export openRT</definition>
+        <argsstring>(const char *file)</argsstring>
+        <name>openRT</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open a file for read in text mode or die, deny none. If a file cannot be opened, this function displays a message and exits. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="203" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a743a12d4f5a4f7363cb513bc8ba80942" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> FILE *ida_export</type>
+        <definition>idaman THREAD_SAFE FILE* ida_export openM</definition>
+        <argsstring>(const char *file)</argsstring>
+        <name>openM</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open a file for read/write in binary mode or die, deny write. If a file cannot be opened, this function displays a message and exits. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="209" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Loader Input Source</header>
+      <description><para>Starting with v4.8 IDA can load and run remote files. In order to do that, we replace the FILE* in the loader modules with an abstract input source (linput_t). The source might be linked to a local or remote file. </para></description>
+      <memberdef kind="define" id="diskio_8hpp_1ab5c168e7a192aff7226f5a759771dc31" prot="public" static="no">
+        <name>DEF_LREADBYTES</name>
+        <param><defname>read</defname></param>
+        <param><defname>type</defname></param>
+        <param><defname>size</defname></param>
+        <initializer>/*! \brief Read a value from linput - also see <ref refid="diskio_8hpp_1a04d0326619f5f61b7d362d5993202fcd" kindref="member">lreadbytes</ref>() */ \
+inline int idaapi read(linput_t *li, type *res, bool mf)       \
+               { return <ref refid="diskio_8hpp_1a04d0326619f5f61b7d362d5993202fcd" kindref="member">lreadbytes</ref>(li, res, size, mf); }</initializer>
+        <briefdescription>
+<para>Helper to define lread2bytes(), lread4bytes(), etc. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="421" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="421" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="enum" id="diskio_8hpp_1ae0d44a8d9c28b414b8bf478053527261" prot="public" static="no">
+        <name>linput_type_t</name>
+        <enumvalue id="diskio_8hpp_1ae0d44a8d9c28b414b8bf478053527261aa4f6b761489c68c12afc06ebd0a67092" prot="public">
+          <name>LINPUT_NONE</name>
+          <briefdescription>
+<para>invalid linput </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="diskio_8hpp_1ae0d44a8d9c28b414b8bf478053527261a22774afca9c27ece76fbfef0229cc13a" prot="public">
+          <name>LINPUT_LOCAL</name>
+          <briefdescription>
+<para>local file </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="diskio_8hpp_1ae0d44a8d9c28b414b8bf478053527261a26699ba48b90028658875e8ed4667894" prot="public">
+          <name>LINPUT_RFILE</name>
+          <briefdescription>
+<para>remote file ({open_file}, {read_file}) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="diskio_8hpp_1ae0d44a8d9c28b414b8bf478053527261a8f96a246abd549e32d4656b31f6b6be8" prot="public">
+          <name>LINPUT_PROCMEM</name>
+          <briefdescription>
+<para>debugged process memory (read_dbg_memory()) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="diskio_8hpp_1ae0d44a8d9c28b414b8bf478053527261a248da4def192c3c35017fe579191471c" prot="public">
+          <name>LINPUT_GENERIC</name>
+          <briefdescription>
+<para>generic linput </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>loader input source </para>        </briefdescription>
+        <detaileddescription>
+<para>linput types </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="375" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="374" bodyend="381"/>
+      </memberdef>
+      <memberdef kind="typedef" id="diskio_8hpp_1a8ae491fb8411c48f29f760ba14d6df84" prot="public" static="no">
+        <type><ref refid="structjanitor__t" kindref="compound">janitor_t</ref>&lt; linput_t * &gt;</type>
+        <definition>typedef janitor_t&lt;linput_t*&gt; linput_janitor_t</definition>
+        <argsstring></argsstring>
+        <name>linput_janitor_t</name>
+        <briefdescription>
+<para>Object that will free an linput_t upon deletion. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="537" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="537" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a8ca35433be9bd3d2bd5457c71e9e5787" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export lread</definition>
+        <argsstring>(linput_t *li, void *buf, size_t size)</argsstring>
+        <name>lread</name>
+        <param>
+          <type>linput_t *</type>
+          <declname>li</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read the input source. If failed, inform the user and ask him if he wants to continue. If he does not, this function will not return (<ref refid="loader_8hpp_1ac5e3189d54cc0c34924fb28ebacbbbc3" kindref="member">loader_failure()</ref> will be called). This function may be called only from loaders! </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="389" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a09e4ded38b809edfad79bcea9b579a9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export qlread</definition>
+        <argsstring>(linput_t *li, void *buf, size_t size)</argsstring>
+        <name>qlread</name>
+        <param>
+          <type>linput_t *</type>
+          <declname>li</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read the input source. <simplesect kind="return"><para>number of read bytes or -1 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="395" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a499b5835786e3202fc218034b1e8fa3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman char *ida_export</type>
+        <definition>idaman char* ida_export qlgets</definition>
+        <argsstring>(char *s, size_t len, linput_t *li)</argsstring>
+        <name>qlgets</name>
+        <param>
+          <type>char *</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>linput_t *</type>
+          <declname>li</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read one line from the input source. <simplesect kind="return"><para>NULL if failure, otherwise &apos;s&apos; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="401" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1af432736b5e8b11eab4d065d54115f2ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export qlgetc</definition>
+        <argsstring>(linput_t *li)</argsstring>
+        <name>qlgetc</name>
+        <param>
+          <type>linput_t *</type>
+          <declname>li</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read one character from the input source. <simplesect kind="return"><para>EOF if failure, otherwise the read character </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="407" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a04d0326619f5f61b7d362d5993202fcd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export lreadbytes</definition>
+        <argsstring>(linput_t *li, void *buf, size_t size, bool mf)</argsstring>
+        <name>lreadbytes</name>
+        <param>
+          <type>linput_t *</type>
+          <declname>li</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>mf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read multiple bytes and swap if necessary. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>li</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>input file </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of bytes to read </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>big endian? </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>-1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>failure </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="418" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1aaf8e5a4965b46d9cfa740bcc00fab36b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman char *ida_export</type>
+        <definition>idaman char* ida_export qlgetz</definition>
+        <argsstring>(linput_t *li, int64 fpos, char *buf, size_t bufsize)</argsstring>
+        <name>qlgetz</name>
+        <param>
+          <type>linput_t *</type>
+          <declname>li</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref></type>
+          <declname>fpos</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read a zero-terminated string from the input. If fpos == -1 then no seek will be performed. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="437" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a5df59b3b6c7a42d9092909e648d1229b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref> ida_export</type>
+        <definition>idaman int64 ida_export qlsize</definition>
+        <argsstring>(linput_t *li)</argsstring>
+        <name>qlsize</name>
+        <param>
+          <type>linput_t *</type>
+          <declname>li</declname>
+        </param>
+        <briefdescription>
+<para>Get the input source size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="446" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a5e8219084ce648bd165dce32ffd49b47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref> ida_export</type>
+        <definition>idaman qoff64_t ida_export qlseek</definition>
+        <argsstring>(linput_t *li, qoff64_t pos, int whence=SEEK_SET)</argsstring>
+        <name>qlseek</name>
+        <param>
+          <type>linput_t *</type>
+          <declname>li</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>pos</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>whence</declname>
+          <defval><ref refid="pro_8h_1a0d112bae8fd35be772185b6ec6bcbe64" kindref="member">SEEK_SET</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set input source position. <simplesect kind="return"><para>the new position (not 0 as fseek!) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="452" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1ab5693d03f7ec90ef37e220cc84f979cd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref> idaapi</type>
+        <definition>int64 idaapi qltell</definition>
+        <argsstring>(linput_t *li)</argsstring>
+        <name>qltell</name>
+        <param>
+          <type>linput_t *</type>
+          <declname>li</declname>
+        </param>
+        <briefdescription>
+<para>Get input source position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="457" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="457" bodyend="457"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a95fcd90c12537fe3c05af6ca13b8cedc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman linput_t *ida_export</type>
+        <definition>idaman linput_t* ida_export open_linput</definition>
+        <argsstring>(const char *file, bool remote)</argsstring>
+        <name>open_linput</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>remote</declname>
+        </param>
+        <briefdescription>
+<para>Open loader input. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="462" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a303a114844d4a31737e249be9f3bf24d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export close_linput</definition>
+        <argsstring>(linput_t *li)</argsstring>
+        <name>close_linput</name>
+        <param>
+          <type>linput_t *</type>
+          <declname>li</declname>
+        </param>
+        <briefdescription>
+<para>Close loader input. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="467" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a04efd8485a01a97b5e905213609486e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> FILE *ida_export</type>
+        <definition>idaman THREAD_SAFE FILE* ida_export qlfile</definition>
+        <argsstring>(linput_t *li)</argsstring>
+        <name>qlfile</name>
+        <param>
+          <type>linput_t *</type>
+          <declname>li</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get FILE* from the input source. If the input source is linked to a remote file, then return NULL. Otherwise return the underlying FILE* Please do not use this function if possible. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="475" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1ace2902c087cfd7de2803e4298b5bc2d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> linput_t *ida_export</type>
+        <definition>idaman THREAD_SAFE linput_t* ida_export make_linput</definition>
+        <argsstring>(FILE *fp)</argsstring>
+        <name>make_linput</name>
+        <param>
+          <type>FILE *</type>
+          <declname>fp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Convert FILE * to input source. Used for temporary linput_t objects - call <ref refid="diskio_8hpp_1abf25aad6525ccb4f96ee042a6234d0e4" kindref="member">unmake_linput()</ref> to free the slot after the use. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="482" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1abf25aad6525ccb4f96ee042a6234d0e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export unmake_linput</definition>
+        <argsstring>(linput_t *li)</argsstring>
+        <name>unmake_linput</name>
+        <param>
+          <type>linput_t *</type>
+          <declname>li</declname>
+        </param>
+        <briefdescription>
+<para>Free an linput_t object (also see <ref refid="diskio_8hpp_1ace2902c087cfd7de2803e4298b5bc2d4" kindref="member">make_linput()</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="486" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1af534ad603bf8e20bd189ef1dd3477303" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> linput_t *ida_export</type>
+        <definition>idaman THREAD_SAFE linput_t* ida_export create_generic_linput</definition>
+        <argsstring>(generic_linput_t *gl)</argsstring>
+        <name>create_generic_linput</name>
+        <param>
+          <type><ref refid="structgeneric__linput__t" kindref="compound">generic_linput_t</ref> *</type>
+          <declname>gl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create a generic linput <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>gl</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linput description. this object will be destroyed by <ref refid="diskio_8hpp_1a303a114844d4a31737e249be9f3bf24d" kindref="member">close_linput()</ref> using &quot;delete gl;&quot; </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="514" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a8cb3e2301790c6d49a2903bd610a779b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> linput_t *ida_export</type>
+        <definition>idaman THREAD_SAFE linput_t* ida_export create_bytearray_linput</definition>
+        <argsstring>(const uchar *start, size_t size)</argsstring>
+        <name>create_bytearray_linput</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+<para>Trivial memory linput. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="518" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1aa791cada90873dad95501ed0af8eefef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman linput_t *ida_export</type>
+        <definition>idaman linput_t* ida_export create_memory_linput</definition>
+        <argsstring>(ea_t start, asize_t size)</argsstring>
+        <name>create_memory_linput</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create a linput for process memory. This linput will use read_dbg_memory() to read data. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>start</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>starting address of the input </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of the memory area to represent as linput if unknown, may be passed as 0 </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="527" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a1fe31fc173230987022f3cd970960225" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="diskio_8hpp_1ae0d44a8d9c28b414b8bf478053527261" kindref="member">linput_type_t</ref> idaapi</type>
+        <definition>THREAD_SAFE linput_type_t idaapi get_linput_type</definition>
+        <argsstring>(linput_t *li)</argsstring>
+        <name>get_linput_type</name>
+        <param>
+          <type>linput_t *</type>
+          <declname>li</declname>
+        </param>
+        <briefdescription>
+<para>Get linput type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="531" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="531" bodyend="534"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_u_b_d_i_r_1ga2aad3ea7f9cdeb2c80420bd8bb5b4f88" prot="public" static="no">
+        <name>CFG_SUBDIR</name>
+        <initializer>&quot;cfg&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="55" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_u_b_d_i_r_1gaf903627db4c1778bbd6046adb3d0a0a0" prot="public" static="no">
+        <name>IDC_SUBDIR</name>
+        <initializer>&quot;idc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="56" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_u_b_d_i_r_1ga20aeb2f45e55769a7498db93b2142485" prot="public" static="no">
+        <name>IDS_SUBDIR</name>
+        <initializer>&quot;ids&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="57" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_u_b_d_i_r_1ga704ac794dd46d9d0ae6da99a2f8820bc" prot="public" static="no">
+        <name>IDP_SUBDIR</name>
+        <initializer>&quot;procs&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="58" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_u_b_d_i_r_1gae9d911a561011cea8bafadcd8b0219a1" prot="public" static="no">
+        <name>LDR_SUBDIR</name>
+        <initializer>&quot;loaders&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="59" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_u_b_d_i_r_1gaae51517110937f194ef8dfef5f615afb" prot="public" static="no">
+        <name>SIG_SUBDIR</name>
+        <initializer>&quot;sig&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="60" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_u_b_d_i_r_1gae4de3781eb2695b7e9d8581a0e941a26" prot="public" static="no">
+        <name>TIL_SUBDIR</name>
+        <initializer>&quot;til&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="61" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_u_b_d_i_r_1gab867659532e53ec819273ff11322d826" prot="public" static="no">
+        <name>PLG_SUBDIR</name>
+        <initializer>&quot;plugins&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="62" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a___s_u_b_d_i_r___1ga97db79072ef2b4e4e10863efe3519691" prot="public" static="no">
+        <name>IDA_SUBDIR_IDP</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>append the processor name as a subdirectory </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="90" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_s_i_d_l_1gabcb378cbd826789a5474d8f4bc85c208" prot="public" static="no">
+        <name>CSIDL_APPDATA</name>
+        <initializer>0x001a</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="103" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_s_i_d_l_1ga86443d3467c24dae3bb85d7a61940c18" prot="public" static="no">
+        <name>CSIDL_LOCAL_APPDATA</name>
+        <initializer>0x001c</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="106" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_s_i_d_l_1ga0d02acecee16f342f6a354142293aa01" prot="public" static="no">
+        <name>CSIDL_PROGRAM_FILES</name>
+        <initializer>0x0026</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="109" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_s_i_d_l_1ga921ca7a872716343b3793efa72bc06ac" prot="public" static="no">
+        <name>CSIDL_PROGRAM_FILES_COMMON</name>
+        <initializer>0x002b</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="112" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_s_i_d_l_1gaab2dbf30cf2f869ba6087cf8a4cc07ba" prot="public" static="no">
+        <name>CSIDL_PROGRAM_FILESX86</name>
+        <initializer>0x002a</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="115" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8hpp_1a1dc222872230aa10c8d5742c48802512" prot="public" static="no">
+        <name>IOPORT_SKIP_DEVICE</name>
+        <initializer>((const char *)(-1))</initializer>
+        <briefdescription>
+<para>See &apos;parse_params&apos; parameter to <ref refid="diskio_8hpp_1a4ee89aca6f5d5f0246158579d98d05eb" kindref="member">choose_ioport_device()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="333" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="333" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="diskio_8hpp_1a5098007f1f127aaf418bb188ddb1e86b" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structioport__bit__t" kindref="compound">ioport_bit_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;ioport_bit_t&gt; ioport_bits_t</definition>
+        <argsstring></argsstring>
+        <name>ioport_bits_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="248" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="diskio_8hpp_1a4331cf21ccc279890186df75a4999ef9" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structioport__t" kindref="compound">ioport_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;ioport_t&gt; ioports_t</definition>
+        <argsstring></argsstring>
+        <name>ioports_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="265" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="diskio_8hpp_1a16380d8091698918e517829fd3dd2f7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> const char *ida_export</type>
+        <definition>idaman THREAD_SAFE const char* ida_export idadir</definition>
+        <argsstring>(const char *subdir)</argsstring>
+        <name>idadir</name>
+        <param>
+          <type>const char *</type>
+          <declname>subdir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get IDA directory (if subdir==NULL) or the specified subdirectory (see <ref refid="group___s_u_b_d_i_r" kindref="compound">IDA subdirectories</ref>) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="31" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a167af169b3e9ef95c00b0c793ddca17b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> char *ida_export</type>
+        <definition>idaman THREAD_SAFE char* ida_export getsysfile</definition>
+        <argsstring>(char *buf, size_t bufsize, const char *filename, const char *subdir)</argsstring>
+        <name>getsysfile</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subdir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Search for IDA system file. This function searches for a file in:<orderedlist>
+<listitem><para>each directory specified by IDAUSR%</para></listitem><listitem><para>ida directory [+ subdir] and returns the first match. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer for file name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bufsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of file to search </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subdir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if specified, the file is looked for in the specified subdirectory of the ida directory first (see <ref refid="group___s_u_b_d_i_r" kindref="compound">IDA subdirectories</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>NULL if not found, otherwise a pointer to full file name. </para></simplesect>
+</para></listitem></orderedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="46" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a6ead839a135d52262c7219dd67465042" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> const char *ida_export</type>
+        <definition>idaman THREAD_SAFE const char* ida_export get_user_idadir</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_user_idadir</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get user ida related directory.<itemizedlist>
+<listitem><para>if $IDAUSR is defined:<itemizedlist>
+<listitem><para>the first element in $IDAUSR</para></listitem></itemizedlist>
+</para></listitem><listitem><para>else<itemizedlist>
+<listitem><para>default user directory ($HOME/.idapro or APPDATAHex-Rays/IDA Pro) </para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="71" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1ade45071848f6972b9ff86c9f2750afcb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export get_ida_subdirs</definition>
+        <argsstring>(qstrvec_t *dirs, const char *subdir, int flags=0)</argsstring>
+        <name>get_ida_subdirs</name>
+        <param>
+          <type><ref refid="pro_8h_1a823b67c620f6cdca97e1d969ea4a9b02" kindref="member">qstrvec_t</ref> *</type>
+          <declname>dirs</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subdir</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get list of directories in which to find a specific IDA resource (see <ref refid="group___s_u_b_d_i_r" kindref="compound">IDA subdirectories</ref>). The order of the resulting list is as follows:<itemizedlist>
+<listitem><para>[$IDAUSR/subdir (0..N entries)]</para></listitem><listitem><para>$ENVVAR for backwards compatibility with some subdirs that could be overriden with environment variables, such as $IDASGN, $IDAIDS, $IDAIDC, and $IDATIL.</para></listitem><listitem><para>$IDADIR/subdir <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">dirs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output vector for directory names </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subdir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the resource to list </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___i_d_a___s_u_b_d_i_r__" kindref="compound">Subdirectory modification flags</ref> bits </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>number of directories appended to &apos;dirs&apos; </para></simplesect>
+</para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="85" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1aba3966c5fe94390b019ebb3f6b0adb5e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool ida_export</type>
+        <definition>idaman THREAD_SAFE bool ida_export get_special_folder</definition>
+        <argsstring>(char *buf, size_t bufsize, int csidl)</argsstring>
+        <name>get_special_folder</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>csidl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get a folder location by CSIDL (see <ref refid="group___c_s_i_d_l" kindref="compound">Common CSIDLs</ref>). Path should be of at least MAX_PATH size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="97" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1ae85c4ea312c786873aebf704c289f57a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export enumerate_files</definition>
+        <argsstring>(char *answer, size_t answer_size, const char *path, const char *fname, int(idaapi *func)(const char *file, void *ud), void *ud=NULL)</argsstring>
+        <name>enumerate_files</name>
+        <param>
+          <type>char *</type>
+          <declname>answer</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>answer_size</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>fname</declname>
+        </param>
+        <param>
+          <type>int(idaapi *)(const char *file, void *ud)</type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enumerate files in the specified directory. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">answer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer to contain the file name for which func()!=0 (may be NULL) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>answer_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of &apos;answer&apos; </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>directory to enumerate files in </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>mask of file names to enumerate </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>callback function called for each file<itemizedlist>
+<listitem><para>file: full file name (with path)</para></listitem><listitem><para>ud: user data</para></listitem><listitem><para>if returns non-zero value, the enumeration is stopped and the return code is is returned to the caller. </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>user data. this pointer will be passed to the callback function </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>zero or the code returned by &apos;func&apos; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="135" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a549d51c74356478392b1744907728417" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref> ida_export</type>
+        <definition>idaman THREAD_SAFE uint64 ida_export qfsize</definition>
+        <argsstring>(FILE *fp)</argsstring>
+        <name>qfsize</name>
+        <param>
+          <type>FILE *</type>
+          <declname>fp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get length of file in bytes. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to file </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="221" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1ac9aa9645007754c5b00b583ccf9e6092" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export echsize</definition>
+        <argsstring>(FILE *fp, uint64 size)</argsstring>
+        <name>echsize</name>
+        <param>
+          <type>FILE *</type>
+          <declname>fp</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Change size of file or die. If an error occurs, this function displays a message and exits. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to file </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new size of file </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="229" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1acfb54e29824152262ae08cb0c1f43934" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref> ida_export</type>
+        <definition>idaman THREAD_SAFE uint64 ida_export get_free_disk_space</definition>
+        <argsstring>(const char *path)</argsstring>
+        <name>get_free_disk_space</name>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get free disk space in bytes. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of any directory on the disk to get information about </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="235" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1af4444b2437949c9a637c4a80c2f08d78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman THREAD_SAFE ssize_t ida_export read_ioports</definition>
+        <argsstring>(ioports_t *ports, qstring *device, const char *file, const char *(idaapi *callback)(const ioports_t &amp;ports, const char *line)=NULL)</argsstring>
+        <name>read_ioports</name>
+        <param>
+          <type><ref refid="classqvector" kindref="compound">ioports_t</ref> *</type>
+          <declname>ports</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>device</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>const char *(idaapi *)(const <ref refid="classqvector" kindref="compound">ioports_t</ref> &amp;ports, const char *line)</type>
+          <declname>callback</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read i/o port definitions from a config file.</para><para>Each device definition in the input file begins with a line like this:</para><para>{.devicename}</para><para>After it go the port definitions in this format:</para><para>{portname address}</para><para>The bit definitions (optional) are represented like this:</para><para>{portname.bitname bitnumber}</para><para>Lines beginning with a space are ignored. comment lines should be started with &apos;;&apos; character.</para><para>The default device is specified at the start of the file:</para><para>{.default device_name}</para><para><simplesect kind="note"><para>It is permissible to have a symbol mapped to several addresses but all addresses must be unique. </para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">ports</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output vector </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains device name to load. If default_device[0] == 0 then the default device is determined by .default directive in the config file. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>config file name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>callback</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>callback to call when the input line can&apos;t be parsed normally.<itemizedlist>
+<listitem><para>line: input line to parse</para></listitem><listitem><para>returns error message. if NULL, then the line is parsed ok. </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>-1 on error or size of vector </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="300" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a4ee89aca6f5d5f0246158579d98d05eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool ida_export</type>
+        <definition>idaman THREAD_SAFE bool ida_export choose_ioport_device</definition>
+        <argsstring>(qstring *_device, const char *file, const char *(idaapi *parse_params)(qstring *buf, const char *line)=NULL)</argsstring>
+        <name>choose_ioport_device</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>_device</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>const char *(idaapi *)(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *buf, const char *line)</type>
+          <declname>parse_params</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Allow the user to choose the ioport device. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>in: contains default device name. If default_device[0] == 0 then the default device is determined by .default directive in the config file. out: the selected device name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>config file name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>parse_params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if present (non NULL), then defines a callback which will be called for all lines not starting with a dot (.) This callback may parse these lines are prepare a simple processor parameter string. This string will be displayed along with the device name. If it returns <ref refid="diskio_8hpp_1a1dc222872230aa10c8d5742c48802512" kindref="member">IOPORT_SKIP_DEVICE</ref>, then the current device will not be included in the list. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>true</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the user selected a device, its name is in &apos;device&apos; </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>false</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the selection was cancelled. if device==&quot;NONE&quot; upon return, then no devices were found in the configuration file </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="325" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a663242ae8c05a853047602663019d984" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> const <ref refid="structioport__t" kindref="compound">ioport_t</ref> *ida_export</type>
+        <definition>idaman THREAD_SAFE const ioport_t* ida_export find_ioport</definition>
+        <argsstring>(const ioports_t &amp;ports, ea_t address)</argsstring>
+        <name>find_ioport</name>
+        <param>
+          <type>const <ref refid="classqvector" kindref="compound">ioports_t</ref> &amp;</type>
+          <declname>ports</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>address</declname>
+        </param>
+        <briefdescription>
+<para>Find ioport in the array of ioports. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="338" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1a614aa8ffd10c5101c7347cf2aa044d29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> const <ref refid="structioport__bit__t" kindref="compound">ioport_bit_t</ref> *ida_export</type>
+        <definition>idaman THREAD_SAFE const ioport_bit_t* ida_export find_ioport_bit</definition>
+        <argsstring>(const ioports_t &amp;ports, ea_t address, size_t bit)</argsstring>
+        <name>find_ioport_bit</name>
+        <param>
+          <type>const <ref refid="classqvector" kindref="compound">ioports_t</ref> &amp;</type>
+          <declname>ports</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>address</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bit</declname>
+        </param>
+        <briefdescription>
+<para>Find ioport bit in the array of ioports. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="343" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8hpp_1ad5f565f04c002923eabc3d0ee2738f95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export call_system</definition>
+        <argsstring>(const char *command)</argsstring>
+        <name>call_system</name>
+        <param>
+          <type>const char *</type>
+          <declname>command</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Execute a operating system command. This function suspends the interface (Tvision), runs the command and redraws the screen. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>command</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>command to execute. If NULL, an interactive shell is activated </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the error code returned by system() call </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="356" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>File I/O functions for IDA. </para>    </briefdescription>
+    <detaileddescription>
+<para>You should not use standard C file I/O functions in modules. Use functions from this header, <ref refid="pro_8h" kindref="compound">pro.h</ref> and <ref refid="fpro_8h" kindref="compound">fpro.h</ref> instead.</para><para>This file also declares a <ref refid="diskio_8hpp_1ad5f565f04c002923eabc3d0ee2738f95" kindref="member">call_system()</ref> function. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp"/>
+  </compounddef>
+</doxygen>

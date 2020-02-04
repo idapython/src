@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structchooser__t_1_1cbret__t" kind="struct" language="C++" prot="public">
+    <compoundname>chooser_t::cbret_t</compoundname>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structchooser__t_1_1cbret__t_1aa04df2edae9e198b99e91aef13554c90" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t chooser_t::cbret_t::idx</definition>
+        <argsstring></argsstring>
+        <name>idx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2548" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2548" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structchooser__t_1_1cbret__t_1a9e365e9d74277a8b125dada9be29e844" prot="public" static="no" mutable="no">
+        <type><ref refid="structchooser__base__t_1a753ae8c73ea5a644ee31571ab5c0e27f" kindref="member">cbres_t</ref></type>
+        <definition>cbres_t chooser_t::cbret_t::changed</definition>
+        <argsstring></argsstring>
+        <name>changed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2549" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2549" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structchooser__t_1_1cbret__t_1a02722a5e8a24e12e173372d7a69e2bd9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>chooser_t::cbret_t::cbret_t</definition>
+        <argsstring>()</argsstring>
+        <name>cbret_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2550" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2550" bodyend="2550"/>
+      </memberdef>
+      <memberdef kind="function" id="structchooser__t_1_1cbret__t_1a1ba3faa2780b4915e4308bea9043f3c3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>chooser_t::cbret_t::cbret_t</definition>
+        <argsstring>(ssize_t idx_, cbres_t changed_=ALL_CHANGED)</argsstring>
+        <name>cbret_t</name>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+          <declname>idx_</declname>
+        </param>
+        <param>
+          <type><ref refid="structchooser__base__t_1a753ae8c73ea5a644ee31571ab5c0e27f" kindref="member">cbres_t</ref></type>
+          <declname>changed_</declname>
+          <defval>ALL_CHANGED</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2551" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2551" bodyend="2552"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Return value of <ref refid="structchooser__t_1ae1cbaa0d39ea572227d14ff5a0200ef8" kindref="member">ins()</ref>, <ref refid="structchooser__t_1ad3fc6f6394b25bcb0c28c8cfcddc47d9" kindref="member">del()</ref>, <ref refid="structchooser__t_1a967c4202d2aca1ddead4380741de6e13" kindref="member">edit()</ref>, <ref refid="structchooser__t_1a6899d58dfa73f5ac95a8f41851327f84" kindref="member">enter()</ref>, <ref refid="structchooser__t_1a7217277c36ddf006b76190b8e589a2df" kindref="member">refresh()</ref> callbacks. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2547" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2546" bodyend="2553"/>
+    <listofallmembers>
+      <member refid="structchooser__t_1_1cbret__t_1a02722a5e8a24e12e173372d7a69e2bd9" prot="public" virt="non-virtual"><scope>chooser_t::cbret_t</scope><name>cbret_t</name></member>
+      <member refid="structchooser__t_1_1cbret__t_1a1ba3faa2780b4915e4308bea9043f3c3" prot="public" virt="non-virtual"><scope>chooser_t::cbret_t</scope><name>cbret_t</name></member>
+      <member refid="structchooser__t_1_1cbret__t_1a9e365e9d74277a8b125dada9be29e844" prot="public" virt="non-virtual"><scope>chooser_t::cbret_t</scope><name>changed</name></member>
+      <member refid="structchooser__t_1_1cbret__t_1aa04df2edae9e198b99e91aef13554c90" prot="public" virt="non-virtual"><scope>chooser_t::cbret_t</scope><name>idx</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

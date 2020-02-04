@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_i_t__" kind="group">
+    <compoundname>CIT_</compoundname>
+    <title>ctree item iflags bits</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___c_i_t___1ga4ab812985cd59b921d6bf39dfbb75e74" prot="public" static="no">
+        <name>CIT_COLLAPSED</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>display element in collapsed form </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6424" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6424" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

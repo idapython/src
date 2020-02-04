@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classplugin__t" kind="class" language="C++" prot="public">
+    <compoundname>plugin_t</compoundname>
+    <includes refid="loader_8hpp" local="no">loader.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classplugin__t_1a20d66527d2ef34494831e288d49581e5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int plugin_t::version</definition>
+        <argsstring></argsstring>
+        <name>version</name>
+        <briefdescription>
+<para>Should be equal to <ref refid="idp_8hpp_1af4b4e4966302754b758c8cc16f964a15" kindref="member">IDP_INTERFACE_VERSION</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="564" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="564" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classplugin__t_1a42ce3b5fcda2b4835a92a8c6f965b995" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int plugin_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___p_l_u_g_i_n__" kindref="compound">Plugin features</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="565" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="565" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classplugin__t_1af28ff1f503d576299d7c1b0aa42220b2" prot="public" static="no" mutable="no">
+        <type>int(idaapi *</type>
+        <definition>int(idaapi * plugin_t::init) (void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Initialize plugin - returns <ref refid="group___p_l_u_g_i_n___i_n_i_t" kindref="compound">Plugin initialization codes</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="590" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="590" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classplugin__t_1ae4d2d0e04ecb20be03ee4a2952cb3634" prot="public" static="no" mutable="no">
+        <type>void(idaapi *</type>
+        <definition>void(idaapi * plugin_t::term) (void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>term</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Terminate plugin. This function will be called when the plugin is unloaded. May be NULL. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="600" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="600" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classplugin__t_1aefd33d9f9dabe6d58f78589ea56d1c57" prot="public" static="no" mutable="no">
+        <type>bool(idaapi *</type>
+        <definition>bool(idaapi * plugin_t::run) (size_t arg)</definition>
+        <argsstring>)(size_t arg)</argsstring>
+        <name>run</name>
+        <briefdescription>
+<para>Invoke plugin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="602" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="602" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classplugin__t_1a65c40e52a893614e2882a9c3269c61ba" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* plugin_t::comment</definition>
+        <argsstring></argsstring>
+        <name>comment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Long comment about the plugin. it could appear in the status line or as a hint </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="603" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="603" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classplugin__t_1a27b238f6e884635e1a82a23ed2c5e9e9" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* plugin_t::help</definition>
+        <argsstring></argsstring>
+        <name>help</name>
+        <briefdescription>
+<para>Multiline help about the plugin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="606" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="606" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classplugin__t_1aae8fce6087c72ac53396c3bad77f7553" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* plugin_t::wanted_name</definition>
+        <argsstring></argsstring>
+        <name>wanted_name</name>
+        <briefdescription>
+<para>The preferred short name of the plugin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="607" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="607" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classplugin__t_1a316e4fc3c37865976e7c56141be8efc6" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* plugin_t::wanted_hotkey</definition>
+        <argsstring></argsstring>
+        <name>wanted_hotkey</name>
+        <briefdescription>
+<para>The preferred hotkey to run the plugin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="608" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="608" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>A plugin is a module in the plugins subdirectory that can perform an action asked by the user. (usually via pressing a hotkey) </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="562" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="561" bodyend="609"/>
+    <listofallmembers>
+      <member refid="classplugin__t_1a65c40e52a893614e2882a9c3269c61ba" prot="public" virt="non-virtual"><scope>plugin_t</scope><name>comment</name></member>
+      <member refid="classplugin__t_1a42ce3b5fcda2b4835a92a8c6f965b995" prot="public" virt="non-virtual"><scope>plugin_t</scope><name>flags</name></member>
+      <member refid="classplugin__t_1a27b238f6e884635e1a82a23ed2c5e9e9" prot="public" virt="non-virtual"><scope>plugin_t</scope><name>help</name></member>
+      <member refid="classplugin__t_1af28ff1f503d576299d7c1b0aa42220b2" prot="public" virt="non-virtual"><scope>plugin_t</scope><name>init</name></member>
+      <member refid="classplugin__t_1aefd33d9f9dabe6d58f78589ea56d1c57" prot="public" virt="non-virtual"><scope>plugin_t</scope><name>run</name></member>
+      <member refid="classplugin__t_1ae4d2d0e04ecb20be03ee4a2952cb3634" prot="public" virt="non-virtual"><scope>plugin_t</scope><name>term</name></member>
+      <member refid="classplugin__t_1a20d66527d2ef34494831e288d49581e5" prot="public" virt="non-virtual"><scope>plugin_t</scope><name>version</name></member>
+      <member refid="classplugin__t_1a316e4fc3c37865976e7c56141be8efc6" prot="public" virt="non-virtual"><scope>plugin_t</scope><name>wanted_hotkey</name></member>
+      <member refid="classplugin__t_1aae8fce6087c72ac53396c3bad77f7553" prot="public" virt="non-virtual"><scope>plugin_t</scope><name>wanted_name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

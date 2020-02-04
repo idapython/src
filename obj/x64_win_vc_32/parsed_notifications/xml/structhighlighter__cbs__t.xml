@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structhighlighter__cbs__t" kind="struct" language="C++" prot="public">
+    <compoundname>highlighter_cbs_t</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structhighlighter__cbs__t_1ae6a2f5ce8008faa8eeeb553e99253227" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual highlighter_cbs_t::~highlighter_cbs_t</definition>
+        <argsstring>()</argsstring>
+        <name>~highlighter_cbs_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="614" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="614" bodyend="614"/>
+      </memberdef>
+      <memberdef kind="function" id="structhighlighter__cbs__t_1af7ac5861dc24897020ef58984bfbb170" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void idaapi</type>
+        <definition>virtual void idaapi highlighter_cbs_t::set_style</definition>
+        <argsstring>(int32, int32, syntax_highlight_style)</argsstring>
+        <name>set_style</name>
+        <param>
+          <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        </param>
+        <param>
+          <type><ref refid="expr_8hpp_1ae5c4cd9d9bdb685dcedc109622c1f3a4" kindref="member">syntax_highlight_style</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="615" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="615" bodyend="615"/>
+      </memberdef>
+      <memberdef kind="function" id="structhighlighter__cbs__t_1a7d320478aa60be35390d0254979710aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref> idaapi</type>
+        <definition>virtual int32 idaapi highlighter_cbs_t::prev_block_state</definition>
+        <argsstring>()</argsstring>
+        <name>prev_block_state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="616" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="616" bodyend="616"/>
+      </memberdef>
+      <memberdef kind="function" id="structhighlighter__cbs__t_1aa645feb987f470d1c9e6934d9c4f14c8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref> idaapi</type>
+        <definition>virtual int32 idaapi highlighter_cbs_t::cur_block_state</definition>
+        <argsstring>()</argsstring>
+        <name>cur_block_state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="617" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="617" bodyend="617"/>
+      </memberdef>
+      <memberdef kind="function" id="structhighlighter__cbs__t_1a66ddf30d4a02394f53eda2e94e8cc4af" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void idaapi</type>
+        <definition>virtual void idaapi highlighter_cbs_t::set_block_state</definition>
+        <argsstring>(int32)</argsstring>
+        <name>set_block_state</name>
+        <param>
+          <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="618" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="618" bodyend="618"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="613" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="612" bodyend="619"/>
+    <listofallmembers>
+      <member refid="structhighlighter__cbs__t_1aa645feb987f470d1c9e6934d9c4f14c8" prot="public" virt="virtual"><scope>highlighter_cbs_t</scope><name>cur_block_state</name></member>
+      <member refid="structhighlighter__cbs__t_1a7d320478aa60be35390d0254979710aa" prot="public" virt="virtual"><scope>highlighter_cbs_t</scope><name>prev_block_state</name></member>
+      <member refid="structhighlighter__cbs__t_1a66ddf30d4a02394f53eda2e94e8cc4af" prot="public" virt="virtual"><scope>highlighter_cbs_t</scope><name>set_block_state</name></member>
+      <member refid="structhighlighter__cbs__t_1af7ac5861dc24897020ef58984bfbb170" prot="public" virt="virtual"><scope>highlighter_cbs_t</scope><name>set_style</name></member>
+      <member refid="structhighlighter__cbs__t_1ae6a2f5ce8008faa8eeeb553e99253227" prot="public" virt="virtual"><scope>highlighter_cbs_t</scope><name>~highlighter_cbs_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

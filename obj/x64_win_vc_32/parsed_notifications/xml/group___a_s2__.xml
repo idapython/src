@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___a_s2__" kind="group">
+    <compoundname>AS2_</compoundname>
+    <title>Secondary assembler feature bits</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___a_s2___1ga362e9f862b540aad5f6982c02d889e01" prot="public" static="no">
+        <name>AS2_BRACE</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Use braces for all expressions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="292" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s2___1ga4ccba57a47f33b95619c57267f33c25c" prot="public" static="no">
+        <name>AS2_STRINV</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>(For processors with bytes bigger than 8 bits) </para>        </briefdescription>
+        <detaileddescription>
+<para>Invert meaning of {wide_high_byte_first} for text strings </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="293" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s2___1ga59e4b4a9d1332dbc72f92f3b6de12fc4" prot="public" static="no">
+        <name>AS2_BYTE1CHAR</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Meaningful only for wide byte processors. </para>        </briefdescription>
+        <detaileddescription>
+<para>One symbol per processor byte </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="295" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="295" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s2___1ga3d53a4fbbf6eafd721b06873f68afbf1" prot="public" static="no">
+        <name>AS2_IDEALDSCR</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Description of struc/union is in the &apos;reverse&apos; form (keyword before name) the same as in borland tasm ideal </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="297" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s2___1gaa14b9cdc087693e937eca01771861e95" prot="public" static="no">
+        <name>AS2_TERSESTR</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>NAME&lt;fld,fld,...&gt; is supported. </para>        </briefdescription>
+        <detaileddescription>
+<para>&apos;terse&apos; structure initialization form </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="300" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s2___1gace49abd1ffff42cae630128144b15f35" prot="public" static="no">
+        <name>AS2_COLONSUF</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>addresses may have &quot;:xx&quot; suffix this suffix must be ignored when extracting the address under the cursor </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="302" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s2___1ga6d7de2664b172d30b87b48fce73e5319" prot="public" static="no">
+        <name>AS2_YWORD</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>a_yword field is present and valid </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="305" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="structasm__t_1a66f796e6f7040043382b5c47415d810c" kindref="member">asm_t::flag2</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

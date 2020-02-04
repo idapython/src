@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structexec__request__t" kind="struct" language="C++" prot="public" abstract="yes">
+    <compoundname>exec_request_t</compoundname>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="structexec__request__t_1a4cb01c2a5a78328d46048c89a0dc28d1" prot="public" static="no">
+        <name>@4</name>
+        <enumvalue id="structexec__request__t_1a4cb01c2a5a78328d46048c89a0dc28d1a1e61de673b5eedc3b655691cf83ed28e" prot="public">
+          <name>MFF_MAGIC</name>
+          <initializer>= 0x12345678</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Internal magic. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3349" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3349" bodyend="3349"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structexec__request__t_1a3f49d485d74d29244d646260ba9af37e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int exec_request_t::code</definition>
+        <argsstring></argsstring>
+        <name>code</name>
+        <briefdescription>
+<para>temporary location, used internally </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3357" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3357" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexec__request__t_1a6e437fc60f908fee292db1d46b5f9dba" prot="public" static="no" mutable="no">
+        <type>qsemaphore_t</type>
+        <definition>qsemaphore_t exec_request_t::sem</definition>
+        <argsstring></argsstring>
+        <name>sem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>semaphore to communicate with the main thread. If NULL, will be initialized by <ref refid="kernwin_8hpp_1a69761082f4ed4caa6fb527da4bf5268d" kindref="member">execute_sync()</ref>. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3359" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3359" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structexec__request__t_1a4d6664247e83056f009162d77c1fcebe" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool exec_request_t::valid</definition>
+        <argsstring>(void) const</argsstring>
+        <name>valid</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Can this request be executed? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3352" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3352" bodyend="3355"/>
+      </memberdef>
+      <memberdef kind="function" id="structexec__request__t_1a6ed5cd1421130d88e04c0d57027537df" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int idaapi</type>
+        <definition>virtual int idaapi exec_request_t::execute</definition>
+        <argsstring>(void)=0</argsstring>
+        <name>execute</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Callback to be executed. If this function raises an exception, <ref refid="kernwin_8hpp_1a69761082f4ed4caa6fb527da4bf5268d" kindref="member">execute_sync()</ref> never returns. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3364" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structexec__request__t_1a3c9650c76ecc9c71fb397068ac5ae710" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>exec_request_t::exec_request_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>exec_request_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3367" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3367" bodyend="3367"/>
+      </memberdef>
+      <memberdef kind="function" id="structexec__request__t_1a6b8483f553d19c31168e633166d77871" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual exec_request_t::~exec_request_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>~exec_request_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Destructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3372" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3372" bodyend="3372"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Execute code in the main thread - to be used with <ref refid="kernwin_8hpp_1a69761082f4ed4caa6fb527da4bf5268d" kindref="member">execute_sync()</ref>. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3347" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3346" bodyend="3373"/>
+    <listofallmembers>
+      <member refid="structexec__request__t_1a3f49d485d74d29244d646260ba9af37e" prot="public" virt="non-virtual"><scope>exec_request_t</scope><name>code</name></member>
+      <member refid="structexec__request__t_1a3c9650c76ecc9c71fb397068ac5ae710" prot="public" virt="non-virtual"><scope>exec_request_t</scope><name>exec_request_t</name></member>
+      <member refid="structexec__request__t_1a6ed5cd1421130d88e04c0d57027537df" prot="public" virt="pure-virtual"><scope>exec_request_t</scope><name>execute</name></member>
+      <member refid="structexec__request__t_1a4cb01c2a5a78328d46048c89a0dc28d1a1e61de673b5eedc3b655691cf83ed28e" prot="public" virt="non-virtual"><scope>exec_request_t</scope><name>MFF_MAGIC</name></member>
+      <member refid="structexec__request__t_1a6e437fc60f908fee292db1d46b5f9dba" prot="public" virt="non-virtual"><scope>exec_request_t</scope><name>sem</name></member>
+      <member refid="structexec__request__t_1a4d6664247e83056f009162d77c1fcebe" prot="public" virt="non-virtual"><scope>exec_request_t</scope><name>valid</name></member>
+      <member refid="structexec__request__t_1a6b8483f553d19c31168e633166d77871" prot="public" virt="virtual"><scope>exec_request_t</scope><name>~exec_request_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

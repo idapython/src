@@ -1,0 +1,251 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_m___c_c__" kind="group">
+    <compoundname>CM_CC_</compoundname>
+    <title>Calling convention</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group___c_m___c_c___1ga624b5fdba452b1a35e3e37a665aa25da" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_MASK</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_MASK</name>
+        <initializer>= 0xF0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="744" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="744" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___c_c___1ga1f9fb8e1b23900c01e00c80be3a57ea5" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_INVALID</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_INVALID</name>
+        <initializer>= 0x00</initializer>
+        <briefdescription>
+<para>this value is invalid </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="745" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="745" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___c_c___1ga1d8607c930b67577c7f39ac7a5d24612" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_UNKNOWN</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_UNKNOWN</name>
+        <initializer>= 0x10</initializer>
+        <briefdescription>
+<para>unknown calling convention </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="746" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="746" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___c_c___1gaecea308116df480106f38d080f73ab8e" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_VOIDARG</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_VOIDARG</name>
+        <initializer>= 0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>function without arguments if has other cc and argnum == 0, represent as f() - unknown list </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="747" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="747" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___c_c___1ga11b8d9fb7c859971c035e23efe3cda0e" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_CDECL</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_CDECL</name>
+        <initializer>= 0x30</initializer>
+        <briefdescription>
+<para>stack </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="750" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="750" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___c_c___1ga8e4d072bec04a20754290978b8b141be" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_ELLIPSIS</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_ELLIPSIS</name>
+        <initializer>= 0x40</initializer>
+        <briefdescription>
+<para>cdecl + ellipsis </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="751" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="751" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___c_c___1ga1d547c299b4716ea45c11fe81a7dbbbc" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_STDCALL</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_STDCALL</name>
+        <initializer>= 0x50</initializer>
+        <briefdescription>
+<para>stack, purged </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="752" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="752" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___c_c___1gaad53854e65b7d43e106739ce74f8f0f9" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_PASCAL</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_PASCAL</name>
+        <initializer>= 0x60</initializer>
+        <briefdescription>
+<para>stack, purged, reverse order of args </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="753" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="753" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___c_c___1gacdb6a32c8e2932de0b3dc51a7fe4c42e" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_FASTCALL</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_FASTCALL</name>
+        <initializer>= 0x70</initializer>
+        <briefdescription>
+<para>stack, purged (x86), first args are in regs (compiler-dependent) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="754" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="754" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___c_c___1gab857ab54b65bc64f6dbcafc03f1c7e6c" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_THISCALL</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_THISCALL</name>
+        <initializer>= 0x80</initializer>
+        <briefdescription>
+<para>stack, purged (x86), first arg is in reg (compiler-dependent) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="755" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="755" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___c_c___1ga463e98044d088a7e4d5c497269647094" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_MANUAL</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_MANUAL</name>
+        <initializer>= 0x90</initializer>
+        <briefdescription>
+<para>special case for compiler specific </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="756" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="756" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___c_c___1ga81fe26502529dff431e52823a24db36b" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_SPOILED</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_SPOILED</name>
+        <initializer>= 0xA0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This is NOT a cc! Mark of __spoil record the low nibble is count and after n {spoilreg_t} present real cm_t byte. if n == 15, the next byte is the function attribute byte. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="757" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="757" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___c_c___1gaa335ce687c31dba9bfa57ba71778b59d" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_RESERVE4</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_RESERVE4</name>
+        <initializer>= 0xB0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="761" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="761" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___c_c___1gac3b54fd88189de0df1945653a40c52d9" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_RESERVE3</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_RESERVE3</name>
+        <initializer>= 0xC0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="762" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="762" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___c_c___1ga6c042d42c6daf03444d06907a8498b06" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_SPECIALE</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_SPECIALE</name>
+        <initializer>= 0xD0</initializer>
+        <briefdescription>
+<para><ref refid="group___c_m___c_c___1ga377054c414ac35be6e5e9bf6c550b390" kindref="member">CM_CC_SPECIAL</ref> with ellipsis </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="763" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="763" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___c_c___1ga1eb1e9290d190ce7234dd016344f9ecd" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_SPECIALP</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_SPECIALP</name>
+        <initializer>= 0xE0</initializer>
+        <briefdescription>
+<para>Equal to <ref refid="group___c_m___c_c___1ga377054c414ac35be6e5e9bf6c550b390" kindref="member">CM_CC_SPECIAL</ref>, but with purged stack. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="764" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="764" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___c_c___1ga377054c414ac35be6e5e9bf6c550b390" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_CC_SPECIAL</definition>
+        <argsstring></argsstring>
+        <name>CM_CC_SPECIAL</name>
+        <initializer>= 0xF0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>locations of all arguments and the return value are present in the function declaration. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="765" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="765" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

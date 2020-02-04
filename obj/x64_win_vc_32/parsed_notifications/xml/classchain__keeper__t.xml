@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classchain__keeper__t" kind="class" language="C++" prot="public">
+    <compoundname>chain_keeper_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classchain__keeper__t_1a15869060659327b100f1f8818fa04f6b" prot="private" static="no" mutable="no">
+        <type><ref refid="classgraph__chains__t" kindref="compound">graph_chains_t</ref> *</type>
+        <definition>graph_chains_t* chain_keeper_t::gc</definition>
+        <argsstring></argsstring>
+        <name>gc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4598" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4598" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classchain__keeper__t_1a81ec88805a248167b2c05fb384d9979c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classchain__keeper__t" kindref="compound">chain_keeper_t</ref> &amp;</type>
+        <definition>chain_keeper_t&amp; chain_keeper_t::operator=</definition>
+        <argsstring>(const chain_keeper_t &amp;)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="classchain__keeper__t" kindref="compound">chain_keeper_t</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4599" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classchain__keeper__t_1a7a55a9a31f6d3c486e01b98f998daad2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>chain_keeper_t::chain_keeper_t</definition>
+        <argsstring>(graph_chains_t *_gc)</argsstring>
+        <name>chain_keeper_t</name>
+        <param>
+          <type><ref refid="classgraph__chains__t" kindref="compound">graph_chains_t</ref> *</type>
+          <declname>_gc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4601" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4601" bodyend="4601"/>
+      </memberdef>
+      <memberdef kind="function" id="classchain__keeper__t_1a1caea1caed515b5a84fd920f9699582d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>chain_keeper_t::~chain_keeper_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>~chain_keeper_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4602" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4602" bodyend="4605"/>
+      </memberdef>
+      <memberdef kind="function" id="classchain__keeper__t_1a88fe94ad58f5598e0c26b7635104be24" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classblock__chains__t" kindref="compound">block_chains_t</ref> &amp;</type>
+        <definition>block_chains_t&amp; chain_keeper_t::operator[]</definition>
+        <argsstring>(size_t idx)</argsstring>
+        <name>operator[]</name>
+        <param>
+          <type>size_t</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4606" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4606" bodyend="4606"/>
+      </memberdef>
+      <memberdef kind="function" id="classchain__keeper__t_1a3483557f3e4fbe9d8c8ec1f3067feb27" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classblock__chains__t" kindref="compound">block_chains_t</ref> &amp;</type>
+        <definition>block_chains_t&amp; chain_keeper_t::front</definition>
+        <argsstring>(void)</argsstring>
+        <name>front</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4607" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4607" bodyend="4607"/>
+      </memberdef>
+      <memberdef kind="function" id="classchain__keeper__t_1a85e88bffa44a7557e112e1df7ea77b38" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classblock__chains__t" kindref="compound">block_chains_t</ref> &amp;</type>
+        <definition>block_chains_t&amp; chain_keeper_t::back</definition>
+        <argsstring>(void)</argsstring>
+        <name>back</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4608" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4608" bodyend="4608"/>
+      </memberdef>
+      <memberdef kind="function" id="classchain__keeper__t_1a236a9ebd40cf0341968d14ed6986d6a4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>chain_keeper_t::operator graph_chains_t &amp;</definition>
+        <argsstring>(void)</argsstring>
+        <name>operator graph_chains_t &amp;</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4609" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4609" bodyend="4609"/>
+      </memberdef>
+      <memberdef kind="function" id="classchain__keeper__t_1a716936d69cc43089b23b58aa548ab2b1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int chain_keeper_t::for_all_chains</definition>
+        <argsstring>(chain_visitor_t &amp;cv, int gca)</argsstring>
+        <name>for_all_chains</name>
+        <param>
+          <type><ref refid="structchain__visitor__t" kindref="compound">chain_visitor_t</ref> &amp;</type>
+          <declname>cv</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>gca</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4610" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4610" bodyend="4610"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Convenience class to release graph chains automatically. Use this class instead of using <ref refid="classgraph__chains__t" kindref="compound">graph_chains_t</ref> directly. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4597" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4596" bodyend="4612"/>
+    <listofallmembers>
+      <member refid="classchain__keeper__t_1a85e88bffa44a7557e112e1df7ea77b38" prot="public" virt="non-virtual"><scope>chain_keeper_t</scope><name>back</name></member>
+      <member refid="classchain__keeper__t_1a7a55a9a31f6d3c486e01b98f998daad2" prot="public" virt="non-virtual"><scope>chain_keeper_t</scope><name>chain_keeper_t</name></member>
+      <member refid="classchain__keeper__t_1a716936d69cc43089b23b58aa548ab2b1" prot="public" virt="non-virtual"><scope>chain_keeper_t</scope><name>for_all_chains</name></member>
+      <member refid="classchain__keeper__t_1a3483557f3e4fbe9d8c8ec1f3067feb27" prot="public" virt="non-virtual"><scope>chain_keeper_t</scope><name>front</name></member>
+      <member refid="classchain__keeper__t_1a15869060659327b100f1f8818fa04f6b" prot="private" virt="non-virtual"><scope>chain_keeper_t</scope><name>gc</name></member>
+      <member refid="classchain__keeper__t_1a236a9ebd40cf0341968d14ed6986d6a4" prot="public" virt="non-virtual"><scope>chain_keeper_t</scope><name>operator graph_chains_t &amp;</name></member>
+      <member refid="classchain__keeper__t_1a81ec88805a248167b2c05fb384d9979c" prot="private" virt="non-virtual"><scope>chain_keeper_t</scope><name>operator=</name></member>
+      <member refid="classchain__keeper__t_1a88fe94ad58f5598e0c26b7635104be24" prot="public" virt="non-virtual"><scope>chain_keeper_t</scope><name>operator[]</name></member>
+      <member refid="classchain__keeper__t_1a1caea1caed515b5a84fd920f9699582d" prot="public" virt="non-virtual"><scope>chain_keeper_t</scope><name>~chain_keeper_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

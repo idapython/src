@@ -110,7 +110,7 @@ PyObject *py_tag_remove(const char *instr)
   PYW_GIL_CHECK_LOCKED_SCOPE();
   qstring qbuf;
   tag_remove(&qbuf, instr);
-  return PyString_FromString(qbuf.c_str());
+  return IDAPyStr_FromUTF8(qbuf.c_str());
 }
 
 //-------------------------------------------------------------------------
@@ -119,7 +119,7 @@ PyObject *py_tag_addr(ea_t ea)
   qstring tag;
   tag_addr(&tag, ea);
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  return PyString_FromString(tag.begin());
+  return IDAPyStr_FromUTF8(tag.begin());
 }
 
 //-------------------------------------------------------------------------
@@ -183,7 +183,7 @@ PyObject *py_generate_disassembly(
       tag_remove(&qbuf, l);
       s = qbuf.c_str();
     }
-    PyTuple_SetItem(py_tuple.o, i, PyString_FromString(s));
+    PyTuple_SetItem(py_tuple.o, i, IDAPyStr_FromUTF8(s));
   }
   return Py_BuildValue("(iO)", lnnum, py_tuple.o);
 }

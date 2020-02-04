@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structcustom__data__type__ids__t" kind="struct" language="C++" prot="public">
+    <compoundname>custom_data_type_ids_t</compoundname>
+    <includes refid="nalt_8hpp" local="no">nalt.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcustom__data__type__ids__t_1a85a85f042353351bed8c01f0a50a8d7b" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a4355d16fcf9f644c9ac84293f0b1801f" kindref="member">int16</ref></type>
+        <definition>int16 custom_data_type_ids_t::dtid</definition>
+        <argsstring></argsstring>
+        <name>dtid</name>
+        <briefdescription>
+<para>data type id </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="835" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="835" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcustom__data__type__ids__t_1a63ae321624e30be73b500bd00c4c638c" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a4355d16fcf9f644c9ac84293f0b1801f" kindref="member">int16</ref></type>
+        <definition>int16 custom_data_type_ids_t::fids[UA_MAXOP]</definition>
+        <argsstring>[UA_MAXOP]</argsstring>
+        <name>fids</name>
+        <briefdescription>
+<para>data format ids </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="836" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="836" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Information about custom data types. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="834" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="833" bodyend="837"/>
+    <listofallmembers>
+      <member refid="structcustom__data__type__ids__t_1a85a85f042353351bed8c01f0a50a8d7b" prot="public" virt="non-virtual"><scope>custom_data_type_ids_t</scope><name>dtid</name></member>
+      <member refid="structcustom__data__type__ids__t_1a63ae321624e30be73b500bd00c4c638c" prot="public" virt="non-virtual"><scope>custom_data_type_ids_t</scope><name>fids</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

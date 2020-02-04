@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_p_l__" kind="group">
+    <compoundname>CPL_</compoundname>
+    <title>Flags for compile_idc_file()</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___c_p_l___1gaa6bbac4baddfb8801c0cb988e47e3215" prot="public" static="no">
+        <name>CPL_DEL_MACROS</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>delete macros at the end of compilation </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="1006" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="1006" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_p_l___1ga1512a7fb27627efbc0615d4571cdea93" prot="public" static="no">
+        <name>CPL_USE_LABELS</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>allow program labels in the script </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="1007" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="1007" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_p_l___1ga527b0fff63a1f130f2f3140f6b72afcf" prot="public" static="no">
+        <name>CPL_ONLY_SAFE</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>allow calls of only thread-safe functions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="1008" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="1008" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Compile a text file with IDC function(s). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of file to compile if NULL, then &quot;File not found&quot; is returned. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer for the error message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cpl_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___c_p_l__" kindref="compound">Flags for compile_idc_file()</ref> or 0 </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>true</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>false</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>error, see errbuf </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

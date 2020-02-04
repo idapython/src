@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__operands__t" kind="group">
+    <compoundname>operands_t</compoundname>
+    <title>Operand structure</title>
+    <innerclass refid="classop__t" prot="public">op_t</innerclass>
+    <innergroup refid="group___o_f__">Operand flags</innergroup>
+    <innergroup refid="group__dt__">Operand value types</innergroup>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Definition of <ref refid="classop__t" kindref="compound">op_t</ref> and related items. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

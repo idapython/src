@@ -52,6 +52,8 @@ static const char S_IDC_ARGS_VARNAME[] =         "ARGV";
 static const char S_IDC_RUNPYTHON_STATEMENT[] =  "RunPythonStatement";
 static const char S_IDAPYTHON_DATA_NODE[] =      "IDAPython_Data";
 
+#define PYCODE_OBJECT_TO_PYEVAL_ARG(Expr) (Expr)
+
 //-------------------------------------------------------------------------
 // Types
 
@@ -425,7 +427,7 @@ static void PythonEvalOrExec(
     PyObject *py_globals = get_module_globals();
     newref_t py_result(
             PyEval_EvalCode(
-                    (PyCodeObject *) py_code.o,
+                    PYCODE_OBJECT_TO_PYEVAL_ARG(py_code.o),
                     py_globals,
                     py_globals));
 
@@ -440,10 +442,12 @@ static void PythonEvalOrExec(
         bool ok = false;
         if ( PyUnicode_Check(py_result.o) )
         {
+          qstring utf8;
           newref_t py_result_utf8(PyUnicode_AsUTF8String(py_result.o));
           ok = py_result_utf8 != NULL;
           if ( ok )
-            msg("%s\n", PyString_AS_STRING(py_result_utf8.o));
+            IDAPyStr_AsUTF8(&utf8, py_result_utf8.o);
+          msg("%s\n", utf8.c_str());
         }
         else
         {
@@ -573,7 +577,7 @@ static bool check_python_dir()
 // This function will execute a script in the main module context
 // It does not use 'import', thus the executed script will not yield a new module name
 // Caller of this function should call handle_python_error() to clear the exception and print the error
-static int PyRunFile(const char *FileName)
+static int PyRunFile(const char *path)
 {
 #ifdef __NT__
   // if the current disk has no space (sic, the current directory, not the one
@@ -591,25 +595,30 @@ static int PyRunFile(const char *FileName)
 #endif
 
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  PyObject *file_obj = PyFile_FromString((char*)FileName, "r"); //lint !e605 !e1776
-  PyObject *globals = get_module_globals();
-  if ( globals == NULL || file_obj == NULL )
-  {
-    Py_XDECREF(file_obj);
-    return 0;
-  }
-  PyErr_Clear();
 
-  PyObject *result = PyRun_File(
-        PyFile_AsFile(file_obj),
-        FileName,
-        Py_file_input,
-        globals,
-        globals);
-  Py_XDECREF(file_obj);
-  int rc = result != NULL && !PyErr_Occurred();
-  Py_XDECREF(result);
-  return rc;
+  PyObject *__main__globals = get_module_globals();
+
+  //lint -esym(429, fp) custodial pointer not freed or returned
+  FILE *fp = qfopen(path, "rt");
+  if ( fp == NULL )
+    return 0;
+  file_janitor_t fpj(fp);
+  qstring contents;
+  const uint64 fpsz = qfsize(fp);
+  if ( fpsz == 0 )
+    return 0;
+  contents.resize(fpsz);
+  qfread(fp, contents.begin(), fpsz);
+
+  newref_t code(Py_CompileString(contents.c_str(), path, Py_file_input));
+  if ( code == NULL )
+    return 0;
+
+  newref_t result(PyEval_EvalCode(
+                          PYCODE_OBJECT_TO_PYEVAL_ARG(code.o),
+                          __main__globals,
+                          __main__globals));
+  return result != NULL && !PyErr_Occurred();
 }
 
 //-------------------------------------------------------------------------
@@ -693,7 +702,7 @@ static bool IDAPython_ExecFile(
 
   if ( globals == NULL )
     globals = get_module_globals();
-  newref_t py_script(PyString_FromString(script));
+  newref_t py_script(IDAPyStr_FromUTF8(script));
   borref_t py_false(Py_False);
   newref_t py_ret(PyObject_CallFunctionObjArgs(
                           py_execscript.o,
@@ -849,11 +858,11 @@ static bool idaapi IDAPython_extlang_call_func(
     qvector<PyObject*> pargs_ptrs;
     pargs.to_pyobject_pointers(&pargs_ptrs);
     newref_t py_res(PyEval_EvalCodeEx(
-                            (PyCodeObject*) code.o,
+                            PYCODE_OBJECT_TO_PYEVAL_ARG(code.o),
                             globals, NULL,
                             pargs_ptrs.begin(),
                             nargs,
-                            NULL, 0, NULL, 0, NULL));
+                            NULL, 0, NULL, 0, NULL, NULL));
     ok = return_python_result(result, py_res, errbuf);
   } while ( false );
 
@@ -905,7 +914,7 @@ static bool idaapi IDAPython_extlang_compile_expr(
 
   // Set the desired function name
   Py_XDECREF(code->co_name);
-  code->co_name = PyString_FromString(name);
+  code->co_name = IDAPyStr_FromUTF8(name);
 
   // Create a function out of code
   PyObject *func = PyFunction_New((PyObject *)code, globals);
@@ -1012,7 +1021,7 @@ static bool idaapi IDAPython_extlang_create_object(
       py_res = try_create_swig_wrapper(py_mod, clsname, args[0].pvoid);
     if ( py_res != NULL )
     {
-      PyObject_SetAttrString(py_res.o, S_PY_IDCCVT_ID_ATTR, PyInt_FromLong(PY_ICID_OPAQUE));
+      PyObject_SetAttrString(py_res.o, S_PY_IDCCVT_ID_ATTR, IDAPyInt_FromLong(PY_ICID_OPAQUE));
     }
     else
     {
@@ -1579,7 +1588,7 @@ void convert_idc_args()
     char attr_name[20] = { "0" };
     for ( int i=1; get_idcv_attr(&attr, idc_args, attr_name) == eOk; i++ )
     {
-      PyList_Insert(py_args.o, i, PyString_FromString(attr.c_str()));
+      PyList_Insert(py_args.o, i, IDAPyStr_FromUTF8(attr.c_str()));
       qsnprintf(attr_name, sizeof(attr_name), "%d", i);
     }
   }
@@ -1687,31 +1696,67 @@ static ssize_t idaapi ui_debug_handler_cb(void *, int code, va_list)
 }
 #endif
 
+#ifdef PY3
+static wchar_t *utf8_wchar_t(qvector<wchar_t> *out, const char *in)
+{
+#ifdef __NT__
+  qwstring tmp;
+  utf8_utf16(&tmp, in);
+  out->qclear();
+  out->insert(out->begin(), tmp.begin(), tmp.end());
+#else
+  const char *p = in;
+  while ( *p != '\0' )
+  {
+    wchar32_t cp = get_utf8_char(&p);
+    if ( cp == 0 || cp == BADCP )
+      break;
+    out->push_back(cp);
+  }
+  out->push_back(0); // we're not dealing with a qstring; have to do it ourselves
+#endif
+  return out->begin();
+}
+#endif // PY3
+
 //-------------------------------------------------------------------------
 // - remove current directory (empty entry) from the sys.path
 // - add idadir("python")
 static void prepare_sys_path()
 {
-  char buf[QMAXPATH];
-  qstrncpy(buf, Py_GetPath(), sizeof(buf));
-  char *ctx;
-  qstring newpath;
-  for ( char *d0 = qstrtok(buf, DELIMITER, &ctx);
-        d0 != NULL;
-        d0 = qstrtok(NULL, DELIMITER, &ctx) )
-  {
-    if ( d0[0] == '\0' )
-      // skip empty entry
-      continue;
+  borref_t path(PySys_GetObject("path"));
+  if ( path == nullptr || !PySequence_Check(path.o) )
+    return;
 
-    if ( !newpath.empty() )
-      newpath.append(DELIMITER);
-    newpath.append(d0);
+  qstring new_path;
+  Py_ssize_t path_len = PySequence_Size(path.o);
+  if ( path_len > 0 )
+  {
+    for ( Py_ssize_t i = 0; i < path_len; ++i )
+    {
+      qstring path_el_utf8;
+      newref_t path_el(PySequence_GetItem(path.o, i));
+      if ( path_el != nullptr
+        && IDAPyStr_Check(path_el.o) > 0
+        && IDAPyStr_AsUTF8(&path_el_utf8, path_el.o) )
+      {
+        if ( path_el_utf8.empty() )
+          continue; // skip empty entry
+        if ( !new_path.empty() )
+          new_path.append(DELIMITER);
+        new_path.append(path_el_utf8);
+      }
+    }
   }
-  if ( !newpath.empty() )
-    newpath.append(DELIMITER);
-  newpath.append(idadir("python"));
-  PySys_SetPath(newpath.begin());
+  if ( !new_path.empty() )
+    new_path.append(DELIMITER);
+  new_path.append(idadir("python"));
+#ifdef PY3
+  qvector<wchar_t> wpath;
+  PySys_SetPath(utf8_wchar_t(&wpath, new_path.c_str()));
+#else
+  PySys_SetPath(new_path.begin());
+#endif
 }
 
 
@@ -1832,8 +1877,10 @@ bool IDAPython_Init(void)
     //  in static storage whose contents will not change for the duration
     //  of the program's execution"
     static qstring pname = idadir("");
-    Py_SetProgramName(pname.begin());
-    Py_SetPythonHome(g_idapython_dir);
+    static qvector<wchar_t> buf;
+    static qvector<wchar_t> buf_h;
+    Py_SetProgramName(utf8_wchar_t(&buf_h, pname.begin()));
+    Py_SetPythonHome(utf8_wchar_t(&buf, g_idapython_dir));
   }
 
   // don't import "site" right now

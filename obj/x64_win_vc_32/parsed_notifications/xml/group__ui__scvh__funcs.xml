@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__ui__scvh__funcs" kind="group">
+    <compoundname>ui_scvh_funcs</compoundname>
+    <title>Functions: custom viewer handlers</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__ui__scvh__funcs_1ga6943b60e161107562db901dcc1b0d11c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void set_custom_viewer_handlers</definition>
+        <argsstring>(TWidget *custom_viewer, const custom_viewer_handlers_t *cvh, void *cvh_ud)</argsstring>
+        <name>set_custom_viewer_handlers</name>
+        <param>
+          <type>TWidget *</type>
+          <declname>custom_viewer</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classcustom__viewer__handlers__t" kindref="compound">custom_viewer_handlers_t</ref> *</type>
+          <declname>cvh</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>cvh_ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set handlers for custom viewer events Any of these handlers may be NULL </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4622" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4622" bodyend="4628"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__scvh__funcs_1ga35b5933ade6f61ad603b7b91bc3d98de" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* set_custom_viewer_handler</definition>
+        <argsstring>(TWidget *custom_viewer, custom_viewer_handler_id_t handler_id, void *handler_or_data)</argsstring>
+        <name>set_custom_viewer_handler</name>
+        <param>
+          <type>TWidget *</type>
+          <declname>custom_viewer</declname>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1adca3d7a02a6f5b01aabd7a0e56403132" kindref="member">custom_viewer_handler_id_t</ref></type>
+          <declname>handler_id</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>handler_or_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set a handler for a custom viewer event (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a5ff634bfdb2e6a4e4a7c3aea12649460" kindref="member">ui_set_custom_viewer_handler</ref>). see also <ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334af7e8e6d4d87c505b5a84e51ae15a8397" kindref="member">ui_set_custom_viewer_handlers</ref> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>custom_viewer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the custom viewer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>handler_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>one of CVH_ in <ref refid="kernwin_8hpp_1adca3d7a02a6f5b01aabd7a0e56403132" kindref="member">custom_viewer_handler_id_t</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>handler_or_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>can be a handler or data. see examples in <ref refid="group__ui__scvh__funcs" kindref="compound">Functions: custom viewer handlers</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>old value of the handler or data </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4638" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4638" bodyend="4645"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__scvh__funcs_1ga1f61099ee5fc6819ea1079ccb97cd4af" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool set_custom_viewer_qt_aware</definition>
+        <argsstring>(TWidget *custom_viewer)</argsstring>
+        <name>set_custom_viewer_qt_aware</name>
+        <param>
+          <type>TWidget *</type>
+          <declname>custom_viewer</declname>
+        </param>
+        <briefdescription>
+<para>Allow the given viewer to interpret Qt events (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a5ff634bfdb2e6a4e4a7c3aea12649460" kindref="member">ui_set_custom_viewer_handler</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4650" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4650" bodyend="4653"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__scvh__funcs_1gaef731725037023702814cd35dcee2c7e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* set_code_viewer_handler</definition>
+        <argsstring>(TWidget *code_viewer, custom_viewer_handler_id_t handler_id, void *handler_or_data)</argsstring>
+        <name>set_code_viewer_handler</name>
+        <param>
+          <type>TWidget *</type>
+          <declname>code_viewer</declname>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1adca3d7a02a6f5b01aabd7a0e56403132" kindref="member">custom_viewer_handler_id_t</ref></type>
+          <declname>handler_id</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>handler_or_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set a handler for a code viewer event (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a5ff634bfdb2e6a4e4a7c3aea12649460" kindref="member">ui_set_custom_viewer_handler</ref>). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>code_viewer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the code viewer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>handler_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>one of CDVH_ in <ref refid="kernwin_8hpp_1adca3d7a02a6f5b01aabd7a0e56403132" kindref="member">custom_viewer_handler_id_t</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>handler_or_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>can be a handler or data. see examples in <ref refid="group__ui__scvh__funcs" kindref="compound">Functions: custom viewer handlers</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>old value of the handler or data </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4875" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4875" bodyend="4882"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__scvh__funcs_1ga4bdba38e8d09307f2b64f999368c9f31" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool set_code_viewer_user_data</definition>
+        <argsstring>(TWidget *code_viewer, void *ud)</argsstring>
+        <name>set_code_viewer_user_data</name>
+        <param>
+          <type>TWidget *</type>
+          <declname>code_viewer</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+<para>Set the user data on a code viewer (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a5ff634bfdb2e6a4e4a7c3aea12649460" kindref="member">ui_set_custom_viewer_handler</ref>). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4887" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4887" bodyend="4890"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__scvh__funcs_1ga65aacdc29a9460afa1e8023d204d6a7d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool set_code_viewer_lines_icon_margin</definition>
+        <argsstring>(TWidget *code_viewer, int margin)</argsstring>
+        <name>set_code_viewer_lines_icon_margin</name>
+        <param>
+          <type>TWidget *</type>
+          <declname>code_viewer</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>margin</declname>
+        </param>
+        <briefdescription>
+<para>Set space allowed for icons in the margin of a code viewer (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a5ff634bfdb2e6a4e4a7c3aea12649460" kindref="member">ui_set_custom_viewer_handler</ref>). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4927" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4927" bodyend="4930"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__scvh__funcs_1ga6907e39497c73d004ea58bb84c704540" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool set_code_viewer_lines_alignment</definition>
+        <argsstring>(TWidget *code_viewer, int align)</argsstring>
+        <name>set_code_viewer_lines_alignment</name>
+        <param>
+          <type>TWidget *</type>
+          <declname>code_viewer</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>align</declname>
+        </param>
+        <briefdescription>
+<para>Set alignment for lines in a code viewer (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a5ff634bfdb2e6a4e4a7c3aea12649460" kindref="member">ui_set_custom_viewer_handler</ref>). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4935" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4935" bodyend="4938"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__scvh__funcs_1gac251992a5e4e09efce8101827915b3f7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool set_code_viewer_lines_radix</definition>
+        <argsstring>(TWidget *code_viewer, int radix)</argsstring>
+        <name>set_code_viewer_lines_radix</name>
+        <param>
+          <type>TWidget *</type>
+          <declname>code_viewer</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>radix</declname>
+        </param>
+        <briefdescription>
+<para>Set radix for values displayed in a code viewer (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a5ff634bfdb2e6a4e4a7c3aea12649460" kindref="member">ui_set_custom_viewer_handler</ref>). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4943" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4943" bodyend="4946"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__scvh__funcs_1gaa3f4ee8bf283ad7ff9d525e8b5a42e02" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool set_code_viewer_is_source</definition>
+        <argsstring>(TWidget *code_viewer)</argsstring>
+        <name>set_code_viewer_is_source</name>
+        <param>
+          <type>TWidget *</type>
+          <declname>code_viewer</declname>
+        </param>
+        <briefdescription>
+<para>Specify that the given code viewer is used to display source code (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a5ff634bfdb2e6a4e4a7c3aea12649460" kindref="member">ui_set_custom_viewer_handler</ref>). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="4951" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="4951" bodyend="4954"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Convenience functions for <ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a5ff634bfdb2e6a4e4a7c3aea12649460" kindref="member">ui_set_custom_viewer_handler</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

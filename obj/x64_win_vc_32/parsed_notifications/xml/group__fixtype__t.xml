@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__fixtype__t" kind="group">
+    <compoundname>fixtype_t</compoundname>
+    <title>C operator writing styles</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__fixtype__t_1gac58078cd5324be51981ac40867ccb9c7" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar FX_NONE</definition>
+        <argsstring></argsstring>
+        <name>FX_NONE</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>not applicable </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5098" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5098" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__fixtype__t_1ga31eac8010f08386f3b1d3997dbcd7e5c" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar FX_INFIX</definition>
+        <argsstring></argsstring>
+        <name>FX_INFIX</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+<para>infix: a + b </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5099" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5099" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__fixtype__t_1ga3b0f874f18730f09cdfa25ae71d08c04" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar FX_PREFIX</definition>
+        <argsstring></argsstring>
+        <name>FX_PREFIX</name>
+        <initializer>= 2</initializer>
+        <briefdescription>
+<para>prefix: *a </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5100" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__fixtype__t_1ga9af47fd8151e737e211214d3a14b07af" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar FX_POSTFIX</definition>
+        <argsstring></argsstring>
+        <name>FX_POSTFIX</name>
+        <initializer>= 3</initializer>
+        <briefdescription>
+<para>postfix: a++ </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5101" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__fixtype__t_1gadb0161a0ad2b52ba2f595f04059d29ba" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar FX_TERNARY</definition>
+        <argsstring></argsstring>
+        <name>FX_TERNARY</name>
+        <initializer>= 4</initializer>
+        <briefdescription>
+<para>ternary: a ? b : c </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5102" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5102" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used in <ref refid="structoperator__info__t_1a023c7c91f2e1f08d4638e59604a9f784" kindref="member">operator_info_t::fixtype</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

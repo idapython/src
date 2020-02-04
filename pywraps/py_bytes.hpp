@@ -40,7 +40,7 @@ static int idaapi py_visit_patched_bytes_cb(
                   o,
                   v));
   PyW_ShowCbErr("visit_patched_bytes");
-  return (py_result != NULL && PyInt_Check(py_result.o)) ? IDAPyInt_AsLong(py_result.o) : 0;
+  return (py_result != NULL && IDAPyInt_Check(py_result.o)) ? IDAPyInt_AsLong(py_result.o) : 0;
 }
 
 //-------------------------------------------------------------------------

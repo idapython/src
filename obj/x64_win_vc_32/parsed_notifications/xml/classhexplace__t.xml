@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classhexplace__t" kind="class" language="C++" prot="public">
+    <compoundname>hexplace_t</compoundname>
+    <basecompoundref refid="classidaplace__t" prot="public" virt="non-virtual">idaplace_t</basecompoundref>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classhexplace__t_1ac7b704d278ea1fb85916c21fa335bc37" prot="protected" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t hexplace_t::sol</definition>
+        <argsstring></argsstring>
+        <name>sol</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1632" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1632" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhexplace__t_1aec3bf21bda80e69d8896e40135d6deaa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>hexplace_t::hexplace_t</definition>
+        <argsstring>(ea_t _ea, short ln)</argsstring>
+        <name>hexplace_t</name>
+        <param>
+          <type>ea_t</type>
+          <declname>_ea</declname>
+        </param>
+        <param>
+          <type>short</type>
+          <declname>ln</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1634" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1634" bodyend="1634"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexplace__t_1a65be12526039db664d18cfc70901ccf7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void hexplace_t::out_one_item</definition>
+        <argsstring>(outctx_base_t &amp;ctx, const hexplace_gen_t *hg, int itemno, color_t *color, color_t patch_or_edit) const</argsstring>
+        <name>out_one_item</name>
+        <param>
+          <type><ref refid="structoutctx__base__t" kindref="compound">outctx_base_t</ref> &amp;</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhexplace__gen__t" kindref="compound">hexplace_gen_t</ref> *</type>
+          <declname>hg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>itemno</declname>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref> *</type>
+          <declname>color</declname>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+          <declname>patch_or_edit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1637" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1637" bodyend="1645"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classhexplace__t_1a8f9221a1952f1ab8e964ac9537e50b76" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>static size_t hexplace_t::ea2str</definition>
+        <argsstring>(char *buf, size_t bufsize, const hexplace_gen_t *hg, ea_t ea)</argsstring>
+        <name>ea2str</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhexplace__gen__t" kindref="compound">hexplace_gen_t</ref> *</type>
+          <declname>hg</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1650" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1650" bodyend="1653"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1715">
+        <label>idaplace_t</label>
+        <link refid="classidaplace__t"/>
+        <childnode refid="1716" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1716">
+        <label>place_t</label>
+        <link refid="classplace__t"/>
+      </node>
+      <node id="1714">
+        <label>hexplace_t</label>
+        <link refid="classhexplace__t"/>
+        <childnode refid="1715" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1718">
+        <label>idaplace_t</label>
+        <link refid="classidaplace__t"/>
+        <childnode refid="1719" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1719">
+        <label>place_t</label>
+        <link refid="classplace__t"/>
+      </node>
+      <node id="1717">
+        <label>hexplace_t</label>
+        <link refid="classhexplace__t"/>
+        <childnode refid="1718" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1630" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1629" bodyend="1656"/>
+    <listofallmembers>
+      <member refid="classplace__t_1a3b16c13455ab860b9e24b796887f4740" prot="public" virt="pure-virtual"><scope>hexplace_t</scope><name>adjust</name></member>
+      <member refid="classplace__t_1a1eb30fc9b839d8da28f05ce0ccbbc661" prot="public" virt="pure-virtual"><scope>hexplace_t</scope><name>beginning</name></member>
+      <member refid="classplace__t_1aa4cf253af9a4980c7a4481ebcb292fe6" prot="public" virt="pure-virtual"><scope>hexplace_t</scope><name>clone</name></member>
+      <member refid="classplace__t_1adb067d4ab607933cf2b15b951457273c" prot="public" virt="pure-virtual"><scope>hexplace_t</scope><name>compare</name></member>
+      <member refid="classplace__t_1a93a239a8f6f2e6d23f6e5d24ab2b5584" prot="public" virt="pure-virtual"><scope>hexplace_t</scope><name>copyfrom</name></member>
+      <member refid="classplace__t_1af183cc97073e7ff7f59b881358b25ad8" prot="public" virt="pure-virtual"><scope>hexplace_t</scope><name>deserialize</name></member>
+      <member refid="classidaplace__t_1a3c17cd8aa8f48330aefe8b481d55bee8" prot="public" virt="non-virtual"><scope>hexplace_t</scope><name>ea</name></member>
+      <member refid="classhexplace__t_1a8f9221a1952f1ab8e964ac9537e50b76" prot="public" virt="non-virtual"><scope>hexplace_t</scope><name>ea2str</name></member>
+      <member refid="classplace__t_1af8a0747c609c749e5ac27fec0ccf7749" prot="public" virt="pure-virtual"><scope>hexplace_t</scope><name>ending</name></member>
+      <member refid="classplace__t_1aa455b2b6db54bd27452456f7304363e3" prot="public" virt="virtual"><scope>hexplace_t</scope><name>enter</name></member>
+      <member refid="classplace__t_1ac5e9d9bb1c1e76313484c30669f17581" prot="public" virt="pure-virtual"><scope>hexplace_t</scope><name>generate</name></member>
+      <member refid="classhexplace__t_1aec3bf21bda80e69d8896e40135d6deaa" prot="public" virt="non-virtual"><scope>hexplace_t</scope><name>hexplace_t</name></member>
+      <member refid="classplace__t_1a2d5a9daadc5ed9ebc58c292013013d9d" prot="public" virt="pure-virtual"><scope>hexplace_t</scope><name>id</name></member>
+      <member refid="classidaplace__t_1a682dc9ee547c772ed553dba14ded107b" prot="public" virt="non-virtual"><scope>hexplace_t</scope><name>idaplace_t</name></member>
+      <member refid="classidaplace__t_1a04205b61e7b75961a67b86b77546a8a3" prot="public" virt="non-virtual"><scope>hexplace_t</scope><name>idaplace_t</name></member>
+      <member refid="classplace__t_1ae4c35e91362b8095481cc80aa12eefa0" prot="public" virt="virtual"><scope>hexplace_t</scope><name>leave</name></member>
+      <member refid="classplace__t_1a2290792667079b755a6f40979b241c0d" prot="public" virt="non-virtual"><scope>hexplace_t</scope><name>lnnum</name></member>
+      <member refid="classplace__t_1a2c5b119c1e71bb062ff40e6194eff383" prot="public" virt="pure-virtual"><scope>hexplace_t</scope><name>makeplace</name></member>
+      <member refid="classplace__t_1ab31b8e0b9c635346da32da95849f860c" prot="public" virt="pure-virtual"><scope>hexplace_t</scope><name>name</name></member>
+      <member refid="classplace__t_1aea2b5b32abe1aa93e6e334140fdbae0c" prot="public" virt="pure-virtual"><scope>hexplace_t</scope><name>next</name></member>
+      <member refid="classhexplace__t_1a65be12526039db664d18cfc70901ccf7" prot="public" virt="non-virtual"><scope>hexplace_t</scope><name>out_one_item</name></member>
+      <member refid="classplace__t_1ae14ab4038d37fb100de804658e0ae407" prot="public" virt="non-virtual"><scope>hexplace_t</scope><name>place_t</name></member>
+      <member refid="classplace__t_1a8519f60eee7c08ade01ba7bbf54651b9" prot="public" virt="non-virtual"><scope>hexplace_t</scope><name>place_t</name></member>
+      <member refid="classplace__t_1a8039d5e4b13f624908a4a7377081e45c" prot="public" virt="pure-virtual"><scope>hexplace_t</scope><name>prev</name></member>
+      <member refid="classplace__t_1a62149ac6731e1d55d48a056ac25e0ea1" prot="public" virt="pure-virtual"><scope>hexplace_t</scope><name>print</name></member>
+      <member refid="classplace__t_1a4ae4e2531f911f3f4876531cf54342c4" prot="public" virt="virtual"><scope>hexplace_t</scope><name>rebase</name></member>
+      <member refid="classplace__t_1a6bac077150420a43060a136e1c7fb74f" prot="public" virt="pure-virtual"><scope>hexplace_t</scope><name>serialize</name></member>
+      <member refid="classhexplace__t_1ac7b704d278ea1fb85916c21fa335bc37" prot="protected" virt="non-virtual"><scope>hexplace_t</scope><name>sol</name></member>
+      <member refid="classplace__t_1a4cfdfecee2e21b5f818c685f5c61e059" prot="public" virt="virtual"><scope>hexplace_t</scope><name>toea</name></member>
+      <member refid="classplace__t_1a834a8cc4961c1c57c3b354fe1fca6870" prot="public" virt="pure-virtual"><scope>hexplace_t</scope><name>touval</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

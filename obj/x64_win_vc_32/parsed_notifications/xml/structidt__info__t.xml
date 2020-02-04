@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structidt__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>idt_info_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structidt__info__t_1aa82dc918fdbb3eda4b015db59811e239" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* idt_info_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="68" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidt__info__t_1ab6410f8ca0b302db57a1ed4fd993ef7a" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* idt_info_t::os</definition>
+        <argsstring></argsstring>
+        <name>os</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="69" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidt__info__t_1a285ce1ccd9e502840386166855fd91d3" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* idt_info_t::idp</definition>
+        <argsstring></argsstring>
+        <name>idp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="70" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidt__info__t_1a4254b75b56790894bfaea4bd09b96a83" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* idt_info_t::user_data</definition>
+        <argsstring></argsstring>
+        <name>user_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="71" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidt__info__t_1a872611074e633fb87d8d985a74bce6ba" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* idt_info_t::rpath</definition>
+        <argsstring></argsstring>
+        <name>rpath</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="72" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidt__info__t_1a01e7bd0fd45846a31557713cbf48a7be" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool idt_info_t::name_is_path</definition>
+        <argsstring></argsstring>
+        <name>name_is_path</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="76" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidt__info__t_1a078d1c499abff6fa45947a0b2385b702" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool idt_info_t::use_ordinals</definition>
+        <argsstring></argsstring>
+        <name>use_ordinals</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="80" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidt__info__t_1ad69ebf6dd3687a0793d8ce009e18460d" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool idt_info_t::ignore_subst_ordinals</definition>
+        <argsstring></argsstring>
+        <name>ignore_subst_ordinals</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="81" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structidt__info__t_1af136520a97620aee47b35326c09abf35" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>idt_info_t::idt_info_t</definition>
+        <argsstring>()</argsstring>
+        <name>idt_info_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="50" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" bodystart="50" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="structidt__info__t_1a85e9847bb7c2a03e0f0203bbd4f18406" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>idt_info_t::~idt_info_t</definition>
+        <argsstring>()</argsstring>
+        <name>~idt_info_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="62" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" bodystart="62" bodyend="66"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" line="48" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idtaccess.hpp" bodystart="47" bodyend="83"/>
+    <listofallmembers>
+      <member refid="structidt__info__t_1a285ce1ccd9e502840386166855fd91d3" prot="public" virt="non-virtual"><scope>idt_info_t</scope><name>idp</name></member>
+      <member refid="structidt__info__t_1af136520a97620aee47b35326c09abf35" prot="public" virt="non-virtual"><scope>idt_info_t</scope><name>idt_info_t</name></member>
+      <member refid="structidt__info__t_1ad69ebf6dd3687a0793d8ce009e18460d" prot="public" virt="non-virtual"><scope>idt_info_t</scope><name>ignore_subst_ordinals</name></member>
+      <member refid="structidt__info__t_1aa82dc918fdbb3eda4b015db59811e239" prot="public" virt="non-virtual"><scope>idt_info_t</scope><name>name</name></member>
+      <member refid="structidt__info__t_1a01e7bd0fd45846a31557713cbf48a7be" prot="public" virt="non-virtual"><scope>idt_info_t</scope><name>name_is_path</name></member>
+      <member refid="structidt__info__t_1ab6410f8ca0b302db57a1ed4fd993ef7a" prot="public" virt="non-virtual"><scope>idt_info_t</scope><name>os</name></member>
+      <member refid="structidt__info__t_1a872611074e633fb87d8d985a74bce6ba" prot="public" virt="non-virtual"><scope>idt_info_t</scope><name>rpath</name></member>
+      <member refid="structidt__info__t_1a078d1c499abff6fa45947a0b2385b702" prot="public" virt="non-virtual"><scope>idt_info_t</scope><name>use_ordinals</name></member>
+      <member refid="structidt__info__t_1a4254b75b56790894bfaea4bd09b96a83" prot="public" virt="non-virtual"><scope>idt_info_t</scope><name>user_data</name></member>
+      <member refid="structidt__info__t_1a85e9847bb7c2a03e0f0203bbd4f18406" prot="public" virt="non-virtual"><scope>idt_info_t</scope><name>~idt_info_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

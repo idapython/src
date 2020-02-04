@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structserialized__tinfo" kind="struct" language="C++" prot="public">
+    <compoundname>serialized_tinfo</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structserialized__tinfo_1a1be82571362db43a6c989833d62a07ae" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a7fad0f3973de5825c480e27517e159f3" kindref="member">qtype</ref></type>
+        <definition>qtype serialized_tinfo::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="453" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="453" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserialized__tinfo_1aab2dc84db61b39446bae6da2e8dca4d6" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a7fad0f3973de5825c480e27517e159f3" kindref="member">qtype</ref></type>
+        <definition>qtype serialized_tinfo::fields</definition>
+        <argsstring></argsstring>
+        <name>fields</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="454" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="454" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structserialized__tinfo_1a5ad669604a347864c0f0ead56dfc094b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void serialized_tinfo::serialize</definition>
+        <argsstring>(bytevec_t *out, int version) const</argsstring>
+        <name>serialize</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="456" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structserialized__tinfo_1afea1f38afd79c30e9935504560039a6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool serialized_tinfo::deserialize</definition>
+        <argsstring>(const uchar **ptr, size_t len, int version)</argsstring>
+        <name>deserialize</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="457" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structserialized__tinfo_1a8114df6aeb00effc7e3f9f05a0f22764" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool serialized_tinfo::empty</definition>
+        <argsstring>() const</argsstring>
+        <name>empty</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="458" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3284">
+        <label>serialized_tinfo</label>
+        <link refid="structserialized__tinfo"/>
+        <childnode refid="3285" relation="usage">
+          <edgelabel>fields</edgelabel>
+          <edgelabel>type</edgelabel>
+        </childnode>
+      </node>
+      <node id="3285">
+        <label>_qstring&lt; uchar &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="452" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="451" bodyend="459"/>
+    <listofallmembers>
+      <member refid="structserialized__tinfo_1afea1f38afd79c30e9935504560039a6c" prot="public" virt="non-virtual"><scope>serialized_tinfo</scope><name>deserialize</name></member>
+      <member refid="structserialized__tinfo_1a8114df6aeb00effc7e3f9f05a0f22764" prot="public" virt="non-virtual"><scope>serialized_tinfo</scope><name>empty</name></member>
+      <member refid="structserialized__tinfo_1aab2dc84db61b39446bae6da2e8dca4d6" prot="public" virt="non-virtual"><scope>serialized_tinfo</scope><name>fields</name></member>
+      <member refid="structserialized__tinfo_1a5ad669604a347864c0f0ead56dfc094b" prot="public" virt="non-virtual"><scope>serialized_tinfo</scope><name>serialize</name></member>
+      <member refid="structserialized__tinfo_1a1be82571362db43a6c989833d62a07ae" prot="public" virt="non-virtual"><scope>serialized_tinfo</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

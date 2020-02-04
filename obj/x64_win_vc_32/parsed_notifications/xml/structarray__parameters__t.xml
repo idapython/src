@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structarray__parameters__t" kind="struct" language="C++" prot="public">
+    <compoundname>array_parameters_t</compoundname>
+    <includes refid="nalt_8hpp" local="no">nalt.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structarray__parameters__t_1a4a32279a3b0e2fd181555643fd5a39d2" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 array_parameters_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="563" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="563" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structarray__parameters__t_1a79e0973cbe9d7215f1bbab57af2cf060" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 array_parameters_t::lineitems</definition>
+        <argsstring></argsstring>
+        <name>lineitems</name>
+        <briefdescription>
+<para>number of items on a line </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="574" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="574" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structarray__parameters__t_1aa6a04e56b1831e000b5402f61b6bf07b" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 array_parameters_t::alignment</definition>
+        <argsstring></argsstring>
+        <name>alignment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>-1 - don&apos;t align. 0 - align automatically. else item width </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="575" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="575" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Describes how to display an array. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="562" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="561" bodyend="578"/>
+    <listofallmembers>
+      <member refid="structarray__parameters__t_1aa6a04e56b1831e000b5402f61b6bf07b" prot="public" virt="non-virtual"><scope>array_parameters_t</scope><name>alignment</name></member>
+      <member refid="structarray__parameters__t_1a4a32279a3b0e2fd181555643fd5a39d2" prot="public" virt="non-virtual"><scope>array_parameters_t</scope><name>flags</name></member>
+      <member refid="structarray__parameters__t_1a79e0973cbe9d7215f1bbab57af2cf060" prot="public" virt="non-virtual"><scope>array_parameters_t</scope><name>lineitems</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

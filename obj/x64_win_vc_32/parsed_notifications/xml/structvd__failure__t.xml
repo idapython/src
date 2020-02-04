@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structvd__failure__t" kind="struct" language="C++" prot="public">
+    <compoundname>vd_failure_t</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">exception</basecompoundref>
+    <derivedcompoundref refid="structvd__interr__t" prot="public" virt="non-virtual">vd_interr_t</derivedcompoundref>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structvd__failure__t_1a6f5c4d7174c2a646bac88d9a3334e1f0" prot="public" static="no" mutable="no">
+        <type><ref refid="structhexrays__failure__t" kindref="compound">hexrays_failure_t</ref></type>
+        <definition>hexrays_failure_t vd_failure_t::hf</definition>
+        <argsstring></argsstring>
+        <name>hf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4938" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4938" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structvd__failure__t_1a7823a5924bbf403cdd1e7cc6c151905b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>vd_failure_t::vd_failure_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>vd_failure_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4939" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4939" bodyend="4939"/>
+      </memberdef>
+      <memberdef kind="function" id="structvd__failure__t_1a4af4eca2053a13608e533d20dfa5cf43" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>vd_failure_t::vd_failure_t</definition>
+        <argsstring>(merror_t code, ea_t ea, const char *buf=NULL)</argsstring>
+        <name>vd_failure_t</name>
+        <param>
+          <type><ref refid="group___m_e_r_r___1ga124713999eb84ddba531f5c2e9eedcab" kindref="member">merror_t</ref></type>
+          <declname>code</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>buf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4940" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4940" bodyend="4940"/>
+      </memberdef>
+      <memberdef kind="function" id="structvd__failure__t_1af3abad412ef89b57b28356013670cae1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>vd_failure_t::vd_failure_t</definition>
+        <argsstring>(merror_t code, ea_t ea, const qstring &amp;buf)</argsstring>
+        <name>vd_failure_t</name>
+        <param>
+          <type><ref refid="group___m_e_r_r___1ga124713999eb84ddba531f5c2e9eedcab" kindref="member">merror_t</ref></type>
+          <declname>code</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> &amp;</type>
+          <declname>buf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4941" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4941" bodyend="4941"/>
+      </memberdef>
+      <memberdef kind="function" id="structvd__failure__t_1a5c57cb89c7cc3cb1c071a96f25c13de1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>vd_failure_t::vd_failure_t</definition>
+        <argsstring>(const hexrays_failure_t &amp;_hf)</argsstring>
+        <name>vd_failure_t</name>
+        <param>
+          <type>const <ref refid="structhexrays__failure__t" kindref="compound">hexrays_failure_t</ref> &amp;</type>
+          <declname>_hf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4942" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4942" bodyend="4942"/>
+      </memberdef>
+      <memberdef kind="function" id="structvd__failure__t_1a0504d3936b57bcc79f76e921f63143f9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring vd_failure_t::desc</definition>
+        <argsstring>(void) const</argsstring>
+        <name>desc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4943" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4943" bodyend="4943"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Exception object: decompiler exception. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3736">
+        <label>vd_interr_t</label>
+        <link refid="structvd__interr__t"/>
+        <childnode refid="3734" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3735">
+        <label>std::exception</label>
+      </node>
+      <node id="3734">
+        <label>vd_failure_t</label>
+        <link refid="structvd__failure__t"/>
+        <childnode refid="3735" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3739">
+        <label>hexrays_failure_t</label>
+        <link refid="structhexrays__failure__t"/>
+        <childnode refid="3740" relation="usage">
+          <edgelabel>str</edgelabel>
+        </childnode>
+      </node>
+      <node id="3738">
+        <label>std::exception</label>
+      </node>
+      <node id="3740">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="3737">
+        <label>vd_failure_t</label>
+        <link refid="structvd__failure__t"/>
+        <childnode refid="3738" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3739" relation="usage">
+          <edgelabel>hf</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4937" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4936" bodyend="4948"/>
+    <listofallmembers>
+      <member refid="structvd__failure__t_1a0504d3936b57bcc79f76e921f63143f9" prot="public" virt="non-virtual"><scope>vd_failure_t</scope><name>desc</name></member>
+      <member refid="structvd__failure__t_1a6f5c4d7174c2a646bac88d9a3334e1f0" prot="public" virt="non-virtual"><scope>vd_failure_t</scope><name>hf</name></member>
+      <member refid="structvd__failure__t_1a7823a5924bbf403cdd1e7cc6c151905b" prot="public" virt="non-virtual"><scope>vd_failure_t</scope><name>vd_failure_t</name></member>
+      <member refid="structvd__failure__t_1a4af4eca2053a13608e533d20dfa5cf43" prot="public" virt="non-virtual"><scope>vd_failure_t</scope><name>vd_failure_t</name></member>
+      <member refid="structvd__failure__t_1af3abad412ef89b57b28356013670cae1" prot="public" virt="non-virtual"><scope>vd_failure_t</scope><name>vd_failure_t</name></member>
+      <member refid="structvd__failure__t_1a5c57cb89c7cc3cb1c071a96f25c13de1" prot="public" virt="non-virtual"><scope>vd_failure_t</scope><name>vd_failure_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

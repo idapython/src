@@ -1,0 +1,410 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_c__funcs" kind="group">
+    <compoundname>CC_funcs</compoundname>
+    <title>Functions: work with compiler IDs</title>
+    <innergroup refid="group___s_e_t_c_o_m_p__">Set compiler flags</innergroup>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group___c_c__funcs_1ga6d65e448c6e1903b22a2ad528ed9d9d7" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="ida_8hpp_1ae36605f575cb0bd001d6b89877734fa2" kindref="member">comp_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;comp_t&gt; compvec_t</definition>
+        <argsstring></argsstring>
+        <name>compvec_t</name>
+        <briefdescription>
+<para>Collection of compiler descriptions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1433" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1433" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___c_c__funcs_1ga30e57a44352ead957bfb35130f120b09" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="ida_8hpp_1ae36605f575cb0bd001d6b89877734fa2" kindref="member">comp_t</ref></type>
+        <definition>THREAD_SAFE comp_t get_comp</definition>
+        <argsstring>(comp_t comp)</argsstring>
+        <name>get_comp</name>
+        <param>
+          <type><ref refid="ida_8hpp_1ae36605f575cb0bd001d6b89877734fa2" kindref="member">comp_t</ref></type>
+          <declname>comp</declname>
+        </param>
+        <briefdescription>
+<para>Get compiler bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1420" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1420" bodyend="1420"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_c__funcs_1gac8a52f87eb72edbe2b17a82b7aa4f7fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman const char *ida_export</type>
+        <definition>idaman const char* ida_export get_compiler_name</definition>
+        <argsstring>(comp_t id)</argsstring>
+        <name>get_compiler_name</name>
+        <param>
+          <type><ref refid="ida_8hpp_1ae36605f575cb0bd001d6b89877734fa2" kindref="member">comp_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+<para>Get full compiler name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1425" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_c__funcs_1ga6d0a38bc35c2fefa6d04bc972e7f0f65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman const char *ida_export</type>
+        <definition>idaman const char* ida_export get_compiler_abbr</definition>
+        <argsstring>(comp_t id)</argsstring>
+        <name>get_compiler_abbr</name>
+        <param>
+          <type><ref refid="ida_8hpp_1ae36605f575cb0bd001d6b89877734fa2" kindref="member">comp_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+<para>Get abbreviated compiler name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1430" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_c__funcs_1ga0a99fccffa195ff8572c40f3b4adce85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export get_compilers</definition>
+        <argsstring>(compvec_t *ids, qstrvec_t *names, qstrvec_t *abbrs)</argsstring>
+        <name>get_compilers</name>
+        <param>
+          <type><ref refid="group___c_c__funcs_1ga6d65e448c6e1903b22a2ad528ed9d9d7" kindref="member">compvec_t</ref> *</type>
+          <declname>ids</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a823b67c620f6cdca97e1d969ea4a9b02" kindref="member">qstrvec_t</ref> *</type>
+          <declname>names</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a823b67c620f6cdca97e1d969ea4a9b02" kindref="member">qstrvec_t</ref> *</type>
+          <declname>abbrs</declname>
+        </param>
+        <briefdescription>
+<para>Get names of all built-in compilers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1438" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_c__funcs_1ga66e30616c89fad5dfe53c61bb867167a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="ida_8hpp_1ae36605f575cb0bd001d6b89877734fa2" kindref="member">comp_t</ref></type>
+        <definition>THREAD_SAFE comp_t is_comp_unsure</definition>
+        <argsstring>(comp_t comp)</argsstring>
+        <name>is_comp_unsure</name>
+        <param>
+          <type><ref refid="ida_8hpp_1ae36605f575cb0bd001d6b89877734fa2" kindref="member">comp_t</ref></type>
+          <declname>comp</declname>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___c_o_m_p___1gae1bdf23b2ef18f213d7b492be498c40e" kindref="member">COMP_UNSURE</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1443" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1443" bodyend="1443"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_c__funcs_1ga70c6ee0914c9e229b591dda5bac88abb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="ida_8hpp_1ae36605f575cb0bd001d6b89877734fa2" kindref="member">comp_t</ref></type>
+        <definition>comp_t default_compiler</definition>
+        <argsstring>(void)</argsstring>
+        <name>default_compiler</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get compiler specified by {inf,idainfo,cc}. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1448" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1448" bodyend="1448"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_c__funcs_1ga33b0eb16a96e536a92973c27d2b51d04" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_gcc</definition>
+        <argsstring>(void)</argsstring>
+        <name>is_gcc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is the target compiler <ref refid="group___c_o_m_p___1ga8f72af77206ae6e513468b0b2d0d8d7d" kindref="member">COMP_GNU</ref>? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1453" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1453" bodyend="1453"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_c__funcs_1ga5985848fe5433e3906df2a1b9c27634b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_gcc32</definition>
+        <argsstring>(void)</argsstring>
+        <name>is_gcc32</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is the target compiler 32 bit gcc? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1458" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1458" bodyend="1458"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_c__funcs_1gaacfe0fce0e36d088e64aba5174bbcf3e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_gcc64</definition>
+        <argsstring>(void)</argsstring>
+        <name>is_gcc64</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is the target compiler 64 bit gcc? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1463" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1463" bodyend="1463"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_c__funcs_1ga3ba2ea17113115bc15ad1db0134c021a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool gcc_layout</definition>
+        <argsstring>(void)</argsstring>
+        <name>gcc_layout</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Should use the struct/union layout as done by gcc? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1468" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1468" bodyend="1468"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_c__funcs_1ga10b28e2835ecde9fe6e14072db87384a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_compiler</definition>
+        <argsstring>(const compiler_info_t &amp;cc, int flags, const char *abiname=NULL)</argsstring>
+        <name>set_compiler</name>
+        <param>
+          <type>const <ref refid="structcompiler__info__t" kindref="compound">compiler_info_t</ref> &amp;</type>
+          <declname>cc</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>abiname</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Change current compiler. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>compiler to switch to </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___s_e_t_c_o_m_p__" kindref="compound">Set compiler flags</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>abiname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ABI name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1477" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_c__funcs_1ga6eced74e7574153c9760fc3efab1aaf0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi set_compiler_id</definition>
+        <argsstring>(comp_t id, const char *abiname=NULL)</argsstring>
+        <name>set_compiler_id</name>
+        <param>
+          <type><ref refid="ida_8hpp_1ae36605f575cb0bd001d6b89877734fa2" kindref="member">comp_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>abiname</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+<para>Set the compiler id (see <ref refid="group___c_o_m_p__" kindref="compound">Compiler IDs</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1495" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1495" bodyend="1500"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_c__funcs_1ga07a9e696c4065d281247c57acfccf3c9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi set_abi_name</definition>
+        <argsstring>(const char *abiname, bool user_level=false)</argsstring>
+        <name>set_abi_name</name>
+        <param>
+          <type>const char *</type>
+          <declname>abiname</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>user_level</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Set abi name (see <ref refid="group___c_o_m_p__" kindref="compound">Compiler IDs</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1504" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1504" bodyend="1510"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_c__funcs_1ga574b887360c437eb564122c17a82c4ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export get_abi_name</definition>
+        <argsstring>(qstring *out)</argsstring>
+        <name>get_abi_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get ABI name. <simplesect kind="return"><para>length of the name (&gt;=0) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1515" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_c__funcs_1gac867a63844cbacaf704143a9c52536ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export append_abi_opts</definition>
+        <argsstring>(const char *abi_opts, bool user_level=false)</argsstring>
+        <name>append_abi_opts</name>
+        <param>
+          <type>const char *</type>
+          <declname>abi_opts</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>user_level</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add/remove/check ABI option General form of full abi name: abiname-opt1-opt2-... or -opt1-opt2-... <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>abi_opts</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- ABI options to add/remove in form opt1-opt2-... </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>user_level</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- initiated by user if TRUE (==SETCOMP_BY_USER) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1523" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_c__funcs_1ga5cdf0af38218418e61b04ec2ee813542" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export remove_abi_opts</definition>
+        <argsstring>(const char *abi_opts, bool user_level=false)</argsstring>
+        <name>remove_abi_opts</name>
+        <param>
+          <type>const char *</type>
+          <declname>abi_opts</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>user_level</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1524" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_c__funcs_1ga0c5949346c28023a7823aa3e481f6a72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_compiler_string</definition>
+        <argsstring>(const char *compstr, bool user_level)</argsstring>
+        <name>set_compiler_string</name>
+        <param>
+          <type>const char *</type>
+          <declname>compstr</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>user_level</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>compstr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- compiler description in form &lt;abbr&gt;:&lt;abiname&gt; </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>user_level</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- initiated by user if TRUE </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1529" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

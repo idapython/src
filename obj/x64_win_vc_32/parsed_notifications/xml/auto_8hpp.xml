@@ -1,0 +1,1054 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="auto_8hpp" kind="file" language="C++">
+    <compoundname>auto.hpp</compoundname>
+    <includes refid="ida_8hpp" local="no">ida.hpp</includes>
+    <incdepgraph>
+      <node id="27">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="11">
+        <label>stdarg.h</label>
+      </node>
+      <node id="7">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/auto.hpp</label>
+        <link refid="auto_8hpp"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>assert.h</label>
+      </node>
+      <node id="8">
+        <label>ida.hpp</label>
+        <link refid="ida_8hpp"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>stdlib.h</label>
+      </node>
+      <node id="22">
+        <label>io.h</label>
+      </node>
+      <node id="25">
+        <label>fcntl.h</label>
+      </node>
+      <node id="28">
+        <label>llong.hpp</label>
+        <link refid="llong_8hpp_source"/>
+      </node>
+      <node id="20">
+        <label>malloc.h</label>
+      </node>
+      <node id="19">
+        <label>string</label>
+      </node>
+      <node id="24">
+        <label>map</label>
+      </node>
+      <node id="23">
+        <label>direct.h</label>
+      </node>
+      <node id="12">
+        <label>stddef.h</label>
+      </node>
+      <node id="15">
+        <label>limits.h</label>
+      </node>
+      <node id="26">
+        <label>sys/types.h</label>
+      </node>
+      <node id="21">
+        <label>string.h</label>
+      </node>
+      <node id="18">
+        <label>new</label>
+      </node>
+      <node id="9">
+        <label>pro.h</label>
+        <link refid="pro_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>time.h</label>
+      </node>
+      <node id="16">
+        <label>ctype.h</label>
+      </node>
+      <node id="29">
+        <label>range.hpp</label>
+        <link refid="range_8hpp"/>
+      </node>
+      <node id="13">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structauto__display__t" prot="public">auto_display_t</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int atype_t</definition>
+        <argsstring></argsstring>
+        <name>atype_t</name>
+        <briefdescription>
+<para>identifies an autoanalysis queue - see <ref refid="group___a_u__" kindref="compound">Autoanalysis queues</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="31" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="auto_8hpp_1ad72263d94c19cbf1f07e19a401effe08" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int idastate_t</definition>
+        <argsstring></argsstring>
+        <name>idastate_t</name>
+        <briefdescription>
+<para>IDA status indicator - see <ref refid="group__st__" kindref="compound">Status indicator states</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="54" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group___a_u___1ga78a2f1b6138026dd91c96081b2d83f19" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_NONE</definition>
+        <argsstring></argsstring>
+        <name>AU_NONE</name>
+        <initializer>= 00</initializer>
+        <briefdescription>
+<para>placeholder, not used </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="37" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga98e7f11534af297d111dd3c9051fc348" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_UNK</definition>
+        <argsstring></argsstring>
+        <name>AU_UNK</name>
+        <initializer>= 10</initializer>
+        <briefdescription>
+<para>0: convert to unexplored </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="38" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga3a89b1cc6b3d65e5d9e22904f0f246cf" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_CODE</definition>
+        <argsstring></argsstring>
+        <name>AU_CODE</name>
+        <initializer>= 20</initializer>
+        <briefdescription>
+<para>1: convert to instruction </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="39" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga7de3a7d07cf227b12b60e8a0a66a3455" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_WEAK</definition>
+        <argsstring></argsstring>
+        <name>AU_WEAK</name>
+        <initializer>= 25</initializer>
+        <briefdescription>
+<para>2: convert to instruction (ida decision) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="40" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga6c8c6714aab66de78750b3d9628c4b4b" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_PROC</definition>
+        <argsstring></argsstring>
+        <name>AU_PROC</name>
+        <initializer>= 30</initializer>
+        <briefdescription>
+<para>3: convert to procedure start </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="41" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga54ec315619467793b115e94d1399854b" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_TAIL</definition>
+        <argsstring></argsstring>
+        <name>AU_TAIL</name>
+        <initializer>= 35</initializer>
+        <briefdescription>
+<para>4: add a procedure tail </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="42" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga31e07b41b109a0594abb19e81baed50c" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_TRSP</definition>
+        <argsstring></argsstring>
+        <name>AU_TRSP</name>
+        <initializer>= 38</initializer>
+        <briefdescription>
+<para>5: trace stack pointer (not used yet) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="43" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga26484b0dda0e7740b5db01459e9da421" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_USED</definition>
+        <argsstring></argsstring>
+        <name>AU_USED</name>
+        <initializer>= 40</initializer>
+        <briefdescription>
+<para>6: reanalyze </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="44" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga0a3fb4b4da36a8283991dc74dc3e6f75" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_TYPE</definition>
+        <argsstring></argsstring>
+        <name>AU_TYPE</name>
+        <initializer>= 50</initializer>
+        <briefdescription>
+<para>7: apply type information </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="45" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga9edd46be7bba6098daf188599ff50286" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_LIBF</definition>
+        <argsstring></argsstring>
+        <name>AU_LIBF</name>
+        <initializer>= 60</initializer>
+        <briefdescription>
+<para>8: apply signature to address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="46" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga5412bee3c9d8f6ac0d00e5f8bbd190b6" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_LBF2</definition>
+        <argsstring></argsstring>
+        <name>AU_LBF2</name>
+        <initializer>= 70</initializer>
+        <briefdescription>
+<para>9: the same, second pass </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="47" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1gaefc0139ffd8f1b68634376e9de9ee569" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_LBF3</definition>
+        <argsstring></argsstring>
+        <name>AU_LBF3</name>
+        <initializer>= 80</initializer>
+        <briefdescription>
+<para>10: the same, third pass </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="48" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1ga70e27a7454682a700a5bb57d97b2ecfb" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_CHLB</definition>
+        <argsstring></argsstring>
+        <name>AU_CHLB</name>
+        <initializer>= 90</initializer>
+        <briefdescription>
+<para>11: load signature file (file name is kept separately) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="49" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_u___1gac2f58ed6b5200cd0e459faaabc76f26d" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+        <definition>const atype_t AU_FINAL</definition>
+        <argsstring></argsstring>
+        <name>AU_FINAL</name>
+        <initializer>=200</initializer>
+        <briefdescription>
+<para>12: final pass </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="50" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__st___1ga3acac22583a9bb79b2a3dec3494de65b" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ad72263d94c19cbf1f07e19a401effe08" kindref="member">idastate_t</ref></type>
+        <definition>const idastate_t st_Ready</definition>
+        <argsstring></argsstring>
+        <name>st_Ready</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>READY: IDA is doing nothing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="60" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__st___1gacfeabb993ce6fa547fd17cb9edfda71c" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ad72263d94c19cbf1f07e19a401effe08" kindref="member">idastate_t</ref></type>
+        <definition>const idastate_t st_Think</definition>
+        <argsstring></argsstring>
+        <name>st_Think</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+<para>THINKING: Autoanalysis on, the user may press keys. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="61" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__st___1gadd088ce5f6422016d69173d07ba62d53" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ad72263d94c19cbf1f07e19a401effe08" kindref="member">idastate_t</ref></type>
+        <definition>const idastate_t st_Waiting</definition>
+        <argsstring></argsstring>
+        <name>st_Waiting</name>
+        <initializer>= 2</initializer>
+        <briefdescription>
+<para>WAITING: Waiting for the user input. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="62" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__st___1gaddfbd2d4e798aa5d3305819993b0a295" prot="public" static="no" mutable="no">
+        <type>const <ref refid="auto_8hpp_1ad72263d94c19cbf1f07e19a401effe08" kindref="member">idastate_t</ref></type>
+        <definition>const idastate_t st_Work</definition>
+        <argsstring></argsstring>
+        <name>st_Work</name>
+        <initializer>= 3</initializer>
+        <briefdescription>
+<para>BUSY: IDA is busy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="63" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="auto_8hpp_1af32544c45274db16263bf5b1a3a7002e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref> ida_export</type>
+        <definition>idaman atype_t ida_export get_auto_state</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_auto_state</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get current state of autoanalyzer. If auto_state == <ref refid="group___a_u___1ga78a2f1b6138026dd91c96081b2d83f19" kindref="member">AU_NONE</ref>, IDA is currently not running the analysis (it could be temporarily interrupted to perform the user&apos;s requests, for example). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="71" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1a8aa74b31035f9b51c7d4f4d8615ae46c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref> ida_export</type>
+        <definition>idaman atype_t ida_export set_auto_state</definition>
+        <argsstring>(atype_t new_state)</argsstring>
+        <name>set_auto_state</name>
+        <param>
+          <type><ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+          <declname>new_state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set current state of autoanalyzer. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>new_state</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new state of autoanalyzer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>previous state </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="78" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1a5718c80539fa12e70d5d2df50bbc18c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export get_auto_display</definition>
+        <argsstring>(auto_display_t *auto_display)</argsstring>
+        <name>get_auto_display</name>
+        <param>
+          <type><ref refid="structauto__display__t" kindref="compound">auto_display_t</ref> *</type>
+          <declname>auto_display</declname>
+        </param>
+        <briefdescription>
+<para>Get structure which holds the autoanalysis indicator contents. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="91" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1af8028e154501eb609cf16ca2dfa400ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export show_auto</definition>
+        <argsstring>(ea_t ea, atype_t type=AU_NONE)</argsstring>
+        <name>show_auto</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+          <declname>type</declname>
+          <defval><ref refid="group___a_u___1ga78a2f1b6138026dd91c96081b2d83f19" kindref="member">AU_NONE</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Change autoanalysis indicator value. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address being analyzed </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>autoanalysis type (see <ref refid="group___a_u__" kindref="compound">Autoanalysis queues</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="98" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1a39e42e99f4864bbb38595829247e73e0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void show_addr</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>show_addr</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Show an address on the autoanalysis indicator. The address is displayed in the form &quot; @:12345678&quot;. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- linear address to display </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="105" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="105" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1aa94296d177e998d50b2ea4bc47a9ef65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="auto_8hpp_1ad72263d94c19cbf1f07e19a401effe08" kindref="member">idastate_t</ref> ida_export</type>
+        <definition>idaman idastate_t ida_export set_ida_state</definition>
+        <argsstring>(idastate_t st)</argsstring>
+        <name>set_ida_state</name>
+        <param>
+          <type><ref refid="auto_8hpp_1ad72263d94c19cbf1f07e19a401effe08" kindref="member">idastate_t</ref></type>
+          <declname>st</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Change IDA status indicator value <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>st</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- new indicator status </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>old indicator status </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="112" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1ae6467793b53cb5a2f53eaf5d9e8bcfe2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool may_create_stkvars</definition>
+        <argsstring>(void)</argsstring>
+        <name>may_create_stkvars</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is it allowed to create stack variables automatically?. This function should be used by IDP modules before creating stack vars. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="118" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="118" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1ae2f14775c17cf1b6e1290cf6060c7fe8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool may_trace_sp</definition>
+        <argsstring>(void)</argsstring>
+        <name>may_trace_sp</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is it allowed to trace stack pointer automatically?. This function should be used by IDP modules before tracing sp. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="127" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="127" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1aa6bee4e948a9e3ffaf443baedceb2af5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export auto_mark_range</definition>
+        <argsstring>(ea_t start, ea_t end, atype_t type)</argsstring>
+        <name>auto_mark_range</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>end</declname>
+        </param>
+        <param>
+          <type><ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Put range of addresses into a queue. &apos;start&apos; may be higher than &apos;end&apos;, the kernel will swap them in this case. &apos;end&apos; doesn&apos;t belong to the range. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="142" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1a5924704da074a69007dc35294cec2563" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void auto_mark</definition>
+        <argsstring>(ea_t ea, atype_t type)</argsstring>
+        <name>auto_mark</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+<para>Put single address into a queue. Queues keep addresses sorted. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="147" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="147" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1ada3ad1e392f0c4a6eba0a31984e670c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export auto_unmark</definition>
+        <argsstring>(ea_t start, ea_t end, atype_t type)</argsstring>
+        <name>auto_unmark</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>end</declname>
+        </param>
+        <param>
+          <type><ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Remove range of addresses from a queue. &apos;start&apos; may be higher than &apos;end&apos;, the kernel will swap them in this case. &apos;end&apos; doesn&apos;t belong to the range. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="157" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1afd2092d0e4949e998ab47fb421ef07fb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void plan_ea</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>plan_ea</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+<para>Plan to perform reanalysis. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="162" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="162" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1a6ffcd3f72145f9d2d4e21f77f30f3061" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void plan_range</definition>
+        <argsstring>(ea_t sEA, ea_t eEA)</argsstring>
+        <name>plan_range</name>
+        <param>
+          <type>ea_t</type>
+          <declname>sEA</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>eEA</declname>
+        </param>
+        <briefdescription>
+<para>Plan to perform reanalysis. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="167" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="167" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1a1b550e628f50fa53fd4ef18ef1d2818a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void auto_make_code</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>auto_make_code</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+<para>Plan to make code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="172" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="172" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1a07bfe63b0c003b4197466b2f62c96498" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void auto_make_proc</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>auto_make_proc</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+<para>Plan to make code&amp;function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="177" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" bodystart="177" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1af65d0cb47bd8d6af73b91a5a3f93650d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export reanalyze_callers</definition>
+        <argsstring>(ea_t ea, bool noret)</argsstring>
+        <name>reanalyze_callers</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>noret</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Plan to reanalyze callers of the specified address. This function will add to <ref refid="group___a_u___1ga26484b0dda0e7740b5db01459e9da421" kindref="member">AU_USED</ref> queue all instructions that call (not jump to) the specified address. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address of callee </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>noret</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>!=0: the callee doesn&apos;t return, mark to undefine subsequent instructions in the caller. 0: do nothing. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="190" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1a8a9cb0e708279e8cc499ca2522983957" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export revert_ida_decisions</definition>
+        <argsstring>(ea_t ea1, ea_t ea2)</argsstring>
+        <name>revert_ida_decisions</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea1</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea2</declname>
+        </param>
+        <briefdescription>
+<para>Delete all analysis info that IDA generated for for the given range. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="195" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1a205356fc48c538f055a1dc0162964889" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export auto_apply_type</definition>
+        <argsstring>(ea_t caller, ea_t callee)</argsstring>
+        <name>auto_apply_type</name>
+        <param>
+          <type>ea_t</type>
+          <declname>caller</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>callee</declname>
+        </param>
+        <briefdescription>
+<para>Plan to apply the callee&apos;s type to the calling point. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="200" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1a61dfb4535e9435e11750a478427ebcfd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export auto_apply_tail</definition>
+        <argsstring>(ea_t tail_ea, ea_t parent_ea)</argsstring>
+        <name>auto_apply_tail</name>
+        <param>
+          <type>ea_t</type>
+          <declname>tail_ea</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>parent_ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Plan to apply the tail_ea chunk to the parent <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tail_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address of start of tail </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>parent_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address within parent. If BADADDR, automatically try to find parent via xrefs. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="207" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1a4275747b98e5ecef485b9410012a30d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export plan_and_wait</definition>
+        <argsstring>(ea_t ea1, ea_t ea2, bool final_pass=true)</argsstring>
+        <name>plan_and_wait</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea1</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea2</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>final_pass</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Analyze the specified range. Try to create instructions where possible. Make the final pass over the specified range if specified. This function doesn&apos;t return until the range is analyzed. <parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Ctrl-Break was pressed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="216" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1a97a79ccfa754a0d10b485ac899e280e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export auto_wait</definition>
+        <argsstring>(void)</argsstring>
+        <name>auto_wait</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Process everything in the queues and return true. Return false if Ctrl-Break was pressed. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="222" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1a14e693c5d4666767ef51bf4ebec6e1f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export auto_cancel</definition>
+        <argsstring>(ea_t ea1, ea_t ea2)</argsstring>
+        <name>auto_cancel</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea1</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Remove an address range (ea1..ea2) from queues <ref refid="group___a_u___1ga3a89b1cc6b3d65e5d9e22904f0f246cf" kindref="member">AU_CODE</ref>, <ref refid="group___a_u___1ga6c8c6714aab66de78750b3d9628c4b4b" kindref="member">AU_PROC</ref>, <ref refid="group___a_u___1ga26484b0dda0e7740b5db01459e9da421" kindref="member">AU_USED</ref>. To remove an address range from other queues use <ref refid="auto_8hpp_1ada3ad1e392f0c4a6eba0a31984e670c3" kindref="member">auto_unmark()</ref> function. &apos;ea1&apos; may be higher than &apos;ea2&apos;, the kernel will swap them in this case. &apos;ea2&apos; doesn&apos;t belong to the range. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="230" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1af9d2a4d96de9773120ad8c0c654d056e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export auto_is_ok</definition>
+        <argsstring>(void)</argsstring>
+        <name>auto_is_ok</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Are all queues empty? (i.e. has autoanalysis finished?). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="236" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1ad3a7ab70daa0bb3792744ed2faa83b14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export peek_auto_queue</definition>
+        <argsstring>(ea_t low_ea, atype_t type)</argsstring>
+        <name>peek_auto_queue</name>
+        <param>
+          <type>ea_t</type>
+          <declname>low_ea</declname>
+        </param>
+        <param>
+          <type><ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Peek into a queue &apos;type&apos; for an address not lower than &apos;low_ea&apos;. Do not remove address from the queue. <simplesect kind="return"><para>the address or <ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="243" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1a1cda1b636de5c60400d50d210e307a75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export auto_get</definition>
+        <argsstring>(atype_t *type, ea_t lowEA, ea_t highEA)</argsstring>
+        <name>auto_get</name>
+        <param>
+          <type><ref refid="auto_8hpp_1ae3fe1a7af243ca1880188111193297cf" kindref="member">atype_t</ref> *</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>lowEA</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>highEA</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieve an address from queues regarding their priority. Returns <ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> if no addresses not lower than &apos;lowEA&apos; and less than &apos;highEA&apos; are found in the queues. Otherwise *type will have queue type. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="251" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1a81dc54c9cb4c7ad3b7011b7cb886cc67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export auto_recreate_insn</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>auto_recreate_insn</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Try to create instruction <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address of callee </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the length of the instruction or 0 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="258" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1a5c2ab865ca637325929bed4055c1cd12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export is_auto_enabled</definition>
+        <argsstring>(void)</argsstring>
+        <name>is_auto_enabled</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get autoanalyzer state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="263" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="auto_8hpp_1ac7bea88ee1a5fc46adbb134e938374e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export enable_auto</definition>
+        <argsstring>(bool enable)</argsstring>
+        <name>enable_auto</name>
+        <param>
+          <type>bool</type>
+          <declname>enable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Temporarily enable/disable autoanalyzer. Not user-facing, but rather because IDA sometimes need to turn AA on/off regardless of inf.s_genflags:INFFL_AUTO <simplesect kind="return"><para>old state </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp" line="270" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Functions that work with the autoanalyzer queue. </para>    </briefdescription>
+    <detaileddescription>
+<para>The autoanalyzer works when IDA is not busy processing the user keystrokes. It has several queues, each queue having its own priority. The analyzer stops when all queues are empty.</para><para>A queue contains addresses or address ranges. The addresses are kept sorted by their values. The analyzer will process all addresses from the first queue, then switch to the second queue and so on. There are no limitations on the size of the queues.</para><para>This file also contains functions that deal with the IDA status indicator and the autoanalysis indicator. You may use these functions to change the indicator value. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/auto.hpp"/>
+  </compounddef>
+</doxygen>

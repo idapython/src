@@ -1,0 +1,275 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classcustom__viewer__handlers__t" kind="class" language="C++" prot="public">
+    <compoundname>custom_viewer_handlers_t</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classcustom__viewer__handlers__t_1a2f548ccaaf24ba32ad8f8dab991bbfef" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int custom_viewer_handlers_t::cb</definition>
+        <argsstring></argsstring>
+        <name>cb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3641" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3641" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classcustom__viewer__handlers__t_1a14d501cc59efde4906b39aec4d0b9f38" prot="public" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1a511b432c1bbf7588ef8247474f5ee62f" kindref="member">custom_viewer_keydown_t</ref> *</type>
+        <definition>custom_viewer_keydown_t* custom_viewer_handlers_t::keyboard</definition>
+        <argsstring></argsstring>
+        <name>keyboard</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3670" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3670" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcustom__viewer__handlers__t_1a64e155ccebe925cb44c701ff24e16d60" prot="public" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1af624d89dcb56d3a0a3d629b2e0d604d5" kindref="member">custom_viewer_popup_t</ref> *</type>
+        <definition>custom_viewer_popup_t* custom_viewer_handlers_t::popup</definition>
+        <argsstring></argsstring>
+        <name>popup</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3671" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3671" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcustom__viewer__handlers__t_1a1110c119901d757da8bed55e2b0db462" prot="public" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1a95cbfac16669a01c9d5e2f49ac7b0a7b" kindref="member">custom_viewer_mouse_moved_t</ref> *</type>
+        <definition>custom_viewer_mouse_moved_t* custom_viewer_handlers_t::mouse_moved</definition>
+        <argsstring></argsstring>
+        <name>mouse_moved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3672" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3672" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcustom__viewer__handlers__t_1a16eb976bd4ce55fa303efdbadc633908" prot="public" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1adefb66562d8615c65b5c9fc3c69121f5" kindref="member">custom_viewer_click_t</ref> *</type>
+        <definition>custom_viewer_click_t* custom_viewer_handlers_t::click</definition>
+        <argsstring></argsstring>
+        <name>click</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3673" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3673" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcustom__viewer__handlers__t_1a976570531aadd2984ae4bdf05e1e3e2f" prot="public" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1a621326e0be555411af29350dbca52a6d" kindref="member">custom_viewer_dblclick_t</ref> *</type>
+        <definition>custom_viewer_dblclick_t* custom_viewer_handlers_t::dblclick</definition>
+        <argsstring></argsstring>
+        <name>dblclick</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3674" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3674" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcustom__viewer__handlers__t_1aad12e39230268843d507ed22fa37aee8" prot="public" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1a23111082d5d56fc98c80b9ca259849a5" kindref="member">custom_viewer_curpos_t</ref> *</type>
+        <definition>custom_viewer_curpos_t* custom_viewer_handlers_t::curpos</definition>
+        <argsstring></argsstring>
+        <name>curpos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3675" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3675" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcustom__viewer__handlers__t_1aa9b749e8dbcd37b9d37739c545ae5f38" prot="public" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1adaea7631506cc6d8d88f02b5e690f735" kindref="member">custom_viewer_close_t</ref> *</type>
+        <definition>custom_viewer_close_t* custom_viewer_handlers_t::close</definition>
+        <argsstring></argsstring>
+        <name>close</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3676" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3676" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcustom__viewer__handlers__t_1add04278b7d4de20f7dd839f720d09c8d" prot="public" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1ae8f32f231b2b3d4b569500608cb75873" kindref="member">custom_viewer_help_t</ref> *</type>
+        <definition>custom_viewer_help_t* custom_viewer_handlers_t::help</definition>
+        <argsstring></argsstring>
+        <name>help</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3677" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3677" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcustom__viewer__handlers__t_1aa6dd93f81a3d834c56ceeef2056a0ed7" prot="public" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1a7cca1323797d8ddf7b824667a8437661" kindref="member">custom_viewer_adjust_place_t</ref> *</type>
+        <definition>custom_viewer_adjust_place_t* custom_viewer_handlers_t::adjust_place</definition>
+        <argsstring></argsstring>
+        <name>adjust_place</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3678" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3678" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcustom__viewer__handlers__t_1a5e2f96e940603e0ea902f5435514a19d" prot="public" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1a5a9ad9fe1808f4b3757275399ea12c3f" kindref="member">custom_viewer_get_place_xcoord_t</ref> *</type>
+        <definition>custom_viewer_get_place_xcoord_t* custom_viewer_handlers_t::get_place_xcoord</definition>
+        <argsstring></argsstring>
+        <name>get_place_xcoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3679" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3679" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcustom__viewer__handlers__t_1a568e450b8f288bc84c63b57683f13090" prot="public" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1ac70830c9f2ffd3f3097f4225523ee54e" kindref="member">custom_viewer_location_changed_t</ref> *</type>
+        <definition>custom_viewer_location_changed_t* custom_viewer_handlers_t::location_changed</definition>
+        <argsstring></argsstring>
+        <name>location_changed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3680" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3680" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcustom__viewer__handlers__t_1a9e83e477123526c674397fb4f105fbf2" prot="public" static="no" mutable="no">
+        <type><ref refid="kernwin_8hpp_1a1400c04c3b5383982ec0dcd06aa2bfb3" kindref="member">custom_viewer_can_navigate_t</ref> *</type>
+        <definition>custom_viewer_can_navigate_t* custom_viewer_handlers_t::can_navigate</definition>
+        <argsstring></argsstring>
+        <name>can_navigate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3681" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3681" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classcustom__viewer__handlers__t_1af893ce088b2ab0fc2e6a9b4c1735bbe5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>custom_viewer_handlers_t::custom_viewer_handlers_t</definition>
+        <argsstring>(custom_viewer_keydown_t *_keyboard=NULL, custom_viewer_popup_t *_popup=NULL, custom_viewer_mouse_moved_t *_mouse_moved=NULL, custom_viewer_click_t *_click=NULL, custom_viewer_dblclick_t *_dblclick=NULL, custom_viewer_curpos_t *_curpos=NULL, custom_viewer_close_t *_close=NULL, custom_viewer_help_t *_help=NULL, custom_viewer_adjust_place_t *_adjust_place=NULL, custom_viewer_get_place_xcoord_t *_get_place_xcoord=NULL, custom_viewer_location_changed_t *_location_changed=NULL, custom_viewer_can_navigate_t *_can_navigate=NULL)</argsstring>
+        <name>custom_viewer_handlers_t</name>
+        <param>
+          <type><ref refid="kernwin_8hpp_1a511b432c1bbf7588ef8247474f5ee62f" kindref="member">custom_viewer_keydown_t</ref> *</type>
+          <declname>_keyboard</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1af624d89dcb56d3a0a3d629b2e0d604d5" kindref="member">custom_viewer_popup_t</ref> *</type>
+          <declname>_popup</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1a95cbfac16669a01c9d5e2f49ac7b0a7b" kindref="member">custom_viewer_mouse_moved_t</ref> *</type>
+          <declname>_mouse_moved</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1adefb66562d8615c65b5c9fc3c69121f5" kindref="member">custom_viewer_click_t</ref> *</type>
+          <declname>_click</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1a621326e0be555411af29350dbca52a6d" kindref="member">custom_viewer_dblclick_t</ref> *</type>
+          <declname>_dblclick</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1a23111082d5d56fc98c80b9ca259849a5" kindref="member">custom_viewer_curpos_t</ref> *</type>
+          <declname>_curpos</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1adaea7631506cc6d8d88f02b5e690f735" kindref="member">custom_viewer_close_t</ref> *</type>
+          <declname>_close</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1ae8f32f231b2b3d4b569500608cb75873" kindref="member">custom_viewer_help_t</ref> *</type>
+          <declname>_help</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1a7cca1323797d8ddf7b824667a8437661" kindref="member">custom_viewer_adjust_place_t</ref> *</type>
+          <declname>_adjust_place</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1a5a9ad9fe1808f4b3757275399ea12c3f" kindref="member">custom_viewer_get_place_xcoord_t</ref> *</type>
+          <declname>_get_place_xcoord</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1ac70830c9f2ffd3f3097f4225523ee54e" kindref="member">custom_viewer_location_changed_t</ref> *</type>
+          <declname>_location_changed</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="kernwin_8hpp_1a1400c04c3b5383982ec0dcd06aa2bfb3" kindref="member">custom_viewer_can_navigate_t</ref> *</type>
+          <declname>_can_navigate</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3643" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3643" bodyend="3669"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3640" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3639" bodyend="3682"/>
+    <listofallmembers>
+      <member refid="classcustom__viewer__handlers__t_1aa6dd93f81a3d834c56ceeef2056a0ed7" prot="public" virt="non-virtual"><scope>custom_viewer_handlers_t</scope><name>adjust_place</name></member>
+      <member refid="classcustom__viewer__handlers__t_1a9e83e477123526c674397fb4f105fbf2" prot="public" virt="non-virtual"><scope>custom_viewer_handlers_t</scope><name>can_navigate</name></member>
+      <member refid="classcustom__viewer__handlers__t_1a2f548ccaaf24ba32ad8f8dab991bbfef" prot="private" virt="non-virtual"><scope>custom_viewer_handlers_t</scope><name>cb</name></member>
+      <member refid="classcustom__viewer__handlers__t_1a16eb976bd4ce55fa303efdbadc633908" prot="public" virt="non-virtual"><scope>custom_viewer_handlers_t</scope><name>click</name></member>
+      <member refid="classcustom__viewer__handlers__t_1aa9b749e8dbcd37b9d37739c545ae5f38" prot="public" virt="non-virtual"><scope>custom_viewer_handlers_t</scope><name>close</name></member>
+      <member refid="classcustom__viewer__handlers__t_1aad12e39230268843d507ed22fa37aee8" prot="public" virt="non-virtual"><scope>custom_viewer_handlers_t</scope><name>curpos</name></member>
+      <member refid="classcustom__viewer__handlers__t_1af893ce088b2ab0fc2e6a9b4c1735bbe5" prot="public" virt="non-virtual"><scope>custom_viewer_handlers_t</scope><name>custom_viewer_handlers_t</name></member>
+      <member refid="classcustom__viewer__handlers__t_1a976570531aadd2984ae4bdf05e1e3e2f" prot="public" virt="non-virtual"><scope>custom_viewer_handlers_t</scope><name>dblclick</name></member>
+      <member refid="classcustom__viewer__handlers__t_1a5e2f96e940603e0ea902f5435514a19d" prot="public" virt="non-virtual"><scope>custom_viewer_handlers_t</scope><name>get_place_xcoord</name></member>
+      <member refid="classcustom__viewer__handlers__t_1add04278b7d4de20f7dd839f720d09c8d" prot="public" virt="non-virtual"><scope>custom_viewer_handlers_t</scope><name>help</name></member>
+      <member refid="classcustom__viewer__handlers__t_1a14d501cc59efde4906b39aec4d0b9f38" prot="public" virt="non-virtual"><scope>custom_viewer_handlers_t</scope><name>keyboard</name></member>
+      <member refid="classcustom__viewer__handlers__t_1a568e450b8f288bc84c63b57683f13090" prot="public" virt="non-virtual"><scope>custom_viewer_handlers_t</scope><name>location_changed</name></member>
+      <member refid="classcustom__viewer__handlers__t_1a1110c119901d757da8bed55e2b0db462" prot="public" virt="non-virtual"><scope>custom_viewer_handlers_t</scope><name>mouse_moved</name></member>
+      <member refid="classcustom__viewer__handlers__t_1a64e155ccebe925cb44c701ff24e16d60" prot="public" virt="non-virtual"><scope>custom_viewer_handlers_t</scope><name>popup</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

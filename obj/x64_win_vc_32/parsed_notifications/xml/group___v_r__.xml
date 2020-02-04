@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___v_r__" kind="group">
+    <compoundname>VR_</compoundname>
+    <title>bits for get_valranges</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___v_r___1ga71f000e24836abe9ab8322d69b7a410e" prot="public" static="no">
+        <name>VR_AT_START</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>get value ranges at the block start </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3944" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3944" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___v_r___1ga20414aba74f50a6c7d822bbbda02bbe4" prot="public" static="no">
+        <name>VR_AT_END</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>the last instruction </para>        </briefdescription>
+        <detaileddescription>
+<para>get value ranges at the block end, just before </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3945" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3945" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___v_r___1ga049fa8eb89873c01bab7d587af0f61a5" prot="public" static="no">
+        <name>VR_EXACT</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>valrng size will be &gt;= vivl.size </para>        </briefdescription>
+        <detaileddescription>
+<para>find exact match. if not set, the returned </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3947" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3947" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

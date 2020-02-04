@@ -1,0 +1,978 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="registry_8hpp" kind="file" language="C++">
+    <compoundname>registry.hpp</compoundname>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="registry_8hpp_1a3193bb469453169d7eac8f304fab748c" prot="public" static="no">
+        <name>ROOT_KEY_NAME</name>
+        <initializer>&quot;Software\\Hex-Rays\\IDA&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Key used to store IDA settings in registry (Windows version). <simplesect kind="note"><para>this name is automatically prepended to all key names passed to functions in this file. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="27" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="registry_8hpp_1a68552d86f5bb5687eb2828179ac0a3a7" prot="public" static="no">
+        <name>regval_type_t</name>
+        <enumvalue id="registry_8hpp_1a68552d86f5bb5687eb2828179ac0a3a7aba486bc5fe72e037da1098d95209aba3" prot="public">
+          <name>reg_unknown</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>unknown </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="registry_8hpp_1a68552d86f5bb5687eb2828179ac0a3a7a73f3c345c6c99bed0b87010fcc08b66f" prot="public">
+          <name>reg_sz</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>utf8 string </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="registry_8hpp_1a68552d86f5bb5687eb2828179ac0a3a7a0eb0e79c42a752f3ffae00f56b6357ec" prot="public">
+          <name>reg_binary</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>binary data </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="registry_8hpp_1a68552d86f5bb5687eb2828179ac0a3a7a2e3d0f2a34622d448db515d0356fda4a" prot="public">
+          <name>reg_dword</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>32-bit number </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Types of values stored in the registry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="53" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" bodystart="52" bodyend="58"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="registry_8hpp_1ae8bf22e5f3e5d29eb1fae33bffea6690" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export reg_delete_subkey</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>reg_delete_subkey</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Delete a key from the registry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="62" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1ad2a90f0080ab64cc2cdf2a171b78e886" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export reg_delete_tree</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>reg_delete_tree</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Delete a subtree from the registry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="65" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1a541bbcd677cdaaad65d8a418fe4233e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export reg_delete</definition>
+        <argsstring>(const char *name, const char *subkey=NULL)</argsstring>
+        <name>reg_delete</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subkey</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delete a value from the registry. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subkey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>parent key </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="72" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1a3512ef892e9cdba3a2222b6f8b4b44b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export reg_subkey_exists</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>reg_subkey_exists</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Is there already a key with the given name? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="77" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1ae4c55e98399179137e2f6980316f1c2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export reg_exists</definition>
+        <argsstring>(const char *name, const char *subkey=NULL)</argsstring>
+        <name>reg_exists</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subkey</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is there already a value with the given name? <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subkey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>parent key </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="84" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1a2c46e7812aee45ecb05b39a990b98799" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export reg_subkey_children</definition>
+        <argsstring>(qstrvec_t *out, const char *name, bool subkeys)</argsstring>
+        <name>reg_subkey_children</name>
+        <param>
+          <type><ref refid="pro_8h_1a823b67c620f6cdca97e1d969ea4a9b02" kindref="member">qstrvec_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>subkeys</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieve the child names of the given key. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>result </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>key name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subkeys</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if true, collect subkey names. if false, collect value names. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>false if the given key does not exist </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="93" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1a07b544335fa5bbb07aea70cff052c9d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export reg_data_type</definition>
+        <argsstring>(regval_type_t *out, const char *name, const char *subkey=NULL)</argsstring>
+        <name>reg_data_type</name>
+        <param>
+          <type><ref refid="registry_8hpp_1a68552d86f5bb5687eb2828179ac0a3a7" kindref="member">regval_type_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subkey</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get data type of a given value. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>result </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subkey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>key name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>false if the [key+]value doesn&apos;t exist </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="102" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1ab26f923fc90933791e0d2dcc036b5b33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export reg_read_strlist</definition>
+        <argsstring>(qstrvec_t *list, const char *subkey)</argsstring>
+        <name>reg_read_strlist</name>
+        <param>
+          <type><ref refid="pro_8h_1a823b67c620f6cdca97e1d969ea4a9b02" kindref="member">qstrvec_t</ref> *</type>
+          <declname>list</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subkey</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieve all string values associated with the given key. Also see <ref refid="registry_8hpp_1af7aedb0676a33690f457fc2461b31b0b" kindref="member">reg_update_strlist()</ref>. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="108" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1af7aedb0676a33690f457fc2461b31b0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export reg_update_strlist</definition>
+        <argsstring>(const char *subkey, const char *add, size_t maxrecs, const char *rem=NULL, bool ignorecase=false)</argsstring>
+        <name>reg_update_strlist</name>
+        <param>
+          <type>const char *</type>
+          <declname>subkey</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>add</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>maxrecs</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>rem</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>ignorecase</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Update list of strings associated with given key. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>subkey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>key name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>add</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>string to be added to list, can be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>maxrecs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>limit list to this size </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>string to be removed from list, can be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ignorecase</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ignore case for &apos;add&apos; and &apos;rem&apos; </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="118" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1a7c7d268cb14f022f03c8c4c038277a74" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void reg_write_binary</definition>
+        <argsstring>(const char *name, const void *data, size_t datalen, const char *subkey=NULL)</argsstring>
+        <name>reg_write_binary</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>datalen</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subkey</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Write binary data to the registry. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>input, must not be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>datalen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>length of input in bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subkey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>key name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="132" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" bodystart="132" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1a36f4836f02c3bd7784e9b1732e6e9d44" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool reg_read_binary</definition>
+        <argsstring>(const char *name, void *data, size_t datalen, const char *subkey=NULL)</argsstring>
+        <name>reg_read_binary</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>datalen</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subkey</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read binary data from the registry. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>result, must not be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>datalen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>length of out buffer in bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subkey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>key name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>false if &apos;data&apos; is not large enough to hold all data present. in this case &apos;data&apos; is left untouched. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="150" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" bodystart="150" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1a6a8a191c9686b01560957b1b6176d9c1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool reg_read_binary_part</definition>
+        <argsstring>(const char *name, void *data, size_t datalen, const char *subkey=NULL)</argsstring>
+        <name>reg_read_binary_part</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>datalen</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subkey</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read a chunk of binary data from the registry. This function succeeds even in the case of a partial read. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>result, must not be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>datalen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>length of output buffer in bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subkey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>key name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="168" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" bodystart="168" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1ae92e94d3b37c93e656b14f7406ac342d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool reg_read_binary</definition>
+        <argsstring>(const char *name, bytevec_t *data, const char *subkey=NULL)</argsstring>
+        <name>reg_read_binary</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subkey</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read binary data from the registry. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output buffer, must not be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subkey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>key name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="184" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" bodystart="184" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1ad944cdb25ec7671d8f49bfb109fea365" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void reg_write_string</definition>
+        <argsstring>(const char *name, const char *utf8, const char *subkey=NULL)</argsstring>
+        <name>reg_write_string</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>utf8</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subkey</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Write a string to the registry. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>utf8</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>utf8-encoded string </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subkey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>key name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="198" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" bodystart="198" bodyend="204"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1ab2471727630146def7e7109c1f69d83b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool reg_read_string</definition>
+        <argsstring>(qstring *utf8, const char *name, const char *subkey=NULL)</argsstring>
+        <name>reg_read_string</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>utf8</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subkey</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read a string from the registry. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">utf8</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subkey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>key name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="213" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" bodystart="213" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1a2c16ccf813a947462fe8ba1154af2afc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int reg_read_int</definition>
+        <argsstring>(const char *name, int defval, const char *subkey=NULL)</argsstring>
+        <name>reg_read_int</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>defval</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subkey</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read integer value from the registry. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>defval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>default value </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subkey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>key name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the value read from the registry, or &apos;defval&apos; if the read failed </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="228" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" bodystart="228" bodyend="231"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1a2f57d98228223520bb2cc0666da199db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void reg_write_int</definition>
+        <argsstring>(const char *name, int value, const char *subkey=NULL)</argsstring>
+        <name>reg_write_int</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subkey</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Write integer value to the registry. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value to write </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subkey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>key name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="239" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" bodystart="239" bodyend="242"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1acd7c06c769814e53840443773d07b2e1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool reg_read_bool</definition>
+        <argsstring>(const char *name, bool defval, const char *subkey=NULL)</argsstring>
+        <name>reg_read_bool</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>defval</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subkey</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read boolean value from the registry. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>defval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>default value </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subkey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>key name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>boolean read from registry, or &apos;defval&apos; if the read failed </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="251" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" bodystart="251" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1a418318d82f125f116a10723d67a1200b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void reg_write_bool</definition>
+        <argsstring>(const char *name, int value, const char *subkey=NULL)</argsstring>
+        <name>reg_write_bool</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subkey</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Write boolean value to the registry. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>boolean to write (nonzero = true) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subkey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>key name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="262" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" bodystart="262" bodyend="265"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1a9f194c17e8869e34f7637d9d2e63c5e6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool reg_subkey_subkeys</definition>
+        <argsstring>(qstrvec_t *out, const char *name)</argsstring>
+        <name>reg_subkey_subkeys</name>
+        <param>
+          <type><ref refid="pro_8h_1a823b67c620f6cdca97e1d969ea4a9b02" kindref="member">qstrvec_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Get all subkey names of given key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="270" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" bodystart="270" bodyend="273"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1a78e0c51eaf127e9e635d3312f9038a42" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool reg_subkey_values</definition>
+        <argsstring>(qstrvec_t *out, const char *name)</argsstring>
+        <name>reg_subkey_values</name>
+        <param>
+          <type><ref refid="pro_8h_1a823b67c620f6cdca97e1d969ea4a9b02" kindref="member">qstrvec_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Get all value names under given key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="278" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" bodystart="278" bodyend="281"/>
+      </memberdef>
+      <memberdef kind="function" id="registry_8hpp_1af7b9f602a9aa556acf53e2e42d0778a7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void reg_update_filestrlist</definition>
+        <argsstring>(const char *subkey, const char *add, size_t maxrecs, const char *rem=NULL)</argsstring>
+        <name>reg_update_filestrlist</name>
+        <param>
+          <type>const char *</type>
+          <declname>subkey</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>add</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>maxrecs</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>rem</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Update registry with a file list. Case sensitivity will vary depending on the target OS. <simplesect kind="note"><para>&apos;add&apos; and &apos;rem&apos; must be UTF-8, just like for regular string operations. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" line="288" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp" bodystart="288" bodyend="302"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Registry related functions. </para>    </briefdescription>
+    <detaileddescription>
+<para>IDA uses the registry to store global configuration options that must persist after IDA has been closed.</para><para>On Windows, IDA uses the Windows registry directly. On Unix systems, the registry is stored in a file (typically ~/.idapro/ida.reg).</para><para>The root key for accessing IDA settings in the registry is defined by <ref refid="registry_8hpp_1a3193bb469453169d7eac8f304fab748c" kindref="member">ROOT_KEY_NAME</ref>. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/registry.hpp"/>
+  </compounddef>
+</doxygen>

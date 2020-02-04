@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structaddon__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>addon_info_t</compoundname>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structaddon__info__t_1a6e948e0a7c88f0dbff5c21de9e0e25ad" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t addon_info_t::cb</definition>
+        <argsstring></argsstring>
+        <name>cb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6595" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6595" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaddon__info__t_1a375d1c444c69943e7e7308974239fa20" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* addon_info_t::id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6596" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6596" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaddon__info__t_1a3415150cb111ca2438745d30abdb10b8" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* addon_info_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6597" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6597" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaddon__info__t_1aae81136df6b8685daf7cc097b408be32" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* addon_info_t::producer</definition>
+        <argsstring></argsstring>
+        <name>producer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6598" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6598" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaddon__info__t_1adea774fcb444948bb500b3afb3c03596" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* addon_info_t::version</definition>
+        <argsstring></argsstring>
+        <name>version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6599" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6599" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaddon__info__t_1aa6223babc4963e7a5e10f0cb0c6b9e25" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* addon_info_t::url</definition>
+        <argsstring></argsstring>
+        <name>url</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6600" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6600" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaddon__info__t_1ada3c9c364beb3dc580de672d241c1025" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* addon_info_t::freeform</definition>
+        <argsstring></argsstring>
+        <name>freeform</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6601" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6601" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaddon__info__t_1afd535186f48a71d87a050717756eb60e" prot="public" static="no" mutable="no">
+        <type>const void *</type>
+        <definition>const void* addon_info_t::custom_data</definition>
+        <argsstring></argsstring>
+        <name>custom_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6602" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6602" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaddon__info__t_1a70daa0d16b3184d852f3e483668d632b" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t addon_info_t::custom_size</definition>
+        <argsstring></argsstring>
+        <name>custom_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6603" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6603" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structaddon__info__t_1a2fae70327cd45eba98f8887228bc9f2e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>addon_info_t::addon_info_t</definition>
+        <argsstring>()</argsstring>
+        <name>addon_info_t</name>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6606" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6606" bodyend="6606"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Information about an installed add-on (e.g. a plugin) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6594" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6593" bodyend="6607"/>
+    <listofallmembers>
+      <member refid="structaddon__info__t_1a2fae70327cd45eba98f8887228bc9f2e" prot="public" virt="non-virtual"><scope>addon_info_t</scope><name>addon_info_t</name></member>
+      <member refid="structaddon__info__t_1a6e948e0a7c88f0dbff5c21de9e0e25ad" prot="public" virt="non-virtual"><scope>addon_info_t</scope><name>cb</name></member>
+      <member refid="structaddon__info__t_1afd535186f48a71d87a050717756eb60e" prot="public" virt="non-virtual"><scope>addon_info_t</scope><name>custom_data</name></member>
+      <member refid="structaddon__info__t_1a70daa0d16b3184d852f3e483668d632b" prot="public" virt="non-virtual"><scope>addon_info_t</scope><name>custom_size</name></member>
+      <member refid="structaddon__info__t_1ada3c9c364beb3dc580de672d241c1025" prot="public" virt="non-virtual"><scope>addon_info_t</scope><name>freeform</name></member>
+      <member refid="structaddon__info__t_1a375d1c444c69943e7e7308974239fa20" prot="public" virt="non-virtual"><scope>addon_info_t</scope><name>id</name></member>
+      <member refid="structaddon__info__t_1a3415150cb111ca2438745d30abdb10b8" prot="public" virt="non-virtual"><scope>addon_info_t</scope><name>name</name></member>
+      <member refid="structaddon__info__t_1aae81136df6b8685daf7cc097b408be32" prot="public" virt="non-virtual"><scope>addon_info_t</scope><name>producer</name></member>
+      <member refid="structaddon__info__t_1aa6223babc4963e7a5e10f0cb0c6b9e25" prot="public" virt="non-virtual"><scope>addon_info_t</scope><name>url</name></member>
+      <member refid="structaddon__info__t_1adea774fcb444948bb500b3afb3c03596" prot="public" virt="non-virtual"><scope>addon_info_t</scope><name>version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

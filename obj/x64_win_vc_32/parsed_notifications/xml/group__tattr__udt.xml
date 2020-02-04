@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__tattr__udt" kind="group">
+    <compoundname>tattr_udt</compoundname>
+    <title>Type attributes for udts</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__tattr__udt_1ga81ae2c2bf042458d4fc491cfd36a1911" prot="public" static="no">
+        <name>TAUDT_UNALIGNED</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+<para>struct: unaligned struct </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="464" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="464" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__tattr__udt_1ga83281db9fdbee27bcda12845c5e4a864" prot="public" static="no">
+        <name>TAUDT_MSSTRUCT</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>struct: gcc msstruct attribute </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="465" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="465" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__tattr__udt_1gab368afc5cc062fe59b4c983d1b630dbd" prot="public" static="no">
+        <name>TAUDT_CPPOBJ</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para>struct: a c++ object, not simple pod type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="466" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="466" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__tattr__udt_1ga7472d4a2330849f0f77a3dbd4fafa895" prot="public" static="no">
+        <name>TAUDT_VFTABLE</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+<para>struct: is virtual function table </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="467" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="467" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

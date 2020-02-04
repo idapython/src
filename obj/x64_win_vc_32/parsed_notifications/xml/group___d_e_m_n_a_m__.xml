@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___d_e_m_n_a_m__" kind="group">
+    <compoundname>DEMNAM_</compoundname>
+    <title>Demangled name flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___d_e_m_n_a_m___1ga035a90e9aab463f3ceb1ce691adee892" prot="public" static="no">
+        <name>DEMNAM_MASK</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>mask for name form </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="338" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="338" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_m_n_a_m___1gad614ddb0b0c959606ba217a379800389" prot="public" static="no">
+        <name>DEMNAM_CMNT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>display demangled names as comments </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="339" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="339" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_m_n_a_m___1ga7663902303b71c8ed54d2b28b4dd7abe" prot="public" static="no">
+        <name>DEMNAM_NAME</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>display demangled names as regular names </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="340" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="340" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_m_n_a_m___1ga10d7c6e93107c6827ba65fc988d2951f" prot="public" static="no">
+        <name>DEMNAM_NONE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>don&apos;t display demangled names </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="341" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="341" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_m_n_a_m___1ga311462b3d0605e7496c720126c819666" prot="public" static="no">
+        <name>DEMNAM_GCC3</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>assume gcc3 names (valid for gnu compiler) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="342" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="342" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_m_n_a_m___1gafa559d2e8801f6abcfead53e4d210c74" prot="public" static="no">
+        <name>DEMNAM_FIRST</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>override type info </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" line="343" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida.hpp" bodystart="343" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>used by <ref refid="structidainfo_1ad2b89cb23a66b38f7c3b7e68b74cd732" kindref="member">idainfo::demnames</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

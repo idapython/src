@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structregex__cache__t" kind="struct" language="C++" prot="public">
+    <compoundname>regex_cache_t</compoundname>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="structregex__cache__t_1a27a314e4f7043446c8dbe4b46da0a379" prot="private" static="no">
+        <type>std::map&lt; <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref>, <ref refid="classqrefcnt__t" kindref="compound">regex_ptr_t</ref> &gt;</type>
+        <definition>typedef std::map&lt;qstring,regex_ptr_t&gt; regex_cache_t::regex_cache_map_t</definition>
+        <argsstring></argsstring>
+        <name>regex_cache_map_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/regex.h" line="225" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/regex.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="structregex__cache__t_1a81d2b5d499080f5551d4c95ed3388fce" prot="private" static="no" mutable="no">
+        <type>regex_cache_map_t</type>
+        <definition>regex_cache_map_t regex_cache_t::cache</definition>
+        <argsstring></argsstring>
+        <name>cache</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/regex.h" line="226" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/regex.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structregex__cache__t_1a16feb9c71557e848b8d25d3ed7a4905b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classqrefcnt__t" kindref="compound">regex_ptr_t</ref> &amp;</type>
+        <definition>regex_ptr_t&amp; regex_cache_t::find_or_create</definition>
+        <argsstring>(const qstring &amp;str)</argsstring>
+        <name>find_or_create</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> &amp;</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/regex.h" line="210" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/regex.h" bodystart="210" bodyend="222"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/regex.h" line="209" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/regex.h" bodystart="208" bodyend="227"/>
+    <listofallmembers>
+      <member refid="structregex__cache__t_1a81d2b5d499080f5551d4c95ed3388fce" prot="private" virt="non-virtual"><scope>regex_cache_t</scope><name>cache</name></member>
+      <member refid="structregex__cache__t_1a16feb9c71557e848b8d25d3ed7a4905b" prot="public" virt="non-virtual"><scope>regex_cache_t</scope><name>find_or_create</name></member>
+      <member refid="structregex__cache__t_1a27a314e4f7043446c8dbe4b46da0a379" prot="private" virt="non-virtual"><scope>regex_cache_t</scope><name>regex_cache_map_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structarray__type__data__t" kind="struct" language="C++" prot="public">
+    <compoundname>array_type_data_t</compoundname>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structarray__type__data__t_1abac196f1122e0ada59a252ade8b5e5f1" prot="public" static="no" mutable="no">
+        <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref></type>
+        <definition>tinfo_t array_type_data_t::elem_type</definition>
+        <argsstring></argsstring>
+        <name>elem_type</name>
+        <briefdescription>
+<para>element type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3197" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structarray__type__data__t_1af621cfe1c1cf1b92b56dd4273d8ba700" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 array_type_data_t::base</definition>
+        <argsstring></argsstring>
+        <name>base</name>
+        <briefdescription>
+<para>array base </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3198" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structarray__type__data__t_1a74c1804bbf0108658471b7ebe2062f1f" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 array_type_data_t::nelems</definition>
+        <argsstring></argsstring>
+        <name>nelems</name>
+        <briefdescription>
+<para>number of elements </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3199" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3199" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structarray__type__data__t_1ac7ba8955125f5070619c2d3efa295e31" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>array_type_data_t::array_type_data_t</definition>
+        <argsstring>(size_t b=0, size_t n=0)</argsstring>
+        <name>array_type_data_t</name>
+        <param>
+          <type>size_t</type>
+          <declname>b</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3200" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structarray__type__data__t_1a2105efe0902f587ca7dcd9fc7eb60de4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void array_type_data_t::swap</definition>
+        <argsstring>(array_type_data_t &amp;r)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="structarray__type__data__t" kindref="compound">array_type_data_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>set this = r and r = this </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3202" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3202" bodyend="3200"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Array type information (see <ref refid="classtinfo__t_1a0a918da4bbf7aec65717812fdf697609" kindref="member">tinfo_t::get_array_details()</ref>) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="61">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="60">
+        <label>array_type_data_t</label>
+        <link refid="structarray__type__data__t"/>
+        <childnode refid="61" relation="usage">
+          <edgelabel>elem_type</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3196" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3195" bodyend="3203"/>
+    <listofallmembers>
+      <member refid="structarray__type__data__t_1ac7ba8955125f5070619c2d3efa295e31" prot="public" virt="non-virtual"><scope>array_type_data_t</scope><name>array_type_data_t</name></member>
+      <member refid="structarray__type__data__t_1af621cfe1c1cf1b92b56dd4273d8ba700" prot="public" virt="non-virtual"><scope>array_type_data_t</scope><name>base</name></member>
+      <member refid="structarray__type__data__t_1abac196f1122e0ada59a252ade8b5e5f1" prot="public" virt="non-virtual"><scope>array_type_data_t</scope><name>elem_type</name></member>
+      <member refid="structarray__type__data__t_1a74c1804bbf0108658471b7ebe2062f1f" prot="public" virt="non-virtual"><scope>array_type_data_t</scope><name>nelems</name></member>
+      <member refid="structarray__type__data__t_1a2105efe0902f587ca7dcd9fc7eb60de4" prot="public" virt="non-virtual"><scope>array_type_data_t</scope><name>swap</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

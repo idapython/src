@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__tf__unk" kind="group">
+    <compoundname>tf_unk</compoundname>
+    <title>Basic type: unknown &amp; void</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__tf__unk_1ga9c2f460ca1ce121f26cf35a2fd56435c" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BT_UNK</definition>
+        <argsstring></argsstring>
+        <name>BT_UNK</name>
+        <initializer>= 0x00</initializer>
+        <briefdescription>
+<para>unknown </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="72" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__unk_1gaf99e9832d21e1b090117fc2feab1c2b5" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BT_VOID</definition>
+        <argsstring></argsstring>
+        <name>BT_VOID</name>
+        <initializer>= 0x01</initializer>
+        <briefdescription>
+<para>void </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="73" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__unk_1gae57d28bf34d646a18be655f3a3e75cad" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BTMT_SIZE0</definition>
+        <argsstring></argsstring>
+        <name>BTMT_SIZE0</name>
+        <initializer>= 0x00</initializer>
+        <briefdescription>
+<para><ref refid="group__tf__unk_1gaf99e9832d21e1b090117fc2feab1c2b5" kindref="member">BT_VOID</ref> - normal void; <ref refid="group__tf__unk_1ga9c2f460ca1ce121f26cf35a2fd56435c" kindref="member">BT_UNK</ref> - don&apos;t use </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="74" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__unk_1ga90ce5c51a92ecb3d1b44ffc6d08a5e05" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BTMT_SIZE12</definition>
+        <argsstring></argsstring>
+        <name>BTMT_SIZE12</name>
+        <initializer>= 0x10</initializer>
+        <briefdescription>
+<para>size = 1 byte if <ref refid="group__tf__unk_1gaf99e9832d21e1b090117fc2feab1c2b5" kindref="member">BT_VOID</ref>; 2 if <ref refid="group__tf__unk_1ga9c2f460ca1ce121f26cf35a2fd56435c" kindref="member">BT_UNK</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="75" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__unk_1ga9ed1420856f2a445e0f0977f576d6bf5" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BTMT_SIZE48</definition>
+        <argsstring></argsstring>
+        <name>BTMT_SIZE48</name>
+        <initializer>= 0x20</initializer>
+        <briefdescription>
+<para>size = 4 bytes if <ref refid="group__tf__unk_1gaf99e9832d21e1b090117fc2feab1c2b5" kindref="member">BT_VOID</ref>; 8 if <ref refid="group__tf__unk_1ga9c2f460ca1ce121f26cf35a2fd56435c" kindref="member">BT_UNK</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="76" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__unk_1gae249f36ee88b26f66602b505aacb62d6" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BTMT_SIZE128</definition>
+        <argsstring></argsstring>
+        <name>BTMT_SIZE128</name>
+        <initializer>= 0x30</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>size = 16 bytes if <ref refid="group__tf__unk_1gaf99e9832d21e1b090117fc2feab1c2b5" kindref="member">BT_VOID</ref>; unknown if <ref refid="group__tf__unk_1ga9c2f460ca1ce121f26cf35a2fd56435c" kindref="member">BT_UNK</ref> (IN struct alignment - see below) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="77" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="group__tf__unk_1ga9c2f460ca1ce121f26cf35a2fd56435c" kindref="member">BT_UNK</ref> and <ref refid="group__tf__unk_1gaf99e9832d21e1b090117fc2feab1c2b5" kindref="member">BT_VOID</ref> with non-zero type flags can be used in function (and struct) declarations to describe the function arguments or structure fields if only their size is known. They may be used in ida to describe the user input.</para><para>For struct used also as &apos;single-field-alignment-suffix&apos; [__declspec(align(x))] with <ref refid="group__tf__mask_1gafba446d2cb3b761e1af374cd209a911e" kindref="member">TYPE_MODIF_MASK</ref> == <ref refid="group__tf__mask_1ga0546e0e6a47765f33245d7a9d6b175aa" kindref="member">TYPE_FULL_MASK</ref>. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

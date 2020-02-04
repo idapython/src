@@ -1,0 +1,2208 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classminsn__t" kind="class" language="C++" prot="public">
+    <compoundname>minsn_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classminsn__t_1af27d2876eed6feaad91598ab82abe79c" prot="public" static="no" mutable="no">
+        <type>mcode_t</type>
+        <definition>mcode_t minsn_t::opcode</definition>
+        <argsstring></argsstring>
+        <name>opcode</name>
+        <briefdescription>
+<para>instruction opcode </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3256" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classminsn__t_1af47f119f99e73a80a7a7b39d07421213" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int minsn_t::iprops</definition>
+        <argsstring></argsstring>
+        <name>iprops</name>
+        <briefdescription>
+<para>combination of <ref refid="group___i_p_r_o_p__" kindref="compound">instruction property bits</ref> bits </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3257" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classminsn__t_1a2a4508b9e94b0c0e06c410744a3d5f06" prot="public" static="no" mutable="no">
+        <type><ref refid="classminsn__t" kindref="compound">minsn_t</ref> *</type>
+        <definition>minsn_t* minsn_t::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+<para>next insn in doubly linked list. check also nexti() </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3258" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classminsn__t_1a19c49453da03fc8b5cccff14c777047c" prot="public" static="no" mutable="no">
+        <type><ref refid="classminsn__t" kindref="compound">minsn_t</ref> *</type>
+        <definition>minsn_t* minsn_t::prev</definition>
+        <argsstring></argsstring>
+        <name>prev</name>
+        <briefdescription>
+<para>prev insn in doubly linked list. check also previ() </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3259" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classminsn__t_1a6803fa80be93437f98a96c9135e9548e" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t minsn_t::ea</definition>
+        <argsstring></argsstring>
+        <name>ea</name>
+        <briefdescription>
+<para>instruction address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3260" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classminsn__t_1a85c705ab48745d910fa90decf9c7ead2" prot="public" static="no" mutable="no">
+        <type><ref refid="classmop__t" kindref="compound">mop_t</ref></type>
+        <definition>mop_t minsn_t::l</definition>
+        <argsstring></argsstring>
+        <name>l</name>
+        <briefdescription>
+<para>left operand </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3261" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classminsn__t_1a195cc82ba9ec09855af023978c9c30c9" prot="public" static="no" mutable="no">
+        <type><ref refid="classmop__t" kindref="compound">mop_t</ref></type>
+        <definition>mop_t minsn_t::r</definition>
+        <argsstring></argsstring>
+        <name>r</name>
+        <briefdescription>
+<para>right operand </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3262" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classminsn__t_1ab614b95ccd0105d80b42f5bc39d80fd6" prot="public" static="no" mutable="no">
+        <type><ref refid="classmop__t" kindref="compound">mop_t</ref></type>
+        <definition>mop_t minsn_t::d</definition>
+        <argsstring></argsstring>
+        <name>d</name>
+        <briefdescription>
+<para>destination operand </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3263" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3263" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classminsn__t_1ac4f90164e4a4a85c13f3b5c4dfa04a32" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void minsn_t::init</definition>
+        <argsstring>(ea_t _ea)</argsstring>
+        <name>init</name>
+        <param>
+          <type>ea_t</type>
+          <declname>_ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3253" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10119" bodyend="10122"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a3d62f21bc99595223f207b4185dcf045" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void minsn_t::copy</definition>
+        <argsstring>(const minsn_t &amp;m)</argsstring>
+        <name>copy</name>
+        <param>
+          <type>const <ref refid="classminsn__t" kindref="compound">minsn_t</ref> &amp;</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3254" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10125" bodyend="10128"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classminsn__t_1a0aeb7571ab1837c22fc56ee35107e106" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_optional</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_optional</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3303" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3303" bodyend="3303"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1ae8c152bef7382781f0a4a4fcf8c894e7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_combined</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_combined</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3304" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3304" bodyend="3304"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a4b09c15997ff5fcbbf49337797255acc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_farcall</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_farcall</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3305" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3305" bodyend="3305"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1ae6b4bee1d0f30c8890c28cfddde4b197" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_cleaning_pop</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_cleaning_pop</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3306" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3306" bodyend="3306"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a84f835ba2ba030797587d3a2748f48a3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_extstx</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_extstx</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3307" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3307" bodyend="3307"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a888ebcc62f62dc60e7c471013c12a7d1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_tailcall</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_tailcall</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3308" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3308" bodyend="3308"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a3e36d4007726b9e025d59ccccde7976a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_fpinsn</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_fpinsn</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3309" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3309" bodyend="3309"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a26de1bc5d73dc60919d64d9ac4e9c65e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_assert</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_assert</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3310" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3310" bodyend="3310"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1ae8cd731df75e8870d2a6091114c274a7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_persistent</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_persistent</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3311" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3311" bodyend="3311"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1ac6af40088b07f5fc1ec724065b055802" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_wild_match</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_wild_match</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3312" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3312" bodyend="3312"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1ad49349555d484593fedc23ab74bde853" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_propagatable</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_propagatable</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3313" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3313" bodyend="3313"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a85570b6384e0e54b239e694490b40899" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_ignlowsrc</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_ignlowsrc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3314" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3314" bodyend="3314"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a4e54fc5de9547636b8d2759423b01489" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_inverted_jx</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_inverted_jx</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3315" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3315" bodyend="3315"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a8790e6cfc2deea9b71fc55e0f61b3d4f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::was_noret_icall</definition>
+        <argsstring>(void) const</argsstring>
+        <name>was_noret_icall</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3316" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3316" bodyend="3316"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1ac4d4162ee9d35c7525ac2674a0028e44" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_multimov</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_multimov</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3317" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3317" bodyend="3317"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a137cdf25f5b72eef0931faf5ce560ee3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_combinable</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_combinable</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3318" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3318" bodyend="3318"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1acd3d0e77fa12aaa55517d24c7e3e236c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::was_split</definition>
+        <argsstring>(void) const</argsstring>
+        <name>was_split</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3319" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3319" bodyend="3319"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a37eb5562b484eb04769f8f27faaf6448" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::set_optional</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_optional</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3321" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3321" bodyend="3321"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1aa2390e11bc63e8ae411ede0ffd1e1193" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::set_combined</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_combined</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3322" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1aefa112849738e63f0b47742052e0c6a9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::clr_combined</definition>
+        <argsstring>(void)</argsstring>
+        <name>clr_combined</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3323" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3323" bodyend="3323"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1adfba8d81c319be355a7fd47dc7714f45" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::set_farcall</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_farcall</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3324" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3324" bodyend="3324"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a592fec0ac62d2e090c451a9888a902b2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::set_cleaning_pop</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_cleaning_pop</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3325" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3325" bodyend="3325"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1aff8e206e54d2ba53c2a028a769203350" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::set_extstx</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_extstx</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3326" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3326" bodyend="3326"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a493eacebb3a78babf1412aac5c72c6e3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::set_tailcall</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_tailcall</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3327" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3327" bodyend="3327"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a23aea8b2a766b5e9a4106cb1780c966a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::clr_tailcall</definition>
+        <argsstring>(void)</argsstring>
+        <name>clr_tailcall</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3328" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3328" bodyend="3328"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1aec533aa7d53f21cb622c5c79c5011828" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::set_fpinsn</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_fpinsn</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3329" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3329" bodyend="3329"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a37fe0d03984b8ad0df06dd93d4963c5a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::clr_fpinsn</definition>
+        <argsstring>(void)</argsstring>
+        <name>clr_fpinsn</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3330" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3330" bodyend="3330"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a5408f6afa21b497205223375a0dcedf6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::set_assert</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_assert</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3331" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3331" bodyend="3331"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a1f85ef7d8ebaee2da4b3267432abf14f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::clr_assert</definition>
+        <argsstring>(void)</argsstring>
+        <name>clr_assert</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3332" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3332" bodyend="3332"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a44557308583e911e894b0285c56c4c0f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::set_persistent</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_persistent</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3333" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3333" bodyend="3333"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1afbc68be32e31a7ddeec97d418ce7aee1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::set_wild_match</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_wild_match</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3334" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3334" bodyend="3334"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a801d74d16b7246a7c81fd174d59e19e0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::clr_propagatable</definition>
+        <argsstring>(void)</argsstring>
+        <name>clr_propagatable</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3335" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3335" bodyend="3335"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a0146526313fb7af67f0c33cc7a8cdd0c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::set_ignlowsrc</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_ignlowsrc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3336" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3336" bodyend="3336"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1aa6d72af0a476d4740ce03cd71e64a64d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::clr_ignlowsrc</definition>
+        <argsstring>(void)</argsstring>
+        <name>clr_ignlowsrc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3337" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3337" bodyend="3337"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a8fb06ee0026583543b0065a4094d3959" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::set_inverted_jx</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_inverted_jx</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3338" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3338" bodyend="3338"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1aab89b0cc7b3e6cb29c723643bd613f07" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::set_noret_icall</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_noret_icall</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3339" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3339" bodyend="3339"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a24eaa852c16e232f4710a0d1e97ff18f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::clr_noret_icall</definition>
+        <argsstring>(void)</argsstring>
+        <name>clr_noret_icall</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3340" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3340" bodyend="3340"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1aacbd11208dcf3b44f35adfda01166023" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::set_multimov</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_multimov</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3341" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3341" bodyend="3341"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1aaa33386c55191c2dc194d12141fe82e2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::clr_multimov</definition>
+        <argsstring>(void)</argsstring>
+        <name>clr_multimov</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3342" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3342" bodyend="3342"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1ab974971e8d569731edc69bcdba35a232" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::set_combinable</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_combinable</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3343" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3343" bodyend="3343"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a5a06a670fca6835b78a7dd480501a3d8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::clr_combinable</definition>
+        <argsstring>(void)</argsstring>
+        <name>clr_combinable</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3344" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3344" bodyend="3344"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a1dcceb52ff5064f2b76bfa9e6509cb5b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void minsn_t::set_split_size</definition>
+        <argsstring>(int s)</argsstring>
+        <name>set_split_size</name>
+        <param>
+          <type>int</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3345" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3345" bodyend="3352"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1af89d6c3ff1e69ea998347898d69c3597" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int minsn_t::get_split_size</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_split_size</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3353" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3353" bodyend="3357"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a858dd6918bac2264b3db1a16fb47cb0a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>minsn_t::minsn_t</definition>
+        <argsstring>(ea_t _ea)</argsstring>
+        <name>minsn_t</name>
+        <param>
+          <type>ea_t</type>
+          <declname>_ea</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3360" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3360" bodyend="3360"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1aaf620282abd5fd954548f5266d503757" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>minsn_t::minsn_t</definition>
+        <argsstring>(const minsn_t &amp;m)</argsstring>
+        <name>minsn_t</name>
+        <param>
+          <type>const <ref refid="classminsn__t" kindref="compound">minsn_t</ref> &amp;</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3361" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3361" bodyend="3361"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1ada673bc2bf77c5add24965e8ee21f0e0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classminsn__t" kindref="compound">minsn_t</ref> &amp;</type>
+        <definition>minsn_t&amp; minsn_t::operator=</definition>
+        <argsstring>(const minsn_t &amp;m)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="classminsn__t" kindref="compound">minsn_t</ref> &amp;</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>Assignment operator. It does not copy prev/next fields. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3365" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3365" bodyend="3365"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1ab3e7a4a9052a7d336333739a0d929b99" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void minsn_t::swap</definition>
+        <argsstring>(minsn_t &amp;m)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="classminsn__t" kindref="compound">minsn_t</ref> &amp;</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Swap two instructions. The prev/next fields are not modified by this function because it would corrupt the doubly linked list. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3370" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10131" bodyend="10134"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a6c442ea9a6f6866fff5b86123871f751" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void minsn_t::print</definition>
+        <argsstring>(qstring *vout, int shins_flags=SHINS_SHORT|SHINS_VALNUM) const</argsstring>
+        <name>print</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>vout</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>shins_flags</declname>
+          <defval><ref refid="group___s_h_i_n_s___1gaceb2cb41ad1c22fcbe9d6d3caff51193" kindref="member">SHINS_SHORT</ref>|<ref refid="group___s_h_i_n_s___1ga699be2c17dc5ee9b5a55edb8851d6825" kindref="member">SHINS_VALNUM</ref></defval>
+        </param>
+        <briefdescription>
+<para>Generate insn text into the buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3373" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10137" bodyend="10140"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a78163a4ba19e399dec6682a58ce0d75b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *hexapi</type>
+        <definition>const char * minsn_t::dstr</definition>
+        <argsstring>(void) const</argsstring>
+        <name>dstr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get displayable text without tags in a static buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3376" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10143" bodyend="10146"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a658ee2c4325631cd8bc865be316de103" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void minsn_t::setaddr</definition>
+        <argsstring>(ea_t new_ea)</argsstring>
+        <name>setaddr</name>
+        <param>
+          <type>ea_t</type>
+          <declname>new_ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Change the instruction address. This function modifies subinstructions as well. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3380" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10149" bodyend="10152"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a87275bb3a5d240b5dbc8066ff0713886" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int minsn_t::optimize_solo</definition>
+        <argsstring>(int optflags=0)</argsstring>
+        <name>optimize_solo</name>
+        <param>
+          <type>int</type>
+          <declname>optflags</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Optimize one instruction without context. This function does not have access to the instruction context (the previous and next instructions in the list, the block number, etc). It performs only basic optimizations that are available without this info. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>optflags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>combination of <ref refid="group___o_p_t_i__" kindref="compound">optimization flags</ref> bits </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>number of changes, 0-unchanged See also <ref refid="classmblock__t_1a3a4f92154a64e00299acc9dbd611affa" kindref="member">mblock_t::optimize_insn()</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3389" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3389" bodyend="3389"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a19e597ade03ce705d8c9d5c22d39b56b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int hexapi</type>
+        <definition>int minsn_t::optimize_subtree</definition>
+        <argsstring>(mblock_t *blk, minsn_t *top, minsn_t *parent, minsn_t **converted_call, int optflags=OPTI_MINSTKREF)</argsstring>
+        <name>optimize_subtree</name>
+        <param>
+          <type><ref refid="classmblock__t" kindref="compound">mblock_t</ref> *</type>
+          <declname>blk</declname>
+        </param>
+        <param>
+          <type><ref refid="classminsn__t" kindref="compound">minsn_t</ref> *</type>
+          <declname>top</declname>
+        </param>
+        <param>
+          <type><ref refid="classminsn__t" kindref="compound">minsn_t</ref> *</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type><ref refid="classminsn__t" kindref="compound">minsn_t</ref> **</type>
+          <declname>converted_call</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>optflags</declname>
+          <defval><ref refid="group___o_p_t_i___1gaaf4d77e28c2c47799ae30d7822ea62b0" kindref="member">OPTI_MINSTKREF</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Optimize instruction in its context. Do not use this function, use mblock_t::optimize() </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3399" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10155" bodyend="10158"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1aa5b2e1b086f05fc57b2d95f89e848772" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int hexapi</type>
+        <definition>int minsn_t::for_all_ops</definition>
+        <argsstring>(mop_visitor_t &amp;mv)</argsstring>
+        <name>for_all_ops</name>
+        <param>
+          <type><ref refid="structmop__visitor__t" kindref="compound">mop_visitor_t</ref> &amp;</type>
+          <declname>mv</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Visit all instruction operands. This function visits subinstruction operands as well. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>operand visitor </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>non-zero value returned by mv.visit_mop() or zero </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3410" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10161" bodyend="10164"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a2e583ea8e64294c29cf56907f535b6be" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int hexapi</type>
+        <definition>int minsn_t::for_all_insns</definition>
+        <argsstring>(minsn_visitor_t &amp;mv)</argsstring>
+        <name>for_all_insns</name>
+        <param>
+          <type><ref refid="structminsn__visitor__t" kindref="compound">minsn_visitor_t</ref> &amp;</type>
+          <declname>mv</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Visit all instructions. This function visits the instruction itself and all its subinstructions. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>instruction visitor </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>non-zero value returned by mv.visit_mop() or zero </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3416" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10167" bodyend="10170"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a5ddbc22c7d2821b1fb907d610a66b648" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void minsn_t::_make_nop</definition>
+        <argsstring>(void)</argsstring>
+        <name>_make_nop</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Convert instruction to nop. This function erases all info but the prev/next fields. In most cases it is better to use <ref refid="classmblock__t_1adeefb92c2299bc8ea460b06e800edad3" kindref="member">mblock_t::make_nop()</ref>, which also marks the block lists as dirty. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3422" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10173" bodyend="10176"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1abf10d940e5d417abb0f14db0574f5afb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool minsn_t::equal_insns</definition>
+        <argsstring>(const minsn_t &amp;m, int eqflags) const</argsstring>
+        <name>equal_insns</name>
+        <param>
+          <type>const <ref refid="classminsn__t" kindref="compound">minsn_t</ref> &amp;</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>eqflags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare instructions. This is the main comparison function for instructions. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>instruction to compare with </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>eqflags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>combination of <ref refid="group___e_q__" kindref="compound">comparison bits</ref> bits </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3428" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10179" bodyend="10182"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a0dceab8d1aea6c797aaa1f247db87bfe" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::operator&lt;</definition>
+        <argsstring>(const minsn_t &amp;ri) const</argsstring>
+        <name>operator&lt;</name>
+        <param>
+          <type>const <ref refid="classminsn__t" kindref="compound">minsn_t</ref> &amp;</type>
+          <declname>ri</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Lexographical comparison It can be used to store <ref refid="classminsn__t" kindref="compound">minsn_t</ref> in various containers, like std::set </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3439" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3439" bodyend="3439"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a2c2731ee3a333b1f83dad69ad88d9424" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int hexapi</type>
+        <definition>int minsn_t::lexcompare</definition>
+        <argsstring>(const minsn_t &amp;ri) const</argsstring>
+        <name>lexcompare</name>
+        <param>
+          <type>const <ref refid="classminsn__t" kindref="compound">minsn_t</ref> &amp;</type>
+          <declname>ri</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3440" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10185" bodyend="10188"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a0bd0cecd163603864681df522bed444c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool minsn_t::is_noret_call</definition>
+        <argsstring>(bool ignore_noret_icall=false)</argsstring>
+        <name>is_noret_call</name>
+        <param>
+          <type>bool</type>
+          <declname>ignore_noret_icall</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is a non-returing call? <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ignore_noret_icall</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if set, indirect calls to noret functions will return false </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3448" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10191" bodyend="10194"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1ad09f646901bca1eb4856bb5a3f3de7c9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_unknown_call</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_unknown_call</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is an unknown call? Unknown calls are resolved by <ref refid="classmbl__array__t_1ab05b56ca10ab3de2c4abd23f95ebf1fb" kindref="member">mbl_array_t::analyze_calls()</ref> They exist until the MMAT_CALLS maturity level. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3453" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3453" bodyend="3453"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1ae9ec8fa7098dc3878cba2bb362f3ce79" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool minsn_t::is_helper</definition>
+        <argsstring>(const char *name) const</argsstring>
+        <name>is_helper</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is a helper call with the specified name? Helper calls usually have well-known function names (see <ref refid="group___f_u_n_c___n_a_m_e__" kindref="compound">Well known function names</ref>) but they may have any other name. The decompiler does not assume any special meaning for non-well-known names. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3459" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10197" bodyend="10200"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1abbbe59f9cc04f42aa1a0f3bf9307522a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classminsn__t" kindref="compound">minsn_t</ref> *hexapi</type>
+        <definition>minsn_t * minsn_t::find_call</definition>
+        <argsstring>(bool with_helpers=false) const</argsstring>
+        <name>find_call</name>
+        <param>
+          <type>bool</type>
+          <declname>with_helpers</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find a call instruction. Check for the current instruction and its subinstructions. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>with_helpers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>consider helper calls as well? </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3464" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10203" bodyend="10206"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a2d9faa1564fb2a0632e70e6ee0c1201b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::contains_call</definition>
+        <argsstring>(bool with_helpers=false) const</argsstring>
+        <name>contains_call</name>
+        <param>
+          <type>bool</type>
+          <declname>with_helpers</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Does the instruction contain a call? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3467" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3467" bodyend="3467"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1afcd4ea4b5232650c85770f14c950b7bf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool minsn_t::has_side_effects</definition>
+        <argsstring>(bool include_ldx=false) const</argsstring>
+        <name>has_side_effects</name>
+        <param>
+          <type>bool</type>
+          <declname>include_ldx</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Does the instruction have a side effect? <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>include_ldx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>consider ldx as having side effects? stx is always considered as having side effects. Apart from ldx/std only call may have side effects. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3473" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10209" bodyend="10212"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a4be46396af59723cd74c8c1dfb2e22f3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>funcrole_t</type>
+        <definition>funcrole_t minsn_t::get_role</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_role</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get the function role of a call. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3476" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3476" bodyend="3476"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a080886e54b4a5576ad617ca99b8c4027" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_memcpy</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_memcpy</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3477" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3477" bodyend="3477"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a4d0d968bef18124931f6bb019c2d4e6d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_memset</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_memset</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3478" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3478" bodyend="3478"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1acd7513206be59716f2f8ef0428935669" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_alloca</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_alloca</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3479" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3479" bodyend="3479"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a5e80c8f00c2a3ed5375692558c3ea3df" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_bswap</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_bswap</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3480" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3480" bodyend="3480"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a59658d98b38d49f2720a41d38a0944a3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_readflags</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_readflags</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3481" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3481" bodyend="3481"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a287435140b53a113af5e6b566c4ce12c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::contains_opcode</definition>
+        <argsstring>(mcode_t mcode) const</argsstring>
+        <name>contains_opcode</name>
+        <param>
+          <type>mcode_t</type>
+          <declname>mcode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Does the instruction have the specified opcode? This function searches subinstructions as well. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mcode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>opcode to search for. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3489" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3489" bodyend="3489"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a1e6f217caa2efce74bbc98f545fc742a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classminsn__t" kindref="compound">minsn_t</ref> *</type>
+        <definition>const minsn_t* minsn_t::find_opcode</definition>
+        <argsstring>(mcode_t mcode) const</argsstring>
+        <name>find_opcode</name>
+        <param>
+          <type>mcode_t</type>
+          <declname>mcode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find a (sub)insruction with the specified opcode. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mcode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>opcode to search for. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3493" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3493" bodyend="3493"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a80edbd14db587bd935fdd05c7815cb85" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classminsn__t" kindref="compound">minsn_t</ref> *hexapi</type>
+        <definition>minsn_t * minsn_t::find_opcode</definition>
+        <argsstring>(mcode_t mcode)</argsstring>
+        <name>find_opcode</name>
+        <param>
+          <type>mcode_t</type>
+          <declname>mcode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3494" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10215" bodyend="10218"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a501aacbf5de40dedb70b46ea11731773" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classminsn__t" kindref="compound">minsn_t</ref> *hexapi</type>
+        <definition>const minsn_t * minsn_t::find_ins_op</definition>
+        <argsstring>(const mop_t **other, mcode_t op=m_nop) const</argsstring>
+        <name>find_ins_op</name>
+        <param>
+          <type>const <ref refid="classmop__t" kindref="compound">mop_t</ref> **</type>
+          <declname>other</declname>
+        </param>
+        <param>
+          <type>mcode_t</type>
+          <declname>op</declname>
+          <defval>m_nop</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find an operand that is a subinsruction with the specified opcode. This function checks only the &apos;l&apos; and &apos;r&apos; operands of the current insn. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">other</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the other operand (&amp;r if we return &amp;l and vice versa) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>op</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>opcode to search for </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>&amp;l or &amp;r or NULL </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3502" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10221" bodyend="10224"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a7bbe0478a5c84ab82cfe5adb286b8c02" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classminsn__t" kindref="compound">minsn_t</ref> *</type>
+        <definition>minsn_t* minsn_t::find_ins_op</definition>
+        <argsstring>(mop_t **other, mcode_t op=m_nop)</argsstring>
+        <name>find_ins_op</name>
+        <param>
+          <type><ref refid="classmop__t" kindref="compound">mop_t</ref> **</type>
+          <declname>other</declname>
+        </param>
+        <param>
+          <type>mcode_t</type>
+          <declname>op</declname>
+          <defval>m_nop</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3503" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3503" bodyend="3503"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a9d6e4c3121da18c0b66cf8c489b9f609" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classmop__t" kindref="compound">mop_t</ref> *hexapi</type>
+        <definition>const mop_t * minsn_t::find_num_op</definition>
+        <argsstring>(const mop_t **other) const</argsstring>
+        <name>find_num_op</name>
+        <param>
+          <type>const <ref refid="classmop__t" kindref="compound">mop_t</ref> **</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find a numeric operand of the current instruction. This function checks only the &apos;l&apos; and &apos;r&apos; operands of the current insn. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">other</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the other operand (&amp;r if we return &amp;l and vice versa) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>&amp;l or &amp;r or NULL </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3510" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10227" bodyend="10230"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1adfa5e5c3369e0cda9be8ae9b27fb7d61" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classmop__t" kindref="compound">mop_t</ref> *</type>
+        <definition>mop_t* minsn_t::find_num_op</definition>
+        <argsstring>(mop_t **other)</argsstring>
+        <name>find_num_op</name>
+        <param>
+          <type><ref refid="classmop__t" kindref="compound">mop_t</ref> **</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3511" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3511" bodyend="3511"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a3a6ec00680782ef5e00461892d4fb319" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_mov</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_mov</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3513" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3513" bodyend="3513"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a4ddde6f04d3c73a8bad02df85e5a19a0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_like_move</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_like_move</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3514" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3514" bodyend="3514"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1aa10c30c8c22a6c2c861986027ef18827" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool minsn_t::modifes_d</definition>
+        <argsstring>(void) const</argsstring>
+        <name>modifes_d</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Does the instruction modify its &apos;d&apos; operand? Some instructions (e.g. m_stx) do not modify the &apos;d&apos; operand. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3518" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10233" bodyend="10236"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1ade100898ca7f7d5128430186d70a02e0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::modifies_pair_mop</definition>
+        <argsstring>(void) const</argsstring>
+        <name>modifies_pair_mop</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3519" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3519" bodyend="3519"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a90f7dcb4e69dea78aebaeb2fe08dc1ac" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool minsn_t::is_between</definition>
+        <argsstring>(const minsn_t *m1, const minsn_t *m2) const</argsstring>
+        <name>is_between</name>
+        <param>
+          <type>const <ref refid="classminsn__t" kindref="compound">minsn_t</ref> *</type>
+          <declname>m1</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classminsn__t" kindref="compound">minsn_t</ref> *</type>
+          <declname>m2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is the instruction in the specified range of instructions? <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>m1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>beginning of the range in the doubly linked list </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>m2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>end of the range in the doubly linked list (excluded, may be NULL) This function assumes that m1 and m2 belong to the same basic block and they are top level instructions. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3526" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10239" bodyend="10242"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1ab1395e6d34b262965442b971c015d147" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool minsn_t::is_after</definition>
+        <argsstring>(const minsn_t *m) const</argsstring>
+        <name>is_after</name>
+        <param>
+          <type>const <ref refid="classminsn__t" kindref="compound">minsn_t</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is the instruction after the specified one? <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the instruction to compare against in the list </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3530" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3530" bodyend="3530"/>
+      </memberdef>
+      <memberdef kind="function" id="classminsn__t_1a40ab0a40ae8418fd26ad8d78d20cd72d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool minsn_t::may_use_aliased_memory</definition>
+        <argsstring>(void) const</argsstring>
+        <name>may_use_aliased_memory</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is it possible for the instruction to use aliased memory? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3533" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10245" bodyend="10248"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Microinstruction class #insn. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2303">
+        <label>ivl_tpl&lt; uval_t &gt;</label>
+        <link refid="structivl__tpl"/>
+      </node>
+      <node id="2297">
+        <label>bitset_t</label>
+        <link refid="classbitset__t"/>
+      </node>
+      <node id="2295">
+        <label>mlist_t</label>
+        <link refid="structmlist__t"/>
+        <childnode refid="2292" relation="usage">
+          <edgelabel>mem</edgelabel>
+        </childnode>
+        <childnode refid="2296" relation="usage">
+          <edgelabel>reg</edgelabel>
+        </childnode>
+      </node>
+      <node id="2301">
+        <label>ivl_with_name_t</label>
+        <link refid="structivl__with__name__t"/>
+        <childnode refid="2302" relation="usage">
+          <edgelabel>ivl</edgelabel>
+        </childnode>
+      </node>
+      <node id="2304">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="2317">
+        <label>mop_addr_t</label>
+        <link refid="classmop__addr__t"/>
+        <childnode refid="2281" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2314">
+        <label>netnode</label>
+        <link refid="classnetnode"/>
+      </node>
+      <node id="2321">
+        <label>qvector&lt; mop_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2292">
+        <label>ivlset_t</label>
+        <link refid="structivlset__t"/>
+        <childnode refid="2293" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2300">
+        <label>mblock_t</label>
+        <link refid="classmblock__t"/>
+        <childnode refid="2288" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="2295" relation="usage">
+          <edgelabel>maybuse</edgelabel>
+          <edgelabel>dnu</edgelabel>
+          <edgelabel>maybdef</edgelabel>
+          <edgelabel>mustbuse</edgelabel>
+          <edgelabel>mustbdef</edgelabel>
+          <edgelabel>dead_at_start</edgelabel>
+        </childnode>
+        <childnode refid="2298" relation="usage">
+          <edgelabel>succset</edgelabel>
+          <edgelabel>predset</edgelabel>
+        </childnode>
+        <childnode refid="2280" relation="usage">
+          <edgelabel>head</edgelabel>
+          <edgelabel>tail</edgelabel>
+        </childnode>
+        <childnode refid="2300" relation="usage">
+          <edgelabel>nextb</edgelabel>
+          <edgelabel>prevb</edgelabel>
+        </childnode>
+      </node>
+      <node id="2313">
+        <label>rangevec_base_t</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2324">
+        <label>operand_locator_t</label>
+        <link refid="structoperand__locator__t"/>
+      </node>
+      <node id="2294">
+        <label>qvector&lt; ivl_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2325">
+        <label>mcases_t</label>
+        <link refid="classmcases__t"/>
+        <childnode refid="2298" relation="usage">
+          <edgelabel>targets</edgelabel>
+        </childnode>
+      </node>
+      <node id="2320">
+        <label>qvector&lt; mcallarg_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2306">
+        <label>func_t</label>
+        <link refid="classfunc__t"/>
+        <childnode refid="2307" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2308" relation="usage">
+          <edgelabel>regargs</edgelabel>
+        </childnode>
+        <childnode refid="2309" relation="usage">
+          <edgelabel>points</edgelabel>
+        </childnode>
+        <childnode refid="2307" relation="usage">
+          <edgelabel>tails</edgelabel>
+        </childnode>
+        <childnode refid="2310" relation="usage">
+          <edgelabel>regvars</edgelabel>
+        </childnode>
+        <childnode refid="2311" relation="usage">
+          <edgelabel>llabels</edgelabel>
+        </childnode>
+      </node>
+      <node id="2281">
+        <label>mop_t</label>
+        <link refid="classmop__t"/>
+        <childnode refid="2282" relation="usage">
+          <edgelabel>scif</edgelabel>
+        </childnode>
+        <childnode refid="2316" relation="usage">
+          <edgelabel>fpc</edgelabel>
+        </childnode>
+        <childnode refid="2317" relation="usage">
+          <edgelabel>a</edgelabel>
+        </childnode>
+        <childnode refid="2318" relation="usage">
+          <edgelabel>pair</edgelabel>
+        </childnode>
+        <childnode refid="2319" relation="usage">
+          <edgelabel>f</edgelabel>
+        </childnode>
+        <childnode refid="2280" relation="usage">
+          <edgelabel>d</edgelabel>
+        </childnode>
+        <childnode refid="2322" relation="usage">
+          <edgelabel>l</edgelabel>
+        </childnode>
+        <childnode refid="2323" relation="usage">
+          <edgelabel>nnn</edgelabel>
+        </childnode>
+        <childnode refid="2325" relation="usage">
+          <edgelabel>c</edgelabel>
+        </childnode>
+        <childnode refid="2326" relation="usage">
+          <edgelabel>s</edgelabel>
+        </childnode>
+      </node>
+      <node id="2318">
+        <label>mop_pair_t</label>
+        <link refid="classmop__pair__t"/>
+        <childnode refid="2281" relation="usage">
+          <edgelabel>hop</edgelabel>
+          <edgelabel>lop</edgelabel>
+        </childnode>
+      </node>
+      <node id="2308">
+        <label>regarg_t</label>
+        <link refid="structregarg__t"/>
+      </node>
+      <node id="2316">
+        <label>fnumber_t</label>
+        <link refid="structfnumber__t"/>
+      </node>
+      <node id="2288">
+        <label>mbl_array_t</label>
+        <link refid="classmbl__array__t"/>
+        <childnode refid="2289" relation="usage">
+          <edgelabel>vars</edgelabel>
+        </childnode>
+        <childnode refid="2291" relation="usage">
+          <edgelabel>label</edgelabel>
+          <edgelabel>error_strarg</edgelabel>
+        </childnode>
+        <childnode refid="2292" relation="usage">
+          <edgelabel>gotoff_stkvars</edgelabel>
+          <edgelabel>restricted_memory</edgelabel>
+          <edgelabel>aliased_memory</edgelabel>
+        </childnode>
+        <childnode refid="2295" relation="usage">
+          <edgelabel>spoiled_list</edgelabel>
+          <edgelabel>nodel_memory</edgelabel>
+        </childnode>
+        <childnode refid="2298" relation="usage">
+          <edgelabel>argidx</edgelabel>
+        </childnode>
+        <childnode refid="2299" relation="usage">
+          <edgelabel>idb_spoiled</edgelabel>
+        </childnode>
+        <childnode refid="2300" relation="usage">
+          <edgelabel>blocks</edgelabel>
+          <edgelabel>natural</edgelabel>
+        </childnode>
+        <childnode refid="2296" relation="usage">
+          <edgelabel>consumed_argregs</edgelabel>
+        </childnode>
+        <childnode refid="2301" relation="usage">
+          <edgelabel>std_ivls</edgelabel>
+        </childnode>
+        <childnode refid="2304" relation="usage">
+          <edgelabel>idb_type</edgelabel>
+        </childnode>
+        <childnode refid="2305" relation="usage">
+          <edgelabel>mbr</edgelabel>
+        </childnode>
+        <childnode refid="2314" relation="usage">
+          <edgelabel>idb_node</edgelabel>
+        </childnode>
+        <childnode refid="2315" relation="usage">
+          <edgelabel>notes</edgelabel>
+        </childnode>
+        <childnode refid="2302" relation="usage">
+          <edgelabel>aliased_args</edgelabel>
+          <edgelabel>aliased_vars</edgelabel>
+        </childnode>
+      </node>
+      <node id="2319">
+        <label>mcallinfo_t</label>
+        <link refid="classmcallinfo__t"/>
+        <childnode refid="2292" relation="usage">
+          <edgelabel>visible_memory</edgelabel>
+        </childnode>
+        <childnode refid="2295" relation="usage">
+          <edgelabel>pass_regs</edgelabel>
+          <edgelabel>spoiled</edgelabel>
+          <edgelabel>dead_regs</edgelabel>
+          <edgelabel>return_regs</edgelabel>
+        </childnode>
+        <childnode refid="2320" relation="usage">
+          <edgelabel>args</edgelabel>
+        </childnode>
+        <childnode refid="2304" relation="usage">
+          <edgelabel>return_type</edgelabel>
+        </childnode>
+        <childnode refid="2321" relation="usage">
+          <edgelabel>retregs</edgelabel>
+        </childnode>
+        <childnode refid="2284" relation="usage">
+          <edgelabel>return_argloc</edgelabel>
+        </childnode>
+      </node>
+      <node id="2305">
+        <label>mba_ranges_t</label>
+        <link refid="structmba__ranges__t"/>
+        <childnode refid="2306" relation="usage">
+          <edgelabel>pfn</edgelabel>
+        </childnode>
+        <childnode refid="2312" relation="usage">
+          <edgelabel>ranges</edgelabel>
+        </childnode>
+      </node>
+      <node id="2293">
+        <label>ivlset_tpl&lt; ivl_t, uval_t &gt;</label>
+        <link refid="classivlset__tpl"/>
+        <childnode refid="2294" relation="usage">
+          <edgelabel>bag</edgelabel>
+        </childnode>
+      </node>
+      <node id="2282">
+        <label>scif_t</label>
+        <link refid="structscif__t"/>
+        <childnode refid="2283" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2288" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="2291" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="2304" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+      </node>
+      <node id="2298">
+        <label>qvector&lt; int &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2309">
+        <label>stkpnt_t</label>
+        <link refid="structstkpnt__t"/>
+      </node>
+      <node id="2291">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="2280">
+        <label>minsn_t</label>
+        <link refid="classminsn__t"/>
+        <childnode refid="2280" relation="usage">
+          <edgelabel>prev</edgelabel>
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="2281" relation="usage">
+          <edgelabel>l</edgelabel>
+          <edgelabel>r</edgelabel>
+          <edgelabel>d</edgelabel>
+        </childnode>
+      </node>
+      <node id="2285">
+        <label>scattered_aloc_t</label>
+        <link refid="classscattered__aloc__t"/>
+        <childnode refid="2286" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2286">
+        <label>qvector&lt; argpart_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2307">
+        <label>range_t</label>
+        <link refid="structrange__t"/>
+      </node>
+      <node id="2283">
+        <label>vdloc_t</label>
+        <link refid="classvdloc__t"/>
+        <childnode refid="2284" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2310">
+        <label>regvar_t</label>
+        <link refid="structregvar__t"/>
+        <childnode refid="2307" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2315">
+        <label>qvector&lt; hexwarn_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2323">
+        <label>mnumber_t</label>
+        <link refid="structmnumber__t"/>
+        <childnode refid="2324" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2289">
+        <label>lvars_t</label>
+        <link refid="structlvars__t"/>
+        <childnode refid="2290" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2284">
+        <label>argloc_t</label>
+        <link refid="classargloc__t"/>
+        <childnode refid="2285" relation="usage">
+          <edgelabel>dist</edgelabel>
+        </childnode>
+        <childnode refid="2287" relation="usage">
+          <edgelabel>rrel</edgelabel>
+        </childnode>
+      </node>
+      <node id="2311">
+        <label>llabel_t</label>
+        <link refid="structllabel__t"/>
+      </node>
+      <node id="2322">
+        <label>lvar_ref_t</label>
+        <link refid="structlvar__ref__t"/>
+        <childnode refid="2288" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="2290">
+        <label>qvector&lt; lvar_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2326">
+        <label>stkvar_ref_t</label>
+        <link refid="structstkvar__ref__t"/>
+        <childnode refid="2288" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="2299">
+        <label>qvector&lt; reg_info_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2287">
+        <label>rrel_t</label>
+        <link refid="structrrel__t"/>
+      </node>
+      <node id="2296">
+        <label>rlist_t</label>
+        <link refid="classrlist__t"/>
+        <childnode refid="2297" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2302">
+        <label>ivl_t</label>
+        <link refid="structivl__t"/>
+        <childnode refid="2303" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2302" relation="usage">
+          <edgelabel>allmem</edgelabel>
+        </childnode>
+      </node>
+      <node id="2312">
+        <label>rangevec_t</label>
+        <link refid="structrangevec__t"/>
+        <childnode refid="2313" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3252" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3251" bodyend="3534"/>
+    <listofallmembers>
+      <member refid="classminsn__t_1a5ddbc22c7d2821b1fb907d610a66b648" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>_make_nop</name></member>
+      <member refid="classminsn__t_1a1f85ef7d8ebaee2da4b3267432abf14f" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>clr_assert</name></member>
+      <member refid="classminsn__t_1a5a06a670fca6835b78a7dd480501a3d8" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>clr_combinable</name></member>
+      <member refid="classminsn__t_1aefa112849738e63f0b47742052e0c6a9" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>clr_combined</name></member>
+      <member refid="classminsn__t_1a37fe0d03984b8ad0df06dd93d4963c5a" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>clr_fpinsn</name></member>
+      <member refid="classminsn__t_1aa6d72af0a476d4740ce03cd71e64a64d" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>clr_ignlowsrc</name></member>
+      <member refid="classminsn__t_1aaa33386c55191c2dc194d12141fe82e2" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>clr_multimov</name></member>
+      <member refid="classminsn__t_1a24eaa852c16e232f4710a0d1e97ff18f" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>clr_noret_icall</name></member>
+      <member refid="classminsn__t_1a801d74d16b7246a7c81fd174d59e19e0" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>clr_propagatable</name></member>
+      <member refid="classminsn__t_1a23aea8b2a766b5e9a4106cb1780c966a" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>clr_tailcall</name></member>
+      <member refid="classminsn__t_1a2d9faa1564fb2a0632e70e6ee0c1201b" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>contains_call</name></member>
+      <member refid="classminsn__t_1a287435140b53a113af5e6b566c4ce12c" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>contains_opcode</name></member>
+      <member refid="classminsn__t_1a3d62f21bc99595223f207b4185dcf045" prot="private" virt="non-virtual"><scope>minsn_t</scope><name>copy</name></member>
+      <member refid="classminsn__t_1ab614b95ccd0105d80b42f5bc39d80fd6" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>d</name></member>
+      <member refid="classminsn__t_1a78163a4ba19e399dec6682a58ce0d75b" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>dstr</name></member>
+      <member refid="classminsn__t_1a6803fa80be93437f98a96c9135e9548e" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>ea</name></member>
+      <member refid="classminsn__t_1abf10d940e5d417abb0f14db0574f5afb" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>equal_insns</name></member>
+      <member refid="classminsn__t_1abbbe59f9cc04f42aa1a0f3bf9307522a" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>find_call</name></member>
+      <member refid="classminsn__t_1a501aacbf5de40dedb70b46ea11731773" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>find_ins_op</name></member>
+      <member refid="classminsn__t_1a7bbe0478a5c84ab82cfe5adb286b8c02" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>find_ins_op</name></member>
+      <member refid="classminsn__t_1a9d6e4c3121da18c0b66cf8c489b9f609" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>find_num_op</name></member>
+      <member refid="classminsn__t_1adfa5e5c3369e0cda9be8ae9b27fb7d61" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>find_num_op</name></member>
+      <member refid="classminsn__t_1a1e6f217caa2efce74bbc98f545fc742a" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>find_opcode</name></member>
+      <member refid="classminsn__t_1a80edbd14db587bd935fdd05c7815cb85" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>find_opcode</name></member>
+      <member refid="classminsn__t_1a2e583ea8e64294c29cf56907f535b6be" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>for_all_insns</name></member>
+      <member refid="classminsn__t_1aa5b2e1b086f05fc57b2d95f89e848772" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>for_all_ops</name></member>
+      <member refid="classminsn__t_1a4be46396af59723cd74c8c1dfb2e22f3" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>get_role</name></member>
+      <member refid="classminsn__t_1af89d6c3ff1e69ea998347898d69c3597" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>get_split_size</name></member>
+      <member refid="classminsn__t_1afcd4ea4b5232650c85770f14c950b7bf" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>has_side_effects</name></member>
+      <member refid="classminsn__t_1ac4f90164e4a4a85c13f3b5c4dfa04a32" prot="private" virt="non-virtual"><scope>minsn_t</scope><name>init</name></member>
+      <member refid="classminsn__t_1af47f119f99e73a80a7a7b39d07421213" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>iprops</name></member>
+      <member refid="classminsn__t_1ab1395e6d34b262965442b971c015d147" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_after</name></member>
+      <member refid="classminsn__t_1acd7513206be59716f2f8ef0428935669" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_alloca</name></member>
+      <member refid="classminsn__t_1a26de1bc5d73dc60919d64d9ac4e9c65e" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_assert</name></member>
+      <member refid="classminsn__t_1a90f7dcb4e69dea78aebaeb2fe08dc1ac" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_between</name></member>
+      <member refid="classminsn__t_1a5e80c8f00c2a3ed5375692558c3ea3df" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_bswap</name></member>
+      <member refid="classminsn__t_1ae6b4bee1d0f30c8890c28cfddde4b197" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_cleaning_pop</name></member>
+      <member refid="classminsn__t_1a137cdf25f5b72eef0931faf5ce560ee3" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_combinable</name></member>
+      <member refid="classminsn__t_1ae8c152bef7382781f0a4a4fcf8c894e7" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_combined</name></member>
+      <member refid="classminsn__t_1a84f835ba2ba030797587d3a2748f48a3" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_extstx</name></member>
+      <member refid="classminsn__t_1a4b09c15997ff5fcbbf49337797255acc" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_farcall</name></member>
+      <member refid="classminsn__t_1a3e36d4007726b9e025d59ccccde7976a" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_fpinsn</name></member>
+      <member refid="classminsn__t_1ae9ec8fa7098dc3878cba2bb362f3ce79" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_helper</name></member>
+      <member refid="classminsn__t_1a85570b6384e0e54b239e694490b40899" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_ignlowsrc</name></member>
+      <member refid="classminsn__t_1a4e54fc5de9547636b8d2759423b01489" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_inverted_jx</name></member>
+      <member refid="classminsn__t_1a4ddde6f04d3c73a8bad02df85e5a19a0" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_like_move</name></member>
+      <member refid="classminsn__t_1a080886e54b4a5576ad617ca99b8c4027" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_memcpy</name></member>
+      <member refid="classminsn__t_1a4d0d968bef18124931f6bb019c2d4e6d" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_memset</name></member>
+      <member refid="classminsn__t_1a3a6ec00680782ef5e00461892d4fb319" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_mov</name></member>
+      <member refid="classminsn__t_1ac4d4162ee9d35c7525ac2674a0028e44" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_multimov</name></member>
+      <member refid="classminsn__t_1a0bd0cecd163603864681df522bed444c" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_noret_call</name></member>
+      <member refid="classminsn__t_1a0aeb7571ab1837c22fc56ee35107e106" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_optional</name></member>
+      <member refid="classminsn__t_1ae8cd731df75e8870d2a6091114c274a7" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_persistent</name></member>
+      <member refid="classminsn__t_1ad49349555d484593fedc23ab74bde853" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_propagatable</name></member>
+      <member refid="classminsn__t_1a59658d98b38d49f2720a41d38a0944a3" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_readflags</name></member>
+      <member refid="classminsn__t_1a888ebcc62f62dc60e7c471013c12a7d1" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_tailcall</name></member>
+      <member refid="classminsn__t_1ad09f646901bca1eb4856bb5a3f3de7c9" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_unknown_call</name></member>
+      <member refid="classminsn__t_1ac6af40088b07f5fc1ec724065b055802" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>is_wild_match</name></member>
+      <member refid="classminsn__t_1a85c705ab48745d910fa90decf9c7ead2" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>l</name></member>
+      <member refid="classminsn__t_1a2c2731ee3a333b1f83dad69ad88d9424" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>lexcompare</name></member>
+      <member refid="classminsn__t_1a40ab0a40ae8418fd26ad8d78d20cd72d" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>may_use_aliased_memory</name></member>
+      <member refid="classminsn__t_1a858dd6918bac2264b3db1a16fb47cb0a" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>minsn_t</name></member>
+      <member refid="classminsn__t_1aaf620282abd5fd954548f5266d503757" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>minsn_t</name></member>
+      <member refid="classminsn__t_1aa10c30c8c22a6c2c861986027ef18827" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>modifes_d</name></member>
+      <member refid="classminsn__t_1ade100898ca7f7d5128430186d70a02e0" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>modifies_pair_mop</name></member>
+      <member refid="classminsn__t_1a2a4508b9e94b0c0e06c410744a3d5f06" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>next</name></member>
+      <member refid="classminsn__t_1af27d2876eed6feaad91598ab82abe79c" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>opcode</name></member>
+      <member refid="classminsn__t_1a0dceab8d1aea6c797aaa1f247db87bfe" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>operator&lt;</name></member>
+      <member refid="classminsn__t_1ada673bc2bf77c5add24965e8ee21f0e0" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>operator=</name></member>
+      <member refid="classminsn__t_1a87275bb3a5d240b5dbc8066ff0713886" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>optimize_solo</name></member>
+      <member refid="classminsn__t_1a19e597ade03ce705d8c9d5c22d39b56b" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>optimize_subtree</name></member>
+      <member refid="classminsn__t_1a19c49453da03fc8b5cccff14c777047c" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>prev</name></member>
+      <member refid="classminsn__t_1a6c442ea9a6f6866fff5b86123871f751" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>print</name></member>
+      <member refid="classminsn__t_1a195cc82ba9ec09855af023978c9c30c9" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>r</name></member>
+      <member refid="classminsn__t_1a5408f6afa21b497205223375a0dcedf6" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>set_assert</name></member>
+      <member refid="classminsn__t_1a592fec0ac62d2e090c451a9888a902b2" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>set_cleaning_pop</name></member>
+      <member refid="classminsn__t_1ab974971e8d569731edc69bcdba35a232" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>set_combinable</name></member>
+      <member refid="classminsn__t_1aa2390e11bc63e8ae411ede0ffd1e1193" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>set_combined</name></member>
+      <member refid="classminsn__t_1aff8e206e54d2ba53c2a028a769203350" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>set_extstx</name></member>
+      <member refid="classminsn__t_1adfba8d81c319be355a7fd47dc7714f45" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>set_farcall</name></member>
+      <member refid="classminsn__t_1aec533aa7d53f21cb622c5c79c5011828" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>set_fpinsn</name></member>
+      <member refid="classminsn__t_1a0146526313fb7af67f0c33cc7a8cdd0c" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>set_ignlowsrc</name></member>
+      <member refid="classminsn__t_1a8fb06ee0026583543b0065a4094d3959" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>set_inverted_jx</name></member>
+      <member refid="classminsn__t_1aacbd11208dcf3b44f35adfda01166023" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>set_multimov</name></member>
+      <member refid="classminsn__t_1aab89b0cc7b3e6cb29c723643bd613f07" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>set_noret_icall</name></member>
+      <member refid="classminsn__t_1a37eb5562b484eb04769f8f27faaf6448" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>set_optional</name></member>
+      <member refid="classminsn__t_1a44557308583e911e894b0285c56c4c0f" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>set_persistent</name></member>
+      <member refid="classminsn__t_1a1dcceb52ff5064f2b76bfa9e6509cb5b" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>set_split_size</name></member>
+      <member refid="classminsn__t_1a493eacebb3a78babf1412aac5c72c6e3" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>set_tailcall</name></member>
+      <member refid="classminsn__t_1afbc68be32e31a7ddeec97d418ce7aee1" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>set_wild_match</name></member>
+      <member refid="classminsn__t_1a658ee2c4325631cd8bc865be316de103" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>setaddr</name></member>
+      <member refid="classminsn__t_1ab3e7a4a9052a7d336333739a0d929b99" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>swap</name></member>
+      <member refid="classminsn__t_1a8790e6cfc2deea9b71fc55e0f61b3d4f" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>was_noret_icall</name></member>
+      <member refid="classminsn__t_1acd3d0e77fa12aaa55517d24c7e3e236c" prot="public" virt="non-virtual"><scope>minsn_t</scope><name>was_split</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___a_d_f__" kind="group">
+    <compoundname>ADF_</compoundname>
+    <title>Action flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___a_d_f___1gad78bf164589f8329a9be1000de7b3e3f" prot="public" static="no">
+        <name>ADF_OWN_HANDLER</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>handler is owned by the action; it&apos;ll be destroyed when the action is unregistered. You shouldn&apos;t have to use this. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3598" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3598" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>used by <ref refid="kernwin_8hpp_1ac79586adc1b82bd19ac650a5e743efe7" kindref="member">register_action()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

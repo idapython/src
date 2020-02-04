@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="struct_varray_1_1va__file__header__t" kind="struct" language="C++" prot="private">
+    <compoundname>Varray::va_file_header_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_varray_1_1va__file__header__t_1a0c5f75c6e834458a44c4909e33d1bbec" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char Varray::va_file_header_t::magic[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>magic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="182" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_varray_1_1va__file__header__t_1a863c98b87cc8b568400d9273e414ca9f" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+        <definition>ushort Varray::va_file_header_t::version</definition>
+        <argsstring></argsstring>
+        <name>version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="183" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_varray_1_1va__file__header__t_1a8f1eb4b947d8f0cf038456215934f4d8" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+        <definition>ushort Varray::va_file_header_t::reserved</definition>
+        <argsstring></argsstring>
+        <name>reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="184" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_varray_1_1va__file__header__t_1a1c8a6960955dddfec046c8d5585a63c8" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 Varray::va_file_header_t::nchunks</definition>
+        <argsstring></argsstring>
+        <name>nchunks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="185" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_varray_1_1va__file__header__t_1a7b81d24d11e9f70b7e48097140314f62" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 Varray::va_file_header_t::pagesize</definition>
+        <argsstring></argsstring>
+        <name>pagesize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="186" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_varray_1_1va__file__header__t_1abb928b7d8241281cce4ea0a9c7de114e" prot="public" static="no" mutable="no">
+        <type>va_pagenum_t</type>
+        <definition>va_pagenum_t Varray::va_file_header_t::eof</definition>
+        <argsstring></argsstring>
+        <name>eof</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="187" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="181" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="180" bodyend="188"/>
+    <listofallmembers>
+      <member refid="struct_varray_1_1va__file__header__t_1abb928b7d8241281cce4ea0a9c7de114e" prot="public" virt="non-virtual"><scope>Varray::va_file_header_t</scope><name>eof</name></member>
+      <member refid="struct_varray_1_1va__file__header__t_1a0c5f75c6e834458a44c4909e33d1bbec" prot="public" virt="non-virtual"><scope>Varray::va_file_header_t</scope><name>magic</name></member>
+      <member refid="struct_varray_1_1va__file__header__t_1a1c8a6960955dddfec046c8d5585a63c8" prot="public" virt="non-virtual"><scope>Varray::va_file_header_t</scope><name>nchunks</name></member>
+      <member refid="struct_varray_1_1va__file__header__t_1a7b81d24d11e9f70b7e48097140314f62" prot="public" virt="non-virtual"><scope>Varray::va_file_header_t</scope><name>pagesize</name></member>
+      <member refid="struct_varray_1_1va__file__header__t_1a8f1eb4b947d8f0cf038456215934f4d8" prot="public" virt="non-virtual"><scope>Varray::va_file_header_t</scope><name>reserved</name></member>
+      <member refid="struct_varray_1_1va__file__header__t_1a863c98b87cc8b568400d9273e414ca9f" prot="public" virt="non-virtual"><scope>Varray::va_file_header_t</scope><name>version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structsyntax__highlighter__t" kind="struct" language="C++" prot="public">
+    <compoundname>syntax_highlighter_t</compoundname>
+    <derivedcompoundref refid="structida__syntax__highlighter__t" prot="public" virt="non-virtual">ida_syntax_highlighter_t</derivedcompoundref>
+    <includes refid="expr_8hpp" local="no">expr.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structsyntax__highlighter__t_1a89b8314876b3d0190804441c8528beb9" prot="public" static="no" mutable="no">
+        <type>void(idaapi *</type>
+        <definition>void(idaapi * syntax_highlighter_t::highlight_block) (void *context, highlighter_cbs_t *highlighter_cbs, const qstring &amp;text)</definition>
+        <argsstring>)(void *context, highlighter_cbs_t *highlighter_cbs, const qstring &amp;text)</argsstring>
+        <name>highlight_block</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function for extlang syntax highlighting <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>context</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>implementation specific context. can be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ighlighter_cbs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>structure with set of callbacks </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>text</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>part of text to colorize </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="630" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="630" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structsyntax__highlighter__t_1ac0df7c32a28f3ab2ceda05b3db2a4a09" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual syntax_highlighter_t::~syntax_highlighter_t</definition>
+        <argsstring>()</argsstring>
+        <name>~syntax_highlighter_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="625" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="625" bodyend="625"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Base class for syntax highligters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3422">
+        <label>ida_syntax_highlighter_t</label>
+        <link refid="structida__syntax__highlighter__t"/>
+        <childnode refid="3421" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3421">
+        <label>syntax_highlighter_t</label>
+        <link refid="structsyntax__highlighter__t"/>
+      </node>
+    </inheritancegraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="623" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="622" bodyend="634"/>
+    <listofallmembers>
+      <member refid="structsyntax__highlighter__t_1a89b8314876b3d0190804441c8528beb9" prot="public" virt="non-virtual"><scope>syntax_highlighter_t</scope><name>highlight_block</name></member>
+      <member refid="structsyntax__highlighter__t_1ac0df7c32a28f3ab2ceda05b3db2a4a09" prot="public" virt="virtual"><scope>syntax_highlighter_t</scope><name>~syntax_highlighter_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

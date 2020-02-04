@@ -14,7 +14,7 @@
     size_t n = t.size();
     PyObject *py_t = PyList_New(n);
     for ( size_t i = 0, n = t.size(); i < n; ++i )
-      PyList_SetItem(py_t, i, PyInt_FromLong(t[i]));
+      PyList_SetItem(py_t, i, IDAPyInt_FromLong(t[i]));
     return py_t;
   }
 
@@ -28,7 +28,7 @@
       for ( size_t i = 0; i < n; ++i )
       {
         newref_t pyo(PySequence_GetItem(py_t, i));
-        if ( PyInt_Check(pyo.o) )
+        if ( IDAPyInt_Check(pyo.o) )
         {
           long stype = IDAPyInt_AsLong(pyo.o);
           if ( stype < 0 || stype >= 0x100 )

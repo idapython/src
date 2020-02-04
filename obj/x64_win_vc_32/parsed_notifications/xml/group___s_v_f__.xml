@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_v_f__" kind="group">
+    <compoundname>SVF_</compoundname>
+    <title>Source viewer creation flags</title>
+      <sectiondef kind="">
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_v_f___1ga650d2a3bd7bb3bc4f43d226568349477" prot="public" static="no">
+        <name>SVF_COPY_LINES</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>keep a local copy of &apos;*lines&apos; </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="657" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="657" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_v_f___1ga1dc97fec4b96c123ab8c74d393ab95e1" prot="public" static="no">
+        <name>SVF_LINES_BYPTR</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>remember the &apos;lines&apos; ptr. do not make a copy of &apos;*lines&apos; </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="658" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="658" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>passed as &apos;flags&apos; parameter to callback for <ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334a803f825339d0fbbc4c18e8351632f895" kindref="member">ui_create_source_viewer</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

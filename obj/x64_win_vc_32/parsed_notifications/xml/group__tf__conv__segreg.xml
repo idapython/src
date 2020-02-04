@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__tf__conv__segreg" kind="group">
+    <compoundname>tf_conv_segreg</compoundname>
+    <title>Convenience definitions: segment register</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__tf__conv__segreg_1ga549d73cebdc532cb21dee4ae31fe79a3" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BT_SEGREG</definition>
+        <argsstring></argsstring>
+        <name>BT_SEGREG</name>
+        <initializer>= (<ref refid="group__tf__int_1ga0247bd6d30b0ca1725ec2cf6cbccdc83" kindref="member">BT_INT</ref> | <ref refid="group__tf__int_1ga2fc0128b8f9f51961efa661bd6c36523" kindref="member">BTMT_CHAR</ref>)</initializer>
+        <briefdescription>
+<para>segment register </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="285" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

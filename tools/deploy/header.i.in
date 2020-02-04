@@ -317,9 +317,9 @@ static PyObject *type##_create()
 static bool type##_destroy(PyObject *py_obj)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyCObject_Check(py_obj) )
+  if ( !PyCapsule_IsValid(py_obj, VALID_CAPSULE_NAME) )
     return false;
-  delete (type *)PyCObject_AsVoidPtr(py_obj);
+  delete (type *)PyCapsule_GetPointer(py_obj, VALID_CAPSULE_NAME);
   return true;
 }
 static type *type##_get_clink(PyObject *self)
@@ -444,7 +444,7 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
     Py_XDECREF(resultobj);
     if (result > 0)
     {
-        resultobj = PyString_FromString($1);
+        resultobj = IDAPyStr_FromUTF8($1);
     }
     else
     {
@@ -488,7 +488,7 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
     Py_XDECREF(resultobj);
     if (result != NULL)
     {
-        resultobj = PyString_FromString($BUFIDX);
+        resultobj = IDAPyStr_FromUTF8($BUFIDX);
     }
     else
     {
@@ -549,7 +549,7 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
   {
     char buf[2*$1_dim0 + 1];
     get_hex_string(buf, sizeof(buf), $1, $1_dim0);
-    resultobj = PyString_FromString(buf);
+    resultobj = IDAPyStr_FromUTF8(buf);
   }
   else
   {

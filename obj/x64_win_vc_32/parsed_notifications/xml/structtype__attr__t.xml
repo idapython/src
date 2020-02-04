@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structtype__attr__t" kind="struct" language="C++" prot="public">
+    <compoundname>type_attr_t</compoundname>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structtype__attr__t_1a277bd5b2dca6c5b863278f53bcffb966" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring type_attr_t::key</definition>
+        <argsstring></argsstring>
+        <name>key</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>one symbol keys are reserved to be used by the kernel the ones starting with an underscore are reserved too </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="546" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="546" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtype__attr__t_1a2c57321b5a3efd2f4aa71a71b0b1af41" prot="public" static="no" mutable="no">
+        <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref></type>
+        <definition>bytevec_t type_attr_t::value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <briefdescription>
+<para>attribute bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="548" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="548" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structtype__attr__t_1a9525375035ea72e29a4792d8b10fa0a2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool type_attr_t::operator&lt;</definition>
+        <argsstring>(const type_attr_t &amp;r) const</argsstring>
+        <name>operator&lt;</name>
+        <param>
+          <type>const <ref refid="structtype__attr__t" kindref="compound">type_attr_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="549" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="549" bodyend="549"/>
+      </memberdef>
+      <memberdef kind="function" id="structtype__attr__t_1a5ebdd4b21be11719c5b4253fa7774e99" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool type_attr_t::operator&gt;=</definition>
+        <argsstring>(const type_attr_t &amp;r) const</argsstring>
+        <name>operator&gt;=</name>
+        <param>
+          <type>const <ref refid="structtype__attr__t" kindref="compound">type_attr_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="550" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="550" bodyend="550"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Extended type attributes. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3488">
+        <label>type_attr_t</label>
+        <link refid="structtype__attr__t"/>
+        <childnode refid="3489" relation="usage">
+          <edgelabel>key</edgelabel>
+        </childnode>
+        <childnode refid="3490" relation="usage">
+          <edgelabel>value</edgelabel>
+        </childnode>
+      </node>
+      <node id="3491">
+        <label>qvector&lt; uchar &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="3490">
+        <label>bytevec_t</label>
+        <link refid="classbytevec__t"/>
+        <childnode refid="3491" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3489">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="545" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="544" bodyend="551"/>
+    <listofallmembers>
+      <member refid="structtype__attr__t_1a277bd5b2dca6c5b863278f53bcffb966" prot="public" virt="non-virtual"><scope>type_attr_t</scope><name>key</name></member>
+      <member refid="structtype__attr__t_1a9525375035ea72e29a4792d8b10fa0a2" prot="public" virt="non-virtual"><scope>type_attr_t</scope><name>operator&lt;</name></member>
+      <member refid="structtype__attr__t_1a5ebdd4b21be11719c5b4253fa7774e99" prot="public" virt="non-virtual"><scope>type_attr_t</scope><name>operator&gt;=</name></member>
+      <member refid="structtype__attr__t_1a2c57321b5a3efd2f4aa71a71b0b1af41" prot="public" virt="non-virtual"><scope>type_attr_t</scope><name>value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

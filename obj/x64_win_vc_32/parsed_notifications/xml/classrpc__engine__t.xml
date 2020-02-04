@@ -1,0 +1,470 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classrpc__engine__t" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>rpc_engine_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classrpc__engine__t_1ab0a828c2d09e808e3b9f4d18f5a8fbfa" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool rpc_engine_t::network_error</definition>
+        <argsstring></argsstring>
+        <name>network_error</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="424" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="424" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrpc__engine__t_1aab8bc61877e0823b57a41673439747a8" prot="public" static="no" mutable="no">
+        <type>ioctl_handler_t *</type>
+        <definition>ioctl_handler_t* rpc_engine_t::ioctl_handler</definition>
+        <argsstring></argsstring>
+        <name>ioctl_handler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="428" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="428" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrpc__engine__t_1a39a53b97163557ff383f2239a7ef2650" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rpc_engine_t::recv_timeout</definition>
+        <argsstring></argsstring>
+        <name>recv_timeout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="429" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="429" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrpc__engine__t_1a78febbf2dd3d01eb992b95cdaffebfd9" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool rpc_engine_t::is_client</definition>
+        <argsstring></argsstring>
+        <name>is_client</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="430" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="430" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrpc__engine__t_1a050b43b9a55808799f7a66c10f0f4499" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool rpc_engine_t::logged_in</definition>
+        <argsstring></argsstring>
+        <name>logged_in</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="431" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="431" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classrpc__engine__t_1a4c1fd6b6b3087a6e988f02e0b355b50c" prot="private" static="no" mutable="no">
+        <type><ref refid="classqvector" kindref="compound">rpc_packet_type_desc_vec_t</ref></type>
+        <definition>rpc_packet_type_desc_vec_t rpc_engine_t::ptypes</definition>
+        <argsstring></argsstring>
+        <name>ptypes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="462" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="462" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classrpc__engine__t_1a02674b6a1cef752d04d9c165145d0b88" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rpc_engine_t::register_packet_type_descs</definition>
+        <argsstring>(const rpc_packet_type_desc_t *ptypes, size_t cnt)</argsstring>
+        <name>register_packet_type_descs</name>
+        <param>
+          <type>const <ref refid="structrpc__packet__type__desc__t" kindref="compound">rpc_packet_type_desc_t</ref> *</type>
+          <declname>ptypes</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cnt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="434" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classrpc__engine__t_1a05156e3d0cbfe6287fd06599a125778d" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="structrpc__packet__type__desc__t" kindref="compound">rpc_packet_type_desc_t</ref> *</type>
+        <definition>const rpc_packet_type_desc_t* rpc_engine_t::find_packet_type_desc</definition>
+        <argsstring>(int code) const</argsstring>
+        <name>find_packet_type_desc</name>
+        <param>
+          <type>int</type>
+          <declname>code</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="435" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classrpc__engine__t_1a9f5c7982cc31b0a08ed62b6748bf9e96" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="structrpc__packet__type__desc__t" kindref="compound">rpc_packet_type_desc_t</ref> *</type>
+        <definition>const rpc_packet_type_desc_t* rpc_engine_t::find_packet_type_desc</definition>
+        <argsstring>(const char *name) const</argsstring>
+        <name>find_packet_type_desc</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="436" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrpc__engine__t_1a54f9330fcc1c4233bb1d85c9fa748f97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rpc_engine_t::rpc_engine_t</definition>
+        <argsstring>(bool is_client)</argsstring>
+        <name>rpc_engine_t</name>
+        <param>
+          <type>bool</type>
+          <declname>is_client</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="439" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classrpc__engine__t_1ac23a5a24be91ec0b0e226c4a460f79db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual rpc_engine_t::~rpc_engine_t</definition>
+        <argsstring>()</argsstring>
+        <name>~rpc_engine_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="440" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="440" bodyend="440"/>
+      </memberdef>
+      <memberdef kind="function" id="classrpc__engine__t_1a1c25d2de03cad2d4b8a769f0adade32f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int rpc_engine_t::handle_ioctl_packet</definition>
+        <argsstring>(bytevec_t &amp;pkt, const uchar *ptr, const uchar *end)</argsstring>
+        <name>handle_ioctl_packet</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> &amp;</type>
+          <declname>pkt</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="442" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classrpc__engine__t_1acacef0101ff75a32f877c3eb6eee085f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int rpc_engine_t::send_data</definition>
+        <argsstring>(bytevec_t &amp;data)</argsstring>
+        <name>send_data</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> &amp;</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="445" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classrpc__engine__t_1ae0bbce36af0d5bdd94829c3bee13e888" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structrpc__packet__t" kindref="compound">rpc_packet_t</ref> *</type>
+        <definition>rpc_packet_t* rpc_engine_t::recv_packet</definition>
+        <argsstring>()</argsstring>
+        <name>recv_packet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="446" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classrpc__engine__t_1a57c1ffd2e7974ac37c2cb08d5129d70f" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="structrpc__packet__t" kindref="compound">rpc_packet_t</ref> *</type>
+        <definition>virtual rpc_packet_t* rpc_engine_t::send_request_and_receive_reply</definition>
+        <argsstring>(bytevec_t &amp;pkt)=0</argsstring>
+        <name>send_request_and_receive_reply</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> &amp;</type>
+          <declname>pkt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="448" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classrpc__engine__t_1a6369f3ff1e55eb1f5c97dfca0d6bf853" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>idarpc_stream_t *</type>
+        <definition>virtual idarpc_stream_t* rpc_engine_t::get_irs</definition>
+        <argsstring>() const =0</argsstring>
+        <name>get_irs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="450" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classrpc__engine__t_1a084f9bacead3793ad1d242681fcc20b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>virtual ssize_t rpc_engine_t::send_notif</definition>
+        <argsstring>(int code, const char *format, va_list va)</argsstring>
+        <name>send_notif</name>
+        <param>
+          <type>int</type>
+          <declname>code</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>va_list</type>
+          <declname>va</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="451" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classrpc__engine__t_1a2afe40fd1c6c2ea559f33b89c49ba2ef" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool rpc_engine_t::get_broken_connection</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_broken_connection</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="453" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="453" bodyend="453"/>
+      </memberdef>
+      <memberdef kind="function" id="classrpc__engine__t_1a8f9b4ca0168d3dd0ed05a1652c6870cb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void rpc_engine_t::set_broken_connection</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_broken_connection</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="454" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="454" bodyend="454"/>
+      </memberdef>
+      <memberdef kind="function" id="classrpc__engine__t_1aa74992aaabe61242c05a52821220a7b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int rpc_engine_t::send_ioctl</definition>
+        <argsstring>(int fn, const void *buf, size_t size, void **poutbuf, ssize_t *poutsize)</argsstring>
+        <name>send_ioctl</name>
+        <param>
+          <type>int</type>
+          <declname>fn</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>void **</type>
+          <declname>poutbuf</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> *</type>
+          <declname>poutsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="456" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classrpc__engine__t_1a7fafd73c2c99504008b08056f94aa0e8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void rpc_engine_t::set_ioctl_handler</definition>
+        <argsstring>(ioctl_handler_t *h)</argsstring>
+        <name>set_ioctl_handler</name>
+        <param>
+          <type>ioctl_handler_t *</type>
+          <declname>h</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="457" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="457" bodyend="457"/>
+      </memberdef>
+      <memberdef kind="function" id="classrpc__engine__t_1a8d8ce53e17ea5622adfffd042241cd08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rpc_engine_t::DEFINE_ALL_NOTIFICATION_FUNCTIONS</definition>
+        <argsstring>(this)</argsstring>
+        <name>DEFINE_ALL_NOTIFICATION_FUNCTIONS</name>
+        <param>
+          <type>this</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="459" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classrpc__engine__t_1ad1af682003daa19d33a0a9f3342f1de2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int rpc_engine_t::recv_data</definition>
+        <argsstring>(void *out, size_t len)</argsstring>
+        <name>recv_data</name>
+        <param>
+          <type>void *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="464" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classrpc__engine__t_1a62113bf3781ab3b4bd6da0cc254a6007" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>static ssize_t rpc_engine_t::dvnotif</definition>
+        <argsstring>(int code, rpc_engine_t *rpc, const char *format, va_list va)</argsstring>
+        <name>dvnotif</name>
+        <param>
+          <type>int</type>
+          <declname>code</declname>
+        </param>
+        <param>
+          <type><ref refid="classrpc__engine__t" kindref="compound">rpc_engine_t</ref> *</type>
+          <declname>rpc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>va_list</type>
+          <declname>va</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="466" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="422" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="421" bodyend="467"/>
+    <listofallmembers>
+      <member refid="classrpc__engine__t_1a8d8ce53e17ea5622adfffd042241cd08" prot="public" virt="non-virtual"><scope>rpc_engine_t</scope><name>DEFINE_ALL_NOTIFICATION_FUNCTIONS</name></member>
+      <member refid="classrpc__engine__t_1a62113bf3781ab3b4bd6da0cc254a6007" prot="private" virt="non-virtual"><scope>rpc_engine_t</scope><name>dvnotif</name></member>
+      <member refid="classrpc__engine__t_1a05156e3d0cbfe6287fd06599a125778d" prot="protected" virt="non-virtual"><scope>rpc_engine_t</scope><name>find_packet_type_desc</name></member>
+      <member refid="classrpc__engine__t_1a9f5c7982cc31b0a08ed62b6748bf9e96" prot="protected" virt="non-virtual"><scope>rpc_engine_t</scope><name>find_packet_type_desc</name></member>
+      <member refid="classrpc__engine__t_1a2afe40fd1c6c2ea559f33b89c49ba2ef" prot="public" virt="virtual"><scope>rpc_engine_t</scope><name>get_broken_connection</name></member>
+      <member refid="classrpc__engine__t_1a6369f3ff1e55eb1f5c97dfca0d6bf853" prot="public" virt="pure-virtual"><scope>rpc_engine_t</scope><name>get_irs</name></member>
+      <member refid="classrpc__engine__t_1a1c25d2de03cad2d4b8a769f0adade32f" prot="public" virt="non-virtual"><scope>rpc_engine_t</scope><name>handle_ioctl_packet</name></member>
+      <member refid="classrpc__engine__t_1aab8bc61877e0823b57a41673439747a8" prot="public" virt="non-virtual"><scope>rpc_engine_t</scope><name>ioctl_handler</name></member>
+      <member refid="classrpc__engine__t_1a78febbf2dd3d01eb992b95cdaffebfd9" prot="public" virt="non-virtual"><scope>rpc_engine_t</scope><name>is_client</name></member>
+      <member refid="classrpc__engine__t_1a050b43b9a55808799f7a66c10f0f4499" prot="public" virt="non-virtual"><scope>rpc_engine_t</scope><name>logged_in</name></member>
+      <member refid="classrpc__engine__t_1ab0a828c2d09e808e3b9f4d18f5a8fbfa" prot="public" virt="non-virtual"><scope>rpc_engine_t</scope><name>network_error</name></member>
+      <member refid="classrpc__engine__t_1a4c1fd6b6b3087a6e988f02e0b355b50c" prot="private" virt="non-virtual"><scope>rpc_engine_t</scope><name>ptypes</name></member>
+      <member refid="classrpc__engine__t_1ad1af682003daa19d33a0a9f3342f1de2" prot="private" virt="non-virtual"><scope>rpc_engine_t</scope><name>recv_data</name></member>
+      <member refid="classrpc__engine__t_1ae0bbce36af0d5bdd94829c3bee13e888" prot="public" virt="non-virtual"><scope>rpc_engine_t</scope><name>recv_packet</name></member>
+      <member refid="classrpc__engine__t_1a39a53b97163557ff383f2239a7ef2650" prot="public" virt="non-virtual"><scope>rpc_engine_t</scope><name>recv_timeout</name></member>
+      <member refid="classrpc__engine__t_1a02674b6a1cef752d04d9c165145d0b88" prot="protected" virt="non-virtual"><scope>rpc_engine_t</scope><name>register_packet_type_descs</name></member>
+      <member refid="classrpc__engine__t_1a54f9330fcc1c4233bb1d85c9fa748f97" prot="public" virt="non-virtual"><scope>rpc_engine_t</scope><name>rpc_engine_t</name></member>
+      <member refid="classrpc__engine__t_1acacef0101ff75a32f877c3eb6eee085f" prot="public" virt="non-virtual"><scope>rpc_engine_t</scope><name>send_data</name></member>
+      <member refid="classrpc__engine__t_1aa74992aaabe61242c05a52821220a7b0" prot="public" virt="non-virtual"><scope>rpc_engine_t</scope><name>send_ioctl</name></member>
+      <member refid="classrpc__engine__t_1a084f9bacead3793ad1d242681fcc20b2" prot="public" virt="virtual"><scope>rpc_engine_t</scope><name>send_notif</name></member>
+      <member refid="classrpc__engine__t_1a57c1ffd2e7974ac37c2cb08d5129d70f" prot="public" virt="pure-virtual"><scope>rpc_engine_t</scope><name>send_request_and_receive_reply</name></member>
+      <member refid="classrpc__engine__t_1a8f9b4ca0168d3dd0ed05a1652c6870cb" prot="public" virt="virtual"><scope>rpc_engine_t</scope><name>set_broken_connection</name></member>
+      <member refid="classrpc__engine__t_1a7fafd73c2c99504008b08056f94aa0e8" prot="public" virt="non-virtual"><scope>rpc_engine_t</scope><name>set_ioctl_handler</name></member>
+      <member refid="classrpc__engine__t_1ac23a5a24be91ec0b0e226c4a460f79db" prot="public" virt="virtual"><scope>rpc_engine_t</scope><name>~rpc_engine_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

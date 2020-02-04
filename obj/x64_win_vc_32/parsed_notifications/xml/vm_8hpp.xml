@@ -1,0 +1,312 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="vm_8hpp" kind="file" language="C++">
+    <compoundname>vm.hpp</compoundname>
+    <includes refid="pro_8h" local="no">pro.h</includes>
+    <includes refid="fpro_8h" local="no">fpro.h</includes>
+    <includes refid="err_8h" local="no">err.h</includes>
+    <includes refid="diskio_8hpp" local="no">diskio.hpp</includes>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+    <includedby refid="va_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/va.hpp</includedby>
+    <incdepgraph>
+      <node id="1606">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="1590">
+        <label>stdarg.h</label>
+      </node>
+      <node id="1593">
+        <label>assert.h</label>
+      </node>
+      <node id="1589">
+        <label>stdlib.h</label>
+      </node>
+      <node id="1610">
+        <label>errno.h</label>
+      </node>
+      <node id="1601">
+        <label>io.h</label>
+      </node>
+      <node id="1604">
+        <label>fcntl.h</label>
+      </node>
+      <node id="1607">
+        <label>llong.hpp</label>
+        <link refid="llong_8hpp_source"/>
+      </node>
+      <node id="1599">
+        <label>malloc.h</label>
+      </node>
+      <node id="1598">
+        <label>string</label>
+      </node>
+      <node id="1603">
+        <label>map</label>
+      </node>
+      <node id="1602">
+        <label>direct.h</label>
+      </node>
+      <node id="1591">
+        <label>stddef.h</label>
+      </node>
+      <node id="1594">
+        <label>limits.h</label>
+      </node>
+      <node id="1587">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/vm.hpp</label>
+        <link refid="vm_8hpp"/>
+        <childnode refid="1588" relation="include">
+        </childnode>
+        <childnode refid="1608" relation="include">
+        </childnode>
+        <childnode refid="1609" relation="include">
+        </childnode>
+        <childnode refid="1611" relation="include">
+        </childnode>
+        <childnode refid="1612" relation="include">
+        </childnode>
+      </node>
+      <node id="1605">
+        <label>sys/types.h</label>
+      </node>
+      <node id="1600">
+        <label>string.h</label>
+      </node>
+      <node id="1597">
+        <label>new</label>
+      </node>
+      <node id="1588">
+        <label>pro.h</label>
+        <link refid="pro_8h"/>
+        <childnode refid="1589" relation="include">
+        </childnode>
+        <childnode refid="1590" relation="include">
+        </childnode>
+        <childnode refid="1591" relation="include">
+        </childnode>
+        <childnode refid="1592" relation="include">
+        </childnode>
+        <childnode refid="1593" relation="include">
+        </childnode>
+        <childnode refid="1594" relation="include">
+        </childnode>
+        <childnode refid="1595" relation="include">
+        </childnode>
+        <childnode refid="1596" relation="include">
+        </childnode>
+        <childnode refid="1597" relation="include">
+        </childnode>
+        <childnode refid="1598" relation="include">
+        </childnode>
+        <childnode refid="1599" relation="include">
+        </childnode>
+        <childnode refid="1600" relation="include">
+        </childnode>
+        <childnode refid="1601" relation="include">
+        </childnode>
+        <childnode refid="1602" relation="include">
+        </childnode>
+        <childnode refid="1603" relation="include">
+        </childnode>
+        <childnode refid="1604" relation="include">
+        </childnode>
+        <childnode refid="1605" relation="include">
+        </childnode>
+        <childnode refid="1606" relation="include">
+        </childnode>
+        <childnode refid="1607" relation="include">
+        </childnode>
+      </node>
+      <node id="1596">
+        <label>time.h</label>
+      </node>
+      <node id="1608">
+        <label>fpro.h</label>
+        <link refid="fpro_8h"/>
+        <childnode refid="1588" relation="include">
+        </childnode>
+        <childnode refid="1592" relation="include">
+        </childnode>
+      </node>
+      <node id="1595">
+        <label>ctype.h</label>
+      </node>
+      <node id="1612">
+        <label>kernwin.hpp</label>
+        <link refid="kernwin_8hpp"/>
+      </node>
+      <node id="1609">
+        <label>err.h</label>
+        <link refid="err_8h"/>
+        <childnode refid="1610" relation="include">
+        </childnode>
+      </node>
+      <node id="1592">
+        <label>stdio.h</label>
+      </node>
+      <node id="1611">
+        <label>diskio.hpp</label>
+        <link refid="diskio_8hpp"/>
+        <childnode refid="1592" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1613">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/vm.hpp</label>
+        <link refid="vm_8hpp"/>
+        <childnode refid="1614" relation="include">
+        </childnode>
+      </node>
+      <node id="1614">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/va.hpp</label>
+        <link refid="va_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_v_m__page" prot="public">VM_page</innerclass>
+    <innerclass refid="class_v_m" prot="public">VM</innerclass>
+    <innerclass refid="class_v_m_1_1page__visitor__t" prot="public">VM::page_visitor_t</innerclass>
+    <innerclass refid="class_v_m_1_1const__page__visitor__t" prot="public">VM::const_page_visitor_t</innerclass>
+    <innerclass refid="classvmclass" prot="public">vmclass</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="vm_8hpp_1a537da5b81a0934e1e8dc3c08dbba68c8" prot="public" static="no">
+        <name>DATALEN</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="29" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="vm_8hpp_1a6c805cc92c35664f454e07576cc2ef80" prot="public" static="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>typedef uint32 vm_pagenum_t</definition>
+        <argsstring></argsstring>
+        <name>vm_pagenum_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="24" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="vm_8hpp_1ae1d67208936906c0c03b5cb7d7611303" prot="public" static="no" mutable="no">
+        <type>const vm_pagenum_t</type>
+        <definition>const vm_pagenum_t VM_BADPAGE</definition>
+        <argsstring></argsstring>
+        <name>VM_BADPAGE</name>
+        <initializer>= vm_pagenum_t(-1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="25" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="vm_8hpp_1aa96cc5d29115ee4fcc7059e92c837885" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int HASH_SIZE</definition>
+        <argsstring></argsstring>
+        <name>HASH_SIZE</name>
+        <initializer>= (512 * 100) - 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="27" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="vm_8hpp_1aa501068ebc439718cd2cb8e6842fa0d3" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* VMErrorHandler) (const VM *v, const char *message, vm_pagenum_t pnum)</definition>
+        <argsstring>)(const VM *v, const char *message, vm_pagenum_t pnum)</argsstring>
+        <name>VMErrorHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="212" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="vm_8hpp_1a3b3c23993c7535c176bea8832d2b5689" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* VMNoDiskSpaceHandler) (const VM *v, bool again, int64 size)</definition>
+        <argsstring>)(const VM *v, bool again, int64 size)</argsstring>
+        <name>VMNoDiskSpaceHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="214" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="vm_8hpp_1ac122fd26fd9b4b121c454a8c85c89a2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VmDefaultHandler</definition>
+        <argsstring>(const VM *v, const char *message, vm_pagenum_t)</argsstring>
+        <name>VmDefaultHandler</name>
+        <param>
+          <type>const <ref refid="class_v_m" kindref="compound">VM</ref> *</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>vm_pagenum_t</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="213" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="vm_8hpp_1afb018c4ea58a55eaaf6c323d074ae608" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VMNoDiskDefaultHandler</definition>
+        <argsstring>(const VM *v, bool again, int64 size)</argsstring>
+        <name>VMNoDiskDefaultHandler</name>
+        <param>
+          <type>const <ref refid="class_v_m" kindref="compound">VM</ref> *</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>again</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref></type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="215" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp"/>
+  </compounddef>
+</doxygen>

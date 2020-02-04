@@ -328,7 +328,7 @@ static PyObject *ph_get_regnames()
   PYW_GIL_CHECK_LOCKED_SCOPE();
   PyObject *py_result = PyList_New(ph.regs_num);
   for ( Py_ssize_t i=0; i < ph.regs_num; i++ )
-    PyList_SetItem(py_result, i, PyString_FromString(ph.reg_names[i]));
+    PyList_SetItem(py_result, i, IDAPyStr_FromUTF8(ph.reg_names[i]));
   return py_result;
 }
 
@@ -607,7 +607,7 @@ class IDP_Hooks
   {
     bool is_str = o != NULL && IDAPyStr_Check(o);
     if ( is_str && buf != NULL )
-      *buf = PyString_AS_STRING(o);
+      IDAPyStr_AsUTF8(buf, o);
     Py_XDECREF(o);
     return is_str;
   }
@@ -671,7 +671,7 @@ class IDP_Hooks
     {
       newref_t py_rc(PySequence_GetItem(o, 0));
       newref_t py_idx(PySequence_GetItem(o, 1));
-      if ( PyInt_Check(py_rc.o) && PyInt_Check(py_idx.o) )
+      if ( IDAPyInt_Check(py_rc.o) && IDAPyInt_Check(py_idx.o) )
       {
         rc = IDAPyInt_AsLong(py_rc.o);
         *idx = IDAPyInt_AsLong(py_idx.o);
@@ -695,8 +695,8 @@ class IDP_Hooks
       newref_t py_out_res(PySequence_GetItem(o, 2));
       char *s;
       Py_ssize_t len = 0;
-      if ( PyInt_Check(py_rc.o)
-        && PyInt_Check(py_out_res.o)
+      if ( IDAPyInt_Check(py_rc.o)
+        && IDAPyInt_Check(py_out_res.o)
         && IDAPyStr_Check(py_out.o)
         && IDAPyBytes_AsStringAndSize(py_out.o, &s, &len) != -1 )
       {

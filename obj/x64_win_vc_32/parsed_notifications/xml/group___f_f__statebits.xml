@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_f__statebits" kind="group">
+    <compoundname>FF_statebits</compoundname>
+    <title>Bits: byte states</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___f_f__statebits_1ga630a903251f31c6f099cfce708498d99" prot="public" static="no">
+        <name>MS_CLS</name>
+        <initializer>0x00000600LU</initializer>
+        <briefdescription>
+<para>Mask for typing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="723" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="723" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__statebits_1gacb1e52d0b6bcfce13bfb81dcb793f447" prot="public" static="no">
+        <name>FF_CODE</name>
+        <initializer>0x00000600LU</initializer>
+        <briefdescription>
+<para>Code ? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="724" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="724" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__statebits_1gac5493ad1870bae8ce9f5877aa4d571ba" prot="public" static="no">
+        <name>FF_DATA</name>
+        <initializer>0x00000400LU</initializer>
+        <briefdescription>
+<para>Data ? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="725" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="725" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__statebits_1gaeead14ecfc3f786262724e1c972d9578" prot="public" static="no">
+        <name>FF_TAIL</name>
+        <initializer>0x00000200LU</initializer>
+        <briefdescription>
+<para>Tail ? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="726" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="726" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__statebits_1ga29948064e290fa7beaf29dd59554bb24" prot="public" static="no">
+        <name>FF_UNK</name>
+        <initializer>0x00000000LU</initializer>
+        <briefdescription>
+<para>Unknown ? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="727" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="727" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

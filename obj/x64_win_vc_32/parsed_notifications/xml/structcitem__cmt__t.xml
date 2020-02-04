@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structcitem__cmt__t" kind="struct" language="C++" prot="public">
+    <compoundname>citem_cmt_t</compoundname>
+    <basecompoundref refid="class__qstring" prot="public" virt="non-virtual">_qstring&lt; char &gt;</basecompoundref>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcitem__cmt__t_1aa8b52ee4078bc40f5c2520d56248b5a7" prot="public" static="no" mutable="yes">
+        <type>bool</type>
+        <definition>bool citem_cmt_t::used</definition>
+        <argsstring></argsstring>
+        <name>used</name>
+        <briefdescription>
+<para>the comment has been retrieved? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5515" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5515" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structcitem__cmt__t_1a047adc318369364042489b8786bdb8bb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>citem_cmt_t::citem_cmt_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>citem_cmt_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5516" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5516" bodyend="5516"/>
+      </memberdef>
+      <memberdef kind="function" id="structcitem__cmt__t_1acc1f6e79f1d85fb3d03c34ecefae3fa7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>citem_cmt_t::citem_cmt_t</definition>
+        <argsstring>(const char *s)</argsstring>
+        <name>citem_cmt_t</name>
+        <param>
+          <type>const char *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5517" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5517" bodyend="5517"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Ctree item comment. For each comment we remember its body and the fact of its retrieval </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="967">
+        <label>citem_cmt_t</label>
+        <link refid="structcitem__cmt__t"/>
+        <childnode refid="968" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="968">
+        <label>qstring</label>
+        <link refid="class__qstring"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="969">
+        <label>citem_cmt_t</label>
+        <link refid="structcitem__cmt__t"/>
+        <childnode refid="970" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="970">
+        <label>qstring</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5514" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5513" bodyend="5518"/>
+    <listofallmembers>
+      <member refid="class__qstring_1a943351420087d9a35df251e1cb3479f6" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>_qstring</name></member>
+      <member refid="class__qstring_1a2f1b9aabb4ff02085ddba0823ac2dec5" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>_qstring</name></member>
+      <member refid="class__qstring_1a3ad3a59e82e60bfd0287811004fd7fcb" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>_qstring</name></member>
+      <member refid="class__qstring_1a5c0f2a13a1201bccf2b0e4b1c38ca522" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>append</name></member>
+      <member refid="class__qstring_1aaf109dc77299b6b53ed09230547c1e29" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>append</name></member>
+      <member refid="class__qstring_1a3ed61cc4555948a7d2ce37850baf4bc1" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>append</name></member>
+      <member refid="class__qstring_1a20e4e9f5b040cfee9769326db8a6e793" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>append</name></member>
+      <member refid="class__qstring_1a924d91aed4ebc3d9f7c5e5215912c3a3" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>at</name></member>
+      <member refid="class__qstring_1ab4c651f130ad98c5d478ace6aae171ec" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>at</name></member>
+      <member refid="class__qstring_1a6ab2cbf78583adeb7cb0634a3b459c68" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>begin</name></member>
+      <member refid="class__qstring_1a430bf44621e6806e44c15900185bca9d" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>begin</name></member>
+      <member refid="class__qstring_1a3654f6526e5d6ec5fc03ff9ed1a29fed" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>c_str</name></member>
+      <member refid="class__qstring_1a80e30b8aa72977c490e8c5a0e66c0747" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>capacity</name></member>
+      <member refid="class__qstring_1a6f5ffedbd9a35e5a6469f76050cbe25d" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>cat_sprnt</name></member>
+      <member refid="class__qstring_1a288e80536c6b7a9eb36cabb5c2e17ec8" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>cat_vsprnt</name></member>
+      <member refid="structcitem__cmt__t_1a047adc318369364042489b8786bdb8bb" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>citem_cmt_t</name></member>
+      <member refid="structcitem__cmt__t_1acc1f6e79f1d85fb3d03c34ecefae3fa7" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>citem_cmt_t</name></member>
+      <member refid="class__qstring_1ae98af3d493734adb8ea116e04449438e" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>clear</name></member>
+      <member refid="class__qstring_1a20b106350efc924c7d3791918af9f42b" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>const_iterator</name></member>
+      <member refid="class__qstring_1a23c49bd56b77afb954b5b4926405b3fa" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>empty</name></member>
+      <member refid="class__qstring_1aa548fad9195fded7940f48f968bfcde9" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>end</name></member>
+      <member refid="class__qstring_1a585f069ea1ee14e8b9d1983d1733337a" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>end</name></member>
+      <member refid="class__qstring_1ab2f9dbbc0bd629ae09b54d182d2c837e" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>extract</name></member>
+      <member refid="class__qstring_1a77a5cb21ece6c7d19542948749acc950" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>fill</name></member>
+      <member refid="class__qstring_1a461c97f7e5bbe013dc6aeb36a2b34fdc" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>fill</name></member>
+      <member refid="class__qstring_1a9fe87bd1e01d5fa7af1461967c812476" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>find</name></member>
+      <member refid="class__qstring_1a8526ec86c6e5dae382f32806ff070e46" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>find</name></member>
+      <member refid="class__qstring_1a42212c638d7ebd0a2b4b160f96f226b6" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>find</name></member>
+      <member refid="class__qstring_1adcce584ca565b662f7ca365a4382429a" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>GCC_DIAG_OFF</name></member>
+      <member refid="class__qstring_1a6fcdc25e931226b78ec551cd5dbcca45" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>GCC_DIAG_ON</name></member>
+      <member refid="class__qstring_1a07fedef2542f179637de73f20eb550fd" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>inject</name></member>
+      <member refid="class__qstring_1aabfc95980140e33a7922a4d179d18588" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>inject</name></member>
+      <member refid="class__qstring_1ada17d4fff09f9840b8fb9b834f4c9d4c" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>insert</name></member>
+      <member refid="class__qstring_1a1781327bf2dc10d63ee3b0c7591dcf94" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>insert</name></member>
+      <member refid="class__qstring_1a5af7fd980f8510df6f5d9341cde7b70f" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>insert</name></member>
+      <member refid="class__qstring_1ae8cef31949e3678c2588bbca081b3695" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>insert</name></member>
+      <member refid="class__qstring_1a0407a3fefff7fae2a335b29aa0719c19" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>insert</name></member>
+      <member refid="class__qstring_1a0a25fbd856828eb68955229d73f4f8dd" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>insert</name></member>
+      <member refid="class__qstring_1ab388c6c4d84653a78967b64f2e1330e9" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>insert</name></member>
+      <member refid="class__qstring_1a9e49a3664d60c9299e94f8e6eb7cf755" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>iterator</name></member>
+      <member refid="class__qstring_1ab0c1317d29391b413a86045ba3f145d5" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>last</name></member>
+      <member refid="class__qstring_1a889a9b45e9cc296f6af9b74dac29198e" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>length</name></member>
+      <member refid="class__qstring_1aa49e8d6cf0c58b1a14aadf9a12a90f82" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>ltrim</name></member>
+      <member refid="class__qstring_1a603b759cd85920181545bd60b5d56252" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>nowarn_sprnt</name></member>
+      <member refid="class__qstring_1a698a0a43ae57046fd2a211f408e753ae" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>npos</name></member>
+      <member refid="class__qstring_1aed4ddad1663fc7b86b2f30380e429f3b" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>operator!=</name></member>
+      <member refid="class__qstring_1ac37bcdbd4cdd4be7254d285e58455f80" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>operator!=</name></member>
+      <member refid="class__qstring_1a2f3b0fdd91fd48946de1f95298ba93af" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>operator+</name></member>
+      <member refid="class__qstring_1a26de9f8e100021e1c32b0b7ba100a97d" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>operator+=</name></member>
+      <member refid="class__qstring_1a9146829e4e6cc9f11880b1c208137098" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>operator+=</name></member>
+      <member refid="class__qstring_1a5d7d7f5ed96ba85f5dc7b66c27846023" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>operator&lt;</name></member>
+      <member refid="class__qstring_1aa4125e077d7b27083d84440e458d3942" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>operator&lt;</name></member>
+      <member refid="class__qstring_1a7707cca3ac636a491a2717b705457d29" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>operator=</name></member>
+      <member refid="class__qstring_1add116f53ee1c43c08b44171d7d985b07" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>operator=</name></member>
+      <member refid="class__qstring_1ac478c4158afa3aa92d79c8d8aa0914d9" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>operator==</name></member>
+      <member refid="class__qstring_1ad274e2ee884b8c2f07eb9d07f2415133" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>operator==</name></member>
+      <member refid="class__qstring_1a2a50a084cc050e867672d2585fea2a23" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>operator[]</name></member>
+      <member refid="class__qstring_1a6295d86e364c0726dd34a58400eea991" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>operator[]</name></member>
+      <member refid="class__qstring_1a670c220ff444e4a58612cd7c4b5792b2" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>qclear</name></member>
+      <member refid="class__qstring_1af74365a385eb17914f083a66b1a28da5" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>remove</name></member>
+      <member refid="class__qstring_1a81652ec4f2fc266be837f6a5042180d1" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>remove_last</name></member>
+      <member refid="class__qstring_1abe25ad29fc9aeb24727eee08cfe977a6" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>replace</name></member>
+      <member refid="class__qstring_1aa92cae889fce283929b3e61cf16829cd" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>reserve</name></member>
+      <member refid="class__qstring_1a52dc587560ecfab8ba866f676cd9a5c5" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>resize</name></member>
+      <member refid="class__qstring_1ac0333cce055ee38fabe97896bdb679e2" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>resize</name></member>
+      <member refid="class__qstring_1a3d2d47368fedec6f9027404db04231ef" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>rfind</name></member>
+      <member refid="class__qstring_1aa0f127cd84709acd91c08c355ae72617" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>rtrim</name></member>
+      <member refid="class__qstring_1a6672bef9207b117a0eaf8b0729122639" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>size</name></member>
+      <member refid="class__qstring_1ab854d5ae057581f9266236e577a8c503" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>sprnt</name></member>
+      <member refid="class__qstring_1a5553d867e41148b05d118bf6c7ec0887" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>substr</name></member>
+      <member refid="class__qstring_1a0fb6a9b57f3f59aafd27e3eead876f7f" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>swap</name></member>
+      <member refid="class__qstring_1adbf975b9a92ad69b863b91c971fe4156" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>trim2</name></member>
+      <member refid="structcitem__cmt__t_1aa8b52ee4078bc40f5c2520d56248b5a7" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>used</name></member>
+      <member refid="class__qstring_1a620711d3ad518cb2d2110189c078dbfa" prot="public" virt="non-virtual"><scope>citem_cmt_t</scope><name>vsprnt</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structpredicate__t" kind="struct" language="C++" prot="public" abstract="yes">
+    <compoundname>predicate_t</compoundname>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structpredicate__t_1a874e1393510696d0aa3ae2416c4302d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi predicate_t::should_display</definition>
+        <argsstring>(const til_t *til, const char *name, const type_t *type, const p_list *fields)=0</argsstring>
+        <name>should_display</name>
+        <param>
+          <type>const <ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>til</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref> *</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a828c7e985f83b1e74eb4ea7b716abfb1" kindref="member">p_list</ref> *</type>
+          <declname>fields</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="4168" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Helper class for <ref refid="typeinf_8hpp_1a57bb73ce890f66243d2bc808d929141d" kindref="member">choose_named_type()</ref>. Controls which types are displayed when choosing types. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="4167" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="4166" bodyend="4174"/>
+    <listofallmembers>
+      <member refid="structpredicate__t_1a874e1393510696d0aa3ae2416c4302d4" prot="public" virt="pure-virtual"><scope>predicate_t</scope><name>should_display</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

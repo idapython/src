@@ -1,0 +1,306 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="namespace_b_t_r_e_e___n_s" kind="namespace" language="C++">
+    <compoundname>BTREE_NS</compoundname>
+    <innerclass refid="struct_b_t_r_e_e___n_s_1_1___d_a_t_a__" prot="public">BTREE_NS::_DATA_</innerclass>
+    <innerclass refid="struct_b_t_r_e_e___n_s_1_1___k_e_y__v1" prot="public">BTREE_NS::_KEY_v1</innerclass>
+    <innerclass refid="struct_b_t_r_e_e___n_s_1_1btkey__t" prot="public">BTREE_NS::btkey_t</innerclass>
+    <innerclass refid="class_b_t_r_e_e___n_s_1_1b_tree" prot="public">BTREE_NS::bTree</innerclass>
+    <innerclass refid="class_b_t_r_e_e___n_s_1_1free__page__t" prot="public">BTREE_NS::free_page_t</innerclass>
+    <innerclass refid="class_b_t_r_e_e___n_s_1_1page__item__t" prot="public">BTREE_NS::page_item_t</innerclass>
+    <innerclass refid="struct_b_t_r_e_e___n_s_1_1stack__item__t" prot="public">BTREE_NS::stack_item_t</innerclass>
+    <innerclass refid="struct_b_t_r_e_e___n_s_1_1stack__pos__t" prot="public">BTREE_NS::stack_pos_t</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="btree_8hpp_1ab6ab1a20b2eac7305a34dbd41ad02ae2" prot="public" static="no">
+        <type><ref refid="pro_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref></type>
+        <definition>typedef uint8 BTREE_NS::ATTRIBUTE</definition>
+        <argsstring></argsstring>
+        <name>ATTRIBUTE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="163" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="btree_8hpp_1ae59f0a6938fff89b52701b10bb296bfc" prot="public" static="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>typedef uint16 BTREE_NS::INDSIZE</definition>
+        <argsstring></argsstring>
+        <name>INDSIZE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="164" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="btree_8hpp_1a7fdebc834e719320e0c2e060f89f20db" prot="public" static="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>typedef uint16 BTREE_NS::DATASIZE</definition>
+        <argsstring></argsstring>
+        <name>DATASIZE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="165" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="btree_8hpp_1a54d5f4da6e3cbb8edc3184efd1fb4b3d" prot="public" static="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>typedef uint32 BTREE_NS::KEYPAGE</definition>
+        <argsstring></argsstring>
+        <name>KEYPAGE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="178" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="btree_8hpp_1a67f3efeceab8739bd287632fd680b270" prot="public" static="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>typedef uint16 BTREE_NS::BTLEV</definition>
+        <argsstring></argsstring>
+        <name>BTLEV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="184" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="btree_8hpp_1a815150e23b69d7758227e77dc576d5d7" prot="public" static="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>typedef uint16 BTREE_NS::OFFSET</definition>
+        <argsstring></argsstring>
+        <name>OFFSET</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="291" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="btree_8hpp_1a4e93629a4c018d900cba79dbed4e5165" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool BTREE_NS::debon</definition>
+        <argsstring></argsstring>
+        <name>debon</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="666" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="btree_8hpp_1aaefe228754d86f6a572b1c88d459627a" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool BTREE_NS::debug_hex</definition>
+        <argsstring></argsstring>
+        <name>debug_hex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="667" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="btree_8hpp_1a07e038727753057d09d180847375b5c8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ATTRIBUTE</type>
+        <definition>ATTRIBUTE BTREE_NS::swapATTRIBUTE</definition>
+        <argsstring>(ATTRIBUTE d)</argsstring>
+        <name>swapATTRIBUTE</name>
+        <param>
+          <type>ATTRIBUTE</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="168" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="168" bodyend="168"/>
+      </memberdef>
+      <memberdef kind="function" id="btree_8hpp_1aedee32c01f0496a3bc1b3add326db1e1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>INDSIZE</type>
+        <definition>INDSIZE BTREE_NS::swapINDSIZE</definition>
+        <argsstring>(INDSIZE d)</argsstring>
+        <name>swapINDSIZE</name>
+        <param>
+          <type>INDSIZE</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="169" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="169" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="btree_8hpp_1a9ac6d2627d603a41d86c5f84eee4df18" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>DATASIZE</type>
+        <definition>DATASIZE BTREE_NS::swapDATASIZE</definition>
+        <argsstring>(DATASIZE d)</argsstring>
+        <name>swapDATASIZE</name>
+        <param>
+          <type>DATASIZE</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="170" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="170" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="function" id="btree_8hpp_1a252330beefdae7ad2b87ea741627146b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>KEYPAGE</type>
+        <definition>KEYPAGE BTREE_NS::swapKEYPAGE</definition>
+        <argsstring>(KEYPAGE d)</argsstring>
+        <name>swapKEYPAGE</name>
+        <param>
+          <type>KEYPAGE</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="179" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="179" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="btree_8hpp_1abf521218d41b58447acec3c483e19705" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>BTLEV</type>
+        <definition>BTLEV BTREE_NS::swapBTLEV</definition>
+        <argsstring>(BTLEV d)</argsstring>
+        <name>swapBTLEV</name>
+        <param>
+          <type>BTLEV</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="185" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="185" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="btree_8hpp_1af4d7c3b47f27115f2533b7676cf4e9a2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>OFFSET</type>
+        <definition>OFFSET BTREE_NS::swapOFFSET</definition>
+        <argsstring>(OFFSET d)</argsstring>
+        <name>swapOFFSET</name>
+        <param>
+          <type>OFFSET</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="292" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="292" bodyend="292"/>
+      </memberdef>
+      <memberdef kind="function" id="btree_8hpp_1a8faf5289b317cc243e8526d91c315426" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BTREE_NS::inc_level</definition>
+        <argsstring>(BTLEV &amp;lev, int val)</argsstring>
+        <name>inc_level</name>
+        <param>
+          <type>BTLEV &amp;</type>
+          <declname>lev</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="329" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="329" bodyend="338"/>
+      </memberdef>
+      <memberdef kind="function" id="btree_8hpp_1a8a859b0107bdcad596a1adcd183c06a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* BTREE_NS::btree_key_to_ascii</definition>
+        <argsstring>(const _KEY_ *k, char *buf, size_t bufsize)</argsstring>
+        <name>btree_key_to_ascii</name>
+        <param>
+          <type>const _KEY_ *</type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="661" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="btree_8hpp_1a236dd006b3ba0a0315f383e9dccbf3ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* BTREE_NS::btree_data_to_ascii</definition>
+        <argsstring>(const _DATA_ *d, char *buf, size_t bufsize, const _KEY_ *k)</argsstring>
+        <name>btree_data_to_ascii</name>
+        <param>
+          <type>const <ref refid="struct_b_t_r_e_e___n_s_1_1___d_a_t_a__" kindref="compound">_DATA_</ref> *</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>const _KEY_ *</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="662" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="161" column="1"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1909 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="network_8hpp" kind="file" language="C++">
+    <compoundname>network.hpp</compoundname>
+    <includes local="no">map</includes>
+    <includes refid="pro_8h" local="no">pro.h</includes>
+    <includes local="no">ws2tcpip.h</includes>
+    <includedby refid="lumina_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp</includedby>
+    <incdepgraph>
+      <node id="1120">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="1105">
+        <label>stdarg.h</label>
+      </node>
+      <node id="1108">
+        <label>assert.h</label>
+      </node>
+      <node id="1122">
+        <label>ws2tcpip.h</label>
+      </node>
+      <node id="1104">
+        <label>stdlib.h</label>
+      </node>
+      <node id="1101">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/network.hpp</label>
+        <link refid="network_8hpp"/>
+        <childnode refid="1102" relation="include">
+        </childnode>
+        <childnode refid="1103" relation="include">
+        </childnode>
+        <childnode refid="1122" relation="include">
+        </childnode>
+      </node>
+      <node id="1116">
+        <label>io.h</label>
+      </node>
+      <node id="1118">
+        <label>fcntl.h</label>
+      </node>
+      <node id="1121">
+        <label>llong.hpp</label>
+        <link refid="llong_8hpp_source"/>
+      </node>
+      <node id="1114">
+        <label>malloc.h</label>
+      </node>
+      <node id="1113">
+        <label>string</label>
+      </node>
+      <node id="1102">
+        <label>map</label>
+      </node>
+      <node id="1117">
+        <label>direct.h</label>
+      </node>
+      <node id="1106">
+        <label>stddef.h</label>
+      </node>
+      <node id="1109">
+        <label>limits.h</label>
+      </node>
+      <node id="1119">
+        <label>sys/types.h</label>
+      </node>
+      <node id="1115">
+        <label>string.h</label>
+      </node>
+      <node id="1112">
+        <label>new</label>
+      </node>
+      <node id="1103">
+        <label>pro.h</label>
+        <link refid="pro_8h"/>
+        <childnode refid="1104" relation="include">
+        </childnode>
+        <childnode refid="1105" relation="include">
+        </childnode>
+        <childnode refid="1106" relation="include">
+        </childnode>
+        <childnode refid="1107" relation="include">
+        </childnode>
+        <childnode refid="1108" relation="include">
+        </childnode>
+        <childnode refid="1109" relation="include">
+        </childnode>
+        <childnode refid="1110" relation="include">
+        </childnode>
+        <childnode refid="1111" relation="include">
+        </childnode>
+        <childnode refid="1112" relation="include">
+        </childnode>
+        <childnode refid="1113" relation="include">
+        </childnode>
+        <childnode refid="1114" relation="include">
+        </childnode>
+        <childnode refid="1115" relation="include">
+        </childnode>
+        <childnode refid="1116" relation="include">
+        </childnode>
+        <childnode refid="1117" relation="include">
+        </childnode>
+        <childnode refid="1102" relation="include">
+        </childnode>
+        <childnode refid="1118" relation="include">
+        </childnode>
+        <childnode refid="1119" relation="include">
+        </childnode>
+        <childnode refid="1120" relation="include">
+        </childnode>
+        <childnode refid="1121" relation="include">
+        </childnode>
+      </node>
+      <node id="1111">
+        <label>time.h</label>
+      </node>
+      <node id="1110">
+        <label>ctype.h</label>
+      </node>
+      <node id="1107">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1123">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/network.hpp</label>
+        <link refid="network_8hpp"/>
+        <childnode refid="1124" relation="include">
+        </childnode>
+      </node>
+      <node id="1124">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp</label>
+        <link refid="lumina_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structrpc__packet__t" prot="public">rpc_packet_t</innerclass>
+    <innerclass refid="structirs__cancellable__op__t" prot="public">irs_cancellable_op_t</innerclass>
+    <innerclass refid="structclient__handler__t" prot="public">client_handler_t</innerclass>
+    <innerclass refid="structclient__handlers__list__t" prot="public">client_handlers_list_t</innerclass>
+    <innerclass refid="structmt__client__handlers__list__t" prot="public">mt_client_handlers_list_t</innerclass>
+    <innerclass refid="structcmdopt__t" prot="public">cmdopt_t</innerclass>
+    <innerclass refid="structbase__dispatcher__t" prot="public">base_dispatcher_t</innerclass>
+    <innerclass refid="structrpc__packet__data__t" prot="public">rpc_packet_data_t</innerclass>
+    <innerclass refid="structrpc__packet__type__desc__t" prot="public">rpc_packet_type_desc_t</innerclass>
+    <innerclass refid="classrpc__engine__t" prot="public">rpc_engine_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="network_8hpp_1a21b97df85e65556468b28a576311271c" prot="public" static="no">
+        <name>SYSTEM</name>
+        <initializer>&quot;Windows&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="12" column="19" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1ad13b589f7a5983f1db722eb6137411cd" prot="public" static="no">
+        <name>socklen_t</name>
+        <initializer>int</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="13" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1af1c8cf84ac37451afaef3bde9976b6e1" prot="public" static="no">
+        <name>SHUT_RD</name>
+        <initializer>SD_RECEIVE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="14" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1addb0a758e6fafdd89f5b7120f84738eb" prot="public" static="no">
+        <name>SHUT_WR</name>
+        <initializer>SD_SEND</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="15" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a80c54d1399557c97a0c81a319d08e9db" prot="public" static="no">
+        <name>SHUT_RDWR</name>
+        <initializer>SD_BOTH</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="16" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a9183e5c27223f803be26683a029afbf2" prot="public" static="no">
+        <name>_SYSBITS</name>
+        <initializer>&quot; 32-bit&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="56" column="12" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1ac21a5fbe186717d571adf946964750ca" prot="public" static="no">
+        <name>SYSBITS</name>
+        <initializer>_SYSBITS</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="66" column="14" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a01a2370e9ed12299eeb748ed0f4f90bb" prot="public" static="no">
+        <name>__SERVER_TYPE__</name>
+        <initializer>&quot;MT&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="72" column="12" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a45ba202b05caf39795aeca91b0ae547e" prot="public" static="no">
+        <name>TIMEOUT</name>
+        <initializer>(1000/25)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="75" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a8a085349026deb6d96604de7e40e6100" prot="public" static="no">
+        <name>TIMEOUT_INFINITY</name>
+        <initializer>-1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="76" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1ab39192cee29452e472d6e4c91de3ecfc" prot="public" static="no">
+        <name>RECV_HELLO_TIMEOUT</name>
+        <initializer>1000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="77" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a043799478ca8734403de65da8435de33" prot="public" static="no">
+        <name>RECV_TIMEOUT_PERIOD</name>
+        <initializer>10000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="78" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a3ac3253f52e276e0ad501f9ce38ba35d" prot="public" static="no">
+        <name>RPC_OPEN</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="89" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1ab84068704d4aab6849c0a755a493397d" prot="public" static="no">
+        <name>RPC_EVENT</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="91" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a4e54a0051905e3ba857142e81d3f63b4" prot="public" static="no">
+        <name>RPC_EVOK</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="92" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1aacafac463d8d894b532e5793eb628f4b" prot="public" static="no">
+        <name>RPC_CANCELLED</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="93" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a4c3b63964ab33c3fdcb7584ba4daf910" prot="public" static="no">
+        <name>RPC_INIT</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="104" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a9aa67ca2bbf05fafedbeb27bd45d9540" prot="public" static="no">
+        <name>RPC_TERM</name>
+        <initializer>11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="105" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1aa47c26ab51637dd6eb87aab80d495467" prot="public" static="no">
+        <name>RPC_GET_PROCESSES</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="106" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a32dd276304960c997ea1fb60a831776a" prot="public" static="no">
+        <name>RPC_START_PROCESS</name>
+        <initializer>13</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="107" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1aa222b8fe9c3477ac03c019e96741d320" prot="public" static="no">
+        <name>RPC_EXIT_PROCESS</name>
+        <initializer>14</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="108" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1ae2c83c832e5eb263863423d53c36bdda" prot="public" static="no">
+        <name>RPC_ATTACH_PROCESS</name>
+        <initializer>15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="109" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a170c7003349975fb2d380944e095b209" prot="public" static="no">
+        <name>RPC_DETACH_PROCESS</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="110" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a161f706b5acb39ca390e379d46aa44af" prot="public" static="no">
+        <name>RPC_GET_DEBUG_EVENT</name>
+        <initializer>17</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="111" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1aade9a457417070aed747819fdf160e15" prot="public" static="no">
+        <name>RPC_PREPARE_TO_PAUSE_PROCESS</name>
+        <initializer>18</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="112" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1aec52640b1a6ed6393ed21f5507ee155b" prot="public" static="no">
+        <name>RPC_STOPPED_AT_DEBUG_EVENT</name>
+        <initializer>19</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="113" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a28bf83957935527064cc292342c1bae4" prot="public" static="no">
+        <name>RPC_CONTINUE_AFTER_EVENT</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="114" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a7ceab1a5bcebd3f894c504e4bc20742f" prot="public" static="no">
+        <name>RPC_TH_SUSPEND</name>
+        <initializer>21</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="115" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a4439e7a45e540c8b3950cf79f2fd5a22" prot="public" static="no">
+        <name>RPC_TH_CONTINUE</name>
+        <initializer>22</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="116" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a7bdfce7e382d9e64997b0a8d8c73bf89" prot="public" static="no">
+        <name>RPC_SET_RESUME_MODE</name>
+        <initializer>23</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="117" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1aa1127c0ee6649da2cd9b6c9a6e8f7438" prot="public" static="no">
+        <name>RPC_GET_MEMORY_INFO</name>
+        <initializer>24</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="118" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1aeb5a53cd88712f3a677f479270bb313d" prot="public" static="no">
+        <name>RPC_READ_MEMORY</name>
+        <initializer>25</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="119" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a06faf5e8948511def91c30bd1c051811" prot="public" static="no">
+        <name>RPC_WRITE_MEMORY</name>
+        <initializer>26</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="120" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a14fb58bde944dfd96501213bc8be9949" prot="public" static="no">
+        <name>RPC_UPDATE_BPTS</name>
+        <initializer>27</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="121" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a2dbb2bdaf54b6c976251c87714687b07" prot="public" static="no">
+        <name>RPC_UPDATE_LOWCNDS</name>
+        <initializer>28</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="122" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1aeb9ab6072206ca97a83c46e520d3be73" prot="public" static="no">
+        <name>RPC_EVAL_LOWCND</name>
+        <initializer>29</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="123" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a19b0a2a555b51e946ce789407e1ae2f2" prot="public" static="no">
+        <name>RPC_ISOK_BPT</name>
+        <initializer>30</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="124" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1aaac453fa0de7a178f63717e638934f90" prot="public" static="no">
+        <name>RPC_READ_REGS</name>
+        <initializer>31</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="125" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1af8528e1d18b41b427588e8d941882b81" prot="public" static="no">
+        <name>RPC_WRITE_REG</name>
+        <initializer>32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="126" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1aa4f6a7f067bb49914c8a69069fb21783" prot="public" static="no">
+        <name>RPC_GET_SREG_BASE</name>
+        <initializer>33</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="127" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a88592ee27d0aec80825fd21e6dd556f1" prot="public" static="no">
+        <name>RPC_SET_EXCEPTION_INFO</name>
+        <initializer>34</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="128" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1aafd62393b4b93611d9eab291914f9c91" prot="public" static="no">
+        <name>RPC_OPEN_FILE</name>
+        <initializer>35</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="130" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1ae4036ec59a995efe199f8b2307d795e4" prot="public" static="no">
+        <name>RPC_CLOSE_FILE</name>
+        <initializer>36</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="131" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a976e9e97d8014999ef9670caeb822be0" prot="public" static="no">
+        <name>RPC_READ_FILE</name>
+        <initializer>37</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="132" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a73e422064bae72c6aada2ebf7ab2a5ec" prot="public" static="no">
+        <name>RPC_WRITE_FILE</name>
+        <initializer>38</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="133" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1ac16101b72ff4a7e2f1f977cb069d4c73" prot="public" static="no">
+        <name>RPC_IOCTL</name>
+        <initializer>39</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="134" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1aaa7613d384ca76fd2df7e4d0c9598b1d" prot="public" static="no">
+        <name>RPC_UPDATE_CALL_STACK</name>
+        <initializer>40</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="135" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1ac9a57ee4f86d017226f35bfbc9a5dc70" prot="public" static="no">
+        <name>RPC_APPCALL</name>
+        <initializer>41</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="136" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a1262478df774db3f545b4346fea6f5a9" prot="public" static="no">
+        <name>RPC_CLEANUP_APPCALL</name>
+        <initializer>42</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="137" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1affff143a370e7029cdb1fcba1027a894" prot="public" static="no">
+        <name>RPC_REXEC</name>
+        <initializer>43</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="138" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a27a88424512fde6d0498670e6c68d11d" prot="public" static="no">
+        <name>RPC_GET_SCATTERED_IMAGE</name>
+        <initializer>44</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="139" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a9d98604aa1497941d8ba9e317fe5afe3" prot="public" static="no">
+        <name>RPC_GET_IMAGE_UUID</name>
+        <initializer>45</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="140" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1ad3d2df3be2ab792606d56943ca6e91f1" prot="public" static="no">
+        <name>RPC_GET_SEGM_START</name>
+        <initializer>46</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="141" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1aef9e323a363f5dc7675ee96b705c1292" prot="public" static="no">
+        <name>RPC_BIN_SEARCH</name>
+        <initializer>47</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="142" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1aacbc0272ba44fb0fd58edacb3d309fa3" prot="public" static="no">
+        <name>RPC_SET_DEBUG_NAMES</name>
+        <initializer>50</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="145" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a38fc5f2854f806b578684185588a07e3" prot="public" static="no">
+        <name>RPC_SYNC_STUB</name>
+        <initializer>51</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="146" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a76f8923bd44df1cebc3e54a7d2ee98a1" prot="public" static="no">
+        <name>RPC_ERROR</name>
+        <initializer>52</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="147" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a790d27e7ddc89dc56ba6041945ac71e8" prot="public" static="no">
+        <name>RPC_MSG</name>
+        <initializer>53</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="148" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1ab8815cff687197f7b28bedabe7147df0" prot="public" static="no">
+        <name>RPC_WARNING</name>
+        <initializer>54</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="149" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a292598950b1aab84859934d9fede66c2" prot="public" static="no">
+        <name>RPC_HANDLE_DEBUG_EVENT</name>
+        <initializer>55</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="150" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a89c6b9c308a66535d149abb97711c621" prot="public" static="no">
+        <name>RPC_REPORT_IDC_ERROR</name>
+        <initializer>56</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="151" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a7abe1048f49d10417bd8c4060051fe81" prot="public" static="no">
+        <name>RPC_IMPORT_DLL</name>
+        <initializer>57</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="152" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a3833e1679e7834e357238efa2c0a1f77" prot="public" static="no">
+        <name>DEFINE_ONE_NOTIFICATION_FUNCTION</name>
+        <param><defname>FuncName</defname></param>
+        <param><defname>NotifCode</defname></param>
+        <param><defname>RpcEngineInst</defname></param>
+        <initializer>AS_PRINTF(2, 3) void FuncName(const char *format, ...)                \
+  {                                                                     \
+    va_list va;                                                         \
+    va_start(va, format);                                               \
+    dvnotif(NotifCode, RpcEngineInst, format, va);                    \
+    va_end(va);                                                         \
+  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="172" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a5bb95d97a823ad59bb72533fdf4cb0a3" prot="public" static="no">
+        <name>DEFINE_ALL_NOTIFICATION_FUNCTIONS</name>
+        <param><defname>RpcEngineInst</defname></param>
+        <initializer>DEFINE_ONE_NOTIFICATION_FUNCTION(dmsg,     0, RpcEngineInst)  \
+  DEFINE_ONE_NOTIFICATION_FUNCTION(dwarning, 1, RpcEngineInst)  \
+  DEFINE_ONE_NOTIFICATION_FUNCTION(derror,  -1, RpcEngineInst)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="181" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1abaf1f51d2387a0c54fdd4b9e9fdae4a5" prot="public" static="no">
+        <name>IRSERR_TIMEOUT</name>
+        <initializer>WAIT_TIMEOUT</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="195" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a96b7aaa167d1ca76932f1f4b1e0559e5" prot="public" static="no">
+        <name>IRSERR_CANCELLED</name>
+        <initializer>-0xE5CA7E</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="199" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1ade2d754d3839b03f639db8e09e42ad4e" prot="public" static="no">
+        <name>IRSERR_SKIP_ITER</name>
+        <initializer>-0x5217</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="200" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a2a5519994c30095068d41ba77230d7c4" prot="public" static="no">
+        <name>VERBOSE_ENABLED</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="377" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="377" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a316f4efc00633be2e0a4cb1b37bd1a07" prot="public" static="no">
+        <name>verb</name>
+        <param><defname>x</defname></param>
+        <initializer>do { if ( verbose ) msg x; } while(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="379" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="379" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1aeac1ebc02955064ecea9de98bbf752d1" prot="public" static="no">
+        <name>verb_eng</name>
+        <param><defname>engine</defname></param>
+        <param><defname>x</defname></param>
+        <initializer>do { if ( (engine)-&gt;verbose ) msg x; } while(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="380" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="network_8hpp_1a75831643549c4db9d5c11d9254c723b7" prot="public" static="no">
+        <name>verbev</name>
+        <param><defname>x</defname></param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="385" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="385" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="network_8hpp_1ad42ef810188e50197c8b66990cac50b7" prot="public" static="no">
+        <name>base_packet_id_t</name>
+        <enumvalue id="network_8hpp_1ad42ef810188e50197c8b66990cac50b7aa9a09330bf9d1d7af3a77fa371bc32ee" prot="public">
+          <name>RPC_OK</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="network_8hpp_1ad42ef810188e50197c8b66990cac50b7a207dbcb7aee9e2eb048bd422bcd83a9c" prot="public">
+          <name>RPC_UNK</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="network_8hpp_1ad42ef810188e50197c8b66990cac50b7a9c9f5da03882a954b4ce0c98987fb7b7" prot="public">
+          <name>RPC_MEM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="network_8hpp_1ad42ef810188e50197c8b66990cac50b7af721ca6662d6129285d5ede3db3268d5" prot="public">
+          <name>base_packet_id_last</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="82" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="81" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="enum" id="network_8hpp_1adf2285a5e04ebd8176e1714b38f282a9" prot="public" static="no">
+        <name>rpc_notification_type_t</name>
+        <enumvalue id="network_8hpp_1adf2285a5e04ebd8176e1714b38f282a9ab2e92e0977e64e969fb85001beb572a6" prot="public">
+          <name>rnt_unknown</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="network_8hpp_1adf2285a5e04ebd8176e1714b38f282a9a413db41faeca274035718f2cf3533b5e" prot="public">
+          <name>rnt_msg</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="network_8hpp_1adf2285a5e04ebd8176e1714b38f282a9a09771b819f1fa8a858e66c70d0658ded" prot="public">
+          <name>rnt_warning</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="network_8hpp_1adf2285a5e04ebd8176e1714b38f282a9ad9b2cb05a74e6b7296f5f9bcadf04dbb" prot="public">
+          <name>rnt_error</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="165" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="164" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="enum" id="network_8hpp_1a7d4473f1fba3321c0dbbe6e56b91901d" prot="public" static="no">
+        <name>progress_loop_ctrl_t</name>
+        <enumvalue id="network_8hpp_1a7d4473f1fba3321c0dbbe6e56b91901da7de8fc07cf5c70a9f437b296674b9a94" prot="public">
+          <name>plc_proceed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="network_8hpp_1a7d4473f1fba3321c0dbbe6e56b91901dacda2488dd32c36e14e8bbccb9b9a4caf" prot="public">
+          <name>plc_skip_iter</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="network_8hpp_1a7d4473f1fba3321c0dbbe6e56b91901daada928f28ffd80951abc3e72da3c9a8e" prot="public">
+          <name>plc_cancel</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="225" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="224" bodyend="229"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="network_8hpp_1a789b276f0fc5ed525b2e9ee15c8097d4" prot="public" static="no">
+        <type>progress_loop_ctrl_t</type>
+        <definition>typedef progress_loop_ctrl_t irs_progress_cb_t(bool receiving, size_t processed, size_t total, void *)</definition>
+        <argsstring>(bool receiving, size_t processed, size_t total, void *)</argsstring>
+        <name>irs_progress_cb_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="230" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="network_8hpp_1acf50d6db4f2f2f853acf8b99228e0947" prot="public" static="no">
+        <type>void</type>
+        <definition>typedef void cmdopt_handler_t(base_dispatcher_t *d, const char *value)</definition>
+        <argsstring>(base_dispatcher_t *d, const char *value)</argsstring>
+        <name>cmdopt_handler_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="298" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="network_8hpp_1afbd96e80d4a7bdfd4445b335c849f94b" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structcmdopt__t" kindref="compound">cmdopt_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;cmdopt_t&gt; cmdopts_t</definition>
+        <argsstring></argsstring>
+        <name>cmdopts_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="310" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="network_8hpp_1a6cf247275ecb13460351b9f07ad0335b" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int ioctl_handler_t(class rpc_engine_t *rpc, int fn, const void *buf, size_t size, void **poutbuf, ssize_t *poutsize)</definition>
+        <argsstring>(class rpc_engine_t *rpc, int fn, const void *buf, size_t size, void **poutbuf, ssize_t *poutsize)</argsstring>
+        <name>ioctl_handler_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="399" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="399" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="network_8hpp_1a36dcc11114e043fe38ab7fe73f3868f7" prot="public" static="no">
+        <type><ref refid="structrpc__packet__data__t" kindref="compound">rpc_packet_data_t</ref> *</type>
+        <definition>typedef rpc_packet_data_t* rpc_packet_instantiator_t(const uchar *ptr, size_t len, int version)</definition>
+        <argsstring>(const uchar *ptr, size_t len, int version)</argsstring>
+        <name>rpc_packet_instantiator_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="408" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="408" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="network_8hpp_1a4490af48b3ea7f6d83901c674b09c542" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structrpc__packet__type__desc__t" kindref="compound">rpc_packet_type_desc_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;rpc_packet_type_desc_t&gt; rpc_packet_type_desc_vec_t</definition>
+        <argsstring></argsstring>
+        <name>rpc_packet_type_desc_vec_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="418" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="417" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="network_8hpp_1a1de686806b4a5a28bad236e6a66f3a45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CASSERT</definition>
+        <argsstring>(sizeof(rpc_packet_t)==5)</argsstring>
+        <name>CASSERT</name>
+        <param>
+          <type>sizeof(<ref refid="structrpc__packet__t" kindref="compound">rpc_packet_t</ref>)</type>
+          <defval>=5</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="161" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1ae2d5dbed2520d2955f0654f994e50d05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t dvnotif_client</definition>
+        <argsstring>(int code, const char *format, va_list va)</argsstring>
+        <name>dvnotif_client</name>
+        <param>
+          <type>int</type>
+          <declname>code</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>va_list</type>
+          <declname>va</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="189" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a00fd97eb63fb04550adefecc18eef3fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idarpc_stream_t *</type>
+        <definition>idarpc_stream_t* irs_new</definition>
+        <argsstring>(bool use_tls=false)</argsstring>
+        <name>irs_new</name>
+        <param>
+          <type>bool</type>
+          <declname>use_tls</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="210" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a18eb024bee9797e5bf03e60bdb8f37f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool irs_init_client</definition>
+        <argsstring>(idarpc_stream_t *irs, const char *hostname, int port_number)</argsstring>
+        <name>irs_init_client</name>
+        <param>
+          <type>idarpc_stream_t *</type>
+          <declname>irs</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>hostname</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>port_number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="211" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a8d53c219be80abfe675a96376e1f4a1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool irs_init_server</definition>
+        <argsstring>(idarpc_stream_t *irs, const char *hostname, int port_number)</argsstring>
+        <name>irs_init_server</name>
+        <param>
+          <type>idarpc_stream_t *</type>
+          <declname>irs</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>hostname</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>port_number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="212" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1aced359e4473baecd1dfaf426607d1258" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool irs_accept</definition>
+        <argsstring>(idarpc_stream_t *irs, idarpc_stream_t *listener)</argsstring>
+        <name>irs_accept</name>
+        <param>
+          <type>idarpc_stream_t *</type>
+          <declname>irs</declname>
+        </param>
+        <param>
+          <type>idarpc_stream_t *</type>
+          <declname>listener</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="213" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1af0b0d77385813422fd63463b2755b153" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool irs_handshake</definition>
+        <argsstring>(idarpc_stream_t *irs, int timeout_ms=-1)</argsstring>
+        <name>irs_handshake</name>
+        <param>
+          <type>idarpc_stream_t *</type>
+          <declname>irs</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>timeout_ms</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="214" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a72f29462f60eccb37a448e81e0570f3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int irs_ready</definition>
+        <argsstring>(idarpc_stream_t *irs, int timeout_ms=-1)</argsstring>
+        <name>irs_ready</name>
+        <param>
+          <type>idarpc_stream_t *</type>
+          <declname>irs</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>timeout_ms</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="215" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a8b794bbe11437bd2680714ef4577ca82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t irs_recv</definition>
+        <argsstring>(idarpc_stream_t *irs, void *buf, size_t n)</argsstring>
+        <name>irs_recv</name>
+        <param>
+          <type>idarpc_stream_t *</type>
+          <declname>irs</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="216" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1acc74b0c39af3f027700f7f61b4bc4df1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t irs_send</definition>
+        <argsstring>(idarpc_stream_t *irs, const void *buf, size_t n)</argsstring>
+        <name>irs_send</name>
+        <param>
+          <type>idarpc_stream_t *</type>
+          <declname>irs</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="217" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1ac86822ed0ef296681a2d8c04a5c28a3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void irs_term</definition>
+        <argsstring>(idarpc_stream_t **pirs, int shutdown_flags=-1)</argsstring>
+        <name>irs_term</name>
+        <param>
+          <type>idarpc_stream_t **</type>
+          <declname>pirs</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>shutdown_flags</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="218" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1aa1159b969bd5ee8eec033312b1cdecb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int irs_get_error</definition>
+        <argsstring>(idarpc_stream_t *irs)</argsstring>
+        <name>irs_get_error</name>
+        <param>
+          <type>idarpc_stream_t *</type>
+          <declname>irs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="219" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a3e753dddf4e95716d35028137c7e6f9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* irs_strerror</definition>
+        <argsstring>(idarpc_stream_t *irs)</argsstring>
+        <name>irs_strerror</name>
+        <param>
+          <type>idarpc_stream_t *</type>
+          <declname>irs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="220" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a83da60f3a226bf6bf300ef6059a374bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool irs_peername</definition>
+        <argsstring>(idarpc_stream_t *irs, qstring *out, bool lookupname=true)</argsstring>
+        <name>irs_peername</name>
+        <param>
+          <type>idarpc_stream_t *</type>
+          <declname>irs</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>lookupname</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="221" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a4ac76447fcda2cdb4f695ba01521abbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool irs_sockname</definition>
+        <argsstring>(idarpc_stream_t *irs, qstring *out, bool lookupname=true)</argsstring>
+        <name>irs_sockname</name>
+        <param>
+          <type>idarpc_stream_t *</type>
+          <declname>irs</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>lookupname</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="222" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1ad2226ae19bf0d70d63026abd38f8dc58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>progress_loop_ctrl_t</type>
+        <definition>progress_loop_ctrl_t on_timeout_interrupt_read</definition>
+        <argsstring>(bool receiving, size_t processed, size_t total, void *)</argsstring>
+        <name>on_timeout_interrupt_read</name>
+        <param>
+          <type>bool</type>
+          <declname>receiving</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>processed</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>total</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="231" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1aa053997fb952e1cf10dce0d8d3bff663" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void irs_set_progress_cb</definition>
+        <argsstring>(idarpc_stream_t *irs, int ms, irs_progress_cb_t cb, void *ud=NULL)</argsstring>
+        <name>irs_set_progress_cb</name>
+        <param>
+          <type>idarpc_stream_t *</type>
+          <declname>irs</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ms</declname>
+        </param>
+        <param>
+          <type>irs_progress_cb_t</type>
+          <declname>cb</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="232" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a3656b672100687eb2dd95662e28ed3b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref></type>
+        <definition>bytevec_t prepare_rpc_packet</definition>
+        <argsstring>(uchar code)</argsstring>
+        <name>prepare_rpc_packet</name>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>code</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="353" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a808bdaed7f55c2dea3a61721f91565a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void finalize_packet</definition>
+        <argsstring>(bytevec_t &amp;pkt)</argsstring>
+        <name>finalize_packet</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> &amp;</type>
+          <declname>pkt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="354" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1ab165941a14658aa1d65bfbed11969aae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void append_str</definition>
+        <argsstring>(bytevec_t &amp;s, const char *str)</argsstring>
+        <name>append_str</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="357" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1aea6bd41cd9597e8ca98b2481336883c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void append_str</definition>
+        <argsstring>(bytevec_t &amp;s, const qstring &amp;str)</argsstring>
+        <name>append_str</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> &amp;</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="358" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a8c7264ab7afb988de49e615f13306c34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* extract_cstr</definition>
+        <argsstring>(const uchar **pptr, const uchar *end)</argsstring>
+        <name>extract_cstr</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>pptr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="360" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1afa52c233f9a4cf37261891a0ff4cec47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool extract_qstr</definition>
+        <argsstring>(const uchar **pptr, const uchar *end, qstring *out)</argsstring>
+        <name>extract_qstr</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>pptr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="361" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a6e332c69444b8469a0dfefb57cef115a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void append_ea64</definition>
+        <argsstring>(bytevec_t &amp;s, ea_t ea)</argsstring>
+        <name>append_ea64</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="363" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a93f9ed7c85c724b897fb8fb3bd2748aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t unpack_ea64</definition>
+        <argsstring>(const uchar **ptr, const uchar *end)</argsstring>
+        <name>unpack_ea64</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="364" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1ad4e3f86cd66eee817e3e40a1020667d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool extract_memory</definition>
+        <argsstring>(const uchar **pptr, const uchar *end, void *buf, size_t size)</argsstring>
+        <name>extract_memory</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>pptr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="366" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1ae24c4e7d7d55c8208151dc641f4580b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void append_memory</definition>
+        <argsstring>(bytevec_t &amp;s, const void *buf, size_t size)</argsstring>
+        <name>append_memory</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="367" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a7e3722540ddb15c79ee23e4967629b38" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool extract_bytevec</definition>
+        <argsstring>(bytevec_t *out, const uchar **pptr, const uchar *end)</argsstring>
+        <name>extract_bytevec</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>pptr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="371" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a907dfd03ece9d73bf846f6eaecfe5fbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void append_bytevec</definition>
+        <argsstring>(bytevec_t &amp;s, const bytevec_t &amp;buf)</argsstring>
+        <name>append_bytevec</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> &amp;</type>
+          <declname>buf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="372" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a72ed6f4ad315d0f4f5dc481ed79abc48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t dvnotif_rpc</definition>
+        <argsstring>(int code, rpc_engine_t *rpc, const char *format, va_list va)</argsstring>
+        <name>dvnotif_rpc</name>
+        <param>
+          <type>int</type>
+          <declname>code</declname>
+        </param>
+        <param>
+          <type><ref refid="classrpc__engine__t" kindref="compound">rpc_engine_t</ref> *</type>
+          <declname>rpc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>va_list</type>
+          <declname>va</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="470" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a8451493581b94935794cfef8ea2e5d1b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int vlprintf</definition>
+        <argsstring>(const char *format, va_list va)</argsstring>
+        <name>vlprintf</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>va_list</type>
+          <declname>va</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="477" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a901aa4e628db6d69191a5ca2e9d8db31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int lprintf</definition>
+        <argsstring>(const char *format,...)</argsstring>
+        <name>lprintf</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="478" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1a5c8e8fd13b72619966e29065d228d2a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void set_lprintf_output</definition>
+        <argsstring>(FILE *out)</argsstring>
+        <name>set_lprintf_output</name>
+        <param>
+          <type>FILE *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="479" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="network_8hpp_1ade70497b880288d1e4e89ca5f6fed823" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t format_timestamp</definition>
+        <argsstring>(char *buf, size_t bufsize, qtime64_t ts)</argsstring>
+        <name>format_timestamp</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a608a3fbc2403cb7e0b2314675c13f1ce" kindref="member">qtime64_t</ref></type>
+          <declname>ts</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="482" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp"/>
+  </compounddef>
+</doxygen>

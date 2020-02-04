@@ -1,0 +1,1289 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__winkeys" kind="group">
+    <compoundname>winkeys</compoundname>
+    <title>Compatibility Windows virtual keys</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__winkeys_1gaaa556c3d3733a425a557a5f457b6aaf9" prot="public" static="no">
+        <name>IK_CANCEL</name>
+        <initializer>0x03</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7454" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7454" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gac60bbfe74670031ee26a933096de538c" prot="public" static="no">
+        <name>IK_BACK</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7455" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7455" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga63394560b17ff9fd21801890fda80df7" prot="public" static="no">
+        <name>IK_TAB</name>
+        <initializer>0x09</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7456" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7456" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga6bfb8361ca1e3729b8113f758800c094" prot="public" static="no">
+        <name>IK_CLEAR</name>
+        <initializer>0x0C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7457" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7457" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaecc49fe83b07d4004d136016187458a4" prot="public" static="no">
+        <name>IK_RETURN</name>
+        <initializer>0x0D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7458" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7458" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gab16e289561ec9b6ed99f653c1e460758" prot="public" static="no">
+        <name>IK_SHIFT</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7459" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7459" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaa575a87974db70543b350a824025c685" prot="public" static="no">
+        <name>IK_CONTROL</name>
+        <initializer>0x11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7460" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7460" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaa9c429966b4c32269359d180c54ff615" prot="public" static="no">
+        <name>IK_MENU</name>
+        <initializer>0x12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7461" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7461" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga6370f9fbe3e46a44ee9e1c83fb1d651a" prot="public" static="no">
+        <name>IK_PAUSE</name>
+        <initializer>0x13</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7462" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7462" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga02ea13d78ed9adeedc0099f9e88f2884" prot="public" static="no">
+        <name>IK_CAPITAL</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7463" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7463" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga550b9023ca9257b7bd14a70f79fd4ea4" prot="public" static="no">
+        <name>IK_KANA</name>
+        <initializer>0x15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7464" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7464" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga3d31e3a04d094ce0c25d15d853f437f0" prot="public" static="no">
+        <name>IK_ESCAPE</name>
+        <initializer>0x1B</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7465" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7465" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaab37eb0c3b676242a0ccafea268ba2f5" prot="public" static="no">
+        <name>IK_MODECHANGE</name>
+        <initializer>0x1F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7466" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7466" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga67a97a8123e372cb959422d8fce209de" prot="public" static="no">
+        <name>IK_SPACE</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7467" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7467" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga7f3e3344054e48e9e3cca061ba15c269" prot="public" static="no">
+        <name>IK_PRIOR</name>
+        <initializer>0x21</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7468" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7468" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gacd846b166e257eb589d0c298d5868eed" prot="public" static="no">
+        <name>IK_NEXT</name>
+        <initializer>0x22</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7469" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7469" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga93389cd11703583cfc60501215b72f8f" prot="public" static="no">
+        <name>IK_END</name>
+        <initializer>0x23</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7470" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7470" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga8376fd6d19b9339e82f7db789dc30d7b" prot="public" static="no">
+        <name>IK_HOME</name>
+        <initializer>0x24</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7471" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7471" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaa03408032cbfb9ff336948cbd842dcb4" prot="public" static="no">
+        <name>IK_LEFT</name>
+        <initializer>0x25</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7472" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7472" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaba4887e685461f83caca1299627602e3" prot="public" static="no">
+        <name>IK_UP</name>
+        <initializer>0x26</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7473" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7473" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga4b5b73573a9b6777d3d4a8543366c408" prot="public" static="no">
+        <name>IK_RIGHT</name>
+        <initializer>0x27</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7474" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7474" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaa6d239f38265227ed0ded61b623f3623" prot="public" static="no">
+        <name>IK_DOWN</name>
+        <initializer>0x28</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7475" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7475" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaab8011d425feac4b33e7b81b4e435bb9" prot="public" static="no">
+        <name>IK_SELECT</name>
+        <initializer>0x29</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7476" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7476" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaeaf74f20205e64eb05d1f88a929b44e1" prot="public" static="no">
+        <name>IK_PRINT</name>
+        <initializer>0x2A</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7477" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7477" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaa5713549d119de93ded873050d8f75ec" prot="public" static="no">
+        <name>IK_EXECUTE</name>
+        <initializer>0x2B</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7478" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7478" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga0cdbbd46dc63dbdd37e7254c5768ac07" prot="public" static="no">
+        <name>IK_SNAPSHOT</name>
+        <initializer>0x2C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7479" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7479" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gafee8d47ab6c7d55f93b59df5c6e7d1e7" prot="public" static="no">
+        <name>IK_INSERT</name>
+        <initializer>0x2D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7480" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7480" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaf012e126e1562305d4d09b1bd74ab0f7" prot="public" static="no">
+        <name>IK_DELETE</name>
+        <initializer>0x2E</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7481" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7481" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga085f58e775bd788c3805d5d7840e3e81" prot="public" static="no">
+        <name>IK_HELP</name>
+        <initializer>0x2F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7482" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7482" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga52acf12e43e9495ed8cb8961c8f44e78" prot="public" static="no">
+        <name>IK_LWIN</name>
+        <initializer>0x5B</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7483" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7483" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga8401c7aa79d11efc7e0921e65e42c9ee" prot="public" static="no">
+        <name>IK_RWIN</name>
+        <initializer>0x5C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7484" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7484" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gab7effb171c4c57cf7ca1d0e1095917e3" prot="public" static="no">
+        <name>IK_APPS</name>
+        <initializer>0x5D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7485" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7485" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gad809d03410b2a966189cd4934567b62e" prot="public" static="no">
+        <name>IK_SLEEP</name>
+        <initializer>0x5F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7486" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7486" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gac774b55aad8fc548c404a4f21de78b11" prot="public" static="no">
+        <name>IK_NUMPAD0</name>
+        <initializer>0x60</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7487" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7487" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga88535db9a842c43457b9c735c5a64a08" prot="public" static="no">
+        <name>IK_NUMPAD1</name>
+        <initializer>0x61</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7488" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7488" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaad4298ecf9c3f3f9bf5958f79646ff09" prot="public" static="no">
+        <name>IK_NUMPAD2</name>
+        <initializer>0x62</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7489" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7489" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga95494a32e08de6d28e0b83f4e2880821" prot="public" static="no">
+        <name>IK_NUMPAD3</name>
+        <initializer>0x63</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7490" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7490" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga3211a663f082a738a8d2ca6df7eac27c" prot="public" static="no">
+        <name>IK_NUMPAD4</name>
+        <initializer>0x64</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7491" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7491" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga4b61028a83e7e4d9f7481d9b2d26ecc3" prot="public" static="no">
+        <name>IK_NUMPAD5</name>
+        <initializer>0x65</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7492" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7492" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga6fe9839a20ce734470efa3a7ab919650" prot="public" static="no">
+        <name>IK_NUMPAD6</name>
+        <initializer>0x66</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7493" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7493" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaa11f3bc8b82f12c8f7113c6de528cacf" prot="public" static="no">
+        <name>IK_NUMPAD7</name>
+        <initializer>0x67</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7494" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7494" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaf0d7d804f46474641b92fa50b493e891" prot="public" static="no">
+        <name>IK_NUMPAD8</name>
+        <initializer>0x68</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7495" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7495" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga2a97d1dfb230c64c4cd9eda5c1eb62f4" prot="public" static="no">
+        <name>IK_NUMPAD9</name>
+        <initializer>0x69</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7496" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7496" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga7c07d739a6efeb2c21f3ba12773ed6dd" prot="public" static="no">
+        <name>IK_MULTIPLY</name>
+        <initializer>0x6A</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7497" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7497" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga409508218c71b288df6a29726b3b7cf0" prot="public" static="no">
+        <name>IK_ADD</name>
+        <initializer>0x6B</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7498" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7498" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga45fc8d06a0d7f1ff4e11ec1308b730ca" prot="public" static="no">
+        <name>IK_SEPARATOR</name>
+        <initializer>0x6C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7499" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7499" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga5d7ef54813ce9165b96921afb4d04ffb" prot="public" static="no">
+        <name>IK_SUBTRACT</name>
+        <initializer>0x6D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7500" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7500" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gac90d8979b07948d90adbe787c2f0827b" prot="public" static="no">
+        <name>IK_DECIMAL</name>
+        <initializer>0x6E</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7501" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7501" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga88f8d451df7724f2d5ee80f6a195fc3a" prot="public" static="no">
+        <name>IK_DIVIDE</name>
+        <initializer>0x6F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7502" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7502" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaca1f1f06c0b942c669fc6341aebb3770" prot="public" static="no">
+        <name>IK_F1</name>
+        <initializer>0x70</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7503" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7503" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gad6e978ff12c165698a52d2bc2f1c5dc1" prot="public" static="no">
+        <name>IK_F2</name>
+        <initializer>0x71</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7504" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7504" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga5ab57d16a806b46dbcc8d57fd4fe1bc4" prot="public" static="no">
+        <name>IK_F3</name>
+        <initializer>0x72</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7505" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7505" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga8975eeb7b5c0a92ca22c341a497c4278" prot="public" static="no">
+        <name>IK_F4</name>
+        <initializer>0x73</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7506" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7506" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaa7c7354327d28f625442f9016d5807c4" prot="public" static="no">
+        <name>IK_F5</name>
+        <initializer>0x74</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7507" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7507" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gadfbd114cf32ecfce8c00cf2fe5fc98bc" prot="public" static="no">
+        <name>IK_F6</name>
+        <initializer>0x75</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7508" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7508" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga959338c2ce584ecbc7de2e0dd7a74372" prot="public" static="no">
+        <name>IK_F7</name>
+        <initializer>0x76</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7509" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7509" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gad688d486194f14ba6e509f454bb5db2e" prot="public" static="no">
+        <name>IK_F8</name>
+        <initializer>0x77</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7510" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7510" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga8cbbedff7fb29aa7a2dd5f1a1180bf80" prot="public" static="no">
+        <name>IK_F9</name>
+        <initializer>0x78</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7511" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7511" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga739839c17b60d873f3c7b134ef7ae9dc" prot="public" static="no">
+        <name>IK_F10</name>
+        <initializer>0x79</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7512" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7512" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaf0f83de3c101ed72adff8faa7fcf94dc" prot="public" static="no">
+        <name>IK_F11</name>
+        <initializer>0x7A</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7513" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7513" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga2eed13bf0489af4768728b806b08a801" prot="public" static="no">
+        <name>IK_F12</name>
+        <initializer>0x7B</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7514" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7514" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga07980cd79cdd6e32d9a04da19326f400" prot="public" static="no">
+        <name>IK_F13</name>
+        <initializer>0x7C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7515" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7515" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gab1557cd74e55d129095bc098a6ec7e56" prot="public" static="no">
+        <name>IK_F14</name>
+        <initializer>0x7D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7516" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7516" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga9e73cf3bf768367a3c6499d44e097af2" prot="public" static="no">
+        <name>IK_F15</name>
+        <initializer>0x7E</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7517" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7517" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gace784298473c63ff86bba10659f1d71d" prot="public" static="no">
+        <name>IK_F16</name>
+        <initializer>0x7F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7518" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7518" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga3f5b31b6293ea902c973f59bb038fa44" prot="public" static="no">
+        <name>IK_F17</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7519" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7519" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga94fe46310ed2f7f1eda4154db537eeb8" prot="public" static="no">
+        <name>IK_F18</name>
+        <initializer>0x81</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7520" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7520" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gad950392b63a90a1a4e7638df69fc7089" prot="public" static="no">
+        <name>IK_F19</name>
+        <initializer>0x82</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7521" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7521" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gabd377b8681636fad20a248a981d62b06" prot="public" static="no">
+        <name>IK_F20</name>
+        <initializer>0x83</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7522" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7522" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga26cae0ac4068e417973f5f42b038191d" prot="public" static="no">
+        <name>IK_F21</name>
+        <initializer>0x84</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7523" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7523" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga58cfba9921f2c779c97f6ea3b5845770" prot="public" static="no">
+        <name>IK_F22</name>
+        <initializer>0x85</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7524" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7524" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga9ca7006fbf13483320fe112b490c1c90" prot="public" static="no">
+        <name>IK_F23</name>
+        <initializer>0x86</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7525" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7525" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga058a57c65beae07380e28ceaf4cafaf0" prot="public" static="no">
+        <name>IK_F24</name>
+        <initializer>0x87</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7526" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7526" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga1e331d1eb6bfdefc16baae87dcdfb73e" prot="public" static="no">
+        <name>IK_NUMLOCK</name>
+        <initializer>0x90</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7527" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7527" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga643cc1f97f05f6a9740aff6b3b3e6a60" prot="public" static="no">
+        <name>IK_SCROLL</name>
+        <initializer>0x91</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7528" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7528" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaebdf0037958ba9cc8e1f4550c82c61cb" prot="public" static="no">
+        <name>IK_OEM_FJ_MASSHOU</name>
+        <initializer>0x93</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7529" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7529" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga241d3e23b62c3f9f10b0720ec16c89b3" prot="public" static="no">
+        <name>IK_OEM_FJ_TOUROKU</name>
+        <initializer>0x94</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7530" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7530" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaa2e056521e500b8a531604e7838316fe" prot="public" static="no">
+        <name>IK_LSHIFT</name>
+        <initializer>0xA0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7531" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7531" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaa50334fa0c3366ed2ba3be9ea5faaae1" prot="public" static="no">
+        <name>IK_RSHIFT</name>
+        <initializer>0xA1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7532" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7532" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gabc069f26a959d932ace42e5796008eb0" prot="public" static="no">
+        <name>IK_LCONTROL</name>
+        <initializer>0xA2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7533" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7533" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaf339315ac51f68895762030a50865e60" prot="public" static="no">
+        <name>IK_RCONTROL</name>
+        <initializer>0xA3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7534" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7534" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga466237e53a877b53223295b8cde9cad8" prot="public" static="no">
+        <name>IK_LMENU</name>
+        <initializer>0xA4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7535" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7535" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gacb7feee16f93780cf8343e1d232c36ae" prot="public" static="no">
+        <name>IK_RMENU</name>
+        <initializer>0xA5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7536" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7536" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga625364d0dceac90a024089b5345d32f8" prot="public" static="no">
+        <name>IK_BROWSER_BACK</name>
+        <initializer>0xA6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7537" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7537" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaa290b5755b21a82c2a18587f0a22d628" prot="public" static="no">
+        <name>IK_BROWSER_FORWARD</name>
+        <initializer>0xA7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7538" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7538" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga890de4d85be91b6afac11ea48bbb5f5e" prot="public" static="no">
+        <name>IK_BROWSER_REFRESH</name>
+        <initializer>0xA8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7539" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7539" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga7e8ca096c0e660dcf0b992a2a4e2b1b5" prot="public" static="no">
+        <name>IK_BROWSER_STOP</name>
+        <initializer>0xA9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7540" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7540" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga727265b46dcaee14945bbd981206f9d1" prot="public" static="no">
+        <name>IK_BROWSER_SEARCH</name>
+        <initializer>0xAA</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7541" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7541" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga449eb283ebe4a275862b31c3bd89e861" prot="public" static="no">
+        <name>IK_BROWSER_FAVORITES</name>
+        <initializer>0xAB</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7542" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7542" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaf44d20481f88b239c6a6fe5873f8f84e" prot="public" static="no">
+        <name>IK_BROWSER_HOME</name>
+        <initializer>0xAC</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7543" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7543" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga28cdc19780b3f90268e18b9a75833014" prot="public" static="no">
+        <name>IK_VOLUME_MUTE</name>
+        <initializer>0xAD</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7544" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7544" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaf5eced85b13123b25286ba31db055034" prot="public" static="no">
+        <name>IK_VOLUME_DOWN</name>
+        <initializer>0xAE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7545" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7545" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga16fcaf0b336dba17f7d54ebc506d0d3a" prot="public" static="no">
+        <name>IK_VOLUME_UP</name>
+        <initializer>0xAF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7546" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7546" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gacfcc5bc0570a97f9acaec9dd745e690e" prot="public" static="no">
+        <name>IK_MEDIA_NEXT_TRACK</name>
+        <initializer>0xB0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7547" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7547" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gac6c3367ffa00212293e659983e75f6f0" prot="public" static="no">
+        <name>IK_MEDIA_PREV_TRACK</name>
+        <initializer>0xB1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7548" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7548" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaf65d1cc85398ba76dc515fa35fbaee6f" prot="public" static="no">
+        <name>IK_MEDIA_STOP</name>
+        <initializer>0xB2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7549" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7549" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga2f2ef6da27efed03a775c9e23562745b" prot="public" static="no">
+        <name>IK_MEDIA_PLAY_PAUSE</name>
+        <initializer>0xB3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7550" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7550" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gad2a69dc99afb9d361b30776488ebae1f" prot="public" static="no">
+        <name>IK_LAUNCH_MAIL</name>
+        <initializer>0xB4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7551" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7551" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga665a0d9e9daa002c05a1f3874ca99ce9" prot="public" static="no">
+        <name>IK_LAUNCH_MEDIA_SELECT</name>
+        <initializer>0xB5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7552" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7552" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga2a353252369d79b0953c9b89e109d6ce" prot="public" static="no">
+        <name>IK_LAUNCH_APP1</name>
+        <initializer>0xB6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7553" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7553" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gada54055e26985334633445a775eb10f7" prot="public" static="no">
+        <name>IK_LAUNCH_APP2</name>
+        <initializer>0xB7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7554" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7554" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga4bae053894bc52bbe7c74bb175ccad25" prot="public" static="no">
+        <name>IK_OEM_1</name>
+        <initializer>0xBA</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7555" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7555" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaf12bb79c23a5ab1558612e53215ebe1c" prot="public" static="no">
+        <name>IK_OEM_PLUS</name>
+        <initializer>0xBB</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7556" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7556" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gae05e6f8a16b4260c02abd9d6227837ed" prot="public" static="no">
+        <name>IK_OEM_COMMA</name>
+        <initializer>0xBC</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7557" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7557" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gacca38c47437de5776ca4746e76a062ca" prot="public" static="no">
+        <name>IK_OEM_MINUS</name>
+        <initializer>0xBD</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7558" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7558" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gab2f13fe2b7a2a64375bf629655b829ba" prot="public" static="no">
+        <name>IK_OEM_PERIOD</name>
+        <initializer>0xBE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7559" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7559" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga399afe81740ab18578c9469230837821" prot="public" static="no">
+        <name>IK_OEM_2</name>
+        <initializer>0xBF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7560" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7560" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gac4834a0dbb6723a1440891f17f9700c6" prot="public" static="no">
+        <name>IK_OEM_3</name>
+        <initializer>0xC0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7561" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7561" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga42b2dbc39bbc71d2dc72218b668b3046" prot="public" static="no">
+        <name>IK_OEM_4</name>
+        <initializer>0xDB</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7562" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7562" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga73be2cf623f8dab0c23f93346a904d74" prot="public" static="no">
+        <name>IK_OEM_5</name>
+        <initializer>0xDC</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7563" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7563" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaa802617c2ea2aecaa0ce15197b5c72d3" prot="public" static="no">
+        <name>IK_OEM_6</name>
+        <initializer>0xDD</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7564" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7564" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga62175646ff14d5e68a6dba729d1287d7" prot="public" static="no">
+        <name>IK_OEM_7</name>
+        <initializer>0xDE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7565" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7565" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaffa7f9162a9e098e26a5182221786376" prot="public" static="no">
+        <name>IK_OEM_102</name>
+        <initializer>0xE2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7566" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7566" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gaf13c02b419f74c2c1f1e898fa35b0326" prot="public" static="no">
+        <name>IK_PLAY</name>
+        <initializer>0xFA</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7567" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7567" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1ga31536edbc5770c041be7dce94c8a83f2" prot="public" static="no">
+        <name>IK_ZOOM</name>
+        <initializer>0xFB</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7568" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7568" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__winkeys_1gab6b24345899c887250b21d774409744d" prot="public" static="no">
+        <name>IK_OEM_CLEAR</name>
+        <initializer>0xFE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="7569" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="7569" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>compatibility windows virtual keys to use in plugins which are not Qt aware. (check the <ref refid="kernwin_8hpp_1adca3d7a02a6f5b01aabd7a0e56403132aec9cebf96a49aae4ceaa6b9ca91b33e5" kindref="member">CVH_QT_AWARE</ref> flag) these keys are provided for compilation of older plugins that use windows virtual keys on all platforms. those constants are currently passed to cli_t-&gt;keydown and customview/CVH_KEYDOWN handlers. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

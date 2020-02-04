@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structbackward__flow__iterator__t_1_1state__t" kind="struct" language="C++" prot="protected">
+    <compoundname>backward_flow_iterator_t::state_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbackward__flow__iterator__t_1_1state__t_1a0dec3fb5a326d8eb4a47c1b3dfde4d1e" prot="public" static="no" mutable="no">
+        <type>State</type>
+        <definition>State backward_flow_iterator_t&lt; State, Ctrl &gt;::state_t::regs</definition>
+        <argsstring></argsstring>
+        <name>regs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/jumptable.hpp" line="414" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/jumptable.hpp" bodystart="414" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbackward__flow__iterator__t_1_1state__t_1a58e1855a0dd09846d7511a4851c1243b" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14" kindref="member">uint</ref></type>
+        <definition>uint backward_flow_iterator_t&lt; State, Ctrl &gt;::state_t::insn_cnt</definition>
+        <argsstring></argsstring>
+        <name>insn_cnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/jumptable.hpp" line="415" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/jumptable.hpp" bodystart="415" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structbackward__flow__iterator__t_1_1state__t_1af618665cf171da769cada081d1abcd6e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>backward_flow_iterator_t&lt; State, Ctrl &gt;::state_t::state_t</definition>
+        <argsstring>()</argsstring>
+        <name>state_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/jumptable.hpp" line="416" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/jumptable.hpp" bodystart="416" bodyend="416"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/jumptable.hpp" line="413" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/jumptable.hpp" bodystart="412" bodyend="417"/>
+    <listofallmembers>
+      <member refid="structbackward__flow__iterator__t_1_1state__t_1a58e1855a0dd09846d7511a4851c1243b" prot="public" virt="non-virtual"><scope>backward_flow_iterator_t::state_t</scope><name>insn_cnt</name></member>
+      <member refid="structbackward__flow__iterator__t_1_1state__t_1a0dec3fb5a326d8eb4a47c1b3dfde4d1e" prot="public" virt="non-virtual"><scope>backward_flow_iterator_t::state_t</scope><name>regs</name></member>
+      <member refid="structbackward__flow__iterator__t_1_1state__t_1af618665cf171da769cada081d1abcd6e" prot="public" virt="non-virtual"><scope>backward_flow_iterator_t::state_t</scope><name>state_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

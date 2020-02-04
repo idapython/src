@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structinsn__cmt__t" kind="struct" language="C++" prot="public">
+    <compoundname>insn_cmt_t</compoundname>
+    <basecompoundref refid="structinsn__site__t" prot="public" virt="non-virtual">insn_site_t</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structinsn__cmt__t_1a2063df9fdb99cec84ac13b3e5adaba23" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring insn_cmt_t::cmt</definition>
+        <argsstring></argsstring>
+        <name>cmt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="107" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1809">
+        <label>insn_cmt_t</label>
+        <link refid="structinsn__cmt__t"/>
+        <childnode refid="1810" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1810">
+        <label>insn_site_t</label>
+        <link refid="structinsn__site__t"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1811">
+        <label>insn_cmt_t</label>
+        <link refid="structinsn__cmt__t"/>
+        <childnode refid="1812" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1813" relation="usage">
+          <edgelabel>cmt</edgelabel>
+        </childnode>
+      </node>
+      <node id="1813">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="1812">
+        <label>insn_site_t</label>
+        <link refid="structinsn__site__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="106" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="105" bodyend="108"/>
+    <listofallmembers>
+      <member refid="structinsn__cmt__t_1a2063df9fdb99cec84ac13b3e5adaba23" prot="public" virt="non-virtual"><scope>insn_cmt_t</scope><name>cmt</name></member>
+      <member refid="structinsn__site__t_1a7c4bfdc0c62de9e8a5e5d3ecf46aff3c" prot="public" virt="non-virtual"><scope>insn_cmt_t</scope><name>fchunk_nr</name></member>
+      <member refid="structinsn__site__t_1a280efb59e1660a48d675bffe09b7bd0c" prot="public" virt="non-virtual"><scope>insn_cmt_t</scope><name>fchunk_off</name></member>
+      <member refid="structinsn__site__t_1ae6a1b34432e32dd7def2a93870aebe92" prot="public" virt="non-virtual"><scope>insn_cmt_t</scope><name>insn_site_t</name></member>
+      <member refid="structinsn__site__t_1aa0904e9348ff33b62efbaeb71e5e43d1" prot="public" virt="non-virtual"><scope>insn_cmt_t</scope><name>toea</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

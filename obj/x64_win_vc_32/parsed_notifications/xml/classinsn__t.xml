@@ -1,0 +1,667 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classinsn__t" kind="class" language="C++" prot="public">
+    <compoundname>insn_t</compoundname>
+      <sectiondef kind="user-defined">
+      <header>Analysis helpers</header>
+      <description><para>The following functions return the next byte, 2 bytes, 4 bytes, and 8 bytes of insn. They use and modify the size field ({size}). Normally they are used in the analyzer to get bytes of the instruction. <simplesect kind="warning"><para>These methods work only for normal (8bit) byte processors! </para></simplesect>
+</para></description>
+      <memberdef kind="function" id="classinsn__t_1a30ae10001de7cd579e8c0e55c3686b7f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref></type>
+        <definition>uint8 insn_t::get_next_byte</definition>
+        <argsstring>()</argsstring>
+        <name>get_next_byte</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="428" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="428" bodyend="433"/>
+      </memberdef>
+      <memberdef kind="function" id="classinsn__t_1ad0374b7766bf0ba365aa59b77721e928" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 insn_t::get_next_word</definition>
+        <argsstring>()</argsstring>
+        <name>get_next_word</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="434" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="434" bodyend="439"/>
+      </memberdef>
+      <memberdef kind="function" id="classinsn__t_1ab64bda1e1ff4ff6cd13b0f4308caee56" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 insn_t::get_next_dword</definition>
+        <argsstring>()</argsstring>
+        <name>get_next_dword</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="440" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="440" bodyend="445"/>
+      </memberdef>
+      <memberdef kind="function" id="classinsn__t_1a5e9a9332d689b794bf868b0cf199cf93" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 insn_t::get_next_qword</definition>
+        <argsstring>()</argsstring>
+        <name>get_next_qword</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="446" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="446" bodyend="451"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Emulator helpers</header>
+      <memberdef kind="function" id="classinsn__t_1abf74a833c2db490390e55aa667cb723b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool insn_t::create_op_data</definition>
+        <argsstring>(ea_t ea_, int opoff, op_dtype_t dtype) const</argsstring>
+        <name>create_op_data</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea_</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>opoff</declname>
+        </param>
+        <param>
+          <type>op_dtype_t</type>
+          <declname>dtype</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Convert to data using information about operand value type (<ref refid="classop__t_1a9d0ea64a2929fc998bca6cebd1b91c09" kindref="member">op_t::dtype</ref>). Emulator could use this function to convert unexplored bytes to data when an instruction references them. This function creates data only if the address was unexplored. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address to be converted to data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>opoff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>offset of the operand from the start of instruction if the offset is unknown, then 0 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dtype</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>operand value type (from <ref refid="classop__t_1a9d0ea64a2929fc998bca6cebd1b91c09" kindref="member">op_t::dtype</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>true</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>false</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>failed to create data item </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="468" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="468" bodyend="471"/>
+      </memberdef>
+      <memberdef kind="function" id="classinsn__t_1a704c5409b246ae608171362693a687e4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool insn_t::create_op_data</definition>
+        <argsstring>(ea_t ea_, const op_t &amp;op) const</argsstring>
+        <name>create_op_data</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classop__t" kindref="compound">op_t</ref> &amp;</type>
+          <declname>op</declname>
+        </param>
+        <briefdescription>
+<para>Convenient alias. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="474" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="474" bodyend="477"/>
+      </memberdef>
+      <memberdef kind="function" id="classinsn__t_1abaeb6683f9b328932887c458550edd50" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool insn_t::create_stkvar</definition>
+        <argsstring>(const op_t &amp;x, adiff_t v, int flags_) const</argsstring>
+        <name>create_stkvar</name>
+        <param>
+          <type>const <ref refid="classop__t" kindref="compound">op_t</ref> &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>adiff_t</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags_</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create or modify a stack variable in the function frame. The emulator could use this function to create stack variables in the function frame before converting the operand to a stack variable. Please check with <ref refid="auto_8hpp_1ae6467793b53cb5a2f53eaf5d9e8bcfe2" kindref="member">may_create_stkvars()</ref> before calling this function. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>operand (used to determine the addressing type) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a displacement in the operand </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags_</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___s_t_k_v_a_r__2" kindref="compound">Stack variable flags</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok, a stack variable exists now </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>no, couldn&apos;t create stack variable </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="490" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="490" bodyend="493"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classinsn__t_1a44ca1931c490f50b866f38be884b7088" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t insn_t::cs</definition>
+        <argsstring></argsstring>
+        <name>cs</name>
+        <briefdescription>
+<para>Current segment base paragraph. Initialized by the kernel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="352" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="352" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classinsn__t_1a9fbcacdc71b94dc291138591e317da01" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t insn_t::ip</definition>
+        <argsstring></argsstring>
+        <name>ip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Virtual address of the instruction (address within the segment). Initialized by the kernel. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="356" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="356" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classinsn__t_1a68b331560b7f026c120373ca574c2889" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t insn_t::ea</definition>
+        <argsstring></argsstring>
+        <name>ea</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Linear address of the instruction. Initialized by the kernel. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="360" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="360" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classinsn__t_1aad5d7fad54a9394febd8ed0cda1f85f0" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 insn_t::itype</definition>
+        <argsstring></argsstring>
+        <name>itype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Internal code of instruction (only for canonical insns - not user defined!). IDP should define its own instruction codes. These codes are usually defined in ins.hpp. The array of instruction names and features (ins.cpp) is accessed using this code. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="366" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="366" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classinsn__t_1ac3c2b72b27e268eeb2d55bdcbcdbd2b9" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 insn_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Size of instruction in bytes. The analyzer should put here the actual size of the instruction. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="374" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="374" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classinsn__t_1a2fd28adb7d6f9471da1215958b5987ca" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 insn_t::auxpref</definition>
+        <argsstring></argsstring>
+        <name>auxpref</name>
+        <briefdescription>
+<para>processor dependent field </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="378" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="378" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classinsn__t_1a1e8c1f7082fa43acafad9e26ab52ebed" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 insn_t::auxpref_u16[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>auxpref_u16</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="379" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="379" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classinsn__t_1a38bb6177aab4f7ee9cb6b520f8d13aa5" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref></type>
+        <definition>uint8 insn_t::auxpref_u8[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>auxpref_u8</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="380" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classinsn__t_1ab3062fd6592af4253addaff341db56cf" prot="public" static="no" mutable="no">
+        <type>union insn_t::@26</type>
+        <definition>union insn_t::@26 insn_t::@27</definition>
+        <argsstring></argsstring>
+        <name>@27</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="381" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classinsn__t_1aa9ae02107cac0f62feae2f648b163ffb" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char insn_t::segpref</definition>
+        <argsstring></argsstring>
+        <name>segpref</name>
+        <briefdescription>
+<para>processor dependent field </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="382" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="382" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classinsn__t_1af8e07bbf23c56dbb2b0a544302c8463c" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char insn_t::insnpref</definition>
+        <argsstring></argsstring>
+        <name>insnpref</name>
+        <briefdescription>
+<para>processor dependent field </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="383" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="383" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classinsn__t_1ad665c6e37e937f98db8ef08091ecf3e3" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a4355d16fcf9f644c9ac84293f0b1801f" kindref="member">int16</ref></type>
+        <definition>int16 insn_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+<para><ref refid="group___i_n_s_n__" kindref="compound">Instruction flags</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="385" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="385" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classinsn__t_1a2a04187abcf0b3a96862be2aec46a61f" prot="public" static="no" mutable="no">
+        <type><ref refid="classop__t" kindref="compound">op_t</ref></type>
+        <definition>op_t insn_t::ops[UA_MAXOP]</definition>
+        <argsstring>[UA_MAXOP]</argsstring>
+        <name>ops</name>
+        <briefdescription>
+<para>array of operands </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="387" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="387" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classinsn__t_1a76482f11e52da041221c222b33a14e9a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>insn_t::insn_t</definition>
+        <argsstring>()</argsstring>
+        <name>insn_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="349" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="349" bodyend="349"/>
+      </memberdef>
+      <memberdef kind="function" id="classinsn__t_1afaebd1219eb7a5035a89a75b6186a90e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool insn_t::is_canon_insn</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_canon_insn</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>see {<ref refid="classinsn__t_1afaebd1219eb7a5035a89a75b6186a90e" kindref="member">is_canon_insn()</ref>} </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="368" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="2262" bodyend="2265"/>
+      </memberdef>
+      <memberdef kind="function" id="classinsn__t_1afa156e9fa65b3745c058e504983a66a8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 insn_t::get_canon_feature</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_canon_feature</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>see <ref refid="structinstruc__t_1a6fc6925bdc9bbca7b8c54ec2c5333810" kindref="member">instruc_t::feature</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="369" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="2272" bodyend="2275"/>
+      </memberdef>
+      <memberdef kind="function" id="classinsn__t_1a90743f5758d3cd7cf0280d758b70a9a0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * insn_t::get_canon_mnem</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_canon_mnem</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>see <ref refid="structinstruc__t_1a75b7efa4c0d41785a0fa0e9923aaaa83" kindref="member">instruc_t::name</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="370" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="2267" bodyend="2270"/>
+      </memberdef>
+      <memberdef kind="function" id="classinsn__t_1a14e91e12196aac88b9bc300726e88b52" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool insn_t::is_macro</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_macro</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is a macro instruction? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="413" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="413" bodyend="413"/>
+      </memberdef>
+      <memberdef kind="function" id="classinsn__t_1a5a311cc7e2cee8c0349f74e0cf84d187" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool insn_t::is_64bit</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_64bit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Belongs to a 64bit segment? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="419" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="419" bodyend="419"/>
+      </memberdef>
+      <memberdef kind="function" id="group___s_t_k_v_a_r__2_1ga86643d38c191f06b359d86f244004b7a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void insn_t::add_cref</definition>
+        <argsstring>(ea_t to, int opoff, cref_t type) const</argsstring>
+        <name>add_cref</name>
+        <param>
+          <type>ea_t</type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>opoff</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xref__type_1ga44e2b79869a9595bbe6265ff2026aa98" kindref="member">cref_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add a code cross-reference from the instruction. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>opoff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>offset of the operand from the start of instruction. if the offset is unknown, then 0. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>to</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>target linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of xref </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="511" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="511" bodyend="514"/>
+      </memberdef>
+      <memberdef kind="function" id="group___s_t_k_v_a_r__2_1ga0b1d0741288844dba9689290230a17ca" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void insn_t::add_dref</definition>
+        <argsstring>(ea_t to, int opoff, dref_t type) const</argsstring>
+        <name>add_dref</name>
+        <param>
+          <type>ea_t</type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>opoff</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xref__type_1ga78aab6d0d6bd9cb4904bbdbb5ac4fa71" kindref="member">dref_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add a data cross-reference from the instruction. See <ref refid="group___s_t_k_v_a_r__2_1ga33eadf9082c4670ee2c102b5d99622ec" kindref="member">add_off_drefs()</ref> - usually it can be used in most cases. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>opoff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>offset of the operand from the start of instruction if the offset is unknown, then 0 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>to</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>target linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of xref </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="524" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="524" bodyend="527"/>
+      </memberdef>
+      <memberdef kind="function" id="group___s_t_k_v_a_r__2_1ga33eadf9082c4670ee2c102b5d99622ec" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t insn_t::add_off_drefs</definition>
+        <argsstring>(const op_t &amp;x, dref_t type, int outf) const</argsstring>
+        <name>add_off_drefs</name>
+        <param>
+          <type>const <ref refid="classop__t" kindref="compound">op_t</ref> &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xref__type_1ga78aab6d0d6bd9cb4904bbdbb5ac4fa71" kindref="member">dref_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>outf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add xrefs for an operand of the instruction. This function creates all cross references for &apos;offset&apos; and &apos;structure offset&apos; operands. Use <ref refid="group___s_t_k_v_a_r__2_1ga33eadf9082c4670ee2c102b5d99622ec" kindref="member">add_off_drefs()</ref> in the presence of negative offsets. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>reference to operand </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of xref </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>outf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>out_value() flags. These flags should match the flags used to output the operand </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>if <ref refid="group___f_f__opfuncs2_1gae2674933600c8a1e3aed29cd52466766" kindref="member">is_off()</ref>, the reference target address (the same as calc_reference_data). else, <ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref>, because for stroffs the target address is unknown </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="541" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="541" bodyend="544"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1830">
+        <label>insn_t</label>
+        <link refid="classinsn__t"/>
+        <childnode refid="1831" relation="usage">
+          <edgelabel>ops</edgelabel>
+        </childnode>
+      </node>
+      <node id="1831">
+        <label>op_t</label>
+        <link refid="classop__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="347" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="346" bodyend="549"/>
+    <listofallmembers>
+      <member refid="group___s_t_k_v_a_r__2_1ga86643d38c191f06b359d86f244004b7a" prot="public" virt="non-virtual"><scope>insn_t</scope><name>add_cref</name></member>
+      <member refid="group___s_t_k_v_a_r__2_1ga0b1d0741288844dba9689290230a17ca" prot="public" virt="non-virtual"><scope>insn_t</scope><name>add_dref</name></member>
+      <member refid="group___s_t_k_v_a_r__2_1ga33eadf9082c4670ee2c102b5d99622ec" prot="public" virt="non-virtual"><scope>insn_t</scope><name>add_off_drefs</name></member>
+      <member refid="classinsn__t_1a2fd28adb7d6f9471da1215958b5987ca" prot="public" virt="non-virtual"><scope>insn_t</scope><name>auxpref</name></member>
+      <member refid="classinsn__t_1a1e8c1f7082fa43acafad9e26ab52ebed" prot="public" virt="non-virtual"><scope>insn_t</scope><name>auxpref_u16</name></member>
+      <member refid="classinsn__t_1a38bb6177aab4f7ee9cb6b520f8d13aa5" prot="public" virt="non-virtual"><scope>insn_t</scope><name>auxpref_u8</name></member>
+      <member refid="classinsn__t_1abf74a833c2db490390e55aa667cb723b" prot="public" virt="non-virtual"><scope>insn_t</scope><name>create_op_data</name></member>
+      <member refid="classinsn__t_1a704c5409b246ae608171362693a687e4" prot="public" virt="non-virtual"><scope>insn_t</scope><name>create_op_data</name></member>
+      <member refid="classinsn__t_1abaeb6683f9b328932887c458550edd50" prot="public" virt="non-virtual"><scope>insn_t</scope><name>create_stkvar</name></member>
+      <member refid="classinsn__t_1a44ca1931c490f50b866f38be884b7088" prot="public" virt="non-virtual"><scope>insn_t</scope><name>cs</name></member>
+      <member refid="classinsn__t_1a68b331560b7f026c120373ca574c2889" prot="public" virt="non-virtual"><scope>insn_t</scope><name>ea</name></member>
+      <member refid="classinsn__t_1ad665c6e37e937f98db8ef08091ecf3e3" prot="public" virt="non-virtual"><scope>insn_t</scope><name>flags</name></member>
+      <member refid="classinsn__t_1afa156e9fa65b3745c058e504983a66a8" prot="public" virt="non-virtual"><scope>insn_t</scope><name>get_canon_feature</name></member>
+      <member refid="classinsn__t_1a90743f5758d3cd7cf0280d758b70a9a0" prot="public" virt="non-virtual"><scope>insn_t</scope><name>get_canon_mnem</name></member>
+      <member refid="classinsn__t_1a30ae10001de7cd579e8c0e55c3686b7f" prot="public" virt="non-virtual"><scope>insn_t</scope><name>get_next_byte</name></member>
+      <member refid="classinsn__t_1ab64bda1e1ff4ff6cd13b0f4308caee56" prot="public" virt="non-virtual"><scope>insn_t</scope><name>get_next_dword</name></member>
+      <member refid="classinsn__t_1a5e9a9332d689b794bf868b0cf199cf93" prot="public" virt="non-virtual"><scope>insn_t</scope><name>get_next_qword</name></member>
+      <member refid="classinsn__t_1ad0374b7766bf0ba365aa59b77721e928" prot="public" virt="non-virtual"><scope>insn_t</scope><name>get_next_word</name></member>
+      <member refid="classinsn__t_1a76482f11e52da041221c222b33a14e9a" prot="public" virt="non-virtual"><scope>insn_t</scope><name>insn_t</name></member>
+      <member refid="classinsn__t_1af8e07bbf23c56dbb2b0a544302c8463c" prot="public" virt="non-virtual"><scope>insn_t</scope><name>insnpref</name></member>
+      <member refid="classinsn__t_1a9fbcacdc71b94dc291138591e317da01" prot="public" virt="non-virtual"><scope>insn_t</scope><name>ip</name></member>
+      <member refid="classinsn__t_1a5a311cc7e2cee8c0349f74e0cf84d187" prot="public" virt="non-virtual"><scope>insn_t</scope><name>is_64bit</name></member>
+      <member refid="classinsn__t_1afaebd1219eb7a5035a89a75b6186a90e" prot="public" virt="non-virtual"><scope>insn_t</scope><name>is_canon_insn</name></member>
+      <member refid="classinsn__t_1a14e91e12196aac88b9bc300726e88b52" prot="public" virt="non-virtual"><scope>insn_t</scope><name>is_macro</name></member>
+      <member refid="classinsn__t_1aad5d7fad54a9394febd8ed0cda1f85f0" prot="public" virt="non-virtual"><scope>insn_t</scope><name>itype</name></member>
+      <member refid="classinsn__t_1a2a04187abcf0b3a96862be2aec46a61f" prot="public" virt="non-virtual"><scope>insn_t</scope><name>ops</name></member>
+      <member refid="classinsn__t_1aa9ae02107cac0f62feae2f648b163ffb" prot="public" virt="non-virtual"><scope>insn_t</scope><name>segpref</name></member>
+      <member refid="classinsn__t_1ac3c2b72b27e268eeb2d55bdcbcdbd2b9" prot="public" virt="non-virtual"><scope>insn_t</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

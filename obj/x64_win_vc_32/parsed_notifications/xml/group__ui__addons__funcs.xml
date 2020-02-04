@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__ui__addons__funcs" kind="group">
+    <compoundname>ui_addons_funcs</compoundname>
+    <title>Functions: add-ons</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__ui__addons__funcs_1ga8cedec52a3b7528466ac750a68e9c87f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int register_addon</definition>
+        <argsstring>(const addon_info_t *info)</argsstring>
+        <name>register_addon</name>
+        <param>
+          <type>const <ref refid="structaddon__info__t" kindref="compound">addon_info_t</ref> *</type>
+          <declname>info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Register an add-on. Show its info in the About box. For plugins, should be called from init() function (repeated calls with the same product code overwrite previous entries) returns: index of the add-on in the list, or -1 on error </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6620" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6620" bodyend="6623"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__addons__funcs_1gacfd6574b7db95f84d9cc5340c326664a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int addon_count</definition>
+        <argsstring>()</argsstring>
+        <name>addon_count</name>
+        <briefdescription>
+<para>Get number of installed addons. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6628" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6628" bodyend="6631"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__addons__funcs_1gab00441f029d8c502f3a6a63ba3317401" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool get_addon_info</definition>
+        <argsstring>(const char *id, addon_info_t *info)</argsstring>
+        <name>get_addon_info</name>
+        <param>
+          <type>const char *</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type><ref refid="structaddon__info__t" kindref="compound">addon_info_t</ref> *</type>
+          <declname>info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get info about a registered addon with a given product code. info-&gt;cb must be valid! NB: all pointers are invalidated by next call to register_addon or get_addon_info <simplesect kind="return"><para>false if not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6639" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6639" bodyend="6642"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ui__addons__funcs_1ga41aaddbbbf07402ca2c5a2de805c0cba" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool get_addon_info_idx</definition>
+        <argsstring>(int index, addon_info_t *info)</argsstring>
+        <name>get_addon_info_idx</name>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type><ref refid="structaddon__info__t" kindref="compound">addon_info_t</ref> *</type>
+          <declname>info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get info about a registered addon with specific index. info-&gt;cb must be valid! NB: all pointers are invalidated by next call to register_addon or get_addon_info <simplesect kind="return"><para>false if index is out of range </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6650" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6650" bodyend="6653"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Convenience functions for <ref refid="group___c_d_v_f___1ga4a23e389ff9cbf1cd31179ca2f393334a261ae826aabb3da1f6c80562b73e4ab8" kindref="member">ui_addons</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

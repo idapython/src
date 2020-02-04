@@ -1,0 +1,519 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="search_8hpp" kind="file" language="C++">
+    <compoundname>search.hpp</compoundname>
+      <sectiondef kind="user-defined">
+      <header>find_... functions</header>
+      <description><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>start ea </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sflag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>combination of <ref refid="group___s_e_a_r_c_h__" kindref="compound">Search flags</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">opnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>filled with operand number whenever relevant </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>first ea at which the search criteria is met </para></simplesect>
+</para></description>
+      <memberdef kind="function" id="search_8hpp_1a7474a6c67d580141187ab908ca9a4272" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export find_error</definition>
+        <argsstring>(ea_t ea, int sflag, int *opnum=NULL)</argsstring>
+        <name>find_error</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sflag</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>opnum</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+<para>Find next error or problem. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="50" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="search_8hpp_1a8a7e5f8587f544709fc345fadabc1563" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export find_notype</definition>
+        <argsstring>(ea_t ea, int sflag, int *opnum=NULL)</argsstring>
+        <name>find_notype</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sflag</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>opnum</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+<para>Find next operand without any type info. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="55" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="search_8hpp_1ac45d0f53b72fff96d7565fd2b5c8baba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export find_unknown</definition>
+        <argsstring>(ea_t ea, int sflag)</argsstring>
+        <name>find_unknown</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sflag</declname>
+        </param>
+        <briefdescription>
+<para>Find next unexplored address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="60" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="search_8hpp_1acbb9b1df80ef79fc966fcf45cc9ac9c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export find_defined</definition>
+        <argsstring>(ea_t ea, int sflag)</argsstring>
+        <name>find_defined</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sflag</declname>
+        </param>
+        <briefdescription>
+<para>Find next ea that is the start of an instruction or data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="65" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="search_8hpp_1a5c1777ae83f328eb38ec907bfa3274fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export find_suspop</definition>
+        <argsstring>(ea_t ea, int sflag, int *opnum=NULL)</argsstring>
+        <name>find_suspop</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sflag</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>opnum</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+<para>Find next suspicious operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="70" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="search_8hpp_1a6c80ddcc7e31a374761378ecc6ff67f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export find_data</definition>
+        <argsstring>(ea_t ea, int sflag)</argsstring>
+        <name>find_data</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sflag</declname>
+        </param>
+        <briefdescription>
+<para>Find next data address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="75" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="search_8hpp_1a763582178af8e53772505dea8d5969ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export find_code</definition>
+        <argsstring>(ea_t ea, int sflag)</argsstring>
+        <name>find_code</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sflag</declname>
+        </param>
+        <briefdescription>
+<para>Find next code address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="80" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="search_8hpp_1a749f37008540e05d3bd1165a0466306d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export find_not_func</definition>
+        <argsstring>(ea_t ea, int sflag)</argsstring>
+        <name>find_not_func</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sflag</declname>
+        </param>
+        <briefdescription>
+<para>Find next code address that does not belong to a function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="85" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="search_8hpp_1a45980ffaa10718bd2138a10431f6aff8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export find_imm</definition>
+        <argsstring>(ea_t newEA, int sflag, uval_t srchValue, int *opnum=NULL)</argsstring>
+        <name>find_imm</name>
+        <param>
+          <type>ea_t</type>
+          <declname>newEA</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sflag</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+          <declname>srchValue</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>opnum</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+<para>Find next immediate operand with the given value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="90" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="search_8hpp_1a61557e85db95556f3374b2b7c194f8ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman ea_t ida_export</type>
+        <definition>idaman ea_t ida_export find_text</definition>
+        <argsstring>(ea_t start_ea, int y, int x, const char *ustr, int sflag)</argsstring>
+        <name>find_text</name>
+        <param>
+          <type>ea_t</type>
+          <declname>start_ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>ustr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sflag</declname>
+        </param>
+        <briefdescription>
+<para>See <ref refid="search_8hpp_1a0f21cb8163a530d4ee1be7da86168b21" kindref="member">search()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="95" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_e_a_r_c_h___1ga3d97b1e2d95366bd07c1cbfb85869512" prot="public" static="no">
+        <name>SEARCH_UP</name>
+        <initializer>0x000</initializer>
+        <briefdescription>
+<para>search towards lower addresses </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="20" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_a_r_c_h___1gac12e00157044276a171bdea184310ac7" prot="public" static="no">
+        <name>SEARCH_DOWN</name>
+        <initializer>0x001</initializer>
+        <briefdescription>
+<para>search towards higher addresses </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="21" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_a_r_c_h___1gaf3dcb08a478e43f74de7a50988a62ede" prot="public" static="no">
+        <name>SEARCH_NEXT</name>
+        <initializer>0x002</initializer>
+        <briefdescription>
+<para>for other find_.. functions it is implicitly set </para>        </briefdescription>
+        <detaileddescription>
+<para>useful only for <ref refid="search_8hpp_1a0f21cb8163a530d4ee1be7da86168b21" kindref="member">search()</ref> and find_binary(). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="22" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_a_r_c_h___1ga3a97cdbfb09753a8dd54e97f0fafb346" prot="public" static="no">
+        <name>SEARCH_CASE</name>
+        <initializer>0x004</initializer>
+        <briefdescription>
+<para>case-sensitive search (case-insensitive otherwise) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="24" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_a_r_c_h___1ga5712c082264d458a56b90d6e0f06c172" prot="public" static="no">
+        <name>SEARCH_REGEX</name>
+        <initializer>0x008</initializer>
+        <briefdescription>
+<para>regular expressions in search string (only supported for txt search) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="25" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_a_r_c_h___1ga63887830d23f01a0d027e1b5ef7711fb" prot="public" static="no">
+        <name>SEARCH_NOBRK</name>
+        <initializer>0x010</initializer>
+        <briefdescription>
+<para>don&apos;t test for ctrl-break to interrupt the search </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="26" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_a_r_c_h___1ga2abe5bf54cde329b6ebd008eef823d05" prot="public" static="no">
+        <name>SEARCH_NOSHOW</name>
+        <initializer>0x020</initializer>
+        <briefdescription>
+<para>don&apos;t display the search progress/refresh screen </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="27" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_a_r_c_h___1ga7b38b4fbc4daeeab4a4c9c31e19e07c1" prot="public" static="no">
+        <name>SEARCH_IDENT</name>
+        <initializer>0x080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>search for an identifier (text search). it means that the characters before and after the match can not be is_visible_char(). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="28" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_a_r_c_h___1ga05c371be0649299993e7a547af71d719" prot="public" static="no">
+        <name>SEARCH_BRK</name>
+        <initializer>0x100</initializer>
+        <briefdescription>
+<para>return <ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> if Ctrl-Break wass pressed during search </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="31" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="search_8hpp_1a29f1a3e6b532129ae478007f0c803430" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool</type>
+        <definition>THREAD_SAFE bool search_down</definition>
+        <argsstring>(int sflag)</argsstring>
+        <name>search_down</name>
+        <param>
+          <type>int</type>
+          <declname>sflag</declname>
+        </param>
+        <briefdescription>
+<para>Is the <ref refid="group___s_e_a_r_c_h___1gac12e00157044276a171bdea184310ac7" kindref="member">SEARCH_DOWN</ref> bit set? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="37" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="search_8hpp_1a0f21cb8163a530d4ee1be7da86168b21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export search</definition>
+        <argsstring>(void *ud, place_t *start, const place_t *end, int *startx, const char *str, int sflag)</argsstring>
+        <name>search</name>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <param>
+          <type><ref refid="classplace__t" kindref="compound">place_t</ref> *</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classplace__t" kindref="compound">place_t</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>startx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sflag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Search for a text substring (low level function). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line array parameter </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">start</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to starting place:<itemizedlist>
+<listitem><para>start-&gt;ea: starting address</para></listitem><listitem><para>start-&gt;lnnum: starting Y coordinate </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>end</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to ending place:<itemizedlist>
+<listitem><para>end-&gt;ea: ending address</para></listitem><listitem><para>end-&gt;lnnum: ending Y coordinate </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">startx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to starting X coordinate </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>substring to search for. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sflag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___s_e_a_r_c_h__" kindref="compound">Search flags</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>substring not found </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>substring found. The matching position is returned in:<itemizedlist>
+<listitem><para>start-&gt;ea: address</para></listitem><listitem><para>start-&gt;lnnum: Y coordinate</para></listitem><listitem><para>*startx: X coordinate </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>search was cancelled by ctrl-break. The farthest searched address is returned in the same manner as in the successful return (1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>3</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the input regular expression is bad. The error message was displayed. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp" line="124" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Middle-level search functions. </para>    </briefdescription>
+    <detaileddescription>
+<para>They all are controlled by <ref refid="group___s_e_a_r_c_h__" kindref="compound">Search flags</ref> </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/search.hpp"/>
+  </compounddef>
+</doxygen>

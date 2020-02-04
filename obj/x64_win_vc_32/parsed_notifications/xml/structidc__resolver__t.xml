@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structidc__resolver__t" kind="struct" language="C++" prot="public" abstract="yes">
+    <compoundname>idc_resolver_t</compoundname>
+    <includes refid="expr_8hpp" local="no">expr.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structidc__resolver__t_1ade6f8653dbdb226f25f408ba67b85cf9" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref> idaapi</type>
+        <definition>virtual uval_t idaapi idc_resolver_t::resolve_name</definition>
+        <argsstring>(const char *name)=0</argsstring>
+        <name>resolve_name</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="1030" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Compile text with IDC function(s). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>line</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line with IDC function(s) (can&apos;t be NULL!) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer for the error message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>resolver</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>callback object to get values of undefined variables This object will be called if IDC function contains references to undefined variables. May be NULL. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>only_safe_funcs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if true, any calls to functions without <ref refid="group___e_x_t_f_u_n___1ga705e9ca1426c11f7883f09387d4acc35" kindref="member">EXTFUN_SAFE</ref> flag will lead to a compilation error. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>true</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ok </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>false</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>error, see errbuf </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" line="1029" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/expr.hpp" bodystart="1028" bodyend="1031"/>
+    <listofallmembers>
+      <member refid="structidc__resolver__t_1ade6f8653dbdb226f25f408ba67b85cf9" prot="public" virt="pure-virtual"><scope>idc_resolver_t</scope><name>resolve_name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

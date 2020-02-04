@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___u_i_j_m_p__" kind="group">
+    <compoundname>UIJMP_</compoundname>
+    <title>Jump flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___u_i_j_m_p___1ga79d889b01d7de7f06edc60fbddc11e89" prot="public" static="no">
+        <name>UIJMP_ACTIVATE</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>activate the new window </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3410" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3410" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___u_i_j_m_p___1ga4b3711ccbb1a14f303627903e0fc9b40" prot="public" static="no">
+        <name>UIJMP_DONTPUSH</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>in the navigation history </para>        </briefdescription>
+        <detaileddescription>
+<para>do not remember the current address </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3411" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3411" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___u_i_j_m_p___1gac5cd3b35b66aaf39888af5b2e833d48d" prot="public" static="no">
+        <name>UIJMP_IDAVIEW</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>jump in idaview (by default any eaview is good) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3413" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3413" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>passed as &apos;uijmp_flags&apos; parameter to <ref refid="kernwin_8hpp_1a5abc7c7d60996ec930d5d70f5685948f" kindref="member">jumpto()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

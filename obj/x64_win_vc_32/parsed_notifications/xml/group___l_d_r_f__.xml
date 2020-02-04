@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___l_d_r_f__" kind="group">
+    <compoundname>LDRF_</compoundname>
+    <title>Loader flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___l_d_r_f___1gad84d752ae33d94062ef5dec8f2e82a0b" prot="public" static="no">
+        <name>LDRF_RELOAD</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>loader recognizes <ref refid="group___n_e_f___1ga1e82e9bb7ac0d602cdd774cda222c1a0" kindref="member">NEF_RELOAD</ref> flag </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="50" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___l_d_r_f___1gaee1078021c1ba4ce8b0f69a31b6f6d2f" prot="public" static="no">
+        <name>LDRF_REQ_PROC</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Requires a processor to be set. if this bit is not set, load_file() must call set_processor_type(..., SETPROC_LOADER) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="51" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="structloader__t_1a049dfabd4bddd202488ce4ff3a263ff0" kindref="member">loader_t::flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

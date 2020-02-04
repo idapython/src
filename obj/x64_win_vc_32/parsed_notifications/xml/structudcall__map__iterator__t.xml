@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structudcall__map__iterator__t" kind="struct" language="C++" prot="public">
+    <compoundname>udcall_map_iterator_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structudcall__map__iterator__t_1a0f62f69d73f8d10e94243b7a905a0a7b" prot="public" static="no" mutable="no">
+        <type>iterator_word</type>
+        <definition>iterator_word udcall_map_iterator_t::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="8100" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="8100" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structudcall__map__iterator__t_1a08a8b98a0371c12539e41ecb3c1f2ae3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool udcall_map_iterator_t::operator==</definition>
+        <argsstring>(const udcall_map_iterator_t &amp;p) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structudcall__map__iterator__t" kindref="compound">udcall_map_iterator_t</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="8101" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="8101" bodyend="8101"/>
+      </memberdef>
+      <memberdef kind="function" id="structudcall__map__iterator__t_1a80d615041f1e2453aad1aaa4cea09146" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool udcall_map_iterator_t::operator!=</definition>
+        <argsstring>(const udcall_map_iterator_t &amp;p) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structudcall__map__iterator__t" kindref="compound">udcall_map_iterator_t</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="8102" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="8102" bodyend="8102"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="8099" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="8098" bodyend="8103"/>
+    <listofallmembers>
+      <member refid="structudcall__map__iterator__t_1a80d615041f1e2453aad1aaa4cea09146" prot="public" virt="non-virtual"><scope>udcall_map_iterator_t</scope><name>operator!=</name></member>
+      <member refid="structudcall__map__iterator__t_1a08a8b98a0371c12539e41ecb3c1f2ae3" prot="public" virt="non-virtual"><scope>udcall_map_iterator_t</scope><name>operator==</name></member>
+      <member refid="structudcall__map__iterator__t_1a0f62f69d73f8d10e94243b7a905a0a7b" prot="public" virt="non-virtual"><scope>udcall_map_iterator_t</scope><name>x</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

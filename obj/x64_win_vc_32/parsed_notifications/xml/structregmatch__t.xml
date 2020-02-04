@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structregmatch__t" kind="struct" language="C++" prot="public">
+    <compoundname>regmatch_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structregmatch__t_1a90ac8973d256eaffdbb20de676ff45a4" prot="public" static="no" mutable="no">
+        <type>regoff_t</type>
+        <definition>regoff_t regmatch_t::rm_so</definition>
+        <argsstring></argsstring>
+        <name>rm_so</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/regex.h" line="70" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/regex.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structregmatch__t_1a728c28b9b23fa28c4e0b90e3a1a29efc" prot="public" static="no" mutable="no">
+        <type>regoff_t</type>
+        <definition>regoff_t regmatch_t::rm_eo</definition>
+        <argsstring></argsstring>
+        <name>rm_eo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/regex.h" line="71" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/regex.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/regex.h" line="69" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/regex.h" bodystart="68" bodyend="72"/>
+    <listofallmembers>
+      <member refid="structregmatch__t_1a728c28b9b23fa28c4e0b90e3a1a29efc" prot="public" virt="non-virtual"><scope>regmatch_t</scope><name>rm_eo</name></member>
+      <member refid="structregmatch__t_1a90ac8973d256eaffdbb20de676ff45a4" prot="public" virt="non-virtual"><scope>regmatch_t</scope><name>rm_so</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

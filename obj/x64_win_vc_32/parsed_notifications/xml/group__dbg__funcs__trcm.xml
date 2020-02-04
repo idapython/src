@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__dbg__funcs__trcm" kind="group">
+    <compoundname>dbg_funcs_trcm</compoundname>
+    <title>Trace management functions</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dbg__funcs__trcm_1gacde5e33b515e99a0f9bef00985791712" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi load_trace_file</definition>
+        <argsstring>(qstring *buf, const char *filename)</argsstring>
+        <name>load_trace_file</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Load a recorded trace file in the trace window. If the call succeeds and &apos;buf&apos; is not null, the description of the trace stored in the binary trace file will be returned in &apos;buf&apos; </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1767" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1767" bodyend="1767"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcm_1gaa73b86c91ba74838a18ff650c7ff05b9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi save_trace_file</definition>
+        <argsstring>(const char *filename, const char *description)</argsstring>
+        <name>save_trace_file</name>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>description</declname>
+        </param>
+        <briefdescription>
+<para>Save the current trace in the specified file. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1772" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1772" bodyend="1772"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcm_1ga4b663baf51d088743f89cfc1cbd7a9d6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi is_valid_trace_file</definition>
+        <argsstring>(const char *filename)</argsstring>
+        <name>is_valid_trace_file</name>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+<para>Is the specified file a valid trace file for the current database? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1777" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1777" bodyend="1777"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcm_1gad50908ff63ae16ade347789f6d2cac69" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi set_trace_file_desc</definition>
+        <argsstring>(const char *filename, const char *description)</argsstring>
+        <name>set_trace_file_desc</name>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>description</declname>
+        </param>
+        <briefdescription>
+<para>Change the description of the specified trace file. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1782" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1782" bodyend="1782"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcm_1ga4e0a2a4ca2de7206e2fc016583c30d4b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi get_trace_file_desc</definition>
+        <argsstring>(qstring *buf, const char *filename)</argsstring>
+        <name>get_trace_file_desc</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+<para>Get the file header of the specified trace file. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1787" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1787" bodyend="1787"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcm_1ga53f135d4259960db2f0766c06a2a2c2c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi choose_trace_file</definition>
+        <argsstring>(qstring *buf)</argsstring>
+        <name>choose_trace_file</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <briefdescription>
+<para>Show the choose trace dialog. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1792" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1792" bodyend="1792"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcm_1ga21b2eca7e2f4d73ded96382b16cb0d5d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi diff_trace_file</definition>
+        <argsstring>(const char *filename)</argsstring>
+        <name>diff_trace_file</name>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+<para>Show difference between the current trace and the one from &apos;filename&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1797" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1797" bodyend="1797"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcm_1gaaeddc1478c12155e82a8a473dbf05443" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi graph_trace</definition>
+        <argsstring>(void)</argsstring>
+        <name>graph_trace</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Show the trace callgraph. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1802" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1802" bodyend="1802"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcm_1ga9e0098ba0b105a31b0cecfd47e34f8db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi set_highlight_trace_options</definition>
+        <argsstring>(bool hilight, bgcolor_t color, bgcolor_t diff)</argsstring>
+        <name>set_highlight_trace_options</name>
+        <param>
+          <type>bool</type>
+          <declname>hilight</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a3df5040891132e50157aee66affdf1de" kindref="member">bgcolor_t</ref></type>
+          <declname>color</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a3df5040891132e50157aee66affdf1de" kindref="member">bgcolor_t</ref></type>
+          <declname>diff</declname>
+        </param>
+        <briefdescription>
+<para>Set highlight trace parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1807" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1807" bodyend="1813"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcm_1ga606c645f577c642e1f0ef7afd080ed87" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi set_trace_platform</definition>
+        <argsstring>(const char *platform)</argsstring>
+        <name>set_trace_platform</name>
+        <param>
+          <type>const char *</type>
+          <declname>platform</declname>
+        </param>
+        <briefdescription>
+<para>Set platform name of current trace. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1818" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1818" bodyend="1818"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcm_1gaccc080682f637872a73735a20af528f7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *idaapi</type>
+        <definition>const char* idaapi get_trace_platform</definition>
+        <argsstring>()</argsstring>
+        <name>get_trace_platform</name>
+        <briefdescription>
+<para>Get platform name of current trace. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1823" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1823" bodyend="1823"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

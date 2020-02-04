@@ -1,0 +1,677 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classmop__addr__t" kind="class" language="C++" prot="public">
+    <compoundname>mop_addr_t</compoundname>
+    <basecompoundref refid="classmop__t" prot="public" virt="non-virtual">mop_t</basecompoundref>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classmop__addr__t_1ae69e5899521fc649b5127417d345c323" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int mop_addr_t::insize</definition>
+        <argsstring></argsstring>
+        <name>insize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2796" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2796" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmop__addr__t_1a690a9c9f9121ea5337e8512cbe23f4a3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int mop_addr_t::outsize</definition>
+        <argsstring></argsstring>
+        <name>outsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2797" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2797" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmop__addr__t_1aa99841e37ff8b01ad686dfbf469a85e1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>mop_addr_t::mop_addr_t</definition>
+        <argsstring>()</argsstring>
+        <name>mop_addr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2799" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2799" bodyend="2799"/>
+      </memberdef>
+      <memberdef kind="function" id="classmop__addr__t_1a03bc0b16ecdb07f6e5d93ff1d83e8677" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>mop_addr_t::mop_addr_t</definition>
+        <argsstring>(const mop_addr_t &amp;ra)</argsstring>
+        <name>mop_addr_t</name>
+        <param>
+          <type>const <ref refid="classmop__addr__t" kindref="compound">mop_addr_t</ref> &amp;</type>
+          <declname>ra</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2800" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2800" bodyend="2801"/>
+      </memberdef>
+      <memberdef kind="function" id="classmop__addr__t_1ad5c2752a1efacb2ef977040d279e24dc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>mop_addr_t::mop_addr_t</definition>
+        <argsstring>(const mop_t &amp;ra, int isz, int osz)</argsstring>
+        <name>mop_addr_t</name>
+        <param>
+          <type>const <ref refid="classmop__t" kindref="compound">mop_t</ref> &amp;</type>
+          <declname>ra</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>isz</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>osz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2802" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2802" bodyend="2803"/>
+      </memberdef>
+      <memberdef kind="function" id="classmop__addr__t_1afde25b63491cd81fd76a71f66347c52a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classmop__addr__t" kindref="compound">mop_addr_t</ref> &amp;</type>
+        <definition>mop_addr_t&amp; mop_addr_t::operator=</definition>
+        <argsstring>(const mop_addr_t &amp;rop)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="classmop__addr__t" kindref="compound">mop_addr_t</ref> &amp;</type>
+          <declname>rop</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2805" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2805" bodyend="2811"/>
+      </memberdef>
+      <memberdef kind="function" id="classmop__addr__t_1a63707e47065a1a8bb8d0a632fb2b01ab" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int mop_addr_t::lexcompare</definition>
+        <argsstring>(const mop_addr_t &amp;ra) const</argsstring>
+        <name>lexcompare</name>
+        <param>
+          <type>const <ref refid="classmop__addr__t" kindref="compound">mop_addr_t</ref> &amp;</type>
+          <declname>ra</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2812" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2812" bodyend="2819"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Address of an operand (mop_l, mop_v, mop_S, mop_r) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2444">
+        <label>mop_addr_t</label>
+        <link refid="classmop__addr__t"/>
+        <childnode refid="2445" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2445">
+        <label>mop_t</label>
+        <link refid="classmop__t"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2470">
+        <label>ivl_tpl&lt; uval_t &gt;</label>
+        <link refid="structivl__tpl"/>
+      </node>
+      <node id="2463">
+        <label>bitset_t</label>
+        <link refid="classbitset__t"/>
+      </node>
+      <node id="2461">
+        <label>mlist_t</label>
+        <link refid="structmlist__t"/>
+        <childnode refid="2458" relation="usage">
+          <edgelabel>mem</edgelabel>
+        </childnode>
+        <childnode refid="2462" relation="usage">
+          <edgelabel>reg</edgelabel>
+        </childnode>
+      </node>
+      <node id="2468">
+        <label>ivl_with_name_t</label>
+        <link refid="structivl__with__name__t"/>
+        <childnode refid="2469" relation="usage">
+          <edgelabel>ivl</edgelabel>
+        </childnode>
+      </node>
+      <node id="2471">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="2446">
+        <label>mop_addr_t</label>
+        <link refid="classmop__addr__t"/>
+        <childnode refid="2447" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2481">
+        <label>netnode</label>
+        <link refid="classnetnode"/>
+      </node>
+      <node id="2487">
+        <label>qvector&lt; mop_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2458">
+        <label>ivlset_t</label>
+        <link refid="structivlset__t"/>
+        <childnode refid="2459" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2466">
+        <label>mblock_t</label>
+        <link refid="classmblock__t"/>
+        <childnode refid="2454" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="2461" relation="usage">
+          <edgelabel>maybuse</edgelabel>
+          <edgelabel>dnu</edgelabel>
+          <edgelabel>maybdef</edgelabel>
+          <edgelabel>mustbuse</edgelabel>
+          <edgelabel>mustbdef</edgelabel>
+          <edgelabel>dead_at_start</edgelabel>
+        </childnode>
+        <childnode refid="2464" relation="usage">
+          <edgelabel>succset</edgelabel>
+          <edgelabel>predset</edgelabel>
+        </childnode>
+        <childnode refid="2467" relation="usage">
+          <edgelabel>head</edgelabel>
+          <edgelabel>tail</edgelabel>
+        </childnode>
+        <childnode refid="2466" relation="usage">
+          <edgelabel>nextb</edgelabel>
+          <edgelabel>prevb</edgelabel>
+        </childnode>
+      </node>
+      <node id="2480">
+        <label>rangevec_base_t</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2490">
+        <label>operand_locator_t</label>
+        <link refid="structoperand__locator__t"/>
+      </node>
+      <node id="2460">
+        <label>qvector&lt; ivl_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2491">
+        <label>mcases_t</label>
+        <link refid="classmcases__t"/>
+        <childnode refid="2464" relation="usage">
+          <edgelabel>targets</edgelabel>
+        </childnode>
+      </node>
+      <node id="2486">
+        <label>qvector&lt; mcallarg_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2473">
+        <label>func_t</label>
+        <link refid="classfunc__t"/>
+        <childnode refid="2474" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2475" relation="usage">
+          <edgelabel>regargs</edgelabel>
+        </childnode>
+        <childnode refid="2476" relation="usage">
+          <edgelabel>points</edgelabel>
+        </childnode>
+        <childnode refid="2474" relation="usage">
+          <edgelabel>tails</edgelabel>
+        </childnode>
+        <childnode refid="2477" relation="usage">
+          <edgelabel>regvars</edgelabel>
+        </childnode>
+        <childnode refid="2478" relation="usage">
+          <edgelabel>llabels</edgelabel>
+        </childnode>
+      </node>
+      <node id="2447">
+        <label>mop_t</label>
+        <link refid="classmop__t"/>
+        <childnode refid="2448" relation="usage">
+          <edgelabel>scif</edgelabel>
+        </childnode>
+        <childnode refid="2483" relation="usage">
+          <edgelabel>fpc</edgelabel>
+        </childnode>
+        <childnode refid="2446" relation="usage">
+          <edgelabel>a</edgelabel>
+        </childnode>
+        <childnode refid="2484" relation="usage">
+          <edgelabel>pair</edgelabel>
+        </childnode>
+        <childnode refid="2485" relation="usage">
+          <edgelabel>f</edgelabel>
+        </childnode>
+        <childnode refid="2467" relation="usage">
+          <edgelabel>d</edgelabel>
+        </childnode>
+        <childnode refid="2488" relation="usage">
+          <edgelabel>l</edgelabel>
+        </childnode>
+        <childnode refid="2489" relation="usage">
+          <edgelabel>nnn</edgelabel>
+        </childnode>
+        <childnode refid="2491" relation="usage">
+          <edgelabel>c</edgelabel>
+        </childnode>
+        <childnode refid="2492" relation="usage">
+          <edgelabel>s</edgelabel>
+        </childnode>
+      </node>
+      <node id="2484">
+        <label>mop_pair_t</label>
+        <link refid="classmop__pair__t"/>
+        <childnode refid="2447" relation="usage">
+          <edgelabel>hop</edgelabel>
+          <edgelabel>lop</edgelabel>
+        </childnode>
+      </node>
+      <node id="2475">
+        <label>regarg_t</label>
+        <link refid="structregarg__t"/>
+      </node>
+      <node id="2483">
+        <label>fnumber_t</label>
+        <link refid="structfnumber__t"/>
+      </node>
+      <node id="2454">
+        <label>mbl_array_t</label>
+        <link refid="classmbl__array__t"/>
+        <childnode refid="2455" relation="usage">
+          <edgelabel>vars</edgelabel>
+        </childnode>
+        <childnode refid="2457" relation="usage">
+          <edgelabel>label</edgelabel>
+          <edgelabel>error_strarg</edgelabel>
+        </childnode>
+        <childnode refid="2458" relation="usage">
+          <edgelabel>gotoff_stkvars</edgelabel>
+          <edgelabel>restricted_memory</edgelabel>
+          <edgelabel>aliased_memory</edgelabel>
+        </childnode>
+        <childnode refid="2461" relation="usage">
+          <edgelabel>spoiled_list</edgelabel>
+          <edgelabel>nodel_memory</edgelabel>
+        </childnode>
+        <childnode refid="2464" relation="usage">
+          <edgelabel>argidx</edgelabel>
+        </childnode>
+        <childnode refid="2465" relation="usage">
+          <edgelabel>idb_spoiled</edgelabel>
+        </childnode>
+        <childnode refid="2466" relation="usage">
+          <edgelabel>blocks</edgelabel>
+          <edgelabel>natural</edgelabel>
+        </childnode>
+        <childnode refid="2462" relation="usage">
+          <edgelabel>consumed_argregs</edgelabel>
+        </childnode>
+        <childnode refid="2468" relation="usage">
+          <edgelabel>std_ivls</edgelabel>
+        </childnode>
+        <childnode refid="2471" relation="usage">
+          <edgelabel>idb_type</edgelabel>
+        </childnode>
+        <childnode refid="2472" relation="usage">
+          <edgelabel>mbr</edgelabel>
+        </childnode>
+        <childnode refid="2481" relation="usage">
+          <edgelabel>idb_node</edgelabel>
+        </childnode>
+        <childnode refid="2482" relation="usage">
+          <edgelabel>notes</edgelabel>
+        </childnode>
+        <childnode refid="2469" relation="usage">
+          <edgelabel>aliased_args</edgelabel>
+          <edgelabel>aliased_vars</edgelabel>
+        </childnode>
+      </node>
+      <node id="2485">
+        <label>mcallinfo_t</label>
+        <link refid="classmcallinfo__t"/>
+        <childnode refid="2458" relation="usage">
+          <edgelabel>visible_memory</edgelabel>
+        </childnode>
+        <childnode refid="2461" relation="usage">
+          <edgelabel>pass_regs</edgelabel>
+          <edgelabel>spoiled</edgelabel>
+          <edgelabel>dead_regs</edgelabel>
+          <edgelabel>return_regs</edgelabel>
+        </childnode>
+        <childnode refid="2486" relation="usage">
+          <edgelabel>args</edgelabel>
+        </childnode>
+        <childnode refid="2471" relation="usage">
+          <edgelabel>return_type</edgelabel>
+        </childnode>
+        <childnode refid="2487" relation="usage">
+          <edgelabel>retregs</edgelabel>
+        </childnode>
+        <childnode refid="2450" relation="usage">
+          <edgelabel>return_argloc</edgelabel>
+        </childnode>
+      </node>
+      <node id="2472">
+        <label>mba_ranges_t</label>
+        <link refid="structmba__ranges__t"/>
+        <childnode refid="2473" relation="usage">
+          <edgelabel>pfn</edgelabel>
+        </childnode>
+        <childnode refid="2479" relation="usage">
+          <edgelabel>ranges</edgelabel>
+        </childnode>
+      </node>
+      <node id="2459">
+        <label>ivlset_tpl&lt; ivl_t, uval_t &gt;</label>
+        <link refid="classivlset__tpl"/>
+        <childnode refid="2460" relation="usage">
+          <edgelabel>bag</edgelabel>
+        </childnode>
+      </node>
+      <node id="2448">
+        <label>scif_t</label>
+        <link refid="structscif__t"/>
+        <childnode refid="2449" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2454" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="2457" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="2471" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+      </node>
+      <node id="2464">
+        <label>qvector&lt; int &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2476">
+        <label>stkpnt_t</label>
+        <link refid="structstkpnt__t"/>
+      </node>
+      <node id="2457">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="2467">
+        <label>minsn_t</label>
+        <link refid="classminsn__t"/>
+        <childnode refid="2467" relation="usage">
+          <edgelabel>prev</edgelabel>
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="2447" relation="usage">
+          <edgelabel>l</edgelabel>
+          <edgelabel>r</edgelabel>
+          <edgelabel>d</edgelabel>
+        </childnode>
+      </node>
+      <node id="2451">
+        <label>scattered_aloc_t</label>
+        <link refid="classscattered__aloc__t"/>
+        <childnode refid="2452" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2452">
+        <label>qvector&lt; argpart_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2474">
+        <label>range_t</label>
+        <link refid="structrange__t"/>
+      </node>
+      <node id="2449">
+        <label>vdloc_t</label>
+        <link refid="classvdloc__t"/>
+        <childnode refid="2450" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2477">
+        <label>regvar_t</label>
+        <link refid="structregvar__t"/>
+        <childnode refid="2474" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2482">
+        <label>qvector&lt; hexwarn_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2489">
+        <label>mnumber_t</label>
+        <link refid="structmnumber__t"/>
+        <childnode refid="2490" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2455">
+        <label>lvars_t</label>
+        <link refid="structlvars__t"/>
+        <childnode refid="2456" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2450">
+        <label>argloc_t</label>
+        <link refid="classargloc__t"/>
+        <childnode refid="2451" relation="usage">
+          <edgelabel>dist</edgelabel>
+        </childnode>
+        <childnode refid="2453" relation="usage">
+          <edgelabel>rrel</edgelabel>
+        </childnode>
+      </node>
+      <node id="2478">
+        <label>llabel_t</label>
+        <link refid="structllabel__t"/>
+      </node>
+      <node id="2488">
+        <label>lvar_ref_t</label>
+        <link refid="structlvar__ref__t"/>
+        <childnode refid="2454" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="2456">
+        <label>qvector&lt; lvar_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2492">
+        <label>stkvar_ref_t</label>
+        <link refid="structstkvar__ref__t"/>
+        <childnode refid="2454" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="2465">
+        <label>qvector&lt; reg_info_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2453">
+        <label>rrel_t</label>
+        <link refid="structrrel__t"/>
+      </node>
+      <node id="2462">
+        <label>rlist_t</label>
+        <link refid="classrlist__t"/>
+        <childnode refid="2463" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2469">
+        <label>ivl_t</label>
+        <link refid="structivl__t"/>
+        <childnode refid="2470" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2469" relation="usage">
+          <edgelabel>allmem</edgelabel>
+        </childnode>
+      </node>
+      <node id="2479">
+        <label>rangevec_t</label>
+        <link refid="structrangevec__t"/>
+        <childnode refid="2480" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2794" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2793" bodyend="2820"/>
+    <listofallmembers>
+      <member refid="classmop__t_1a57d7538fdfc4308fe20c95cc784d7eea" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>_make_blkref</name></member>
+      <member refid="classmop__t_1aeccd86ef2641efe3da40abc8e9314cdd" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>_make_callinfo</name></member>
+      <member refid="classmop__t_1a6dcf77562fa1a88927ce7693d275fa15" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>_make_cases</name></member>
+      <member refid="classmop__t_1a128713ac8a556f8627cdbab86431f1ea" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>_make_gvar</name></member>
+      <member refid="classmop__t_1aa1299111f6a2ca3341007d68dca9e791" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>_make_insn</name></member>
+      <member refid="classmop__t_1a2badaebe06f8148deb673e0755b8f83d" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>_make_lvar</name></member>
+      <member refid="classmop__t_1aff79b97db65d4e777eac6b26930663eb" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>_make_pair</name></member>
+      <member refid="classmop__t_1a9745b7542b1ede0ac6e99e08d7741cf4" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>_make_reg</name></member>
+      <member refid="classmop__t_1af3aa9f24d3dc89d0b15cc394292fbe23" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>_make_reg</name></member>
+      <member refid="classmop__t_1a54c9ea639f5a178ed0e28d24eda4ae9f" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>_make_stkvar</name></member>
+      <member refid="classmop__t_1aa6be96a282d623a8f1a1fb62315dbc7f" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>_make_strlit</name></member>
+      <member refid="classmop__t_1ad18ec392c1a7900dce9c673fcaa75cf6" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>_make_strlit</name></member>
+      <member refid="classmop__t_1a5e3e1b9b535e9a7a89f28ce62e81e22d" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>a</name></member>
+      <member refid="classmop__t_1afb19190789c53b0c828720a5e39c4574" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>apply_ld_mcode</name></member>
+      <member refid="classmop__t_1a8dbf652a7b8fa8edfc96000176c26dd7" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>apply_xds</name></member>
+      <member refid="classmop__t_1afd10835352bf6e7f0159b352b5ab80a7" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>apply_xdu</name></member>
+      <member refid="classmop__t_1a2577ac7519d9a9b2c8be9434c1cd2655" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>b</name></member>
+      <member refid="classmop__t_1a69b43e3785b6f7fbe8738e31c5b87989" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>c</name></member>
+      <member refid="classmop__t_1a61f86dcbba040ed61fc77c5e5f35c9f2" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>change_size</name></member>
+      <member refid="classmop__t_1a3f35894898ab7b3dc2574918867ac167" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>create_from_insn</name></member>
+      <member refid="classmop__t_1a5217f353fd9bb6954d7cbc2c2b396270" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>create_from_ivlset</name></member>
+      <member refid="classmop__t_1a0acfe8803ca0f9a766eaee4963923f63" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>create_from_mlist</name></member>
+      <member refid="classmop__t_1aa399f73b8e34a608101f00bc17b36a24" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>create_from_scattered_vdloc</name></member>
+      <member refid="classmop__t_1ad850cf0dce5d02940d6fa6b6892b6489" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>create_from_vdloc</name></member>
+      <member refid="classmop__t_1addbb0f8f61046134352a0b5065482b89" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>cstr</name></member>
+      <member refid="classmop__t_1ae288e62e6b2c13da66568bdd4130c5b2" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>d</name></member>
+      <member refid="classmop__t_1a134a3b8ca8f2861880bd8a40822452c8" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>double_size</name></member>
+      <member refid="classmop__t_1a026b84d16b4dce5d7e56efc1dcb0e174" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>dstr</name></member>
+      <member refid="classmop__t_1a5dd17af3d915581da8be482d0550ef97" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>equal_mops</name></member>
+      <member refid="classmop__t_1a1a6fd68a1f4f556e7e92d5d15f9d413a" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>erase</name></member>
+      <member refid="classmop__t_1a1a622ee35a12f7659a09c93ecbf7ad8a" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>erase_but_keep_size</name></member>
+      <member refid="classmop__t_1a9e4c6a65a9f9f68958b64ddeca947930" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>f</name></member>
+      <member refid="classmop__t_1ab71fd094347d66c0dff4c03e3f8046e9" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>for_all_ops</name></member>
+      <member refid="classmop__t_1aadbfbe9edb95a85fefd88478188c7bef" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>for_all_scattered_submops</name></member>
+      <member refid="classmop__t_1acc2fc97f6b70f8f21972b0ff1084fbbb" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>fpc</name></member>
+      <member refid="classmop__t_1acd5a16f56a0dcedd315750f682f496f3" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>g</name></member>
+      <member refid="classmop__t_1a6587df11b0727b867419d1f9c64c7ba9" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>get_insn</name></member>
+      <member refid="classmop__t_1a1f89c0628a95bcaa28f845d01984778d" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>get_insn</name></member>
+      <member refid="classmop__t_1a496182ab2279be77418321e0d0feb05d" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>get_stkoff</name></member>
+      <member refid="classmop__t_1a386e040fc0a6e5be1778d93a465b9f7a" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>get_stkvar</name></member>
+      <member refid="classmop__t_1a8e90cc3a8d96a963c22f812248b06142" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>has_side_effects</name></member>
+      <member refid="classmop__t_1a601f86b113f1fd1ae4cde0baeebaeeed" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>helper</name></member>
+      <member refid="classmop__addr__t_1ae69e5899521fc649b5127417d345c323" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>insize</name></member>
+      <member refid="classmop__t_1a0dcb858eeff945b2ceb600d27bf46bb8" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is01</name></member>
+      <member refid="classmop__t_1aae932a7b1f0dbfcd65c91da0eb67bffc" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_bit_reg</name></member>
+      <member refid="classmop__t_1ad5e38485ae0f144115d56a4d262b45c9" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_bit_reg</name></member>
+      <member refid="classmop__t_1a43dd3eb76bbaa47bde661905412c78dd" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_cc</name></member>
+      <member refid="classmop__t_1a6a50f794eeec98c8c3900d286956f95d" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_ccflags</name></member>
+      <member refid="classmop__t_1a9a8bedbf85e6e97ffb39f8774bc65678" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_constant</name></member>
+      <member refid="classmop__t_1a781a22179510e81a62a99bc4e2c3e046" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_equal_to</name></member>
+      <member refid="classmop__t_1ab5f2adc195635db8a07f15aefa4330c7" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_extended_from</name></member>
+      <member refid="classmop__t_1a958810e9f7a7491126c8fb4a6b466267" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_glbaddr</name></member>
+      <member refid="classmop__t_1aa173f8423e7cd02d7eef56993a1a4f30" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_glbaddr</name></member>
+      <member refid="classmop__t_1a1e6b695c0d8bd352d9cdd7b463ffe1c4" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_impptr_done</name></member>
+      <member refid="classmop__t_1a51c1a405ba81b09b22cd6f1fb6f739ad" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_insn</name></member>
+      <member refid="classmop__t_1a404fbf68b1a9d7c620cd6fa17bb30987" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_insn</name></member>
+      <member refid="classmop__t_1af75752fdd6513cf348609c8dca2085c4" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_kreg</name></member>
+      <member refid="classmop__t_1a49915ca4dc30d530b2d8a01d38deabe9" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_mob</name></member>
+      <member refid="classmop__t_1aae38c71d7bb066e4ffac511f926104ab" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_negative_constant</name></member>
+      <member refid="classmop__t_1a532637a85327541b1c9cd6d826154146" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_one</name></member>
+      <member refid="classmop__t_1a3325241c2c740d77bed4ffa00b98e2ec" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_positive_constant</name></member>
+      <member refid="classmop__t_1aff92f37aa63820e34b0b38b7f62eaed5" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_reg</name></member>
+      <member refid="classmop__t_1a62643b4346bf7704c9e1f8658673754e" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_reg</name></member>
+      <member refid="classmop__t_1aad5603890b057cc6416a29d1b7ac69a6" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_reg</name></member>
+      <member refid="classmop__t_1ae7e949fdd9e25e32c3f511fb8e24d474" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_scattered</name></member>
+      <member refid="classmop__t_1a86fbbc289ccf75892b50a08f58526df4" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_sign_extended_from</name></member>
+      <member refid="classmop__t_1ac35e22c6c9eb57b75499fe6ed9d3724e" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_stkaddr</name></member>
+      <member refid="classmop__t_1a0aacb037b9092ccc3c731f9b94c9c2bb" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_udt</name></member>
+      <member refid="classmop__t_1a93a6a7d7d8200b3c21d834b288939437" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_undef_val</name></member>
+      <member refid="classmop__t_1a96294ce8de43cf175533d79135559c20" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_zero</name></member>
+      <member refid="classmop__t_1a38100bf39f346e41cd9254a9309d2eec" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>is_zero_extended_from</name></member>
+      <member refid="classmop__t_1af589a48b3645a6fffff771769479f82a" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>l</name></member>
+      <member refid="classmop__addr__t_1a63707e47065a1a8bb8d0a632fb2b01ab" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>lexcompare</name></member>
+      <member refid="classmop__t_1a79dd398ae8d70de2fd4fe25d1cd8e7bf" prot="public" virt="non-virtual" ambiguityscope="mop_t::"><scope>mop_addr_t</scope><name>lexcompare</name></member>
+      <member refid="classmop__t_1aeaa8eb96aae34d6b1a8c0fdb0cb87633" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>make_blkref</name></member>
+      <member refid="classmop__t_1a84c672c47634784d43938ee06d8e35f7" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>make_first_half</name></member>
+      <member refid="classmop__t_1a6cbb0f5d2f46820913437a976a2f5c2c" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>make_fpnum</name></member>
+      <member refid="classmop__t_1afc9d4afd477c1145a97d6e992d674dd2" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>make_gvar</name></member>
+      <member refid="classmop__t_1ade05a62a54864ee55ed416b5ef8d6dda" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>make_helper</name></member>
+      <member refid="classmop__t_1a88d4ddc4133e65e4e52f37f00513ed49" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>make_high_half</name></member>
+      <member refid="classmop__t_1a754d8cfbbfb5af57a6b701ab7e96398e" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>make_insn</name></member>
+      <member refid="classmop__t_1a4f70acf8f7d015f5951ab493f69d41cc" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>make_low_half</name></member>
+      <member refid="classmop__t_1a75fe9ed93e424523835a90b6883fddcb" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>make_number</name></member>
+      <member refid="classmop__t_1ab48e49bddc9259e2edddad6eb7b12194" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>make_reg</name></member>
+      <member refid="classmop__t_1a36aee79d755e891ff8f8b6adf90abf4f" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>make_reg</name></member>
+      <member refid="classmop__t_1a45a78acc504e21f45a563d54997fb4de" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>make_reg_pair</name></member>
+      <member refid="classmop__t_1af3febcd45de06eac86fb6df5ed414220" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>make_second_half</name></member>
+      <member refid="classmop__t_1a557e1d95582a5e7160856497b254240e" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>may_use_aliased_memory</name></member>
+      <member refid="classmop__addr__t_1aa99841e37ff8b01ad686dfbf469a85e1" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>mop_addr_t</name></member>
+      <member refid="classmop__addr__t_1a03bc0b16ecdb07f6e5d93ff1d83e8677" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>mop_addr_t</name></member>
+      <member refid="classmop__addr__t_1ad5c2752a1efacb2ef977040d279e24dc" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>mop_addr_t</name></member>
+      <member refid="classmop__t_1aaf6621b8c7aeea31f578cd158b2db688" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>mop_t</name></member>
+      <member refid="classmop__t_1a7888294971cee693f2fd461413c659bb" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>mop_t</name></member>
+      <member refid="classmop__t_1ac4023cfa1a0287d74dc7b50f3d02360e" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>mop_t</name></member>
+      <member refid="classmop__t_1a6911b91ebdbf633064f614b15a2d6a8b" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>nnn</name></member>
+      <member refid="classmop__t_1a89c69948da2cffe4aa60c21ca41bd71e" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>operator!=</name></member>
+      <member refid="classmop__t_1a3d4e306d0e48ab98b8997761823ca887" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>operator&lt;</name></member>
+      <member refid="classmop__addr__t_1afde25b63491cd81fd76a71f66347c52a" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>operator=</name></member>
+      <member refid="classmop__t_1a3cf75e25d303d91301f89402e7504ca2" prot="public" virt="non-virtual" ambiguityscope="mop_t::"><scope>mop_addr_t</scope><name>operator=</name></member>
+      <member refid="classmop__t_1ad6ceadaa7176dd9ce1b09163c63ac893" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>operator==</name></member>
+      <member refid="classmop__t_1a2b7b895f585ef20c8619a27cc1f0d86c" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>oprops</name></member>
+      <member refid="classmop__addr__t_1a690a9c9f9121ea5337e8512cbe23f4a3" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>outsize</name></member>
+      <member refid="classmop__t_1ac0974a8f06f60c641dceeffe6017ead5" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>pair</name></member>
+      <member refid="classmop__t_1ac2c6e87ce5557765465238591214e99f" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>preserve_side_effects</name></member>
+      <member refid="classmop__t_1a61e58ab91c876ddd81b86f6b8de46cd3" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>print</name></member>
+      <member refid="classmop__t_1ad426c85f1ad7dae648e4185c36ff1483" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>probably_floating</name></member>
+      <member refid="classmop__t_1ac12ef82ce56ca86ed79ba993ba987c47" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>r</name></member>
+      <member refid="classmop__t_1af009e1f551992bff7567a34c92b0f3b6" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>s</name></member>
+      <member refid="classmop__t_1a75d8c81abb7c6578ca4a77800734cb23" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>scif</name></member>
+      <member refid="classmop__t_1ac4f624d71631622815f57c8b2a6c6fa2" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>set_impptr_done</name></member>
+      <member refid="classmop__t_1a69277a73b2bb542e7c0496f4392052f1" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>set_udt</name></member>
+      <member refid="classmop__t_1ab7192ff0c56c66beded3059abf602984" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>set_undef_val</name></member>
+      <member refid="classmop__t_1ab6d4afba3ec4490c25c95bc8f5430c5f" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>shift_mop</name></member>
+      <member refid="classmop__t_1a19acb0c7367cf1c5e7bb7280d698d3fc" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>signed_value</name></member>
+      <member refid="classmop__t_1a585cd63bfba6c3e163acd1d2d8f76395" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>size</name></member>
+      <member refid="classmop__t_1aad58bce35dd47583889a34a39f7d93a6" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>swap</name></member>
+      <member refid="classmop__t_1a385b7b5b046d5fa02cebbda1e76eb2de" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>t</name></member>
+      <member refid="classmop__t_1adacccbecbe09ca05b0bfb2da8b241dae" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>unsigned_value</name></member>
+      <member refid="classmop__t_1a52a041c88bfe5e2667a6c247863aed4b" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>valnum</name></member>
+      <member refid="classmop__t_1a8b47d3797d0b5b25913016296c6fd344" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>value</name></member>
+      <member refid="classmop__t_1a6e938bfb19e1052ac1311450d6cd2838" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>zero</name></member>
+      <member refid="classmop__t_1add8e2971658aad449da20ff47ccf722d" prot="public" virt="non-virtual"><scope>mop_addr_t</scope><name>~mop_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

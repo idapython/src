@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__color__def" kind="group">
+    <compoundname>color_def</compoundname>
+    <title>Color definitions</title>
+    <innergroup refid="group__color__esc">Color escape characters</innergroup>
+    <innergroup refid="group___c_o_l_o_r__">Color tags</innergroup>
+    <innergroup refid="group___s_c_o_l_o_r__">Color string constants</innergroup>
+    <innergroup refid="group___c_o_l_o_r___p_f_x">Line prefix colors</innergroup>
+    <innergroup refid="group__color__conv">Convenience functions</innergroup>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__color__def_1ga051016ac92685c95d47a7c1850c19632" prot="public" static="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>typedef uchar color_t</definition>
+        <argsstring></argsstring>
+        <name>color_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>color tag - see <ref refid="group___c_o_l_o_r__" kindref="compound">Color tags</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="74" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__color__def_1ga98526a81f0fc00f7619fd879e082ed32" prot="public" static="no">
+        <name>COLOR_ADDR_SIZE</name>
+        <initializer>(sizeof(ea_t)*2)</initializer>
+        <briefdescription>
+<para>Size of a tagged address (see <ref refid="group___c_o_l_o_r___1gae04c6ad8508fb6067378d56ad92b206e" kindref="member">COLOR_ADDR</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="143" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__color__def_1gaa9aad0f92ed32081de96ac4aa0a5276a" prot="public" static="no">
+        <name>COLSTR</name>
+        <param><defname>str</defname></param>
+        <param><defname>tag</defname></param>
+        <initializer><ref refid="group__color__esc_1ga7e7b37340d6b5aac6e89d97af3de57b8" kindref="member">SCOLOR_ON</ref> tag str <ref refid="group__color__esc_1ga0e702e5070c32d49fb58cb132905d76e" kindref="member">SCOLOR_OFF</ref> tag</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This macro is used to build colored string constants (e.g. for format strings) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>string literal to surround with color tags </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>one of SCOLOR_xxx constants </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="215" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Here we describe the structure of embedded escape sequences used to implement syntax highlighting.</para><para>IDP module should insert appropriate escape characters into the output lines as necessary. This approach allows to create an IDP module without the syntax highlighting too - just don&apos;t use escape sequences.</para><para>A typical color sequence looks like this:</para><para><ref refid="group__color__esc_1gac1a446e204cc350bb4062881deb1cc6e" kindref="member">COLOR_ON</ref> COLOR_xxx text <ref refid="group__color__esc_1ga8cb8d305059f6c44741bbb4e1c40fd3d" kindref="member">COLOR_OFF</ref> COLOR_xxx</para><para>The first 2 items turn color &apos;xxx&apos; on, then the text follows, and the color is turned off by two last items.</para><para>For the convenience we&apos;ve defined a set of macro definitions and functions to deal with colors. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

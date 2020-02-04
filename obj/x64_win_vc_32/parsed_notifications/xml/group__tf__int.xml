@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__tf__int" kind="group">
+    <compoundname>tf_int</compoundname>
+    <title>Basic type: integer</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__tf__int_1gad44635e5f36e3ff87017e674a0ba1e96" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BT_INT8</definition>
+        <argsstring></argsstring>
+        <name>BT_INT8</name>
+        <initializer>= 0x02</initializer>
+        <briefdescription>
+<para>__int8 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="83" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__int_1ga111f1b71efa2a45245d7ba9469ceb18f" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BT_INT16</definition>
+        <argsstring></argsstring>
+        <name>BT_INT16</name>
+        <initializer>= 0x03</initializer>
+        <briefdescription>
+<para>__int16 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="84" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__int_1ga6e8a1235fb794ee0e5bfab074d2dfc7d" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BT_INT32</definition>
+        <argsstring></argsstring>
+        <name>BT_INT32</name>
+        <initializer>= 0x04</initializer>
+        <briefdescription>
+<para>__int32 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="85" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__int_1ga245e5fd5f4a2eac20183c1e3e6c81837" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BT_INT64</definition>
+        <argsstring></argsstring>
+        <name>BT_INT64</name>
+        <initializer>= 0x05</initializer>
+        <briefdescription>
+<para>__int64 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="86" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__int_1ga248c7431d9792b1a4d48f422368bb77b" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BT_INT128</definition>
+        <argsstring></argsstring>
+        <name>BT_INT128</name>
+        <initializer>= 0x06</initializer>
+        <briefdescription>
+<para>__int128 (for alpha &amp; future use) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="87" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__int_1ga0247bd6d30b0ca1725ec2cf6cbccdc83" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BT_INT</definition>
+        <argsstring></argsstring>
+        <name>BT_INT</name>
+        <initializer>= 0x07</initializer>
+        <briefdescription>
+<para>natural int. (size provided by idp module) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="88" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__int_1ga12d0f4299a2a72b0c39bf42def60559f" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BTMT_UNKSIGN</definition>
+        <argsstring></argsstring>
+        <name>BTMT_UNKSIGN</name>
+        <initializer>= 0x00</initializer>
+        <briefdescription>
+<para>unknown signedness </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="89" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__int_1gaed538a73e5a21b72509b0dd0edf6574c" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BTMT_SIGNED</definition>
+        <argsstring></argsstring>
+        <name>BTMT_SIGNED</name>
+        <initializer>= 0x10</initializer>
+        <briefdescription>
+<para>signed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="90" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__int_1gae657884ce0de31e6bc235c3bd6dea235" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BTMT_USIGNED</definition>
+        <argsstring></argsstring>
+        <name>BTMT_USIGNED</name>
+        <initializer>= 0x20</initializer>
+        <briefdescription>
+<para>unsigned </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="91" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__int_1gabb9f1f16dab55f10effb4ca9ecc1cf57" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BTMT_UNSIGNED</definition>
+        <argsstring></argsstring>
+        <name>BTMT_UNSIGNED</name>
+        <initializer>= <ref refid="group__tf__int_1gae657884ce0de31e6bc235c3bd6dea235" kindref="member">BTMT_USIGNED</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="92" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__int_1ga2fc0128b8f9f51961efa661bd6c36523" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BTMT_CHAR</definition>
+        <argsstring></argsstring>
+        <name>BTMT_CHAR</name>
+        <initializer>= 0x30</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>specify char or segment register<itemizedlist>
+<listitem><para><ref refid="group__tf__int_1gad44635e5f36e3ff87017e674a0ba1e96" kindref="member">BT_INT8</ref> - char</para></listitem><listitem><para><ref refid="group__tf__int_1ga0247bd6d30b0ca1725ec2cf6cbccdc83" kindref="member">BT_INT</ref> - segment register</para></listitem><listitem><para>other BT_INT... - don&apos;t use </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="93" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

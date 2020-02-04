@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___n_f__" kind="group">
+    <compoundname>NF_</compoundname>
+    <title>Number format property bits</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___n_f___1ga4aeed0cb45ae019b8c3aa0b0a8ec1039" prot="public" static="no">
+        <name>NF_FIXED</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>number format has been defined by the user </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="861" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="861" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_f___1ga7f2a9f9259fc21dfcafd1d42be87355f" prot="public" static="no">
+        <name>NF_NEGDONE</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>temporary internal bit: negation has been performed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="862" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="862" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_f___1gaa9c53ef3ce284bf6efa7546aef86f9b0" prot="public" static="no">
+        <name>NF_BINVDONE</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>temporary internal bit: inverting bits is done </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="863" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="863" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_f___1ga5425582fc64fb8350bb8c3175ea0eace" prot="public" static="no">
+        <name>NF_NEGATE</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>The user asked to negate the constant. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="864" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="864" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_f___1gac9c977d59c718d0586f3473cdfd95b45" prot="public" static="no">
+        <name>NF_BITNOT</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>The user asked to invert bits of the constant. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="865" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="865" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_f___1ga893dfc27d032d302681f99b5aaf7604d" prot="public" static="no">
+        <name>NF_STROFF</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>internal bit: used as stroff, valid iff <ref refid="group___f_f__opfuncs2_1gaf25866c2282ae16e2546e226a9f0db45" kindref="member">is_stroff()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="866" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="866" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used in <ref refid="structnumber__format__t_1a58237f85e7a536a6030b5f00b0b32a86" kindref="member">number_format_t::props</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_u_n_c___n_a_m_e__" kind="group">
+    <compoundname>FUNC_NAME_</compoundname>
+    <title>Well known function names</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___f_u_n_c___n_a_m_e___1ga769281bd7ae8161da9ed755ea2b43491" prot="public" static="no">
+        <name>FUNC_NAME_MEMCPY</name>
+        <initializer>&quot;memcpy&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2902" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2902" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_u_n_c___n_a_m_e___1ga677591ae7d0665c537b65386d2e0e76f" prot="public" static="no">
+        <name>FUNC_NAME_MEMSET</name>
+        <initializer>&quot;memset&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2903" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2903" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_u_n_c___n_a_m_e___1gab1816fe3585f1cb4f43f8542ad71f7eb" prot="public" static="no">
+        <name>FUNC_NAME_MEMSET32</name>
+        <initializer>&quot;memset32&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2904" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2904" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_u_n_c___n_a_m_e___1gab2b85337cf161b3c8a95319e760c94aa" prot="public" static="no">
+        <name>FUNC_NAME_MEMSET64</name>
+        <initializer>&quot;memset64&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2905" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2905" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_u_n_c___n_a_m_e___1ga83684be4be522b72225fe73e4250bb6a" prot="public" static="no">
+        <name>FUNC_NAME_STRCPY</name>
+        <initializer>&quot;strcpy&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2906" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2906" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_u_n_c___n_a_m_e___1gaa1c33535b096100f5a98b5e7abdd578e" prot="public" static="no">
+        <name>FUNC_NAME_STRLEN</name>
+        <initializer>&quot;strlen&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2907" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2907" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_u_n_c___n_a_m_e___1gaef6a23e7680e92246ec5a8e9a93eac64" prot="public" static="no">
+        <name>FUNC_NAME_STRCAT</name>
+        <initializer>&quot;strcat&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2908" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2908" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_u_n_c___n_a_m_e___1gad9a2346f21918c202f4696e52c78e7ca" prot="public" static="no">
+        <name>FUNC_NAME_TAIL</name>
+        <initializer>&quot;tail&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2909" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2909" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_u_n_c___n_a_m_e___1gab93012b2bf40b57efbde4a3f2b1937c4" prot="public" static="no">
+        <name>FUNC_NAME_VA_ARG</name>
+        <initializer>&quot;va_arg&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2910" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2910" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_u_n_c___n_a_m_e___1gafb5de9751635ae04887e2c8f5083bcec" prot="public" static="no">
+        <name>FUNC_NAME_EMPTY</name>
+        <initializer>&quot;$empty&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2911" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2911" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_u_n_c___n_a_m_e___1ga3c4c983ed7a1d863f3a2c70d449de15b" prot="public" static="no">
+        <name>FUNC_NAME_PRESENT</name>
+        <initializer>&quot;$present&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2912" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2912" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_u_n_c___n_a_m_e___1gac4714ea3b8ececb536a45f27e08f287a" prot="public" static="no">
+        <name>FUNC_NAME_CONTAINING_RECORD</name>
+        <initializer>&quot;CONTAINING_RECORD&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2913" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2913" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

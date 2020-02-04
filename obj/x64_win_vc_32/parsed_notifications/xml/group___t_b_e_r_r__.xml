@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___t_b_e_r_r__" kind="group">
+    <compoundname>TBERR_</compoundname>
+    <title>Try block handling error codes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___t_b_e_r_r___1gaa91b25d317fea9b75eddade7f80a31ed" prot="public" static="no">
+        <name>TBERR_OK</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>ok </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tryblks.hpp" line="200" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tryblks.hpp" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_b_e_r_r___1ga9b856a63e7f3266532e266bf28a1d1b6" prot="public" static="no">
+        <name>TBERR_START</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>bad start address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tryblks.hpp" line="201" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tryblks.hpp" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_b_e_r_r___1gac62a20bd1e0cf8f21b0e7a0246e8eac6" prot="public" static="no">
+        <name>TBERR_END</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>bad end address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tryblks.hpp" line="202" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tryblks.hpp" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_b_e_r_r___1ga899139978e4d227f9fa06882df4b092a" prot="public" static="no">
+        <name>TBERR_ORDER</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>bad address order </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tryblks.hpp" line="203" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tryblks.hpp" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_b_e_r_r___1gabf4b0aed951b1b3a3ac1958eae7ab3e4" prot="public" static="no">
+        <name>TBERR_EMPTY</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>empty try block </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tryblks.hpp" line="204" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tryblks.hpp" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_b_e_r_r___1ga1a49393109c29fd0aa86d7356d53fe49" prot="public" static="no">
+        <name>TBERR_KIND</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>illegal try block kind </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tryblks.hpp" line="205" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tryblks.hpp" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_b_e_r_r___1ga2f3e69ab1ec9092bad7cdf0b4e206242" prot="public" static="no">
+        <name>TBERR_NO_CATCHES</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>no catch blocks at all </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tryblks.hpp" line="206" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tryblks.hpp" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_b_e_r_r___1gaa8d7ecf55f2de806a7a67a467cd38882" prot="public" static="no">
+        <name>TBERR_INTERSECT</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>range would intersect inner tryblk </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tryblks.hpp" line="207" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tryblks.hpp" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

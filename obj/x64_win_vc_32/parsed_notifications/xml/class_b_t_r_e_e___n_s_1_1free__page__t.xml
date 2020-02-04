@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="class_b_t_r_e_e___n_s_1_1free__page__t" kind="class" language="C++" prot="public">
+    <compoundname>BTREE_NS::free_page_t</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_b_t_r_e_e___n_s_1_1free__page__t_1a4d66e64d9d769d2758b2ac481c46c071" prot="private" static="no" mutable="no">
+        <type>KEYPAGE</type>
+        <definition>KEYPAGE BTREE_NS::free_page_t::nrcds</definition>
+        <argsstring></argsstring>
+        <name>nrcds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="406" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="406" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_b_t_r_e_e___n_s_1_1free__page__t_1a297d6b6618502d96db9363a40ad2f96b" prot="private" static="no" mutable="no">
+        <type>KEYPAGE</type>
+        <definition>KEYPAGE BTREE_NS::free_page_t::prevrcds</definition>
+        <argsstring></argsstring>
+        <name>prevrcds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="407" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="407" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_b_t_r_e_e___n_s_1_1free__page__t_1af8151620d44bd1759fba40bb787fb9c9" prot="private" static="no" mutable="no">
+        <type>KEYPAGE</type>
+        <definition>KEYPAGE BTREE_NS::free_page_t::pgsarray[1]</definition>
+        <argsstring>[1]</argsstring>
+        <name>pgsarray</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="408" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="408" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_b_t_r_e_e___n_s_1_1free__page__t_1afb23bdfc3e7a59a38c2ba2714a454dfa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>KEYPAGE</type>
+        <definition>KEYPAGE BTREE_NS::free_page_t::get_nRcds</definition>
+        <argsstring>()</argsstring>
+        <name>get_nRcds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="398" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="398" bodyend="398"/>
+      </memberdef>
+      <memberdef kind="function" id="class_b_t_r_e_e___n_s_1_1free__page__t_1a09925f5ee1e9a2fc7b35924616f938d6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>KEYPAGE</type>
+        <definition>KEYPAGE BTREE_NS::free_page_t::get_prevRcds</definition>
+        <argsstring>()</argsstring>
+        <name>get_prevRcds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="399" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="399" bodyend="399"/>
+      </memberdef>
+      <memberdef kind="function" id="class_b_t_r_e_e___n_s_1_1free__page__t_1ac4346180463eeacbfdfeecb9b9c722ff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>KEYPAGE</type>
+        <definition>KEYPAGE BTREE_NS::free_page_t::get_pgsEntry</definition>
+        <argsstring>(int i)</argsstring>
+        <name>get_pgsEntry</name>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="400" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="400" bodyend="400"/>
+      </memberdef>
+      <memberdef kind="function" id="class_b_t_r_e_e___n_s_1_1free__page__t_1a1fe404c1c28002bde55d409b9bc72d4a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BTREE_NS::free_page_t::set_nRcds</definition>
+        <argsstring>(KEYPAGE d)</argsstring>
+        <name>set_nRcds</name>
+        <param>
+          <type>KEYPAGE</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="401" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="401" bodyend="401"/>
+      </memberdef>
+      <memberdef kind="function" id="class_b_t_r_e_e___n_s_1_1free__page__t_1a2c10820db325c6d29d48e42bbab8a1c9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BTREE_NS::free_page_t::set_prevRcds</definition>
+        <argsstring>(KEYPAGE d)</argsstring>
+        <name>set_prevRcds</name>
+        <param>
+          <type>KEYPAGE</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="402" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="402" bodyend="402"/>
+      </memberdef>
+      <memberdef kind="function" id="class_b_t_r_e_e___n_s_1_1free__page__t_1ae7816748c7a43f384716a6461698da1a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BTREE_NS::free_page_t::set_pgsEntry</definition>
+        <argsstring>(KEYPAGE d, int i)</argsstring>
+        <name>set_pgsEntry</name>
+        <param>
+          <type>KEYPAGE</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="403" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="403" bodyend="403"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" line="396" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/btree.hpp" bodystart="395" bodyend="409"/>
+    <listofallmembers>
+      <member refid="class_b_t_r_e_e___n_s_1_1free__page__t_1afb23bdfc3e7a59a38c2ba2714a454dfa" prot="public" virt="non-virtual"><scope>BTREE_NS::free_page_t</scope><name>get_nRcds</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1free__page__t_1ac4346180463eeacbfdfeecb9b9c722ff" prot="public" virt="non-virtual"><scope>BTREE_NS::free_page_t</scope><name>get_pgsEntry</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1free__page__t_1a09925f5ee1e9a2fc7b35924616f938d6" prot="public" virt="non-virtual"><scope>BTREE_NS::free_page_t</scope><name>get_prevRcds</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1free__page__t_1a4d66e64d9d769d2758b2ac481c46c071" prot="private" virt="non-virtual"><scope>BTREE_NS::free_page_t</scope><name>nrcds</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1free__page__t_1af8151620d44bd1759fba40bb787fb9c9" prot="private" virt="non-virtual"><scope>BTREE_NS::free_page_t</scope><name>pgsarray</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1free__page__t_1a297d6b6618502d96db9363a40ad2f96b" prot="private" virt="non-virtual"><scope>BTREE_NS::free_page_t</scope><name>prevrcds</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1free__page__t_1a1fe404c1c28002bde55d409b9bc72d4a" prot="public" virt="non-virtual"><scope>BTREE_NS::free_page_t</scope><name>set_nRcds</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1free__page__t_1ae7816748c7a43f384716a6461698da1a" prot="public" virt="non-virtual"><scope>BTREE_NS::free_page_t</scope><name>set_pgsEntry</name></member>
+      <member refid="class_b_t_r_e_e___n_s_1_1free__page__t_1a2c10820db325c6d29d48e42bbab8a1c9" prot="public" virt="non-virtual"><scope>BTREE_NS::free_page_t</scope><name>set_prevRcds</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

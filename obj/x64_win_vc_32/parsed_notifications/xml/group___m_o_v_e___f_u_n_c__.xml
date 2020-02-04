@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___m_o_v_e___f_u_n_c__" kind="group">
+    <compoundname>MOVE_FUNC_</compoundname>
+    <title>Function move result codes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___m_o_v_e___f_u_n_c___1ga49e802fd7fa28afa28c8685920ed2aa8" prot="public" static="no">
+        <name>MOVE_FUNC_OK</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>ok </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="372" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="372" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_o_v_e___f_u_n_c___1gaed7cff5af7aa06b571dc99bb3dc08d42" prot="public" static="no">
+        <name>MOVE_FUNC_NOCODE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>no instruction at &apos;newstart&apos; </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="373" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="373" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_o_v_e___f_u_n_c___1ga12adb873df28d8973afac8d9ca526233" prot="public" static="no">
+        <name>MOVE_FUNC_BADSTART</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>bad new start address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="374" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="374" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_o_v_e___f_u_n_c___1ga42b49a13caa3d3983e3a7e88b71bd9f2" prot="public" static="no">
+        <name>MOVE_FUNC_NOFUNC</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>no function at &apos;ea&apos; </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="375" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="375" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_o_v_e___f_u_n_c___1ga82a79967c372781217e27fef006c4763" prot="public" static="no">
+        <name>MOVE_FUNC_REFUSED</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>a plugin refused the action </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="376" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="376" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Return values for <ref refid="funcs_8hpp_1aea0e8d3e2712894d3b4b3fdea39cd5c3" kindref="member">set_func_start()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

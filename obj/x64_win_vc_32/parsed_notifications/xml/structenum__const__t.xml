@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structenum__const__t" kind="struct" language="C++" prot="public">
+    <compoundname>enum_const_t</compoundname>
+    <includes refid="nalt_8hpp" local="no">nalt.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structenum__const__t_1a61c823552a42df4a6f0a2c391e4e0089" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+        <definition>tid_t enum_const_t::tid</definition>
+        <argsstring></argsstring>
+        <name>tid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1077" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1077" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structenum__const__t_1aeb5697dddc5ee5460ecdbff4bf65b87f" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar enum_const_t::serial</definition>
+        <argsstring></argsstring>
+        <name>serial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1078" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1078" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>See <ref refid="unionopinfo__t_1ad16ec477e1313923952ab4db47bbddea" kindref="member">opinfo_t::ec</ref>. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1076" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1075" bodyend="1079"/>
+    <listofallmembers>
+      <member refid="structenum__const__t_1aeb5697dddc5ee5460ecdbff4bf65b87f" prot="public" virt="non-virtual"><scope>enum_const_t</scope><name>serial</name></member>
+      <member refid="structenum__const__t_1a61c823552a42df4a6f0a2c391e4e0089" prot="public" virt="non-virtual"><scope>enum_const_t</scope><name>tid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

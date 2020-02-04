@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__dbg__funcs__trcins" kind="group">
+    <compoundname>dbg_funcs_trcins</compoundname>
+    <title>Instruction tracing</title>
+      <sectiondef kind="user-defined">
+      <header>Enable/Disable instruction tracing</header>
+      <description><para>{Type, Synchronous function - available as request, Notification, none (synchronous function)} </para></description>
+      <memberdef kind="function" id="group__dbg__funcs__trcins_1gadb8c885685360fd4df289923cca0b3a0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi enable_insn_trace</definition>
+        <argsstring>(bool enable=true)</argsstring>
+        <name>enable_insn_trace</name>
+        <param>
+          <type>bool</type>
+          <declname>enable</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1356" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1356" bodyend="1356"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcins_1ga5281a6ecac4a17c40b595a2b3cb4f8c4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool disable_insn_trace</definition>
+        <argsstring>(void)</argsstring>
+        <name>disable_insn_trace</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1357" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1357" bodyend="1357"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcins_1gae0ce58c5c891b983c044ec77c38cc6e3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi request_enable_insn_trace</definition>
+        <argsstring>(bool enable=true)</argsstring>
+        <name>request_enable_insn_trace</name>
+        <param>
+          <type>bool</type>
+          <declname>enable</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1358" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1358" bodyend="1358"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcins_1gac7311631812381003cc8ab725374df71" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool request_disable_insn_trace</definition>
+        <argsstring>(void)</argsstring>
+        <name>request_disable_insn_trace</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1359" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1359" bodyend="1359"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dbg__funcs__trcins_1ga8b52d12e3e7266bebd01de712f218ed5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi is_insn_trace_enabled</definition>
+        <argsstring>(void)</argsstring>
+        <name>is_insn_trace_enabled</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get current state of instructions tracing. {Type, Synchronous function, Notification, none (synchronous function)} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1350" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1350" bodyend="1350"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcins_1ga3bf3337bc5df53452b32615ea6277282" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi get_insn_trace_options</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_insn_trace_options</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get current instruction tracing options. Also see <ref refid="group__dbg__funcs__strace_1ga89056f6e4903aa314f40aa83411d95b0" kindref="member">IT_LOG_SAME_IP</ref> {Type, Synchronous function, Notification, none (synchronous function)} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1368" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1368" bodyend="1368"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcins_1gabc1b52f5c65026127dcb4e45d6774b41" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi set_insn_trace_options</definition>
+        <argsstring>(int options)</argsstring>
+        <name>set_insn_trace_options</name>
+        <param>
+          <type>int</type>
+          <declname>options</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Modify instruction tracing options. {Type, Synchronous function - available as request, Notification, none (synchronous function)} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1375" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1375" bodyend="1375"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcins_1gaf81a159fc9fbf60b5b3f7341006801d8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi request_set_insn_trace_options</definition>
+        <argsstring>(int options)</argsstring>
+        <name>request_set_insn_trace_options</name>
+        <param>
+          <type>int</type>
+          <declname>options</declname>
+        </param>
+        <briefdescription>
+<para>Post a <ref refid="group__dbg__funcs__trcins_1gabc1b52f5c65026127dcb4e45d6774b41" kindref="member">set_insn_trace_options()</ref> request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1379" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1379" bodyend="1379"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>When instruction tracing is active, each executed instruction is stored in the tracing buffer. Internally, IDA uses step tracing to monitor register values after the execution of the instruction. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

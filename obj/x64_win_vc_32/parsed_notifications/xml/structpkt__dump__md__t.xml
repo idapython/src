@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structpkt__dump__md__t" kind="struct" language="C++" prot="public">
+    <compoundname>pkt_dump_md_t</compoundname>
+    <basecompoundref refid="structrpc__packet__data__t" prot="public" virt="non-virtual">rpc_packet_data_t</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structpkt__dump__md__t_1a5b07eba36b2e521d974b2cebf09d59d0" prot="public" static="no" mutable="no">
+        <type>dump_md_sort_type_t</type>
+        <definition>dump_md_sort_type_t pkt_dump_md_t::sort</definition>
+        <argsstring></argsstring>
+        <name>sort</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="704" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="704" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structpkt__dump__md__t_1abd2c506d8f41f88d1804b76065f88f6d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>pkt_dump_md_t::pkt_dump_md_t</definition>
+        <argsstring>()</argsstring>
+        <name>pkt_dump_md_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="705" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="705" bodyend="706"/>
+      </memberdef>
+      <memberdef kind="function" id="structpkt__dump__md__t_1aff94094377361ef59f7cdc9c43ddc2ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual pkt_dump_md_t::~pkt_dump_md_t</definition>
+        <argsstring>()</argsstring>
+        <name>~pkt_dump_md_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="708" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structpkt__dump__md__t_1ad5e4ff76ca67a686a1753ed18d997be8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void pkt_dump_md_t::serialize</definition>
+        <argsstring>(bytevec_t *out, int version) const</argsstring>
+        <name>serialize</name>
+        <reimplements refid="structrpc__packet__data__t_1a577ceb943847ae0b714a56b264b9cf65">serialize</reimplements>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="709" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structpkt__dump__md__t_1afce98d2ebb1dfce6fe8e8c487c58546d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool pkt_dump_md_t::deserialize</definition>
+        <argsstring>(const uchar **ptr, size_t len, int version)</argsstring>
+        <name>deserialize</name>
+        <reimplements refid="structrpc__packet__data__t_1a150454902741340968d1386c8277e857">deserialize</reimplements>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="710" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2805">
+        <label>pkt_dump_md_t</label>
+        <link refid="structpkt__dump__md__t"/>
+        <childnode refid="2806" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2806">
+        <label>rpc_packet_data_t</label>
+        <link refid="structrpc__packet__data__t"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2807">
+        <label>pkt_dump_md_t</label>
+        <link refid="structpkt__dump__md__t"/>
+        <childnode refid="2808" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2808">
+        <label>rpc_packet_data_t</label>
+        <link refid="structrpc__packet__data__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="703" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="702" bodyend="711"/>
+    <listofallmembers>
+      <member refid="structrpc__packet__data__t_1ae8f08a217a006f7a35f5fdb3f0e26a87" prot="public" virt="non-virtual"><scope>pkt_dump_md_t</scope><name>code</name></member>
+      <member refid="structpkt__dump__md__t_1afce98d2ebb1dfce6fe8e8c487c58546d" prot="public" virt="virtual"><scope>pkt_dump_md_t</scope><name>deserialize</name></member>
+      <member refid="structpkt__dump__md__t_1abd2c506d8f41f88d1804b76065f88f6d" prot="public" virt="non-virtual"><scope>pkt_dump_md_t</scope><name>pkt_dump_md_t</name></member>
+      <member refid="structrpc__packet__data__t_1aa48c3e33219ccb723d7be7f18392f50b" prot="public" virt="non-virtual"><scope>pkt_dump_md_t</scope><name>rpc_packet_data_t</name></member>
+      <member refid="structpkt__dump__md__t_1ad5e4ff76ca67a686a1753ed18d997be8" prot="public" virt="virtual"><scope>pkt_dump_md_t</scope><name>serialize</name></member>
+      <member refid="structpkt__dump__md__t_1a5b07eba36b2e521d974b2cebf09d59d0" prot="public" virt="non-virtual"><scope>pkt_dump_md_t</scope><name>sort</name></member>
+      <member refid="structpkt__dump__md__t_1aff94094377361ef59f7cdc9c43ddc2ce" prot="public" virt="virtual"><scope>pkt_dump_md_t</scope><name>~pkt_dump_md_t</name></member>
+      <member refid="structrpc__packet__data__t_1af3d9b0008dfb68fb02fbc403c41fe396" prot="public" virt="virtual"><scope>pkt_dump_md_t</scope><name>~rpc_packet_data_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

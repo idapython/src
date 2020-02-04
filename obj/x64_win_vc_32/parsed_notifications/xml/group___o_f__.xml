@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___o_f__" kind="group">
+    <compoundname>OF_</compoundname>
+    <title>Operand flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___o_f___1ga09d3b330d2aa9edbde91549fc19525ab" prot="public" static="no">
+        <name>OF_NO_BASE_DISP</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>base displacement doesn&apos;t exist. meaningful only for <ref refid="group__o___1ga2ae70c4ac00043f25a469a506a6f504f" kindref="member">o_displ</ref> type. if set, base displacement (<ref refid="classop__t_1acaaeff517df0b7156b4b8521a3900cdc" kindref="member">op_t::addr</ref>) doesn&apos;t exist. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="195" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_f___1gaf5cdb56eaaa72c4beacc2c87a67eefc8" prot="public" static="no">
+        <name>OF_OUTER_DISP</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>outer displacement exists. meaningful only for <ref refid="group__o___1ga2ae70c4ac00043f25a469a506a6f504f" kindref="member">o_displ</ref> type. if set, outer displacement (<ref refid="classop__t_1a6baa38b521c143a794640d82df109ae2" kindref="member">op_t::value</ref>) exists. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="199" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_f___1ga7156131859baf6b3db9ff3351eae834b" prot="public" static="no">
+        <name>PACK_FORM_DEF</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>(!<ref refid="group__o___1gab490f48c733f3d29c700bb5d70ecc198" kindref="member">o_reg</ref> + <ref refid="group__dt___1gae74028429ed869e7420e452dcef43317" kindref="member">dt_packreal</ref>) </para>        </briefdescription>
+        <detaileddescription>
+<para>packed factor defined. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="202" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_f___1ga0fd70126cf669c8c0618d890f43640bd" prot="public" static="no">
+        <name>OF_NUMBER</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>the operand can be converted to a number only </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="204" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_f___1ga0b79d1666f5843ac4599ebb3d158adee" prot="public" static="no">
+        <name>OF_SHOW</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>should the operand be displayed? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="205" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="classop__t_1ae8f87e3147e90326420de6b78d97bd2a" kindref="member">op_t::flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

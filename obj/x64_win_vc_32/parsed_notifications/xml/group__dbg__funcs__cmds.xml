@@ -1,0 +1,479 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__dbg__funcs__cmds" kind="group">
+    <compoundname>dbg_funcs_cmds</compoundname>
+    <title>Process commands</title>
+    <innergroup refid="group___d_s_t_a_t_e__">Debugged process states</innergroup>
+    <innergroup refid="group___d_b_g_i_n_v__">Debugged process invalidation options</innergroup>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1ga610fa89b8ec6db08d7f7d3aabcf69a2f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi get_process_state</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_process_state</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Return the state of the currently debugged process. {Type, Synchronous function, Notification, none (synchronous function)} <simplesect kind="return"><para>one of <ref refid="group___d_s_t_a_t_e__" kindref="compound">Debugged process states</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="292" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="292" bodyend="292"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1ga626126369d3b58b3d5eeaa953c936988" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi set_process_state</definition>
+        <argsstring>(int newstate, thid_t *p_thid, int dbginv)</argsstring>
+        <name>set_process_state</name>
+        <param>
+          <type>int</type>
+          <declname>newstate</declname>
+        </param>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref> *</type>
+          <declname>p_thid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>dbginv</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set new state for the debugged process. Notifies the IDA kernel about the change of the debugged process state. For example, a debugger module could call this function when it knows that the process is suspended for a short period of time. Some IDA API calls can be made only when the process is suspended. The process state is usually restored before returning control to the caller. You must know that it is ok to change the process state, doing it at arbitrary moments may crash the application or IDA. {Type, Synchronous function, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>newstate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new process state (one of <ref refid="group___d_s_t_a_t_e__" kindref="compound">Debugged process states</ref>) if <ref refid="group___d_s_t_a_t_e___1ga6d31e2cc8725b482c31542d59d679630" kindref="member">DSTATE_NOTASK</ref> is passed then the state is not changed </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_thid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ptr to new thread id. may be NULL or pointer to <ref refid="idd_8hpp_1a3fec2238e4b2b608273f3a6c5f7a31de" kindref="member">NO_THREAD</ref>. the pointed variable will contain the old thread id upon return </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dbginv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___d_b_g_i_n_v__" kindref="compound">Debugged process invalidation options</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>old debugger state (one of <ref refid="group___d_s_t_a_t_e__" kindref="compound">Debugged process states</ref>) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="334" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="334" bodyend="334"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1ga01e494031d20479e64771af94a7f7f61" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi invalidate_dbg_state</definition>
+        <argsstring>(int dbginv)</argsstring>
+        <name>invalidate_dbg_state</name>
+        <param>
+          <type>int</type>
+          <declname>dbginv</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Invalidate cached debugger information. {Type, Synchronous function, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dbginv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group___d_b_g_i_n_v__" kindref="compound">Debugged process invalidation options</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>current debugger state (one of <ref refid="group___d_s_t_a_t_e__" kindref="compound">Debugged process states</ref>) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="343" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="343" bodyend="346"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1gae5e88efeab714519f8424aef6034c50d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi start_process</definition>
+        <argsstring>(const char *path=NULL, const char *args=NULL, const char *sdir=NULL)</argsstring>
+        <name>start_process</name>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>args</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>sdir</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Start a process in the debugger. {Type, Asynchronous function - available as Request, Notification, <ref refid="dbg_8hpp_1ac67a564945a2c1721691aa2f657a908ca9c71d0a00c715ba7f5b903c7a25de1eb" kindref="member">dbg_process_start</ref>} <simplesect kind="note"><para>You can also use the <ref refid="group__dbg__funcs__flow_1ga02e3e2c96cd0e07e7b213a88415733c7" kindref="member">run_to()</ref> function to easily start the execution of a process until a given address is reached. </para></simplesect>
+<simplesect kind="note"><para>For all parameters, a NULL value indicates the debugger will take the value from the defined Process Options. </para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>path to the executable to start </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>arguments to pass to process </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sdir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>starting directory for the process </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>-1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>impossible to create the process </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the starting of the process was cancelled by the user </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the process was properly started </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="363" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="363" bodyend="369"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1ga6ebf673c9bd783f10aa58dcccbe0ec68" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi request_start_process</definition>
+        <argsstring>(const char *path=NULL, const char *args=NULL, const char *sdir=NULL)</argsstring>
+        <name>request_start_process</name>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>args</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>sdir</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+<para>Post a <ref refid="group__dbg__funcs__cmds_1gae5e88efeab714519f8424aef6034c50d" kindref="member">start_process()</ref> request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="374" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="374" bodyend="380"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1gafde4e91a01fb308d4418512ccb369637" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi suspend_process</definition>
+        <argsstring>(void)</argsstring>
+        <name>suspend_process</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Suspend the process in the debugger. { Type,<itemizedlist>
+<listitem><para>Synchronous function (if in a notification handler)</para></listitem><listitem><para>Asynchronous function (everywhere else)</para></listitem><listitem><para>available as Request, Notification,</para></listitem><listitem><para>none (if in a notification handler)</para></listitem><listitem><para><ref refid="dbg_8hpp_1ac67a564945a2c1721691aa2f657a908ca9c3f031bf95ae0fd16786ecaee29d3ad" kindref="member">dbg_suspend_process</ref> (everywhere else) } <simplesect kind="note"><para>The <ref refid="group__dbg__funcs__cmds_1gafde4e91a01fb308d4418512ccb369637" kindref="member">suspend_process()</ref> function can be called from a notification handler to force the stopping of the process. In this case, no notification will be generated. When you suspend a process, the running command is always aborted. </para></simplesect>
+</para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="398" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="398" bodyend="398"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1ga17e3941d0bb55d22c230d16a9ff155de" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi request_suspend_process</definition>
+        <argsstring>(void)</argsstring>
+        <name>request_suspend_process</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Post a <ref refid="group__dbg__funcs__cmds_1gafde4e91a01fb308d4418512ccb369637" kindref="member">suspend_process()</ref> request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="402" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="402" bodyend="402"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1ga8833a43919fac27965ef862bbc2b5073" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi continue_process</definition>
+        <argsstring>(void)</argsstring>
+        <name>continue_process</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Continue the execution of the process in the debugger. {Type, Synchronous function - available as Request, Notification, none (synchronous function)} <simplesect kind="note"><para>The <ref refid="group__dbg__funcs__cmds_1ga8833a43919fac27965ef862bbc2b5073" kindref="member">continue_process()</ref> function can be called from a notification handler to force the continuation of the process. In this case the request queue will not be examined, IDA will simply resume execution. Usually it makes sense to call <ref refid="group__dbg__funcs__cmds_1ga32a8ecb2f27d1ce7a88278cf2aaa5d8f" kindref="member">request_continue_process()</ref> followed by <ref refid="group__dbg__funcs_1ga7a7be026d9efa51e8a10936c38a1f50f" kindref="member">run_requests()</ref>, so that IDA will first start a queued request (if any) and then resume the application. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="415" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="415" bodyend="415"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1ga32a8ecb2f27d1ce7a88278cf2aaa5d8f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi request_continue_process</definition>
+        <argsstring>(void)</argsstring>
+        <name>request_continue_process</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Post a <ref refid="group__dbg__funcs__cmds_1ga8833a43919fac27965ef862bbc2b5073" kindref="member">continue_process()</ref> request. <simplesect kind="note"><para>This requires an explicit call to <ref refid="group__dbg__funcs_1ga7a7be026d9efa51e8a10936c38a1f50f" kindref="member">run_requests()</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="420" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="420" bodyend="420"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1ga2aaee8c71618ffef3f2562599b314316" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi exit_process</definition>
+        <argsstring>(void)</argsstring>
+        <name>exit_process</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Terminate the debugging of the current process. {Type, Asynchronous function - available as Request, Notification, <ref refid="dbg_8hpp_1ac67a564945a2c1721691aa2f657a908ca8636e64919319ca38ff0c12d64b9421c" kindref="member">dbg_process_exit</ref>} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="427" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="427" bodyend="427"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1ga0dc2ef1fb91eeffdab5cf938f0d40d1e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi request_exit_process</definition>
+        <argsstring>(void)</argsstring>
+        <name>request_exit_process</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Post an <ref refid="group__dbg__funcs__cmds_1ga2aaee8c71618ffef3f2562599b314316" kindref="member">exit_process()</ref> request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="431" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="431" bodyend="431"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1gae60f07b4d9ca0f5329c3f64003aedd4d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>ssize_t idaapi get_processes</definition>
+        <argsstring>(procinfo_vec_t *proclist)</argsstring>
+        <name>get_processes</name>
+        <param>
+          <type><ref refid="classqvector" kindref="compound">procinfo_vec_t</ref> *</type>
+          <declname>proclist</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Take a snapshot of running processes and return their description. {Type, Synchronous function, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">array</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>with information about each running process </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>number of processes or -1 on error </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="440" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="440" bodyend="440"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1ga677ee11ddd3ea82cd56acdf04e2fa746" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi attach_process</definition>
+        <argsstring>(pid_t pid=NO_PROCESS, int event_id=-1)</argsstring>
+        <name>attach_process</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref></type>
+          <declname>pid</declname>
+          <defval><ref refid="idd_8hpp_1a4bb96cbe4ed99a94352b5cb0fc5b660a" kindref="member">NO_PROCESS</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>event_id</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Attach the debugger to a running process. {Type, Asynchronous function - available as Request, Notification, <ref refid="dbg_8hpp_1ac67a564945a2c1721691aa2f657a908caf603054c6474ef8f7f1e1f722005eb87" kindref="member">dbg_process_attach</ref>} <simplesect kind="note"><para>This function shouldn&apos;t be called as a request if <ref refid="idd_8hpp_1a4bb96cbe4ed99a94352b5cb0fc5b660a" kindref="member">NO_PROCESS</ref> is used. </para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PID of the process to attach to. If <ref refid="idd_8hpp_1a4bb96cbe4ed99a94352b5cb0fc5b660a" kindref="member">NO_PROCESS</ref>, a dialog box will interactively ask the user for the process to attach to. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>-4</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>debugger was not inited </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>-3</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the attaching is not supported </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>-2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>impossible to find a compatible process </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>-1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>impossible to attach to the given process (process died, privilege needed, not supported by the debugger plugin, ...) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the user cancelled the attaching to the process </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the debugger properly attached to the process </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="457" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="457" bodyend="457"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1ga5a43a13fc0e18490d75206f52ed845e9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi request_attach_process</definition>
+        <argsstring>(pid_t pid, int event_id)</argsstring>
+        <name>request_attach_process</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref></type>
+          <declname>pid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>event_id</declname>
+        </param>
+        <briefdescription>
+<para>Post an <ref refid="group__dbg__funcs__cmds_1ga677ee11ddd3ea82cd56acdf04e2fa746" kindref="member">attach_process()</ref> request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="461" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="461" bodyend="461"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1gab2a6e510deb994ccda919f055221afa0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi detach_process</definition>
+        <argsstring>(void)</argsstring>
+        <name>detach_process</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Detach the debugger from the debugged process. {Type, Asynchronous function - available as Request, Notification, <ref refid="dbg_8hpp_1ac67a564945a2c1721691aa2f657a908ca9953b6587edabb6e6189732186e092aa" kindref="member">dbg_process_detach</ref>} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="468" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="468" bodyend="468"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1ga285d217265524c3b4db214240b2e2b53" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi request_detach_process</definition>
+        <argsstring>(void)</argsstring>
+        <name>request_detach_process</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Post a <ref refid="group__dbg__funcs__cmds_1gab2a6e510deb994ccda919f055221afa0" kindref="member">detach_process()</ref> request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="472" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="472" bodyend="472"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__cmds_1gaea12da3f16ff0ea60446377cbb21ebb3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi is_debugger_busy</definition>
+        <argsstring>(void)</argsstring>
+        <name>is_debugger_busy</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is the debugger busy?. Some debuggers do not accept any commands while the debugged application is running. For such a debugger, it is unsafe to do anything with the database (even simple queries like get_byte may lead to undesired consequences). Returns: true if the debugged application is running under such a debugger </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="481" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="481" bodyend="481"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Use these functions to manipulate the debugged process. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

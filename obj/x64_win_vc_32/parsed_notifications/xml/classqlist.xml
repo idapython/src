@@ -1,0 +1,719 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classqlist" kind="class" language="C++" prot="public">
+    <compoundname>qlist</compoundname>
+    <includes refid="pro_8h" local="no">pro.h</includes>
+    <innerclass refid="structqlist_1_1datanode__t" prot="private">qlist::datanode_t</innerclass>
+    <innerclass refid="structqlist_1_1listnode__t" prot="private">qlist::listnode_t</innerclass>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classqlist_1ad26cd84e61e501334eb1ec7dde32bf32" prot="public" static="no">
+        <type>T</type>
+        <definition>typedef T qlist&lt; T &gt;::value_type</definition>
+        <argsstring></argsstring>
+        <name>value_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2987" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2987" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classqlist_1a029b0780de4639acd9d8e027285b211e" prot="private" static="no" mutable="no">
+        <type>listnode_t</type>
+        <definition>listnode_t qlist&lt; T &gt;::node</definition>
+        <argsstring></argsstring>
+        <name>node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2976" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2976" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classqlist_1aa317e3d9be43075520774c299a91d036" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t qlist&lt; T &gt;::length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2977" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2977" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classqlist_1af5fc127f792f53f5ef92ac2fc2ab5bc9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>qlist&lt; T &gt;::__pad0__</definition>
+        <argsstring></argsstring>
+        <name>__pad0__</name>
+        <bitfield> cur(x.cur) {} )#define DEFINE_REVERSE_ITERATOR(riter</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2987" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3033" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classqlist_1ae7cee41dd8d12ad93f1581b921ed8955" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void qlist&lt; T &gt;::init</definition>
+        <argsstring>(void)</argsstring>
+        <name>init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2979" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2979" bodyend="2984"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1ac5e0891a5923400dac870fc49cecb1fb" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void qlist&lt; T &gt;::linkin</definition>
+        <argsstring>(iterator p, listnode_t *tmp)</argsstring>
+        <name>linkin</name>
+        <param>
+          <type>iterator</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>listnode_t *</type>
+          <declname>tmp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3183" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3183" bodyend="3190"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classqlist_1a52cb7d2f03a778ddb75e60db33b21b61" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iter</type>
+        <definition>iter qlist&lt; T &gt;::qlist</definition>
+        <argsstring>(void)</argsstring>
+        <name>qlist</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3054" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3054" bodyend="3054"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1afd693376827ff74f68a9e8fe941423ff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>qlist&lt; T &gt;::qlist</definition>
+        <argsstring>(const qlist&lt; T &gt; &amp;x)</argsstring>
+        <name>qlist</name>
+        <param>
+          <type>const <ref refid="classqlist" kindref="compound">qlist</ref>&lt; T &gt; &amp;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Constructor - creates a qlist identical to &apos;x&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3056" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3056" bodyend="3060"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a1c1e1f1048b5a04bef5ab6844c002077" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>qlist&lt; T &gt;::~qlist</definition>
+        <argsstring>(void)</argsstring>
+        <name>~qlist</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Destructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3062" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3062" bodyend="3065"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a331e7be40c397114531ec87586172fc9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classqlist" kindref="compound">qlist</ref>&lt; T &gt; &amp;</type>
+        <definition>qlist&lt;T&gt;&amp; qlist&lt; T &gt;::operator=</definition>
+        <argsstring>(const qlist&lt; T &gt; &amp;x)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="classqlist" kindref="compound">qlist</ref>&lt; T &gt; &amp;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Construct a new qlist using &apos;=&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3069" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3069" bodyend="3085"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1af5f097a587146ebcf78f99553304acf0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void qlist&lt; T &gt;::swap</definition>
+        <argsstring>(qlist&lt; T &gt; &amp;x)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="classqlist" kindref="compound">qlist</ref>&lt; T &gt; &amp;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Set this = x and x = this, without copying any memory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3087" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3087" bodyend="3093"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a8a9dcbefb57b8a08c2feb1896599f77b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>iterator qlist&lt; T &gt;::begin</definition>
+        <argsstring>(void)</argsstring>
+        <name>begin</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a pointer to the head of the list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3095" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3095" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a37b0489910d2658f6c43091aa8ff0368" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>iterator qlist&lt; T &gt;::end</definition>
+        <argsstring>(void)</argsstring>
+        <name>end</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a pointer to the end of the list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3096" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3096" bodyend="3095"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a81f9889567ad9c9fcf55f30ebf1034df" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool qlist&lt; T &gt;::empty</definition>
+        <argsstring>(void) const</argsstring>
+        <name>empty</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get true if the list has 0 elements. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3097" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3097" bodyend="3096"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a23a88cb08200beb481022b95cfba14b7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t qlist&lt; T &gt;::size</definition>
+        <argsstring>(void) const</argsstring>
+        <name>size</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get the number of elements in the list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3098" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3098" bodyend="3097"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a91fd19907fea3d3d250f2d8314804298" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T &amp;</type>
+        <definition>T&amp; qlist&lt; T &gt;::front</definition>
+        <argsstring>(void)</argsstring>
+        <name>front</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get the first element in the list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3099" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3099" bodyend="3098"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a31069784256e69c08a2df2a680cf7534" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T &amp;</type>
+        <definition>T&amp; qlist&lt; T &gt;::back</definition>
+        <argsstring>(void)</argsstring>
+        <name>back</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get the last element in the list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3100" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3100" bodyend="3099"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a9a43bc5dccc34124e7cb50fda65a2684" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const_iterator</type>
+        <definition>const_iterator qlist&lt; T &gt;::begin</definition>
+        <argsstring>(void) const</argsstring>
+        <name>begin</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a pointer to the head of the list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3102" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3102" bodyend="3100"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1aa1b1adf5f25cb3fb9b18d4f2b786996b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const_iterator</type>
+        <definition>const_iterator qlist&lt; T &gt;::end</definition>
+        <argsstring>(void) const</argsstring>
+        <name>end</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a pointer to the end of the list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3103" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3103" bodyend="3102"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a4d437d6d0c5ab772a9013b1aced9aaad" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const T &amp;</type>
+        <definition>const T&amp; qlist&lt; T &gt;::front</definition>
+        <argsstring>(void) const</argsstring>
+        <name>front</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get the first element in the list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3104" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3104" bodyend="3103"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a3d5e0f97354c1436e6c710ce522139c6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const T &amp;</type>
+        <definition>const T&amp; qlist&lt; T &gt;::back</definition>
+        <argsstring>(void) const</argsstring>
+        <name>back</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get a pointer to the end of the list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3105" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3105" bodyend="3104"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a1ff70c6ad32300691b6f2654d5f07389" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>reverse_iterator</type>
+        <definition>reverse_iterator qlist&lt; T &gt;::rbegin</definition>
+        <argsstring>()</argsstring>
+        <name>rbegin</name>
+        <briefdescription>
+<para>Get a reverse iterator that points to end of list. See DEFINE_REVERSE_ITERATOR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3107" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3107" bodyend="3105"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1aced95aa6089448ef4c7be29f514fe330" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>reverse_iterator</type>
+        <definition>reverse_iterator qlist&lt; T &gt;::rend</definition>
+        <argsstring>()</argsstring>
+        <name>rend</name>
+        <briefdescription>
+<para>Get a reverse iterator that points to beginning of list. See DEFINE_REVERSE_ITERATOR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3108" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3108" bodyend="3107"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a3b0f9338401ca57b688401338992e183" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const_reverse_iterator</type>
+        <definition>const_reverse_iterator qlist&lt; T &gt;::rbegin</definition>
+        <argsstring>() const</argsstring>
+        <name>rbegin</name>
+        <briefdescription>
+<para>See <ref refid="classqlist_1a1ff70c6ad32300691b6f2654d5f07389" kindref="member">rbegin()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3109" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3109" bodyend="3108"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a98013df405e0a02d7170d61286e82fbc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const_reverse_iterator</type>
+        <definition>const_reverse_iterator qlist&lt; T &gt;::rend</definition>
+        <argsstring>() const</argsstring>
+        <name>rend</name>
+        <briefdescription>
+<para>See <ref refid="classqlist_1aced95aa6089448ef4c7be29f514fe330" kindref="member">rend()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3110" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3110" bodyend="3109"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a2931ecba59a07c3dafd64cd74cdea08a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>iterator qlist&lt; T &gt;::insert</definition>
+        <argsstring>(iterator p, const T &amp;x)</argsstring>
+        <name>insert</name>
+        <param>
+          <type>iterator</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>const T &amp;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Insert an element into the qlist. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the position to insert the element </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the element to be inserted </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>position of newly inserted element </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3116" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3116" bodyend="3122"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a5b16ea2878faa8fa7c02b6684c3f513e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T &amp;</type>
+        <definition>T&amp; qlist&lt; T &gt;::insert</definition>
+        <argsstring>(iterator p)</argsstring>
+        <name>insert</name>
+        <param>
+          <type>iterator</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Insert an empty element into the qlist. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>position to insert the element </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>reference to this new element </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3126" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3126" bodyend="3132"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a1ebc740310a135ef2650a0328e9fb9e4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class it2</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void qlist&lt; T &gt;::insert</definition>
+        <argsstring>(iterator p, it2 first, it2 last)</argsstring>
+        <name>insert</name>
+        <param>
+          <type>iterator</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>it2</type>
+          <declname>first</declname>
+        </param>
+        <param>
+          <type>it2</type>
+          <declname>last</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Insert all elements between &apos;first&apos; and &apos;last&apos; (non-inclusive) at position pointed to by &apos;p&apos; </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3135" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3135" bodyend="3139"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1ae77feb140edb734c86c08847ae5cd7a2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void qlist&lt; T &gt;::push_front</definition>
+        <argsstring>(const T &amp;x)</argsstring>
+        <name>push_front</name>
+        <param>
+          <type>const T &amp;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Insert at beginning of list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3141" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3141" bodyend="3141"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1afa6ec56a58562d8fca4dfb8935337dbf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void qlist&lt; T &gt;::push_back</definition>
+        <argsstring>(const T &amp;x)</argsstring>
+        <name>push_back</name>
+        <param>
+          <type>const T &amp;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Insert at end of list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3143" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3143" bodyend="3143"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a2e96c83a0987980a4aed31871c6eaed2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T &amp;</type>
+        <definition>T&amp; qlist&lt; T &gt;::push_back</definition>
+        <argsstring>(void)</argsstring>
+        <name>push_back</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Insert empty element at end of list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3145" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3145" bodyend="3145"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1af946cdb230c6ee4761ffe30e070d2fc3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>iterator qlist&lt; T &gt;::erase</definition>
+        <argsstring>(iterator p)</argsstring>
+        <name>erase</name>
+        <param>
+          <type>iterator</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Erase element at position pointed to by &apos;p&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3147" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3147" bodyend="3156"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a476a4e5f37b973da304bf40975498413" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void qlist&lt; T &gt;::erase</definition>
+        <argsstring>(iterator p1, iterator p2)</argsstring>
+        <name>erase</name>
+        <param>
+          <type>iterator</type>
+          <declname>p1</declname>
+        </param>
+        <param>
+          <type>iterator</type>
+          <declname>p2</declname>
+        </param>
+        <briefdescription>
+<para>Erase all elements between &apos;p1&apos; and &apos;p2&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3158" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3158" bodyend="3162"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a740b086eee405d7e7f1f8a83d9fafe4b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void qlist&lt; T &gt;::clear</definition>
+        <argsstring>(void)</argsstring>
+        <name>clear</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Erase all elements in the qlist. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3164" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3164" bodyend="3164"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a9d7af223452104a48a3330555fbbf930" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void qlist&lt; T &gt;::pop_front</definition>
+        <argsstring>(void)</argsstring>
+        <name>pop_front</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Erase first element of the qlist. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3166" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3166" bodyend="3166"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a5fc4fc469261f9b4b414513ba13e4f69" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void qlist&lt; T &gt;::pop_back</definition>
+        <argsstring>(void)</argsstring>
+        <name>pop_back</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Erase last element of the qlist. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3168" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3168" bodyend="3168"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1a0cf6dcbcd6f22d9c22965a903507eb24" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool qlist&lt; T &gt;::operator==</definition>
+        <argsstring>(const qlist&lt; T &gt; &amp;x) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="classqlist" kindref="compound">qlist</ref>&lt; T &gt; &amp;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Compare two qlists with &apos;==&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3170" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3170" bodyend="3179"/>
+      </memberdef>
+      <memberdef kind="function" id="classqlist_1aa7a78bb99064cf20d89cb3ca3ae76f91" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool qlist&lt; T &gt;::operator!=</definition>
+        <argsstring>(const qlist&lt; T &gt; &amp;x) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="classqlist" kindref="compound">qlist</ref>&lt; T &gt; &amp;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Compare two qlists with !=. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3181" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3181" bodyend="3181"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Linked list Note: linked list is not movable! </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2951" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2950" bodyend="3191"/>
+    <listofallmembers>
+      <member refid="classqlist_1af5fc127f792f53f5ef92ac2fc2ab5bc9" prot="public" virt="non-virtual"><scope>qlist</scope><name>__pad0__</name></member>
+      <member refid="classqlist_1a31069784256e69c08a2df2a680cf7534" prot="public" virt="non-virtual"><scope>qlist</scope><name>back</name></member>
+      <member refid="classqlist_1a3d5e0f97354c1436e6c710ce522139c6" prot="public" virt="non-virtual"><scope>qlist</scope><name>back</name></member>
+      <member refid="classqlist_1a8a9dcbefb57b8a08c2feb1896599f77b" prot="public" virt="non-virtual"><scope>qlist</scope><name>begin</name></member>
+      <member refid="classqlist_1a9a43bc5dccc34124e7cb50fda65a2684" prot="public" virt="non-virtual"><scope>qlist</scope><name>begin</name></member>
+      <member refid="classqlist_1a740b086eee405d7e7f1f8a83d9fafe4b" prot="public" virt="non-virtual"><scope>qlist</scope><name>clear</name></member>
+      <member refid="classqlist_1a81f9889567ad9c9fcf55f30ebf1034df" prot="public" virt="non-virtual"><scope>qlist</scope><name>empty</name></member>
+      <member refid="classqlist_1a37b0489910d2658f6c43091aa8ff0368" prot="public" virt="non-virtual"><scope>qlist</scope><name>end</name></member>
+      <member refid="classqlist_1aa1b1adf5f25cb3fb9b18d4f2b786996b" prot="public" virt="non-virtual"><scope>qlist</scope><name>end</name></member>
+      <member refid="classqlist_1af946cdb230c6ee4761ffe30e070d2fc3" prot="public" virt="non-virtual"><scope>qlist</scope><name>erase</name></member>
+      <member refid="classqlist_1a476a4e5f37b973da304bf40975498413" prot="public" virt="non-virtual"><scope>qlist</scope><name>erase</name></member>
+      <member refid="classqlist_1a91fd19907fea3d3d250f2d8314804298" prot="public" virt="non-virtual"><scope>qlist</scope><name>front</name></member>
+      <member refid="classqlist_1a4d437d6d0c5ab772a9013b1aced9aaad" prot="public" virt="non-virtual"><scope>qlist</scope><name>front</name></member>
+      <member refid="classqlist_1ae7cee41dd8d12ad93f1581b921ed8955" prot="private" virt="non-virtual"><scope>qlist</scope><name>init</name></member>
+      <member refid="classqlist_1a2931ecba59a07c3dafd64cd74cdea08a" prot="public" virt="non-virtual"><scope>qlist</scope><name>insert</name></member>
+      <member refid="classqlist_1a5b16ea2878faa8fa7c02b6684c3f513e" prot="public" virt="non-virtual"><scope>qlist</scope><name>insert</name></member>
+      <member refid="classqlist_1a1ebc740310a135ef2650a0328e9fb9e4" prot="public" virt="non-virtual"><scope>qlist</scope><name>insert</name></member>
+      <member refid="classqlist_1aa317e3d9be43075520774c299a91d036" prot="private" virt="non-virtual"><scope>qlist</scope><name>length</name></member>
+      <member refid="classqlist_1ac5e0891a5923400dac870fc49cecb1fb" prot="private" virt="non-virtual"><scope>qlist</scope><name>linkin</name></member>
+      <member refid="classqlist_1a029b0780de4639acd9d8e027285b211e" prot="private" virt="non-virtual"><scope>qlist</scope><name>node</name></member>
+      <member refid="classqlist_1aa7a78bb99064cf20d89cb3ca3ae76f91" prot="public" virt="non-virtual"><scope>qlist</scope><name>operator!=</name></member>
+      <member refid="classqlist_1a331e7be40c397114531ec87586172fc9" prot="public" virt="non-virtual"><scope>qlist</scope><name>operator=</name></member>
+      <member refid="classqlist_1a0cf6dcbcd6f22d9c22965a903507eb24" prot="public" virt="non-virtual"><scope>qlist</scope><name>operator==</name></member>
+      <member refid="classqlist_1a5fc4fc469261f9b4b414513ba13e4f69" prot="public" virt="non-virtual"><scope>qlist</scope><name>pop_back</name></member>
+      <member refid="classqlist_1a9d7af223452104a48a3330555fbbf930" prot="public" virt="non-virtual"><scope>qlist</scope><name>pop_front</name></member>
+      <member refid="classqlist_1afa6ec56a58562d8fca4dfb8935337dbf" prot="public" virt="non-virtual"><scope>qlist</scope><name>push_back</name></member>
+      <member refid="classqlist_1a2e96c83a0987980a4aed31871c6eaed2" prot="public" virt="non-virtual"><scope>qlist</scope><name>push_back</name></member>
+      <member refid="classqlist_1ae77feb140edb734c86c08847ae5cd7a2" prot="public" virt="non-virtual"><scope>qlist</scope><name>push_front</name></member>
+      <member refid="classqlist_1a52cb7d2f03a778ddb75e60db33b21b61" prot="public" virt="non-virtual"><scope>qlist</scope><name>qlist</name></member>
+      <member refid="classqlist_1afd693376827ff74f68a9e8fe941423ff" prot="public" virt="non-virtual"><scope>qlist</scope><name>qlist</name></member>
+      <member refid="classqlist_1a1ff70c6ad32300691b6f2654d5f07389" prot="public" virt="non-virtual"><scope>qlist</scope><name>rbegin</name></member>
+      <member refid="classqlist_1a3b0f9338401ca57b688401338992e183" prot="public" virt="non-virtual"><scope>qlist</scope><name>rbegin</name></member>
+      <member refid="classqlist_1aced95aa6089448ef4c7be29f514fe330" prot="public" virt="non-virtual"><scope>qlist</scope><name>rend</name></member>
+      <member refid="classqlist_1a98013df405e0a02d7170d61286e82fbc" prot="public" virt="non-virtual"><scope>qlist</scope><name>rend</name></member>
+      <member refid="classqlist_1a23a88cb08200beb481022b95cfba14b7" prot="public" virt="non-virtual"><scope>qlist</scope><name>size</name></member>
+      <member refid="classqlist_1af5f097a587146ebcf78f99553304acf0" prot="public" virt="non-virtual"><scope>qlist</scope><name>swap</name></member>
+      <member refid="classqlist_1ad26cd84e61e501334eb1ec7dde32bf32" prot="public" virt="non-virtual"><scope>qlist</scope><name>value_type</name></member>
+      <member refid="classqlist_1a1c1e1f1048b5a04bef5ab6844c002077" prot="public" virt="non-virtual"><scope>qlist</scope><name>~qlist</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

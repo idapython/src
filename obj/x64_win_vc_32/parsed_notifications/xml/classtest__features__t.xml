@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classtest__features__t" kind="class" language="C++" prot="public">
+    <compoundname>test_features_t</compoundname>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classtest__features__t_1a726fd927eca43f5399338899daa05abc" prot="private" static="no">
+        <type>std::map&lt; <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref>, <ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> &gt;</type>
+        <definition>typedef std::map&lt;qstring,intvec_t&gt; test_features_t::file_to_features_t</definition>
+        <argsstring></argsstring>
+        <name>file_to_features_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" line="47" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classtest__features__t_1ae86a2e4614902a72dd63989f43dc30b6" prot="private" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a823b67c620f6cdca97e1d969ea4a9b02" kindref="member">qstrvec_t</ref></type>
+        <definition>qstrvec_t test_features_t::features</definition>
+        <argsstring></argsstring>
+        <name>features</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" line="46" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classtest__features__t_1aac34ba44aba3a247bf1775fea417818a" prot="private" static="no" mutable="no">
+        <type>file_to_features_t</type>
+        <definition>file_to_features_t test_features_t::f2f</definition>
+        <argsstring></argsstring>
+        <name>f2f</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" line="48" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classtest__features__t_1a0b94115fa6722a1133645696f0a33094" prot="private" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring test_features_t::eval_str</definition>
+        <argsstring></argsstring>
+        <name>eval_str</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" line="50" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classtest__features__t_1a0ce53b712ff14f738a6ff182d5345d6b" prot="private" static="no" mutable="no">
+        <type>lexer_t *</type>
+        <definition>lexer_t* test_features_t::lx</definition>
+        <argsstring></argsstring>
+        <name>lx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" line="51" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classtest__features__t_1af7d32a22c0984db9c5a2af9979b9e4d2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>test_features_t::test_features_t</definition>
+        <argsstring>()</argsstring>
+        <name>test_features_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" line="14" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" bodystart="14" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__features__t_1a3485211ca853e691891684e0242bbf94" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>test_features_t::~test_features_t</definition>
+        <argsstring>()</argsstring>
+        <name>~test_features_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" line="18" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" bodystart="18" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__features__t_1af385d55e212486c45ed87acf92fa76ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool test_features_t::load</definition>
+        <argsstring>(const qstring &amp;path, const char *_eval_str)</argsstring>
+        <name>load</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> &amp;</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>_eval_str</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" line="24" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__features__t_1a7dea1f2630414c9eeb38c4b470c78f06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool test_features_t::eval</definition>
+        <argsstring>(const char *file)</argsstring>
+        <name>eval</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" line="25" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classtest__features__t_1a920e1ec79c6eceb63ee3fe28dc4537fd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int test_features_t::make_feature_index</definition>
+        <argsstring>(const char *_feature)</argsstring>
+        <name>make_feature_index</name>
+        <param>
+          <type>const char *</type>
+          <declname>_feature</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" line="27" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" bodystart="27" bodyend="43"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" line="12" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/tstfeat.hpp" bodystart="11" bodyend="52"/>
+    <listofallmembers>
+      <member refid="classtest__features__t_1a7dea1f2630414c9eeb38c4b470c78f06" prot="public" virt="non-virtual"><scope>test_features_t</scope><name>eval</name></member>
+      <member refid="classtest__features__t_1a0b94115fa6722a1133645696f0a33094" prot="private" virt="non-virtual"><scope>test_features_t</scope><name>eval_str</name></member>
+      <member refid="classtest__features__t_1aac34ba44aba3a247bf1775fea417818a" prot="private" virt="non-virtual"><scope>test_features_t</scope><name>f2f</name></member>
+      <member refid="classtest__features__t_1ae86a2e4614902a72dd63989f43dc30b6" prot="private" virt="non-virtual"><scope>test_features_t</scope><name>features</name></member>
+      <member refid="classtest__features__t_1a726fd927eca43f5399338899daa05abc" prot="private" virt="non-virtual"><scope>test_features_t</scope><name>file_to_features_t</name></member>
+      <member refid="classtest__features__t_1af385d55e212486c45ed87acf92fa76ef" prot="public" virt="non-virtual"><scope>test_features_t</scope><name>load</name></member>
+      <member refid="classtest__features__t_1a0ce53b712ff14f738a6ff182d5345d6b" prot="private" virt="non-virtual"><scope>test_features_t</scope><name>lx</name></member>
+      <member refid="classtest__features__t_1a920e1ec79c6eceb63ee3fe28dc4537fd" prot="public" virt="non-virtual"><scope>test_features_t</scope><name>make_feature_index</name></member>
+      <member refid="classtest__features__t_1af7d32a22c0984db9c5a2af9979b9e4d2" prot="public" virt="non-virtual"><scope>test_features_t</scope><name>test_features_t</name></member>
+      <member refid="classtest__features__t_1a3485211ca853e691891684e0242bbf94" prot="public" virt="non-virtual"><scope>test_features_t</scope><name>~test_features_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structsegm__move__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>segm_move_info_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structsegm__move__info__t_1a35482c30018b6ba728f1f336ab898176" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t segm_move_info_t::from</definition>
+        <argsstring></argsstring>
+        <name>from</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="44" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsegm__move__info__t_1ab7116be3771c50dd472dadca3fafc698" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t segm_move_info_t::to</definition>
+        <argsstring></argsstring>
+        <name>to</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="44" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsegm__move__info__t_1a745e71fdcdad90d5b8a3cb0d49d14d93" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t segm_move_info_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="45" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structsegm__move__info__t_1a15645ed38385a74f904a6219a5011812" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>segm_move_info_t::segm_move_info_t</definition>
+        <argsstring>(ea_t _from=0, ea_t _to=0, size_t _sz=0)</argsstring>
+        <name>segm_move_info_t</name>
+        <param>
+          <type>ea_t</type>
+          <declname>_from</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>_to</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_sz</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="42" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="42" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="structsegm__move__info__t_1aba440706ffce6bdfec04ac1eb049ce74" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool segm_move_info_t::operator==</definition>
+        <argsstring>(const segm_move_info_t &amp;r) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structsegm__move__info__t" kindref="compound">segm_move_info_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="47" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="47" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="structsegm__move__info__t_1afa14d75fed0a11be957292a39bba865f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool segm_move_info_t::operator!=</definition>
+        <argsstring>(const segm_move_info_t &amp;r) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structsegm__move__info__t" kindref="compound">segm_move_info_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="49" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="49" bodyend="50"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="41" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="40" bodyend="51"/>
+    <listofallmembers>
+      <member refid="structsegm__move__info__t_1a35482c30018b6ba728f1f336ab898176" prot="public" virt="non-virtual"><scope>segm_move_info_t</scope><name>from</name></member>
+      <member refid="structsegm__move__info__t_1afa14d75fed0a11be957292a39bba865f" prot="public" virt="non-virtual"><scope>segm_move_info_t</scope><name>operator!=</name></member>
+      <member refid="structsegm__move__info__t_1aba440706ffce6bdfec04ac1eb049ce74" prot="public" virt="non-virtual"><scope>segm_move_info_t</scope><name>operator==</name></member>
+      <member refid="structsegm__move__info__t_1a15645ed38385a74f904a6219a5011812" prot="public" virt="non-virtual"><scope>segm_move_info_t</scope><name>segm_move_info_t</name></member>
+      <member refid="structsegm__move__info__t_1a745e71fdcdad90d5b8a3cb0d49d14d93" prot="public" virt="non-virtual"><scope>segm_move_info_t</scope><name>size</name></member>
+      <member refid="structsegm__move__info__t_1ab7116be3771c50dd472dadca3fafc698" prot="public" virt="non-virtual"><scope>segm_move_info_t</scope><name>to</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

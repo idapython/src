@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classsource__file__t" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>source_file_t</compoundname>
+    <basecompoundref refid="classqrefcnt__obj__t" prot="public" virt="non-virtual">qrefcnt_obj_t</basecompoundref>
+    <includes refid="dbg_8hpp" local="no">dbg.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsource__file__t_1ae766f902e9b535713905fd2aa83defa4" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void idaapi</type>
+        <definition>virtual void idaapi source_file_t::release</definition>
+        <argsstring>()=0</argsstring>
+        <name>release</name>
+        <reimplements refid="classqrefcnt__obj__t_1a745ea2234fa257ca04514ef78977ad84">release</reimplements>
+        <briefdescription>
+<para>Call this function to free <ref refid="classsource__file__t" kindref="compound">source_file_t</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2101" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__file__t_1a670b2083bed8e2c0f2031acbe7d0b95f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classsrcinfo__provider__t" kindref="compound">srcinfo_provider_t</ref> *idaapi</type>
+        <definition>virtual srcinfo_provider_t* idaapi source_file_t::get_provider</definition>
+        <argsstring>(void) const =0</argsstring>
+        <name>get_provider</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get source info provider. There is no need to free or release it after using </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2105" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__file__t_1a1455b7602d82a7eee74a932e6023295f" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>const char *idaapi</type>
+        <definition>virtual const char* idaapi source_file_t::get_path</definition>
+        <argsstring>(qstring *errbuf)=0</argsstring>
+        <name>get_path</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get path to the source file (or a symbolic name). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to buffer for the error message </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2109" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__file__t_1a00a610590cea98988b7f589ecc3ebae0" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>TWidget *</type>
+        <definition>virtual TWidget* source_file_t::open_srcview</definition>
+        <argsstring>(strvec_t **strvec, TWidget **pview, int lnnum, int colnum)=0</argsstring>
+        <name>open_srcview</name>
+        <param>
+          <type><ref refid="group__simpleline_1gac893a23d04b0b0ddc10cc44f4f9f01e6" kindref="member">strvec_t</ref> **</type>
+          <declname>strvec</declname>
+        </param>
+        <param>
+          <type>TWidget **</type>
+          <declname>pview</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>lnnum</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>colnum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Open window with source code (optional function). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">strvec</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to source text. the text should not be destroyed until the form is closed </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">pview</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to view that displays the source text (subview of TWidget) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lnnum</parametername>
+<parametername>colnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>cursor coordinates </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2115" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classsource__file__t_1a15a841c934a76d32a8fcccaabc1d9c9b" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool idaapi</type>
+        <definition>virtual bool idaapi source_file_t::read_file</definition>
+        <argsstring>(strvec_t *buf, qstring *errbuf)=0</argsstring>
+        <name>read_file</name>
+        <param>
+          <type><ref refid="group__simpleline_1gac893a23d04b0b0ddc10cc44f4f9f01e6" kindref="member">strvec_t</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read entire file (colored lines). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to buffer for the error message </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2120" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Describes a source file. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3324">
+        <label>source_file_t</label>
+        <link refid="classsource__file__t"/>
+        <childnode refid="3325" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3325">
+        <label>qrefcnt_obj_t</label>
+        <link refid="classqrefcnt__obj__t"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3326">
+        <label>source_file_t</label>
+        <link refid="classsource__file__t"/>
+        <childnode refid="3327" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3327">
+        <label>qrefcnt_obj_t</label>
+        <link refid="classqrefcnt__obj__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2098" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2097" bodyend="2121"/>
+    <listofallmembers>
+      <member refid="classsource__file__t_1a1455b7602d82a7eee74a932e6023295f" prot="public" virt="pure-virtual"><scope>source_file_t</scope><name>get_path</name></member>
+      <member refid="classsource__file__t_1a670b2083bed8e2c0f2031acbe7d0b95f" prot="public" virt="pure-virtual"><scope>source_file_t</scope><name>get_provider</name></member>
+      <member refid="classsource__file__t_1a00a610590cea98988b7f589ecc3ebae0" prot="public" virt="pure-virtual"><scope>source_file_t</scope><name>open_srcview</name></member>
+      <member refid="classqrefcnt__obj__t_1abca79ba34587bd7253077569aee4d137" prot="public" virt="non-virtual"><scope>source_file_t</scope><name>qrefcnt_obj_t</name></member>
+      <member refid="classsource__file__t_1a15a841c934a76d32a8fcccaabc1d9c9b" prot="public" virt="pure-virtual"><scope>source_file_t</scope><name>read_file</name></member>
+      <member refid="classqrefcnt__obj__t_1ab8d5e88bdc5903c5d918b6150c57f454" prot="public" virt="non-virtual"><scope>source_file_t</scope><name>refcnt</name></member>
+      <member refid="classsource__file__t_1ae766f902e9b535713905fd2aa83defa4" prot="public" virt="pure-virtual"><scope>source_file_t</scope><name>release</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

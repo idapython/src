@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___m_f_f__" kind="group">
+    <compoundname>MFF_</compoundname>
+    <title>Exec request flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___m_f_f___1ga8818e0092b80177e4f30c36b5aea3941" prot="public" static="no">
+        <name>MFF_FAST</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Execute code as soon as possible. this mode is ok for calling ui related functions that do not query the database. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3315" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3315" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_f_f___1ga68458cee7f12ec2dc838928e6152460b" prot="public" static="no">
+        <name>MFF_READ</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Execute code only when ida is idle and it is safe to query the database. this mode is recommended only for code that does not modify the database. (nb: ida may be in the middle of executing another user request, for example it may be waiting for him to enter values into a modal dialog box) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3319" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3319" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_f_f___1ga9840753b8b1480ce26da1a4c50833782" prot="public" static="no">
+        <name>MFF_WRITE</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Execute code only when ida is idle and it is safe to modify the database. in particular, this flag will suspend execution if there is a modal dialog box on the screen this mode can be used to call any ida api function <ref refid="group___m_f_f___1ga9840753b8b1480ce26da1a4c50833782" kindref="member">MFF_WRITE</ref> implies <ref refid="group___m_f_f___1ga68458cee7f12ec2dc838928e6152460b" kindref="member">MFF_READ</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3327" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___m_f_f___1gac787e0027f186b8d5c754e161a54dfe8" prot="public" static="no">
+        <name>MFF_NOWAIT</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Do not wait for the request to be executed. the caller should ensure that the request is not destroyed until the execution completes. if not, the request will be ignored. <ref refid="kernwin_8hpp_1a69761082f4ed4caa6fb527da4bf5268d" kindref="member">execute_sync()</ref> returns the request id in this case. it can be used in <ref refid="kernwin_8hpp_1a89770c465690472e4018421c773feb53" kindref="member">cancel_exec_request()</ref>. This flag can be used to delay the code execution until the next UI loop run even from the main thread. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3334" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3334" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>passed as &apos;reqf&apos; parameter to <ref refid="kernwin_8hpp_1a69761082f4ed4caa6fb527da4bf5268d" kindref="member">execute_sync()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

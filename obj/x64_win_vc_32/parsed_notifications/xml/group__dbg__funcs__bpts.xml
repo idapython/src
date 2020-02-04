@@ -1,0 +1,769 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__dbg__funcs__bpts" kind="group">
+    <compoundname>dbg_funcs_bpts</compoundname>
+    <title>Breakpoints</title>
+    <innerclass refid="structbpt__location__t" prot="public">bpt_location_t</innerclass>
+    <innerclass refid="structbpt__t" prot="public">bpt_t</innerclass>
+    <innerclass refid="structmovbpt__info__t" prot="public">movbpt_info_t</innerclass>
+    <innerclass refid="structbpt__visitor__t" prot="public">bpt_visitor_t</innerclass>
+    <innergroup refid="group___b_p_t_c_k__">Breakpoint status codes</innergroup>
+    <innergroup refid="group___b_v_f__">Breakpoint visitor flags</innergroup>
+      <sectiondef kind="user-defined">
+      <header>enable/disable breakpoints</header>
+      <description><para>{Type, Synchronous function - available as request, Notification, none (synchronous function)} Enable or disable an existing breakpoint. A disabled breakpoint isn&apos;t available anymore in the process. </para></description>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1ga3ebdde0a02186ee4d5a8d3c445e2d266" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi enable_bpt</definition>
+        <argsstring>(ea_t ea, bool enable=true)</argsstring>
+        <name>enable_bpt</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>enable</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1144" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1144" bodyend="1144"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1gad2e2644ffcda8b622a2585d88d8359bb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi enable_bpt</definition>
+        <argsstring>(const bpt_location_t &amp;bptloc, bool enable=true)</argsstring>
+        <name>enable_bpt</name>
+        <param>
+          <type>const <ref refid="structbpt__location__t" kindref="compound">bpt_location_t</ref> &amp;</type>
+          <declname>bptloc</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>enable</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1145" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1145" bodyend="1145"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1ga5096ed75a44d948e849d83147afa70f4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool disable_bpt</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>disable_bpt</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1146" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1146" bodyend="1146"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1gab02cf82afae5c1b88b0f2f682553138c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool disable_bpt</definition>
+        <argsstring>(const bpt_location_t &amp;bptloc)</argsstring>
+        <name>disable_bpt</name>
+        <param>
+          <type>const <ref refid="structbpt__location__t" kindref="compound">bpt_location_t</ref> &amp;</type>
+          <declname>bptloc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1147" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1147" bodyend="1147"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1gaf9a48662b585150716161cc9855296b2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi request_enable_bpt</definition>
+        <argsstring>(ea_t ea, bool enable=true)</argsstring>
+        <name>request_enable_bpt</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>enable</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1148" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1148" bodyend="1148"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1ga2c1150235a9e71f3bb38d5897769e232" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi request_enable_bpt</definition>
+        <argsstring>(const bpt_location_t &amp;bptloc, bool enable=true)</argsstring>
+        <name>request_enable_bpt</name>
+        <param>
+          <type>const <ref refid="structbpt__location__t" kindref="compound">bpt_location_t</ref> &amp;</type>
+          <declname>bptloc</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>enable</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1149" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1149" bodyend="1149"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1ga9875c2bdc0613502aa2a6897946687f1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool request_disable_bpt</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>request_disable_bpt</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1150" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1150" bodyend="1150"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1gab3dd48e9bb0ec7d18c3e94f607beedbc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool request_disable_bpt</definition>
+        <argsstring>(const bpt_location_t &amp;bptloc)</argsstring>
+        <name>request_disable_bpt</name>
+        <param>
+          <type>const <ref refid="structbpt__location__t" kindref="compound">bpt_location_t</ref> &amp;</type>
+          <declname>bptloc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1151" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1151" bodyend="1151"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__dbg__funcs__bpts_1gaf5c25ba86cdf45fc0a619a356e20ff3e" prot="public" static="no">
+        <name>bpt_loctype_t</name>
+        <enumvalue id="group__dbg__funcs__bpts_1ggaf5c25ba86cdf45fc0a619a356e20ff3ea4e1bd678d3247c82b0c2b4447766457b" prot="public">
+          <name>BPLT_ABS</name>
+          <briefdescription>
+<para>absolute address: ea </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__bpts_1ggaf5c25ba86cdf45fc0a619a356e20ff3ea144f1e5d0dd732458bd97931adf55d0e" prot="public">
+          <name>BPLT_REL</name>
+          <briefdescription>
+<para>relative address: module_path, offset </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__bpts_1ggaf5c25ba86cdf45fc0a619a356e20ff3ea88d90a791ba0e184db4824151ef2acfd" prot="public">
+          <name>BPLT_SYM</name>
+          <briefdescription>
+<para>symbolic: symbol_name, offset </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__bpts_1ggaf5c25ba86cdf45fc0a619a356e20ff3ea698e1dfca593bbdd7d74769de204f2d6" prot="public">
+          <name>BPLT_SRC</name>
+          <briefdescription>
+<para>source level: filename, lineno </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Breakpoint location types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="781" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="780" bodyend="786"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__dbg__funcs__bpts_1gaf3afa4e1ad8da8809719c5830702d2b3" prot="public" static="no">
+        <name>movbpt_code_t</name>
+        <enumvalue id="group__dbg__funcs__bpts_1ggaf3afa4e1ad8da8809719c5830702d2b3ab0ce59ecadf7a3e68a261aae88ff87f1" prot="public">
+          <name>MOVBPT_OK</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__bpts_1ggaf3afa4e1ad8da8809719c5830702d2b3a6e643c76aa7c0a853b6eb26c4d0bb620" prot="public">
+          <name>MOVBPT_NOT_FOUND</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__bpts_1ggaf3afa4e1ad8da8809719c5830702d2b3a46ca423edfe60e5ca480429000340919" prot="public">
+          <name>MOVBPT_DEST_BUSY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__bpts_1ggaf3afa4e1ad8da8809719c5830702d2b3a6d55bbb4de10f8537cd7dc412cb5188c" prot="public">
+          <name>MOVBPT_BAD_TYPE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="974" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="973" bodyend="979"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__dbg__funcs__bpts_1ga7b7aec8527b2738750b2fc01be14264f" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structbpt__t" kindref="compound">bpt_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;bpt_t&gt; bpt_vec_t</definition>
+        <argsstring></argsstring>
+        <name>bpt_vec_t</name>
+        <briefdescription>
+<para>vector of breakpoints </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="970" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="970" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dbg__funcs__bpts_1ga3e0b820e079d99dca03f236ea5be387e" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; movbpt_code_t &gt;</type>
+        <definition>typedef qvector&lt;movbpt_code_t&gt; movbpt_codes_t</definition>
+        <argsstring></argsstring>
+        <name>movbpt_codes_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="980" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="980" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dbg__funcs__bpts_1ga78f5193f37ff593e550adc735ac116dd" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structmovbpt__info__t" kindref="compound">movbpt_info_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;movbpt_info_t&gt; movbpt_infos_t</definition>
+        <argsstring></argsstring>
+        <name>movbpt_infos_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="988" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="987" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1ga99062fc844ef6d441e64b7f5bf14e460" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi set_bptloc_string</definition>
+        <argsstring>(const char *s)</argsstring>
+        <name>set_bptloc_string</name>
+        <param>
+          <type>const char *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+<para>Helper function for <ref refid="structbpt__location__t" kindref="compound">bpt_location_t</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="776" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2528" bodyend="2528"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1ga397042e736205e290cc1b00d0b4177e3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *idaapi</type>
+        <definition>const char *idaapi get_bptloc_string</definition>
+        <argsstring>(int i)</argsstring>
+        <name>get_bptloc_string</name>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+<para>Helper function for <ref refid="structbpt__location__t" kindref="compound">bpt_location_t</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="777" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2529" bodyend="2529"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1ga9cce72aa8f310ddc84ac1f678f59e8c6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi get_bpt_qty</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_bpt_qty</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get number of breakpoints. {Type, Synchronous function, Notification, none (synchronous function)} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="997" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="997" bodyend="997"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1gaa189e80e83c431b512ab1f73e41ef522" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi getn_bpt</definition>
+        <argsstring>(int n, bpt_t *bpt)</argsstring>
+        <name>getn_bpt</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type><ref refid="structbpt__t" kindref="compound">bpt_t</ref> *</type>
+          <declname>bpt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the characteristics of a breakpoint. {Type, Synchronous function, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of breakpoint, is in range 0..<ref refid="group__dbg__funcs__bpts_1ga9cce72aa8f310ddc84ac1f678f59e8c6" kindref="member">get_bpt_qty()</ref>-1 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">bpt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>filled with the characteristics. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>false if no breakpoint exists </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1007" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1007" bodyend="1007"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1ga706120f76ce8ee5f57bc4aa633d3d360" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi get_bpt</definition>
+        <argsstring>(ea_t ea, bpt_t *bpt)</argsstring>
+        <name>get_bpt</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="structbpt__t" kindref="compound">bpt_t</ref> *</type>
+          <declname>bpt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the characteristics of a breakpoint. {Type, Synchronous function, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>any address in the breakpoint range </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">bpt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if not NULL, is filled with the characteristics. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>false if no breakpoint exists </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1017" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1017" bodyend="1017"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1ga3e38ac423c6f847ad52a71a4dad47d17" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool exist_bpt</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>exist_bpt</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+<para>Does a breakpoint exist at the given location? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1022" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1022" bodyend="1022"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1ga248ebc5026f40f2fc8e1c1c4b8cc6426" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi add_bpt</definition>
+        <argsstring>(ea_t ea, asize_t size=0, bpttype_t type=BPT_DEFAULT)</argsstring>
+        <name>add_bpt</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type><ref refid="idd_8hpp_1a773a43fff5c9bacc9f28d203baec542d" kindref="member">bpttype_t</ref></type>
+          <declname>type</declname>
+          <defval><ref refid="group___b_p_t___h_1ga53a732ad6558824e26a608a40c52d057" kindref="member">BPT_DEFAULT</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add a new breakpoint in the debugged process. {Type, Synchronous function - available as request, Notification, none (synchronous function)} <simplesect kind="note"><para>Only one breakpoint can exist at a given address. </para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>any address in the process memory space. Depending on the architecture, hardware breakpoints always be setup at random address. For example, on x86, hardware breakpoints should be aligned depending on their size. Moreover, on the x86 architecture, it is impossible to setup more than 4 hardware breakpoints. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of the breakpoint (irrelevant for software breakpoints): As for the address, hardware breakpoints can&apos;t always be setup with random size. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of the breakpoint (<ref refid="group___b_p_t___h_1ga002cf1299d50d3fb9b520e5f91a19b83" kindref="member">BPT_SOFT</ref> for software breakpoint) special case <ref refid="group___b_p_t___h_1ga53a732ad6558824e26a608a40c52d057" kindref="member">BPT_DEFAULT</ref> (<ref refid="group___b_p_t___h_1ga002cf1299d50d3fb9b520e5f91a19b83" kindref="member">BPT_SOFT</ref>|<ref refid="group___b_p_t___h_1gab08ccc411ade99a94afc7059d11280ab" kindref="member">BPT_EXEC</ref>): try to add instruction breakpoint of the appropriate type as follows: software bpt if supported, hwbpt otherwise </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1043" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1043" bodyend="1043"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1gaee7a8015012001a8037131d45aae1bc8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi request_add_bpt</definition>
+        <argsstring>(ea_t ea, asize_t size=0, bpttype_t type=BPT_DEFAULT)</argsstring>
+        <name>request_add_bpt</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>asize_t</type>
+          <declname>size</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type><ref refid="idd_8hpp_1a773a43fff5c9bacc9f28d203baec542d" kindref="member">bpttype_t</ref></type>
+          <declname>type</declname>
+          <defval><ref refid="group___b_p_t___h_1ga53a732ad6558824e26a608a40c52d057" kindref="member">BPT_DEFAULT</ref></defval>
+        </param>
+        <briefdescription>
+<para>Post an <ref refid="group__dbg__funcs__bpts_1ga248ebc5026f40f2fc8e1c1c4b8cc6426" kindref="member">add_bpt(ea_t, asize_t, bpttype_t)</ref> request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1047" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1047" bodyend="1047"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1ga4ad027dcebb15e17cc031c82a1293eff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi add_bpt</definition>
+        <argsstring>(const bpt_t &amp;bpt)</argsstring>
+        <name>add_bpt</name>
+        <param>
+          <type>const <ref refid="structbpt__t" kindref="compound">bpt_t</ref> &amp;</type>
+          <declname>bpt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add a new breakpoint in the debugged process. {Type, Synchronous function - available as request, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bpt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Breakpoint to add. It describes the break condition, type, flags, location (module relative, source breakpoint or absolute) and other attributes. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1057" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1057" bodyend="1057"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1ga3708fc8db5fb299502881cf3a6abbb9d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi request_add_bpt</definition>
+        <argsstring>(const bpt_t &amp;bpt)</argsstring>
+        <name>request_add_bpt</name>
+        <param>
+          <type>const <ref refid="structbpt__t" kindref="compound">bpt_t</ref> &amp;</type>
+          <declname>bpt</declname>
+        </param>
+        <briefdescription>
+<para>Post an <ref refid="group__dbg__funcs__bpts_1ga4ad027dcebb15e17cc031c82a1293eff" kindref="member">add_bpt(const bpt_t &amp;)</ref> request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1061" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1061" bodyend="1061"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1ga34ed03f5dfe91f7b20a7ea9ff28a0aa7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi del_bpt</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>del_bpt</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delete an existing breakpoint in the debugged process. {Type, Synchronous function - available as request, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>any address in the breakpoint range </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1069" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1069" bodyend="1069"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1ga011d3cdb4726baacfee578de17714124" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi request_del_bpt</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>request_del_bpt</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+<para>Post a <ref refid="group__dbg__funcs__bpts_1ga34ed03f5dfe91f7b20a7ea9ff28a0aa7" kindref="member">del_bpt(ea_t)</ref> request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1073" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1073" bodyend="1073"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1ga75f3f5ae9d5fb9a67ac1513a3e9223b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi del_bpt</definition>
+        <argsstring>(const bpt_location_t &amp;bptloc)</argsstring>
+        <name>del_bpt</name>
+        <param>
+          <type>const <ref refid="structbpt__location__t" kindref="compound">bpt_location_t</ref> &amp;</type>
+          <declname>bptloc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delete an existing breakpoint in the debugged process. {Type, Synchronous function - available as request, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bptloc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Breakpoint location </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1081" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1081" bodyend="1081"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1gab203dfea08ec4cf1d71f8de497d2ae46" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi request_del_bpt</definition>
+        <argsstring>(const bpt_location_t &amp;bptloc)</argsstring>
+        <name>request_del_bpt</name>
+        <param>
+          <type>const <ref refid="structbpt__location__t" kindref="compound">bpt_location_t</ref> &amp;</type>
+          <declname>bptloc</declname>
+        </param>
+        <briefdescription>
+<para>Post a <ref refid="group__dbg__funcs__bpts_1ga75f3f5ae9d5fb9a67ac1513a3e9223b3" kindref="member">del_bpt(const bpt_location_t &amp;)</ref> request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1085" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1085" bodyend="1085"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1gaaf0083e494d7844f4d4c898ac5ce69c3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi update_bpt</definition>
+        <argsstring>(const bpt_t *bpt)</argsstring>
+        <name>update_bpt</name>
+        <param>
+          <type>const <ref refid="structbpt__t" kindref="compound">bpt_t</ref> *</type>
+          <declname>bpt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Update modifiable characteristics of an existing breakpoint. To update the breakpoint location, use <ref refid="group__dbg__funcs__bpts_1gaa26e9240589279fac96941b7d068602d" kindref="member">change_bptlocs()</ref> {Type, Synchronous function, Notification, none (synchronous function)} <simplesect kind="note"><para>Only the following fields can be modified:<itemizedlist>
+<listitem><para><ref refid="structbpt__t_1aa350cca6d588bb08bcc4d724b43e83b4" kindref="member">bpt_t::cndbody</ref></para></listitem><listitem><para><ref refid="structbpt__t_1a5be8cb9d4acc244b64afbdea5b8297a8" kindref="member">bpt_t::pass_count</ref></para></listitem><listitem><para><ref refid="structbpt__t_1abc14bb9f84e91c2f02acd4cbb801d23d" kindref="member">bpt_t::flags</ref></para></listitem><listitem><para><ref refid="structbpt__t_1a7e9e4eccca1699181f17c4cbc7371b4c" kindref="member">bpt_t::size</ref></para></listitem><listitem><para><ref refid="structbpt__t_1aec6d504acf8e2217fb4bdfe6061cab37" kindref="member">bpt_t::type</ref> </para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Changing some properties will require removing and then re-adding the breakpoint to the process memory (or the debugger backend), which can lead to race conditions (i.e., breakpoint(s) can be missed) in case the process is not suspended. Here are a list of scenarios that will require the breakpoint to be removed &amp; then re-added:<itemizedlist>
+<listitem><para><ref refid="structbpt__t_1a7e9e4eccca1699181f17c4cbc7371b4c" kindref="member">bpt_t::size</ref> is modified</para></listitem><listitem><para><ref refid="structbpt__t_1aec6d504acf8e2217fb4bdfe6061cab37" kindref="member">bpt_t::type</ref> is modified</para></listitem><listitem><para><ref refid="structbpt__t_1abc14bb9f84e91c2f02acd4cbb801d23d" kindref="member">bpt_t::flags</ref>&apos;s BPT_ENABLED is modified</para></listitem><listitem><para><ref refid="structbpt__t_1abc14bb9f84e91c2f02acd4cbb801d23d" kindref="member">bpt_t::flags</ref>&apos;s BPT_LOWCND is changed</para></listitem><listitem><para><ref refid="structbpt__t_1abc14bb9f84e91c2f02acd4cbb801d23d" kindref="member">bpt_t::flags</ref>&apos;s BPT_LOWCND remains set, but cndbody changed </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1110" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1110" bodyend="1110"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1gabaab17953966f905fbda3c95b552022f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi find_bpt</definition>
+        <argsstring>(const bpt_location_t &amp;bptloc, bpt_t *bpt)</argsstring>
+        <name>find_bpt</name>
+        <param>
+          <type>const <ref refid="structbpt__location__t" kindref="compound">bpt_location_t</ref> &amp;</type>
+          <declname>bptloc</declname>
+        </param>
+        <param>
+          <type><ref refid="structbpt__t" kindref="compound">bpt_t</ref> *</type>
+          <declname>bpt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find a breakpoint by location. {Type, Synchronous function - available as request, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bptloc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Breakpoint location </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bpt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>bpt is filled if the breakpoint was found </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1119" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1119" bodyend="1119"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1gaa26e9240589279fac96941b7d068602d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi change_bptlocs</definition>
+        <argsstring>(const movbpt_infos_t &amp;movinfo, movbpt_codes_t *codes=NULL, bool del_hindering_bpts=true)</argsstring>
+        <name>change_bptlocs</name>
+        <param>
+          <type>const <ref refid="classqvector" kindref="compound">movbpt_infos_t</ref> &amp;</type>
+          <declname>movinfo</declname>
+        </param>
+        <param>
+          <type><ref refid="classqvector" kindref="compound">movbpt_codes_t</ref> *</type>
+          <declname>codes</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>del_hindering_bpts</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Move breakpoint(s) from one location to another <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>movinfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>what bpts to move and where to </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>codes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>vector of return codes, if detailed error info is required </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>del_hindering_bpts</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>should delete hindering breakpoints? </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>number of moved bpts </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1128" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1128" bodyend="1134"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__bpts_1ga202cfe07a3d9d3afe387aa637721e83a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi check_bpt</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>check_bpt</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Check the breakpoint at the specified address. <simplesect kind="return"><para>one of <ref refid="group___b_p_t_c_k__" kindref="compound">Breakpoint status codes</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1158" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1158" bodyend="1158"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Work with debugger breakpoints. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

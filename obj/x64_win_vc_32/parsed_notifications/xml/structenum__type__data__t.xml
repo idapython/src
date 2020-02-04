@@ -1,0 +1,297 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structenum__type__data__t" kind="struct" language="C++" prot="public">
+    <compoundname>enum_type_data_t</compoundname>
+    <basecompoundref refid="classqvector" prot="public" virt="non-virtual">qvector&lt; enum_member_t &gt;</basecompoundref>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structenum__type__data__t_1a72341beecb4ce28c9d5d7c1539805aeb" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref></type>
+        <definition>intvec_t enum_type_data_t::group_sizes</definition>
+        <argsstring></argsstring>
+        <name>group_sizes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>if present, specifies bitfield group sizes each group starts with a mask member </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3324" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3324" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structenum__type__data__t_1adb5df9cb52948e24740b517989599f47" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 enum_type_data_t::taenum_bits</definition>
+        <argsstring></argsstring>
+        <name>taenum_bits</name>
+        <briefdescription>
+<para><ref refid="group__tattr__enum" kindref="compound">Type attributes for enums</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3326" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structenum__type__data__t_1a26b6bb54eca0e6854fed8217b16353a7" prot="public" static="no" mutable="no">
+        <type><ref refid="group__tf__enum_1ga9ae7aa54dbc597ec17cbb17555306a02" kindref="member">bte_t</ref></type>
+        <definition>bte_t enum_type_data_t::bte</definition>
+        <argsstring></argsstring>
+        <name>bte</name>
+        <briefdescription>
+<para>enum member sizes (shift amount) and style </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3327" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3327" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structenum__type__data__t_1a08a9455a2fa003ae6af4e44e2958b4de" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>enum_type_data_t::enum_type_data_t</definition>
+        <argsstring>(bte_t _bte=BTE_ALWAYS|BTE_HEX)</argsstring>
+        <name>enum_type_data_t</name>
+        <param>
+          <type><ref refid="group__tf__enum_1ga9ae7aa54dbc597ec17cbb17555306a02" kindref="member">bte_t</ref></type>
+          <declname>_bte</declname>
+          <defval><ref refid="group__tf__enum_1gad84679a3c7bef0696668437e12448fa0" kindref="member">BTE_ALWAYS</ref>|<ref refid="group__tf__enum_1ga3de0de21213c2c200fd54aeb9c0605e6" kindref="member">BTE_HEX</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3328" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3328" bodyend="3328"/>
+      </memberdef>
+      <memberdef kind="function" id="structenum__type__data__t_1ab6ee0bac757064a0512485aaff16cf1b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool enum_type_data_t::is_64bit</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_64bit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3331" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3331" bodyend="3331"/>
+      </memberdef>
+      <memberdef kind="function" id="structenum__type__data__t_1ae9965cf0ff0d4b30166069def1987368" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool enum_type_data_t::is_hex</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_hex</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3332" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3332" bodyend="3332"/>
+      </memberdef>
+      <memberdef kind="function" id="structenum__type__data__t_1a21e22d7ac8a2adf5308a170d77032ffe" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool enum_type_data_t::is_char</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_char</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3333" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3333" bodyend="3333"/>
+      </memberdef>
+      <memberdef kind="function" id="structenum__type__data__t_1acb505f18512727f49df3d7cfcfc3fe58" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool enum_type_data_t::is_sdec</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_sdec</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3334" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3334" bodyend="3334"/>
+      </memberdef>
+      <memberdef kind="function" id="structenum__type__data__t_1a3c39c26af19fb37196d7d476d90daea6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool enum_type_data_t::is_udec</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_udec</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3335" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3335" bodyend="3335"/>
+      </memberdef>
+      <memberdef kind="function" id="structenum__type__data__t_1a86bfb394a20fe0a5fa1774bff3d43f53" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int enum_type_data_t::calc_nbytes</definition>
+        <argsstring>(void) const</argsstring>
+        <name>calc_nbytes</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3336" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3336" bodyend="3340"/>
+      </memberdef>
+      <memberdef kind="function" id="structenum__type__data__t_1a21e5e33e22d1f985455716db35bc62f5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 enum_type_data_t::calc_mask</definition>
+        <argsstring>(void) const</argsstring>
+        <name>calc_mask</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3341" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3341" bodyend="3341"/>
+      </memberdef>
+      <memberdef kind="function" id="structenum__type__data__t_1af0ecbf348b0e4d6dbe9d694e17ea3fcb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void enum_type_data_t::swap</definition>
+        <argsstring>(enum_type_data_t &amp;r)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="structenum__type__data__t" kindref="compound">enum_type_data_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>swap two instances </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3343" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3343" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Enum type information (see <ref refid="classtinfo__t_1a22c28682b2e16f80556083729baf6784" kindref="member">tinfo_t::get_enum_details()</ref>) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1511">
+        <label>enum_type_data_t</label>
+        <link refid="structenum__type__data__t"/>
+        <childnode refid="1512" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1512">
+        <label>qvector&lt; enum_member_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1515">
+        <label>qvector&lt; int &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1513">
+        <label>enum_type_data_t</label>
+        <link refid="structenum__type__data__t"/>
+        <childnode refid="1514" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1515" relation="usage">
+          <edgelabel>group_sizes</edgelabel>
+        </childnode>
+      </node>
+      <node id="1514">
+        <label>qvector&lt; enum_member_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3323" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3322" bodyend="3344"/>
+    <listofallmembers>
+      <member refid="classqvector_1aae20729cb52ff559b27b834e0bbb5528" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>add</name></member>
+      <member refid="classqvector_1af0e3de3e606a0b52de17e80ce710317c" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>add_unique</name></member>
+      <member refid="classqvector_1a7756bf02ed2b83370fc1d62acb49d3be" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>at</name></member>
+      <member refid="classqvector_1a8239a85aa07f560afcf35b8c7c53fd48" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>at</name></member>
+      <member refid="classqvector_1ae86d54e6a60b2f2e7eb254b181e4a4dc" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>back</name></member>
+      <member refid="classqvector_1aa9af4ff586a6b15e11e760e1f28766f3" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>back</name></member>
+      <member refid="classqvector_1ad907a7b2c09c0ca4dd437392ee34a50a" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>begin</name></member>
+      <member refid="classqvector_1a85630357a750889ffc6c204e98a8d4aa" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>begin</name></member>
+      <member refid="structenum__type__data__t_1a26b6bb54eca0e6854fed8217b16353a7" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>bte</name></member>
+      <member refid="structenum__type__data__t_1a21e5e33e22d1f985455716db35bc62f5" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>calc_mask</name></member>
+      <member refid="structenum__type__data__t_1a86bfb394a20fe0a5fa1774bff3d43f53" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>calc_nbytes</name></member>
+      <member refid="classqvector_1ae2f4823d02d814d50c6d198ff0c43a0c" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>capacity</name></member>
+      <member refid="classqvector_1a00ea674adc4b958966d78ba450621a46" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>clear</name></member>
+      <member refid="classqvector_1a194d7dff35eb2e50e2b98109a6a9c4da" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>const_iterator</name></member>
+      <member refid="classqvector_1a1f7772500942d63596a5c91249ad577c" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>del</name></member>
+      <member refid="classqvector_1ac78b72e26edaf62a9554b5a0fe3d6457" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>dstr</name></member>
+      <member refid="classqvector_1a557b1f774ef7d7e242ce4792ac83b572" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>empty</name></member>
+      <member refid="classqvector_1a6139abba869b7a488109c983445a34d1" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>end</name></member>
+      <member refid="classqvector_1adcc73c6c8ad31d17a5fdc57dffea90e1" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>end</name></member>
+      <member refid="structenum__type__data__t_1a08a9455a2fa003ae6af4e44e2958b4de" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>enum_type_data_t</name></member>
+      <member refid="classqvector_1a59661e16df1b8e3c69caf2b2a6ca2b59" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>erase</name></member>
+      <member refid="classqvector_1a16a369b4edb05a6feddd38f8612eab1b" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>erase</name></member>
+      <member refid="classqvector_1abf8f50b30972a829ad7affb27cdb80c7" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>extract</name></member>
+      <member refid="classqvector_1ab9b8ccda1db8948c10f1ea2936c59a5c" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>find</name></member>
+      <member refid="classqvector_1a4e77dc1a55ea19e725e8a22aa574ae28" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>find</name></member>
+      <member refid="classqvector_1a7cfc6f9d91d6495f92961c5ea37bb0d4" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>front</name></member>
+      <member refid="classqvector_1ae4595a6221e8a056b54fed4dced17f26" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>front</name></member>
+      <member refid="structenum__type__data__t_1a72341beecb4ce28c9d5d7c1539805aeb" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>group_sizes</name></member>
+      <member refid="classqvector_1acd86e975d8aa56bee809e4176bb0d530" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>grow</name></member>
+      <member refid="classqvector_1af9f9d1bbac527168131b03ee956833fc" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>has</name></member>
+      <member refid="classqvector_1aeb58b3064e71399ce8f2bfaf9a582d29" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>index</name></member>
+      <member refid="classqvector_1a0e2ac6acfb0b5607cd6b77e8049633db" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>inject</name></member>
+      <member refid="classqvector_1a7c55d837eb4006430e5b300e79901ef1" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>insert</name></member>
+      <member refid="classqvector_1ad10cb71a7d5bfdd090dafd52f625eb20" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>insert</name></member>
+      <member refid="structenum__type__data__t_1ab6ee0bac757064a0512485aaff16cf1b" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>is_64bit</name></member>
+      <member refid="structenum__type__data__t_1a21e22d7ac8a2adf5308a170d77032ffe" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>is_char</name></member>
+      <member refid="structenum__type__data__t_1ae9965cf0ff0d4b30166069def1987368" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>is_hex</name></member>
+      <member refid="structenum__type__data__t_1acb505f18512727f49df3d7cfcfc3fe58" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>is_sdec</name></member>
+      <member refid="structenum__type__data__t_1a3c39c26af19fb37196d7d476d90daea6" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>is_udec</name></member>
+      <member refid="classqvector_1ad40f094ea07c84e9cab1077188893c5c" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>iterator</name></member>
+      <member refid="classqvector_1a72ea097e75bccff811f3a98f050b90b2" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>operator!=</name></member>
+      <member refid="classqvector_1af24534fa1de39b829e85f573640f9f48" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>operator=</name></member>
+      <member refid="classqvector_1ace7ff39fb8ad735fdd45b86a46ba4fbc" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>operator==</name></member>
+      <member refid="classqvector_1a3ffbd25fbea3165cf3f8f7a6b4d5c86d" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>operator[]</name></member>
+      <member refid="classqvector_1a9743bfd5464506b812d9686d3ba40299" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>operator[]</name></member>
+      <member refid="classqvector_1ad0dfc171e75ac7ddf1de00309505d995" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>pop_back</name></member>
+      <member refid="classqvector_1a3a46bca9030a31c7e0a1596948797e37" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>push_back</name></member>
+      <member refid="classqvector_1ad54c35eca9074d6458a0f589f09d1750" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>push_back</name></member>
+      <member refid="classqvector_1a5e84e633cf9a05ebdc441af0780edb4a" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>qclear</name></member>
+      <member refid="classqvector_1ac1c66f1594aff3114ed1de62cf84410d" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>qvector</name></member>
+      <member refid="classqvector_1a53936d7ddf6df4efdf91eeed34894c41" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>qvector</name></member>
+      <member refid="classqvector_1a00e5c32c63732f5149e901c932d2f3c2" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>reserve</name></member>
+      <member refid="classqvector_1a86c07a20c0f081c2930118f0db280148" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>resize</name></member>
+      <member refid="classqvector_1ae4d55e7d94d1a247e10baeae524b53dc" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>resize</name></member>
+      <member refid="classqvector_1ae96fe88d3602362b063bd0540ff579dd" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>size</name></member>
+      <member refid="structenum__type__data__t_1af0ecbf348b0e4d6dbe9d694e17ea3fcb" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>swap</name></member>
+      <member refid="classqvector_1a2006754f99fb324709ae0972ddb20bb4" prot="public" virt="non-virtual" ambiguityscope="qvector&lt; enum_member_t &gt;::"><scope>enum_type_data_t</scope><name>swap</name></member>
+      <member refid="structenum__type__data__t_1adb5df9cb52948e24740b517989599f47" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>taenum_bits</name></member>
+      <member refid="classqvector_1a447062dc6a1a8318a9e0430d4bbe0ec6" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>truncate</name></member>
+      <member refid="classqvector_1a71bc4c4aa5df2fda5b070e74f01b5d28" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>value_type</name></member>
+      <member refid="classqvector_1a3c7294aeb604b9c9e1b47b3abd8cd71e" prot="public" virt="non-virtual"><scope>enum_type_data_t</scope><name>~qvector</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

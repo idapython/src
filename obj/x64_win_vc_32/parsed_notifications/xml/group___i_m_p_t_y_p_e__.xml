@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___i_m_p_t_y_p_e__" kind="group">
+    <compoundname>IMPTYPE_</compoundname>
+    <title>Import type flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___i_m_p_t_y_p_e___1ga6cd91fbe162e41d37b8f02af78cc2c58" prot="public" static="no">
+        <name>IMPTYPE_VERBOSE</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>more verbose output (dialog boxes may appear) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2104" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_m_p_t_y_p_e___1ga299edee3b2cde79401bfb9fb118c2fab" prot="public" static="no">
+        <name>IMPTYPE_OVERRIDE</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>override existing type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2105" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_m_p_t_y_p_e___1gaced117327d7b21c347311a28a8676fe2" prot="public" static="no">
+        <name>IMPTYPE_LOCAL</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the type is local, the struct/enum won&apos;t be marked as til type. there is no need to specify this bit if til==idati, the kernel will set it automatically </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2106" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2106" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>passed as &apos;flags&apos; parameter to <ref refid="typeinf_8hpp_1a8df9cceb079c76e3c2b7879c763eadea" kindref="member">import_type()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

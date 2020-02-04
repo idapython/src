@@ -1,0 +1,523 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__numbered__types" kind="group">
+    <compoundname>numbered_types</compoundname>
+    <title>Numbered types</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__numbered__types_1gad447f7a11c27974f14c5b6d303ed4213" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>const uint32 BADORD</definition>
+        <argsstring></argsstring>
+        <name>BADORD</name>
+        <initializer>= <ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref>(-1)</initializer>
+        <briefdescription>
+<para>invalid type ordinal </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2027" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2027" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__numbered__types_1gab1fb33088b41c01ab02e1d7739ae3d67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export enable_numbered_types</definition>
+        <argsstring>(til_t *ti, bool enable)</argsstring>
+        <name>enable_numbered_types</name>
+        <param>
+          <type><ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>enable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable the use of numbered types in til. Currently it is impossible to disable numbered types once they are enabled </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1904" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1ga3d006198b689ee58c8832489cb87ea70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export get_numbered_type</definition>
+        <argsstring>(const til_t *ti, uint32 ordinal, const type_t **type=NULL, const p_list **fields=NULL, const char **cmt=NULL, const p_list **fieldcmts=NULL, sclass_t *sclass=NULL)</argsstring>
+        <name>get_numbered_type</name>
+        <param>
+          <type>const <ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>ordinal</declname>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref> **</type>
+          <declname>type</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a828c7e985f83b1e74eb4ea7b716abfb1" kindref="member">p_list</ref> **</type>
+          <declname>fields</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const char **</type>
+          <declname>cmt</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a828c7e985f83b1e74eb4ea7b716abfb1" kindref="member">p_list</ref> **</type>
+          <declname>fieldcmts</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type><ref refid="typeinf_8hpp_1a9c9a05934a8418932a82a2d39476d97d" kindref="member">sclass_t</ref> *</type>
+          <declname>sclass</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+<para>Retrieve a type by its ordinal number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1909" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1ga1f7a68bdec901b7fbf1c0bf324ddf126" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> ida_export</type>
+        <definition>idaman uint32 ida_export alloc_type_ordinals</definition>
+        <argsstring>(til_t *ti, int qty)</argsstring>
+        <name>alloc_type_ordinals</name>
+        <param>
+          <type><ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>qty</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Allocate a range of ordinal numbers for new types. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ti</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type library </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>qty</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of ordinals to allocate </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the first ordinal. 0 means failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1924" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1ga42e79e63d11375aa35947c987ee15931" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 alloc_type_ordinal</definition>
+        <argsstring>(til_t *ti)</argsstring>
+        <name>alloc_type_ordinal</name>
+        <param>
+          <type><ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <briefdescription>
+<para>{alloc_type_ordinals,ti,1} </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1929" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1929" bodyend="1929"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1gac850f1c54d5b4c607d64ddf76691814f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> ida_export</type>
+        <definition>idaman uint32 ida_export get_ordinal_qty</definition>
+        <argsstring>(const til_t *ti)</argsstring>
+        <name>get_ordinal_qty</name>
+        <param>
+          <type>const <ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get number of allocated ordinals. <simplesect kind="return"><para>uint32(-1) if failed </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1935" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1gaf2052794beeb4a5968dcf0b12a525801" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="group__named__types_1ga4b2c98771820db5f78f2e754c97c0aaa" kindref="member">tinfo_code_t</ref> ida_export</type>
+        <definition>idaman tinfo_code_t ida_export set_numbered_type</definition>
+        <argsstring>(til_t *ti, uint32 ordinal, int ntf_flags, const char *name, const type_t *type, const p_list *fields=NULL, const char *cmt=NULL, const p_list *fldcmts=NULL, const sclass_t *sclass=NULL)</argsstring>
+        <name>set_numbered_type</name>
+        <param>
+          <type><ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>ordinal</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ntf_flags</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref> *</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a828c7e985f83b1e74eb4ea7b716abfb1" kindref="member">p_list</ref> *</type>
+          <declname>fields</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>cmt</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a828c7e985f83b1e74eb4ea7b716abfb1" kindref="member">p_list</ref> *</type>
+          <declname>fldcmts</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a9c9a05934a8418932a82a2d39476d97d" kindref="member">sclass_t</ref> *</type>
+          <declname>sclass</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Store a type in the til. &apos;name&apos; may be NULL for anonymous types. The specified ordinal must be free (no other type is using it). For ntf_flags, only <ref refid="group___n_t_f___1ga99d425180386ad9f256f191e88ff1ffe" kindref="member">NTF_REPLACE</ref> is consulted. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1943" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1ga63cf655e113e97c7d0abc8d42e7e98f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export del_numbered_type</definition>
+        <argsstring>(til_t *ti, uint32 ordinal)</argsstring>
+        <name>del_numbered_type</name>
+        <param>
+          <type><ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>ordinal</declname>
+        </param>
+        <briefdescription>
+<para>Delete a numbered type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1957" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1gaaa083016ad05fe5db5b57b25a98cf9d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_type_alias</definition>
+        <argsstring>(til_t *ti, uint32 src_ordinal, uint32 dst_ordinal)</argsstring>
+        <name>set_type_alias</name>
+        <param>
+          <type><ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>src_ordinal</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>dst_ordinal</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create a type alias. Redirects all references to source type to the destination type. This is equivalent to instantaneous replacement all reference to srctype by dsttype. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1964" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1gaa3df2e4834eeaf173579f92c5feb3b88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> ida_export</type>
+        <definition>idaman uint32 ida_export get_alias_target</definition>
+        <argsstring>(const til_t *ti, uint32 ordinal)</argsstring>
+        <name>get_alias_target</name>
+        <param>
+          <type>const <ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>ordinal</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find the final alias destination. If the ordinal has not been aliased, return the specified ordinal itself If failed, returns 0. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1971" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1ga5a5f88db314fdff319b9d79ead7c3865" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 get_type_ordinal</definition>
+        <argsstring>(const til_t *ti, const char *name)</argsstring>
+        <name>get_type_ordinal</name>
+        <param>
+          <type>const <ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Get type ordinal by its name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1976" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1976" bodyend="1981"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1gabbaa89dd65a0edd6a3a5c0528347f585" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman const char *ida_export</type>
+        <definition>idaman const char* ida_export get_numbered_type_name</definition>
+        <argsstring>(const til_t *ti, uint32 ordinal)</argsstring>
+        <name>get_numbered_type_name</name>
+        <param>
+          <type>const <ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>ordinal</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name (if exists) by its ordinal. If the type is anonymous, returns &quot;&quot;. If failed, returns NULL </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1986" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1gab5ed1d69ef90da349923a780f84f851a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman ssize_t ida_export create_numbered_type_name</definition>
+        <argsstring>(qstring *buf, int32 ord)</argsstring>
+        <name>create_numbered_type_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+          <declname>ord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create anonymous name for numbered type. This name can be used to reference a numbered type by its ordinal Ordinal names have the following format: &apos;#&apos; + set_de(ord) Returns: -1 if error, otherwise the name length </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1994" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1ga84bd5e43c505cc3103cad24ce05d6d1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export is_ordinal_name</definition>
+        <argsstring>(const char *name, uint32 *ord=NULL)</argsstring>
+        <name>is_ordinal_name</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref> *</type>
+          <declname>ord</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Check if the name is an ordinal name. Ordinal names have the following format: &apos;#&apos; + set_de(ord) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2000" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1gaf4c7701a03bd988d81f5ed27d2f5bb39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export get_ordinal_from_idb_type</definition>
+        <argsstring>(const char *name, const type_t *type)</argsstring>
+        <name>get_ordinal_from_idb_type</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref> *</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get ordinal number of an idb type (struct/enum). The &apos;type&apos; parameter is used only to determine the kind of the type (struct or enum) Use this function to find out the correspondence between idb types and til types </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2007" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1ga3437c158380092035b7cae165d7512fd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi is_autosync</definition>
+        <argsstring>(const char *name, const type_t *type)</argsstring>
+        <name>is_autosync</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref> *</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+<para>Is the specified idb type automatically synchronized? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2012" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="2012" bodyend="2015"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1ga55a920a13cb45e4731cd68b7d2556588" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi is_autosync</definition>
+        <argsstring>(const char *name, const tinfo_t &amp;tif)</argsstring>
+        <name>is_autosync</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classtinfo__t" kindref="compound">tinfo_t</ref> &amp;</type>
+          <declname>tif</declname>
+        </param>
+        <briefdescription>
+<para>copydoc <ref refid="group__numbered__types_1ga3437c158380092035b7cae165d7512fd" kindref="member">is_autosync(const char*, const type_t *)</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2016" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="4143" bodyend="4147"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1ga600c885cb0b722c6f392bf83f467442a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export build_anon_type_name</definition>
+        <argsstring>(qstring *buf, const type_t *type, const p_list *fields)</argsstring>
+        <name>build_anon_type_name</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref> *</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>const <ref refid="typeinf_8hpp_1a828c7e985f83b1e74eb4ea7b716abfb1" kindref="member">p_list</ref> *</type>
+          <declname>fields</declname>
+        </param>
+        <briefdescription>
+<para>Generate a name like $hex_numbers based on the field types and names. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2021" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__numbered__types_1ga8a8130d2b60d3ea3abd2cf53afafe6ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export compact_numbered_types</definition>
+        <argsstring>(til_t *ti, uint32 min_ord=0, intvec_t *p_ordmap=NULL, int flags=0)</argsstring>
+        <name>compact_numbered_types</name>
+        <param>
+          <type><ref refid="structtil__t" kindref="compound">til_t</ref> *</type>
+          <declname>ti</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>min_ord</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a16a891be237a47eac68383da2ebc2fa6" kindref="member">intvec_t</ref> *</type>
+          <declname>p_ordmap</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compact numbered types to get rid of empty slots. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ti</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type library to compact </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>min_ord</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>minimal ordinal number to start to compact. lower ordinals are not modified </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_ordmap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the resulting mapping (for example, the new ordinal of min_ord will be in ordmap[0]) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>reserved </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>number of freed type slots </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="2039" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Functions to work with numbered (ordinal) types. Numbered types may be named or anonymous. They are referenced by their ordinal number. Access to them is faster because there is no need to resolve their names. Also, they can stay anonymous and be aliased. They can be used only in the local type library created by IDA (in idati). </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

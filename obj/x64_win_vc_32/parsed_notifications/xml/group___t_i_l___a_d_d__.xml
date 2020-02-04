@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___t_i_l___a_d_d__" kind="group">
+    <compoundname>TIL_ADD_</compoundname>
+    <title>Add TIL result codes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___t_i_l___a_d_d___1ga7ce913832e5d048d6f27551fb01b0f19" prot="public" static="no">
+        <name>TIL_ADD_FAILED</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>see errbuf </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="660" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="660" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_i_l___a_d_d___1ga03512c4fb24398232153bf591a68dee7" prot="public" static="no">
+        <name>TIL_ADD_OK</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>some tils were added </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="661" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="661" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_i_l___a_d_d___1gaada17fd23631b72662f75c17f6474fc5" prot="public" static="no">
+        <name>TIL_ADD_ALREADY</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>the base til was already added </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="662" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="662" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>returned by <ref refid="typeinf_8hpp_1a23c795a3694bc7b47a7e425f9c8d72b2" kindref="member">add_base_tils()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

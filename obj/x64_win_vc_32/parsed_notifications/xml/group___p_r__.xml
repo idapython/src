@@ -1,0 +1,594 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___p_r__" kind="group">
+    <compoundname>PR_</compoundname>
+    <title>Processor feature bits</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group___p_r___1gae47bdf093271b8e1547bb089866b7cc6" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_NOBASE</definition>
+        <argsstring></argsstring>
+        <name>PR_NOBASE</name>
+        <initializer>=  1</initializer>
+        <briefdescription>
+<para>Can&apos;t find offset base. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="32" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___p_r___1ga5b8f59b65f5613ca1d654d7db1f6f776" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_NONAME</definition>
+        <argsstring></argsstring>
+        <name>PR_NONAME</name>
+        <initializer>=  2</initializer>
+        <briefdescription>
+<para>Can&apos;t find name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="33" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___p_r___1gae5ea1ecda1e95244c6e03d3dc74091a6" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_NOFOP</definition>
+        <argsstring></argsstring>
+        <name>PR_NOFOP</name>
+        <initializer>=  3</initializer>
+        <briefdescription>
+<para>Can&apos;t find forced op (not used anymore) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="34" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___p_r___1ga5ccfcf272e8a0708ab35f05adfb907e0" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_NOCMT</definition>
+        <argsstring></argsstring>
+        <name>PR_NOCMT</name>
+        <initializer>=  4</initializer>
+        <briefdescription>
+<para>Can&apos;t find comment (not used anymore) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="35" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___p_r___1ga544a6f6c46012a37474d3200db4ff8b3" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_NOXREFS</definition>
+        <argsstring></argsstring>
+        <name>PR_NOXREFS</name>
+        <initializer>=  5</initializer>
+        <briefdescription>
+<para>Can&apos;t find references. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="36" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___p_r___1ga3e9416029c514689836610db503cbb82" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_JUMP</definition>
+        <argsstring></argsstring>
+        <name>PR_JUMP</name>
+        <initializer>=  6</initializer>
+        <briefdescription>
+<para>Jump by table !!!! ignored. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="37" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___p_r___1ga712a7c428f320468a1e94cf2590f934e" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_DISASM</definition>
+        <argsstring></argsstring>
+        <name>PR_DISASM</name>
+        <initializer>=  7</initializer>
+        <briefdescription>
+<para>Can&apos;t disasm. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="38" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___p_r___1ga4eaa93a7a2f353d9084f7423577ad1db" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_HEAD</definition>
+        <argsstring></argsstring>
+        <name>PR_HEAD</name>
+        <initializer>=  8</initializer>
+        <briefdescription>
+<para>Already head. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="39" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___p_r___1gad32ba69b3fd0a9e8acb7e9974cc61dcb" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_ILLADDR</definition>
+        <argsstring></argsstring>
+        <name>PR_ILLADDR</name>
+        <initializer>=  9</initializer>
+        <briefdescription>
+<para>Exec flows beyond limits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="40" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___p_r___1ga205ffdd8d5ec23da5f721fdcd30495b2" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_MANYLINES</definition>
+        <argsstring></argsstring>
+        <name>PR_MANYLINES</name>
+        <initializer>= 10</initializer>
+        <briefdescription>
+<para>Too many lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="41" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___p_r___1ga5d4e0e574b47d9e8cc8c2ae42dcdd491" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_BADSTACK</definition>
+        <argsstring></argsstring>
+        <name>PR_BADSTACK</name>
+        <initializer>= 11</initializer>
+        <briefdescription>
+<para>Failed to trace the value of the stack pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="42" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___p_r___1gab9c9410fd6682e3087c9bee2b3d883f9" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_ATTN</definition>
+        <argsstring></argsstring>
+        <name>PR_ATTN</name>
+        <initializer>= 12</initializer>
+        <briefdescription>
+<para>Attention! Probably erroneous situation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="43" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___p_r___1gaac4aecc8711d954a5900e18f490b1ed8" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_FINAL</definition>
+        <argsstring></argsstring>
+        <name>PR_FINAL</name>
+        <initializer>= 13</initializer>
+        <briefdescription>
+<para>Decision to convert to instruction/data is made by IDA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="44" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___p_r___1ga52ab81c82558abfb63f416c96c9cd5c0" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_ROLLED</definition>
+        <argsstring></argsstring>
+        <name>PR_ROLLED</name>
+        <initializer>= 14</initializer>
+        <briefdescription>
+<para>The decision made by IDA was wrong and rolled back. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="45" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___p_r___1gad463de62fcff4c16152b8766c76e18a5" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_COLLISION</definition>
+        <argsstring></argsstring>
+        <name>PR_COLLISION</name>
+        <initializer>= 15</initializer>
+        <briefdescription>
+<para>FLAIR collision: the function with the given name already exists. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="46" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___p_r___1ga5d6bb322c78d734853f8ce5eb5459490" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_DECIMP</definition>
+        <argsstring></argsstring>
+        <name>PR_DECIMP</name>
+        <initializer>= 16</initializer>
+        <briefdescription>
+<para>FLAIR match indecision: the patterns matched, but not the function(s) being referenced. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="47" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___p_r___1ga02b1e5922eaefcf4043094bd3139c13e" prot="public" static="no" mutable="no">
+        <type>const <ref refid="problems_8hpp_1a4f3ade0df3244330d5d3f8e68537bf93" kindref="member">problist_id_t</ref></type>
+        <definition>const problist_id_t PR_END</definition>
+        <argsstring></argsstring>
+        <name>PR_END</name>
+        <initializer>= 17</initializer>
+        <briefdescription>
+<para>Number of problem types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" line="48" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/problems.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___p_r___1gaa5d76a1fe1338a80404a0ca7a7ced6d0" prot="public" static="no">
+        <name>PR_SEGS</name>
+        <initializer>0x000001</initializer>
+        <briefdescription>
+<para>has segment registers? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="430" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="430" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1gab86fc012cafb2de8b39fefc055941d17" prot="public" static="no">
+        <name>PR_USE32</name>
+        <initializer>0x000002</initializer>
+        <briefdescription>
+<para>supports 32-bit addressing? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="431" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="431" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga91a0359d79ef2256ffb0b29ae7e481cb" prot="public" static="no">
+        <name>PR_DEFSEG32</name>
+        <initializer>0x000004</initializer>
+        <briefdescription>
+<para>segments are 32-bit by default </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="432" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="432" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga16a6eaf5e27931be9adaef229a0a89b2" prot="public" static="no">
+        <name>PR_RNAMESOK</name>
+        <initializer>0x000008</initializer>
+        <briefdescription>
+<para>allow user register names for location names </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="433" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="433" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1gac0adf66749fa3f827da80d71c9e1b62d" prot="public" static="no">
+        <name>PR_ADJSEGS</name>
+        <initializer>0x000020</initializer>
+        <briefdescription>
+<para>IDA may adjust segments&apos; starting/ending addresses. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="437" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="437" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga7c8f815382515d079ab0201477d23ed6" prot="public" static="no">
+        <name>PR_DEFNUM</name>
+        <initializer>0x0000C0</initializer>
+        <briefdescription>
+<para>mask - default number representation </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="438" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="438" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga2ad344d34eb948ce286b2e0026a8bb8e" prot="public" static="no">
+        <name>PRN_HEX</name>
+        <initializer>0x000000</initializer>
+        <briefdescription>
+<para>hex </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="439" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="439" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga70838a2ce7fae967c51724f971695d5d" prot="public" static="no">
+        <name>PRN_OCT</name>
+        <initializer>0x000040</initializer>
+        <briefdescription>
+<para>octal </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="440" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="440" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga7f6168c2bdfe0cc96f95ecf7c2a812ab" prot="public" static="no">
+        <name>PRN_DEC</name>
+        <initializer>0x000080</initializer>
+        <briefdescription>
+<para>decimal </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="441" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="441" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga8b4c2b52b39d0f7a734bd9e6ce96fb58" prot="public" static="no">
+        <name>PRN_BIN</name>
+        <initializer>0x0000C0</initializer>
+        <briefdescription>
+<para>binary </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="442" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="442" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga2ce1603bd4c7104e7201614d1dba2f24" prot="public" static="no">
+        <name>PR_WORD_INS</name>
+        <initializer>0x000100</initializer>
+        <briefdescription>
+<para>instruction codes are grouped 2bytes in binary line prefix </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="443" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="443" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga5bafa5d3b2bcf045308fcf2f18255930" prot="public" static="no">
+        <name>PR_NOCHANGE</name>
+        <initializer>0x000200</initializer>
+        <briefdescription>
+<para>(display only) </para>        </briefdescription>
+        <detaileddescription>
+<para>The user can&apos;t change segments and code/data attributes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="444" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="444" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga45e925da1c9281d0de02882a5c995b9d" prot="public" static="no">
+        <name>PR_ASSEMBLE</name>
+        <initializer>0x000400</initializer>
+        <briefdescription>
+<para>Module has a built-in assembler and will react to ev_assemble. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="446" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="446" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1gaa9dfe3f396330c7a1bbeffcc7c755b8b" prot="public" static="no">
+        <name>PR_ALIGN</name>
+        <initializer>0x000800</initializer>
+        <briefdescription>
+<para>All data items should be aligned properly. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="447" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="447" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga257f9d36eb8bf8c36a28e014f3deedc5" prot="public" static="no">
+        <name>PR_TYPEINFO</name>
+        <initializer>0x001000</initializer>
+        <briefdescription>
+<para>ALL OF THEM SHOULD BE IMPLEMENTED! </para>        </briefdescription>
+        <detaileddescription>
+<para>the processor module supports type information callbacks </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="448" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="448" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga4641211435ce736ed30c9ff0a558cf01" prot="public" static="no">
+        <name>PR_USE64</name>
+        <initializer>0x002000</initializer>
+        <briefdescription>
+<para>supports 64-bit addressing? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="450" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="450" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga06f27f877639085b4108573bb54641fc" prot="public" static="no">
+        <name>PR_SGROTHER</name>
+        <initializer>0x004000</initializer>
+        <briefdescription>
+<para>the segment registers don&apos;t contain the segment selectors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="451" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="451" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga6bd7458e91aaf2970f7e6e82b87b0c67" prot="public" static="no">
+        <name>PR_STACK_UP</name>
+        <initializer>0x008000</initializer>
+        <briefdescription>
+<para>the stack grows up </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="452" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="452" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga6fb7856387fc2ee4fffb45a71d508bbe" prot="public" static="no">
+        <name>PR_BINMEM</name>
+        <initializer>0x010000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the processor module provides correct segmentation for binary files (i.e. it creates additional segments) The kernel will not ask the user to specify the RAM/ROM sizes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="453" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="453" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1gae0bb1c2c29e8035420366f21f5503485" prot="public" static="no">
+        <name>PR_SEGTRANS</name>
+        <initializer>0x020000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the processor module supports the segment translation feature (meaning it calculates the code addresses using the <ref refid="ua_8hpp_1a1ef618838a811385a5f2564bcab4e762" kindref="member">map_code_ea()</ref> function) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="456" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="456" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga884adc60ef0e7236192b78ec4f900f0e" prot="public" static="no">
+        <name>PR_CHK_XREF</name>
+        <initializer>0x040000</initializer>
+        <briefdescription>
+<para>don&apos;t allow near xrefs between segments with different bases </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="459" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="459" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1gaa60a49252dd2c4925d30b53f9dae1cd8" prot="public" static="no">
+        <name>PR_NO_SEGMOVE</name>
+        <initializer>0x080000</initializer>
+        <briefdescription>
+<para>(i.e. the user can&apos;t move segments) </para>        </briefdescription>
+        <detaileddescription>
+<para>the processor module doesn&apos;t support <ref refid="group__seg__man_1gab3c11fbdf0ac345cb618b8b0ad3ef04c" kindref="member">move_segm()</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="460" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="460" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga4bad99f470ddf7643783e7f212084c07" prot="public" static="no">
+        <name>PR_USE_ARG_TYPES</name>
+        <initializer>0x200000</initializer>
+        <briefdescription>
+<para>use {use_arg_types} callback </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="464" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="464" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1gaf96c8c11c1d33bf6b8b45cd0c596b9a9" prot="public" static="no">
+        <name>PR_SCALE_STKVARS</name>
+        <initializer>0x400000</initializer>
+        <briefdescription>
+<para>use {get_stkvar_scale} callback </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="465" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="465" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga6baecd2746e817d53817c9fa12a9aed1" prot="public" static="no">
+        <name>PR_DELAYED</name>
+        <initializer>0x800000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>has delayed jumps and calls if this flag is set, {is_basic_block_end}, {has_delay_slot} should be implemented </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="466" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="466" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga14e56b92183c6058d318b7382fc0380e" prot="public" static="no">
+        <name>PR_ALIGN_INSN</name>
+        <initializer>0x1000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>allow ida to create alignment instructions arbitrarily. Since these instructions might lead to other wrong instructions and spoil the listing, IDA does not create them by default anymore </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="469" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="469" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga5fbd4b03256088198824f6d375caeb54" prot="public" static="no">
+        <name>PR_PURGING</name>
+        <initializer>0x2000000</initializer>
+        <briefdescription>
+<para>there are calling conventions which may purge bytes from the stack </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="472" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="472" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga9dc1ba3bdeb3d6172abfeec192c9a251" prot="public" static="no">
+        <name>PR_CNDINSNS</name>
+        <initializer>0x4000000</initializer>
+        <briefdescription>
+<para>has conditional instructions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="473" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="473" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga196de44585ee70b23e01cb9266aff600" prot="public" static="no">
+        <name>PR_USE_TBYTE</name>
+        <initializer>0x8000000</initializer>
+        <briefdescription>
+<para><ref refid="group__tf__float_1ga34f394b71c9b27c46560178e0054f79b" kindref="member">BTMT_SPECFLT</ref> means _TBYTE type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="474" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="474" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga51211ffe0d08c32dece2d318a462e139" prot="public" static="no">
+        <name>PR_DEFSEG64</name>
+        <initializer>0x10000000</initializer>
+        <briefdescription>
+<para>segments are 64-bit by default </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="475" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="475" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___p_r___1ga4913326d5444a3b89230193409eac155" prot="public" static="no">
+        <name>PR_OUTER</name>
+        <initializer>0x20000000</initializer>
+        <briefdescription>
+<para>has outer operands (currently only mc68k) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" line="476" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idp.hpp" bodystart="476" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="structprocessor__t_1a6542af67172bea21cda8b81c6671d775" kindref="member">processor_t::flag</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

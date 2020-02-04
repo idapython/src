@@ -1,0 +1,608 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structlex__value__t" kind="struct" language="C++" prot="public">
+    <compoundname>lex_value_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structlex__value__t_1a5aaa0c93274ca4b0c2dc8a85f7ee5c45" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool lex_value_t::is_unsigned</definition>
+        <argsstring></argsstring>
+        <name>is_unsigned</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="107" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlex__value__t_1a1939f121fc3d4f046565072777b44d08" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref></type>
+        <definition>int64 lex_value_t::val</definition>
+        <argsstring></argsstring>
+        <name>val</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="110" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlex__value__t_1af7453087bd026bd8aff412f69e26baab" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 lex_value_t::uval</definition>
+        <argsstring></argsstring>
+        <name>uval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="111" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlex__value__t_1ab0b07f12e428fe5f161ca8637f2716a6" prot="public" static="no" mutable="no">
+        <type>union lex_value_t::@137</type>
+        <definition>union lex_value_t::@137 lex_value_t::@138</definition>
+        <argsstring></argsstring>
+        <name>@138</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="112" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structlex__value__t_1a94cb4c8a9ffe59040961cbe67b3d9c4d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>lex_value_t::lex_value_t</definition>
+        <argsstring>()</argsstring>
+        <name>lex_value_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="102" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="102" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a79a23d898a7890f1bc5472f125aff5ca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::set</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>set</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="114" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="114" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a0273cc8e26202f974a80945bb8a615fb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::reset</definition>
+        <argsstring>(void)</argsstring>
+        <name>reset</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="118" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="118" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a7384304d169d1ab250df9c13755b4ec2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::set_val</definition>
+        <argsstring>(int64 v, bool _is_unsigned)</argsstring>
+        <name>set_val</name>
+        <param>
+          <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref></type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_is_unsigned</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="122" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="122" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a52ffc301ae3c675fabe67e92eb07f7f3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 lex_value_t::get_uval</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_uval</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="128" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="128" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a3b0ee76f8c4928753e22fa041ef7f6fa" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref></type>
+        <definition>int64 lex_value_t::get_val</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_val</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="132" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="132" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1ab3777ed5fa2cf4f72f46855fc80d826c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lex_value_t::is_zero</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_zero</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="137" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="137" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a7959e31f907e50245e3578025e28c48e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::perform_cast</definition>
+        <argsstring>(const cast_t &amp;cast)</argsstring>
+        <name>perform_cast</name>
+        <param>
+          <type>const <ref refid="structcast__t" kindref="compound">cast_t</ref> &amp;</type>
+          <declname>cast</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="142" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1ae1eb1e22b419976a9c24daefd6c0fc97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::unary_minus</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>unary_minus</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="144" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a9ec8b67c0ea89e50365bb208cd7a8cc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::unary_plus</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>unary_plus</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="145" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1aa780a9f0e36d4ee58167a268e46e9c13" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::unary_not</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>unary_not</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="146" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a9ead8882fd343cb48ae83e3419834a64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::bitwise_not</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>bitwise_not</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="147" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a922d3b970471f8236d439abc0c489f77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::mul</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>mul</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="149" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1ae4d42848117164597a39974340934762" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::div</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>div</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="150" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a3df45f10fb9f1d6742919a29a08509b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::mod</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>mod</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="151" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1ad03ecdb895263fa24c52829c70898ac4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::add</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>add</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="152" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1af47f5789840d3b9dfbb9f79cb5c789ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::sub</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>sub</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="153" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1aa3090ee0f78a1cde09fc1e9c7c065658" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::shift_right</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>shift_right</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="155" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a67fd503e652aa5ab9837e545bfca2ca8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::shift_left</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>shift_left</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="156" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a276c6d74d1b2ddefcdc079deabcbfe1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::bitwise_and</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>bitwise_and</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="157" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a682486166ccb3220daf85e9fb3d7760b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::bitwise_xor</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>bitwise_xor</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="158" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a24c27529e8347bdde57d6377df6a61a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::bitwise_or</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>bitwise_or</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="159" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a88b547536d8362862da354fee4fa5f3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::logical_and</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>logical_and</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="160" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a6b9bde82959b4a3729bacfab0f7c9192" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::logical_or</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>logical_or</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="161" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a5728540b5de603817e645bbe7cedae61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::cmpge</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>cmpge</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="163" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a2d8e45bf578cf243c08ba58aca1bac3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::cmple</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>cmple</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="164" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a778be096681c5450885a4aadf5d1a9d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::cmplt</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>cmplt</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="165" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a67ddf5f52e494879468d951ebd8827d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::cmpgt</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>cmpgt</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="166" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1abefdf4f05cba1b7ffdeb9ea4a661ecea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::cmpeq</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>cmpeq</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="167" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlex__value__t_1a92f65fdb90345eac9672467022fecabb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lex_value_t::cmpneq</definition>
+        <argsstring>(const lex_value_t &amp;v)</argsstring>
+        <name>cmpneq</name>
+        <param>
+          <type>const <ref refid="structlex__value__t" kindref="compound">lex_value_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="168" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="101" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="100" bodyend="169"/>
+    <listofallmembers>
+      <member refid="structlex__value__t_1ad03ecdb895263fa24c52829c70898ac4" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>add</name></member>
+      <member refid="structlex__value__t_1a276c6d74d1b2ddefcdc079deabcbfe1f" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>bitwise_and</name></member>
+      <member refid="structlex__value__t_1a9ead8882fd343cb48ae83e3419834a64" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>bitwise_not</name></member>
+      <member refid="structlex__value__t_1a24c27529e8347bdde57d6377df6a61a1" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>bitwise_or</name></member>
+      <member refid="structlex__value__t_1a682486166ccb3220daf85e9fb3d7760b" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>bitwise_xor</name></member>
+      <member refid="structlex__value__t_1abefdf4f05cba1b7ffdeb9ea4a661ecea" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>cmpeq</name></member>
+      <member refid="structlex__value__t_1a5728540b5de603817e645bbe7cedae61" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>cmpge</name></member>
+      <member refid="structlex__value__t_1a67ddf5f52e494879468d951ebd8827d7" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>cmpgt</name></member>
+      <member refid="structlex__value__t_1a2d8e45bf578cf243c08ba58aca1bac3e" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>cmple</name></member>
+      <member refid="structlex__value__t_1a778be096681c5450885a4aadf5d1a9d3" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>cmplt</name></member>
+      <member refid="structlex__value__t_1a92f65fdb90345eac9672467022fecabb" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>cmpneq</name></member>
+      <member refid="structlex__value__t_1ae4d42848117164597a39974340934762" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>div</name></member>
+      <member refid="structlex__value__t_1a52ffc301ae3c675fabe67e92eb07f7f3" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>get_uval</name></member>
+      <member refid="structlex__value__t_1a3b0ee76f8c4928753e22fa041ef7f6fa" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>get_val</name></member>
+      <member refid="structlex__value__t_1a5aaa0c93274ca4b0c2dc8a85f7ee5c45" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>is_unsigned</name></member>
+      <member refid="structlex__value__t_1ab3777ed5fa2cf4f72f46855fc80d826c" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>is_zero</name></member>
+      <member refid="structlex__value__t_1a94cb4c8a9ffe59040961cbe67b3d9c4d" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>lex_value_t</name></member>
+      <member refid="structlex__value__t_1a88b547536d8362862da354fee4fa5f3b" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>logical_and</name></member>
+      <member refid="structlex__value__t_1a6b9bde82959b4a3729bacfab0f7c9192" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>logical_or</name></member>
+      <member refid="structlex__value__t_1a3df45f10fb9f1d6742919a29a08509b1" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>mod</name></member>
+      <member refid="structlex__value__t_1a922d3b970471f8236d439abc0c489f77" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>mul</name></member>
+      <member refid="structlex__value__t_1a7959e31f907e50245e3578025e28c48e" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>perform_cast</name></member>
+      <member refid="structlex__value__t_1a0273cc8e26202f974a80945bb8a615fb" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>reset</name></member>
+      <member refid="structlex__value__t_1a79a23d898a7890f1bc5472f125aff5ca" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>set</name></member>
+      <member refid="structlex__value__t_1a7384304d169d1ab250df9c13755b4ec2" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>set_val</name></member>
+      <member refid="structlex__value__t_1a67fd503e652aa5ab9837e545bfca2ca8" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>shift_left</name></member>
+      <member refid="structlex__value__t_1aa3090ee0f78a1cde09fc1e9c7c065658" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>shift_right</name></member>
+      <member refid="structlex__value__t_1af47f5789840d3b9dfbb9f79cb5c789ff" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>sub</name></member>
+      <member refid="structlex__value__t_1ae1eb1e22b419976a9c24daefd6c0fc97" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>unary_minus</name></member>
+      <member refid="structlex__value__t_1aa780a9f0e36d4ee58167a268e46e9c13" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>unary_not</name></member>
+      <member refid="structlex__value__t_1a9ec8b67c0ea89e50365bb208cd7a8cc2" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>unary_plus</name></member>
+      <member refid="structlex__value__t_1af7453087bd026bd8aff412f69e26baab" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>uval</name></member>
+      <member refid="structlex__value__t_1a1939f121fc3d4f046565072777b44d08" prot="public" virt="non-virtual"><scope>lex_value_t</scope><name>val</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

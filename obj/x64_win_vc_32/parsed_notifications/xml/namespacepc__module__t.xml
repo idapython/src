@@ -1,0 +1,377 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="namespacepc__module__t" kind="namespace" language="C++">
+    <compoundname>pc_module_t</compoundname>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="intel_8hpp_1aec40d586450ff02ae89da49efc980501" prot="public" static="no">
+        <name>event_codes_t</name>
+        <enumvalue id="intel_8hpp_1aec40d586450ff02ae89da49efc980501aa9a1ee41ce823f1e5b15a43aa46b06bb" prot="public">
+          <name>ev_set_difbase</name>
+          <initializer>= processor_t::ev_loader</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="intel_8hpp_1aec40d586450ff02ae89da49efc980501a6665966383b16f6d709052414f825b1f" prot="public">
+          <name>ev_restore_pushinfo</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="intel_8hpp_1aec40d586450ff02ae89da49efc980501ab6321480c10d3784e18ab5510bab7341" prot="public">
+          <name>ev_save_pushinfo</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="intel_8hpp_1aec40d586450ff02ae89da49efc980501aa83384f894500d9405f1ca0066e29192" prot="public">
+          <name>ev_prolog_analyzed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="intel_8hpp_1aec40d586450ff02ae89da49efc980501a8131c200f906a9f1488fffb6963b7e99" prot="public">
+          <name>ev_verify_epilog</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="intel_8hpp_1aec40d586450ff02ae89da49efc980501a998fce7902befd5da67e8d09fc89f74a" prot="public">
+          <name>obsolete_ev_find_reg_value</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="intel_8hpp_1aec40d586450ff02ae89da49efc980501add6b1bddaca7437e36735f0514c81945" prot="public">
+          <name>ev_dbgtools_path</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="intel_8hpp_1aec40d586450ff02ae89da49efc980501ade892f8699664dd1953e87ac7ae1bb6d" prot="public">
+          <name>ev_is_get_pc_thunk</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="intel_8hpp_1aec40d586450ff02ae89da49efc980501ad0d2aa972c80f3d946c60acf01636a6c" prot="public">
+          <name>ev_vxd_loaded</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="intel_8hpp_1aec40d586450ff02ae89da49efc980501a84e989fc6fb5d2ab5113af79cc7c7f51" prot="public">
+          <name>ev_get_borland_template_node</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="intel_8hpp_1aec40d586450ff02ae89da49efc980501ad5bc82426a317b6efc5b00b30c1baf47" prot="public">
+          <name>ev_clear_borland_template_node</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="intel_8hpp_1aec40d586450ff02ae89da49efc980501a44b09262bafd3b7f65ee00b8c047c23a" prot="public">
+          <name>ev_borland_template</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="intel_8hpp_1aec40d586450ff02ae89da49efc980501ae955a504ddbd167d941210d1fe974c72" prot="public">
+          <name>ev_get_segval</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="1040" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="1039" bodyend="1094"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="intel_8hpp_1a6da10afee537ca7a1dda0b4aa1d5337e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structprocessor__t_1a2d184a313fab28b517e82c1717d562a0" kindref="member">processor_t::event_t</ref></type>
+        <definition>processor_t::event_t pc_module_t::idp_ev</definition>
+        <argsstring>(event_codes_t ev)</argsstring>
+        <name>idp_ev</name>
+        <param>
+          <type>event_codes_t</type>
+          <declname>ev</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="1096" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="1096" bodyend="1099"/>
+      </memberdef>
+      <memberdef kind="function" id="intel_8hpp_1adc78569038ee1a44ee0ffc2d0dcfc42c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void pc_module_t::set_difbase</definition>
+        <argsstring>(int onoff)</argsstring>
+        <name>set_difbase</name>
+        <param>
+          <type>int</type>
+          <declname>onoff</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="1101" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="1101" bodyend="1104"/>
+      </memberdef>
+      <memberdef kind="function" id="intel_8hpp_1ab0b90ff522b6467812192c7f5a2eb752" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool pc_module_t::restore_pushinfo</definition>
+        <argsstring>(pushinfo_t *pi, ea_t func_start)</argsstring>
+        <name>restore_pushinfo</name>
+        <param>
+          <type><ref refid="structpushinfo__t" kindref="compound">pushinfo_t</ref> *</type>
+          <declname>pi</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>func_start</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="1106" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="1106" bodyend="1109"/>
+      </memberdef>
+      <memberdef kind="function" id="intel_8hpp_1aa05ba0b39a6a3b8a49bedce0495e7d01" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool pc_module_t::save_pushinfo</definition>
+        <argsstring>(ea_t func_start, pushinfo_t *pi)</argsstring>
+        <name>save_pushinfo</name>
+        <param>
+          <type>ea_t</type>
+          <declname>func_start</declname>
+        </param>
+        <param>
+          <type><ref refid="structpushinfo__t" kindref="compound">pushinfo_t</ref> *</type>
+          <declname>pi</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="1111" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="1111" bodyend="1114"/>
+      </memberdef>
+      <memberdef kind="function" id="intel_8hpp_1a95ce06b20eb0eb84f7d18266c87ea6bb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int pc_module_t::prolog_analyzed</definition>
+        <argsstring>(ea_t first_past_prolog_insn, pushinfo_t *pi)</argsstring>
+        <name>prolog_analyzed</name>
+        <param>
+          <type>ea_t</type>
+          <declname>first_past_prolog_insn</declname>
+        </param>
+        <param>
+          <type><ref refid="structpushinfo__t" kindref="compound">pushinfo_t</ref> *</type>
+          <declname>pi</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="1116" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="1116" bodyend="1119"/>
+      </memberdef>
+      <memberdef kind="function" id="intel_8hpp_1a18fb56287ea6c3040156534b6ed95930" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool pc_module_t::verify_epilog</definition>
+        <argsstring>(int *answer, pushinfo_t *pi, const insn_t &amp;insn)</argsstring>
+        <name>verify_epilog</name>
+        <param>
+          <type>int *</type>
+          <declname>answer</declname>
+        </param>
+        <param>
+          <type><ref refid="structpushinfo__t" kindref="compound">pushinfo_t</ref> *</type>
+          <declname>pi</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classinsn__t" kindref="compound">insn_t</ref> &amp;</type>
+          <declname>insn</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="1121" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="1121" bodyend="1124"/>
+      </memberdef>
+      <memberdef kind="function" id="intel_8hpp_1a344b58f933bb853889f6aaa10d7c3593" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool pc_module_t::dbgtools_path</definition>
+        <argsstring>(char *path, size_t path_size)</argsstring>
+        <name>dbgtools_path</name>
+        <param>
+          <type>char *</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>path_size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="1126" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="1126" bodyend="1129"/>
+      </memberdef>
+      <memberdef kind="function" id="intel_8hpp_1a0292aa52d7d730657275632684e73ed5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int pc_module_t::is_get_pc_thunk</definition>
+        <argsstring>(RegNo *p_reg, ea_t *p_end, const insn_t &amp;insn)</argsstring>
+        <name>is_get_pc_thunk</name>
+        <param>
+          <type>RegNo *</type>
+          <declname>p_reg</declname>
+        </param>
+        <param>
+          <type>ea_t *</type>
+          <declname>p_end</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classinsn__t" kindref="compound">insn_t</ref> &amp;</type>
+          <declname>insn</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="1131" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="1131" bodyend="1134"/>
+      </memberdef>
+      <memberdef kind="function" id="intel_8hpp_1ad2c971965c883455bea186b3a811da73" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int pc_module_t::vxd_loaded</definition>
+        <argsstring>()</argsstring>
+        <name>vxd_loaded</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="1136" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="1136" bodyend="1139"/>
+      </memberdef>
+      <memberdef kind="function" id="intel_8hpp_1a9d6ef1a6f90ec1199f8f82157b0afdc0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool pc_module_t::get_borland_template_node</definition>
+        <argsstring>(netnode *node)</argsstring>
+        <name>get_borland_template_node</name>
+        <param>
+          <type><ref refid="classnetnode" kindref="compound">netnode</ref> *</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="1141" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="1141" bodyend="1144"/>
+      </memberdef>
+      <memberdef kind="function" id="intel_8hpp_1ac1cda6df5eff02889513fa3585b24601" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void pc_module_t::clear_borland_template_node</definition>
+        <argsstring>(void)</argsstring>
+        <name>clear_borland_template_node</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="1146" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="1146" bodyend="1149"/>
+      </memberdef>
+      <memberdef kind="function" id="intel_8hpp_1a082b492a8fe4d54b53b41bd1efb56f4a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool pc_module_t::borland_template</definition>
+        <argsstring>(ea_t ea, bool bp_mode, bool recursive)</argsstring>
+        <name>borland_template</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bp_mode</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>recursive</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="1151" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="1151" bodyend="1157"/>
+      </memberdef>
+      <memberdef kind="function" id="intel_8hpp_1a98bf9dea9d7631750082f82353b9569a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t pc_module_t::get_segval</definition>
+        <argsstring>(const insn_t &amp;insn, const op_t &amp;x)</argsstring>
+        <name>get_segval</name>
+        <param>
+          <type>const <ref refid="classinsn__t" kindref="compound">insn_t</ref> &amp;</type>
+          <declname>insn</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classop__t" kindref="compound">op_t</ref> &amp;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="1159" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" bodystart="1159" bodyend="1164"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/intel.hpp" line="1038" column="1"/>
+  </compounddef>
+</doxygen>

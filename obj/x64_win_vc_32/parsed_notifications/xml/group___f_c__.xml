@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_c__" kind="group">
+    <compoundname>FC_</compoundname>
+    <title>Flow chart flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___f_c___1ga8d251777f6a222a22b1dc36f5e5aa871" prot="public" static="no">
+        <name>FC_PRINT</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>print names (used only by display_flow_chart()) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="312" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_c___1gaeb72e2c1657868b5d11e9e04503321c2" prot="public" static="no">
+        <name>FC_NOEXT</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>do not compute external blocks. Use this to prevent jumps leaving the function from appearing in the flow chart. Unless specified, the targets of those outgoing jumps will be present in the flow chart under the form of one-instruction blocks </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="313" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="313" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_c___1ga1239629ea490a2a4c301d3a9865adfbf" prot="public" static="no">
+        <name>FC_PREDS</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>compute predecessor lists </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="317" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="317" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_c___1ga39827e1bf3e9a26d2bfb7e525108af3e" prot="public" static="no">
+        <name>FC_APPND</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>multirange flowchart (set by append_to_flowchart) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="318" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="318" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_c___1ga6b6e640baba9a46467937ce7399785a0" prot="public" static="no">
+        <name>FC_CHKBREAK</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>build_qflow_chart() may be aborted by user </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="319" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="319" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as &apos;flags&apos; parameter to <ref refid="classqflow__chart__t" kindref="compound">qflow_chart_t</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

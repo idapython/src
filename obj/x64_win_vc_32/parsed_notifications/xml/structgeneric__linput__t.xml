@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structgeneric__linput__t" kind="struct" language="C++" prot="public" abstract="yes">
+    <compoundname>generic_linput_t</compoundname>
+    <includes refid="diskio_8hpp" local="no">diskio.hpp</includes>
+      <sectiondef kind="user-defined">
+      <header>Warning</header>
+      <description><para>The following two fields must be filled before calling <ref refid="diskio_8hpp_1af534ad603bf8e20bd189ef1dd3477303" kindref="member">create_generic_linput()</ref> </para></description>
+      <memberdef kind="variable" id="structgeneric__linput__t_1ab0277b4cdd5178b9aeecac7aec19c822" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 generic_linput_t::filesize</definition>
+        <argsstring></argsstring>
+        <name>filesize</name>
+        <briefdescription>
+<para>input file size </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="496" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="496" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgeneric__linput__t_1a78fdd0f82095263c4b52def63512259e" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 generic_linput_t::blocksize</definition>
+        <argsstring></argsstring>
+        <name>blocksize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>preferred block size to work with read/write sizes will be in multiples of this number. for example, 4096 is a nice value blocksize 0 means that the filesize is unknown. the internal cache will be disabled in this case. also, seeks from the file end will fail. blocksize=-1 means error. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="497" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="497" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structgeneric__linput__t_1a4aaabf3471d67c34503b5941453b2e20" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>virtual ssize_t idaapi generic_linput_t::read</definition>
+        <argsstring>(qoff64_t off, void *buffer, size_t nbytes)=0</argsstring>
+        <name>read</name>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>off</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buffer</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>nbytes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="505" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Generic linput class - may be used to create a linput_t instance for any data source </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="492" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="491" bodyend="507"/>
+    <listofallmembers>
+      <member refid="structgeneric__linput__t_1a78fdd0f82095263c4b52def63512259e" prot="public" virt="non-virtual"><scope>generic_linput_t</scope><name>blocksize</name></member>
+      <member refid="structgeneric__linput__t_1ab0277b4cdd5178b9aeecac7aec19c822" prot="public" virt="non-virtual"><scope>generic_linput_t</scope><name>filesize</name></member>
+      <member refid="structgeneric__linput__t_1a4aaabf3471d67c34503b5941453b2e20" prot="public" virt="pure-virtual"><scope>generic_linput_t</scope><name>read</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

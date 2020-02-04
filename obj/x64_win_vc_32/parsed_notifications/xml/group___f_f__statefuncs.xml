@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_f__statefuncs" kind="group">
+    <compoundname>FF_statefuncs</compoundname>
+    <title>Functions: examine byte states</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___f_f__statefuncs_1ga22729939c925840ae9e04962a968f0a8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_code</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_code</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does flag denote start of an instruction? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="735" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="735" bodyend="735"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statefuncs_1ga13c3d89ed673ad2705a031f05879ef70" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_code</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_code</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>Does flag denote start of an instruction? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="736" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="736" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statefuncs_1gac78322f5394f684adbcd42412b9c90a7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_data</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_data</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does flag denote start of data? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="741" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="741" bodyend="741"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statefuncs_1ga0165da3cce58078f2323a738034e3b09" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_data</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_data</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>Does flag denote start of data? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="742" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="742" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statefuncs_1ga475caeeadfc4dd1787a25f7321e37dc3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_tail</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_tail</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does flag denote tail byte? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="747" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="747" bodyend="747"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statefuncs_1gab9551896b2f122e43a06ce1171e34c75" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_tail</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_tail</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>Does flag denote tail byte? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="748" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="748" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statefuncs_1gaf8fee3fff84fbfae51a9adca9d736673" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_not_tail</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_not_tail</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does flag denote tail byte? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="749" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="749" bodyend="748"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statefuncs_1ga8be04719d78c8e3eeff0a4bd902ceaae" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_not_tail</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_not_tail</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>Does flag denote tail byte? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="750" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="750" bodyend="749"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statefuncs_1ga96fa57e4c4dcf36c8bd287d7b751f80a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_unknown</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_unknown</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does flag denote unexplored byte? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="755" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="755" bodyend="755"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statefuncs_1gac322f722406d9d78d10827a4e3978549" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi is_head</definition>
+        <argsstring>(flags_t F)</argsstring>
+        <name>is_head</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <briefdescription>
+<para>Does flag denote start of instruction OR data? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="760" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="760" bodyend="760"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__statefuncs_1gaecff89f91ab44ba181346ce622ef52df" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool idaapi</type>
+        <definition>THREAD_SAFE bool idaapi f_is_head</definition>
+        <argsstring>(flags_t F, void *)</argsstring>
+        <name>f_is_head</name>
+        <param>
+          <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+<para>Does flag denote start of instruction OR data? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="761" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="761" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

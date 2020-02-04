@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_p_c_h__" kind="group">
+    <compoundname>SPCH_</compoundname>
+    <title>Source info changed flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_p_c_h___1ga446499ec545451329ebb9ba5f050d443" prot="public" static="no">
+        <name>SPCH_NONE</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>nothing has changed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2344" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2344" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_p_c_h___1ga05efa35d0f881194eedf88fd3e5c82ea" prot="public" static="no">
+        <name>SPCH_FILES</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>source files have changed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2345" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2345" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_p_c_h___1gafe5e4d9834a3ac192b5d8bc8e28b7f0f" prot="public" static="no">
+        <name>SPCH_ITEMS</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>source items have changed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2346" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2346" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_p_c_h___1gad1fcd26716d17db3488db3fe1fa21e98" prot="public" static="no">
+        <name>SPCH_LINES</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>source line numbers have changed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2347" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2347" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Returned by <ref refid="classsrcinfo__provider__t_1a5bfb5c37c50a2334474299a733690a88" kindref="member">srcinfo_provider_t::get_change_flags()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

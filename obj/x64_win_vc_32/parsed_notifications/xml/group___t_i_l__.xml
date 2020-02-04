@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___t_i_l__" kind="group">
+    <compoundname>TIL_</compoundname>
+    <title>Type info library property bits</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___t_i_l___1ga5f8e20be490cde97b1bee4d26d513b13" prot="public" static="no">
+        <name>TIL_ZIP</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>pack buckets using zip </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="617" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="617" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_i_l___1ga1f74661c533ae3f9e912d2407a5cf789" prot="public" static="no">
+        <name>TIL_MAC</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>til has macro table </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="618" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="618" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_i_l___1gabc0f0ec96c78c8d64826acda52858e7a" prot="public" static="no">
+        <name>TIL_ESI</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>extended sizeof info (short, long, longlong) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="619" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="619" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_i_l___1ga3a557dd3f34c36916e9efd02761a14e0" prot="public" static="no">
+        <name>TIL_UNI</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>universal til for any compiler </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="620" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="620" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_i_l___1gaab7d816683f98e6d7f2818b580722988" prot="public" static="no">
+        <name>TIL_ORD</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>type ordinal numbers are present </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="621" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="621" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_i_l___1ga72bbc047d02e335aaddeef63e9ea2f29" prot="public" static="no">
+        <name>TIL_ALI</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>type aliases are present (this bit is used only on the disk) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="622" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="622" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_i_l___1gaff79474fab46b219eb0c3742ad8a7760" prot="public" static="no">
+        <name>TIL_MOD</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+<para>til has been modified, should be saved </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="623" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="623" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_i_l___1gad0e55d20cec4a151520a8cd2f6a75331" prot="public" static="no">
+        <name>TIL_STM</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para>til has extra streams </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="624" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="624" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___t_i_l___1ga052bbb807f2442e196a3491cb0999399" prot="public" static="no">
+        <name>TIL_SLD</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+<para>sizeof(long double) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="625" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="625" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>used by <ref refid="structtil__t_1a0a02b7d87df6c926115b69c9937acee8" kindref="member">til_t::flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

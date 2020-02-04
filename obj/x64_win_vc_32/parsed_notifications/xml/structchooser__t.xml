@@ -1,0 +1,412 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structchooser__t" kind="struct" language="C++" prot="public">
+    <compoundname>chooser_t</compoundname>
+    <basecompoundref refid="structchooser__base__t" prot="public" virt="non-virtual">chooser_base_t</basecompoundref>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+    <innerclass refid="structchooser__t_1_1cbret__t" prot="public">chooser_t::cbret_t</innerclass>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structchooser__t_1aabf3f8593de20e567c10ff804e1f08d1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>chooser_t::chooser_t</definition>
+        <argsstring>(uint32 flags_=0, int columns_=0, const int *widths_=NULL, const char *const *header_=NULL, const char *title_=NULL)</argsstring>
+        <name>chooser_t</name>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>flags_</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>columns_</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const int *</type>
+          <declname>widths_</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const char *const *</type>
+          <declname>header_</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>title_</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2555" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2555" bodyend="2563"/>
+      </memberdef>
+      <memberdef kind="function" id="group__choosers_1ga862abc8600a4d9195c315e0fec27cb3a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t chooser_t::choose</definition>
+        <argsstring>(ssize_t deflt=0)</argsstring>
+        <name>choose</name>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+          <declname>deflt</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Display a generic list chooser and allow the user to select an item. May be overriden in derived choosers. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>deflt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>default selection or NO_SELECTION see the <ref refid="group__choosers_1ga862abc8600a4d9195c315e0fec27cb3a" kindref="member">choose()</ref> function below </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2570" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2783" bodyend="2788"/>
+      </memberdef>
+      <memberdef kind="function" id="structchooser__t_1a2ecc29e18ee3395459ff733caec13a6d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>virtual ssize_t idaapi chooser_t::get_item_index</definition>
+        <argsstring>(const void *item_data) const</argsstring>
+        <name>get_item_index</name>
+        <param>
+          <type>const void *</type>
+          <declname>item_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the position (index) of the item. A simple chooser considers <computeroutput>item_data</computeroutput> as an index. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>item_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to some data that indentifies the item </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>idx item index, NO_SELECTION - there is no item with such data </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2577" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2577" bodyend="2581"/>
+      </memberdef>
+      <memberdef kind="function" id="structchooser__t_1ac940a68a1b2e6355be10aaebc51ab2a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>typedef</type>
+        <definition>typedef chooser_t::cbret_t</definition>
+        <argsstring>(idaapi chooser_t::*cb_t)(size_t n)</argsstring>
+        <name>cbret_t</name>
+        <param>
+          <type>idaapi chooser_t::*</type>
+          <declname>cb_t</declname>
+        </param>
+        <briefdescription>
+<para>Type of <ref refid="structchooser__t_1ae1cbaa0d39ea572227d14ff5a0200ef8" kindref="member">ins()</ref>, <ref refid="structchooser__t_1ad3fc6f6394b25bcb0c28c8cfcddc47d9" kindref="member">del()</ref>, <ref refid="structchooser__t_1a967c4202d2aca1ddead4380741de6e13" kindref="member">edit()</ref>, <ref refid="structchooser__t_1a6899d58dfa73f5ac95a8f41851327f84" kindref="member">enter()</ref>, <ref refid="structchooser__t_1a7217277c36ddf006b76190b8e589a2df" kindref="member">refresh()</ref> callbacks. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2584" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structchooser__t_1ae1cbaa0d39ea572227d14ff5a0200ef8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="structchooser__t_1_1cbret__t" kindref="compound">cbret_t</ref> idaapi</type>
+        <definition>virtual cbret_t idaapi chooser_t::ins</definition>
+        <argsstring>(ssize_t)</argsstring>
+        <name>ins</name>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        </param>
+        <briefdescription>
+<para>User asked to insert an element. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2587" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2587" bodyend="2587"/>
+      </memberdef>
+      <memberdef kind="function" id="structchooser__t_1ad3fc6f6394b25bcb0c28c8cfcddc47d9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="structchooser__t_1_1cbret__t" kindref="compound">cbret_t</ref> idaapi</type>
+        <definition>virtual cbret_t idaapi chooser_t::del</definition>
+        <argsstring>(size_t)</argsstring>
+        <name>del</name>
+        <param>
+          <type>size_t</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>User deleted an element. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of the element to delete </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>idx index of the selected item (cursor) changed what is changed </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2593" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2593" bodyend="2593"/>
+      </memberdef>
+      <memberdef kind="function" id="structchooser__t_1a967c4202d2aca1ddead4380741de6e13" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="structchooser__t_1_1cbret__t" kindref="compound">cbret_t</ref> idaapi</type>
+        <definition>virtual cbret_t idaapi chooser_t::edit</definition>
+        <argsstring>(size_t)</argsstring>
+        <name>edit</name>
+        <param>
+          <type>size_t</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>User asked to edit an element. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of the element to edit </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>idx index of the selected item (cursor) changed what is changed </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2599" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2599" bodyend="2599"/>
+      </memberdef>
+      <memberdef kind="function" id="structchooser__t_1a6899d58dfa73f5ac95a8f41851327f84" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="structchooser__t_1_1cbret__t" kindref="compound">cbret_t</ref> idaapi</type>
+        <definition>virtual cbret_t idaapi chooser_t::enter</definition>
+        <argsstring>(size_t n)</argsstring>
+        <name>enter</name>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>User pressed the enter key. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of the element where &lt;Enter&gt; was pressed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>false</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>nothing changed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>idx index of the selected item (cursor) changed what is changed </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2606" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2606" bodyend="2610"/>
+      </memberdef>
+      <memberdef kind="function" id="structchooser__t_1a7217277c36ddf006b76190b8e589a2df" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="structchooser__t_1_1cbret__t" kindref="compound">cbret_t</ref> idaapi</type>
+        <definition>virtual cbret_t idaapi chooser_t::refresh</definition>
+        <argsstring>(ssize_t n)</argsstring>
+        <name>refresh</name>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The chooser needs to be refreshed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of the selected (current) item </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>idx new index of the current item (as it may change during refresh) changed what is changed </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2617" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2617" bodyend="2620"/>
+      </memberdef>
+      <memberdef kind="function" id="structchooser__t_1a73201576a2050935759384c78203c9d9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>void idaapi</type>
+        <definition>virtual void idaapi chooser_t::select</definition>
+        <argsstring>(ssize_t) const</argsstring>
+        <name>select</name>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Selection changed (cursor moved). <simplesect kind="note"><para>This callback is not supported in the txt-version. </para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of the new selected item </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2625" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2625" bodyend="2625"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="structchooser__t_1a572f1e7e58f0586e36b88f10dd18141a" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t chooser_t::new_sel_after_del</definition>
+        <argsstring>(size_t n) const</argsstring>
+        <name>new_sel_after_del</name>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2628" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2628" bodyend="2635"/>
+      </memberdef>
+      <memberdef kind="function" id="structchooser__t_1a5d33336a8f4ca9f8d3ed9507061f048b" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t chooser_t::adjust_last_item</definition>
+        <argsstring>(size_t n) const</argsstring>
+        <name>adjust_last_item</name>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2636" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2636" bodyend="2643"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The chooser object without multi-selection. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="812">
+        <label>chooser_base_t</label>
+        <link refid="structchooser__base__t"/>
+      </node>
+      <node id="811">
+        <label>chooser_t</label>
+        <link refid="structchooser__t"/>
+        <childnode refid="812" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="814">
+        <label>chooser_base_t</label>
+        <link refid="structchooser__base__t"/>
+        <childnode refid="815" relation="usage">
+          <edgelabel>popup_names</edgelabel>
+        </childnode>
+      </node>
+      <node id="815">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="813">
+        <label>chooser_t</label>
+        <link refid="structchooser__t"/>
+        <childnode refid="814" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="2544" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="2543" bodyend="2644"/>
+    <listofallmembers>
+      <member refid="structchooser__t_1a5d33336a8f4ca9f8d3ed9507061f048b" prot="protected" virt="non-virtual"><scope>chooser_t</scope><name>adjust_last_item</name></member>
+      <member refid="structchooser__base__t_1a753ae8c73ea5a644ee31571ab5c0e27faaeb8a2d365caeba576313c9fd9d5d33a" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>ALL_CHANGED</name></member>
+      <member refid="group__chooser__index_1gga6e8acc5ead68d124f9e463f7a9813365a1c9909c9fe579274c2a3392f06fdab53" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>ALREADY_EXISTS</name></member>
+      <member refid="structchooser__base__t_1a2b532b2e66ccbe3ff09bd088f3a6a238" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>ask_item_attrs</name></member>
+      <member refid="structchooser__base__t_1a48cf11bb95e1e074bdb32f5000296c05" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>call_destructor</name></member>
+      <member refid="structchooser__base__t_1a34a0659988c1b3684eb0fc23556e9e71" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>can_del</name></member>
+      <member refid="structchooser__base__t_1a0b0131e4d491433d7dc6a83020e356ee" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>can_edit</name></member>
+      <member refid="structchooser__base__t_1a5f1d401cf47f99d8ba924d1b502b7f9c" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>can_ins</name></member>
+      <member refid="structchooser__base__t_1a38886d5a8bd4175119157fea6b7d54c5" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>can_refresh</name></member>
+      <member refid="structchooser__base__t_1a753ae8c73ea5a644ee31571ab5c0e27f" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>cbres_t</name></member>
+      <member refid="structchooser__t_1ac940a68a1b2e6355be10aaebc51ab2a9" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>cbret_t</name></member>
+      <member refid="structchooser__base__t_1a5c7a9bd344a8d0e49f1e0dfa3f3dd91b" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>check_version</name></member>
+      <member refid="group__choosers_1ga862abc8600a4d9195c315e0fec27cb3a" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>choose</name></member>
+      <member refid="structchooser__base__t_1a8d2c10d79b9584b69197c6a946169313" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>chooser_base_t</name></member>
+      <member refid="structchooser__t_1aabf3f8593de20e567c10ff804e1f08d1" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>chooser_t</name></member>
+      <member refid="structchooser__base__t_1acaeea0f879cfc2228aa20adbf9f8a839" prot="public" virt="virtual"><scope>chooser_t</scope><name>closed</name></member>
+      <member refid="structchooser__base__t_1a4e88650ee7434c5b045a769773e36000" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>columns</name></member>
+      <member refid="structchooser__base__t_1abc54b8013e874ea5df7a947b20ffb09d" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>deflt_col</name></member>
+      <member refid="structchooser__t_1ad3fc6f6394b25bcb0c28c8cfcddc47d9" prot="public" virt="virtual"><scope>chooser_t</scope><name>del</name></member>
+      <member refid="structchooser__t_1a967c4202d2aca1ddead4380741de6e13" prot="public" virt="virtual"><scope>chooser_t</scope><name>edit</name></member>
+      <member refid="group__chooser__index_1gga6e8acc5ead68d124f9e463f7a9813365a403da04064cc128f8b3c349032275bf0" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>EMPTY_CHOOSER</name></member>
+      <member refid="structchooser__t_1a6899d58dfa73f5ac95a8f41851327f84" prot="public" virt="virtual"><scope>chooser_t</scope><name>enter</name></member>
+      <member refid="structchooser__base__t_1a8f07ecd9380abf95304d73b76e7f2703" prot="protected" virt="non-virtual"><scope>chooser_t</scope><name>flags</name></member>
+      <member refid="structchooser__base__t_1a6654802a4f1c248763f81362ae1ca412" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>get_builtin_number</name></member>
+      <member refid="structchooser__base__t_1a1d7b6415a56686b33a01aff41a10c866" prot="public" virt="virtual"><scope>chooser_t</scope><name>get_chooser_obj</name></member>
+      <member refid="structchooser__base__t_1a2135b3a87a6c00f806691e7e5d04ac4f" prot="public" virt="pure-virtual"><scope>chooser_t</scope><name>get_count</name></member>
+      <member refid="structchooser__base__t_1abf98aba4f31b3bce346afb854f9251a7" prot="public" virt="virtual"><scope>chooser_t</scope><name>get_ea</name></member>
+      <member refid="structchooser__t_1a2ecc29e18ee3395459ff733caec13a6d" prot="public" virt="virtual"><scope>chooser_t</scope><name>get_item_index</name></member>
+      <member refid="structchooser__base__t_1aad523011a45e691c70f59ff188d28253" prot="public" virt="virtual"><scope>chooser_t</scope><name>get_obj_id</name></member>
+      <member refid="structchooser__base__t_1a27ba81a0cb312512772e02b62da3ea7f" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>get_quick_filter_initial_mode</name></member>
+      <member refid="structchooser__base__t_1afca1307f6019e67b60f0eee8eeda4efe" prot="public" virt="pure-virtual"><scope>chooser_t</scope><name>get_row</name></member>
+      <member refid="structchooser__base__t_1af7e08caf3a73e8c49ef25936f93fa551" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>header</name></member>
+      <member refid="structchooser__base__t_1abdfd5d8dd5fc7b94918412405f64054a" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>height</name></member>
+      <member refid="structchooser__base__t_1a0506d5980c2bdd80d6e1dcaf3d8e29f2" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>icon</name></member>
+      <member refid="structchooser__base__t_1a98358c499915613dd870c3a0bff84754" prot="public" virt="virtual"><scope>chooser_t</scope><name>init</name></member>
+      <member refid="structchooser__base__t_1a1ba303ca874b35020641d02bf04e5196" prot="protected" virt="non-virtual"><scope>chooser_t</scope><name>init_popup_names</name></member>
+      <member refid="structchooser__t_1ae1cbaa0d39ea572227d14ff5a0200ef8" prot="public" virt="virtual"><scope>chooser_t</scope><name>ins</name></member>
+      <member refid="structchooser__base__t_1ad5b997b4e726b8015046344ab0b966ee" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>is_force_default</name></member>
+      <member refid="structchooser__base__t_1a88df9ad8077acff475ae03a79868579f" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>is_modal</name></member>
+      <member refid="structchooser__base__t_1a1abb273598513c78926a8bfca3b48f07" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>is_multi</name></member>
+      <member refid="structchooser__base__t_1aa56b8ee9be00ddddf2c8b0050e7ab522" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>is_noidb</name></member>
+      <member refid="structchooser__base__t_1a7c9373c6b7343dce6d729d1629c2883e" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>is_quick_filter_visible_initially</name></member>
+      <member refid="structchooser__base__t_1a57f8b134145fe413122f32098f71aa84" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>is_same</name></member>
+      <member refid="structchooser__base__t_1a285f6b2a088739ce3af9818714d558ff" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>is_status_bar_hidden</name></member>
+      <member refid="structchooser__t_1a572f1e7e58f0586e36b88f10dd18141a" prot="protected" virt="non-virtual"><scope>chooser_t</scope><name>new_sel_after_del</name></member>
+      <member refid="group__chooser__index_1gga6e8acc5ead68d124f9e463f7a9813365add3620f9706987cdd059fb99da30f6a1" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>NO_ATTR</name></member>
+      <member refid="group__chooser__index_1gga6e8acc5ead68d124f9e463f7a9813365a100e0d1651b8811c7df60f02d991ef6e" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>NO_SELECTION</name></member>
+      <member refid="structchooser__base__t_1a753ae8c73ea5a644ee31571ab5c0e27fa36a1ee8792e27b346229adf76249f838" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>NOTHING_CHANGED</name></member>
+      <member refid="structchooser__base__t_1a0409fb6a1724723794f8658e467cf088a7998d5d429e37e909baaad2949b0af61" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>NSTDPOPUPS</name></member>
+      <member refid="structchooser__base__t_1a0cf9f4b67138017a54b510b3e6f9f151" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>popup_allowed</name></member>
+      <member refid="structchooser__base__t_1a0409fb6a1724723794f8658e467cf088ae813ea73b0097d2501d117b54458813a" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>POPUP_DEL</name></member>
+      <member refid="structchooser__base__t_1a0409fb6a1724723794f8658e467cf088a9f2da0eac3bbffc42f2ea3a2c953ab9c" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>POPUP_EDIT</name></member>
+      <member refid="structchooser__base__t_1a0409fb6a1724723794f8658e467cf088a5daf7044c263441f024aa5d4f6eb7d56" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>POPUP_INS</name></member>
+      <member refid="structchooser__base__t_1af3d2a7add9d67da4a192b940fdc285aa" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>popup_names</name></member>
+      <member refid="structchooser__base__t_1a0409fb6a1724723794f8658e467cf088a787ef96b28d43c6ca16cf679b71db6eb" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>POPUP_REFRESH</name></member>
+      <member refid="structchooser__t_1a7217277c36ddf006b76190b8e589a2df" prot="public" virt="virtual"><scope>chooser_t</scope><name>refresh</name></member>
+      <member refid="structchooser__t_1a73201576a2050935759384c78203c9d9" prot="public" virt="virtual"><scope>chooser_t</scope><name>select</name></member>
+      <member refid="structchooser__base__t_1a753ae8c73ea5a644ee31571ab5c0e27fa4ef939d83a9e2664b68a18c8e3995308" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>SELECTION_CHANGED</name></member>
+      <member refid="structchooser__base__t_1a1e51084dfda711975bf40ddf1e16599c" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>set_ask_item_attrs</name></member>
+      <member refid="structchooser__base__t_1a4436f16519de9168fd7e8c036176cc27" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>should_restore_geometry</name></member>
+      <member refid="structchooser__base__t_1afed0e6eb1d254ec47a4e8d93a38cb339" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>title</name></member>
+      <member refid="structchooser__base__t_1a904eb7c089bfc71f4245a3da1c1ad2a6" prot="protected" virt="non-virtual"><scope>chooser_t</scope><name>version</name></member>
+      <member refid="structchooser__base__t_1a151d40817511fdc1f71992e142b28cb4" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>width</name></member>
+      <member refid="structchooser__base__t_1afd3111894f68258b4fba46c77a96ee45" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>widths</name></member>
+      <member refid="structchooser__base__t_1af87d5449fca32811240d52e92bde651e" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>x0</name></member>
+      <member refid="structchooser__base__t_1a1f7ed151967b25ea6c668e736ae67146" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>x1</name></member>
+      <member refid="structchooser__base__t_1a7203916efc122ed7e1389c4720a66da4" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>y0</name></member>
+      <member refid="structchooser__base__t_1a63397b908a324623312859c546ff1881" prot="public" virt="non-virtual"><scope>chooser_t</scope><name>y1</name></member>
+      <member refid="structchooser__base__t_1aac880eaf15320696fb092242c6967c2d" prot="public" virt="virtual"><scope>chooser_t</scope><name>~chooser_base_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

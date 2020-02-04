@@ -20,7 +20,7 @@ PyObject *get_debug_names(ea_t ea1, ea_t ea2)
     {
       PyDict_SetItem(dict,
                      Py_BuildValue(PY_BV_EA, bvea_t(it->ea)),
-                     PyString_FromString(it->name.c_str()));
+                     IDAPyStr_FromUTF8(it->name.c_str()));
     }
   }
   return dict;

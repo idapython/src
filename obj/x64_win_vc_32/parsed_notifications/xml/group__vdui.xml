@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__vdui" kind="group">
+    <compoundname>vdui</compoundname>
+    <title>User interface definitions</title>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__vdui_1ga57493d56aec72d0d539dced15a738c50" prot="public" static="no">
+        <name>input_device_t</name>
+        <enumvalue id="group__vdui_1gga57493d56aec72d0d539dced15a738c50ae84891dc5d0466585a7daa0caf2f12c7" prot="public">
+          <name>USE_KEYBOARD</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Keyboard. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__vdui_1gga57493d56aec72d0d539dced15a738c50a1b05ff75a19c359e63dcd511b019b634" prot="public">
+          <name>USE_MOUSE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Mouse. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Type of the input device. How the user command has been invoked </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="6927" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6926" bodyend="6930"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classui__requests__t" kind="class" language="C++" prot="public">
+    <compoundname>ui_requests_t</compoundname>
+    <basecompoundref refid="classqlist" prot="public" virt="non-virtual">qlist&lt; ui_request_t *&gt;</basecompoundref>
+    <includes refid="kernwin_8hpp" local="no">kernwin.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classui__requests__t_1ae8bc516d219b975e5f7571e94c613454" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ui_requests_t::ui_requests_t</definition>
+        <argsstring>()</argsstring>
+        <name>ui_requests_t</name>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3396" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3396" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="classui__requests__t_1a54696af151481ab4680d6673371500c4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ui_requests_t::~ui_requests_t</definition>
+        <argsstring>()</argsstring>
+        <name>~ui_requests_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3397" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3397" bodyend="3401"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>List of UI requests. The <ref refid="classui__request__t" kindref="compound">ui_request_t</ref> is allocated by the caller but its ownership is transferred to the <ref refid="kernwin_8hpp_1a73b4671b6281e8977229090fa9bfa2d6" kindref="member">execute_ui_requests()</ref>. The <ref refid="classui__request__t" kindref="compound">ui_request_t</ref> instance will be deleted as soon as it is executed and was not rescheduled for another run. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="3529">
+        <label>qlist&lt; ui_request_t *&gt;</label>
+        <link refid="classqlist"/>
+      </node>
+      <node id="3528">
+        <label>ui_requests_t</label>
+        <link refid="classui__requests__t"/>
+        <childnode refid="3529" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3531">
+        <label>qlist&lt; ui_request_t *&gt;</label>
+        <link refid="classqlist"/>
+      </node>
+      <node id="3530">
+        <label>ui_requests_t</label>
+        <link refid="classui__requests__t"/>
+        <childnode refid="3531" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="3393" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="3392" bodyend="3402"/>
+    <listofallmembers>
+      <member refid="classqlist_1af5fc127f792f53f5ef92ac2fc2ab5bc9" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>__pad0__</name></member>
+      <member refid="classqlist_1a31069784256e69c08a2df2a680cf7534" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>back</name></member>
+      <member refid="classqlist_1a3d5e0f97354c1436e6c710ce522139c6" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>back</name></member>
+      <member refid="classqlist_1a8a9dcbefb57b8a08c2feb1896599f77b" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>begin</name></member>
+      <member refid="classqlist_1a9a43bc5dccc34124e7cb50fda65a2684" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>begin</name></member>
+      <member refid="classqlist_1a740b086eee405d7e7f1f8a83d9fafe4b" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>clear</name></member>
+      <member refid="classqlist_1a81f9889567ad9c9fcf55f30ebf1034df" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>empty</name></member>
+      <member refid="classqlist_1a37b0489910d2658f6c43091aa8ff0368" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>end</name></member>
+      <member refid="classqlist_1aa1b1adf5f25cb3fb9b18d4f2b786996b" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>end</name></member>
+      <member refid="classqlist_1af946cdb230c6ee4761ffe30e070d2fc3" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>erase</name></member>
+      <member refid="classqlist_1a476a4e5f37b973da304bf40975498413" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>erase</name></member>
+      <member refid="classqlist_1a91fd19907fea3d3d250f2d8314804298" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>front</name></member>
+      <member refid="classqlist_1a4d437d6d0c5ab772a9013b1aced9aaad" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>front</name></member>
+      <member refid="classqlist_1a2931ecba59a07c3dafd64cd74cdea08a" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>insert</name></member>
+      <member refid="classqlist_1a5b16ea2878faa8fa7c02b6684c3f513e" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>insert</name></member>
+      <member refid="classqlist_1a1ebc740310a135ef2650a0328e9fb9e4" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>insert</name></member>
+      <member refid="classqlist_1aa7a78bb99064cf20d89cb3ca3ae76f91" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>operator!=</name></member>
+      <member refid="classqlist_1a331e7be40c397114531ec87586172fc9" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>operator=</name></member>
+      <member refid="classqlist_1a0cf6dcbcd6f22d9c22965a903507eb24" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>operator==</name></member>
+      <member refid="classqlist_1a5fc4fc469261f9b4b414513ba13e4f69" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>pop_back</name></member>
+      <member refid="classqlist_1a9d7af223452104a48a3330555fbbf930" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>pop_front</name></member>
+      <member refid="classqlist_1afa6ec56a58562d8fca4dfb8935337dbf" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>push_back</name></member>
+      <member refid="classqlist_1a2e96c83a0987980a4aed31871c6eaed2" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>push_back</name></member>
+      <member refid="classqlist_1ae77feb140edb734c86c08847ae5cd7a2" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>push_front</name></member>
+      <member refid="classqlist_1a52cb7d2f03a778ddb75e60db33b21b61" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>qlist</name></member>
+      <member refid="classqlist_1afd693376827ff74f68a9e8fe941423ff" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>qlist</name></member>
+      <member refid="classqlist_1a1ff70c6ad32300691b6f2654d5f07389" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>rbegin</name></member>
+      <member refid="classqlist_1a3b0f9338401ca57b688401338992e183" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>rbegin</name></member>
+      <member refid="classqlist_1aced95aa6089448ef4c7be29f514fe330" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>rend</name></member>
+      <member refid="classqlist_1a98013df405e0a02d7170d61286e82fbc" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>rend</name></member>
+      <member refid="classqlist_1a23a88cb08200beb481022b95cfba14b7" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>size</name></member>
+      <member refid="classqlist_1af5f097a587146ebcf78f99553304acf0" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>swap</name></member>
+      <member refid="classui__requests__t_1ae8bc516d219b975e5f7571e94c613454" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>ui_requests_t</name></member>
+      <member refid="classqlist_1ad26cd84e61e501334eb1ec7dde32bf32" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>value_type</name></member>
+      <member refid="classqlist_1a1c1e1f1048b5a04bef5ab6844c002077" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>~qlist</name></member>
+      <member refid="classui__requests__t_1a54696af151481ab4680d6673371500c4" prot="public" virt="non-virtual"><scope>ui_requests_t</scope><name>~ui_requests_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

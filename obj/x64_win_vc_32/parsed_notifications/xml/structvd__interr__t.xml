@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structvd__interr__t" kind="struct" language="C++" prot="public">
+    <compoundname>vd_interr_t</compoundname>
+    <basecompoundref refid="structvd__failure__t" prot="public" virt="non-virtual">vd_failure_t</basecompoundref>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structvd__interr__t_1ab498ee07dcfce6102c4afdea1695a649" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>vd_interr_t::vd_interr_t</definition>
+        <argsstring>(ea_t ea, const qstring &amp;buf)</argsstring>
+        <name>vd_interr_t</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> &amp;</type>
+          <declname>buf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4953" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4953" bodyend="4953"/>
+      </memberdef>
+      <memberdef kind="function" id="structvd__interr__t_1abab3e8e502d136570bdd2056652c86d8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>vd_interr_t::vd_interr_t</definition>
+        <argsstring>(ea_t ea, const char *buf)</argsstring>
+        <name>vd_interr_t</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>buf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4954" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4954" bodyend="4954"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Exception object: decompiler internal error. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3741">
+        <label>vd_interr_t</label>
+        <link refid="structvd__interr__t"/>
+        <childnode refid="3742" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3743">
+        <label>std::exception</label>
+      </node>
+      <node id="3742">
+        <label>vd_failure_t</label>
+        <link refid="structvd__failure__t"/>
+        <childnode refid="3743" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3747">
+        <label>hexrays_failure_t</label>
+        <link refid="structhexrays__failure__t"/>
+        <childnode refid="3748" relation="usage">
+          <edgelabel>str</edgelabel>
+        </childnode>
+      </node>
+      <node id="3744">
+        <label>vd_interr_t</label>
+        <link refid="structvd__interr__t"/>
+        <childnode refid="3745" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3746">
+        <label>std::exception</label>
+      </node>
+      <node id="3748">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="3745">
+        <label>vd_failure_t</label>
+        <link refid="structvd__failure__t"/>
+        <childnode refid="3746" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3747" relation="usage">
+          <edgelabel>hf</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="4952" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="4951" bodyend="4955"/>
+    <listofallmembers>
+      <member refid="structvd__failure__t_1a0504d3936b57bcc79f76e921f63143f9" prot="public" virt="non-virtual"><scope>vd_interr_t</scope><name>desc</name></member>
+      <member refid="structvd__failure__t_1a6f5c4d7174c2a646bac88d9a3334e1f0" prot="public" virt="non-virtual"><scope>vd_interr_t</scope><name>hf</name></member>
+      <member refid="structvd__failure__t_1a7823a5924bbf403cdd1e7cc6c151905b" prot="public" virt="non-virtual"><scope>vd_interr_t</scope><name>vd_failure_t</name></member>
+      <member refid="structvd__failure__t_1a4af4eca2053a13608e533d20dfa5cf43" prot="public" virt="non-virtual"><scope>vd_interr_t</scope><name>vd_failure_t</name></member>
+      <member refid="structvd__failure__t_1af3abad412ef89b57b28356013670cae1" prot="public" virt="non-virtual"><scope>vd_interr_t</scope><name>vd_failure_t</name></member>
+      <member refid="structvd__failure__t_1a5c57cb89c7cc3cb1c071a96f25c13de1" prot="public" virt="non-virtual"><scope>vd_interr_t</scope><name>vd_failure_t</name></member>
+      <member refid="structvd__interr__t_1ab498ee07dcfce6102c4afdea1695a649" prot="public" virt="non-virtual"><scope>vd_interr_t</scope><name>vd_interr_t</name></member>
+      <member refid="structvd__interr__t_1abab3e8e502d136570bdd2056652c86d8" prot="public" virt="non-virtual"><scope>vd_interr_t</scope><name>vd_interr_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

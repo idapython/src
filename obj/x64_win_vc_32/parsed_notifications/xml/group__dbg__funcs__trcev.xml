@@ -1,0 +1,806 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__dbg__funcs__trcev" kind="group">
+    <compoundname>dbg_funcs_trcev</compoundname>
+    <title>Tracing events</title>
+    <innerclass refid="structtev__info__t" prot="public">tev_info_t</innerclass>
+    <innerclass refid="structmemreg__info__t" prot="public">memreg_info_t</innerclass>
+    <innerclass refid="structtev__reg__value__t" prot="public">tev_reg_value_t</innerclass>
+    <innerclass refid="structtev__info__reg__t" prot="public">tev_info_reg_t</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__dbg__funcs__trcev_1ga819324166f57b690cbd7a40dbb7de307" prot="public" static="no">
+        <name>tev_type_t</name>
+        <enumvalue id="group__dbg__funcs__trcev_1gga819324166f57b690cbd7a40dbb7de307a6380eeed850683408ef3422b8be8d575" prot="public">
+          <name>tev_none</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>no event </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__trcev_1gga819324166f57b690cbd7a40dbb7de307a1a318d1a876f3dd72b7c9702e02493b0" prot="public">
+          <name>tev_insn</name>
+          <briefdescription>
+<para>an instruction trace </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__trcev_1gga819324166f57b690cbd7a40dbb7de307a6d68680e982ffa4b7b507fd5236e9486" prot="public">
+          <name>tev_call</name>
+          <briefdescription>
+<para>a function call trace </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__trcev_1gga819324166f57b690cbd7a40dbb7de307afdada038571f1bfe3fbba4db219a9763" prot="public">
+          <name>tev_ret</name>
+          <briefdescription>
+<para>a function return trace </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__trcev_1gga819324166f57b690cbd7a40dbb7de307a1dd60043f2b305b0ba68236e18050075" prot="public">
+          <name>tev_bpt</name>
+          <briefdescription>
+<para>write, read/write, execution trace </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__trcev_1gga819324166f57b690cbd7a40dbb7de307aaf6dc5b980bbf8cde17ba529bbd4f599" prot="public">
+          <name>tev_mem</name>
+          <briefdescription>
+<para>memory layout changed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__trcev_1gga819324166f57b690cbd7a40dbb7de307ad6f2240959687bf7e296a0b48ca4157b" prot="public">
+          <name>tev_event</name>
+          <briefdescription>
+<para>debug event occurred </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__trcev_1gga819324166f57b690cbd7a40dbb7de307a0da66864bfe77a912954a3ecf6edb56d" prot="public">
+          <name>tev_max</name>
+          <briefdescription>
+<para>first unused event type </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Trace event types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1485" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1484" bodyend="1494"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__dbg__funcs__trcev_1ga95e0ece6b20c3fab568ab04e194c4600" prot="public" static="no">
+        <name>save_reg_values_t</name>
+        <enumvalue id="group__dbg__funcs__trcev_1gga95e0ece6b20c3fab568ab04e194c4600a899cb8e09e9806845813283fb0c9e541" prot="public">
+          <name>SAVE_ALL_VALUES</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__trcev_1gga95e0ece6b20c3fab568ab04e194c4600a0688f1b1ea9ecdce1c7e99988b777465" prot="public">
+          <name>SAVE_DIFF</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dbg__funcs__trcev_1gga95e0ece6b20c3fab568ab04e194c4600a751886c2b15a56ab567a036514b2adfe" prot="public">
+          <name>SAVE_NONE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Se <ref refid="group__dbg__funcs__trcev_1gad4eeafc5d64284ca253a92a82a389423" kindref="member">dbg_add_insn_tev()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1701" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1700" bodyend="1705"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__dbg__funcs__trcev_1ga78aea8e7f9564921ac03f32b5e984e40" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structdebug__event__t" kindref="compound">debug_event_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;debug_event_t&gt; dbgevt_vec_t</definition>
+        <argsstring></argsstring>
+        <name>dbgevt_vec_t</name>
+        <briefdescription>
+<para>vector of debug events </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1496" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1496" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dbg__funcs__trcev_1ga543544c00e9b91c88bafc2f4c122e577" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structtev__info__t" kindref="compound">tev_info_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;tev_info_t&gt; tevinfo_vec_t</definition>
+        <argsstring></argsstring>
+        <name>tevinfo_vec_t</name>
+        <briefdescription>
+<para>vector of trace event info objects </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1505" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1505" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dbg__funcs__trcev_1ga6710c026f049624651faeae52a1c7b68" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structmemreg__info__t" kindref="compound">memreg_info_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;memreg_info_t&gt; memreg_infos_t</definition>
+        <argsstring></argsstring>
+        <name>memreg_infos_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1515" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1514" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dbg__funcs__trcev_1gabd88d1be78846cdf464b0c3128879797" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structtev__reg__value__t" kindref="compound">tev_reg_value_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;tev_reg_value_t&gt; tev_reg_values_t</definition>
+        <argsstring></argsstring>
+        <name>tev_reg_values_t</name>
+        <briefdescription>
+<para>vector of trace event reg values </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1687" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1686" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dbg__funcs__trcev_1ga1aac51a9d41aa20762406c15a214e447" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structtev__info__reg__t" kindref="compound">tev_info_reg_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;tev_info_reg_t&gt; tevinforeg_vec_t</definition>
+        <argsstring></argsstring>
+        <name>tevinforeg_vec_t</name>
+        <briefdescription>
+<para>vector of trace elements </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1696" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1695" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1ga4374907209c5c23b15c651b54eac9c09" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi get_tev_qty</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_tev_qty</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get number of trace events available in trace buffer. {Type, Synchronous function, Notification, none (synchronous function)} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1524" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1524" bodyend="1524"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1gad1f5394734d03edbfc0af021bdf4a986" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi get_tev_info</definition>
+        <argsstring>(int n, tev_info_t *tev_info)</argsstring>
+        <name>get_tev_info</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type><ref refid="structtev__info__t" kindref="compound">tev_info_t</ref> *</type>
+          <declname>tev_info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get main information about a trace event. {Type, Synchronous function, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of trace event, is in range 0..<ref refid="group__dbg__funcs__bpts_1ga9cce72aa8f310ddc84ac1f678f59e8c6" kindref="member">get_bpt_qty()</ref>-1. 0 represents the latest added trace event. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">tev_info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>result </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1535" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1535" bodyend="1535"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1ga8561227ca324ff5c90a427138d421e41" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi get_insn_tev_reg_val</definition>
+        <argsstring>(int n, const char *regname, regval_t *regval)</argsstring>
+        <name>get_insn_tev_reg_val</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>regname</declname>
+        </param>
+        <param>
+          <type><ref refid="structregval__t" kindref="compound">regval_t</ref> *</type>
+          <declname>regval</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read a register value from an instruction trace event. {Type, Synchronous function, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of trace event, is in range 0..<ref refid="group__dbg__funcs__bpts_1ga9cce72aa8f310ddc84ac1f678f59e8c6" kindref="member">get_bpt_qty()</ref>-1. 0 represents the latest added trace event. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>regname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of desired register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">regval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>result </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>false if not an instruction event. </para></simplesect>
+<simplesect kind="note"><para>This is the value of the register before the execution of the instruction. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1549" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1549" bodyend="1549"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1ga4152e9cee89fbe669f8f1437de75fa79" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi get_insn_tev_reg_val</definition>
+        <argsstring>(int n, const char *regname, uint64 *ival)</argsstring>
+        <name>get_insn_tev_reg_val</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>regname</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref> *</type>
+          <declname>ival</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1551" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1551" bodyend="1551"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1ga1cbec1a642e3a23c95daece4ce8a57e5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi get_insn_tev_reg_mem</definition>
+        <argsstring>(int n, memreg_infos_t *memmap)</argsstring>
+        <name>get_insn_tev_reg_mem</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type><ref refid="classqvector" kindref="compound">memreg_infos_t</ref> *</type>
+          <declname>memmap</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read the memory pointed by register values from an instruction trace event. {Type, Synchronous function, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of trace event, is in range 0..<ref refid="group__dbg__funcs__bpts_1ga9cce72aa8f310ddc84ac1f678f59e8c6" kindref="member">get_bpt_qty()</ref>-1. 0 represents the latest added trace event. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">memmap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>result </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>false if not an instruction event or no memory is available </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1562" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1562" bodyend="1562"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1ga0eefdbe6c217f2373142a04b7d3de30a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi get_insn_tev_reg_result</definition>
+        <argsstring>(int n, const char *regname, regval_t *regval)</argsstring>
+        <name>get_insn_tev_reg_result</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>regname</declname>
+        </param>
+        <param>
+          <type><ref refid="structregval__t" kindref="compound">regval_t</ref> *</type>
+          <declname>regval</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read the resulting register value from an instruction trace event. {Type, Synchronous function, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of trace event, is in range 0..<ref refid="group__dbg__funcs__bpts_1ga9cce72aa8f310ddc84ac1f678f59e8c6" kindref="member">get_bpt_qty()</ref>-1. 0 represents the latest added trace event. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>regname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of desired register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">regval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>result </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>false if not an instruction trace event or register wasn&apos;t modified. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1574" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1574" bodyend="1574"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1gaa05a4d82f7d04971b34a5c17943641d2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi get_insn_tev_reg_result</definition>
+        <argsstring>(int n, const char *regname, uint64 *ival)</argsstring>
+        <name>get_insn_tev_reg_result</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>regname</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref> *</type>
+          <declname>ival</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1576" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1576" bodyend="1576"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1gafe4e714d4e7cca1c78a12bf89f933d1b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t idaapi</type>
+        <definition>ea_t idaapi get_call_tev_callee</definition>
+        <argsstring>(int n)</argsstring>
+        <name>get_call_tev_callee</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the called function from a function call trace event. {Type, Synchronous function, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of trace event, is in range 0..<ref refid="group__dbg__funcs__bpts_1ga9cce72aa8f310ddc84ac1f678f59e8c6" kindref="member">get_bpt_qty()</ref>-1. 0 represents the latest added trace event. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> if not a function call event. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1586" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1586" bodyend="1586"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1gaa99f4bbc523b045d58e80c10d61c5e2f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t idaapi</type>
+        <definition>ea_t idaapi get_ret_tev_return</definition>
+        <argsstring>(int n)</argsstring>
+        <name>get_ret_tev_return</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the return address from a function return trace event. {Type, Synchronous function, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of trace event, is in range 0..<ref refid="group__dbg__funcs__bpts_1ga9cce72aa8f310ddc84ac1f678f59e8c6" kindref="member">get_bpt_qty()</ref>-1. 0 represents the latest added trace event. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> if not a function return event. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1596" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1596" bodyend="1596"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1ga961c0e4bcaf9cd6f1c8520cbbe960347" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t idaapi</type>
+        <definition>ea_t idaapi get_bpt_tev_ea</definition>
+        <argsstring>(int n)</argsstring>
+        <name>get_bpt_tev_ea</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the address associated to a read, read/write or execution trace event. {Type, Synchronous function, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of trace event, is in range 0..<ref refid="group__dbg__funcs__bpts_1ga9cce72aa8f310ddc84ac1f678f59e8c6" kindref="member">get_bpt_qty()</ref>-1. 0 represents the latest added trace event. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> if not a read, read/write or execution trace event. </para></simplesect>
+<simplesect kind="note"><para>Usually, a breakpoint is associated with a read, read/write or execution trace event. However, the returned address could be any address in the range of this breakpoint. If the breakpoint was deleted after the trace event, the address no longer corresponds to a valid breakpoint. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1611" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1611" bodyend="1611"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1gadf32fdf18a16db448767f6c568828020" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi get_tev_memory_info</definition>
+        <argsstring>(int n, meminfo_vec_t *mi)</argsstring>
+        <name>get_tev_memory_info</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type><ref refid="idd_8hpp_1ab53dc5825c9fb9e10963d2f321721169" kindref="member">meminfo_vec_t</ref> *</type>
+          <declname>mi</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the memory layout, if any, for the specified tev object. {Type, Synchronous function, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of trace event, is in range 0..<ref refid="group__dbg__funcs__bpts_1ga9cce72aa8f310ddc84ac1f678f59e8c6" kindref="member">get_bpt_qty()</ref>-1. 0 represents the latest added trace event. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">mi</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>result </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>false if the tev_t object is not of type <ref refid="group__dbg__funcs__trcev_1gga819324166f57b690cbd7a40dbb7de307aaf6dc5b980bbf8cde17ba529bbd4f599" kindref="member">tev_mem</ref>, true otherwise, with the new memory layout in &quot;mi&quot;. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1623" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1623" bodyend="1623"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1ga611263ead6eccb7acdcb8ebce9c623b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi get_tev_event</definition>
+        <argsstring>(int n, debug_event_t *d)</argsstring>
+        <name>get_tev_event</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type><ref refid="structdebug__event__t" kindref="compound">debug_event_t</ref> *</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the corresponding debug event, if any, for the specified tev object. {Type, Synchronous function, Notification, none (synchronous function)} <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of trace event, is in range 0..<ref refid="group__dbg__funcs__bpts_1ga9cce72aa8f310ddc84ac1f678f59e8c6" kindref="member">get_bpt_qty()</ref>-1. 0 represents the latest added trace event. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">d</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>result </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>false if the tev_t object doesn&apos;t have any associated debug event, true otherwise, with the debug event in &quot;d&quot;. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1635" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1635" bodyend="1635"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1ga88d62978ab2ca7cda8e43c9fa6dbd4d8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t idaapi</type>
+        <definition>ea_t idaapi get_trace_base_address</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_trace_base_address</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the base address of the current trace. {Type, Synchronous function, Notification, none (synchronous function)} <simplesect kind="return"><para>the base address of the currently loaded trace </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1643" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1643" bodyend="1643"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1ga684ffc8e5434c8bcc196450ba557aea1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi set_trace_base_address</definition>
+        <argsstring>(ea_t ea)</argsstring>
+        <name>set_trace_base_address</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set the base address of the current trace. {Type, Synchronous function, Notification, none (synchronous function)} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1650" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1650" bodyend="1650"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1ga5f39409d4d3cb25011cc2a42f418efe6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi dbg_add_thread</definition>
+        <argsstring>(thid_t tid)</argsstring>
+        <name>dbg_add_thread</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add a thread to the current trace. {Type, Synchronous function, Notification, none (synchronous function)} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1657" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1657" bodyend="1657"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1ga9236f91706548dc3517e3778f935dc7b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi dbg_del_thread</definition>
+        <argsstring>(thid_t tid)</argsstring>
+        <name>dbg_del_thread</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delete a thread from the current trace. {Type, Synchronous function, Notification, none (synchronous function)} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1664" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1664" bodyend="1664"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1ga81e7138f4073c10a25f7c7f2ebee3120" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi dbg_add_tev</definition>
+        <argsstring>(tev_type_t type, thid_t tid, ea_t address)</argsstring>
+        <name>dbg_add_tev</name>
+        <param>
+          <type><ref refid="group__dbg__funcs__trcev_1ga819324166f57b690cbd7a40dbb7de307" kindref="member">tev_type_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>address</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add a new trace element to the current trace. {Type, Synchronous function, Notification, none (synchronous function)} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1671" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1671" bodyend="1671"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1gaa83545843c1e27d946fb6ae59a73989d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi dbg_add_many_tevs</definition>
+        <argsstring>(tevinforeg_vec_t *new_tevs)</argsstring>
+        <name>dbg_add_many_tevs</name>
+        <param>
+          <type><ref refid="group__dbg__funcs__trcev_1ga1aac51a9d41aa20762406c15a214e447" kindref="member">tevinforeg_vec_t</ref> *</type>
+          <declname>new_tevs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add many new trace elements to the current trace. {Type, Synchronous function, Notification, none (synchronous function)} <simplesect kind="return"><para>false if the operation failed for any <ref refid="structtev__info__t" kindref="compound">tev_info_t</ref> object </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1714" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1714" bodyend="1714"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1gad4eeafc5d64284ca253a92a82a389423" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi dbg_add_insn_tev</definition>
+        <argsstring>(thid_t tid, ea_t ea, save_reg_values_t save=SAVE_DIFF)</argsstring>
+        <name>dbg_add_insn_tev</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="group__dbg__funcs__trcev_1ga95e0ece6b20c3fab568ab04e194c4600" kindref="member">save_reg_values_t</ref></type>
+          <declname>save</declname>
+          <defval>SAVE_DIFF</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add a new instruction trace element to the current trace. {Type, Synchronous function, Notification, none (synchronous function)} <simplesect kind="return"><para>false if the operation failed, true otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1722" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1722" bodyend="1722"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1ga7a00763a7adff1ba951c69f1b7286526" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi dbg_add_bpt_tev</definition>
+        <argsstring>(thid_t tid, ea_t ea, ea_t bp)</argsstring>
+        <name>dbg_add_bpt_tev</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>bp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add a new breakpoint trace element to the current trace. {Type, Synchronous function, Notification, none (synchronous function)} <simplesect kind="return"><para>false if the operation failed, true otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1730" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1730" bodyend="1730"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1gad8832fd477423f2cdf6c6772a925ab47" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi dbg_add_call_tev</definition>
+        <argsstring>(thid_t tid, ea_t caller, ea_t callee)</argsstring>
+        <name>dbg_add_call_tev</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>caller</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>callee</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add a new call trace element to the current trace. {Type, Synchronous function, Notification, none (synchronous function)} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1737" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1737" bodyend="1737"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1gae6c466472d3fb5e8b0aed976900b233d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi dbg_add_ret_tev</definition>
+        <argsstring>(thid_t tid, ea_t ret_insn, ea_t return_to)</argsstring>
+        <name>dbg_add_ret_tev</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ret_insn</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>return_to</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add a new return trace element to the current trace. {Type, Synchronous function, Notification, none (synchronous function)} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1744" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1744" bodyend="1744"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcev_1ga8955a9ddb50e9b6d55975ff506bfcef8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi dbg_add_debug_event</definition>
+        <argsstring>(debug_event_t *event)</argsstring>
+        <name>dbg_add_debug_event</name>
+        <param>
+          <type><ref refid="structdebug__event__t" kindref="compound">debug_event_t</ref> *</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add a new debug event to the current trace. {Type, Synchronous function, Notification, none (synchronous function)} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1751" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1751" bodyend="1751"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

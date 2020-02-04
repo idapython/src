@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structplugin__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>plugin_info_t</compoundname>
+    <includes refid="loader_8hpp" local="no">loader.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structplugin__info__t_1af6d1ea128573b769d514a6a99a8cea15" prot="public" static="no" mutable="no">
+        <type><ref refid="structplugin__info__t" kindref="compound">plugin_info_t</ref> *</type>
+        <definition>plugin_info_t* plugin_info_t::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+<para>next plugin information </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="735" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="735" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structplugin__info__t_1aa42cffd5f6e6410883c2c12e15368209" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* plugin_info_t::path</definition>
+        <argsstring></argsstring>
+        <name>path</name>
+        <briefdescription>
+<para>full path to the plugin </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="736" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="736" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structplugin__info__t_1a66dcb6154b05c77d024de76f6e30c706" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* plugin_info_t::org_name</definition>
+        <argsstring></argsstring>
+        <name>org_name</name>
+        <briefdescription>
+<para>original short name of the plugin </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="737" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="737" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structplugin__info__t_1ab5984fe2f9d64e069379555d202e239d" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* plugin_info_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>short name of the plugin it will appear in the menu </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="738" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="738" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structplugin__info__t_1abf21e6b47e8915c7a5a0b3d5b877a1a0" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+        <definition>ushort plugin_info_t::org_hotkey</definition>
+        <argsstring></argsstring>
+        <name>org_hotkey</name>
+        <briefdescription>
+<para>original hotkey to run the plugin </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="740" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="740" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structplugin__info__t_1ac2d61cd915aa06dc8351813c17e65566" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+        <definition>ushort plugin_info_t::hotkey</definition>
+        <argsstring></argsstring>
+        <name>hotkey</name>
+        <briefdescription>
+<para>current hotkey to run the plugin </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="741" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="741" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structplugin__info__t_1aeb285d05d3861a902e66ed65b4bfeecd" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t plugin_info_t::arg</definition>
+        <argsstring></argsstring>
+        <name>arg</name>
+        <briefdescription>
+<para>argument used to call the plugin </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="742" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="742" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structplugin__info__t_1a6df096d2c40e05ead4aea6f412636a93" prot="public" static="no" mutable="no">
+        <type><ref refid="classplugin__t" kindref="compound">plugin_t</ref> *</type>
+        <definition>plugin_t* plugin_info_t::entry</definition>
+        <argsstring></argsstring>
+        <name>entry</name>
+        <briefdescription>
+<para>pointer to the plugin if it is already loaded </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="743" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="743" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structplugin__info__t_1a1df4d92e3e01c9c7960026c7a5e1e772" prot="public" static="no" mutable="no">
+        <type>idadll_t</type>
+        <definition>idadll_t plugin_info_t::dllmem</definition>
+        <argsstring></argsstring>
+        <name>dllmem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="744" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="744" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structplugin__info__t_1a972ee9367e06986b6176329c31da2c28" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int plugin_info_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+<para>a copy of <ref refid="classplugin__t_1a42ce3b5fcda2b4835a92a8c6f965b995" kindref="member">plugin_t::flags</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="745" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="745" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structplugin__info__t_1ab9e2e0a63c66554a1bed262ac357a70d" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* plugin_info_t::comment</definition>
+        <argsstring></argsstring>
+        <name>comment</name>
+        <briefdescription>
+<para>a copy of <ref refid="classplugin__t_1a65c40e52a893614e2882a9c3269c61ba" kindref="member">plugin_t::comment</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="746" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="746" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to store Plugin information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2876">
+        <label>plugin_t</label>
+        <link refid="classplugin__t"/>
+      </node>
+      <node id="2875">
+        <label>plugin_info_t</label>
+        <link refid="structplugin__info__t"/>
+        <childnode refid="2875" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="2876" relation="usage">
+          <edgelabel>entry</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" line="734" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/loader.hpp" bodystart="733" bodyend="747"/>
+    <listofallmembers>
+      <member refid="structplugin__info__t_1aeb285d05d3861a902e66ed65b4bfeecd" prot="public" virt="non-virtual"><scope>plugin_info_t</scope><name>arg</name></member>
+      <member refid="structplugin__info__t_1ab9e2e0a63c66554a1bed262ac357a70d" prot="public" virt="non-virtual"><scope>plugin_info_t</scope><name>comment</name></member>
+      <member refid="structplugin__info__t_1a1df4d92e3e01c9c7960026c7a5e1e772" prot="public" virt="non-virtual"><scope>plugin_info_t</scope><name>dllmem</name></member>
+      <member refid="structplugin__info__t_1a6df096d2c40e05ead4aea6f412636a93" prot="public" virt="non-virtual"><scope>plugin_info_t</scope><name>entry</name></member>
+      <member refid="structplugin__info__t_1a972ee9367e06986b6176329c31da2c28" prot="public" virt="non-virtual"><scope>plugin_info_t</scope><name>flags</name></member>
+      <member refid="structplugin__info__t_1ac2d61cd915aa06dc8351813c17e65566" prot="public" virt="non-virtual"><scope>plugin_info_t</scope><name>hotkey</name></member>
+      <member refid="structplugin__info__t_1ab5984fe2f9d64e069379555d202e239d" prot="public" virt="non-virtual"><scope>plugin_info_t</scope><name>name</name></member>
+      <member refid="structplugin__info__t_1af6d1ea128573b769d514a6a99a8cea15" prot="public" virt="non-virtual"><scope>plugin_info_t</scope><name>next</name></member>
+      <member refid="structplugin__info__t_1abf21e6b47e8915c7a5a0b3d5b877a1a0" prot="public" virt="non-virtual"><scope>plugin_info_t</scope><name>org_hotkey</name></member>
+      <member refid="structplugin__info__t_1a66dcb6154b05c77d024de76f6e30c706" prot="public" virt="non-virtual"><scope>plugin_info_t</scope><name>org_name</name></member>
+      <member refid="structplugin__info__t_1aa42cffd5f6e6410883c2c12e15368209" prot="public" virt="non-virtual"><scope>plugin_info_t</scope><name>path</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

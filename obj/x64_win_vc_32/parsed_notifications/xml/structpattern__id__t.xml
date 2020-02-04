@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structpattern__id__t" kind="struct" language="C++" prot="public">
+    <compoundname>pattern_id_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structpattern__id__t_1abc41d3ff93a0397157acfd186dc28760" prot="public" static="no" mutable="no">
+        <type>pattern_type_t</type>
+        <definition>pattern_type_t pattern_id_t::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="325" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpattern__id__t_1a5c8123f80c37aa9636994089147b8fef" prot="public" static="no" mutable="no">
+        <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref></type>
+        <definition>bytevec_t pattern_id_t::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="326" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structpattern__id__t_1a51987dbe19467ac3d6f51549db2f7692" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>pattern_id_t::pattern_id_t</definition>
+        <argsstring>()</argsstring>
+        <name>pattern_id_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="327" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="327" bodyend="328"/>
+      </memberdef>
+      <memberdef kind="function" id="structpattern__id__t_1ad223790575b9a8009f425b36c7e148f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pattern_id_t::swap</definition>
+        <argsstring>(pattern_id_t &amp;other)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="structpattern__id__t" kindref="compound">pattern_id_t</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="330" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structpattern__id__t_1a1aaef07ab03f811673df2192545cf362" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pattern_id_t::serialize</definition>
+        <argsstring>(bytevec_t *out, int version) const</argsstring>
+        <name>serialize</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="331" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structpattern__id__t_1a69716fe90169c6482b9abe7e7afb79d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool pattern_id_t::deserialize</definition>
+        <argsstring>(const uchar **ptr, size_t len, int version)</argsstring>
+        <name>deserialize</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="332" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2789">
+        <label>pattern_id_t</label>
+        <link refid="structpattern__id__t"/>
+        <childnode refid="2790" relation="usage">
+          <edgelabel>data</edgelabel>
+        </childnode>
+      </node>
+      <node id="2791">
+        <label>qvector&lt; uchar &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2790">
+        <label>bytevec_t</label>
+        <link refid="classbytevec__t"/>
+        <childnode refid="2791" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="324" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="323" bodyend="333"/>
+    <listofallmembers>
+      <member refid="structpattern__id__t_1a5c8123f80c37aa9636994089147b8fef" prot="public" virt="non-virtual"><scope>pattern_id_t</scope><name>data</name></member>
+      <member refid="structpattern__id__t_1a69716fe90169c6482b9abe7e7afb79d8" prot="public" virt="non-virtual"><scope>pattern_id_t</scope><name>deserialize</name></member>
+      <member refid="structpattern__id__t_1a51987dbe19467ac3d6f51549db2f7692" prot="public" virt="non-virtual"><scope>pattern_id_t</scope><name>pattern_id_t</name></member>
+      <member refid="structpattern__id__t_1a1aaef07ab03f811673df2192545cf362" prot="public" virt="non-virtual"><scope>pattern_id_t</scope><name>serialize</name></member>
+      <member refid="structpattern__id__t_1ad223790575b9a8009f425b36c7e148f5" prot="public" virt="non-virtual"><scope>pattern_id_t</scope><name>swap</name></member>
+      <member refid="structpattern__id__t_1abc41d3ff93a0397157acfd186dc28760" prot="public" virt="non-virtual"><scope>pattern_id_t</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___a_s_k_b_t_n__" kind="group">
+    <compoundname>ASKBTN_</compoundname>
+    <title>Button IDs</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___a_s_k_b_t_n___1ga0b984bdb2f5445b0e399b6a6833c802d" prot="public" static="no">
+        <name>ASKBTN_YES</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Yes button. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6325" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s_k_b_t_n___1gaef4451a9f8112fd31f59e8a37d1f3c6e" prot="public" static="no">
+        <name>ASKBTN_NO</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>No button. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6326" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s_k_b_t_n___1gafd0bbdf5eec4b1aaddb3a4ebbd5fd309" prot="public" static="no">
+        <name>ASKBTN_CANCEL</name>
+        <initializer>-1</initializer>
+        <briefdescription>
+<para>Cancel button. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6327" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s_k_b_t_n___1ga25e40a9a57775159dcf569a2e8faf38d" prot="public" static="no">
+        <name>ASKBTN_BTN1</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>First (Yes) button. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6328" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6328" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s_k_b_t_n___1ga82f651b58f13c2fd7a28d3fcf022d0b4" prot="public" static="no">
+        <name>ASKBTN_BTN2</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Second (No) button. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6329" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_s_k_b_t_n___1ga38a6340f1408618e3634f818915cde8e" prot="public" static="no">
+        <name>ASKBTN_BTN3</name>
+        <initializer>-1</initializer>
+        <briefdescription>
+<para>Third (Cancel) button. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6330" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6330" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>used by <ref refid="kernwin_8hpp_1a29d876e50747b86d842c0abaf6d0d7d8" kindref="member">ask_yn()</ref> and <ref refid="kernwin_8hpp_1a01a20c3250f326400f7b4becd279d81b" kindref="member">ask_buttons()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

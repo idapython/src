@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___b_p_t_e_v__" kind="group">
+    <compoundname>BPTEV_</compoundname>
+    <title>Breakpoint modification events</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___b_p_t_e_v___1ga953ca3f0482be18968f4a48d79ba6bbd" prot="public" static="no">
+        <name>BPTEV_ADDED</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Breakpoint has been added. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="180" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t_e_v___1gae4da0b80e644519d408075afad08d5ea" prot="public" static="no">
+        <name>BPTEV_REMOVED</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Breakpoint has been removed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="181" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___b_p_t_e_v___1ga422b34dcaae60c2a0ab30d82f8460b39" prot="public" static="no">
+        <name>BPTEV_CHANGED</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Breakpoint has been modified. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="182" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as &apos;bptev_code&apos; parameter to <ref refid="dbg_8hpp_1ac67a564945a2c1721691aa2f657a908cae7c345bea8999b97ebdec4131a3a33ec" kindref="member">dbg_bpt_changed</ref> callback </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

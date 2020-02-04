@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___e_x_f_l__" kind="group">
+    <compoundname>EXFL_</compoundname>
+    <title>Expression attributes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___e_x_f_l___1ga1ecb041b45c4a83925eb7aa419c590f5" prot="public" static="no">
+        <name>EXFL_CPADONE</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>pointer arithmetic correction done </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5651" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5651" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___e_x_f_l___1ga706ea35c0f22d780db644924a2b93d69" prot="public" static="no">
+        <name>EXFL_LVALUE</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>expression is lvalue even if it doesn&apos;t look like it </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5652" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5652" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___e_x_f_l___1ga66ae2d4ab8ad523a944d7fee5d47d96b" prot="public" static="no">
+        <name>EXFL_FPOP</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>floating point operation </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5653" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5653" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___e_x_f_l___1ga294d66cd552377b8b4b9061f4837520d" prot="public" static="no">
+        <name>EXFL_ALONE</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>standalone helper </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5654" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5654" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___e_x_f_l___1ga5f037b117acfd288d5008e5ed9743cab" prot="public" static="no">
+        <name>EXFL_CSTR</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>string literal </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5655" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5655" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___e_x_f_l___1gac33ac962623669517f70f1614399ce9a" prot="public" static="no">
+        <name>EXFL_PARTIAL</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>type of the expression is considered partial </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5656" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5656" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___e_x_f_l___1ga8151eabb19e66480ce17784cab4ab14b" prot="public" static="no">
+        <name>EXFL_UNDEF</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+<para>expression uses undefined value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5657" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5657" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___e_x_f_l___1gac3bd791e5c656bff8e2c78d8cfc49e61" prot="public" static="no">
+        <name>EXFL_JUMPOUT</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para>jump out-of-function </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5658" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5658" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___e_x_f_l___1ga9ab7c406590be25350fd04ff7ae84240" prot="public" static="no">
+        <name>EXFL_VFTABLE</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+<para>is ptr to vftable (used for cot_memptr, cot_memref) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5659" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5659" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___e_x_f_l___1ga04856cb51088c07bb6828a9c54f73979" prot="public" static="no">
+        <name>EXFL_ALL</name>
+        <initializer>0x01FF</initializer>
+        <briefdescription>
+<para>all currently defined bits </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5660" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5660" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used in <ref refid="structcexpr__t_1a107505d936acfc162ca0f75ea50a0a83" kindref="member">cexpr_t::exflags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

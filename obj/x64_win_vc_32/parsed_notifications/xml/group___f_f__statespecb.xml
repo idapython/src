@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_f__statespecb" kind="group">
+    <compoundname>FF_statespecb</compoundname>
+    <title>Bits: specific state information</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___f_f__statespecb_1ga12d8165f474f9ce7b446a01cd62c2487" prot="public" static="no">
+        <name>MS_COMM</name>
+        <initializer>0x000FF800</initializer>
+        <briefdescription>
+<para>Mask of common bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="843" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="843" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__statespecb_1ga9d6bc18df575117f77e88358999ae774" prot="public" static="no">
+        <name>FF_COMM</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>Has comment ? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="844" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="844" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__statespecb_1ga994226340d4ab0a913663fc0aaffce8e" prot="public" static="no">
+        <name>FF_REF</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>has references </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="845" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="845" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__statespecb_1ga05134ba46e9573b1444b30a5b9ef7e14" prot="public" static="no">
+        <name>FF_LINE</name>
+        <initializer>0x00002000</initializer>
+        <briefdescription>
+<para>Has next or prev lines ? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="846" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="846" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__statespecb_1ga4bee89a4355fe06b0cf8f8881475960c" prot="public" static="no">
+        <name>FF_NAME</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+<para>Has name ? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="847" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="847" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__statespecb_1ga46eea0cd558a2594c66d6cc3241833c6" prot="public" static="no">
+        <name>FF_LABL</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+<para>Has dummy name? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="848" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="848" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__statespecb_1ga8042b10b442ee112b6d00e14bc135623" prot="public" static="no">
+        <name>FF_FLOW</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+<para>Exec flow from prev instruction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="849" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="849" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__statespecb_1gadeb69389901255a7f2cfaeb81336a620" prot="public" static="no">
+        <name>FF_SIGN</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+<para>Inverted sign of operands. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="850" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="850" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__statespecb_1ga58cac9e7dc42b33513c0224d0e245c49" prot="public" static="no">
+        <name>FF_BNOT</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+<para>Bitwise negation of operands. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="851" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="851" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_f__statespecb_1ga21bb5ad0320c00cd43c208362c523b6c" prot="public" static="no">
+        <name>FF_UNUSED</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+<para>unused bit (was used for variable bytes) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="852" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="852" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Flags keep information common to all four states of bytes. This information will not be automatically discarded during transitions between different states. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

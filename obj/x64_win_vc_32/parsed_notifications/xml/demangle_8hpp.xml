@@ -1,0 +1,1257 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="demangle_8hpp" kind="file" language="C++">
+    <compoundname>demangle.hpp</compoundname>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="demangle_8hpp_1acdfbbde97135fd68b94bb34d266b5228" prot="public" static="no">
+        <name>ME_INTERR</name>
+        <initializer>-1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="14" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1ac5aae03518e32c27aea329772bb91441" prot="public" static="no">
+        <name>ME_PARAMERR</name>
+        <initializer>-2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="15" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a9e5b0ea785b67f244230c4785dbac053" prot="public" static="no">
+        <name>ME_ILLSTR</name>
+        <initializer>-3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="16" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1ad876dfbf20dedcd2c6926ac0ed3b3a51" prot="public" static="no">
+        <name>ME_SMALLANS</name>
+        <initializer>-4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="17" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a695b5f2a1829d6fbf19d8084e334e1e0" prot="public" static="no">
+        <name>ME_FRAME</name>
+        <initializer>-5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="22" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a84184a0ad556a32b799951ff980d24b2" prot="public" static="no">
+        <name>ME_NOCOMP</name>
+        <initializer>-6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="24" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1afa5d7fee4b7e587c42f4dd7aa01fc56f" prot="public" static="no">
+        <name>ME_ERRAUTO</name>
+        <initializer>-7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="25" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1ab3b992cc223bf2135ff55b994c609010" prot="public" static="no">
+        <name>ME_NOHASHMEM</name>
+        <initializer>-8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="26" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a861883c90591ba7f729911d309a4c4e3" prot="public" static="no">
+        <name>ME_NOSTRMEM</name>
+        <initializer>-9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="27" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a0381b87cd4bc568930ccfbb1229096b6" prot="public" static="no">
+        <name>ME_NOERROR_LIMIT</name>
+        <initializer>-10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="29" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1ae6c717bc18538a9fa2a8d7091a0a828c" prot="public" static="no">
+        <name>M_PRCMSK</name>
+        <initializer>0x0000000F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="33" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a3cd15610c7c337aea18d30c0d477fef5" prot="public" static="no">
+        <name>MT_DEFAULT</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="34" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1aabb0a4249feb8ff226d62425d675ac05" prot="public" static="no">
+        <name>MT_CDECL</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="35" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1ae903179879562426735be67e65404552" prot="public" static="no">
+        <name>MT_PASCAL</name>
+        <initializer>0x00000003</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="36" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1aed8d21648fa7c8fe8a683f458ae86135" prot="public" static="no">
+        <name>MT_STDCALL</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="37" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1aafbb70d18fdf8f4335ffe60d763560c1" prot="public" static="no">
+        <name>MT_FASTCALL</name>
+        <initializer>0x00000005</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="38" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a331dafd88bf04271ea84e05009fcf609" prot="public" static="no">
+        <name>MT_THISCALL</name>
+        <initializer>0x00000006</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="39" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a84ec120b8e2c107b0ff339cc1faca7e0" prot="public" static="no">
+        <name>MT_FORTRAN</name>
+        <initializer>0x00000007</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="40" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a48a354061223ab6616ebec92f4f8dab4" prot="public" static="no">
+        <name>MT_SYSCALL</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="41" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a7fd9aaa043604ff904566c2b791830f4" prot="public" static="no">
+        <name>MT_INTERRUPT</name>
+        <initializer>0x00000009</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="42" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a52ba59cf4cf53aa8be6ec9404d1d1db1" prot="public" static="no">
+        <name>MT_MSFASTCALL</name>
+        <initializer>0x0000000A</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="43" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1ae63ce5fbfc42f99abc66aa5f32d7c9f9" prot="public" static="no">
+        <name>MT_CLRCALL</name>
+        <initializer>0x0000000B</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="44" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a0223f1173039e626a700c3702c2c2b94" prot="public" static="no">
+        <name>MT_DMDCALL</name>
+        <initializer>0x0000000C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="45" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1aba2c32d46ab1780446a3fcb7831fcd06" prot="public" static="no">
+        <name>MT_VECTORCALL</name>
+        <initializer>0x0000000D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="46" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a3c71236587893a5ffb3930748e77d588" prot="public" static="no">
+        <name>MT_REGCALL</name>
+        <initializer>0x0000000E</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="47" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a0d390e13fefb9a93620710eee10c535a" prot="public" static="no">
+        <name>MT_LOCALNAME</name>
+        <initializer>0x0000000F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="50" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1aa96bd9683663f905e26126390cc94859" prot="public" static="no">
+        <name>M_SAVEREGS</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="54" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1aae4e8afd180cad0a73e212930d8f9620" prot="public" static="no">
+        <name>M_CLASS</name>
+        <initializer>0x000000E0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="56" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a58bae00e6bb38862b036b425d88622b8" prot="public" static="no">
+        <name>MT_PUBLIC</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="57" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a55cde080519d025fc0a1cb768e3c6a5a" prot="public" static="no">
+        <name>MT_PRIVATE</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="58" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a3ca14662f454499f475ca2219d5db429" prot="public" static="no">
+        <name>MT_PROTECT</name>
+        <initializer>0x00000060</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="59" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a4f82eb84cca33bf1db4c2e3d4322425a" prot="public" static="no">
+        <name>MT_MEMBER</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="60" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1aed4cde58fcb19b7d4d42f2302fbc09a2" prot="public" static="no">
+        <name>MT_VTABLE</name>
+        <initializer>0x000000A0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="61" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1aef0ad57ae9397ef1fc968a037848cd7d" prot="public" static="no">
+        <name>MT_RTTI</name>
+        <initializer>0x000000C0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="62" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a29ea9a00c42ab1f97952b868e692b040" prot="public" static="no">
+        <name>M_PARMSK</name>
+        <initializer>0x0000FF00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="65" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1aa45e0dbb51e37baaacf29bce774ff8e0" prot="public" static="no">
+        <name>MT_PARSHF</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="67" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a7d262b9056e087ca3c2664eae29bc8a9" prot="public" static="no">
+        <name>MT_PARMAX</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="68" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1af141b41299673b30252ac00934832502" prot="public" static="no">
+        <name>M_ELLIPSIS</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="73" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1aedd630b3239e79dae1bce78734b2fbd9" prot="public" static="no">
+        <name>MT_VOIDARG</name>
+        <initializer>0x0001FF00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="74" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a16673ca091d32d993431290dc80050e4" prot="public" static="no">
+        <name>M_STATIC</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="75" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a23d44791b738b85c2101af19d43fe249" prot="public" static="no">
+        <name>M_VIRTUAL</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="79" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1ab4a9115c1e441a8bcf5358071ffae924" prot="public" static="no">
+        <name>M_AUTOCRT</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="81" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1ab81bd848d102d50124bb3ed862fec1c3" prot="public" static="no">
+        <name>M_TYPMASK</name>
+        <initializer>0x00700000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="84" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1ae33e4668a78c82c936599fbc4d7045d0" prot="public" static="no">
+        <name>MT_OPERAT</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="85" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a244e0dca70a1810aaa2356304c2be00b" prot="public" static="no">
+        <name>MT_CONSTR</name>
+        <initializer>0x00200000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="86" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a6b01cf45a69e11a501e4f0d131bfa671" prot="public" static="no">
+        <name>MT_DESTR</name>
+        <initializer>0x00300000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="87" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a390039cbd82a25fb6b4fcb0b583bc49f" prot="public" static="no">
+        <name>MT_CASTING</name>
+        <initializer>0x00400000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="88" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1ac2a1638dfb34f7e365ba3537d94322bb" prot="public" static="no">
+        <name>MT_CLRCDTOR</name>
+        <initializer>0x00500000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="89" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a7a3430f24deae22eb2a1053b55f8a6b5" prot="public" static="no">
+        <name>M_TRUNCATE</name>
+        <initializer>0x00800000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="92" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1adfa12cf00b93428d9ac6503faabeb92e" prot="public" static="no">
+        <name>M_THUNK</name>
+        <initializer>0x01000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="93" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a8f01f0b78420ae98baa3fac2ce2021b3" prot="public" static="no">
+        <name>M_ANONNSP</name>
+        <initializer>0x02000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="94" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a857cf7fa94039c7d5bcb594e251b3f22" prot="public" static="no">
+        <name>M_TMPLNAM</name>
+        <initializer>0x04000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="103" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a99198294d9ce4a568ea60688c9a49ffa" prot="public" static="no">
+        <name>M_DBGNAME</name>
+        <initializer>0x08000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="107" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a411f693c074c65ee4d923418b4850ecc" prot="public" static="no">
+        <name>M_COMPILER</name>
+        <initializer>0x70000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="113" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a24a6296f0189aaf08094c476f3f12e75" prot="public" static="no">
+        <name>MT_MSCOMP</name>
+        <initializer>0x10000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="114" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a5d1be282c5b4df29582e7cec5bbe2e44" prot="public" static="no">
+        <name>MT_BORLAN</name>
+        <initializer>0x20000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="115" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a6bf3ddc1c52bcfa06ee47577ecf1d92e" prot="public" static="no">
+        <name>MT_WATCOM</name>
+        <initializer>0x30000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="116" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1ad91acf2385569b5f95a2db3e60242b75" prot="public" static="no">
+        <name>MT_OTHER</name>
+        <initializer>0x40000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="117" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1af7970155cfbf5ed9a0151ef7a2864ff8" prot="public" static="no">
+        <name>MT_GNU</name>
+        <initializer>0x50000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="120" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1ac668f331c931dbe5e824a5d36bb3448d" prot="public" static="no">
+        <name>MT_GCC3</name>
+        <initializer>0x60000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="121" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a6c961fb027941b1f0fadab120a6d2d80" prot="public" static="no">
+        <name>MT_VISAGE</name>
+        <initializer>0x70000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="126" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1ab5fc12585402e54b482659ba055d8de0" prot="public" static="no">
+        <name>MNG_PTRMSK</name>
+        <initializer>0x7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="132" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a4262ffa7ec44c970ab53ab92cf464df2" prot="public" static="no">
+        <name>MNG_DEFNEAR</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="134" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1aeeb3cf80d9dea1110023f15e0c7fb7c3" prot="public" static="no">
+        <name>MNG_DEFNEARANY</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="135" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1ace06dae3610297a10655a450eaf937a4" prot="public" static="no">
+        <name>MNG_DEFFAR</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="136" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a792b7d652f0d92d866a79cb5c7a6b6af" prot="public" static="no">
+        <name>MNG_NOPTRTYP16</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="137" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a5a39d41b2280091c9f72f6b608ba1351" prot="public" static="no">
+        <name>MNG_DEFHUGE</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="138" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1aeac6208885fbd10c13a70e0df47f9e00" prot="public" static="no">
+        <name>MNG_DEFPTR64</name>
+        <initializer>0x5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="139" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a2c6506e050467b9faae75a467da5a413" prot="public" static="no">
+        <name>MNG_DEFNONE</name>
+        <initializer>0x6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="141" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1af493fa3b102aa175843f210d0a974e24" prot="public" static="no">
+        <name>MNG_NOPTRTYP</name>
+        <initializer>0x7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="142" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a60f4778b1e9c7ff7023dc9ca497c8360" prot="public" static="no">
+        <name>MNG_NODEFINIT</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="144" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1aad25f8a427ead733f7e225e3b0c3faf2" prot="public" static="no">
+        <name>MNG_NOUNDERSCORE</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="152" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1af048722a8eb43a1b17ef882e91afc271" prot="public" static="no">
+        <name>MNG_NOTYPE</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="153" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a48dbe61ae72be192ac4f817c3bf1da89" prot="public" static="no">
+        <name>MNG_NORETTYPE</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="154" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a19251c8dd69926ef6b4f5af1776dc702" prot="public" static="no">
+        <name>MNG_NOBASEDT</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="155" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1ac913145037763e72b373943f3c075670" prot="public" static="no">
+        <name>MNG_NOCALLC</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="158" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1ab0f77565ae59f4a9888d507c671aaa67" prot="public" static="no">
+        <name>MNG_NOPOSTFC</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="160" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a695a9f2446164b6ce7c043cc57639499" prot="public" static="no">
+        <name>MNG_NOSCTYP</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="161" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a77db6dd0455fd2129db691487a3857a5" prot="public" static="no">
+        <name>MNG_NOTHROW</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="164" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a8567fedd0a1df5764aba7aa608e3a292" prot="public" static="no">
+        <name>MNG_NOSTVIR</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="166" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a2d5ef77a4752b4ad97293eeb97d3665c" prot="public" static="no">
+        <name>MNG_NOECSU</name>
+        <initializer>0x00002000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="168" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a3af9507644ec47bc7c7484a3e9efdd80" prot="public" static="no">
+        <name>MNG_NOCSVOL</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="169" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a4caa2c44fe70b40f7ef3c9c3a594fc27" prot="public" static="no">
+        <name>MNG_NOCLOSUR</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="174" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a78b173c217ca904b78f02bd4824d4998" prot="public" static="no">
+        <name>MNG_NOUNALG</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="176" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a64d0970e639c48b913d003827b86c772" prot="public" static="no">
+        <name>MNG_NOMANAGE</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="178" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a286786ee08583f421239762d683f1f50" prot="public" static="no">
+        <name>MNG_NOMODULE</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="181" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1aef252d8c364803633806b4b264d95726" prot="public" static="no">
+        <name>MNG_SHORT_S</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="184" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a7cd8a5849f39907203c33a5b53b5da72" prot="public" static="no">
+        <name>MNG_SHORT_U</name>
+        <initializer>0x00200000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="185" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1aaac416ccb78b46247e41dc4d71a8b603" prot="public" static="no">
+        <name>MNG_ZPT_SPACE</name>
+        <initializer>0x00400000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="186" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a5610b71d3438069f035c2c89a327056c" prot="public" static="no">
+        <name>MNG_DROP_IMP</name>
+        <initializer>0x00800000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="189" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1adc699f2e47bf174d7d7f5fe32dab442d" prot="public" static="no">
+        <name>MNG_IGN_ANYWAY</name>
+        <initializer>0x02000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="192" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a177b36bd029be43017e7d3f9b7908c8b" prot="public" static="no">
+        <name>MNG_IGN_JMP</name>
+        <initializer>0x04000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="193" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a5cf6ddcb28a9e217730a20539057db15" prot="public" static="no">
+        <name>MNG_MOVE_JMP</name>
+        <initializer>0x08000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="194" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1aec5026f07993bb7ab99926e817c8a43f" prot="public" static="no">
+        <name>MNG_COMPILER_MSK</name>
+        <initializer>0x70000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="199" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a520ae25ca84245e8206055280ebe3c1b" prot="public" static="no">
+        <name>MNG_SHORT_FORM</name>
+        <initializer>(MNG_NOTYPE|MNG_NORETTYPE|MNG_NOPOSTFC|MNG_NOPTRTYP \
+      | MNG_NOSCTYP|MNG_NOTHROW|MNG_NOSTVIR|MNG_NOECSU|MNG_NOCLOSUR \
+      | MNG_SHORT_U|MNG_DROP_IMP|MNG_NOUNALG|MNG_NOMANAGE \
+      | MNG_IGN_JMP|MNG_MOVE_JMP|MNG_IGN_ANYWAY)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="201" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a3cfa910e8e49e98985620e0ff1368026" prot="public" static="no">
+        <name>MNG_LONG_FORM</name>
+        <initializer>(MNG_ZPT_SPACE | MNG_IGN_JMP | MNG_IGN_ANYWAY | MNG_NOPTRTYP)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="205" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="demangle_8hpp_1a2e544f2dd7ddb1a284b55defc4f48759" prot="public" static="no">
+        <name>MNG_CALC_VALID</name>
+        <initializer>(MNG_COMPILER_MSK|MNG_IGN_JMP|MNG_IGN_ANYWAY)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="208" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="demangle_8hpp_1ad1f3abf89d72ef198635a396e8407a18" prot="public" static="no">
+        <name>dem_mode_t</name>
+        <enumvalue id="demangle_8hpp_1ad1f3abf89d72ef198635a396e8407a18a72bef4d0a988f35ae8b33db052a06ca0" prot="public">
+          <name>dem_mode16</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="demangle_8hpp_1ad1f3abf89d72ef198635a396e8407a18aa114aa8262eca21e49838df04dcea9b4" prot="public">
+          <name>dem_mode32</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="demangle_8hpp_1ad1f3abf89d72ef198635a396e8407a18aca5351a216e7a051836eedd37e5b6db9" prot="public">
+          <name>dem_mode64</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="268" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="267" bodyend="272"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="demangle_8hpp_1a3f8d160bc66897553c0f4e63d3947d6c" prot="public" static="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref> ida_export</type>
+        <definition>typedef int32 ida_export demangler_t(char *answer, uint answer_length, const char *str, uint32 disable_mask)</definition>
+        <argsstring>(char *answer, uint answer_length, const char *str, uint32 disable_mask)</argsstring>
+        <name>demangler_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="214" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="demangle_8hpp_1a4cf6264050add6243af9e18774275fab" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int mangled_name_type_t</definition>
+        <argsstring></argsstring>
+        <name>mangled_name_type_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="260" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="demangle_8hpp_1a82a0fe5c2966c4c316ffb14869a5d6f7" prot="public" static="no" mutable="no">
+        <type>idaman demangler_t</type>
+        <definition>idaman demangler_t demangle</definition>
+        <argsstring></argsstring>
+        <name>demangle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="220" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="demangle_8hpp_1a015accbfe10df5532949b3b165072a54" prot="public" static="no" mutable="no">
+        <type>const mangled_name_type_t</type>
+        <definition>const mangled_name_type_t MANGLED_CODE</definition>
+        <argsstring></argsstring>
+        <name>MANGLED_CODE</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="261" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="demangle_8hpp_1a6f3e8f43031a87a266d8ada9660fc5b7" prot="public" static="no" mutable="no">
+        <type>const mangled_name_type_t</type>
+        <definition>const mangled_name_type_t MANGLED_DATA</definition>
+        <argsstring></argsstring>
+        <name>MANGLED_DATA</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="262" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="demangle_8hpp_1af961078023c01ab8c1e26421627190c1" prot="public" static="no" mutable="no">
+        <type>const mangled_name_type_t</type>
+        <definition>const mangled_name_type_t MANGLED_UNKNOWN</definition>
+        <argsstring></argsstring>
+        <name>MANGLED_UNKNOWN</name>
+        <initializer>= 2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="263" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="demangle_8hpp_1a7963f6af9b36897b6af4d3c9b9bd696b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman mangled_name_type_t ida_export</type>
+        <definition>idaman mangled_name_type_t ida_export get_mangled_name_type</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>get_mangled_name_type</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="265" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="demangle_8hpp_1abfde350d8537564060bb2a201d173026" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_demangler</definition>
+        <argsstring>(dem_mode_t mode)</argsstring>
+        <name>init_demangler</name>
+        <param>
+          <type>dem_mode_t</type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="273" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="demangle_8hpp_1a9b9b7d54935f99134ed16ec54fa52a9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_mangled_string_name</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>is_mangled_string_name</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp" line="275" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/demangle.hpp"/>
+  </compounddef>
+</doxygen>

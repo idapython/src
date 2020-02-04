@@ -1,0 +1,257 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__color__conv" kind="group">
+    <compoundname>color_conv</compoundname>
+    <title>Convenience functions</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__color__conv_1ga70ac162eb14f4127562b21400df74fc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export tag_addr</definition>
+        <argsstring>(qstring *buf, ea_t ea, bool ins=false)</argsstring>
+        <name>tag_addr</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>ins</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Insert an address mark into a string. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the output buffer; the tag will be appended or inserted into it </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>address to include </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ins</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if true, the tag will be inserted at the beginning of the buffer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="232" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__color__conv_1ga977ae1529433ece5e19bd8fbe4e4d3e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> const char *ida_export</type>
+        <definition>idaman THREAD_SAFE const char* ida_export tag_advance</definition>
+        <argsstring>(const char *line, int cnt)</argsstring>
+        <name>tag_advance</name>
+        <param>
+          <type>const char *</type>
+          <declname>line</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>cnt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Move pointer to a &apos;line&apos; to &apos;cnt&apos; positions right. Take into account escape sequences. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>line</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to string </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cnt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of positions to move right </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>moved pointer </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="241" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__color__conv_1ga595b8ce3ded5d7277a1ff6610c87be92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> const char *ida_export</type>
+        <definition>idaman THREAD_SAFE const char* ida_export tag_skipcodes</definition>
+        <argsstring>(const char *line)</argsstring>
+        <name>tag_skipcodes</name>
+        <param>
+          <type>const char *</type>
+          <declname>line</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Move the pointer past all color codes. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>line</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>can&apos;t be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>moved pointer, can&apos;t be NULL </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="248" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__color__conv_1ga59e1fcaea492015b27d018626536c16d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> const char *ida_export</type>
+        <definition>idaman THREAD_SAFE const char* ida_export tag_skipcode</definition>
+        <argsstring>(const char *line)</argsstring>
+        <name>tag_skipcode</name>
+        <param>
+          <type>const char *</type>
+          <declname>line</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Skip one color code. This function should be used if you are interested in color codes and want to analyze all of them. Otherwise <ref refid="group__color__conv_1ga595b8ce3ded5d7277a1ff6610c87be92" kindref="member">tag_skipcodes()</ref> function is better since it will skip all colors at once. This function will skip the current color code if there is one. If the current symbol is not a color code, it will return the input. <simplesect kind="return"><para>moved pointer </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="259" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__color__conv_1ga003f04c3833186cf86d813f8fb6eec01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman THREAD_SAFE ssize_t ida_export tag_strlen</definition>
+        <argsstring>(const char *line)</argsstring>
+        <name>tag_strlen</name>
+        <param>
+          <type>const char *</type>
+          <declname>line</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calculate length of a colored string This function computes the length in unicode codepoints of a line <simplesect kind="return"><para>the number of codepoints in the line, or -1 on error </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="266" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__color__conv_1ga1cfb095056edf7a38b07f99e8f23f499" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> ida_export</type>
+        <definition>idaman THREAD_SAFE ssize_t ida_export tag_remove</definition>
+        <argsstring>(qstring *buf, const char *str, int init_level=0)</argsstring>
+        <name>tag_remove</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>init_level</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Remove color escape sequences from a string. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output buffer with the string, can not be NULL. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>input string, can not be NULL. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>init_level</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>used to verify that COLOR_ON and COLOR_OFF tags are balanced </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>length of resulting string, -1 if error </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="275" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__color__conv_1ga353774dc425ae61ade810ea105904b2c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>THREAD_SAFE ssize_t idaapi tag_remove</definition>
+        <argsstring>(qstring *buf, const qstring &amp;str, int init_level=0)</argsstring>
+        <name>tag_remove</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> &amp;</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>init_level</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="277" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="277" bodyend="280"/>
+      </memberdef>
+      <memberdef kind="function" id="group__color__conv_1ga6189dd71c47e13e39ce1fd1b52696913" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>THREAD_SAFE ssize_t idaapi tag_remove</definition>
+        <argsstring>(qstring *buf, int init_level=0)</argsstring>
+        <name>tag_remove</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>init_level</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="282" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="282" bodyend="287"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Higher level convenience functions are defined in <ref refid="ua_8hpp" kindref="compound">ua.hpp</ref>. Please use the following functions only if functions from <ref refid="ua_8hpp" kindref="compound">ua.hpp</ref> are not useful in your case. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

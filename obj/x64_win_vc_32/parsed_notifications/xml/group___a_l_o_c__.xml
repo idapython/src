@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___a_l_o_c__" kind="group">
+    <compoundname>ALOC_</compoundname>
+    <title>Argument location types</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group___a_l_o_c___1ga5981f9b45ff7e81a6cb884107e73ffe7" prot="public" static="no" mutable="no">
+        <type>const <ref refid="group__argloc_1gafaa486b80f279565c5e29558d6694afd" kindref="member">argloc_type_t</ref></type>
+        <definition>const argloc_type_t ALOC_NONE</definition>
+        <argsstring></argsstring>
+        <name>ALOC_NONE</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>none </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="809" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="809" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_l_o_c___1gade41123f7b84aadd16552c2d52943842" prot="public" static="no" mutable="no">
+        <type>const <ref refid="group__argloc_1gafaa486b80f279565c5e29558d6694afd" kindref="member">argloc_type_t</ref></type>
+        <definition>const argloc_type_t ALOC_STACK</definition>
+        <argsstring></argsstring>
+        <name>ALOC_STACK</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+<para>stack offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="810" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="810" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_l_o_c___1ga77ee658648b8a9f916838508ab40fb5a" prot="public" static="no" mutable="no">
+        <type>const <ref refid="group__argloc_1gafaa486b80f279565c5e29558d6694afd" kindref="member">argloc_type_t</ref></type>
+        <definition>const argloc_type_t ALOC_DIST</definition>
+        <argsstring></argsstring>
+        <name>ALOC_DIST</name>
+        <initializer>= 2</initializer>
+        <briefdescription>
+<para>distributed (scattered) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="811" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="811" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_l_o_c___1gaac0445d0ad6d0681841a3ff71c1d2305" prot="public" static="no" mutable="no">
+        <type>const <ref refid="group__argloc_1gafaa486b80f279565c5e29558d6694afd" kindref="member">argloc_type_t</ref></type>
+        <definition>const argloc_type_t ALOC_REG1</definition>
+        <argsstring></argsstring>
+        <name>ALOC_REG1</name>
+        <initializer>= 3</initializer>
+        <briefdescription>
+<para>one register (and offset within it) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="812" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="812" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_l_o_c___1ga7d78615d7e58de9c53e5036c09c7f558" prot="public" static="no" mutable="no">
+        <type>const <ref refid="group__argloc_1gafaa486b80f279565c5e29558d6694afd" kindref="member">argloc_type_t</ref></type>
+        <definition>const argloc_type_t ALOC_REG2</definition>
+        <argsstring></argsstring>
+        <name>ALOC_REG2</name>
+        <initializer>= 4</initializer>
+        <briefdescription>
+<para>register pair </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="813" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="813" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_l_o_c___1ga72931cfa80f89bd8e4c6bf512391d695" prot="public" static="no" mutable="no">
+        <type>const <ref refid="group__argloc_1gafaa486b80f279565c5e29558d6694afd" kindref="member">argloc_type_t</ref></type>
+        <definition>const argloc_type_t ALOC_RREL</definition>
+        <argsstring></argsstring>
+        <name>ALOC_RREL</name>
+        <initializer>= 5</initializer>
+        <briefdescription>
+<para>register relative </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="814" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="814" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_l_o_c___1ga9342b6c4b8dcb9c10ee69c2a5251f3dc" prot="public" static="no" mutable="no">
+        <type>const <ref refid="group__argloc_1gafaa486b80f279565c5e29558d6694afd" kindref="member">argloc_type_t</ref></type>
+        <definition>const argloc_type_t ALOC_STATIC</definition>
+        <argsstring></argsstring>
+        <name>ALOC_STATIC</name>
+        <initializer>= 6</initializer>
+        <briefdescription>
+<para>global address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="815" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="815" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___a_l_o_c___1ga6be7eb6681fc4a4396bfd4ba9b28af95" prot="public" static="no" mutable="no">
+        <type>const <ref refid="group__argloc_1gafaa486b80f279565c5e29558d6694afd" kindref="member">argloc_type_t</ref></type>
+        <definition>const argloc_type_t ALOC_CUSTOM</definition>
+        <argsstring></argsstring>
+        <name>ALOC_CUSTOM</name>
+        <initializer>= 7</initializer>
+        <briefdescription>
+<para>custom argloc (7 or higher) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="816" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="816" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,343 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___r_i_d_x__" kind="group">
+    <compoundname>RIDX_</compoundname>
+    <title>Rootnode indexes:</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___r_i_d_x___1gaaf2cc2455663412158cc6209360b9cd2" prot="public" static="no">
+        <name>RIDX_FILE_FORMAT_NAME</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>file format name for loader modules </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1168" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1gaa4b4571f7deaa32c4791fcc36046351c" prot="public" static="no">
+        <name>RIDX_SELECTORS</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>2..63 are for selector_t blob (see init_selectors()) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1169" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1gac14e7eb47842728410a374c8049b1426" prot="public" static="no">
+        <name>RIDX_GROUPS</name>
+        <initializer>64</initializer>
+        <briefdescription>
+<para>segment group information (see init_groups()) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1170" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1ga1d455d13ae5c777e202d7fc0f8a8eac1" prot="public" static="no">
+        <name>RIDX_H_PATH</name>
+        <initializer>65</initializer>
+        <briefdescription>
+<para>C header path. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1171" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1gad859685bd0d37a93078dd7c9a95c83be" prot="public" static="no">
+        <name>RIDX_C_MACROS</name>
+        <initializer>66</initializer>
+        <briefdescription>
+<para>C predefined macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1172" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1ga38b311bfff26a951c4e64edbf51ecf23" prot="public" static="no">
+        <name>RIDX_SMALL_IDC_OLD</name>
+        <initializer>67</initializer>
+        <briefdescription>
+<para>Instant IDC statements (obsolete) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1173" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1ga082f6eb6908695f66708ae63406a8276" prot="public" static="no">
+        <name>RIDX_NOTEPAD</name>
+        <initializer>68</initializer>
+        <briefdescription>
+<para>notepad blob, occupies 1000 indexes (1MB of text) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1174" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1gac712ccb630da7912e35b3ecf6ca050d1" prot="public" static="no">
+        <name>RIDX_INCLUDE</name>
+        <initializer>1100</initializer>
+        <briefdescription>
+<para>assembler include file name </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1175" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1gaa20bfb67a3c58a7002da79647be44176" prot="public" static="no">
+        <name>RIDX_SMALL_IDC</name>
+        <initializer>1200</initializer>
+        <briefdescription>
+<para>Instant IDC statements, blob. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1176" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1ga54d68c9a9c19e7e288aaf710932b4452" prot="public" static="no">
+        <name>RIDX_DUALOP_GRAPH</name>
+        <initializer>1300</initializer>
+        <briefdescription>
+<para>Graph text representation options. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1177" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1gaebd10fc80b2d608eeb20ed675d87414b" prot="public" static="no">
+        <name>RIDX_DUALOP_TEXT</name>
+        <initializer>1301</initializer>
+        <briefdescription>
+<para>Text text representation options. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1178" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1gae868db06549077da82eec992e0fa2732" prot="public" static="no">
+        <name>RIDX_MD5</name>
+        <initializer>1302</initializer>
+        <briefdescription>
+<para>MD5 of the input file. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1179" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1ga271dbb08bb5956a5ddf3a1fed120da19" prot="public" static="no">
+        <name>RIDX_IDA_VERSION</name>
+        <initializer>1303</initializer>
+        <briefdescription>
+<para>version of ida which created the database </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1180" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1gaa0d43fa64fa40b76a42c9da0f3c29910" prot="public" static="no">
+        <name>RIDX_STR_ENCODINGS</name>
+        <initializer>1305</initializer>
+        <briefdescription>
+<para>a list of encodings for the program strings </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1182" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1ga6d85dd85b1f97cb7cef1527cf33a9446" prot="public" static="no">
+        <name>RIDX_SRCDBG_PATHS</name>
+        <initializer>1306</initializer>
+        <briefdescription>
+<para>source debug paths, occupies 20 indexes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1183" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1gac8439377509a6e8d606d31d84d293c0c" prot="public" static="no">
+        <name>RIDX_SELECTED_EXTLANG</name>
+        <initializer>1327</initializer>
+        <briefdescription>
+<para>last selected extlang name (from the execute script box) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1184" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1gaf0b0dc1aaf3fe2206de0b4192f6ccf71" prot="public" static="no">
+        <name>RIDX_DBG_BINPATHS</name>
+        <initializer>1328</initializer>
+        <briefdescription>
+<para>debug binary paths, occupies 20 indexes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1185" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1gaaac8c63e683a8afac591fc8c2267ecfa" prot="public" static="no">
+        <name>RIDX_SHA256</name>
+        <initializer>1349</initializer>
+        <briefdescription>
+<para>SHA256 of the input file. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1186" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1ga537ee0b38d6e5e00b790eebcfecef194" prot="public" static="no">
+        <name>RIDX_ABINAME</name>
+        <initializer>1350</initializer>
+        <briefdescription>
+<para>ABI name (processor specific) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1187" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1ga00d8334e8e2f9be654b4258d11c3f71a" prot="public" static="no">
+        <name>RIDX_ARCHIVE_PATH</name>
+        <initializer>1351</initializer>
+        <briefdescription>
+<para>archive file path </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1188" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1gad725505a6cebc1d365f9c435e62706c1" prot="public" static="no">
+        <name>RIDX_PROBLEMS</name>
+        <initializer>1352</initializer>
+        <briefdescription>
+<para>problem lists </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1189" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1ga40bc404a6fc03534c5d019006bbd6918" prot="public" static="no">
+        <name>RIDX_ALT_VERSION</name>
+        <initializer><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref>(-1)</initializer>
+        <briefdescription>
+<para>initial version of database </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1192" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1ga694fe99c8f062addc73cae28d19e2ad0" prot="public" static="no">
+        <name>RIDX_ALT_CTIME</name>
+        <initializer><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref>(-2)</initializer>
+        <briefdescription>
+<para>database creation timestamp </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1193" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1ga986751cf0b47931b569c9c3cb18c6de8" prot="public" static="no">
+        <name>RIDX_ALT_ELAPSED</name>
+        <initializer><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref>(-3)</initializer>
+        <briefdescription>
+<para>seconds database stayed open </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1194" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1ga5ffe8df366d3a6c195fba8aa19b94732" prot="public" static="no">
+        <name>RIDX_ALT_NOPENS</name>
+        <initializer><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref>(-4)</initializer>
+        <briefdescription>
+<para>how many times the database is opened </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1195" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1gad768bb14f68a3b07c13d03b08f76c7ca" prot="public" static="no">
+        <name>RIDX_ALT_CRC32</name>
+        <initializer><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref>(-5)</initializer>
+        <briefdescription>
+<para>input file crc32 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1196" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1gacb68aa46937d6855f0d1885b60fbcd2f" prot="public" static="no">
+        <name>RIDX_ALT_IMAGEBASE</name>
+        <initializer><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref>(-6)</initializer>
+        <briefdescription>
+<para>image base </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1197" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1ga769a9760bab0d0f12b502d7111839cbb" prot="public" static="no">
+        <name>RIDX_ALT_IDSNODE</name>
+        <initializer><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref>(-7)</initializer>
+        <briefdescription>
+<para>ids modnode id (for import_module) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1198" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1ga70a3c19d89758c71c38514ee346ebdaf" prot="public" static="no">
+        <name>RIDX_ALT_FSIZE</name>
+        <initializer><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref>(-8)</initializer>
+        <briefdescription>
+<para>input file size </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1199" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_i_d_x___1gaaaadf291a8d8ebff1b45337d1e56fcca" prot="public" static="no">
+        <name>RIDX_ALT_OUTFILEENC</name>
+        <initializer><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref>(-9)</initializer>
+        <briefdescription>
+<para>output file encoding index </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="1200" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="1200" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

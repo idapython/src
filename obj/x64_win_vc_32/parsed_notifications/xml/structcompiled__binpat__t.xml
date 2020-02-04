@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structcompiled__binpat__t" kind="struct" language="C++" prot="public">
+    <compoundname>compiled_binpat_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcompiled__binpat__t_1a4e66be0e799b8abbab1ea84089b86754" prot="public" static="no" mutable="no">
+        <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref></type>
+        <definition>bytevec_t compiled_binpat_t::bytes</definition>
+        <argsstring></argsstring>
+        <name>bytes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="2098" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="2098" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcompiled__binpat__t_1a37b16620d8fa4b2a084fa5f8a5cd5d82" prot="public" static="no" mutable="no">
+        <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref></type>
+        <definition>bytevec_t compiled_binpat_t::mask</definition>
+        <argsstring></argsstring>
+        <name>mask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="2099" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="2099" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcompiled__binpat__t_1a284de99e2f8738285b8deb379d09a8ee" prot="public" static="no" mutable="no">
+        <type><ref refid="structrangevec__t" kindref="compound">rangevec_t</ref></type>
+        <definition>rangevec_t compiled_binpat_t::strlits</definition>
+        <argsstring></argsstring>
+        <name>strlits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="2100" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="2100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcompiled__binpat__t_1ac875f01fa43fdcc34b614c20deb864a1" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int compiled_binpat_t::encidx</definition>
+        <argsstring></argsstring>
+        <name>encidx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="2101" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="2101" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structcompiled__binpat__t_1aa081d43ca2c7d15ecbbe0568eb61c349" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>compiled_binpat_t::compiled_binpat_t</definition>
+        <argsstring>()</argsstring>
+        <name>compiled_binpat_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="2103" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="2103" bodyend="2103"/>
+      </memberdef>
+      <memberdef kind="function" id="structcompiled__binpat__t_1a987eefd7f5b53b4b8cd04ef493811b62" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool compiled_binpat_t::all_bytes_defined</definition>
+        <argsstring>() const</argsstring>
+        <name>all_bytes_defined</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="2104" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="2104" bodyend="2104"/>
+      </memberdef>
+      <memberdef kind="function" id="structcompiled__binpat__t_1a77752f7ec025c0ef58c3ddfd37075391" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void compiled_binpat_t::qclear</definition>
+        <argsstring>()</argsstring>
+        <name>qclear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="2105" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="2105" bodyend="2105"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1122">
+        <label>rangevec_base_t</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1124">
+        <label>qvector&lt; uchar &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1123">
+        <label>bytevec_t</label>
+        <link refid="classbytevec__t"/>
+        <childnode refid="1124" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1120">
+        <label>compiled_binpat_t</label>
+        <link refid="structcompiled__binpat__t"/>
+        <childnode refid="1121" relation="usage">
+          <edgelabel>strlits</edgelabel>
+        </childnode>
+        <childnode refid="1123" relation="usage">
+          <edgelabel>bytes</edgelabel>
+          <edgelabel>mask</edgelabel>
+        </childnode>
+      </node>
+      <node id="1121">
+        <label>rangevec_t</label>
+        <link refid="structrangevec__t"/>
+        <childnode refid="1122" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="2097" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="2096" bodyend="2106"/>
+    <listofallmembers>
+      <member refid="structcompiled__binpat__t_1a987eefd7f5b53b4b8cd04ef493811b62" prot="public" virt="non-virtual"><scope>compiled_binpat_t</scope><name>all_bytes_defined</name></member>
+      <member refid="structcompiled__binpat__t_1a4e66be0e799b8abbab1ea84089b86754" prot="public" virt="non-virtual"><scope>compiled_binpat_t</scope><name>bytes</name></member>
+      <member refid="structcompiled__binpat__t_1aa081d43ca2c7d15ecbbe0568eb61c349" prot="public" virt="non-virtual"><scope>compiled_binpat_t</scope><name>compiled_binpat_t</name></member>
+      <member refid="structcompiled__binpat__t_1ac875f01fa43fdcc34b614c20deb864a1" prot="public" virt="non-virtual"><scope>compiled_binpat_t</scope><name>encidx</name></member>
+      <member refid="structcompiled__binpat__t_1a37b16620d8fa4b2a084fa5f8a5cd5d82" prot="public" virt="non-virtual"><scope>compiled_binpat_t</scope><name>mask</name></member>
+      <member refid="structcompiled__binpat__t_1a77752f7ec025c0ef58c3ddfd37075391" prot="public" virt="non-virtual"><scope>compiled_binpat_t</scope><name>qclear</name></member>
+      <member refid="structcompiled__binpat__t_1a284de99e2f8738285b8deb379d09a8ee" prot="public" virt="non-virtual"><scope>compiled_binpat_t</scope><name>strlits</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

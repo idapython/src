@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structpkt__rpc__fail__t" kind="struct" language="C++" prot="public">
+    <compoundname>pkt_rpc_fail_t</compoundname>
+    <basecompoundref refid="structrpc__packet__data__t" prot="public" virt="non-virtual">rpc_packet_data_t</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structpkt__rpc__fail__t_1af781ccbb40d40cf708edbf8065dbeb92" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int pkt_rpc_fail_t::result</definition>
+        <argsstring></argsstring>
+        <name>result</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="576" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="576" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpkt__rpc__fail__t_1ae27b512e6fd5f88166ff1acd7c7c80cc" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring pkt_rpc_fail_t::error</definition>
+        <argsstring></argsstring>
+        <name>error</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="577" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="577" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structpkt__rpc__fail__t_1aa45647d21a19086808cebaa0641157b9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>pkt_rpc_fail_t::pkt_rpc_fail_t</definition>
+        <argsstring>()</argsstring>
+        <name>pkt_rpc_fail_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="578" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="578" bodyend="579"/>
+      </memberdef>
+      <memberdef kind="function" id="structpkt__rpc__fail__t_1a99e4e40650551f0f345cf36ebeeafe56" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual pkt_rpc_fail_t::~pkt_rpc_fail_t</definition>
+        <argsstring>()</argsstring>
+        <name>~pkt_rpc_fail_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="581" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structpkt__rpc__fail__t_1a0dab196b58d79763f022966116486bf3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void pkt_rpc_fail_t::serialize</definition>
+        <argsstring>(bytevec_t *out, int version) const</argsstring>
+        <name>serialize</name>
+        <reimplements refid="structrpc__packet__data__t_1a577ceb943847ae0b714a56b264b9cf65">serialize</reimplements>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="582" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structpkt__rpc__fail__t_1aa184cbf3764d25fbdfe3a6b065161001" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool pkt_rpc_fail_t::deserialize</definition>
+        <argsstring>(const uchar **ptr, size_t len, int version)</argsstring>
+        <name>deserialize</name>
+        <reimplements refid="structrpc__packet__data__t_1a150454902741340968d1386c8277e857">deserialize</reimplements>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="583" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2851">
+        <label>rpc_packet_data_t</label>
+        <link refid="structrpc__packet__data__t"/>
+      </node>
+      <node id="2850">
+        <label>pkt_rpc_fail_t</label>
+        <link refid="structpkt__rpc__fail__t"/>
+        <childnode refid="2851" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2853">
+        <label>rpc_packet_data_t</label>
+        <link refid="structrpc__packet__data__t"/>
+      </node>
+      <node id="2854">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="2852">
+        <label>pkt_rpc_fail_t</label>
+        <link refid="structpkt__rpc__fail__t"/>
+        <childnode refid="2853" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2854" relation="usage">
+          <edgelabel>error</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="575" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="574" bodyend="584"/>
+    <listofallmembers>
+      <member refid="structrpc__packet__data__t_1ae8f08a217a006f7a35f5fdb3f0e26a87" prot="public" virt="non-virtual"><scope>pkt_rpc_fail_t</scope><name>code</name></member>
+      <member refid="structpkt__rpc__fail__t_1aa184cbf3764d25fbdfe3a6b065161001" prot="public" virt="virtual"><scope>pkt_rpc_fail_t</scope><name>deserialize</name></member>
+      <member refid="structpkt__rpc__fail__t_1ae27b512e6fd5f88166ff1acd7c7c80cc" prot="public" virt="non-virtual"><scope>pkt_rpc_fail_t</scope><name>error</name></member>
+      <member refid="structpkt__rpc__fail__t_1aa45647d21a19086808cebaa0641157b9" prot="public" virt="non-virtual"><scope>pkt_rpc_fail_t</scope><name>pkt_rpc_fail_t</name></member>
+      <member refid="structpkt__rpc__fail__t_1af781ccbb40d40cf708edbf8065dbeb92" prot="public" virt="non-virtual"><scope>pkt_rpc_fail_t</scope><name>result</name></member>
+      <member refid="structrpc__packet__data__t_1aa48c3e33219ccb723d7be7f18392f50b" prot="public" virt="non-virtual"><scope>pkt_rpc_fail_t</scope><name>rpc_packet_data_t</name></member>
+      <member refid="structpkt__rpc__fail__t_1a0dab196b58d79763f022966116486bf3" prot="public" virt="virtual"><scope>pkt_rpc_fail_t</scope><name>serialize</name></member>
+      <member refid="structpkt__rpc__fail__t_1a99e4e40650551f0f345cf36ebeeafe56" prot="public" virt="virtual"><scope>pkt_rpc_fail_t</scope><name>~pkt_rpc_fail_t</name></member>
+      <member refid="structrpc__packet__data__t_1af3d9b0008dfb68fb02fbc403c41fe396" prot="public" virt="virtual"><scope>pkt_rpc_fail_t</scope><name>~rpc_packet_data_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

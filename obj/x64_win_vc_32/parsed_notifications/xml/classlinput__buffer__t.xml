@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classlinput__buffer__t" kind="class" language="C++" prot="public">
+    <compoundname>linput_buffer_t</compoundname>
+    <includes refid="diskio_8hpp" local="no">diskio.hpp</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classlinput__buffer__t_1a6cd1c754fb9a2a73a05360609ba0308d" prot="protected" static="no" mutable="no">
+        <type>linput_t *</type>
+        <definition>linput_t* linput_buffer_t::li</definition>
+        <argsstring></argsstring>
+        <name>li</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="562" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="562" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classlinput__buffer__t_1aa5e4a2d055ecf5008755348664f756ac" prot="private" static="no" mutable="no">
+        <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref></type>
+        <definition>int64 linput_buffer_t::lsize</definition>
+        <argsstring></argsstring>
+        <name>lsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="564" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="564" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classlinput__buffer__t_1a038d1f5abfca6119cdb73f8130bf17c4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>linput_buffer_t::linput_buffer_t</definition>
+        <argsstring>(linput_t *linput, int64 size=0)</argsstring>
+        <name>linput_buffer_t</name>
+        <param>
+          <type>linput_t *</type>
+          <declname>linput</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref></type>
+          <declname>size</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="550" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="550" bodyend="550"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinput__buffer__t_1a3590259e16e6b15c2b52e48410d53108" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t linput_buffer_t::read</definition>
+        <argsstring>(void *buf, size_t n)</argsstring>
+        <name>read</name>
+        <param>
+          <type>void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="551" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="551" bodyend="554"/>
+      </memberdef>
+      <memberdef kind="function" id="classlinput__buffer__t_1adffd399a44b65a8c2a37a14eb8503a1c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool linput_buffer_t::eof</definition>
+        <argsstring>()</argsstring>
+        <name>eof</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="555" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="555" bodyend="560"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Helper class - adapts linput to be used in extract_... functions as a data supplier (see <ref refid="kernwin_8hpp" kindref="compound">kernwin.hpp</ref>) </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" line="548" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/diskio.hpp" bodystart="547" bodyend="565"/>
+    <listofallmembers>
+      <member refid="classlinput__buffer__t_1adffd399a44b65a8c2a37a14eb8503a1c" prot="public" virt="non-virtual"><scope>linput_buffer_t</scope><name>eof</name></member>
+      <member refid="classlinput__buffer__t_1a6cd1c754fb9a2a73a05360609ba0308d" prot="protected" virt="non-virtual"><scope>linput_buffer_t</scope><name>li</name></member>
+      <member refid="classlinput__buffer__t_1a038d1f5abfca6119cdb73f8130bf17c4" prot="public" virt="non-virtual"><scope>linput_buffer_t</scope><name>linput_buffer_t</name></member>
+      <member refid="classlinput__buffer__t_1aa5e4a2d055ecf5008755348664f756ac" prot="private" virt="non-virtual"><scope>linput_buffer_t</scope><name>lsize</name></member>
+      <member refid="classlinput__buffer__t_1a3590259e16e6b15c2b52e48410d53108" prot="public" virt="non-virtual"><scope>linput_buffer_t</scope><name>read</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

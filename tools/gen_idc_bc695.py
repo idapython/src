@@ -18,7 +18,7 @@ with open(args.idc, "r") as fin:
     inlines = fin.readlines()
 
 # search for compat macros section, and remove uninteresting lines
-for idx in xrange(len(inlines)):
+for idx in range(len(inlines)):
     if inlines[idx].replace(" ", "").find("COMPATIBILITYMACROS") > -1:
         break
 assert(idx < len(inlines))

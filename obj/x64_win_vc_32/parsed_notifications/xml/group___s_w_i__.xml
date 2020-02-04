@@ -1,0 +1,259 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_w_i__" kind="group">
+    <compoundname>SWI_</compoundname>
+    <title>Switch info flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_w_i___1gae81d0822a39c5126bd928bdab1974734" prot="public" static="no">
+        <name>SWI_SPARSE</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>otherwise lowcase present </para>        </briefdescription>
+        <detaileddescription>
+<para>sparse switch (value table present) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="592" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="592" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1ga4ba1c2e6c577a0c4546528158ac0fb30" prot="public" static="no">
+        <name>SWI_V32</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>32-bit values in table </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="594" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="594" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1gaf15fbbe94eabbce63815a41b56af3509" prot="public" static="no">
+        <name>SWI_J32</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>32-bit jump offsets </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="595" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="595" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1gabf8b9130103df3084a267cddaa56d330" prot="public" static="no">
+        <name>SWI_VSPLIT</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>value table is split (only for 32-bit values) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="596" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="596" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1gac7eb607ccb2532aac4b76b962008bae5" prot="public" static="no">
+        <name>SWI_RESERVED</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>was: SWI_DEFAULT </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="597" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="597" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1ga08514ce263bc78dde1a9f59f12111ef4" prot="public" static="no">
+        <name>SWI_DEF_IN_TBL</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>default case is an entry in the jump table. This flag is applicable in 2 cases:<orderedlist>
+<listitem><para>The sparse indirect switch (i.e. a switch with a values table) &lt;jump table=&quot;&quot; size&gt;=&quot;&quot;&gt; == </para></listitem></orderedlist>
+</para><para>+ 1. The default case entry is the last one in the table (or the first one in the case of an inversed jump table).<orderedlist>
+<listitem><para>The switch with insns in the jump table. The default case entry is before the first entry of the table. See also the find_defjump_from_table() helper function. </para></listitem></orderedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="598" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="598" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1gade6a06a60740d6733cfc689656a853d3" prot="public" static="no">
+        <name>SWI_JMP_INV</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>for first entry in values table) </para>        </briefdescription>
+        <detaileddescription>
+<para>jumptable is inversed. (last entry is </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="607" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="607" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1gad5246a790b5bb73b4db415a5fc79952e" prot="public" static="no">
+        <name>SWI_SHIFT_MASK</name>
+        <initializer>0x00000180</initializer>
+        <briefdescription>
+<para>use formula (element&lt;&lt;shift) + elbase to find jump targets </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="609" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="609" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1gad0a2b6bfb276e22d63d5ab9e6b93990b" prot="public" static="no">
+        <name>SWI_ELBASE</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>segment will be used) </para>        </briefdescription>
+        <detaileddescription>
+<para>elbase is present (otherwise the base of the switch </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="610" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="610" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1ga907444cebdf9bfefc2bc16180c079f37" prot="public" static="no">
+        <name>SWI_JSIZE</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>jump offset expansion bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="612" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="612" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1ga38ce789ea9bf758f46f108b7323c3120" prot="public" static="no">
+        <name>SWI_VSIZE</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>value table element size expansion bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="613" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="613" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1ga383dcd5693b6348d53ac5995f3ee5df9" prot="public" static="no">
+        <name>SWI_SEPARATE</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>create an array of individual elements (otherwise separate items) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="614" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="614" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1ga656c35b54dae3628e0cea741ccdaab55" prot="public" static="no">
+        <name>SWI_SIGNED</name>
+        <initializer>0x00002000</initializer>
+        <briefdescription>
+<para>jump table entries are signed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="615" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="615" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1ga9c8b1cc7dc7face3d01f48b8e2b78135" prot="public" static="no">
+        <name>SWI_CUSTOM</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>custom jump table. {create_switch_xrefs} will be called to create code xrefs for the table. Custom jump table must be created by the module (see also <ref refid="group___s_w_i___1gae924695c96e5173af51edcaaf8ba94a9" kindref="member">SWI_STDTBL</ref>) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="616" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="616" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1gaacefe06f5ae5475f743eae54abeb2f91" prot="public" static="no">
+        <name>SWI_INDIRECT</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+<para>(for sparse switches) </para>        </briefdescription>
+        <detaileddescription>
+<para>value table elements are used as indexes into the jump table </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="621" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="621" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1ga2be9d5f0c1518650d65d96804c658dde" prot="public" static="no">
+        <name>SWI_SUBTRACT</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+<para>table values are subtracted from the elbase instead of being added </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="623" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="623" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1gaf3fe9f1770f40540a0a16f45a7053066" prot="public" static="no">
+        <name>SWI_HXNOLOWCASE</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+<para>lowcase value should not be used by the decompiler (internal flag) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="624" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="624" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1gae924695c96e5173af51edcaaf8ba94a9" prot="public" static="no">
+        <name>SWI_STDTBL</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>custom jump table with standard table formatting. ATM IDA doesn&apos;t use SWI_CUSTOM for switches with standard table formatting. So this flag can be considered as obsolete. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="625" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="625" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1gaca970cc96b47525ed98a5ff7f74fdba1" prot="public" static="no">
+        <name>SWI_DEFRET</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+<para>return in the default case (defjump==BADADDR) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="628" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="628" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1ga8366d79f2b0a73c4b3553aba4055017e" prot="public" static="no">
+        <name>SWI_SELFREL</name>
+        <initializer>0x00200000</initializer>
+        <briefdescription>
+<para>jump address is relative to the element not to ELBASE </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="629" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="629" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1gad2932e86e33c35af42db64775a020c9f" prot="public" static="no">
+        <name>SWI_JMPINSN</name>
+        <initializer>0x00400000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>jump table entries are insns. For such entries SHIFT has a different meaning. It denotes the number of insns in the entry. For example, 0 - the entry contains the jump to the case, 1 - the entry contains one insn like a &apos;mov&apos; and jump to the end of case, and so on. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="630" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="630" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_w_i___1ga7709198984718a91115b9d59ba00d128" prot="public" static="no">
+        <name>SWI_VERSION</name>
+        <initializer>0x00800000</initializer>
+        <briefdescription>
+<para>the structure contains the VERSION member </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="635" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="635" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="structswitch__info__t_1af91e8581524884c4b29990f09c425102" kindref="member">switch_info_t::flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

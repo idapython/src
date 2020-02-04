@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___r_e_f_i_n_f_o__" kind="group">
+    <compoundname>REFINFO_</compoundname>
+    <title>Reference info flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___r_e_f_i_n_f_o___1gafe914182dfe3b36e1efbb3b6af552e38" prot="public" static="no">
+        <name>REFINFO_TYPE</name>
+        <initializer>0x000F</initializer>
+        <briefdescription>
+<para>reference type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="890" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="890" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_f_i_n_f_o___1ga173c52e7587909ab4bd29237437ed421" prot="public" static="no">
+        <name>REFINFO_RVAOFF</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>based reference (rva) <ref refid="structrefinfo__t_1a7c866d752cb0b7004616162c07578f40" kindref="member">refinfo_t::base</ref> will be forced to <ref refid="nalt_8hpp_1afca1b6a7bdd1c05fc579580e29e902ed" kindref="member">get_imagebase()</ref> such a reference is displayed with the {a_rva} keyword </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="891" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="891" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_f_i_n_f_o___1ga9d4315e648f31d9467ae7e74c3fe920e" prot="public" static="no">
+        <name>REFINFO_PASTEND</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>reference past an item it may point to an nonexistent address do not destroy alignment dirs </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="894" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="894" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_f_i_n_f_o___1ga5513a95d893f73d5e0382c7375d09ef8" prot="public" static="no">
+        <name>REFINFO_CUSTOM</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>a custom reference the kernel will call {notify}(ph.custom_offset, .... that can change all arguments used for calculations. This flag is useful for custom fixups </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="897" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="897" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_f_i_n_f_o___1ga8c47e62ab5aa6e450554aee16e553978" prot="public" static="no">
+        <name>REFINFO_NOBASE</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>don&apos;t create the base xref implies that the base can be any value nb: base xrefs are created only if the offset base points to the middle of a segment </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="901" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="901" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_f_i_n_f_o___1ga1827c27c186580584e67479d04c659c9" prot="public" static="no">
+        <name>REFINFO_SUBTRACT</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+<para>the reference value is subtracted from the base value instead of (as usual) being added to it </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="905" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="905" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_e_f_i_n_f_o___1ga3010e02fb9c255c0cb3bd222efca9889" prot="public" static="no">
+        <name>REFINFO_SIGNEDOP</name>
+        <initializer>0x0200</initializer>
+        <briefdescription>
+<para>the operand value is sign-extended (only supported for REF_OFF8/16/32/64) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="906" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="906" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="structrefinfo__t_1ae0ce0d7662ed10030f30dd11fc778259" kindref="member">refinfo_t::flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

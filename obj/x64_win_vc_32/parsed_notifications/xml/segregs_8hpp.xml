@@ -1,0 +1,596 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="segregs_8hpp" kind="file" language="C++">
+    <compoundname>segregs.hpp</compoundname>
+    <includes refid="range_8hpp" local="no">range.hpp</includes>
+    <incdepgraph>
+      <node id="1349">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp</label>
+        <link refid="segregs_8hpp"/>
+        <childnode refid="1350" relation="include">
+        </childnode>
+      </node>
+      <node id="1350">
+        <label>range.hpp</label>
+        <link refid="range_8hpp"/>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structsreg__range__t" prot="public">sreg_range_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_r___1ga07656db9b0285c23ffb8e369fc436e1b" prot="public" static="no">
+        <name>SR_inherit</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>the value is inherited from the previous range </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="46" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_r___1gabf8620dbc2c3ffa1c7d748285bf7560a" prot="public" static="no">
+        <name>SR_user</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>the value is specified by the user </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="47" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_r___1gaeb67da3fe0748d5e2239474ad08dae36" prot="public" static="no">
+        <name>SR_auto</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>the value is determined by IDA </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="48" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_r___1ga925f115d3bf41f20e9e103466fba195f" prot="public" static="no">
+        <name>SR_autostart</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>used as <ref refid="group___s_r___1gaeb67da3fe0748d5e2239474ad08dae36" kindref="member">SR_auto</ref> for segment starting address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="49" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="segregs_8hpp_1a9b61c7765977534e2e230aa24f8a30ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman sel_t ida_export</type>
+        <definition>idaman sel_t ida_export get_sreg</definition>
+        <argsstring>(ea_t ea, int rg)</argsstring>
+        <name>get_sreg</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get value of a segment register. This function uses segment register range and default segment register values stored in the segment structure. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address in the program </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of the segment register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>value of the segment register, <ref refid="pro_8h_1a893ddf307fae0a3bbca667ee917cddc7" kindref="member">BADSEL</ref> if value is unknown. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="62" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="segregs_8hpp_1a3563cf3fd797fc38ec6d111609dea9f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export split_sreg_range</definition>
+        <argsstring>(ea_t ea, int rg, sel_t v, uchar tag, bool silent=false)</argsstring>
+        <name>split_sreg_range</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rg</declname>
+        </param>
+        <param>
+          <type>sel_t</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+          <declname>tag</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>silent</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create a new segment register range. This function is used when the IDP emulator detects that a segment register changes its value. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address where the segment register will have a new value. if ea==<ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref>, nothing to do. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the number of the segment register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the new value of the segment register. If the value is unknown, you should specify <ref refid="pro_8h_1a893ddf307fae0a3bbca667ee917cddc7" kindref="member">BADSEL</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the register info tag. see <ref refid="group___s_r__" kindref="compound">Segment register range tags</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>silent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if false, display a warning() in the case of failure </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="77" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="segregs_8hpp_1a0ce73aeb8b63b8130e1d2a68eff64d41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export set_default_sreg_value</definition>
+        <argsstring>(segment_t *sg, int rg, sel_t value)</argsstring>
+        <name>set_default_sreg_value</name>
+        <param>
+          <type><ref refid="classsegment__t" kindref="compound">segment_t</ref> *</type>
+          <declname>sg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rg</declname>
+        </param>
+        <param>
+          <type>sel_t</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default value of a segment register for a segment. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to segment structure if NULL, then set the register for all segments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of segment register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>its default value. this value will be used by <ref refid="segregs_8hpp_1a9b61c7765977534e2e230aa24f8a30ff" kindref="member">get_sreg()</ref> if value of the register is unknown at the specified address. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="93" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="segregs_8hpp_1ad3eea1744183cd59f121082e2beacbe1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export set_sreg_at_next_code</definition>
+        <argsstring>(ea_t ea1, ea_t ea2, int rg, sel_t value)</argsstring>
+        <name>set_sreg_at_next_code</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea1</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea2</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rg</declname>
+        </param>
+        <param>
+          <type>sel_t</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set the segment register value at the next instruction. This function is designed to be called from <ref refid="namespaceidb__event_1a0feb6e648b4e6e3f0ed954abea672784aaa5fb42b80b87aaadb051fc8c1e1d80f" kindref="member">idb_event::sgr_changed</ref> handler in order to contain the effect of changing a segment register value only until the next instruction.</para><para>It is useful, for example, in the ARM module: the modification of the T register does not affect existing instructions later in the code. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>address to start to search for an instruction </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the maximal address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the segment register number </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the segment register value </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="108" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="segregs_8hpp_1a6a244b25cad06757622ea62930ba9535" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export get_sreg_range</definition>
+        <argsstring>(sreg_range_t *out, ea_t ea, int rg)</argsstring>
+        <name>get_sreg_range</name>
+        <param>
+          <type><ref refid="structsreg__range__t" kindref="compound">sreg_range_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get segment register range by linear address. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>segment register range </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>any linear address in the program </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the segment register number </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="117" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="segregs_8hpp_1acca1b8a6522f383bb522f942ee210e99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export get_prev_sreg_range</definition>
+        <argsstring>(sreg_range_t *out, ea_t ea, int rg)</argsstring>
+        <name>get_prev_sreg_range</name>
+        <param>
+          <type><ref refid="structsreg__range__t" kindref="compound">sreg_range_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get segment register range previous to one with address. <simplesect kind="note"><para>more efficient then get_sreg_range(reg, ea-1) </para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>segment register range </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>any linear address in the program </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the segment register number </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="127" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="segregs_8hpp_1a9385595a3b8ba3d0f3a74bc3f7a93527" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export set_default_dataseg</definition>
+        <argsstring>(sel_t ds_sel)</argsstring>
+        <name>set_default_dataseg</name>
+        <param>
+          <type>sel_t</type>
+          <declname>ds_sel</declname>
+        </param>
+        <briefdescription>
+<para>Set default value of DS register for all segments. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="132" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="segregs_8hpp_1a4d40acc749861c32a8635ca52560154f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export get_sreg_ranges_qty</definition>
+        <argsstring>(int rg)</argsstring>
+        <name>get_sreg_ranges_qty</name>
+        <param>
+          <type>int</type>
+          <declname>rg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get number of segment register ranges. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the segment register number </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="138" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="segregs_8hpp_1a828e4c7be0d9a82153955809ef670356" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export getn_sreg_range</definition>
+        <argsstring>(sreg_range_t *out, int rg, int n)</argsstring>
+        <name>getn_sreg_range</name>
+        <param>
+          <type><ref refid="structsreg__range__t" kindref="compound">sreg_range_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get segment register range by its number. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>segment register range </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the segment register number </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of range (0..qty()-1) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="147" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="segregs_8hpp_1a09d8ee406db04571e18366b56a0ef4ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export get_sreg_range_num</definition>
+        <argsstring>(ea_t ea, int rg)</argsstring>
+        <name>get_sreg_range_num</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get number of segment register range by address. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>any address in the range </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the segment register number </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>-1 if no range occupies the specified address. otherwise returns number of the specified range (0..get_srranges_qty()-1) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="157" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="segregs_8hpp_1a94b7d88687eb3904d26f7e94d8dcc9e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export del_sreg_range</definition>
+        <argsstring>(ea_t ea, int rg)</argsstring>
+        <name>del_sreg_range</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delete segment register range started at ea. When a segment register range is deleted, the previous range is extended to cover the empty space. The segment register range at the beginning of a segment can not be deleted. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>start_ea of the deleted range </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the segment register number </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="168" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="segregs_8hpp_1ac1a9550cd3bd56f7db5f73f242054ac6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman void ida_export</type>
+        <definition>idaman void ida_export copy_sreg_ranges</definition>
+        <argsstring>(int dst_rg, int src_rg, bool map_selector=false)</argsstring>
+        <name>copy_sreg_ranges</name>
+        <param>
+          <type>int</type>
+          <declname>dst_rg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>src_rg</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>map_selector</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Duplicate segment register ranges. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dst_rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of destination segment register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>src_rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>copy ranges from </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>map_selector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>map selectors to linear addresses using <ref refid="group__seg__sel_1ga0bf8f3ddf2be4616b37609bf3d302c8e" kindref="member">sel2ea()</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp" line="176" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Functions that deal with the segment registers. </para>    </briefdescription>
+    <detaileddescription>
+<para>If your processor doesn&apos;t use segment registers, then these functions are of no use for you. However, you should define two virtual segment registers - CS and DS (for code segment and data segment) and specify their internal numbers in the LPH structure (<ref refid="structprocessor__t_1a8c1090cef7d02b379600a8049cd4d25f" kindref="member">processor_t::reg_code_sreg</ref> and <ref refid="structprocessor__t_1af0bc236f72fe8f6b2b06a8342de8c7ab" kindref="member">processor_t::reg_data_sreg</ref>). </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/segregs.hpp"/>
+  </compounddef>
+</doxygen>

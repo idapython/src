@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structold__encrypt__block__t" kind="struct" language="C++" prot="public">
+    <compoundname>old_encrypt_block_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structold__encrypt__block__t_1a8b103db5e5a69f6ce139690e81066f6c" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 old_encrypt_block_t::iv</definition>
+        <argsstring></argsstring>
+        <name>iv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="235" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structold__encrypt__block__t_1a7d331286746eda82def8fa73e15c650b" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a3645c7d6d9f101f476e964504741b92b" kindref="member">qtime32_t</ref></type>
+        <definition>qtime32_t old_encrypt_block_t::time</definition>
+        <argsstring></argsstring>
+        <name>time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="236" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structold__encrypt__block__t_1aad7c816cce9bd5be19909eb6c7507cbf" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 old_encrypt_block_t::F1</definition>
+        <argsstring></argsstring>
+        <name>F1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="237" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structold__encrypt__block__t_1ae0662fddd8ae9806f782c2c483b82e7a" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 old_encrypt_block_t::F2</definition>
+        <argsstring></argsstring>
+        <name>F2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="241" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structold__encrypt__block__t_1a03b0a106dda4d00419df7303a6509ec7" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 old_encrypt_block_t::version</definition>
+        <argsstring></argsstring>
+        <name>version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="244" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structold__encrypt__block__t_1afff698eb75dcfb59d368854b2a4ec3b4" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char old_encrypt_block_t::name[1024/8-20-1]</definition>
+        <argsstring>[1024/8-20-1]</argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="245" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" line="234" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idadcr.h" bodystart="233" bodyend="246"/>
+    <listofallmembers>
+      <member refid="structold__encrypt__block__t_1aad7c816cce9bd5be19909eb6c7507cbf" prot="public" virt="non-virtual"><scope>old_encrypt_block_t</scope><name>F1</name></member>
+      <member refid="structold__encrypt__block__t_1ae0662fddd8ae9806f782c2c483b82e7a" prot="public" virt="non-virtual"><scope>old_encrypt_block_t</scope><name>F2</name></member>
+      <member refid="structold__encrypt__block__t_1a8b103db5e5a69f6ce139690e81066f6c" prot="public" virt="non-virtual"><scope>old_encrypt_block_t</scope><name>iv</name></member>
+      <member refid="structold__encrypt__block__t_1afff698eb75dcfb59d368854b2a4ec3b4" prot="public" virt="non-virtual"><scope>old_encrypt_block_t</scope><name>name</name></member>
+      <member refid="structold__encrypt__block__t_1a7d331286746eda82def8fa73e15c650b" prot="public" virt="non-virtual"><scope>old_encrypt_block_t</scope><name>time</name></member>
+      <member refid="structold__encrypt__block__t_1a03b0a106dda4d00419df7303a6509ec7" prot="public" virt="non-virtual"><scope>old_encrypt_block_t</scope><name>version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

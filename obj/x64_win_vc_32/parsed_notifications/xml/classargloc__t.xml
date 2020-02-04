@@ -1,0 +1,1059 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classargloc__t" kind="class" language="C++" prot="public">
+    <compoundname>argloc_t</compoundname>
+    <derivedcompoundref refid="structargpart__t" prot="public" virt="non-virtual">argpart_t</derivedcompoundref>
+    <derivedcompoundref refid="classvdloc__t" prot="public" virt="non-virtual">vdloc_t</derivedcompoundref>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classargloc__t_1ace26fa1159679dcd2d5783d8e750452d" prot="public" static="no">
+        <type>size_t</type>
+        <definition>typedef size_t argloc_t::biggest_t</definition>
+        <argsstring></argsstring>
+        <name>biggest_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="959" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="959" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classargloc__t_1a93fd0b5f70d3519dbd38495312ac377e" prot="private" static="no" mutable="no">
+        <type><ref refid="group__argloc_1gafaa486b80f279565c5e29558d6694afd" kindref="member">argloc_type_t</ref></type>
+        <definition>argloc_type_t argloc_t::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="962" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="962" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classargloc__t_1aa3108d44aa9b3cae40aaaec5788d2adf" prot="private" static="no" mutable="no">
+        <type>union argloc_t::@96</type>
+        <definition>union argloc_t::@96 argloc_t::@97</definition>
+        <argsstring></argsstring>
+        <name>@97</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="971" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classargloc__t_1ae3d306162b4386dcc3046532107fdea4" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+        <definition>sval_t argloc_t::sval</definition>
+        <argsstring></argsstring>
+        <name>sval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="965" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="965" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classargloc__t_1a76f950e66699174fe7a68df7758e594a" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 argloc_t::reginfo</definition>
+        <argsstring></argsstring>
+        <name>reginfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="966" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="966" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classargloc__t_1a1fa43bd01e8b77284574b98124f57936" prot="public" static="no" mutable="no">
+        <type><ref refid="structrrel__t" kindref="compound">rrel_t</ref> *</type>
+        <definition>rrel_t* argloc_t::rrel</definition>
+        <argsstring></argsstring>
+        <name>rrel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="967" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="967" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classargloc__t_1a7722314907d2243f82fa2a74c01fda2d" prot="public" static="no" mutable="no">
+        <type><ref refid="classscattered__aloc__t" kindref="compound">scattered_aloc_t</ref> *</type>
+        <definition>scattered_aloc_t* argloc_t::dist</definition>
+        <argsstring></argsstring>
+        <name>dist</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="968" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="968" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classargloc__t_1a83287f7a120fab6d7bd15b1cba6d9f22" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* argloc_t::custom</definition>
+        <argsstring></argsstring>
+        <name>custom</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="969" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="969" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classargloc__t_1abf4bc576016f72bd939593585ea53aa8" prot="public" static="no" mutable="no">
+        <type>biggest_t</type>
+        <definition>biggest_t argloc_t::biggest</definition>
+        <argsstring></argsstring>
+        <name>biggest</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="970" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="970" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classargloc__t_1aadfaa7892946d785788519bb39c1534c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>argloc_t::argloc_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>argloc_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="975" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="975" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a4408c6d67670411345ac64af0691c6bb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>argloc_t::argloc_t</definition>
+        <argsstring>(const argloc_t &amp;r)</argsstring>
+        <name>argloc_t</name>
+        <param>
+          <type>const <ref refid="classargloc__t" kindref="compound">argloc_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="976" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="976" bodyend="975"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1afb19fb5c127000a0b667e57d26eeef09" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>argloc_t::~argloc_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>~argloc_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Destructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="977" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="977" bodyend="976"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a15ee4a5904426f2b2fdfac6d83b937a5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classargloc__t" kindref="compound">argloc_t</ref> &amp;</type>
+        <definition>argloc_t&amp; argloc_t::operator=</definition>
+        <argsstring>(const argloc_t &amp;r)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="classargloc__t" kindref="compound">argloc_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="978" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="978" bodyend="977"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a4e1755b0a9fd2c6ae2812b2141b9db3f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void argloc_t::swap</definition>
+        <argsstring>(argloc_t &amp;r)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="classargloc__t" kindref="compound">argloc_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>Assign this == r and r == this. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="982" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="982" bodyend="986"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1acf30976b8b40ce02b509e17aedeff0cf" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* argloc_t::dstr</definition>
+        <argsstring>(void) const</argsstring>
+        <name>dstr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="988" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1ac42816deece5c2172b5fe41e033bcf29" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="group__argloc_1gafaa486b80f279565c5e29558d6694afd" kindref="member">argloc_type_t</ref></type>
+        <definition>argloc_type_t argloc_t::atype</definition>
+        <argsstring>(void) const</argsstring>
+        <name>atype</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get type (<ref refid="group___a_l_o_c__" kindref="compound">Argument location types</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="990" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="990" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a1109690340938b4864dad4e11d00fed2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool argloc_t::is_reg1</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_reg1</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___a_l_o_c___1gaac0445d0ad6d0681841a3ff71c1d2305" kindref="member">ALOC_REG1</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="991" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="991" bodyend="990"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1aabdb8d4a549c14f243ef07732bbc7135" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool argloc_t::is_reg2</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_reg2</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___a_l_o_c___1ga7d78615d7e58de9c53e5036c09c7f558" kindref="member">ALOC_REG2</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="992" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="992" bodyend="991"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1adac20266ce431d9d4cc7d56a148df57f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool argloc_t::is_reg</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_reg</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="classargloc__t_1a1109690340938b4864dad4e11d00fed2" kindref="member">is_reg1()</ref> || <ref refid="classargloc__t_1aabdb8d4a549c14f243ef07732bbc7135" kindref="member">is_reg2()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="993" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="993" bodyend="992"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1aaf24568905e2fb3766c0a1dee00990c8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool argloc_t::is_rrel</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_rrel</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___a_l_o_c___1ga72931cfa80f89bd8e4c6bf512391d695" kindref="member">ALOC_RREL</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="994" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="994" bodyend="993"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a26c9d0f1d53027a8e39dc1380dc7263b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool argloc_t::is_ea</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_ea</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___a_l_o_c___1ga9342b6c4b8dcb9c10ee69c2a5251f3dc" kindref="member">ALOC_STATIC</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="995" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="995" bodyend="994"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1ac04cb0b927680386beb21e64feeec9c2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool argloc_t::is_stkoff</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_stkoff</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___a_l_o_c___1gade41123f7b84aadd16552c2d52943842" kindref="member">ALOC_STACK</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="996" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="996" bodyend="995"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a6ea656106a29aeb48763914af3978ce3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool argloc_t::is_scattered</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_scattered</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___a_l_o_c___1ga77ee658648b8a9f916838508ab40fb5a" kindref="member">ALOC_DIST</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="997" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="997" bodyend="996"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a6e5a3e96f9c3fd1f70b0461c95d12a72" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool argloc_t::is_mixed_scattered</definition>
+        <argsstring>() const</argsstring>
+        <name>is_mixed_scattered</name>
+        <briefdescription>
+<para>mixed scattered: consists of register and stack parts </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="998" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3537" bodyend="3543"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a7939d2038b31a06159e38a1e693e9df1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool argloc_t::is_fragmented</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_fragmented</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para><ref refid="classargloc__t_1a6ea656106a29aeb48763914af3978ce3" kindref="member">is_scattered()</ref> || <ref refid="classargloc__t_1aabdb8d4a549c14f243ef07732bbc7135" kindref="member">is_reg2()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="999" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="999" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1adab4c54526269844ffc579ec0d472494" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool argloc_t::is_custom</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_custom</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___a_l_o_c___1ga6be7eb6681fc4a4396bfd4ba9b28af95" kindref="member">ALOC_CUSTOM</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1000" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1000" bodyend="999"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a089880492a1389eb87ae04ab1480a907" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool argloc_t::is_badloc</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_badloc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group___a_l_o_c___1ga5981f9b45ff7e81a6cb884107e73ffe7" kindref="member">ALOC_NONE</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1001" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1001" bodyend="1000"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a22abf8609d370f7a1f5dc85a3672ffcf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int argloc_t::reg1</definition>
+        <argsstring>(void) const</argsstring>
+        <name>reg1</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the register info. Use when <ref refid="classargloc__t_1ac42816deece5c2172b5fe41e033bcf29" kindref="member">atype()</ref> == <ref refid="group___a_l_o_c___1gaac0445d0ad6d0681841a3ff71c1d2305" kindref="member">ALOC_REG1</ref> or <ref refid="group___a_l_o_c___1ga7d78615d7e58de9c53e5036c09c7f558" kindref="member">ALOC_REG2</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1005" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1005" bodyend="1005"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1ada80c12e32ba686010624a9de20f8a0f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int argloc_t::regoff</definition>
+        <argsstring>(void) const</argsstring>
+        <name>regoff</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get offset from the beginning of the register in bytes. Use when <ref refid="classargloc__t_1ac42816deece5c2172b5fe41e033bcf29" kindref="member">atype()</ref> == <ref refid="group___a_l_o_c___1gaac0445d0ad6d0681841a3ff71c1d2305" kindref="member">ALOC_REG1</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1009" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1009" bodyend="1009"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a085753e69bcf12f7cb3bc72e9079879c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int argloc_t::reg2</definition>
+        <argsstring>(void) const</argsstring>
+        <name>reg2</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get info for the second register. Use when <ref refid="classargloc__t_1ac42816deece5c2172b5fe41e033bcf29" kindref="member">atype()</ref> == <ref refid="group___a_l_o_c___1ga7d78615d7e58de9c53e5036c09c7f558" kindref="member">ALOC_REG2</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1013" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1013" bodyend="1013"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1ae10277794370820a815f6d1029068370" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 argloc_t::get_reginfo</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_reginfo</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get all register info. Use when <ref refid="classargloc__t_1ac42816deece5c2172b5fe41e033bcf29" kindref="member">atype()</ref> == <ref refid="group___a_l_o_c___1gaac0445d0ad6d0681841a3ff71c1d2305" kindref="member">ALOC_REG1</ref> or <ref refid="group___a_l_o_c___1ga7d78615d7e58de9c53e5036c09c7f558" kindref="member">ALOC_REG2</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1017" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1017" bodyend="1017"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1ad716d5ea1bd867d97613e3b077dce441" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+        <definition>sval_t argloc_t::stkoff</definition>
+        <argsstring>(void) const</argsstring>
+        <name>stkoff</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the stack offset. Use if <ref refid="classargloc__t_1ac42816deece5c2172b5fe41e033bcf29" kindref="member">atype()</ref> == <ref refid="group___a_l_o_c___1gade41123f7b84aadd16552c2d52943842" kindref="member">ALOC_STACK</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1021" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1021" bodyend="1021"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a3270b34bd11357a768ad789542a9f3f0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t argloc_t::get_ea</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_ea</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the global address. Use when <ref refid="classargloc__t_1ac42816deece5c2172b5fe41e033bcf29" kindref="member">atype()</ref> == <ref refid="group___a_l_o_c___1ga9342b6c4b8dcb9c10ee69c2a5251f3dc" kindref="member">ALOC_STATIC</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1025" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1025" bodyend="1025"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1adc377d1c2fe5da59677a33d34fefefe6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classscattered__aloc__t" kindref="compound">scattered_aloc_t</ref> &amp;</type>
+        <definition>scattered_aloc_t&amp; argloc_t::scattered</definition>
+        <argsstring>(void)</argsstring>
+        <name>scattered</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get scattered argument info. Use when <ref refid="classargloc__t_1ac42816deece5c2172b5fe41e033bcf29" kindref="member">atype()</ref> == <ref refid="group___a_l_o_c___1ga77ee658648b8a9f916838508ab40fb5a" kindref="member">ALOC_DIST</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1029" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1029" bodyend="1029"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a41cf655822fbd23d57e1885faf1aad0c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classscattered__aloc__t" kindref="compound">scattered_aloc_t</ref> &amp;</type>
+        <definition>const scattered_aloc_t&amp; argloc_t::scattered</definition>
+        <argsstring>(void) const</argsstring>
+        <name>scattered</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>copydoc <ref refid="classargloc__t_1adc377d1c2fe5da59677a33d34fefefe6" kindref="member">scattered()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1030" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1030" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a748efdf1fedc447f58d01a30416c85e9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structrrel__t" kindref="compound">rrel_t</ref> &amp;</type>
+        <definition>rrel_t&amp; argloc_t::get_rrel</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_rrel</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get register-relative info. Use when <ref refid="classargloc__t_1ac42816deece5c2172b5fe41e033bcf29" kindref="member">atype()</ref> == <ref refid="group___a_l_o_c___1ga72931cfa80f89bd8e4c6bf512391d695" kindref="member">ALOC_RREL</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1034" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1034" bodyend="1034"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a2aa9933c1c4b950b3df1d630d29d36c5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="structrrel__t" kindref="compound">rrel_t</ref> &amp;</type>
+        <definition>const rrel_t&amp; argloc_t::get_rrel</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_rrel</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>copydoc <ref refid="classargloc__t_1a748efdf1fedc447f58d01a30416c85e9" kindref="member">get_rrel()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1035" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1035" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a1e752bd5d152da565d83c638e82b8b79" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* argloc_t::get_custom</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_custom</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get custom argloc info. Use if <ref refid="classargloc__t_1ac42816deece5c2172b5fe41e033bcf29" kindref="member">atype()</ref> == <ref refid="group___a_l_o_c___1ga6be7eb6681fc4a4396bfd4ba9b28af95" kindref="member">ALOC_CUSTOM</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1039" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1039" bodyend="1039"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1aab3d4342fb5b4967a6fb0728bf78c3c2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>biggest_t</type>
+        <definition>biggest_t argloc_t::get_biggest</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_biggest</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get largest element in internal union. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1042" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1042" bodyend="1042"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a063de254b872c8922e7c33eb46ab2df4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void argloc_t::_set_badloc</definition>
+        <argsstring>(void)</argsstring>
+        <name>_set_badloc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Use <ref refid="classargloc__t_1a229efc8f038020677c414eb12d14d10f" kindref="member">set_badloc()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1045" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1045" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a58237cf6cee6722e197d9457d94928d5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void argloc_t::_set_reg1</definition>
+        <argsstring>(int reg, int off=0)</argsstring>
+        <name>_set_reg1</name>
+        <param>
+          <type>int</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>off</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Use <ref refid="classargloc__t_1a2001e49056d880235a4455e783cef1d3" kindref="member">set_reg1()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1046" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1046" bodyend="1045"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a480a4404bb72c23595de136b92d107cc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void argloc_t::_set_reg2</definition>
+        <argsstring>(int _reg1, int _reg2)</argsstring>
+        <name>_set_reg2</name>
+        <param>
+          <type>int</type>
+          <declname>_reg1</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_reg2</declname>
+        </param>
+        <briefdescription>
+<para>Use <ref refid="classargloc__t_1a0a12b3f8a9cd1de1b1cebce66e59d3f6" kindref="member">set_reg2()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1047" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1047" bodyend="1046"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1ab28bd32ace467412c0a6b7975214e40a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void argloc_t::_set_stkoff</definition>
+        <argsstring>(sval_t off)</argsstring>
+        <name>_set_stkoff</name>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>off</declname>
+        </param>
+        <briefdescription>
+<para>Use <ref refid="classargloc__t_1a15c65726be540d974c861cb8efa64b2c" kindref="member">set_stkoff()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1048" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1048" bodyend="1047"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a984d38dd99ff2d1f68ce2f3a2a901d86" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void argloc_t::_set_ea</definition>
+        <argsstring>(ea_t _ea)</argsstring>
+        <name>_set_ea</name>
+        <param>
+          <type>ea_t</type>
+          <declname>_ea</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Use set_ea </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1049" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1049" bodyend="1048"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1acb840052124d1a8e6ae5efa08a204e3b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool argloc_t::_consume_rrel</definition>
+        <argsstring>(rrel_t *p)</argsstring>
+        <name>_consume_rrel</name>
+        <param>
+          <type><ref refid="structrrel__t" kindref="compound">rrel_t</ref> *</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Use <ref refid="classargloc__t_1ab0aa2f889b27c9a07f130de2f1425c50" kindref="member">consume_rrel()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1051" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1051" bodyend="1058"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a3dfa2229415365cf37b233a7d0d98ff3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool argloc_t::_consume_scattered</definition>
+        <argsstring>(scattered_aloc_t *p)</argsstring>
+        <name>_consume_scattered</name>
+        <param>
+          <type><ref refid="classscattered__aloc__t" kindref="compound">scattered_aloc_t</ref> *</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Use <ref refid="classargloc__t_1a3992daf6842d575fe08f60fa9d505888" kindref="member">consume_scattered()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1060" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1060" bodyend="1067"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1afdedaf76a0ce7fdb8e4e47bcd088ecec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void argloc_t::_set_custom</definition>
+        <argsstring>(argloc_type_t ct, void *pdata)</argsstring>
+        <name>_set_custom</name>
+        <param>
+          <type><ref refid="group__argloc_1gafaa486b80f279565c5e29558d6694afd" kindref="member">argloc_type_t</ref></type>
+          <declname>ct</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>pdata</declname>
+        </param>
+        <briefdescription>
+<para>Set custom argument location (careful - this function does not clean up!) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1070" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1070" bodyend="1070"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1ac02b16373e5d22a52b1bfefc5ade42ee" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void argloc_t::_set_biggest</definition>
+        <argsstring>(argloc_type_t ct, biggest_t data)</argsstring>
+        <name>_set_biggest</name>
+        <param>
+          <type><ref refid="group__argloc_1gafaa486b80f279565c5e29558d6694afd" kindref="member">argloc_type_t</ref></type>
+          <declname>ct</declname>
+        </param>
+        <param>
+          <type>biggest_t</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>Set biggest element in internal union (careful - this function does not clean up!) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1073" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1073" bodyend="1073"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a2001e49056d880235a4455e783cef1d3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void argloc_t::set_reg1</definition>
+        <argsstring>(int reg, int off=0)</argsstring>
+        <name>set_reg1</name>
+        <param>
+          <type>int</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>off</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Set register location. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1076" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1076" bodyend="1076"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a0a12b3f8a9cd1de1b1cebce66e59d3f6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void argloc_t::set_reg2</definition>
+        <argsstring>(int _reg1, int _reg2)</argsstring>
+        <name>set_reg2</name>
+        <param>
+          <type>int</type>
+          <declname>_reg1</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_reg2</declname>
+        </param>
+        <briefdescription>
+<para>Set secondary register location. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1079" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1079" bodyend="1079"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a15c65726be540d974c861cb8efa64b2c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void argloc_t::set_stkoff</definition>
+        <argsstring>(sval_t off)</argsstring>
+        <name>set_stkoff</name>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>off</declname>
+        </param>
+        <briefdescription>
+<para>Set stack offset location. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1082" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1082" bodyend="1082"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1aa5293c701de3bc80bca2bd0864897371" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void argloc_t::set_ea</definition>
+        <argsstring>(ea_t _ea)</argsstring>
+        <name>set_ea</name>
+        <param>
+          <type>ea_t</type>
+          <declname>_ea</declname>
+        </param>
+        <briefdescription>
+<para>Set static ea location. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1085" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1085" bodyend="1085"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1ab0aa2f889b27c9a07f130de2f1425c50" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void argloc_t::consume_rrel</definition>
+        <argsstring>(rrel_t *p)</argsstring>
+        <name>consume_rrel</name>
+        <param>
+          <type><ref refid="structrrel__t" kindref="compound">rrel_t</ref> *</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Set register-relative location - can&apos;t be NULL. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1088" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1088" bodyend="1088"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a3992daf6842d575fe08f60fa9d505888" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void argloc_t::consume_scattered</definition>
+        <argsstring>(scattered_aloc_t *p)</argsstring>
+        <name>consume_scattered</name>
+        <param>
+          <type><ref refid="classscattered__aloc__t" kindref="compound">scattered_aloc_t</ref> *</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Set distributed argument location. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1091" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1091" bodyend="1091"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a229efc8f038020677c414eb12d14d10f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void argloc_t::set_badloc</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_badloc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Set to invalid location. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1094" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1094" bodyend="1094"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a7e13c6e7484602833aa8aa0ce7268099" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+        <definition>sval_t argloc_t::calc_offset</definition>
+        <argsstring>(void) const</argsstring>
+        <name>calc_offset</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Calculate offset that can be used to compare 2 similar arglocs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1097" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1097" bodyend="1114"/>
+      </memberdef>
+      <memberdef kind="function" id="classargloc__t_1a41717a651b5e5d035101cd3c93f9fa16" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool argloc_t::advance</definition>
+        <argsstring>(int delta)</argsstring>
+        <name>advance</name>
+        <param>
+          <type>int</type>
+          <declname>delta</declname>
+        </param>
+        <briefdescription>
+<para>Move the location to point &apos;delta&apos; bytes further. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1117" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1117" bodyend="1135"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Describes an argument location. A typical argument is stored in one location, either a register or a stack slot. <linebreak/>
+However, some arguments can be stored in multiple locations, for example in a pair <linebreak/>
+of registers. In some really complex cases an argument can be located in multiple <linebreak/>
+registers and some stack slots. This class can describe all these cases. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="43">
+        <label>argpart_t</label>
+        <link refid="structargpart__t"/>
+        <childnode refid="42" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>scif_t</label>
+        <link refid="structscif__t"/>
+        <childnode refid="44" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>vdloc_t</label>
+        <link refid="classvdloc__t"/>
+        <childnode refid="42" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>argloc_t</label>
+        <link refid="classargloc__t"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="47">
+        <label>scattered_aloc_t</label>
+        <link refid="classscattered__aloc__t"/>
+        <childnode refid="48" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>qvector&lt; argpart_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="46">
+        <label>argloc_t</label>
+        <link refid="classargloc__t"/>
+        <childnode refid="47" relation="usage">
+          <edgelabel>dist</edgelabel>
+        </childnode>
+        <childnode refid="49" relation="usage">
+          <edgelabel>rrel</edgelabel>
+        </childnode>
+      </node>
+      <node id="49">
+        <label>rrel_t</label>
+        <link refid="structrrel__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="957" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="956" bodyend="1140"/>
+    <listofallmembers>
+      <member refid="classargloc__t_1acb840052124d1a8e6ae5efa08a204e3b" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>_consume_rrel</name></member>
+      <member refid="classargloc__t_1a3dfa2229415365cf37b233a7d0d98ff3" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>_consume_scattered</name></member>
+      <member refid="classargloc__t_1a063de254b872c8922e7c33eb46ab2df4" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>_set_badloc</name></member>
+      <member refid="classargloc__t_1ac02b16373e5d22a52b1bfefc5ade42ee" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>_set_biggest</name></member>
+      <member refid="classargloc__t_1afdedaf76a0ce7fdb8e4e47bcd088ecec" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>_set_custom</name></member>
+      <member refid="classargloc__t_1a984d38dd99ff2d1f68ce2f3a2a901d86" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>_set_ea</name></member>
+      <member refid="classargloc__t_1a58237cf6cee6722e197d9457d94928d5" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>_set_reg1</name></member>
+      <member refid="classargloc__t_1a480a4404bb72c23595de136b92d107cc" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>_set_reg2</name></member>
+      <member refid="classargloc__t_1ab28bd32ace467412c0a6b7975214e40a" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>_set_stkoff</name></member>
+      <member refid="classargloc__t_1a41717a651b5e5d035101cd3c93f9fa16" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>advance</name></member>
+      <member refid="classargloc__t_1aadfaa7892946d785788519bb39c1534c" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>argloc_t</name></member>
+      <member refid="classargloc__t_1a4408c6d67670411345ac64af0691c6bb" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>argloc_t</name></member>
+      <member refid="classargloc__t_1ac42816deece5c2172b5fe41e033bcf29" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>atype</name></member>
+      <member refid="classargloc__t_1abf4bc576016f72bd939593585ea53aa8" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>biggest</name></member>
+      <member refid="classargloc__t_1ace26fa1159679dcd2d5783d8e750452d" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>biggest_t</name></member>
+      <member refid="classargloc__t_1a7e13c6e7484602833aa8aa0ce7268099" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>calc_offset</name></member>
+      <member refid="classargloc__t_1ab0aa2f889b27c9a07f130de2f1425c50" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>consume_rrel</name></member>
+      <member refid="classargloc__t_1a3992daf6842d575fe08f60fa9d505888" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>consume_scattered</name></member>
+      <member refid="classargloc__t_1a83287f7a120fab6d7bd15b1cba6d9f22" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>custom</name></member>
+      <member refid="classargloc__t_1a7722314907d2243f82fa2a74c01fda2d" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>dist</name></member>
+      <member refid="classargloc__t_1acf30976b8b40ce02b509e17aedeff0cf" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>dstr</name></member>
+      <member refid="classargloc__t_1aab3d4342fb5b4967a6fb0728bf78c3c2" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>get_biggest</name></member>
+      <member refid="classargloc__t_1a1e752bd5d152da565d83c638e82b8b79" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>get_custom</name></member>
+      <member refid="classargloc__t_1a3270b34bd11357a768ad789542a9f3f0" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>get_ea</name></member>
+      <member refid="classargloc__t_1ae10277794370820a815f6d1029068370" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>get_reginfo</name></member>
+      <member refid="classargloc__t_1a748efdf1fedc447f58d01a30416c85e9" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>get_rrel</name></member>
+      <member refid="classargloc__t_1a2aa9933c1c4b950b3df1d630d29d36c5" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>get_rrel</name></member>
+      <member refid="classargloc__t_1a089880492a1389eb87ae04ab1480a907" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>is_badloc</name></member>
+      <member refid="classargloc__t_1adab4c54526269844ffc579ec0d472494" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>is_custom</name></member>
+      <member refid="classargloc__t_1a26c9d0f1d53027a8e39dc1380dc7263b" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>is_ea</name></member>
+      <member refid="classargloc__t_1a7939d2038b31a06159e38a1e693e9df1" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>is_fragmented</name></member>
+      <member refid="classargloc__t_1a6e5a3e96f9c3fd1f70b0461c95d12a72" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>is_mixed_scattered</name></member>
+      <member refid="classargloc__t_1adac20266ce431d9d4cc7d56a148df57f" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>is_reg</name></member>
+      <member refid="classargloc__t_1a1109690340938b4864dad4e11d00fed2" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>is_reg1</name></member>
+      <member refid="classargloc__t_1aabdb8d4a549c14f243ef07732bbc7135" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>is_reg2</name></member>
+      <member refid="classargloc__t_1aaf24568905e2fb3766c0a1dee00990c8" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>is_rrel</name></member>
+      <member refid="classargloc__t_1a6ea656106a29aeb48763914af3978ce3" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>is_scattered</name></member>
+      <member refid="classargloc__t_1ac04cb0b927680386beb21e64feeec9c2" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>is_stkoff</name></member>
+      <member refid="classargloc__t_1a15ee4a5904426f2b2fdfac6d83b937a5" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>operator=</name></member>
+      <member refid="classargloc__t_1a22abf8609d370f7a1f5dc85a3672ffcf" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>reg1</name></member>
+      <member refid="classargloc__t_1a085753e69bcf12f7cb3bc72e9079879c" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>reg2</name></member>
+      <member refid="classargloc__t_1a76f950e66699174fe7a68df7758e594a" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>reginfo</name></member>
+      <member refid="classargloc__t_1ada80c12e32ba686010624a9de20f8a0f" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>regoff</name></member>
+      <member refid="classargloc__t_1a1fa43bd01e8b77284574b98124f57936" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>rrel</name></member>
+      <member refid="classargloc__t_1adc377d1c2fe5da59677a33d34fefefe6" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>scattered</name></member>
+      <member refid="classargloc__t_1a41cf655822fbd23d57e1885faf1aad0c" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>scattered</name></member>
+      <member refid="classargloc__t_1a229efc8f038020677c414eb12d14d10f" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>set_badloc</name></member>
+      <member refid="classargloc__t_1aa5293c701de3bc80bca2bd0864897371" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>set_ea</name></member>
+      <member refid="classargloc__t_1a2001e49056d880235a4455e783cef1d3" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>set_reg1</name></member>
+      <member refid="classargloc__t_1a0a12b3f8a9cd1de1b1cebce66e59d3f6" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>set_reg2</name></member>
+      <member refid="classargloc__t_1a15c65726be540d974c861cb8efa64b2c" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>set_stkoff</name></member>
+      <member refid="classargloc__t_1ad716d5ea1bd867d97613e3b077dce441" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>stkoff</name></member>
+      <member refid="classargloc__t_1ae3d306162b4386dcc3046532107fdea4" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>sval</name></member>
+      <member refid="classargloc__t_1a4e1755b0a9fd2c6ae2812b2141b9db3f" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>swap</name></member>
+      <member refid="classargloc__t_1a93fd0b5f70d3519dbd38495312ac377e" prot="private" virt="non-virtual"><scope>argloc_t</scope><name>type</name></member>
+      <member refid="classargloc__t_1afb19fb5c127000a0b667e57d26eeef09" prot="public" virt="non-virtual"><scope>argloc_t</scope><name>~argloc_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

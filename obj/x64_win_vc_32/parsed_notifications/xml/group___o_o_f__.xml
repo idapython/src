@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___o_o_f__" kind="group">
+    <compoundname>OOF_</compoundname>
+    <title>Output value flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___o_o_f___1gaf62d714a88009dc2861e9f14bc8e38da" prot="public" static="no">
+        <name>OOF_SIGNMASK</name>
+        <initializer>0x0003</initializer>
+        <briefdescription>
+<para>sign symbol (+/-) output </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="830" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="830" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1ga0d65e3bfe751bb1c4cd95c3b6f4db987" prot="public" static="no">
+        <name>OOFS_IFSIGN</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>output sign if needed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="831" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="831" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1gad5c2da3b028e65d27b852996302336d6" prot="public" static="no">
+        <name>OOFS_NOSIGN</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>don&apos;t output sign, forbid the user to change the sign </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="832" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="832" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1ga126dea1949acdfb77903ed80006b6842" prot="public" static="no">
+        <name>OOFS_NEEDSIGN</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>always out sign (+-) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="833" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="833" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1ga119895f29c138475abfec9adb753bf09" prot="public" static="no">
+        <name>OOF_SIGNED</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>output as signed if &lt; 0 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="834" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="834" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1ga56f31a0886e3b81b816815a7536fff19" prot="public" static="no">
+        <name>OOF_NUMBER</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>always as a number </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="835" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="835" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1ga187816d238afd7f7b96f07712bf0a784" prot="public" static="no">
+        <name>OOF_WIDTHMASK</name>
+        <initializer>0x0070</initializer>
+        <briefdescription>
+<para>width of value in bits </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="836" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="836" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1ga11f4bc8957ed36319aada42a61c79d08" prot="public" static="no">
+        <name>OOFW_IMM</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>take from x.dtype </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="837" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="837" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1ga527a9a359a40bdfbacc4c653ca510355" prot="public" static="no">
+        <name>OOFW_8</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>8 bit width </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="838" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="838" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1ga37805325965708bea6c2c29199074299" prot="public" static="no">
+        <name>OOFW_16</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>16 bit width </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="839" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="839" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1gaa37ea29398ba78be04abe2aab07429c6" prot="public" static="no">
+        <name>OOFW_24</name>
+        <initializer>0x0030</initializer>
+        <briefdescription>
+<para>24 bit width </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="840" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="840" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1gada7c52e05bbe02cc5598f2454ece94e4" prot="public" static="no">
+        <name>OOFW_32</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+<para>32 bit width </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="841" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="841" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1ga9b2d00f4eeedf24e09b37f3ed9e9ee88" prot="public" static="no">
+        <name>OOFW_64</name>
+        <initializer>0x0050</initializer>
+        <briefdescription>
+<para>64 bit width </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="842" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="842" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1ga08f0c8f9c6066b5ce737b3a302b92428" prot="public" static="no">
+        <name>OOF_ADDR</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para>output x.addr, otherwise x.value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="843" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="843" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1gad3258572886342d6cfc46fc2d3382fdc" prot="public" static="no">
+        <name>OOF_OUTER</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+<para>output outer operand </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="844" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="844" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1ga3412449a27b5d790ab96499d7a852399" prot="public" static="no">
+        <name>OOF_ZSTROFF</name>
+        <initializer>0x0200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>meaningful only if is_stroff(uFlag) append a struct field name if the field offset is zero? if <ref refid="group___a_f_l___1gae2a9146154dc578eb2d9e75efe0d5d18" kindref="member">AFL_ZSTROFF</ref> is set, then this flag is ignored. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="845" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="845" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1ga0d5b3b1e64051f6f0e7c45be39c05d77" prot="public" static="no">
+        <name>OOF_NOBNOT</name>
+        <initializer>0x0400</initializer>
+        <briefdescription>
+<para>prohibit use of binary not </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="850" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="850" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1ga26333835719800be2bda18272dbcef57" prot="public" static="no">
+        <name>OOF_SPACES</name>
+        <initializer>0x0800</initializer>
+        <briefdescription>
+<para>currently works only for floating point numbers </para>        </briefdescription>
+        <detaileddescription>
+<para>do not suppress leading spaces </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="851" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="851" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_o_f___1ga3ef802ac7b013e5cbfa6ef74e2a0a1c1" prot="public" static="no">
+        <name>OOF_ANYSERIAL</name>
+        <initializer>0x1000</initializer>
+        <briefdescription>
+<para>if enum: select first available serial </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="853" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="853" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Flags passed to <ref refid="structoutctx__base__t_1a3fc65e57973d2014015df8c252d9f9a2" kindref="member">out_value()</ref>. (don&apos;t use <ref refid="group___o_o_f___1gaf62d714a88009dc2861e9f14bc8e38da" kindref="member">OOF_SIGNMASK</ref> and <ref refid="group___o_o_f___1ga187816d238afd7f7b96f07712bf0a784" kindref="member">OOF_WIDTHMASK</ref>, they are for the kernel) </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

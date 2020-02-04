@@ -1,0 +1,393 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structfunc__type__data__t" kind="struct" language="C++" prot="public">
+    <compoundname>func_type_data_t</compoundname>
+    <basecompoundref refid="classqvector" prot="public" virt="non-virtual">qvector&lt; funcarg_t &gt;</basecompoundref>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structfunc__type__data__t_1a54c21f102d1142c3419048ecc2ea80e7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int func_type_data_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___f_t_i__" kindref="compound">Function type data property bits</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3243" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfunc__type__data__t_1af06a4ee0dc7dc802ffef09bbbc0c8337" prot="public" static="no" mutable="no">
+        <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref></type>
+        <definition>tinfo_t func_type_data_t::rettype</definition>
+        <argsstring></argsstring>
+        <name>rettype</name>
+        <briefdescription>
+<para>return type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3262" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfunc__type__data__t_1a9c77238f25a596ae710f3155d3e1111b" prot="public" static="no" mutable="no">
+        <type><ref refid="classargloc__t" kindref="compound">argloc_t</ref></type>
+        <definition>argloc_t func_type_data_t::retloc</definition>
+        <argsstring></argsstring>
+        <name>retloc</name>
+        <briefdescription>
+<para>return location </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3263" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfunc__type__data__t_1a37c3ab4cc816e11b3087ab5ff011d3e1" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1aef265b11f25357d520dcfd40aa8c18f3" kindref="member">uval_t</ref></type>
+        <definition>uval_t func_type_data_t::stkargs</definition>
+        <argsstring></argsstring>
+        <name>stkargs</name>
+        <briefdescription>
+<para>size of stack arguments (not used in build_func_type) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3264" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfunc__type__data__t_1a9b5b6277e05168f7e2c7b17b075f4dbb" prot="public" static="no" mutable="no">
+        <type><ref refid="idp_8hpp_1a1e42d23df3fb79ce131a227e4898b570" kindref="member">reginfovec_t</ref></type>
+        <definition>reginfovec_t func_type_data_t::spoiled</definition>
+        <argsstring></argsstring>
+        <name>spoiled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>spoiled register information. if spoiled register info is present, it overrides the standard spoil info (eax, edx, ecx for x86) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3265" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfunc__type__data__t_1ad1926f06849f2680f7c6d110287cdcaf" prot="public" static="no" mutable="no">
+        <type><ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>cm_t func_type_data_t::cc</definition>
+        <argsstring></argsstring>
+        <name>cc</name>
+        <briefdescription>
+<para>calling convention </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3268" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3268" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structfunc__type__data__t_1aa9c2f1b6d513073445a6e5217914a923" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>func_type_data_t::func_type_data_t</definition>
+        <argsstring>()</argsstring>
+        <name>func_type_data_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3269" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3269" bodyend="3269"/>
+      </memberdef>
+      <memberdef kind="function" id="structfunc__type__data__t_1ac5531c52b50f64359f017d47231c0e5b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void func_type_data_t::swap</definition>
+        <argsstring>(func_type_data_t &amp;r)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="structfunc__type__data__t" kindref="compound">func_type_data_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3270" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3270" bodyend="3270"/>
+      </memberdef>
+      <memberdef kind="function" id="structfunc__type__data__t_1aff545d2ae086adea4a1171d6d526c5c6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool func_type_data_t::is_high</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_high</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3271" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3271" bodyend="3271"/>
+      </memberdef>
+      <memberdef kind="function" id="structfunc__type__data__t_1ae2c5611e794008eb308d1f8708819139" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool func_type_data_t::is_noret</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_noret</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3272" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3272" bodyend="3272"/>
+      </memberdef>
+      <memberdef kind="function" id="structfunc__type__data__t_1a7b4da6f79e737b8014fce531ee8be3a5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool func_type_data_t::is_pure</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_pure</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3273" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3273" bodyend="3273"/>
+      </memberdef>
+      <memberdef kind="function" id="structfunc__type__data__t_1a178f29bc7ce91ba41abc26ed2f66b08a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int func_type_data_t::get_call_method</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_call_method</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3274" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3274" bodyend="3274"/>
+      </memberdef>
+      <memberdef kind="function" id="structfunc__type__data__t_1ae8b5877ec2f39ad3956cf4e49fb18b0b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>cm_t func_type_data_t::get_cc</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_cc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3275" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3275" bodyend="3282"/>
+      </memberdef>
+      <memberdef kind="function" id="structfunc__type__data__t_1a0d752e87a2d55693558422e26483cd27" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool func_type_data_t::is_vararg_cc</definition>
+        <argsstring>() const</argsstring>
+        <name>is_vararg_cc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3283" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3283" bodyend="3283"/>
+      </memberdef>
+      <memberdef kind="function" id="structfunc__type__data__t_1abbe3746b3c724ebff39a901ae4660a5f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>cm_t func_type_data_t::guess_cc</definition>
+        <argsstring>(int purged, int cc_flags) const</argsstring>
+        <name>guess_cc</name>
+        <param>
+          <type>int</type>
+          <declname>purged</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>cc_flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Guess function calling convention use the following info: argument locations and &apos;stkargs&apos; </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3286" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3286" bodyend="3289"/>
+      </memberdef>
+      <memberdef kind="function" id="structfunc__type__data__t_1ae579895c3994102621b42363fd22e3a9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool func_type_data_t::dump</definition>
+        <argsstring>(qstring *out, int praloc_bits=PRALOC_STKOFF) const</argsstring>
+        <name>dump</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>praloc_bits</declname>
+          <defval><ref refid="group__argloc_1ga51017e98e13d8514261572bba7766e75" kindref="member">PRALOC_STKOFF</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Dump information that is not always visible in the function prototype. (argument locations, return location, total stkarg size) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3296" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3296" bodyend="3299"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Function type information (see <ref refid="classtinfo__t_1adfb1d3f3412255927be1249a0324cbf6" kindref="member">tinfo_t::get_func_details()</ref>) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1653">
+        <label>func_type_data_t</label>
+        <link refid="structfunc__type__data__t"/>
+        <childnode refid="1654" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1654">
+        <label>funcargvec_t</label>
+        <link refid="classqvector"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1655">
+        <label>func_type_data_t</label>
+        <link refid="structfunc__type__data__t"/>
+        <childnode refid="1656" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1657" relation="usage">
+          <edgelabel>spoiled</edgelabel>
+        </childnode>
+        <childnode refid="1658" relation="usage">
+          <edgelabel>rettype</edgelabel>
+        </childnode>
+        <childnode refid="1659" relation="usage">
+          <edgelabel>retloc</edgelabel>
+        </childnode>
+      </node>
+      <node id="1658">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="1656">
+        <label>funcargvec_t</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1660">
+        <label>scattered_aloc_t</label>
+        <link refid="classscattered__aloc__t"/>
+        <childnode refid="1661" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1661">
+        <label>qvector&lt; argpart_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1659">
+        <label>argloc_t</label>
+        <link refid="classargloc__t"/>
+        <childnode refid="1660" relation="usage">
+          <edgelabel>dist</edgelabel>
+        </childnode>
+        <childnode refid="1662" relation="usage">
+          <edgelabel>rrel</edgelabel>
+        </childnode>
+      </node>
+      <node id="1657">
+        <label>qvector&lt; reg_info_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1662">
+        <label>rrel_t</label>
+        <link refid="structrrel__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3242" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3241" bodyend="3300"/>
+    <listofallmembers>
+      <member refid="classqvector_1aae20729cb52ff559b27b834e0bbb5528" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>add</name></member>
+      <member refid="classqvector_1af0e3de3e606a0b52de17e80ce710317c" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>add_unique</name></member>
+      <member refid="classqvector_1a7756bf02ed2b83370fc1d62acb49d3be" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>at</name></member>
+      <member refid="classqvector_1a8239a85aa07f560afcf35b8c7c53fd48" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>at</name></member>
+      <member refid="classqvector_1ae86d54e6a60b2f2e7eb254b181e4a4dc" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>back</name></member>
+      <member refid="classqvector_1aa9af4ff586a6b15e11e760e1f28766f3" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>back</name></member>
+      <member refid="classqvector_1ad907a7b2c09c0ca4dd437392ee34a50a" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>begin</name></member>
+      <member refid="classqvector_1a85630357a750889ffc6c204e98a8d4aa" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>begin</name></member>
+      <member refid="classqvector_1ae2f4823d02d814d50c6d198ff0c43a0c" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>capacity</name></member>
+      <member refid="structfunc__type__data__t_1ad1926f06849f2680f7c6d110287cdcaf" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>cc</name></member>
+      <member refid="classqvector_1a00ea674adc4b958966d78ba450621a46" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>clear</name></member>
+      <member refid="classqvector_1a194d7dff35eb2e50e2b98109a6a9c4da" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>const_iterator</name></member>
+      <member refid="classqvector_1a1f7772500942d63596a5c91249ad577c" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>del</name></member>
+      <member refid="classqvector_1ac78b72e26edaf62a9554b5a0fe3d6457" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>dstr</name></member>
+      <member refid="structfunc__type__data__t_1ae579895c3994102621b42363fd22e3a9" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>dump</name></member>
+      <member refid="classqvector_1a557b1f774ef7d7e242ce4792ac83b572" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>empty</name></member>
+      <member refid="classqvector_1a6139abba869b7a488109c983445a34d1" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>end</name></member>
+      <member refid="classqvector_1adcc73c6c8ad31d17a5fdc57dffea90e1" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>end</name></member>
+      <member refid="classqvector_1a59661e16df1b8e3c69caf2b2a6ca2b59" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>erase</name></member>
+      <member refid="classqvector_1a16a369b4edb05a6feddd38f8612eab1b" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>erase</name></member>
+      <member refid="classqvector_1abf8f50b30972a829ad7affb27cdb80c7" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>extract</name></member>
+      <member refid="classqvector_1ab9b8ccda1db8948c10f1ea2936c59a5c" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>find</name></member>
+      <member refid="classqvector_1a4e77dc1a55ea19e725e8a22aa574ae28" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>find</name></member>
+      <member refid="structfunc__type__data__t_1a54c21f102d1142c3419048ecc2ea80e7" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>flags</name></member>
+      <member refid="classqvector_1a7cfc6f9d91d6495f92961c5ea37bb0d4" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>front</name></member>
+      <member refid="classqvector_1ae4595a6221e8a056b54fed4dced17f26" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>front</name></member>
+      <member refid="structfunc__type__data__t_1aa9c2f1b6d513073445a6e5217914a923" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>func_type_data_t</name></member>
+      <member refid="structfunc__type__data__t_1a178f29bc7ce91ba41abc26ed2f66b08a" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>get_call_method</name></member>
+      <member refid="structfunc__type__data__t_1ae8b5877ec2f39ad3956cf4e49fb18b0b" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>get_cc</name></member>
+      <member refid="classqvector_1acd86e975d8aa56bee809e4176bb0d530" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>grow</name></member>
+      <member refid="structfunc__type__data__t_1abbe3746b3c724ebff39a901ae4660a5f" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>guess_cc</name></member>
+      <member refid="classqvector_1af9f9d1bbac527168131b03ee956833fc" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>has</name></member>
+      <member refid="classqvector_1aeb58b3064e71399ce8f2bfaf9a582d29" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>index</name></member>
+      <member refid="classqvector_1a0e2ac6acfb0b5607cd6b77e8049633db" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>inject</name></member>
+      <member refid="classqvector_1a7c55d837eb4006430e5b300e79901ef1" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>insert</name></member>
+      <member refid="classqvector_1ad10cb71a7d5bfdd090dafd52f625eb20" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>insert</name></member>
+      <member refid="structfunc__type__data__t_1aff545d2ae086adea4a1171d6d526c5c6" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>is_high</name></member>
+      <member refid="structfunc__type__data__t_1ae2c5611e794008eb308d1f8708819139" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>is_noret</name></member>
+      <member refid="structfunc__type__data__t_1a7b4da6f79e737b8014fce531ee8be3a5" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>is_pure</name></member>
+      <member refid="structfunc__type__data__t_1a0d752e87a2d55693558422e26483cd27" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>is_vararg_cc</name></member>
+      <member refid="classqvector_1ad40f094ea07c84e9cab1077188893c5c" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>iterator</name></member>
+      <member refid="classqvector_1a72ea097e75bccff811f3a98f050b90b2" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>operator!=</name></member>
+      <member refid="classqvector_1af24534fa1de39b829e85f573640f9f48" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>operator=</name></member>
+      <member refid="classqvector_1ace7ff39fb8ad735fdd45b86a46ba4fbc" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>operator==</name></member>
+      <member refid="classqvector_1a3ffbd25fbea3165cf3f8f7a6b4d5c86d" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>operator[]</name></member>
+      <member refid="classqvector_1a9743bfd5464506b812d9686d3ba40299" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>operator[]</name></member>
+      <member refid="classqvector_1ad0dfc171e75ac7ddf1de00309505d995" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>pop_back</name></member>
+      <member refid="classqvector_1a3a46bca9030a31c7e0a1596948797e37" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>push_back</name></member>
+      <member refid="classqvector_1ad54c35eca9074d6458a0f589f09d1750" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>push_back</name></member>
+      <member refid="classqvector_1a5e84e633cf9a05ebdc441af0780edb4a" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>qclear</name></member>
+      <member refid="classqvector_1ac1c66f1594aff3114ed1de62cf84410d" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>qvector</name></member>
+      <member refid="classqvector_1a53936d7ddf6df4efdf91eeed34894c41" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>qvector</name></member>
+      <member refid="classqvector_1a00e5c32c63732f5149e901c932d2f3c2" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>reserve</name></member>
+      <member refid="classqvector_1a86c07a20c0f081c2930118f0db280148" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>resize</name></member>
+      <member refid="classqvector_1ae4d55e7d94d1a247e10baeae524b53dc" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>resize</name></member>
+      <member refid="structfunc__type__data__t_1a9c77238f25a596ae710f3155d3e1111b" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>retloc</name></member>
+      <member refid="structfunc__type__data__t_1af06a4ee0dc7dc802ffef09bbbc0c8337" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>rettype</name></member>
+      <member refid="classqvector_1ae96fe88d3602362b063bd0540ff579dd" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>size</name></member>
+      <member refid="structfunc__type__data__t_1a9b5b6277e05168f7e2c7b17b075f4dbb" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>spoiled</name></member>
+      <member refid="structfunc__type__data__t_1a37c3ab4cc816e11b3087ab5ff011d3e1" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>stkargs</name></member>
+      <member refid="structfunc__type__data__t_1ac5531c52b50f64359f017d47231c0e5b" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>swap</name></member>
+      <member refid="classqvector_1a2006754f99fb324709ae0972ddb20bb4" prot="public" virt="non-virtual" ambiguityscope="qvector::"><scope>func_type_data_t</scope><name>swap</name></member>
+      <member refid="classqvector_1a447062dc6a1a8318a9e0430d4bbe0ec6" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>truncate</name></member>
+      <member refid="classqvector_1a71bc4c4aa5df2fda5b070e74f01b5d28" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>value_type</name></member>
+      <member refid="classqvector_1a3c7294aeb604b9c9e1b47b3abd8cd71e" prot="public" virt="non-virtual"><scope>func_type_data_t</scope><name>~qvector</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

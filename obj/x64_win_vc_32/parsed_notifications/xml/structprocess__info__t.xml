@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structprocess__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>process_info_t</compoundname>
+    <includes refid="idd_8hpp" local="no">idd.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structprocess__info__t_1a59e8ffc7effa4d7393932607d4278ba3" prot="public" static="no" mutable="no">
+        <type><ref refid="idd_8hpp_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref></type>
+        <definition>pid_t process_info_t::pid</definition>
+        <argsstring></argsstring>
+        <name>pid</name>
+        <briefdescription>
+<para>process id </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="46" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprocess__info__t_1a9e01bc183ec75d023d1ef30eca02c222" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring process_info_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>process name </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="47" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Process information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2912">
+        <label>process_info_t</label>
+        <link refid="structprocess__info__t"/>
+        <childnode refid="2913" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+      </node>
+      <node id="2913">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="45" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="44" bodyend="48"/>
+    <listofallmembers>
+      <member refid="structprocess__info__t_1a9e01bc183ec75d023d1ef30eca02c222" prot="public" virt="non-virtual"><scope>process_info_t</scope><name>name</name></member>
+      <member refid="structprocess__info__t_1a59e8ffc7effa4d7393932607d4278ba3" prot="public" virt="non-virtual"><scope>process_info_t</scope><name>pid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

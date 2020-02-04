@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_e_f__" kind="group">
+    <compoundname>CEF_</compoundname>
+    <title>Convert encoding flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___c_e_f___1gabbfe23b246addb7fa7e0da9119445ab8" prot="public" static="no">
+        <name>CEF_RETERR</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="3550" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="3550" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>used by convert_encoding </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

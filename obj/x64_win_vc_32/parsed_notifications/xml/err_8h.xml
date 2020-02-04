@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="err_8h" kind="file" language="C++">
+    <compoundname>err.h</compoundname>
+    <includes local="no">errno.h</includes>
+    <includedby refid="vm_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/vm.hpp</includedby>
+    <includedby refid="testbox_8hpp" local="no">obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp</includedby>
+    <incdepgraph>
+      <node id="240">
+        <label>errno.h</label>
+      </node>
+      <node id="239">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/err.h</label>
+        <link refid="err_8h"/>
+        <childnode refid="240" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="244">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/testbox.hpp</label>
+        <link refid="testbox_8hpp_source"/>
+      </node>
+      <node id="242">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/vm.hpp</label>
+        <link refid="vm_8hpp_source"/>
+        <childnode refid="243" relation="include">
+        </childnode>
+      </node>
+      <node id="243">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/va.hpp</label>
+        <link refid="va_8hpp_source"/>
+      </node>
+      <node id="241">
+        <label>obj/x64_linux_gcc_32_opt/idasdk/err.h</label>
+        <link refid="err_8h"/>
+        <childnode refid="242" relation="include">
+        </childnode>
+        <childnode refid="244" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="err_8h_1a059d4a9d7247dce7ce8b9061d1a11136" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void ida_export</type>
+        <definition>idaman THREAD_SAFE void ida_export vqperror</definition>
+        <argsstring>(const char *format, va_list va)</argsstring>
+        <name>vqperror</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>va_list</type>
+          <declname>va</declname>
+        </param>
+        <briefdescription>
+<para>Print error message to stderr (analog of perror) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/err.h" line="21" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="err_8h_1aad233979009a1bf21bbd3ce1e2c5f7a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> const char *ida_export</type>
+        <definition>idaman THREAD_SAFE const char* ida_export qstrerror</definition>
+        <argsstring>(error_t _qerrno)</argsstring>
+        <name>qstrerror</name>
+        <param>
+          <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+          <declname>_qerrno</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get error description string. if _qerrno=-1, <ref refid="pro_8h_1aee2130be457b029a366d04ae2333e8b6" kindref="member">get_qerrno()</ref> will be used </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/err.h" line="27" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="err_8h_1a03187d7409c77cb8d02380f17ca6a4db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> char *ida_export</type>
+        <definition>idaman THREAD_SAFE char* ida_export get_errdesc</definition>
+        <argsstring>(const char *header, error_t _qerrno=-1)</argsstring>
+        <name>get_errdesc</name>
+        <param>
+          <type>const char *</type>
+          <declname>header</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a84c6c720bb5e612c64013a7d4e8acd55" kindref="member">error_t</ref></type>
+          <declname>_qerrno</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+<para>A convenience function to generate error messages (returns &quot;header: error message&quot;) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/err.h" line="32" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="err_8h_1ab4511117132fa14e07ceb3c8b7101949" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> char *ida_export</type>
+        <definition>idaman THREAD_SAFE char* ida_export winerr</definition>
+        <argsstring>(int code)</argsstring>
+        <name>winerr</name>
+        <param>
+          <type>int</type>
+          <declname>code</declname>
+        </param>
+        <briefdescription>
+<para>Get error message for MS Windows error codes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/err.h" line="37" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="err_8h_1a876ac8795e807ea890f483f7b901d652" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman <ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> int ida_export</type>
+        <definition>idaman THREAD_SAFE int ida_export qerrcode</definition>
+        <argsstring>(int new_code=-1)</argsstring>
+        <name>qerrcode</name>
+        <param>
+          <type>int</type>
+          <declname>new_code</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+<para>errno or GetLastError() depending on the system. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/err.h" line="42" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="err_8h_1a2aa960e0785cda17ae71e10c7539ad04" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman const char *ida_export</type>
+        <definition>idaman const char* ida_export qerrstr</definition>
+        <argsstring>(int code=-1)</argsstring>
+        <name>qerrstr</name>
+        <param>
+          <type>int</type>
+          <declname>code</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get error string corresponding to <ref refid="err_8h_1a876ac8795e807ea890f483f7b901d652" kindref="member">qerrcode()</ref>. if code == -1, then <ref refid="err_8h_1a876ac8795e807ea890f483f7b901d652" kindref="member">qerrcode()</ref> will be called. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/err.h" line="48" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="err_8h_1a95c9e51daa0d75ded816ea9d3551f6c8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void</type>
+        <definition>THREAD_SAFE void qperror</definition>
+        <argsstring>(const char *format,...)</argsstring>
+        <name>qperror</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>See <ref refid="err_8h_1a059d4a9d7247dce7ce8b9061d1a11136" kindref="member">vqperror()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/err.h" line="55" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/err.h" bodystart="55" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="err_8h_1a3f410a719aedbb3a100c49a22621cc65" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> void</type>
+        <definition>THREAD_SAFE void set_errno</definition>
+        <argsstring>(int code)</argsstring>
+        <name>set_errno</name>
+        <param>
+          <type>int</type>
+          <declname>code</declname>
+        </param>
+        <briefdescription>
+<para>See <ref refid="pro_8h_1aa566d92429849c81f035fc2f5c643f67" kindref="member">set_qerrno()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/err.h" line="66" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/err.h" bodystart="66" bodyend="70"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Thread safe functions that deal with error codes. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/err.h"/>
+  </compounddef>
+</doxygen>

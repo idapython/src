@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structuser__identification__t" kind="struct" language="C++" prot="public">
+    <compoundname>user_identification_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structuser__identification__t_1aa0bc53f5785cc90f81067b316eff0253" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring user_identification_t::license_id</definition>
+        <argsstring></argsstring>
+        <name>license_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="517" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="517" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structuser__identification__t_1a9b275b7da3745bdcc42c3653b894fdd9" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring user_identification_t::user_name</definition>
+        <argsstring></argsstring>
+        <name>user_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="518" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="518" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structuser__identification__t_1a536b98be8c936ec3d143c46d5c00e170" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring user_identification_t::email</definition>
+        <argsstring></argsstring>
+        <name>email</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="519" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="519" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structuser__identification__t_1a53ee0db299bf2c3add25357ca969face" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void user_identification_t::serialize</definition>
+        <argsstring>(bytevec_t *out, int version) const</argsstring>
+        <name>serialize</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="521" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structuser__identification__t_1ac4588843a6b65b45d6c74fe7ee9728f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool user_identification_t::deserialize</definition>
+        <argsstring>(const uchar **ptr, size_t len, int version)</argsstring>
+        <name>deserialize</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="522" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3545">
+        <label>user_identification_t</label>
+        <link refid="structuser__identification__t"/>
+        <childnode refid="3546" relation="usage">
+          <edgelabel>license_id</edgelabel>
+          <edgelabel>email</edgelabel>
+          <edgelabel>user_name</edgelabel>
+        </childnode>
+      </node>
+      <node id="3546">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="516" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="515" bodyend="523"/>
+    <listofallmembers>
+      <member refid="structuser__identification__t_1ac4588843a6b65b45d6c74fe7ee9728f7" prot="public" virt="non-virtual"><scope>user_identification_t</scope><name>deserialize</name></member>
+      <member refid="structuser__identification__t_1a536b98be8c936ec3d143c46d5c00e170" prot="public" virt="non-virtual"><scope>user_identification_t</scope><name>email</name></member>
+      <member refid="structuser__identification__t_1aa0bc53f5785cc90f81067b316eff0253" prot="public" virt="non-virtual"><scope>user_identification_t</scope><name>license_id</name></member>
+      <member refid="structuser__identification__t_1a53ee0db299bf2c3add25357ca969face" prot="public" virt="non-virtual"><scope>user_identification_t</scope><name>serialize</name></member>
+      <member refid="structuser__identification__t_1a9b275b7da3745bdcc42c3653b894fdd9" prot="public" virt="non-virtual"><scope>user_identification_t</scope><name>user_name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

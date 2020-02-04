@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_v_a_r__" kind="group">
+    <compoundname>CVAR_</compoundname>
+    <title>Local variable property bits</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___c_v_a_r___1ga5a009de4d7aa4420e339a8800b7b5b32" prot="public" static="no">
+        <name>CVAR_USED</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>is used in the code? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1231" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1gac09bae9447e28b98148347917939f59d" prot="public" static="no">
+        <name>CVAR_TYPE</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>the type is defined? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1232" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1232" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1ga0e0deefd914fbd16da5827083221186a" prot="public" static="no">
+        <name>CVAR_NAME</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>has nice name? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1233" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1gad46cbc82dc6b2e1143810ae6ecbd4c7d" prot="public" static="no">
+        <name>CVAR_MREG</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>corresponding mregs were replaced? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1234" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1gadb3ea20d84ec86ec907bf747933699dc" prot="public" static="no">
+        <name>CVAR_NOWD</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>width is unknown </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1235" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1gaf07f14a8073d1438799abe9cc604084b" prot="public" static="no">
+        <name>CVAR_UNAME</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>user-defined name </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1236" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1ga395ab5fbf7c46b3900acd3504a0bb503" prot="public" static="no">
+        <name>CVAR_UTYPE</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>user-defined type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1237" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1gab1203c5283e2ba34a51a131c3aff82b5" prot="public" static="no">
+        <name>CVAR_RESULT</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>function result variable </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1238" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1gac08e088e495aafa5841c133ac45d0990" prot="public" static="no">
+        <name>CVAR_ARG</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>function argument </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1239" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1ga877701faee4c246e264eb8d0834f004a" prot="public" static="no">
+        <name>CVAR_FAKE</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>fake return variable </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1240" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1ga7311d86ecb06bf69d20949086abfdd0a" prot="public" static="no">
+        <name>CVAR_OVER</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>overlapping variable </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1241" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1ga03bac23c25464e45281db4a491e2cac6" prot="public" static="no">
+        <name>CVAR_FLOAT</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>used in a fpu insn </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1242" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1gaded60034d97ba7667429f57cab73084b" prot="public" static="no">
+        <name>CVAR_SPOILED</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>internal flag, do not use: spoiled var </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1243" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1ga52eb4cae879ff98659df1c0323ff2858" prot="public" static="no">
+        <name>CVAR_MAPDST</name>
+        <initializer>0x00002000</initializer>
+        <briefdescription>
+<para>other variables are mapped to this var </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1244" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1gad086564ce5577952b62929f739d324ab" prot="public" static="no">
+        <name>CVAR_PARTIAL</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+<para>variable type is partialy defined </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1245" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1ga07afef3d56c683c66b1eb81eaf489db4" prot="public" static="no">
+        <name>CVAR_THISARG</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+<para>&apos;this&apos; argument of c++ member functions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1246" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1ga424eaac1f7e492a6657ad85590c57bec" prot="public" static="no">
+        <name>CVAR_FORCED</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+<para>otherwise we could reuse an existing var </para>        </briefdescription>
+        <detaileddescription>
+<para>variable was created by an explicit request </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1247" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1ga0c0a1b7ab6e808409a73b264985d4865" prot="public" static="no">
+        <name>CVAR_REGNAME</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+<para>has a register name (like _RAX) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1249" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_v_a_r___1gae5d2fd429d8a8e1ab342b50dcae191a9" prot="public" static="no">
+        <name>CVAR_NOPTR</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+<para>variable can not be a pointer (user choice) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1250" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1250" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used in lvar_t::flags </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

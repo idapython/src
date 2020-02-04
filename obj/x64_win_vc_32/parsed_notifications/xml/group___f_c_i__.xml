@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_c_i__" kind="group">
+    <compoundname>FCI_</compoundname>
+    <title>Call properties</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___f_c_i___1ga00f330b4d16a1fcf3b3b323c6e120ff4" prot="public" static="no">
+        <name>FCI_PROP</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>call has been propagated </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2949" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2949" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_c_i___1ga77c53e1cff0e358dd8e79419e26c4cdb" prot="public" static="no">
+        <name>FCI_DEAD</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>some return registers were determined dead </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2950" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2950" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_c_i___1ga6d351fa6e13c3fca88b9d9b5ebb41bfb" prot="public" static="no">
+        <name>FCI_FINAL</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>call type is final, should not be changed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2951" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2951" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_c_i___1gac4d672e35fd09d15d8cd2fc91b9a9486" prot="public" static="no">
+        <name>FCI_NORET</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>call does not return </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2952" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2952" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_c_i___1gad71f485c76d6599272172a9c67775692" prot="public" static="no">
+        <name>FCI_PURE</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>pure function </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2953" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2953" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_c_i___1ga32f4ed41cff7138456dbdfaa8f7ca0fe" prot="public" static="no">
+        <name>FCI_NOSIDE</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>call does not have side effects </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2954" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2954" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_c_i___1gae72a9a0cefa2e61c68809a3c8cf017fb" prot="public" static="no">
+        <name>FCI_SPLOK</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>spoiled/visible_memory lists have been optimized. for some functions we can reduce them as soon as information about the arguments becomes available. in order not to try optimize them again we use this bit. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="2955" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="2955" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -15,7 +15,7 @@ static PyObject *_py_reg_subkey_children(const char *name, bool subkeys)
     result = PyList_New(children.size());
     if ( result != NULL )
       for ( size_t i = 0, n = children.size(); i < n; ++i )
-        PyList_SET_ITEM(result, i, PyString_FromString(children[i].c_str()));
+        PyList_SET_ITEM(result, i, IDAPyStr_FromUTF8(children[i].c_str()));
   }
   Py_END_ALLOW_THREADS;
   if ( result == NULL )
@@ -37,7 +37,7 @@ PyObject *py_reg_read_string(const char *name, const char *subkey = NULL, const 
   if ( !reg_read_string(&utf8, name, subkey) && def != NULL )
     utf8 = def;
   Py_END_ALLOW_THREADS;
-  return PyString_FromString(utf8.c_str());
+  return IDAPyStr_FromUTF8(utf8.c_str());
 }
 
 //-------------------------------------------------------------------------

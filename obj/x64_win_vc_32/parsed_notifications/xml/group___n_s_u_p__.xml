@@ -1,0 +1,519 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___n_s_u_p__" kind="group">
+    <compoundname>NSUP_</compoundname>
+    <title>Structure of supvals array</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___n_s_u_p___1ga8e1be4a4674610f6b1928c0bcd235a63" prot="public" static="no">
+        <name>NSUP_CMT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>regular comment </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="76" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gab326a2984b1d4cb573c20238fd66a851" prot="public" static="no">
+        <name>NSUP_REPCMT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>repeatable comment </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="77" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga61f4005522ba59ec31bd065337eb9e1c" prot="public" static="no">
+        <name>NSUP_FOP1</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>forced operand 1 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="78" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gad49494e008a0bca3636b1e03c0325923" prot="public" static="no">
+        <name>NSUP_FOP2</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>forced operand 2 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="79" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gad0eb4db1635170d533492e9282b450c9" prot="public" static="no">
+        <name>NSUP_JINFO</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>jump table info </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="80" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga5a1f6bfe78caaef81f35455433d2285a" prot="public" static="no">
+        <name>NSUP_ARRAY</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>array parameters </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="81" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gaebd926aeb44804f227c28ac139d95aef" prot="public" static="no">
+        <name>NSUP_OMFGRP</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>OMF: group of segments (not used anymore) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="82" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga3f5d69b816f9caf703397a439f1d2e7e" prot="public" static="no">
+        <name>NSUP_FOP3</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>forced operand 3 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="83" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gaf9f627e147e78073df35fbfeb3aaa024" prot="public" static="no">
+        <name>NSUP_SWITCH</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>switch information </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="84" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gaf15b41e53fc0f9bb95ffac548d7e159c" prot="public" static="no">
+        <name>NSUP_REF0</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>complex reference information for operand 1 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="85" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga31557106d55b21e12374688b37b28341" prot="public" static="no">
+        <name>NSUP_REF1</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>complex reference information for operand 2 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="86" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gace52f64b6ad01cc5193f3bc213b315e3" prot="public" static="no">
+        <name>NSUP_REF2</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>complex reference information for operand 3 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="87" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gafd7a277bc752d3412d9fd82227b23be5" prot="public" static="no">
+        <name>NSUP_OREF0</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>outer complex reference information for operand 1 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="88" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gaca6b8cf00bf4aaf8ca6210f335802ea6" prot="public" static="no">
+        <name>NSUP_OREF1</name>
+        <initializer>13</initializer>
+        <briefdescription>
+<para>outer complex reference information for operand 2 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="89" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga9f446484754fc0e3e9607d56c8d45081" prot="public" static="no">
+        <name>NSUP_OREF2</name>
+        <initializer>14</initializer>
+        <briefdescription>
+<para>outer complex reference information for operand 3 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="90" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gaf3d007e2dfdd5adcb6e4ac242bf756c8" prot="public" static="no">
+        <name>NSUP_STROFF0</name>
+        <initializer>15</initializer>
+        <briefdescription>
+<para>stroff: struct path for the first operand </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="91" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gaaa2c9b79cea4f51978b8c589ff8d77cb" prot="public" static="no">
+        <name>NSUP_STROFF1</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>stroff: struct path for the second operand </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="92" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gad2e4197d014ab47e1695dfd46b9faec0" prot="public" static="no">
+        <name>NSUP_SEGTRANS</name>
+        <initializer>17</initializer>
+        <briefdescription>
+<para>segment translations </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="93" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga3a877e30fdbc08564c0233c1398adb59" prot="public" static="no">
+        <name>NSUP_FOP4</name>
+        <initializer>18</initializer>
+        <briefdescription>
+<para>forced operand 4 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="94" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga623705f6e848ee831dc10c7a2a4060d0" prot="public" static="no">
+        <name>NSUP_FOP5</name>
+        <initializer>19</initializer>
+        <briefdescription>
+<para>forced operand 5 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="95" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gac8879898b75d6743804c97c92e9c1b92" prot="public" static="no">
+        <name>NSUP_FOP6</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>forced operand 6 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="96" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gae8d4b8868594baa0236e37f96e7da159" prot="public" static="no">
+        <name>NSUP_REF3</name>
+        <initializer>21</initializer>
+        <briefdescription>
+<para>complex reference information for operand 4 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="97" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga1655bfbcfe1e6a9f82b7912e3b74f7d7" prot="public" static="no">
+        <name>NSUP_REF4</name>
+        <initializer>22</initializer>
+        <briefdescription>
+<para>complex reference information for operand 5 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="98" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga91ffa0edcd27d3a1775766ee95e58bf9" prot="public" static="no">
+        <name>NSUP_REF5</name>
+        <initializer>23</initializer>
+        <briefdescription>
+<para>complex reference information for operand 6 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="99" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga9b5a1cbeae0ea986f60d22e4706b01d4" prot="public" static="no">
+        <name>NSUP_OREF3</name>
+        <initializer>24</initializer>
+        <briefdescription>
+<para>outer complex reference information for operand 4 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="100" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga383f3fd0decad24e35d027640fdba2e2" prot="public" static="no">
+        <name>NSUP_OREF4</name>
+        <initializer>25</initializer>
+        <briefdescription>
+<para>outer complex reference information for operand 5 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="101" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga68c1bbf2a0f1de68d0251ee2efa9bd9b" prot="public" static="no">
+        <name>NSUP_OREF5</name>
+        <initializer>26</initializer>
+        <briefdescription>
+<para>outer complex reference information for operand 6 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="102" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gad4bd2eb59dc6a527038a43ebff467666" prot="public" static="no">
+        <name>NSUP_XREFPOS</name>
+        <initializer>27</initializer>
+        <briefdescription>
+<para>saved xref address and type in the xrefs window </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="103" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga542ceb10e5a2c841a0ffa3200b2cd77d" prot="public" static="no">
+        <name>NSUP_CUSTDT</name>
+        <initializer>28</initializer>
+        <briefdescription>
+<para>custom data type id </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="104" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gac51a56e6aba0db0db2c297a6a9e20100" prot="public" static="no">
+        <name>NSUP_GROUPS</name>
+        <initializer>29</initializer>
+        <briefdescription>
+<para>SEG_GRP: pack_dd encoded list of selectors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="105" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga90cffe696d6dbd77306e8c1943d3dddd" prot="public" static="no">
+        <name>NSUP_ARGEAS</name>
+        <initializer>30</initializer>
+        <briefdescription>
+<para>instructions that initialize call arguments </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="106" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga064534083200a2b0018d9d68c1fd025c" prot="public" static="no">
+        <name>NSUP_FOP7</name>
+        <initializer>31</initializer>
+        <briefdescription>
+<para>forced operand 7 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="107" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gaa18456c181a79f2c949efc02073d6ddf" prot="public" static="no">
+        <name>NSUP_FOP8</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>forced operand 8 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="108" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga7c0ecb93452a300d0592559eec6d4be3" prot="public" static="no">
+        <name>NSUP_REF6</name>
+        <initializer>33</initializer>
+        <briefdescription>
+<para>complex reference information for operand 7 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="109" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga9140342de9743fdb9b2ad167abaf5b90" prot="public" static="no">
+        <name>NSUP_REF7</name>
+        <initializer>34</initializer>
+        <briefdescription>
+<para>complex reference information for operand 8 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="110" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga2e58d70822bd50c2453d7fbc3f29a6ae" prot="public" static="no">
+        <name>NSUP_OREF6</name>
+        <initializer>35</initializer>
+        <briefdescription>
+<para>outer complex reference information for operand 7 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="111" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga15be61e20a79f2f870b74edd9223fd2f" prot="public" static="no">
+        <name>NSUP_OREF7</name>
+        <initializer>36</initializer>
+        <briefdescription>
+<para>outer complex reference information for operand 8 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="112" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga16f8a0726068f68e446024e0dcca0f6d" prot="public" static="no">
+        <name>NSUP_POINTS</name>
+        <initializer>0x1000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>SP change points blob (see funcs.cpp). values NSUP_POINTS..NSUP_POINTS+0x1000 are reserved </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="118" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga4aa0b0bc504afa840cc5accccf346306" prot="public" static="no">
+        <name>NSUP_MANUAL</name>
+        <initializer>0x2000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>manual instruction. values NSUP_MANUAL..NSUP_MANUAL+0x1000 are reserved </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="122" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga449ca35b289a4093d9bca3db214ae190" prot="public" static="no">
+        <name>NSUP_TYPEINFO</name>
+        <initializer>0x3000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>type information. values NSUP_TYPEINFO..NSUP_TYPEINFO+0x1000 are reserved </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="126" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gad71b74f8ddbfd877bf6478aaf88edbac" prot="public" static="no">
+        <name>NSUP_REGVAR</name>
+        <initializer>0x4000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>register variables. values NSUP_REGVAR..NSUP_REGVAR+0x1000 are reserved </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="130" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gacfb87227b59ca5c8f48878969db78395" prot="public" static="no">
+        <name>NSUP_LLABEL</name>
+        <initializer>0x5000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>local labels. values NSUP_LLABEL..NSUP_LLABEL+0x1000 are reserved </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="134" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1ga6f6d013e94420a2741560ad055010f7d" prot="public" static="no">
+        <name>NSUP_REGARG</name>
+        <initializer>0x6000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>register argument type/name descriptions values NSUP_REGARG..NSUP_REGARG+0x1000 are reserved </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="138" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gaedc1e13bf413a50e5575bdc2fef9d6dd" prot="public" static="no">
+        <name>NSUP_FTAILS</name>
+        <initializer>0x7000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>function tails or tail referers values NSUP_FTAILS..NSUP_FTAILS+0x1000 are reserved </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="142" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gacfecf8279bb1dccdb486ca73ddb8c06f" prot="public" static="no">
+        <name>NSUP_GROUP</name>
+        <initializer>0x8000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>graph group information values NSUP_GROUP..NSUP_GROUP+0x1000 are reserved </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="146" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___n_s_u_p___1gae573bfbe8466943a45c0de5b44a07692" prot="public" static="no">
+        <name>NSUP_OPTYPES</name>
+        <initializer>0x9000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>operand type information. values NSUP_OPTYPES..NSUP_OPTYPES+0x100000 are reserved </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="150" column="10" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Structure of supvals array of <ref refid="classnetnode" kindref="compound">netnode(ea)</ref>. Supvals is a virtual array of objects of arbitrary length attached to a netnode (length of one element is limited by <ref refid="netnode_8hpp_1ae8c4a26e225e65819ce7f26e69022c47" kindref="member">MAXSPECSIZE</ref>, though) We use first several indexes to this array: </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

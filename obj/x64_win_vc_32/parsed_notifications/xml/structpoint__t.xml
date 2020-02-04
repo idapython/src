@@ -1,0 +1,236 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structpoint__t" kind="struct" language="C++" prot="public">
+    <compoundname>point_t</compoundname>
+    <includes refid="graph_8hpp" local="no">graph.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structpoint__t_1a8c2e3bf26d194ce8ffdf84bb501602d4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int point_t::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="243" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpoint__t_1ad320c37ee9949e4874a505483d2f6907" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int point_t::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="243" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structpoint__t_1aaa49a97507803a9a6dbae152624be503" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>point_t::point_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>point_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="244" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="244" bodyend="244"/>
+      </memberdef>
+      <memberdef kind="function" id="structpoint__t_1a91048a82d42ec1656463c52efa13f881" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>point_t::point_t</definition>
+        <argsstring>(int _x, int _y)</argsstring>
+        <name>point_t</name>
+        <param>
+          <type>int</type>
+          <declname>_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="245" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="245" bodyend="245"/>
+      </memberdef>
+      <memberdef kind="function" id="structpoint__t_1abcf074123bb9950114cef11448d62117" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structpoint__t" kindref="compound">point_t</ref> &amp;</type>
+        <definition>point_t&amp; point_t::add</definition>
+        <argsstring>(const point_t &amp;r)</argsstring>
+        <name>add</name>
+        <param>
+          <type>const <ref refid="structpoint__t" kindref="compound">point_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="246" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="246" bodyend="251"/>
+      </memberdef>
+      <memberdef kind="function" id="structpoint__t_1a091585cc7c0b6ec2b6a3bf0106f6f11f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structpoint__t" kindref="compound">point_t</ref> &amp;</type>
+        <definition>point_t&amp; point_t::sub</definition>
+        <argsstring>(const point_t &amp;r)</argsstring>
+        <name>sub</name>
+        <param>
+          <type>const <ref refid="structpoint__t" kindref="compound">point_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="252" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="252" bodyend="257"/>
+      </memberdef>
+      <memberdef kind="function" id="structpoint__t_1a198c2b551a1d837a4ade7700153bff8c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void point_t::div</definition>
+        <argsstring>(T d)</argsstring>
+        <name>div</name>
+        <param>
+          <type>T</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="258" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="258" bodyend="262"/>
+      </memberdef>
+      <memberdef kind="function" id="structpoint__t_1a93e9c77e13f163e2283d6245cb651c67" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void point_t::negate</definition>
+        <argsstring>(void)</argsstring>
+        <name>negate</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="263" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="263" bodyend="267"/>
+      </memberdef>
+      <memberdef kind="function" id="structpoint__t_1a9ec4a32b2afed6b87a6b1adaff917db4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool point_t::operator==</definition>
+        <argsstring>(const point_t &amp;r) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structpoint__t" kindref="compound">point_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="271" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="271" bodyend="271"/>
+      </memberdef>
+      <memberdef kind="function" id="structpoint__t_1a8f5f3f149c8e5d8b4c6dd9f25dd2da53" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool point_t::operator!=</definition>
+        <argsstring>(const point_t &amp;r) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structpoint__t" kindref="compound">point_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="272" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="272" bodyend="272"/>
+      </memberdef>
+      <memberdef kind="function" id="structpoint__t_1a28ef0e9087f46f5fa4df3de7007c8cf9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *idaapi</type>
+        <definition>const char* idaapi point_t::dstr</definition>
+        <argsstring>(void) const</argsstring>
+        <name>dstr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="273" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structpoint__t_1aa3e52f40a47304bf43fdf8cb27cc3560" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t idaapi</type>
+        <definition>size_t idaapi point_t::print</definition>
+        <argsstring>(char *buf, size_t bufsize) const</argsstring>
+        <name>print</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="274" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Coordinate in a graph view. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="242" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="241" bodyend="275"/>
+    <listofallmembers>
+      <member refid="structpoint__t_1abcf074123bb9950114cef11448d62117" prot="public" virt="non-virtual"><scope>point_t</scope><name>add</name></member>
+      <member refid="structpoint__t_1a198c2b551a1d837a4ade7700153bff8c" prot="public" virt="non-virtual"><scope>point_t</scope><name>div</name></member>
+      <member refid="structpoint__t_1a28ef0e9087f46f5fa4df3de7007c8cf9" prot="public" virt="non-virtual"><scope>point_t</scope><name>dstr</name></member>
+      <member refid="structpoint__t_1a93e9c77e13f163e2283d6245cb651c67" prot="public" virt="non-virtual"><scope>point_t</scope><name>negate</name></member>
+      <member refid="structpoint__t_1a8f5f3f149c8e5d8b4c6dd9f25dd2da53" prot="public" virt="non-virtual"><scope>point_t</scope><name>operator!=</name></member>
+      <member refid="structpoint__t_1a9ec4a32b2afed6b87a6b1adaff917db4" prot="public" virt="non-virtual"><scope>point_t</scope><name>operator==</name></member>
+      <member refid="structpoint__t_1aaa49a97507803a9a6dbae152624be503" prot="public" virt="non-virtual"><scope>point_t</scope><name>point_t</name></member>
+      <member refid="structpoint__t_1a91048a82d42ec1656463c52efa13f881" prot="public" virt="non-virtual"><scope>point_t</scope><name>point_t</name></member>
+      <member refid="structpoint__t_1aa3e52f40a47304bf43fdf8cb27cc3560" prot="public" virt="non-virtual"><scope>point_t</scope><name>print</name></member>
+      <member refid="structpoint__t_1a091585cc7c0b6ec2b6a3bf0106f6f11f" prot="public" virt="non-virtual"><scope>point_t</scope><name>sub</name></member>
+      <member refid="structpoint__t_1a8c2e3bf26d194ce8ffdf84bb501602d4" prot="public" virt="non-virtual"><scope>point_t</scope><name>x</name></member>
+      <member refid="structpoint__t_1ad320c37ee9949e4874a505483d2f6907" prot="public" virt="non-virtual"><scope>point_t</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

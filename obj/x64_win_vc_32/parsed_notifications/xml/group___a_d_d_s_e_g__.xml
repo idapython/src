@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___a_d_d_s_e_g__" kind="group">
+    <compoundname>ADDSEG_</compoundname>
+    <title>Add segment flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___a_d_d_s_e_g___1ga94dc2da752d9e80fad8caf501c5489d9" prot="public" static="no">
+        <name>ADDSEG_NOSREG</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>(undefine all default segment registers) </para>        </briefdescription>
+        <detaileddescription>
+<para>set all default segment register values to <ref refid="pro_8h_1a893ddf307fae0a3bbca667ee917cddc7" kindref="member">BADSEL</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="533" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="533" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_d_d_s_e_g___1gaef2ab311485a9bc2b09d2a8f03a647a3" prot="public" static="no">
+        <name>ADDSEG_OR_DIE</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para><ref refid="pro_8h_1a53e88c62090838e19cb5ee945d7ab8f7" kindref="member">qexit()</ref> if can&apos;t add a segment </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="535" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="535" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_d_d_s_e_g___1ga5d6e405b6fb6faf18cc2c064ba592401" prot="public" static="no">
+        <name>ADDSEG_NOTRUNC</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>destroy/truncate old segments instead. </para>        </briefdescription>
+        <detaileddescription>
+<para>don&apos;t truncate the new segment at the beginning of the next segment if they overlap. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="536" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="536" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_d_d_s_e_g___1gaee75ca1c810be184ef12055d637e5d2f" prot="public" static="no">
+        <name>ADDSEG_QUIET</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>silent mode, no &quot;Adding segment...&quot; in the messages window </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="538" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="538" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_d_d_s_e_g___1gad1996026d4ee36dd29aeee83535c845d" prot="public" static="no">
+        <name>ADDSEG_FILLGAP</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>fill gap between new segment and previous one. i.e. if such a gap exists, and this gap is less than 64K, then fill the gap by extending the previous segment and adding .align directive to it. This way we avoid gaps between segments. too many gaps lead to a virtual array failure. it can not hold more than ~1000 gaps. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="539" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="539" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_d_d_s_e_g___1gaadc4d5db47a493aca1f9a9d3725d7651" prot="public" static="no">
+        <name>ADDSEG_SPARSE</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>use sparse storage method for the new segment </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="546" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="546" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_d_d_s_e_g___1gaa193b0b6eb2b21ea8b440de9fcad9e78" prot="public" static="no">
+        <name>ADDSEG_NOAA</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+<para>do not mark new segment for auto-analysis </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="547" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="547" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_d_d_s_e_g___1ga11530c497d1630b0f2aeae908b038d0c" prot="public" static="no">
+        <name>ADDSEG_IDBENC</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para>non-ASCII bytes will be decoded accordingly </para>        </briefdescription>
+        <detaileddescription>
+<para>&apos;name&apos; and &apos;sclass&apos; are given in the IDB encoding; </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" line="548" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/segment.hpp" bodystart="548" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as &apos;flags&apos; parameter to <ref refid="group__seg__man_1ga9c959024724f499c3c1b3c2ddb1f63b4" kindref="member">add_segm_ex()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

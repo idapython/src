@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structrenderer__info__pos__t" kind="struct" language="C++" prot="public">
+    <compoundname>renderer_info_pos_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrenderer__info__pos__t_1ad1975c92d9dcfa46908291c2179f49f5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int renderer_info_pos_t::node</definition>
+        <argsstring></argsstring>
+        <name>node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="75" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrenderer__info__pos__t_1a03e1997fac2ef26afe1b6353a2df586a" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short renderer_info_pos_t::cx</definition>
+        <argsstring></argsstring>
+        <name>cx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="76" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrenderer__info__pos__t_1ab848000ff28998dd24747b7d0eb55276" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short renderer_info_pos_t::cy</definition>
+        <argsstring></argsstring>
+        <name>cy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="77" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structrenderer__info__pos__t_1aabc0864c7abb2216064aa9b57270ca63" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>renderer_info_pos_t::renderer_info_pos_t</definition>
+        <argsstring>()</argsstring>
+        <name>renderer_info_pos_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="79" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="79" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="structrenderer__info__pos__t_1ac4bf96491422702cecffbaffb4e8fd2b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool renderer_info_pos_t::operator==</definition>
+        <argsstring>(const renderer_info_pos_t &amp;r) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structrenderer__info__pos__t" kindref="compound">renderer_info_pos_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="80" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="80" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="structrenderer__info__pos__t_1aa49677b2586a8be86f6c5129782ef359" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool renderer_info_pos_t::operator!=</definition>
+        <argsstring>(const renderer_info_pos_t &amp;r) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structrenderer__info__pos__t" kindref="compound">renderer_info_pos_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="82" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="82" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="structrenderer__info__pos__t_1ad7198879fe28f519fba1c67e0d836f8a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void renderer_info_pos_t::serialize</definition>
+        <argsstring>(bytevec_t *out) const</argsstring>
+        <name>serialize</name>
+        <param>
+          <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="84" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="89" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="structrenderer__info__pos__t_1a67daa40ec67c3a0019b7d089b418e681" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool renderer_info_pos_t::deserialize</definition>
+        <argsstring>(const uchar **pptr, const uchar *end)</argsstring>
+        <name>deserialize</name>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> **</type>
+          <declname>pptr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="85" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="97" bodyend="105"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" line="74" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/moves.hpp" bodystart="73" bodyend="86"/>
+    <listofallmembers>
+      <member refid="structrenderer__info__pos__t_1a03e1997fac2ef26afe1b6353a2df586a" prot="public" virt="non-virtual"><scope>renderer_info_pos_t</scope><name>cx</name></member>
+      <member refid="structrenderer__info__pos__t_1ab848000ff28998dd24747b7d0eb55276" prot="public" virt="non-virtual"><scope>renderer_info_pos_t</scope><name>cy</name></member>
+      <member refid="structrenderer__info__pos__t_1a67daa40ec67c3a0019b7d089b418e681" prot="public" virt="non-virtual"><scope>renderer_info_pos_t</scope><name>deserialize</name></member>
+      <member refid="structrenderer__info__pos__t_1ad1975c92d9dcfa46908291c2179f49f5" prot="public" virt="non-virtual"><scope>renderer_info_pos_t</scope><name>node</name></member>
+      <member refid="structrenderer__info__pos__t_1aa49677b2586a8be86f6c5129782ef359" prot="public" virt="non-virtual"><scope>renderer_info_pos_t</scope><name>operator!=</name></member>
+      <member refid="structrenderer__info__pos__t_1ac4bf96491422702cecffbaffb4e8fd2b" prot="public" virt="non-virtual"><scope>renderer_info_pos_t</scope><name>operator==</name></member>
+      <member refid="structrenderer__info__pos__t_1aabc0864c7abb2216064aa9b57270ca63" prot="public" virt="non-virtual"><scope>renderer_info_pos_t</scope><name>renderer_info_pos_t</name></member>
+      <member refid="structrenderer__info__pos__t_1ad7198879fe28f519fba1c67e0d836f8a" prot="public" virt="non-virtual"><scope>renderer_info_pos_t</scope><name>serialize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

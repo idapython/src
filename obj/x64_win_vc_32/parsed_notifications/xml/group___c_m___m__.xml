@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_m___m__" kind="group">
+    <compoundname>CM_M_</compoundname>
+    <title>Model</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group___c_m___m___1ga2922449d0afbf620fd4fffc6ea1118a5" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_M_MASK</definition>
+        <argsstring></argsstring>
+        <name>CM_M_MASK</name>
+        <initializer>= 0x0C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="730" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="730" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___m___1ga61152e81d5d4984da816ff4eea5e38e1" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_M_NN</definition>
+        <argsstring></argsstring>
+        <name>CM_M_NN</name>
+        <initializer>= 0x00</initializer>
+        <briefdescription>
+<para>small: code=near, data=near (or unknown if CM_UNKNOWN) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="731" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="731" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___m___1gabbcc3b1abcde2c94f9351342fd1fb126" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_M_FF</definition>
+        <argsstring></argsstring>
+        <name>CM_M_FF</name>
+        <initializer>= 0x04</initializer>
+        <briefdescription>
+<para>large: code=far, data=far </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="732" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="732" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___m___1gaec1ac661734fbd809f3c1e4c749b85cf" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_M_NF</definition>
+        <argsstring></argsstring>
+        <name>CM_M_NF</name>
+        <initializer>= 0x08</initializer>
+        <briefdescription>
+<para>compact: code=near, data=far </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="733" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="733" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_m___m___1ga87afd41e475f92f6b6f1e1dbb61ed659" prot="public" static="no" mutable="no">
+        <type>const <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>const cm_t CM_M_FN</definition>
+        <argsstring></argsstring>
+        <name>CM_M_FN</name>
+        <initializer>= 0x0C</initializer>
+        <briefdescription>
+<para>medium: code=far, data=near </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="734" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="734" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___c_m___m___1ga4a0649e56c68ff049219d68104deab26" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool</type>
+        <definition>THREAD_SAFE bool is_code_far</definition>
+        <argsstring>(cm_t cm)</argsstring>
+        <name>is_code_far</name>
+        <param>
+          <type><ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+          <declname>cm</declname>
+        </param>
+        <briefdescription>
+<para>Does the given model specify far code?. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="737" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="737" bodyend="737"/>
+      </memberdef>
+      <memberdef kind="function" id="group___c_m___m___1ga514b71d0e58c2de4f8470bb2b2a0b34f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool</type>
+        <definition>THREAD_SAFE bool is_data_far</definition>
+        <argsstring>(cm_t cm)</argsstring>
+        <name>is_data_far</name>
+        <param>
+          <type><ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+          <declname>cm</declname>
+        </param>
+        <briefdescription>
+<para>Does the given model specify far data?. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="739" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="739" bodyend="739"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

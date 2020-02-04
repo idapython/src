@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="namespace_d_o_n_t___u_s_e___f_u_n_c_s" kind="namespace" language="C++">
+    <compoundname>DONT_USE_FUNCS</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="pronet_8h_1a76b481561cdf2d47c176156be0bb0e5b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t DONT_USE_FUNCS::sendto</definition>
+        <argsstring>(int, const SOCKBUF_T, size_t, int, const struct sockaddr *, SOCKLEN_T)</argsstring>
+        <name>sendto</name>
+        <param>
+          <type>int</type>
+        </param>
+        <param>
+          <type>const SOCKBUF_T</type>
+        </param>
+        <param>
+          <type>size_t</type>
+        </param>
+        <param>
+          <type>int</type>
+        </param>
+        <param>
+          <type>const struct sockaddr *</type>
+        </param>
+        <param>
+          <type>SOCKLEN_T</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="89" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" bodystart="89" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="pronet_8h_1af04f57005812f7259a1f4a279b96d323" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t DONT_USE_FUNCS::recvfrom</definition>
+        <argsstring>(int, SOCKBUF_T, size_t, int, struct sockaddr *, SOCKLEN_T *)</argsstring>
+        <name>recvfrom</name>
+        <param>
+          <type>int</type>
+        </param>
+        <param>
+          <type>SOCKBUF_T</type>
+        </param>
+        <param>
+          <type>size_t</type>
+        </param>
+        <param>
+          <type>int</type>
+        </param>
+        <param>
+          <type>struct sockaddr *</type>
+        </param>
+        <param>
+          <type>SOCKLEN_T *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="90" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" bodystart="90" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="pronet_8h_1a696ea6c758fc2c94430925576b6aceb8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t DONT_USE_FUNCS::send</definition>
+        <argsstring>(int, const SOCKBUF_T, size_t, int)</argsstring>
+        <name>send</name>
+        <param>
+          <type>int</type>
+        </param>
+        <param>
+          <type>const SOCKBUF_T</type>
+        </param>
+        <param>
+          <type>size_t</type>
+        </param>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="91" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" bodystart="91" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="pronet_8h_1a277b01b261403e1e21c0f7421bb6d67f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t DONT_USE_FUNCS::recv</definition>
+        <argsstring>(int, SOCKBUF_T, size_t, int)</argsstring>
+        <name>recv</name>
+        <param>
+          <type>int</type>
+        </param>
+        <param>
+          <type>SOCKBUF_T</type>
+        </param>
+        <param>
+          <type>size_t</type>
+        </param>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="92" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" bodystart="92" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="pronet_8h_1a78e89823a4aa802ed79522eb40014152" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int DONT_USE_FUNCS::select</definition>
+        <argsstring>(int, fd_set *, fd_set *, fd_set *, struct timeval *)</argsstring>
+        <name>select</name>
+        <param>
+          <type>int</type>
+        </param>
+        <param>
+          <type>fd_set *</type>
+        </param>
+        <param>
+          <type>fd_set *</type>
+        </param>
+        <param>
+          <type>fd_set *</type>
+        </param>
+        <param>
+          <type>struct timeval *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="93" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" bodystart="93" bodyend="93"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/pronet.h" line="88" column="1"/>
+  </compounddef>
+</doxygen>

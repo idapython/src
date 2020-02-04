@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structthread__name__t" kind="struct" language="C++" prot="public">
+    <compoundname>thread_name_t</compoundname>
+    <includes refid="idd_8hpp" local="no">idd.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structthread__name__t_1a67f9e76bcdcbededcd638b49ac8a37c8" prot="public" static="no" mutable="no">
+        <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+        <definition>thid_t thread_name_t::tid</definition>
+        <argsstring></argsstring>
+        <name>tid</name>
+        <briefdescription>
+<para>thread </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="675" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="675" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structthread__name__t_1a1bde64e8ead30288badfe20943930644" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring thread_name_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>new thread name </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="676" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="676" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Output argument for ev_suspended New thread names </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="3446">
+        <label>thread_name_t</label>
+        <link refid="structthread__name__t"/>
+        <childnode refid="3447" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+      </node>
+      <node id="3447">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="674" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="673" bodyend="677"/>
+    <listofallmembers>
+      <member refid="structthread__name__t_1a1bde64e8ead30288badfe20943930644" prot="public" virt="non-virtual"><scope>thread_name_t</scope><name>name</name></member>
+      <member refid="structthread__name__t_1a67f9e76bcdcbededcd638b49ac8a37c8" prot="public" virt="non-virtual"><scope>thread_name_t</scope><name>tid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structoprepr__t" kind="struct" language="C++" prot="public">
+    <compoundname>oprepr_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structoprepr__t_1a3aad22bcaf11a0bbf03154ad0f89d685" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+        <definition>flags_t oprepr_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="139" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structoprepr__t_1a85d7623be9dc650017d898151b8457d4" prot="public" static="no" mutable="no">
+        <type><ref refid="unionopinfo__t" kindref="compound">opinfo_t</ref></type>
+        <definition>opinfo_t oprepr_t::opinfo</definition>
+        <argsstring></argsstring>
+        <name>opinfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="140" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structoprepr__t_1a4f3c25d99b2b604b50c4b9e86c3880ed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>oprepr_t::oprepr_t</definition>
+        <argsstring>()</argsstring>
+        <name>oprepr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="137" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="137" bodyend="137"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2757">
+        <label>strpath_t</label>
+        <link refid="structstrpath__t"/>
+      </node>
+      <node id="2758">
+        <label>enum_const_t</label>
+        <link refid="structenum__const__t"/>
+      </node>
+      <node id="2756">
+        <label>refinfo_t</label>
+        <link refid="structrefinfo__t"/>
+      </node>
+      <node id="2754">
+        <label>opinfo_t</label>
+        <link refid="unionopinfo__t"/>
+        <childnode refid="2755" relation="usage">
+          <edgelabel>cd</edgelabel>
+        </childnode>
+        <childnode refid="2756" relation="usage">
+          <edgelabel>ri</edgelabel>
+        </childnode>
+        <childnode refid="2757" relation="usage">
+          <edgelabel>path</edgelabel>
+        </childnode>
+        <childnode refid="2758" relation="usage">
+          <edgelabel>ec</edgelabel>
+        </childnode>
+      </node>
+      <node id="2755">
+        <label>custom_data_type_ids_t</label>
+        <link refid="structcustom__data__type__ids__t"/>
+      </node>
+      <node id="2753">
+        <label>oprepr_t</label>
+        <link refid="structoprepr__t"/>
+        <childnode refid="2754" relation="usage">
+          <edgelabel>opinfo</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" line="136" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lumina.hpp" bodystart="135" bodyend="141"/>
+    <listofallmembers>
+      <member refid="structoprepr__t_1a3aad22bcaf11a0bbf03154ad0f89d685" prot="public" virt="non-virtual"><scope>oprepr_t</scope><name>flags</name></member>
+      <member refid="structoprepr__t_1a85d7623be9dc650017d898151b8457d4" prot="public" virt="non-virtual"><scope>oprepr_t</scope><name>opinfo</name></member>
+      <member refid="structoprepr__t_1a4f3c25d99b2b604b50c4b9e86c3880ed" prot="public" virt="non-virtual"><scope>oprepr_t</scope><name>oprepr_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

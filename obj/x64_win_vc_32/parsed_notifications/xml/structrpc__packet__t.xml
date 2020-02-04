@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structrpc__packet__t" kind="struct" language="C++" prot="public">
+    <compoundname>rpc_packet_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrpc__packet__t_1a882a93180f832a6dc13b32b589bafd08" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 rpc_packet_t::length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="158" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrpc__packet__t_1a22123bf79ac4c81cb2adab6ce340cbd8" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar rpc_packet_t::code</definition>
+        <argsstring></argsstring>
+        <name>code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="159" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" line="157" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/network.hpp" bodystart="156" bodyend="160"/>
+    <listofallmembers>
+      <member refid="structrpc__packet__t_1a22123bf79ac4c81cb2adab6ce340cbd8" prot="public" virt="non-virtual"><scope>rpc_packet_t</scope><name>code</name></member>
+      <member refid="structrpc__packet__t_1a882a93180f832a6dc13b32b589bafd08" prot="public" virt="non-virtual"><scope>rpc_packet_t</scope><name>length</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

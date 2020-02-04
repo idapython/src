@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structregobj__t" kind="struct" language="C++" prot="public">
+    <compoundname>regobj_t</compoundname>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structregobj__t_1a4a5441e689877b350ca2e77997b3d09d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int regobj_t::regidx</definition>
+        <argsstring></argsstring>
+        <name>regidx</name>
+        <briefdescription>
+<para>index into dbg-&gt;registers </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3696" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3696" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structregobj__t_1a9db3b29833f6b89c2928f87a8f384482" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int regobj_t::relocate</definition>
+        <argsstring></argsstring>
+        <name>relocate</name>
+        <briefdescription>
+<para>0-plain num, 1-must relocate </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3697" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3697" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structregobj__t_1a3e6bdc8c43b9e4a4810561b7a4db46ff" prot="public" static="no" mutable="no">
+        <type><ref refid="classbytevec__t" kindref="compound">bytevec_t</ref></type>
+        <definition>bytevec_t regobj_t::value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3698" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3698" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structregobj__t_1a37b51063bec8083b4cee1923095a8669" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t regobj_t::size</definition>
+        <argsstring>(void) const</argsstring>
+        <name>size</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3699" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3699" bodyend="3699"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Object that represents a register. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3131">
+        <label>regobj_t</label>
+        <link refid="structregobj__t"/>
+        <childnode refid="3132" relation="usage">
+          <edgelabel>value</edgelabel>
+        </childnode>
+      </node>
+      <node id="3133">
+        <label>qvector&lt; uchar &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="3132">
+        <label>bytevec_t</label>
+        <link refid="classbytevec__t"/>
+        <childnode refid="3133" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3695" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3694" bodyend="3700"/>
+    <listofallmembers>
+      <member refid="structregobj__t_1a4a5441e689877b350ca2e77997b3d09d" prot="public" virt="non-virtual"><scope>regobj_t</scope><name>regidx</name></member>
+      <member refid="structregobj__t_1a9db3b29833f6b89c2928f87a8f384482" prot="public" virt="non-virtual"><scope>regobj_t</scope><name>relocate</name></member>
+      <member refid="structregobj__t_1a37b51063bec8083b4cee1923095a8669" prot="public" virt="non-virtual"><scope>regobj_t</scope><name>size</name></member>
+      <member refid="structregobj__t_1a3e6bdc8c43b9e4a4810561b7a4db46ff" prot="public" virt="non-virtual"><scope>regobj_t</scope><name>value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

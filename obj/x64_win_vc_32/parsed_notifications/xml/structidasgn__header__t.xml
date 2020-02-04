@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structidasgn__header__t" kind="struct" language="C++" prot="public">
+    <compoundname>idasgn_header_t</compoundname>
+    <derivedcompoundref refid="classidasgn__t" prot="public" virt="non-virtual">idasgn_t</derivedcompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structidasgn__header__t_1a0ad0c2dd98087ca60a9befb305275be8" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char idasgn_header_t::magic[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>magic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="53" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidasgn__header__t_1a81be9ddb307ba547afa48fff24172061" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idasgn_header_t::version</definition>
+        <argsstring></argsstring>
+        <name>version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="55" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidasgn__header__t_1a5ac5726574f64282676fbd84dfb367d9" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idasgn_header_t::processor_id</definition>
+        <argsstring></argsstring>
+        <name>processor_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="57" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidasgn__header__t_1a0e0f3e2000f59c7c36104bcecc68a6a5" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 idasgn_header_t::file_formats</definition>
+        <argsstring></argsstring>
+        <name>file_formats</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="58" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidasgn__header__t_1ab7d349368f8fd128f98df1728456cdbd" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 idasgn_header_t::ostype</definition>
+        <argsstring></argsstring>
+        <name>ostype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="59" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidasgn__header__t_1ab048477322ffd941ab270de03bafb439" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 idasgn_header_t::apptype</definition>
+        <argsstring></argsstring>
+        <name>apptype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="66" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidasgn__header__t_1a393887d0f2b172e875fa15590f2b8998" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 idasgn_header_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="80" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidasgn__header__t_1a2e4c9992187ec7b4a1490f01969d176e" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 idasgn_header_t::number_of_modules_v5</definition>
+        <argsstring></argsstring>
+        <name>number_of_modules_v5</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="87" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidasgn__header__t_1a24dece353140ee71e88fcf1afdd84a02" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 idasgn_header_t::ctype_crc</definition>
+        <argsstring></argsstring>
+        <name>ctype_crc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="88" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidasgn__header__t_1a705a931168c6d93dca6c82610d325580" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char idasgn_header_t::ctype_name[12]</definition>
+        <argsstring>[12]</argsstring>
+        <name>ctype_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="89" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidasgn__header__t_1a865ebf8540b29b5cc017410a0acc5b93" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar idasgn_header_t::libname_length</definition>
+        <argsstring></argsstring>
+        <name>libname_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="90" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidasgn__header__t_1a60b375f20cb4a8cef2de642894b2abd8" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 idasgn_header_t::ctype_crc_alt</definition>
+        <argsstring></argsstring>
+        <name>ctype_crc_alt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="91" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidasgn__header__t_1aa8d574e2bfb7da997adab088d4059e9a" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 idasgn_header_t::number_of_modules</definition>
+        <argsstring></argsstring>
+        <name>number_of_modules</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="92" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidasgn__header__t_1abc6cb6f0ab574eb4fa3b69c960ee6a43" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 idasgn_header_t::pattern_length</definition>
+        <argsstring></argsstring>
+        <name>pattern_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="93" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidasgn__header__t_1a7cb4aab511dfb8f87d6a3e927e73fd5c" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 idasgn_header_t::ctype_crc_3v</definition>
+        <argsstring></argsstring>
+        <name>ctype_crc_3v</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="94" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structidasgn__header__t_1accfaf8cec136c4a1d7cc2511c7bd0124" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void idasgn_header_t::fix_version</definition>
+        <argsstring>(FILE *infp)</argsstring>
+        <name>fix_version</name>
+        <param>
+          <type>FILE *</type>
+          <declname>infp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="96" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1762">
+        <label>idasgn_t</label>
+        <link refid="classidasgn__t"/>
+        <childnode refid="1761" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1761">
+        <label>idasgn_header_t</label>
+        <link refid="structidasgn__header__t"/>
+      </node>
+    </inheritancegraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" line="52" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/libfuncs.hpp" bodystart="51" bodyend="97"/>
+    <listofallmembers>
+      <member refid="structidasgn__header__t_1ab048477322ffd941ab270de03bafb439" prot="public" virt="non-virtual"><scope>idasgn_header_t</scope><name>apptype</name></member>
+      <member refid="structidasgn__header__t_1a24dece353140ee71e88fcf1afdd84a02" prot="public" virt="non-virtual"><scope>idasgn_header_t</scope><name>ctype_crc</name></member>
+      <member refid="structidasgn__header__t_1a7cb4aab511dfb8f87d6a3e927e73fd5c" prot="public" virt="non-virtual"><scope>idasgn_header_t</scope><name>ctype_crc_3v</name></member>
+      <member refid="structidasgn__header__t_1a60b375f20cb4a8cef2de642894b2abd8" prot="public" virt="non-virtual"><scope>idasgn_header_t</scope><name>ctype_crc_alt</name></member>
+      <member refid="structidasgn__header__t_1a705a931168c6d93dca6c82610d325580" prot="public" virt="non-virtual"><scope>idasgn_header_t</scope><name>ctype_name</name></member>
+      <member refid="structidasgn__header__t_1a0e0f3e2000f59c7c36104bcecc68a6a5" prot="public" virt="non-virtual"><scope>idasgn_header_t</scope><name>file_formats</name></member>
+      <member refid="structidasgn__header__t_1accfaf8cec136c4a1d7cc2511c7bd0124" prot="public" virt="non-virtual"><scope>idasgn_header_t</scope><name>fix_version</name></member>
+      <member refid="structidasgn__header__t_1a393887d0f2b172e875fa15590f2b8998" prot="public" virt="non-virtual"><scope>idasgn_header_t</scope><name>flags</name></member>
+      <member refid="structidasgn__header__t_1a865ebf8540b29b5cc017410a0acc5b93" prot="public" virt="non-virtual"><scope>idasgn_header_t</scope><name>libname_length</name></member>
+      <member refid="structidasgn__header__t_1a0ad0c2dd98087ca60a9befb305275be8" prot="public" virt="non-virtual"><scope>idasgn_header_t</scope><name>magic</name></member>
+      <member refid="structidasgn__header__t_1aa8d574e2bfb7da997adab088d4059e9a" prot="public" virt="non-virtual"><scope>idasgn_header_t</scope><name>number_of_modules</name></member>
+      <member refid="structidasgn__header__t_1a2e4c9992187ec7b4a1490f01969d176e" prot="public" virt="non-virtual"><scope>idasgn_header_t</scope><name>number_of_modules_v5</name></member>
+      <member refid="structidasgn__header__t_1ab7d349368f8fd128f98df1728456cdbd" prot="public" virt="non-virtual"><scope>idasgn_header_t</scope><name>ostype</name></member>
+      <member refid="structidasgn__header__t_1abc6cb6f0ab574eb4fa3b69c960ee6a43" prot="public" virt="non-virtual"><scope>idasgn_header_t</scope><name>pattern_length</name></member>
+      <member refid="structidasgn__header__t_1a5ac5726574f64282676fbd84dfb367d9" prot="public" virt="non-virtual"><scope>idasgn_header_t</scope><name>processor_id</name></member>
+      <member refid="structidasgn__header__t_1a81be9ddb307ba547afa48fff24172061" prot="public" virt="non-virtual"><scope>idasgn_header_t</scope><name>version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

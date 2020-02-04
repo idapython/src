@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___w_i_d_g_e_t___c_l_o_s_e" kind="group">
+    <compoundname>WIDGET_CLOSE</compoundname>
+    <title>Form close flags</title>
+      <sectiondef kind="">
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___w_i_d_g_e_t___c_l_o_s_e_1gab9c1336622354734d3e05853579ca3a7" prot="public" static="no">
+        <name>WCLS_SAVE</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+<para>save state in desktop config </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="412" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="412" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___w_i_d_g_e_t___c_l_o_s_e_1ga6de62f3deb72b11b9507cce87bb641d0" prot="public" static="no">
+        <name>WCLS_NO_CONTEXT</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+<para>don&apos;t change the current context (useful for toolbars) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="413" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="413" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___w_i_d_g_e_t___c_l_o_s_e_1ga3b3564065d819ee3b15e6d576ab289f4" prot="public" static="no">
+        <name>WCLS_DONT_SAVE_SIZE</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+<para>don&apos;t save size of the window </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="414" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="414" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___w_i_d_g_e_t___c_l_o_s_e_1ga49fb268963df84ea3282168162ee1361" prot="public" static="no">
+        <name>WCLS_CLOSE_LATER</name>
+        <initializer>0x8</initializer>
+        <briefdescription>
+<para>assign the deletion of the form to the UI loop ///&lt; </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>void </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="415" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="415" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>passed as options to <ref refid="kernwin_8hpp_1ad27da33115a2f2e7bddbbf5d29aa814b" kindref="member">close_widget()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

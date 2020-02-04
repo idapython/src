@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__dbg__funcs__tracing" kind="group">
+    <compoundname>dbg_funcs_tracing</compoundname>
+    <title>Tracing</title>
+    <innergroup refid="group__dbg__funcs__trcbuf">Tracing buffer</innergroup>
+    <innergroup refid="group__dbg__funcs__strace">Step tracing</innergroup>
+    <innergroup refid="group__dbg__funcs__trcins">Instruction tracing</innergroup>
+    <innergroup refid="group__dbg__funcs__trcfunc">Functions tracing</innergroup>
+    <innergroup refid="group__dbg__funcs__trcbb">Basic block tracing</innergroup>
+    <innergroup refid="group__dbg__funcs__trcev">Tracing events</innergroup>
+    <innergroup refid="group__dbg__funcs__trcm">Trace management functions</innergroup>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Trace instructions/functions/basic blocks </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

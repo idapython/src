@@ -1,0 +1,960 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__dbg__funcs__conv" kind="group">
+    <compoundname>dbg_funcs_conv</compoundname>
+    <title>Misc</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga3e25091a418571cc068f8869e549d0ce" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t idaapi</type>
+        <definition>ea_t idaapi get_tev_ea</definition>
+        <argsstring>(int n)</argsstring>
+        <name>get_tev_ea</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2511" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2511" bodyend="2511"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga79fd7da2aec9176878855149202cd09d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi get_tev_type</definition>
+        <argsstring>(int n)</argsstring>
+        <name>get_tev_type</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2512" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2512" bodyend="2512"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gac3a19ed09805a3cf4cd56dba3e5b7d27" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi get_tev_tid</definition>
+        <argsstring>(int n)</argsstring>
+        <name>get_tev_tid</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2513" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2513" bodyend="2513"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga624bfe29c0775f9ed7bea7d83367e239" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi get_module_info</definition>
+        <argsstring>(ea_t ea, modinfo_t *modinfo)</argsstring>
+        <name>get_module_info</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="structmodinfo__t" kindref="compound">modinfo_t</ref> *</type>
+          <declname>modinfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2514" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2514" bodyend="2514"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga0e4c5493332f3a6e13feaf9685503b62" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi bring_debugger_to_front</definition>
+        <argsstring>(void)</argsstring>
+        <name>bring_debugger_to_front</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2515" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2515" bodyend="2515"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gae4895f54480046db9d6eab4428b37bd9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi collect_stack_trace</definition>
+        <argsstring>(thid_t tid, call_stack_t *trace)</argsstring>
+        <name>collect_stack_trace</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type><ref refid="classqvector" kindref="compound">call_stack_t</ref> *</type>
+          <declname>trace</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2516" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2516" bodyend="2516"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gab9db21407d4eabbd288d127c20957f19" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *idaapi</type>
+        <definition>const char* idaapi get_debugger_event_cond</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_debugger_event_cond</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2517" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2517" bodyend="2517"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga71acb7a0026e9a5d7f4ffc20e5b2d236" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi set_debugger_event_cond</definition>
+        <argsstring>(const char *cond)</argsstring>
+        <name>set_debugger_event_cond</name>
+        <param>
+          <type>const char *</type>
+          <declname>cond</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2518" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2518" bodyend="2518"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga0fb06ecb5529935bdcdde3a6cf5fad23" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi load_debugger</definition>
+        <argsstring>(const char *dbgname, bool use_remote)</argsstring>
+        <name>load_debugger</name>
+        <param>
+          <type>const char *</type>
+          <declname>dbgname</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>use_remote</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2519" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2519" bodyend="2519"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga5e32ecd7769cafc1b094db5499ae87a1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi get_manual_regions</definition>
+        <argsstring>(meminfo_vec_t *ranges)</argsstring>
+        <name>get_manual_regions</name>
+        <param>
+          <type><ref refid="idd_8hpp_1ab53dc5825c9fb9e10963d2f321721169" kindref="member">meminfo_vec_t</ref> *</type>
+          <declname>ranges</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2520" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2520" bodyend="2520"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gaf7b892158db297cc090a3ad897290efa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi set_manual_regions</definition>
+        <argsstring>(const meminfo_vec_t *ranges)</argsstring>
+        <name>set_manual_regions</name>
+        <param>
+          <type>const <ref refid="idd_8hpp_1ab53dc5825c9fb9e10963d2f321721169" kindref="member">meminfo_vec_t</ref> *</type>
+          <declname>ranges</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2521" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2521" bodyend="2521"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga8e9cd659cce31c727c990047b8faf9cd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi edit_manual_regions</definition>
+        <argsstring>()</argsstring>
+        <name>edit_manual_regions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2522" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2522" bodyend="2522"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga66d1a83a0b5e566072138242cdf4ad4c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi enable_manual_regions</definition>
+        <argsstring>(bool enable)</argsstring>
+        <name>enable_manual_regions</name>
+        <param>
+          <type>bool</type>
+          <declname>enable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2523" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2523" bodyend="2523"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gac6aa7ded9adeff147a4489012ec0bbeb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi hide_all_bpts</definition>
+        <argsstring>(void)</argsstring>
+        <name>hide_all_bpts</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2524" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2524" bodyend="2524"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gabac6ad1c2c17964d0bf7840b811c3219" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi handle_debug_event</definition>
+        <argsstring>(const debug_event_t *ev, int rqflags)</argsstring>
+        <name>handle_debug_event</name>
+        <param>
+          <type>const <ref refid="structdebug__event__t" kindref="compound">debug_event_t</ref> *</type>
+          <declname>ev</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rqflags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2525" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2525" bodyend="2525"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga5703cc70a6730733acb716767e1092e3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi add_virt_module</definition>
+        <argsstring>(const modinfo_t *mod)</argsstring>
+        <name>add_virt_module</name>
+        <param>
+          <type>const <ref refid="structmodinfo__t" kindref="compound">modinfo_t</ref> *</type>
+          <declname>mod</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2526" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2526" bodyend="2526"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga91995a8034e9ba412bba3453e9de0285" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi del_virt_module</definition>
+        <argsstring>(const ea_t base)</argsstring>
+        <name>del_virt_module</name>
+        <param>
+          <type>const ea_t</type>
+          <declname>base</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2527" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2527" bodyend="2527"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gab1963c961bfb0ef0b1605fadad94a8fa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi internal_cleanup_appcall</definition>
+        <argsstring>(thid_t tid)</argsstring>
+        <name>internal_cleanup_appcall</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2530" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2530" bodyend="2530"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gad2d28e58fdde103188c2444eb84211c8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi internal_get_sreg_base</definition>
+        <argsstring>(ea_t *answer, thid_t tid, int sreg_value)</argsstring>
+        <name>internal_get_sreg_base</name>
+        <param>
+          <type>ea_t *</type>
+          <declname>answer</declname>
+        </param>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sreg_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2531" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2531" bodyend="2531"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga538c1d2fc80cdef82d6739930be001ea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi internal_ioctl</definition>
+        <argsstring>(int fn, const void *buf, size_t size, void **poutbuf, ssize_t *poutsize)</argsstring>
+        <name>internal_ioctl</name>
+        <param>
+          <type>int</type>
+          <declname>fn</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>void **</type>
+          <declname>poutbuf</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> *</type>
+          <declname>poutsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2532" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2532" bodyend="2532"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gaad097583cbd767d29b64b9a16f5134ea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>ssize_t idaapi read_dbg_memory</definition>
+        <argsstring>(ea_t ea, void *buffer, size_t size)</argsstring>
+        <name>read_dbg_memory</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buffer</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2533" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2533" bodyend="2533"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga9dbd08028fc52d33ad8bf17bdda2b4cc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>ssize_t idaapi write_dbg_memory</definition>
+        <argsstring>(ea_t ea, const void *buffer, size_t size)</argsstring>
+        <name>write_dbg_memory</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>buffer</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2534" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2534" bodyend="2534"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga3dab6c1d22728c32ce02ba67f9ad03ae" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi get_reg_vals</definition>
+        <argsstring>(thid_t tid, int clsmask, regval_t *values)</argsstring>
+        <name>get_reg_vals</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>clsmask</declname>
+        </param>
+        <param>
+          <type><ref refid="structregval__t" kindref="compound">regval_t</ref> *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2535" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2535" bodyend="2535"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga46f0195a300de6e6b811f6a22039157e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi set_reg_val</definition>
+        <argsstring>(thid_t tid, int regidx, const regval_t *value)</argsstring>
+        <name>set_reg_val</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>regidx</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structregval__t" kindref="compound">regval_t</ref> *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2536" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2536" bodyend="2536"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga56e58930768f0b7dcae8e185297cd7be" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi get_dbg_memory_info</definition>
+        <argsstring>(meminfo_vec_t *ranges)</argsstring>
+        <name>get_dbg_memory_info</name>
+        <param>
+          <type><ref refid="idd_8hpp_1ab53dc5825c9fb9e10963d2f321721169" kindref="member">meminfo_vec_t</ref> *</type>
+          <declname>ranges</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2537" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2537" bodyend="2537"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gae4f6893d15426a9f019746bc175cf9a4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi set_bpt_group</definition>
+        <argsstring>(bpt_t &amp;bpt, const char *grp_name)</argsstring>
+        <name>set_bpt_group</name>
+        <param>
+          <type><ref refid="structbpt__t" kindref="compound">bpt_t</ref> &amp;</type>
+          <declname>bpt</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>grp_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2538" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2538" bodyend="2538"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gad0deede7f9569030e41f4540dced88f4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi set_bptloc_group</definition>
+        <argsstring>(const bpt_location_t &amp;bptloc, const char *grp_name)</argsstring>
+        <name>set_bptloc_group</name>
+        <param>
+          <type>const <ref refid="structbpt__location__t" kindref="compound">bpt_location_t</ref> &amp;</type>
+          <declname>bptloc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>grp_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2539" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2539" bodyend="2539"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga41e1d55133f989d1cac06841200c3813" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi get_bpt_group</definition>
+        <argsstring>(qstring *grp_name, const bpt_location_t &amp;bptloc)</argsstring>
+        <name>get_bpt_group</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>grp_name</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structbpt__location__t" kindref="compound">bpt_location_t</ref> &amp;</type>
+          <declname>bptloc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2540" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2540" bodyend="2540"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gac3eb77dbc9662b807b525fd497228fa7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t idaapi</type>
+        <definition>size_t idaapi list_bptgrps</definition>
+        <argsstring>(qstrvec_t *bptgrps)</argsstring>
+        <name>list_bptgrps</name>
+        <param>
+          <type><ref refid="pro_8h_1a823b67c620f6cdca97e1d969ea4a9b02" kindref="member">qstrvec_t</ref> *</type>
+          <declname>bptgrps</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2541" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2541" bodyend="2541"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gad4b5b16e333d150186c1b7eb2b511cae" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi rename_bptgrp</definition>
+        <argsstring>(const char *old_name, const char *new_name)</argsstring>
+        <name>rename_bptgrp</name>
+        <param>
+          <type>const char *</type>
+          <declname>old_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>new_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2542" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2542" bodyend="2542"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga58f0c90f3f013bd98c88f0901b9a0cf0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi del_bptgrp</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>del_bptgrp</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2543" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2543" bodyend="2543"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga8ec8a5836bd9a1f8fa551818bda5c432" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> idaapi</type>
+        <definition>ssize_t idaapi get_grp_bpts</definition>
+        <argsstring>(bpt_vec_t *bpts, const char *grp_name)</argsstring>
+        <name>get_grp_bpts</name>
+        <param>
+          <type><ref refid="group__dbg__funcs__bpts_1ga7b7aec8527b2738750b2fc01be14264f" kindref="member">bpt_vec_t</ref> *</type>
+          <declname>bpts</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>grp_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2544" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2544" bodyend="2544"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga96475b39b3d67ec6dd196353c4c0357d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classsrcinfo__provider__t" kindref="compound">srcinfo_provider_t</ref> *idaapi</type>
+        <definition>srcinfo_provider_t* idaapi get_srcinfo_provider</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>get_srcinfo_provider</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2547" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2547" bodyend="2547"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga050f6fa13c8e2822d5bc2ba1393a8d87" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi get_global_var</definition>
+        <argsstring>(srcinfo_provider_t *prov, ea_t ea, const char *name, source_item_ptr *out)</argsstring>
+        <name>get_global_var</name>
+        <param>
+          <type><ref refid="classsrcinfo__provider__t" kindref="compound">srcinfo_provider_t</ref> *</type>
+          <declname>prov</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="group__dbg__funcs__srcinfo_1ga3c73aaf1eda8ff72a5a78ea13840afa5" kindref="member">source_item_ptr</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2548" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2548" bodyend="2548"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga629c9b8b8c6b774f479c32ca2a65f225" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi get_local_var</definition>
+        <argsstring>(srcinfo_provider_t *prov, ea_t ea, const char *name, source_item_ptr *out)</argsstring>
+        <name>get_local_var</name>
+        <param>
+          <type><ref refid="classsrcinfo__provider__t" kindref="compound">srcinfo_provider_t</ref> *</type>
+          <declname>prov</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="group__dbg__funcs__srcinfo_1ga3c73aaf1eda8ff72a5a78ea13840afa5" kindref="member">source_item_ptr</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2549" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2549" bodyend="2549"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga8ef965d6390a809a6ea02fa82d3e6978" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi get_local_vars</definition>
+        <argsstring>(srcinfo_provider_t *prov, ea_t ea, source_items_t *out)</argsstring>
+        <name>get_local_vars</name>
+        <param>
+          <type><ref refid="classsrcinfo__provider__t" kindref="compound">srcinfo_provider_t</ref> *</type>
+          <declname>prov</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="group__dbg__funcs__srcinfo_1ga9fd41e0ea321e1632c866f11f6bf1a30" kindref="member">source_items_t</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2550" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2550" bodyend="2550"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga61962855605d55f64b4c81b421106617" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi add_path_mapping</definition>
+        <argsstring>(const char *src, const char *dst)</argsstring>
+        <name>add_path_mapping</name>
+        <param>
+          <type>const char *</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>dst</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2551" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2551" bodyend="2551"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga51b4e0b165e893fb951ea28f1088dd52" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi get_current_source_file</definition>
+        <argsstring>(qstring *path)</argsstring>
+        <name>get_current_source_file</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2552" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2552" bodyend="2552"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga201cf57bb47850a8d8889dc7eb27e2c9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi get_current_source_line</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_current_source_line</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2553" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2553" bodyend="2553"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga2b146bb3a12105930fcf52178aa43f2a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi srcdbg_step_into</definition>
+        <argsstring>(void)</argsstring>
+        <name>srcdbg_step_into</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2554" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2554" bodyend="2554"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gaf9cac01d3dd5bb01f3d5718055bc71c6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi srcdbg_request_step_into</definition>
+        <argsstring>(void)</argsstring>
+        <name>srcdbg_request_step_into</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2555" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2555" bodyend="2555"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga6a8ea870f3f66e28118c798974d035f7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi srcdbg_step_over</definition>
+        <argsstring>(void)</argsstring>
+        <name>srcdbg_step_over</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2556" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2556" bodyend="2556"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gaa26ffe38aea34b0071a10c2597afa6ba" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi srcdbg_request_step_over</definition>
+        <argsstring>(void)</argsstring>
+        <name>srcdbg_request_step_over</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2557" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2557" bodyend="2557"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga4c013c315fe7a44d77cc7929affd7b78" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi srcdbg_step_until_ret</definition>
+        <argsstring>(void)</argsstring>
+        <name>srcdbg_step_until_ret</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2558" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2558" bodyend="2558"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1ga2d64d7bb371008eaf71214b29f3539bf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi srcdbg_request_step_until_ret</definition>
+        <argsstring>(void)</argsstring>
+        <name>srcdbg_request_step_until_ret</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2559" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2559" bodyend="2559"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gaf1eb2daf000c73649e10bd46e03eed3b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref> idaapi</type>
+        <definition>drc_t idaapi dbg_bin_search</definition>
+        <argsstring>(ea_t *out, ea_t start_ea, ea_t end_ea, const compiled_binpat_vec_t &amp;data, int srch_flags, qstring *errbuf)</argsstring>
+        <name>dbg_bin_search</name>
+        <param>
+          <type>ea_t *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>start_ea</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>end_ea</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classqvector" kindref="compound">compiled_binpat_vec_t</ref> &amp;</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>srch_flags</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="2560" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2560" bodyend="2561"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gaff11b43cc13e61401fae304206a38d21" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * bpt_t::get_cnd_elang</definition>
+        <argsstring>() const</argsstring>
+        <name>get_cnd_elang</name>
+        <briefdescription>
+<para>Get the scripting language name for the condition string. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="959" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2545" bodyend="2545"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__conv_1gaf059bf1ce65fa5f7312772869bca369f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool bpt_t::set_cnd_elang</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>set_cnd_elang</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set the scripting language name for the condition string <simplesect kind="return"><para>false if too many languages were used </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="963" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="2546" bodyend="2546"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Convenience functions offered by the user interface </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structdebapp__attrs__t" kind="struct" language="C++" prot="public">
+    <compoundname>debapp_attrs_t</compoundname>
+    <includes refid="idd_8hpp" local="no">idd.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdebapp__attrs__t_1aeafdc5fd6b54d3dc1a742c809037a4b3" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 debapp_attrs_t::cbsize</definition>
+        <argsstring></argsstring>
+        <name>cbsize</name>
+        <briefdescription>
+<para>control field: size of this structure </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="57" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebapp__attrs__t_1afe500df1ff01e0e39e46d0e8a1770fc5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int debapp_attrs_t::addrsize</definition>
+        <argsstring></argsstring>
+        <name>addrsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>address size of the process. Since 64-bit debuggers usually can debug 32-bit applications, we can not rely on sizeof(ea_t) to detect the current address size. The following variable should be used instead. It is initialized with 8 for 64-bit debuggers but they should adjust it as soon as they learn that a 32-bit application is being debugged. For 32-bit debuggers it is initialized with 4. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="66" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebapp__attrs__t_1a58f19793e91d046ec6cc2c0561145af5" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring debapp_attrs_t::platform</definition>
+        <argsstring></argsstring>
+        <name>platform</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>platform name process is running/debugging under. (is used as a key value in exceptions.cfg) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="68" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebapp__attrs__t_1a720fa3f77f69c04f7875c0228ceb48b6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int debapp_attrs_t::is_be</definition>
+        <argsstring></argsstring>
+        <name>is_be</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="78" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structdebapp__attrs__t_1ae87ff65b4e3632a44071ab97808b33bd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>debapp_attrs_t::debapp_attrs_t</definition>
+        <argsstring>()</argsstring>
+        <name>debapp_attrs_t</name>
+        <briefdescription>
+<para>Constructor - initialize with #DEF_ADDRSIZE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="81" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="81" bodyend="85"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Runtime attributes of the debugger/process. It is guaranteed that these attributes are really valid after start/attach process </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1471">
+        <label>debapp_attrs_t</label>
+        <link refid="structdebapp__attrs__t"/>
+        <childnode refid="1472" relation="usage">
+          <edgelabel>platform</edgelabel>
+        </childnode>
+      </node>
+      <node id="1472">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="56" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="55" bodyend="86"/>
+    <listofallmembers>
+      <member refid="structdebapp__attrs__t_1afe500df1ff01e0e39e46d0e8a1770fc5" prot="public" virt="non-virtual"><scope>debapp_attrs_t</scope><name>addrsize</name></member>
+      <member refid="structdebapp__attrs__t_1aeafdc5fd6b54d3dc1a742c809037a4b3" prot="public" virt="non-virtual"><scope>debapp_attrs_t</scope><name>cbsize</name></member>
+      <member refid="structdebapp__attrs__t_1ae87ff65b4e3632a44071ab97808b33bd" prot="public" virt="non-virtual"><scope>debapp_attrs_t</scope><name>debapp_attrs_t</name></member>
+      <member refid="structdebapp__attrs__t_1a720fa3f77f69c04f7875c0228ceb48b6" prot="public" virt="non-virtual"><scope>debapp_attrs_t</scope><name>is_be</name></member>
+      <member refid="structdebapp__attrs__t_1a58f19793e91d046ec6cc2c0561145af5" prot="public" virt="non-virtual"><scope>debapp_attrs_t</scope><name>platform</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

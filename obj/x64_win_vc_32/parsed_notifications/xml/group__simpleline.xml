@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__simpleline" kind="group">
+    <compoundname>simpleline</compoundname>
+    <title>Simpleline interface</title>
+    <innerclass refid="structsimpleline__t" prot="public">simpleline_t</innerclass>
+    <innerclass refid="classsimpleline__place__t" prot="public">simpleline_place_t</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__simpleline_1gac893a23d04b0b0ddc10cc44f4f9f01e6" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structsimpleline__t" kindref="compound">simpleline_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;simpleline_t&gt; strvec_t</definition>
+        <argsstring></argsstring>
+        <name>strvec_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>A collection of simple lines to populate a custom view. This is an example of what you would pass as the &apos;ud&apos; argument to <ref refid="kernwin_8hpp_1a1051078c753712041521d59c93be3e74" kindref="member">create_custom_viewer()</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="1485" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="1485" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>IDA custom viewer sample. </para>    </briefdescription>
+    <detaileddescription>
+<para>It is enough to create an object of <ref refid="group__simpleline_1gac893a23d04b0b0ddc10cc44f4f9f01e6" kindref="member">strvec_t</ref> class, put all lines into it and create a custom ida viewer (<ref refid="kernwin_8hpp_1a4a23e389ff9cbf1cd31179ca2f393334ac3da4fc006d749224fd5b36925cd35d6" kindref="member">ui_create_custom_viewer</ref>). <programlisting><codeline><highlight class="normal">strvec_t<sp/>sv;</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>fill<sp/>it<sp/>with<sp/>lines...</highlight></codeline>
+<codeline><highlight class="normal">simpleline_place_t<sp/>s1;</highlight></codeline>
+<codeline><highlight class="normal">simpleline_place_t<sp/>s2(sv.size()-1);</highlight></codeline>
+<codeline><highlight class="normal">cv<sp/>=<sp/>(TWidget<sp/>*)callui(ui_create_custom_viewer,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;My<sp/>title&quot;,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;s1,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;s2,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;s1,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;sv).vptr;</highlight></codeline>
+</programlisting> This will produce a nice colored text view. Also see the SDK&apos;s &apos;custview&apos; and &apos;hexview&apos; plugins for more complete examples. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__tf__modifiers" kind="group">
+    <compoundname>tf_modifiers</compoundname>
+    <title>Type modifiers</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__tf__modifiers_1ga9620c6eab27564299c432f6f22c963e0" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BTM_CONST</definition>
+        <argsstring></argsstring>
+        <name>BTM_CONST</name>
+        <initializer>= 0x40</initializer>
+        <briefdescription>
+<para>const </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="254" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tf__modifiers_1ga980855dd322c9bc15ac45421c7267d13" prot="public" static="no" mutable="no">
+        <type>const <ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref></type>
+        <definition>const type_t BTM_VOLATILE</definition>
+        <argsstring></argsstring>
+        <name>BTM_VOLATILE</name>
+        <initializer>= 0x80</initializer>
+        <briefdescription>
+<para>volatile </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="255" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>&quot;const volatile&quot; types are forbidden </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

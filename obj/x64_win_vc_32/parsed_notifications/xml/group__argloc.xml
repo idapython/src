@@ -1,0 +1,417 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__argloc" kind="group">
+    <compoundname>argloc</compoundname>
+    <title>Argument locations</title>
+    <innerclass refid="structrrel__t" prot="public">rrel_t</innerclass>
+    <innerclass refid="structcustloc__desc__t" prot="public">custloc_desc_t</innerclass>
+    <innerclass refid="classargloc__t" prot="public">argloc_t</innerclass>
+    <innerclass refid="structargpart__t" prot="public">argpart_t</innerclass>
+    <innerclass refid="classscattered__aloc__t" prot="public">scattered_aloc_t</innerclass>
+    <innerclass refid="structaloc__visitor__t" prot="public">aloc_visitor_t</innerclass>
+    <innerclass refid="structconst__aloc__visitor__t" prot="public">const_aloc_visitor_t</innerclass>
+    <innergroup refid="group___a_l_o_c__">Argument location types</innergroup>
+    <innergroup refid="group___c___p_c__">Standard C-language models for x86</innergroup>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__argloc_1ga1213616e618bb2e2eeef3789c5a3066a" prot="public" static="no">
+        <name>argreg_policy_t</name>
+        <enumvalue id="group__argloc_1gga1213616e618bb2e2eeef3789c5a3066aa7baed8ca2e6bc4cfe859a3709339b309" prot="public">
+          <name>ARGREGS_POLICY_UNDEFINED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__argloc_1gga1213616e618bb2e2eeef3789c5a3066aa78b105fc74836db7dfc4892af9e69c06" prot="public">
+          <name>ARGREGS_GP_ONLY</name>
+          <briefdescription>
+<para>GP registers used for all arguments. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__argloc_1gga1213616e618bb2e2eeef3789c5a3066aaed785e829f5e0b1f404dc2b512cb0698" prot="public">
+          <name>ARGREGS_INDEPENDENT</name>
+          <briefdescription>
+<para>FP/GP registers used separately (like gcc64) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__argloc_1gga1213616e618bb2e2eeef3789c5a3066aae440e0d293e7994fec765a045ec0b7de" prot="public">
+          <name>ARGREGS_BY_SLOTS</name>
+          <briefdescription>
+<para>fixed FP/GP register per each slot (like vc64) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__argloc_1gga1213616e618bb2e2eeef3789c5a3066aaa5cdf7a88dcb45b3f820bb4a854229d6" prot="public">
+          <name>ARGREGS_FP_CONSUME_GP</name>
+          <briefdescription>
+<para>FP register also consumes one or more GP regs but not vice versa (aix ppc ABI) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Function argument passing: how GP &amp; FP registers cooperate with each other. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1286" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1285" bodyend="1292"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__argloc_1gafaa486b80f279565c5e29558d6694afd" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int argloc_type_t</definition>
+        <argsstring></argsstring>
+        <name>argloc_type_t</name>
+        <briefdescription>
+<para>Specifies the location type of a function argument - see <ref refid="group___a_l_o_c__" kindref="compound">Argument location types</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="805" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="805" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__argloc_1gad3d78bf064365f662c656f53d9296358" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="classargloc__t" kindref="compound">argloc_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;argloc_t&gt; arglocs_t</definition>
+        <argsstring></argsstring>
+        <name>arglocs_t</name>
+        <briefdescription>
+<para>vector of argument locations </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1142" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1141" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__argloc_1ga4a684d3b5a6369163f377a94585edb77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export install_custom_argloc</definition>
+        <argsstring>(const custloc_desc_t *custloc)</argsstring>
+        <name>install_custom_argloc</name>
+        <param>
+          <type>const <ref refid="structcustloc__desc__t" kindref="compound">custloc_desc_t</ref> *</type>
+          <declname>custloc</declname>
+        </param>
+        <briefdescription>
+<para>Save a custom argloc. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="945" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__argloc_1gadb953830132811494989955976c4e119" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export remove_custom_argloc</definition>
+        <argsstring>(int idx)</argsstring>
+        <name>remove_custom_argloc</name>
+        <param>
+          <type>int</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+<para>Delete the custom argloc at the given index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="947" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__argloc_1ga137f0ff547d4ccd97f6792a35cb209a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman const <ref refid="structcustloc__desc__t" kindref="compound">custloc_desc_t</ref> *ida_export</type>
+        <definition>idaman const custloc_desc_t* ida_export retrieve_custom_argloc</definition>
+        <argsstring>(int idx)</argsstring>
+        <name>retrieve_custom_argloc</name>
+        <param>
+          <type>int</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve the custom argloc at the given index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="949" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__argloc_1ga12d82624c71c4f04c749344171cf4978" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export verify_argloc</definition>
+        <argsstring>(const argloc_t &amp;vloc, int size, const rangeset_t *gaps)</argsstring>
+        <name>verify_argloc</name>
+        <param>
+          <type>const <ref refid="classargloc__t" kindref="compound">argloc_t</ref> &amp;</type>
+          <declname>vloc</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *</type>
+          <declname>gaps</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Verify <ref refid="classargloc__t" kindref="compound">argloc_t</ref>. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>total size of the variable </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gaps</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if not NULL, specifies gaps in structure definition. these gaps should not map to any argloc, but everything else must be covered </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 if ok, otherwise an interr code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1187" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__argloc_1gad7b916c550685f48f02b3fd5c97d3f1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman bool ida_export</type>
+        <definition>idaman bool ida_export optimize_argloc</definition>
+        <argsstring>(argloc_t *vloc, int size, const rangeset_t *gaps)</argsstring>
+        <name>optimize_argloc</name>
+        <param>
+          <type><ref refid="classargloc__t" kindref="compound">argloc_t</ref> *</type>
+          <declname>vloc</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classrangeset__t" kindref="compound">rangeset_t</ref> *</type>
+          <declname>gaps</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Verify and optimize scattered argloc into simple form. All new arglocs must be processed by this function. <parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>true</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>success </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>false</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the input argloc was illegal </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1195" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__argloc_1gab5504a4c1f4f3d888ed051b1ab90ae4c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman size_t ida_export</type>
+        <definition>idaman size_t ida_export print_argloc</definition>
+        <argsstring>(char *buf, size_t bufsize, const argloc_t &amp;vloc, int size=0, int vflags=0)</argsstring>
+        <name>print_argloc</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsize</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classargloc__t" kindref="compound">argloc_t</ref> &amp;</type>
+          <declname>vloc</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>size</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>vflags</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Convert an argloc to human readable form. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1200" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__argloc_1gac7c5abb53c08b173798499df9e582fad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>idaman int ida_export</type>
+        <definition>idaman int ida_export for_all_arglocs</definition>
+        <argsstring>(aloc_visitor_t &amp;vv, argloc_t &amp;vloc, int size, int off=0)</argsstring>
+        <name>for_all_arglocs</name>
+        <param>
+          <type><ref refid="structaloc__visitor__t" kindref="compound">aloc_visitor_t</ref> &amp;</type>
+          <declname>vv</declname>
+        </param>
+        <param>
+          <type><ref refid="classargloc__t" kindref="compound">argloc_t</ref> &amp;</type>
+          <declname>vloc</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>off</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Compress larger argloc types and initiate the aloc visitor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1219" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__argloc_1ga51d822a5bc687700adcce53f23f9e7aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi for_all_const_arglocs</definition>
+        <argsstring>(const_aloc_visitor_t &amp;vv, const argloc_t &amp;vloc, int size, int off=0)</argsstring>
+        <name>for_all_const_arglocs</name>
+        <param>
+          <type><ref refid="structconst__aloc__visitor__t" kindref="compound">const_aloc_visitor_t</ref> &amp;</type>
+          <declname>vv</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classargloc__t" kindref="compound">argloc_t</ref> &amp;</type>
+          <declname>vloc</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>off</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>See <ref refid="group__argloc_1gac7c5abb53c08b173798499df9e582fad" kindref="member">for_all_arglocs()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1229" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1229" bodyend="1235"/>
+      </memberdef>
+      <memberdef kind="function" id="group__argloc_1ga1c697931d24c6ab239a1522ac0f192b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> <ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+        <definition>THREAD_SAFE cm_t get_cc</definition>
+        <argsstring>(cm_t cm)</argsstring>
+        <name>get_cc</name>
+        <param>
+          <type><ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+          <declname>cm</declname>
+        </param>
+        <briefdescription>
+<para>Get the calling convention. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1253" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1253" bodyend="1253"/>
+      </memberdef>
+      <memberdef kind="function" id="group__argloc_1gaf4e73d1437be74b284b39d366904387a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool</type>
+        <definition>THREAD_SAFE bool is_user_cc</definition>
+        <argsstring>(cm_t cm)</argsstring>
+        <name>is_user_cc</name>
+        <param>
+          <type><ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+          <declname>cm</declname>
+        </param>
+        <briefdescription>
+<para>Does the calling convention specify argument locations explicitly? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1258" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1258" bodyend="1262"/>
+      </memberdef>
+      <memberdef kind="function" id="group__argloc_1ga1c08ebbedf87be83e40027e1a47c8e70" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool</type>
+        <definition>THREAD_SAFE bool is_vararg_cc</definition>
+        <argsstring>(cm_t cm)</argsstring>
+        <name>is_vararg_cc</name>
+        <param>
+          <type><ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+          <declname>cm</declname>
+        </param>
+        <briefdescription>
+<para>Does the calling convention use ellipsis? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1267" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1267" bodyend="1271"/>
+      </memberdef>
+      <memberdef kind="function" id="group__argloc_1ga2cc3cd9f8c8228a167357912934d8479" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1acb0b22a01885ebdb9ac572343bbc4dab" kindref="member">THREAD_SAFE</ref> bool</type>
+        <definition>THREAD_SAFE bool is_purging_cc</definition>
+        <argsstring>(cm_t cm)</argsstring>
+        <name>is_purging_cc</name>
+        <param>
+          <type><ref refid="ida_8hpp_1a3e05fd8860fadc8f72329fc410c8f6b9" kindref="member">cm_t</ref></type>
+          <declname>cm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Does the calling convention clean the stack arguments upon return?. <simplesect kind="note"><para>this function is valid only for x86 code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1277" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1277" bodyend="1281"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__argloc_1gad116a63144af8d2ec22c38fe52a83afc" prot="public" static="no">
+        <name>PRALOC_VERIFY</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>interr if illegal argloc </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1206" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__argloc_1ga51017e98e13d8514261572bba7766e75" prot="public" static="no">
+        <name>PRALOC_STKOFF</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>print stack offsets </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1207" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1207" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

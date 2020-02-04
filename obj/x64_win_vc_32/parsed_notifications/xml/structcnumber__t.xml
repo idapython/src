@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structcnumber__t" kind="struct" language="C++" prot="public">
+    <compoundname>cnumber_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcnumber__t_1ab1093c320caec79c6664d74876ddc004" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 cnumber_t::_value</definition>
+        <argsstring></argsstring>
+        <name>_value</name>
+        <briefdescription>
+<para>its value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5247" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcnumber__t_1acea53f280acfe8b26942bd8438e60357" prot="public" static="no" mutable="no">
+        <type><ref refid="structnumber__format__t" kindref="compound">number_format_t</ref></type>
+        <definition>number_format_t cnumber_t::nf</definition>
+        <argsstring></argsstring>
+        <name>nf</name>
+        <briefdescription>
+<para>how to represent it </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5248" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5248" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structcnumber__t_1a30ad7e8d4d10d93397a387a9359643bd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>cnumber_t::cnumber_t</definition>
+        <argsstring>(int _opnum=0)</argsstring>
+        <name>cnumber_t</name>
+        <param>
+          <type>int</type>
+          <declname>_opnum</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5249" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5249" bodyend="5249"/>
+      </memberdef>
+      <memberdef kind="function" id="structcnumber__t_1a41e08b488538455ceb470c5469af22a3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void cnumber_t::print</definition>
+        <argsstring>(qstring *vout, const tinfo_t &amp;type, const citem_t *parent=NULL, bool *nice_stroff=NULL) const</argsstring>
+        <name>print</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>vout</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classtinfo__t" kindref="compound">tinfo_t</ref> &amp;</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structcitem__t" kindref="compound">citem_t</ref> *</type>
+          <declname>parent</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>bool *</type>
+          <declname>nice_stroff</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get text representation <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>vout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>parent expression </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nice_stroff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>out: printed as stroff expression </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5256" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10681" bodyend="10684"/>
+      </memberdef>
+      <memberdef kind="function" id="structcnumber__t_1a25156e1b7b544653da4e14ba550f9f6b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref> hexapi</type>
+        <definition>uint64 cnumber_t::value</definition>
+        <argsstring>(const tinfo_t &amp;type) const</argsstring>
+        <name>value</name>
+        <param>
+          <type>const <ref refid="classtinfo__t" kindref="compound">tinfo_t</ref> &amp;</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get value. This function will properly extend the number sign to 64bits depending on the type sign. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5265" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10687" bodyend="10692"/>
+      </memberdef>
+      <memberdef kind="function" id="structcnumber__t_1a56988d13f5d20d8796fad7d066ad0246" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void cnumber_t::assign</definition>
+        <argsstring>(uint64 v, int nbytes, type_sign_t sign)</argsstring>
+        <name>assign</name>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nbytes</declname>
+        </param>
+        <param>
+          <type><ref refid="group__tattr__ext_1ga91970b0d779fe968b3b22572526048a0" kindref="member">type_sign_t</ref></type>
+          <declname>sign</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Assign new value <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new value </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nbytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of the new value in bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sign</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sign of the value </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5271" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10695" bodyend="10698"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>An immediate number. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1065">
+        <label>cnumber_t</label>
+        <link refid="structcnumber__t"/>
+        <childnode refid="1066" relation="usage">
+          <edgelabel>nf</edgelabel>
+        </childnode>
+      </node>
+      <node id="1066">
+        <label>number_format_t</label>
+        <link refid="structnumber__format__t"/>
+        <childnode refid="1067" relation="usage">
+          <edgelabel>type_name</edgelabel>
+        </childnode>
+      </node>
+      <node id="1067">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5246" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5245" bodyend="5274"/>
+    <listofallmembers>
+      <member refid="structcnumber__t_1ab1093c320caec79c6664d74876ddc004" prot="public" virt="non-virtual"><scope>cnumber_t</scope><name>_value</name></member>
+      <member refid="structcnumber__t_1a56988d13f5d20d8796fad7d066ad0246" prot="public" virt="non-virtual"><scope>cnumber_t</scope><name>assign</name></member>
+      <member refid="structcnumber__t_1a30ad7e8d4d10d93397a387a9359643bd" prot="public" virt="non-virtual"><scope>cnumber_t</scope><name>cnumber_t</name></member>
+      <member refid="structcnumber__t_1acea53f280acfe8b26942bd8438e60357" prot="public" virt="non-virtual"><scope>cnumber_t</scope><name>nf</name></member>
+      <member refid="structcnumber__t_1a41e08b488538455ceb470c5469af22a3" prot="public" virt="non-virtual"><scope>cnumber_t</scope><name>print</name></member>
+      <member refid="structcnumber__t_1a25156e1b7b544653da4e14ba550f9f6b" prot="public" virt="non-virtual"><scope>cnumber_t</scope><name>value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

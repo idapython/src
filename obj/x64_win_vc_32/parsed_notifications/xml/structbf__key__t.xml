@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structbf__key__t" kind="struct" language="C++" prot="public">
+    <compoundname>bf_key_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbf__key__t_1a189ec3e8416caeb7143347e73e5ffa3e" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 bf_key_t::p[18]</definition>
+        <argsstring>[18]</argsstring>
+        <name>p</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/blowfish.h" line="9" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/blowfish.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbf__key__t_1a2f4bbd31b6b53f3350c240a788fb0e07" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 bf_key_t::s[4][256]</definition>
+        <argsstring>[4][256]</argsstring>
+        <name>s</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/blowfish.h" line="10" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/blowfish.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/blowfish.h" line="8" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/blowfish.h" bodystart="7" bodyend="11"/>
+    <listofallmembers>
+      <member refid="structbf__key__t_1a189ec3e8416caeb7143347e73e5ffa3e" prot="public" virt="non-virtual"><scope>bf_key_t</scope><name>p</name></member>
+      <member refid="structbf__key__t_1a2f4bbd31b6b53f3350c240a788fb0e07" prot="public" virt="non-virtual"><scope>bf_key_t</scope><name>s</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

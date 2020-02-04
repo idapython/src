@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___l_v_i_n_f__" kind="group">
+    <compoundname>LVINF_</compoundname>
+    <title>saved user lvar info property bits</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___l_v_i_n_f___1ga4fd9af23ec0503cf520fe4d3f7b431dd" prot="public" static="no">
+        <name>LVINF_KEEP</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>preserve saved user settings regardless of vars for example, if a var loses all its user-defined attributes or even gets destroyed, keep its <ref refid="structlvar__saved__info__t" kindref="compound">lvar_saved_info_t</ref>. this is used for ephemeral variables that get destroyed by macro recognition. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1455" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1455" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___l_v_i_n_f___1ga7c4836a032b358605e4f108f6ffbeffb" prot="public" static="no">
+        <name>LVINF_FORCE</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>force allocation of a new variable. forces the decompiler to create a new variable at ll.defea </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1461" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1461" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___l_v_i_n_f___1gaf1641adaaec40368005c91d48b4a1d37" prot="public" static="no">
+        <name>LVINF_NOPTR</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>variable type should not be a pointer </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1464" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1464" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used in <ref refid="structlvar__saved__info__t_1a979c052aadbf67fc946c90722be17463" kindref="member">lvar_saved_info_t::flags</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

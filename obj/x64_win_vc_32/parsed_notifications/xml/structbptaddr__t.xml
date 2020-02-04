@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structbptaddr__t" kind="struct" language="C++" prot="public">
+    <compoundname>bptaddr_t</compoundname>
+    <includes refid="idd_8hpp" local="no">idd.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbptaddr__t_1aade3d0323cf4b913c0fd23fb2eef4cf9" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t bptaddr_t::hea</definition>
+        <argsstring></argsstring>
+        <name>hea</name>
+        <briefdescription>
+<para>Possible address referenced by hardware breakpoints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="228" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbptaddr__t_1a0116ffee72ad792f52c81e4861c83318" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t bptaddr_t::kea</definition>
+        <argsstring></argsstring>
+        <name>kea</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Address of the triggered bpt from the kernel&apos;s point of view. (for some systems with special memory mappings, the triggered ea might be different from event ea). Use to <ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> for flat memory model. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="229" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structbptaddr__t_1a64579badfa1c78738e19f2a6120b07db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>bptaddr_t::bptaddr_t</definition>
+        <argsstring>()</argsstring>
+        <name>bptaddr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="233" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="233" bodyend="233"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Describes a breakpoint event. (see <ref refid="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a6aa885639b9e8fafc14f77f6d418fc1b" kindref="member">BREAKPOINT</ref>) </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="227" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="226" bodyend="234"/>
+    <listofallmembers>
+      <member refid="structbptaddr__t_1a64579badfa1c78738e19f2a6120b07db" prot="public" virt="non-virtual"><scope>bptaddr_t</scope><name>bptaddr_t</name></member>
+      <member refid="structbptaddr__t_1aade3d0323cf4b913c0fd23fb2eef4cf9" prot="public" virt="non-virtual"><scope>bptaddr_t</scope><name>hea</name></member>
+      <member refid="structbptaddr__t_1a0116ffee72ad792f52c81e4861c83318" prot="public" virt="non-virtual"><scope>bptaddr_t</scope><name>kea</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

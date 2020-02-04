@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_t_r_t_y_p_e__" kind="group">
+    <compoundname>STRTYPE_</compoundname>
+    <title>String type codes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_t_r_t_y_p_e___1gaf1ff4f38af0efd6bb7b710c02c9010ec" prot="public" static="no">
+        <name>STRTYPE_TERMCHR</name>
+        <initializer>(STRWIDTH_1B|STRLYT_TERMCHR&lt;&lt;STRLYT_SHIFT)</initializer>
+        <briefdescription>
+<para>C-style string. </para>        </briefdescription>
+        <detaileddescription>
+<para>&lt; Character-terminated string. The termination characters are kept in the next bytes of string type. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="487" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="487" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_t_y_p_e___1gabc6c66459538cef0f5079a984ec6340a" prot="public" static="no">
+        <name>STRTYPE_C</name>
+        <initializer><ref refid="group___s_t_r_t_y_p_e___1gaf1ff4f38af0efd6bb7b710c02c9010ec" kindref="member">STRTYPE_TERMCHR</ref></initializer>
+        <briefdescription>
+<para>Zero-terminated 16bit chars. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="489" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="489" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_t_y_p_e___1ga7d47614ace1b6a3d06c5870ab4074225" prot="public" static="no">
+        <name>STRTYPE_C_16</name>
+        <initializer>(STRWIDTH_2B|STRLYT_TERMCHR&lt;&lt;STRLYT_SHIFT)</initializer>
+        <briefdescription>
+<para>Zero-terminated 32bit chars. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="491" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="491" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_t_y_p_e___1ga81e419ddac16579bab1536fa8c8d6acd" prot="public" static="no">
+        <name>STRTYPE_C_32</name>
+        <initializer>(STRWIDTH_4B|STRLYT_TERMCHR&lt;&lt;STRLYT_SHIFT)</initializer>
+        <briefdescription>
+<para>Pascal-style, one-byte length prefix. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="493" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="493" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_t_y_p_e___1ga64be15511dbdad6ad9570d51b6d84b7d" prot="public" static="no">
+        <name>STRTYPE_PASCAL</name>
+        <initializer>(STRWIDTH_1B|STRLYT_PASCAL1&lt;&lt;STRLYT_SHIFT)</initializer>
+        <briefdescription>
+<para>Pascal-style, 16bit chars, one-byte length prefix. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="495" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="495" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_t_y_p_e___1ga1a65711d82ab755f82b4f5f1cc7df89e" prot="public" static="no">
+        <name>STRTYPE_PASCAL_16</name>
+        <initializer>(STRWIDTH_2B|STRLYT_PASCAL1&lt;&lt;STRLYT_SHIFT)</initializer>
+        <briefdescription>
+<para>Pascal-style, two-byte length prefix. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="497" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="497" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_t_y_p_e___1gaba8eb129b93d86706580252f850f58a6" prot="public" static="no">
+        <name>STRTYPE_LEN2</name>
+        <initializer>(STRWIDTH_1B|STRLYT_PASCAL2&lt;&lt;STRLYT_SHIFT)</initializer>
+        <briefdescription>
+<para>Pascal-style, 16bit chars, two-byte length prefix. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="499" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="499" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_t_y_p_e___1gadf36fe843bf7cde5151e95988c06f1c5" prot="public" static="no">
+        <name>STRTYPE_LEN2_16</name>
+        <initializer>(STRWIDTH_2B|STRLYT_PASCAL2&lt;&lt;STRLYT_SHIFT)</initializer>
+        <briefdescription>
+<para>Pascal-style, four-byte length prefix. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="501" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="501" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_t_y_p_e___1gae66fe2988272acb7e5a08b4f52159823" prot="public" static="no">
+        <name>STRTYPE_LEN4</name>
+        <initializer>(STRWIDTH_1B|STRLYT_PASCAL4&lt;&lt;STRLYT_SHIFT)</initializer>
+        <briefdescription>
+<para>Pascal-style, 16bit chars, four-byte length prefix. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="503" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="503" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_t_r_t_y_p_e___1ga72bee89ae5e4b88aa540d401883f5d8f" prot="public" static="no">
+        <name>STRTYPE_LEN4_16</name>
+        <initializer>(STRWIDTH_2B|STRLYT_PASCAL4&lt;&lt;STRLYT_SHIFT)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" line="505" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/nalt.hpp" bodystart="505" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

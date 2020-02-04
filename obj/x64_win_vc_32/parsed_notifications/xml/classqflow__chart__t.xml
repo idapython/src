@@ -1,0 +1,610 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classqflow__chart__t" kind="class" language="C++" prot="public">
+    <compoundname>qflow_chart_t</compoundname>
+    <basecompoundref refid="classcancellable__graph__t" prot="public" virt="non-virtual">cancellable_graph_t</basecompoundref>
+    <includes refid="gdl_8hpp" local="no">gdl.hpp</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classqflow__chart__t_1abdddd968977d6943512d926b150c8648" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structqbasic__block__t" kindref="compound">qbasic_block_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;qbasic_block_t&gt; qflow_chart_t::blocks_t</definition>
+        <argsstring></argsstring>
+        <name>blocks_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="326" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classqflow__chart__t_1a2bdb3c805e33a9517b0ecbca3526363a" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring qflow_chart_t::title</definition>
+        <argsstring></argsstring>
+        <name>title</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="328" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="328" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classqflow__chart__t_1a22b517976c81b154f767b8fe435b8c14" prot="public" static="no" mutable="no">
+        <type><ref refid="structrange__t" kindref="compound">range_t</ref></type>
+        <definition>range_t qflow_chart_t::bounds</definition>
+        <argsstring></argsstring>
+        <name>bounds</name>
+        <briefdescription>
+<para>overall bounds of the <ref refid="classqflow__chart__t" kindref="compound">qflow_chart_t</ref> instance </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="329" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classqflow__chart__t_1a711cfa1f52d520918c6789de78a99118" prot="public" static="no" mutable="no">
+        <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+        <definition>func_t* qflow_chart_t::pfn</definition>
+        <argsstring></argsstring>
+        <name>pfn</name>
+        <briefdescription>
+<para>the function this instance was built upon </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="330" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="330" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classqflow__chart__t_1ab85d1d8526b9d802f68e41b365482f20" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int qflow_chart_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+<para>flags. See <ref refid="group___f_c__" kindref="compound">Flow chart flags</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="331" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classqflow__chart__t_1a55f9912661e189f35c1dd68f0e4cabec" prot="public" static="no" mutable="no">
+        <type><ref refid="classqvector" kindref="compound">blocks_t</ref></type>
+        <definition>blocks_t qflow_chart_t::blocks</definition>
+        <argsstring></argsstring>
+        <name>blocks</name>
+        <briefdescription>
+<para>basic blocks </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="332" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classqflow__chart__t_1af6bc685846b71fcac72f84e8193b5936" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int qflow_chart_t::nproper</definition>
+        <argsstring></argsstring>
+        <name>nproper</name>
+        <briefdescription>
+<para>number of basic blocks belonging to the specified range </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="333" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="333" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classqflow__chart__t_1a2164bff328caf865dd2f19b4bd6c2b18" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>idaapi</type>
+        <definition>idaapi qflow_chart_t::qflow_chart_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>qflow_chart_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="335" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="335" bodyend="335"/>
+      </memberdef>
+      <memberdef kind="function" id="classqflow__chart__t_1a05a43a0bbb275db4ac54343bfc535ee0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>idaapi</type>
+        <definition>idaapi qflow_chart_t::qflow_chart_t</definition>
+        <argsstring>(const char *_title, func_t *_pfn, ea_t _ea1, ea_t _ea2, int _flags)</argsstring>
+        <name>qflow_chart_t</name>
+        <param>
+          <type>const char *</type>
+          <declname>_title</declname>
+        </param>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>_pfn</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>_ea1</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>_ea2</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="336" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="336" bodyend="340"/>
+      </memberdef>
+      <memberdef kind="function" id="classqflow__chart__t_1a655f81a0feb276f6011c52b265944633" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi qflow_chart_t::create</definition>
+        <argsstring>(const char *_title, func_t *_pfn, ea_t _ea1, ea_t _ea2, int _flags)</argsstring>
+        <name>create</name>
+        <param>
+          <type>const char *</type>
+          <declname>_title</declname>
+        </param>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>_pfn</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>_ea1</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>_ea2</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="342" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="342" bodyend="349"/>
+      </memberdef>
+      <memberdef kind="function" id="classqflow__chart__t_1a03862d5ee633950be7f0d5f8a349dfcf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi qflow_chart_t::create</definition>
+        <argsstring>(const char *_title, const rangevec_t &amp;ranges, int _flags)</argsstring>
+        <name>create</name>
+        <param>
+          <type>const char *</type>
+          <declname>_title</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structrangevec__t" kindref="compound">rangevec_t</ref> &amp;</type>
+          <declname>ranges</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="350" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="350" bodyend="355"/>
+      </memberdef>
+      <memberdef kind="function" id="classqflow__chart__t_1ad266e9c0b361491d0216fcfb3b462cfe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi qflow_chart_t::append_to_flowchart</definition>
+        <argsstring>(ea_t ea1, ea_t ea2)</argsstring>
+        <name>append_to_flowchart</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea1</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="356" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="356" bodyend="356"/>
+      </memberdef>
+      <memberdef kind="function" id="classqflow__chart__t_1a94bab53238940b506bc6fe0219c812b9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi qflow_chart_t::refresh</definition>
+        <argsstring>(void)</argsstring>
+        <name>refresh</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="357" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="357" bodyend="357"/>
+      </memberdef>
+      <memberdef kind="function" id="classqflow__chart__t_1a7df6c1dd5609e10bd7984acf1d1f82a3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="gdl_8hpp_1afa6fb2b53981d849d63273abbb1624bd" kindref="member">fc_block_type_t</ref></type>
+        <definition>fc_block_type_t qflow_chart_t::calc_block_type</definition>
+        <argsstring>(size_t blknum) const</argsstring>
+        <name>calc_block_type</name>
+        <param>
+          <type>size_t</type>
+          <declname>blknum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="358" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="358" bodyend="359"/>
+      </memberdef>
+      <memberdef kind="function" id="classqflow__chart__t_1a1058642d4ff8312ab64f68015d01ec51" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool qflow_chart_t::is_ret_block</definition>
+        <argsstring>(size_t blknum) const</argsstring>
+        <name>is_ret_block</name>
+        <param>
+          <type>size_t</type>
+          <declname>blknum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="360" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="360" bodyend="360"/>
+      </memberdef>
+      <memberdef kind="function" id="classqflow__chart__t_1abc1815e568b7de0f5a5bac53b78949da" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool qflow_chart_t::is_noret_block</definition>
+        <argsstring>(size_t blknum) const</argsstring>
+        <name>is_noret_block</name>
+        <param>
+          <type>size_t</type>
+          <declname>blknum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="361" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="361" bodyend="361"/>
+      </memberdef>
+      <memberdef kind="function" id="classqflow__chart__t_1a143f4c9b2c6f74d129884b1b0373c428" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi qflow_chart_t::print_node_attributes</definition>
+        <argsstring>(FILE *, int) const</argsstring>
+        <name>print_node_attributes</name>
+        <reimplements refid="classgdl__graph__t_1a2097da98314a6608f372e03ed8978227">print_node_attributes</reimplements>
+        <param>
+          <type>FILE *</type>
+        </param>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="362" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="362" bodyend="362"/>
+      </memberdef>
+      <memberdef kind="function" id="classqflow__chart__t_1acf8481c588706b312e3a196d6908d6c1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi qflow_chart_t::nsucc</definition>
+        <argsstring>(int node) const</argsstring>
+        <name>nsucc</name>
+        <reimplements refid="classgdl__graph__t_1a689fddb9fec8ae4cd95ce962934809d7">nsucc</reimplements>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="363" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="363" bodyend="363"/>
+      </memberdef>
+      <memberdef kind="function" id="classqflow__chart__t_1aedb8bf37244e164dd3559ce22d4d5e0e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi qflow_chart_t::npred</definition>
+        <argsstring>(int node) const</argsstring>
+        <name>npred</name>
+        <reimplements refid="classgdl__graph__t_1a0047a77ba26534621019e9b1e4a4380a">npred</reimplements>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="364" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="364" bodyend="364"/>
+      </memberdef>
+      <memberdef kind="function" id="classqflow__chart__t_1aac7fb0a1f626130bf105dc6af46d55b0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi qflow_chart_t::succ</definition>
+        <argsstring>(int node, int i) const</argsstring>
+        <name>succ</name>
+        <reimplements refid="classgdl__graph__t_1a9df8cfd864e97acfc9237ff5b0a5de69">succ</reimplements>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="365" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="365" bodyend="365"/>
+      </memberdef>
+      <memberdef kind="function" id="classqflow__chart__t_1a51e4462e01dfa1ed5293b54ffeceaaeb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi qflow_chart_t::pred</definition>
+        <argsstring>(int node, int i) const</argsstring>
+        <name>pred</name>
+        <reimplements refid="classgdl__graph__t_1a1ff65cc040a928a19c2906757413b0da">pred</reimplements>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="366" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="366" bodyend="366"/>
+      </memberdef>
+      <memberdef kind="function" id="classqflow__chart__t_1a95aa03ef62ffc66a7949f90c03ba2703" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi qflow_chart_t::print_names</definition>
+        <argsstring>(void) const</argsstring>
+        <name>print_names</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="367" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="367" bodyend="367"/>
+      </memberdef>
+      <memberdef kind="function" id="classqflow__chart__t_1a0bb6575f57dad162ac65cb8c2d719840" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>char *idaapi</type>
+        <definition>char* idaapi qflow_chart_t::get_node_label</definition>
+        <argsstring>(char *, int, int) const</argsstring>
+        <name>get_node_label</name>
+        <reimplements refid="classgdl__graph__t_1a0ca7e78eb938af72407c106fde2b9778">get_node_label</reimplements>
+        <param>
+          <type>char *</type>
+        </param>
+        <param>
+          <type>int</type>
+        </param>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="368" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="368" bodyend="368"/>
+      </memberdef>
+      <memberdef kind="function" id="classqflow__chart__t_1a73d500fae6ab81d2c14022aabb03fc52" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi qflow_chart_t::size</definition>
+        <argsstring>(void) const</argsstring>
+        <name>size</name>
+        <reimplements refid="classgdl__graph__t_1ab9bd673accc6dec4ec3d7c198eef8a78">size</reimplements>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="369" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="369" bodyend="369"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A flow chart for a function, or a set of address ranges. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2951">
+        <label>qflow_chart_t</label>
+        <link refid="classqflow__chart__t"/>
+        <childnode refid="2952" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2953">
+        <label>gdl_graph_t</label>
+        <link refid="classgdl__graph__t"/>
+      </node>
+      <node id="2952">
+        <label>cancellable_graph_t</label>
+        <link refid="classcancellable__graph__t"/>
+        <childnode refid="2953" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2964">
+        <label>qvector&lt; qbasic_block_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="2954">
+        <label>qflow_chart_t</label>
+        <link refid="classqflow__chart__t"/>
+        <childnode refid="2955" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2957" relation="usage">
+          <edgelabel>title</edgelabel>
+        </childnode>
+        <childnode refid="2958" relation="usage">
+          <edgelabel>bounds</edgelabel>
+        </childnode>
+        <childnode refid="2959" relation="usage">
+          <edgelabel>pfn</edgelabel>
+        </childnode>
+        <childnode refid="2964" relation="usage">
+          <edgelabel>blocks</edgelabel>
+        </childnode>
+      </node>
+      <node id="2959">
+        <label>func_t</label>
+        <link refid="classfunc__t"/>
+        <childnode refid="2958" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2960" relation="usage">
+          <edgelabel>regargs</edgelabel>
+        </childnode>
+        <childnode refid="2961" relation="usage">
+          <edgelabel>points</edgelabel>
+        </childnode>
+        <childnode refid="2958" relation="usage">
+          <edgelabel>tails</edgelabel>
+        </childnode>
+        <childnode refid="2962" relation="usage">
+          <edgelabel>regvars</edgelabel>
+        </childnode>
+        <childnode refid="2963" relation="usage">
+          <edgelabel>llabels</edgelabel>
+        </childnode>
+      </node>
+      <node id="2960">
+        <label>regarg_t</label>
+        <link refid="structregarg__t"/>
+      </node>
+      <node id="2961">
+        <label>stkpnt_t</label>
+        <link refid="structstkpnt__t"/>
+      </node>
+      <node id="2957">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="2956">
+        <label>gdl_graph_t</label>
+        <link refid="classgdl__graph__t"/>
+      </node>
+      <node id="2958">
+        <label>range_t</label>
+        <link refid="structrange__t"/>
+      </node>
+      <node id="2962">
+        <label>regvar_t</label>
+        <link refid="structregvar__t"/>
+        <childnode refid="2958" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2955">
+        <label>cancellable_graph_t</label>
+        <link refid="classcancellable__graph__t"/>
+        <childnode refid="2956" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2963">
+        <label>llabel_t</label>
+        <link refid="structllabel__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="324" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="323" bodyend="370"/>
+    <listofallmembers>
+      <member refid="classqflow__chart__t_1ad266e9c0b361491d0216fcfb3b462cfe" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>append_to_flowchart</name></member>
+      <member refid="classgdl__graph__t_1aed9c469ba507f9e65c97db4647311e62" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>begin</name></member>
+      <member refid="classqflow__chart__t_1a55f9912661e189f35c1dd68f0e4cabec" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>blocks</name></member>
+      <member refid="classqflow__chart__t_1abdddd968977d6943512d926b150c8648" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>blocks_t</name></member>
+      <member refid="classqflow__chart__t_1a22b517976c81b154f767b8fe435b8c14" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>bounds</name></member>
+      <member refid="classqflow__chart__t_1a7df6c1dd5609e10bd7984acf1d1f82a3" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>calc_block_type</name></member>
+      <member refid="classcancellable__graph__t_1a7483c1ff081c2936fb5362b14b55f463" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>cancellable_graph_t</name></member>
+      <member refid="classcancellable__graph__t_1a4179ffdd748ea2b71fe6c8eff279038f" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>cancelled</name></member>
+      <member refid="classcancellable__graph__t_1aa73a529a073e6ca9d7810a86934c0a30" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>check_cancel</name></member>
+      <member refid="classqflow__chart__t_1a655f81a0feb276f6011c52b265944633" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>create</name></member>
+      <member refid="classqflow__chart__t_1a03862d5ee633950be7f0d5f8a349dfcf" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>create</name></member>
+      <member refid="classgdl__graph__t_1a0a40e432f6cef47a21cab2a600e407d8" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>edge</name></member>
+      <member refid="classgdl__graph__t_1afd89c2f37ca474eeb80266263c52a1fd" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>empty</name></member>
+      <member refid="classgdl__graph__t_1a5b0ee999fad4d5a780fd3bf276715c7f" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>end</name></member>
+      <member refid="classgdl__graph__t_1ac2c6eb82d3f53c7a0ec71803f691bc59" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>entry</name></member>
+      <member refid="classgdl__graph__t_1a8e26312ef1b714a18198bef6d799c258" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>exists</name></member>
+      <member refid="classgdl__graph__t_1a4860b7baf2db01da12f2b0c4f209bf9c" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>exit</name></member>
+      <member refid="classqflow__chart__t_1ab85d1d8526b9d802f68e41b365482f20" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>flags</name></member>
+      <member refid="classgdl__graph__t_1aedc53d9164372f5aab637bf2b2e497a0" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>front</name></member>
+      <member refid="classgdl__graph__t_1ab13037817c391fd6f7f3b53f169a8009" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>gen_dot</name></member>
+      <member refid="classgdl__graph__t_1a637ae3e6bed2ee4a4c5c1c3a36407bc0" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>gen_dot</name></member>
+      <member refid="classgdl__graph__t_1afed62cde1549127e49b34a5c03a8e344" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>gen_gdl</name></member>
+      <member refid="classgdl__graph__t_1a06e3dde67682f31cb54e30f612e1905b" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>gen_gdl</name></member>
+      <member refid="classgdl__graph__t_1aadc912ba89cceed064de956bcf646d13" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>get_edge_color</name></member>
+      <member refid="classgdl__graph__t_1a87253fc6388e7c3bb2c4ad72ee651a52" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>get_node_color</name></member>
+      <member refid="classqflow__chart__t_1a0bb6575f57dad162ac65cb8c2d719840" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>get_node_label</name></member>
+      <member refid="classqflow__chart__t_1abc1815e568b7de0f5a5bac53b78949da" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>is_noret_block</name></member>
+      <member refid="classqflow__chart__t_1a1058642d4ff8312ab64f68015d01ec51" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>is_ret_block</name></member>
+      <member refid="classgdl__graph__t_1a0e8cf052ce990f41454cfa618f318645" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>nedge</name></member>
+      <member refid="classgdl__graph__t_1a62eb8090207b9cc4fa5220d4ee989596" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>node_qty</name></member>
+      <member refid="classqflow__chart__t_1aedb8bf37244e164dd3559ce22d4d5e0e" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>npred</name></member>
+      <member refid="classqflow__chart__t_1af6bc685846b71fcac72f84e8193b5936" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>nproper</name></member>
+      <member refid="classqflow__chart__t_1acf8481c588706b312e3a196d6908d6c1" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>nsucc</name></member>
+      <member refid="classcancellable__graph__t_1a8c5efc892854d7d20fc8988ebe5acda1" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>padding</name></member>
+      <member refid="classgdl__graph__t_1ad6ad9937897af84731a3e9bbdeea75f4" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>path_exists</name></member>
+      <member refid="classqflow__chart__t_1a711cfa1f52d520918c6789de78a99118" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>pfn</name></member>
+      <member refid="classqflow__chart__t_1a51e4462e01dfa1ed5293b54ffeceaaeb" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>pred</name></member>
+      <member refid="classgdl__graph__t_1a5f00823ba18caa2ef90f779adc27dbcb" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>print_edge</name></member>
+      <member refid="classgdl__graph__t_1a4cde31a1b2c406d7813c09a839edd4ea" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>print_graph_attributes</name></member>
+      <member refid="classqflow__chart__t_1a95aa03ef62ffc66a7949f90c03ba2703" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>print_names</name></member>
+      <member refid="classgdl__graph__t_1ad1d859c9dacc717bb175e259a7ea3e70" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>print_node</name></member>
+      <member refid="classqflow__chart__t_1a143f4c9b2c6f74d129884b1b0373c428" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>print_node_attributes</name></member>
+      <member refid="classqflow__chart__t_1a2164bff328caf865dd2f19b4bd6c2b18" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>qflow_chart_t</name></member>
+      <member refid="classqflow__chart__t_1a05a43a0bbb275db4ac54343bfc535ee0" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>qflow_chart_t</name></member>
+      <member refid="classqflow__chart__t_1a94bab53238940b506bc6fe0219c812b9" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>refresh</name></member>
+      <member refid="classqflow__chart__t_1a73d500fae6ab81d2c14022aabb03fc52" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>size</name></member>
+      <member refid="classqflow__chart__t_1aac7fb0a1f626130bf105dc6af46d55b0" prot="public" virt="virtual"><scope>qflow_chart_t</scope><name>succ</name></member>
+      <member refid="classqflow__chart__t_1a2bdb3c805e33a9517b0ecbca3526363a" prot="public" virt="non-virtual"><scope>qflow_chart_t</scope><name>title</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

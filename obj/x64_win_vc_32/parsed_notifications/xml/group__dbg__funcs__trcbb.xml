@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__dbg__funcs__trcbb" kind="group">
+    <compoundname>dbg_funcs_trcbb</compoundname>
+    <title>Basic block tracing</title>
+      <sectiondef kind="user-defined">
+      <header>Enable/Disable basic blocks tracing</header>
+      <description><para>{Type, Synchronous function - available as request, Notification, none (synchronous function)} </para></description>
+      <memberdef kind="function" id="group__dbg__funcs__trcbb_1ga327d4a6eb70b18f445c75121bb7c38c5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi enable_bblk_trace</definition>
+        <argsstring>(bool enable=true)</argsstring>
+        <name>enable_bblk_trace</name>
+        <param>
+          <type>bool</type>
+          <declname>enable</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1449" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1449" bodyend="1449"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcbb_1gad1151782a6128c7736bb7c2a0ae07937" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool disable_bblk_trace</definition>
+        <argsstring>(void)</argsstring>
+        <name>disable_bblk_trace</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1450" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1450" bodyend="1450"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcbb_1gaee850a2204788f9554bcd4e9c5c5de66" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi request_enable_bblk_trace</definition>
+        <argsstring>(bool enable=true)</argsstring>
+        <name>request_enable_bblk_trace</name>
+        <param>
+          <type>bool</type>
+          <declname>enable</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1451" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1451" bodyend="1451"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcbb_1ga0f753a7cea451ce44ffce3f5164b9e25" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool request_disable_bblk_trace</definition>
+        <argsstring>(void)</argsstring>
+        <name>request_disable_bblk_trace</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1452" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1452" bodyend="1452"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcbb_1gac00fef7582db2576fab14ea39e2fb5a9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi is_bblk_trace_enabled</definition>
+        <argsstring>(void)</argsstring>
+        <name>is_bblk_trace_enabled</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1453" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1453" bodyend="1453"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dbg__funcs__trcbb_1ga80843b57307c7c84b95149d74e7ed485" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int idaapi</type>
+        <definition>int idaapi get_bblk_trace_options</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_bblk_trace_options</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get current basic block tracing options. Also see <ref refid="group__dbg__funcs__strace_1gaf9ec65a9102a8c042f0f9505b67eaee3" kindref="member">BT_LOG_INSTS</ref> {Type, Synchronous function, Notification, none (synchronous function)} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1461" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1461" bodyend="1461"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcbb_1ga60c9f9fbd6c03bd7717f7c4f0ea9e4b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi set_bblk_trace_options</definition>
+        <argsstring>(int options)</argsstring>
+        <name>set_bblk_trace_options</name>
+        <param>
+          <type>int</type>
+          <declname>options</declname>
+        </param>
+        <briefdescription>
+<para>Modify basic block tracing options (see <ref refid="group__dbg__funcs__strace_1gaf9ec65a9102a8c042f0f9505b67eaee3" kindref="member">BT_LOG_INSTS</ref>) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1466" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1466" bodyend="1466"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dbg__funcs__trcbb_1gafa4800fcbb5ced15edc55c7884d9c4f2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void idaapi</type>
+        <definition>void idaapi request_set_bblk_trace_options</definition>
+        <argsstring>(int options)</argsstring>
+        <name>request_set_bblk_trace_options</name>
+        <param>
+          <type>int</type>
+          <declname>options</declname>
+        </param>
+        <briefdescription>
+<para>Post a <ref refid="group__dbg__funcs__trcbb_1ga60c9f9fbd6c03bd7717f7c4f0ea9e4b3" kindref="member">set_bblk_trace_options()</ref> request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" line="1470" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/dbg.hpp" bodystart="1470" bodyend="1470"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

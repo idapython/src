@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structlvar__mapping__iterator__t" kind="struct" language="C++" prot="public">
+    <compoundname>lvar_mapping_iterator_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structlvar__mapping__iterator__t_1a799302a4bb3caf1f4803273ac624a808" prot="public" static="no" mutable="no">
+        <type>iterator_word</type>
+        <definition>iterator_word lvar_mapping_iterator_t::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="7990" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="7990" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structlvar__mapping__iterator__t_1a6bb7cd4d042e7ae793f39c7466c24101" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lvar_mapping_iterator_t::operator==</definition>
+        <argsstring>(const lvar_mapping_iterator_t &amp;p) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structlvar__mapping__iterator__t" kindref="compound">lvar_mapping_iterator_t</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="7991" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="7991" bodyend="7991"/>
+      </memberdef>
+      <memberdef kind="function" id="structlvar__mapping__iterator__t_1afa7dd10761f768ce244479f9cf659da2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lvar_mapping_iterator_t::operator!=</definition>
+        <argsstring>(const lvar_mapping_iterator_t &amp;p) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structlvar__mapping__iterator__t" kindref="compound">lvar_mapping_iterator_t</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="7992" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="7992" bodyend="7992"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="7989" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="7988" bodyend="7993"/>
+    <listofallmembers>
+      <member refid="structlvar__mapping__iterator__t_1afa7dd10761f768ce244479f9cf659da2" prot="public" virt="non-virtual"><scope>lvar_mapping_iterator_t</scope><name>operator!=</name></member>
+      <member refid="structlvar__mapping__iterator__t_1a6bb7cd4d042e7ae793f39c7466c24101" prot="public" virt="non-virtual"><scope>lvar_mapping_iterator_t</scope><name>operator==</name></member>
+      <member refid="structlvar__mapping__iterator__t_1a799302a4bb3caf1f4803273ac624a808" prot="public" virt="non-virtual"><scope>lvar_mapping_iterator_t</scope><name>x</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

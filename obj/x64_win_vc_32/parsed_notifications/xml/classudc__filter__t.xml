@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classudc__filter__t" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>udc_filter_t</compoundname>
+    <basecompoundref refid="structmicrocode__filter__t" prot="public" virt="non-virtual">microcode_filter_t</basecompoundref>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classudc__filter__t_1a1a59b9c092bbc29c66e3e1e5b9c6fc98" prot="private" static="no" mutable="no">
+        <type><ref refid="structudcall__t" kindref="compound">udcall_t</ref></type>
+        <definition>udcall_t udc_filter_t::udc</definition>
+        <argsstring></argsstring>
+        <name>udc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1657" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1657" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classudc__filter__t_1a855e0c9cdfce758a53391a4fc6aa99ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool udc_filter_t::match</definition>
+        <argsstring>(codegen_t &amp;cdg)=0</argsstring>
+        <name>match</name>
+        <reimplements refid="structmicrocode__filter__t_1a4a3ceb1760441ef780c2bbab5ea671f8">match</reimplements>
+        <param>
+          <type><ref refid="classcodegen__t" kindref="compound">codegen_t</ref> &amp;</type>
+          <declname>cdg</declname>
+        </param>
+        <briefdescription>
+<para>return true if the filter object should be appied to given instruction </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1661" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classudc__filter__t_1a5a8911cf0166d6f1d60d82047937b38c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool udc_filter_t::init</definition>
+        <argsstring>(const char *decl)</argsstring>
+        <name>init</name>
+        <param>
+          <type>const char *</type>
+          <declname>decl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1663" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9441" bodyend="9444"/>
+      </memberdef>
+      <memberdef kind="function" id="classudc__filter__t_1a2449e0a8568b14e98dc276605adee338" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="group___m_e_r_r___1ga124713999eb84ddba531f5c2e9eedcab" kindref="member">merror_t</ref> hexapi</type>
+        <definition>merror_t udc_filter_t::apply</definition>
+        <argsstring>(codegen_t &amp;cdg)</argsstring>
+        <name>apply</name>
+        <reimplements refid="structmicrocode__filter__t_1a34f82c2e33cd7206b8c391056630bda2">apply</reimplements>
+        <param>
+          <type><ref refid="classcodegen__t" kindref="compound">codegen_t</ref> &amp;</type>
+          <declname>cdg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>generate microcode for an instruction <simplesect kind="return"><para>MERR_... code: MERR_OK - user-defined call generated, go to the next instruction MERR_INSN - not generated - the caller should try the standard way else - error </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1664" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="9447" bodyend="9450"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Abstract class: User-defined call generator derived classes should implement method &apos;match&apos; </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="3509">
+        <label>microcode_filter_t</label>
+        <link refid="structmicrocode__filter__t"/>
+      </node>
+      <node id="3508">
+        <label>udc_filter_t</label>
+        <link refid="classudc__filter__t"/>
+        <childnode refid="3509" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3511">
+        <label>microcode_filter_t</label>
+        <link refid="structmicrocode__filter__t"/>
+      </node>
+      <node id="3510">
+        <label>udc_filter_t</label>
+        <link refid="classudc__filter__t"/>
+        <childnode refid="3511" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="1656" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="1655" bodyend="1665"/>
+    <listofallmembers>
+      <member refid="classudc__filter__t_1a2449e0a8568b14e98dc276605adee338" prot="public" virt="virtual"><scope>udc_filter_t</scope><name>apply</name></member>
+      <member refid="classudc__filter__t_1a5a8911cf0166d6f1d60d82047937b38c" prot="public" virt="non-virtual"><scope>udc_filter_t</scope><name>init</name></member>
+      <member refid="classudc__filter__t_1a855e0c9cdfce758a53391a4fc6aa99ee" prot="public" virt="pure-virtual"><scope>udc_filter_t</scope><name>match</name></member>
+      <member refid="classudc__filter__t_1a1a59b9c092bbc29c66e3e1e5b9c6fc98" prot="private" virt="non-virtual"><scope>udc_filter_t</scope><name>udc</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

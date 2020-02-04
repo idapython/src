@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classfunc__parent__iterator__t" kind="class" language="C++" prot="public">
+    <compoundname>func_parent_iterator_t</compoundname>
+    <includes refid="funcs_8hpp" local="no">funcs.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classfunc__parent__iterator__t_1a00692384019b31ceed6d7d962e697953" prot="private" static="no" mutable="no">
+        <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+        <definition>func_t* func_parent_iterator_t::fnt</definition>
+        <argsstring></argsstring>
+        <name>fnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="773" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="773" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classfunc__parent__iterator__t_1a1d350a918d76eefb0a3750a1d5853896" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int func_parent_iterator_t::idx</definition>
+        <argsstring></argsstring>
+        <name>idx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="774" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="774" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classfunc__parent__iterator__t_1a1e1fab32edf752391aac579572e6eb0e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>func_parent_iterator_t::func_parent_iterator_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>func_parent_iterator_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="776" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="776" bodyend="776"/>
+      </memberdef>
+      <memberdef kind="function" id="classfunc__parent__iterator__t_1ac91a62cd6d187ad2bb5a54ff977ca265" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>func_parent_iterator_t::func_parent_iterator_t</definition>
+        <argsstring>(func_t *_fnt)</argsstring>
+        <name>func_parent_iterator_t</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>_fnt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="777" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="777" bodyend="777"/>
+      </memberdef>
+      <memberdef kind="function" id="classfunc__parent__iterator__t_1ac37388ec0c7a1f9ae926b38618ac5340" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>func_parent_iterator_t::~func_parent_iterator_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>~func_parent_iterator_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="778" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="778" bodyend="782"/>
+      </memberdef>
+      <memberdef kind="function" id="classfunc__parent__iterator__t_1a5a1caf971d5303cbf8ea0a0c58d5db23" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool func_parent_iterator_t::set</definition>
+        <argsstring>(func_t *_fnt)</argsstring>
+        <name>set</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>_fnt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="783" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="783" bodyend="783"/>
+      </memberdef>
+      <memberdef kind="function" id="classfunc__parent__iterator__t_1ae88aaac93387e64d811a69d939ad3acf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t func_parent_iterator_t::parent</definition>
+        <argsstring>(void) const</argsstring>
+        <name>parent</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="784" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="784" bodyend="784"/>
+      </memberdef>
+      <memberdef kind="function" id="classfunc__parent__iterator__t_1af64c178d8627eedc51ecba1d2e30900c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool func_parent_iterator_t::first</definition>
+        <argsstring>(void)</argsstring>
+        <name>first</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="785" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="785" bodyend="785"/>
+      </memberdef>
+      <memberdef kind="function" id="classfunc__parent__iterator__t_1a017a6e3176c4ff454e95b7336c328170" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool func_parent_iterator_t::last</definition>
+        <argsstring>(void)</argsstring>
+        <name>last</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="786" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="786" bodyend="786"/>
+      </memberdef>
+      <memberdef kind="function" id="classfunc__parent__iterator__t_1a68dbf2c786e1c31ac549929827ab1096" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool func_parent_iterator_t::next</definition>
+        <argsstring>(void)</argsstring>
+        <name>next</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="787" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="787" bodyend="787"/>
+      </memberdef>
+      <memberdef kind="function" id="classfunc__parent__iterator__t_1a4d5bc6a0f6968719f2b900bdb0903861" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool func_parent_iterator_t::prev</definition>
+        <argsstring>(void)</argsstring>
+        <name>prev</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="788" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="788" bodyend="788"/>
+      </memberdef>
+      <memberdef kind="function" id="classfunc__parent__iterator__t_1a0cb82171a33414df7983070dcb8d9442" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void func_parent_iterator_t::reset_fnt</definition>
+        <argsstring>(func_t *_fnt)</argsstring>
+        <name>reset_fnt</name>
+        <param>
+          <type><ref refid="classfunc__t" kindref="compound">func_t</ref> *</type>
+          <declname>_fnt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="789" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="789" bodyend="789"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Class to enumerate all function parents sorted by addresses. Enumeration is started with first() or last(). The loop may continue until the next() or prev() function returns false. The parent functions are always sorted by their addresses. The tail chunk is locked during the iteration.</para><para>Sample code: <programlisting><codeline><highlight class="normal">func_parent_iterator_t<sp/>fpi(fnt);</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>(<sp/>bool<sp/>ok=fpi.first();<sp/>ok;<sp/>ok=fpi.next()<sp/>)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>ea_t<sp/>parent<sp/>=<sp/>fpi.parent();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>....</highlight></codeline>
+</programlisting> </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="771" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="770" bodyend="790"/>
+    <listofallmembers>
+      <member refid="classfunc__parent__iterator__t_1af64c178d8627eedc51ecba1d2e30900c" prot="public" virt="non-virtual"><scope>func_parent_iterator_t</scope><name>first</name></member>
+      <member refid="classfunc__parent__iterator__t_1a00692384019b31ceed6d7d962e697953" prot="private" virt="non-virtual"><scope>func_parent_iterator_t</scope><name>fnt</name></member>
+      <member refid="classfunc__parent__iterator__t_1a1e1fab32edf752391aac579572e6eb0e" prot="public" virt="non-virtual"><scope>func_parent_iterator_t</scope><name>func_parent_iterator_t</name></member>
+      <member refid="classfunc__parent__iterator__t_1ac91a62cd6d187ad2bb5a54ff977ca265" prot="public" virt="non-virtual"><scope>func_parent_iterator_t</scope><name>func_parent_iterator_t</name></member>
+      <member refid="classfunc__parent__iterator__t_1a1d350a918d76eefb0a3750a1d5853896" prot="private" virt="non-virtual"><scope>func_parent_iterator_t</scope><name>idx</name></member>
+      <member refid="classfunc__parent__iterator__t_1a017a6e3176c4ff454e95b7336c328170" prot="public" virt="non-virtual"><scope>func_parent_iterator_t</scope><name>last</name></member>
+      <member refid="classfunc__parent__iterator__t_1a68dbf2c786e1c31ac549929827ab1096" prot="public" virt="non-virtual"><scope>func_parent_iterator_t</scope><name>next</name></member>
+      <member refid="classfunc__parent__iterator__t_1ae88aaac93387e64d811a69d939ad3acf" prot="public" virt="non-virtual"><scope>func_parent_iterator_t</scope><name>parent</name></member>
+      <member refid="classfunc__parent__iterator__t_1a4d5bc6a0f6968719f2b900bdb0903861" prot="public" virt="non-virtual"><scope>func_parent_iterator_t</scope><name>prev</name></member>
+      <member refid="classfunc__parent__iterator__t_1a0cb82171a33414df7983070dcb8d9442" prot="public" virt="non-virtual"><scope>func_parent_iterator_t</scope><name>reset_fnt</name></member>
+      <member refid="classfunc__parent__iterator__t_1a5a1caf971d5303cbf8ea0a0c58d5db23" prot="public" virt="non-virtual"><scope>func_parent_iterator_t</scope><name>set</name></member>
+      <member refid="classfunc__parent__iterator__t_1ac37388ec0c7a1f9ae926b38618ac5340" prot="public" virt="non-virtual"><scope>func_parent_iterator_t</scope><name>~func_parent_iterator_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

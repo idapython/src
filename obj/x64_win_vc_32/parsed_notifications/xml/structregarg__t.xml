@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structregarg__t" kind="struct" language="C++" prot="public">
+    <compoundname>regarg_t</compoundname>
+    <includes refid="funcs_8hpp" local="no">funcs.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structregarg__t_1a2a0c2647d4ac14b73b12528d6ca752f7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int regarg_t::reg</definition>
+        <argsstring></argsstring>
+        <name>reg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="48" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structregarg__t_1a4307b12675167246096177f118fc9374" prot="public" static="no" mutable="no">
+        <type><ref refid="typeinf_8hpp_1a7a9c029b924959e0fe4f14b3531fb733" kindref="member">type_t</ref> *</type>
+        <definition>type_t* regarg_t::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="49" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structregarg__t_1a2baf6d45e0eb02d02ff1cb4cb73f10d9" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* regarg_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="50" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Register argument description. regargs are destroyed when the full function type is determined </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="47" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="46" bodyend="51"/>
+    <listofallmembers>
+      <member refid="structregarg__t_1a2baf6d45e0eb02d02ff1cb4cb73f10d9" prot="public" virt="non-virtual"><scope>regarg_t</scope><name>name</name></member>
+      <member refid="structregarg__t_1a2a0c2647d4ac14b73b12528d6ca752f7" prot="public" virt="non-virtual"><scope>regarg_t</scope><name>reg</name></member>
+      <member refid="structregarg__t_1a4307b12675167246096177f118fc9374" prot="public" virt="non-virtual"><scope>regarg_t</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

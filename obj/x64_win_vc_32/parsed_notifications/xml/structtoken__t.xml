@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structtoken__t" kind="struct" language="C++" prot="public">
+    <compoundname>token_t</compoundname>
+    <includes refid="lex_8hpp" local="no">lex.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structtoken__t_1afd8fcbe2ae7809f3a9c515b5dbcc5b19" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring token_t::str</definition>
+        <argsstring></argsstring>
+        <name>str</name>
+        <briefdescription>
+<para>idents &amp; strings </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="45" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtoken__t_1ab1b730f74832a555d272158309fad129" prot="public" static="no" mutable="no">
+        <type><ref refid="lex_8hpp_1a89b503fa5c6813a8c60627d2335d49c3" kindref="member">lxtype</ref></type>
+        <definition>lxtype token_t::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+<para>see <ref refid="group__lx__" kindref="compound">Parser token types</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="46" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtoken__t_1a9ee6dda068f997ea7af39b0a659e172b" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+        <definition>sval_t token_t::num</definition>
+        <argsstring></argsstring>
+        <name>num</name>
+        <briefdescription>
+<para>long &amp; char constants </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="47" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtoken__t_1a1b9282c58fa99531f1e7ae01eb98a9a8" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool token_t::unicode</definition>
+        <argsstring></argsstring>
+        <name>unicode</name>
+        <briefdescription>
+<para>(<ref refid="group__lx___1ga8ffa2d1bcaf7665a287358ff5759bc24" kindref="member">lx_string</ref>: != 0 =&gt; unicode string) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="50" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtoken__t_1a48779c3c5ca5c0f57b4bbaa2adbac0d1" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool token_t::is_unsigned</definition>
+        <argsstring></argsstring>
+        <name>is_unsigned</name>
+        <briefdescription>
+<para>(<ref refid="group__lx___1ga8e4334ffe5ea9fbf952bc528bc3558c8" kindref="member">lx_number</ref>, <ref refid="group__lx___1ga677b2da507c60eddd4290313b73883a0" kindref="member">lx_int64</ref>: != 0 =&gt; unsigned value) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="51" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtoken__t_1a0f9c4e1baef13b654c6f87818bfc193c" prot="public" static="no" mutable="no">
+        <type>union token_t::@133</type>
+        <definition>union token_t::@133 token_t::@134</definition>
+        <argsstring></argsstring>
+        <name>@134</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="52" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtoken__t_1a97a05726ba5bb0b084eebc372245b1bf" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+        <definition>ushort token_t::fnum[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>fnum</name>
+        <briefdescription>
+<para>floating point constant </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="55" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtoken__t_1a7a2f8dd370204fe834d844cf38043053" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref></type>
+        <definition>int64 token_t::i64</definition>
+        <argsstring></argsstring>
+        <name>i64</name>
+        <briefdescription>
+<para><ref refid="group__lx___1ga677b2da507c60eddd4290313b73883a0" kindref="member">lx_int64</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="56" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtoken__t_1af176c06bb20383da1ad0f1599acc9c47" prot="public" static="no" mutable="no">
+        <type>union token_t::@135</type>
+        <definition>union token_t::@135 token_t::@136</definition>
+        <argsstring></argsstring>
+        <name>@136</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="57" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structtoken__t_1ace78ac37e5d68c74510a49e26c728e69" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>token_t::token_t</definition>
+        <argsstring>()</argsstring>
+        <name>token_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="58" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="58" bodyend="62"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Parser token. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3460">
+        <label>token_t</label>
+        <link refid="structtoken__t"/>
+        <childnode refid="3461" relation="usage">
+          <edgelabel>str</edgelabel>
+        </childnode>
+      </node>
+      <node id="3461">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" line="44" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lex.hpp" bodystart="43" bodyend="63"/>
+    <listofallmembers>
+      <member refid="structtoken__t_1a97a05726ba5bb0b084eebc372245b1bf" prot="public" virt="non-virtual"><scope>token_t</scope><name>fnum</name></member>
+      <member refid="structtoken__t_1a7a2f8dd370204fe834d844cf38043053" prot="public" virt="non-virtual"><scope>token_t</scope><name>i64</name></member>
+      <member refid="structtoken__t_1a48779c3c5ca5c0f57b4bbaa2adbac0d1" prot="public" virt="non-virtual"><scope>token_t</scope><name>is_unsigned</name></member>
+      <member refid="structtoken__t_1a9ee6dda068f997ea7af39b0a659e172b" prot="public" virt="non-virtual"><scope>token_t</scope><name>num</name></member>
+      <member refid="structtoken__t_1afd8fcbe2ae7809f3a9c515b5dbcc5b19" prot="public" virt="non-virtual"><scope>token_t</scope><name>str</name></member>
+      <member refid="structtoken__t_1ace78ac37e5d68c74510a49e26c728e69" prot="public" virt="non-virtual"><scope>token_t</scope><name>token_t</name></member>
+      <member refid="structtoken__t_1ab1b730f74832a555d272158309fad129" prot="public" virt="non-virtual"><scope>token_t</scope><name>type</name></member>
+      <member refid="structtoken__t_1a1b9282c58fa99531f1e7ae01eb98a9a8" prot="public" virt="non-virtual"><scope>token_t</scope><name>unicode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

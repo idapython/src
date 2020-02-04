@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structuser__cmts__iterator__t" kind="struct" language="C++" prot="public">
+    <compoundname>user_cmts_iterator_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structuser__cmts__iterator__t_1afd0353824f3fce25e3440b56f4635cb1" prot="public" static="no" mutable="no">
+        <type>iterator_word</type>
+        <definition>iterator_word user_cmts_iterator_t::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="8210" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="8210" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structuser__cmts__iterator__t_1a35e6dd981ff94ad2137f5f478b2f63ff" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool user_cmts_iterator_t::operator==</definition>
+        <argsstring>(const user_cmts_iterator_t &amp;p) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structuser__cmts__iterator__t" kindref="compound">user_cmts_iterator_t</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="8211" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="8211" bodyend="8211"/>
+      </memberdef>
+      <memberdef kind="function" id="structuser__cmts__iterator__t_1afa52562205087bc23270da463328bb66" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool user_cmts_iterator_t::operator!=</definition>
+        <argsstring>(const user_cmts_iterator_t &amp;p) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structuser__cmts__iterator__t" kindref="compound">user_cmts_iterator_t</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="8212" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="8212" bodyend="8212"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="8209" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="8208" bodyend="8213"/>
+    <listofallmembers>
+      <member refid="structuser__cmts__iterator__t_1afa52562205087bc23270da463328bb66" prot="public" virt="non-virtual"><scope>user_cmts_iterator_t</scope><name>operator!=</name></member>
+      <member refid="structuser__cmts__iterator__t_1a35e6dd981ff94ad2137f5f478b2f63ff" prot="public" virt="non-virtual"><scope>user_cmts_iterator_t</scope><name>operator==</name></member>
+      <member refid="structuser__cmts__iterator__t_1afd0353824f3fce25e3440b56f4635cb1" prot="public" virt="non-virtual"><scope>user_cmts_iterator_t</scope><name>x</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

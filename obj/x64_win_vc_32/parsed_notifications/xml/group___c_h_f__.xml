@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_h_f__" kind="group">
+    <compoundname>CHF_</compoundname>
+    <title>Chain properties</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___c_h_f___1ga3ea6e16ef1e39adf35257ab60f1a5017" prot="public" static="no">
+        <name>CHF_INITED</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>is chain initialized? (valid only after lvar allocation) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3106" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_f___1ga0c01aa19b950a4adddb4bdb1bc65f2ee" prot="public" static="no">
+        <name>CHF_REPLACED</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>chain operands have been replaced? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3107" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_f___1ga12b8144b67c27822eef90517bb30d127" prot="public" static="no">
+        <name>CHF_OVER</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>overlapped chain </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3108" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_f___1ga19395960a3efd0273fe5fd5415401bf2" prot="public" static="no">
+        <name>CHF_FAKE</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>fake chain created by widen_chains() </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3109" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_f___1ga7fdf2f9fe910f02ed9e446f5c2dbc74f" prot="public" static="no">
+        <name>CHF_PASSTHRU</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>pass-thru chain, must use the input variable to the block </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3110" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_f___1gaf5066a9fa983f7f193fda717efdf0502" prot="public" static="no">
+        <name>CHF_TERM</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>terminating chain; the variable does not survive across the block </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3111" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3111" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

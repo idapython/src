@@ -1,0 +1,3472 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structdebugger__t" kind="struct" language="C++" prot="public">
+    <compoundname>debugger_t</compoundname>
+    <includes refid="idd_8hpp" local="no">idd.hpp</includes>
+      <sectiondef kind="user-defined">
+      <header>Threads</header>
+      <description><para>The following events manipulate threads. These events are generated in debthread. <simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref> </para></simplesect>
+</para></description>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Memory manipulation</header>
+      <description><para>The following events manipulate bytes in the memory. </para></description>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Remote file</header>
+      <description><para>Open/close/read/write a remote file. These events are generated in the main thread Available if <ref refid="group___d_b_g___f_l_a_g2___1gae95f32139365405db4f89006693070f9" kindref="member">DBG_HAS_OPEN_FILE</ref> is set </para></description>
+      </sectiondef>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1" prot="public" static="no">
+        <name>event_t</name>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ab2e07f67b7ecca9071dda367508c4466" prot="public">
+          <name>ev_init_debugger</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Initialize debugger. This event is generated in the main thread. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>hostname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>portnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>password</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1af1e771a55f00aa9e9f5c5a299926c52c" prot="public">
+          <name>ev_term_debugger</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Terminate debugger. This event is generated in the main thread. <simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a023245736df5950685c26ce24b935b21" prot="public">
+          <name>ev_get_processes</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Return information about the running processes. This event is generated in the main thread. Available if <ref refid="group___d_b_g___f_l_a_g2___1gacb2c21601fc78f93ff05b952e47438d9" kindref="member">DBG_HAS_GET_PROCESSES</ref> is set <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>procs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::procinfo_vec_t *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1aedf29595351d30d244f20f700f97dcbd" prot="public">
+          <name>ev_start_process</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Start an executable to debug. This event is generated in debthread. Must be implemented. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) path to executable </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) arguments to pass to executable </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>startdir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) initial working directory of new process </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dbg_proc_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(uint32) <ref refid="group___d_b_g___p_r_o_c__" kindref="compound">Debug process flags</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>input_path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) path to the file that was used to create the idb file It is not always the same as &apos;path&apos; - e.g. if we are analyzing a dll and want to launch an executable that loads it. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>input_file_crc32</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(uint32) CRC value for &apos;input_path&apos; </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca19055832ce1ca43fcd682ed197f46705" kindref="member">DRC_CRC</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca8812b00524f5c8d33ece258b4b21c70a" kindref="member">DRC_NOFILE</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a726171f2519e5e7f11b0444938c38544" prot="public">
+          <name>ev_attach_process</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Attach to an existing running process. event_id should be equal to -1 if not attaching to a crashed process. This event is generated in debthread. Available if <ref refid="group___d_b_g___f_l_a_g2___1ga516d7473e33f7a627bdaf7882a9b4605" kindref="member">DBG_HAS_ATTACH_PROCESS</ref> is set <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref>) process id to attach </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>event_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) event to trigger upon attaching </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dbg_proc_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(uint32) <ref refid="group___d_b_g___p_r_o_c__" kindref="compound">Debug process flags</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ab264e77847841829f1a69881b413e1e0" prot="public">
+          <name>ev_detach_process</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Detach from the debugged process. May be generated while the process is running or suspended. Must detach from the process in any case. The kernel will repeatedly call <ref refid="group__dbg__funcs__high_1ga9b5f5bec1ed0c449555449a875de3ae7" kindref="member">get_debug_event()</ref> until <ref refid="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a569d43820b864614a4d21438e3368955" kindref="member">PROCESS_DETACHED</ref> is received. In this mode, all other events will be automatically handled and process will be resumed. This event is generated from debthread. Available if <ref refid="group___d_b_g___f_l_a_g2___1ga5f01695e7206f07d7837b1dc31c74b0e" kindref="member">DBG_HAS_DETACH_PROCESS</ref> is set <simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a6dbef57667b25e477e25118b6f50f912" prot="public">
+          <name>ev_get_debapp_attrs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Retrieve process- and debugger-specific runtime attributes. This event is generated in the main thread. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out_pattrs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="structdebapp__attrs__t" kindref="compound">debapp_attrs_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a3faf3b0606d3baf085215b5080c3dd6b" prot="public">
+          <name>ev_rebase_if_required_to</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Rebase database if the debugged program has been rebased by the system. This event is generated in the main thread. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>new_base</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1addd313df45ee351f8d77d528a1f390c0" prot="public">
+          <name>ev_request_pause</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Prepare to pause the process. Normally the next <ref refid="group__dbg__funcs__high_1ga9b5f5bec1ed0c449555449a875de3ae7" kindref="member">get_debug_event()</ref> will pause the process If the process is sleeping, then the pause will not occur until the process wakes up. If the debugger module does not react to this event, then it will be impossible to pause the program. This event is generated in debthread. Available if <ref refid="group___d_b_g___f_l_a_g2___1ga0249da62747a3888468e6ab909101eb6" kindref="member">DBG_HAS_REQUEST_PAUSE</ref> is set <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a7dbcfd7860a605302a2b656ec72c8708" prot="public">
+          <name>ev_exit_process</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Stop the process. May be generated while the process is running or suspended. Must terminate the process in any case. The kernel will repeatedly call <ref refid="group__dbg__funcs__high_1ga9b5f5bec1ed0c449555449a875de3ae7" kindref="member">get_debug_event()</ref> until <ref refid="idd_8hpp_1a0e4c82840d549d876223416d8ae11356a38cb54b7fd7aaf4ad0271c399417105a" kindref="member">PROCESS_EXITED</ref> is received. In this mode, all other events will be automatically handled and process will be resumed. This event is generated in debthread. Must be implemented. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1aacf8e4aa4b33de196aec958ad1c9f69c" prot="public">
+          <name>ev_get_debug_event</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Get a pending debug event and suspend the process. This event will be generated regularly by IDA. This event is generated in debthread. IMPORTANT: the BREAKPOINT/EXCEPTION/STEP events must be reported only after reporting other pending events for a thread. Must be implemented. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>code</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a76833d18d68fb2c7408eee02d8e8464e" kindref="member">gdecode_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="structdebug__event__t" kindref="compound">debug_event_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>timeout_ms</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>ignored</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1acfac867111fc53223bc22f6dbb718e32" prot="public">
+          <name>ev_resume</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Continue after handling the event. This event is generated in debthread. Must be implemented. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="structdebug__event__t" kindref="compound">debug_event_t</ref> *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a701dde9d7c2db7bf6590094affce10c1" prot="public">
+          <name>ev_set_exception_info</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Set exception handling. This event is generated in debthread or the main thread. Available if <ref refid="group___d_b_g___f_l_a_g2___1gacb2d53dd094b2cdc8a329f3dd3471720" kindref="member">DBG_HAS_SET_EXCEPTION_INFO</ref> is set <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="structexception__info__t" kindref="compound">exception_info_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>qty</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ac2113f0365b9a43f8129a386468dcd74" prot="public">
+          <name>ev_suspended</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>This event will be generated by the kernel each time it has suspended the debugger process and refreshed the database. The debugger module may add information to the database if it wants.</para><para>The reason for introducing this event is that when an event line LOAD_DLL happens, the database does not reflect the memory state yet and therefore we can&apos;t add information about the dll into the database in the <ref refid="group__dbg__funcs__high_1ga9b5f5bec1ed0c449555449a875de3ae7" kindref="member">get_debug_event()</ref> event. Only when the kernel has adjusted the database we can do it. Example: for imported PE DLLs we will add the exported event names to the database.</para><para>This event is generated in the main thread. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dlls_added</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(bool) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>thr_names</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a7d67a8dedc0bc1a9f02e16377408b41d" kindref="member">thread_name_vec_t</ref> *) (for the kernel only, must be NULL) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a6864b94c44c3fc91355e02bc6235ee62" prot="public">
+          <name>ev_thread_suspend</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Suspend a running thread Available if <ref refid="group___d_b_g___f_l_a_g2___1ga61c944e989671fb70de5056bb6ffb6ec" kindref="member">DBG_HAS_THREAD_SUSPEND</ref> is set <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a287a48fff42459c8ddcc55c85cd6f4a2" prot="public">
+          <name>ev_thread_continue</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Resume a suspended thread Available if <ref refid="group___d_b_g___f_l_a_g2___1ga14434e83835ec3129ced05f949a4fe75" kindref="member">DBG_HAS_THREAD_CONTINUE</ref> is set <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a1a1778e9ec6bc0154c8f5fdb13b3fd9a" prot="public">
+          <name>ev_set_resume_mode</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Specify resume action Available if <ref refid="group___d_b_g___f_l_a_g2___1ga3b5df3edb91838582d5ffaa7d30a13d4" kindref="member">DBG_HAS_SET_RESUME_MODE</ref> is set <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>resmod</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafae" kindref="member">resume_mode_t</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1aac53dbb2cf04b271462ed393def7ca46" prot="public">
+          <name>ev_read_registers</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Read thread registers. This event is generated in debthread. Must be implemented. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref>) thread id </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>clsmask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) bitmask of register classes to read </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="structregval__t" kindref="compound">regval_t</ref> *) pointer to vector of regvals for all registers. regval must have <ref refid="structdebugger__t_1a33d0a033efe337160d04e8f8540d4a27" kindref="member">debugger_t::nregs</ref> elements </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a997de67e7f3be6872165ff2b179368bd" prot="public">
+          <name>ev_write_register</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Write one thread register. This event is generated in debthread. Must be implemented. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref>) thread id </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>regidx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) register index </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="structregval__t" kindref="compound">regval_t</ref> *) new value of the register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a45d9d5ccadc8b4d6444e082538cdbb0a" prot="public">
+          <name>ev_thread_get_sreg_base</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Get information about the base of a segment register. Currently used by the IBM PC module to resolve references like fs:0. This event is generated in debthread. Available if <ref refid="group___d_b_g___f_l_a_g2___1ga402fbf23a3d2eff33e8a338804c30eab" kindref="member">DBG_HAS_THREAD_GET_SREG_BASE</ref> is set <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>answer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t *) pointer to the answer. can&apos;t be NULL. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref>) thread id </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sreg_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) value of the segment register (returned by <ref refid="group__dbg__funcs__regs_1gaac94fe8219194588151ff8c4ee9a6600" kindref="member">get_reg_val()</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a6ccb610c8114c8fe3329cf11b23d8260" prot="public">
+          <name>ev_get_memory_info</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Get information on the memory ranges. The debugger module fills &apos;ranges&apos;. The returned vector must be sorted. This event is generated in debthread. Must be implemented. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ranges</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1ab53dc5825c9fb9e10963d2f321721169" kindref="member">meminfo_vec_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new memory layout is returned </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref></parametername>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref></parametername>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dcab780d3ed9587c7cf969bbc7c6079d58b" kindref="member">DRC_NOPROC</ref></parametername>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dcac2ea3836d88ef6fa6d1ecfbf3c0cdd81" kindref="member">DRC_NOCHG</ref></parametername>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9c987e9b35c81bbee4ceeb6cdddef6e8" kindref="member">DRC_IDBSEG</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a9a58ca134887fc1d8c8af427c9d5ba71" prot="public">
+          <name>ev_read_memory</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Read process memory. This event is generated in debthread. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nbytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(size_t *) number of read bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(void *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::size_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dcab780d3ed9587c7cf969bbc7c6079d58b" kindref="member">DRC_NOPROC</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a5c223c7c64bff13187c3044369eb91d9" prot="public">
+          <name>ev_write_memory</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Write process memory. This event is generated in debthread. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nbytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(size_t *) number of written bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const void *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::size_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref></parametername>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref></parametername>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dcab780d3ed9587c7cf969bbc7c6079d58b" kindref="member">DRC_NOPROC</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a781ae1a765fbb1485415ab8eca5848d6" prot="public">
+          <name>ev_check_bpt</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Is it possible to set breakpoint? This event is generated in debthread or in the main thread if debthread is not running yet. It is generated to verify hardware breakpoints. Available if <ref refid="group___d_b_g___f_l_a_g2___1gac5dc3577a5904e5f0f65f8b986d36db9" kindref="member">DBG_HAS_CHECK_BPT</ref> is set <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bptvc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int *) breakpoint verification codes <ref refid="group___b_p_t__" kindref="compound">Breakpoint verification codes</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a773a43fff5c9bacc9f28d203baec542d" kindref="member">bpttype_t</ref>) <ref refid="group___b_p_t___h" kindref="compound">Hardware breakpoint ids</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a7d5a9d0b5f7896bf3ee7e00857c82771" prot="public">
+          <name>ev_update_bpts</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Add/del breakpoints. bpts array contains nadd bpts to add, followed by ndel bpts to del. This event is generated in debthread. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nbpts</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int *) number of updated breakpoints </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bpts</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="structupdate__bpt__info__t" kindref="compound">update_bpt_info_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nadd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ndel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a9887874f471360e0a3d5c5956dd864d1" prot="public">
+          <name>ev_update_lowcnds</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Update low-level (server side) breakpoint conditions. This event is generated in debthread. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nupdated</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int *) number of updated conditions </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lowcnds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="structlowcnd__t" kindref="compound">lowcnd_t</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nlowcnds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ad4b7e3c990b72f67161cecb34e22842a" prot="public">
+          <name>ev_open_file</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref> *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>readonly</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(bool) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>(int)</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>-1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>error </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1af3cf18ffcfbd7e53bee5a78bd2f10f83" prot="public">
+          <name>ev_close_file</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) handle </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>ignored </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a758fb12b7057003ba7a12477c45ce645" prot="public">
+          <name>ev_read_file</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>off</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(void *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(size_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of read bytes </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ac1e08ccc804bf81eaa6629907b94e612" prot="public">
+          <name>ev_write_file</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>off</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const void *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(size_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of written bytes </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ab9059a2a276aa5c3166fcaaf7b20b3de" prot="public">
+          <name>ev_map_address</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Map process address. The debugger module may ignore this event. This event is generated in debthread. IDA will generate this event only if <ref refid="group___d_b_g___f_l_a_g2___1ga501ac7acc0ad527574e1dcb6d927f65b" kindref="member">DBG_HAS_MAP_ADDRESS</ref> is set. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mapped</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t *) mapped address or <ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>off</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) offset to map </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>regs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="structregval__t" kindref="compound">regval_t</ref> *) current register values. if regs == NULL, then perform global mapping, which is independent on used registers usually such a mapping is a trivial identity mapping </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>regnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) required mapping. May be specified as a segment register number or a regular register number if the required mapping can be deduced from it. For example, esp implies that ss should be used. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref> see MAPPED </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ae2c2e6453b39d8905fed8deafa276018" prot="public">
+          <name>ev_get_debmod_extensions</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Get pointer to debugger specific events. This event returns a pointer to a structure that holds pointers to debugger module specific events. For information on the structure layout, please check the corresponding debugger module. Most debugger modules return NULL because they do not have any extensions. Available extensions may be generated from plugins. This event is generated in the main thread. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ext</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(void **) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref> see EXT </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a07a67210139e7dd2d28822e92e79d39a" prot="public">
+          <name>ev_update_call_stack</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Calculate the call stack trace. This event is generated when the process is suspended and should fill the &apos;trace&apos; object with the information about the current call stack. If this event returns DRC_NONE, IDA will use the standard mechanism (based on the frame pointer chain) to calculate the stack trace This event is generated in the main thread. Available if <ref refid="group___d_b_g___f_l_a_g2___1gaf1a5c5ab6017e69549ae28dac33388b9" kindref="member">DBG_HAS_UPDATE_CALL_STACK</ref> is set <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>trace</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::call_stack_t *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>false or not implemented </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref> success </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a1d6cb036e830cbccff9a29c432252fb7" prot="public">
+          <name>ev_appcall</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Call application function. This event calls a function from the debugged application. This event is generated in debthread Available if HAS_APPCALL is set <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">blob_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t *) ea of stkargs blob, <ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref> if failed and errbuf is filled </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>func_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) address to call </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref>) thread to use </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fti</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="structfunc__type__data__t" kindref="compound">func_type_data_t</ref> *) type information for the generated event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nargs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) number of actual arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>regargs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const <ref refid="structregobjs__t" kindref="compound">regobjs_t</ref> *) information about register arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>stkargs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="structrelobj__t" kindref="compound">relobj_t</ref> *) memory blob to pass as stack arguments (usually contains pointed data) it must be relocated by the callback but not changed otherwise </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>retregs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="structregobjs__t" kindref="compound">regobjs_t</ref> *) event return registers. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) the error message. if empty on failure, see EVENT. should not be filled if an appcall exception happened but <ref refid="group___a_p_p_c_a_l_l___1ga805adda8d1138c0d1d40ee53c7b2b1e7" kindref="member">APPCALL_DEBEV</ref> is set </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="structdebug__event__t" kindref="compound">debug_event_t</ref> *) the last debug event that occurred during appcall execution filled only if the appcall execution fails and <ref refid="group___a_p_p_c_a_l_l___1ga805adda8d1138c0d1d40ee53c7b2b1e7" kindref="member">APPCALL_DEBEV</ref> is set </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) appcall options, usually taken from {appcall_options}. possible values: combination of <ref refid="group___a_p_p_c_a_l_l__" kindref="compound">Appcall options</ref> or 0 </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref></parametername>
+<parametername>see</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BLOB_EA </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a3ba12a0a5ba3e24656b8db17fa06e49c" prot="public">
+          <name>ev_cleanup_appcall</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Cleanup after appcall(). The debugger module must keep the stack blob in the memory until this event is generated. It will be generated by the kernel for each successful appcall(). There is an exception: if <ref refid="group___a_p_p_c_a_l_l___1gaa1a104a113d31a3d4167791663d617af" kindref="member">APPCALL_MANUAL</ref>, IDA may not call cleanup_appcall. If the user selects to terminate a manual appcall, then cleanup_appcall will be generated. Otherwise, the debugger module should terminate the appcall when the generated event returns. This event is generated in debthread. Available if HAS_APPCALL is set <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref>) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dcafd1f4e5fafa53cb4a9ba8a532b3eea08" kindref="member">DRC_EVENTS</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>success, there are pending events </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>success </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>failed </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>network error </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ab4a8f81d76f515ece78665bfcfc1aee4" prot="public">
+          <name>ev_eval_lowcnd</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Evaluate a low level breakpoint condition at &apos;ea&apos;. Other evaluation errors are displayed in a dialog box. This call is used by IDA when the process has already been temporarily suspended for some reason and IDA has to decide whether the process should be resumed or definitely suspended because of a breakpoint with a low level condition. This event is generated in debthread. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>condition is satisfied </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>not satisfied </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>network error </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a77911c049ed5f590f37122b362a2c068" prot="public">
+          <name>ev_send_ioctl</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Perform a debugger-specific event. This event is generated in debthread <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const void *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(size_t) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>poutbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(void **) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>poutsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(ssize_t *) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL \retval DRC_... </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a7e8cb3474ac9b80bd98cec8b6ba79d18" prot="public">
+          <name>ev_dbg_enable_trace</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Enable/Disable tracing. The kernel will generated this event if the debugger plugin set DBG_FLAG_TRACER_MODULE. TRACE_FLAGS can be a set of #STEP_TRACE, #INSN_TRACE, #BBLK_TRACE or #FUNC_TRACE. This event is generated in the main thread. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(bool) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>trace_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref> </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a0269bcf464f0b241431274ef0736e350" prot="public">
+          <name>ev_is_tracing_enabled</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Is tracing enabled? The kernel will generated this event if the debugger plugin set DBG_FLAG_TRACER_MODULE. TRACE_BIT can be one of the following: #STEP_TRACE, #INSN_TRACE, #BBLK_TRACE or #FUNC_TRACE <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tracebit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>bit is set </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>bit is not set or not implemented </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ac5f3c9914618d32e065e02783b1c00fe" prot="public">
+          <name>ev_rexec</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Execute a command on the remote computer. Available if <ref refid="group___d_b_g___f_l_a_g2___1ga13372bcc2e0d65338bcb77fdddb039f9" kindref="member">DBG_HAS_REXEC</ref> is set <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cmdline</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const char *) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>(int) exit code </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a201dbc06bc46209145960fffdfd1f5c5" prot="public">
+          <name>ev_get_srcinfo_path</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Get the path to a file containing source debug info for the given module. This allows srcinfo providers to call into the debugger when looking for debug info. It is useful in certain cases like the iOS debugger, which is a remote debugger but the remote debugserver does not provide dwarf info. So, we allow the debugger client to decide where to look for debug info locally. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(qstring *) output path (file might not exist) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>base</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) base address of a module in the target process </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref>, <ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref> result stored in PATH </para></simplesect>
+</para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1af6f1ece26f722af4ae0cce09f32ef890" prot="public">
+          <name>ev_bin_search</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Search for a binary pattern in the program. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t *) binary pattern address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>start_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) linear address, start of range to search </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>end_ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(::ea_t) linear address, end of range to search (exclusive) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(const ::compiled_binpat_vec_t *) the prepared data to search for (see <ref refid="bytes_8hpp_1a28902ef0f9f10ee3193410ac0f4d6a19" kindref="member">parse_binpat_str()</ref>) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>srch_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(int) combination of <ref refid="group___b_i_n___s_e_a_r_c_h__" kindref="compound">Search flags</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errbuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(<ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *) may be NULL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca693325fd0b44c08e11a85288f955cb2e" kindref="member">DRC_OK</ref> EA contains the binary pattern address </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca2e068cafbc885d25ebeb9331273ba035" kindref="member">DRC_FAILED</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>not found </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca9cbe9885f1cb5e44929d3852bcbda6d0" kindref="member">DRC_NONE</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>not implemented </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dca0b3a1e360c9b1bc7bb981ce45266ac88" kindref="member">DRC_NETERR</ref></parametername>
+<parametername><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dcaea09fdaf29aef178687fd5a066d83a75" kindref="member">DRC_ERROR</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Callback notification codes.</para><para>They are passed to <ref refid="structdebugger__t_1afbdf5bc6be9f5bcad16168c0b30e990f" kindref="member">notify()</ref> when certain events occur in the kernel, allowing the debugger plugin to take appropriate actions.</para><para>Debugger plugins must implement the desired reaction to these events in the <ref refid="structdebugger__t_1afbdf5bc6be9f5bcad16168c0b30e990f" kindref="member">notify()</ref> function.</para><para>The <ref refid="structdebugger__t_1afbdf5bc6be9f5bcad16168c0b30e990f" kindref="member">notify()</ref> function should not be called directly. See inline functions below. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="968" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="967" bodyend="1424"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdebugger__t_1a05e031b463d8a3221537053bbcae1e7c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int debugger_t::version</definition>
+        <argsstring></argsstring>
+        <name>version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Expected kernel version, should be <ref refid="idd_8hpp_1a5b46b2a423380b8fa861267e47e50875" kindref="member">IDD_INTERFACE_VERSION</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="731" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="731" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebugger__t_1a0fec9ee5e7dd559705c330d5e827ae1d" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* debugger_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>Short debugger name like win32 or linux. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="733" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="733" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebugger__t_1af5fd5700a3daf0ff646a542f87a9f0c6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int debugger_t::id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+<para>one of <ref refid="group___d_e_b_u_g_g_e_r___i_d__" kindref="compound">Debugger API module id</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="734" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="734" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebugger__t_1a20ad9af89799075474d046a22b511161" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* debugger_t::processor</definition>
+        <argsstring></argsstring>
+        <name>processor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Required processor name. Used for instant debugging to load the correct processor module </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="754" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="754" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebugger__t_1a48e27b9a06eb3abe8cfb1f681c0476f1" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 debugger_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="758" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="758" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebugger__t_1adb8f51f29177aae6574e6b3b1170e266" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 debugger_t::flags2</definition>
+        <argsstring></argsstring>
+        <name>flags2</name>
+        <briefdescription>
+<para><ref refid="group___d_b_g___f_l_a_g__" kindref="compound">Debugger module features</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="759" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="759" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebugger__t_1ac7ca3ae0a08bd13646c5eb1d4b4eef6a" prot="public" static="no" mutable="no">
+        <type>const char **</type>
+        <definition>const char** debugger_t::regclasses</definition>
+        <argsstring></argsstring>
+        <name>regclasses</name>
+        <briefdescription>
+<para>Array of register class names. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="906" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="906" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebugger__t_1a1c441de5a658554b15db075bef5afd3e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int debugger_t::default_regclasses</definition>
+        <argsstring></argsstring>
+        <name>default_regclasses</name>
+        <briefdescription>
+<para>Mask of default printed register classes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="907" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="907" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebugger__t_1a87e5d82ff320199e10064e825c7dd7ae" prot="public" static="no" mutable="no">
+        <type><ref refid="structregister__info__t" kindref="compound">register_info_t</ref> *</type>
+        <definition>register_info_t* debugger_t::registers</definition>
+        <argsstring></argsstring>
+        <name>registers</name>
+        <briefdescription>
+<para>Array of registers. Use regs() to access it. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="908" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="908" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebugger__t_1a33d0a033efe337160d04e8f8540d4a27" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int debugger_t::nregs</definition>
+        <argsstring></argsstring>
+        <name>nregs</name>
+        <briefdescription>
+<para>Number of registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="909" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="909" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebugger__t_1a06e6a92cc94a7bc3fc231e91392af589" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int debugger_t::memory_page_size</definition>
+        <argsstring></argsstring>
+        <name>memory_page_size</name>
+        <briefdescription>
+<para>Size of a memory page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="914" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="914" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebugger__t_1aafda41b65555061dd5a7708c6e6db45e" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref> *</type>
+        <definition>const uchar* debugger_t::bpt_bytes</definition>
+        <argsstring></argsstring>
+        <name>bpt_bytes</name>
+        <briefdescription>
+<para>Array of bytes for a breakpoint instruction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="916" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="916" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebugger__t_1adefd175bea42a81893bad4685247daa4" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar debugger_t::bpt_size</definition>
+        <argsstring></argsstring>
+        <name>bpt_size</name>
+        <briefdescription>
+<para>Size of this array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="917" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="917" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebugger__t_1a0d8448b3972217ed077b77b362ccc69c" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>uchar debugger_t::filetype</definition>
+        <argsstring></argsstring>
+        <name>filetype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>for miniidbs: use this value for the file type after attaching to a new process </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="918" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="918" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebugger__t_1a71ed80f2b468eb868a4c1cfcbe1d7493" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ab95f123a6c9bcfee6a343170ef8c5f69" kindref="member">ushort</ref></type>
+        <definition>ushort debugger_t::resume_modes</definition>
+        <argsstring></argsstring>
+        <name>resume_modes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___d_b_g___r_e_s_m_o_d__" kindref="compound">Resume modes</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="921" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="921" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebugger__t_1a496e34891b936f74ad690f0bd299d613" prot="public" static="no" mutable="no">
+        <type>const char *(idaapi *</type>
+        <definition>const char*(idaapi * debugger_t::set_dbg_options) (const char *keyword, int pri, int value_type, const void *value)</definition>
+        <argsstring>)(const char *keyword, int pri, int value_type, const void *value)</argsstring>
+        <name>set_dbg_options</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set debugger options (parameters that are specific to the debugger module). See the definition of ::set_options_t for arguments. See the convenience function in <ref refid="dbg_8hpp" kindref="compound">dbg.hpp</ref> if you need to call it. The kernel will generate this event after reading the debugger specific config file (arguments are: keyword=&quot;&quot;, type=<ref refid="group___i_d_p_o_p_t___t_1gac216775cfbb5b80faebf141c232ca6e1" kindref="member">IDPOPT_STR</ref>, value=&quot;&quot;) This event is optional. This event is generated in the main thread </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="951" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="951" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdebugger__t_1a69f73da2deeb0c9d9312d63d025c8daf" prot="public" static="no" mutable="no">
+        <type><ref refid="ida_8hpp_1acf012fe005690e1af26e799617fc98b7" kindref="member">hook_cb_t</ref> *</type>
+        <definition>hook_cb_t* debugger_t::callback</definition>
+        <argsstring></argsstring>
+        <name>callback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event notification callback. It will be hooked to the HT_IDD notification point when the debugger is loaded and unhooked during the debugger unloading. The debugger plugin will be the last one who will receive the notification. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1432" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1432" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structdebugger__t_1abdc5838ebd2a3e9edf95fa708faa8a9a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::is_remote</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_remote</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="847" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="847" bodyend="847"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a95e53c77395c1008dfc073b22abe8408" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::must_have_hostname</definition>
+        <argsstring>(void) const</argsstring>
+        <name>must_have_hostname</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="848" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="848" bodyend="849"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1adf1109ed2c716e83c201d62de4ee2e51" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::can_continue_from_bpt</definition>
+        <argsstring>(void) const</argsstring>
+        <name>can_continue_from_bpt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="850" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="850" bodyend="851"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a06e8c9267b5173b0cf39a0a35959ba8b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::may_disturb</definition>
+        <argsstring>(void) const</argsstring>
+        <name>may_disturb</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="852" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="852" bodyend="853"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1ad39132d0e46ae0136621697d17bd33ac" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::is_safe</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_safe</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="854" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="854" bodyend="855"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a2d2a1c1161546b0438505f50920c5c3c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::use_sregs</definition>
+        <argsstring>(void) const</argsstring>
+        <name>use_sregs</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="856" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="856" bodyend="857"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a5024fb5a5458a8a9cdfabf84dc76d84d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t debugger_t::cache_block_size</definition>
+        <argsstring>(void) const</argsstring>
+        <name>cache_block_size</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="858" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="858" bodyend="859"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a97b886afa392671d34fd2a05dfb87dbb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::use_memregs</definition>
+        <argsstring>(void) const</argsstring>
+        <name>use_memregs</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="860" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="860" bodyend="861"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a03968ad000767a6375226c27ff79e61c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::may_take_exit_snapshot</definition>
+        <argsstring>(void) const</argsstring>
+        <name>may_take_exit_snapshot</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="862" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="862" bodyend="863"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1aa51dda378df33468a0bc57b9864cf55a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::virtual_threads</definition>
+        <argsstring>(void) const</argsstring>
+        <name>virtual_threads</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="864" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="864" bodyend="865"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a0137174d8a2cff8a9902393e1eeac933" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::supports_lowcnds</definition>
+        <argsstring>(void) const</argsstring>
+        <name>supports_lowcnds</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="866" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="866" bodyend="867"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1ad1bfc82f162b24646c479ae054c1a768" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::supports_debthread</definition>
+        <argsstring>(void) const</argsstring>
+        <name>supports_debthread</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="868" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="868" bodyend="869"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a119137e69c2551eac3a1317a7a48e06b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::can_debug_standalone_dlls</definition>
+        <argsstring>(void) const</argsstring>
+        <name>can_debug_standalone_dlls</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="870" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="870" bodyend="871"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a580d36b2b6c8a00ee383a6c8ea498c93" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::fake_memory</definition>
+        <argsstring>(void) const</argsstring>
+        <name>fake_memory</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="872" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="872" bodyend="873"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a36e110cd12443b9d3364e4fafaeffaf0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::has_get_processes</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_get_processes</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="875" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="875" bodyend="876"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1ac22c0aa199671e2b8b2c7d6a00dbf527" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::has_attach_process</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_attach_process</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="877" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="877" bodyend="878"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a2ccc46230b92bbd75c18bdb6e8b64eff" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::has_detach_process</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_detach_process</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="879" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="879" bodyend="880"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a240fcda027037cfbd6a34a0aead01ada" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::has_request_pause</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_request_pause</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="881" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="881" bodyend="882"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a6012aec12da84081cc48613711ddd6db" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::has_set_exception_info</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_set_exception_info</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="883" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="883" bodyend="884"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1ae2fcb6b81d7516c6382f478a32707fc7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::has_thread_suspend</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_thread_suspend</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="885" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="885" bodyend="886"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1ac5a12eb1044ed1ee44295f2aee567e04" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::has_thread_continue</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_thread_continue</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="887" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="887" bodyend="888"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a08b833c9202f9c9e24c6f280f6f01e88" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::has_set_resume_mode</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_set_resume_mode</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="889" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="889" bodyend="890"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1afb3d2805335c3b64c7f006984f63aa0a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::has_thread_get_sreg_base</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_thread_get_sreg_base</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="891" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="891" bodyend="892"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a805b512302b01d6f437073d6cbfd8f46" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::has_check_bpt</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_check_bpt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="893" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="893" bodyend="894"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a1f4c1b41665f16edcd9cb4a6b43979bb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::has_open_file</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_open_file</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="895" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="895" bodyend="896"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a2cbaf43f5033d2a608b186b3bc4eba71" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::has_update_call_stack</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_update_call_stack</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="897" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="897" bodyend="898"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a74fa3b5ac46d060430d4d3c83aee1056" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::has_appcall</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_appcall</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="899" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="899" bodyend="900"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a0f91d511eb91d9c3a0e8fe4ff57b4210" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::has_rexec</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_rexec</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="901" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="901" bodyend="902"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a08994566546583f95c5d051adcb2a6cc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::has_map_address</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_map_address</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="903" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="903" bodyend="904"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1aaddbb2c9fff2955dc1e442541c313da7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structregister__info__t" kindref="compound">register_info_t</ref> &amp;</type>
+        <definition>register_info_t&amp; debugger_t::regs</definition>
+        <argsstring>(int idx)</argsstring>
+        <name>regs</name>
+        <param>
+          <type>int</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="912" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="912" bodyend="912"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1aa64bf6dd23802ff1a2a647bf893e88b5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::is_resmod_avail</definition>
+        <argsstring>(int resmod) const</argsstring>
+        <name>is_resmod_avail</name>
+        <param>
+          <type>int</type>
+          <declname>resmod</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="934" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="934" bodyend="935"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1afbdf5bc6be9f5bcad16168c0b30e990f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t debugger_t::notify</definition>
+        <argsstring>(event_t event_code,...)</argsstring>
+        <name>notify</name>
+        <param>
+          <type><ref refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1" kindref="member">event_t</ref></type>
+          <declname>event_code</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>Event notification handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1435" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1435" bodyend="1442"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a4dde67832b4ecf2e0e4c8009c58960ad" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::notify_drc</definition>
+        <argsstring>(event_t event_code,...)</argsstring>
+        <name>notify_drc</name>
+        <param>
+          <type><ref refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1" kindref="member">event_t</ref></type>
+          <declname>event_code</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1443" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1443" bodyend="1450"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a934b65bd1fb1d2bf530c6d215adbba74" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::init_debugger</definition>
+        <argsstring>(const char *hostname, int portnum, const char *password, qstring *errbuf=NULL)</argsstring>
+        <name>init_debugger</name>
+        <param>
+          <type>const char *</type>
+          <declname>hostname</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>portnum</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>password</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1495" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1587" bodyend="1590"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a20f1ab51dc57457601cd0968fc258e77" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::term_debugger</definition>
+        <argsstring>(void)</argsstring>
+        <name>term_debugger</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1496" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1591" bodyend="1594"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1ab780f1155854ff469db50edb6c01a4ad" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::get_processes</definition>
+        <argsstring>(procinfo_vec_t *procs, qstring *errbuf=NULL)</argsstring>
+        <name>get_processes</name>
+        <param>
+          <type><ref refid="classqvector" kindref="compound">procinfo_vec_t</ref> *</type>
+          <declname>procs</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1497" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1595" bodyend="1598"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a5bd3f8e2141f42f54ed7cc1ff6018f45" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::start_process</definition>
+        <argsstring>(const char *path, const char *args, const char *startdir, uint32 dbg_proc_flags, const char *input_path, uint32 input_file_crc32, qstring *errbuf=NULL)</argsstring>
+        <name>start_process</name>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>startdir</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>dbg_proc_flags</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>input_path</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>input_file_crc32</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1498" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1599" bodyend="1609"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a92d869126c04b74b229816f2691fe134" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::attach_process</definition>
+        <argsstring>(pid_t pid, int event_id, uint32 dbg_proc_flags, qstring *errbuf=NULL)</argsstring>
+        <name>attach_process</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref></type>
+          <declname>pid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>event_id</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>dbg_proc_flags</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1505" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1610" bodyend="1613"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1aeef091ce62c9a594b2f257a1b20945b0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::detach_process</definition>
+        <argsstring>(qstring *errbuf=NULL)</argsstring>
+        <name>detach_process</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1506" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1614" bodyend="1617"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a8567072a71ee7b896193e1b3d856beaf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::get_debapp_attrs</definition>
+        <argsstring>(debapp_attrs_t *out_pattrs)</argsstring>
+        <name>get_debapp_attrs</name>
+        <param>
+          <type><ref refid="structdebapp__attrs__t" kindref="compound">debapp_attrs_t</ref> *</type>
+          <declname>out_pattrs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1507" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1618" bodyend="1621"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a13b245dd4c7d94c223190e878494c2b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void debugger_t::rebase_if_required_to</definition>
+        <argsstring>(ea_t new_base)</argsstring>
+        <name>rebase_if_required_to</name>
+        <param>
+          <type>ea_t</type>
+          <declname>new_base</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1508" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1622" bodyend="1625"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a86a0b36302464d5e98246145feb0908b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::request_pause</definition>
+        <argsstring>(qstring *errbuf=NULL)</argsstring>
+        <name>request_pause</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1509" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1626" bodyend="1629"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1ae711d9f9ef6f5bdb78f700451080cb27" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::exit_process</definition>
+        <argsstring>(qstring *errbuf=NULL)</argsstring>
+        <name>exit_process</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1510" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1630" bodyend="1633"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1ad2f8b70b33dcfacb0487480ad8942690" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a76833d18d68fb2c7408eee02d8e8464e" kindref="member">gdecode_t</ref></type>
+        <definition>gdecode_t debugger_t::get_debug_event</definition>
+        <argsstring>(debug_event_t *event, int timeout_ms)</argsstring>
+        <name>get_debug_event</name>
+        <param>
+          <type><ref refid="structdebug__event__t" kindref="compound">debug_event_t</ref> *</type>
+          <declname>event</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>timeout_ms</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1511" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1634" bodyend="1639"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a855ed9ca0ebd1da80526793bc84e9709" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::resume</definition>
+        <argsstring>(const debug_event_t *event, qstring *errbuf=NULL)</argsstring>
+        <name>resume</name>
+        <param>
+          <type>const <ref refid="structdebug__event__t" kindref="compound">debug_event_t</ref> *</type>
+          <declname>event</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1512" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1640" bodyend="1643"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a448aaa93ad6d2aa2f167943e6f8fbd6c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void debugger_t::set_exception_info</definition>
+        <argsstring>(const exception_info_t *info, int qty)</argsstring>
+        <name>set_exception_info</name>
+        <param>
+          <type>const <ref refid="structexception__info__t" kindref="compound">exception_info_t</ref> *</type>
+          <declname>info</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>qty</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1513" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1644" bodyend="1647"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a83626ee73f38e5b2952212f32787d850" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void debugger_t::suspended</definition>
+        <argsstring>(bool dlls_added, thread_name_vec_t *thr_names=NULL)</argsstring>
+        <name>suspended</name>
+        <param>
+          <type>bool</type>
+          <declname>dlls_added</declname>
+        </param>
+        <param>
+          <type><ref refid="idd_8hpp_1a7d67a8dedc0bc1a9f02e16377408b41d" kindref="member">thread_name_vec_t</ref> *</type>
+          <declname>thr_names</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1514" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1648" bodyend="1651"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a6e25a500d62bdae16e536f34e1db3965" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::thread_suspend</definition>
+        <argsstring>(thid_t tid, qstring *errbuf=NULL)</argsstring>
+        <name>thread_suspend</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1515" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1652" bodyend="1655"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a5c2bc4ffef74488e835665876fe6320a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::thread_continue</definition>
+        <argsstring>(thid_t tid, qstring *errbuf=NULL)</argsstring>
+        <name>thread_continue</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1516" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1656" bodyend="1659"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1ace57d742febac52d4b18cf061cc4f461" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::set_resume_mode</definition>
+        <argsstring>(thid_t tid, resume_mode_t resmod, qstring *errbuf=NULL)</argsstring>
+        <name>set_resume_mode</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type><ref refid="idd_8hpp_1a22acbc39891c15a300bd1ddf85edafae" kindref="member">resume_mode_t</ref></type>
+          <declname>resmod</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1517" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1660" bodyend="1663"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a40125e918dbf41b9b091d6d0328d1229" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::read_registers</definition>
+        <argsstring>(thid_t tid, int clsmask, regval_t *values, qstring *errbuf=NULL)</argsstring>
+        <name>read_registers</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>clsmask</declname>
+        </param>
+        <param>
+          <type><ref refid="structregval__t" kindref="compound">regval_t</ref> *</type>
+          <declname>values</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1518" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1664" bodyend="1667"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a71f63924e2322efcd16a494fe5ff1c51" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::write_register</definition>
+        <argsstring>(thid_t tid, int regidx, const regval_t *value, qstring *errbuf=NULL)</argsstring>
+        <name>write_register</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>regidx</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structregval__t" kindref="compound">regval_t</ref> *</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1519" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1668" bodyend="1671"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1afa574f68c825876b139e03da94afa8a4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::thread_get_sreg_base</definition>
+        <argsstring>(ea_t *answer, thid_t tid, int sreg_value, qstring *errbuf=NULL)</argsstring>
+        <name>thread_get_sreg_base</name>
+        <param>
+          <type>ea_t *</type>
+          <declname>answer</declname>
+        </param>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sreg_value</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1520" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1672" bodyend="1675"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a358c304d5ce9f65d20ceb97d183f7dfa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::get_memory_info</definition>
+        <argsstring>(meminfo_vec_t &amp;ranges, qstring *errbuf=NULL)</argsstring>
+        <name>get_memory_info</name>
+        <param>
+          <type><ref refid="idd_8hpp_1ab53dc5825c9fb9e10963d2f321721169" kindref="member">meminfo_vec_t</ref> &amp;</type>
+          <declname>ranges</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1521" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1676" bodyend="1679"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a89b4208c1f3fee7700e7eaae8c96417f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::read_memory</definition>
+        <argsstring>(size_t *nbytes, ea_t ea, void *buffer, size_t size, qstring *errbuf=NULL)</argsstring>
+        <name>read_memory</name>
+        <param>
+          <type>size_t *</type>
+          <declname>nbytes</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buffer</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1522" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1680" bodyend="1683"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a382936dba37f201bfeb3c38ae212f701" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::write_memory</definition>
+        <argsstring>(size_t *nbytes, ea_t ea, const void *buffer, size_t size, qstring *errbuf=NULL)</argsstring>
+        <name>write_memory</name>
+        <param>
+          <type>size_t *</type>
+          <declname>nbytes</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>buffer</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1523" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1684" bodyend="1687"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a9435a69b8e8cedb6699f13e5da0f4638" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::check_bpt</definition>
+        <argsstring>(int *bptvc, bpttype_t type, ea_t ea, int len)</argsstring>
+        <name>check_bpt</name>
+        <param>
+          <type>int *</type>
+          <declname>bptvc</declname>
+        </param>
+        <param>
+          <type><ref refid="idd_8hpp_1a773a43fff5c9bacc9f28d203baec542d" kindref="member">bpttype_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1524" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1688" bodyend="1691"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a32a979c255cd8c4b310cb879931cd47f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::update_bpts</definition>
+        <argsstring>(int *nbpts, update_bpt_info_t *bpts, int nadd, int ndel, qstring *errbuf=NULL)</argsstring>
+        <name>update_bpts</name>
+        <param>
+          <type>int *</type>
+          <declname>nbpts</declname>
+        </param>
+        <param>
+          <type><ref refid="structupdate__bpt__info__t" kindref="compound">update_bpt_info_t</ref> *</type>
+          <declname>bpts</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nadd</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ndel</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1525" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1692" bodyend="1695"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1ad94a4dbcced26cdbc2c628cb2c9c524f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::update_lowcnds</definition>
+        <argsstring>(int *nupdated, const lowcnd_t *lowcnds, int nlowcnds, qstring *errbuf=NULL)</argsstring>
+        <name>update_lowcnds</name>
+        <param>
+          <type>int *</type>
+          <declname>nupdated</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structlowcnd__t" kindref="compound">lowcnd_t</ref> *</type>
+          <declname>lowcnds</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nlowcnds</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1526" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1696" bodyend="1699"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a67e8bc235cd3251da239467944326185" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int debugger_t::open_file</definition>
+        <argsstring>(const char *file, uint64 *fsize, bool readonly, qstring *errbuf=NULL)</argsstring>
+        <name>open_file</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref> *</type>
+          <declname>fsize</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>readonly</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1527" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1700" bodyend="1703"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a5b0851fd43c7683febb91d098cba72ec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void debugger_t::close_file</definition>
+        <argsstring>(int fn)</argsstring>
+        <name>close_file</name>
+        <param>
+          <type>int</type>
+          <declname>fn</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1528" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1704" bodyend="1707"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a574b1082211d42b189e425baf2090ebd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t debugger_t::read_file</definition>
+        <argsstring>(int fn, qoff64_t off, void *buf, size_t size, qstring *errbuf=NULL)</argsstring>
+        <name>read_file</name>
+        <param>
+          <type>int</type>
+          <declname>fn</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>off</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1529" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1708" bodyend="1711"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a55c5e91f3f1675092391cc11fa35f795" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t debugger_t::write_file</definition>
+        <argsstring>(int fn, qoff64_t off, const void *buf, size_t size, qstring *errbuf=NULL)</argsstring>
+        <name>write_file</name>
+        <param>
+          <type>int</type>
+          <declname>fn</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>off</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1530" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1712" bodyend="1715"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1ad49d3dac844f1c301e20d4a0defe4ea7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t debugger_t::map_address</definition>
+        <argsstring>(ea_t off, const regval_t *regs, int regnum)</argsstring>
+        <name>map_address</name>
+        <param>
+          <type>ea_t</type>
+          <declname>off</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structregval__t" kindref="compound">regval_t</ref> *</type>
+          <declname>regs</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>regnum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1531" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1716" bodyend="1722"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1afa5ef3d3aa729e4ab2e120e7d052fd0f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const void *</type>
+        <definition>const void * debugger_t::get_debmod_extensions</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_debmod_extensions</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1532" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1723" bodyend="1729"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a5fbaa964ebf9c0c1a277fddf47ca0044" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::update_call_stack</definition>
+        <argsstring>(thid_t tid, call_stack_t *trace)</argsstring>
+        <name>update_call_stack</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type><ref refid="classqvector" kindref="compound">call_stack_t</ref> *</type>
+          <declname>trace</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1533" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1730" bodyend="1733"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a893387353de2f48d6609fc7e9ba1090c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t debugger_t::appcall</definition>
+        <argsstring>(ea_t func_ea, thid_t tid, const struct func_type_data_t *fti, int nargs, const struct regobjs_t *regargs, struct relobj_t *stkargs, struct regobjs_t *retregs, qstring *errbuf, debug_event_t *event, int options)</argsstring>
+        <name>appcall</name>
+        <param>
+          <type>ea_t</type>
+          <declname>func_ea</declname>
+        </param>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type>const struct <ref refid="structfunc__type__data__t" kindref="compound">func_type_data_t</ref> *</type>
+          <declname>fti</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nargs</declname>
+        </param>
+        <param>
+          <type>const struct <ref refid="structregobjs__t" kindref="compound">regobjs_t</ref> *</type>
+          <declname>regargs</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structrelobj__t" kindref="compound">relobj_t</ref> *</type>
+          <declname>stkargs</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structregobjs__t" kindref="compound">regobjs_t</ref> *</type>
+          <declname>retregs</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+        </param>
+        <param>
+          <type><ref refid="structdebug__event__t" kindref="compound">debug_event_t</ref> *</type>
+          <declname>event</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>options</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1534" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1734" bodyend="1754"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1aa7e1921daad9c2d2abab833bab7e0c19" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::cleanup_appcall</definition>
+        <argsstring>(thid_t tid)</argsstring>
+        <name>cleanup_appcall</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1545" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1755" bodyend="1758"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a798fecc8a91784d2ff7a19a867297e70" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::eval_lowcnd</definition>
+        <argsstring>(thid_t tid, ea_t ea, qstring *errbuf=NULL)</argsstring>
+        <name>eval_lowcnd</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1546" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1759" bodyend="1762"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1aefb9e554de0d4b2fb4c86611ed97bc1e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::send_ioctl</definition>
+        <argsstring>(int fn, const void *buf, size_t size, void **poutbuf, ssize_t *poutsize, qstring *errbuf=NULL)</argsstring>
+        <name>send_ioctl</name>
+        <param>
+          <type>int</type>
+          <declname>fn</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>void **</type>
+          <declname>poutbuf</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref> *</type>
+          <declname>poutsize</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1547" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1763" bodyend="1766"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1aba90d4dc6cab19e15f30f28bb1f760f1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::dbg_enable_trace</definition>
+        <argsstring>(thid_t tid, bool enable, int trace_flags)</argsstring>
+        <name>dbg_enable_trace</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>enable</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>trace_flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1548" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1767" bodyend="1770"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a7406c2f9dffe11f10b26404118637ea7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::is_tracing_enabled</definition>
+        <argsstring>(thid_t tid, int tracebit)</argsstring>
+        <name>is_tracing_enabled</name>
+        <param>
+          <type><ref refid="idd_8hpp_1a479b4266d280e0d77b7ca914dec19122" kindref="member">thid_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tracebit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1549" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1771" bodyend="1774"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1ae8cce8dac91d7b01718f2625b8d58bd8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int debugger_t::rexec</definition>
+        <argsstring>(const char *cmdline)</argsstring>
+        <name>rexec</name>
+        <param>
+          <type>const char *</type>
+          <declname>cmdline</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1550" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1775" bodyend="1778"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1ac7d152c7facb9e4748cb75dd303571f7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool debugger_t::get_srcinfo_path</definition>
+        <argsstring>(qstring *path, ea_t base)</argsstring>
+        <name>get_srcinfo_path</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>base</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1551" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1779" bodyend="1782"/>
+      </memberdef>
+      <memberdef kind="function" id="structdebugger__t_1a7ac615be62d2808d77aa509fe7810af7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="idd_8hpp_1a164941275c4bd78d8b80da8ff3e578dc" kindref="member">drc_t</ref></type>
+        <definition>drc_t debugger_t::bin_search</definition>
+        <argsstring>(ea_t *out, ea_t start_ea, ea_t end_ea, const compiled_binpat_vec_t &amp;data, int srch_flags, qstring *errbuf=NULL)</argsstring>
+        <name>bin_search</name>
+        <param>
+          <type>ea_t *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>start_ea</declname>
+        </param>
+        <param>
+          <type>ea_t</type>
+          <declname>end_ea</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classqvector" kindref="compound">compiled_binpat_vec_t</ref> &amp;</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>srch_flags</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>errbuf</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="1552" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="1783" bodyend="1792"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This structure describes a debugger API module. (functions needed to debug a process on a specific operating system).</para><para>The address of this structure must be put into the <ref refid="dbg_8hpp_1a04f2054203bde05f4392b3f135a29fe3" kindref="member">dbg</ref> variable by the <ref refid="classplugin__t_1af28ff1f503d576299d7c1b0aa42220b2" kindref="member">plugin_t::init()</ref> function of the debugger plugin. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1476">
+        <label>debugger_t</label>
+        <link refid="structdebugger__t"/>
+        <childnode refid="1477" relation="usage">
+          <edgelabel>registers</edgelabel>
+        </childnode>
+      </node>
+      <node id="1477">
+        <label>register_info_t</label>
+        <link refid="structregister__info__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="730" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="729" bodyend="1559"/>
+    <listofallmembers>
+      <member refid="structdebugger__t_1a893387353de2f48d6609fc7e9ba1090c" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>appcall</name></member>
+      <member refid="structdebugger__t_1a92d869126c04b74b229816f2691fe134" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>attach_process</name></member>
+      <member refid="structdebugger__t_1a7ac615be62d2808d77aa509fe7810af7" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>bin_search</name></member>
+      <member refid="structdebugger__t_1aafda41b65555061dd5a7708c6e6db45e" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>bpt_bytes</name></member>
+      <member refid="structdebugger__t_1adefd175bea42a81893bad4685247daa4" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>bpt_size</name></member>
+      <member refid="structdebugger__t_1a5024fb5a5458a8a9cdfabf84dc76d84d" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>cache_block_size</name></member>
+      <member refid="structdebugger__t_1a69f73da2deeb0c9d9312d63d025c8daf" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>callback</name></member>
+      <member refid="structdebugger__t_1adf1109ed2c716e83c201d62de4ee2e51" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>can_continue_from_bpt</name></member>
+      <member refid="structdebugger__t_1a119137e69c2551eac3a1317a7a48e06b" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>can_debug_standalone_dlls</name></member>
+      <member refid="structdebugger__t_1a9435a69b8e8cedb6699f13e5da0f4638" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>check_bpt</name></member>
+      <member refid="structdebugger__t_1aa7e1921daad9c2d2abab833bab7e0c19" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>cleanup_appcall</name></member>
+      <member refid="structdebugger__t_1a5b0851fd43c7683febb91d098cba72ec" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>close_file</name></member>
+      <member refid="structdebugger__t_1aba90d4dc6cab19e15f30f28bb1f760f1" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>dbg_enable_trace</name></member>
+      <member refid="structdebugger__t_1a1c441de5a658554b15db075bef5afd3e" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>default_regclasses</name></member>
+      <member refid="structdebugger__t_1aeef091ce62c9a594b2f257a1b20945b0" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>detach_process</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a1d6cb036e830cbccff9a29c432252fb7" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_appcall</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a726171f2519e5e7f11b0444938c38544" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_attach_process</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1af6f1ece26f722af4ae0cce09f32ef890" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_bin_search</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a781ae1a765fbb1485415ab8eca5848d6" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_check_bpt</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a3ba12a0a5ba3e24656b8db17fa06e49c" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_cleanup_appcall</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1af3cf18ffcfbd7e53bee5a78bd2f10f83" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_close_file</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a7e8cb3474ac9b80bd98cec8b6ba79d18" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_dbg_enable_trace</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ab264e77847841829f1a69881b413e1e0" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_detach_process</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ab4a8f81d76f515ece78665bfcfc1aee4" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_eval_lowcnd</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a7dbcfd7860a605302a2b656ec72c8708" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_exit_process</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a6dbef57667b25e477e25118b6f50f912" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_get_debapp_attrs</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ae2c2e6453b39d8905fed8deafa276018" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_get_debmod_extensions</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1aacf8e4aa4b33de196aec958ad1c9f69c" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_get_debug_event</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a6ccb610c8114c8fe3329cf11b23d8260" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_get_memory_info</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a023245736df5950685c26ce24b935b21" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_get_processes</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a201dbc06bc46209145960fffdfd1f5c5" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_get_srcinfo_path</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ab2e07f67b7ecca9071dda367508c4466" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_init_debugger</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a0269bcf464f0b241431274ef0736e350" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_is_tracing_enabled</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ab9059a2a276aa5c3166fcaaf7b20b3de" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_map_address</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ad4b7e3c990b72f67161cecb34e22842a" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_open_file</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a758fb12b7057003ba7a12477c45ce645" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_read_file</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a9a58ca134887fc1d8c8af427c9d5ba71" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_read_memory</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1aac53dbb2cf04b271462ed393def7ca46" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_read_registers</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a3faf3b0606d3baf085215b5080c3dd6b" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_rebase_if_required_to</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1addd313df45ee351f8d77d528a1f390c0" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_request_pause</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1acfac867111fc53223bc22f6dbb718e32" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_resume</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ac5f3c9914618d32e065e02783b1c00fe" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_rexec</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a77911c049ed5f590f37122b362a2c068" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_send_ioctl</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a701dde9d7c2db7bf6590094affce10c1" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_set_exception_info</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a1a1778e9ec6bc0154c8f5fdb13b3fd9a" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_set_resume_mode</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1aedf29595351d30d244f20f700f97dcbd" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_start_process</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ac2113f0365b9a43f8129a386468dcd74" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_suspended</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1af1e771a55f00aa9e9f5c5a299926c52c" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_term_debugger</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a287a48fff42459c8ddcc55c85cd6f4a2" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_thread_continue</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a45d9d5ccadc8b4d6444e082538cdbb0a" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_thread_get_sreg_base</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a6864b94c44c3fc91355e02bc6235ee62" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_thread_suspend</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a7d5a9d0b5f7896bf3ee7e00857c82771" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_update_bpts</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a07a67210139e7dd2d28822e92e79d39a" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_update_call_stack</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a9887874f471360e0a3d5c5956dd864d1" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_update_lowcnds</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1ac1e08ccc804bf81eaa6629907b94e612" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_write_file</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a5c223c7c64bff13187c3044369eb91d9" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_write_memory</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1a997de67e7f3be6872165ff2b179368bd" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>ev_write_register</name></member>
+      <member refid="structdebugger__t_1a798fecc8a91784d2ff7a19a867297e70" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>eval_lowcnd</name></member>
+      <member refid="structdebugger__t_1afab7193608e98043e1a39df0a3d787f1" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>event_t</name></member>
+      <member refid="structdebugger__t_1ae711d9f9ef6f5bdb78f700451080cb27" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>exit_process</name></member>
+      <member refid="structdebugger__t_1a580d36b2b6c8a00ee383a6c8ea498c93" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>fake_memory</name></member>
+      <member refid="structdebugger__t_1a0d8448b3972217ed077b77b362ccc69c" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>filetype</name></member>
+      <member refid="structdebugger__t_1a48e27b9a06eb3abe8cfb1f681c0476f1" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>flags</name></member>
+      <member refid="structdebugger__t_1adb8f51f29177aae6574e6b3b1170e266" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>flags2</name></member>
+      <member refid="structdebugger__t_1a8567072a71ee7b896193e1b3d856beaf" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>get_debapp_attrs</name></member>
+      <member refid="structdebugger__t_1afa5ef3d3aa729e4ab2e120e7d052fd0f" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>get_debmod_extensions</name></member>
+      <member refid="structdebugger__t_1ad2f8b70b33dcfacb0487480ad8942690" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>get_debug_event</name></member>
+      <member refid="structdebugger__t_1a358c304d5ce9f65d20ceb97d183f7dfa" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>get_memory_info</name></member>
+      <member refid="structdebugger__t_1ab780f1155854ff469db50edb6c01a4ad" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>get_processes</name></member>
+      <member refid="structdebugger__t_1ac7d152c7facb9e4748cb75dd303571f7" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>get_srcinfo_path</name></member>
+      <member refid="structdebugger__t_1a74fa3b5ac46d060430d4d3c83aee1056" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>has_appcall</name></member>
+      <member refid="structdebugger__t_1ac22c0aa199671e2b8b2c7d6a00dbf527" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>has_attach_process</name></member>
+      <member refid="structdebugger__t_1a805b512302b01d6f437073d6cbfd8f46" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>has_check_bpt</name></member>
+      <member refid="structdebugger__t_1a2ccc46230b92bbd75c18bdb6e8b64eff" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>has_detach_process</name></member>
+      <member refid="structdebugger__t_1a36e110cd12443b9d3364e4fafaeffaf0" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>has_get_processes</name></member>
+      <member refid="structdebugger__t_1a08994566546583f95c5d051adcb2a6cc" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>has_map_address</name></member>
+      <member refid="structdebugger__t_1a1f4c1b41665f16edcd9cb4a6b43979bb" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>has_open_file</name></member>
+      <member refid="structdebugger__t_1a240fcda027037cfbd6a34a0aead01ada" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>has_request_pause</name></member>
+      <member refid="structdebugger__t_1a0f91d511eb91d9c3a0e8fe4ff57b4210" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>has_rexec</name></member>
+      <member refid="structdebugger__t_1a6012aec12da84081cc48613711ddd6db" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>has_set_exception_info</name></member>
+      <member refid="structdebugger__t_1a08b833c9202f9c9e24c6f280f6f01e88" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>has_set_resume_mode</name></member>
+      <member refid="structdebugger__t_1ac5a12eb1044ed1ee44295f2aee567e04" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>has_thread_continue</name></member>
+      <member refid="structdebugger__t_1afb3d2805335c3b64c7f006984f63aa0a" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>has_thread_get_sreg_base</name></member>
+      <member refid="structdebugger__t_1ae2fcb6b81d7516c6382f478a32707fc7" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>has_thread_suspend</name></member>
+      <member refid="structdebugger__t_1a2cbaf43f5033d2a608b186b3bc4eba71" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>has_update_call_stack</name></member>
+      <member refid="structdebugger__t_1af5fd5700a3daf0ff646a542f87a9f0c6" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>id</name></member>
+      <member refid="structdebugger__t_1a934b65bd1fb1d2bf530c6d215adbba74" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>init_debugger</name></member>
+      <member refid="structdebugger__t_1abdc5838ebd2a3e9edf95fa708faa8a9a" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>is_remote</name></member>
+      <member refid="structdebugger__t_1aa64bf6dd23802ff1a2a647bf893e88b5" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>is_resmod_avail</name></member>
+      <member refid="structdebugger__t_1ad39132d0e46ae0136621697d17bd33ac" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>is_safe</name></member>
+      <member refid="structdebugger__t_1a7406c2f9dffe11f10b26404118637ea7" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>is_tracing_enabled</name></member>
+      <member refid="structdebugger__t_1ad49d3dac844f1c301e20d4a0defe4ea7" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>map_address</name></member>
+      <member refid="structdebugger__t_1a06e8c9267b5173b0cf39a0a35959ba8b" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>may_disturb</name></member>
+      <member refid="structdebugger__t_1a03968ad000767a6375226c27ff79e61c" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>may_take_exit_snapshot</name></member>
+      <member refid="structdebugger__t_1a06e6a92cc94a7bc3fc231e91392af589" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>memory_page_size</name></member>
+      <member refid="structdebugger__t_1a95e53c77395c1008dfc073b22abe8408" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>must_have_hostname</name></member>
+      <member refid="structdebugger__t_1a0fec9ee5e7dd559705c330d5e827ae1d" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>name</name></member>
+      <member refid="structdebugger__t_1afbdf5bc6be9f5bcad16168c0b30e990f" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>notify</name></member>
+      <member refid="structdebugger__t_1a4dde67832b4ecf2e0e4c8009c58960ad" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>notify_drc</name></member>
+      <member refid="structdebugger__t_1a33d0a033efe337160d04e8f8540d4a27" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>nregs</name></member>
+      <member refid="structdebugger__t_1a67e8bc235cd3251da239467944326185" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>open_file</name></member>
+      <member refid="structdebugger__t_1a20ad9af89799075474d046a22b511161" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>processor</name></member>
+      <member refid="structdebugger__t_1a574b1082211d42b189e425baf2090ebd" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>read_file</name></member>
+      <member refid="structdebugger__t_1a89b4208c1f3fee7700e7eaae8c96417f" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>read_memory</name></member>
+      <member refid="structdebugger__t_1a40125e918dbf41b9b091d6d0328d1229" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>read_registers</name></member>
+      <member refid="structdebugger__t_1a13b245dd4c7d94c223190e878494c2b3" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>rebase_if_required_to</name></member>
+      <member refid="structdebugger__t_1ac7ca3ae0a08bd13646c5eb1d4b4eef6a" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>regclasses</name></member>
+      <member refid="structdebugger__t_1a87e5d82ff320199e10064e825c7dd7ae" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>registers</name></member>
+      <member refid="structdebugger__t_1aaddbb2c9fff2955dc1e442541c313da7" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>regs</name></member>
+      <member refid="structdebugger__t_1a86a0b36302464d5e98246145feb0908b" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>request_pause</name></member>
+      <member refid="structdebugger__t_1a855ed9ca0ebd1da80526793bc84e9709" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>resume</name></member>
+      <member refid="structdebugger__t_1a71ed80f2b468eb868a4c1cfcbe1d7493" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>resume_modes</name></member>
+      <member refid="structdebugger__t_1ae8cce8dac91d7b01718f2625b8d58bd8" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>rexec</name></member>
+      <member refid="structdebugger__t_1aefb9e554de0d4b2fb4c86611ed97bc1e" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>send_ioctl</name></member>
+      <member refid="structdebugger__t_1a496e34891b936f74ad690f0bd299d613" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>set_dbg_options</name></member>
+      <member refid="structdebugger__t_1a448aaa93ad6d2aa2f167943e6f8fbd6c" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>set_exception_info</name></member>
+      <member refid="structdebugger__t_1ace57d742febac52d4b18cf061cc4f461" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>set_resume_mode</name></member>
+      <member refid="structdebugger__t_1a5bd3f8e2141f42f54ed7cc1ff6018f45" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>start_process</name></member>
+      <member refid="structdebugger__t_1ad1bfc82f162b24646c479ae054c1a768" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>supports_debthread</name></member>
+      <member refid="structdebugger__t_1a0137174d8a2cff8a9902393e1eeac933" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>supports_lowcnds</name></member>
+      <member refid="structdebugger__t_1a83626ee73f38e5b2952212f32787d850" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>suspended</name></member>
+      <member refid="structdebugger__t_1a20f1ab51dc57457601cd0968fc258e77" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>term_debugger</name></member>
+      <member refid="structdebugger__t_1a5c2bc4ffef74488e835665876fe6320a" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>thread_continue</name></member>
+      <member refid="structdebugger__t_1afa574f68c825876b139e03da94afa8a4" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>thread_get_sreg_base</name></member>
+      <member refid="structdebugger__t_1a6e25a500d62bdae16e536f34e1db3965" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>thread_suspend</name></member>
+      <member refid="structdebugger__t_1a32a979c255cd8c4b310cb879931cd47f" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>update_bpts</name></member>
+      <member refid="structdebugger__t_1a5fbaa964ebf9c0c1a277fddf47ca0044" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>update_call_stack</name></member>
+      <member refid="structdebugger__t_1ad94a4dbcced26cdbc2c628cb2c9c524f" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>update_lowcnds</name></member>
+      <member refid="structdebugger__t_1a97b886afa392671d34fd2a05dfb87dbb" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>use_memregs</name></member>
+      <member refid="structdebugger__t_1a2d2a1c1161546b0438505f50920c5c3c" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>use_sregs</name></member>
+      <member refid="structdebugger__t_1a05e031b463d8a3221537053bbcae1e7c" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>version</name></member>
+      <member refid="structdebugger__t_1aa51dda378df33468a0bc57b9864cf55a" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>virtual_threads</name></member>
+      <member refid="structdebugger__t_1a55c5e91f3f1675092391cc11fa35f795" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>write_file</name></member>
+      <member refid="structdebugger__t_1a382936dba37f201bfeb3c38ae212f701" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>write_memory</name></member>
+      <member refid="structdebugger__t_1a71f63924e2322efcd16a494fe5ff1c51" prot="public" virt="non-virtual"><scope>debugger_t</scope><name>write_register</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

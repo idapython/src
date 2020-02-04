@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_t_k_v_a_r__2" kind="group">
+    <compoundname>STKVAR_2</compoundname>
+    <title>Stack variable flags</title>
+      <sectiondef kind="user-defined">
+      <header>Emulator helpers</header>
+      <memberdef kind="define" id="group___s_t_k_v_a_r__2_1gadea83308bbe3028f66bde2b06d3931e1" prot="public" static="no">
+        <name>STKVAR_VALID_SIZE</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>x.dtype contains correct variable type (for insns like &apos;lea&apos; this bit must be off) in general, dr_O references do not allow to determine the variable size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="498" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="498" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___s_t_k_v_a_r__2_1ga86643d38c191f06b359d86f244004b7a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void insn_t::add_cref</definition>
+        <argsstring>(ea_t to, int opoff, cref_t type) const</argsstring>
+        <name>add_cref</name>
+        <param>
+          <type>ea_t</type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>opoff</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xref__type_1ga44e2b79869a9595bbe6265ff2026aa98" kindref="member">cref_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add a code cross-reference from the instruction. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>opoff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>offset of the operand from the start of instruction. if the offset is unknown, then 0. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>to</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>target linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of xref </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="511" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="511" bodyend="514"/>
+      </memberdef>
+      <memberdef kind="function" id="group___s_t_k_v_a_r__2_1ga0b1d0741288844dba9689290230a17ca" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void insn_t::add_dref</definition>
+        <argsstring>(ea_t to, int opoff, dref_t type) const</argsstring>
+        <name>add_dref</name>
+        <param>
+          <type>ea_t</type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>opoff</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xref__type_1ga78aab6d0d6bd9cb4904bbdbb5ac4fa71" kindref="member">dref_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add a data cross-reference from the instruction. See <ref refid="group___s_t_k_v_a_r__2_1ga33eadf9082c4670ee2c102b5d99622ec" kindref="member">add_off_drefs()</ref> - usually it can be used in most cases. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>opoff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>offset of the operand from the start of instruction if the offset is unknown, then 0 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>to</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>target linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of xref </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="524" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="524" bodyend="527"/>
+      </memberdef>
+      <memberdef kind="function" id="group___s_t_k_v_a_r__2_1ga33eadf9082c4670ee2c102b5d99622ec" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t insn_t::add_off_drefs</definition>
+        <argsstring>(const op_t &amp;x, dref_t type, int outf) const</argsstring>
+        <name>add_off_drefs</name>
+        <param>
+          <type>const <ref refid="classop__t" kindref="compound">op_t</ref> &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xref__type_1ga78aab6d0d6bd9cb4904bbdbb5ac4fa71" kindref="member">dref_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>outf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add xrefs for an operand of the instruction. This function creates all cross references for &apos;offset&apos; and &apos;structure offset&apos; operands. Use <ref refid="group___s_t_k_v_a_r__2_1ga33eadf9082c4670ee2c102b5d99622ec" kindref="member">add_off_drefs()</ref> in the presence of negative offsets. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>reference to operand </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of xref </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>outf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>out_value() flags. These flags should match the flags used to output the operand </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>if <ref refid="group___f_f__opfuncs2_1gae2674933600c8a1e3aed29cd52466766" kindref="member">is_off()</ref>, the reference target address (the same as calc_reference_data). else, <ref refid="pro_8h_1a63a7c1cde5fb0cf0d0023d55c742dd4f" kindref="member">BADADDR</ref>, because for stroffs the target address is unknown </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" line="541" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ua.hpp" bodystart="541" bodyend="544"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as &apos;flags&apos; parameter to <ref refid="classinsn__t_1abaeb6683f9b328932887c458550edd50" kindref="member">create_stkvar()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

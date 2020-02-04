@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s2_e_a_o_p_t__" kind="group">
+    <compoundname>S2EAOPT_</compoundname>
+    <title>String to address conversion flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s2_e_a_o_p_t___1gad33c8ecff62ac3b8e2130b358bebd10c" prot="public" static="no">
+        <name>S2EAOPT_NOCALC</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>don&apos;t try to interpret string as IDC (or current extlang) expression </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6775" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6775" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>passed as &apos;flags&apos; parameter to <ref refid="group__conv_1ga23d7766239e287fb8ff399b5bc0aaee5" kindref="member">str2ea_ex()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

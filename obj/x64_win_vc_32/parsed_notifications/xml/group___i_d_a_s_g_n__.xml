@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___i_d_a_s_g_n__" kind="group">
+    <compoundname>IDASGN_</compoundname>
+    <title>Error codes for signature functions:</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___i_d_a_s_g_n___1gac254d7fc6f7d0f1fc23d9ba2b9b0d7f5" prot="public" static="no">
+        <name>IDASGN_OK</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>ok </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="816" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="816" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a_s_g_n___1gadccd43014c7fe84025391684eca0c483" prot="public" static="no">
+        <name>IDASGN_BADARG</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>bad number of signature </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="817" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="817" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a_s_g_n___1ga0ed1e8d15a128423ad7e6ec66a3b1084" prot="public" static="no">
+        <name>IDASGN_APPLIED</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>signature is already applied </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="818" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="818" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a_s_g_n___1ga3cd1a2f59f129c3409b4ba7067671c26" prot="public" static="no">
+        <name>IDASGN_CURRENT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>signature is currently being applied </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="819" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="819" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_a_s_g_n___1ga5fb5f33fa63a75ff1c34d52806419490" prot="public" static="no">
+        <name>IDASGN_PLANNED</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>signature is planned to be applied </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="820" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="820" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>See <ref refid="funcs_8hpp_1adac32c36269d53db5a14273b7ee09d03" kindref="member">calc_idasgn_state()</ref> and <ref refid="funcs_8hpp_1a3431fb53c0c6e4ec9519348d60722a5b" kindref="member">del_idasgn()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

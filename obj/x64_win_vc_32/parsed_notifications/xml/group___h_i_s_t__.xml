@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___h_i_s_t__" kind="group">
+    <compoundname>HIST_</compoundname>
+    <title>Input line history constants</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___h_i_s_t___1ga3619a6759f19f19273af06c5f32546d9" prot="public" static="no">
+        <name>HIST_SEG</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>segment names </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6482" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6482" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___h_i_s_t___1ga586bd9d4b535ecb349d4c904ba703fd4" prot="public" static="no">
+        <name>HIST_CMT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>comments </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6483" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6483" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___h_i_s_t___1ga8d9e3e3fbd5f5a3eba7758d9fe87c021" prot="public" static="no">
+        <name>HIST_SRCH</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>search substrings </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6484" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6484" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___h_i_s_t___1ga62b790b8074fe5f14858b3853c97dbd3" prot="public" static="no">
+        <name>HIST_IDENT</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>names </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6485" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6485" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___h_i_s_t___1ga5db360b7dc71a7fb4411e61cdd448cba" prot="public" static="no">
+        <name>HIST_FILE</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>file names </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6486" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6486" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___h_i_s_t___1ga0eea710a92cc5190f93077acaaf4be34" prot="public" static="no">
+        <name>HIST_TYPE</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>type declarations </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6487" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6487" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___h_i_s_t___1gace7250711b03531fbe767ede1ebd4df4" prot="public" static="no">
+        <name>HIST_CMD</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>commands </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6488" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6488" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___h_i_s_t___1ga5d862b831bfc52ed521d207b9584a022" prot="public" static="no">
+        <name>HIST_DIR</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>directory names (text version only) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6489" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6489" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>passed as &apos;hist&apos; parameter to ask_str() </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

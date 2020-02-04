@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classmember__t" kind="class" language="C++" prot="public">
+    <compoundname>member_t</compoundname>
+    <includes refid="struct_8hpp" local="no">struct.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classmember__t_1a8655835ef5a82afca4d9e678b6e47904" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1ad8791d30d19843bc09b78bdf01a852ec" kindref="member">tid_t</ref></type>
+        <definition>tid_t member_t::id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+<para>name(), cmt, rptcmt </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="24" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmember__t_1a37f32f13f24c2468f486e3201636245d" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t member_t::soff</definition>
+        <argsstring></argsstring>
+        <name>soff</name>
+        <briefdescription>
+<para>start offset (for unions - number of the member 0..n) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="25" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmember__t_1acc1698d4bdd05601d40c915a80235a38" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t member_t::eoff</definition>
+        <argsstring></argsstring>
+        <name>eoff</name>
+        <briefdescription>
+<para>end offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="26" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmember__t_1af51df845691851f79858a8b29c42c4bf" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a55dd00e03168fb5180830e87ef0a2c57" kindref="member">flags_t</ref></type>
+        <definition>flags_t member_t::flag</definition>
+        <argsstring></argsstring>
+        <name>flag</name>
+        <briefdescription>
+<para>type+representation bits </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="27" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmember__t_1a3d4593fb785a350b20c57e47cc106dce" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 member_t::props</definition>
+        <argsstring></argsstring>
+        <name>props</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___m_f__" kindref="compound">Struct member properties</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="29" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmember__t_1a4660bf33784a169215b33f366d55f1f1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool member_t::unimem</definition>
+        <argsstring>(void) const</argsstring>
+        <name>unimem</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is a member of a union? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="44" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="44" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classmember__t_1a9a1864c633a561617dfa30eccaaf5317" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool member_t::has_union</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_union</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Has members of type &quot;union&quot;? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="46" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="46" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classmember__t_1a6260e7a0919902da2278bb2680e5e6ed" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool member_t::by_til</definition>
+        <argsstring>(void) const</argsstring>
+        <name>by_til</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Was the member created due to the type system? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="48" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classmember__t_1a0b99b7fe3f4b54454acff11ad6a0cb5f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool member_t::has_ti</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_ti</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Has type information? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="50" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="50" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classmember__t_1ad1112785e0f04123bd46369487b61d90" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool member_t::is_baseclass</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_baseclass</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is a base class member? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="52" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="52" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classmember__t_1aa6ddd9a5880e15dd7e5fcd11c3525eae" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool member_t::is_dupname</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_dupname</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Duplicate name was resolved during import? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="54" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="54" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classmember__t_1a4f24534b161112233b0c8e7e5fde97b3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool member_t::is_destructor</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_destructor</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is a virtual destructor? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="56" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="56" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classmember__t_1a0f4f203a7b1505a5d0296c1bd61550d5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>ea_t</type>
+        <definition>ea_t member_t::get_soff</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_soff</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get start offset (for unions - returns 0) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="58" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="58" bodyend="58"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Describes a member of an assembly level structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" line="22" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/struct.hpp" bodystart="21" bodyend="59"/>
+    <listofallmembers>
+      <member refid="classmember__t_1a6260e7a0919902da2278bb2680e5e6ed" prot="public" virt="non-virtual"><scope>member_t</scope><name>by_til</name></member>
+      <member refid="classmember__t_1acc1698d4bdd05601d40c915a80235a38" prot="public" virt="non-virtual"><scope>member_t</scope><name>eoff</name></member>
+      <member refid="classmember__t_1af51df845691851f79858a8b29c42c4bf" prot="public" virt="non-virtual"><scope>member_t</scope><name>flag</name></member>
+      <member refid="classmember__t_1a0f4f203a7b1505a5d0296c1bd61550d5" prot="public" virt="non-virtual"><scope>member_t</scope><name>get_soff</name></member>
+      <member refid="classmember__t_1a0b99b7fe3f4b54454acff11ad6a0cb5f" prot="public" virt="non-virtual"><scope>member_t</scope><name>has_ti</name></member>
+      <member refid="classmember__t_1a9a1864c633a561617dfa30eccaaf5317" prot="public" virt="non-virtual"><scope>member_t</scope><name>has_union</name></member>
+      <member refid="classmember__t_1a8655835ef5a82afca4d9e678b6e47904" prot="public" virt="non-virtual"><scope>member_t</scope><name>id</name></member>
+      <member refid="classmember__t_1ad1112785e0f04123bd46369487b61d90" prot="public" virt="non-virtual"><scope>member_t</scope><name>is_baseclass</name></member>
+      <member refid="classmember__t_1a4f24534b161112233b0c8e7e5fde97b3" prot="public" virt="non-virtual"><scope>member_t</scope><name>is_destructor</name></member>
+      <member refid="classmember__t_1aa6ddd9a5880e15dd7e5fcd11c3525eae" prot="public" virt="non-virtual"><scope>member_t</scope><name>is_dupname</name></member>
+      <member refid="classmember__t_1a3d4593fb785a350b20c57e47cc106dce" prot="public" virt="non-virtual"><scope>member_t</scope><name>props</name></member>
+      <member refid="classmember__t_1a37f32f13f24c2468f486e3201636245d" prot="public" virt="non-virtual"><scope>member_t</scope><name>soff</name></member>
+      <member refid="classmember__t_1a4660bf33784a169215b33f366d55f1f1" prot="public" virt="non-virtual"><scope>member_t</scope><name>unimem</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

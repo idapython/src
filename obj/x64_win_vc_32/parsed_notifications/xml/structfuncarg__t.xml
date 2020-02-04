@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structfuncarg__t" kind="struct" language="C++" prot="public">
+    <compoundname>funcarg_t</compoundname>
+    <includes refid="typeinf_8hpp" local="no">typeinf.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structfuncarg__t_1a29daf27865209d3c43c2a02b98299721" prot="public" static="no" mutable="no">
+        <type><ref refid="classargloc__t" kindref="compound">argloc_t</ref></type>
+        <definition>argloc_t funcarg_t::argloc</definition>
+        <argsstring></argsstring>
+        <name>argloc</name>
+        <briefdescription>
+<para>argument location </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3210" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfuncarg__t_1a6a785be1988d154d4746f382461df71b" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring funcarg_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>argument name (may be empty) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3211" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfuncarg__t_1a45fd921c0dbe90e4507a3c0e90965c62" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref></type>
+        <definition>qstring funcarg_t::cmt</definition>
+        <argsstring></argsstring>
+        <name>cmt</name>
+        <briefdescription>
+<para>argument comment (may be empty) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3212" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfuncarg__t_1a246ef34e21454fce8aa3e400d2ec5aae" prot="public" static="no" mutable="no">
+        <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref></type>
+        <definition>tinfo_t funcarg_t::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+<para>argument type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3213" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfuncarg__t_1ad8e3c72762a709b04a234fbb8cc1c9ec" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 funcarg_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___f_a_i__" kindref="compound">Function argument property bits</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3214" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3214" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structfuncarg__t_1afdcfd6df2a6eeb445e6f427481c08de8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>funcarg_t::funcarg_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>funcarg_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3227" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="structfuncarg__t_1af6329976e8fd55054900716002639360" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool funcarg_t::operator==</definition>
+        <argsstring>(const funcarg_t &amp;r) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structfuncarg__t" kindref="compound">funcarg_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3228" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3228" bodyend="3234"/>
+      </memberdef>
+      <memberdef kind="function" id="structfuncarg__t_1a55ee05c5631016ddb79243dc0406cdb1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool funcarg_t::operator!=</definition>
+        <argsstring>(const funcarg_t &amp;r) const</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structfuncarg__t" kindref="compound">funcarg_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3235" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3235" bodyend="3235"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Information about a single function argument. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1666">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="1664">
+        <label>funcarg_t</label>
+        <link refid="structfuncarg__t"/>
+        <childnode refid="1665" relation="usage">
+          <edgelabel>cmt</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="1666" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+        <childnode refid="1667" relation="usage">
+          <edgelabel>argloc</edgelabel>
+        </childnode>
+      </node>
+      <node id="1665">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="1668">
+        <label>scattered_aloc_t</label>
+        <link refid="classscattered__aloc__t"/>
+        <childnode refid="1669" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1669">
+        <label>qvector&lt; argpart_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="1667">
+        <label>argloc_t</label>
+        <link refid="classargloc__t"/>
+        <childnode refid="1668" relation="usage">
+          <edgelabel>dist</edgelabel>
+        </childnode>
+        <childnode refid="1670" relation="usage">
+          <edgelabel>rrel</edgelabel>
+        </childnode>
+      </node>
+      <node id="1670">
+        <label>rrel_t</label>
+        <link refid="structrrel__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="3209" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="3208" bodyend="3236"/>
+    <listofallmembers>
+      <member refid="structfuncarg__t_1a29daf27865209d3c43c2a02b98299721" prot="public" virt="non-virtual"><scope>funcarg_t</scope><name>argloc</name></member>
+      <member refid="structfuncarg__t_1a45fd921c0dbe90e4507a3c0e90965c62" prot="public" virt="non-virtual"><scope>funcarg_t</scope><name>cmt</name></member>
+      <member refid="structfuncarg__t_1ad8e3c72762a709b04a234fbb8cc1c9ec" prot="public" virt="non-virtual"><scope>funcarg_t</scope><name>flags</name></member>
+      <member refid="structfuncarg__t_1afdcfd6df2a6eeb445e6f427481c08de8" prot="public" virt="non-virtual"><scope>funcarg_t</scope><name>funcarg_t</name></member>
+      <member refid="structfuncarg__t_1a6a785be1988d154d4746f382461df71b" prot="public" virt="non-virtual"><scope>funcarg_t</scope><name>name</name></member>
+      <member refid="structfuncarg__t_1a55ee05c5631016ddb79243dc0406cdb1" prot="public" virt="non-virtual"><scope>funcarg_t</scope><name>operator!=</name></member>
+      <member refid="structfuncarg__t_1af6329976e8fd55054900716002639360" prot="public" virt="non-virtual"><scope>funcarg_t</scope><name>operator==</name></member>
+      <member refid="structfuncarg__t_1a246ef34e21454fce8aa3e400d2ec5aae" prot="public" virt="non-virtual"><scope>funcarg_t</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

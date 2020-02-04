@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__tattr__ext" kind="group">
+    <compoundname>tattr_ext</compoundname>
+    <title>Extended type attributes</title>
+    <innerclass refid="structtype__attr__t" prot="public">type_attr_t</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__tattr__ext_1ga59ddf13221681bc7444911f100dc5f5b" prot="public" static="no">
+        <type><ref refid="classqvector" kindref="compound">qvector</ref>&lt; <ref refid="structtype__attr__t" kindref="compound">type_attr_t</ref> &gt;</type>
+        <definition>typedef qvector&lt;type_attr_t&gt; type_attrs_t</definition>
+        <argsstring></argsstring>
+        <name>type_attrs_t</name>
+        <briefdescription>
+<para>this vector must be sorted by keys </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="555" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="552" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__tattr__ext_1ga91970b0d779fe968b3b22572526048a0" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int type_sign_t</definition>
+        <argsstring></argsstring>
+        <name>type_sign_t</name>
+        <briefdescription>
+<para>type signedness </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="557" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="557" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__tattr__ext_1gab2774527d973c5dd40e9f7e579c7af36" prot="public" static="no" mutable="no">
+        <type>const <ref refid="group__tattr__ext_1ga91970b0d779fe968b3b22572526048a0" kindref="member">type_sign_t</ref></type>
+        <definition>const type_sign_t no_sign</definition>
+        <argsstring></argsstring>
+        <name>no_sign</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>no sign, or unknown </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="559" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="559" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tattr__ext_1gaf45de3aa578ef02a11d2bf2b17359862" prot="public" static="no" mutable="no">
+        <type>const <ref refid="group__tattr__ext_1ga91970b0d779fe968b3b22572526048a0" kindref="member">type_sign_t</ref></type>
+        <definition>const type_sign_t type_signed</definition>
+        <argsstring></argsstring>
+        <name>type_signed</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+<para>signed type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="560" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="560" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tattr__ext_1ga1de8496252de025e429aec933c9c8aa3" prot="public" static="no" mutable="no">
+        <type>const <ref refid="group__tattr__ext_1ga91970b0d779fe968b3b22572526048a0" kindref="member">type_sign_t</ref></type>
+        <definition>const type_sign_t type_unsigned</definition>
+        <argsstring></argsstring>
+        <name>type_unsigned</name>
+        <initializer>= 2</initializer>
+        <briefdescription>
+<para>unsigned type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="561" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="561" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__tattr__ext_1ga916d3ac71d35862753a03da1dad9ae3f" prot="public" static="no">
+        <name>TAH_HASATTRS</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>has extended attributes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="459" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="459" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

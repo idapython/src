@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_l_n_l__" kind="group">
+    <compoundname>CLNL_</compoundname>
+    <title>line cleanup flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___c_l_n_l___1ga981407121457ab9ec47d4242796c363e" prot="public" static="no">
+        <name>CLNL_RTRIM</name>
+        <initializer>(1 &lt;&lt; 0)</initializer>
+        <briefdescription>
+<para>Remove trailing space characters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6701" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6701" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_l_n_l___1gae7c537f6dc99aef79f813ebc2ae59748" prot="public" static="no">
+        <name>CLNL_LTRIM</name>
+        <initializer>(1 &lt;&lt; 1)</initializer>
+        <briefdescription>
+<para>Remove leading space characters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6702" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6702" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_l_n_l___1ga2cccd6016c01267deed6bf132a84cd84" prot="public" static="no">
+        <name>CLNL_FINDCMT</name>
+        <initializer>(1 &lt;&lt; 2)</initializer>
+        <briefdescription>
+<para>Search for the comment symbol everywhere in the line, not only at the beginning. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6703" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6703" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_l_n_l___1ga61c280d09fd8f9e965ad7a70a8329267" prot="public" static="no">
+        <name>CLNL_TRIM</name>
+        <initializer>(<ref refid="group___c_l_n_l___1ga981407121457ab9ec47d4242796c363e" kindref="member">CLNL_RTRIM</ref>|<ref refid="group___c_l_n_l___1gae7c537f6dc99aef79f813ebc2ae59748" kindref="member">CLNL_LTRIM</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" line="6705" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/kernwin.hpp" bodystart="6705" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as &apos;flags&apos; parameter to <ref refid="group__str__funcs_1ga1f87ab9445979e4ad6dc846b61d9980d" kindref="member">qcleanline()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___s_e_t_c_o_m_p__" kind="group">
+    <compoundname>SETCOMP_</compoundname>
+    <title>Set compiler flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___s_e_t_c_o_m_p___1gad56c8127b00e8320c3d8d055b28febf1" prot="public" static="no">
+        <name>SETCOMP_OVERRIDE</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>may override old compiler info </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1484" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1484" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_t_c_o_m_p___1gaaeecd262c386f90bffb8b60a17fc1e69" prot="public" static="no">
+        <name>SETCOMP_ONLY_ID</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>cc has only &apos;id&apos; field the rest will be set to defaults corresponding to the program bitness </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1485" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1485" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_t_c_o_m_p___1ga4ac2eeb3b722e6839795598d40beaa24" prot="public" static="no">
+        <name>SETCOMP_ONLY_ABI</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>ignore cc field complete, use only abiname </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1488" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1488" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___s_e_t_c_o_m_p___1ga79055d3e62cc32d2178681d62dadcc2d" prot="public" static="no">
+        <name>SETCOMP_BY_USER</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>invoked by user, can not be replaced by module/loader </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" line="1489" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/typeinf.hpp" bodystart="1489" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

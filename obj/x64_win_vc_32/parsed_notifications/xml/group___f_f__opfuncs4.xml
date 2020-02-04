@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_f__opfuncs4" kind="group">
+    <compoundname>FF_opfuncs4</compoundname>
+    <title>Functions: set operand representation</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___f_f__opfuncs4_1gadf0295e1cf57d6f60f16aa702c096af9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi op_chr</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>op_chr</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>set op type to <ref refid="group___f_f__opfuncs3_1ga2afc147b3d4d195096d1d48318be4fc9" kindref="member">char_flag()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1306" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs4_1ga7cb5e2ddd05e952cf01441deb704fa20" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi op_num</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>op_num</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>set op type to <ref refid="group___f_f__opfuncs3_1gaa2b780d9ba5eddf86fcbea6cad730bd0" kindref="member">num_flag()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1307" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1307" bodyend="1306"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs4_1ga3a75b188796c73be1cd02ad829e9c003" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi op_hex</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>op_hex</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>set op type to <ref refid="group___f_f__opfuncs3_1gaae77e3835c3ea4ffa2e8464576a956ec" kindref="member">hex_flag()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1308" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1308" bodyend="1307"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs4_1ga84fc23f7331f5187eace66897b8e2bfc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi op_dec</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>op_dec</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>set op type to <ref refid="group___f_f__opfuncs3_1gab5bef3630157cf7375f852a1de07ceca" kindref="member">dec_flag()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1309" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1309" bodyend="1308"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs4_1ga061587ee57e5454a47d449d1e35dd2b4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi op_oct</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>op_oct</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>set op type to <ref refid="group___f_f__opfuncs3_1ga777a1ae1ee5d1c9ed05cabc954fc4509" kindref="member">oct_flag()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1310" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1310" bodyend="1309"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs4_1gafa0dc35c076ef810542901b566545d25" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi op_bin</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>op_bin</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>set op type to <ref refid="group___f_f__opfuncs3_1gae6a46678a4e686b236128952a0a3fd68" kindref="member">bin_flag()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1311" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1311" bodyend="1310"/>
+      </memberdef>
+      <memberdef kind="function" id="group___f_f__opfuncs4_1gaba581bada7325e01513f001459cf9c35" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool idaapi</type>
+        <definition>bool idaapi op_flt</definition>
+        <argsstring>(ea_t ea, int n)</argsstring>
+        <name>op_flt</name>
+        <param>
+          <type>ea_t</type>
+          <declname>ea</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>set op type to <ref refid="group___f_f__opfuncs3_1ga6d400ac9b71376def3b63e72684a596e" kindref="member">flt_flag()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" line="1312" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/bytes.hpp" bodystart="1312" bodyend="1311"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>The following functions set operand representation. If they are applied to unexplored bytes, they convert them.<itemizedlist>
+<listitem><para>no segment : fail</para></listitem><listitem><para>16bit segment : to 16bit word data</para></listitem><listitem><para>32bit segment : to dword <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>linear address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of operand (0, 1, -1) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>success </para></simplesect>
+</para></listitem></itemizedlist>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

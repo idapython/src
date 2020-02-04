@@ -1,0 +1,727 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_o_l_o_r__" kind="group">
+    <compoundname>COLOR_</compoundname>
+    <title>Color tags</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gae1f12972d46fa466e844c9f3a95311f2" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_DEFAULT</definition>
+        <argsstring></argsstring>
+        <name>COLOR_DEFAULT</name>
+        <initializer>= 0x01</initializer>
+        <briefdescription>
+<para>Default. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="79" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga301ca0256c8f14c9bdaca587aba8ec3b" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_REGCMT</definition>
+        <argsstring></argsstring>
+        <name>COLOR_REGCMT</name>
+        <initializer>= 0x02</initializer>
+        <briefdescription>
+<para>Regular comment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="80" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga5499989d4e595fe63a5b38e78366fbaf" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_RPTCMT</definition>
+        <argsstring></argsstring>
+        <name>COLOR_RPTCMT</name>
+        <initializer>= 0x03</initializer>
+        <briefdescription>
+<para>Repeatable comment (comment defined somewhere else) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="81" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga1ba160d785dc987a23b63a5d46139980" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_AUTOCMT</definition>
+        <argsstring></argsstring>
+        <name>COLOR_AUTOCMT</name>
+        <initializer>= 0x04</initializer>
+        <briefdescription>
+<para>Automatic comment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="82" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gaf9302986aaedda34f1d8f8ba695e4598" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_INSN</definition>
+        <argsstring></argsstring>
+        <name>COLOR_INSN</name>
+        <initializer>= 0x05</initializer>
+        <briefdescription>
+<para>Instruction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="83" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga5bd488cc0b80035544ca162d4531a306" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_DATNAME</definition>
+        <argsstring></argsstring>
+        <name>COLOR_DATNAME</name>
+        <initializer>= 0x06</initializer>
+        <briefdescription>
+<para>Dummy Data Name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="84" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga1eabccb2cd66d7d90f6c3f6cf70b95bc" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_DNAME</definition>
+        <argsstring></argsstring>
+        <name>COLOR_DNAME</name>
+        <initializer>= 0x07</initializer>
+        <briefdescription>
+<para>Regular Data Name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="85" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga407444cda7bf64fd33a0d474a6f165c8" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_DEMNAME</definition>
+        <argsstring></argsstring>
+        <name>COLOR_DEMNAME</name>
+        <initializer>= 0x08</initializer>
+        <briefdescription>
+<para>Demangled Name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="86" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gaf4f5b2ccf54e99565011d5c8dc552533" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_SYMBOL</definition>
+        <argsstring></argsstring>
+        <name>COLOR_SYMBOL</name>
+        <initializer>= 0x09</initializer>
+        <briefdescription>
+<para>Punctuation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="87" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga90f1f5b43dcbfa27179a4e265f833bb7" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_CHAR</definition>
+        <argsstring></argsstring>
+        <name>COLOR_CHAR</name>
+        <initializer>= 0x0A</initializer>
+        <briefdescription>
+<para>Char constant in instruction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="88" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga7ffc473fea0349f5b189c1652e616ae6" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_STRING</definition>
+        <argsstring></argsstring>
+        <name>COLOR_STRING</name>
+        <initializer>= 0x0B</initializer>
+        <briefdescription>
+<para>String constant in instruction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="89" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga448d134c3d37b267a3f1aeab4f81bc0d" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_NUMBER</definition>
+        <argsstring></argsstring>
+        <name>COLOR_NUMBER</name>
+        <initializer>= 0x0C</initializer>
+        <briefdescription>
+<para>Numeric constant in instruction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="90" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga950298d6bbb40f6b9e2afed88dd85bcf" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_VOIDOP</definition>
+        <argsstring></argsstring>
+        <name>COLOR_VOIDOP</name>
+        <initializer>= 0x0D</initializer>
+        <briefdescription>
+<para>Void operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="91" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gac0378046a946d6b43b9d36add04c6584" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_CREF</definition>
+        <argsstring></argsstring>
+        <name>COLOR_CREF</name>
+        <initializer>= 0x0E</initializer>
+        <briefdescription>
+<para>Code reference. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="92" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga968706a2111b038f5eaca6692b11539a" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_DREF</definition>
+        <argsstring></argsstring>
+        <name>COLOR_DREF</name>
+        <initializer>= 0x0F</initializer>
+        <briefdescription>
+<para>Data reference. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="93" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga60dba6eb3b42ef520f83b19648addb04" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_CREFTAIL</definition>
+        <argsstring></argsstring>
+        <name>COLOR_CREFTAIL</name>
+        <initializer>= 0x10</initializer>
+        <briefdescription>
+<para>Code reference to tail byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="94" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gadef0810d71c3a81217d8b96e9f6bf7ea" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_DREFTAIL</definition>
+        <argsstring></argsstring>
+        <name>COLOR_DREFTAIL</name>
+        <initializer>= 0x11</initializer>
+        <briefdescription>
+<para>Data reference to tail byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="95" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gafae3148d3c44b3a34f47875bf5510b3d" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_ERROR</definition>
+        <argsstring></argsstring>
+        <name>COLOR_ERROR</name>
+        <initializer>= 0x12</initializer>
+        <briefdescription>
+<para>Error or problem. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="96" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga912f8fd7052fd04cf858a9eae4304c4d" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_PREFIX</definition>
+        <argsstring></argsstring>
+        <name>COLOR_PREFIX</name>
+        <initializer>= 0x13</initializer>
+        <briefdescription>
+<para>Line prefix. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="97" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga49c62156c838b13ebf8a764aa4299ffb" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_BINPREF</definition>
+        <argsstring></argsstring>
+        <name>COLOR_BINPREF</name>
+        <initializer>= 0x14</initializer>
+        <briefdescription>
+<para>Binary line prefix bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="98" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga8636ab58d7cad0fb9f1e032ba82ed21a" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_EXTRA</definition>
+        <argsstring></argsstring>
+        <name>COLOR_EXTRA</name>
+        <initializer>= 0x15</initializer>
+        <briefdescription>
+<para>Extra line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="99" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gad3bbb5741bb1163de6d667b6b3db51fa" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_ALTOP</definition>
+        <argsstring></argsstring>
+        <name>COLOR_ALTOP</name>
+        <initializer>= 0x16</initializer>
+        <briefdescription>
+<para>Alternative operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="100" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gac97470043a2965c882cfc6987b8cd65f" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_HIDNAME</definition>
+        <argsstring></argsstring>
+        <name>COLOR_HIDNAME</name>
+        <initializer>= 0x17</initializer>
+        <briefdescription>
+<para>Hidden name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="101" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga82271ff5a7d50c5e0b12454ae5385c67" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_LIBNAME</definition>
+        <argsstring></argsstring>
+        <name>COLOR_LIBNAME</name>
+        <initializer>= 0x18</initializer>
+        <briefdescription>
+<para>Library function name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="102" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga9130ef5a3cbb7dd0a52a7326c2f7bc4b" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_LOCNAME</definition>
+        <argsstring></argsstring>
+        <name>COLOR_LOCNAME</name>
+        <initializer>= 0x19</initializer>
+        <briefdescription>
+<para>Local variable name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="103" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga1c5fb6ba122f21cc24c852a6c07bc8fe" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_CODNAME</definition>
+        <argsstring></argsstring>
+        <name>COLOR_CODNAME</name>
+        <initializer>= 0x1A</initializer>
+        <briefdescription>
+<para>Dummy code name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="104" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga60e062dd9a639af9ed56d5d9e2775658" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_ASMDIR</definition>
+        <argsstring></argsstring>
+        <name>COLOR_ASMDIR</name>
+        <initializer>= 0x1B</initializer>
+        <briefdescription>
+<para>Assembler directive. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="105" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga078d9ee07731f1fa511c91aa19c4e980" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_MACRO</definition>
+        <argsstring></argsstring>
+        <name>COLOR_MACRO</name>
+        <initializer>= 0x1C</initializer>
+        <briefdescription>
+<para>Macro. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="106" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gaa912d651b97b247cd1dd7160f19563f9" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_DSTR</definition>
+        <argsstring></argsstring>
+        <name>COLOR_DSTR</name>
+        <initializer>= 0x1D</initializer>
+        <briefdescription>
+<para>String constant in data directive. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="107" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gabb3210514b7a88336b186b3559c14b43" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_DCHAR</definition>
+        <argsstring></argsstring>
+        <name>COLOR_DCHAR</name>
+        <initializer>= 0x1E</initializer>
+        <briefdescription>
+<para>Char constant in data directive. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="108" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gafdef71462314fe6aa7391bb79c53a67b" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_DNUM</definition>
+        <argsstring></argsstring>
+        <name>COLOR_DNUM</name>
+        <initializer>= 0x1F</initializer>
+        <briefdescription>
+<para>Numeric constant in data directive. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="109" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga7b971e552f935721d430c647b0cc2f2c" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_KEYWORD</definition>
+        <argsstring></argsstring>
+        <name>COLOR_KEYWORD</name>
+        <initializer>= 0x20</initializer>
+        <briefdescription>
+<para>Keywords. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="110" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga7aafeb6706d140aee8d54c74bc3f9fed" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_REG</definition>
+        <argsstring></argsstring>
+        <name>COLOR_REG</name>
+        <initializer>= 0x21</initializer>
+        <briefdescription>
+<para>Register name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="111" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga43f7d135da557cb1fc8b87525c63660e" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_IMPNAME</definition>
+        <argsstring></argsstring>
+        <name>COLOR_IMPNAME</name>
+        <initializer>= 0x22</initializer>
+        <briefdescription>
+<para>Imported name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="112" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga97b17a32769f25beb317270f122c1e02" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_SEGNAME</definition>
+        <argsstring></argsstring>
+        <name>COLOR_SEGNAME</name>
+        <initializer>= 0x23</initializer>
+        <briefdescription>
+<para>Segment name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="113" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga7eb957a463dc610c2bcaca449cf115fe" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_UNKNAME</definition>
+        <argsstring></argsstring>
+        <name>COLOR_UNKNAME</name>
+        <initializer>= 0x24</initializer>
+        <briefdescription>
+<para>Dummy unknown name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="114" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gad22b6b9716f589908eeed5f0df813c27" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_CNAME</definition>
+        <argsstring></argsstring>
+        <name>COLOR_CNAME</name>
+        <initializer>= 0x25</initializer>
+        <briefdescription>
+<para>Regular code name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="115" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gad4db614ecb70fa83bde9bfabdeb30873" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_UNAME</definition>
+        <argsstring></argsstring>
+        <name>COLOR_UNAME</name>
+        <initializer>= 0x26</initializer>
+        <briefdescription>
+<para>Regular unknown name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="116" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga59f86da1c99c60317fa5d482d06007fc" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_COLLAPSED</definition>
+        <argsstring></argsstring>
+        <name>COLOR_COLLAPSED</name>
+        <initializer>= 0x27</initializer>
+        <briefdescription>
+<para>Collapsed line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="117" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga4542d0e4c126f4f328771cb306b71a3a" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_FG_MAX</definition>
+        <argsstring></argsstring>
+        <name>COLOR_FG_MAX</name>
+        <initializer>= 0x28</initializer>
+        <briefdescription>
+<para>Max color number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="118" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gae04c6ad8508fb6067378d56ad92b206e" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_ADDR</definition>
+        <argsstring></argsstring>
+        <name>COLOR_ADDR</name>
+        <initializer>= <ref refid="group___c_o_l_o_r___1ga4542d0e4c126f4f328771cb306b71a3a" kindref="member">COLOR_FG_MAX</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>hidden address marks. the address is represented as 8digit hex number: 01234567. it doesn&apos;t have <ref refid="group__color__esc_1ga8cb8d305059f6c44741bbb4e1c40fd3d" kindref="member">COLOR_OFF</ref> pair. NB: for 64-bit IDA, the address is 16digit. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="122" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gae0b1349a75e782c308d4d3f40cdf1910" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_OPND1</definition>
+        <argsstring></argsstring>
+        <name>COLOR_OPND1</name>
+        <initializer>= <ref refid="group___c_o_l_o_r___1gae04c6ad8508fb6067378d56ad92b206e" kindref="member">COLOR_ADDR</ref>+1</initializer>
+        <briefdescription>
+<para>Instruction operand 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="128" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga0b42572174c3eb742313d86aafdebbda" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_OPND2</definition>
+        <argsstring></argsstring>
+        <name>COLOR_OPND2</name>
+        <initializer>= <ref refid="group___c_o_l_o_r___1gae04c6ad8508fb6067378d56ad92b206e" kindref="member">COLOR_ADDR</ref>+2</initializer>
+        <briefdescription>
+<para>Instruction operand 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="129" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga5daee49291251f025cca7b5adb112d58" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_OPND3</definition>
+        <argsstring></argsstring>
+        <name>COLOR_OPND3</name>
+        <initializer>= <ref refid="group___c_o_l_o_r___1gae04c6ad8508fb6067378d56ad92b206e" kindref="member">COLOR_ADDR</ref>+3</initializer>
+        <briefdescription>
+<para>Instruction operand 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="130" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga0585ef5b04d219da995a636f90538d06" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_OPND4</definition>
+        <argsstring></argsstring>
+        <name>COLOR_OPND4</name>
+        <initializer>= <ref refid="group___c_o_l_o_r___1gae04c6ad8508fb6067378d56ad92b206e" kindref="member">COLOR_ADDR</ref>+4</initializer>
+        <briefdescription>
+<para>Instruction operand 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="131" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gae62ee131458c04b715c31ab5adb4e5b3" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_OPND5</definition>
+        <argsstring></argsstring>
+        <name>COLOR_OPND5</name>
+        <initializer>= <ref refid="group___c_o_l_o_r___1gae04c6ad8508fb6067378d56ad92b206e" kindref="member">COLOR_ADDR</ref>+5</initializer>
+        <briefdescription>
+<para>Instruction operand 5. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="132" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gabf69e49526421e5c69e74ad22f6a9b4a" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_OPND6</definition>
+        <argsstring></argsstring>
+        <name>COLOR_OPND6</name>
+        <initializer>= <ref refid="group___c_o_l_o_r___1gae04c6ad8508fb6067378d56ad92b206e" kindref="member">COLOR_ADDR</ref>+6</initializer>
+        <briefdescription>
+<para>Instruction operand 6. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="133" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gabbd228192783a8fdd4e53d616d00f6c2" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_OPND7</definition>
+        <argsstring></argsstring>
+        <name>COLOR_OPND7</name>
+        <initializer>= <ref refid="group___c_o_l_o_r___1gae04c6ad8508fb6067378d56ad92b206e" kindref="member">COLOR_ADDR</ref>+7</initializer>
+        <briefdescription>
+<para>Instruction operand 7. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="134" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga8f97971dfe5d9de6527af70523148bde" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_OPND8</definition>
+        <argsstring></argsstring>
+        <name>COLOR_OPND8</name>
+        <initializer>= <ref refid="group___c_o_l_o_r___1gae04c6ad8508fb6067378d56ad92b206e" kindref="member">COLOR_ADDR</ref>+8</initializer>
+        <briefdescription>
+<para>Instruction operand 8. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="135" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1ga2f760d88659ab6bdd8ec2381457ef9a1" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_RESERVED1</definition>
+        <argsstring></argsstring>
+        <name>COLOR_RESERVED1</name>
+        <initializer>= <ref refid="group___c_o_l_o_r___1gae04c6ad8508fb6067378d56ad92b206e" kindref="member">COLOR_ADDR</ref>+11</initializer>
+        <briefdescription>
+<para>This tag is reserved for internal IDA use. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="138" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___c_o_l_o_r___1gaffb247382d84f7cb752e1ceafd70a65f" prot="public" static="no" mutable="no">
+        <type>const <ref refid="kernwin_8hpp_1a051016ac92685c95d47a7c1850c19632" kindref="member">color_t</ref></type>
+        <definition>const color_t COLOR_LUMINA</definition>
+        <argsstring></argsstring>
+        <name>COLOR_LUMINA</name>
+        <initializer>= <ref refid="group___c_o_l_o_r___1gae04c6ad8508fb6067378d56ad92b206e" kindref="member">COLOR_ADDR</ref>+12</initializer>
+        <briefdescription>
+<para>Lumina-related, only for the navigation band. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" line="139" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/lines.hpp" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Specify a color for a syntax item </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -192,7 +192,7 @@ Py_ssize_t ida_export PyW_PyListToEaVec(eavec_t *out, PyObject *py_list)
           return CIP_FAILED;
         }
 #else
-        if ( PyInt_Check(py_item.o) )
+        if ( IDAPyInt_Check(py_item.o) )
           ea = PyInt_AsUnsignedLongMask(py_item.o);
         else if ( PyLong_Check(py_item.o) )
           ea = ea_t(PyLong_AsUnsignedLongLong(py_item.o));
@@ -1406,7 +1406,9 @@ void *ida_export pyobj_get_clink(PyObject *pyobj)
 
   // Try to query the link attribute
   ref_t attr(PyW_TryGetAttrString(pyobj, S_CLINK_NAME));
-  void *t = attr != NULL && PyCObject_Check(attr.o) ? PyCObject_AsVoidPtr(attr.o) : NULL;
+  void *t = attr != NULL && PyCapsule_IsValid(attr.o, VALID_CAPSULE_NAME)
+          ? PyCapsule_GetPointer(attr.o, VALID_CAPSULE_NAME)
+          : NULL;
   return t;
 }
 
@@ -1578,7 +1580,7 @@ bool pywraps_notify_when_t::notify_va(int slot, va_list va)
         ++it )
   {
     // Form the notification code
-    newref_t py_code(PyInt_FromLong(1 << slot));
+    newref_t py_code(IDAPyInt_FromLong(1 << slot));
     ref_t py_result;
     switch ( slot )
     {
@@ -1591,7 +1593,7 @@ bool pywraps_notify_when_t::notify_va(int slot, va_list va)
         }
       case NW_OPENIDB_SLOT:
         {
-          newref_t py_old(PyInt_FromLong(old));
+          newref_t py_old(IDAPyInt_FromLong(old));
           py_result = newref_t(PyObject_CallFunctionObjArgs(it->o, py_code.o, py_old.o, NULL));
         }
         break;
@@ -1908,7 +1910,7 @@ PyObject *ida_export py_customidamemo_t_create_groups(
     for ( Py_ssize_t k = 0; k < nodes_cnt; ++k )
     {
       newref_t node(PySequence_GetItem(nodes.o, k));
-      if ( PyInt_Check(node.o) )
+      if ( IDAPyInt_Check(node.o) )
         gi.nodes.add_unique(IDAPyInt_AsLong(node.o));
     }
     if ( !gi.nodes.empty() )
@@ -1923,7 +1925,7 @@ PyObject *ida_export py_customidamemo_t_create_groups(
 
   PyObject *py_groups = PyList_New(0);
   for ( intvec_t::const_iterator it = groups.begin(); it != groups.end(); ++it )
-    PyList_Append(py_groups, PyInt_FromLong(long(*it)));
+    PyList_Append(py_groups, IDAPyInt_FromLong(long(*it)));
   return py_groups;
 }
 
@@ -1934,7 +1936,7 @@ static void pynodes_to_idanodes(intvec_t *idanodes, ref_t pynodes)
   for ( Py_ssize_t i = 0; i < sz; ++i )
   {
     newref_t item(PySequence_GetItem(pynodes.o, i));
-    if ( !PyInt_Check(item.o) )
+    if ( !IDAPyInt_Check(item.o) )
       continue;
     idanodes->add_unique(IDAPyInt_AsLong(item.o));
   }
@@ -2284,7 +2286,7 @@ bool ida_export idapython_convert_cli_completions(
     borref_t i0(PyTuple_GetItem(py_res.o, 0));
     borref_t i1(PyTuple_GetItem(py_res.o, 1));
     borref_t i2(PyTuple_GetItem(py_res.o, 2));
-    ok = PyList_Check(i0.o) && PyInt_Check(i1.o) && PyInt_Check(i2.o);
+    ok = PyList_Check(i0.o) && IDAPyInt_Check(i1.o) && IDAPyInt_Check(i2.o);
     if ( ok )
     {
       ok = PyW_PyListToStrVec(out_completions, i0.o) > 0;

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___r_v_t__" kind="group">
+    <compoundname>RVT_</compoundname>
+    <title>Register value types</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___r_v_t___1gace86c5cf47d920bc7aa4bbd745b49311" prot="public" static="no">
+        <name>RVT_INT</name>
+        <initializer>(-1)</initializer>
+        <briefdescription>
+<para>integer </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="436" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="436" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_v_t___1gaab32738e7258ef855bb27cc84260fc34" prot="public" static="no">
+        <name>RVT_FLOAT</name>
+        <initializer>(-2)</initializer>
+        <briefdescription>
+<para>floating point </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="437" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="437" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___r_v_t___1gaffc5fd59ac43986b1200a7398450c91c" prot="public" static="no">
+        <name>RVT_UNAVAILABLE</name>
+        <initializer>(-3)</initializer>
+        <briefdescription>
+<para>other values mean custom data type </para>        </briefdescription>
+        <detaileddescription>
+<para>unavailable </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="438" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="438" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="structregval__t_1af1dfaca7c318cf9f55554f6b481eee2a" kindref="member">regval_t::rvtype</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

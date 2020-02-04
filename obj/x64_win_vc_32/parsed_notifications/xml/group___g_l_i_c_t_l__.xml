@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___g_l_i_c_t_l__" kind="group">
+    <compoundname>GLICTL_</compoundname>
+    <title>graph_location_info_t control flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___g_l_i_c_t_l___1ga6871dac909fe5d3f028bb602f0dfceb4" prot="public" static="no">
+        <name>GLICTL_CENTER</name>
+        <initializer>(1 &lt;&lt; 0)</initializer>
+        <briefdescription>
+<para>the gli should be set/get as center </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" line="46" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/graph.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as &apos;flags&apos; parameter to <ref refid="graph_8hpp_1a4734bb396ceb5fe074a4fb962c7da31e" kindref="member">viewer_set_gli()</ref> and <ref refid="graph_8hpp_1a5db5120b806800f2e9cab9ccb211fb45" kindref="member">viewer_get_gli()</ref>. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

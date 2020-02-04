@@ -1,0 +1,1064 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="class_v_m" kind="class" language="C++" prot="public">
+    <compoundname>VM</compoundname>
+    <derivedcompoundref refid="classvmclass" prot="public" virt="non-virtual">vmclass&lt; type &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classvmclass" prot="public" virt="non-virtual">vmclass&lt; uint32 &gt;</derivedcompoundref>
+    <innerclass refid="class_v_m_1_1const__page__visitor__t" prot="public">VM::const_page_visitor_t</innerclass>
+    <innerclass refid="class_v_m_1_1page__visitor__t" prot="public">VM::page_visitor_t</innerclass>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_v_m_1ade58fe461d5fe916f7b8261d3e2ab2fe" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t VM::Psize</definition>
+        <argsstring></argsstring>
+        <name>Psize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="178" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_v_m_1a6fb4fe0f49bff12c1c42aa6421cf04ae" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VM::pshift</definition>
+        <argsstring></argsstring>
+        <name>pshift</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="179" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_v_m_1a919f4b6c896f6620a0faff87a581a2f5" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VM::locks</definition>
+        <argsstring></argsstring>
+        <name>locks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="180" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_v_m_1a59aacb3add037d58377d75002018b088" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VM::handle</definition>
+        <argsstring></argsstring>
+        <name>handle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="181" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_v_m_1aabd33d7ab26cb58baf3782113da74475" prot="private" static="no" mutable="no">
+        <type><ref refid="class_v_m__page" kindref="compound">VM_page</ref> *</type>
+        <definition>VM_page* VM::hashtable[HASH_SIZE]</definition>
+        <argsstring>[HASH_SIZE]</argsstring>
+        <name>hashtable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="182" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_v_m_1a380120eee80bd3563dcf8899cc372966" prot="private" static="no" mutable="no">
+        <type><ref refid="class_v_m__page" kindref="compound">VM_page</ref> *</type>
+        <definition>VM_page* VM::head</definition>
+        <argsstring></argsstring>
+        <name>head</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="183" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_v_m_1a2cb40057f199b3b63c2155c28c76a9ef" prot="private" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* VM::Core</definition>
+        <argsstring></argsstring>
+        <name>Core</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="184" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_v_m_1ac87589ae25ec8a1b7392da232c5fea24" prot="private" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* VM::filename</definition>
+        <argsstring></argsstring>
+        <name>filename</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="185" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_v_m_1afb93f068de5f548c054865b56f3219ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::check_hash</definition>
+        <argsstring>(const char *prefix)</argsstring>
+        <name>check_hash</name>
+        <param>
+          <type>const char *</type>
+          <declname>prefix</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="61" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a3c759a23ba307930fc2cd8781ef5d20f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VM::linkTo</definition>
+        <argsstring>(int ALLpages, const char *file, bool RWmode, size_t psize)</argsstring>
+        <name>linkTo</name>
+        <param>
+          <type>int</type>
+          <declname>ALLpages</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>RWmode</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>psize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="63" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a3502d27cf6a670f277221e8e6ac8b869" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VM::VM</definition>
+        <argsstring>()</argsstring>
+        <name>VM</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="70" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="70" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1afd8bf5c839b33bb7bf0dfb67a5ea99da" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* VM::file</definition>
+        <argsstring>() const</argsstring>
+        <name>file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="77" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="77" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a46fb3b0a18986a85fbac25df2e7fc22b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t VM::PageSize</definition>
+        <argsstring>()</argsstring>
+        <name>PageSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="79" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="79" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a77d51e5af5b65d463e7f08c87e7b6d4b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>vm_pagenum_t</type>
+        <definition>vm_pagenum_t VM::PageFromOff</definition>
+        <argsstring>(qoff64_t off)</argsstring>
+        <name>PageFromOff</name>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>off</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="80" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="80" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a04bd962e0215665fd1819a978aac593d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t VM::PageRem</definition>
+        <argsstring>(qoff64_t off)</argsstring>
+        <name>PageRem</name>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>off</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="81" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="81" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1afd22a970a44757f4b53c8c77a8fa1e71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>VM::~VM</definition>
+        <argsstring>()</argsstring>
+        <name>~VM</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="83" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1acf514de00e25f15001eea33a5d69eca1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::vflush</definition>
+        <argsstring>()</argsstring>
+        <name>vflush</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="85" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a3638856935316f1368ec2a8e21971aec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::vclose</definition>
+        <argsstring>()</argsstring>
+        <name>vclose</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="86" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1aa37a32f46ce99cbb6078aea9dabbba9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>linput_t *</type>
+        <definition>linput_t* VM::make_linput</definition>
+        <argsstring>(int32 blksize=0)</argsstring>
+        <name>make_linput</name>
+        <param>
+          <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+          <declname>blksize</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="90" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a2fc82c5b0cbc5e6a300bdc2b96ec193d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool VM::lock</definition>
+        <argsstring>(vm_pagenum_t pnum)</argsstring>
+        <name>lock</name>
+        <param>
+          <type>vm_pagenum_t</type>
+          <declname>pnum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="92" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="92" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a6622ae4291e39819db34c2cb7ca48d8e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::unlock</definition>
+        <argsstring>(vm_pagenum_t pnum)</argsstring>
+        <name>unlock</name>
+        <param>
+          <type>vm_pagenum_t</type>
+          <declname>pnum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="105" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="105" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a2a7f4932e704c2f38e55fe82c91a2609" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::vchsize64</definition>
+        <argsstring>(uint64 size)</argsstring>
+        <name>vchsize64</name>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="117" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a8b191991b40eb6a0a2fde5f04dc9aca2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 VM::vsize64</definition>
+        <argsstring>() const</argsstring>
+        <name>vsize64</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="118" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="225" bodyend="228"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a12776a5caae68fe751c1abfaf07d4dd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::exchange_pages</definition>
+        <argsstring>(vm_pagenum_t from, vm_pagenum_t to, ssize_t n)</argsstring>
+        <name>exchange_pages</name>
+        <param>
+          <type>vm_pagenum_t</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type>vm_pagenum_t</type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="120" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a4fe913901b8f572d92ac72004bb45a14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::exchange_bytes</definition>
+        <argsstring>(qoff64_t from, qoff64_t to, int64 n)</argsstring>
+        <name>exchange_bytes</name>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1af755b91e0abdf71f5715f00e68b35e0a" kindref="member">int64</ref></type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="121" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a5454ee68e5ca009c5db4c7974070f2d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::read_bytes</definition>
+        <argsstring>(qoff64_t offset, char *buf, ssize_t n)</argsstring>
+        <name>read_bytes</name>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="123" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1ad972aacd6925382c68f59472f5aa302c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::write_bytes</definition>
+        <argsstring>(qoff64_t offset, const char *buf, ssize_t n)</argsstring>
+        <name>write_bytes</name>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="124" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a5c81bb6e8ecb2c77d60b9b6c4d37eebf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::move_bytes</definition>
+        <argsstring>(qoff64_t dst, qoff64_t src, uint64 n)</argsstring>
+        <name>move_bytes</name>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="125" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a3cea07169f129c9aba34924235762615" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::fill_bytes</definition>
+        <argsstring>(qoff64_t offset, char c, uint64 n)</argsstring>
+        <name>fill_bytes</name>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>char</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="126" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1aaf2655b475afbb47ad533e850ba677bc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool VM::inspect_area</definition>
+        <argsstring>(qoff64_t offset, uint64 n, const_page_visitor_t *visitor)</argsstring>
+        <name>inspect_area</name>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type><ref refid="class_v_m_1_1const__page__visitor__t" kindref="compound">const_page_visitor_t</ref> *</type>
+          <declname>visitor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="139" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="249" bodyend="255"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a27b6a5dac54b2f7a90bd79262b80daf8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool VM::modify_area</definition>
+        <argsstring>(qoff64_t offset, uint64 n, page_visitor_t *visitor)</argsstring>
+        <name>modify_area</name>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type><ref refid="class_v_m_1_1page__visitor__t" kindref="compound">page_visitor_t</ref> *</type>
+          <declname>visitor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="140" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="258" bodyend="261"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_v_m_1a99e01d92223d93988c509bda8e649794" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend bool</type>
+        <definition>bool isOk</definition>
+        <argsstring>(VM *v)</argsstring>
+        <name>isOk</name>
+        <param>
+          <type><ref refid="class_v_m" kindref="compound">VM</ref> *</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="78" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="78" bodyend="78"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_v_m_1a06d92189b9a97409095c14f9ce46b677" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* VM::vread</definition>
+        <argsstring>(vm_pagenum_t pnum)</argsstring>
+        <name>vread</name>
+        <param>
+          <type>vm_pagenum_t</type>
+          <declname>pnum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="145" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="145" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1add53047ae23bcfdc59c0d76bffe15306" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* VM::valloc</definition>
+        <argsstring>(vm_pagenum_t pnum)</argsstring>
+        <name>valloc</name>
+        <param>
+          <type>vm_pagenum_t</type>
+          <declname>pnum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="147" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="147" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a24b4b350550c563f6445e0320101abc2" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::vwrite</definition>
+        <argsstring>(void *buffer)</argsstring>
+        <name>vwrite</name>
+        <param>
+          <type>void *</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="148" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="148" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1ab1645628349360ce338954bd0ea49cea" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::vfree</definition>
+        <argsstring>(void *buffer)</argsstring>
+        <name>vfree</name>
+        <param>
+          <type>void *</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="149" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1affb6be07e185a7550a553f47d1fe0313" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool VM::lock</definition>
+        <argsstring>(void *buffer)</argsstring>
+        <name>lock</name>
+        <param>
+          <type>void *</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="150" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="150" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1ad98511d426b9b798e75ae207f3112fb7" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::unlock</definition>
+        <argsstring>(void *buffer)</argsstring>
+        <name>unlock</name>
+        <param>
+          <type>void *</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="162" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="162" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a6d23f669e8c334587579c7ab822d3498" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>vm_pagenum_t</type>
+        <definition>vm_pagenum_t VM::pagenum</definition>
+        <argsstring>(void *buffer)</argsstring>
+        <name>pagenum</name>
+        <param>
+          <type>void *</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="172" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="172" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1ad9080027d24f531de21b4b78f72339e6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::setpage</definition>
+        <argsstring>(void *buffer, vm_pagenum_t newnum)</argsstring>
+        <name>setpage</name>
+        <param>
+          <type>void *</type>
+          <declname>buffer</declname>
+        </param>
+        <param>
+          <type>vm_pagenum_t</type>
+          <declname>newnum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="173" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a81c123ba369ac90050de8e6277f9ece4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool VM::swap</definition>
+        <argsstring>(void *buf1, void *buf2)</argsstring>
+        <name>swap</name>
+        <param>
+          <type>void *</type>
+          <declname>buf1</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buf2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="174" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_v_m_1a9e52784c795d7595a22db22687c77a01" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t VM::PageLength</definition>
+        <argsstring>()</argsstring>
+        <name>PageLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="187" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="187" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1ae493f8e35229e870d10b712efe06d690" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_v_m__page" kindref="compound">VM_page</ref> *</type>
+        <definition>VM_page* VM::AddOne</definition>
+        <argsstring>(VM_page *ptr)</argsstring>
+        <name>AddOne</name>
+        <param>
+          <type><ref refid="class_v_m__page" kindref="compound">VM_page</ref> *</type>
+          <declname>ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="191" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="191" bodyend="194"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a53d7becdb788ca3e5143242f19f1680d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::DoWrite</definition>
+        <argsstring>(VM_page *P)</argsstring>
+        <name>DoWrite</name>
+        <param>
+          <type><ref refid="class_v_m__page" kindref="compound">VM_page</ref> *</type>
+          <declname>P</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="195" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a42a68064648327e7b154df6ea9f659ec" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::DoRead</definition>
+        <argsstring>(VM_page *P)</argsstring>
+        <name>DoRead</name>
+        <param>
+          <type><ref refid="class_v_m__page" kindref="compound">VM_page</ref> *</type>
+          <declname>P</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="196" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a535d2cc09eb3bb28f4d5ac62e0a6d739" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* VM::_read</definition>
+        <argsstring>(vm_pagenum_t pnum, bool readflag)</argsstring>
+        <name>_read</name>
+        <param>
+          <type>vm_pagenum_t</type>
+          <declname>pnum</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>readflag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="198" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1abdee53f198e4cc87f7fd5a9f3a954697" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_v_m__page" kindref="compound">VM_page</ref> *</type>
+        <definition>VM_page* VM::searchhash</definition>
+        <argsstring>(vm_pagenum_t pnum)</argsstring>
+        <name>searchhash</name>
+        <param>
+          <type>vm_pagenum_t</type>
+          <declname>pnum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="200" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1aa8d2def2df91f856aedbe6df6d44bb40" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::inserthash</definition>
+        <argsstring>(VM_page *ptr)</argsstring>
+        <name>inserthash</name>
+        <param>
+          <type><ref refid="class_v_m__page" kindref="compound">VM_page</ref> *</type>
+          <declname>ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="201" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a62b43bd1a5ffddb407ed635f1c7f5868" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::removehash</definition>
+        <argsstring>(vm_pagenum_t pnum)</argsstring>
+        <name>removehash</name>
+        <param>
+          <type>vm_pagenum_t</type>
+          <declname>pnum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="202" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a8598a601e9f670242c8aed92ff517223" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::swap_pages</definition>
+        <argsstring>(vm_pagenum_t x1, vm_pagenum_t x2, ssize_t n)</argsstring>
+        <name>swap_pages</name>
+        <param>
+          <type>vm_pagenum_t</type>
+          <declname>x1</declname>
+        </param>
+        <param>
+          <type>vm_pagenum_t</type>
+          <declname>x2</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1ab65ed42d67e6c517c746ff2a6a187016" kindref="member">ssize_t</ref></type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="203" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a3ada252c5e43a6d34a23fbd6b5362c21" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VM::swap_bytes</definition>
+        <argsstring>(qoff64_t from, qoff64_t to, uint64 n, char *buf, size_t bufsz)</argsstring>
+        <name>swap_bytes</name>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>to</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bufsz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="204" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a57f29e03cde84099b25eca5d29ff0ff2" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t VM::split_offset</definition>
+        <argsstring>(qoff64_t offset, vm_pagenum_t *pg)</argsstring>
+        <name>split_offset</name>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>vm_pagenum_t *</type>
+          <declname>pg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="205" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="218" bodyend="222"/>
+      </memberdef>
+      <memberdef kind="function" id="class_v_m_1a4f9d4a45b6882afffadf8c3f62407415" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool VM::visit_area</definition>
+        <argsstring>(qoff64_t offset, uint64 n, page_visitor_t *writer, const_page_visitor_t *reader)</argsstring>
+        <name>visit_area</name>
+        <param>
+          <type><ref refid="pro_8h_1a42ae75d34f73b9e691bd16aaddb897e5" kindref="member">qoff64_t</ref></type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type><ref refid="class_v_m_1_1page__visitor__t" kindref="compound">page_visitor_t</ref> *</type>
+          <declname>writer</declname>
+        </param>
+        <param>
+          <type><ref refid="class_v_m_1_1const__page__visitor__t" kindref="compound">const_page_visitor_t</ref> *</type>
+          <declname>reader</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="207" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3862">
+        <label>vmclass&lt; type &gt;</label>
+        <link refid="classvmclass"/>
+        <childnode refid="3861" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3861">
+        <label>VM</label>
+        <link refid="class_v_m"/>
+      </node>
+      <node id="3863">
+        <label>vmclass&lt; uint32 &gt;</label>
+        <link refid="classvmclass"/>
+        <childnode refid="3861" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" line="59" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/vm.hpp" bodystart="58" bodyend="209"/>
+    <listofallmembers>
+      <member refid="class_v_m_1a535d2cc09eb3bb28f4d5ac62e0a6d739" prot="private" virt="non-virtual"><scope>VM</scope><name>_read</name></member>
+      <member refid="class_v_m_1ae493f8e35229e870d10b712efe06d690" prot="private" virt="non-virtual"><scope>VM</scope><name>AddOne</name></member>
+      <member refid="class_v_m_1afb93f068de5f548c054865b56f3219ef" prot="public" virt="non-virtual"><scope>VM</scope><name>check_hash</name></member>
+      <member refid="class_v_m_1a2cb40057f199b3b63c2155c28c76a9ef" prot="private" virt="non-virtual"><scope>VM</scope><name>Core</name></member>
+      <member refid="class_v_m_1a42a68064648327e7b154df6ea9f659ec" prot="private" virt="non-virtual"><scope>VM</scope><name>DoRead</name></member>
+      <member refid="class_v_m_1a53d7becdb788ca3e5143242f19f1680d" prot="private" virt="non-virtual"><scope>VM</scope><name>DoWrite</name></member>
+      <member refid="class_v_m_1a4fe913901b8f572d92ac72004bb45a14" prot="public" virt="non-virtual"><scope>VM</scope><name>exchange_bytes</name></member>
+      <member refid="class_v_m_1a12776a5caae68fe751c1abfaf07d4dd8" prot="public" virt="non-virtual"><scope>VM</scope><name>exchange_pages</name></member>
+      <member refid="class_v_m_1afd8bf5c839b33bb7bf0dfb67a5ea99da" prot="public" virt="non-virtual"><scope>VM</scope><name>file</name></member>
+      <member refid="class_v_m_1ac87589ae25ec8a1b7392da232c5fea24" prot="private" virt="non-virtual"><scope>VM</scope><name>filename</name></member>
+      <member refid="class_v_m_1a3cea07169f129c9aba34924235762615" prot="public" virt="non-virtual"><scope>VM</scope><name>fill_bytes</name></member>
+      <member refid="class_v_m_1a59aacb3add037d58377d75002018b088" prot="private" virt="non-virtual"><scope>VM</scope><name>handle</name></member>
+      <member refid="class_v_m_1aabd33d7ab26cb58baf3782113da74475" prot="private" virt="non-virtual"><scope>VM</scope><name>hashtable</name></member>
+      <member refid="class_v_m_1a380120eee80bd3563dcf8899cc372966" prot="private" virt="non-virtual"><scope>VM</scope><name>head</name></member>
+      <member refid="class_v_m_1aa8d2def2df91f856aedbe6df6d44bb40" prot="private" virt="non-virtual"><scope>VM</scope><name>inserthash</name></member>
+      <member refid="class_v_m_1aaf2655b475afbb47ad533e850ba677bc" prot="public" virt="non-virtual"><scope>VM</scope><name>inspect_area</name></member>
+      <member refid="class_v_m_1a99e01d92223d93988c509bda8e649794" prot="public" virt="non-virtual"><scope>VM</scope><name>isOk</name></member>
+      <member refid="class_v_m_1a3c759a23ba307930fc2cd8781ef5d20f" prot="public" virt="non-virtual"><scope>VM</scope><name>linkTo</name></member>
+      <member refid="class_v_m_1a2fc82c5b0cbc5e6a300bdc2b96ec193d" prot="public" virt="non-virtual"><scope>VM</scope><name>lock</name></member>
+      <member refid="class_v_m_1affb6be07e185a7550a553f47d1fe0313" prot="protected" virt="non-virtual"><scope>VM</scope><name>lock</name></member>
+      <member refid="class_v_m_1a919f4b6c896f6620a0faff87a581a2f5" prot="private" virt="non-virtual"><scope>VM</scope><name>locks</name></member>
+      <member refid="class_v_m_1aa37a32f46ce99cbb6078aea9dabbba9c" prot="public" virt="non-virtual"><scope>VM</scope><name>make_linput</name></member>
+      <member refid="class_v_m_1a27b6a5dac54b2f7a90bd79262b80daf8" prot="public" virt="non-virtual"><scope>VM</scope><name>modify_area</name></member>
+      <member refid="class_v_m_1a5c81bb6e8ecb2c77d60b9b6c4d37eebf" prot="public" virt="non-virtual"><scope>VM</scope><name>move_bytes</name></member>
+      <member refid="class_v_m_1a77d51e5af5b65d463e7f08c87e7b6d4b" prot="public" virt="non-virtual"><scope>VM</scope><name>PageFromOff</name></member>
+      <member refid="class_v_m_1a9e52784c795d7595a22db22687c77a01" prot="private" virt="non-virtual"><scope>VM</scope><name>PageLength</name></member>
+      <member refid="class_v_m_1a6d23f669e8c334587579c7ab822d3498" prot="protected" virt="non-virtual"><scope>VM</scope><name>pagenum</name></member>
+      <member refid="class_v_m_1a04bd962e0215665fd1819a978aac593d" prot="public" virt="non-virtual"><scope>VM</scope><name>PageRem</name></member>
+      <member refid="class_v_m_1a46fb3b0a18986a85fbac25df2e7fc22b" prot="public" virt="non-virtual"><scope>VM</scope><name>PageSize</name></member>
+      <member refid="class_v_m_1a6fb4fe0f49bff12c1c42aa6421cf04ae" prot="private" virt="non-virtual"><scope>VM</scope><name>pshift</name></member>
+      <member refid="class_v_m_1ade58fe461d5fe916f7b8261d3e2ab2fe" prot="private" virt="non-virtual"><scope>VM</scope><name>Psize</name></member>
+      <member refid="class_v_m_1a5454ee68e5ca009c5db4c7974070f2d0" prot="public" virt="non-virtual"><scope>VM</scope><name>read_bytes</name></member>
+      <member refid="class_v_m_1a62b43bd1a5ffddb407ed635f1c7f5868" prot="private" virt="non-virtual"><scope>VM</scope><name>removehash</name></member>
+      <member refid="class_v_m_1abdee53f198e4cc87f7fd5a9f3a954697" prot="private" virt="non-virtual"><scope>VM</scope><name>searchhash</name></member>
+      <member refid="class_v_m_1ad9080027d24f531de21b4b78f72339e6" prot="protected" virt="non-virtual"><scope>VM</scope><name>setpage</name></member>
+      <member refid="class_v_m_1a57f29e03cde84099b25eca5d29ff0ff2" prot="private" virt="non-virtual"><scope>VM</scope><name>split_offset</name></member>
+      <member refid="class_v_m_1a81c123ba369ac90050de8e6277f9ece4" prot="protected" virt="non-virtual"><scope>VM</scope><name>swap</name></member>
+      <member refid="class_v_m_1a3ada252c5e43a6d34a23fbd6b5362c21" prot="private" virt="non-virtual"><scope>VM</scope><name>swap_bytes</name></member>
+      <member refid="class_v_m_1a8598a601e9f670242c8aed92ff517223" prot="private" virt="non-virtual"><scope>VM</scope><name>swap_pages</name></member>
+      <member refid="class_v_m_1a6622ae4291e39819db34c2cb7ca48d8e" prot="public" virt="non-virtual"><scope>VM</scope><name>unlock</name></member>
+      <member refid="class_v_m_1ad98511d426b9b798e75ae207f3112fb7" prot="protected" virt="non-virtual"><scope>VM</scope><name>unlock</name></member>
+      <member refid="class_v_m_1add53047ae23bcfdc59c0d76bffe15306" prot="protected" virt="non-virtual"><scope>VM</scope><name>valloc</name></member>
+      <member refid="class_v_m_1a2a7f4932e704c2f38e55fe82c91a2609" prot="public" virt="non-virtual"><scope>VM</scope><name>vchsize64</name></member>
+      <member refid="class_v_m_1a3638856935316f1368ec2a8e21971aec" prot="public" virt="non-virtual"><scope>VM</scope><name>vclose</name></member>
+      <member refid="class_v_m_1acf514de00e25f15001eea33a5d69eca1" prot="public" virt="non-virtual"><scope>VM</scope><name>vflush</name></member>
+      <member refid="class_v_m_1ab1645628349360ce338954bd0ea49cea" prot="protected" virt="non-virtual"><scope>VM</scope><name>vfree</name></member>
+      <member refid="class_v_m_1a4f9d4a45b6882afffadf8c3f62407415" prot="private" virt="non-virtual"><scope>VM</scope><name>visit_area</name></member>
+      <member refid="class_v_m_1a3502d27cf6a670f277221e8e6ac8b869" prot="public" virt="non-virtual"><scope>VM</scope><name>VM</name></member>
+      <member refid="class_v_m_1a06d92189b9a97409095c14f9ce46b677" prot="protected" virt="non-virtual"><scope>VM</scope><name>vread</name></member>
+      <member refid="class_v_m_1a8b191991b40eb6a0a2fde5f04dc9aca2" prot="public" virt="non-virtual"><scope>VM</scope><name>vsize64</name></member>
+      <member refid="class_v_m_1a24b4b350550c563f6445e0320101abc2" prot="protected" virt="non-virtual"><scope>VM</scope><name>vwrite</name></member>
+      <member refid="class_v_m_1ad972aacd6925382c68f59472f5aa302c" prot="public" virt="non-virtual"><scope>VM</scope><name>write_bytes</name></member>
+      <member refid="class_v_m_1afd22a970a44757f4b53c8c77a8fa1e71" prot="public" virt="non-virtual"><scope>VM</scope><name>~VM</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

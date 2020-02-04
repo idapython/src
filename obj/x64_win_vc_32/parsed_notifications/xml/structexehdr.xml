@@ -1,0 +1,261 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structexehdr" kind="struct" language="C++" prot="public">
+    <compoundname>exehdr</compoundname>
+    <derivedcompoundref refid="structexehdr__full" prot="public" virt="non-virtual">exehdr_full</derivedcompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structexehdr_1a29e07af4ba0204d20e9281c84110b4f0" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr::exe_ident</definition>
+        <argsstring></argsstring>
+        <name>exe_ident</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="16" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr_1a5f786dc4569ca32ddb218c49da7639d5" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr::PartPag</definition>
+        <argsstring></argsstring>
+        <name>PartPag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="19" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr_1a47d8e460ea43ad44710a9a40857e2942" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr::PageCnt</definition>
+        <argsstring></argsstring>
+        <name>PageCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="20" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr_1a73be30a459438ebb08fac070084b958a" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr::ReloCnt</definition>
+        <argsstring></argsstring>
+        <name>ReloCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="21" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr_1a6f6ee9c915316c3fd33fb3a30b5346c7" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr::HdrSize</definition>
+        <argsstring></argsstring>
+        <name>HdrSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="22" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr_1ab3810b5c8faed219c8b79e8ecb2bf5f5" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr::MinMem</definition>
+        <argsstring></argsstring>
+        <name>MinMem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="23" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr_1af91a90878284856b9bb4b3d2013769fe" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr::MaxMem</definition>
+        <argsstring></argsstring>
+        <name>MaxMem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="24" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr_1a9e8189f6833a716f13d836d5d34f7d12" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr::ReloSS</definition>
+        <argsstring></argsstring>
+        <name>ReloSS</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="25" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr_1a2a791010a718c337238b7e05f612ceaa" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr::ExeSP</definition>
+        <argsstring></argsstring>
+        <name>ExeSP</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="26" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr_1a0ff15cf952906bd54d171afc48582d94" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr::ChkSum</definition>
+        <argsstring></argsstring>
+        <name>ChkSum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="27" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr_1aa50c0652663e7a118793e38a489dfd6e" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr::ExeIP</definition>
+        <argsstring></argsstring>
+        <name>ExeIP</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="28" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr_1a0fae482c7b51126a174867f41423467b" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr::ReloCS</definition>
+        <argsstring></argsstring>
+        <name>ReloCS</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="29" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr_1afc71bf8e7332c662548c97944b8e0192" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr::TablOff</definition>
+        <argsstring></argsstring>
+        <name>TablOff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="30" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structexehdr_1abf21f47651d49e40bb5cb886d46d54f2" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 exehdr::Overlay</definition>
+        <argsstring></argsstring>
+        <name>Overlay</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="31" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structexehdr_1a809e0d50ebb97ef777bbe9c3aed49d4c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+        <definition>int32 exehdr::CalcEXE_Length</definition>
+        <argsstring>(void)</argsstring>
+        <name>CalcEXE_Length</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="39" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="39" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="structexehdr_1a7fdf358dd1afe6f77da771d33d81ab63" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void exehdr::CalcEXE_Pages</definition>
+        <argsstring>(int32 len)</argsstring>
+        <name>CalcEXE_Pages</name>
+        <param>
+          <type><ref refid="pro_8h_1a56f1a81c92849566ae864511088eb7e8" kindref="member">int32</ref></type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="46" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="46" bodyend="52"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1530">
+        <label>exehdr</label>
+        <link refid="structexehdr"/>
+      </node>
+      <node id="1531">
+        <label>exehdr_full</label>
+        <link refid="structexehdr__full"/>
+        <childnode refid="1530" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" line="15" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/exehdr.h" bodystart="14" bodyend="53"/>
+    <listofallmembers>
+      <member refid="structexehdr_1a809e0d50ebb97ef777bbe9c3aed49d4c" prot="public" virt="non-virtual"><scope>exehdr</scope><name>CalcEXE_Length</name></member>
+      <member refid="structexehdr_1a7fdf358dd1afe6f77da771d33d81ab63" prot="public" virt="non-virtual"><scope>exehdr</scope><name>CalcEXE_Pages</name></member>
+      <member refid="structexehdr_1a0ff15cf952906bd54d171afc48582d94" prot="public" virt="non-virtual"><scope>exehdr</scope><name>ChkSum</name></member>
+      <member refid="structexehdr_1a29e07af4ba0204d20e9281c84110b4f0" prot="public" virt="non-virtual"><scope>exehdr</scope><name>exe_ident</name></member>
+      <member refid="structexehdr_1aa50c0652663e7a118793e38a489dfd6e" prot="public" virt="non-virtual"><scope>exehdr</scope><name>ExeIP</name></member>
+      <member refid="structexehdr_1a2a791010a718c337238b7e05f612ceaa" prot="public" virt="non-virtual"><scope>exehdr</scope><name>ExeSP</name></member>
+      <member refid="structexehdr_1a6f6ee9c915316c3fd33fb3a30b5346c7" prot="public" virt="non-virtual"><scope>exehdr</scope><name>HdrSize</name></member>
+      <member refid="structexehdr_1af91a90878284856b9bb4b3d2013769fe" prot="public" virt="non-virtual"><scope>exehdr</scope><name>MaxMem</name></member>
+      <member refid="structexehdr_1ab3810b5c8faed219c8b79e8ecb2bf5f5" prot="public" virt="non-virtual"><scope>exehdr</scope><name>MinMem</name></member>
+      <member refid="structexehdr_1abf21f47651d49e40bb5cb886d46d54f2" prot="public" virt="non-virtual"><scope>exehdr</scope><name>Overlay</name></member>
+      <member refid="structexehdr_1a47d8e460ea43ad44710a9a40857e2942" prot="public" virt="non-virtual"><scope>exehdr</scope><name>PageCnt</name></member>
+      <member refid="structexehdr_1a5f786dc4569ca32ddb218c49da7639d5" prot="public" virt="non-virtual"><scope>exehdr</scope><name>PartPag</name></member>
+      <member refid="structexehdr_1a73be30a459438ebb08fac070084b958a" prot="public" virt="non-virtual"><scope>exehdr</scope><name>ReloCnt</name></member>
+      <member refid="structexehdr_1a0fae482c7b51126a174867f41423467b" prot="public" virt="non-virtual"><scope>exehdr</scope><name>ReloCS</name></member>
+      <member refid="structexehdr_1a9e8189f6833a716f13d836d5d34f7d12" prot="public" virt="non-virtual"><scope>exehdr</scope><name>ReloSS</name></member>
+      <member refid="structexehdr_1afc71bf8e7332c662548c97944b8e0192" prot="public" virt="non-virtual"><scope>exehdr</scope><name>TablOff</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___c_h_a_r_t__2" kind="group">
+    <compoundname>CHART_2</compoundname>
+    <title>Call chart building flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___c_h_a_r_t__2_1gafb1d213b42a0d904bf524a9cf683c56a" prot="public" static="no">
+        <name>CHART_NOLIBFUNCS</name>
+        <initializer>0x0400</initializer>
+        <briefdescription>
+<para>don&apos;t include library functions in the graph </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="256" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_a_r_t__2_1ga66caa3a82049d2bf182dc92098ca693b" prot="public" static="no">
+        <name>CHART_REFERENCING</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>references to the addresses in the list </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="257" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_a_r_t__2_1ga95de1317d44f28e9c55ec9e429b60c20" prot="public" static="no">
+        <name>CHART_REFERENCED</name>
+        <initializer>0x0002</initializer>
+        <briefdescription>
+<para>references from the addresses in the list </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="258" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_a_r_t__2_1ga433457956d5baa22e6d811b7ebaf970d" prot="public" static="no">
+        <name>CHART_RECURSIVE</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>analyze added blocks </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="259" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_a_r_t__2_1gae2b2cbde494562e9cbf76d0ad374b139" prot="public" static="no">
+        <name>CHART_FOLLOW_DIRECTION</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>analyze references to added blocks only in the direction of the reference who discovered the current block </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="260" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_a_r_t__2_1ga41cd981527cfeb7f41829b4a36a51763" prot="public" static="no">
+        <name>CHART_IGNORE_XTRN</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="261" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_a_r_t__2_1ga4c722df964302e5f29e31ae9cdaa4ef0" prot="public" static="no">
+        <name>CHART_IGNORE_DATA_BSS</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="262" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_a_r_t__2_1ga02f76a08923996223c388f5e3a43cb6e" prot="public" static="no">
+        <name>CHART_IGNORE_LIB_TO</name>
+        <initializer>0x0040</initializer>
+        <briefdescription>
+<para>ignore references to library functions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="263" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_a_r_t__2_1ga2a62e993ab793d4fea0da97941f98234" prot="public" static="no">
+        <name>CHART_IGNORE_LIB_FROM</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para>ignore references from library functions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="264" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_a_r_t__2_1ga627a4fbcf9963ca1d30f3dc6eb2d279a" prot="public" static="no">
+        <name>CHART_PRINT_COMMENTS</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="265" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___c_h_a_r_t__2_1ga37b5da807556f156e6bbd53e809c8efb" prot="public" static="no">
+        <name>CHART_PRINT_DOTS</name>
+        <initializer>0x0200</initializer>
+        <briefdescription>
+<para>print dots if xrefs exist outside of the range recursion depth </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" line="266" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/gdl.hpp" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Passed as flags parameter to <ref refid="gdl_8hpp_1aac8b0045428d6613e1ed4b7dac3fb486" kindref="member">gen_complex_call_chart()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -75,7 +75,7 @@ def run_plugin(plg):
 static bool py_run_plugin(PyObject *plg, int arg)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyCObject_Check(plg) )
+  if ( !PyCapsule_IsValid(plg, VALID_CAPSULE_NAME) )
   {
     return false;
   }

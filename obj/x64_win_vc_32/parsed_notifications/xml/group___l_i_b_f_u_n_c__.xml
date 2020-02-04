@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___l_i_b_f_u_n_c__" kind="group">
+    <compoundname>LIBFUNC_</compoundname>
+    <title>Library function codes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___l_i_b_f_u_n_c___1ga7fd057e3133f0f2ae254f8b12822cc88" prot="public" static="no">
+        <name>LIBFUNC_FOUND</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>ok, library function is found </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="930" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="930" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___l_i_b_f_u_n_c___1gab0237fbae98b51bc7604039785fc80cf" prot="public" static="no">
+        <name>LIBFUNC_NONE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>no, this is not a library function </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="931" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="931" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___l_i_b_f_u_n_c___1ga6ec13a8da35ad737bd87bd1ce0083602" prot="public" static="no">
+        <name>LIBFUNC_DELAY</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>no decision because of lack of information </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="932" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="932" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Return values for <ref refid="funcs_8hpp_1afb69ff17eadf468ac080c807027d5526" kindref="member">try_to_add_libfunc()</ref> and <ref refid="funcs_8hpp_1a11aee0876bd2f234cbb3cc11aa69dbca" kindref="member">apply_idasgn_to()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

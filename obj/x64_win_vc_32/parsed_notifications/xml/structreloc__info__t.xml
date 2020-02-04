@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structreloc__info__t" kind="struct" language="C++" prot="public">
+    <compoundname>reloc_info_t</compoundname>
+    <basecompoundref refid="classbytevec__t" prot="public" virt="non-virtual">bytevec_t</basecompoundref>
+    <includes refid="pro_8h" local="no">pro.h</includes>
+    <briefdescription>
+<para>Relocation information (relocatable objects - see <ref refid="structrelobj__t" kindref="compound">relobj_t</ref>) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3151">
+        <label>reloc_info_t</label>
+        <link refid="structreloc__info__t"/>
+        <childnode refid="3152" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3153">
+        <label>qvector&lt; uchar &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="3152">
+        <label>bytevec_t</label>
+        <link refid="classbytevec__t"/>
+        <childnode refid="3153" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3154">
+        <label>reloc_info_t</label>
+        <link refid="structreloc__info__t"/>
+        <childnode refid="3155" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3156">
+        <label>qvector&lt; uchar &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="3155">
+        <label>bytevec_t</label>
+        <link refid="classbytevec__t"/>
+        <childnode refid="3156" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/pro.h" line="2921" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/pro.h" bodystart="2920" bodyend="2933"/>
+    <listofallmembers>
+      <member refid="classqvector_1aae20729cb52ff559b27b834e0bbb5528" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>add</name></member>
+      <member refid="classqvector_1af0e3de3e606a0b52de17e80ce710317c" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>add_unique</name></member>
+      <member refid="classbytevec__t_1a422da3ea16e85c8de1d405466cbbb284" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>append</name></member>
+      <member refid="classqvector_1a7756bf02ed2b83370fc1d62acb49d3be" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>at</name></member>
+      <member refid="classqvector_1a8239a85aa07f560afcf35b8c7c53fd48" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>at</name></member>
+      <member refid="classqvector_1ae86d54e6a60b2f2e7eb254b181e4a4dc" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>back</name></member>
+      <member refid="classqvector_1aa9af4ff586a6b15e11e760e1f28766f3" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>back</name></member>
+      <member refid="classqvector_1ad907a7b2c09c0ca4dd437392ee34a50a" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>begin</name></member>
+      <member refid="classqvector_1a85630357a750889ffc6c204e98a8d4aa" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>begin</name></member>
+      <member refid="classbytevec__t_1a3f7856540c611362531c5791a13154cb" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>bytevec_t</name></member>
+      <member refid="classbytevec__t_1adfd0d6c654458c3f578ded9dd4cd1bb3" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>bytevec_t</name></member>
+      <member refid="classqvector_1ae2f4823d02d814d50c6d198ff0c43a0c" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>capacity</name></member>
+      <member refid="classqvector_1a00ea674adc4b958966d78ba450621a46" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>clear</name></member>
+      <member refid="classbytevec__t_1ad6b9e9482f7870c986ebbf65830fc120" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>clear_all_bits</name></member>
+      <member refid="classbytevec__t_1a9d706cd8755ea42bc46abca91c0626a4" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>clear_bit</name></member>
+      <member refid="classbytevec__t_1a032a05bf92c1b4b724ea64245fd78477" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>clear_bits</name></member>
+      <member refid="classbytevec__t_1a69d51f23cda3f304cfb27741f5405e7a" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>clear_bits</name></member>
+      <member refid="classqvector_1a194d7dff35eb2e50e2b98109a6a9c4da" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>const_iterator</name></member>
+      <member refid="classqvector_1a1f7772500942d63596a5c91249ad577c" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>del</name></member>
+      <member refid="classqvector_1ac78b72e26edaf62a9554b5a0fe3d6457" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>dstr</name></member>
+      <member refid="classqvector_1a557b1f774ef7d7e242ce4792ac83b572" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>empty</name></member>
+      <member refid="classqvector_1a6139abba869b7a488109c983445a34d1" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>end</name></member>
+      <member refid="classqvector_1adcc73c6c8ad31d17a5fdc57dffea90e1" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>end</name></member>
+      <member refid="classqvector_1a59661e16df1b8e3c69caf2b2a6ca2b59" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>erase</name></member>
+      <member refid="classqvector_1a16a369b4edb05a6feddd38f8612eab1b" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>erase</name></member>
+      <member refid="classqvector_1abf8f50b30972a829ad7affb27cdb80c7" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>extract</name></member>
+      <member refid="classqvector_1ab9b8ccda1db8948c10f1ea2936c59a5c" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>find</name></member>
+      <member refid="classqvector_1a4e77dc1a55ea19e725e8a22aa574ae28" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>find</name></member>
+      <member refid="classqvector_1a7cfc6f9d91d6495f92961c5ea37bb0d4" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>front</name></member>
+      <member refid="classqvector_1ae4595a6221e8a056b54fed4dced17f26" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>front</name></member>
+      <member refid="classqvector_1acd86e975d8aa56bee809e4176bb0d530" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>grow</name></member>
+      <member refid="classbytevec__t_1a4591f382fc7dc2668331012adb278b49" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>growfill</name></member>
+      <member refid="classqvector_1af9f9d1bbac527168131b03ee956833fc" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>has</name></member>
+      <member refid="classqvector_1aeb58b3064e71399ce8f2bfaf9a582d29" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>index</name></member>
+      <member refid="classbytevec__t_1a7c213ea47d87c651f93816e48ef97acc" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>inject</name></member>
+      <member refid="classqvector_1a0e2ac6acfb0b5607cd6b77e8049633db" prot="public" virt="non-virtual" ambiguityscope="qvector&lt; uchar &gt;::"><scope>reloc_info_t</scope><name>inject</name></member>
+      <member refid="classqvector_1a7c55d837eb4006430e5b300e79901ef1" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>insert</name></member>
+      <member refid="classqvector_1ad10cb71a7d5bfdd090dafd52f625eb20" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>insert</name></member>
+      <member refid="classqvector_1ad40f094ea07c84e9cab1077188893c5c" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>iterator</name></member>
+      <member refid="classqvector_1a72ea097e75bccff811f3a98f050b90b2" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>operator!=</name></member>
+      <member refid="classqvector_1af24534fa1de39b829e85f573640f9f48" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>operator=</name></member>
+      <member refid="classqvector_1ace7ff39fb8ad735fdd45b86a46ba4fbc" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>operator==</name></member>
+      <member refid="classqvector_1a3ffbd25fbea3165cf3f8f7a6b4d5c86d" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>operator[]</name></member>
+      <member refid="classqvector_1a9743bfd5464506b812d9686d3ba40299" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>operator[]</name></member>
+      <member refid="classqvector_1ad0dfc171e75ac7ddf1de00309505d995" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>pop_back</name></member>
+      <member refid="classqvector_1a3a46bca9030a31c7e0a1596948797e37" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>push_back</name></member>
+      <member refid="classqvector_1ad54c35eca9074d6458a0f589f09d1750" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>push_back</name></member>
+      <member refid="classqvector_1a5e84e633cf9a05ebdc441af0780edb4a" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>qclear</name></member>
+      <member refid="classqvector_1ac1c66f1594aff3114ed1de62cf84410d" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>qvector</name></member>
+      <member refid="classqvector_1a53936d7ddf6df4efdf91eeed34894c41" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>qvector</name></member>
+      <member refid="classqvector_1a00e5c32c63732f5149e901c932d2f3c2" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>reserve</name></member>
+      <member refid="classqvector_1a86c07a20c0f081c2930118f0db280148" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>resize</name></member>
+      <member refid="classqvector_1ae4d55e7d94d1a247e10baeae524b53dc" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>resize</name></member>
+      <member refid="classbytevec__t_1a9efbaa68d5e49d23abfa2ebe3e7f8f4a" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>set_all_bits</name></member>
+      <member refid="classbytevec__t_1a84a5f9925dd42b305b42f46a5c95be97" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>set_bit</name></member>
+      <member refid="classbytevec__t_1a642f39fdfe1f822ec84cbebdccc8f654" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>set_bits</name></member>
+      <member refid="classbytevec__t_1acd371ad26447b9e3f892c3c9b55e741f" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>set_bits</name></member>
+      <member refid="classqvector_1ae96fe88d3602362b063bd0540ff579dd" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>size</name></member>
+      <member refid="classqvector_1a2006754f99fb324709ae0972ddb20bb4" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>swap</name></member>
+      <member refid="classbytevec__t_1a347fce1e333bc34bc7a2061087e60cd4" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>test_bit</name></member>
+      <member refid="classqvector_1a447062dc6a1a8318a9e0430d4bbe0ec6" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>truncate</name></member>
+      <member refid="classqvector_1a71bc4c4aa5df2fda5b070e74f01b5d28" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>value_type</name></member>
+      <member refid="classqvector_1a3c7294aeb604b9c9e1b47b3abd8cd71e" prot="public" virt="non-virtual"><scope>reloc_info_t</scope><name>~qvector</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

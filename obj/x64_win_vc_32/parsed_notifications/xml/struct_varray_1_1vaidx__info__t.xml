@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="struct_varray_1_1vaidx__info__t" kind="struct" language="C++" prot="private">
+    <compoundname>Varray::vaidx_info_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_varray_1_1vaidx__info__t_1a3857591c9785146995c2d7413262ac57" prot="public" static="no" mutable="no">
+        <type><ref refid="class_varray" kindref="compound">Varray</ref> *</type>
+        <definition>Varray* Varray::vaidx_info_t::source</definition>
+        <argsstring></argsstring>
+        <name>source</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="307" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_varray_1_1vaidx__info__t_1a54c458e7b0c917ec829585b9420416b2" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t Varray::vaidx_info_t::index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="308" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3566">
+        <label>Varray::vaidx_info_t</label>
+        <childnode refid="3567" relation="usage">
+          <edgelabel>source</edgelabel>
+        </childnode>
+      </node>
+      <node id="3567">
+        <label>Varray</label>
+        <link refid="class_varray"/>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" line="306" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/va.hpp" bodystart="305" bodyend="309"/>
+    <listofallmembers>
+      <member refid="struct_varray_1_1vaidx__info__t_1a54c458e7b0c917ec829585b9420416b2" prot="public" virt="non-virtual"><scope>Varray::vaidx_info_t</scope><name>index</name></member>
+      <member refid="struct_varray_1_1vaidx__info__t_1a3857591c9785146995c2d7413262ac57" prot="public" virt="non-virtual"><scope>Varray::vaidx_info_t</scope><name>source</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

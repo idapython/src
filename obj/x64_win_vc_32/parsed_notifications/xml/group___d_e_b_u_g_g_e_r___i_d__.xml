@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___d_e_b_u_g_g_e_r___i_d__" kind="group">
+    <compoundname>DEBUGGER_ID_</compoundname>
+    <title>Debugger API module id</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga99cb53f6322146eb360df1fe3aba489e" prot="public" static="no">
+        <name>DEBUGGER_ID_X86_IA32_WIN32_USER</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Userland win32 processes (win32 debugging APIs) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="739" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="739" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga1854f7aee9aa474b47d7b3d8b3151783" prot="public" static="no">
+        <name>DEBUGGER_ID_X86_IA32_LINUX_USER</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Userland linux processes (ptrace()) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="740" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="740" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1gaa817237e306ba27fb199f255d167348c" prot="public" static="no">
+        <name>DEBUGGER_ID_X86_IA32_MACOSX_USER</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Userland MAC OS X processes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="741" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="741" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga48526acac5f02162d62fdc02bc74414f" prot="public" static="no">
+        <name>DEBUGGER_ID_ARM_IPHONE_USER</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>iPhone 1.x </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="742" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="742" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga9b22df901942d920506c600e3122814d" prot="public" static="no">
+        <name>DEBUGGER_ID_X86_IA32_BOCHS</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>BochsDbg.exe 32. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="743" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="743" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga630e549e682bed7e2be1097e7bf2ff01" prot="public" static="no">
+        <name>DEBUGGER_ID_6811_EMULATOR</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>MC6812 emulator (beta) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="744" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="744" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga18bbdbfcb5b638e20d7571bb782471b9" prot="public" static="no">
+        <name>DEBUGGER_ID_GDB_USER</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>GDB remote. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="745" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="745" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1gaa5c6d28ffa6c4e718f0ec25844559763" prot="public" static="no">
+        <name>DEBUGGER_ID_WINDBG</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>WinDBG using Microsoft Debug engine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="746" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="746" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1gac3e623948ffc0a51d31fc587856911ff" prot="public" static="no">
+        <name>DEBUGGER_ID_X86_DOSBOX_EMULATOR</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>Dosbox MS-DOS emulator. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="747" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="747" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga41c32fa0414bac2f4ae551dcbbcddf4d" prot="public" static="no">
+        <name>DEBUGGER_ID_ARM_LINUX_USER</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>Userland arm linux. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="748" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="748" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga8baba6ce9a44fc296105521e5ef1f5e8" prot="public" static="no">
+        <name>DEBUGGER_ID_TRACE_REPLAYER</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Fake debugger to replay recorded traces. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="749" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="749" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1gafeeec229773a92b59ff6cd1a11d4eafb" prot="public" static="no">
+        <name>DEBUGGER_ID_X86_PIN_TRACER</name>
+        <initializer>14</initializer>
+        <briefdescription>
+<para>PIN Tracer module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="750" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="750" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___d_e_b_u_g_g_e_r___i_d___1ga772cc70612af617f8f1b30323a73630a" prot="public" static="no">
+        <name>DEBUGGER_ID_DALVIK_USER</name>
+        <initializer>15</initializer>
+        <briefdescription>
+<para>Dalvik. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" line="751" column="11" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/idd.hpp" bodystart="751" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Used by <ref refid="structdebugger__t_1af5fd5700a3daf0ff646a542f87a9f0c6" kindref="member">debugger_t::id</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

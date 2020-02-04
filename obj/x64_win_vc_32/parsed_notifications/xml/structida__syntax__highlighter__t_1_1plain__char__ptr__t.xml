@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structida__syntax__highlighter__t_1_1plain__char__ptr__t" kind="struct" language="C++" prot="protected">
+    <compoundname>ida_syntax_highlighter_t::plain_char_ptr_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structida__syntax__highlighter__t_1_1plain__char__ptr__t_1a9edf4739fc8423915dc03a082a867b01" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* ida_syntax_highlighter_t::plain_char_ptr_t::ptr</definition>
+        <argsstring></argsstring>
+        <name>ptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="32" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structida__syntax__highlighter__t_1_1plain__char__ptr__t_1a215bfe77d25bb6c4af16d81e9dde3e9d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ida_syntax_highlighter_t::plain_char_ptr_t::plain_char_ptr_t</definition>
+        <argsstring>(const char *p=NULL)</argsstring>
+        <name>plain_char_ptr_t</name>
+        <param>
+          <type>const char *</type>
+          <declname>p</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="33" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" bodystart="33" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="structida__syntax__highlighter__t_1_1plain__char__ptr__t_1a9fc9cd8633cefdb3ff897170731a828c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ida_syntax_highlighter_t::plain_char_ptr_t::operator&lt;</definition>
+        <argsstring>(const plain_char_ptr_t &amp;r) const</argsstring>
+        <name>operator&lt;</name>
+        <param>
+          <type>const <ref refid="structida__syntax__highlighter__t_1_1plain__char__ptr__t" kindref="compound">plain_char_ptr_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="34" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" bodystart="34" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="structida__syntax__highlighter__t_1_1plain__char__ptr__t_1a23e95bf01b0d7473ca4c5c9c24834cff" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ida_syntax_highlighter_t::plain_char_ptr_t::operator==</definition>
+        <argsstring>(const plain_char_ptr_t &amp;r) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structida__syntax__highlighter__t_1_1plain__char__ptr__t" kindref="compound">plain_char_ptr_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="38" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" bodystart="38" bodyend="41"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" line="31" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/ida_highlighter.hpp" bodystart="30" bodyend="42"/>
+    <listofallmembers>
+      <member refid="structida__syntax__highlighter__t_1_1plain__char__ptr__t_1a9fc9cd8633cefdb3ff897170731a828c" prot="public" virt="non-virtual"><scope>ida_syntax_highlighter_t::plain_char_ptr_t</scope><name>operator&lt;</name></member>
+      <member refid="structida__syntax__highlighter__t_1_1plain__char__ptr__t_1a23e95bf01b0d7473ca4c5c9c24834cff" prot="public" virt="non-virtual"><scope>ida_syntax_highlighter_t::plain_char_ptr_t</scope><name>operator==</name></member>
+      <member refid="structida__syntax__highlighter__t_1_1plain__char__ptr__t_1a215bfe77d25bb6c4af16d81e9dde3e9d" prot="public" virt="non-virtual"><scope>ida_syntax_highlighter_t::plain_char_ptr_t</scope><name>plain_char_ptr_t</name></member>
+      <member refid="structida__syntax__highlighter__t_1_1plain__char__ptr__t_1a9edf4739fc8423915dc03a082a867b01" prot="public" virt="non-virtual"><scope>ida_syntax_highlighter_t::plain_char_ptr_t</scope><name>ptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

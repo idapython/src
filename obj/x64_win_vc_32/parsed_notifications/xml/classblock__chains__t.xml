@@ -1,0 +1,294 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classblock__chains__t" kind="class" language="C++" prot="public">
+    <compoundname>block_chains_t</compoundname>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classblock__chains__t_1a8edcd5ff0a40257559f0aa49c47a28d2" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t block_chains_t::body[SIZEOF_BLOCK_CHAINS/sizeof(size_t)]</definition>
+        <argsstring>[SIZEOF_BLOCK_CHAINS/sizeof(size_t)]</argsstring>
+        <name>body</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3166" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3166" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classblock__chains__t_1a7a7d08c325ab8621de1535e0ca300bef" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classchain__t" kindref="compound">chain_t</ref> *</type>
+        <definition>const chain_t* block_chains_t::get_reg_chain</definition>
+        <argsstring>(mreg_t reg, int width=1) const</argsstring>
+        <name>get_reg_chain</name>
+        <param>
+          <type>mreg_t</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get chain for the specified register <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>register number </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of register in bytes </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3172" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3172" bodyend="3173"/>
+      </memberdef>
+      <memberdef kind="function" id="classblock__chains__t_1a50fa1b39d8bfaaf49702e3898d194c3d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classchain__t" kindref="compound">chain_t</ref> *</type>
+        <definition>chain_t* block_chains_t::get_reg_chain</definition>
+        <argsstring>(mreg_t reg, int width=1)</argsstring>
+        <name>get_reg_chain</name>
+        <param>
+          <type>mreg_t</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3174" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3174" bodyend="3175"/>
+      </memberdef>
+      <memberdef kind="function" id="classblock__chains__t_1ad40c41d1e9ae3a1b18b3eb84f641d24d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classchain__t" kindref="compound">chain_t</ref> *</type>
+        <definition>const chain_t* block_chains_t::get_stk_chain</definition>
+        <argsstring>(sval_t off, int width=1) const</argsstring>
+        <name>get_stk_chain</name>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>off</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get chain for the specified stack offset <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>off</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>stack offset </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of stack value in bytes </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3180" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3180" bodyend="3181"/>
+      </memberdef>
+      <memberdef kind="function" id="classblock__chains__t_1a88b2f5cb1107c7076088492bc20e3a84" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classchain__t" kindref="compound">chain_t</ref> *</type>
+        <definition>chain_t* block_chains_t::get_stk_chain</definition>
+        <argsstring>(sval_t off, int width=1)</argsstring>
+        <name>get_stk_chain</name>
+        <param>
+          <type><ref refid="pro_8h_1a430639fcfd4601cd6cb310ae71481fe1" kindref="member">sval_t</ref></type>
+          <declname>off</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3182" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3182" bodyend="3183"/>
+      </memberdef>
+      <memberdef kind="function" id="classblock__chains__t_1ad85975877a289d66ea7665792cccfd25" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classchain__t" kindref="compound">chain_t</ref> *</type>
+        <definition>const chain_t* block_chains_t::get_chain</definition>
+        <argsstring>(const voff_t &amp;k, int width=1) const</argsstring>
+        <name>get_chain</name>
+        <param>
+          <type>const <ref refid="structvoff__t" kindref="compound">voff_t</ref> &amp;</type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get chain for the specified value offset. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>k</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value offset (register number or stack offset) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of value in bytes </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3188" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3188" bodyend="3189"/>
+      </memberdef>
+      <memberdef kind="function" id="classblock__chains__t_1a0b1d2e8d2ab105de221bb603d18c4fed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classchain__t" kindref="compound">chain_t</ref> *</type>
+        <definition>chain_t* block_chains_t::get_chain</definition>
+        <argsstring>(const voff_t &amp;k, int width=1)</argsstring>
+        <name>get_chain</name>
+        <param>
+          <type>const <ref refid="structvoff__t" kindref="compound">voff_t</ref> &amp;</type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3190" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3190" bodyend="3191"/>
+      </memberdef>
+      <memberdef kind="function" id="classblock__chains__t_1a9e2cbf55bced9c2b9fb3c36804a0fca1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classchain__t" kindref="compound">chain_t</ref> *hexapi</type>
+        <definition>const chain_t * block_chains_t::get_chain</definition>
+        <argsstring>(const chain_t &amp;ch) const</argsstring>
+        <name>get_chain</name>
+        <param>
+          <type>const <ref refid="classchain__t" kindref="compound">chain_t</ref> &amp;</type>
+          <declname>ch</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get chain similar to the specified chain <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ch</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>chain to search for. only its &apos;k&apos; and &apos;width&apos; are used. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3195" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10089" bodyend="10092"/>
+      </memberdef>
+      <memberdef kind="function" id="classblock__chains__t_1afe9f573c052844d28e14ee4b05e90ee7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classchain__t" kindref="compound">chain_t</ref> *</type>
+        <definition>chain_t* block_chains_t::get_chain</definition>
+        <argsstring>(const chain_t &amp;ch)</argsstring>
+        <name>get_chain</name>
+        <param>
+          <type>const <ref refid="classchain__t" kindref="compound">chain_t</ref> &amp;</type>
+          <declname>ch</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3196" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3196" bodyend="3197"/>
+      </memberdef>
+      <memberdef kind="function" id="classblock__chains__t_1a16a4e9082f378a45aeceffee4bc76f9a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void block_chains_t::print</definition>
+        <argsstring>(qstring *vout) const</argsstring>
+        <name>print</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>vout</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3199" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10095" bodyend="10098"/>
+      </memberdef>
+      <memberdef kind="function" id="classblock__chains__t_1a1b6fffc85a8134167de05a940d96a600" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *hexapi</type>
+        <definition>const char * block_chains_t::dstr</definition>
+        <argsstring>(void) const</argsstring>
+        <name>dstr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3200" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10101" bodyend="10104"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Chains of one block. Please note that this class is based on std::map and it must be accessed using the block_chains_begin(), block_chains_find() and similar functions. This is required because different compilers use different implementations of std::map. However, since the size of std::map depends on the compilation options, we replace it with a byte array. </para>    </detaileddescription>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="3165" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="3164" bodyend="3202"/>
+    <listofallmembers>
+      <member refid="classblock__chains__t_1a8edcd5ff0a40257559f0aa49c47a28d2" prot="private" virt="non-virtual"><scope>block_chains_t</scope><name>body</name></member>
+      <member refid="classblock__chains__t_1a1b6fffc85a8134167de05a940d96a600" prot="public" virt="non-virtual"><scope>block_chains_t</scope><name>dstr</name></member>
+      <member refid="classblock__chains__t_1ad85975877a289d66ea7665792cccfd25" prot="public" virt="non-virtual"><scope>block_chains_t</scope><name>get_chain</name></member>
+      <member refid="classblock__chains__t_1a0b1d2e8d2ab105de221bb603d18c4fed" prot="public" virt="non-virtual"><scope>block_chains_t</scope><name>get_chain</name></member>
+      <member refid="classblock__chains__t_1a9e2cbf55bced9c2b9fb3c36804a0fca1" prot="public" virt="non-virtual"><scope>block_chains_t</scope><name>get_chain</name></member>
+      <member refid="classblock__chains__t_1afe9f573c052844d28e14ee4b05e90ee7" prot="public" virt="non-virtual"><scope>block_chains_t</scope><name>get_chain</name></member>
+      <member refid="classblock__chains__t_1a7a7d08c325ab8621de1535e0ca300bef" prot="public" virt="non-virtual"><scope>block_chains_t</scope><name>get_reg_chain</name></member>
+      <member refid="classblock__chains__t_1a50fa1b39d8bfaaf49702e3898d194c3d" prot="public" virt="non-virtual"><scope>block_chains_t</scope><name>get_reg_chain</name></member>
+      <member refid="classblock__chains__t_1ad40c41d1e9ae3a1b18b3eb84f641d24d" prot="public" virt="non-virtual"><scope>block_chains_t</scope><name>get_stk_chain</name></member>
+      <member refid="classblock__chains__t_1a88b2f5cb1107c7076088492bc20e3a84" prot="public" virt="non-virtual"><scope>block_chains_t</scope><name>get_stk_chain</name></member>
+      <member refid="classblock__chains__t_1a16a4e9082f378a45aeceffee4bc76f9a" prot="public" virt="non-virtual"><scope>block_chains_t</scope><name>print</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

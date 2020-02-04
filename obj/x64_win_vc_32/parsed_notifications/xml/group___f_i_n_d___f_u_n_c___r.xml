@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group___f_i_n_d___f_u_n_c___r" kind="group">
+    <compoundname>FIND_FUNC_R</compoundname>
+    <title>Find function bounds result codes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___f_i_n_d___f_u_n_c___r_1ga3e201eff6859ad0590bbe4db125570f0" prot="public" static="no">
+        <name>FIND_FUNC_UNDEF</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>nfn-&gt;end_ea will have the address of the unexplored byte. </para>        </briefdescription>
+        <detaileddescription>
+<para>function has instructions that pass execution flow to unexplored bytes. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="431" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="431" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_i_n_d___f_u_n_c___r_1gadc3153bb9e99648e6306129e5654b0b2" prot="public" static="no">
+        <name>FIND_FUNC_OK</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>ok, &apos;nfn&apos; is ready for <ref refid="funcs_8hpp_1a43dfcfff5941536b5b16d5ea160cce8a" kindref="member">add_func()</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="433" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="433" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___f_i_n_d___f_u_n_c___r_1gae1c77ab371a3816e3d90f1f9f48710bd" prot="public" static="no">
+        <name>FIND_FUNC_EXIST</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>its bounds are returned in &apos;nfn&apos;. </para>        </briefdescription>
+        <detaileddescription>
+<para>function exists already. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" line="434" column="9" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/funcs.hpp" bodystart="434" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Return values for <ref refid="funcs_8hpp_1af27a7eb0cc4e210f6ffa21e6aa06e589" kindref="member">find_func_bounds()</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

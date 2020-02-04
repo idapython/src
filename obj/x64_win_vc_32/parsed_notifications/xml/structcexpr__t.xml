@@ -1,0 +1,2206 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structcexpr__t" kind="struct" language="C++" prot="public">
+    <compoundname>cexpr_t</compoundname>
+    <basecompoundref refid="structcitem__t" prot="public" virt="non-virtual">citem_t</basecompoundref>
+    <derivedcompoundref refid="structcarg__t" prot="public" virt="non-virtual">carg_t</derivedcompoundref>
+    <includes refid="hexrays_8hpp" local="no">hexrays.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcexpr__t_1a82540609a6ebe46a10274b946867d4de" prot="public" static="no" mutable="no">
+        <type><ref refid="structcnumber__t" kindref="compound">cnumber_t</ref> *</type>
+        <definition>cnumber_t* cexpr_t::n</definition>
+        <argsstring></argsstring>
+        <name>n</name>
+        <briefdescription>
+<para>used for cot_num </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5614" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5614" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcexpr__t_1a3bab41aa4c7d863e3e704dc9a2b10afb" prot="public" static="no" mutable="no">
+        <type><ref refid="structfnumber__t" kindref="compound">fnumber_t</ref> *</type>
+        <definition>fnumber_t* cexpr_t::fpc</definition>
+        <argsstring></argsstring>
+        <name>fpc</name>
+        <briefdescription>
+<para>used for cot_fnum </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5615" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5615" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcexpr__t_1ab11296b3e5a9f272883bfc110d8d3c30" prot="public" static="no" mutable="no">
+        <type><ref refid="structvar__ref__t" kindref="compound">var_ref_t</ref></type>
+        <definition>var_ref_t cexpr_t::v</definition>
+        <argsstring></argsstring>
+        <name>v</name>
+        <briefdescription>
+<para>used for cot_var </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5620" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5620" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcexpr__t_1a886b8b66ad1e16eb7cbdc96dd87c2613" prot="public" static="no" mutable="no">
+        <type>ea_t</type>
+        <definition>ea_t cexpr_t::obj_ea</definition>
+        <argsstring></argsstring>
+        <name>obj_ea</name>
+        <briefdescription>
+<para>used for cot_obj </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5621" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5621" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcexpr__t_1aebf5bd9a65efcfc88b6405fb790476fa" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int cexpr_t::refwidth</definition>
+        <argsstring></argsstring>
+        <name>refwidth</name>
+        <briefdescription>
+<para>how many bytes are accessed? (-1: none) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5623" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5623" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcexpr__t_1adc89ce506f3b60d29c54de728b1bda99" prot="public" static="no" mutable="no">
+        <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+        <definition>cexpr_t* cexpr_t::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+<para>the first operand of the expression </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5627" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5627" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcexpr__t_1a8a0fc4f0b0d6f682cee56b73e83abd31" prot="public" static="no" mutable="no">
+        <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+        <definition>cexpr_t* cexpr_t::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+<para>the second operand of the expression </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5630" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5630" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcexpr__t_1a471b6908444d93f716a158eaf4b0a758" prot="public" static="no" mutable="no">
+        <type><ref refid="structcarglist__t" kindref="compound">carglist_t</ref> *</type>
+        <definition>carglist_t* cexpr_t::a</definition>
+        <argsstring></argsstring>
+        <name>a</name>
+        <briefdescription>
+<para>argument list (used for cot_call) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5631" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5631" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcexpr__t_1ad958027d0b00d4548ad2c4b430163452" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 cexpr_t::m</definition>
+        <argsstring></argsstring>
+        <name>m</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>member offset (used for cot_memptr, cot_memref) for unions, the member number </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5632" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5632" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcexpr__t_1ac50a01d2bd38c3aacdcb92125f1de0eb" prot="public" static="no" mutable="no">
+        <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+        <definition>cexpr_t* cexpr_t::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <briefdescription>
+<para>the third operand of the expression </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5637" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5637" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcexpr__t_1a0dd23ce13113a7248329425422a139a9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int cexpr_t::ptrsize</definition>
+        <argsstring></argsstring>
+        <name>ptrsize</name>
+        <briefdescription>
+<para>memory access size (used for cot_ptr, cot_memptr) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5638" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5638" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcexpr__t_1a75670210d23ef3ac7914968c05f9d03b" prot="public" static="no" mutable="no">
+        <type><ref refid="structcinsn__t" kindref="compound">cinsn_t</ref> *</type>
+        <definition>cinsn_t* cexpr_t::insn</definition>
+        <argsstring></argsstring>
+        <name>insn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>an embedded statement, they are prohibited at the final maturity stage (CMAT_FINAL) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5641" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5641" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcexpr__t_1aac05bcfe5cfff4b988cb389821916c66" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* cexpr_t::helper</definition>
+        <argsstring></argsstring>
+        <name>helper</name>
+        <briefdescription>
+<para>helper name (used for cot_helper) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5643" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5643" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcexpr__t_1a6321a917b26ee528adb10f5d2c37a2bd" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* cexpr_t::string</definition>
+        <argsstring></argsstring>
+        <name>string</name>
+        <briefdescription>
+<para>string constant (used for cot_str) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5644" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5644" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcexpr__t_1a6ed7fdb21d821f28cd5900ddfa02be09" prot="public" static="no" mutable="no">
+        <type>union cexpr_t::@111</type>
+        <definition>union cexpr_t::@111 cexpr_t::@112</definition>
+        <argsstring></argsstring>
+        <name>@112</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5645" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcexpr__t_1ae3e6815270f990afb26e71526ad37603" prot="public" static="no" mutable="no">
+        <type><ref refid="classtinfo__t" kindref="compound">tinfo_t</ref></type>
+        <definition>tinfo_t cexpr_t::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+<para>expression type. must be carefully maintained </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5646" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5646" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcexpr__t_1a107505d936acfc162ca0f75ea50a0a83" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 cexpr_t::exflags</definition>
+        <argsstring></argsstring>
+        <name>exflags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="group___e_x_f_l__" kindref="compound">Expression attributes</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5647" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5647" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structcexpr__t_1a53fafbef21c9ba9e07b9f9ac268cbd0b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::cpadone</definition>
+        <argsstring>(void) const</argsstring>
+        <name>cpadone</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Pointer arithmetic correction done for this expression? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5663" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5663" bodyend="5663"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a4117c8e728e7f89f358e0fbf2cd34728" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_odd_lvalue</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_odd_lvalue</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5664" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5664" bodyend="5664"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a544844f5a918a71796b88a87cf5ac8fd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_fpop</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_fpop</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5665" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5665" bodyend="5665"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a737838351392863e8f23b06744606687" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_cstr</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_cstr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5666" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5666" bodyend="5666"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1abfc888f8883f767d3f396114fbc0383f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_type_partial</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_type_partial</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5667" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5667" bodyend="5667"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a677c5bc335b3a20d91bffc668ba6587a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_undef_val</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_undef_val</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5668" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5668" bodyend="5668"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1ad6e31420aff617687a68a5998face18d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_jumpout</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_jumpout</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5669" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5669" bodyend="5669"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1ab7ab5e861d8ead837bfe37c561b37cad" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_vftable</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_vftable</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5670" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5670" bodyend="5670"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1af8eed4595148c9bf76feb6ff71767721" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void cexpr_t::set_cpadone</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_cpadone</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5673" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5673" bodyend="5673"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a25801b9be75fb7040bfa7809cc79b1da" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void cexpr_t::set_type_partial</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_type_partial</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5674" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5674" bodyend="5674"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1aae1ba28d8b5e3b1479fdc7c6ad54e1ea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void cexpr_t::set_vftable</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_vftable</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5675" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5675" bodyend="5675"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a6a86e529e34033e4eee42729daebd286" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>cexpr_t::cexpr_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>cexpr_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5677" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5677" bodyend="5677"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a551fecb02438bd807de187f54f26a6e2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>cexpr_t::cexpr_t</definition>
+        <argsstring>(ctype_t cop, cexpr_t *_x)</argsstring>
+        <name>cexpr_t</name>
+        <param>
+          <type>ctype_t</type>
+          <declname>cop</declname>
+        </param>
+        <param>
+          <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+          <declname>_x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5678" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5678" bodyend="5678"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1ad69f4e47c9bdeb7db2dc21b9e96f9861" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>cexpr_t::cexpr_t</definition>
+        <argsstring>(ctype_t cop, cexpr_t *_x, cexpr_t *_y)</argsstring>
+        <name>cexpr_t</name>
+        <param>
+          <type>ctype_t</type>
+          <declname>cop</declname>
+        </param>
+        <param>
+          <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+          <declname>_x</declname>
+        </param>
+        <param>
+          <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+          <declname>_y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5679" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5679" bodyend="5679"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a48bd4ab437bf26914473b9bb2f91f3fb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>cexpr_t::cexpr_t</definition>
+        <argsstring>(ctype_t cop, cexpr_t *_x, cexpr_t *_y, cexpr_t *_z)</argsstring>
+        <name>cexpr_t</name>
+        <param>
+          <type>ctype_t</type>
+          <declname>cop</declname>
+        </param>
+        <param>
+          <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+          <declname>_x</declname>
+        </param>
+        <param>
+          <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+          <declname>_y</declname>
+        </param>
+        <param>
+          <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+          <declname>_z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5680" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5680" bodyend="5680"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a00166ea3431002605849be21c47244b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>cexpr_t::cexpr_t</definition>
+        <argsstring>(mbl_array_t *mba, const lvar_t &amp;v)</argsstring>
+        <name>cexpr_t</name>
+        <param>
+          <type><ref refid="classmbl__array__t" kindref="compound">mbl_array_t</ref> *</type>
+          <declname>mba</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classlvar__t" kindref="compound">lvar_t</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5681" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a42b623f992b46a7b33ff66340d88854e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>cexpr_t::cexpr_t</definition>
+        <argsstring>(const cexpr_t &amp;r)</argsstring>
+        <name>cexpr_t</name>
+        <param>
+          <type>const <ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5682" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5682" bodyend="5682"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a18549da378edb7efcfb8237c863fb48a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void cexpr_t::swap</definition>
+        <argsstring>(cexpr_t &amp;r)</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5683" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5683" bodyend="5683"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1ae2374431696dc48a7b73ab3d50074719" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> &amp;</type>
+        <definition>cexpr_t&amp; cexpr_t::operator=</definition>
+        <argsstring>(const cexpr_t &amp;r)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5684" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5684" bodyend="5684"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a956712f52a98e8cd26b21eeb88035aae" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> &amp;hexapi</type>
+        <definition>cexpr_t &amp; cexpr_t::assign</definition>
+        <argsstring>(const cexpr_t &amp;r)</argsstring>
+        <name>assign</name>
+        <param>
+          <type>const <ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5685" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10767" bodyend="10770"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a8c6a451a42ae267ab61f3db4aaf29b00" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>cexpr_t::~cexpr_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>~cexpr_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5687" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5687" bodyend="5687"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a23433d656dd514493737ce3844c33452" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void cexpr_t::replace_by</definition>
+        <argsstring>(cexpr_t *r)</argsstring>
+        <name>replace_by</name>
+        <param>
+          <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Replace the expression. The children of the expression are abandoned (not freed). The expression pointed by &apos;r&apos; is moved to &apos;this&apos; expression <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>r</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the source expression. It is deleted after being copied </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5693" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10779" bodyend="10782"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1aed1eaf4c769ecad1941e9c8658c958b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void cexpr_t::cleanup</definition>
+        <argsstring>(void)</argsstring>
+        <name>cleanup</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Cleanup the expression. This function properly deletes all children and sets the item type to cot_empty. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5697" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10785" bodyend="10788"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1ab39f77b6d79302edd5ceaf44d6c2f060" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void cexpr_t::put_number</definition>
+        <argsstring>(cfunc_t *func, uint64 value, int nbytes, type_sign_t sign=no_sign)</argsstring>
+        <name>put_number</name>
+        <param>
+          <type><ref refid="structcfunc__t" kindref="compound">cfunc_t</ref> *</type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nbytes</declname>
+        </param>
+        <param>
+          <type><ref refid="group__tattr__ext_1ga91970b0d779fe968b3b22572526048a0" kindref="member">type_sign_t</ref></type>
+          <declname>sign</declname>
+          <defval><ref refid="group__tattr__ext_1gab2774527d973c5dd40e9f7e579c7af36" kindref="member">no_sign</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Assign a number to the expression. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>current function </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number value </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nbytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of the number in bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sign</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number sign </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5704" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10791" bodyend="10794"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a57c4a689371732a3c65f59bcf1c71a7e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void cexpr_t::print1</definition>
+        <argsstring>(qstring *vout, const cfunc_t *func) const</argsstring>
+        <name>print1</name>
+        <param>
+          <type><ref refid="pro_8h_1a386c10c6aa4340f1d63df85f40454fce" kindref="member">qstring</ref> *</type>
+          <declname>vout</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structcfunc__t" kindref="compound">cfunc_t</ref> *</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Print expression into one line. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>vout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>parent function. This argument is used to find out the referenced variable names. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5709" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10797" bodyend="10800"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a79528caf1a7b52990d68659cb2777301" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void hexapi</type>
+        <definition>void cexpr_t::calc_type</definition>
+        <argsstring>(bool recursive)</argsstring>
+        <name>calc_type</name>
+        <param>
+          <type>bool</type>
+          <declname>recursive</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calculate the type of the expression. Use this function to calculate the expression type when a new expression is built <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>recursive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if true, types of all children expression will be calculated before calculating our type </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5715" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10803" bodyend="10806"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a880667a02da22bfb661e197d71966484" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool cexpr_t::equal_effect</definition>
+        <argsstring>(const cexpr_t &amp;r) const</argsstring>
+        <name>equal_effect</name>
+        <param>
+          <type>const <ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare two expressions. This function tries to compare two expressions in an &apos;intelligent&apos; manner. For example, it knows about commutitive operators and can ignore useless casts. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>r</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the expression to compare against the current expression </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true expressions can be considered equal </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5722" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10809" bodyend="10812"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a9def4c3951da96884524112b256a4b30" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool cexpr_t::is_child_of</definition>
+        <argsstring>(const citem_t *parent) const</argsstring>
+        <name>is_child_of</name>
+        <param>
+          <type>const <ref refid="structcitem__t" kindref="compound">citem_t</ref> *</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Verify if the specified item is our parent. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>possible parent item </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the specified item is our parent </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5727" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10815" bodyend="10818"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1ad5bd00428ea884670548c8f397f3606b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool cexpr_t::contains_operator</definition>
+        <argsstring>(ctype_t needed_op, int times=1) const</argsstring>
+        <name>contains_operator</name>
+        <param>
+          <type>ctype_t</type>
+          <declname>needed_op</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>times</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Check if the expression contains the specified operator. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>needed_op</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>operator code to search for </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>times</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>how many times the operator code should be present </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the expression has at least TIMES children with NEEDED_OP </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5733" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10821" bodyend="10824"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a15f332508408882ca5d4b944d9170766" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::contains_comma</definition>
+        <argsstring>(int times=1) const</argsstring>
+        <name>contains_comma</name>
+        <param>
+          <type>int</type>
+          <declname>times</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>Does the expression contain a comma operator? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5736" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5736" bodyend="5736"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1aa27ff088ecff9124bc76926390d7881c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::contains_insn</definition>
+        <argsstring>(int times=1) const</argsstring>
+        <name>contains_insn</name>
+        <param>
+          <type>int</type>
+          <declname>times</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>Does the expression contain an embedded statement operator? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5738" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5738" bodyend="5738"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a1ac4dce62ea0f6864b90ff6078e06708" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::contains_insn_or_label</definition>
+        <argsstring>(void) const</argsstring>
+        <name>contains_insn_or_label</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Does the expression contain an embedded statement operator or a label? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5740" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5740" bodyend="5740"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1ae29e13f31b26dcf88b0baeb8d2bdbb27" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::contains_comma_or_insn_or_label</definition>
+        <argsstring>(int maxcommas=1) const</argsstring>
+        <name>contains_comma_or_insn_or_label</name>
+        <param>
+          <type>int</type>
+          <declname>maxcommas</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>Does the expression contain a comma operator or an embedded statement operator or a label? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5742" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5742" bodyend="5742"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a90a049486908576b841edf543b24e756" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_nice_expr</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_nice_expr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is nice expression? Nice expressions do not contain comma operators, embedded statements, or labels. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5745" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5745" bodyend="5745"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a6119f1de160a5b8269c91f110353408b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_nice_cond</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_nice_cond</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is nice condition?. Nice condition is a nice expression of the boolean type. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5748" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5748" bodyend="5748"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a8aad2dc6c90b8ccbe6da07f1188e1cb1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_call_object_of</definition>
+        <argsstring>(const citem_t *parent) const</argsstring>
+        <name>is_call_object_of</name>
+        <param>
+          <type>const <ref refid="structcitem__t" kindref="compound">citem_t</ref> *</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is call object? <simplesect kind="return"><para>true if our expression is the call object of the specified parent expression. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5751" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5751" bodyend="5751"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a38db61e5e145db0afab474601311f516" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_call_arg_of</definition>
+        <argsstring>(const citem_t *parent) const</argsstring>
+        <name>is_call_arg_of</name>
+        <param>
+          <type>const <ref refid="structcitem__t" kindref="compound">citem_t</ref> *</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is call argument? <simplesect kind="return"><para>true if our expression is a call argument of the specified parent expression. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5754" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5754" bodyend="5754"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a0a3c4e240d319b95da50458f6d20be47" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="group__tattr__ext_1ga91970b0d779fe968b3b22572526048a0" kindref="member">type_sign_t</ref></type>
+        <definition>type_sign_t cexpr_t::get_type_sign</definition>
+        <argsstring>(void) const</argsstring>
+        <name>get_type_sign</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get expression sign. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5756" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5756" bodyend="5756"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a93acec7e8fd6b902046db597e875ae26" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_type_unsigned</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_type_unsigned</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is expression unsigned? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5758" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5758" bodyend="5758"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a5cc89bb59f1efcdf0f9b3f44c81713aa" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_type_signed</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_type_signed</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Is expression signed? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5760" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5760" bodyend="5760"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a0cd669a280b6b9b023deb4497305adab" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structbit__bound__t" kindref="compound">bit_bound_t</ref> hexapi</type>
+        <definition>bit_bound_t cexpr_t::get_high_nbit_bound</definition>
+        <argsstring>() const</argsstring>
+        <name>get_high_nbit_bound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get max number of bits that can really be used by the expression. For example, x % 16 can yield only 4 non-zero bits, higher bits are zero </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5763" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10827" bodyend="10832"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1acbd824576f4060b0dbd613b2382c8d2f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int hexapi</type>
+        <definition>int cexpr_t::get_low_nbit_bound</definition>
+        <argsstring>() const</argsstring>
+        <name>get_low_nbit_bound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get min number of bits that are certainly required to represent the expression. For example, constant 16 always uses 5 bits: 10000. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5766" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10835" bodyend="10838"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a47d4c7a9f3852b58eac467b96807a5f6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool cexpr_t::requires_lvalue</definition>
+        <argsstring>(const cexpr_t *child) const</argsstring>
+        <name>requires_lvalue</name>
+        <param>
+          <type>const <ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+          <declname>child</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Check if the expression requires an lvalue. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>child</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The function will check if this child of our expression must be an lvalue. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if child must be an lvalue. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5770" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10841" bodyend="10844"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1adc361e5ae9fdab316a66471a4a93c8e0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool hexapi</type>
+        <definition>bool cexpr_t::has_side_effects</definition>
+        <argsstring>(void) const</argsstring>
+        <name>has_side_effects</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Check if the expression has side effects. Calls, pre/post inc/dec, and assignments have side effects. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5773" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="10847" bodyend="10850"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a1f4d7ad78e8c5074f732ea19e4b9c4db" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::like_boolean</definition>
+        <argsstring>(void) const</argsstring>
+        <name>like_boolean</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Does the expression look like a boolean expression? In other words, its possible values are only 0 and 1. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5776" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1afb3e621fbbb78b4301d3d5c2b7944e4d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_aliasable</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_aliasable</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Check if the expression if aliasable. Simple registers and non-aliasble stack slots return false. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5779" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1ad23ffe418dfad10df7c7b9dc601786a3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 cexpr_t::numval</definition>
+        <argsstring>(void) const</argsstring>
+        <name>numval</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get numeric value of the expression. This function can be called only on cot_num expressions! </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5782" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5782" bodyend="5786"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a793d3695aa4b73050193f1b1fc432b21" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_const_value</definition>
+        <argsstring>(uint64 _v) const</argsstring>
+        <name>is_const_value</name>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+          <declname>_v</declname>
+        </param>
+        <briefdescription>
+<para>Check if the expression is a number with the specified value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5788" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5788" bodyend="5791"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1ad980248d4307c52af5a9c6b1548850a1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_negative_const</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_negative_const</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Check if the expression is a negative number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5793" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5793" bodyend="5796"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1ad1e11353b795c4b4cb6b4d4aa0af205c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_non_negative_const</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_non_negative_const</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Check if the expression is a non-negative number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5798" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5798" bodyend="5801"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1ae58df155a91d77a7b9199da8ae467b9a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_non_zero_const</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_non_zero_const</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Check if the expression is a non-zero number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5803" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5803" bodyend="5806"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a2db440dfe54c40f8e507cccc3ab301dc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_zero_const</definition>
+        <argsstring>(void) const</argsstring>
+        <name>is_zero_const</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Check if the expression is a zero. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5808" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5808" bodyend="5808"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a21b7458c79e59b848575c1e27795b474" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::is_value_used</definition>
+        <argsstring>(const citem_t *parent) const</argsstring>
+        <name>is_value_used</name>
+        <param>
+          <type>const <ref refid="structcitem__t" kindref="compound">citem_t</ref> *</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+<para>Does the PARENT need the expression value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5810" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1af46ecb54870f7d36ddad6a63b9c014e1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::get_const_value</definition>
+        <argsstring>(uint64 *out) const</argsstring>
+        <name>get_const_value</name>
+        <param>
+          <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get expression value. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the variable where the expression value is returned. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the expression is a number. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5814" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5814" bodyend="5823"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1ab9a1f1ff2070a55452b5e351c54cc14f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::maybe_ptr</definition>
+        <argsstring>(void) const</argsstring>
+        <name>maybe_ptr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>May the expression be a pointer? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5825" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5825" bodyend="5834"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1afecbc4ebbe079765880e0cc0f766a9bc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+        <definition>cexpr_t* cexpr_t::get_ptr_or_array</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_ptr_or_array</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Find pointer or array child. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5836" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5836" bodyend="5843"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a167340e3f9170db0d3d5475cb18724f1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+        <definition>const cexpr_t* cexpr_t::find_op</definition>
+        <argsstring>(ctype_t _op) const</argsstring>
+        <name>find_op</name>
+        <param>
+          <type>ctype_t</type>
+          <declname>_op</declname>
+        </param>
+        <briefdescription>
+<para>Find the child with the specified operator. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5845" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5845" bodyend="5852"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a138824150e33cea0e5d74eaa9afd6f2a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+        <definition>cexpr_t* cexpr_t::find_op</definition>
+        <argsstring>(ctype_t _op)</argsstring>
+        <name>find_op</name>
+        <param>
+          <type>ctype_t</type>
+          <declname>_op</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5853" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5853" bodyend="5856"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1ad37b6180c03135a204576609de955bb6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+        <definition>const cexpr_t* cexpr_t::find_num_op</definition>
+        <argsstring>(void) const</argsstring>
+        <name>find_num_op</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Find the operand with a numeric value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5859" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5859" bodyend="5859"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1afb7965c9f60f3512b31882ab96a4e4e7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+        <definition>cexpr_t* cexpr_t::find_num_op</definition>
+        <argsstring>(void)</argsstring>
+        <name>find_num_op</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5860" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5860" bodyend="5860"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a4a0904bb493a2b118e9a38802a69a062" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+        <definition>const cexpr_t* cexpr_t::find_ptr_or_array</definition>
+        <argsstring>(bool remove_eqsize_casts) const</argsstring>
+        <name>find_ptr_or_array</name>
+        <param>
+          <type>bool</type>
+          <declname>remove_eqsize_casts</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find the pointer operand. This function returns the pointer operand for binary expressions. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5863" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1af85e9454b3ead9cc269f00fba5d3f7f2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+        <definition>const cexpr_t* cexpr_t::theother</definition>
+        <argsstring>(const cexpr_t *what) const</argsstring>
+        <name>theother</name>
+        <param>
+          <type>const <ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+          <declname>what</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the other operand. This function returns the other operand (not the specified one) for binary expressions. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5867" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5867" bodyend="5867"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1a2215de539b307ff0a54915406f777088" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+        <definition>cexpr_t* cexpr_t::theother</definition>
+        <argsstring>(const cexpr_t *what)</argsstring>
+        <name>theother</name>
+        <param>
+          <type>const <ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> *</type>
+          <declname>what</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5868" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5868" bodyend="5868"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1ae521f4391e9eb2c23423efe1d06593ac" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::get_1num_op</definition>
+        <argsstring>(cexpr_t **o1, cexpr_t **o2)</argsstring>
+        <name>get_1num_op</name>
+        <param>
+          <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> **</type>
+          <declname>o1</declname>
+        </param>
+        <param>
+          <type><ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> **</type>
+          <declname>o2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get pointers to operands. at last one operand should be a number o1 will be pointer to the number </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5871" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6691" bodyend="6706"/>
+      </memberdef>
+      <memberdef kind="function" id="structcexpr__t_1abcce5527d75026bf56f8b434bb206ff4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool cexpr_t::get_1num_op</definition>
+        <argsstring>(const cexpr_t **o1, const cexpr_t **o2) const</argsstring>
+        <name>get_1num_op</name>
+        <param>
+          <type>const <ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> **</type>
+          <declname>o1</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structcexpr__t" kindref="compound">cexpr_t</ref> **</type>
+          <declname>o2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5872" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="6708" bodyend="6713"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Ctree element: expression. Depending on the exact expression item type, various fields of this structure are used. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="482">
+        <label>cexpr_t</label>
+        <link refid="structcexpr__t"/>
+        <childnode refid="483" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="483">
+        <label>citem_t</label>
+        <link refid="structcitem__t"/>
+      </node>
+      <node id="484">
+        <label>carg_t</label>
+        <link refid="structcarg__t"/>
+        <childnode refid="482" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="543">
+        <label>ivl_tpl&lt; uval_t &gt;</label>
+        <link refid="structivl__tpl"/>
+      </node>
+      <node id="519">
+        <label>bitset_t</label>
+        <link refid="classbitset__t"/>
+      </node>
+      <node id="494">
+        <label>cinsn_t</label>
+        <link refid="structcinsn__t"/>
+        <childnode refid="486" relation="public-inheritance">
+        </childnode>
+        <childnode refid="485" relation="usage">
+          <edgelabel>cexpr</edgelabel>
+        </childnode>
+        <childnode refid="495" relation="usage">
+          <edgelabel>cwhile</edgelabel>
+        </childnode>
+        <childnode refid="498" relation="usage">
+          <edgelabel>cswitch</edgelabel>
+        </childnode>
+        <childnode refid="501" relation="usage">
+          <edgelabel>cfor</edgelabel>
+        </childnode>
+        <childnode refid="502" relation="usage">
+          <edgelabel>cdo</edgelabel>
+        </childnode>
+        <childnode refid="503" relation="usage">
+          <edgelabel>casm</edgelabel>
+        </childnode>
+        <childnode refid="505" relation="usage">
+          <edgelabel>cblock</edgelabel>
+        </childnode>
+        <childnode refid="507" relation="usage">
+          <edgelabel>creturn</edgelabel>
+        </childnode>
+        <childnode refid="508" relation="usage">
+          <edgelabel>cif</edgelabel>
+        </childnode>
+        <childnode refid="509" relation="usage">
+          <edgelabel>cgoto</edgelabel>
+        </childnode>
+      </node>
+      <node id="517">
+        <label>mlist_t</label>
+        <link refid="structmlist__t"/>
+        <childnode refid="514" relation="usage">
+          <edgelabel>mem</edgelabel>
+        </childnode>
+        <childnode refid="518" relation="usage">
+          <edgelabel>reg</edgelabel>
+        </childnode>
+      </node>
+      <node id="541">
+        <label>ivl_with_name_t</label>
+        <link refid="structivl__with__name__t"/>
+        <childnode refid="542" relation="usage">
+          <edgelabel>ivl</edgelabel>
+        </childnode>
+      </node>
+      <node id="493">
+        <label>tinfo_t</label>
+        <link refid="classtinfo__t"/>
+      </node>
+      <node id="505">
+        <label>cblock_t</label>
+        <link refid="structcblock__t"/>
+        <childnode refid="506" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="506">
+        <label>qlist&lt; cinsn_t &gt;</label>
+        <link refid="classqlist"/>
+      </node>
+      <node id="531">
+        <label>mop_addr_t</label>
+        <link refid="classmop__addr__t"/>
+        <childnode refid="524" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="553">
+        <label>netnode</label>
+        <link refid="classnetnode"/>
+      </node>
+      <node id="499">
+        <label>ccases_t</label>
+        <link refid="structccases__t"/>
+        <childnode refid="500" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="535">
+        <label>qvector&lt; mop_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="514">
+        <label>ivlset_t</label>
+        <link refid="structivlset__t"/>
+        <childnode refid="515" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="491">
+        <label>carglist_t</label>
+        <link refid="structcarglist__t"/>
+        <childnode refid="492" relation="public-inheritance">
+        </childnode>
+        <childnode refid="493" relation="usage">
+          <edgelabel>functype</edgelabel>
+        </childnode>
+      </node>
+      <node id="522">
+        <label>mblock_t</label>
+        <link refid="classmblock__t"/>
+        <childnode refid="511" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="517" relation="usage">
+          <edgelabel>maybuse</edgelabel>
+          <edgelabel>dnu</edgelabel>
+          <edgelabel>maybdef</edgelabel>
+          <edgelabel>mustbuse</edgelabel>
+          <edgelabel>mustbdef</edgelabel>
+          <edgelabel>dead_at_start</edgelabel>
+        </childnode>
+        <childnode refid="520" relation="usage">
+          <edgelabel>succset</edgelabel>
+          <edgelabel>predset</edgelabel>
+        </childnode>
+        <childnode refid="523" relation="usage">
+          <edgelabel>head</edgelabel>
+          <edgelabel>tail</edgelabel>
+        </childnode>
+        <childnode refid="522" relation="usage">
+          <edgelabel>nextb</edgelabel>
+          <edgelabel>prevb</edgelabel>
+        </childnode>
+      </node>
+      <node id="552">
+        <label>rangevec_base_t</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="501">
+        <label>cfor_t</label>
+        <link refid="structcfor__t"/>
+        <childnode refid="496" relation="public-inheritance">
+        </childnode>
+        <childnode refid="485" relation="usage">
+          <edgelabel>step</edgelabel>
+          <edgelabel>init</edgelabel>
+        </childnode>
+      </node>
+      <node id="538">
+        <label>operand_locator_t</label>
+        <link refid="structoperand__locator__t"/>
+      </node>
+      <node id="488">
+        <label>cnumber_t</label>
+        <link refid="structcnumber__t"/>
+        <childnode refid="489" relation="usage">
+          <edgelabel>nf</edgelabel>
+        </childnode>
+      </node>
+      <node id="516">
+        <label>qvector&lt; ivl_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="539">
+        <label>mcases_t</label>
+        <link refid="classmcases__t"/>
+        <childnode refid="520" relation="usage">
+          <edgelabel>targets</edgelabel>
+        </childnode>
+      </node>
+      <node id="534">
+        <label>qvector&lt; mcallarg_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="495">
+        <label>cwhile_t</label>
+        <link refid="structcwhile__t"/>
+        <childnode refid="496" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="507">
+        <label>creturn_t</label>
+        <link refid="structcreturn__t"/>
+        <childnode refid="497" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="545">
+        <label>func_t</label>
+        <link refid="classfunc__t"/>
+        <childnode refid="546" relation="public-inheritance">
+        </childnode>
+        <childnode refid="547" relation="usage">
+          <edgelabel>regargs</edgelabel>
+        </childnode>
+        <childnode refid="548" relation="usage">
+          <edgelabel>points</edgelabel>
+        </childnode>
+        <childnode refid="546" relation="usage">
+          <edgelabel>tails</edgelabel>
+        </childnode>
+        <childnode refid="549" relation="usage">
+          <edgelabel>regvars</edgelabel>
+        </childnode>
+        <childnode refid="550" relation="usage">
+          <edgelabel>llabels</edgelabel>
+        </childnode>
+      </node>
+      <node id="524">
+        <label>mop_t</label>
+        <link refid="classmop__t"/>
+        <childnode refid="525" relation="usage">
+          <edgelabel>scif</edgelabel>
+        </childnode>
+        <childnode refid="487" relation="usage">
+          <edgelabel>fpc</edgelabel>
+        </childnode>
+        <childnode refid="531" relation="usage">
+          <edgelabel>a</edgelabel>
+        </childnode>
+        <childnode refid="532" relation="usage">
+          <edgelabel>pair</edgelabel>
+        </childnode>
+        <childnode refid="533" relation="usage">
+          <edgelabel>f</edgelabel>
+        </childnode>
+        <childnode refid="523" relation="usage">
+          <edgelabel>d</edgelabel>
+        </childnode>
+        <childnode refid="536" relation="usage">
+          <edgelabel>l</edgelabel>
+        </childnode>
+        <childnode refid="537" relation="usage">
+          <edgelabel>nnn</edgelabel>
+        </childnode>
+        <childnode refid="539" relation="usage">
+          <edgelabel>c</edgelabel>
+        </childnode>
+        <childnode refid="540" relation="usage">
+          <edgelabel>s</edgelabel>
+        </childnode>
+      </node>
+      <node id="504">
+        <label>eavec_t</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="532">
+        <label>mop_pair_t</label>
+        <link refid="classmop__pair__t"/>
+        <childnode refid="524" relation="usage">
+          <edgelabel>hop</edgelabel>
+          <edgelabel>lop</edgelabel>
+        </childnode>
+      </node>
+      <node id="510">
+        <label>var_ref_t</label>
+        <link refid="structvar__ref__t"/>
+        <childnode refid="511" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="503">
+        <label>casm_t</label>
+        <link refid="structcasm__t"/>
+        <childnode refid="504" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="547">
+        <label>regarg_t</label>
+        <link refid="structregarg__t"/>
+      </node>
+      <node id="485">
+        <label>cexpr_t</label>
+        <link refid="structcexpr__t"/>
+        <childnode refid="486" relation="public-inheritance">
+        </childnode>
+        <childnode refid="485" relation="usage">
+          <edgelabel>x</edgelabel>
+          <edgelabel>y</edgelabel>
+          <edgelabel>z</edgelabel>
+        </childnode>
+        <childnode refid="487" relation="usage">
+          <edgelabel>fpc</edgelabel>
+        </childnode>
+        <childnode refid="488" relation="usage">
+          <edgelabel>n</edgelabel>
+        </childnode>
+        <childnode refid="491" relation="usage">
+          <edgelabel>a</edgelabel>
+        </childnode>
+        <childnode refid="493" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+        <childnode refid="494" relation="usage">
+          <edgelabel>insn</edgelabel>
+        </childnode>
+        <childnode refid="510" relation="usage">
+          <edgelabel>v</edgelabel>
+        </childnode>
+      </node>
+      <node id="500">
+        <label>qvector&lt; ccase_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="489">
+        <label>number_format_t</label>
+        <link refid="structnumber__format__t"/>
+        <childnode refid="490" relation="usage">
+          <edgelabel>type_name</edgelabel>
+        </childnode>
+      </node>
+      <node id="487">
+        <label>fnumber_t</label>
+        <link refid="structfnumber__t"/>
+      </node>
+      <node id="511">
+        <label>mbl_array_t</label>
+        <link refid="classmbl__array__t"/>
+        <childnode refid="512" relation="usage">
+          <edgelabel>vars</edgelabel>
+        </childnode>
+        <childnode refid="490" relation="usage">
+          <edgelabel>label</edgelabel>
+          <edgelabel>error_strarg</edgelabel>
+        </childnode>
+        <childnode refid="514" relation="usage">
+          <edgelabel>gotoff_stkvars</edgelabel>
+          <edgelabel>restricted_memory</edgelabel>
+          <edgelabel>aliased_memory</edgelabel>
+        </childnode>
+        <childnode refid="517" relation="usage">
+          <edgelabel>spoiled_list</edgelabel>
+          <edgelabel>nodel_memory</edgelabel>
+        </childnode>
+        <childnode refid="520" relation="usage">
+          <edgelabel>argidx</edgelabel>
+        </childnode>
+        <childnode refid="521" relation="usage">
+          <edgelabel>idb_spoiled</edgelabel>
+        </childnode>
+        <childnode refid="522" relation="usage">
+          <edgelabel>blocks</edgelabel>
+          <edgelabel>natural</edgelabel>
+        </childnode>
+        <childnode refid="518" relation="usage">
+          <edgelabel>consumed_argregs</edgelabel>
+        </childnode>
+        <childnode refid="541" relation="usage">
+          <edgelabel>std_ivls</edgelabel>
+        </childnode>
+        <childnode refid="493" relation="usage">
+          <edgelabel>idb_type</edgelabel>
+        </childnode>
+        <childnode refid="544" relation="usage">
+          <edgelabel>mbr</edgelabel>
+        </childnode>
+        <childnode refid="553" relation="usage">
+          <edgelabel>idb_node</edgelabel>
+        </childnode>
+        <childnode refid="554" relation="usage">
+          <edgelabel>notes</edgelabel>
+        </childnode>
+        <childnode refid="542" relation="usage">
+          <edgelabel>aliased_args</edgelabel>
+          <edgelabel>aliased_vars</edgelabel>
+        </childnode>
+      </node>
+      <node id="533">
+        <label>mcallinfo_t</label>
+        <link refid="classmcallinfo__t"/>
+        <childnode refid="514" relation="usage">
+          <edgelabel>visible_memory</edgelabel>
+        </childnode>
+        <childnode refid="517" relation="usage">
+          <edgelabel>pass_regs</edgelabel>
+          <edgelabel>spoiled</edgelabel>
+          <edgelabel>dead_regs</edgelabel>
+          <edgelabel>return_regs</edgelabel>
+        </childnode>
+        <childnode refid="534" relation="usage">
+          <edgelabel>args</edgelabel>
+        </childnode>
+        <childnode refid="493" relation="usage">
+          <edgelabel>return_type</edgelabel>
+        </childnode>
+        <childnode refid="535" relation="usage">
+          <edgelabel>retregs</edgelabel>
+        </childnode>
+        <childnode refid="527" relation="usage">
+          <edgelabel>return_argloc</edgelabel>
+        </childnode>
+      </node>
+      <node id="544">
+        <label>mba_ranges_t</label>
+        <link refid="structmba__ranges__t"/>
+        <childnode refid="545" relation="usage">
+          <edgelabel>pfn</edgelabel>
+        </childnode>
+        <childnode refid="551" relation="usage">
+          <edgelabel>ranges</edgelabel>
+        </childnode>
+      </node>
+      <node id="515">
+        <label>ivlset_tpl&lt; ivl_t, uval_t &gt;</label>
+        <link refid="classivlset__tpl"/>
+        <childnode refid="516" relation="usage">
+          <edgelabel>bag</edgelabel>
+        </childnode>
+      </node>
+      <node id="525">
+        <label>scif_t</label>
+        <link refid="structscif__t"/>
+        <childnode refid="526" relation="public-inheritance">
+        </childnode>
+        <childnode refid="511" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+        <childnode refid="490" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="493" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+      </node>
+      <node id="498">
+        <label>cswitch_t</label>
+        <link refid="structcswitch__t"/>
+        <childnode refid="497" relation="public-inheritance">
+        </childnode>
+        <childnode refid="499" relation="usage">
+          <edgelabel>cases</edgelabel>
+        </childnode>
+        <childnode refid="488" relation="usage">
+          <edgelabel>mvnf</edgelabel>
+        </childnode>
+      </node>
+      <node id="520">
+        <label>qvector&lt; int &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="548">
+        <label>stkpnt_t</label>
+        <link refid="structstkpnt__t"/>
+      </node>
+      <node id="490">
+        <label>_qstring&lt; char &gt;</label>
+        <link refid="class__qstring"/>
+      </node>
+      <node id="492">
+        <label>qvector&lt; carg_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="523">
+        <label>minsn_t</label>
+        <link refid="classminsn__t"/>
+        <childnode refid="523" relation="usage">
+          <edgelabel>prev</edgelabel>
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="524" relation="usage">
+          <edgelabel>l</edgelabel>
+          <edgelabel>r</edgelabel>
+          <edgelabel>d</edgelabel>
+        </childnode>
+      </node>
+      <node id="486">
+        <label>citem_t</label>
+        <link refid="structcitem__t"/>
+      </node>
+      <node id="528">
+        <label>scattered_aloc_t</label>
+        <link refid="classscattered__aloc__t"/>
+        <childnode refid="529" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="529">
+        <label>qvector&lt; argpart_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="546">
+        <label>range_t</label>
+        <link refid="structrange__t"/>
+      </node>
+      <node id="526">
+        <label>vdloc_t</label>
+        <link refid="classvdloc__t"/>
+        <childnode refid="527" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="549">
+        <label>regvar_t</label>
+        <link refid="structregvar__t"/>
+        <childnode refid="546" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="554">
+        <label>qvector&lt; hexwarn_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="537">
+        <label>mnumber_t</label>
+        <link refid="structmnumber__t"/>
+        <childnode refid="538" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="512">
+        <label>lvars_t</label>
+        <link refid="structlvars__t"/>
+        <childnode refid="513" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="527">
+        <label>argloc_t</label>
+        <link refid="classargloc__t"/>
+        <childnode refid="528" relation="usage">
+          <edgelabel>dist</edgelabel>
+        </childnode>
+        <childnode refid="530" relation="usage">
+          <edgelabel>rrel</edgelabel>
+        </childnode>
+      </node>
+      <node id="509">
+        <label>cgoto_t</label>
+        <link refid="structcgoto__t"/>
+      </node>
+      <node id="550">
+        <label>llabel_t</label>
+        <link refid="structllabel__t"/>
+      </node>
+      <node id="536">
+        <label>lvar_ref_t</label>
+        <link refid="structlvar__ref__t"/>
+        <childnode refid="511" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="513">
+        <label>qvector&lt; lvar_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="540">
+        <label>stkvar_ref_t</label>
+        <link refid="structstkvar__ref__t"/>
+        <childnode refid="511" relation="usage">
+          <edgelabel>mba</edgelabel>
+        </childnode>
+      </node>
+      <node id="521">
+        <label>qvector&lt; reg_info_t &gt;</label>
+        <link refid="classqvector"/>
+      </node>
+      <node id="530">
+        <label>rrel_t</label>
+        <link refid="structrrel__t"/>
+      </node>
+      <node id="502">
+        <label>cdo_t</label>
+        <link refid="structcdo__t"/>
+        <childnode refid="496" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="497">
+        <label>ceinsn_t</label>
+        <link refid="structceinsn__t"/>
+        <childnode refid="485" relation="usage">
+          <edgelabel>expr</edgelabel>
+        </childnode>
+      </node>
+      <node id="518">
+        <label>rlist_t</label>
+        <link refid="classrlist__t"/>
+        <childnode refid="519" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="508">
+        <label>cif_t</label>
+        <link refid="structcif__t"/>
+        <childnode refid="497" relation="public-inheritance">
+        </childnode>
+        <childnode refid="494" relation="usage">
+          <edgelabel>ithen</edgelabel>
+          <edgelabel>ielse</edgelabel>
+        </childnode>
+      </node>
+      <node id="496">
+        <label>cloop_t</label>
+        <link refid="structcloop__t"/>
+        <childnode refid="497" relation="public-inheritance">
+        </childnode>
+        <childnode refid="494" relation="usage">
+          <edgelabel>body</edgelabel>
+        </childnode>
+      </node>
+      <node id="542">
+        <label>ivl_t</label>
+        <link refid="structivl__t"/>
+        <childnode refid="543" relation="public-inheritance">
+        </childnode>
+        <childnode refid="542" relation="usage">
+          <edgelabel>allmem</edgelabel>
+        </childnode>
+      </node>
+      <node id="551">
+        <label>rangevec_t</label>
+        <link refid="structrangevec__t"/>
+        <childnode refid="552" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" line="5611" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/hexrays.hpp" bodystart="5610" bodyend="5874"/>
+    <listofallmembers>
+      <member refid="structcexpr__t_1a471b6908444d93f716a158eaf4b0a758" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>a</name></member>
+      <member refid="structcexpr__t_1a956712f52a98e8cd26b21eeb88035aae" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>assign</name></member>
+      <member refid="structcexpr__t_1a79528caf1a7b52990d68659cb2777301" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>calc_type</name></member>
+      <member refid="structcexpr__t_1a6a86e529e34033e4eee42729daebd286" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>cexpr_t</name></member>
+      <member refid="structcexpr__t_1a551fecb02438bd807de187f54f26a6e2" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>cexpr_t</name></member>
+      <member refid="structcexpr__t_1ad69f4e47c9bdeb7db2dc21b9e96f9861" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>cexpr_t</name></member>
+      <member refid="structcexpr__t_1a48bd4ab437bf26914473b9bb2f91f3fb" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>cexpr_t</name></member>
+      <member refid="structcexpr__t_1a00166ea3431002605849be21c47244b5" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>cexpr_t</name></member>
+      <member refid="structcexpr__t_1a42b623f992b46a7b33ff66340d88854e" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>cexpr_t</name></member>
+      <member refid="structcitem__t_1a68e6534549ef56240f63223ce2cb9511" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>citem_t</name></member>
+      <member refid="structcitem__t_1a8ed7508d9cdd428897e5ab86cff6d51c" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>citem_t</name></member>
+      <member refid="structcexpr__t_1aed1eaf4c769ecad1941e9c8658c958b3" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>cleanup</name></member>
+      <member refid="structcexpr__t_1a15f332508408882ca5d4b944d9170766" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>contains_comma</name></member>
+      <member refid="structcexpr__t_1ae29e13f31b26dcf88b0baeb8d2bdbb27" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>contains_comma_or_insn_or_label</name></member>
+      <member refid="structcitem__t_1a304ea880814cfd2d766ced8ac9d63d6a" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>contains_expr</name></member>
+      <member refid="structcexpr__t_1aa27ff088ecff9124bc76926390d7881c" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>contains_insn</name></member>
+      <member refid="structcexpr__t_1a1ac4dce62ea0f6864b90ff6078e06708" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>contains_insn_or_label</name></member>
+      <member refid="structcitem__t_1abcfd9281359d7cc9073396fb20a1a379" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>contains_label</name></member>
+      <member refid="structcexpr__t_1ad5bd00428ea884670548c8f397f3606b" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>contains_operator</name></member>
+      <member refid="structcexpr__t_1a53fafbef21c9ba9e07b9f9ac268cbd0b" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>cpadone</name></member>
+      <member refid="structcitem__t_1af00396e7913ec06b2b2f8935cf8f7fb2" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>ea</name></member>
+      <member refid="structcexpr__t_1a880667a02da22bfb661e197d71966484" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>equal_effect</name></member>
+      <member refid="structcexpr__t_1a107505d936acfc162ca0f75ea50a0a83" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>exflags</name></member>
+      <member refid="structcitem__t_1a6eb0a116ba9cc474ecacc1eb6760c989" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>find_closest_addr</name></member>
+      <member refid="structcexpr__t_1ad37b6180c03135a204576609de955bb6" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>find_num_op</name></member>
+      <member refid="structcexpr__t_1afb7965c9f60f3512b31882ab96a4e4e7" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>find_num_op</name></member>
+      <member refid="structcexpr__t_1a167340e3f9170db0d3d5475cb18724f1" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>find_op</name></member>
+      <member refid="structcexpr__t_1a138824150e33cea0e5d74eaa9afd6f2a" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>find_op</name></member>
+      <member refid="structcitem__t_1adc6157bf70af53c0a3b2d18605b45e47" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>find_parent_of</name></member>
+      <member refid="structcitem__t_1a71afa2c61889ebb945079417dd2ffdbb" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>find_parent_of</name></member>
+      <member refid="structcexpr__t_1a4a0904bb493a2b118e9a38802a69a062" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>find_ptr_or_array</name></member>
+      <member refid="structcexpr__t_1a3bab41aa4c7d863e3e704dc9a2b10afb" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>fpc</name></member>
+      <member refid="structcexpr__t_1ae521f4391e9eb2c23423efe1d06593ac" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>get_1num_op</name></member>
+      <member refid="structcexpr__t_1abcce5527d75026bf56f8b434bb206ff4" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>get_1num_op</name></member>
+      <member refid="structcexpr__t_1af46ecb54870f7d36ddad6a63b9c014e1" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>get_const_value</name></member>
+      <member refid="structcexpr__t_1a0cd669a280b6b9b023deb4497305adab" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>get_high_nbit_bound</name></member>
+      <member refid="structcexpr__t_1acbd824576f4060b0dbd613b2382c8d2f" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>get_low_nbit_bound</name></member>
+      <member refid="structcexpr__t_1afecbc4ebbe079765880e0cc0f766a9bc" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>get_ptr_or_array</name></member>
+      <member refid="structcexpr__t_1a0a3c4e240d319b95da50458f6d20be47" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>get_type_sign</name></member>
+      <member refid="structcexpr__t_1adc361e5ae9fdab316a66471a4a93c8e0" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>has_side_effects</name></member>
+      <member refid="structcexpr__t_1aac05bcfe5cfff4b988cb389821916c66" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>helper</name></member>
+      <member refid="structcitem__t_1ab7a994cf8aa6189e9f76bc7137ba19d1" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>index</name></member>
+      <member refid="structcexpr__t_1a75670210d23ef3ac7914968c05f9d03b" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>insn</name></member>
+      <member refid="structcexpr__t_1afb3e621fbbb78b4301d3d5c2b7944e4d" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_aliasable</name></member>
+      <member refid="structcexpr__t_1a38db61e5e145db0afab474601311f516" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_call_arg_of</name></member>
+      <member refid="structcexpr__t_1a8aad2dc6c90b8ccbe6da07f1188e1cb1" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_call_object_of</name></member>
+      <member refid="structcexpr__t_1a9def4c3951da96884524112b256a4b30" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_child_of</name></member>
+      <member refid="structcexpr__t_1a793d3695aa4b73050193f1b1fc432b21" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_const_value</name></member>
+      <member refid="structcexpr__t_1a737838351392863e8f23b06744606687" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_cstr</name></member>
+      <member refid="structcitem__t_1a3cd0a66665b25a4e0fb37f0142f61177" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_expr</name></member>
+      <member refid="structcexpr__t_1a544844f5a918a71796b88a87cf5ac8fd" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_fpop</name></member>
+      <member refid="structcexpr__t_1ad6e31420aff617687a68a5998face18d" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_jumpout</name></member>
+      <member refid="structcexpr__t_1ad980248d4307c52af5a9c6b1548850a1" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_negative_const</name></member>
+      <member refid="structcexpr__t_1a6119f1de160a5b8269c91f110353408b" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_nice_cond</name></member>
+      <member refid="structcexpr__t_1a90a049486908576b841edf543b24e756" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_nice_expr</name></member>
+      <member refid="structcexpr__t_1ad1e11353b795c4b4cb6b4d4aa0af205c" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_non_negative_const</name></member>
+      <member refid="structcexpr__t_1ae58df155a91d77a7b9199da8ae467b9a" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_non_zero_const</name></member>
+      <member refid="structcexpr__t_1a4117c8e728e7f89f358e0fbf2cd34728" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_odd_lvalue</name></member>
+      <member refid="structcexpr__t_1abfc888f8883f767d3f396114fbc0383f" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_type_partial</name></member>
+      <member refid="structcexpr__t_1a5cc89bb59f1efcdf0f9b3f44c81713aa" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_type_signed</name></member>
+      <member refid="structcexpr__t_1a93acec7e8fd6b902046db597e875ae26" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_type_unsigned</name></member>
+      <member refid="structcexpr__t_1a677c5bc335b3a20d91bffc668ba6587a" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_undef_val</name></member>
+      <member refid="structcexpr__t_1a21b7458c79e59b848575c1e27795b474" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_value_used</name></member>
+      <member refid="structcexpr__t_1ab7ab5e861d8ead837bfe37c561b37cad" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_vftable</name></member>
+      <member refid="structcexpr__t_1a2db440dfe54c40f8e507cccc3ab301dc" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>is_zero_const</name></member>
+      <member refid="structcitem__t_1ab61378fb46647d677357d927fa83b770" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>label_num</name></member>
+      <member refid="structcexpr__t_1a1f4d7ad78e8c5074f732ea19e4b9c4db" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>like_boolean</name></member>
+      <member refid="structcexpr__t_1ad958027d0b00d4548ad2c4b430163452" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>m</name></member>
+      <member refid="structcexpr__t_1ab9a1f1ff2070a55452b5e351c54cc14f" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>maybe_ptr</name></member>
+      <member refid="structcexpr__t_1a82540609a6ebe46a10274b946867d4de" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>n</name></member>
+      <member refid="structcexpr__t_1ad23ffe418dfad10df7c7b9dc601786a3" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>numval</name></member>
+      <member refid="structcexpr__t_1a886b8b66ad1e16eb7cbdc96dd87c2613" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>obj_ea</name></member>
+      <member refid="structcitem__t_1a33d356c09a0788470e7cf211b13f6215" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>op</name></member>
+      <member refid="structcexpr__t_1ae2374431696dc48a7b73ab3d50074719" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>operator=</name></member>
+      <member refid="structcexpr__t_1a57c4a689371732a3c65f59bcf1c71a7e" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>print1</name></member>
+      <member refid="structcexpr__t_1a0dd23ce13113a7248329425422a139a9" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>ptrsize</name></member>
+      <member refid="structcexpr__t_1ab39f77b6d79302edd5ceaf44d6c2f060" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>put_number</name></member>
+      <member refid="structcexpr__t_1aebf5bd9a65efcfc88b6405fb790476fa" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>refwidth</name></member>
+      <member refid="structcexpr__t_1a23433d656dd514493737ce3844c33452" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>replace_by</name></member>
+      <member refid="structcexpr__t_1a47d4c7a9f3852b58eac467b96807a5f6" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>requires_lvalue</name></member>
+      <member refid="structcexpr__t_1af8eed4595148c9bf76feb6ff71767721" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>set_cpadone</name></member>
+      <member refid="structcexpr__t_1a25801b9be75fb7040bfa7809cc79b1da" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>set_type_partial</name></member>
+      <member refid="structcexpr__t_1aae1ba28d8b5e3b1479fdc7c6ad54e1ea" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>set_vftable</name></member>
+      <member refid="structcexpr__t_1a6321a917b26ee528adb10f5d2c37a2bd" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>string</name></member>
+      <member refid="structcexpr__t_1a18549da378edb7efcfb8237c863fb48a" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>swap</name></member>
+      <member refid="structcitem__t_1acd07d680aacae7bd9a4c57e6aefbf19f" prot="public" virt="non-virtual" ambiguityscope="citem_t::"><scope>cexpr_t</scope><name>swap</name></member>
+      <member refid="structcexpr__t_1af85e9454b3ead9cc269f00fba5d3f7f2" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>theother</name></member>
+      <member refid="structcexpr__t_1a2215de539b307ff0a54915406f777088" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>theother</name></member>
+      <member refid="structcexpr__t_1ae3e6815270f990afb26e71526ad37603" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>type</name></member>
+      <member refid="structcexpr__t_1ab11296b3e5a9f272883bfc110d8d3c30" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>v</name></member>
+      <member refid="structcexpr__t_1adc89ce506f3b60d29c54de728b1bda99" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>x</name></member>
+      <member refid="structcexpr__t_1a8a0fc4f0b0d6f682cee56b73e83abd31" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>y</name></member>
+      <member refid="structcexpr__t_1ac50a01d2bd38c3aacdcb92125f1de0eb" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>z</name></member>
+      <member refid="structcexpr__t_1a8c6a451a42ae267ab61f3db4aaf29b00" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>~cexpr_t</name></member>
+      <member refid="structcitem__t_1ad1359d2dcb00069b1c29a0e08bcdbc18" prot="public" virt="non-virtual"><scope>cexpr_t</scope><name>~citem_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

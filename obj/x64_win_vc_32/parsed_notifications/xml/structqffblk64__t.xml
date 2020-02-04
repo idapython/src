@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="structqffblk64__t" kind="struct" language="C++" prot="public">
+    <compoundname>qffblk64_t</compoundname>
+    <includes refid="prodir_8h" local="no">prodir.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structqffblk64__t_1a7c39c0ec1ea7fcf49dbd42df65c23961" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int qffblk64_t::ff_attrib</definition>
+        <argsstring></argsstring>
+        <name>ff_attrib</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" line="157" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqffblk64__t_1a12215caf81d9f16565515a547320486d" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char qffblk64_t::ff_name[QMAXPATH]</definition>
+        <argsstring>[QMAXPATH]</argsstring>
+        <name>ff_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" line="158" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqffblk64__t_1a38878e8e416aee53ea2d6403e5b92929" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a2f5563986d7f95e4fad5876c17d9cdda" kindref="member">uint64</ref></type>
+        <definition>uint64 qffblk64_t::ff_fsize</definition>
+        <argsstring></argsstring>
+        <name>ff_fsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" line="159" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqffblk64__t_1ab1021c4106cb01e01b71aebb3059a7bc" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 qffblk64_t::ff_fdate</definition>
+        <argsstring></argsstring>
+        <name>ff_fdate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" line="160" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqffblk64__t_1af78cdef699dbd984ce4d0ef68ea77a74" prot="public" static="no" mutable="no">
+        <type><ref refid="pro_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 qffblk64_t::ff_ftime</definition>
+        <argsstring></argsstring>
+        <name>ff_ftime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" line="161" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqffblk64__t_1a7be97eba032e5c9e269488afe67f7327" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structqffblk__t" kindref="compound">qffblk_t</ref></type>
+        <definition>struct qffblk_t qffblk64_t::base</definition>
+        <argsstring></argsstring>
+        <name>base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" line="161" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structqffblk64__t_1a14b9f214a61633ac51a57be45cdf3912" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>qffblk64_t::qffblk64_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>qffblk64_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" line="165" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" bodystart="165" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="structqffblk64__t_1a7f20382b559ec6b3a1962aaede3fc259" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>qffblk64_t::~qffblk64_t</definition>
+        <argsstring>(void)</argsstring>
+        <name>~qffblk64_t</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" line="166" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" bodystart="166" bodyend="166"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Common structure with 64-bit ff_fsize - see <ref refid="structqffblk__t" kindref="compound">qffblk_t</ref>. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2948">
+        <label>qffblk_t</label>
+        <link refid="structqffblk__t"/>
+      </node>
+      <node id="2947">
+        <label>qffblk64_t</label>
+        <link refid="structqffblk64__t"/>
+        <childnode refid="2948" relation="usage">
+          <edgelabel>base</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" line="156" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/prodir.h" bodystart="155" bodyend="167"/>
+    <listofallmembers>
+      <member refid="structqffblk64__t_1a7be97eba032e5c9e269488afe67f7327" prot="public" virt="non-virtual"><scope>qffblk64_t</scope><name>base</name></member>
+      <member refid="structqffblk64__t_1a7c39c0ec1ea7fcf49dbd42df65c23961" prot="public" virt="non-virtual"><scope>qffblk64_t</scope><name>ff_attrib</name></member>
+      <member refid="structqffblk64__t_1ab1021c4106cb01e01b71aebb3059a7bc" prot="public" virt="non-virtual"><scope>qffblk64_t</scope><name>ff_fdate</name></member>
+      <member refid="structqffblk64__t_1a38878e8e416aee53ea2d6403e5b92929" prot="public" virt="non-virtual"><scope>qffblk64_t</scope><name>ff_fsize</name></member>
+      <member refid="structqffblk64__t_1af78cdef699dbd984ce4d0ef68ea77a74" prot="public" virt="non-virtual"><scope>qffblk64_t</scope><name>ff_ftime</name></member>
+      <member refid="structqffblk64__t_1a12215caf81d9f16565515a547320486d" prot="public" virt="non-virtual"><scope>qffblk64_t</scope><name>ff_name</name></member>
+      <member refid="structqffblk64__t_1a14b9f214a61633ac51a57be45cdf3912" prot="public" virt="non-virtual"><scope>qffblk64_t</scope><name>qffblk64_t</name></member>
+      <member refid="structqffblk64__t_1a7f20382b559ec6b3a1962aaede3fc259" prot="public" virt="non-virtual"><scope>qffblk64_t</scope><name>~qffblk64_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

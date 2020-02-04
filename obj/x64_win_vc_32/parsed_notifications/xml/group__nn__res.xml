@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="group__nn__res" kind="group">
+    <compoundname>nn_res</compoundname>
+    <title>Reserved netnode tags</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__nn__res_1ga510bd25a8aa555688d611db3a33e3902" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar atag</definition>
+        <argsstring></argsstring>
+        <name>atag</name>
+        <initializer>= &apos;A&apos;</initializer>
+        <briefdescription>
+<para>Array of altvals. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="122" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__nn__res_1gae6dbe815b6c62ada91022a3f3e1a0f3c" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar stag</definition>
+        <argsstring></argsstring>
+        <name>stag</name>
+        <initializer>= &apos;S&apos;</initializer>
+        <briefdescription>
+<para>Array of supvals. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="123" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__nn__res_1ga2d24406d0dc001d3d7a6e99adf73ad20" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar htag</definition>
+        <argsstring></argsstring>
+        <name>htag</name>
+        <initializer>= &apos;H&apos;</initializer>
+        <briefdescription>
+<para>Array of hashvals. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="124" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__nn__res_1ga992c58c30acc9f68a9b1446d2279cb4f" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar vtag</definition>
+        <argsstring></argsstring>
+        <name>vtag</name>
+        <initializer>= &apos;V&apos;</initializer>
+        <briefdescription>
+<para>Value of netnode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="125" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__nn__res_1gaaa3b1b5fea2dee1b99152b40e78c32f5" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar ntag</definition>
+        <argsstring></argsstring>
+        <name>ntag</name>
+        <initializer>= &apos;N&apos;</initializer>
+        <briefdescription>
+<para>Name of netnode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="126" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__nn__res_1ga66cd76c0f46611ada012ccafd12be096" prot="public" static="no" mutable="no">
+        <type>const <ref refid="pro_8h_1a65f85814a8290f9797005d3b28e7e5fc" kindref="member">uchar</ref></type>
+        <definition>const uchar ltag</definition>
+        <argsstring></argsstring>
+        <name>ltag</name>
+        <initializer>= &apos;L&apos;</initializer>
+        <briefdescription>
+<para>Links between netnodes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" line="127" column="1" bodyfile="obj/x64_linux_gcc_32_opt/idasdk/netnode.hpp" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Tags internally used in netnodes. You should not use them for your tagged alt/sup/char/hash arrays. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>
