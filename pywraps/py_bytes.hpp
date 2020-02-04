@@ -40,7 +40,7 @@ static int idaapi py_visit_patched_bytes_cb(
                   o,
                   v));
   PyW_ShowCbErr("visit_patched_bytes");
-  return (py_result != NULL && PyInt_Check(py_result.o)) ? PyInt_AsLong(py_result.o) : 0;
+  return (py_result != NULL && PyInt_Check(py_result.o)) ? IDAPyInt_AsLong(py_result.o) : 0;
 }
 
 //-------------------------------------------------------------------------
@@ -78,7 +78,7 @@ static bool py_do_get_bytes(
       mask.resize((size + 7) / 8, 0);
 
     // Read bytes
-    int code = get_bytes(PyString_AsString(py_bytes.o),
+    int code = get_bytes(IDAPyBytes_AsString(py_bytes.o),
                          size,
                          ea,
                          gmb_flags,

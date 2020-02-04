@@ -321,7 +321,7 @@ public:
   int write(PyObject *py_buf)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( !PyString_Check(py_buf) )
+    if ( !IDAPyStr_Check(py_buf) )
       return 0;
     // Just so that there is no risk that the buffer returned by
     // 'PyString_AS_STRING' gets deallocated within the

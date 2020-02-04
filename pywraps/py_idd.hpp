@@ -270,7 +270,7 @@ static PyObject *dbg_read_memory(PyObject *py_ea, PyObject *py_sz)
   // Get the internal buffer
   Py_ssize_t len;
   char *buf;
-  PyString_AsStringAndSize(ret, &buf, &len);
+  IDAPyBytes_AsStringAndSize(ret, &buf, &len);
 
   if ( (size_t)read_dbg_memory(ea_t(ea), buf, size_t(sz)) != sz )
   {
@@ -298,7 +298,7 @@ static PyObject *dbg_write_memory(PyObject *py_ea, PyObject *py_buf)
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
   uint64 ea;
-  if ( !dbg_can_query() || !PyString_Check(py_buf) || !PyW_GetNumber(py_ea, &ea) )
+  if ( !dbg_can_query() || !IDAPyStr_Check(py_buf) || !PyW_GetNumber(py_ea, &ea) )
     Py_RETURN_NONE;
 
   size_t sz = PyString_GET_SIZE(py_buf);

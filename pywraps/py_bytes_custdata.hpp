@@ -209,11 +209,11 @@ private:
       return false;
 
     bool ok = false;
-    if ( PyString_Check(py_result.o) )
+    if ( IDAPyStr_Check(py_result.o) )
     {
       Py_ssize_t len;
       char *buf;
-      if ( out != NULL && PyString_AsStringAndSize(py_result.o, &buf, &len) != -1 )
+      if ( out != NULL && IDAPyBytes_AsStringAndSize(py_result.o, &buf, &len) != -1 )
       {
         out->qclear();
         out->append(buf, len);
@@ -269,7 +269,7 @@ private:
 
         Py_ssize_t len;
         char *buf;
-        if ( PyString_AsStringAndSize(py_val.o, &buf, &len) != -1 )
+        if ( IDAPyBytes_AsStringAndSize(py_val.o, &buf, &len) != -1 )
         {
           value->qclear();
           value->append(buf, len);
@@ -279,13 +279,13 @@ private:
       else
       {
         // Make sure the user returned (False, String)
-        if ( py_bool.o != Py_False || !PyString_Check(py_val.o) )
+        if ( py_bool.o != Py_False || !IDAPyStr_Check(py_val.o) )
         {
           *errstr = "Invalid return value returned from the Python callback!";
           break;
         }
         // Get the error message
-        *errstr = PyString_AsString(py_val.o);
+        *errstr = IDAPyBytes_AsString(py_val.o);
       }
     } while ( false );
     return ok;

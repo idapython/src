@@ -136,11 +136,11 @@ def check_cpp(opts):
 
         "_wrap_warning__varargs__" : {
             "nullptrcheck" : 1, # 1st arg
-            "mustcall" : "PyString_AsString",
+            "mustcall" : "IDAPyBytes_AsString",
         },
         "_wrap_error__varargs__" : {
             "nullptrcheck" : 1,
-            "mustcall" : "PyString_AsString",
+            "mustcall" : "IDAPyBytes_AsString",
         },
         "_wrap_tag_remove" : {
             "nullptrcheck" : 1,

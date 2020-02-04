@@ -33,7 +33,7 @@ static void py_get_int(PyObject *self, T *prm, const char *name)
 {
   ref_t attr(PyW_TryGetAttrString(self, name));
   if ( attr != NULL && attr.o != Py_None )
-    *prm = T(PyInt_AsLong(attr.o));
+    *prm = T(IDAPyInt_AsLong(attr.o));
 }
 
 //------------------------------------------------------------------------
@@ -108,7 +108,7 @@ public:
     pycall_res_t pyres(PyObject_CallMethod(self, (char *)S_ON_INIT, NULL));
     if ( pyres.result == NULL || pyres.result.o == Py_None )
       return chobj->chooser_base_t::init();
-    return bool(PyInt_AsLong(pyres.result.o));
+    return bool(IDAPyInt_AsLong(pyres.result.o));
   }
 
   size_t idaapi get_count() const
@@ -118,7 +118,7 @@ public:
     if ( pyres.result == NULL || pyres.result.o == Py_None )
       return 0;
 
-    return size_t(PyInt_AsLong(pyres.result.o));
+    return size_t(IDAPyInt_AsLong(pyres.result.o));
   }
 
   void idaapi get_row(
@@ -144,7 +144,7 @@ public:
         if ( item == NULL )
           continue;
 
-        const char *str = PyString_AsString(item.o);
+        const char *str = IDAPyBytes_AsString(item.o);
         if ( str != NULL )
           (*cols)[i] = str;
       }
@@ -158,7 +158,7 @@ public:
                       self, (char *)S_ON_GET_ICON,
                       "i", int(n)));
       if ( pyres.result != NULL )
-        *icon_ = PyInt_AsLong(pyres.result.o);
+        *icon_ = IDAPyInt_AsLong(pyres.result.o);
     }
 
     if ( (cb_flags & CHOOSE_HAVE_GETATTR) != 0 )
@@ -171,9 +171,9 @@ public:
       {
         PyObject *item;
         if ( (item = PyList_GetItem(pyres.result.o, 0)) != NULL )
-          attrs->color = PyInt_AsLong(item);
+          attrs->color = IDAPyInt_AsLong(item);
         if ( (item = PyList_GetItem(pyres.result.o, 1)) != NULL )
-          attrs->flags = PyInt_AsLong(item);
+          attrs->flags = IDAPyInt_AsLong(item);
       }
     }
   }
@@ -393,7 +393,7 @@ protected:
       {
         newref_t item(PySequence_GetItem(py_ret, 0));
         if ( item.o != NULL && PyInt_Check(item.o) )
-          ret.changed = cbres_t(PyInt_AsLong(item.o));
+          ret.changed = cbres_t(IDAPyInt_AsLong(item.o));
       }
       if ( ret.changed != NOTHING_CHANGED )
       {
@@ -543,7 +543,7 @@ int py_choose_t::create()
   if ( flags_attr == NULL )
     return chooser_base_t::NO_ATTR;
   if ( PyInt_Check(flags_attr.o) )
-    flags = uint32(PyInt_AsLong(flags_attr.o));
+    flags = uint32(IDAPyInt_AsLong(flags_attr.o));
   // instruct TChooser destructor to delete this chooser when window
   // closes
   flags &= ~CH_KEEP;
@@ -573,7 +573,7 @@ int py_choose_t::create()
     borref_t v(PyList_GetItem(list.o, 0));
 
     // Extract string
-    const char *str = v == NULL ? "" : PyString_AsString(v.o);
+    const char *str = v == NULL ? "" : IDAPyBytes_AsString(v.o);
     header_strings[i] = str;
     header[i] = header_strings[i].c_str();
 
@@ -584,7 +584,7 @@ int py_choose_t::create()
     if ( v2 == NULL )
       width = strlen(str);
     else
-      width = PyInt_AsLong(v2.o);
+      width = IDAPyInt_AsLong(v2.o);
     widths[i] = width;
   }
 
@@ -613,7 +613,7 @@ int py_choose_t::create()
   uint32 forbidden_cb = 0;
   ref_t forbidden_cb_attr(PyW_TryGetAttrString(self, "forbidden_cb"));
   if ( forbidden_cb_attr != NULL && PyInt_Check(forbidden_cb_attr.o) )
-    forbidden_cb = uint32(PyInt_AsLong(forbidden_cb_attr.o));
+    forbidden_cb = uint32(IDAPyInt_AsLong(forbidden_cb_attr.o));
   cb_flags = 0;
   for ( int i = 0; i < qnumber(callbacks); ++i )
   {
@@ -669,7 +669,7 @@ int py_choose_t::create()
       npopups = chooser_base_t::NSTDPOPUPS;
     for ( int i = 0; i < npopups; ++i )
     {
-      const char *str = PyString_AsString(PyList_GetItem(pn_attr.o, i));
+      const char *str = IDAPyBytes_AsString(PyList_GetItem(pn_attr.o, i));
       chobj->popup_names[i] = str;
     }
   }

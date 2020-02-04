@@ -181,7 +181,7 @@ static int py_load_custom_icon_data(PyObject *data, const char *format)
   Py_ssize_t len;
   char *s;
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( PyString_AsStringAndSize(data, &s, &len) == -1 )
+  if ( IDAPyBytes_AsStringAndSize(data, &s, &len) == -1 )
     return 0;
   else
     return load_custom_icon(s, len, format);
@@ -258,11 +258,11 @@ static PyObject *py_msg(PyObject *o)
   if ( PyUnicode_Check(o) )
   {
     py_utf8 = newref_t(PyUnicode_AsUTF8String(o));
-    utf8 = PyString_AsString(py_utf8.o);
+    utf8 = IDAPyBytes_AsString(py_utf8.o);
   }
-  else if ( PyString_Check(o) )
+  else if ( IDAPyStr_Check(o) )
   {
-    utf8 = PyString_AsString(o);
+    utf8 = IDAPyBytes_AsString(o);
   }
   else
   {
@@ -620,7 +620,7 @@ static int py_execute_sync(PyObject *py_callable, int reqf)
         newref_t py_result(PyObject_CallFunctionObjArgs(py_callable.o, NULL));
         int ret = py_result == NULL || !PyInt_Check(py_result.o)
                 ? -1
-                : PyInt_AsLong(py_result.o);
+                : IDAPyInt_AsLong(py_result.o);
         // if the requesting thread decided not to wait for the request to
         // complete, we have to self-destroy, nobody else will do it
         if ( (code & MFF_NOWAIT) != 0 )
@@ -954,7 +954,7 @@ public:
     ssize_t rc = 0;
     char *_buf;
     Py_ssize_t _len;
-    if ( o != NULL && PyString_Check(o) && PyString_AsStringAndSize(o, &_buf, &_len) != -1 )
+    if ( o != NULL && IDAPyStr_Check(o) && IDAPyBytes_AsStringAndSize(o, &_buf, &_len) != -1 )
     {
       buf->append(_buf, _len);
       rc = 1;
@@ -972,14 +972,14 @@ public:
       char *_buf;
       Py_ssize_t _len;
       if ( el0 != NULL
-        && PyString_Check(el0.o)
-        && PyString_AsStringAndSize(el0.o, &_buf, &_len) != -1
+        && IDAPyStr_Check(el0.o)
+        && IDAPyBytes_AsStringAndSize(el0.o, &_buf, &_len) != -1
         && _len > 0 )
       {
         borref_t el1(PyTuple_GetItem(o, 1));
         if ( el1 != NULL && PyInt_Check(el1.o) )
         {
-          long lns = PyInt_AsLong(el1.o);
+          long lns = IDAPyInt_AsLong(el1.o);
           if ( lns > 0 )
           {
             *important_lines = lns;

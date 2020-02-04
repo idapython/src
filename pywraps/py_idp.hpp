@@ -605,7 +605,7 @@ class IDP_Hooks
   static ssize_t cm_t_to_ssize_t(cm_t cm) { return ssize_t(cm); }
   static bool _handle_qstring_output(PyObject *o, qstring *buf)
   {
-    bool is_str = o != NULL && PyString_Check(o);
+    bool is_str = o != NULL && IDAPyStr_Check(o);
     if ( is_str && buf != NULL )
       *buf = PyString_AS_STRING(o);
     Py_XDECREF(o);
@@ -618,11 +618,11 @@ class IDP_Hooks
   static ssize_t handle_assemble_output(PyObject *o, uchar *bin, ea_t /*ea*/, ea_t /*cs*/, ea_t /*ip*/, bool /*use32*/, const char */*line*/)
   {
     ssize_t rc = 0;
-    if ( o != NULL && PyString_Check(o) )
+    if ( o != NULL && IDAPyStr_Check(o) )
     {
       char *s;
       Py_ssize_t len = 0;
-      if ( PyString_AsStringAndSize(o, &s, &len) != -1 )
+      if ( IDAPyBytes_AsStringAndSize(o, &s, &len) != -1 )
       {
         if ( len > MAXSTR )
           len = MAXSTR;
@@ -673,8 +673,8 @@ class IDP_Hooks
       newref_t py_idx(PySequence_GetItem(o, 1));
       if ( PyInt_Check(py_rc.o) && PyInt_Check(py_idx.o) )
       {
-        rc = PyInt_AsLong(py_rc.o);
-        *idx = PyInt_AsLong(py_idx.o);
+        rc = IDAPyInt_AsLong(py_rc.o);
+        *idx = IDAPyInt_AsLong(py_idx.o);
       }
     }
     return rc;
@@ -697,11 +697,11 @@ class IDP_Hooks
       Py_ssize_t len = 0;
       if ( PyInt_Check(py_rc.o)
         && PyInt_Check(py_out_res.o)
-        && PyString_Check(py_out.o)
-        && PyString_AsStringAndSize(py_out.o, &s, &len) != -1 )
+        && IDAPyStr_Check(py_out.o)
+        && IDAPyBytes_AsStringAndSize(py_out.o, &s, &len) != -1 )
       {
-        rc = PyInt_AsLong(py_rc.o);
-        *out_res = PyInt_AsLong(py_out_res.o);
+        rc = IDAPyInt_AsLong(py_rc.o);
+        *out_res = IDAPyInt_AsLong(py_out_res.o);
         if ( out != NULL )
         {
           out->qclear();

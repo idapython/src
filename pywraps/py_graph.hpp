@@ -212,7 +212,7 @@ private:
                     "O",
                     py_nodes.o));
     PyW_ShowCbErr(S_ON_CREATING_GROUP);
-    return (py_result == NULL || !PyInt_Check(py_result.o)) ? 1 : PyInt_AsLong(py_result.o);
+    return (py_result == NULL || !PyInt_Check(py_result.o)) ? 1 : IDAPyInt_AsLong(py_result.o);
   }
 
   // a group is being deleted
@@ -483,9 +483,9 @@ bool py_graph_t::on_user_text(mutable_graph_t * /*g*/, int node, const char **st
   const char *s;
 
   // User returned a string?
-  if ( PyString_Check(result.o) )
+  if ( IDAPyStr_Check(result.o) )
   {
-    s = PyString_AsString(result.o);
+    s = IDAPyBytes_AsString(result.o);
     if ( s == NULL )
       s = "";
     c = node_cache.add(node, s, cl);
@@ -496,7 +496,7 @@ bool py_graph_t::on_user_text(mutable_graph_t * /*g*/, int node, const char **st
     newref_t py_str(PySequence_GetItem(result.o, 0));
     newref_t py_color(PySequence_GetItem(result.o, 1));
 
-    if ( py_str == NULL || !PyString_Check(py_str.o) || (s = PyString_AsString(py_str.o)) == NULL )
+    if ( py_str == NULL || !IDAPyStr_Check(py_str.o) || (s = IDAPyBytes_AsString(py_str.o)) == NULL )
       s = "";
     if ( py_color != NULL && PyNumber_Check(py_color.o) )
       cl = bgcolor_t(PyLong_AsUnsignedLong(py_color.o));
@@ -534,9 +534,9 @@ int py_graph_t::_on_hint_epilog(char **hint, ref_t result)
 {
   // 'hint' must be allocated by qalloc() or qstrdup()
   // out: 0-use default hint, 1-use proposed hint
-  bool ok = result != NULL && PyString_Check(result.o);
+  bool ok = result != NULL && IDAPyStr_Check(result.o);
   if ( ok )
-    *hint = qstrdup(PyString_AsString(result.o));
+    *hint = qstrdup(IDAPyBytes_AsString(result.o));
   return ok;
 }
 

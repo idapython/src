@@ -619,12 +619,12 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 %define %bytes_container(REFTYPE, CONTAINER_TYPE, START_ACCESSOR, SIZE_ACCESSOR, INSTANCE_CAST)
 %typemap(in) REFTYPE
 { // bytes_container REFTYPE, CONTAINER_TYPE typemap(in)
-  if ( PyString_Check($input) )
+  if ( IDAPyStr_Check($input) )
   {
     // init properly, so ctor can't crash
     char *buf = NULL;
     Py_ssize_t length = 0;
-    /*int success =*/ PyString_AsStringAndSize($input, &buf, &length);
+    /*int success =*/ IDAPyBytes_AsStringAndSize($input, &buf, &length);
     $1 = new CONTAINER_TYPE(INSTANCE_CAST buf, length); // build regardless of success
   }
   else
@@ -707,7 +707,7 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 %typemap(in) (const char *format, ...)
 {
     $1 = "%s";                                /* Fix format string to %s */
-    $2 = (void *) PyString_AsString($input);  /* Get string argument */
+    $2 = (void *) IDAPyBytes_AsString($input);  /* Get string argument */
     /* Note: we cannot rely on 'nonnul_argument_prototype' for */
     /* these, since we fiddle with the arguments number */
     if ( $2 == NULL )

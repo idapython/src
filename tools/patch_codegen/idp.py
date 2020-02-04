@@ -17,7 +17,7 @@ if ( __argcnt == 2 )
   }
   else if ( PyInt_Check(result) )
   {
-    *color = bgcolor_t(PyInt_AsLong(result));
+    *color = bgcolor_t(IDAPyInt_AsLong(result));
     result = PyInt_FromLong(1);
   }
 }

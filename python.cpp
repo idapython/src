@@ -104,7 +104,7 @@ static int tracefunc(PyObject *obj, _frame *frame, int what, PyObject *arg)
     str = PyObject_Str(frame->f_code->co_filename);
     if ( str != NULL )
     {
-      msg("PROFILING: %s:%d\n", PyString_AsString(str), frame->f_lineno);
+      msg("PROFILING: %s:%d\n", IDAPyBytes_AsString(str), frame->f_lineno);
       Py_DECREF(str);
     }
   }
@@ -746,9 +746,9 @@ static bool IDAPython_ExecFile(
         ok = true;
       }
     }
-    else if ( PyString_Check(ret_o) )
+    else if ( IDAPyStr_Check(ret_o) )
     {
-      *errbuf = PyString_AsString(ret_o);
+      *errbuf = IDAPyBytes_AsString(ret_o);
     }
     else
     {
@@ -1108,7 +1108,7 @@ static bool idaapi IDAPython_extlang_get_attr(
         break;
 
       // Convert name python string to a C string
-      const char *clsname = PyString_AsString(string.o);
+      const char *clsname = IDAPyBytes_AsString(string.o);
       if ( clsname == NULL )
         break;
 

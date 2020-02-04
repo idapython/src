@@ -105,8 +105,8 @@ PyObject *bpt_t_condition_get(bpt_t *bpt)
 
 void bpt_t_condition_set(bpt_t *bpt, PyObject *val)
 {
-  if ( PyString_Check(val) )
-    bpt->cndbody = PyString_AsString(val);
+  if ( IDAPyStr_Check(val) )
+    bpt->cndbody = IDAPyBytes_AsString(val);
   else
     PyErr_SetString(PyExc_ValueError, "expected a string");
 }
@@ -118,9 +118,9 @@ PyObject *bpt_t_elang_get(bpt_t *bpt)
 
 void bpt_t_elang_set(bpt_t *bpt, PyObject *val)
 {
-  if ( PyString_Check(val) )
+  if ( IDAPyStr_Check(val) )
   {
-    char *cval = PyString_AsString(val);
+    char *cval = IDAPyBytes_AsString(val);
     if ( !bpt->set_cnd_elang(cval) )
       PyErr_SetString(PyExc_ValueError, "too many extlangs");
   }

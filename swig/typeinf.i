@@ -251,7 +251,7 @@
   if ( $input == Py_None )
     $1 = new sclass_t(sc_unk);
   else if ( PyInt_Check($input) )
-    $1 = new sclass_t(sclass_t(PyInt_AsLong($input)));
+    $1 = new sclass_t(sclass_t(IDAPyInt_AsLong($input)));
   else
     SWIG_exception_fail(
             SWIG_ValueError,

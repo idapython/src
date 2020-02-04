@@ -39,11 +39,11 @@ def calc_type_size(ti, tp):
 PyObject *py_calc_type_size(const til_t *ti, PyObject *tp)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( PyString_Check(tp) )
+  if ( IDAPyStr_Check(tp) )
   {
     // To avoid release of 'data' during Py_BEGIN|END_ALLOW_THREADS section.
     borref_t tpref(tp);
-    const type_t *data = (type_t *)PyString_AsString(tp);
+    const type_t *data = (type_t *)IDAPyBytes_AsString(tp);
     size_t sz;
     Py_BEGIN_ALLOW_THREADS;
     tinfo_t tif;
@@ -80,12 +80,12 @@ def apply_type(ti, ea, tp_name, py_type, py_fields, flags)
 static bool py_apply_type(til_t *ti, PyObject *py_type, PyObject *py_fields, ea_t ea, int flags)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
+  if ( !IDAPyStr_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
   {
     PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
     return NULL;
   }
-  const type_t *type   = (const type_t *) PyString_AsString(py_type);
+  const type_t *type   = (const type_t *) IDAPyBytes_AsString(py_type);
   const p_list *fields = PyW_Fields(py_fields);
   bool rc;
   Py_BEGIN_ALLOW_THREADS;
@@ -167,7 +167,7 @@ PyObject *py_unpack_object_from_idb(
         int pio_flags = 0)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
+  if ( !IDAPyStr_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
   {
     PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
     return NULL;
@@ -178,7 +178,7 @@ PyObject *py_unpack_object_from_idb(
   borref_t py_fields_ref(py_fields);
 
   // Unpack
-  const type_t *type = (const type_t *) PyString_AsString(py_type);
+  const type_t *type = (const type_t *) IDAPyBytes_AsString(py_type);
   const p_list *fields = PyW_Fields(py_fields);
   idc_value_t idc_obj;
   error_t err;
@@ -235,7 +235,7 @@ PyObject *py_unpack_object_from_bv(
         int pio_flags = 0)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) || !PyString_Check(py_bytes) )
+  if ( !IDAPyStr_Check(py_type) || !PyWStringOrNone_Check(py_fields) || !IDAPyStr_Check(py_bytes) )
   {
     PyErr_SetString(PyExc_ValueError, "Incorrect argument type!");
     return NULL;
@@ -246,13 +246,13 @@ PyObject *py_unpack_object_from_bv(
   borref_t py_fields_ref(py_fields);
 
   // Get type strings
-  const type_t *type = (const type_t *) PyString_AsString(py_type);
+  const type_t *type = (const type_t *) IDAPyBytes_AsString(py_type);
   const p_list *fields = PyW_Fields(py_fields);
 
   // Make a byte vector
   bytevec_t bytes;
   bytes.resize(PyString_Size(py_bytes));
-  memcpy(bytes.begin(), PyString_AsString(py_bytes), bytes.size());
+  memcpy(bytes.begin(), IDAPyBytes_AsString(py_bytes), bytes.size());
 
   idc_value_t idc_obj;
   error_t err;
@@ -307,7 +307,7 @@ PyObject *py_pack_object_to_idb(
         int pio_flags = 0)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
+  if ( !IDAPyStr_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
   {
     PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
     return NULL;
@@ -324,7 +324,7 @@ PyObject *py_pack_object_to_idb(
   borref_t py_fields_ref(py_fields);
 
   // Get type strings
-  const type_t *type = (const type_t *)PyString_AsString(py_type);
+  const type_t *type = (const type_t *)IDAPyBytes_AsString(py_type);
   const p_list *fields = PyW_Fields(py_fields);
 
   // Pack
@@ -366,7 +366,7 @@ PyObject *py_pack_object_to_bv(
         int pio_flags=0)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
+  if ( !IDAPyStr_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
   {
     PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
     return NULL;
@@ -383,7 +383,7 @@ PyObject *py_pack_object_to_bv(
   borref_t py_fields_ref(py_fields);
 
   // Get type strings
-  const type_t *type = (const type_t *)PyString_AsString(py_type);
+  const type_t *type = (const type_t *)IDAPyBytes_AsString(py_type);
   const p_list *fields = PyW_Fields(py_fields);
 
   // Pack
@@ -531,7 +531,7 @@ int idc_get_local_type(int ordinal, int flags, char *buf, size_t maxsize)
 PyObject *idc_print_type(PyObject *py_type, PyObject *py_fields, const char *name, int flags)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
+  if ( !IDAPyStr_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
   {
     PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
     return NULL;
@@ -542,7 +542,7 @@ PyObject *idc_print_type(PyObject *py_type, PyObject *py_fields, const char *nam
   borref_t py_fields_ref(py_fields);
 
   qstring res;
-  const type_t *type   = (type_t *)PyString_AsString(py_type);
+  const type_t *type   = (type_t *)IDAPyBytes_AsString(py_type);
   const p_list *fields = PyW_Fields(py_fields);
   bool ok;
   Py_BEGIN_ALLOW_THREADS;
@@ -654,7 +654,7 @@ int py_print_decls(text_sink_t &printer, til_t *til, PyObject *py_ordinals, uint
       PyErr_SetString(PyExc_ValueError, msg.begin());
       return 0;
     }
-    uint32 ord = PyInt_Check(item.o) ? PyInt_AsLong(item.o) : PyLong_AsLong(item.o);
+    uint32 ord = PyInt_Check(item.o) ? IDAPyInt_AsLong(item.o) : PyLong_AsLong(item.o);
     ordinals.push_back(ord);
   }
   return print_decls(printer, til, ordinals.empty() ? NULL : &ordinals, flags);
@@ -714,7 +714,7 @@ static PyObject *py_get_numbered_type(const til_t *til, uint32 ordinal)
 //-------------------------------------------------------------------------
 inline const p_list * PyW_Fields(PyObject *tp)
 {
-  return tp == Py_None ? NULL : (const p_list *) PyString_AsString(tp);
+  return tp == Py_None ? NULL : (const p_list *) IDAPyBytes_AsString(tp);
 }
 
 //-------------------------------------------------------------------------

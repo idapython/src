@@ -24,7 +24,7 @@ static void idaapi s_py_get_user_defined_prefix(
   {
     Py_ssize_t py_len;
     char *py_str;
-    if ( PyString_AsStringAndSize(py_ret.o, &py_str, &py_len) != -1 )
+    if ( IDAPyBytes_AsStringAndSize(py_ret.o, &py_str, &py_len) != -1 )
     {
       buf->qclear();
       buf->append(py_str, py_len);

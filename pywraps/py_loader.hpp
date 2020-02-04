@@ -27,7 +27,7 @@ static int py_mem2base(PyObject *py_mem, ea_t ea, qoff64_t fpos = -1)
   char *buf;
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( PyString_AsStringAndSize(py_mem, &buf, &len) == -1 )
+    if ( IDAPyBytes_AsStringAndSize(py_mem, &buf, &len) == -1 )
       return 0;
   }
 

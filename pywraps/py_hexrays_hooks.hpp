@@ -67,16 +67,16 @@ class Hexrays_Hooks
       newref_t py_rc(PySequence_GetItem(o, 0));
       newref_t py_hint(PySequence_GetItem(o, 1));
       newref_t py_implines(PySequence_GetItem(o, 2));
-      if ( PyInt_Check(py_rc.o) && PyString_Check(py_hint.o) && PyInt_Check(py_implines.o) )
+      if ( PyInt_Check(py_rc.o) && IDAPyStr_Check(py_hint.o) && PyInt_Check(py_implines.o) )
       {
         char *buf;
         Py_ssize_t bufsize;
-        if ( PyString_AsStringAndSize(py_hint.o, &buf, &bufsize) > -1 )
+        if ( IDAPyBytes_AsStringAndSize(py_hint.o, &buf, &bufsize) > -1 )
         {
-          rc = PyInt_AsLong(py_rc.o);
+          rc = IDAPyInt_AsLong(py_rc.o);
           qstring tmp(buf, bufsize);
           out_hint->swap(tmp);
-          *out_implines = PyInt_AsLong(py_implines.o);
+          *out_implines = IDAPyInt_AsLong(py_implines.o);
         }
       }
     }

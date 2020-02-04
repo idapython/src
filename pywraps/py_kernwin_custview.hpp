@@ -475,7 +475,7 @@ private:
     {
       ok = PyInt_Check(obj.o);
       if ( ok )
-        *out = uint32(PyInt_AsLong(obj.o));
+        *out = uint32(IDAPyInt_AsLong(obj.o));
     }
     return ok;
   }
@@ -486,9 +486,9 @@ private:
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
 
-    if ( PyString_Check(py) )
+    if ( IDAPyStr_Check(py) )
     {
-      sl.line = PyString_AsString(py);
+      sl.line = IDAPyBytes_AsStringng(py);
       return true;
     }
     Py_ssize_t sz;
@@ -496,10 +496,10 @@ private:
       return false;
 
     PyObject *py_val = PyTuple_GetItem(py, 0);
-    if ( !PyString_Check(py_val) )
+    if ( !IDAPyStr_Check(py_val) )
       return false;
 
-    sl.line = PyString_AsString(py_val);
+    sl.line = IDAPyBytes_AsStringng(py_val);
     uint32 col;
     if ( sz > 1 && get_color(&col, borref_t(PyTuple_GetItem(py, 1))) )
       sl.color = color_t(col);
@@ -593,8 +593,8 @@ private:
     if ( ok )
     {
       if ( important_lines != NULL )
-        *important_lines = PyInt_AsLong(PyTuple_GetItem(py_result.o, 0));
-      hint = PyString_AsString(PyTuple_GetItem(py_result.o, 1));
+        *important_lines = IDAPyInt_AsLong(PyTuple_GetItem(py_result.o, 0));
+      hint = IDAPyBytes_AsStringng(PyTuple_GetItem(py_result.o, 1));
     }
     return ok;
   }

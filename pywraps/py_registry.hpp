@@ -70,11 +70,11 @@ PyObject *py_reg_read_binary(const char *name, const char *subkey = NULL)
 void py_reg_write_binary(const char *name, PyObject *py_bytes, const char *subkey = NULL)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( PyString_Check(py_bytes) )
+  if ( IDAPyStr_Check(py_bytes) )
   {
     char *py_bytes_raw = NULL;
     Py_ssize_t py_size = 0;
-    PyString_AsStringAndSize(py_bytes, &py_bytes_raw, &py_size);
+    IDAPyBytes_AsStringAndSize(py_bytes, &py_bytes_raw, &py_size);
     bytevec_t bytes;
     bytes.append(py_bytes_raw, py_size);
     Py_BEGIN_ALLOW_THREADS;

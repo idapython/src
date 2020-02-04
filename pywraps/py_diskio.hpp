@@ -15,7 +15,7 @@ int idaapi py_enumerate_files_cb(const char *file, void *ud)
                   (PyObject *)ud,
                   py_file.o,
                   NULL));
-  return (py_ret == NULL || !PyNumber_Check(py_ret.o)) ? 1 /* stop enum on failure */ : PyInt_AsLong(py_ret.o);
+  return (py_ret == NULL || !PyNumber_Check(py_ret.o)) ? 1 /* stop enum on failure */ : IDAPyInt_AsLong(py_ret.o);
 }
 
 //-------------------------------------------------------------------------
@@ -54,11 +54,11 @@ PyObject *py_enumerate_files(PyObject *path, PyObject *fname, PyObject *callback
 
   do
   {
-    if ( !PyString_Check(path) || !PyString_Check(fname) || !PyCallable_Check(callback) )
+    if ( !IDAPyStr_Check(path) || !IDAPyStr_Check(fname) || !PyCallable_Check(callback) )
       break;
 
-    const char *_path = PyString_AsString(path);
-    const char *_fname = PyString_AsString(fname);
+    const char *_path = IDAPyBytes_AsString(path);
+    const char *_fname = IDAPyBytes_AsString(fname);
     if ( _path == NULL || _fname == NULL )
       break;
 

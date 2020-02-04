@@ -161,7 +161,7 @@
     {
       char *buf;
       Py_ssize_t sz;
-      if ( PyString_AsStringAndSize(py_str, &buf, &sz) == -1 )
+      if ( IDAPyBytes_AsStringAndSize(py_str, &buf, &sz) == -1 )
         return false;
       return self->hashset(idx, buf, sz, uchar(tag));
     }

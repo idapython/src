@@ -30,7 +30,7 @@
         newref_t pyo(PySequence_GetItem(py_t, i));
         if ( PyInt_Check(pyo.o) )
         {
-          long stype = PyInt_AsLong(pyo.o);
+          long stype = IDAPyInt_AsLong(pyo.o);
           if ( stype < 0 || stype >= 0x100 )
           {
             PyErr_SetString(PyExc_ValueError, "values must be between 0 & 0x100");

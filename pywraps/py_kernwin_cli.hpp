@@ -168,10 +168,10 @@ private:
                     line,
                     x));
 
-    bool ok = result != NULL && PyString_Check(result.o);
+    bool ok = result != NULL && IDAPyStr_Check(result.o);
     PyW_ShowCbErr(S_ON_COMPLETE_LINE);
     if ( ok )
-      *completion = PyString_AsString(result.o);
+      *completion = IDAPyBytes_AsString(result.o);
     return ok;
   }
 

@@ -177,11 +177,11 @@ static ea_t py_internal_get_sreg_base(thid_t tid, int sreg_value)
 static ssize_t py_write_dbg_memory(ea_t ea, PyObject *py_buf, size_t size=size_t(-1))
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !dbg_can_query() || !PyString_Check(py_buf) )
+  if ( !dbg_can_query() || !IDAPyStr_Check(py_buf) )
     return -1;
   char *buf = NULL;
   Py_ssize_t sz;
-  if ( PyString_AsStringAndSize(py_buf, &buf, &sz) < 0 )
+  if ( IDAPyBytes_AsStringAndSize(py_buf, &buf, &sz) < 0 )
     return -1;
   if ( size == size_t(-1) )
     size = size_t(sz);
