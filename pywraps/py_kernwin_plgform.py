@@ -87,26 +87,26 @@ class PluginForm(object):
 
 
     @staticmethod
-    def TWidgetToPySideWidget(form, ctx = sys.modules['__main__']):
+    def TWidgetToPySideWidget(tw, ctx = sys.modules['__main__']):
         """
         Use this method to convert a TWidget* to a QWidget to be used by PySide
-
         @param ctx: Context. Reference to a module that already imported QtWidgets module
         """
-        if form is None:
+        if tw is None:
             return None
-        if type(form).__name__ == "SwigPyObject":
-            # Since 'form' is a SwigPyObject, we first need to convert it to a PyCObject.
+        if type(tw).__name__ == "SwigPyObject":
+            # Since 'tw' is a SwigPyObject, we first need to convert it to a PyCapsule.
             # However, there's no easy way of doing it, so we'll use a rather brutal approach:
             # converting the SwigPyObject to a 'long' (will go through 'SwigPyObject_long',
             # that will return the pointer's value as a long), and then convert that value
-            # back to a pointer into a PyCObject.
-            ptr_l = long(form)
-            from ctypes import pythonapi, c_void_p, py_object
-            pythonapi.PyCObject_FromVoidPtr.restype  = py_object
-            pythonapi.PyCObject_AsVoidPtr.argtypes = [c_void_p, c_void_p]
-            form = pythonapi.PyCObject_FromVoidPtr(ptr_l, 0)
-        return ctx.QtGui.QWidget.FromCObject(form)
+            # back to a pointer into a PyCapsule.
+            ptr_l = ida_idaapi.long_type(tw)
+            # Warning: this is untested
+            import ctypes
+            ctypes.pythonapi.PyCapsule_New.restype = ctypes.py_object
+            ctypes.pythonapi.PyCapsule_New.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_void_p]
+            tw = ctypes.pythonapi.PyCapsule_New(ptr_l, PluginForm.VALID_CAPSULE_NAME, 0)
+        return ctx.QtGui.QWidget.FromCapsule(tw)
     FormToPySideWidget = TWidgetToPySideWidget
 
     def OnCreate(self, form):

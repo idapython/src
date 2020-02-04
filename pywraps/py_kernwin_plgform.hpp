@@ -24,7 +24,7 @@ class plgform_t
                   PyObject_CallMethod(
                           _this->py_obj.o,
                           (char *)S_ON_CLOSE, "O",
-                          PyCObject_FromVoidPtr(widget, NULL)));
+                          PyCapsule_New(widget, VALID_CAPSULE_NAME, NULL)));
           PyW_ShowCbErr(S_ON_CLOSE);
         }
         _this->unhook();
@@ -92,7 +92,7 @@ public:
             PyObject_CallMethod(
                     py_obj.o,
                     (char *)S_ON_CREATE, "O",
-                    PyCObject_FromVoidPtr(widget, NULL)));
+                    PyCapsule_New(widget, VALID_CAPSULE_NAME, NULL)));
     PyW_ShowCbErr(S_ON_CREATE);
 
     if ( !create_only )
@@ -111,7 +111,7 @@ public:
   static PyObject *create()
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    return PyCObject_FromVoidPtr(new plgform_t(), destroy);
+    return PyCapsule_New(new plgform_t(),VALID_CAPSULE_NAME, destroy);
   }
 
   static void destroy(void *obj)

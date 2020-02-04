@@ -84,7 +84,7 @@ static PyObject *py_register_timer(int interval, PyObject *py_callback)
     python_timer_del(ctx);
     Py_RETURN_NONE;
   }
-  return PyCObject_FromVoidPtr(ctx, NULL);
+  return PyCapsule_New(ctx,VALID_CAPSULE_NAME, NULL);
 }
 
 //------------------------------------------------------------------------
@@ -300,7 +300,7 @@ PyObject *py_ask_text(size_t max_size, const char *defval, const char *prompt)
   PyObject *py_ret;
   if ( ask_text(&qbuf, max_size, defval, "%s", prompt) )
   {
-    py_ret = PyString_FromStringAndSize(qbuf.begin(), qbuf.length());
+    py_ret = IDAPyStr_FromUTF8AndSize(qbuf.begin(), qbuf.length());
   }
   else
   {
@@ -332,7 +332,7 @@ PyObject *py_ask_str(qstring *defval, int hist, const char *prompt)
   PyObject *py_ret;
   if ( ask_str(defval, hist, "%s", prompt) )
   {
-    py_ret = PyString_FromStringAndSize(defval->begin(), defval->length());
+    py_ret = IDAPyStr_FromUTF8AndSize(defval->begin(), defval->length());
   }
   else
   {
@@ -482,7 +482,7 @@ PyObject *py_add_hotkey(const char *hotkey, PyObject *pyfunc)
       gvar->set_pvoid(pyfunc);
 
       // Return the context
-      return PyCObject_FromVoidPtr(ctx, NULL);
+      return PyCapsule_New(ctx,VALID_CAPSULE_NAME, NULL);
     } while (false);
   }
   // Cleanup

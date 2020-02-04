@@ -245,7 +245,7 @@ public:
         break;
       }
 
-      PyObject *ret = PyString_FromStringAndSize(buf, r);
+      PyObject *ret = IDAPyStr_FromUTF8AndSize(buf, r);
       free(buf);
       return ret;
     } while ( false );
@@ -270,7 +270,7 @@ public:
         free(buf);
         break;
       }
-      PyObject *ret = PyString_FromStringAndSize(buf, r);
+      PyObject *ret = IDAPyStr_FromUTF8AndSize(buf, r);
       free(buf);
       return ret;
     } while ( false );

@@ -61,7 +61,7 @@ PyObject *py_reg_read_binary(const char *name, const char *subkey = NULL)
   ok = reg_read_binary(name, &bytes, subkey);
   Py_END_ALLOW_THREADS;
   if ( ok )
-    return PyString_FromStringAndSize((const char *) bytes.begin(), bytes.size());
+    return IDAPyStr_FromUTF8AndSize((const char *) bytes.begin(), bytes.size());
   else
     Py_RETURN_NONE;
 }

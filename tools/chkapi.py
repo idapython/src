@@ -84,7 +84,7 @@ def check_cpp(opts):
             "mustcall" : "tinfo_t_deserialize__SWIG_2",
             },
         "_wrap_get_bpt_group" : {
-            "mustcall" : "PyString_FromStringAndSize",
+            "mustcall" : "IDAPyStr_FromUTF8AndSize",
             },
         "_wrap_get_ip_val" : {
             "string" : "resultobj = PyLong_FromUnsigned",
@@ -173,19 +173,19 @@ def check_cpp(opts):
 
     functions_coherence_hexrays = {
         "_wrap_cfuncptr_t___str__" : {
-            "mustcall" : ["cfunc_t___str__", "PyString_FromStringAndSize"],
+            "mustcall" : ["cfunc_t___str__", "IDAPyStr_FromUTF8AndSize"],
             },
         "_wrap_cfunc_t___str__" : {
-            "mustcall" : ["cfunc_t___str__", "PyString_FromStringAndSize"],
+            "mustcall" : ["cfunc_t___str__", "IDAPyStr_FromUTF8AndSize"],
             },
         "_wrap_hexrays_failure_t_desc" : {
-            "mustcall" : "PyString_FromStringAndSize",
+            "mustcall" : "IDAPyStr_FromUTF8AndSize",
             },
         "_wrap_vd_failure_t_desc" : {
-            "mustcall" : "PyString_FromStringAndSize",
+            "mustcall" : "IDAPyStr_FromUTF8AndSize",
             },
         "_wrap_create_field_name" : {
-            "mustcall" : "PyString_FromStringAndSize",
+            "mustcall" : "IDAPyStr_FromUTF8AndSize",
             },
         "delete_qrefcnt_t_Sl_cfunc_t_Sg_" : {
             "mustcall" : "hexrays_deregister_python_clearable_instance",

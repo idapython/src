@@ -2,5 +2,5 @@
 
 PyObject *SWIG_NewPointerObj(void *ptr, void *type, int flags)
 {
-  return PyCObject_FromVoidPtr(ptr, NULL);
+  return PyCapsule_New(ptr, VALID_CAPSULE_NAME, NULL);
 }

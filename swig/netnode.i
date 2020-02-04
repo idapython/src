@@ -128,7 +128,7 @@
       bytevec_t blob;
       if ( self->getblob(&blob, start, uchar(tag)) <= 0 )
         Py_RETURN_NONE;
-      return PyString_FromStringAndSize((const char *)blob.begin(), blob.size());
+      return IDAPyStr_FromUTF8AndSize((const char *)blob.begin(), blob.size());
     }
 
     PyObject *getclob(nodeidx_t start, char tag)
@@ -136,7 +136,7 @@
       qstring clob;
       if ( self->getblob(&clob, start, uchar(tag)) <= 0 )
         Py_RETURN_NONE;
-      return PyString_FromStringAndSize((const char *)clob.begin(), clob.length());
+      return IDAPyStr_FromUTF8AndSize((const char *)clob.begin(), clob.length());
     }
 
     PyObject *getblob_ea(ea_t ea, char tag)
@@ -144,7 +144,7 @@
       bytevec_t blob;
       if ( self->getblob(&blob, ea, tag) <= 0 )
         Py_RETURN_NONE;
-      return PyString_FromStringAndSize((const char *)blob.begin(), blob.size());
+      return IDAPyStr_FromUTF8AndSize((const char *)blob.begin(), blob.size());
     }
 
     PyObject *hashstr_buf(const char *idx, char tag=htag)
@@ -154,7 +154,7 @@
       if ( sz < 0 )
         Py_RETURN_NONE;
       else
-        return PyString_FromStringAndSize(buf, sz);
+        return IDAPyStr_FromUTF8AndSize(buf, sz);
     }
 
     bool hashset_buf(const char *idx, PyObject *py_str, char tag=htag)

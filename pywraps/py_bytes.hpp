@@ -69,7 +69,7 @@ static bool py_do_get_bytes(
       break;
 
     // Allocate memory via Python
-    newref_t py_bytes(PyString_FromStringAndSize(NULL, Py_ssize_t(size)));
+    newref_t py_bytes(IDAPyStr_FromUTF8AndSize(NULL, Py_ssize_t(size)));
     if ( py_bytes == NULL )
       break;
 
@@ -89,7 +89,7 @@ static bool py_do_get_bytes(
     // note: specify size, as '0' bytes would otherwise cut the mask short
     if ( has_mask )
     {
-      newref_t py_mask(PyString_FromStringAndSize(
+      newref_t py_mask(IDAPyStr_FromUTF8AndSize(
                                (const char *) mask.begin(),
                                mask.size()));
       if ( py_mask == NULL )
@@ -259,7 +259,7 @@ static PyObject *py_get_strlit_contents(
   if ( type == STRTYPE_C && buf.length() > 0 && buf.last() == '\0' )
     buf.remove_last();
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  newref_t py_buf(PyString_FromStringAndSize(buf.begin(), buf.length()));
+  newref_t py_buf(IDAPyStr_FromUTF8AndSize(buf.begin(), buf.length()));
   py_buf.incref();
   return py_buf.o;
 }

@@ -188,7 +188,7 @@ private:
     PYW_GIL_GET;
 
     // Build a string from the buffer
-    newref_t py_value(PyString_FromStringAndSize(
+    newref_t py_value(IDAPyStr_FromUTF8AndSize(
                               (const char *)value,
                               Py_ssize_t(size)));
     if ( py_value == NULL )

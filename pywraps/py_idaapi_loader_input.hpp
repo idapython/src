@@ -328,7 +328,7 @@ public:
       Py_END_ALLOW_THREADS;
       if ( r == -1 )
         r = 0;
-      PyObject *ret = PyString_FromStringAndSize(buf, r);
+      PyObject *ret = IDAPyStr_FromUTF8AndSize(buf, r);
       free(buf);
       return ret;
     } while ( false );
@@ -356,7 +356,7 @@ public:
       Py_END_ALLOW_THREADS;
       if ( r == -1 )
         r = 0;
-      PyObject *ret = PyString_FromStringAndSize(buf, r);
+      PyObject *ret = IDAPyStr_FromUTF8AndSize(buf, r);
       free(buf);
       return ret;
     } while ( false );

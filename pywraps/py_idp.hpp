@@ -35,7 +35,7 @@ static PyObject *AssembleLine(
   int inslen = ph.assemble((uchar *)buf, ea, cs, ip, use32, line);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( inslen > 0 )
-    return PyString_FromStringAndSize(buf, inslen);
+    return IDAPyStr_FromUTF8AndSize(buf, inslen);
   else
     Py_RETURN_NONE;
 }

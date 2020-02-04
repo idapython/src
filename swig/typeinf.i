@@ -220,7 +220,7 @@
   {
     bytevec_t bv;
     if ( $self->get_attr(key, &bv, all_attrs) )
-      return PyString_FromStringAndSize(
+      return IDAPyStr_FromUTF8AndSize(
               (const char *) bv.begin(),
               bv.size());
     else

@@ -138,7 +138,7 @@ void bpt_t_elang_set(bpt_t *bpt, PyObject *val)
 {
   PyObject *get_bytes() const
   {
-    return PyString_FromStringAndSize(
+    return IDAPyStr_FromUTF8AndSize(
         (const char *) $self->bytes.begin(),
         $self->bytes.size());
   }

@@ -312,7 +312,7 @@ inline size_t strnlen(const char *s, size_t maxlen)
 static PyObject *type##_create()
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  return PyCObject_FromVoidPtr(new type(), NULL);
+  return PyCapsule_New(new type(), VALID_CAPSULE_NAME, NULL);
 }
 static bool type##_destroy(PyObject *py_obj)
 {
@@ -467,7 +467,7 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
     Py_XDECREF(resultobj);
     if (result > 0)
     {
-        resultobj = PyString_FromStringAndSize((char *)$1, result);
+        resultobj = IDAPyStr_FromUTF8AndSize((char *)$1, result);
     }
     else
     {
@@ -508,7 +508,7 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
   Py_XDECREF(resultobj);
   if (result != NULL)
   {
-    resultobj = PyString_FromStringAndSize($BUFIDX->begin(), $BUFIDX->length());
+    resultobj = IDAPyStr_FromUTF8AndSize($BUFIDX->begin(), $BUFIDX->length());
   }
   else
   {
@@ -640,15 +640,15 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 }
 %typemap(out) REFTYPE // e.g., %typemap(out) qstring*
 { // bytes_container typemap(out) REFTYPE
-  $result = PyString_FromStringAndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
+  $result = IDAPyStr_FromUTF8AndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
 }
 %typemap(out) CONTAINER_TYPE // e.g., %typemap(out) qstring
 { // bytes_container typemap(out) CONTAINER_TYPE
-  $result = PyString_FromStringAndSize((const char *) $1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
+  $result = IDAPyStr_FromUTF8AndSize((const char *) $1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
 }
 %typemap(varout) CONTAINER_TYPE // e.g., %typemap(varout) qstring
 { // bytes_container typemap(varout) CONTAINER_TYPE
-  $result = PyString_FromStringAndSize((const char *) $1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
+  $result = IDAPyStr_FromUTF8AndSize((const char *) $1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
 }
 // the following is used to turn a '... *result' output parameter,
 // into an actual return value.
@@ -663,7 +663,7 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
   Py_XDECREF(resultobj);
   if (result > 0)
   {
-    resultobj = PyString_FromStringAndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
+    resultobj = IDAPyStr_FromUTF8AndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
   }
   else
   {
@@ -689,7 +689,7 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 {
   // bytes_container typemap(argout) (CONTAINER_TYPE *vout)
   Py_XDECREF(resultobj);
-  resultobj = PyString_FromStringAndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
+  resultobj = IDAPyStr_FromUTF8AndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
 }
 %enddef
 
@@ -914,7 +914,7 @@ static PyObject *qstrvec2pylist(const qstrvec_t &vec)
     PyList_SetItem(
             py_list,
             i,
-            PyString_FromStringAndSize(vec[i].c_str(), vec[i].length()));
+            IDAPyStr_FromUTF8AndSize(vec[i].c_str(), vec[i].length()));
   return py_list;
 }
 %}

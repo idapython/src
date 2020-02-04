@@ -760,7 +760,7 @@ public:
 
     // Return a reference to the C++ instance (only once)
     if ( py_this == NULL )
-      py_this = PyCObject_FromVoidPtr(this, NULL);
+      py_this = PyCapsule_New(this,VALID_CAPSULE_NAME, NULL);
 
     return true;
   }

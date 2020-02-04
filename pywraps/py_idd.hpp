@@ -263,7 +263,7 @@ static PyObject *dbg_read_memory(PyObject *py_ea, PyObject *py_sz)
     Py_RETURN_NONE;
 
   // Create a Python string
-  PyObject *ret = PyString_FromStringAndSize(NULL, Py_ssize_t(sz));
+  PyObject *ret = IDAPyStr_FromUTF8AndSize(NULL, Py_ssize_t(sz));
   if ( ret == NULL )
     Py_RETURN_NONE;
 

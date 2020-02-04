@@ -39,7 +39,7 @@ PyObject *py_validate_name(const char *name, nametype_t type, int flags=0)
 {
   qstring qname(name);
   if ( validate_name(&qname, type, flags) )
-    return PyString_FromStringAndSize(qname.c_str(), qname.length());
+    return IDAPyStr_FromUTF8AndSize(qname.c_str(), qname.length());
   else
     Py_RETURN_NONE;
 }

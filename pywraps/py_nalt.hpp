@@ -61,7 +61,7 @@ static PyObject *py_get_import_module_name(int mod_index)
   if ( !get_import_module_name(&qbuf, mod_index) )
     Py_RETURN_NONE;
 
-  return PyString_FromStringAndSize(qbuf.begin(), qbuf.length());
+  return IDAPyStr_FromUTF8AndSize(qbuf.begin(), qbuf.length());
 }
 
 //-------------------------------------------------------------------------

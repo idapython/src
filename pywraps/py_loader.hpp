@@ -57,7 +57,7 @@ static PyObject *py_load_plugin(const char *name)
   if ( r == NULL )
     Py_RETURN_NONE;
   else
-    return PyCObject_FromVoidPtr(r, NULL);
+    return PyCapsule_New(r, VALID_CAPSULE_NAME, NULL);
 }
 
 //------------------------------------------------------------------------

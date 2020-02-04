@@ -671,7 +671,7 @@ int ida_export idcvar_to_pyvar(
     case VT_PVOID:
       if ( *py_var == NULL )
       {
-        newref_t nr(PyCObject_FromVoidPtr(idc_var.pvoid, NULL));
+        newref_t nr(PyCapsule_New(idc_var.pvoid, VALID_CAPSULE_NAME, NULL));
         *py_var = nr;
       }
       else
@@ -716,7 +716,7 @@ int ida_export idcvar_to_pyvar(
       if ( *py_var == NULL )
       {
         const qstring &s = idc_var.qstr();
-        *py_var = newref_t(PyString_FromStringAndSize(s.begin(), s.length()));
+        *py_var = newref_t(IDAPyStr_FromUTF8AndSize(s.begin(), s.length()));
         break;
       }
       else
@@ -1072,7 +1072,7 @@ ref_t ida_export create_linked_class_instance(
     ref_t py_class = PyW_TryGetAttrString(py_module.o, clsname);
     if ( py_class != NULL )
     {
-      newref_t py_lnk(PyCObject_FromVoidPtr(lnk, NULL));
+      newref_t py_lnk(PyCapsule_New(lnk, VALID_CAPSULE_NAME, NULL));
       ref_t py_obj = newref_t(PyObject_CallFunctionObjArgs(py_class.o, py_lnk.o, NULL));
       if ( !PyW_GetError() && py_obj != NULL )
         result = py_obj;
@@ -1992,7 +1992,7 @@ bool ida_export py_customidamemo_t_bind(py_customidamemo_t *_this, PyObject *sel
   PYGLOG("%p: py_customidamemo_t::bind(self=%p, view=%p)\n", _this, _this->self.o, _this->view);
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  newref_t py_cobj(PyCObject_FromVoidPtr(_this, NULL));
+  newref_t py_cobj(PyCapsule_New(_this, VALID_CAPSULE_NAME, NULL));
   PyObject_SetAttrString(self, S_M_THIS, py_cobj.o);
 
   _this->self = borref_t(self);
@@ -2007,7 +2007,7 @@ void ida_export py_customidamemo_t_unbind(py_customidamemo_t *_this, bool clear_
     return;
   PYGLOG("%p: py_customidamemo_t::unbind(); self.o=%p, view=%p\n", _this, _this->self.o, _this->view);
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  newref_t py_cobj(PyCObject_FromVoidPtr(NULL, NULL));
+  newref_t py_cobj(PyCapsule_New(NULL,VALID_CAPSULE_NAME, NULL));
   PyObject_SetAttrString(_this->self.o, S_M_THIS, py_cobj.o);
   _this->self = newref_t(NULL);
   if ( clear_view )
