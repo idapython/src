@@ -2,6 +2,9 @@
     "files.associations": {
         "xlocale": "cpp",
         "xstring": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "istream": "c",
+        "tuple": "c",
+        "xiosbase": "cpp"
     }
 }

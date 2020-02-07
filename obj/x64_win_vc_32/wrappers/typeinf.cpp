@@ -4269,21 +4269,21 @@ def apply_type(ti, ea, tp_name, py_type, py_fields, flags)
     pass
 #</pydoc>
 */
-static bool py_apply_type(til_t *ti, PyObject *py_type, PyObject *py_fields, ea_t ea, int flags)
+static bool py_apply_type(
+        til_t *ti,
+        const bytevec_t &_type,
+        const bytevec_t &_fields,
+        ea_t ea,
+        int flags)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !IDAPyStr_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
-  {
-    PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
-    return NULL;
-  }
-  const type_t *type   = (const type_t *) IDAPyBytes_AsString(py_type);
-  const p_list *fields = PyW_Fields(py_fields);
+  const type_t *type   = (const type_t *) _type.begin();
+  const p_list *fields = (const p_list *) _fields.begin();
   bool rc;
   Py_BEGIN_ALLOW_THREADS;
   struc_t *sptr;
   member_t *mptr = get_member_by_id(ea, &sptr);
-  if ( type[0] == '\0' )
+  if ( type == NULL || type[0] == '\0' )
   {
     if ( mptr != NULL )
     {
@@ -4305,7 +4305,7 @@ static bool py_apply_type(til_t *ti, PyObject *py_type, PyObject *py_fields, ea_
     if ( rc )
     {
       if ( mptr != NULL )
-        rc = set_member_tinfo(sptr, mptr, 0, tif, 0);
+        rc = set_member_tinfo(sptr, mptr, 0, tif, 0) > SMT_FAILED;
       else
         rc = apply_tinfo(ea, tif, flags);
     }
@@ -4353,25 +4353,14 @@ def py_unpack_object_from_idb(ti, tp, fields, ea, pio_flags = 0):
 */
 PyObject *py_unpack_object_from_idb(
         til_t *ti,
-        PyObject *py_type,
-        PyObject *py_fields,
+        const bytevec_t &_type,
+        const bytevec_t &_fields,
         ea_t ea,
         int pio_flags = 0)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !IDAPyStr_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
-  {
-    PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
-    return NULL;
-  }
-
-  // To avoid release of 'type'/'fields' during Py_BEGIN|END_ALLOW_THREADS section.
-  borref_t py_type_ref(py_type);
-  borref_t py_fields_ref(py_fields);
-
-  // Unpack
-  const type_t *type = (const type_t *) IDAPyBytes_AsString(py_type);
-  const p_list *fields = PyW_Fields(py_fields);
+  const type_t *type   = (const type_t *) _type.begin();
+  const p_list *fields = (const p_list *) _fields.begin();
   idc_value_t idc_obj;
   error_t err;
   Py_BEGIN_ALLOW_THREADS;
@@ -4421,31 +4410,13 @@ def unpack_object_from_bv(ti, tp, fields, bytes, pio_flags = 0):
 */
 PyObject *py_unpack_object_from_bv(
         til_t *ti,
-        PyObject *py_type,
-        PyObject *py_fields,
-        PyObject *py_bytes,
+        const bytevec_t &_type,
+        const bytevec_t &_fields,
+        const bytevec_t &bytes,
         int pio_flags = 0)
 {
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !IDAPyStr_Check(py_type) || !PyWStringOrNone_Check(py_fields) || !IDAPyStr_Check(py_bytes) )
-  {
-    PyErr_SetString(PyExc_ValueError, "Incorrect argument type!");
-    return NULL;
-  }
-
-  // To avoid release of 'type'/'fields' during Py_BEGIN|END_ALLOW_THREADS section.
-  borref_t py_type_ref(py_type);
-  borref_t py_fields_ref(py_fields);
-
-  // Get type strings
-  const type_t *type = (const type_t *) IDAPyBytes_AsString(py_type);
-  const p_list *fields = PyW_Fields(py_fields);
-
-  // Make a byte vector
-  bytevec_t bytes;
-  bytes.resize(PyString_Size(py_bytes));
-  memcpy(bytes.begin(), IDAPyBytes_AsString(py_bytes), bytes.size());
-
+  const type_t *type   = (const type_t *) _type.begin();
+  const p_list *fields = (const p_list *) _fields.begin();
   idc_value_t idc_obj;
   error_t err;
   Py_BEGIN_ALLOW_THREADS;
@@ -4493,17 +4464,12 @@ def pack_object_to_idb(obj, ti, tp, fields, ea, pio_flags = 0):
 PyObject *py_pack_object_to_idb(
         PyObject *py_obj,
         til_t *ti,
-        PyObject *py_type,
-        PyObject *py_fields,
+        const bytevec_t &_type,
+        const bytevec_t &_fields,
         ea_t ea,
         int pio_flags = 0)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !IDAPyStr_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
-  {
-    PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
-    return NULL;
-  }
 
   // Convert Python object to IDC object
   idc_value_t idc_obj;
@@ -4511,13 +4477,8 @@ PyObject *py_pack_object_to_idb(
   if ( !pyvar_to_idcvar_or_error(py_obj_ref, &idc_obj) )
     return NULL;
 
-  // To avoid release of 'type'/'fields' during Py_BEGIN|END_ALLOW_THREADS section.
-  borref_t py_type_ref(py_type);
-  borref_t py_fields_ref(py_fields);
-
-  // Get type strings
-  const type_t *type = (const type_t *)IDAPyBytes_AsString(py_type);
-  const p_list *fields = PyW_Fields(py_fields);
+  const type_t *type   = (const type_t *) _type.begin();
+  const p_list *fields = (const p_list *) _fields.begin();
 
   // Pack
   // error_t err;
@@ -4527,7 +4488,7 @@ PyObject *py_pack_object_to_idb(
   tif.deserialize(ti, &type, &fields);
   err = pack_idcobj_to_idb(&idc_obj, tif, ea, pio_flags);
   Py_END_ALLOW_THREADS;
-  return IDAPyInt_FromLong(err);
+  return PyInt_FromLong(err);
 }
 
 //-------------------------------------------------------------------------
@@ -4552,17 +4513,12 @@ def pack_object_to_bv(obj, ti, tp, fields, base_ea, pio_flags = 0):
 PyObject *py_pack_object_to_bv(
         PyObject *py_obj,
         til_t *ti,
-        PyObject *py_type,
-        PyObject *py_fields,
+        const bytevec_t &_type,
+        const bytevec_t &_fields,
         ea_t base_ea,
         int pio_flags=0)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !IDAPyStr_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
-  {
-    PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
-    return NULL;
-  }
 
   // Convert Python object to IDC object
   idc_value_t idc_obj;
@@ -4570,13 +4526,9 @@ PyObject *py_pack_object_to_bv(
   if ( !pyvar_to_idcvar_or_error(py_obj_ref, &idc_obj) )
     return NULL;
 
-  // To avoid release of 'type'/'fields' during Py_BEGIN|END_ALLOW_THREADS section.
-  borref_t py_type_ref(py_type);
-  borref_t py_fields_ref(py_fields);
-
   // Get type strings
-  const type_t *type = (const type_t *)IDAPyBytes_AsString(py_type);
-  const p_list *fields = PyW_Fields(py_fields);
+  const type_t *type   = (const type_t *) _type.begin();
+  const p_list *fields = (const p_list *) _fields.begin();
 
   // Pack
   relobj_t bytes;
@@ -4720,22 +4672,16 @@ int idc_get_local_type(int ordinal, int flags, char *buf, size_t maxsize)
 }
 
 //-------------------------------------------------------------------------
-PyObject *idc_print_type(PyObject *py_type, PyObject *py_fields, const char *name, int flags)
+PyObject *idc_print_type(
+        const bytevec_t &_type,
+        const bytevec_t &_fields,
+        const char *name,
+        int flags)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !IDAPyStr_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
-  {
-    PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
-    return NULL;
-  }
-
-  // To avoid release of 'type'/'fields' during Py_BEGIN|END_ALLOW_THREADS section.
-  borref_t py_type_ref(py_type);
-  borref_t py_fields_ref(py_fields);
-
   qstring res;
-  const type_t *type   = (type_t *)IDAPyBytes_AsString(py_type);
-  const p_list *fields = PyW_Fields(py_fields);
+  const type_t *type   = (const type_t *) _type.begin();
+  const p_list *fields = (const p_list *) _fields.begin();
   bool ok;
   Py_BEGIN_ALLOW_THREADS;
   tinfo_t tif;
@@ -54900,8 +54846,8 @@ fail:
 SWIGINTERN PyObject *_wrap_apply_type(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   til_t *arg1 = (til_t *) 0 ;
-  PyObject *arg2 = (PyObject *) 0 ;
-  PyObject *arg3 = (PyObject *) 0 ;
+  bytevec_t *arg2 = 0 ;
+  bytevec_t *arg3 = 0 ;
   ea_t arg4 ;
   int arg5 ;
   void *argp1 = 0 ;
@@ -54917,8 +54863,40 @@ SWIGINTERN PyObject *_wrap_apply_type(PyObject *SWIGUNUSEDPARM(self), PyObject *
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "apply_type" "', argument " "1"" of type '" "til_t *""'"); 
   }
   arg1 = reinterpret_cast< til_t * >(argp1);
-  arg2 = swig_obj[1];
-  arg3 = swig_obj[2];
+  {
+    // bytes_container bytevec_t &, bytevec_t typemap(in)
+    if ( IDAPyStr_Check(swig_obj[1]) )
+    {
+      // init properly, so ctor can't crash
+      char *buf = NULL;
+      Py_ssize_t length = 0;
+      /*int success =*/ IDAPyBytes_AsMemAndSize(swig_obj[1], &buf, &length);
+      arg2 = new bytevec_t( buf, length); // build regardless of success
+    }
+    else
+    {
+      SWIG_exception_fail(
+        SWIG_ValueError,
+        "Expected string " "in method '" "apply_type" "', argument " "2"" of type 'str'");
+    }
+  }
+  {
+    // bytes_container bytevec_t &, bytevec_t typemap(in)
+    if ( IDAPyStr_Check(swig_obj[2]) )
+    {
+      // init properly, so ctor can't crash
+      char *buf = NULL;
+      Py_ssize_t length = 0;
+      /*int success =*/ IDAPyBytes_AsMemAndSize(swig_obj[2], &buf, &length);
+      arg3 = new bytevec_t( buf, length); // build regardless of success
+    }
+    else
+    {
+      SWIG_exception_fail(
+        SWIG_ValueError,
+        "Expected string " "in method '" "apply_type" "', argument " "3"" of type 'str'");
+    }
+  }
   {
     // %typemap(in) ea_t
     uint64 arg4_temp;
@@ -54936,7 +54914,7 @@ SWIGINTERN PyObject *_wrap_apply_type(PyObject *SWIGUNUSEDPARM(self), PyObject *
   {
     try
     {
-      result = (bool)py_apply_type(arg1,arg2,arg3,arg4,arg5);
+      result = (bool)py_apply_type(arg1,(bytevec_t const &)*arg2,(bytevec_t const &)*arg3,arg4,arg5);
     }
     catch ( const std::bad_alloc &ba ) {
       __raise_ba(ba); SWIG_fail; 
@@ -54958,8 +54936,24 @@ SWIGINTERN PyObject *_wrap_apply_type(PyObject *SWIGUNUSEDPARM(self), PyObject *
     }
   }
   resultobj = SWIG_From_bool(static_cast< bool >(result));
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg2;
+  }
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg3;
+  }
   return resultobj;
 fail:
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg2;
+  }
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg3;
+  }
   return NULL;
 }
 
@@ -55017,8 +55011,8 @@ fail:
 SWIGINTERN PyObject *_wrap_unpack_object_from_idb(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   til_t *arg1 = (til_t *) 0 ;
-  PyObject *arg2 = (PyObject *) 0 ;
-  PyObject *arg3 = (PyObject *) 0 ;
+  bytevec_t *arg2 = 0 ;
+  bytevec_t *arg3 = 0 ;
   ea_t arg4 ;
   int arg5 = (int) 0 ;
   void *argp1 = 0 ;
@@ -55034,8 +55028,40 @@ SWIGINTERN PyObject *_wrap_unpack_object_from_idb(PyObject *SWIGUNUSEDPARM(self)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "unpack_object_from_idb" "', argument " "1"" of type '" "til_t *""'"); 
   }
   arg1 = reinterpret_cast< til_t * >(argp1);
-  arg2 = swig_obj[1];
-  arg3 = swig_obj[2];
+  {
+    // bytes_container bytevec_t &, bytevec_t typemap(in)
+    if ( IDAPyStr_Check(swig_obj[1]) )
+    {
+      // init properly, so ctor can't crash
+      char *buf = NULL;
+      Py_ssize_t length = 0;
+      /*int success =*/ IDAPyBytes_AsMemAndSize(swig_obj[1], &buf, &length);
+      arg2 = new bytevec_t( buf, length); // build regardless of success
+    }
+    else
+    {
+      SWIG_exception_fail(
+        SWIG_ValueError,
+        "Expected string " "in method '" "unpack_object_from_idb" "', argument " "2"" of type 'str'");
+    }
+  }
+  {
+    // bytes_container bytevec_t &, bytevec_t typemap(in)
+    if ( IDAPyStr_Check(swig_obj[2]) )
+    {
+      // init properly, so ctor can't crash
+      char *buf = NULL;
+      Py_ssize_t length = 0;
+      /*int success =*/ IDAPyBytes_AsMemAndSize(swig_obj[2], &buf, &length);
+      arg3 = new bytevec_t( buf, length); // build regardless of success
+    }
+    else
+    {
+      SWIG_exception_fail(
+        SWIG_ValueError,
+        "Expected string " "in method '" "unpack_object_from_idb" "', argument " "3"" of type 'str'");
+    }
+  }
   {
     // %typemap(in) ea_t
     uint64 arg4_temp;
@@ -55055,7 +55081,7 @@ SWIGINTERN PyObject *_wrap_unpack_object_from_idb(PyObject *SWIGUNUSEDPARM(self)
   {
     try
     {
-      result = (PyObject *)py_unpack_object_from_idb(arg1,arg2,arg3,arg4,arg5);
+      result = (PyObject *)py_unpack_object_from_idb(arg1,(bytevec_t const &)*arg2,(bytevec_t const &)*arg3,arg4,arg5);
     }
     catch ( const std::bad_alloc &ba ) {
       __raise_ba(ba); SWIG_fail; 
@@ -55077,8 +55103,24 @@ SWIGINTERN PyObject *_wrap_unpack_object_from_idb(PyObject *SWIGUNUSEDPARM(self)
     }
   }
   resultobj = result;
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg2;
+  }
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg3;
+  }
   return resultobj;
 fail:
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg2;
+  }
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg3;
+  }
   return NULL;
 }
 
@@ -55086,9 +55128,9 @@ fail:
 SWIGINTERN PyObject *_wrap_unpack_object_from_bv(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   til_t *arg1 = (til_t *) 0 ;
-  PyObject *arg2 = (PyObject *) 0 ;
-  PyObject *arg3 = (PyObject *) 0 ;
-  PyObject *arg4 = (PyObject *) 0 ;
+  bytevec_t *arg2 = 0 ;
+  bytevec_t *arg3 = 0 ;
+  bytevec_t *arg4 = 0 ;
   int arg5 = (int) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -55103,9 +55145,57 @@ SWIGINTERN PyObject *_wrap_unpack_object_from_bv(PyObject *SWIGUNUSEDPARM(self),
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "unpack_object_from_bv" "', argument " "1"" of type '" "til_t *""'"); 
   }
   arg1 = reinterpret_cast< til_t * >(argp1);
-  arg2 = swig_obj[1];
-  arg3 = swig_obj[2];
-  arg4 = swig_obj[3];
+  {
+    // bytes_container bytevec_t &, bytevec_t typemap(in)
+    if ( IDAPyStr_Check(swig_obj[1]) )
+    {
+      // init properly, so ctor can't crash
+      char *buf = NULL;
+      Py_ssize_t length = 0;
+      /*int success =*/ IDAPyBytes_AsMemAndSize(swig_obj[1], &buf, &length);
+      arg2 = new bytevec_t( buf, length); // build regardless of success
+    }
+    else
+    {
+      SWIG_exception_fail(
+        SWIG_ValueError,
+        "Expected string " "in method '" "unpack_object_from_bv" "', argument " "2"" of type 'str'");
+    }
+  }
+  {
+    // bytes_container bytevec_t &, bytevec_t typemap(in)
+    if ( IDAPyStr_Check(swig_obj[2]) )
+    {
+      // init properly, so ctor can't crash
+      char *buf = NULL;
+      Py_ssize_t length = 0;
+      /*int success =*/ IDAPyBytes_AsMemAndSize(swig_obj[2], &buf, &length);
+      arg3 = new bytevec_t( buf, length); // build regardless of success
+    }
+    else
+    {
+      SWIG_exception_fail(
+        SWIG_ValueError,
+        "Expected string " "in method '" "unpack_object_from_bv" "', argument " "3"" of type 'str'");
+    }
+  }
+  {
+    // bytes_container bytevec_t &, bytevec_t typemap(in)
+    if ( IDAPyStr_Check(swig_obj[3]) )
+    {
+      // init properly, so ctor can't crash
+      char *buf = NULL;
+      Py_ssize_t length = 0;
+      /*int success =*/ IDAPyBytes_AsMemAndSize(swig_obj[3], &buf, &length);
+      arg4 = new bytevec_t( buf, length); // build regardless of success
+    }
+    else
+    {
+      SWIG_exception_fail(
+        SWIG_ValueError,
+        "Expected string " "in method '" "unpack_object_from_bv" "', argument " "4"" of type 'str'");
+    }
+  }
   if (swig_obj[4]) {
     ecode5 = SWIG_AsVal_int(swig_obj[4], &val5);
     if (!SWIG_IsOK(ecode5)) {
@@ -55116,7 +55206,7 @@ SWIGINTERN PyObject *_wrap_unpack_object_from_bv(PyObject *SWIGUNUSEDPARM(self),
   {
     try
     {
-      result = (PyObject *)py_unpack_object_from_bv(arg1,arg2,arg3,arg4,arg5);
+      result = (PyObject *)py_unpack_object_from_bv(arg1,(bytevec_t const &)*arg2,(bytevec_t const &)*arg3,(bytevec_t const &)*arg4,arg5);
     }
     catch ( const std::bad_alloc &ba ) {
       __raise_ba(ba); SWIG_fail; 
@@ -55138,8 +55228,32 @@ SWIGINTERN PyObject *_wrap_unpack_object_from_bv(PyObject *SWIGUNUSEDPARM(self),
     }
   }
   resultobj = result;
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg2;
+  }
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg3;
+  }
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg4;
+  }
   return resultobj;
 fail:
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg2;
+  }
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg3;
+  }
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg4;
+  }
   return NULL;
 }
 
@@ -55148,8 +55262,8 @@ SWIGINTERN PyObject *_wrap_pack_object_to_idb(PyObject *SWIGUNUSEDPARM(self), Py
   PyObject *resultobj = 0;
   PyObject *arg1 = (PyObject *) 0 ;
   til_t *arg2 = (til_t *) 0 ;
-  PyObject *arg3 = (PyObject *) 0 ;
-  PyObject *arg4 = (PyObject *) 0 ;
+  bytevec_t *arg3 = 0 ;
+  bytevec_t *arg4 = 0 ;
   ea_t arg5 ;
   int arg6 = (int) 0 ;
   void *argp2 = 0 ;
@@ -55166,8 +55280,40 @@ SWIGINTERN PyObject *_wrap_pack_object_to_idb(PyObject *SWIGUNUSEDPARM(self), Py
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "pack_object_to_idb" "', argument " "2"" of type '" "til_t *""'"); 
   }
   arg2 = reinterpret_cast< til_t * >(argp2);
-  arg3 = swig_obj[2];
-  arg4 = swig_obj[3];
+  {
+    // bytes_container bytevec_t &, bytevec_t typemap(in)
+    if ( IDAPyStr_Check(swig_obj[2]) )
+    {
+      // init properly, so ctor can't crash
+      char *buf = NULL;
+      Py_ssize_t length = 0;
+      /*int success =*/ IDAPyBytes_AsMemAndSize(swig_obj[2], &buf, &length);
+      arg3 = new bytevec_t( buf, length); // build regardless of success
+    }
+    else
+    {
+      SWIG_exception_fail(
+        SWIG_ValueError,
+        "Expected string " "in method '" "pack_object_to_idb" "', argument " "3"" of type 'str'");
+    }
+  }
+  {
+    // bytes_container bytevec_t &, bytevec_t typemap(in)
+    if ( IDAPyStr_Check(swig_obj[3]) )
+    {
+      // init properly, so ctor can't crash
+      char *buf = NULL;
+      Py_ssize_t length = 0;
+      /*int success =*/ IDAPyBytes_AsMemAndSize(swig_obj[3], &buf, &length);
+      arg4 = new bytevec_t( buf, length); // build regardless of success
+    }
+    else
+    {
+      SWIG_exception_fail(
+        SWIG_ValueError,
+        "Expected string " "in method '" "pack_object_to_idb" "', argument " "4"" of type 'str'");
+    }
+  }
   {
     // %typemap(in) ea_t
     uint64 arg5_temp;
@@ -55187,7 +55333,7 @@ SWIGINTERN PyObject *_wrap_pack_object_to_idb(PyObject *SWIGUNUSEDPARM(self), Py
   {
     try
     {
-      result = (PyObject *)py_pack_object_to_idb(arg1,arg2,arg3,arg4,arg5,arg6);
+      result = (PyObject *)py_pack_object_to_idb(arg1,arg2,(bytevec_t const &)*arg3,(bytevec_t const &)*arg4,arg5,arg6);
     }
     catch ( const std::bad_alloc &ba ) {
       __raise_ba(ba); SWIG_fail; 
@@ -55209,8 +55355,24 @@ SWIGINTERN PyObject *_wrap_pack_object_to_idb(PyObject *SWIGUNUSEDPARM(self), Py
     }
   }
   resultobj = result;
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg3;
+  }
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg4;
+  }
   return resultobj;
 fail:
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg3;
+  }
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg4;
+  }
   return NULL;
 }
 
@@ -55219,8 +55381,8 @@ SWIGINTERN PyObject *_wrap_pack_object_to_bv(PyObject *SWIGUNUSEDPARM(self), PyO
   PyObject *resultobj = 0;
   PyObject *arg1 = (PyObject *) 0 ;
   til_t *arg2 = (til_t *) 0 ;
-  PyObject *arg3 = (PyObject *) 0 ;
-  PyObject *arg4 = (PyObject *) 0 ;
+  bytevec_t *arg3 = 0 ;
+  bytevec_t *arg4 = 0 ;
   ea_t arg5 ;
   int arg6 = (int) 0 ;
   void *argp2 = 0 ;
@@ -55237,8 +55399,40 @@ SWIGINTERN PyObject *_wrap_pack_object_to_bv(PyObject *SWIGUNUSEDPARM(self), PyO
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "pack_object_to_bv" "', argument " "2"" of type '" "til_t *""'"); 
   }
   arg2 = reinterpret_cast< til_t * >(argp2);
-  arg3 = swig_obj[2];
-  arg4 = swig_obj[3];
+  {
+    // bytes_container bytevec_t &, bytevec_t typemap(in)
+    if ( IDAPyStr_Check(swig_obj[2]) )
+    {
+      // init properly, so ctor can't crash
+      char *buf = NULL;
+      Py_ssize_t length = 0;
+      /*int success =*/ IDAPyBytes_AsMemAndSize(swig_obj[2], &buf, &length);
+      arg3 = new bytevec_t( buf, length); // build regardless of success
+    }
+    else
+    {
+      SWIG_exception_fail(
+        SWIG_ValueError,
+        "Expected string " "in method '" "pack_object_to_bv" "', argument " "3"" of type 'str'");
+    }
+  }
+  {
+    // bytes_container bytevec_t &, bytevec_t typemap(in)
+    if ( IDAPyStr_Check(swig_obj[3]) )
+    {
+      // init properly, so ctor can't crash
+      char *buf = NULL;
+      Py_ssize_t length = 0;
+      /*int success =*/ IDAPyBytes_AsMemAndSize(swig_obj[3], &buf, &length);
+      arg4 = new bytevec_t( buf, length); // build regardless of success
+    }
+    else
+    {
+      SWIG_exception_fail(
+        SWIG_ValueError,
+        "Expected string " "in method '" "pack_object_to_bv" "', argument " "4"" of type 'str'");
+    }
+  }
   {
     // %typemap(in) ea_t
     uint64 arg5_temp;
@@ -55258,7 +55452,7 @@ SWIGINTERN PyObject *_wrap_pack_object_to_bv(PyObject *SWIGUNUSEDPARM(self), PyO
   {
     try
     {
-      result = (PyObject *)py_pack_object_to_bv(arg1,arg2,arg3,arg4,arg5,arg6);
+      result = (PyObject *)py_pack_object_to_bv(arg1,arg2,(bytevec_t const &)*arg3,(bytevec_t const &)*arg4,arg5,arg6);
     }
     catch ( const std::bad_alloc &ba ) {
       __raise_ba(ba); SWIG_fail; 
@@ -55280,8 +55474,24 @@ SWIGINTERN PyObject *_wrap_pack_object_to_bv(PyObject *SWIGUNUSEDPARM(self), PyO
     }
   }
   resultobj = result;
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg3;
+  }
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg4;
+  }
   return resultobj;
 fail:
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg3;
+  }
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg4;
+  }
   return NULL;
 }
 
@@ -55714,8 +55924,8 @@ fail:
 
 SWIGINTERN PyObject *_wrap_idc_print_type(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  PyObject *arg1 = (PyObject *) 0 ;
-  PyObject *arg2 = (PyObject *) 0 ;
+  bytevec_t *arg1 = 0 ;
+  bytevec_t *arg2 = 0 ;
   char *arg3 = (char *) 0 ;
   int arg4 ;
   int res3 ;
@@ -55727,8 +55937,40 @@ SWIGINTERN PyObject *_wrap_idc_print_type(PyObject *SWIGUNUSEDPARM(self), PyObje
   PyObject *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "idc_print_type", 4, 4, swig_obj)) SWIG_fail;
-  arg1 = swig_obj[0];
-  arg2 = swig_obj[1];
+  {
+    // bytes_container bytevec_t &, bytevec_t typemap(in)
+    if ( IDAPyStr_Check(swig_obj[0]) )
+    {
+      // init properly, so ctor can't crash
+      char *buf = NULL;
+      Py_ssize_t length = 0;
+      /*int success =*/ IDAPyBytes_AsMemAndSize(swig_obj[0], &buf, &length);
+      arg1 = new bytevec_t( buf, length); // build regardless of success
+    }
+    else
+    {
+      SWIG_exception_fail(
+        SWIG_ValueError,
+        "Expected string " "in method '" "idc_print_type" "', argument " "1"" of type 'str'");
+    }
+  }
+  {
+    // bytes_container bytevec_t &, bytevec_t typemap(in)
+    if ( IDAPyStr_Check(swig_obj[1]) )
+    {
+      // init properly, so ctor can't crash
+      char *buf = NULL;
+      Py_ssize_t length = 0;
+      /*int success =*/ IDAPyBytes_AsMemAndSize(swig_obj[1], &buf, &length);
+      arg2 = new bytevec_t( buf, length); // build regardless of success
+    }
+    else
+    {
+      SWIG_exception_fail(
+        SWIG_ValueError,
+        "Expected string " "in method '" "idc_print_type" "', argument " "2"" of type 'str'");
+    }
+  }
   res3 = SWIG_AsCharPtrAndSize(swig_obj[2], &buf3, NULL, &alloc3);
   if (!SWIG_IsOK(res3)) {
     SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "idc_print_type" "', argument " "3"" of type '" "char const *""'");
@@ -55742,7 +55984,7 @@ SWIGINTERN PyObject *_wrap_idc_print_type(PyObject *SWIGUNUSEDPARM(self), PyObje
   {
     try
     {
-      result = (PyObject *)idc_print_type(arg1,arg2,(char const *)arg3,arg4);
+      result = (PyObject *)idc_print_type((bytevec_t const &)*arg1,(bytevec_t const &)*arg2,(char const *)arg3,arg4);
     }
     catch ( const std::bad_alloc &ba ) {
       __raise_ba(ba); SWIG_fail; 
@@ -55764,9 +56006,25 @@ SWIGINTERN PyObject *_wrap_idc_print_type(PyObject *SWIGUNUSEDPARM(self), PyObje
     }
   }
   resultobj = result;
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg1;
+  }
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg2;
+  }
   if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
   return resultobj;
 fail:
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg1;
+  }
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg2;
+  }
   if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
   return NULL;
 }
@@ -57367,12 +57625,12 @@ static PyMethodDef SwigMethods[] = {
 	 { "choose_local_tinfo", _wrap_choose_local_tinfo, METH_VARARGS, "choose_local_tinfo(ti, title, func=None, def_ord=0, ud=None) -> uint32"},
 	 { "idc_parse_decl", _wrap_idc_parse_decl, METH_VARARGS, "idc_parse_decl(ti, decl, flags) -> PyObject *"},
 	 { "calc_type_size", _wrap_calc_type_size, METH_VARARGS, "calc_type_size(ti, tp) -> PyObject *"},
-	 { "apply_type", _wrap_apply_type, METH_VARARGS, "apply_type(ti, py_type, py_fields, ea, flags) -> bool"},
+	 { "apply_type", _wrap_apply_type, METH_VARARGS, "apply_type(ti, _type, _fields, ea, flags) -> bool"},
 	 { "get_arg_addrs", _wrap_get_arg_addrs, METH_O, "get_arg_addrs(caller) -> PyObject *"},
-	 { "unpack_object_from_idb", _wrap_unpack_object_from_idb, METH_VARARGS, "unpack_object_from_idb(ti, py_type, py_fields, ea, pio_flags=0) -> PyObject *"},
-	 { "unpack_object_from_bv", _wrap_unpack_object_from_bv, METH_VARARGS, "unpack_object_from_bv(ti, py_type, py_fields, py_bytes, pio_flags=0) -> PyObject *"},
-	 { "pack_object_to_idb", _wrap_pack_object_to_idb, METH_VARARGS, "pack_object_to_idb(py_obj, ti, py_type, py_fields, ea, pio_flags=0) -> PyObject *"},
-	 { "pack_object_to_bv", _wrap_pack_object_to_bv, METH_VARARGS, "pack_object_to_bv(py_obj, ti, py_type, py_fields, base_ea, pio_flags=0) -> PyObject *"},
+	 { "unpack_object_from_idb", _wrap_unpack_object_from_idb, METH_VARARGS, "unpack_object_from_idb(ti, _type, _fields, ea, pio_flags=0) -> PyObject *"},
+	 { "unpack_object_from_bv", _wrap_unpack_object_from_bv, METH_VARARGS, "unpack_object_from_bv(ti, _type, _fields, bytes, pio_flags=0) -> PyObject *"},
+	 { "pack_object_to_idb", _wrap_pack_object_to_idb, METH_VARARGS, "pack_object_to_idb(py_obj, ti, _type, _fields, ea, pio_flags=0) -> PyObject *"},
+	 { "pack_object_to_bv", _wrap_pack_object_to_bv, METH_VARARGS, "pack_object_to_bv(py_obj, ti, _type, _fields, base_ea, pio_flags=0) -> PyObject *"},
 	 { "idc_parse_types", _wrap_idc_parse_types, METH_VARARGS, "idc_parse_types(input, flags) -> int"},
 	 { "idc_get_type_raw", _wrap_idc_get_type_raw, METH_O, "idc_get_type_raw(ea) -> PyObject *"},
 	 { "idc_get_local_type_raw", _wrap_idc_get_local_type_raw, METH_O, "idc_get_local_type_raw(ordinal) -> PyObject *"},
@@ -57380,7 +57638,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "idc_get_type", _wrap_idc_get_type, METH_O, "idc_get_type(ea) -> char *"},
 	 { "idc_set_local_type", _wrap_idc_set_local_type, METH_VARARGS, "idc_set_local_type(ordinal, dcl, flags) -> int"},
 	 { "idc_get_local_type", _wrap_idc_get_local_type, METH_VARARGS, "idc_get_local_type(ordinal, flags, buf, maxsize) -> int"},
-	 { "idc_print_type", _wrap_idc_print_type, METH_VARARGS, "idc_print_type(py_type, py_fields, name, flags) -> PyObject *"},
+	 { "idc_print_type", _wrap_idc_print_type, METH_VARARGS, "idc_print_type(_type, _fields, name, flags) -> PyObject *"},
 	 { "idc_get_local_type_name", _wrap_idc_get_local_type_name, METH_O, "idc_get_local_type_name(ordinal) -> char"},
 	 { "get_named_type", _wrap_get_named_type, METH_VARARGS, "get_named_type(til, name, ntf_flags) -> PyObject *"},
 	 { "get_named_type64", _wrap_get_named_type64, METH_VARARGS, "get_named_type64(til, name, ntf_flags) -> PyObject *"},

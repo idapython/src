@@ -103,7 +103,7 @@ private:
   inline void _from_cobject(PyObject *pycobject)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    _from_fp((FILE *)PyCObject_AsVoidPtr(pycobject));
+    _from_fp((FILE *)PyCapsule_GetPointer(pycobject, VALID_CAPSULE_NAME));
   }
 public:
   int __idc_cvt_id__;
@@ -305,10 +305,11 @@ public:
   //--------------------------------------------------------------------------
   int writebytes(PyObject *py_buf, bool big_endian)
   {
-    Py_ssize_t sz;
-    void *buf;
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    sz = PyString_GET_SIZE(py_buf);
+
+    Py_ssize_t sz;
+    char *buf;
+
     IDAPyBytes_AsMemAndSize(py_buf, &buf, &sz);
     int rc;
     Py_BEGIN_ALLOW_THREADS;
@@ -320,13 +321,11 @@ public:
   //--------------------------------------------------------------------------
   int write(PyObject *py_buf)
   {
-    PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( !IDAPyStr_Check(py_buf) )
+   if ( !IDAPyStr_Check(py_buf) )
       return 0;
     // Just so that there is no risk that the buffer returned by
-    // 'PyString_AS_STRING' gets deallocated within the
-    // Py_BEGIN|END_ALLOW_THREADS section.
     borref_t py_buf_ref(py_buf);
+    qstring buf;
     IDAPyStr_AsUTF8(&buf, py_buf);
     int rc;
     Py_BEGIN_ALLOW_THREADS;

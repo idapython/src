@@ -55,7 +55,7 @@ def FindInstructions(instr, asm_where=None):
     for line in lines:
         if re_opcode.match(line):
             # convert from hex string to a character list then join the list to form one string
-            buf = ''.join([chr(int(x, 16)) for x in line.split()])
+            buf = bytes(bytearray([int(x, 16) for x in line.split()]))
         else:
             # assemble the instruction
             ret, buf = idautils.Assemble(asm_where, line)

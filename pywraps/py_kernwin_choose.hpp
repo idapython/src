@@ -399,7 +399,7 @@ protected:
       {
         newref_t item(PySequence_GetItem(py_ret, 1));
         if ( item.o != NULL && IDAPyInt_Check(item.o) )
-          ret.idx = ssize_t(PyInt_AsSsize_t(item.o));
+          ret.idx = ssize_t(IDAPyInt_AsSsize_t(item.o));
       }
     }
     return ret;

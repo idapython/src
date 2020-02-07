@@ -111,7 +111,7 @@ private:
   void _from_cobject(PyObject *pycobject)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    this->set_linput((linput_t *)PyCObject_AsVoidPtr(pycobject));
+    this->set_linput((linput_t *)PyCapsule_GetPointer(pycobject, VALID_CAPSULE_NAME));
   }
 
   //--------------------------------------------------------------------------

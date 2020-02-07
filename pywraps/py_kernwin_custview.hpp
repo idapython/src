@@ -488,7 +488,7 @@ private:
 
     if ( IDAPyStr_Check(py) )
     {
-      sl.line = IDAPyBytes_AsStringng(py);
+      sl.line = IDAPyBytes_AsString(py);
       return true;
     }
     Py_ssize_t sz;
@@ -499,7 +499,7 @@ private:
     if ( !IDAPyStr_Check(py_val) )
       return false;
 
-    sl.line = IDAPyBytes_AsStringng(py_val);
+    sl.line = IDAPyBytes_AsString(py_val);
     uint32 col;
     if ( sz > 1 && get_color(&col, borref_t(PyTuple_GetItem(py, 1))) )
       sl.color = color_t(col);
@@ -594,7 +594,7 @@ private:
     {
       if ( important_lines != NULL )
         *important_lines = IDAPyInt_AsLong(PyTuple_GetItem(py_result.o, 0));
-      hint = IDAPyBytes_AsStringng(PyTuple_GetItem(py_result.o, 1));
+      hint = IDAPyBytes_AsString(PyTuple_GetItem(py_result.o, 1));
     }
     return ok;
   }

@@ -114,16 +114,20 @@ public:
     return PyCapsule_New(new plgform_t(),VALID_CAPSULE_NAME, destroy);
   }
 
-  static void destroy(void *obj)
+static void destroy(PyObject *py_obj)
   {
-    delete (plgform_t *)obj;
+    if ( PyCapsule_IsValid(py_obj, VALID_CAPSULE_NAME) )
+    {
+      plgform_t *obj = (plgform_t *) PyCapsule_GetPointer(py_obj, VALID_CAPSULE_NAME);
+      delete (plgform_t *) obj;
+    }
   }
 };
 //</code(py_kernwin_plgform)>
 
 //<inline(py_kernwin_plgform)>
 //---------------------------------------------------------------------------
-#define DECL_PLGFORM PYW_GIL_CHECK_LOCKED_SCOPE(); plgform_t *plgform = (plgform_t *) PyCObject_AsVoidPtr(py_link);
+#define DECL_PLGFORM PYW_GIL_CHECK_LOCKED_SCOPE(); plgform_t *plgform = (plgform_t *) PyCapsule_GetPointer(py_link, VALID_CAPSULE_NAME);
 static PyObject *plgform_new()
 {
   return plgform_t::create();

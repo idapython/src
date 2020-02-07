@@ -1,6 +1,6 @@
  _ida_diskio
 
- Timestamp is 5e39b2b8 (Tue Feb  4 18:06:48 2020)
+ Timestamp is 5e3da079 (Fri Feb  7 17:38:01 2020)
 
  Preferred load address is 0000000180000000
 
@@ -50,19 +50,19 @@
 
   Address         Publics by Value              Rva+Base               Lib:Object
 
- 0000:00000000       __hybrid_code_map          0000000000000000     <absolute>
- 0000:00000000       __volatile_metadata        0000000000000000     <absolute>
- 0000:00000000       __hybrid_code_map_count    0000000000000000     <absolute>
- 0000:00000000       __guard_iat_table          0000000000000000     <absolute>
  0000:00000000       __guard_fids_count         0000000000000000     <absolute>
- 0000:00000000       __dynamic_value_reloc_table 0000000000000000     <absolute>
- 0000:00000000       __enclave_config           0000000000000000     <absolute>
+ 0000:00000000       __hybrid_code_map          0000000000000000     <absolute>
  0000:00000000       __guard_iat_count          0000000000000000     <absolute>
- 0000:00000000       ___safe_se_handler_count   0000000000000000     <absolute>
- 0000:00000000       ___safe_se_handler_table   0000000000000000     <absolute>
- 0000:00000000       __guard_longjmp_table      0000000000000000     <absolute>
- 0000:00000000       __guard_fids_table         0000000000000000     <absolute>
+ 0000:00000000       __enclave_config           0000000000000000     <absolute>
+ 0000:00000000       __volatile_metadata        0000000000000000     <absolute>
+ 0000:00000000       __dynamic_value_reloc_table 0000000000000000     <absolute>
  0000:00000000       __guard_longjmp_count      0000000000000000     <absolute>
+ 0000:00000000       __hybrid_code_map_count    0000000000000000     <absolute>
+ 0000:00000000       __guard_longjmp_table      0000000000000000     <absolute>
+ 0000:00000000       ___safe_se_handler_table   0000000000000000     <absolute>
+ 0000:00000000       __guard_iat_table          0000000000000000     <absolute>
+ 0000:00000000       ___safe_se_handler_count   0000000000000000     <absolute>
+ 0000:00000000       __guard_fids_table         0000000000000000     <absolute>
  0000:00000000       __hybrid_auxiliary_iat     0000000000000000     <absolute>
  0000:00000100       __guard_flags              0000000000000100     <absolute>
  0000:00000000       __ImageBase                0000000180000000     <linker-defined>
@@ -105,8 +105,8 @@
  0001:00005edd       eclose                     0000000180006edd f   ida:ida.dll
  0001:00005ee3       PyW_GetNumber              0000000180006ee3 f   python:python.dll
  0001:00005eec       ??2@YAPEAX_K@Z             0000000180006eec f   MSVCRT:new_scalar.obj
- 0001:00005f28       ??3@YAXPEAX_K@Z            0000000180006f28 f   MSVCRT:delete_scalar_size.obj
  0001:00005f28       ??_V@YAXPEAX@Z             0000000180006f28 f   MSVCRT:delete_array.obj
+ 0001:00005f28       ??3@YAXPEAX_K@Z            0000000180006f28 f   MSVCRT:delete_scalar_size.obj
  0001:00005f30       ??_U@YAPEAX_K@Z            0000000180006f30 f   MSVCRT:new_array.obj
  0001:00005f38       __scrt_acquire_startup_lock 0000000180006f38 f   MSVCRT:utility.obj
  0001:00005f74       __scrt_dllmain_after_initialize_c 0000000180006f74 f   MSVCRT:utility.obj
@@ -139,14 +139,14 @@
  0001:00006b60       ??0bad_array_new_length@std@@QEAA@AEBV01@@Z 0000000180007b60 f i MSVCRT:throw_bad_alloc.obj
  0001:00006ba0       ??0bad_array_new_length@std@@QEAA@XZ 0000000180007ba0 f i MSVCRT:throw_bad_alloc.obj
  0001:00006bc0       ??0exception@std@@QEAA@AEBV01@@Z 0000000180007bc0 f i MSVCRT:throw_bad_alloc.obj
- 0001:00006bf8       ??1bad_alloc@std@@UEAA@XZ  0000000180007bf8 f i MSVCRT:throw_bad_alloc.obj
  0001:00006bf8       ??1bad_array_new_length@std@@UEAA@XZ 0000000180007bf8 f i MSVCRT:throw_bad_alloc.obj
+ 0001:00006bf8       ??1bad_alloc@std@@UEAA@XZ  0000000180007bf8 f i MSVCRT:throw_bad_alloc.obj
  0001:00006c0c       ??_Ebad_alloc@std@@UEAAPEAXI@Z 0000000180007c0c f i MSVCRT:throw_bad_alloc.obj
- 0001:00006c0c       ??_Ebad_array_new_length@std@@UEAAPEAXI@Z 0000000180007c0c f i MSVCRT:throw_bad_alloc.obj
- 0001:00006c0c       ??_Gexception@std@@UEAAPEAXI@Z 0000000180007c0c f i MSVCRT:throw_bad_alloc.obj
  0001:00006c0c       ??_Gbad_alloc@std@@UEAAPEAXI@Z 0000000180007c0c f i MSVCRT:throw_bad_alloc.obj
  0001:00006c0c       ??_Gbad_array_new_length@std@@UEAAPEAXI@Z 0000000180007c0c f i MSVCRT:throw_bad_alloc.obj
+ 0001:00006c0c       ??_Ebad_array_new_length@std@@UEAAPEAXI@Z 0000000180007c0c f i MSVCRT:throw_bad_alloc.obj
  0001:00006c0c       ??_Eexception@std@@UEAAPEAXI@Z 0000000180007c0c f i MSVCRT:throw_bad_alloc.obj
+ 0001:00006c0c       ??_Gexception@std@@UEAAPEAXI@Z 0000000180007c0c f i MSVCRT:throw_bad_alloc.obj
  0001:00006c50       ?__scrt_throw_std_bad_alloc@@YAXXZ 0000000180007c50 f   MSVCRT:throw_bad_alloc.obj
  0001:00006c70       ?__scrt_throw_std_bad_array_new_length@@YAXXZ 0000000180007c70 f   MSVCRT:throw_bad_alloc.obj
  0001:00006c90       ?what@exception@std@@UEBAPEBDXZ 0000000180007c90 f i MSVCRT:throw_bad_alloc.obj
@@ -193,23 +193,23 @@
  0001:00007324       _cexit                     0000000180008324 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
  0001:0000732a       _initterm                  000000018000832a f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
  0001:00007330       _initterm_e                0000000180008330 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0001:00007338       __scrt_stub_for_acrt_uninitialize_critical 0000000180008338 f   MSVCRT:ucrt_stubs.obj
+ 0001:00007338       __vcrt_uninitialize        0000000180008338 f   MSVCRT:ucrt_stubs.obj
  0001:00007338       __acrt_initialize          0000000180008338 f   MSVCRT:ucrt_stubs.obj
- 0001:00007338       __acrt_uninitialize        0000000180008338 f   MSVCRT:ucrt_stubs.obj
  0001:00007338       __vcrt_thread_detach       0000000180008338 f   MSVCRT:ucrt_stubs.obj
- 0001:00007338       __scrt_stub_for_acrt_thread_detach 0000000180008338 f   MSVCRT:ucrt_stubs.obj
+ 0001:00007338       __vcrt_uninitialize_critical 0000000180008338 f   MSVCRT:ucrt_stubs.obj
+ 0001:00007338       __acrt_thread_attach       0000000180008338 f   MSVCRT:ucrt_stubs.obj
  0001:00007338       __vcrt_thread_attach       0000000180008338 f   MSVCRT:ucrt_stubs.obj
  0001:00007338       __scrt_stub_for_acrt_initialize 0000000180008338 f   MSVCRT:ucrt_stubs.obj
- 0001:00007338       __scrt_stub_for_acrt_uninitialize 0000000180008338 f   MSVCRT:ucrt_stubs.obj
- 0001:00007338       __scrt_stub_for_acrt_thread_attach 0000000180008338 f   MSVCRT:ucrt_stubs.obj
- 0001:00007338       __acrt_thread_detach       0000000180008338 f   MSVCRT:ucrt_stubs.obj
- 0001:00007338       __vcrt_initialize          0000000180008338 f   MSVCRT:ucrt_stubs.obj
  0001:00007338       __acrt_uninitialize_critical 0000000180008338 f   MSVCRT:ucrt_stubs.obj
- 0001:00007338       __vcrt_uninitialize        0000000180008338 f   MSVCRT:ucrt_stubs.obj
- 0001:00007338       __acrt_thread_attach       0000000180008338 f   MSVCRT:ucrt_stubs.obj
- 0001:00007338       __vcrt_uninitialize_critical 0000000180008338 f   MSVCRT:ucrt_stubs.obj
- 0001:0000733c       _is_c_termination_complete 000000018000833c f   MSVCRT:ucrt_stubs.obj
+ 0001:00007338       __scrt_stub_for_acrt_uninitialize_critical 0000000180008338 f   MSVCRT:ucrt_stubs.obj
+ 0001:00007338       __scrt_stub_for_acrt_uninitialize 0000000180008338 f   MSVCRT:ucrt_stubs.obj
+ 0001:00007338       __scrt_stub_for_acrt_thread_detach 0000000180008338 f   MSVCRT:ucrt_stubs.obj
+ 0001:00007338       __acrt_thread_detach       0000000180008338 f   MSVCRT:ucrt_stubs.obj
+ 0001:00007338       __acrt_uninitialize        0000000180008338 f   MSVCRT:ucrt_stubs.obj
+ 0001:00007338       __vcrt_initialize          0000000180008338 f   MSVCRT:ucrt_stubs.obj
+ 0001:00007338       __scrt_stub_for_acrt_thread_attach 0000000180008338 f   MSVCRT:ucrt_stubs.obj
  0001:0000733c       __scrt_stub_for_is_c_termination_complete 000000018000833c f   MSVCRT:ucrt_stubs.obj
+ 0001:0000733c       _is_c_termination_complete 000000018000833c f   MSVCRT:ucrt_stubs.obj
  0001:00007350       _guard_dispatch_icall_nop  0000000180008350 f   MSVCRT:guard_dispatch.obj
  0002:00000000       __imp_CloseHandle          000000018000b000     kernel32:KERNEL32.dll
  0002:00000008       __imp_EnterCriticalSection 000000018000b008     kernel32:KERNEL32.dll
@@ -303,91 +303,91 @@
  0002:000002c8       \177ida_NULL_THUNK_DATA    000000018000b2c8     ida:ida.dll
  0002:000002d0       __imp_PyW_GetNumber        000000018000b2d0     python:python.dll
  0002:000002d8       \177python_NULL_THUNK_DATA 000000018000b2d8     python:python.dll
- 0002:000002e0       __imp_PyObject_Call        000000018000b2e0     python37:python37.dll
- 0002:000002e8       __imp_PyObject_CallFunctionObjArgs 000000018000b2e8     python37:python37.dll
- 0002:000002f0       __imp_PyNumber_Check       000000018000b2f0     python37:python37.dll
- 0002:000002f8       __imp_PyObject_IsInstance  000000018000b2f8     python37:python37.dll
- 0002:00000300       __imp_PyType_Type          000000018000b300     python37:python37.dll
- 0002:00000308       __imp__Py_NoneStruct       000000018000b308     python37:python37.dll
- 0002:00000310       __imp__Py_NotImplementedStruct 000000018000b310     python37:python37.dll
- 0002:00000318       __imp_PyBool_Type          000000018000b318     python37:python37.dll
- 0002:00000320       __imp_PyExc_AttributeError 000000018000b320     python37:python37.dll
- 0002:00000328       __imp_PyImport_AddModule   000000018000b328     python37:python37.dll
- 0002:00000330       __imp_PyExc_MemoryError    000000018000b330     python37:python37.dll
- 0002:00000338       __imp_PyExc_OverflowError  000000018000b338     python37:python37.dll
- 0002:00000340       __imp_PyExc_RuntimeError   000000018000b340     python37:python37.dll
- 0002:00000348       __imp_PyExc_SyntaxError    000000018000b348     python37:python37.dll
- 0002:00000350       __imp_PyExc_SystemError    000000018000b350     python37:python37.dll
- 0002:00000358       __imp_PyExc_TypeError      000000018000b358     python37:python37.dll
- 0002:00000360       __imp_PyExc_ValueError     000000018000b360     python37:python37.dll
- 0002:00000368       __imp_PyExc_ZeroDivisionError 000000018000b368     python37:python37.dll
- 0002:00000370       __imp_PyExc_IOError        000000018000b370     python37:python37.dll
- 0002:00000378       __imp_PyEval_InitThreads   000000018000b378     python37:python37.dll
- 0002:00000380       __imp_PyExc_IndexError     000000018000b380     python37:python37.dll
- 0002:00000388       __imp_PyModule_Create2     000000018000b388     python37:python37.dll
- 0002:00000390       __imp_PyModule_AddObject   000000018000b390     python37:python37.dll
- 0002:00000398       __imp_Py_BuildValue        000000018000b398     python37:python37.dll
- 0002:000003a0       __imp_PyErr_WriteUnraisable 000000018000b3a0     python37:python37.dll
- 0002:000003a8       __imp_PyErr_Format         000000018000b3a8     python37:python37.dll
- 0002:000003b0       __imp_PyErr_Restore        000000018000b3b0     python37:python37.dll
- 0002:000003b8       __imp_PyErr_Fetch          000000018000b3b8     python37:python37.dll
- 0002:000003c0       __imp_PyErr_Clear          000000018000b3c0     python37:python37.dll
- 0002:000003c8       __imp_PyErr_Occurred       000000018000b3c8     python37:python37.dll
- 0002:000003d0       __imp_PyErr_SetString      000000018000b3d0     python37:python37.dll
- 0002:000003d8       __imp_PyGILState_Release   000000018000b3d8     python37:python37.dll
- 0002:000003e0       __imp_PyGILState_Ensure    000000018000b3e0     python37:python37.dll
- 0002:000003e8       __imp_PyCapsule_Import     000000018000b3e8     python37:python37.dll
- 0002:000003f0       __imp_PyCapsule_GetPointer 000000018000b3f0     python37:python37.dll
- 0002:000003f8       __imp_PyCapsule_New        000000018000b3f8     python37:python37.dll
- 0002:00000400       __imp_PyModule_GetDict     000000018000b400     python37:python37.dll
- 0002:00000408       __imp_PyCFunction_GetFlags 000000018000b408     python37:python37.dll
- 0002:00000410       __imp_PyCFunction_GetSelf  000000018000b410     python37:python37.dll
- 0002:00000418       __imp_PyCFunction_GetFunction 000000018000b418     python37:python37.dll
- 0002:00000420       __imp_PyDict_SetItemString 000000018000b420     python37:python37.dll
- 0002:00000428       __imp_PyDict_SetItem       000000018000b428     python37:python37.dll
- 0002:00000430       __imp_PyDict_GetItem       000000018000b430     python37:python37.dll
- 0002:00000438       __imp_PyDict_New           000000018000b438     python37:python37.dll
- 0002:00000440       __imp_PyList_SetItem       000000018000b440     python37:python37.dll
- 0002:00000448       __imp_PyList_New           000000018000b448     python37:python37.dll
- 0002:00000450       __imp_PyTuple_SetItem      000000018000b450     python37:python37.dll
- 0002:00000458       __imp_PyTuple_GetItem      000000018000b458     python37:python37.dll
- 0002:00000460       __imp_PyTuple_Size         000000018000b460     python37:python37.dll
- 0002:00000468       __imp_PyTuple_New          000000018000b468     python37:python37.dll
- 0002:00000470       __imp_PyBool_FromLong      000000018000b470     python37:python37.dll
- 0002:00000478       __imp_PyLong_AsUnsignedLongLong 000000018000b478     python37:python37.dll
- 0002:00000480       __imp_PyLong_AsLongLong    000000018000b480     python37:python37.dll
- 0002:00000488       __imp_PyLong_FromUnsignedLongLong 000000018000b488     python37:python37.dll
- 0002:00000490       __imp_PyLong_FromLongLong  000000018000b490     python37:python37.dll
- 0002:00000498       __imp_PyLong_FromVoidPtr   000000018000b498     python37:python37.dll
- 0002:000004a0       __imp_PyLong_AsUnsignedLong 000000018000b4a0     python37:python37.dll
- 0002:000004a8       __imp_PyLong_AsLong        000000018000b4a8     python37:python37.dll
- 0002:000004b0       __imp_PyLong_FromSize_t    000000018000b4b0     python37:python37.dll
- 0002:000004b8       __imp_PyLong_FromLong      000000018000b4b8     python37:python37.dll
- 0002:000004c0       __imp_PyUnicode_CompareWithASCIIString 000000018000b4c0     python37:python37.dll
- 0002:000004c8       __imp_PyUnicode_Concat     000000018000b4c8     python37:python37.dll
- 0002:000004d0       __imp_PyUnicode_AsUTF8String 000000018000b4d0     python37:python37.dll
- 0002:000004d8       __imp_PyUnicode_DecodeUTF8 000000018000b4d8     python37:python37.dll
- 0002:000004e0       __imp_PyUnicode_FromFormat 000000018000b4e0     python37:python37.dll
- 0002:000004e8       __imp_PyUnicode_FromString 000000018000b4e8     python37:python37.dll
- 0002:000004f0       __imp_PyUnicode_FromStringAndSize 000000018000b4f0     python37:python37.dll
- 0002:000004f8       __imp_PyBytes_AsStringAndSize 000000018000b4f8     python37:python37.dll
- 0002:00000500       __imp_PyBytes_AsString     000000018000b500     python37:python37.dll
- 0002:00000508       __imp__PyObject_New        000000018000b508     python37:python37.dll
- 0002:00000510       __imp_PyObject_Free        000000018000b510     python37:python37.dll
- 0002:00000518       __imp_Py_DecRef            000000018000b518     python37:python37.dll
- 0002:00000520       __imp__Py_Dealloc          000000018000b520     python37:python37.dll
- 0002:00000528       __imp_PyCallable_Check     000000018000b528     python37:python37.dll
- 0002:00000530       __imp_PyObject_IsTrue      000000018000b530     python37:python37.dll
- 0002:00000538       __imp_PyObject_GenericGetAttr 000000018000b538     python37:python37.dll
- 0002:00000540       __imp_PyObject_SetAttr     000000018000b540     python37:python37.dll
- 0002:00000548       __imp_PyObject_GetAttr     000000018000b548     python37:python37.dll
- 0002:00000550       __imp_PyObject_GetAttrString 000000018000b550     python37:python37.dll
- 0002:00000558       __imp_PyType_Modified      000000018000b558     python37:python37.dll
- 0002:00000560       __imp_PyType_GetFlags      000000018000b560     python37:python37.dll
- 0002:00000568       __imp_PyType_GetSlot       000000018000b568     python37:python37.dll
- 0002:00000570       __imp_PyType_FromSpec      000000018000b570     python37:python37.dll
- 0002:00000578       __imp_PyArg_UnpackTuple    000000018000b578     python37:python37.dll
- 0002:00000580       \177python37_NULL_THUNK_DATA 000000018000b580     python37:python37.dll
+ 0002:000002e0       __imp_PyObject_Call        000000018000b2e0     python38:python38.dll
+ 0002:000002e8       __imp_PyObject_CallFunctionObjArgs 000000018000b2e8     python38:python38.dll
+ 0002:000002f0       __imp_PyNumber_Check       000000018000b2f0     python38:python38.dll
+ 0002:000002f8       __imp_PyObject_IsInstance  000000018000b2f8     python38:python38.dll
+ 0002:00000300       __imp_PyType_Type          000000018000b300     python38:python38.dll
+ 0002:00000308       __imp__Py_NoneStruct       000000018000b308     python38:python38.dll
+ 0002:00000310       __imp__Py_NotImplementedStruct 000000018000b310     python38:python38.dll
+ 0002:00000318       __imp_PyBool_Type          000000018000b318     python38:python38.dll
+ 0002:00000320       __imp_PyExc_AttributeError 000000018000b320     python38:python38.dll
+ 0002:00000328       __imp_PyImport_AddModule   000000018000b328     python38:python38.dll
+ 0002:00000330       __imp_PyExc_MemoryError    000000018000b330     python38:python38.dll
+ 0002:00000338       __imp_PyExc_OverflowError  000000018000b338     python38:python38.dll
+ 0002:00000340       __imp_PyExc_RuntimeError   000000018000b340     python38:python38.dll
+ 0002:00000348       __imp_PyExc_SyntaxError    000000018000b348     python38:python38.dll
+ 0002:00000350       __imp_PyExc_SystemError    000000018000b350     python38:python38.dll
+ 0002:00000358       __imp_PyExc_TypeError      000000018000b358     python38:python38.dll
+ 0002:00000360       __imp_PyExc_ValueError     000000018000b360     python38:python38.dll
+ 0002:00000368       __imp_PyExc_ZeroDivisionError 000000018000b368     python38:python38.dll
+ 0002:00000370       __imp_PyExc_IOError        000000018000b370     python38:python38.dll
+ 0002:00000378       __imp_PyEval_InitThreads   000000018000b378     python38:python38.dll
+ 0002:00000380       __imp_PyExc_IndexError     000000018000b380     python38:python38.dll
+ 0002:00000388       __imp_PyModule_Create2     000000018000b388     python38:python38.dll
+ 0002:00000390       __imp_PyModule_AddObject   000000018000b390     python38:python38.dll
+ 0002:00000398       __imp_Py_BuildValue        000000018000b398     python38:python38.dll
+ 0002:000003a0       __imp_PyGILState_Release   000000018000b3a0     python38:python38.dll
+ 0002:000003a8       __imp_PyGILState_Ensure    000000018000b3a8     python38:python38.dll
+ 0002:000003b0       __imp_PyErr_WriteUnraisable 000000018000b3b0     python38:python38.dll
+ 0002:000003b8       __imp_PyErr_Format         000000018000b3b8     python38:python38.dll
+ 0002:000003c0       __imp_PyErr_Restore        000000018000b3c0     python38:python38.dll
+ 0002:000003c8       __imp_PyErr_Fetch          000000018000b3c8     python38:python38.dll
+ 0002:000003d0       __imp_PyErr_Clear          000000018000b3d0     python38:python38.dll
+ 0002:000003d8       __imp_PyErr_Occurred       000000018000b3d8     python38:python38.dll
+ 0002:000003e0       __imp_PyErr_SetString      000000018000b3e0     python38:python38.dll
+ 0002:000003e8       __imp_PyCapsule_Import     000000018000b3e8     python38:python38.dll
+ 0002:000003f0       __imp_PyCapsule_GetPointer 000000018000b3f0     python38:python38.dll
+ 0002:000003f8       __imp_PyCapsule_New        000000018000b3f8     python38:python38.dll
+ 0002:00000400       __imp_PyModule_GetDict     000000018000b400     python38:python38.dll
+ 0002:00000408       __imp_PyCFunction_GetFlags 000000018000b408     python38:python38.dll
+ 0002:00000410       __imp_PyCFunction_GetSelf  000000018000b410     python38:python38.dll
+ 0002:00000418       __imp_PyCFunction_GetFunction 000000018000b418     python38:python38.dll
+ 0002:00000420       __imp_PyDict_SetItemString 000000018000b420     python38:python38.dll
+ 0002:00000428       __imp_PyDict_SetItem       000000018000b428     python38:python38.dll
+ 0002:00000430       __imp_PyDict_GetItem       000000018000b430     python38:python38.dll
+ 0002:00000438       __imp_PyDict_New           000000018000b438     python38:python38.dll
+ 0002:00000440       __imp_PyList_SetItem       000000018000b440     python38:python38.dll
+ 0002:00000448       __imp_PyList_New           000000018000b448     python38:python38.dll
+ 0002:00000450       __imp_PyTuple_SetItem      000000018000b450     python38:python38.dll
+ 0002:00000458       __imp_PyTuple_GetItem      000000018000b458     python38:python38.dll
+ 0002:00000460       __imp_PyTuple_Size         000000018000b460     python38:python38.dll
+ 0002:00000468       __imp_PyTuple_New          000000018000b468     python38:python38.dll
+ 0002:00000470       __imp_PyBool_FromLong      000000018000b470     python38:python38.dll
+ 0002:00000478       __imp_PyLong_AsUnsignedLongLong 000000018000b478     python38:python38.dll
+ 0002:00000480       __imp_PyLong_AsLongLong    000000018000b480     python38:python38.dll
+ 0002:00000488       __imp_PyLong_FromUnsignedLongLong 000000018000b488     python38:python38.dll
+ 0002:00000490       __imp_PyLong_FromLongLong  000000018000b490     python38:python38.dll
+ 0002:00000498       __imp_PyLong_FromVoidPtr   000000018000b498     python38:python38.dll
+ 0002:000004a0       __imp_PyLong_AsUnsignedLong 000000018000b4a0     python38:python38.dll
+ 0002:000004a8       __imp_PyLong_AsLong        000000018000b4a8     python38:python38.dll
+ 0002:000004b0       __imp_PyLong_FromSize_t    000000018000b4b0     python38:python38.dll
+ 0002:000004b8       __imp_PyLong_FromLong      000000018000b4b8     python38:python38.dll
+ 0002:000004c0       __imp_PyUnicode_CompareWithASCIIString 000000018000b4c0     python38:python38.dll
+ 0002:000004c8       __imp_PyUnicode_Concat     000000018000b4c8     python38:python38.dll
+ 0002:000004d0       __imp_PyUnicode_AsUTF8String 000000018000b4d0     python38:python38.dll
+ 0002:000004d8       __imp_PyUnicode_DecodeUTF8 000000018000b4d8     python38:python38.dll
+ 0002:000004e0       __imp_PyUnicode_FromFormat 000000018000b4e0     python38:python38.dll
+ 0002:000004e8       __imp_PyUnicode_FromString 000000018000b4e8     python38:python38.dll
+ 0002:000004f0       __imp_PyUnicode_FromStringAndSize 000000018000b4f0     python38:python38.dll
+ 0002:000004f8       __imp_PyBytes_AsStringAndSize 000000018000b4f8     python38:python38.dll
+ 0002:00000500       __imp_PyBytes_AsString     000000018000b500     python38:python38.dll
+ 0002:00000508       __imp__PyObject_New        000000018000b508     python38:python38.dll
+ 0002:00000510       __imp_PyObject_Free        000000018000b510     python38:python38.dll
+ 0002:00000518       __imp_Py_DecRef            000000018000b518     python38:python38.dll
+ 0002:00000520       __imp__Py_Dealloc          000000018000b520     python38:python38.dll
+ 0002:00000528       __imp_PyCallable_Check     000000018000b528     python38:python38.dll
+ 0002:00000530       __imp_PyObject_IsTrue      000000018000b530     python38:python38.dll
+ 0002:00000538       __imp_PyObject_GenericGetAttr 000000018000b538     python38:python38.dll
+ 0002:00000540       __imp_PyObject_SetAttr     000000018000b540     python38:python38.dll
+ 0002:00000548       __imp_PyObject_GetAttr     000000018000b548     python38:python38.dll
+ 0002:00000550       __imp_PyObject_GetAttrString 000000018000b550     python38:python38.dll
+ 0002:00000558       __imp_PyType_Modified      000000018000b558     python38:python38.dll
+ 0002:00000560       __imp_PyType_GetFlags      000000018000b560     python38:python38.dll
+ 0002:00000568       __imp_PyType_GetSlot       000000018000b568     python38:python38.dll
+ 0002:00000570       __imp_PyType_FromSpec      000000018000b570     python38:python38.dll
+ 0002:00000578       __imp_PyArg_UnpackTuple    000000018000b578     python38:python38.dll
+ 0002:00000580       \177python38_NULL_THUNK_DATA 000000018000b580     python38:python38.dll
  0002:00000588       __guard_check_icall_fptr   000000018000b588     MSVCRT:guard_support.obj
  0002:00000590       __guard_dispatch_icall_fptr 000000018000b590     MSVCRT:guard_support.obj
  0002:00000598       __xc_a                     000000018000b598     MSVCRT:initializers.obj
@@ -400,234 +400,234 @@
  0002:000005e0       __xp_z                     000000018000b5e0     MSVCRT:initializers.obj
  0002:000005e8       __xt_a                     000000018000b5e8     MSVCRT:initializers.obj
  0002:000005f0       __xt_z                     000000018000b5f0     MSVCRT:initializers.obj
- 0002:00000600       ??_C@_0BI@HPPPANA@_p_qvectorT_funcarg_t_t@ 000000018000b600     diskio.obj
- 0002:00000618       ??_C@_0CG@BKJABKPP@funcargvec_t?5?$CK?$HMqvector?$DM?5funcarg@ 000000018000b618     diskio.obj
- 0002:00000640       ??_C@_0BC@EMAMHDDK@_p_qvectorT_int_t@ 000000018000b640     diskio.obj
- 0002:00000658       ??_C@_0CI@OEOLBAGE@svalvec_t?5?$CK?$HMintvec_t?5?$CK?$HMqvector?$DM@ 000000018000b658     diskio.obj
- 0002:00000680       ??_C@_0BH@HBOAPPDE@_p_qvectorT_ioport_t_t@ 000000018000b680     diskio.obj
- 0002:00000698       ??_C@_0CC@PDAEBDDG@ioports_t?5?$CK?$HMqvector?$DM?5ioport_t?5?$DO@ 000000018000b698     diskio.obj
- 0002:000006c0       ??_C@_0BG@NGNJJEPD@_p_qvectorT_range_t_t@ 000000018000b6c0     diskio.obj
- 0002:000006d8       ??_C@_0CH@CMPFLCHN@rangevec_base_t?5?$CK?$HMqvector?$DM?5rang@ 000000018000b6d8     diskio.obj
- 0002:00000700       ??_C@_0CB@DLEFICAI@_p_qvectorT_rangeset_t_const_p_@ 000000018000b700     diskio.obj
- 0002:00000728       ??_C@_0DF@CPGECBJE@rangeset_crefvec_t?5?$CK?$HMqvector?$DM?5r@ 000000018000b728     diskio.obj
- 0002:00000760       ??_C@_0BJ@CBEEABAG@_p_qvectorT_rangeset_t_t@ 000000018000b760     diskio.obj
- 0002:00000780       ??_C@_0CN@NEPIOIFG@qvector?$DM?5rangeset_t?5?$DO?5?$CK?$HMarray_o@ 000000018000b780     diskio.obj
- 0002:000007b0       ??_C@_0BN@HCIAELAH@_p_qvectorT_refinfo_desc_t_t@ 000000018000b7b0     diskio.obj
- 0002:000007d0       ??_C@_0DB@OEPGJFJL@refinfo_desc_vec_t?5?$CK?$HMqvector?$DM?5r@ 000000018000b7d0     diskio.obj
- 0002:00000808       ??_C@_0BK@JBDFAIAF@_p_qvectorT_simd_info_t_t@ 000000018000b808     diskio.obj
- 0002:00000828       ??_C@_0CL@IAEHADMA@simd_info_vec_t?5?$CK?$HMqvector?$DM?5simd@ 000000018000b828     diskio.obj
- 0002:00000858       ??_C@_0BL@JOHIOMBL@_p_qvectorT_simpleline_t_t@ 000000018000b858     diskio.obj
- 0002:00000878       ??_C@_0CF@LMLHENLN@strvec_t?5?$CK?$HMqvector?$DM?5simpleline_@ 000000018000b878     diskio.obj
- 0002:000008a0       ??_C@_0BF@JMFCGENF@_p_qvectorT_size_t_t@ 000000018000b8a0     diskio.obj
- 0002:000008b8       ??_C@_0CA@PKGFIBKP@sizevec_t?5?$CK?$HMqvector?$DM?5size_t?5?$DO?5?$CK@ 000000018000b8b8     diskio.obj
- 0002:000008d8       ??_C@_0BG@GHPDGOHO@_p_qvectorT_tinfo_t_t@ 000000018000b8d8     diskio.obj
- 0002:000008f0       ??_C@_0CC@CEHAEEKI@tinfovec_t?5?$CK?$HMqvector?$DM?5tinfo_t?5?$DO@ 000000018000b8f0     diskio.obj
- 0002:00000918       ??_C@_0BK@KGMCEJE@_p_qvectorT_type_attr_t_t@ 000000018000b918     diskio.obj
- 0002:00000938       ??_C@_0CI@PENEDOEG@type_attrs_t?5?$CK?$HMqvector?$DM?5type_at@ 000000018000b938     diskio.obj
- 0002:00000960       ??_C@_0BL@MFAEBBAF@_p_qvectorT_udt_member_t_t@ 000000018000b960     diskio.obj
- 0002:00000980       ??_C@_0CL@HFANAPIM@udtmembervec_t?5?$CK?$HMqvector?$DM?5udt_m@ 000000018000b980     diskio.obj
- 0002:000009b0       ??_C@_0BM@DFOCNGNJ@_p_qvectorT_unsigned_char_t@ 000000018000b9b0     diskio.obj
- 0002:000009d0       ??_C@_0CH@MCODNJGI@qvector?$DM?5unsigned?5char?5?$DO?5?$CK?$HMcomp@ 000000018000b9d0     diskio.obj
- 0002:000009f8       ??_C@_0M@BEMIELHM@_p_relobj_t@ 000000018000b9f8     diskio.obj
- 0002:00000a08       ??_C@_0N@OAHCDFLH@_p_bytevec_t@ 000000018000ba08     diskio.obj
- 0002:00000a18       ??_C@_0BA@KOPDLMDG@_p_reloc_info_t@ 000000018000ba18     diskio.obj
- 0002:00000a28       ??_C@_0BL@POPMPLM@_p_qvectorT_unsigned_int_t@ 000000018000ba28     diskio.obj
- 0002:00000a48       ??_C@_0DL@HDEADPMO@eavec_t?5?$CK?$HMordvec_t?5?$CK?$HMuvalvec_t?5@ 000000018000ba48     diskio.obj
- 0002:00000a88       ??_C@_08JGEHMJEC@_p_short@ 000000018000ba88     diskio.obj
- 0002:00000a98       ??_C@_0BA@BBDCPKKI@int16?5?$CK?$HMshort?5?$CK@ 000000018000ba98     diskio.obj
- 0002:00000aa8       ??_C@_0P@IHEJCACJ@_p_signed_char@ 000000018000baa8     diskio.obj
- 0002:00000ab8       ??_C@_0BG@CGJIOBCI@signed?5char?5?$CK?$HMsint8?5?$CK@ 000000018000bab8     diskio.obj
- 0002:00000ad0       ??_C@_0BB@JEMKPEPB@_p_unsigned_char@ 000000018000bad0     diskio.obj
- 0002:00000af0       ??_C@_0HI@NBHOBBOJ@uchar?5?$CK?$HMunsigned?5char?5?$CK?$HMcm_t?5?$CK?$HM@ 000000018000baf0     diskio.obj
- 0002:00000b68       ??_C@_0BA@EMEBBPFL@_p_unsigned_int@ 000000018000bb68     diskio.obj
- 0002:00000b80       ??_C@_0JE@GCFOGLMK@bgcolor_t?5?$CK?$HMenum_t?5?$CK?$HMtid_t?5?$CK?$HMbm@ 000000018000bb80     diskio.obj
- 0002:00000c18       ??_C@_0BG@CGEDOPGF@_p_unsigned_long_long@ 000000018000bc18     diskio.obj
- 0002:00000c30       ??_C@_0CK@FCLCDGJM@uint64?5?$CK?$HMulonglong?5?$CK?$HMunsigned?5l@ 000000018000bc30     diskio.obj
- 0002:00000c60       ??_C@_0BC@GCHEMBCE@_p_unsigned_short@ 000000018000bc60     diskio.obj
- 0002:00000c78       ??_C@_0CP@HNCAPCKA@uint16?5?$CK?$HMunsigned?5short?5?$CK?$HMushor@ 000000018000bc78     diskio.obj
- 0002:00000ca8       ??_C@_03BHDOPPEK@own@      000000018000bca8     diskio.obj
- 0002:00000cac       ??_C@_06EFGGFDFD@disown@   000000018000bcac     diskio.obj
- 0002:00000cb8       ??_C@_0CC@CFIMIIPD@releases?5ownership?5of?5the?5point@ 000000018000bcb8     diskio.obj
- 0002:00000ce0       ??_C@_07MEFPPMEF@acquire@  000000018000bce0     diskio.obj
- 0002:00000ce8       ??_C@_0CC@BAIBAPCI@acquires?5ownership?5of?5the?5point@ 000000018000bce8     diskio.obj
- 0002:00000d10       ??_C@_0CG@GKPKGEFE@returns?1sets?5ownership?5of?5the?5p@ 000000018000bd10     diskio.obj
- 0002:00000d38       ??_C@_06PCICMFGG@append@   000000018000bd38     diskio.obj
- 0002:00000d40       ??_C@_0BO@NCOOMDHM@appends?5another?5?8this?8?5object@ 000000018000bd40     diskio.obj
- 0002:00000d60       ??_C@_04CJGEDOF@next@      000000018000bd60     diskio.obj
- 0002:00000d68       ??_C@_0BP@IMIAEPNG@returns?5the?5next?5?8this?8?5object@ 000000018000bd68     diskio.obj
- 0002:00000d88       ??_C@_08HJPCHLLJ@__repr__@ 000000018000bd88     diskio.obj
- 0002:00000d98       ??_C@_0BO@PNCCHPAD@returns?5object?5representation@ 000000018000bd98     diskio.obj
- 0002:00000db8       ??_C@_07HDHHMDOH@_p_char@  000000018000bdb8     diskio.obj
- 0002:00000dc0       ??_C@_0L@KIJEHLGD@getsysfile@ 000000018000bdc0     diskio.obj
- 0002:00000dd0       ??_C@_0BA@CJKHCDJ@get_user_idadir@ 000000018000bdd0     diskio.obj
- 0002:00000de0       ??_C@_0BA@BNAMIOEB@get_ida_subdirs@ 000000018000bde0     diskio.obj
- 0002:00000df0       ??_C@_06PGHIMJKD@qlgetz@   000000018000bdf0     diskio.obj
- 0002:00000df8       ??_C@_0M@DIBOOLII@open_linput@ 000000018000bdf8     diskio.obj
- 0002:00000e08       ??_C@_0BO@PGHGKIEN@generic_linput_t_filesize_set@ 000000018000be08     diskio.obj
- 0002:00000e28       ??_C@_0BP@HPBDCHBK@generic_linput_t_blocksize_set@ 000000018000be28     diskio.obj
- 0002:00000e48       ??_C@_0BG@OKOOFLGB@generic_linput_t_read@ 000000018000be48     diskio.obj
- 0002:00000e60       ??_C@_0BF@DIMDFFCD@create_memory_linput@ 000000018000be60     diskio.obj
- 0002:00000e78       ??_C@_0BE@MGCKNPFL@new_linput_buffer_t@ 000000018000be78     diskio.obj
- 0002:00000e90       ??_C@_0BF@LIMOIBOI@linput_buffer_t_read@ 000000018000be90     diskio.obj
- 0002:00000ea8       ??_C@_0BA@GBDAHGKH@enumerate_files@ 000000018000bea8     diskio.obj
- 0002:00000eb8       ??_C@_06KFMBLBIJ@idadir@   000000018000beb8     diskio.obj
- 0002:00000ec0       ??_C@_0BP@BGLHDEKK@idadir?$CIsubdir?$CJ?5?9?$DO?5char?5const?5?$CK@ 000000018000bec0     diskio.obj
- 0002:00000ee0       ??_C@_0CH@BOGNGENN@getsysfile?$CIfilename?0?5subdir?$CJ?5?9?$DO@ 000000018000bee0     diskio.obj
- 0002:00000f08       ??_C@_0CC@OLJKJLLC@get_user_idadir?$CI?$CJ?5?9?$DO?5char?5const@ 000000018000bf08     diskio.obj
- 0002:00000f30       ??_C@_0CI@ODFPHJL@get_ida_subdirs?$CIsubdir?0?5flags?$DN0@ 000000018000bf30     diskio.obj
- 0002:00000f58       ??_C@_0BD@GOJPGEEJ@get_special_folder@ 000000018000bf58     diskio.obj
- 0002:00000f70       ??_C@_0CC@CEFFDGAP@get_special_folder?$CIcsidl?$CJ?5?9?$DO?5bo@ 000000018000bf70     diskio.obj
- 0002:00000f98       ??_C@_07MHIKGAAP@fopenWT@  000000018000bf98     diskio.obj
- 0002:00000fa0       ??_C@_0BI@BBJOAKCG@fopenWT?$CIfile?$CJ?5?9?$DO?5FILE?5?$CK@ 000000018000bfa0     diskio.obj
- 0002:00000fb8       ??_C@_07NLBCNFNI@fopenWB@  000000018000bfb8     diskio.obj
- 0002:00000fc0       ??_C@_0BI@DBEBOKLL@fopenWB?$CIfile?$CJ?5?9?$DO?5FILE?5?$CK@ 000000018000bfc0     diskio.obj
- 0002:00000fd8       ??_C@_07MBEBKCOE@fopenRT@  000000018000bfd8     diskio.obj
- 0002:00000fe0       ??_C@_0BI@CPBEIHJM@fopenRT?$CIfile?$CJ?5?9?$DO?5FILE?5?$CK@ 000000018000bfe0     diskio.obj
- 0002:00000ff8       ??_C@_07NNNJBHDD@fopenRB@  000000018000bff8     diskio.obj
- 0002:00001000       ??_C@_0BI@PMLGHAB@fopenRB?$CIfile?$CJ?5?9?$DO?5FILE?5?$CK@ 000000018000c000     diskio.obj
- 0002:00001018       ??_C@_06IBODNEEN@fopenM@   000000018000c018     diskio.obj
- 0002:00001020       ??_C@_0BH@IPPPNDKJ@fopenM?$CIfile?$CJ?5?9?$DO?5FILE?5?$CK@ 000000018000c020     diskio.obj
- 0002:00001038       ??_C@_06CNFGJLEB@fopenA@   000000018000c038     diskio.obj
- 0002:00001040       ??_C@_0BH@JDAGKKKD@fopenA?$CIfile?$CJ?5?9?$DO?5FILE?5?$CK@ 000000018000c040     diskio.obj
- 0002:00001058       ??_C@_0BL@JPHCIEBJ@qlgetz?$CIli?0?5fpos?$CJ?5?9?$DO?5char?5?$CK@ 000000018000c058     diskio.obj
- 0002:00001078       ??_C@_0CI@PKABECKK@open_linput?$CIfile?0?5remote?$CJ?5?9?$DO?5li@ 000000018000c078     diskio.obj
- 0002:000010a0       ??_C@_0CO@DPKLGCIH@generic_linput_t_filesize_set?$CIs@ 000000018000c0a0     diskio.obj
- 0002:000010d0       ??_C@_0BO@CJANGIIF@generic_linput_t_filesize_get@ 000000018000c0d0     diskio.obj
- 0002:000010f0       ??_C@_0CO@BICLIEE@generic_linput_t_filesize_get?$CIs@ 000000018000c0f0     diskio.obj
- 0002:00001120       ??_C@_0DA@NKHPGDCD@generic_linput_t_blocksize_set?$CI@ 000000018000c120     diskio.obj
- 0002:00001150       ??_C@_0BP@KAGIOHNC@generic_linput_t_blocksize_get@ 000000018000c150     diskio.obj
- 0002:00001170       ??_C@_0CP@FBDNBAKF@generic_linput_t_blocksize_get?$CI@ 000000018000c170     diskio.obj
- 0002:000011a0       ??_C@_0DM@DIPIEHLL@generic_linput_t_read?$CIself?0?5off@ 000000018000c1a0     diskio.obj
- 0002:000011e0       ??_C@_0BI@ILNBDOKB@delete_generic_linput_t@ 000000018000c1e0     diskio.obj
- 0002:000011f8       ??_C@_0BO@OGADHOFK@delete_generic_linput_t?$CIself?$CJ@ 000000018000c1f8     diskio.obj
- 0002:00001218       ??_C@_0BO@DBHGJOFK@generic_linput_t_swigregister@ 000000018000c218     diskio.obj
- 0002:00001238       ??_C@_0BG@JLOGLNCF@create_generic_linput@ 000000018000c238     diskio.obj
- 0002:00001250       ??_C@_0CI@LANKIALF@create_generic_linput?$CIgl?$CJ?5?9?$DO?5li@ 000000018000c250     diskio.obj
- 0002:00001278       ??_C@_0DA@MPJGAJFK@create_memory_linput?$CIstart?0?5siz@ 000000018000c278     diskio.obj
- 0002:000012a8       ??_C@_0BA@BFGBBFEN@get_linput_type@ 000000018000c2a8     diskio.obj
- 0002:000012b8       ??_C@_0CF@FPHLJIIC@get_linput_type?$CIli?$CJ?5?9?$DO?5linput_t@ 000000018000c2b8     diskio.obj
- 0002:000012e0       ??_C@_0DH@DKDJNNPN@new_linput_buffer_t?$CIlinput?0?5siz@ 000000018000c2e0     diskio.obj
- 0002:00001318       ??_C@_0CO@DMNNIFIE@linput_buffer_t_read?$CIself?0?5buf?0@ 000000018000c318     diskio.obj
- 0002:00001348       ??_C@_0BE@LGODDOEB@linput_buffer_t_eof@ 000000018000c348     diskio.obj
- 0002:00001360       ??_C@_0CC@FIPFIPDB@linput_buffer_t_eof?$CIself?$CJ?5?9?$DO?5bo@ 000000018000c360     diskio.obj
- 0002:00001388       ??_C@_0BH@DMPDOADI@delete_linput_buffer_t@ 000000018000c388     diskio.obj
- 0002:000013a0       ??_C@_0BN@CAIFHHMJ@delete_linput_buffer_t?$CIself?$CJ@ 000000018000c3a0     diskio.obj
- 0002:000013c0       ??_C@_0BN@DHMOMFDN@linput_buffer_t_swigregister@ 000000018000c3c0     diskio.obj
- 0002:000013e0       ??_C@_0BJ@LMOPBOJD@linput_buffer_t_swiginit@ 000000018000c3e0     diskio.obj
- 0002:000013fc       ??_C@_06EEMHAKMF@eclose@   000000018000c3fc     diskio.obj
- 0002:00001408       ??_C@_0L@EGEFGEED@eclose?$CIfp?$CJ@ 000000018000c408     diskio.obj
- 0002:00001418       ??_C@_0DF@LEJPGIPA@enumerate_files?$CIpath?0?5fname?0?5ca@ 000000018000c418     diskio.obj
- 0002:00001450       ??_C@_0BI@DBGIHFOG@create_bytearray_linput@ 000000018000c450     diskio.obj
- 0002:00001468       ??_C@_0CJ@LIJCCGPE@create_bytearray_linput?$CIs?$CJ?5?9?$DO?5l@ 000000018000c468     diskio.obj
- 0002:00001498       ??_C@_0N@BNPDFAHK@close_linput@ 000000018000c498     diskio.obj
- 0002:000014a8       ??_C@_0BB@LHKIPDNF@close_linput?$CIli?$CJ@ 000000018000c4a8     diskio.obj
- 0002:000014c0       ??_C@_07MCEKNOEP@_p_FILE@  000000018000c4c0     diskio.obj
- 0002:000014c8       ??_C@_06LPAKMOJ@FILE?5?$CK@ 000000018000c4c8     diskio.obj
- 0002:000014d0       ??_C@_0BE@LADBKDLC@_p__qstringT_char_t@ 000000018000c4d0     diskio.obj
- 0002:000014e8       ??_C@_0BN@OHJFNODI@_qstring?$DM?5char?5?$DO?5?$CK?$HMqstring?5?$CK@ 000000018000c4e8     diskio.obj
- 0002:00001508       ??_C@_0BN@OGMFMNEO@_p__qstringT_unsigned_char_t@ 000000018000c508     diskio.obj
- 0002:00001528       ??_C@_0CE@FCOOCMMP@qtype?5?$CK?$HM_qstring?$DM?5unsigned?5char@ 000000018000c528     diskio.obj
- 0002:00001550       ??_C@_0BO@NPELMEMN@_p__qstringT_unsigned_short_t@ 000000018000c550     diskio.obj
- 0002:00001570       ??_C@_0CI@MOGIECDE@_qstring?$DM?5unsigned?5short?5?$DO?5?$CK?$HMqw@ 000000018000c570     diskio.obj
- 0002:00001598       ??_C@_0BF@FIODJLOI@_p_action_ctx_base_t@ 000000018000c598     diskio.obj
- 0002:000015b0       ??_C@_0EE@ODNBPOJC@action_ctx_base_t?5?$CK?$HMaction_upda@ 000000018000c5b0     diskio.obj
- 0002:000015f8       ??_C@_0N@IODFCNBG@_p_biggest_t@ 000000018000c5f8     diskio.obj
- 0002:00001608       ??_C@_0M@LMODFOHJ@biggest_t?5?$CK@ 000000018000c608     diskio.obj
- 0002:00001618       ??_C@_0O@HOPHBKAL@char?5?$CK?$HMint8?5?$CK@ 000000018000c618     diskio.obj
- 0002:00001628       ??_C@_0BC@KJKOCNNG@_p_const_iterator@ 000000018000c628     diskio.obj
- 0002:00001640       ??_C@_0BB@LAJPCFIO@const_iterator?5?$CK@ 000000018000c640     diskio.obj
- 0002:00001658       ??_C@_0CE@DHGPAIMI@_p_f_p_TWidget_int_int_p_void__@ 000000018000c658     diskio.obj
- 0002:00001680       ??_C@_0DN@DFPOHMBA@custom_viewer_keydown_t?5?$CK?$HMbool?5@ 000000018000c680     diskio.obj
- 0002:000016c0       ??_C@_0DF@PENMGFJK@_p_f_p_TWidget_int_p_view_mouse@ 000000018000c6c0     diskio.obj
- 0002:00001700       ??_C@_0FC@NPHKCCPL@void?5?$CI?$CK?$CJ?$CITWidget?5?$CK?0int?0view_mou@ 000000018000c700     diskio.obj
- 0002:00001758       ??_C@_0CA@IGCEDJID@_p_f_p_TWidget_int_p_void__bool@ 000000018000c758     diskio.obj
- 0002:00001780       ??_C@_0FC@PJNOFHGN@custom_viewer_click_t?5?$CK?$HMcustom_@ 000000018000c780     diskio.obj
- 0002:000017d8       ??_C@_0CO@MIHLPJDD@_p_f_p_TWidget_p_lochist_entry_@ 000000018000c7d8     diskio.obj
- 0002:00001810       ??_C@_0EM@HBPJNBB@custom_viewer_adjust_place_t?5?$CK?$HM@ 000000018000c810     diskio.obj
- 0002:00001860       ??_C@_0GM@LBGPKCPI@_p_f_p_TWidget_p_q_const__lochi@ 000000018000c860     diskio.obj
- 0002:000018d0       ??_C@_0IF@FKBGALIG@void?5?$CI?$CK?$CJ?$CITWidget?5?$CK?0lochist_entr@ 000000018000c8d0     diskio.obj
- 0002:00001960       ??_C@_0FA@DFBJAGBE@_p_f_p_TWidget_p_q_const__lochi@ 000000018000c960     diskio.obj
- 0002:000019b0       ??_C@_0GI@FMPBFLEM@custom_viewer_can_navigate_t?5?$CK?$HM@ 000000018000c9b0     diskio.obj
- 0002:00001a18       ??_C@_0DH@JJEDBLDE@_p_f_p_TWidget_p_q_const__place@ 000000018000ca18     diskio.obj
- 0002:00001a50       ??_C@_0EP@PJDAMEBK@code_viewer_lines_click_t?5?$CK?$HMvoi@ 000000018000ca50     diskio.obj
- 0002:00001aa0       ??_C@_0DE@PBNPHPNC@_p_f_p_TWidget_p_q_const__place@ 000000018000caa0     diskio.obj
- 0002:00001ae0       ??_C@_0EL@JKPIBDKO@code_viewer_lines_icon_t?5?$CK?$HMint?5@ 000000018000cae0     diskio.obj
- 0002:00001b30       ??_C@_0EB@FDCGDBJI@_p_f_p_TWidget_p_q_const__place@ 000000018000cb30     diskio.obj
- 0002:00001b80       ??_C@_0FN@GGLCMJJK@custom_viewer_get_place_xcoord_@ 000000018000cb80     diskio.obj
- 0002:00001be0       ??_C@_0DO@KLDLOPHE@_p_f_p_TWidget_p_q_const__place@ 000000018000cbe0     diskio.obj
- 0002:00001c20       ??_C@_0FI@GOMHMLF@code_viewer_lines_linenum_t?5?$CK?$HMb@ 000000018000cc20     diskio.obj
- 0002:00001c78       ??_C@_0BL@BMEJNHDD@_p_f_p_TWidget_p_void__int@ 000000018000cc78     diskio.obj
- 0002:00001c98       ??_C@_0DB@GMPMLKDG@custom_viewer_help_t?5?$CK?$HMint?5?$CI?$CK?$CJ?$CI@ 000000018000cc98     diskio.obj
- 0002:00001cd0       ??_C@_0BM@PAKPNBHH@_p_f_p_TWidget_p_void__void@ 000000018000ccd0     diskio.obj
- 0002:00001cf0       ??_C@_0GE@BLLNJKNN@custom_viewer_popup_t?5?$CK?$HMcustom_@ 000000018000ccf0     diskio.obj
- 0002:00001d58       ??_C@_0DM@PKHFKJJF@_p_f_p_chooser_multi_t_p_sizeve@ 000000018000cd58     diskio.obj
- 0002:00001da0       ??_C@_0FA@INGPHNGB@chooser_base_t?3?3cbres_t?5?$CI?$CK?$CJ?$CIcho@ 000000018000cda0     diskio.obj
- 0002:00001df0       ??_C@_0CN@LJCPBILN@_p_f_p_chooser_t_ssize_t__choos@ 000000018000cdf0     diskio.obj
- 0002:00001e20       ??_C@_0DL@IKAMODJA@chooser_t?3?3cbret_t?5?$CI?$CK?$CJ?$CIchooser_@ 000000018000ce20     diskio.obj
- 0002:00001e60       ??_C@_0EC@GIKOMIMG@_p_f_p_lochist_entry_t_r_q_cons@ 000000018000ce60     diskio.obj
- 0002:00001eb0       ??_C@_0FE@OJIOMBOE@bool?5?$CI?$CK?$CJ?$CIlochist_entry_t?5?$CK?0loch@ 000000018000ceb0     diskio.obj
- 0002:00001f08       ??_C@_0CC@HPECDOJE@_p_f_p_q_const__char_p_void__vo@ 000000018000cf08     diskio.obj
- 0002:00001f30       ??_C@_0DA@LKJNDOAC@void?5?$CI?$CK?$CJ?$CIchar?5const?5?$CK?0void?5?$CK?$CJ?$HMs@ 000000018000cf30     diskio.obj
- 0002:00001f60       ??_C@_0GC@HKCHLFJ@_p_f_p_q_const__char_r_q_const_@ 000000018000cf60     diskio.obj
- 0002:00001fd0       ??_C@_0GE@CDAMLIPA@h2ti_type_cb?5?$CK?$HMint?5?$CI?$CK?$CJ?$CIchar?5con@ 000000018000cfd0     diskio.obj
- 0002:00002038       ??_C@_0CB@PLKCNJF@_p_f_p_q_const__char_v_______in@ 000000018000d038     diskio.obj
- 0002:00002060       ??_C@_0CG@EHKOJEHN@int?5?$CI?$CK?$CJ?$CIchar?5const?5?$CK?0?4?4?4?$CJ?$HMprint@ 000000018000d060     diskio.obj
- 0002:00002088       ??_C@_0CB@PPFKEDBB@_p_f_p_void_int_va_list__ssize_@ 000000018000d088     diskio.obj
- 0002:000020b0       ??_C@_0CM@ODIKDJIA@ssize_t?5?$CI?$CK?$CJ?$CIvoid?5?$CK?0int?0va_list?$CJ@ 000000018000d0b0     diskio.obj
- 0002:000020e0       ??_C@_0CJ@KNMLBMOG@_p_f_r_q_const__insn_t_p_int_p_@ 000000018000d0e0     diskio.obj
- 0002:00002110       ??_C@_0DI@CGFAFNOI@bool?5?$CI?$CK?$CJ?$CIinsn_t?5const?5?$CG?0int?5?$CK?0i@ 000000018000d110     diskio.obj
- 0002:00002150       ??_C@_0FA@JJBGCIIH@_p_f_r_q_const__insn_t_r_q_cons@ 000000018000d150     diskio.obj
- 0002:000021a0       ??_C@_0FE@IBKJNBMI@bool?5?$CI?$CK?$CJ?$CIinsn_t?5const?5?$CG?0op_t?5co@ 000000018000d1a0     diskio.obj
- 0002:000021f8       ??_C@_0BI@PGCOIKGG@_p_f_unsigned_int__bool@ 000000018000d1f8     diskio.obj
- 0002:00002210       ??_C@_0DN@OGOBIPP@bool?5?$CI?$CK?$CJ?$CIunsigned?5int?$CJ?$HMhas_dela@ 000000018000d210     diskio.obj
- 0002:00002250       ??_C@_0DL@FFEHDPON@_p_f_unsigned_int_p_q_const__ch@ 000000018000d250     diskio.obj
- 0002:00002290       ??_C@_0EK@MACPDLHN@int?5?$CI?$CK?$CJ?$CIunsigned?5int?0char?5const@ 000000018000d290     diskio.obj
- 0002:000022e0       ??_C@_0BP@HNIFGGKH@_p_f_unsigned_int_p_void__bool@ 000000018000d2e0     diskio.obj
- 0002:00002300       ??_C@_0CI@PMEGIBIK@testf_t?5?$CK?$HMbool?5?$CI?$CK?$CJ?$CIunsigned?5int@ 000000018000d300     diskio.obj
- 0002:00002328       ??_C@_0DB@CEAPILAH@_p_f_unsigned_int_r_q_const__ti@ 000000018000d328     diskio.obj
- 0002:00002360       ??_C@_0EH@MLDNCCKC@local_tinfo_predicate_t?5?$CK?$HMint?5?$CI@ 000000018000d360     diskio.obj
- 0002:000023a8       ??_C@_0CN@BPIIPJKN@_p_f_unsigned_int_unsigned_int_@ 000000018000d3a8     diskio.obj
- 0002:000023d8       ??_C@_0DO@CKIBBIPB@unsigned?5int?5?$CI?$CK?$CJ?$CIunsigned?5int?0u@ 000000018000d3d8     diskio.obj
- 0002:00002418       ??_C@_0BE@EGLGDNLI@_p_generic_linput_t@ 000000018000d418     diskio.obj
- 0002:00002430       ??_C@_0BD@GPDMKMEB@generic_linput_t?5?$CK@ 000000018000d430     diskio.obj
- 0002:00002444       ??_C@_06EJFLAOFF@_p_int@   000000018000d444     diskio.obj
- 0002:00002450       ??_C@_0IG@FDKJDHEK@adiff_t?5?$CK?$HMint?5?$CK?$HMint32?5?$CK?$HMsval_t?5@ 000000018000d450     diskio.obj
- 0002:000024d8       ??_C@_0M@CFMLOKJJ@_p_iterator@ 000000018000d4d8     diskio.obj
- 0002:000024e8       ??_C@_0L@IIMCJLIP@iterator?5?$CK@ 000000018000d4e8     diskio.obj
- 0002:000024f8       ??_C@_0BL@JOJFCEJP@_p_janitor_tT_linput_t_p_t@ 000000018000d4f8     diskio.obj
- 0002:00002518       ??_C@_0CN@JLCEPFOC@linput_janitor_t?5?$CK?$HMjanitor_t?$DM?5l@ 000000018000d518     diskio.obj
- 0002:00002548       ??_C@_0BD@IMPGGKMN@_p_linput_buffer_t@ 000000018000d548     diskio.obj
- 0002:00002560       ??_C@_0BC@IDANOHFK@linput_buffer_t?5?$CK@ 000000018000d560     diskio.obj
- 0002:00002578       ??_C@_0M@CAHMANIJ@_p_linput_t@ 000000018000d578     diskio.obj
- 0002:00002588       ??_C@_0L@PMGOPLLC@linput_t?5?$CK@ 000000018000d588     diskio.obj
- 0002:00002598       ??_C@_0O@HDLJBJJF@_p_location_t@ 000000018000d598     diskio.obj
- 0002:000025a8       ??_C@_0N@ONMECIKA@location_t?5?$CK@ 000000018000d5a8     diskio.obj
- 0002:000025b8       ??_C@_0N@HIKGEFDH@_p_long_long@ 000000018000d5b8     diskio.obj
- 0002:000025c8       ??_C@_0BP@FECEFBLL@int64?5?$CK?$HMlonglong?5?$CK?$HMlong?5long?5?$CK@ 000000018000d5c8     diskio.obj
- 0002:000025e8       ??_C@_0BP@KKGOOMNJ@_p_qvectorT__qstringT_char_t_t@ 000000018000d5e8     diskio.obj
- 0002:00002608       ??_C@_0CK@FPLCNIKL@qvector?$DM?5_qstring?$DM?5char?5?$DO?5?$DO?5?$CK?$HMq@ 000000018000d608     diskio.obj
- 0002:00002638       ??_C@_0CJ@KBPLCHCN@_p_qvectorT__qstringT_unsigned_@ 000000018000d638     diskio.obj
- 0002:00002668       ??_C@_0DF@GOALPBDM@qvector?$DM?5_qstring?$DM?5unsigned?5sho@ 000000018000d668     diskio.obj
- 0002:000026a0       ??_C@_0BH@EHIHPDFP@_p_qvectorT_argloc_t_t@ 000000018000d6a0     diskio.obj
- 0002:000026b8       ??_C@_0CC@PMMGEEHP@qvector?$DM?5argloc_t?5?$DO?5?$CK?$HMarglocs_t@ 000000018000d6b8     diskio.obj
- 0002:000026e0       ??_C@_0BD@IFPOLGLB@_p_qvectorT_bool_t@ 000000018000d6e0     diskio.obj
- 0002:000026f8       ??_C@_0BO@JEOEHDBE@boolvec_t?5?$CK?$HMqvector?$DM?5bool?5?$DO?5?$CK@ 000000018000d6f8     diskio.obj
- 0002:00002718       ??_C@_0BO@BMBALGLA@_p_qvectorT_channel_redir_t_t@ 000000018000d718     diskio.obj
- 0002:00002738       ??_C@_0DA@DFOFPPPA@qvector?$DM?5channel_redir_t?5?$DO?5?$CK?$HMch@ 000000018000d738     diskio.obj
- 0002:00002768       ??_C@_0CA@KLOIFAIM@_p_qvectorT_compiled_binpat_t_t@ 000000018000d768     diskio.obj
- 0002:00002788       ??_C@_0DH@JJMOBCIB@compiled_binpat_vec_t?5?$CK?$HMqvector@ 000000018000d788     diskio.obj
- 0002:00002be1       ??_C@_00CNPNBAHC@@         000000018000dbe1     diskio.obj
- 0002:00002be8       ??_C@_09HJOCAFJB@at?5least?5@ 000000018000dbe8     diskio.obj
- 0002:00002bf8       ??_C@_0CF@KFFOGCID@?$CFs?5expected?5?$CFs?$CFd?5arguments?0?5got@ 000000018000dbf8     diskio.obj
- 0002:00002c20       ??_C@_0CL@NPJGKHAI@UnpackTuple?$CI?$CJ?5argument?5list?5is?5@ 000000018000dc20     diskio.obj
- 0002:00002c50       ??_C@_0CD@DMIOPJCG@?$CFs?5expected?5?$CFs?$CFd?5arguments?0?5got@ 000000018000dc50     diskio.obj
- 0002:00002c78       ??_C@_08KFLHMPAE@at?5most?5@ 000000018000dc78     diskio.obj
- 0002:00002c88       ??_C@_07MEBHOIG@__new__@   000000018000dc88     diskio.obj
- 0002:00002c90       ??_C@_0BB@LPCDDCDP@__swig_destroy__@ 000000018000dc90     diskio.obj
- 0002:00002ca8       ??_C@_07CIFAGBMG@unknown@  000000018000dca8     diskio.obj
- 0002:00002cb0       ??_C@_0CB@HIOLGNHE@?$DMSwig?5Object?5of?5type?5?8?$CFs?8?5at?5?$CFp@ 000000018000dcb0     diskio.obj
- 0002:00002cd8       ??_C@_08BHKDPDAA@__name__@ 000000018000dcd8     diskio.obj
- 0002:00002ce8       ??_C@_0N@OEDBPMFH@SwigPyObject@ 000000018000dce8     diskio.obj
+ 0002:00000600       ??_C@_03BHDOPPEK@own@      000000018000b600     diskio.obj
+ 0002:00000604       ??_C@_06EFGGFDFD@disown@   000000018000b604     diskio.obj
+ 0002:00000610       ??_C@_0CC@CFIMIIPD@releases?5ownership?5of?5the?5point@ 000000018000b610     diskio.obj
+ 0002:00000638       ??_C@_07MEFPPMEF@acquire@  000000018000b638     diskio.obj
+ 0002:00000640       ??_C@_0CC@BAIBAPCI@acquires?5ownership?5of?5the?5point@ 000000018000b640     diskio.obj
+ 0002:00000668       ??_C@_0CG@GKPKGEFE@returns?1sets?5ownership?5of?5the?5p@ 000000018000b668     diskio.obj
+ 0002:00000690       ??_C@_06PCICMFGG@append@   000000018000b690     diskio.obj
+ 0002:00000698       ??_C@_0BO@NCOOMDHM@appends?5another?5?8this?8?5object@ 000000018000b698     diskio.obj
+ 0002:000006b8       ??_C@_04CJGEDOF@next@      000000018000b6b8     diskio.obj
+ 0002:000006c0       ??_C@_0BP@IMIAEPNG@returns?5the?5next?5?8this?8?5object@ 000000018000b6c0     diskio.obj
+ 0002:000006e0       ??_C@_08HJPCHLLJ@__repr__@ 000000018000b6e0     diskio.obj
+ 0002:000006f0       ??_C@_0BO@PNCCHPAD@returns?5object?5representation@ 000000018000b6f0     diskio.obj
+ 0002:00000710       ??_C@_07HDHHMDOH@_p_char@  000000018000b710     diskio.obj
+ 0002:00000718       ??_C@_0L@KIJEHLGD@getsysfile@ 000000018000b718     diskio.obj
+ 0002:00000728       ??_C@_0BA@CJKHCDJ@get_user_idadir@ 000000018000b728     diskio.obj
+ 0002:00000738       ??_C@_0BA@BNAMIOEB@get_ida_subdirs@ 000000018000b738     diskio.obj
+ 0002:00000748       ??_C@_06PGHIMJKD@qlgetz@   000000018000b748     diskio.obj
+ 0002:00000750       ??_C@_0M@DIBOOLII@open_linput@ 000000018000b750     diskio.obj
+ 0002:00000760       ??_C@_0BO@PGHGKIEN@generic_linput_t_filesize_set@ 000000018000b760     diskio.obj
+ 0002:00000780       ??_C@_0BP@HPBDCHBK@generic_linput_t_blocksize_set@ 000000018000b780     diskio.obj
+ 0002:000007a0       ??_C@_0BG@OKOOFLGB@generic_linput_t_read@ 000000018000b7a0     diskio.obj
+ 0002:000007b8       ??_C@_0BF@DIMDFFCD@create_memory_linput@ 000000018000b7b8     diskio.obj
+ 0002:000007d0       ??_C@_0BE@MGCKNPFL@new_linput_buffer_t@ 000000018000b7d0     diskio.obj
+ 0002:000007e8       ??_C@_0BF@LIMOIBOI@linput_buffer_t_read@ 000000018000b7e8     diskio.obj
+ 0002:00000800       ??_C@_0BA@GBDAHGKH@enumerate_files@ 000000018000b800     diskio.obj
+ 0002:00000810       ??_C@_06KFMBLBIJ@idadir@   000000018000b810     diskio.obj
+ 0002:00000818       ??_C@_0BP@BGLHDEKK@idadir?$CIsubdir?$CJ?5?9?$DO?5char?5const?5?$CK@ 000000018000b818     diskio.obj
+ 0002:00000838       ??_C@_0CH@BOGNGENN@getsysfile?$CIfilename?0?5subdir?$CJ?5?9?$DO@ 000000018000b838     diskio.obj
+ 0002:00000860       ??_C@_0CC@OLJKJLLC@get_user_idadir?$CI?$CJ?5?9?$DO?5char?5const@ 000000018000b860     diskio.obj
+ 0002:00000888       ??_C@_0CI@ODFPHJL@get_ida_subdirs?$CIsubdir?0?5flags?$DN0@ 000000018000b888     diskio.obj
+ 0002:000008b0       ??_C@_0BD@GOJPGEEJ@get_special_folder@ 000000018000b8b0     diskio.obj
+ 0002:000008c8       ??_C@_0CC@CEFFDGAP@get_special_folder?$CIcsidl?$CJ?5?9?$DO?5bo@ 000000018000b8c8     diskio.obj
+ 0002:000008f0       ??_C@_07MHIKGAAP@fopenWT@  000000018000b8f0     diskio.obj
+ 0002:000008f8       ??_C@_0BI@BBJOAKCG@fopenWT?$CIfile?$CJ?5?9?$DO?5FILE?5?$CK@ 000000018000b8f8     diskio.obj
+ 0002:00000910       ??_C@_07NLBCNFNI@fopenWB@  000000018000b910     diskio.obj
+ 0002:00000918       ??_C@_0BI@DBEBOKLL@fopenWB?$CIfile?$CJ?5?9?$DO?5FILE?5?$CK@ 000000018000b918     diskio.obj
+ 0002:00000930       ??_C@_07MBEBKCOE@fopenRT@  000000018000b930     diskio.obj
+ 0002:00000938       ??_C@_0BI@CPBEIHJM@fopenRT?$CIfile?$CJ?5?9?$DO?5FILE?5?$CK@ 000000018000b938     diskio.obj
+ 0002:00000950       ??_C@_07NNNJBHDD@fopenRB@  000000018000b950     diskio.obj
+ 0002:00000958       ??_C@_0BI@PMLGHAB@fopenRB?$CIfile?$CJ?5?9?$DO?5FILE?5?$CK@ 000000018000b958     diskio.obj
+ 0002:00000970       ??_C@_06IBODNEEN@fopenM@   000000018000b970     diskio.obj
+ 0002:00000978       ??_C@_0BH@IPPPNDKJ@fopenM?$CIfile?$CJ?5?9?$DO?5FILE?5?$CK@ 000000018000b978     diskio.obj
+ 0002:00000990       ??_C@_06CNFGJLEB@fopenA@   000000018000b990     diskio.obj
+ 0002:00000998       ??_C@_0BH@JDAGKKKD@fopenA?$CIfile?$CJ?5?9?$DO?5FILE?5?$CK@ 000000018000b998     diskio.obj
+ 0002:000009b0       ??_C@_0BL@JPHCIEBJ@qlgetz?$CIli?0?5fpos?$CJ?5?9?$DO?5char?5?$CK@ 000000018000b9b0     diskio.obj
+ 0002:000009d0       ??_C@_0CI@PKABECKK@open_linput?$CIfile?0?5remote?$CJ?5?9?$DO?5li@ 000000018000b9d0     diskio.obj
+ 0002:000009f8       ??_C@_0CO@DPKLGCIH@generic_linput_t_filesize_set?$CIs@ 000000018000b9f8     diskio.obj
+ 0002:00000a28       ??_C@_0BO@CJANGIIF@generic_linput_t_filesize_get@ 000000018000ba28     diskio.obj
+ 0002:00000a48       ??_C@_0CO@BICLIEE@generic_linput_t_filesize_get?$CIs@ 000000018000ba48     diskio.obj
+ 0002:00000a78       ??_C@_0DA@NKHPGDCD@generic_linput_t_blocksize_set?$CI@ 000000018000ba78     diskio.obj
+ 0002:00000aa8       ??_C@_0BP@KAGIOHNC@generic_linput_t_blocksize_get@ 000000018000baa8     diskio.obj
+ 0002:00000ac8       ??_C@_0CP@FBDNBAKF@generic_linput_t_blocksize_get?$CI@ 000000018000bac8     diskio.obj
+ 0002:00000af8       ??_C@_0DM@DIPIEHLL@generic_linput_t_read?$CIself?0?5off@ 000000018000baf8     diskio.obj
+ 0002:00000b38       ??_C@_0BI@ILNBDOKB@delete_generic_linput_t@ 000000018000bb38     diskio.obj
+ 0002:00000b50       ??_C@_0BO@OGADHOFK@delete_generic_linput_t?$CIself?$CJ@ 000000018000bb50     diskio.obj
+ 0002:00000b70       ??_C@_0BO@DBHGJOFK@generic_linput_t_swigregister@ 000000018000bb70     diskio.obj
+ 0002:00000b90       ??_C@_0BG@JLOGLNCF@create_generic_linput@ 000000018000bb90     diskio.obj
+ 0002:00000ba8       ??_C@_0CI@LANKIALF@create_generic_linput?$CIgl?$CJ?5?9?$DO?5li@ 000000018000bba8     diskio.obj
+ 0002:00000bd0       ??_C@_0DA@MPJGAJFK@create_memory_linput?$CIstart?0?5siz@ 000000018000bbd0     diskio.obj
+ 0002:00000c00       ??_C@_0BA@BFGBBFEN@get_linput_type@ 000000018000bc00     diskio.obj
+ 0002:00000c10       ??_C@_0CF@FPHLJIIC@get_linput_type?$CIli?$CJ?5?9?$DO?5linput_t@ 000000018000bc10     diskio.obj
+ 0002:00000c38       ??_C@_0DH@DKDJNNPN@new_linput_buffer_t?$CIlinput?0?5siz@ 000000018000bc38     diskio.obj
+ 0002:00000c70       ??_C@_0CO@DMNNIFIE@linput_buffer_t_read?$CIself?0?5buf?0@ 000000018000bc70     diskio.obj
+ 0002:00000ca0       ??_C@_0BE@LGODDOEB@linput_buffer_t_eof@ 000000018000bca0     diskio.obj
+ 0002:00000cb8       ??_C@_0CC@FIPFIPDB@linput_buffer_t_eof?$CIself?$CJ?5?9?$DO?5bo@ 000000018000bcb8     diskio.obj
+ 0002:00000ce0       ??_C@_0BH@DMPDOADI@delete_linput_buffer_t@ 000000018000bce0     diskio.obj
+ 0002:00000cf8       ??_C@_0BN@CAIFHHMJ@delete_linput_buffer_t?$CIself?$CJ@ 000000018000bcf8     diskio.obj
+ 0002:00000d18       ??_C@_0BN@DHMOMFDN@linput_buffer_t_swigregister@ 000000018000bd18     diskio.obj
+ 0002:00000d38       ??_C@_0BJ@LMOPBOJD@linput_buffer_t_swiginit@ 000000018000bd38     diskio.obj
+ 0002:00000d54       ??_C@_06EEMHAKMF@eclose@   000000018000bd54     diskio.obj
+ 0002:00000d60       ??_C@_0L@EGEFGEED@eclose?$CIfp?$CJ@ 000000018000bd60     diskio.obj
+ 0002:00000d70       ??_C@_0DF@LEJPGIPA@enumerate_files?$CIpath?0?5fname?0?5ca@ 000000018000bd70     diskio.obj
+ 0002:00000da8       ??_C@_0BI@DBGIHFOG@create_bytearray_linput@ 000000018000bda8     diskio.obj
+ 0002:00000dc0       ??_C@_0CJ@LIJCCGPE@create_bytearray_linput?$CIs?$CJ?5?9?$DO?5l@ 000000018000bdc0     diskio.obj
+ 0002:00000df0       ??_C@_0N@BNPDFAHK@close_linput@ 000000018000bdf0     diskio.obj
+ 0002:00000e00       ??_C@_0BB@LHKIPDNF@close_linput?$CIli?$CJ@ 000000018000be00     diskio.obj
+ 0002:00000e18       ??_C@_07MCEKNOEP@_p_FILE@  000000018000be18     diskio.obj
+ 0002:00000e20       ??_C@_06LPAKMOJ@FILE?5?$CK@ 000000018000be20     diskio.obj
+ 0002:00000e28       ??_C@_0BE@LADBKDLC@_p__qstringT_char_t@ 000000018000be28     diskio.obj
+ 0002:00000e40       ??_C@_0BN@OHJFNODI@_qstring?$DM?5char?5?$DO?5?$CK?$HMqstring?5?$CK@ 000000018000be40     diskio.obj
+ 0002:00000e60       ??_C@_0BN@OGMFMNEO@_p__qstringT_unsigned_char_t@ 000000018000be60     diskio.obj
+ 0002:00000e80       ??_C@_0CE@FCOOCMMP@qtype?5?$CK?$HM_qstring?$DM?5unsigned?5char@ 000000018000be80     diskio.obj
+ 0002:00000ea8       ??_C@_0BO@NPELMEMN@_p__qstringT_unsigned_short_t@ 000000018000bea8     diskio.obj
+ 0002:00000ec8       ??_C@_0CI@MOGIECDE@_qstring?$DM?5unsigned?5short?5?$DO?5?$CK?$HMqw@ 000000018000bec8     diskio.obj
+ 0002:00000ef0       ??_C@_0BF@FIODJLOI@_p_action_ctx_base_t@ 000000018000bef0     diskio.obj
+ 0002:00000f10       ??_C@_0EE@ODNBPOJC@action_ctx_base_t?5?$CK?$HMaction_upda@ 000000018000bf10     diskio.obj
+ 0002:00000f58       ??_C@_0N@IODFCNBG@_p_biggest_t@ 000000018000bf58     diskio.obj
+ 0002:00000f68       ??_C@_0M@LMODFOHJ@biggest_t?5?$CK@ 000000018000bf68     diskio.obj
+ 0002:00000f78       ??_C@_0O@HOPHBKAL@char?5?$CK?$HMint8?5?$CK@ 000000018000bf78     diskio.obj
+ 0002:00000f88       ??_C@_0BC@KJKOCNNG@_p_const_iterator@ 000000018000bf88     diskio.obj
+ 0002:00000fa0       ??_C@_0BB@LAJPCFIO@const_iterator?5?$CK@ 000000018000bfa0     diskio.obj
+ 0002:00000fb8       ??_C@_0CE@DHGPAIMI@_p_f_p_TWidget_int_int_p_void__@ 000000018000bfb8     diskio.obj
+ 0002:00000fe0       ??_C@_0DN@DFPOHMBA@custom_viewer_keydown_t?5?$CK?$HMbool?5@ 000000018000bfe0     diskio.obj
+ 0002:00001020       ??_C@_0DF@PENMGFJK@_p_f_p_TWidget_int_p_view_mouse@ 000000018000c020     diskio.obj
+ 0002:00001060       ??_C@_0FC@NPHKCCPL@void?5?$CI?$CK?$CJ?$CITWidget?5?$CK?0int?0view_mou@ 000000018000c060     diskio.obj
+ 0002:000010b8       ??_C@_0CA@IGCEDJID@_p_f_p_TWidget_int_p_void__bool@ 000000018000c0b8     diskio.obj
+ 0002:000010e0       ??_C@_0FC@PJNOFHGN@custom_viewer_click_t?5?$CK?$HMcustom_@ 000000018000c0e0     diskio.obj
+ 0002:00001138       ??_C@_0CO@MIHLPJDD@_p_f_p_TWidget_p_lochist_entry_@ 000000018000c138     diskio.obj
+ 0002:00001170       ??_C@_0EM@HBPJNBB@custom_viewer_adjust_place_t?5?$CK?$HM@ 000000018000c170     diskio.obj
+ 0002:000011c0       ??_C@_0GM@LBGPKCPI@_p_f_p_TWidget_p_q_const__lochi@ 000000018000c1c0     diskio.obj
+ 0002:00001230       ??_C@_0IF@FKBGALIG@void?5?$CI?$CK?$CJ?$CITWidget?5?$CK?0lochist_entr@ 000000018000c230     diskio.obj
+ 0002:000012c0       ??_C@_0FA@DFBJAGBE@_p_f_p_TWidget_p_q_const__lochi@ 000000018000c2c0     diskio.obj
+ 0002:00001310       ??_C@_0GI@FMPBFLEM@custom_viewer_can_navigate_t?5?$CK?$HM@ 000000018000c310     diskio.obj
+ 0002:00001378       ??_C@_0DH@JJEDBLDE@_p_f_p_TWidget_p_q_const__place@ 000000018000c378     diskio.obj
+ 0002:000013b0       ??_C@_0EP@PJDAMEBK@code_viewer_lines_click_t?5?$CK?$HMvoi@ 000000018000c3b0     diskio.obj
+ 0002:00001400       ??_C@_0DE@PBNPHPNC@_p_f_p_TWidget_p_q_const__place@ 000000018000c400     diskio.obj
+ 0002:00001440       ??_C@_0EL@JKPIBDKO@code_viewer_lines_icon_t?5?$CK?$HMint?5@ 000000018000c440     diskio.obj
+ 0002:00001490       ??_C@_0EB@FDCGDBJI@_p_f_p_TWidget_p_q_const__place@ 000000018000c490     diskio.obj
+ 0002:000014e0       ??_C@_0FN@GGLCMJJK@custom_viewer_get_place_xcoord_@ 000000018000c4e0     diskio.obj
+ 0002:00001540       ??_C@_0DO@KLDLOPHE@_p_f_p_TWidget_p_q_const__place@ 000000018000c540     diskio.obj
+ 0002:00001580       ??_C@_0FI@GOMHMLF@code_viewer_lines_linenum_t?5?$CK?$HMb@ 000000018000c580     diskio.obj
+ 0002:000015d8       ??_C@_0BL@BMEJNHDD@_p_f_p_TWidget_p_void__int@ 000000018000c5d8     diskio.obj
+ 0002:000015f8       ??_C@_0DB@GMPMLKDG@custom_viewer_help_t?5?$CK?$HMint?5?$CI?$CK?$CJ?$CI@ 000000018000c5f8     diskio.obj
+ 0002:00001630       ??_C@_0BM@PAKPNBHH@_p_f_p_TWidget_p_void__void@ 000000018000c630     diskio.obj
+ 0002:00001650       ??_C@_0GE@BLLNJKNN@custom_viewer_popup_t?5?$CK?$HMcustom_@ 000000018000c650     diskio.obj
+ 0002:000016b8       ??_C@_0DM@PKHFKJJF@_p_f_p_chooser_multi_t_p_sizeve@ 000000018000c6b8     diskio.obj
+ 0002:00001700       ??_C@_0FA@INGPHNGB@chooser_base_t?3?3cbres_t?5?$CI?$CK?$CJ?$CIcho@ 000000018000c700     diskio.obj
+ 0002:00001750       ??_C@_0CN@LJCPBILN@_p_f_p_chooser_t_ssize_t__choos@ 000000018000c750     diskio.obj
+ 0002:00001780       ??_C@_0DL@IKAMODJA@chooser_t?3?3cbret_t?5?$CI?$CK?$CJ?$CIchooser_@ 000000018000c780     diskio.obj
+ 0002:000017c0       ??_C@_0EC@GIKOMIMG@_p_f_p_lochist_entry_t_r_q_cons@ 000000018000c7c0     diskio.obj
+ 0002:00001810       ??_C@_0FE@OJIOMBOE@bool?5?$CI?$CK?$CJ?$CIlochist_entry_t?5?$CK?0loch@ 000000018000c810     diskio.obj
+ 0002:00001868       ??_C@_0CC@HPECDOJE@_p_f_p_q_const__char_p_void__vo@ 000000018000c868     diskio.obj
+ 0002:00001890       ??_C@_0DA@LKJNDOAC@void?5?$CI?$CK?$CJ?$CIchar?5const?5?$CK?0void?5?$CK?$CJ?$HMs@ 000000018000c890     diskio.obj
+ 0002:000018c0       ??_C@_0GC@HKCHLFJ@_p_f_p_q_const__char_r_q_const_@ 000000018000c8c0     diskio.obj
+ 0002:00001930       ??_C@_0GE@CDAMLIPA@h2ti_type_cb?5?$CK?$HMint?5?$CI?$CK?$CJ?$CIchar?5con@ 000000018000c930     diskio.obj
+ 0002:00001998       ??_C@_0CB@PLKCNJF@_p_f_p_q_const__char_v_______in@ 000000018000c998     diskio.obj
+ 0002:000019c0       ??_C@_0CG@EHKOJEHN@int?5?$CI?$CK?$CJ?$CIchar?5const?5?$CK?0?4?4?4?$CJ?$HMprint@ 000000018000c9c0     diskio.obj
+ 0002:000019e8       ??_C@_0CB@PPFKEDBB@_p_f_p_void_int_va_list__ssize_@ 000000018000c9e8     diskio.obj
+ 0002:00001a10       ??_C@_0CM@ODIKDJIA@ssize_t?5?$CI?$CK?$CJ?$CIvoid?5?$CK?0int?0va_list?$CJ@ 000000018000ca10     diskio.obj
+ 0002:00001a40       ??_C@_0CJ@KNMLBMOG@_p_f_r_q_const__insn_t_p_int_p_@ 000000018000ca40     diskio.obj
+ 0002:00001a70       ??_C@_0DI@CGFAFNOI@bool?5?$CI?$CK?$CJ?$CIinsn_t?5const?5?$CG?0int?5?$CK?0i@ 000000018000ca70     diskio.obj
+ 0002:00001ab0       ??_C@_0FA@JJBGCIIH@_p_f_r_q_const__insn_t_r_q_cons@ 000000018000cab0     diskio.obj
+ 0002:00001b00       ??_C@_0FE@IBKJNBMI@bool?5?$CI?$CK?$CJ?$CIinsn_t?5const?5?$CG?0op_t?5co@ 000000018000cb00     diskio.obj
+ 0002:00001b58       ??_C@_0BI@PGCOIKGG@_p_f_unsigned_int__bool@ 000000018000cb58     diskio.obj
+ 0002:00001b70       ??_C@_0DN@OGOBIPP@bool?5?$CI?$CK?$CJ?$CIunsigned?5int?$CJ?$HMhas_dela@ 000000018000cb70     diskio.obj
+ 0002:00001bb0       ??_C@_0DL@FFEHDPON@_p_f_unsigned_int_p_q_const__ch@ 000000018000cbb0     diskio.obj
+ 0002:00001bf0       ??_C@_0EK@MACPDLHN@int?5?$CI?$CK?$CJ?$CIunsigned?5int?0char?5const@ 000000018000cbf0     diskio.obj
+ 0002:00001c40       ??_C@_0BP@HNIFGGKH@_p_f_unsigned_int_p_void__bool@ 000000018000cc40     diskio.obj
+ 0002:00001c60       ??_C@_0CI@PMEGIBIK@testf_t?5?$CK?$HMbool?5?$CI?$CK?$CJ?$CIunsigned?5int@ 000000018000cc60     diskio.obj
+ 0002:00001c88       ??_C@_0DB@CEAPILAH@_p_f_unsigned_int_r_q_const__ti@ 000000018000cc88     diskio.obj
+ 0002:00001cc0       ??_C@_0EH@MLDNCCKC@local_tinfo_predicate_t?5?$CK?$HMint?5?$CI@ 000000018000ccc0     diskio.obj
+ 0002:00001d08       ??_C@_0CN@BPIIPJKN@_p_f_unsigned_int_unsigned_int_@ 000000018000cd08     diskio.obj
+ 0002:00001d38       ??_C@_0DO@CKIBBIPB@unsigned?5int?5?$CI?$CK?$CJ?$CIunsigned?5int?0u@ 000000018000cd38     diskio.obj
+ 0002:00001d78       ??_C@_0BE@EGLGDNLI@_p_generic_linput_t@ 000000018000cd78     diskio.obj
+ 0002:00001d90       ??_C@_0BD@GPDMKMEB@generic_linput_t?5?$CK@ 000000018000cd90     diskio.obj
+ 0002:00001da4       ??_C@_06EJFLAOFF@_p_int@   000000018000cda4     diskio.obj
+ 0002:00001db0       ??_C@_0IG@FDKJDHEK@adiff_t?5?$CK?$HMint?5?$CK?$HMint32?5?$CK?$HMsval_t?5@ 000000018000cdb0     diskio.obj
+ 0002:00001e38       ??_C@_0M@CFMLOKJJ@_p_iterator@ 000000018000ce38     diskio.obj
+ 0002:00001e48       ??_C@_0L@IIMCJLIP@iterator?5?$CK@ 000000018000ce48     diskio.obj
+ 0002:00001e58       ??_C@_0BL@JOJFCEJP@_p_janitor_tT_linput_t_p_t@ 000000018000ce58     diskio.obj
+ 0002:00001e78       ??_C@_0CN@JLCEPFOC@linput_janitor_t?5?$CK?$HMjanitor_t?$DM?5l@ 000000018000ce78     diskio.obj
+ 0002:00001ea8       ??_C@_0BD@IMPGGKMN@_p_linput_buffer_t@ 000000018000cea8     diskio.obj
+ 0002:00001ec0       ??_C@_0BC@IDANOHFK@linput_buffer_t?5?$CK@ 000000018000cec0     diskio.obj
+ 0002:00001ed8       ??_C@_0M@CAHMANIJ@_p_linput_t@ 000000018000ced8     diskio.obj
+ 0002:00001ee8       ??_C@_0L@PMGOPLLC@linput_t?5?$CK@ 000000018000cee8     diskio.obj
+ 0002:00001ef8       ??_C@_0O@HDLJBJJF@_p_location_t@ 000000018000cef8     diskio.obj
+ 0002:00001f08       ??_C@_0N@ONMECIKA@location_t?5?$CK@ 000000018000cf08     diskio.obj
+ 0002:00001f18       ??_C@_0N@HIKGEFDH@_p_long_long@ 000000018000cf18     diskio.obj
+ 0002:00001f28       ??_C@_0BP@FECEFBLL@int64?5?$CK?$HMlonglong?5?$CK?$HMlong?5long?5?$CK@ 000000018000cf28     diskio.obj
+ 0002:00001f48       ??_C@_0BP@KKGOOMNJ@_p_qvectorT__qstringT_char_t_t@ 000000018000cf48     diskio.obj
+ 0002:00001f68       ??_C@_0CK@FPLCNIKL@qvector?$DM?5_qstring?$DM?5char?5?$DO?5?$DO?5?$CK?$HMq@ 000000018000cf68     diskio.obj
+ 0002:00001f98       ??_C@_0CJ@KBPLCHCN@_p_qvectorT__qstringT_unsigned_@ 000000018000cf98     diskio.obj
+ 0002:00001fc8       ??_C@_0DF@GOALPBDM@qvector?$DM?5_qstring?$DM?5unsigned?5sho@ 000000018000cfc8     diskio.obj
+ 0002:00002000       ??_C@_0BH@EHIHPDFP@_p_qvectorT_argloc_t_t@ 000000018000d000     diskio.obj
+ 0002:00002018       ??_C@_0CC@PMMGEEHP@qvector?$DM?5argloc_t?5?$DO?5?$CK?$HMarglocs_t@ 000000018000d018     diskio.obj
+ 0002:00002040       ??_C@_0BD@IFPOLGLB@_p_qvectorT_bool_t@ 000000018000d040     diskio.obj
+ 0002:00002058       ??_C@_0BO@JEOEHDBE@boolvec_t?5?$CK?$HMqvector?$DM?5bool?5?$DO?5?$CK@ 000000018000d058     diskio.obj
+ 0002:00002078       ??_C@_0BO@BMBALGLA@_p_qvectorT_channel_redir_t_t@ 000000018000d078     diskio.obj
+ 0002:00002098       ??_C@_0DA@DFOFPPPA@qvector?$DM?5channel_redir_t?5?$DO?5?$CK?$HMch@ 000000018000d098     diskio.obj
+ 0002:000020c8       ??_C@_0CA@KLOIFAIM@_p_qvectorT_compiled_binpat_t_t@ 000000018000d0c8     diskio.obj
+ 0002:000020e8       ??_C@_0DH@JJMOBCIB@compiled_binpat_vec_t?5?$CK?$HMqvector@ 000000018000d0e8     diskio.obj
+ 0002:00002120       ??_C@_0BI@HPPPANA@_p_qvectorT_funcarg_t_t@ 000000018000d120     diskio.obj
+ 0002:00002138       ??_C@_0CG@BKJABKPP@funcargvec_t?5?$CK?$HMqvector?$DM?5funcarg@ 000000018000d138     diskio.obj
+ 0002:00002160       ??_C@_0BC@EMAMHDDK@_p_qvectorT_int_t@ 000000018000d160     diskio.obj
+ 0002:00002178       ??_C@_0CI@OEOLBAGE@svalvec_t?5?$CK?$HMintvec_t?5?$CK?$HMqvector?$DM@ 000000018000d178     diskio.obj
+ 0002:000021a0       ??_C@_0BH@HBOAPPDE@_p_qvectorT_ioport_t_t@ 000000018000d1a0     diskio.obj
+ 0002:000021b8       ??_C@_0CC@PDAEBDDG@ioports_t?5?$CK?$HMqvector?$DM?5ioport_t?5?$DO@ 000000018000d1b8     diskio.obj
+ 0002:000021e0       ??_C@_0BG@NGNJJEPD@_p_qvectorT_range_t_t@ 000000018000d1e0     diskio.obj
+ 0002:000021f8       ??_C@_0CH@CMPFLCHN@rangevec_base_t?5?$CK?$HMqvector?$DM?5rang@ 000000018000d1f8     diskio.obj
+ 0002:00002220       ??_C@_0CB@DLEFICAI@_p_qvectorT_rangeset_t_const_p_@ 000000018000d220     diskio.obj
+ 0002:00002248       ??_C@_0DF@CPGECBJE@rangeset_crefvec_t?5?$CK?$HMqvector?$DM?5r@ 000000018000d248     diskio.obj
+ 0002:00002280       ??_C@_0BJ@CBEEABAG@_p_qvectorT_rangeset_t_t@ 000000018000d280     diskio.obj
+ 0002:000022a0       ??_C@_0CN@NEPIOIFG@qvector?$DM?5rangeset_t?5?$DO?5?$CK?$HMarray_o@ 000000018000d2a0     diskio.obj
+ 0002:000022d0       ??_C@_0BN@HCIAELAH@_p_qvectorT_refinfo_desc_t_t@ 000000018000d2d0     diskio.obj
+ 0002:000022f0       ??_C@_0DB@OEPGJFJL@refinfo_desc_vec_t?5?$CK?$HMqvector?$DM?5r@ 000000018000d2f0     diskio.obj
+ 0002:00002328       ??_C@_0BK@JBDFAIAF@_p_qvectorT_simd_info_t_t@ 000000018000d328     diskio.obj
+ 0002:00002348       ??_C@_0CL@IAEHADMA@simd_info_vec_t?5?$CK?$HMqvector?$DM?5simd@ 000000018000d348     diskio.obj
+ 0002:00002378       ??_C@_0BL@JOHIOMBL@_p_qvectorT_simpleline_t_t@ 000000018000d378     diskio.obj
+ 0002:00002398       ??_C@_0CF@LMLHENLN@strvec_t?5?$CK?$HMqvector?$DM?5simpleline_@ 000000018000d398     diskio.obj
+ 0002:000023c0       ??_C@_0BF@JMFCGENF@_p_qvectorT_size_t_t@ 000000018000d3c0     diskio.obj
+ 0002:000023d8       ??_C@_0CA@PKGFIBKP@sizevec_t?5?$CK?$HMqvector?$DM?5size_t?5?$DO?5?$CK@ 000000018000d3d8     diskio.obj
+ 0002:000023f8       ??_C@_0BG@GHPDGOHO@_p_qvectorT_tinfo_t_t@ 000000018000d3f8     diskio.obj
+ 0002:00002410       ??_C@_0CC@CEHAEEKI@tinfovec_t?5?$CK?$HMqvector?$DM?5tinfo_t?5?$DO@ 000000018000d410     diskio.obj
+ 0002:00002438       ??_C@_0BK@KGMCEJE@_p_qvectorT_type_attr_t_t@ 000000018000d438     diskio.obj
+ 0002:00002458       ??_C@_0CI@PENEDOEG@type_attrs_t?5?$CK?$HMqvector?$DM?5type_at@ 000000018000d458     diskio.obj
+ 0002:00002480       ??_C@_0BL@MFAEBBAF@_p_qvectorT_udt_member_t_t@ 000000018000d480     diskio.obj
+ 0002:000024a0       ??_C@_0CL@HFANAPIM@udtmembervec_t?5?$CK?$HMqvector?$DM?5udt_m@ 000000018000d4a0     diskio.obj
+ 0002:000024d0       ??_C@_0BM@DFOCNGNJ@_p_qvectorT_unsigned_char_t@ 000000018000d4d0     diskio.obj
+ 0002:000024f0       ??_C@_0CH@MCODNJGI@qvector?$DM?5unsigned?5char?5?$DO?5?$CK?$HMcomp@ 000000018000d4f0     diskio.obj
+ 0002:00002518       ??_C@_0M@BEMIELHM@_p_relobj_t@ 000000018000d518     diskio.obj
+ 0002:00002528       ??_C@_0N@OAHCDFLH@_p_bytevec_t@ 000000018000d528     diskio.obj
+ 0002:00002538       ??_C@_0BA@KOPDLMDG@_p_reloc_info_t@ 000000018000d538     diskio.obj
+ 0002:00002548       ??_C@_0BL@POPMPLM@_p_qvectorT_unsigned_int_t@ 000000018000d548     diskio.obj
+ 0002:00002568       ??_C@_0DL@HDEADPMO@eavec_t?5?$CK?$HMordvec_t?5?$CK?$HMuvalvec_t?5@ 000000018000d568     diskio.obj
+ 0002:000025a8       ??_C@_08JGEHMJEC@_p_short@ 000000018000d5a8     diskio.obj
+ 0002:000025b8       ??_C@_0BA@BBDCPKKI@int16?5?$CK?$HMshort?5?$CK@ 000000018000d5b8     diskio.obj
+ 0002:000025c8       ??_C@_0P@IHEJCACJ@_p_signed_char@ 000000018000d5c8     diskio.obj
+ 0002:000025d8       ??_C@_0BG@CGJIOBCI@signed?5char?5?$CK?$HMsint8?5?$CK@ 000000018000d5d8     diskio.obj
+ 0002:000025f0       ??_C@_0BB@JEMKPEPB@_p_unsigned_char@ 000000018000d5f0     diskio.obj
+ 0002:00002610       ??_C@_0HI@NBHOBBOJ@uchar?5?$CK?$HMunsigned?5char?5?$CK?$HMcm_t?5?$CK?$HM@ 000000018000d610     diskio.obj
+ 0002:00002688       ??_C@_0BA@EMEBBPFL@_p_unsigned_int@ 000000018000d688     diskio.obj
+ 0002:000026a0       ??_C@_0JE@GCFOGLMK@bgcolor_t?5?$CK?$HMenum_t?5?$CK?$HMtid_t?5?$CK?$HMbm@ 000000018000d6a0     diskio.obj
+ 0002:00002738       ??_C@_0BG@CGEDOPGF@_p_unsigned_long_long@ 000000018000d738     diskio.obj
+ 0002:00002750       ??_C@_0CK@FCLCDGJM@uint64?5?$CK?$HMulonglong?5?$CK?$HMunsigned?5l@ 000000018000d750     diskio.obj
+ 0002:00002780       ??_C@_0BC@GCHEMBCE@_p_unsigned_short@ 000000018000d780     diskio.obj
+ 0002:00002798       ??_C@_0CP@HNCAPCKA@uint16?5?$CK?$HMunsigned?5short?5?$CK?$HMushor@ 000000018000d798     diskio.obj
+ 0002:00002be9       ??_C@_00CNPNBAHC@@         000000018000dbe9     diskio.obj
+ 0002:00002bf0       ??_C@_09HJOCAFJB@at?5least?5@ 000000018000dbf0     diskio.obj
+ 0002:00002c00       ??_C@_0CF@KFFOGCID@?$CFs?5expected?5?$CFs?$CFd?5arguments?0?5got@ 000000018000dc00     diskio.obj
+ 0002:00002c28       ??_C@_0CL@NPJGKHAI@UnpackTuple?$CI?$CJ?5argument?5list?5is?5@ 000000018000dc28     diskio.obj
+ 0002:00002c58       ??_C@_0CD@DMIOPJCG@?$CFs?5expected?5?$CFs?$CFd?5arguments?0?5got@ 000000018000dc58     diskio.obj
+ 0002:00002c80       ??_C@_08KFLHMPAE@at?5most?5@ 000000018000dc80     diskio.obj
+ 0002:00002c90       ??_C@_07MEBHOIG@__new__@   000000018000dc90     diskio.obj
+ 0002:00002c98       ??_C@_0BB@LPCDDCDP@__swig_destroy__@ 000000018000dc98     diskio.obj
+ 0002:00002cb0       ??_C@_07CIFAGBMG@unknown@  000000018000dcb0     diskio.obj
+ 0002:00002cb8       ??_C@_0CB@HIOLGNHE@?$DMSwig?5Object?5of?5type?5?8?$CFs?8?5at?5?$CFp@ 000000018000dcb8     diskio.obj
+ 0002:00002ce0       ??_C@_08BHKDPDAA@__name__@ 000000018000dce0     diskio.obj
+ 0002:00002cf0       ??_C@_0N@OEDBPMFH@SwigPyObject@ 000000018000dcf0     diskio.obj
  0002:00002d00       ??_C@_0EH@KGGHIIII@swig?1python?5detected?5a?5memory?5l@ 000000018000dd00     diskio.obj
  0002:00002d48       ??_C@_0CF@NBDOMJMA@Attempt?5to?5append?5a?5non?5SwigPyO@ 000000018000dd48     diskio.obj
  0002:00002d70       ??_C@_0BG@BEMBDPAG@?$DMSwig?5Packed?5at?5?$CFs?$CFs?$DO@ 000000018000dd70     diskio.obj
@@ -724,8 +724,8 @@
  0002:00003dc8       ??_C@_0BJ@JEBJOJFJ@SleepConditionVariableCS@ 000000018000edc8     MSVCRT:thread_safe_statics.obj
  0002:00003de8       ??_C@_0BJ@PGPPEPCC@WakeAllConditionVariable@ 000000018000ede8     MSVCRT:thread_safe_statics.obj
  0002:00003e10       ??_7type_info@@6B@         000000018000ee10     MSVCRT:std_type_info_static.obj
- 0002:00003e18       _pDefaultRawDllMain        000000018000ee18     MSVCRT:dll_dllmain.obj
  0002:00003e18       _pRawDllMain               000000018000ee18     MSVCRT:dll_dllmain.obj
+ 0002:00003e18       _pDefaultRawDllMain        000000018000ee18     MSVCRT:dll_dllmain.obj
  0002:00003e28       ??_7exception@std@@6B@     000000018000ee28     MSVCRT:throw_bad_alloc.obj
  0002:00003e40       ??_7bad_alloc@std@@6B@     000000018000ee40     MSVCRT:throw_bad_alloc.obj
  0002:00003e50       ??_C@_0P@GHFPNOJB@bad?5allocation@ 000000018000ee50     MSVCRT:throw_bad_alloc.obj
@@ -764,7 +764,7 @@
  0002:00006330       _CTA3?AVbad_array_new_length@std@@ 0000000180011330     MSVCRT:throw_bad_alloc.obj
  0002:00006350       _CT??_R0?AVbad_array_new_length@std@@@8??0bad_array_new_length@std@@QEAA@AEBV01@@Z24 0000000180011350     MSVCRT:throw_bad_alloc.obj
  0002:000063d8       __IMPORT_DESCRIPTOR_ida    00000001800113d8     ida:ida.dll
- 0002:000063ec       __IMPORT_DESCRIPTOR_python37 00000001800113ec     python37:python37.dll
+ 0002:000063ec       __IMPORT_DESCRIPTOR_python38 00000001800113ec     python38:python38.dll
  0002:00006400       __IMPORT_DESCRIPTOR_python 0000000180011400     python:python.dll
  0002:00006414       __IMPORT_DESCRIPTOR_KERNEL32 0000000180011414     kernel32:KERNEL32.dll
  0002:00006428       __IMPORT_DESCRIPTOR_VCRUNTIME140 0000000180011428     vcruntime:VCRUNTIME140.dll
@@ -788,7 +788,7 @@
  0003:00002b50       ??_R0?AUinterr_exc_t@@@8   0000000180015b50     diskio.obj
  0003:00002b78       ??_R0?AVtype_info@@@8      0000000180015b78     MSVCRT:std_type_info_static.obj
  0003:00002b98       ??_R0?AVbad_array_new_length@std@@@8 0000000180015b98     MSVCRT:throw_bad_alloc.obj
- 0003:00002c00       ?swig_mutex_own@Director@Swig@@0U_RTL_CRITICAL_SECTION@2@A 0000000180015c00     diskio.obj
+ 0003:00002bd0       ?swig_mutex_own@Director@Swig@@0U_RTL_CRITICAL_SECTION@2@A 0000000180015bd0     diskio.obj
  0003:00002e98       ?_OptionsStorage@?1??__local_stdio_printf_options@@9@4_KA 0000000180015e98     diskio.obj
  0003:00002ee0       __scrt_current_native_startup_state 0000000180015ee0     MSVCRT:utility.obj
  0003:00002ee8       __scrt_native_startup_lock 0000000180015ee8     MSVCRT:utility.obj
@@ -803,7 +803,7 @@
 
  Static symbols
 
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
  0000:fffe7000       .debug$S                   0000000180000000     ida:ida.dll
  0000:fffe7000       .debug$S                   0000000180000000     ida:ida.dll
  0000:fffe7000       .debug$S                   0000000180000000     ida:ida.dll
@@ -893,89 +893,89 @@
  0000:fffe7000       .debug$S                   0000000180000000     ida:ida.dll
  0000:fffe7000       .debug$S                   0000000180000000     ida:ida.dll
  0000:fffe7000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe7000       .debug$S                   0000000180000000     python37:python37.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe7000       .debug$S                   0000000180000000     python38:python38.dll
  0000:fffe7000       .debug$S                   0000000180000000     python:python.dll
  0001:00000000       ??__Ebytearray_linput_data_vec@@YAXXZ 0000000180001000 f   diskio.obj
  0001:00000010       SwigPyObject_repr2         0000000180001010 f   diskio.obj
@@ -1379,33 +1379,33 @@
  0001:000092d0       ??__Fbytearray_linput_data_vec@@YAXXZ 000000018000a2d0 f   diskio.obj
  0002:000005a0       ?bytearray_linput_data_vec$initializer$@@3P6AXXZEA 000000018000b5a0     diskio.obj
  0002:000005b8       ?__scrt_initialize_tss_var@@3P6AHXZEA 000000018000b5b8     MSVCRT:thread_safe_statics.obj
- 0002:000027c0       $cppxdata$_wrap_idadir     000000018000d7c0     diskio.obj
- 0002:000027e8       $cppxdata$_wrap_getsysfile 000000018000d7e8     diskio.obj
- 0002:00002810       $cppxdata$_wrap_get_user_idadir 000000018000d810     diskio.obj
- 0002:00002838       $cppxdata$_wrap_get_ida_subdirs 000000018000d838     diskio.obj
- 0002:00002860       $cppxdata$_wrap_get_special_folder 000000018000d860     diskio.obj
- 0002:00002888       $cppxdata$_wrap_fopenWT    000000018000d888     diskio.obj
- 0002:000028b0       $cppxdata$_wrap_fopenWB    000000018000d8b0     diskio.obj
- 0002:000028d8       $cppxdata$_wrap_fopenRT    000000018000d8d8     diskio.obj
- 0002:00002900       $cppxdata$_wrap_fopenRB    000000018000d900     diskio.obj
- 0002:00002928       $cppxdata$_wrap_fopenM     000000018000d928     diskio.obj
- 0002:00002950       $cppxdata$_wrap_fopenA     000000018000d950     diskio.obj
- 0002:00002978       $cppxdata$_wrap_qlgetz     000000018000d978     diskio.obj
- 0002:000029a0       $cppxdata$_wrap_open_linput 000000018000d9a0     diskio.obj
- 0002:000029c8       $cppxdata$_wrap_generic_linput_t_read 000000018000d9c8     diskio.obj
- 0002:000029f0       $cppxdata$_wrap_delete_generic_linput_t 000000018000d9f0     diskio.obj
- 0002:00002a18       $cppxdata$_wrap_create_generic_linput 000000018000da18     diskio.obj
- 0002:00002a40       $cppxdata$_wrap_create_memory_linput 000000018000da40     diskio.obj
- 0002:00002a68       $cppxdata$_wrap_get_linput_type 000000018000da68     diskio.obj
- 0002:00002a90       $cppxdata$_wrap_new_linput_buffer_t 000000018000da90     diskio.obj
- 0002:00002ab8       $cppxdata$_wrap_linput_buffer_t_read 000000018000dab8     diskio.obj
- 0002:00002ae0       $cppxdata$_wrap_linput_buffer_t_eof 000000018000dae0     diskio.obj
- 0002:00002b08       $cppxdata$_wrap_delete_linput_buffer_t 000000018000db08     diskio.obj
- 0002:00002b30       $cppxdata$_wrap_eclose     000000018000db30     diskio.obj
- 0002:00002b58       $cppxdata$_wrap_enumerate_files 000000018000db58     diskio.obj
- 0002:00002b80       $cppxdata$_wrap_create_bytearray_linput 000000018000db80     diskio.obj
- 0002:00002ba8       $cppxdata$_wrap_close_linput 000000018000dba8     diskio.obj
- 0002:00002bd0       ?hex@?1??SWIG_PackData@@9@4QBDB 000000018000dbd0     diskio.obj
+ 0002:000027c8       $cppxdata$_wrap_idadir     000000018000d7c8     diskio.obj
+ 0002:000027f0       $cppxdata$_wrap_getsysfile 000000018000d7f0     diskio.obj
+ 0002:00002818       $cppxdata$_wrap_get_user_idadir 000000018000d818     diskio.obj
+ 0002:00002840       $cppxdata$_wrap_get_ida_subdirs 000000018000d840     diskio.obj
+ 0002:00002868       $cppxdata$_wrap_get_special_folder 000000018000d868     diskio.obj
+ 0002:00002890       $cppxdata$_wrap_fopenWT    000000018000d890     diskio.obj
+ 0002:000028b8       $cppxdata$_wrap_fopenWB    000000018000d8b8     diskio.obj
+ 0002:000028e0       $cppxdata$_wrap_fopenRT    000000018000d8e0     diskio.obj
+ 0002:00002908       $cppxdata$_wrap_fopenRB    000000018000d908     diskio.obj
+ 0002:00002930       $cppxdata$_wrap_fopenM     000000018000d930     diskio.obj
+ 0002:00002958       $cppxdata$_wrap_fopenA     000000018000d958     diskio.obj
+ 0002:00002980       $cppxdata$_wrap_qlgetz     000000018000d980     diskio.obj
+ 0002:000029a8       $cppxdata$_wrap_open_linput 000000018000d9a8     diskio.obj
+ 0002:000029d0       $cppxdata$_wrap_generic_linput_t_read 000000018000d9d0     diskio.obj
+ 0002:000029f8       $cppxdata$_wrap_delete_generic_linput_t 000000018000d9f8     diskio.obj
+ 0002:00002a20       $cppxdata$_wrap_create_generic_linput 000000018000da20     diskio.obj
+ 0002:00002a48       $cppxdata$_wrap_create_memory_linput 000000018000da48     diskio.obj
+ 0002:00002a70       $cppxdata$_wrap_get_linput_type 000000018000da70     diskio.obj
+ 0002:00002a98       $cppxdata$_wrap_new_linput_buffer_t 000000018000da98     diskio.obj
+ 0002:00002ac0       $cppxdata$_wrap_linput_buffer_t_read 000000018000dac0     diskio.obj
+ 0002:00002ae8       $cppxdata$_wrap_linput_buffer_t_eof 000000018000dae8     diskio.obj
+ 0002:00002b10       $cppxdata$_wrap_delete_linput_buffer_t 000000018000db10     diskio.obj
+ 0002:00002b38       $cppxdata$_wrap_eclose     000000018000db38     diskio.obj
+ 0002:00002b60       $cppxdata$_wrap_enumerate_files 000000018000db60     diskio.obj
+ 0002:00002b88       $cppxdata$_wrap_create_bytearray_linput 000000018000db88     diskio.obj
+ 0002:00002bb0       $cppxdata$_wrap_close_linput 000000018000dbb0     diskio.obj
+ 0002:00002bd8       ?hex@?1??SWIG_PackData@@9@4QBDB 000000018000dbd8     diskio.obj
  0002:00003af0       ?cis@?1??PyInit__ida_diskio@@9@4QBUci_t@?1??1@YAPEAU_object@@XZ@B 000000018000eaf0     diskio.obj
  0002:00003d18       $cppxdata$?__scrt_initialize_thread_safe_statics@@YAHXZ 000000018000ed18     MSVCRT:thread_safe_statics.obj
  0002:00003e90       GS_ExceptionPointers       000000018000ee90     MSVCRT:gs_report.obj
@@ -1845,7 +1845,7 @@
  0002:000063b2       szName                     00000001800113b2     _ida_diskio.exp
  0002:000063c2       $N00001                    00000001800113c2     _ida_diskio.exp
  0002:00006bd4       .idata$6                   0000000180011bd4     ida:ida.dll
- 0002:00007286       .idata$6                   0000000180012286     python37:python37.dll
+ 0002:00007286       .idata$6                   0000000180012286     python38:python38.dll
  0002:000072a4       .idata$6                   00000001800122a4     python:python.dll
  0002:000074fc       .idata$6                   00000001800124fc     kernel32:KERNEL32.dll
  0002:000075da       .idata$6                   00000001800125da     vcruntime:VCRUNTIME140.dll
@@ -1853,162 +1853,162 @@
  0002:00007730       .idata$6                   0000000180012730     ucrt:api-ms-win-crt-string-l1-1-0.dll
  0002:00007752       .idata$6                   0000000180012752     ucrt:api-ms-win-crt-heap-l1-1-0.dll
  0002:00007772       .idata$6                   0000000180012772     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0003:00000000       _swigt__p_qvectorT_int_t   0000000180013000     diskio.obj
- 0003:00000030       _swigt__p_qvectorT_ioport_t_t 0000000180013030     diskio.obj
- 0003:00000060       _swigt__p_qvectorT_range_t_t 0000000180013060     diskio.obj
- 0003:00000090       _swigt__p_qvectorT_rangeset_t_const_p_t 0000000180013090     diskio.obj
- 0003:000000c0       _swigt__p_qvectorT_rangeset_t_t 00000001800130c0     diskio.obj
- 0003:000000f0       _swigt__p_qvectorT_refinfo_desc_t_t 00000001800130f0     diskio.obj
- 0003:00000120       _swigt__p_qvectorT_simd_info_t_t 0000000180013120     diskio.obj
- 0003:00000150       _swigt__p_qvectorT_simpleline_t_t 0000000180013150     diskio.obj
- 0003:00000180       _swigt__p_qvectorT_size_t_t 0000000180013180     diskio.obj
- 0003:000001b0       _swigt__p_qvectorT_tinfo_t_t 00000001800131b0     diskio.obj
- 0003:000001e0       _swigt__p_qvectorT_type_attr_t_t 00000001800131e0     diskio.obj
- 0003:00000210       _swigt__p_qvectorT_udt_member_t_t 0000000180013210     diskio.obj
- 0003:00000240       _swigt__p_qvectorT_unsigned_char_t 0000000180013240     diskio.obj
- 0003:00000270       _swigt__p_relobj_t         0000000180013270     diskio.obj
- 0003:000002a0       _swigt__p_bytevec_t        00000001800132a0     diskio.obj
- 0003:000002d0       _swigt__p_reloc_info_t     00000001800132d0     diskio.obj
- 0003:00000300       _swigt__p_qvectorT_unsigned_int_t 0000000180013300     diskio.obj
- 0003:00000330       _swigt__p_short            0000000180013330     diskio.obj
- 0003:00000360       _swigt__p_signed_char      0000000180013360     diskio.obj
- 0003:00000390       _swigt__p_unsigned_char    0000000180013390     diskio.obj
- 0003:000003c0       _swigt__p_unsigned_int     00000001800133c0     diskio.obj
- 0003:000003f0       _swigt__p_unsigned_long_long 00000001800133f0     diskio.obj
- 0003:00000420       _swigt__p_unsigned_short   0000000180013420     diskio.obj
- 0003:00000450       swig_type_initial          0000000180013450     diskio.obj
- 0003:00000690       _swigc__p_FILE             0000000180013690     diskio.obj
- 0003:000006d0       _swigc__p__qstringT_char_t 00000001800136d0     diskio.obj
- 0003:00000710       _swigc__p__qstringT_unsigned_char_t 0000000180013710     diskio.obj
- 0003:00000750       _swigc__p__qstringT_unsigned_short_t 0000000180013750     diskio.obj
- 0003:00000790       _swigc__p_action_ctx_base_t 0000000180013790     diskio.obj
- 0003:000007d0       _swigc__p_biggest_t        00000001800137d0     diskio.obj
- 0003:00000810       _swigc__p_char             0000000180013810     diskio.obj
- 0003:00000850       _swigc__p_const_iterator   0000000180013850     diskio.obj
- 0003:00000890       _swigc__p_f_p_TWidget_int_int_p_void__bool 0000000180013890     diskio.obj
- 0003:000008d0       _swigc__p_f_p_TWidget_int_p_view_mouse_event_t_p_void__void 00000001800138d0     diskio.obj
- 0003:00000910       _swigc__p_f_p_TWidget_int_p_void__bool 0000000180013910     diskio.obj
- 0003:00000950       _swigc__p_f_p_TWidget_p_lochist_entry_t_p_void__void 0000000180013950     diskio.obj
- 0003:00000990       _swigc__p_f_p_TWidget_p_q_const__lochist_entry_t_p_q_const__lochist_entry_t_r_q_const__locchange_md_t_p_void__void 0000000180013990     diskio.obj
- 0003:000009d0       _swigc__p_f_p_TWidget_p_q_const__lochist_entry_t_r_q_const__locchange_md_t_p_void__int 00000001800139d0     diskio.obj
- 0003:00000a10       _swigc__p_f_p_TWidget_p_q_const__place_t_int_int_p_void__void 0000000180013a10     diskio.obj
- 0003:00000a50       _swigc__p_f_p_TWidget_p_q_const__place_t_p_int_p_void__int 0000000180013a50     diskio.obj
- 0003:00000a90       _swigc__p_f_p_TWidget_p_q_const__place_t_p_q_const__place_t_p_void__int 0000000180013a90     diskio.obj
- 0003:00000ad0       _swigc__p_f_p_TWidget_p_q_const__place_t_p_unsigned_int_p_void__bool 0000000180013ad0     diskio.obj
- 0003:00000b10       _swigc__p_f_p_TWidget_p_void__int 0000000180013b10     diskio.obj
- 0003:00000b50       _swigc__p_f_p_TWidget_p_void__void 0000000180013b50     diskio.obj
- 0003:00000b90       _swigc__p_f_p_chooser_multi_t_p_sizevec_t__chooser_base_t__cbres_t 0000000180013b90     diskio.obj
- 0003:00000bd0       _swigc__p_f_p_chooser_t_ssize_t__chooser_t__cbret_t 0000000180013bd0     diskio.obj
- 0003:00000c10       _swigc__p_f_p_lochist_entry_t_r_q_const__lochist_entry_t_p_TWidget__bool 0000000180013c10     diskio.obj
- 0003:00000c50       _swigc__p_f_p_q_const__char_p_void__void 0000000180013c50     diskio.obj
- 0003:00000c90       _swigc__p_f_p_q_const__char_r_q_const__tinfo_t_p_q_const__char_p_q_const__unsigned_long_long_p_void__int 0000000180013c90     diskio.obj
- 0003:00000cd0       _swigc__p_f_p_q_const__char_v_______int 0000000180013cd0     diskio.obj
- 0003:00000d10       _swigc__p_f_p_void_int_va_list__ssize_t 0000000180013d10     diskio.obj
- 0003:00000d50       _swigc__p_f_r_q_const__insn_t_p_int_p_int__bool 0000000180013d50     diskio.obj
- 0003:00000d90       _swigc__p_f_r_q_const__insn_t_r_q_const__op_t_r_q_const__tinfo_t_p_q_const__char__bool 0000000180013d90     diskio.obj
- 0003:00000dd0       _swigc__p_f_unsigned_int__bool 0000000180013dd0     diskio.obj
- 0003:00000e10       _swigc__p_f_unsigned_int_p_q_const__char_unsigned_int_p_void__int 0000000180013e10     diskio.obj
- 0003:00000e50       _swigc__p_f_unsigned_int_p_void__bool 0000000180013e50     diskio.obj
- 0003:00000e90       _swigc__p_f_unsigned_int_r_q_const__tinfo_t_p_void__int 0000000180013e90     diskio.obj
- 0003:00000ed0       _swigc__p_f_unsigned_int_unsigned_int__unsigned_int 0000000180013ed0     diskio.obj
- 0003:00000f10       _swigc__p_generic_linput_t 0000000180013f10     diskio.obj
- 0003:00000f50       _swigc__p_int              0000000180013f50     diskio.obj
- 0003:00000f90       _swigc__p_iterator         0000000180013f90     diskio.obj
- 0003:00000fd0       _swigc__p_janitor_tT_linput_t_p_t 0000000180013fd0     diskio.obj
- 0003:00001010       _swigc__p_linput_buffer_t  0000000180014010     diskio.obj
- 0003:00001050       _swigc__p_linput_t         0000000180014050     diskio.obj
- 0003:00001090       _swigc__p_location_t       0000000180014090     diskio.obj
- 0003:000010d0       _swigc__p_long_long        00000001800140d0     diskio.obj
- 0003:00001110       _swigc__p_qvectorT__qstringT_char_t_t 0000000180014110     diskio.obj
- 0003:00001150       _swigc__p_qvectorT__qstringT_unsigned_short_t_t 0000000180014150     diskio.obj
- 0003:00001190       _swigc__p_qvectorT_argloc_t_t 0000000180014190     diskio.obj
- 0003:000011d0       _swigc__p_qvectorT_bool_t  00000001800141d0     diskio.obj
- 0003:00001210       _swigc__p_qvectorT_channel_redir_t_t 0000000180014210     diskio.obj
- 0003:00001250       _swigc__p_qvectorT_compiled_binpat_t_t 0000000180014250     diskio.obj
- 0003:00001290       _swigc__p_qvectorT_funcarg_t_t 0000000180014290     diskio.obj
- 0003:000012d0       _swigc__p_qvectorT_int_t   00000001800142d0     diskio.obj
- 0003:00001310       _swigc__p_qvectorT_ioport_t_t 0000000180014310     diskio.obj
- 0003:00001350       _swigc__p_qvectorT_range_t_t 0000000180014350     diskio.obj
- 0003:00001390       _swigc__p_qvectorT_rangeset_t_const_p_t 0000000180014390     diskio.obj
- 0003:000013d0       _swigc__p_qvectorT_rangeset_t_t 00000001800143d0     diskio.obj
- 0003:00001410       _swigc__p_qvectorT_refinfo_desc_t_t 0000000180014410     diskio.obj
- 0003:00001450       _swigc__p_qvectorT_simd_info_t_t 0000000180014450     diskio.obj
- 0003:00001490       _swigc__p_qvectorT_simpleline_t_t 0000000180014490     diskio.obj
- 0003:000014d0       _swigc__p_qvectorT_size_t_t 00000001800144d0     diskio.obj
- 0003:00001510       _swigc__p_qvectorT_tinfo_t_t 0000000180014510     diskio.obj
- 0003:00001550       _swigc__p_qvectorT_type_attr_t_t 0000000180014550     diskio.obj
- 0003:00001590       _swigc__p_qvectorT_udt_member_t_t 0000000180014590     diskio.obj
- 0003:000015d0       _swigc__p_relobj_t         00000001800145d0     diskio.obj
- 0003:00001610       _swigc__p_bytevec_t        0000000180014610     diskio.obj
- 0003:00001650       _swigc__p_reloc_info_t     0000000180014650     diskio.obj
- 0003:00001690       _swigc__p_qvectorT_unsigned_char_t 0000000180014690     diskio.obj
- 0003:00001730       _swigc__p_qvectorT_unsigned_int_t 0000000180014730     diskio.obj
- 0003:00001770       _swigc__p_short            0000000180014770     diskio.obj
- 0003:000017b0       _swigc__p_signed_char      00000001800147b0     diskio.obj
- 0003:000017f0       _swigc__p_unsigned_char    00000001800147f0     diskio.obj
- 0003:00001830       _swigc__p_unsigned_int     0000000180014830     diskio.obj
- 0003:00001870       _swigc__p_unsigned_long_long 0000000180014870     diskio.obj
- 0003:000018b0       _swigc__p_unsigned_short   00000001800148b0     diskio.obj
- 0003:000018f0       swig_cast_initial          00000001800148f0     diskio.obj
- 0003:00001b30       ?swig_module@@3Uswig_module_info@@A 0000000180014b30     diskio.obj
- 0003:00001b60       swigobject_methods         0000000180014b60     diskio.obj
- 0003:00001c40       SwigMethods                0000000180014c40     diskio.obj
- 0003:00002080       _swigt__p_FILE             0000000180015080     diskio.obj
- 0003:000020b0       _swigt__p__qstringT_char_t 00000001800150b0     diskio.obj
- 0003:000020e0       _swigt__p__qstringT_unsigned_char_t 00000001800150e0     diskio.obj
- 0003:00002110       _swigt__p__qstringT_unsigned_short_t 0000000180015110     diskio.obj
- 0003:00002140       _swigt__p_action_ctx_base_t 0000000180015140     diskio.obj
- 0003:00002170       _swigt__p_biggest_t        0000000180015170     diskio.obj
- 0003:000021a0       _swigt__p_char             00000001800151a0     diskio.obj
- 0003:000021d0       _swigt__p_const_iterator   00000001800151d0     diskio.obj
- 0003:00002200       _swigt__p_f_p_TWidget_int_int_p_void__bool 0000000180015200     diskio.obj
- 0003:00002230       _swigt__p_f_p_TWidget_int_p_view_mouse_event_t_p_void__void 0000000180015230     diskio.obj
- 0003:00002260       _swigt__p_f_p_TWidget_int_p_void__bool 0000000180015260     diskio.obj
- 0003:00002290       _swigt__p_f_p_TWidget_p_lochist_entry_t_p_void__void 0000000180015290     diskio.obj
- 0003:000022c0       _swigt__p_f_p_TWidget_p_q_const__lochist_entry_t_p_q_const__lochist_entry_t_r_q_const__locchange_md_t_p_void__void 00000001800152c0     diskio.obj
- 0003:000022f0       _swigt__p_f_p_TWidget_p_q_const__lochist_entry_t_r_q_const__locchange_md_t_p_void__int 00000001800152f0     diskio.obj
- 0003:00002320       _swigt__p_f_p_TWidget_p_q_const__place_t_int_int_p_void__void 0000000180015320     diskio.obj
- 0003:00002350       _swigt__p_f_p_TWidget_p_q_const__place_t_p_int_p_void__int 0000000180015350     diskio.obj
- 0003:00002380       _swigt__p_f_p_TWidget_p_q_const__place_t_p_q_const__place_t_p_void__int 0000000180015380     diskio.obj
- 0003:000023b0       _swigt__p_f_p_TWidget_p_q_const__place_t_p_unsigned_int_p_void__bool 00000001800153b0     diskio.obj
- 0003:000023e0       _swigt__p_f_p_TWidget_p_void__int 00000001800153e0     diskio.obj
- 0003:00002410       _swigt__p_f_p_TWidget_p_void__void 0000000180015410     diskio.obj
- 0003:00002440       _swigt__p_f_p_chooser_multi_t_p_sizevec_t__chooser_base_t__cbres_t 0000000180015440     diskio.obj
- 0003:00002470       _swigt__p_f_p_chooser_t_ssize_t__chooser_t__cbret_t 0000000180015470     diskio.obj
- 0003:000024a0       _swigt__p_f_p_lochist_entry_t_r_q_const__lochist_entry_t_p_TWidget__bool 00000001800154a0     diskio.obj
- 0003:000024d0       _swigt__p_f_p_q_const__char_p_void__void 00000001800154d0     diskio.obj
- 0003:00002500       _swigt__p_f_p_q_const__char_r_q_const__tinfo_t_p_q_const__char_p_q_const__unsigned_long_long_p_void__int 0000000180015500     diskio.obj
- 0003:00002530       _swigt__p_f_p_q_const__char_v_______int 0000000180015530     diskio.obj
- 0003:00002560       _swigt__p_f_p_void_int_va_list__ssize_t 0000000180015560     diskio.obj
- 0003:00002590       _swigt__p_f_r_q_const__insn_t_p_int_p_int__bool 0000000180015590     diskio.obj
- 0003:000025c0       _swigt__p_f_r_q_const__insn_t_r_q_const__op_t_r_q_const__tinfo_t_p_q_const__char__bool 00000001800155c0     diskio.obj
- 0003:000025f0       _swigt__p_f_unsigned_int__bool 00000001800155f0     diskio.obj
- 0003:00002620       _swigt__p_f_unsigned_int_p_q_const__char_unsigned_int_p_void__int 0000000180015620     diskio.obj
- 0003:00002650       _swigt__p_f_unsigned_int_p_void__bool 0000000180015650     diskio.obj
- 0003:00002680       _swigt__p_f_unsigned_int_r_q_const__tinfo_t_p_void__int 0000000180015680     diskio.obj
- 0003:000026b0       _swigt__p_f_unsigned_int_unsigned_int__unsigned_int 00000001800156b0     diskio.obj
- 0003:000026e0       _swigt__p_generic_linput_t 00000001800156e0     diskio.obj
- 0003:00002710       _swigt__p_int              0000000180015710     diskio.obj
- 0003:00002740       _swigt__p_iterator         0000000180015740     diskio.obj
- 0003:00002770       _swigt__p_janitor_tT_linput_t_p_t 0000000180015770     diskio.obj
- 0003:000027a0       _swigt__p_linput_buffer_t  00000001800157a0     diskio.obj
- 0003:000027d0       _swigt__p_linput_t         00000001800157d0     diskio.obj
- 0003:00002800       _swigt__p_location_t       0000000180015800     diskio.obj
- 0003:00002830       _swigt__p_long_long        0000000180015830     diskio.obj
- 0003:00002860       _swigt__p_qvectorT__qstringT_char_t_t 0000000180015860     diskio.obj
- 0003:00002890       _swigt__p_qvectorT__qstringT_unsigned_short_t_t 0000000180015890     diskio.obj
- 0003:000028c0       _swigt__p_qvectorT_argloc_t_t 00000001800158c0     diskio.obj
- 0003:000028f0       _swigt__p_qvectorT_bool_t  00000001800158f0     diskio.obj
- 0003:00002920       _swigt__p_qvectorT_channel_redir_t_t 0000000180015920     diskio.obj
- 0003:00002950       _swigt__p_qvectorT_compiled_binpat_t_t 0000000180015950     diskio.obj
- 0003:00002980       _swigt__p_qvectorT_funcarg_t_t 0000000180015980     diskio.obj
+ 0003:00000000       ?swig_module@@3Uswig_module_info@@A 0000000180013000     diskio.obj
+ 0003:00000030       swigobject_methods         0000000180013030     diskio.obj
+ 0003:00000110       SwigMethods                0000000180013110     diskio.obj
+ 0003:00000550       _swigt__p_FILE             0000000180013550     diskio.obj
+ 0003:00000580       _swigt__p__qstringT_char_t 0000000180013580     diskio.obj
+ 0003:000005b0       _swigt__p__qstringT_unsigned_char_t 00000001800135b0     diskio.obj
+ 0003:000005e0       _swigt__p__qstringT_unsigned_short_t 00000001800135e0     diskio.obj
+ 0003:00000610       _swigt__p_action_ctx_base_t 0000000180013610     diskio.obj
+ 0003:00000640       _swigt__p_biggest_t        0000000180013640     diskio.obj
+ 0003:00000670       _swigt__p_char             0000000180013670     diskio.obj
+ 0003:000006a0       _swigt__p_const_iterator   00000001800136a0     diskio.obj
+ 0003:000006d0       _swigt__p_f_p_TWidget_int_int_p_void__bool 00000001800136d0     diskio.obj
+ 0003:00000700       _swigt__p_f_p_TWidget_int_p_view_mouse_event_t_p_void__void 0000000180013700     diskio.obj
+ 0003:00000730       _swigt__p_f_p_TWidget_int_p_void__bool 0000000180013730     diskio.obj
+ 0003:00000760       _swigt__p_f_p_TWidget_p_lochist_entry_t_p_void__void 0000000180013760     diskio.obj
+ 0003:00000790       _swigt__p_f_p_TWidget_p_q_const__lochist_entry_t_p_q_const__lochist_entry_t_r_q_const__locchange_md_t_p_void__void 0000000180013790     diskio.obj
+ 0003:000007c0       _swigt__p_f_p_TWidget_p_q_const__lochist_entry_t_r_q_const__locchange_md_t_p_void__int 00000001800137c0     diskio.obj
+ 0003:000007f0       _swigt__p_f_p_TWidget_p_q_const__place_t_int_int_p_void__void 00000001800137f0     diskio.obj
+ 0003:00000820       _swigt__p_f_p_TWidget_p_q_const__place_t_p_int_p_void__int 0000000180013820     diskio.obj
+ 0003:00000850       _swigt__p_f_p_TWidget_p_q_const__place_t_p_q_const__place_t_p_void__int 0000000180013850     diskio.obj
+ 0003:00000880       _swigt__p_f_p_TWidget_p_q_const__place_t_p_unsigned_int_p_void__bool 0000000180013880     diskio.obj
+ 0003:000008b0       _swigt__p_f_p_TWidget_p_void__int 00000001800138b0     diskio.obj
+ 0003:000008e0       _swigt__p_f_p_TWidget_p_void__void 00000001800138e0     diskio.obj
+ 0003:00000910       _swigt__p_f_p_chooser_multi_t_p_sizevec_t__chooser_base_t__cbres_t 0000000180013910     diskio.obj
+ 0003:00000940       _swigt__p_f_p_chooser_t_ssize_t__chooser_t__cbret_t 0000000180013940     diskio.obj
+ 0003:00000970       _swigt__p_f_p_lochist_entry_t_r_q_const__lochist_entry_t_p_TWidget__bool 0000000180013970     diskio.obj
+ 0003:000009a0       _swigt__p_f_p_q_const__char_p_void__void 00000001800139a0     diskio.obj
+ 0003:000009d0       _swigt__p_f_p_q_const__char_r_q_const__tinfo_t_p_q_const__char_p_q_const__unsigned_long_long_p_void__int 00000001800139d0     diskio.obj
+ 0003:00000a00       _swigt__p_f_p_q_const__char_v_______int 0000000180013a00     diskio.obj
+ 0003:00000a30       _swigt__p_f_p_void_int_va_list__ssize_t 0000000180013a30     diskio.obj
+ 0003:00000a60       _swigt__p_f_r_q_const__insn_t_p_int_p_int__bool 0000000180013a60     diskio.obj
+ 0003:00000a90       _swigt__p_f_r_q_const__insn_t_r_q_const__op_t_r_q_const__tinfo_t_p_q_const__char__bool 0000000180013a90     diskio.obj
+ 0003:00000ac0       _swigt__p_f_unsigned_int__bool 0000000180013ac0     diskio.obj
+ 0003:00000af0       _swigt__p_f_unsigned_int_p_q_const__char_unsigned_int_p_void__int 0000000180013af0     diskio.obj
+ 0003:00000b20       _swigt__p_f_unsigned_int_p_void__bool 0000000180013b20     diskio.obj
+ 0003:00000b50       _swigt__p_f_unsigned_int_r_q_const__tinfo_t_p_void__int 0000000180013b50     diskio.obj
+ 0003:00000b80       _swigt__p_f_unsigned_int_unsigned_int__unsigned_int 0000000180013b80     diskio.obj
+ 0003:00000bb0       _swigt__p_generic_linput_t 0000000180013bb0     diskio.obj
+ 0003:00000be0       _swigt__p_int              0000000180013be0     diskio.obj
+ 0003:00000c10       _swigt__p_iterator         0000000180013c10     diskio.obj
+ 0003:00000c40       _swigt__p_janitor_tT_linput_t_p_t 0000000180013c40     diskio.obj
+ 0003:00000c70       _swigt__p_linput_buffer_t  0000000180013c70     diskio.obj
+ 0003:00000ca0       _swigt__p_linput_t         0000000180013ca0     diskio.obj
+ 0003:00000cd0       _swigt__p_location_t       0000000180013cd0     diskio.obj
+ 0003:00000d00       _swigt__p_long_long        0000000180013d00     diskio.obj
+ 0003:00000d30       _swigt__p_qvectorT__qstringT_char_t_t 0000000180013d30     diskio.obj
+ 0003:00000d60       _swigt__p_qvectorT__qstringT_unsigned_short_t_t 0000000180013d60     diskio.obj
+ 0003:00000d90       _swigt__p_qvectorT_argloc_t_t 0000000180013d90     diskio.obj
+ 0003:00000dc0       _swigt__p_qvectorT_bool_t  0000000180013dc0     diskio.obj
+ 0003:00000df0       _swigt__p_qvectorT_channel_redir_t_t 0000000180013df0     diskio.obj
+ 0003:00000e20       _swigt__p_qvectorT_compiled_binpat_t_t 0000000180013e20     diskio.obj
+ 0003:00000e50       _swigt__p_qvectorT_funcarg_t_t 0000000180013e50     diskio.obj
+ 0003:00000e80       _swigt__p_qvectorT_int_t   0000000180013e80     diskio.obj
+ 0003:00000eb0       _swigt__p_qvectorT_ioport_t_t 0000000180013eb0     diskio.obj
+ 0003:00000ee0       _swigt__p_qvectorT_range_t_t 0000000180013ee0     diskio.obj
+ 0003:00000f10       _swigt__p_qvectorT_rangeset_t_const_p_t 0000000180013f10     diskio.obj
+ 0003:00000f40       _swigt__p_qvectorT_rangeset_t_t 0000000180013f40     diskio.obj
+ 0003:00000f70       _swigt__p_qvectorT_refinfo_desc_t_t 0000000180013f70     diskio.obj
+ 0003:00000fa0       _swigt__p_qvectorT_simd_info_t_t 0000000180013fa0     diskio.obj
+ 0003:00000fd0       _swigt__p_qvectorT_simpleline_t_t 0000000180013fd0     diskio.obj
+ 0003:00001000       _swigt__p_qvectorT_size_t_t 0000000180014000     diskio.obj
+ 0003:00001030       _swigt__p_qvectorT_tinfo_t_t 0000000180014030     diskio.obj
+ 0003:00001060       _swigt__p_qvectorT_type_attr_t_t 0000000180014060     diskio.obj
+ 0003:00001090       _swigt__p_qvectorT_udt_member_t_t 0000000180014090     diskio.obj
+ 0003:000010c0       _swigt__p_qvectorT_unsigned_char_t 00000001800140c0     diskio.obj
+ 0003:000010f0       _swigt__p_relobj_t         00000001800140f0     diskio.obj
+ 0003:00001120       _swigt__p_bytevec_t        0000000180014120     diskio.obj
+ 0003:00001150       _swigt__p_reloc_info_t     0000000180014150     diskio.obj
+ 0003:00001180       _swigt__p_qvectorT_unsigned_int_t 0000000180014180     diskio.obj
+ 0003:000011b0       _swigt__p_short            00000001800141b0     diskio.obj
+ 0003:000011e0       _swigt__p_signed_char      00000001800141e0     diskio.obj
+ 0003:00001210       _swigt__p_unsigned_char    0000000180014210     diskio.obj
+ 0003:00001240       _swigt__p_unsigned_int     0000000180014240     diskio.obj
+ 0003:00001270       _swigt__p_unsigned_long_long 0000000180014270     diskio.obj
+ 0003:000012a0       _swigt__p_unsigned_short   00000001800142a0     diskio.obj
+ 0003:000012d0       swig_type_initial          00000001800142d0     diskio.obj
+ 0003:00001510       _swigc__p_FILE             0000000180014510     diskio.obj
+ 0003:00001550       _swigc__p__qstringT_char_t 0000000180014550     diskio.obj
+ 0003:00001590       _swigc__p__qstringT_unsigned_char_t 0000000180014590     diskio.obj
+ 0003:000015d0       _swigc__p__qstringT_unsigned_short_t 00000001800145d0     diskio.obj
+ 0003:00001610       _swigc__p_action_ctx_base_t 0000000180014610     diskio.obj
+ 0003:00001650       _swigc__p_biggest_t        0000000180014650     diskio.obj
+ 0003:00001690       _swigc__p_char             0000000180014690     diskio.obj
+ 0003:000016d0       _swigc__p_const_iterator   00000001800146d0     diskio.obj
+ 0003:00001710       _swigc__p_f_p_TWidget_int_int_p_void__bool 0000000180014710     diskio.obj
+ 0003:00001750       _swigc__p_f_p_TWidget_int_p_view_mouse_event_t_p_void__void 0000000180014750     diskio.obj
+ 0003:00001790       _swigc__p_f_p_TWidget_int_p_void__bool 0000000180014790     diskio.obj
+ 0003:000017d0       _swigc__p_f_p_TWidget_p_lochist_entry_t_p_void__void 00000001800147d0     diskio.obj
+ 0003:00001810       _swigc__p_f_p_TWidget_p_q_const__lochist_entry_t_p_q_const__lochist_entry_t_r_q_const__locchange_md_t_p_void__void 0000000180014810     diskio.obj
+ 0003:00001850       _swigc__p_f_p_TWidget_p_q_const__lochist_entry_t_r_q_const__locchange_md_t_p_void__int 0000000180014850     diskio.obj
+ 0003:00001890       _swigc__p_f_p_TWidget_p_q_const__place_t_int_int_p_void__void 0000000180014890     diskio.obj
+ 0003:000018d0       _swigc__p_f_p_TWidget_p_q_const__place_t_p_int_p_void__int 00000001800148d0     diskio.obj
+ 0003:00001910       _swigc__p_f_p_TWidget_p_q_const__place_t_p_q_const__place_t_p_void__int 0000000180014910     diskio.obj
+ 0003:00001950       _swigc__p_f_p_TWidget_p_q_const__place_t_p_unsigned_int_p_void__bool 0000000180014950     diskio.obj
+ 0003:00001990       _swigc__p_f_p_TWidget_p_void__int 0000000180014990     diskio.obj
+ 0003:000019d0       _swigc__p_f_p_TWidget_p_void__void 00000001800149d0     diskio.obj
+ 0003:00001a10       _swigc__p_f_p_chooser_multi_t_p_sizevec_t__chooser_base_t__cbres_t 0000000180014a10     diskio.obj
+ 0003:00001a50       _swigc__p_f_p_chooser_t_ssize_t__chooser_t__cbret_t 0000000180014a50     diskio.obj
+ 0003:00001a90       _swigc__p_f_p_lochist_entry_t_r_q_const__lochist_entry_t_p_TWidget__bool 0000000180014a90     diskio.obj
+ 0003:00001ad0       _swigc__p_f_p_q_const__char_p_void__void 0000000180014ad0     diskio.obj
+ 0003:00001b10       _swigc__p_f_p_q_const__char_r_q_const__tinfo_t_p_q_const__char_p_q_const__unsigned_long_long_p_void__int 0000000180014b10     diskio.obj
+ 0003:00001b50       _swigc__p_f_p_q_const__char_v_______int 0000000180014b50     diskio.obj
+ 0003:00001b90       _swigc__p_f_p_void_int_va_list__ssize_t 0000000180014b90     diskio.obj
+ 0003:00001bd0       _swigc__p_f_r_q_const__insn_t_p_int_p_int__bool 0000000180014bd0     diskio.obj
+ 0003:00001c10       _swigc__p_f_r_q_const__insn_t_r_q_const__op_t_r_q_const__tinfo_t_p_q_const__char__bool 0000000180014c10     diskio.obj
+ 0003:00001c50       _swigc__p_f_unsigned_int__bool 0000000180014c50     diskio.obj
+ 0003:00001c90       _swigc__p_f_unsigned_int_p_q_const__char_unsigned_int_p_void__int 0000000180014c90     diskio.obj
+ 0003:00001cd0       _swigc__p_f_unsigned_int_p_void__bool 0000000180014cd0     diskio.obj
+ 0003:00001d10       _swigc__p_f_unsigned_int_r_q_const__tinfo_t_p_void__int 0000000180014d10     diskio.obj
+ 0003:00001d50       _swigc__p_f_unsigned_int_unsigned_int__unsigned_int 0000000180014d50     diskio.obj
+ 0003:00001d90       _swigc__p_generic_linput_t 0000000180014d90     diskio.obj
+ 0003:00001dd0       _swigc__p_int              0000000180014dd0     diskio.obj
+ 0003:00001e10       _swigc__p_iterator         0000000180014e10     diskio.obj
+ 0003:00001e50       _swigc__p_janitor_tT_linput_t_p_t 0000000180014e50     diskio.obj
+ 0003:00001e90       _swigc__p_linput_buffer_t  0000000180014e90     diskio.obj
+ 0003:00001ed0       _swigc__p_linput_t         0000000180014ed0     diskio.obj
+ 0003:00001f10       _swigc__p_location_t       0000000180014f10     diskio.obj
+ 0003:00001f50       _swigc__p_long_long        0000000180014f50     diskio.obj
+ 0003:00001f90       _swigc__p_qvectorT__qstringT_char_t_t 0000000180014f90     diskio.obj
+ 0003:00001fd0       _swigc__p_qvectorT__qstringT_unsigned_short_t_t 0000000180014fd0     diskio.obj
+ 0003:00002010       _swigc__p_qvectorT_argloc_t_t 0000000180015010     diskio.obj
+ 0003:00002050       _swigc__p_qvectorT_bool_t  0000000180015050     diskio.obj
+ 0003:00002090       _swigc__p_qvectorT_channel_redir_t_t 0000000180015090     diskio.obj
+ 0003:000020d0       _swigc__p_qvectorT_compiled_binpat_t_t 00000001800150d0     diskio.obj
+ 0003:00002110       _swigc__p_qvectorT_funcarg_t_t 0000000180015110     diskio.obj
+ 0003:00002150       _swigc__p_qvectorT_int_t   0000000180015150     diskio.obj
+ 0003:00002190       _swigc__p_qvectorT_ioport_t_t 0000000180015190     diskio.obj
+ 0003:000021d0       _swigc__p_qvectorT_range_t_t 00000001800151d0     diskio.obj
+ 0003:00002210       _swigc__p_qvectorT_rangeset_t_const_p_t 0000000180015210     diskio.obj
+ 0003:00002250       _swigc__p_qvectorT_rangeset_t_t 0000000180015250     diskio.obj
+ 0003:00002290       _swigc__p_qvectorT_refinfo_desc_t_t 0000000180015290     diskio.obj
+ 0003:000022d0       _swigc__p_qvectorT_simd_info_t_t 00000001800152d0     diskio.obj
+ 0003:00002310       _swigc__p_qvectorT_simpleline_t_t 0000000180015310     diskio.obj
+ 0003:00002350       _swigc__p_qvectorT_size_t_t 0000000180015350     diskio.obj
+ 0003:00002390       _swigc__p_qvectorT_tinfo_t_t 0000000180015390     diskio.obj
+ 0003:000023d0       _swigc__p_qvectorT_type_attr_t_t 00000001800153d0     diskio.obj
+ 0003:00002410       _swigc__p_qvectorT_udt_member_t_t 0000000180015410     diskio.obj
+ 0003:00002450       _swigc__p_relobj_t         0000000180015450     diskio.obj
+ 0003:00002490       _swigc__p_bytevec_t        0000000180015490     diskio.obj
+ 0003:000024d0       _swigc__p_reloc_info_t     00000001800154d0     diskio.obj
+ 0003:00002510       _swigc__p_qvectorT_unsigned_char_t 0000000180015510     diskio.obj
+ 0003:000025b0       _swigc__p_qvectorT_unsigned_int_t 00000001800155b0     diskio.obj
+ 0003:000025f0       _swigc__p_short            00000001800155f0     diskio.obj
+ 0003:00002630       _swigc__p_signed_char      0000000180015630     diskio.obj
+ 0003:00002670       _swigc__p_unsigned_char    0000000180015670     diskio.obj
+ 0003:000026b0       _swigc__p_unsigned_int     00000001800156b0     diskio.obj
+ 0003:000026f0       _swigc__p_unsigned_long_long 00000001800156f0     diskio.obj
+ 0003:00002730       _swigc__p_unsigned_short   0000000180015730     diskio.obj
+ 0003:00002770       swig_cast_initial          0000000180015770     diskio.obj
  0003:000029b0       ?swigobject_doc@?1??SwigPyObject_TypeOnce@@9@4PADA 00000001800159b0     diskio.obj
  0003:000029e0       ?swigpacked_doc@?1??SwigPyPacked_TypeOnce@@9@4PADA 00000001800159e0     diskio.obj
  0003:00002a10       ?SWIG_module@?1??PyInit__ida_diskio@@9@4UPyModuleDef@@A 0000000180015a10     diskio.obj
- 0003:00002bd0       swig_const_table           0000000180015bd0     diskio.obj
- 0003:00002c30       ?swig_types@@3PAPEAUswig_type_info@@A 0000000180015c30     diskio.obj
- 0003:00002e78       ?bytearray_linput_data_vec@@3V?$qvector@Ubytearray_linput_data_t@@@@A 0000000180015e78     diskio.obj
- 0003:00002e90       Swig_This_global           0000000180015e90     diskio.obj
+ 0003:00002c00       ?swig_types@@3PAPEAUswig_type_info@@A 0000000180015c00     diskio.obj
+ 0003:00002e48       ?bytearray_linput_data_vec@@3V?$qvector@Ubytearray_linput_data_t@@@@A 0000000180015e48     diskio.obj
+ 0003:00002e60       Swig_This_global           0000000180015e60     diskio.obj
+ 0003:00002e68       swig_const_table           0000000180015e68     diskio.obj
  0003:00002ea0       ?type@?1??SwigPyObject_type@@9@4PEAU_typeobject@@EA 0000000180015ea0     diskio.obj
  0003:00002ea8       ?$TSS0@?1??SwigPyObject_type@@9@4HA 0000000180015ea8     diskio.obj
  0003:00002eb0       ?type@?1??SwigPyPacked_type@@9@4PEAU_typeobject@@EA 0000000180015eb0     diskio.obj
@@ -2334,9 +2334,9 @@
  0004:00000e28       $pdata$?filt$0@?0??dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z@4HA 0000000180017e28     MSVCRT:dll_dllmain.obj
  0004:00000e34       $pdata$_DllMainCRTStartup  0000000180017e34     MSVCRT:dll_dllmain.obj
  0004:00000e40       $pdata$??0exception@std@@QEAA@AEBV01@@Z 0000000180017e40     MSVCRT:throw_bad_alloc.obj
+ 0004:00000e4c       $pdata$??_Gexception@std@@UEAAPEAXI@Z 0000000180017e4c     MSVCRT:throw_bad_alloc.obj
  0004:00000e4c       $pdata$??_Gbad_array_new_length@std@@UEAAPEAXI@Z 0000000180017e4c     MSVCRT:throw_bad_alloc.obj
  0004:00000e4c       $pdata$??_Gbad_alloc@std@@UEAAPEAXI@Z 0000000180017e4c     MSVCRT:throw_bad_alloc.obj
- 0004:00000e4c       $pdata$??_Gexception@std@@UEAAPEAXI@Z 0000000180017e4c     MSVCRT:throw_bad_alloc.obj
  0004:00000e58       $pdata$??0bad_alloc@std@@QEAA@AEBV01@@Z 0000000180017e58     MSVCRT:throw_bad_alloc.obj
  0004:00000e64       $pdata$??0bad_array_new_length@std@@QEAA@AEBV01@@Z 0000000180017e64     MSVCRT:throw_bad_alloc.obj
  0004:00000e70       $pdata$?__scrt_throw_std_bad_alloc@@YAXXZ 0000000180017e70     MSVCRT:throw_bad_alloc.obj

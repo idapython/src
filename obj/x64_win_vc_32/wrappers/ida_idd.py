@@ -1193,7 +1193,7 @@ def dbg_get_memory_info(*args):
     return _ida_idd.dbg_get_memory_info(*args)
 
 def appcall(*args):
-    r"""appcall(func_ea, tid, py_type, py_fields, arg_list) -> PyObject *"""
+    r"""appcall(func_ea, tid, _type_or_none, _fields, arg_list) -> PyObject *"""
     return _ida_idd.appcall(*args)
 
 def get_event_module_name(*args):

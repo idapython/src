@@ -441,7 +441,7 @@ void py_graph_t::on_user_refresh(mutable_graph_t *g)
             newref_t id(PySequence_GetItem(item.o, j));
             if ( id == NULL || !IDAPyInt_Check(id.o) )
               break;
-            int v = int(PyInt_AS_LONG(id.o));
+            int v = int(IDAPyInt_AsLong(id.o));
             if ( v > max_nodes )
               break;
             edge_ids[j] = v;

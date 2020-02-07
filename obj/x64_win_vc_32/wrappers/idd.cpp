@@ -3994,8 +3994,8 @@ SWIG_AsCharPtrAndSize(PyObject *obj, char** cptr, size_t* psize, int *alloc)
 PyObject *py_appcall(
         ea_t func_ea,
         thid_t tid,
-        PyObject *py_type,
-        PyObject *py_fields,
+        const bytevec_t &_type_or_none,
+        const bytevec_t &_fields,
         PyObject *arg_list)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -4288,6 +4288,7 @@ static PyObject *dbg_write_memory(PyObject *py_ea, PyObject *py_buf)
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
   uint64 ea;
+  qstring buf;
   if ( !dbg_can_query() || !IDAPyStr_Check(py_buf) || !PyW_GetNumber(py_ea, &ea) )
     Py_RETURN_NONE;
 
@@ -4353,8 +4354,8 @@ static PyObject *dbg_get_memory_info()
 PyObject *py_appcall(
         ea_t func_ea,
         thid_t tid,
-        PyObject *py_type,
-        PyObject *py_fields,
+        const bytevec_t &_type_or_none,
+        const bytevec_t &_fields,
         PyObject *arg_list);
 
 char get_event_module_name(const debug_event_t *ev, char *buf, size_t bufsize)
@@ -19109,8 +19110,8 @@ SWIGINTERN PyObject *_wrap_appcall(PyObject *SWIGUNUSEDPARM(self), PyObject *arg
   PyObject *resultobj = 0;
   ea_t arg1 ;
   thid_t arg2 ;
-  PyObject *arg3 = (PyObject *) 0 ;
-  PyObject *arg4 = (PyObject *) 0 ;
+  bytevec_t *arg3 = 0 ;
+  bytevec_t *arg4 = 0 ;
   PyObject *arg5 = (PyObject *) 0 ;
   int val2 ;
   int ecode2 = 0 ;
@@ -19132,13 +19133,45 @@ SWIGINTERN PyObject *_wrap_appcall(PyObject *SWIGUNUSEDPARM(self), PyObject *arg
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "appcall" "', argument " "2"" of type '" "thid_t""'");
   } 
   arg2 = static_cast< thid_t >(val2);
-  arg3 = swig_obj[2];
-  arg4 = swig_obj[3];
+  {
+    // bytes_container bytevec_t &, bytevec_t typemap(in)
+    if ( IDAPyStr_Check(swig_obj[2]) )
+    {
+      // init properly, so ctor can't crash
+      char *buf = NULL;
+      Py_ssize_t length = 0;
+      /*int success =*/ IDAPyBytes_AsMemAndSize(swig_obj[2], &buf, &length);
+      arg3 = new bytevec_t( buf, length); // build regardless of success
+    }
+    else
+    {
+      SWIG_exception_fail(
+        SWIG_ValueError,
+        "Expected string " "in method '" "appcall" "', argument " "3"" of type 'str'");
+    }
+  }
+  {
+    // bytes_container bytevec_t &, bytevec_t typemap(in)
+    if ( IDAPyStr_Check(swig_obj[3]) )
+    {
+      // init properly, so ctor can't crash
+      char *buf = NULL;
+      Py_ssize_t length = 0;
+      /*int success =*/ IDAPyBytes_AsMemAndSize(swig_obj[3], &buf, &length);
+      arg4 = new bytevec_t( buf, length); // build regardless of success
+    }
+    else
+    {
+      SWIG_exception_fail(
+        SWIG_ValueError,
+        "Expected string " "in method '" "appcall" "', argument " "4"" of type 'str'");
+    }
+  }
   arg5 = swig_obj[4];
   {
     try
     {
-      result = (PyObject *)py_appcall(arg1,arg2,arg3,arg4,arg5);
+      result = (PyObject *)py_appcall(arg1,arg2,(bytevec_t const &)*arg3,(bytevec_t const &)*arg4,arg5);
     }
     catch ( const std::bad_alloc &ba ) {
       __raise_ba(ba); SWIG_fail; 
@@ -19160,8 +19193,24 @@ SWIGINTERN PyObject *_wrap_appcall(PyObject *SWIGUNUSEDPARM(self), PyObject *arg
     }
   }
   resultobj = result;
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg3;
+  }
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg4;
+  }
   return resultobj;
 fail:
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg3;
+  }
+  {
+    // bytes_container bytevec_t & typemap(freearg)
+    delete arg4;
+  }
   return NULL;
 }
 
@@ -20043,7 +20092,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "dbg_write_memory", _wrap_dbg_write_memory, METH_VARARGS, "dbg_write_memory(py_ea, py_buf) -> PyObject *"},
 	 { "dbg_get_name", _wrap_dbg_get_name, METH_NOARGS, "dbg_get_name() -> PyObject *"},
 	 { "dbg_get_memory_info", _wrap_dbg_get_memory_info, METH_NOARGS, "dbg_get_memory_info() -> PyObject *"},
-	 { "appcall", _wrap_appcall, METH_VARARGS, "appcall(func_ea, tid, py_type, py_fields, arg_list) -> PyObject *"},
+	 { "appcall", _wrap_appcall, METH_VARARGS, "appcall(func_ea, tid, _type_or_none, _fields, arg_list) -> PyObject *"},
 	 { "get_event_module_name", _wrap_get_event_module_name, METH_O, "get_event_module_name(ev) -> char"},
 	 { "get_event_module_base", _wrap_get_event_module_base, METH_O, "get_event_module_base(ev) -> ea_t"},
 	 { "get_event_module_size", _wrap_get_event_module_size, METH_O, "get_event_module_size(ev) -> asize_t"},

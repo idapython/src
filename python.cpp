@@ -32,8 +32,12 @@
 #include <kernwin.hpp>
 #include <ida_highlighter.hpp>
 
+#include "extrapi.hpp"
+#include "extrapi.cpp"
+
 #include "pywraps.hpp"
 #include "pywraps.cpp"
+
 
 //-------------------------------------------------------------------------
 // Defines and constants
@@ -53,6 +57,8 @@ static const char S_IDC_RUNPYTHON_STATEMENT[] =  "RunPythonStatement";
 static const char S_IDAPYTHON_DATA_NODE[] =      "IDAPython_Data";
 
 #define PYCODE_OBJECT_TO_PYEVAL_ARG(Expr) (Expr)
+
+ext_api_t extapi;
 
 //-------------------------------------------------------------------------
 // Types
@@ -152,7 +158,8 @@ static bool g_namespace_aware = true;
 struct exec_entry_t
 {
   time_t etime;
-  exec_entry_t() { etime = time(NULL); }
+  exec_entry_t() { reset_start_time(); }
+  void reset_start_time() { etime = time(NULL); }
 };
 DECLARE_TYPE_AS_MOVABLE(exec_entry_t);
 typedef qvector<exec_entry_t> exec_entries_t;
@@ -214,7 +221,7 @@ void execution_t::reset_steps()
 void execution_t::push()
 {
   if ( entries.empty() )
-    PyEval_SetTrace(execution_t::on_trace, NULL);
+    extapi.PyEval_SetTrace_ptr((Py_tracefunc) execution_t::on_trace, NULL); //lint !e611 cast between pointer to function type '' and pointer to object type 'void *'
   entries.push_back();
   LEXEC("push() (now: %d entries)\n", int(entries.size()));
 }
@@ -231,7 +238,7 @@ void execution_t::pop()
 //-------------------------------------------------------------------------
 void execution_t::stop_tracking()
 {
-  PyEval_SetTrace(NULL, NULL);
+  extapi.PyEval_SetTrace_ptr(NULL, NULL);
   maybe_hide_waitdialog();
 }
 
@@ -405,6 +412,12 @@ static PyObject *get_module_globals(const char *modname=NULL)
   return module == NULL ? NULL : PyModule_GetDict(module);
 }
 
+static const char *bomify(qstring *out)
+{
+  out->insert(0, UTF8_BOM, UTF8_BOM_SZ);
+  return out->c_str();
+}
+
 //------------------------------------------------------------------------
 static void PythonEvalOrExec(
         const char *str,
@@ -412,15 +425,15 @@ static void PythonEvalOrExec(
 {
   // Compile as an expression
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  PyCompilerFlags cf = {0};
-  newref_t py_code(Py_CompileStringFlags(str, filename, Py_eval_input, &cf));
+  qstring qstr(str);
+  newref_t py_code(Py_CompileString(bomify(&qstr), filename, Py_eval_input));
   if ( py_code == NULL || PyErr_Occurred() )
   {
     // Not an expression?
     PyErr_Clear();
 
     // Run as a string
-    PyRun_SimpleString(str);
+    extapi.PyRun_SimpleString_ptr(str);
   }
   else
   {
@@ -483,7 +496,7 @@ static bool idaapi IDAPython_extlang_eval_snippet(
     PyErr_Clear();
     {
       new_execution_t exec;
-      newref_t result(PyRun_String(
+      newref_t result(extapi.PyRun_String_ptr(
                               str,
                               Py_file_input,
                               globals,
@@ -637,7 +650,7 @@ void IDAPython_RunStatement(void)
     {
       PYW_GIL_GET;
       new_execution_t exec;
-      PyRun_SimpleString(qbuf.c_str());
+       extapi.PyRun_SimpleString_ptr(qbuf.c_str());
     }
 
     // Store the statement to the database
@@ -854,7 +867,7 @@ static bool idaapi IDAPython_extlang_call_func(
       break;
     }
 
-    borref_t code(PyFunction_GetCode(func));
+    borref_t code(extapi.PyFunction_GetCode_ptr(func));
     qvector<PyObject*> pargs_ptrs;
     pargs.to_pyobject_pointers(&pargs_ptrs);
     newref_t py_res(PyEval_EvalCodeEx(
@@ -895,7 +908,8 @@ static bool idaapi IDAPython_extlang_compile_expr(
   PyObject *globals = get_module_globals();
   bool isfunc = false;
 
-  PyCodeObject *code = (PyCodeObject *)Py_CompileString(expr, "<string>", Py_eval_input);
+  qstring qstr(expr);
+  PyObject *code = Py_CompileString(bomify(&qstr), "<string>", Py_eval_input);
   if ( code == NULL )
   {
     // try compiling as a list of statements
@@ -903,7 +917,8 @@ static bool idaapi IDAPython_extlang_compile_expr(
     handle_python_error(errbuf);
     qstring func;
     wrap_in_function(&func, expr, name);
-    code = (PyCodeObject *)Py_CompileString(func.c_str(), "<string>", Py_file_input);
+    bomify(&func);
+    code = Py_CompileString(func.c_str(), "<string>", Py_file_input);
     if ( code == NULL )
     {
       handle_python_error(errbuf);
@@ -912,12 +927,8 @@ static bool idaapi IDAPython_extlang_compile_expr(
     isfunc = true;
   }
 
-  // Set the desired function name
-  Py_XDECREF(code->co_name);
-  code->co_name = IDAPyStr_FromUTF8(name);
-
   // Create a function out of code
-  PyObject *func = PyFunction_New((PyObject *)code, globals);
+  PyObject *func = extapi.PyFunction_New_ptr(code, globals);
 
   if ( func == NULL )
   {
@@ -1227,7 +1238,7 @@ static bool idaapi IDAPython_extlang_eval_expr(
   {
     {
       new_execution_t exec;
-      result = newref_t(PyRun_String(expr, Py_eval_input, globals, globals));
+      result = newref_t(extapi.PyRun_String_ptr(expr, Py_eval_input, globals, globals));
     }
     ok = return_python_result(rv, result, errbuf);
   }
@@ -1628,7 +1639,7 @@ static ssize_t idaapi on_ui_notification(void *, int code, va_list)
       {
         PYW_GIL_GET; // See above
         g_ui_ready = true;
-        PyRun_SimpleString("print_banner()");
+         extapi.PyRun_SimpleString_ptr("print_banner()");
         if ( g_run_when == RUN_ON_UI_READY )
           RunScript(g_run_script);
       }
@@ -1803,17 +1814,30 @@ static void init_ida_modules()
 // Initialize the Python environment
 bool IDAPython_Init(void)
 {
+
+  msg("!!!!0000\n");  
   if ( Py_IsInitialized() != 0 )
     return true;
 
   // Form the absolute path to IDA\python folder
-  qstrncpy(g_idapython_dir, idadir(PYTHON_DIR_NAME), sizeof(g_idapython_dir));
+   qmakepath(g_idapython_dir, sizeof(g_idapython_dir),
+            idadir(PYTHON_DIR_NAME),
+            NULL);
 
   // Check for the presence of essential files
   if ( !check_python_dir() )
+  {
     return false;
+  }
 
   char path[QMAXPATH];
+
+  qstring errbuf;
+  if ( !extapi.load(&errbuf) )
+  {
+    warning("Couldn't initialize IDAPython: %s", errbuf.c_str());
+    return false;
+  }
 #ifdef __LINUX__
   // Export symbols from libpython to resolve imported module deps
   // use the standard soname: libpython2.7.so.1.0
@@ -1847,6 +1871,8 @@ bool IDAPython_Init(void)
   }
 #endif
 
+
+msg("!!!!0000\n");  
   // Read configuration value
   read_config_file("python.cfg", opts, qnumber(opts));
   if ( g_alert_auto_scripts )
@@ -1884,7 +1910,7 @@ bool IDAPython_Init(void)
   }
 
   // don't import "site" right now
-  Py_NoSiteFlag = 1;
+  //Py_NoSiteFlag = 1;
 
   // Start the interpreter
   Py_InitializeEx(0 /* Don't catch SIGPIPE, SIGXFZ, SIGXFSZ & SIGINT signals */);
@@ -1910,6 +1936,8 @@ bool IDAPython_Init(void)
     PyEval_InitThreads();
 
   init_ida_modules();
+
+  msg("!!!!-111111111\n"); 
 
 #ifdef Py_DEBUG
   msg("HexraysPython: Python compiled with DEBUG enabled.\n");
@@ -1940,20 +1968,26 @@ bool IDAPython_Init(void)
 #endif
                   );
 
-  if ( PyRun_SimpleString(init_code.c_str()) != 0 )
+   msg("!!!!0000\n");                
+
+  if (  extapi.PyRun_SimpleString_ptr(init_code.c_str()) != 0 )
   {
     warning("IDAPython: error executing bootstrap code");
     return false;
   }
+  msg("!!!!1111\n");
+
 
   // Install extlang. Needs to be done before running init.py
   // in case it's calling idaapi.enable_extlang_python(1)
   if ( g_namespace_aware )
     extlang_python.flags |= EXTLANG_NS_AWARE;
   install_extlang(&extlang_python);
+  
+  msg("!!!!!!222222\n");
 
   // Execute init.py (for Python side initialization)
-  qmakepath(path, MAXSTR, g_idapython_dir, S_INIT_PY, NULL);
+  qmakepath(path, MAXSTR, g_idapython_dir, S_INIT_PY);
   if ( !PyRunFile(path) )
   {
     qstring errbuf;
@@ -1961,18 +1995,20 @@ bool IDAPython_Init(void)
     // Try to fetch a one line error string. We must do it before printing
     // the traceback information. Make sure that the exception is not cleared
     handle_python_error(&errbuf, false);
-
+     msg("!!!!!!3333 %s\n", path);
     // Print the exception traceback
-    PyRun_SimpleString("import traceback;traceback.print_exc();");
+     extapi.PyRun_SimpleString_ptr("import traceback;traceback.print_exc();");
 
     warning("IDAPython: error executing " S_INIT_PY ":\n"
             "%s\n"
             "\n"
             "Refer to the message window to see the full error log.", errbuf.c_str());
+
+    msg("!!!!!!xxxxx %s\n", path);
     remove_extlang(&extlang_python);
     return false;
   }
-
+    msg("!!!!!!3333\n");
   // Init pywraps and notify_when
   if ( !init_pywraps() || !pywraps_nw_init() )
   {
@@ -1982,7 +2018,7 @@ bool IDAPython_Init(void)
   }
 
 #ifdef ENABLE_PYTHON_PROFILING
-  PyEval_SetTrace(tracefunc, NULL);
+  extapi.PyEval_SetTrace_ptr(tracefunc, NULL);
 #endif
 
 
@@ -2007,6 +2043,7 @@ bool IDAPython_Init(void)
   PyEval_ReleaseThread(PyThreadState_Get());
 
   g_instance_initialized = true;
+    msg("!!!!!!444444\n");
   return true;
 }
 

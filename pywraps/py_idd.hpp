@@ -3,8 +3,8 @@
 PyObject *py_appcall(
         ea_t func_ea,
         thid_t tid,
-        PyObject *py_type,
-        PyObject *py_fields,
+        const bytevec_t &_type_or_none,
+        const bytevec_t &_fields,
         PyObject *arg_list)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -298,6 +298,7 @@ static PyObject *dbg_write_memory(PyObject *py_ea, PyObject *py_buf)
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
   uint64 ea;
+  qstring buf;
   if ( !dbg_can_query() || !IDAPyStr_Check(py_buf) || !PyW_GetNumber(py_ea, &ea) )
     Py_RETURN_NONE;
 
@@ -363,8 +364,8 @@ static PyObject *dbg_get_memory_info()
 PyObject *py_appcall(
         ea_t func_ea,
         thid_t tid,
-        PyObject *py_type,
-        PyObject *py_fields,
+        const bytevec_t &_type_or_none,
+        const bytevec_t &_fields,
         PyObject *arg_list);
 
 char get_event_module_name(const debug_event_t *ev, char *buf, size_t bufsize)

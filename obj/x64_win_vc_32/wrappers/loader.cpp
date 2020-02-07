@@ -4132,7 +4132,7 @@ static bool py_run_plugin(PyObject *plg, int arg)
   }
   else
   {
-    plugin_t *p = (plugin_t *)PyCObject_AsVoidPtr(plg);
+    plugin_t *p = (plugin_t *)PyCapsule_GetPointer(plg, VALID_CAPSULE_NAME);
     bool rc;
     Py_BEGIN_ALLOW_THREADS;
     rc = run_plugin(p, arg);

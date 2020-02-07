@@ -20,7 +20,6 @@ import traceback
 import os
 import sys
 import bisect
-import __builtin__
 import imp
 import re
 
@@ -51,7 +50,12 @@ def require(modulename, package=None):
     if importer_module is None: # No importer module; called from command line
         importer_module = sys.modules['__main__']
     if modulename in sys.modules.keys():
-        reload(sys.modules[modulename])
+        m = sys.modules[modulename]
+        if sys.version_info.major >= 3:
+            import importlib
+            importlib.reload(m)
+        else:
+            reload(m)
         m = sys.modules[modulename]
     else:
         import importlib
@@ -425,8 +429,11 @@ def IDAPython_ExecScript(script, g, print_error=True):
     sys.argv = [ script ]
 
     # Adjust the __file__ path in the globals we pass to the script
-    old__file__ = g['__file__'] if '__file__' in g else ''
-    g['__file__'] = script
+    FILE_ATTR = "__file__"
+    has__file__ = FILE_ATTR in g
+    if has__file__:
+        old__file__ = g[FILE_ATTR]
+    g[FILE_ATTR] = script
 
     try:
         execfile(script, g)
@@ -437,7 +444,10 @@ def IDAPython_ExecScript(script, g, print_error=True):
             print(PY_COMPILE_ERR)
     finally:
         # Restore state
-        g['__file__'] = old__file__
+        if has__file__:
+            g[FILE_ATTR] = old__file__
+        else:
+            del g[FILE_ATTR]
         sys.argv = argv
 
     return PY_COMPILE_ERR

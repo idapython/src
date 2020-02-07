@@ -1,6 +1,6 @@
  _ida_auto
 
- Timestamp is 5e39b2b0 (Tue Feb  4 18:06:40 2020)
+ Timestamp is 5e3da071 (Fri Feb  7 17:37:53 2020)
 
  Preferred load address is 0000000180000000
 
@@ -47,19 +47,19 @@
 
   Address         Publics by Value              Rva+Base               Lib:Object
 
- 0000:00000000       __guard_iat_count          0000000000000000     <absolute>
- 0000:00000000       __volatile_metadata        0000000000000000     <absolute>
- 0000:00000000       __guard_iat_table          0000000000000000     <absolute>
- 0000:00000000       __enclave_config           0000000000000000     <absolute>
- 0000:00000000       __dynamic_value_reloc_table 0000000000000000     <absolute>
  0000:00000000       __hybrid_code_map          0000000000000000     <absolute>
- 0000:00000000       __guard_longjmp_count      0000000000000000     <absolute>
- 0000:00000000       ___safe_se_handler_table   0000000000000000     <absolute>
+ 0000:00000000       __volatile_metadata        0000000000000000     <absolute>
  0000:00000000       __hybrid_code_map_count    0000000000000000     <absolute>
+ 0000:00000000       __guard_fids_count         0000000000000000     <absolute>
+ 0000:00000000       __dynamic_value_reloc_table 0000000000000000     <absolute>
+ 0000:00000000       __enclave_config           0000000000000000     <absolute>
+ 0000:00000000       __guard_iat_count          0000000000000000     <absolute>
+ 0000:00000000       __guard_longjmp_table      0000000000000000     <absolute>
+ 0000:00000000       __guard_iat_table          0000000000000000     <absolute>
+ 0000:00000000       ___safe_se_handler_table   0000000000000000     <absolute>
  0000:00000000       ___safe_se_handler_count   0000000000000000     <absolute>
  0000:00000000       __guard_fids_table         0000000000000000     <absolute>
- 0000:00000000       __guard_longjmp_table      0000000000000000     <absolute>
- 0000:00000000       __guard_fids_count         0000000000000000     <absolute>
+ 0000:00000000       __guard_longjmp_count      0000000000000000     <absolute>
  0000:00000000       __hybrid_auxiliary_iat     0000000000000000     <absolute>
  0000:00000100       __guard_flags              0000000000000100     <absolute>
  0000:00000000       __ImageBase                0000000180000000     <linker-defined>
@@ -102,22 +102,22 @@
  0001:00005b38       __GSHandlerCheckCommon     0000000180006b38 f   MSVCRT:gshandler.obj
  0001:00005b94       __GSHandlerCheck_EH        0000000180006b94 f   MSVCRT:gshandlereh.obj
  0001:00005c30       __security_check_cookie    0000000180006c30 f   MSVCRT:amdsecgs.obj
- 0001:00005c54       ??_Etype_info@@UEAAPEAXI@Z 0000000180006c54 f i MSVCRT:std_type_info_static.obj
  0001:00005c54       ??_Gtype_info@@UEAAPEAXI@Z 0000000180006c54 f i MSVCRT:std_type_info_static.obj
+ 0001:00005c54       ??_Etype_info@@UEAAPEAXI@Z 0000000180006c54 f i MSVCRT:std_type_info_static.obj
  0001:00005fb0       _DllMainCRTStartup         0000000180006fb0 f   MSVCRT:dll_dllmain.obj
  0001:00005ff0       ??0bad_alloc@std@@QEAA@AEBV01@@Z 0000000180006ff0 f i MSVCRT:throw_bad_alloc.obj
  0001:00006030       ??0bad_alloc@std@@QEAA@XZ  0000000180007030 f i MSVCRT:throw_bad_alloc.obj
  0001:00006050       ??0bad_array_new_length@std@@QEAA@AEBV01@@Z 0000000180007050 f i MSVCRT:throw_bad_alloc.obj
  0001:00006090       ??0bad_array_new_length@std@@QEAA@XZ 0000000180007090 f i MSVCRT:throw_bad_alloc.obj
  0001:000060b0       ??0exception@std@@QEAA@AEBV01@@Z 00000001800070b0 f i MSVCRT:throw_bad_alloc.obj
- 0001:000060e8       ??1bad_array_new_length@std@@UEAA@XZ 00000001800070e8 f i MSVCRT:throw_bad_alloc.obj
  0001:000060e8       ??1bad_alloc@std@@UEAA@XZ  00000001800070e8 f i MSVCRT:throw_bad_alloc.obj
+ 0001:000060e8       ??1bad_array_new_length@std@@UEAA@XZ 00000001800070e8 f i MSVCRT:throw_bad_alloc.obj
+ 0001:000060fc       ??_Eexception@std@@UEAAPEAXI@Z 00000001800070fc f i MSVCRT:throw_bad_alloc.obj
+ 0001:000060fc       ??_Gbad_alloc@std@@UEAAPEAXI@Z 00000001800070fc f i MSVCRT:throw_bad_alloc.obj
+ 0001:000060fc       ??_Ebad_alloc@std@@UEAAPEAXI@Z 00000001800070fc f i MSVCRT:throw_bad_alloc.obj
  0001:000060fc       ??_Gexception@std@@UEAAPEAXI@Z 00000001800070fc f i MSVCRT:throw_bad_alloc.obj
  0001:000060fc       ??_Ebad_array_new_length@std@@UEAAPEAXI@Z 00000001800070fc f i MSVCRT:throw_bad_alloc.obj
  0001:000060fc       ??_Gbad_array_new_length@std@@UEAAPEAXI@Z 00000001800070fc f i MSVCRT:throw_bad_alloc.obj
- 0001:000060fc       ??_Gbad_alloc@std@@UEAAPEAXI@Z 00000001800070fc f i MSVCRT:throw_bad_alloc.obj
- 0001:000060fc       ??_Eexception@std@@UEAAPEAXI@Z 00000001800070fc f i MSVCRT:throw_bad_alloc.obj
- 0001:000060fc       ??_Ebad_alloc@std@@UEAAPEAXI@Z 00000001800070fc f i MSVCRT:throw_bad_alloc.obj
  0001:00006140       ?__scrt_throw_std_bad_alloc@@YAXXZ 0000000180007140 f   MSVCRT:throw_bad_alloc.obj
  0001:00006160       ?__scrt_throw_std_bad_array_new_length@@YAXXZ 0000000180007160 f   MSVCRT:throw_bad_alloc.obj
  0001:00006180       ?what@exception@std@@UEBAPEBDXZ 0000000180007180 f i MSVCRT:throw_bad_alloc.obj
@@ -178,21 +178,21 @@
  0001:00006bfe       _execute_onexit_table      0000000180007bfe f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
  0001:00006c04       _crt_atexit                0000000180007c04 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
  0001:00006c0a       _cexit                     0000000180007c0a f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0001:00006c10       __acrt_initialize          0000000180007c10 f   MSVCRT:ucrt_stubs.obj
- 0001:00006c10       __scrt_stub_for_acrt_uninitialize_critical 0000000180007c10 f   MSVCRT:ucrt_stubs.obj
- 0001:00006c10       __vcrt_uninitialize        0000000180007c10 f   MSVCRT:ucrt_stubs.obj
- 0001:00006c10       __acrt_thread_detach       0000000180007c10 f   MSVCRT:ucrt_stubs.obj
- 0001:00006c10       __acrt_uninitialize_critical 0000000180007c10 f   MSVCRT:ucrt_stubs.obj
- 0001:00006c10       __acrt_thread_attach       0000000180007c10 f   MSVCRT:ucrt_stubs.obj
+ 0001:00006c10       __vcrt_initialize          0000000180007c10 f   MSVCRT:ucrt_stubs.obj
  0001:00006c10       __vcrt_thread_detach       0000000180007c10 f   MSVCRT:ucrt_stubs.obj
+ 0001:00006c10       __scrt_stub_for_acrt_initialize 0000000180007c10 f   MSVCRT:ucrt_stubs.obj
+ 0001:00006c10       __acrt_uninitialize        0000000180007c10 f   MSVCRT:ucrt_stubs.obj
+ 0001:00006c10       __vcrt_uninitialize        0000000180007c10 f   MSVCRT:ucrt_stubs.obj
+ 0001:00006c10       __vcrt_thread_attach       0000000180007c10 f   MSVCRT:ucrt_stubs.obj
+ 0001:00006c10       __acrt_initialize          0000000180007c10 f   MSVCRT:ucrt_stubs.obj
  0001:00006c10       __scrt_stub_for_acrt_thread_attach 0000000180007c10 f   MSVCRT:ucrt_stubs.obj
  0001:00006c10       __scrt_stub_for_acrt_thread_detach 0000000180007c10 f   MSVCRT:ucrt_stubs.obj
- 0001:00006c10       __vcrt_initialize          0000000180007c10 f   MSVCRT:ucrt_stubs.obj
- 0001:00006c10       __scrt_stub_for_acrt_uninitialize 0000000180007c10 f   MSVCRT:ucrt_stubs.obj
+ 0001:00006c10       __acrt_thread_detach       0000000180007c10 f   MSVCRT:ucrt_stubs.obj
  0001:00006c10       __vcrt_uninitialize_critical 0000000180007c10 f   MSVCRT:ucrt_stubs.obj
- 0001:00006c10       __acrt_uninitialize        0000000180007c10 f   MSVCRT:ucrt_stubs.obj
- 0001:00006c10       __scrt_stub_for_acrt_initialize 0000000180007c10 f   MSVCRT:ucrt_stubs.obj
- 0001:00006c10       __vcrt_thread_attach       0000000180007c10 f   MSVCRT:ucrt_stubs.obj
+ 0001:00006c10       __scrt_stub_for_acrt_uninitialize_critical 0000000180007c10 f   MSVCRT:ucrt_stubs.obj
+ 0001:00006c10       __acrt_uninitialize_critical 0000000180007c10 f   MSVCRT:ucrt_stubs.obj
+ 0001:00006c10       __scrt_stub_for_acrt_uninitialize 0000000180007c10 f   MSVCRT:ucrt_stubs.obj
+ 0001:00006c10       __acrt_thread_attach       0000000180007c10 f   MSVCRT:ucrt_stubs.obj
  0001:00006c14       __scrt_stub_for_is_c_termination_complete 0000000180007c14 f   MSVCRT:ucrt_stubs.obj
  0001:00006c14       _is_c_termination_complete 0000000180007c14 f   MSVCRT:ucrt_stubs.obj
  0001:00006c30       _guard_dispatch_icall_nop  0000000180007c30 f   MSVCRT:guard_dispatch.obj
@@ -282,76 +282,76 @@
  0002:00000298       \177ida_NULL_THUNK_DATA    000000018000b298     ida:ida.dll
  0002:000002a0       __imp_PyW_GetNumber        000000018000b2a0     python:python.dll
  0002:000002a8       \177python_NULL_THUNK_DATA 000000018000b2a8     python:python.dll
- 0002:000002b0       __imp_PyExc_SystemError    000000018000b2b0     python37:python37.dll
- 0002:000002b8       __imp_PyExc_ZeroDivisionError 000000018000b2b8     python37:python37.dll
- 0002:000002c0       __imp_PyExc_IOError        000000018000b2c0     python37:python37.dll
- 0002:000002c8       __imp_PyExc_SyntaxError    000000018000b2c8     python37:python37.dll
- 0002:000002d0       __imp_PyExc_ValueError     000000018000b2d0     python37:python37.dll
- 0002:000002d8       __imp_PyExc_TypeError      000000018000b2d8     python37:python37.dll
- 0002:000002e0       __imp_PyExc_RuntimeError   000000018000b2e0     python37:python37.dll
- 0002:000002e8       __imp_PyExc_OverflowError  000000018000b2e8     python37:python37.dll
- 0002:000002f0       __imp_PyExc_MemoryError    000000018000b2f0     python37:python37.dll
- 0002:000002f8       __imp_PyExc_IndexError     000000018000b2f8     python37:python37.dll
- 0002:00000300       __imp_PyExc_AttributeError 000000018000b300     python37:python37.dll
- 0002:00000308       __imp_PyBool_Type          000000018000b308     python37:python37.dll
- 0002:00000310       __imp__Py_NotImplementedStruct 000000018000b310     python37:python37.dll
- 0002:00000318       __imp__Py_NoneStruct       000000018000b318     python37:python37.dll
- 0002:00000320       __imp_PyObject_IsInstance  000000018000b320     python37:python37.dll
- 0002:00000328       __imp_PyObject_CallFunctionObjArgs 000000018000b328     python37:python37.dll
- 0002:00000330       __imp_PyObject_Call        000000018000b330     python37:python37.dll
- 0002:00000338       __imp_PyImport_AddModule   000000018000b338     python37:python37.dll
- 0002:00000340       __imp_PyEval_InitThreads   000000018000b340     python37:python37.dll
- 0002:00000348       __imp_PyModule_Create2     000000018000b348     python37:python37.dll
- 0002:00000350       __imp_PyModule_AddObject   000000018000b350     python37:python37.dll
- 0002:00000358       __imp_PyArg_UnpackTuple    000000018000b358     python37:python37.dll
- 0002:00000360       __imp_PyErr_WriteUnraisable 000000018000b360     python37:python37.dll
- 0002:00000368       __imp_PyErr_Format         000000018000b368     python37:python37.dll
- 0002:00000370       __imp_PyErr_Restore        000000018000b370     python37:python37.dll
- 0002:00000378       __imp_PyErr_Fetch          000000018000b378     python37:python37.dll
- 0002:00000380       __imp_PyErr_Clear          000000018000b380     python37:python37.dll
- 0002:00000388       __imp_PyErr_Occurred       000000018000b388     python37:python37.dll
- 0002:00000390       __imp_PyErr_SetString      000000018000b390     python37:python37.dll
- 0002:00000398       __imp_PyGILState_Release   000000018000b398     python37:python37.dll
- 0002:000003a0       __imp_PyGILState_Ensure    000000018000b3a0     python37:python37.dll
- 0002:000003a8       __imp_PyCapsule_Import     000000018000b3a8     python37:python37.dll
- 0002:000003b0       __imp_PyCapsule_GetPointer 000000018000b3b0     python37:python37.dll
- 0002:000003b8       __imp_PyCapsule_New        000000018000b3b8     python37:python37.dll
- 0002:000003c0       __imp_PyModule_GetDict     000000018000b3c0     python37:python37.dll
- 0002:000003c8       __imp_PyCFunction_GetFlags 000000018000b3c8     python37:python37.dll
- 0002:000003d0       __imp_PyCFunction_GetSelf  000000018000b3d0     python37:python37.dll
- 0002:000003d8       __imp_PyCFunction_GetFunction 000000018000b3d8     python37:python37.dll
- 0002:000003e0       __imp_PyDict_SetItemString 000000018000b3e0     python37:python37.dll
- 0002:000003e8       __imp_PyDict_SetItem       000000018000b3e8     python37:python37.dll
- 0002:000003f0       __imp_PyDict_New           000000018000b3f0     python37:python37.dll
- 0002:000003f8       __imp_PyTuple_SetItem      000000018000b3f8     python37:python37.dll
- 0002:00000400       __imp_PyTuple_GetItem      000000018000b400     python37:python37.dll
- 0002:00000408       __imp_PyTuple_Size         000000018000b408     python37:python37.dll
- 0002:00000410       __imp_PyTuple_New          000000018000b410     python37:python37.dll
- 0002:00000418       __imp_PyBool_FromLong      000000018000b418     python37:python37.dll
- 0002:00000420       __imp_PyLong_FromUnsignedLongLong 000000018000b420     python37:python37.dll
- 0002:00000428       __imp_PyLong_FromVoidPtr   000000018000b428     python37:python37.dll
- 0002:00000430       __imp_PyLong_AsLong        000000018000b430     python37:python37.dll
- 0002:00000438       __imp_PyLong_FromLong      000000018000b438     python37:python37.dll
- 0002:00000440       __imp_PyUnicode_CompareWithASCIIString 000000018000b440     python37:python37.dll
- 0002:00000448       __imp_PyUnicode_Concat     000000018000b448     python37:python37.dll
- 0002:00000450       __imp_PyUnicode_InternFromString 000000018000b450     python37:python37.dll
- 0002:00000458       __imp_PyUnicode_FromFormat 000000018000b458     python37:python37.dll
- 0002:00000460       __imp_PyUnicode_FromString 000000018000b460     python37:python37.dll
- 0002:00000468       __imp__PyObject_New        000000018000b468     python37:python37.dll
- 0002:00000470       __imp_PyObject_Free        000000018000b470     python37:python37.dll
- 0002:00000478       __imp_Py_DecRef            000000018000b478     python37:python37.dll
- 0002:00000480       __imp__Py_Dealloc          000000018000b480     python37:python37.dll
- 0002:00000488       __imp_PyObject_IsTrue      000000018000b488     python37:python37.dll
- 0002:00000490       __imp_PyObject_GenericGetAttr 000000018000b490     python37:python37.dll
- 0002:00000498       __imp_PyObject_SetAttr     000000018000b498     python37:python37.dll
- 0002:000004a0       __imp_PyObject_GetAttr     000000018000b4a0     python37:python37.dll
- 0002:000004a8       __imp_PyObject_GetAttrString 000000018000b4a8     python37:python37.dll
- 0002:000004b0       __imp_PyType_Modified      000000018000b4b0     python37:python37.dll
- 0002:000004b8       __imp_PyType_GetFlags      000000018000b4b8     python37:python37.dll
- 0002:000004c0       __imp_PyType_GetSlot       000000018000b4c0     python37:python37.dll
- 0002:000004c8       __imp_PyType_FromSpec      000000018000b4c8     python37:python37.dll
- 0002:000004d0       __imp_PyType_Type          000000018000b4d0     python37:python37.dll
- 0002:000004d8       \177python37_NULL_THUNK_DATA 000000018000b4d8     python37:python37.dll
+ 0002:000002b0       __imp_PyExc_SystemError    000000018000b2b0     python38:python38.dll
+ 0002:000002b8       __imp_PyExc_ZeroDivisionError 000000018000b2b8     python38:python38.dll
+ 0002:000002c0       __imp_PyExc_IOError        000000018000b2c0     python38:python38.dll
+ 0002:000002c8       __imp_PyExc_SyntaxError    000000018000b2c8     python38:python38.dll
+ 0002:000002d0       __imp_PyExc_ValueError     000000018000b2d0     python38:python38.dll
+ 0002:000002d8       __imp_PyExc_TypeError      000000018000b2d8     python38:python38.dll
+ 0002:000002e0       __imp_PyExc_RuntimeError   000000018000b2e0     python38:python38.dll
+ 0002:000002e8       __imp_PyExc_OverflowError  000000018000b2e8     python38:python38.dll
+ 0002:000002f0       __imp_PyExc_MemoryError    000000018000b2f0     python38:python38.dll
+ 0002:000002f8       __imp_PyExc_IndexError     000000018000b2f8     python38:python38.dll
+ 0002:00000300       __imp_PyExc_AttributeError 000000018000b300     python38:python38.dll
+ 0002:00000308       __imp_PyBool_Type          000000018000b308     python38:python38.dll
+ 0002:00000310       __imp__Py_NotImplementedStruct 000000018000b310     python38:python38.dll
+ 0002:00000318       __imp__Py_NoneStruct       000000018000b318     python38:python38.dll
+ 0002:00000320       __imp_PyObject_IsInstance  000000018000b320     python38:python38.dll
+ 0002:00000328       __imp_PyObject_CallFunctionObjArgs 000000018000b328     python38:python38.dll
+ 0002:00000330       __imp_PyObject_Call        000000018000b330     python38:python38.dll
+ 0002:00000338       __imp_PyImport_AddModule   000000018000b338     python38:python38.dll
+ 0002:00000340       __imp_PyEval_InitThreads   000000018000b340     python38:python38.dll
+ 0002:00000348       __imp_PyModule_Create2     000000018000b348     python38:python38.dll
+ 0002:00000350       __imp_PyModule_AddObject   000000018000b350     python38:python38.dll
+ 0002:00000358       __imp_PyArg_UnpackTuple    000000018000b358     python38:python38.dll
+ 0002:00000360       __imp_PyGILState_Release   000000018000b360     python38:python38.dll
+ 0002:00000368       __imp_PyGILState_Ensure    000000018000b368     python38:python38.dll
+ 0002:00000370       __imp_PyErr_WriteUnraisable 000000018000b370     python38:python38.dll
+ 0002:00000378       __imp_PyErr_Format         000000018000b378     python38:python38.dll
+ 0002:00000380       __imp_PyErr_Restore        000000018000b380     python38:python38.dll
+ 0002:00000388       __imp_PyErr_Fetch          000000018000b388     python38:python38.dll
+ 0002:00000390       __imp_PyErr_Clear          000000018000b390     python38:python38.dll
+ 0002:00000398       __imp_PyErr_Occurred       000000018000b398     python38:python38.dll
+ 0002:000003a0       __imp_PyErr_SetString      000000018000b3a0     python38:python38.dll
+ 0002:000003a8       __imp_PyCapsule_Import     000000018000b3a8     python38:python38.dll
+ 0002:000003b0       __imp_PyCapsule_GetPointer 000000018000b3b0     python38:python38.dll
+ 0002:000003b8       __imp_PyCapsule_New        000000018000b3b8     python38:python38.dll
+ 0002:000003c0       __imp_PyModule_GetDict     000000018000b3c0     python38:python38.dll
+ 0002:000003c8       __imp_PyCFunction_GetFlags 000000018000b3c8     python38:python38.dll
+ 0002:000003d0       __imp_PyCFunction_GetSelf  000000018000b3d0     python38:python38.dll
+ 0002:000003d8       __imp_PyCFunction_GetFunction 000000018000b3d8     python38:python38.dll
+ 0002:000003e0       __imp_PyDict_SetItemString 000000018000b3e0     python38:python38.dll
+ 0002:000003e8       __imp_PyDict_SetItem       000000018000b3e8     python38:python38.dll
+ 0002:000003f0       __imp_PyDict_New           000000018000b3f0     python38:python38.dll
+ 0002:000003f8       __imp_PyTuple_SetItem      000000018000b3f8     python38:python38.dll
+ 0002:00000400       __imp_PyTuple_GetItem      000000018000b400     python38:python38.dll
+ 0002:00000408       __imp_PyTuple_Size         000000018000b408     python38:python38.dll
+ 0002:00000410       __imp_PyTuple_New          000000018000b410     python38:python38.dll
+ 0002:00000418       __imp_PyBool_FromLong      000000018000b418     python38:python38.dll
+ 0002:00000420       __imp_PyLong_FromUnsignedLongLong 000000018000b420     python38:python38.dll
+ 0002:00000428       __imp_PyLong_FromVoidPtr   000000018000b428     python38:python38.dll
+ 0002:00000430       __imp_PyLong_AsLong        000000018000b430     python38:python38.dll
+ 0002:00000438       __imp_PyLong_FromLong      000000018000b438     python38:python38.dll
+ 0002:00000440       __imp_PyUnicode_CompareWithASCIIString 000000018000b440     python38:python38.dll
+ 0002:00000448       __imp_PyUnicode_Concat     000000018000b448     python38:python38.dll
+ 0002:00000450       __imp_PyUnicode_InternFromString 000000018000b450     python38:python38.dll
+ 0002:00000458       __imp_PyUnicode_FromFormat 000000018000b458     python38:python38.dll
+ 0002:00000460       __imp_PyUnicode_FromString 000000018000b460     python38:python38.dll
+ 0002:00000468       __imp__PyObject_New        000000018000b468     python38:python38.dll
+ 0002:00000470       __imp_PyObject_Free        000000018000b470     python38:python38.dll
+ 0002:00000478       __imp_Py_DecRef            000000018000b478     python38:python38.dll
+ 0002:00000480       __imp__Py_Dealloc          000000018000b480     python38:python38.dll
+ 0002:00000488       __imp_PyObject_IsTrue      000000018000b488     python38:python38.dll
+ 0002:00000490       __imp_PyObject_GenericGetAttr 000000018000b490     python38:python38.dll
+ 0002:00000498       __imp_PyObject_SetAttr     000000018000b498     python38:python38.dll
+ 0002:000004a0       __imp_PyObject_GetAttr     000000018000b4a0     python38:python38.dll
+ 0002:000004a8       __imp_PyObject_GetAttrString 000000018000b4a8     python38:python38.dll
+ 0002:000004b0       __imp_PyType_Modified      000000018000b4b0     python38:python38.dll
+ 0002:000004b8       __imp_PyType_GetFlags      000000018000b4b8     python38:python38.dll
+ 0002:000004c0       __imp_PyType_GetSlot       000000018000b4c0     python38:python38.dll
+ 0002:000004c8       __imp_PyType_FromSpec      000000018000b4c8     python38:python38.dll
+ 0002:000004d0       __imp_PyType_Type          000000018000b4d0     python38:python38.dll
+ 0002:000004d8       \177python38_NULL_THUNK_DATA 000000018000b4d8     python38:python38.dll
  0002:000004e0       __guard_check_icall_fptr   000000018000b4e0     MSVCRT:guard_support.obj
  0002:000004e8       __guard_dispatch_icall_fptr 000000018000b4e8     MSVCRT:guard_support.obj
  0002:000004f0       __xc_a                     000000018000b4f0     MSVCRT:initializers.obj
@@ -709,8 +709,8 @@
  0002:00003f38       ??_C@_0BJ@JEBJOJFJ@SleepConditionVariableCS@ 000000018000ef38     MSVCRT:thread_safe_statics.obj
  0002:00003f58       ??_C@_0BJ@PGPPEPCC@WakeAllConditionVariable@ 000000018000ef58     MSVCRT:thread_safe_statics.obj
  0002:00003f80       ??_7type_info@@6B@         000000018000ef80     MSVCRT:std_type_info_static.obj
- 0002:00003f88       _pRawDllMain               000000018000ef88     MSVCRT:dll_dllmain.obj
  0002:00003f88       _pDefaultRawDllMain        000000018000ef88     MSVCRT:dll_dllmain.obj
+ 0002:00003f88       _pRawDllMain               000000018000ef88     MSVCRT:dll_dllmain.obj
  0002:00003f98       ??_7exception@std@@6B@     000000018000ef98     MSVCRT:throw_bad_alloc.obj
  0002:00003fb0       ??_7bad_alloc@std@@6B@     000000018000efb0     MSVCRT:throw_bad_alloc.obj
  0002:00003fc0       ??_C@_0P@GHFPNOJB@bad?5allocation@ 000000018000efc0     MSVCRT:throw_bad_alloc.obj
@@ -749,7 +749,7 @@
  0002:000065f0       _CTA3?AVbad_array_new_length@std@@ 00000001800115f0     MSVCRT:throw_bad_alloc.obj
  0002:00006610       _CT??_R0?AVbad_array_new_length@std@@@8??0bad_array_new_length@std@@QEAA@AEBV01@@Z24 0000000180011610     MSVCRT:throw_bad_alloc.obj
  0002:00006694       __IMPORT_DESCRIPTOR_ida    0000000180011694     ida:ida.dll
- 0002:000066a8       __IMPORT_DESCRIPTOR_python37 00000001800116a8     python37:python37.dll
+ 0002:000066a8       __IMPORT_DESCRIPTOR_python38 00000001800116a8     python38:python38.dll
  0002:000066bc       __IMPORT_DESCRIPTOR_python 00000001800116bc     python:python.dll
  0002:000066d0       __IMPORT_DESCRIPTOR_KERNEL32 00000001800116d0     kernel32:KERNEL32.dll
  0002:000066e4       __IMPORT_DESCRIPTOR_VCRUNTIME140 00000001800116e4     vcruntime:VCRUNTIME140.dll
@@ -788,17 +788,17 @@
 
  Static symbols
 
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
  0000:fffe6000       .debug$S                   0000000180000000     _ida_auto.exp
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
  0000:fffe6000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
  0000:fffe6000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
  0000:fffe6000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
@@ -818,7 +818,7 @@
  0000:fffe6000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-string-l1-1-0.dll
  0000:fffe6000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
  0000:fffe6000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
  0000:fffe6000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
  0000:fffe6000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
  0000:fffe6000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
@@ -830,7 +830,7 @@
  0000:fffe6000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
  0000:fffe6000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
  0000:fffe6000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
  0000:fffe6000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
  0000:fffe6000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
  0000:fffe6000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
@@ -858,89 +858,89 @@
  0000:fffe6000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
  0000:fffe6000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
  0000:fffe6000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
  0000:fffe6000       .debug$S                   0000000180000000     python:python.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
  0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
  0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
  0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
  0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
  0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
  0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
- 0000:fffe6000       .debug$S                   0000000180000000     python37:python37.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffe6000       .debug$S                   0000000180000000     python38:python38.dll
  0001:00000000       SwigPyObject_repr2         0000000180001000 f   auto.obj
  0001:00000010       SwigPyObject_append        0000000180001010 f   auto.obj
  0001:00000070       SwigPyObject_next          0000000180001070 f   auto.obj
@@ -1959,7 +1959,7 @@
  0002:00006672       szName                     0000000180011672     _ida_auto.exp
  0002:00006680       $N00001                    0000000180011680     _ida_auto.exp
  0002:00006dd0       .idata$6                   0000000180011dd0     ida:ida.dll
- 0002:00007348       .idata$6                   0000000180012348     python37:python37.dll
+ 0002:00007348       .idata$6                   0000000180012348     python38:python38.dll
  0002:00007366       .idata$6                   0000000180012366     python:python.dll
  0002:000075be       .idata$6                   00000001800125be     kernel32:KERNEL32.dll
  0002:00007692       .idata$6                   0000000180012692     vcruntime:VCRUNTIME140.dll

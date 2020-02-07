@@ -113,7 +113,7 @@ static PyObject *py_unregister_timer(PyObject *py_timerctx)
     Py_RETURN_FALSE;
 
   python_timer_del(ctx);
-  PyCObject_SetVoidPtr(py_timerctx, NULL);
+  PyCapsule_SetName(py_timerctx, INVALID_CAPSULE_NAME);
   Py_RETURN_TRUE;
 }
 
@@ -408,7 +408,7 @@ bool py_del_hotkey(PyObject *pyctx)
   // Here we must ensure that the python object is invalidated.
   // This is to avoid the possibility of this function being called again
   // with the same ctx, which would contain a pointer to a deleted object.
-  PyCObject_SetVoidPtr(pyctx, NULL);
+  PyCapsule_SetName(pyctx, INVALID_CAPSULE_NAME);
 
   return true;
 }
@@ -510,8 +510,12 @@ static void idaapi py_ss_restore_callback(const char *err_msg, void *userdata)
 
   // userdata is a tuple of ( func, args )
   // func and args are borrowed references from userdata
-  PyObject *func = PyTuple_GET_ITEM(userdata, 0);
-  PyObject *args = PyTuple_GET_ITEM(userdata, 1);
+  PyObject *o = (PyObject *) userdata;
+  if ( !PyTuple_Check(o) )
+    return;
+
+  PyObject *func = PyTuple_GetItem(o, 0);
+  PyObject *args = PyTuple_GetItem(o, 1);
 
   // Create arguments tuple for python function
   PyObject *cb_args = Py_BuildValue("(sO)", err_msg, args);
@@ -1308,8 +1312,12 @@ bool idaapi py_menu_item_callback(void *userdata)
 
   // userdata is a tuple of ( func, args )
   // func and args are borrowed references from userdata
-  PyObject *func = PyTuple_GET_ITEM(userdata, 0);
-  PyObject *args = PyTuple_GET_ITEM(userdata, 1);
+  PyObject *o = (PyObject *) userdata;
+  if ( !PyTuple_Check(o) )
+    return false;
+
+  PyObject *func = PyTuple_GetItem(o, 0);
+  PyObject *args = PyTuple_GetItem(o, 1);
 
   // Call the python function
   newref_t result(PyEval_CallObject(func, args));

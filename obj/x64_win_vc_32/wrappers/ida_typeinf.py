@@ -3985,7 +3985,7 @@ def calc_type_size(*args):
     return _ida_typeinf.calc_type_size(*args)
 
 def apply_type(*args):
-    r"""apply_type(ti, py_type, py_fields, ea, flags) -> bool"""
+    r"""apply_type(ti, _type, _fields, ea, flags) -> bool"""
     return _ida_typeinf.apply_type(*args)
 
 def get_arg_addrs(*args):
@@ -3993,19 +3993,19 @@ def get_arg_addrs(*args):
     return _ida_typeinf.get_arg_addrs(*args)
 
 def unpack_object_from_idb(*args):
-    r"""unpack_object_from_idb(ti, py_type, py_fields, ea, pio_flags=0) -> PyObject *"""
+    r"""unpack_object_from_idb(ti, _type, _fields, ea, pio_flags=0) -> PyObject *"""
     return _ida_typeinf.unpack_object_from_idb(*args)
 
 def unpack_object_from_bv(*args):
-    r"""unpack_object_from_bv(ti, py_type, py_fields, py_bytes, pio_flags=0) -> PyObject *"""
+    r"""unpack_object_from_bv(ti, _type, _fields, bytes, pio_flags=0) -> PyObject *"""
     return _ida_typeinf.unpack_object_from_bv(*args)
 
 def pack_object_to_idb(*args):
-    r"""pack_object_to_idb(py_obj, ti, py_type, py_fields, ea, pio_flags=0) -> PyObject *"""
+    r"""pack_object_to_idb(py_obj, ti, _type, _fields, ea, pio_flags=0) -> PyObject *"""
     return _ida_typeinf.pack_object_to_idb(*args)
 
 def pack_object_to_bv(*args):
-    r"""pack_object_to_bv(py_obj, ti, py_type, py_fields, base_ea, pio_flags=0) -> PyObject *"""
+    r"""pack_object_to_bv(py_obj, ti, _type, _fields, base_ea, pio_flags=0) -> PyObject *"""
     return _ida_typeinf.pack_object_to_bv(*args)
 
 def idc_parse_types(*args):
@@ -4037,7 +4037,7 @@ def idc_get_local_type(*args):
     return _ida_typeinf.idc_get_local_type(*args)
 
 def idc_print_type(*args):
-    r"""idc_print_type(py_type, py_fields, name, flags) -> PyObject *"""
+    r"""idc_print_type(_type, _fields, name, flags) -> PyObject *"""
     return _ida_typeinf.idc_print_type(*args)
 
 def idc_get_local_type_name(*args):

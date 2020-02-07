@@ -157,7 +157,6 @@ import traceback
 import os
 import sys
 import bisect
-import __builtin__
 import imp
 import re
 
@@ -188,7 +187,12 @@ def require(modulename, package=None):
     if importer_module is None: # No importer module; called from command line
         importer_module = sys.modules['__main__']
     if modulename in sys.modules.keys():
-        reload(sys.modules[modulename])
+        m = sys.modules[modulename]
+        if sys.version_info.major >= 3:
+            import importlib
+            importlib.reload(m)
+        else:
+            reload(m)
         m = sys.modules[modulename]
     else:
         import importlib
@@ -562,8 +566,11 @@ def IDAPython_ExecScript(script, g, print_error=True):
     sys.argv = [ script ]
 
     # Adjust the __file__ path in the globals we pass to the script
-    old__file__ = g['__file__'] if '__file__' in g else ''
-    g['__file__'] = script
+    FILE_ATTR = "__file__"
+    has__file__ = FILE_ATTR in g
+    if has__file__:
+        old__file__ = g[FILE_ATTR]
+    g[FILE_ATTR] = script
 
     try:
         execfile(script, g)
@@ -574,7 +581,10 @@ def IDAPython_ExecScript(script, g, print_error=True):
             print(PY_COMPILE_ERR)
     finally:
         # Restore state
-        g['__file__'] = old__file__
+        if has__file__:
+            g[FILE_ATTR] = old__file__
+        else:
+            del g[FILE_ATTR]
         sys.argv = argv
 
     return PY_COMPILE_ERR
@@ -933,6 +943,11 @@ void pycim_view_close(PyObject *self);
 //</inline(py_idaapi)>
 %}
 
+%pythoncode %{
+import types
+uses_swig_builtins = isinstance(get_inf_structure, types.BuiltinFunctionType)
+%}
+
 //-------------------------------------------------------------------------
 %inline %{
 //<inline(py_idaapi_loader_input)>
@@ -1044,7 +1059,7 @@ private:
   void _from_cobject(PyObject *pycobject)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    this->set_linput((linput_t *)PyCObject_AsVoidPtr(pycobject));
+    this->set_linput((linput_t *)PyCapsule_GetPointer(pycobject, VALID_CAPSULE_NAME));
   }
 
   //--------------------------------------------------------------------------

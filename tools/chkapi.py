@@ -394,7 +394,7 @@ def check_cpp(opts):
         # are written as-is, in Unix format
         # and so 'diff' does not report bogus changes
         # against the file from repository
-        with open(opts.report_contents, "wb") as f:
+        with open(opts.report_contents, "w") as f:
             f.write(pprint.pformat({"functions" : to_report}))
 
     # import pickle

@@ -225,7 +225,8 @@ ifdef __NT__                   # os and compiler specific flags
   _SWIGFLAGS = -D__NT__ -DWIN32 -D_USRDLL -I$(PYTHON_DIR)/include
 
 ifeq ($(PYTHON_VERSION_MAJOR),3)
-  _SWIGFLAGS += -DPY3=1
+  _SWIGPY3FLAG := -py3 -py3-stable-abi -DPY3=1
+  CC_DEFS += PY3=1
   CC_DEFS += Py_LIMITED_API=0x03040000 # we should make sure we use the same version as SWiG
 endif
 
@@ -388,8 +389,8 @@ CC_DEFS += $(BC695_CC_DEF)
 CC_DEFS += $(DEF_TYPE_TABLE)
 CC_DEFS += $(WITH_HEXRAYS_DEF)
 CC_DEFS += USE_STANDARD_FILE_FUNCTIONS
-CC_DEFS += VER_MAJOR="1"
-CC_DEFS += VER_MINOR="7"
+CC_DEFS += VER_MAJOR="7"
+CC_DEFS += VER_MINOR="4"
 CC_DEFS += VER_PATCH="0"
 CC_DEFS += __EXPR_SRC
 CC_INCP += $(F)
@@ -656,5 +657,5 @@ $(F)python$(O)  : $(I)bitrange.hpp $(I)bytes.hpp $(I)config.hpp             \
                   $(I)ieee.h $(I)kernwin.hpp $(I)lines.hpp $(I)llong.hpp    \
                   $(I)loader.hpp $(I)nalt.hpp $(I)name.hpp $(I)netnode.hpp  \
                   $(I)pro.h $(I)range.hpp $(I)segment.hpp $(I)typeinf.hpp   \
-                  $(I)ua.hpp $(I)xref.hpp idapy.hpp python.cpp pywraps.cpp            \
+                  $(I)ua.hpp $(I)xref.hpp extrapi.hpp extrapi.cpp idapy.hpp python.cpp pywraps.cpp            \
                   pywraps.hpp

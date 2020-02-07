@@ -1,6 +1,7 @@
 # -----------------------------------------------------------------------
 #<pycode(py_hexrays)>
 import ida_funcs
+import ida_idaapi
 
 hexrays_failure_t.__str__ = lambda self: str(self.str)
 
@@ -18,7 +19,7 @@ class DecompilationFailure(Exception):
 
 # ---------------------------------------------------------------------
 def decompile(ea, hf=None):
-    if isinstance(ea, (int, long)):
+    if isinstance(ea, ida_idaapi.integer_types)
         func = ida_funcs.get_func(ea)
         if not func: return
     elif type(ea) == ida_funcs.func_t:

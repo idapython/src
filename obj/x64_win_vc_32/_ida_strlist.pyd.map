@@ -1,0 +1,1862 @@
+ _ida_strlist
+
+ Timestamp is 5e3da0b8 (Fri Feb  7 17:39:04 2020)
+
+ Preferred load address is 0000000180000000
+
+ Start         Length     Name                   Class
+ 0001:00000000 000058b0H .text$mn                CODE
+ 0001:000058b0 00000020H .text$mn$00             CODE
+ 0001:000058d0 00001113H .text$x                 CODE
+ 0002:00000000 000004a8H .idata$5                DATA
+ 0002:000004a8 00000010H .00cfg                  DATA
+ 0002:000004b8 00000008H .CRT$XCA                DATA
+ 0002:000004c0 00000008H .CRT$XCZ                DATA
+ 0002:000004c8 00000008H .CRT$XIA                DATA
+ 0002:000004d0 00000008H .CRT$XIC                DATA
+ 0002:000004d8 00000008H .CRT$XIZ                DATA
+ 0002:000004e0 00000008H .CRT$XLA                DATA
+ 0002:000004e8 00000008H .CRT$XLZ                DATA
+ 0002:000004f0 00000008H .CRT$XPA                DATA
+ 0002:000004f8 00000008H .CRT$XPZ                DATA
+ 0002:00000500 00000008H .CRT$XTA                DATA
+ 0002:00000508 00000008H .CRT$XTZ                DATA
+ 0002:00000510 00000000H .gfids$y                DATA
+ 0002:00000510 00003670H .rdata                  DATA
+ 0002:00003b80 00000028H .rdata$T                DATA
+ 0002:00003ba8 000001f4H .rdata$r                DATA
+ 0002:00003d9c 00000314H .rdata$zzzdbg           DATA
+ 0002:000040b0 00000008H .rtc$IAA                DATA
+ 0002:000040b8 00000008H .rtc$IZZ                DATA
+ 0002:000040c0 00000008H .rtc$TAA                DATA
+ 0002:000040c8 00000008H .rtc$TZZ                DATA
+ 0002:000040d0 00000004H .tls                    DATA
+ 0002:000040d4 00000004H .tls$                   DATA
+ 0002:000040d8 00000008H .tls$ZZZ                DATA
+ 0002:000040e0 00001300H .xdata                  DATA
+ 0002:000053e0 000000f0H .xdata$x                DATA
+ 0002:000054d0 00000058H .edata                  DATA
+ 0002:00005528 000000b4H .idata$2                DATA
+ 0002:000055dc 00000014H .idata$3                DATA
+ 0002:000055f0 000004a8H .idata$4                DATA
+ 0002:00005a98 00000bc2H .idata$6                DATA
+ 0003:00000000 00002808H .data                   DATA
+ 0003:00002808 00000128H .data$r                 DATA
+ 0003:00002930 00000908H .bss                    DATA
+ 0004:00000000 00000be8H .pdata                  DATA
+
+  Address         Publics by Value              Rva+Base               Lib:Object
+
+ 0000:00000000       __guard_longjmp_count      0000000000000000     <absolute>
+ 0000:00000000       __guard_fids_count         0000000000000000     <absolute>
+ 0000:00000000       __hybrid_code_map_count    0000000000000000     <absolute>
+ 0000:00000000       __hybrid_code_map          0000000000000000     <absolute>
+ 0000:00000000       __dynamic_value_reloc_table 0000000000000000     <absolute>
+ 0000:00000000       __guard_iat_count          0000000000000000     <absolute>
+ 0000:00000000       __enclave_config           0000000000000000     <absolute>
+ 0000:00000000       __guard_longjmp_table      0000000000000000     <absolute>
+ 0000:00000000       __volatile_metadata        0000000000000000     <absolute>
+ 0000:00000000       ___safe_se_handler_table   0000000000000000     <absolute>
+ 0000:00000000       __guard_fids_table         0000000000000000     <absolute>
+ 0000:00000000       ___safe_se_handler_count   0000000000000000     <absolute>
+ 0000:00000000       __guard_iat_table          0000000000000000     <absolute>
+ 0000:00000000       __hybrid_auxiliary_iat     0000000000000000     <absolute>
+ 0000:00000100       __guard_flags              0000000000000100     <absolute>
+ 0000:00000000       __ImageBase                0000000180000000     <linker-defined>
+ 0001:00002850       ?sprnt@?$_qstring@D@@QEAAAEAV1@PEBDZZ 0000000180003850 f i strlist.obj
+ 0001:00002b30       PyInit__ida_strlist        0000000180003b30 f   strlist.obj
+ 0001:00004300       __local_stdio_printf_options 0000000180005300 f i strlist.obj
+ 0001:00004440       printf                     0000000180005440 f i strlist.obj
+ 0001:00004495       interr                     0000000180005495 f   ida:ida.dll
+ 0001:0000449b       qfree                      000000018000549b f   ida:ida.dll
+ 0001:000044a1       qvsnprintf                 00000001800054a1 f   ida:ida.dll
+ 0001:000044a7       qvector_reserve            00000001800054a7 f   ida:ida.dll
+ 0001:000044ad       is_main_thread             00000001800054ad f   ida:ida.dll
+ 0001:000044b3       get_strlist_options        00000001800054b3 f   ida:ida.dll
+ 0001:000044b9       build_strlist              00000001800054b9 f   ida:ida.dll
+ 0001:000044bf       clear_strlist              00000001800054bf f   ida:ida.dll
+ 0001:000044c5       get_strlist_qty            00000001800054c5 f   ida:ida.dll
+ 0001:000044cb       get_strlist_item           00000001800054cb f   ida:ida.dll
+ 0001:000044d1       PyW_GetNumber              00000001800054d1 f   python:python.dll
+ 0001:000044d8       ??2@YAPEAX_K@Z             00000001800054d8 f   MSVCRT:new_scalar.obj
+ 0001:00004514       ??3@YAXPEAX_K@Z            0000000180005514 f   MSVCRT:delete_scalar_size.obj
+ 0001:000046a4       _Init_thread_footer        00000001800056a4 f   MSVCRT:thread_safe_statics.obj
+ 0001:00004704       _Init_thread_header        0000000180005704 f   MSVCRT:thread_safe_statics.obj
+ 0001:0000476c       _Init_thread_notify        000000018000576c f   MSVCRT:thread_safe_statics.obj
+ 0001:000047bc       _Init_thread_wait          00000001800057bc f   MSVCRT:thread_safe_statics.obj
+ 0001:00004834       __GSHandlerCheck           0000000180005834 f   MSVCRT:gshandler.obj
+ 0001:00004854       __GSHandlerCheckCommon     0000000180005854 f   MSVCRT:gshandler.obj
+ 0001:000048c0       __security_check_cookie    00000001800058c0 f   MSVCRT:amdsecgs.obj
+ 0001:000048e4       ??_Gtype_info@@UEAAPEAXI@Z 00000001800058e4 f i MSVCRT:std_type_info_static.obj
+ 0001:000048e4       ??_Etype_info@@UEAAPEAXI@Z 00000001800058e4 f i MSVCRT:std_type_info_static.obj
+ 0001:00004c40       _DllMainCRTStartup         0000000180005c40 f   MSVCRT:dll_dllmain.obj
+ 0001:00004c80       ??0bad_alloc@std@@QEAA@AEBV01@@Z 0000000180005c80 f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004cc0       ??0bad_alloc@std@@QEAA@XZ  0000000180005cc0 f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004ce0       ??0bad_array_new_length@std@@QEAA@AEBV01@@Z 0000000180005ce0 f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004d20       ??0bad_array_new_length@std@@QEAA@XZ 0000000180005d20 f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004d40       ??0exception@std@@QEAA@AEBV01@@Z 0000000180005d40 f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004d78       ??1bad_array_new_length@std@@UEAA@XZ 0000000180005d78 f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004d78       ??1bad_alloc@std@@UEAA@XZ  0000000180005d78 f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004d8c       ??_Gbad_alloc@std@@UEAAPEAXI@Z 0000000180005d8c f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004d8c       ??_Eexception@std@@UEAAPEAXI@Z 0000000180005d8c f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004d8c       ??_Ebad_array_new_length@std@@UEAAPEAXI@Z 0000000180005d8c f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004d8c       ??_Gbad_array_new_length@std@@UEAAPEAXI@Z 0000000180005d8c f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004d8c       ??_Ebad_alloc@std@@UEAAPEAXI@Z 0000000180005d8c f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004d8c       ??_Gexception@std@@UEAAPEAXI@Z 0000000180005d8c f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004dd0       ?__scrt_throw_std_bad_alloc@@YAXXZ 0000000180005dd0 f   MSVCRT:throw_bad_alloc.obj
+ 0001:00004df0       ?__scrt_throw_std_bad_array_new_length@@YAXXZ 0000000180005df0 f   MSVCRT:throw_bad_alloc.obj
+ 0001:00004e10       ?what@exception@std@@UEBAPEBDXZ 0000000180005e10 f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004e24       ??3@YAXPEAX@Z              0000000180005e24 f   MSVCRT:delete_scalar.obj
+ 0001:00004e2c       __scrt_acquire_startup_lock 0000000180005e2c f   MSVCRT:utility.obj
+ 0001:00004e68       __scrt_dllmain_after_initialize_c 0000000180005e68 f   MSVCRT:utility.obj
+ 0001:00004e9c       __scrt_dllmain_before_initialize_c 0000000180005e9c f   MSVCRT:utility.obj
+ 0001:00004eb4       __scrt_dllmain_crt_thread_attach 0000000180005eb4 f   MSVCRT:utility.obj
+ 0001:00004edc       __scrt_dllmain_crt_thread_detach 0000000180005edc f   MSVCRT:utility.obj
+ 0001:00004ef4       __scrt_dllmain_exception_filter 0000000180005ef4 f   MSVCRT:utility.obj
+ 0001:00004f54       __scrt_dllmain_uninitialize_c 0000000180005f54 f   MSVCRT:utility.obj
+ 0001:00004f84       __scrt_dllmain_uninitialize_critical 0000000180005f84 f   MSVCRT:utility.obj
+ 0001:00004f98       __scrt_initialize_crt      0000000180005f98 f   MSVCRT:utility.obj
+ 0001:00004fe4       __scrt_initialize_onexit_tables 0000000180005fe4 f   MSVCRT:utility.obj
+ 0001:000050bc       __scrt_is_nonwritable_in_current_image 00000001800060bc f   MSVCRT:utility.obj
+ 0001:00005158       __scrt_release_startup_lock 0000000180006158 f   MSVCRT:utility.obj
+ 0001:0000517c       __scrt_uninitialize_crt    000000018000617c f   MSVCRT:utility.obj
+ 0001:000051a8       _onexit                    00000001800061a8 f   MSVCRT:utility.obj
+ 0001:000051f8       atexit                     00000001800061f8 f   MSVCRT:utility.obj
+ 0001:00005210       __crt_debugger_hook        0000000180006210 f   MSVCRT:utility_desktop.obj
+ 0001:00005218       __scrt_fastfail            0000000180006218 f   MSVCRT:utility_desktop.obj
+ 0001:00005364       _guard_check_icall_nop     0000000180006364 f i MSVCRT:guard_support.obj
+ 0001:00005368       __raise_securityfailure    0000000180006368 f   MSVCRT:gs_report.obj
+ 0001:0000539c       __report_gsfailure         000000018000639c f   MSVCRT:gs_report.obj
+ 0001:000054e4       __security_init_cookie     00000001800064e4 f   MSVCRT:gs_support.obj
+ 0001:00005590       DllMain                    0000000180006590 f   MSVCRT:dll_dllmain_stub.obj
+ 0001:000055b4       ?__scrt_initialize_type_info@@YAXXZ 00000001800065b4 f   MSVCRT:tncleanup.obj
+ 0001:000055c4       ?__scrt_uninitialize_type_info@@YAXXZ 00000001800065c4 f   MSVCRT:tncleanup.obj
+ 0001:000055d0       __local_stdio_scanf_options 00000001800065d0 f i MSVCRT:default_local_stdio_options.obj
+ 0001:000055d8       __scrt_initialize_default_local_stdio_options 00000001800065d8 f   MSVCRT:default_local_stdio_options.obj
+ 0001:000055f4       __scrt_get_dyn_tls_init_callback 00000001800065f4 f   MSVCRT:dyn_tls_init.obj
+ 0001:000055fc       _RTC_Initialize            00000001800065fc f   MSVCRT:initsect.obj
+ 0001:00005638       _RTC_Terminate             0000000180006638 f   MSVCRT:initsect.obj
+ 0001:00005674       __isa_available_init       0000000180006674 f   MSVCRT:cpu_disp.obj
+ 0001:000057f0       _get_startup_argv_mode     00000001800067f0 f   MSVCRT:argv_mode.obj
+ 0001:000057f8       __scrt_is_ucrt_dll_in_use  00000001800067f8 f   MSVCRT:ucrt_detection.obj
+ 0001:00005810       IsProcessorFeaturePresent  0000000180006810 f   kernel32:KERNEL32.dll
+ 0001:00005816       strstr                     0000000180006816 f   vcruntime:VCRUNTIME140.dll
+ 0001:0000581c       __CxxFrameHandler3         000000018000681c f   vcruntime:VCRUNTIME140.dll
+ 0001:00005822       memcpy                     0000000180006822 f   vcruntime:VCRUNTIME140.dll
+ 0001:00005828       memset                     0000000180006828 f   vcruntime:VCRUNTIME140.dll
+ 0001:0000582e       __std_terminate            000000018000682e f   vcruntime:VCRUNTIME140.dll
+ 0001:00005834       __C_specific_handler       0000000180006834 f   vcruntime:VCRUNTIME140.dll
+ 0001:0000583a       __std_exception_copy       000000018000683a f   vcruntime:VCRUNTIME140.dll
+ 0001:00005840       __std_exception_destroy    0000000180006840 f   vcruntime:VCRUNTIME140.dll
+ 0001:00005846       _CxxThrowException         0000000180006846 f   vcruntime:VCRUNTIME140.dll
+ 0001:0000584c       __std_type_info_destroy_list 000000018000684c f   vcruntime:VCRUNTIME140.dll
+ 0001:00005852       free                       0000000180006852 f   ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0001:00005858       malloc                     0000000180006858 f   ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0001:0000585e       _callnewh                  000000018000685e f   ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0001:00005864       _initterm                  0000000180006864 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:0000586a       _initterm_e                000000018000686a f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00005870       _seh_filter_dll            0000000180006870 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00005876       _configure_narrow_argv     0000000180006876 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:0000587c       _initialize_narrow_environment 000000018000687c f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00005882       _initialize_onexit_table   0000000180006882 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00005888       _register_onexit_function  0000000180006888 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:0000588e       _execute_onexit_table      000000018000688e f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00005894       _crt_atexit                0000000180006894 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:0000589a       _cexit                     000000018000689a f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:000058a0       __vcrt_initialize          00000001800068a0 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058a0       __vcrt_thread_detach       00000001800068a0 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058a0       __scrt_stub_for_acrt_initialize 00000001800068a0 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058a0       __acrt_uninitialize_critical 00000001800068a0 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058a0       __vcrt_uninitialize_critical 00000001800068a0 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058a0       __scrt_stub_for_acrt_uninitialize_critical 00000001800068a0 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058a0       __vcrt_thread_attach       00000001800068a0 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058a0       __vcrt_uninitialize        00000001800068a0 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058a0       __scrt_stub_for_acrt_thread_attach 00000001800068a0 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058a0       __scrt_stub_for_acrt_uninitialize 00000001800068a0 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058a0       __acrt_uninitialize        00000001800068a0 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058a0       __scrt_stub_for_acrt_thread_detach 00000001800068a0 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058a0       __acrt_initialize          00000001800068a0 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058a0       __acrt_thread_detach       00000001800068a0 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058a0       __acrt_thread_attach       00000001800068a0 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058a4       _is_c_termination_complete 00000001800068a4 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058a4       __scrt_stub_for_is_c_termination_complete 00000001800068a4 f   MSVCRT:ucrt_stubs.obj
+ 0001:000058c0       _guard_dispatch_icall_nop  00000001800068c0 f   MSVCRT:guard_dispatch.obj
+ 0002:00000000       __imp_CloseHandle          0000000180008000     kernel32:KERNEL32.dll
+ 0002:00000008       __imp_EnterCriticalSection 0000000180008008     kernel32:KERNEL32.dll
+ 0002:00000010       __imp_LeaveCriticalSection 0000000180008010     kernel32:KERNEL32.dll
+ 0002:00000018       __imp_InitializeCriticalSectionAndSpinCount 0000000180008018     kernel32:KERNEL32.dll
+ 0002:00000020       __imp_DeleteCriticalSection 0000000180008020     kernel32:KERNEL32.dll
+ 0002:00000028       __imp_SetEvent             0000000180008028     kernel32:KERNEL32.dll
+ 0002:00000030       __imp_ResetEvent           0000000180008030     kernel32:KERNEL32.dll
+ 0002:00000038       __imp_WaitForSingleObjectEx 0000000180008038     kernel32:KERNEL32.dll
+ 0002:00000040       __imp_CreateEventW         0000000180008040     kernel32:KERNEL32.dll
+ 0002:00000048       __imp_GetModuleHandleW     0000000180008048     kernel32:KERNEL32.dll
+ 0002:00000050       __imp_GetProcAddress       0000000180008050     kernel32:KERNEL32.dll
+ 0002:00000058       __imp_RtlCaptureContext    0000000180008058     kernel32:KERNEL32.dll
+ 0002:00000060       __imp_RtlLookupFunctionEntry 0000000180008060     kernel32:KERNEL32.dll
+ 0002:00000068       __imp_RtlVirtualUnwind     0000000180008068     kernel32:KERNEL32.dll
+ 0002:00000070       __imp_IsDebuggerPresent    0000000180008070     kernel32:KERNEL32.dll
+ 0002:00000078       __imp_UnhandledExceptionFilter 0000000180008078     kernel32:KERNEL32.dll
+ 0002:00000080       __imp_SetUnhandledExceptionFilter 0000000180008080     kernel32:KERNEL32.dll
+ 0002:00000088       __imp_IsProcessorFeaturePresent 0000000180008088     kernel32:KERNEL32.dll
+ 0002:00000090       __imp_GetCurrentProcess    0000000180008090     kernel32:KERNEL32.dll
+ 0002:00000098       __imp_TerminateProcess     0000000180008098     kernel32:KERNEL32.dll
+ 0002:000000a0       __imp_QueryPerformanceCounter 00000001800080a0     kernel32:KERNEL32.dll
+ 0002:000000a8       __imp_GetCurrentProcessId  00000001800080a8     kernel32:KERNEL32.dll
+ 0002:000000b0       __imp_GetCurrentThreadId   00000001800080b0     kernel32:KERNEL32.dll
+ 0002:000000b8       __imp_GetSystemTimeAsFileTime 00000001800080b8     kernel32:KERNEL32.dll
+ 0002:000000c0       __imp_DisableThreadLibraryCalls 00000001800080c0     kernel32:KERNEL32.dll
+ 0002:000000c8       __imp_InitializeSListHead  00000001800080c8     kernel32:KERNEL32.dll
+ 0002:000000d0       \177KERNEL32_NULL_THUNK_DATA 00000001800080d0     kernel32:KERNEL32.dll
+ 0002:000000d8       __imp_strstr               00000001800080d8     vcruntime:VCRUNTIME140.dll
+ 0002:000000e0       __imp___CxxFrameHandler3   00000001800080e0     vcruntime:VCRUNTIME140.dll
+ 0002:000000e8       __imp_memcpy               00000001800080e8     vcruntime:VCRUNTIME140.dll
+ 0002:000000f0       __imp_memset               00000001800080f0     vcruntime:VCRUNTIME140.dll
+ 0002:000000f8       __imp___std_terminate      00000001800080f8     vcruntime:VCRUNTIME140.dll
+ 0002:00000100       __imp___std_type_info_destroy_list 0000000180008100     vcruntime:VCRUNTIME140.dll
+ 0002:00000108       __imp__CxxThrowException   0000000180008108     vcruntime:VCRUNTIME140.dll
+ 0002:00000110       __imp___std_exception_destroy 0000000180008110     vcruntime:VCRUNTIME140.dll
+ 0002:00000118       __imp___std_exception_copy 0000000180008118     vcruntime:VCRUNTIME140.dll
+ 0002:00000120       __imp___C_specific_handler 0000000180008120     vcruntime:VCRUNTIME140.dll
+ 0002:00000128       \177VCRUNTIME140_NULL_THUNK_DATA 0000000180008128     vcruntime:VCRUNTIME140.dll
+ 0002:00000130       __imp__callnewh            0000000180008130     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0002:00000138       __imp_malloc               0000000180008138     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0002:00000140       __imp_free                 0000000180008140     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0002:00000148       \177api-ms-win-crt-heap-l1-1-0_NULL_THUNK_DATA 0000000180008148     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0002:00000150       __imp__cexit               0000000180008150     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:00000158       __imp__initterm            0000000180008158     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:00000160       __imp__initterm_e          0000000180008160     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:00000168       __imp__seh_filter_dll      0000000180008168     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:00000170       __imp__configure_narrow_argv 0000000180008170     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:00000178       __imp__initialize_narrow_environment 0000000180008178     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:00000180       __imp__initialize_onexit_table 0000000180008180     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:00000188       __imp__register_onexit_function 0000000180008188     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:00000190       __imp__execute_onexit_table 0000000180008190     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:00000198       __imp__crt_atexit          0000000180008198     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:000001a0       \177api-ms-win-crt-runtime-l1-1-0_NULL_THUNK_DATA 00000001800081a0     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:000001a8       __imp___stdio_common_vfprintf 00000001800081a8     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0002:000001b0       __imp___acrt_iob_func      00000001800081b0     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0002:000001b8       \177api-ms-win-crt-stdio-l1-1-0_NULL_THUNK_DATA 00000001800081b8     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0002:000001c0       __imp_strncmp              00000001800081c0     ucrt:api-ms-win-crt-string-l1-1-0.dll
+ 0002:000001c8       \177api-ms-win-crt-string-l1-1-0_NULL_THUNK_DATA 00000001800081c8     ucrt:api-ms-win-crt-string-l1-1-0.dll
+ 0002:000001d0       __imp_get_strlist_item     00000001800081d0     ida:ida.dll
+ 0002:000001d8       __imp_under_debugger       00000001800081d8     ida:ida.dll
+ 0002:000001e0       __imp_clear_strlist        00000001800081e0     ida:ida.dll
+ 0002:000001e8       __imp_build_strlist        00000001800081e8     ida:ida.dll
+ 0002:000001f0       __imp_get_strlist_options  00000001800081f0     ida:ida.dll
+ 0002:000001f8       __imp_is_main_thread       00000001800081f8     ida:ida.dll
+ 0002:00000200       __imp_qvector_reserve      0000000180008200     ida:ida.dll
+ 0002:00000208       __imp_qvsnprintf           0000000180008208     ida:ida.dll
+ 0002:00000210       __imp_qfree                0000000180008210     ida:ida.dll
+ 0002:00000218       __imp_get_strlist_qty      0000000180008218     ida:ida.dll
+ 0002:00000220       __imp_interr               0000000180008220     ida:ida.dll
+ 0002:00000228       \177ida_NULL_THUNK_DATA    0000000180008228     ida:ida.dll
+ 0002:00000230       __imp_PyW_GetNumber        0000000180008230     python:python.dll
+ 0002:00000238       \177python_NULL_THUNK_DATA 0000000180008238     python:python.dll
+ 0002:00000240       __imp_PyObject_IsInstance  0000000180008240     python38:python38.dll
+ 0002:00000248       __imp_PyExc_AttributeError 0000000180008248     python38:python38.dll
+ 0002:00000250       __imp_PyExc_IndexError     0000000180008250     python38:python38.dll
+ 0002:00000258       __imp_PyExc_MemoryError    0000000180008258     python38:python38.dll
+ 0002:00000260       __imp_PyExc_OverflowError  0000000180008260     python38:python38.dll
+ 0002:00000268       __imp__Py_NotImplementedStruct 0000000180008268     python38:python38.dll
+ 0002:00000270       __imp_PyExc_SyntaxError    0000000180008270     python38:python38.dll
+ 0002:00000278       __imp_PyExc_SystemError    0000000180008278     python38:python38.dll
+ 0002:00000280       __imp_PyExc_TypeError      0000000180008280     python38:python38.dll
+ 0002:00000288       __imp_PyExc_ValueError     0000000180008288     python38:python38.dll
+ 0002:00000290       __imp_PyExc_ZeroDivisionError 0000000180008290     python38:python38.dll
+ 0002:00000298       __imp_PyExc_IOError        0000000180008298     python38:python38.dll
+ 0002:000002a0       __imp__Py_NoneStruct       00000001800082a0     python38:python38.dll
+ 0002:000002a8       __imp_PyExc_RuntimeError   00000001800082a8     python38:python38.dll
+ 0002:000002b0       __imp_PyType_Type          00000001800082b0     python38:python38.dll
+ 0002:000002b8       __imp_PySequence_GetItem   00000001800082b8     python38:python38.dll
+ 0002:000002c0       __imp_PySequence_Size      00000001800082c0     python38:python38.dll
+ 0002:000002c8       __imp_PySequence_Check     00000001800082c8     python38:python38.dll
+ 0002:000002d0       __imp_PyObject_CallFunctionObjArgs 00000001800082d0     python38:python38.dll
+ 0002:000002d8       __imp_PyObject_Call        00000001800082d8     python38:python38.dll
+ 0002:000002e0       __imp_PyImport_AddModule   00000001800082e0     python38:python38.dll
+ 0002:000002e8       __imp_PyEval_InitThreads   00000001800082e8     python38:python38.dll
+ 0002:000002f0       __imp_PyModule_Create2     00000001800082f0     python38:python38.dll
+ 0002:000002f8       __imp_PyModule_AddObject   00000001800082f8     python38:python38.dll
+ 0002:00000300       __imp_PyArg_UnpackTuple    0000000180008300     python38:python38.dll
+ 0002:00000308       __imp_PyGILState_Release   0000000180008308     python38:python38.dll
+ 0002:00000310       __imp_PyGILState_Ensure    0000000180008310     python38:python38.dll
+ 0002:00000318       __imp_PyErr_WriteUnraisable 0000000180008318     python38:python38.dll
+ 0002:00000320       __imp_PyErr_Format         0000000180008320     python38:python38.dll
+ 0002:00000328       __imp_PyErr_GivenExceptionMatches 0000000180008328     python38:python38.dll
+ 0002:00000330       __imp_PyErr_Restore        0000000180008330     python38:python38.dll
+ 0002:00000338       __imp_PyErr_Fetch          0000000180008338     python38:python38.dll
+ 0002:00000340       __imp_PyErr_Clear          0000000180008340     python38:python38.dll
+ 0002:00000348       __imp_PyErr_Occurred       0000000180008348     python38:python38.dll
+ 0002:00000350       __imp_PyErr_SetString      0000000180008350     python38:python38.dll
+ 0002:00000358       __imp_PyCapsule_Import     0000000180008358     python38:python38.dll
+ 0002:00000360       __imp_PyCapsule_GetPointer 0000000180008360     python38:python38.dll
+ 0002:00000368       __imp_PyCapsule_New        0000000180008368     python38:python38.dll
+ 0002:00000370       __imp_PyModule_GetDict     0000000180008370     python38:python38.dll
+ 0002:00000378       __imp_PyCFunction_GetFlags 0000000180008378     python38:python38.dll
+ 0002:00000380       __imp_PyCFunction_GetSelf  0000000180008380     python38:python38.dll
+ 0002:00000388       __imp_PyCFunction_GetFunction 0000000180008388     python38:python38.dll
+ 0002:00000390       __imp_PyDict_SetItemString 0000000180008390     python38:python38.dll
+ 0002:00000398       __imp_PyDict_SetItem       0000000180008398     python38:python38.dll
+ 0002:000003a0       __imp_PyDict_New           00000001800083a0     python38:python38.dll
+ 0002:000003a8       __imp_PyList_SetItem       00000001800083a8     python38:python38.dll
+ 0002:000003b0       __imp_PyList_New           00000001800083b0     python38:python38.dll
+ 0002:000003b8       __imp_PyTuple_SetItem      00000001800083b8     python38:python38.dll
+ 0002:000003c0       __imp_PyTuple_GetItem      00000001800083c0     python38:python38.dll
+ 0002:000003c8       __imp_PyTuple_Size         00000001800083c8     python38:python38.dll
+ 0002:000003d0       __imp_PyTuple_New          00000001800083d0     python38:python38.dll
+ 0002:000003d8       __imp_PyBool_FromLong      00000001800083d8     python38:python38.dll
+ 0002:000003e0       __imp_PyLong_AsUnsignedLongLong 00000001800083e0     python38:python38.dll
+ 0002:000003e8       __imp_PyLong_FromUnsignedLongLong 00000001800083e8     python38:python38.dll
+ 0002:000003f0       __imp_PyLong_FromVoidPtr   00000001800083f0     python38:python38.dll
+ 0002:000003f8       __imp_PyLong_AsUnsignedLong 00000001800083f8     python38:python38.dll
+ 0002:00000400       __imp_PyLong_AsLong        0000000180008400     python38:python38.dll
+ 0002:00000408       __imp_PyLong_FromLong      0000000180008408     python38:python38.dll
+ 0002:00000410       __imp_PyUnicode_CompareWithASCIIString 0000000180008410     python38:python38.dll
+ 0002:00000418       __imp_PyUnicode_Concat     0000000180008418     python38:python38.dll
+ 0002:00000420       __imp_PyUnicode_FromFormat 0000000180008420     python38:python38.dll
+ 0002:00000428       __imp_PyUnicode_FromString 0000000180008428     python38:python38.dll
+ 0002:00000430       __imp__PyObject_New        0000000180008430     python38:python38.dll
+ 0002:00000438       __imp_PyObject_Free        0000000180008438     python38:python38.dll
+ 0002:00000440       __imp_Py_DecRef            0000000180008440     python38:python38.dll
+ 0002:00000448       __imp__Py_Dealloc          0000000180008448     python38:python38.dll
+ 0002:00000450       __imp_PyObject_IsTrue      0000000180008450     python38:python38.dll
+ 0002:00000458       __imp_PyObject_GenericGetAttr 0000000180008458     python38:python38.dll
+ 0002:00000460       __imp_PyObject_SetAttr     0000000180008460     python38:python38.dll
+ 0002:00000468       __imp_PyObject_GetAttr     0000000180008468     python38:python38.dll
+ 0002:00000470       __imp_PyObject_GetAttrString 0000000180008470     python38:python38.dll
+ 0002:00000478       __imp_PyType_Modified      0000000180008478     python38:python38.dll
+ 0002:00000480       __imp_PyType_GetFlags      0000000180008480     python38:python38.dll
+ 0002:00000488       __imp_PyType_GetSlot       0000000180008488     python38:python38.dll
+ 0002:00000490       __imp_PyType_FromSpec      0000000180008490     python38:python38.dll
+ 0002:00000498       __imp__Py_TrueStruct       0000000180008498     python38:python38.dll
+ 0002:000004a0       \177python38_NULL_THUNK_DATA 00000001800084a0     python38:python38.dll
+ 0002:000004a8       __guard_check_icall_fptr   00000001800084a8     MSVCRT:guard_support.obj
+ 0002:000004b0       __guard_dispatch_icall_fptr 00000001800084b0     MSVCRT:guard_support.obj
+ 0002:000004b8       __xc_a                     00000001800084b8     MSVCRT:initializers.obj
+ 0002:000004c0       __xc_z                     00000001800084c0     MSVCRT:initializers.obj
+ 0002:000004c8       __xi_a                     00000001800084c8     MSVCRT:initializers.obj
+ 0002:000004d8       __xi_z                     00000001800084d8     MSVCRT:initializers.obj
+ 0002:000004e0       __xl_a                     00000001800084e0     MSVCRT:tlssup.obj
+ 0002:000004e8       __xl_z                     00000001800084e8     MSVCRT:tlssup.obj
+ 0002:000004f0       __xp_a                     00000001800084f0     MSVCRT:initializers.obj
+ 0002:000004f8       __xp_z                     00000001800084f8     MSVCRT:initializers.obj
+ 0002:00000500       __xt_a                     0000000180008500     MSVCRT:initializers.obj
+ 0002:00000508       __xt_z                     0000000180008508     MSVCRT:initializers.obj
+ 0002:00000510       ??_C@_03BHDOPPEK@own@      0000000180008510     strlist.obj
+ 0002:00000514       ??_C@_06EFGGFDFD@disown@   0000000180008514     strlist.obj
+ 0002:00000520       ??_C@_0CC@CFIMIIPD@releases?5ownership?5of?5the?5point@ 0000000180008520     strlist.obj
+ 0002:00000548       ??_C@_07MEFPPMEF@acquire@  0000000180008548     strlist.obj
+ 0002:00000550       ??_C@_0CC@BAIBAPCI@acquires?5ownership?5of?5the?5point@ 0000000180008550     strlist.obj
+ 0002:00000578       ??_C@_0CG@GKPKGEFE@returns?1sets?5ownership?5of?5the?5p@ 0000000180008578     strlist.obj
+ 0002:000005a0       ??_C@_06PCICMFGG@append@   00000001800085a0     strlist.obj
+ 0002:000005a8       ??_C@_0BO@NCOOMDHM@appends?5another?5?8this?8?5object@ 00000001800085a8     strlist.obj
+ 0002:000005c8       ??_C@_04CJGEDOF@next@      00000001800085c8     strlist.obj
+ 0002:000005d0       ??_C@_0BP@IMIAEPNG@returns?5the?5next?5?8this?8?5object@ 00000001800085d0     strlist.obj
+ 0002:000005f0       ??_C@_08HJPCHLLJ@__repr__@ 00000001800085f0     strlist.obj
+ 0002:00000600       ??_C@_0BO@PNCCHPAD@returns?5object?5representation@ 0000000180008600     strlist.obj
+ 0002:00000620       ??_C@_0BC@EOODDAIL@new_strwinsetup_t@ 0000000180008620     strlist.obj
+ 0002:00000638       ??_C@_0BJ@JFINAHDL@strwinsetup_t_minlen_set@ 0000000180008638     strlist.obj
+ 0002:00000658       ??_C@_0DA@NCMGOKBL@strwinsetup_t_display_only_exis@ 0000000180008658     strlist.obj
+ 0002:00000688       ??_C@_0BM@CFOJECMN@strwinsetup_t_only_7bit_set@ 0000000180008688     strlist.obj
+ 0002:000006a8       ??_C@_0BP@HAKHHPCI@strwinsetup_t_ignore_heads_set@ 00000001800086a8     strlist.obj
+ 0002:000006c8       ??_C@_0BM@GECPPGFF@strwinsetup_t__set_strtypes@ 00000001800086c8     strlist.obj
+ 0002:000006e8       ??_C@_0BF@DEPGAGIH@string_info_t_ea_set@ 00000001800086e8     strlist.obj
+ 0002:00000700       ??_C@_0BJ@NHHHICMK@string_info_t_length_set@ 0000000180008700     strlist.obj
+ 0002:00000720       ??_C@_0BH@BGDHGGLH@string_info_t_type_set@ 0000000180008720     strlist.obj
+ 0002:00000738       ??_C@_0BC@BIBCOEGP@new_string_info_t@ 0000000180008738     strlist.obj
+ 0002:00000750       ??_C@_0BF@CCEPPNIG@string_info_t___lt__@ 0000000180008750     strlist.obj
+ 0002:00000768       ??_C@_0BE@IEKBNPLC@get_strlist_options@ 0000000180008768     strlist.obj
+ 0002:00000780       ??_C@_0O@FOEPMFP@build_strlist@ 0000000180008780     strlist.obj
+ 0002:00000790       ??_C@_0O@EPFHEADC@clear_strlist@ 0000000180008790     strlist.obj
+ 0002:000007a0       ??_C@_0BA@GIOKBCGL@get_strlist_qty@ 00000001800087a0     strlist.obj
+ 0002:000007b0       ??_C@_0BB@EPPHMBHP@get_strlist_item@ 00000001800087b0     strlist.obj
+ 0002:000007c8       ??_C@_0CF@MHMMKELI@new_strwinsetup_t?$CI?$CJ?5?9?$DO?5strwinse@ 00000001800087c8     strlist.obj
+ 0002:000007f0       ??_C@_0CH@HOIJGNBG@strwinsetup_t_minlen_set?$CIself?0?5@ 00000001800087f0     strlist.obj
+ 0002:00000818       ??_C@_0BJ@EKPGMHPD@strwinsetup_t_minlen_get@ 0000000180008818     strlist.obj
+ 0002:00000838       ??_C@_0CJ@LLHAGMKE@strwinsetup_t_minlen_get?$CIself?$CJ?5@ 0000000180008838     strlist.obj
+ 0002:00000870       ??_C@_0FF@MOMBAMEI@strwinsetup_t_display_only_exis@ 0000000180008870     strlist.obj
+ 0002:000008c8       ??_C@_0DA@NLNCKND@strwinsetup_t_display_only_exis@ 00000001800088c8     strlist.obj
+ 0002:000008f8       ??_C@_0DP@CJMODBDA@strwinsetup_t_display_only_exis@ 00000001800088f8     strlist.obj
+ 0002:00000938       ??_C@_0CN@GIGMHLJP@strwinsetup_t_only_7bit_set?$CIsel@ 0000000180008938     strlist.obj
+ 0002:00000968       ??_C@_0BM@PKJCICAF@strwinsetup_t_only_7bit_get@ 0000000180008968     strlist.obj
+ 0002:00000988       ??_C@_0CL@BCHPOBBM@strwinsetup_t_only_7bit_get?$CIsel@ 0000000180008988     strlist.obj
+ 0002:000009b8       ??_C@_0DD@IDCACLMJ@strwinsetup_t_ignore_heads_set?$CI@ 00000001800089b8     strlist.obj
+ 0002:000009f0       ??_C@_0BP@KPNMLPOA@strwinsetup_t_ignore_heads_get@ 00000001800089f0     strlist.obj
+ 0002:00000a10       ??_C@_0CO@NCNOGOCH@strwinsetup_t_ignore_heads_get?$CI@ 0000000180008a10     strlist.obj
+ 0002:00000a40       ??_C@_0BN@LIFNNDCP@strwinsetup_t_is_initialized@ 0000000180008a40     strlist.obj
+ 0002:00000a60       ??_C@_0CL@DJKPGLFD@strwinsetup_t_is_initialized?$CIse@ 0000000180008a60     strlist.obj
+ 0002:00000a90       ??_C@_0BM@BAJBDKBJ@strwinsetup_t__get_strtypes@ 0000000180008a90     strlist.obj
+ 0002:00000ab0       ??_C@_0DA@KGHGKFFL@strwinsetup_t__get_strtypes?$CIsel@ 0000000180008ab0     strlist.obj
+ 0002:00000ae0       ??_C@_0DG@FNFDJFNN@strwinsetup_t__set_strtypes?$CIsel@ 0000000180008ae0     strlist.obj
+ 0002:00000b18       ??_C@_0BF@JKEAMGCL@delete_strwinsetup_t@ 0000000180008b18     strlist.obj
+ 0002:00000b30       ??_C@_0BL@DJHEBNPO@delete_strwinsetup_t?$CIself?$CJ@ 0000000180008b30     strlist.obj
+ 0002:00000b50       ??_C@_0BL@MIHKBMFB@strwinsetup_t_swigregister@ 0000000180008b50     strlist.obj
+ 0002:00000b70       ??_C@_0BH@KAAJCINM@strwinsetup_t_swiginit@ 0000000180008b70     strlist.obj
+ 0002:00000b88       ??_C@_0BP@PKBIHMDD@string_info_t_ea_set?$CIself?0?5ea?$CJ@ 0000000180008b88     strlist.obj
+ 0002:00000ba8       ??_C@_0BF@OLINMGEP@string_info_t_ea_get@ 0000000180008ba8     strlist.obj
+ 0002:00000bc0       ??_C@_0CD@FFDFKJJA@string_info_t_ea_get?$CIself?$CJ?5?9?$DO?5e@ 0000000180008bc0     strlist.obj
+ 0002:00000be8       ??_C@_0CH@IHLDPHCL@string_info_t_length_set?$CIself?0?5@ 0000000180008be8     strlist.obj
+ 0002:00000c10       ??_C@_0BJ@IAMECAC@string_info_t_length_get@ 0000000180008c10     strlist.obj
+ 0002:00000c30       ??_C@_0CG@KDMHPGBJ@string_info_t_length_get?$CIself?$CJ?5@ 0000000180008c30     strlist.obj
+ 0002:00000c58       ??_C@_0CD@PGBKBGMM@string_info_t_type_set?$CIself?0?5ty@ 0000000180008c58     strlist.obj
+ 0002:00000c80       ??_C@_0BH@MJEMKGHP@string_info_t_type_get@ 0000000180008c80     strlist.obj
+ 0002:00000c98       ??_C@_0CE@FELJKOAE@string_info_t_type_get?$CIself?$CJ?5?9?$DO@ 0000000180008c98     strlist.obj
+ 0002:00000cc0       ??_C@_0DK@EOJIIBCM@?6string_info_t?$CI?$CJ?6new_string_inf@ 0000000180008cc0     strlist.obj
+ 0002:00000d00       ??_C@_0CG@FJBADAAO@string_info_t___lt__?$CIself?0?5r?$CJ?5?9@ 0000000180008d00     strlist.obj
+ 0002:00000d28       ??_C@_0BF@MMLBBCMP@delete_string_info_t@ 0000000180008d28     strlist.obj
+ 0002:00000d40       ??_C@_0BL@JODPLODD@delete_string_info_t?$CIself?$CJ@ 0000000180008d40     strlist.obj
+ 0002:00000d60       ??_C@_0BL@FKHMJLO@string_info_t_swigregister@ 0000000180008d60     strlist.obj
+ 0002:00000d80       ??_C@_0BH@FNFKFKFK@string_info_t_swiginit@ 0000000180008d80     strlist.obj
+ 0002:00000d98       ??_C@_0CH@JMNMKKND@get_strlist_options?$CI?$CJ?5?9?$DO?5strwin@ 0000000180008d98     strlist.obj
+ 0002:00000dc0       ??_C@_0BA@PLDAHCPL@build_strlist?$CI?$CJ@ 0000000180008dc0     strlist.obj
+ 0002:00000dd0       ??_C@_0BA@OJLENCAF@clear_strlist?$CI?$CJ@ 0000000180008dd0     strlist.obj
+ 0002:00000de0       ??_C@_0BM@EGCMLCFM@get_strlist_qty?$CI?$CJ?5?9?$DO?5size_t@ 0000000180008de0     strlist.obj
+ 0002:00000e00       ??_C@_0CA@OMJEEKJB@get_strlist_item?$CIsi?0?5n?$CJ?5?9?$DO?5bool@ 0000000180008e00     strlist.obj
+ 0002:00000e20       ??_C@_0BE@LADBKDLC@_p__qstringT_char_t@ 0000000180008e20     strlist.obj
+ 0002:00000e38       ??_C@_0BN@OHJFNODI@_qstring?$DM?5char?5?$DO?5?$CK?$HMqstring?5?$CK@ 0000000180008e38     strlist.obj
+ 0002:00000e58       ??_C@_0BN@OGMFMNEO@_p__qstringT_unsigned_char_t@ 0000000180008e58     strlist.obj
+ 0002:00000e78       ??_C@_0CE@FCOOCMMP@qtype?5?$CK?$HM_qstring?$DM?5unsigned?5char@ 0000000180008e78     strlist.obj
+ 0002:00000ea0       ??_C@_0BO@NPELMEMN@_p__qstringT_unsigned_short_t@ 0000000180008ea0     strlist.obj
+ 0002:00000ec0       ??_C@_0CI@MOGIECDE@_qstring?$DM?5unsigned?5short?5?$DO?5?$CK?$HMqw@ 0000000180008ec0     strlist.obj
+ 0002:00000ee8       ??_C@_0BF@FIODJLOI@_p_action_ctx_base_t@ 0000000180008ee8     strlist.obj
+ 0002:00000f00       ??_C@_0EE@ODNBPOJC@action_ctx_base_t?5?$CK?$HMaction_upda@ 0000000180008f00     strlist.obj
+ 0002:00000f48       ??_C@_0N@IODFCNBG@_p_biggest_t@ 0000000180008f48     strlist.obj
+ 0002:00000f58       ??_C@_0M@LMODFOHJ@biggest_t?5?$CK@ 0000000180008f58     strlist.obj
+ 0002:00000f68       ??_C@_07HDHHMDOH@_p_char@  0000000180008f68     strlist.obj
+ 0002:00000f70       ??_C@_0O@HOPHBKAL@char?5?$CK?$HMint8?5?$CK@ 0000000180008f70     strlist.obj
+ 0002:00000f80       ??_C@_0BC@KJKOCNNG@_p_const_iterator@ 0000000180008f80     strlist.obj
+ 0002:00000f98       ??_C@_0BB@LAJPCFIO@const_iterator?5?$CK@ 0000000180008f98     strlist.obj
+ 0002:00000fb0       ??_C@_0CE@DHGPAIMI@_p_f_p_TWidget_int_int_p_void__@ 0000000180008fb0     strlist.obj
+ 0002:00000fd8       ??_C@_0DN@DFPOHMBA@custom_viewer_keydown_t?5?$CK?$HMbool?5@ 0000000180008fd8     strlist.obj
+ 0002:00001018       ??_C@_0DF@PENMGFJK@_p_f_p_TWidget_int_p_view_mouse@ 0000000180009018     strlist.obj
+ 0002:00001050       ??_C@_0FC@NPHKCCPL@void?5?$CI?$CK?$CJ?$CITWidget?5?$CK?0int?0view_mou@ 0000000180009050     strlist.obj
+ 0002:000010a8       ??_C@_0CA@IGCEDJID@_p_f_p_TWidget_int_p_void__bool@ 00000001800090a8     strlist.obj
+ 0002:000010d0       ??_C@_0FC@PJNOFHGN@custom_viewer_click_t?5?$CK?$HMcustom_@ 00000001800090d0     strlist.obj
+ 0002:00001128       ??_C@_0CO@MIHLPJDD@_p_f_p_TWidget_p_lochist_entry_@ 0000000180009128     strlist.obj
+ 0002:00001160       ??_C@_0EM@HBPJNBB@custom_viewer_adjust_place_t?5?$CK?$HM@ 0000000180009160     strlist.obj
+ 0002:000011b0       ??_C@_0GM@LBGPKCPI@_p_f_p_TWidget_p_q_const__lochi@ 00000001800091b0     strlist.obj
+ 0002:00001220       ??_C@_0IF@FKBGALIG@void?5?$CI?$CK?$CJ?$CITWidget?5?$CK?0lochist_entr@ 0000000180009220     strlist.obj
+ 0002:000012b0       ??_C@_0FA@DFBJAGBE@_p_f_p_TWidget_p_q_const__lochi@ 00000001800092b0     strlist.obj
+ 0002:00001300       ??_C@_0GI@FMPBFLEM@custom_viewer_can_navigate_t?5?$CK?$HM@ 0000000180009300     strlist.obj
+ 0002:00001368       ??_C@_0DH@JJEDBLDE@_p_f_p_TWidget_p_q_const__place@ 0000000180009368     strlist.obj
+ 0002:000013a0       ??_C@_0EP@PJDAMEBK@code_viewer_lines_click_t?5?$CK?$HMvoi@ 00000001800093a0     strlist.obj
+ 0002:000013f0       ??_C@_0DE@PBNPHPNC@_p_f_p_TWidget_p_q_const__place@ 00000001800093f0     strlist.obj
+ 0002:00001430       ??_C@_0EL@JKPIBDKO@code_viewer_lines_icon_t?5?$CK?$HMint?5@ 0000000180009430     strlist.obj
+ 0002:00001480       ??_C@_0EB@FDCGDBJI@_p_f_p_TWidget_p_q_const__place@ 0000000180009480     strlist.obj
+ 0002:000014d0       ??_C@_0FN@GGLCMJJK@custom_viewer_get_place_xcoord_@ 00000001800094d0     strlist.obj
+ 0002:00001530       ??_C@_0DO@KLDLOPHE@_p_f_p_TWidget_p_q_const__place@ 0000000180009530     strlist.obj
+ 0002:00001570       ??_C@_0FI@GOMHMLF@code_viewer_lines_linenum_t?5?$CK?$HMb@ 0000000180009570     strlist.obj
+ 0002:000015c8       ??_C@_0BL@BMEJNHDD@_p_f_p_TWidget_p_void__int@ 00000001800095c8     strlist.obj
+ 0002:000015e8       ??_C@_0DB@GMPMLKDG@custom_viewer_help_t?5?$CK?$HMint?5?$CI?$CK?$CJ?$CI@ 00000001800095e8     strlist.obj
+ 0002:00001620       ??_C@_0BM@PAKPNBHH@_p_f_p_TWidget_p_void__void@ 0000000180009620     strlist.obj
+ 0002:00001640       ??_C@_0GE@BLLNJKNN@custom_viewer_popup_t?5?$CK?$HMcustom_@ 0000000180009640     strlist.obj
+ 0002:000016a8       ??_C@_0DM@PKHFKJJF@_p_f_p_chooser_multi_t_p_sizeve@ 00000001800096a8     strlist.obj
+ 0002:000016f0       ??_C@_0FA@INGPHNGB@chooser_base_t?3?3cbres_t?5?$CI?$CK?$CJ?$CIcho@ 00000001800096f0     strlist.obj
+ 0002:00001740       ??_C@_0CN@LJCPBILN@_p_f_p_chooser_t_ssize_t__choos@ 0000000180009740     strlist.obj
+ 0002:00001770       ??_C@_0DL@IKAMODJA@chooser_t?3?3cbret_t?5?$CI?$CK?$CJ?$CIchooser_@ 0000000180009770     strlist.obj
+ 0002:000017b0       ??_C@_0EC@GIKOMIMG@_p_f_p_lochist_entry_t_r_q_cons@ 00000001800097b0     strlist.obj
+ 0002:00001800       ??_C@_0FE@OJIOMBOE@bool?5?$CI?$CK?$CJ?$CIlochist_entry_t?5?$CK?0loch@ 0000000180009800     strlist.obj
+ 0002:00001858       ??_C@_0CC@HPECDOJE@_p_f_p_q_const__char_p_void__vo@ 0000000180009858     strlist.obj
+ 0002:00001880       ??_C@_0DA@LKJNDOAC@void?5?$CI?$CK?$CJ?$CIchar?5const?5?$CK?0void?5?$CK?$CJ?$HMs@ 0000000180009880     strlist.obj
+ 0002:000018b0       ??_C@_0GC@HKCHLFJ@_p_f_p_q_const__char_r_q_const_@ 00000001800098b0     strlist.obj
+ 0002:00001920       ??_C@_0GE@CDAMLIPA@h2ti_type_cb?5?$CK?$HMint?5?$CI?$CK?$CJ?$CIchar?5con@ 0000000180009920     strlist.obj
+ 0002:00001988       ??_C@_0CB@PLKCNJF@_p_f_p_q_const__char_v_______in@ 0000000180009988     strlist.obj
+ 0002:000019b0       ??_C@_0CG@EHKOJEHN@int?5?$CI?$CK?$CJ?$CIchar?5const?5?$CK?0?4?4?4?$CJ?$HMprint@ 00000001800099b0     strlist.obj
+ 0002:000019d8       ??_C@_0CB@PPFKEDBB@_p_f_p_void_int_va_list__ssize_@ 00000001800099d8     strlist.obj
+ 0002:00001a00       ??_C@_0CM@ODIKDJIA@ssize_t?5?$CI?$CK?$CJ?$CIvoid?5?$CK?0int?0va_list?$CJ@ 0000000180009a00     strlist.obj
+ 0002:00001a30       ??_C@_0CJ@KNMLBMOG@_p_f_r_q_const__insn_t_p_int_p_@ 0000000180009a30     strlist.obj
+ 0002:00001a60       ??_C@_0DI@CGFAFNOI@bool?5?$CI?$CK?$CJ?$CIinsn_t?5const?5?$CG?0int?5?$CK?0i@ 0000000180009a60     strlist.obj
+ 0002:00001aa0       ??_C@_0FA@JJBGCIIH@_p_f_r_q_const__insn_t_r_q_cons@ 0000000180009aa0     strlist.obj
+ 0002:00001af0       ??_C@_0FE@IBKJNBMI@bool?5?$CI?$CK?$CJ?$CIinsn_t?5const?5?$CG?0op_t?5co@ 0000000180009af0     strlist.obj
+ 0002:00001b48       ??_C@_0BI@PGCOIKGG@_p_f_unsigned_int__bool@ 0000000180009b48     strlist.obj
+ 0002:00001b60       ??_C@_0DN@OGOBIPP@bool?5?$CI?$CK?$CJ?$CIunsigned?5int?$CJ?$HMhas_dela@ 0000000180009b60     strlist.obj
+ 0002:00001ba0       ??_C@_0DL@FFEHDPON@_p_f_unsigned_int_p_q_const__ch@ 0000000180009ba0     strlist.obj
+ 0002:00001be0       ??_C@_0EK@MACPDLHN@int?5?$CI?$CK?$CJ?$CIunsigned?5int?0char?5const@ 0000000180009be0     strlist.obj
+ 0002:00001c30       ??_C@_0BP@HNIFGGKH@_p_f_unsigned_int_p_void__bool@ 0000000180009c30     strlist.obj
+ 0002:00001c50       ??_C@_0CI@PMEGIBIK@testf_t?5?$CK?$HMbool?5?$CI?$CK?$CJ?$CIunsigned?5int@ 0000000180009c50     strlist.obj
+ 0002:00001c78       ??_C@_0DB@CEAPILAH@_p_f_unsigned_int_r_q_const__ti@ 0000000180009c78     strlist.obj
+ 0002:00001cb0       ??_C@_0EH@MLDNCCKC@local_tinfo_predicate_t?5?$CK?$HMint?5?$CI@ 0000000180009cb0     strlist.obj
+ 0002:00001cf8       ??_C@_0CN@BPIIPJKN@_p_f_unsigned_int_unsigned_int_@ 0000000180009cf8     strlist.obj
+ 0002:00001d28       ??_C@_0DO@CKIBBIPB@unsigned?5int?5?$CI?$CK?$CJ?$CIunsigned?5int?0u@ 0000000180009d28     strlist.obj
+ 0002:00001d68       ??_C@_06EJFLAOFF@_p_int@   0000000180009d68     strlist.obj
+ 0002:00001d70       ??_C@_0IG@FDKJDHEK@adiff_t?5?$CK?$HMint?5?$CK?$HMint32?5?$CK?$HMsval_t?5@ 0000000180009d70     strlist.obj
+ 0002:00001df8       ??_C@_0M@CFMLOKJJ@_p_iterator@ 0000000180009df8     strlist.obj
+ 0002:00001e08       ??_C@_0L@IIMCJLIP@iterator?5?$CK@ 0000000180009e08     strlist.obj
+ 0002:00001e18       ??_C@_0O@HDLJBJJF@_p_location_t@ 0000000180009e18     strlist.obj
+ 0002:00001e28       ??_C@_0N@ONMECIKA@location_t?5?$CK@ 0000000180009e28     strlist.obj
+ 0002:00001e38       ??_C@_0N@HIKGEFDH@_p_long_long@ 0000000180009e38     strlist.obj
+ 0002:00001e48       ??_C@_0BP@FECEFBLL@int64?5?$CK?$HMlonglong?5?$CK?$HMlong?5long?5?$CK@ 0000000180009e48     strlist.obj
+ 0002:00001e68       ??_C@_0CJ@KBPLCHCN@_p_qvectorT__qstringT_unsigned_@ 0000000180009e68     strlist.obj
+ 0002:00001e98       ??_C@_0DF@GOALPBDM@qvector?$DM?5_qstring?$DM?5unsigned?5sho@ 0000000180009e98     strlist.obj
+ 0002:00001ed0       ??_C@_0BH@EHIHPDFP@_p_qvectorT_argloc_t_t@ 0000000180009ed0     strlist.obj
+ 0002:00001ee8       ??_C@_0CC@PMMGEEHP@qvector?$DM?5argloc_t?5?$DO?5?$CK?$HMarglocs_t@ 0000000180009ee8     strlist.obj
+ 0002:00001f10       ??_C@_0BD@IFPOLGLB@_p_qvectorT_bool_t@ 0000000180009f10     strlist.obj
+ 0002:00001f28       ??_C@_0BO@JEOEHDBE@boolvec_t?5?$CK?$HMqvector?$DM?5bool?5?$DO?5?$CK@ 0000000180009f28     strlist.obj
+ 0002:00001f48       ??_C@_0BO@BMBALGLA@_p_qvectorT_channel_redir_t_t@ 0000000180009f48     strlist.obj
+ 0002:00001f68       ??_C@_0DA@DFOFPPPA@qvector?$DM?5channel_redir_t?5?$DO?5?$CK?$HMch@ 0000000180009f68     strlist.obj
+ 0002:00001f98       ??_C@_0CA@KLOIFAIM@_p_qvectorT_compiled_binpat_t_t@ 0000000180009f98     strlist.obj
+ 0002:00001fb8       ??_C@_0DH@JJMOBCIB@compiled_binpat_vec_t?5?$CK?$HMqvector@ 0000000180009fb8     strlist.obj
+ 0002:00001ff0       ??_C@_0BI@HPPPANA@_p_qvectorT_funcarg_t_t@ 0000000180009ff0     strlist.obj
+ 0002:00002008       ??_C@_0CG@BKJABKPP@funcargvec_t?5?$CK?$HMqvector?$DM?5funcarg@ 000000018000a008     strlist.obj
+ 0002:00002030       ??_C@_0BC@EMAMHDDK@_p_qvectorT_int_t@ 000000018000a030     strlist.obj
+ 0002:00002048       ??_C@_0CI@OEOLBAGE@svalvec_t?5?$CK?$HMintvec_t?5?$CK?$HMqvector?$DM@ 000000018000a048     strlist.obj
+ 0002:00002070       ??_C@_0BG@NGNJJEPD@_p_qvectorT_range_t_t@ 000000018000a070     strlist.obj
+ 0002:00002088       ??_C@_0CH@CMPFLCHN@rangevec_base_t?5?$CK?$HMqvector?$DM?5rang@ 000000018000a088     strlist.obj
+ 0002:000020b0       ??_C@_0CB@DLEFICAI@_p_qvectorT_rangeset_t_const_p_@ 000000018000a0b0     strlist.obj
+ 0002:000020d8       ??_C@_0DF@CPGECBJE@rangeset_crefvec_t?5?$CK?$HMqvector?$DM?5r@ 000000018000a0d8     strlist.obj
+ 0002:00002110       ??_C@_0BJ@CBEEABAG@_p_qvectorT_rangeset_t_t@ 000000018000a110     strlist.obj
+ 0002:00002130       ??_C@_0CN@NEPIOIFG@qvector?$DM?5rangeset_t?5?$DO?5?$CK?$HMarray_o@ 000000018000a130     strlist.obj
+ 0002:00002160       ??_C@_0BN@HCIAELAH@_p_qvectorT_refinfo_desc_t_t@ 000000018000a160     strlist.obj
+ 0002:00002180       ??_C@_0DB@OEPGJFJL@refinfo_desc_vec_t?5?$CK?$HMqvector?$DM?5r@ 000000018000a180     strlist.obj
+ 0002:000021b8       ??_C@_0BK@JBDFAIAF@_p_qvectorT_simd_info_t_t@ 000000018000a1b8     strlist.obj
+ 0002:000021d8       ??_C@_0CL@IAEHADMA@simd_info_vec_t?5?$CK?$HMqvector?$DM?5simd@ 000000018000a1d8     strlist.obj
+ 0002:00002208       ??_C@_0BL@JOHIOMBL@_p_qvectorT_simpleline_t_t@ 000000018000a208     strlist.obj
+ 0002:00002228       ??_C@_0CF@LMLHENLN@strvec_t?5?$CK?$HMqvector?$DM?5simpleline_@ 000000018000a228     strlist.obj
+ 0002:00002250       ??_C@_0BF@JMFCGENF@_p_qvectorT_size_t_t@ 000000018000a250     strlist.obj
+ 0002:00002268       ??_C@_0CA@PKGFIBKP@sizevec_t?5?$CK?$HMqvector?$DM?5size_t?5?$DO?5?$CK@ 000000018000a268     strlist.obj
+ 0002:00002288       ??_C@_0BG@GHPDGOHO@_p_qvectorT_tinfo_t_t@ 000000018000a288     strlist.obj
+ 0002:000022a0       ??_C@_0CC@CEHAEEKI@tinfovec_t?5?$CK?$HMqvector?$DM?5tinfo_t?5?$DO@ 000000018000a2a0     strlist.obj
+ 0002:000022c8       ??_C@_0BK@KGMCEJE@_p_qvectorT_type_attr_t_t@ 000000018000a2c8     strlist.obj
+ 0002:000022e8       ??_C@_0CI@PENEDOEG@type_attrs_t?5?$CK?$HMqvector?$DM?5type_at@ 000000018000a2e8     strlist.obj
+ 0002:00002310       ??_C@_0BL@MFAEBBAF@_p_qvectorT_udt_member_t_t@ 000000018000a310     strlist.obj
+ 0002:00002330       ??_C@_0CL@HFANAPIM@udtmembervec_t?5?$CK?$HMqvector?$DM?5udt_m@ 000000018000a330     strlist.obj
+ 0002:00002360       ??_C@_0BM@DFOCNGNJ@_p_qvectorT_unsigned_char_t@ 000000018000a360     strlist.obj
+ 0002:00002380       ??_C@_0CH@MCODNJGI@qvector?$DM?5unsigned?5char?5?$DO?5?$CK?$HMcomp@ 000000018000a380     strlist.obj
+ 0002:000023a8       ??_C@_0M@BEMIELHM@_p_relobj_t@ 000000018000a3a8     strlist.obj
+ 0002:000023b8       ??_C@_0N@OAHCDFLH@_p_bytevec_t@ 000000018000a3b8     strlist.obj
+ 0002:000023c8       ??_C@_0BA@KOPDLMDG@_p_reloc_info_t@ 000000018000a3c8     strlist.obj
+ 0002:000023d8       ??_C@_0BL@POPMPLM@_p_qvectorT_unsigned_int_t@ 000000018000a3d8     strlist.obj
+ 0002:000023f8       ??_C@_0DL@HDEADPMO@eavec_t?5?$CK?$HMordvec_t?5?$CK?$HMuvalvec_t?5@ 000000018000a3f8     strlist.obj
+ 0002:00002438       ??_C@_08JGEHMJEC@_p_short@ 000000018000a438     strlist.obj
+ 0002:00002448       ??_C@_0BA@BBDCPKKI@int16?5?$CK?$HMshort?5?$CK@ 000000018000a448     strlist.obj
+ 0002:00002458       ??_C@_0P@IHEJCACJ@_p_signed_char@ 000000018000a458     strlist.obj
+ 0002:00002468       ??_C@_0BG@CGJIOBCI@signed?5char?5?$CK?$HMsint8?5?$CK@ 000000018000a468     strlist.obj
+ 0002:00002480       ??_C@_0BB@LOCHIMON@_p_string_info_t@ 000000018000a480     strlist.obj
+ 0002:00002498       ??_C@_0BA@DGGDOOIH@string_info_t?5?$CK@ 000000018000a498     strlist.obj
+ 0002:000024a8       ??_C@_0BB@OINGFIAJ@_p_strwinsetup_t@ 000000018000a4a8     strlist.obj
+ 0002:000024c0       ??_C@_0BA@INMPJIFD@strwinsetup_t?5?$CK@ 000000018000a4c0     strlist.obj
+ 0002:000024d0       ??_C@_0BB@JEMKPEPB@_p_unsigned_char@ 000000018000a4d0     strlist.obj
+ 0002:000024f0       ??_C@_0HI@NBHOBBOJ@uchar?5?$CK?$HMunsigned?5char?5?$CK?$HMcm_t?5?$CK?$HM@ 000000018000a4f0     strlist.obj
+ 0002:00002568       ??_C@_0BA@EMEBBPFL@_p_unsigned_int@ 000000018000a568     strlist.obj
+ 0002:00002580       ??_C@_0JE@GCFOGLMK@bgcolor_t?5?$CK?$HMenum_t?5?$CK?$HMtid_t?5?$CK?$HMbm@ 000000018000a580     strlist.obj
+ 0002:00002618       ??_C@_0BG@CGEDOPGF@_p_unsigned_long_long@ 000000018000a618     strlist.obj
+ 0002:00002630       ??_C@_0CK@FCLCDGJM@uint64?5?$CK?$HMulonglong?5?$CK?$HMunsigned?5l@ 000000018000a630     strlist.obj
+ 0002:00002660       ??_C@_0BC@GCHEMBCE@_p_unsigned_short@ 000000018000a660     strlist.obj
+ 0002:00002678       ??_C@_0CP@HNCAPCKA@uint16?5?$CK?$HMunsigned?5short?5?$CK?$HMushor@ 000000018000a678     strlist.obj
+ 0002:000028f0       ??_C@_0BO@CMHFAAKD@?$CFS?6Additional?5information?3?6?$CFs@ 000000018000a8f0     strlist.obj
+ 0002:0000290e       ??_C@_00CNPNBAHC@@         000000018000a90e     strlist.obj
+ 0002:00002910       ??_C@_09HJOCAFJB@at?5least?5@ 000000018000a910     strlist.obj
+ 0002:00002920       ??_C@_0CF@KFFOGCID@?$CFs?5expected?5?$CFs?$CFd?5arguments?0?5got@ 000000018000a920     strlist.obj
+ 0002:00002948       ??_C@_0CL@NPJGKHAI@UnpackTuple?$CI?$CJ?5argument?5list?5is?5@ 000000018000a948     strlist.obj
+ 0002:00002978       ??_C@_0CD@DMIOPJCG@?$CFs?5expected?5?$CFs?$CFd?5arguments?0?5got@ 000000018000a978     strlist.obj
+ 0002:000029a0       ??_C@_08KFLHMPAE@at?5most?5@ 000000018000a9a0     strlist.obj
+ 0002:000029b0       ??_C@_07MEBHOIG@__new__@   000000018000a9b0     strlist.obj
+ 0002:000029b8       ??_C@_0BB@LPCDDCDP@__swig_destroy__@ 000000018000a9b8     strlist.obj
+ 0002:000029d0       ??_C@_07CIFAGBMG@unknown@  000000018000a9d0     strlist.obj
+ 0002:000029d8       ??_C@_0CB@HIOLGNHE@?$DMSwig?5Object?5of?5type?5?8?$CFs?8?5at?5?$CFp@ 000000018000a9d8     strlist.obj
+ 0002:00002a00       ??_C@_08BHKDPDAA@__name__@ 000000018000aa00     strlist.obj
+ 0002:00002a10       ??_C@_0N@OEDBPMFH@SwigPyObject@ 000000018000aa10     strlist.obj
+ 0002:00002a20       ??_C@_0EH@KGGHIIII@swig?1python?5detected?5a?5memory?5l@ 000000018000aa20     strlist.obj
+ 0002:00002a68       ??_C@_0CF@NBDOMJMA@Attempt?5to?5append?5a?5non?5SwigPyO@ 000000018000aa68     strlist.obj
+ 0002:00002a90       ??_C@_0BG@BEMBDPAG@?$DMSwig?5Packed?5at?5?$CFs?$CFs?$DO@ 000000018000aa90     strlist.obj
+ 0002:00002aa8       ??_C@_0BB@KEMDDLH@?$DMSwig?5Packed?5?$CFs?$DO@ 000000018000aaa8     strlist.obj
+ 0002:00002abc       ??_C@_04HDOCAJNK@?$CFs?$CFs@ 000000018000aabc     strlist.obj
+ 0002:00002ac8       ??_C@_0N@FALDBJHP@SwigPyPacked@ 000000018000aac8     strlist.obj
+ 0002:00002ad8       ??_C@_04IIAJELJL@this@     000000018000aad8     strlist.obj
+ 0002:00002ae0       ??_C@_0L@GCGAIEDO@swig_ptr?3?5@ 000000018000aae0     strlist.obj
+ 0002:00002af0       ??_C@_08IBFKALI@__dict__@  000000018000aaf0     strlist.obj
+ 0002:00002b00       ??_C@_08DOBMGDEN@swiginit@ 000000018000ab00     strlist.obj
+ 0002:00002b10       ??_C@_0CO@FOLKHJOC@swig_runtime_data4?4type_pointer@ 000000018000ab10     strlist.obj
+ 0002:00002b40       ??_C@_0BD@BFIMCAOH@swig_runtime_data4@ 000000018000ab40     strlist.obj
+ 0002:00002b58       ??_C@_0BL@LFDLKGPB@type_pointer_capsuleidaapi@ 000000018000ab58     strlist.obj
+ 0002:00002b78       ??_C@_0BC@EOODALEL@Unknown?5exception@ 000000018000ab78     strlist.obj
+ 0002:00002b90       ??_C@_0BK@NPFFDHAP@Out?5of?5memory?5?$CIbad_alloc?$CJ@ 000000018000ab90     strlist.obj
+ 0002:00002bb0       ??_C@_0BCP@OKJACFO@Internal?5error?5?$CFd?5occurred?5when@ 000000018000abb0     strlist.obj
+ 0002:00002ce0       ??_C@_0DB@OCJMLGAO@Function?5can?5be?5called?5from?5the@ 000000018000ace0     strlist.obj
+ 0002:00002d18       ??_C@_0CB@EGLNLCBD@values?5must?5be?5between?50?5?$CG?50x10@ 000000018000ad18     strlist.obj
+ 0002:00002d40       ??_C@_0BE@HFGJMCJI@expected?5an?5integer@ 000000018000ad40     strlist.obj
+ 0002:00002d58       ??_C@_0BA@JDFPMAAC@expected?5a?5list@ 000000018000ad58     strlist.obj
+ 0002:00002d70       ??_C@_0EL@OECKFHIH@in?5method?5?8strwinsetup_t_minlen@ 000000018000ad70     strlist.obj
+ 0002:00002dc0       ??_C@_0EC@HNELHFFP@in?5method?5?8strwinsetup_t_minlen@ 000000018000adc0     strlist.obj
+ 0002:00002e10       ??_C@_0EL@IJANPABM@in?5method?5?8strwinsetup_t_minlen@ 000000018000ae10     strlist.obj
+ 0002:00002e60       ??_C@_0GC@OPDBOCOK@in?5method?5?8strwinsetup_t_displa@ 000000018000ae60     strlist.obj
+ 0002:00002ed0       ??_C@_0FI@CBLGFAFD@in?5method?5?8strwinsetup_t_displa@ 000000018000aed0     strlist.obj
+ 0002:00002f30       ??_C@_0GC@ICBGEFHB@in?5method?5?8strwinsetup_t_displa@ 000000018000af30     strlist.obj
+ 0002:00002fa0       ??_C@_0EO@OGFPJPOB@in?5method?5?8strwinsetup_t_only_7@ 000000018000afa0     strlist.obj
+ 0002:00002ff0       ??_C@_0EE@PHOJFLDN@in?5method?5?8strwinsetup_t_only_7@ 000000018000aff0     strlist.obj
+ 0002:00003040       ??_C@_0EO@ILHIDIHK@in?5method?5?8strwinsetup_t_only_7@ 000000018000b040     strlist.obj
+ 0002:00003090       ??_C@_0FB@KCHNNPOK@in?5method?5?8strwinsetup_t_ignore@ 000000018000b090     strlist.obj
+ 0002:000030f0       ??_C@_0EH@HFIONNIB@in?5method?5?8strwinsetup_t_ignore@ 000000018000b0f0     strlist.obj
+ 0002:00003140       ??_C@_0FB@MPFKHIHB@in?5method?5?8strwinsetup_t_ignore@ 000000018000b140     strlist.obj
+ 0002:000031a0       ??_C@_0FF@MNKNMJEO@in?5method?5?8strwinsetup_t_is_ini@ 000000018000b1a0     strlist.obj
+ 0002:00003200       ??_C@_0EO@MJMNOEAH@in?5method?5?8strwinsetup_t__get_s@ 000000018000b200     strlist.obj
+ 0002:00003250       ??_C@_0EO@JPPFMNOH@in?5method?5?8strwinsetup_t__set_s@ 000000018000b250     strlist.obj
+ 0002:000032a0       ??_C@_0EH@JBLJOLPJ@in?5method?5?8delete_strwinsetup_t@ 000000018000b2a0     strlist.obj
+ 0002:000032e8       ??_C@_0N@JBELKAOG@swigregister@ 000000018000b2e8     strlist.obj
+ 0002:00003300       ??_C@_0EH@KNNJLMIL@in?5method?5?8string_info_t_ea_set@ 000000018000b300     strlist.obj
+ 0002:00003348       ??_C@_0DM@ECOGEOBN@in?5method?5?8string_info_t_ea_set@ 000000018000b348     strlist.obj
+ 0002:00003390       ??_C@_0EH@MAPOBLBA@in?5method?5?8string_info_t_ea_get@ 000000018000b390     strlist.obj
+ 0002:000033e0       ??_C@_0EL@BKBPIKIA@in?5method?5?8string_info_t_length@ 000000018000b3e0     strlist.obj
+ 0002:00003430       ??_C@_0DP@CJBACJGH@in?5method?5?8string_info_t_length@ 000000018000b430     strlist.obj
+ 0002:00003470       ??_C@_0EL@HHDICNBL@in?5method?5?8string_info_t_length@ 000000018000b470     strlist.obj
+ 0002:000034c0       ??_C@_0EJ@LEOLEHOH@in?5method?5?8string_info_t_type_s@ 000000018000b4c0     strlist.obj
+ 0002:00003510       ??_C@_0DN@HEFOCBOE@in?5method?5?8string_info_t_type_s@ 000000018000b510     strlist.obj
+ 0002:00003550       ??_C@_0EJ@NJMMOAHM@in?5method?5?8string_info_t_type_g@ 000000018000b550     strlist.obj
+ 0002:000035a0       ??_C@_0DJ@BEDKOILB@in?5method?5?8new_string_info_t?8?0?5@ 000000018000b5a0     strlist.obj
+ 0002:000035e0       ??_C@_0LL@KBKALFPD@Wrong?5number?5or?5type?5of?5argumen@ 000000018000b5e0     strlist.obj
+ 0002:000036a0       ??_C@_0EN@CLCCIKBH@in?5method?5?8string_info_t___lt__@ 000000018000b6a0     strlist.obj
+ 0002:000036f0       ??_C@_0EN@EPLOIACJ@in?5method?5?8string_info_t___lt__@ 000000018000b6f0     strlist.obj
+ 0002:00003740       ??_C@_0GE@GEAODOIC@invalid?5null?5reference?5in?5metho@ 000000018000b740     strlist.obj
+ 0002:000037b0       ??_C@_0EH@CPFCNLIJ@in?5method?5?8delete_string_info_t@ 000000018000b7b0     strlist.obj
+ 0002:00003800       ??_C@_0ED@LBBDGDL@in?5method?5?8get_strlist_item?8?0?5a@ 000000018000b800     strlist.obj
+ 0002:00003848       ??_C@_0DK@KLDNMLAB@in?5method?5?8get_strlist_item?8?0?5a@ 000000018000b848     strlist.obj
+ 0002:00003888       ??_C@_0N@GDFDIPEM@_ida_strlist@ 000000018000b888     strlist.obj
+ 0002:000038c0       ??_C@_1EC@JIJBPKFM@?$AAa?$AAp?$AAi?$AA?9?$AAm?$AAs?$AA?9?$AAw?$AAi?$AAn?$AA?9?$AAc?$AAo?$AAr?$AAe@ 000000018000b8c0     MSVCRT:thread_safe_statics.obj
+ 0002:00003908       ??_C@_1BK@MGMFAEKH@?$AAk?$AAe?$AAr?$AAn?$AAe?$AAl?$AA3?$AA2?$AA?4?$AAd?$AAl?$AAl@ 000000018000b908     MSVCRT:thread_safe_statics.obj
+ 0002:00003928       ??_C@_0BM@HLJJNPAH@InitializeConditionVariable@ 000000018000b928     MSVCRT:thread_safe_statics.obj
+ 0002:00003948       ??_C@_0BJ@JEBJOJFJ@SleepConditionVariableCS@ 000000018000b948     MSVCRT:thread_safe_statics.obj
+ 0002:00003968       ??_C@_0BJ@PGPPEPCC@WakeAllConditionVariable@ 000000018000b968     MSVCRT:thread_safe_statics.obj
+ 0002:00003990       ??_7type_info@@6B@         000000018000b990     MSVCRT:std_type_info_static.obj
+ 0002:00003998       _pRawDllMain               000000018000b998     MSVCRT:dll_dllmain.obj
+ 0002:00003998       _pDefaultRawDllMain        000000018000b998     MSVCRT:dll_dllmain.obj
+ 0002:000039a8       ??_7exception@std@@6B@     000000018000b9a8     MSVCRT:throw_bad_alloc.obj
+ 0002:000039c0       ??_7bad_alloc@std@@6B@     000000018000b9c0     MSVCRT:throw_bad_alloc.obj
+ 0002:000039d0       ??_C@_0P@GHFPNOJB@bad?5allocation@ 000000018000b9d0     MSVCRT:throw_bad_alloc.obj
+ 0002:000039e8       ??_7bad_array_new_length@std@@6B@ 000000018000b9e8     MSVCRT:throw_bad_alloc.obj
+ 0002:000039f8       ??_C@_0BF@KINCDENJ@bad?5array?5new?5length@ 000000018000b9f8     MSVCRT:throw_bad_alloc.obj
+ 0002:00003a80       _load_config_used          000000018000ba80     MSVCRT:loadcfg.obj
+ 0002:00003b80       _tls_used                  000000018000bb80     MSVCRT:tlssup.obj
+ 0002:00003ba8       ??_R4type_info@@6B@        000000018000bba8     MSVCRT:std_type_info_static.obj
+ 0002:00003bd0       ??_R3type_info@@8          000000018000bbd0     MSVCRT:std_type_info_static.obj
+ 0002:00003be8       ??_R2type_info@@8          000000018000bbe8     MSVCRT:std_type_info_static.obj
+ 0002:00003bf8       ??_R1A@?0A@EA@type_info@@8 000000018000bbf8     MSVCRT:std_type_info_static.obj
+ 0002:00003c20       ??_R4exception@std@@6B@    000000018000bc20     MSVCRT:throw_bad_alloc.obj
+ 0002:00003c48       ??_R3exception@std@@8      000000018000bc48     MSVCRT:throw_bad_alloc.obj
+ 0002:00003c60       ??_R2exception@std@@8      000000018000bc60     MSVCRT:throw_bad_alloc.obj
+ 0002:00003c70       ??_R1A@?0A@EA@exception@std@@8 000000018000bc70     MSVCRT:throw_bad_alloc.obj
+ 0002:00003c98       ??_R4bad_alloc@std@@6B@    000000018000bc98     MSVCRT:throw_bad_alloc.obj
+ 0002:00003cc0       ??_R3bad_alloc@std@@8      000000018000bcc0     MSVCRT:throw_bad_alloc.obj
+ 0002:00003cd8       ??_R2bad_alloc@std@@8      000000018000bcd8     MSVCRT:throw_bad_alloc.obj
+ 0002:00003cf0       ??_R1A@?0A@EA@bad_alloc@std@@8 000000018000bcf0     MSVCRT:throw_bad_alloc.obj
+ 0002:00003d18       ??_R4bad_array_new_length@std@@6B@ 000000018000bd18     MSVCRT:throw_bad_alloc.obj
+ 0002:00003d40       ??_R3bad_array_new_length@std@@8 000000018000bd40     MSVCRT:throw_bad_alloc.obj
+ 0002:00003d58       ??_R2bad_array_new_length@std@@8 000000018000bd58     MSVCRT:throw_bad_alloc.obj
+ 0002:00003d78       ??_R1A@?0A@EA@bad_array_new_length@std@@8 000000018000bd78     MSVCRT:throw_bad_alloc.obj
+ 0002:000040b0       __rtc_iaa                  000000018000c0b0     MSVCRT:initsect.obj
+ 0002:000040b8       __rtc_izz                  000000018000c0b8     MSVCRT:initsect.obj
+ 0002:000040c0       __rtc_taa                  000000018000c0c0     MSVCRT:initsect.obj
+ 0002:000040c8       __rtc_tzz                  000000018000c0c8     MSVCRT:initsect.obj
+ 0002:000040d0       _tls_start                 000000018000c0d0     MSVCRT:tlssup.obj
+ 0002:000040d4       _Init_thread_epoch         000000018000c0d4     MSVCRT:thread_safe_statics.obj
+ 0002:000040d8       _tls_end                   000000018000c0d8     MSVCRT:tlssup.obj
+ 0002:000053e0       _TI2?AVbad_alloc@std@@     000000018000d3e0     MSVCRT:throw_bad_alloc.obj
+ 0002:00005400       _CTA2?AVbad_alloc@std@@    000000018000d400     MSVCRT:throw_bad_alloc.obj
+ 0002:00005418       _CT??_R0?AVbad_alloc@std@@@8??0bad_alloc@std@@QEAA@AEBV01@@Z24 000000018000d418     MSVCRT:throw_bad_alloc.obj
+ 0002:00005440       _CT??_R0?AVexception@std@@@8??0exception@std@@QEAA@AEBV01@@Z24 000000018000d440     MSVCRT:throw_bad_alloc.obj
+ 0002:00005468       _TI3?AVbad_array_new_length@std@@ 000000018000d468     MSVCRT:throw_bad_alloc.obj
+ 0002:00005488       _CTA3?AVbad_array_new_length@std@@ 000000018000d488     MSVCRT:throw_bad_alloc.obj
+ 0002:000054a8       _CT??_R0?AVbad_array_new_length@std@@@8??0bad_array_new_length@std@@QEAA@AEBV01@@Z24 000000018000d4a8     MSVCRT:throw_bad_alloc.obj
+ 0002:00005528       __IMPORT_DESCRIPTOR_ida    000000018000d528     ida:ida.dll
+ 0002:0000553c       __IMPORT_DESCRIPTOR_python38 000000018000d53c     python38:python38.dll
+ 0002:00005550       __IMPORT_DESCRIPTOR_python 000000018000d550     python:python.dll
+ 0002:00005564       __IMPORT_DESCRIPTOR_KERNEL32 000000018000d564     kernel32:KERNEL32.dll
+ 0002:00005578       __IMPORT_DESCRIPTOR_VCRUNTIME140 000000018000d578     vcruntime:VCRUNTIME140.dll
+ 0002:0000558c       __IMPORT_DESCRIPTOR_api-ms-win-crt-stdio-l1-1-0 000000018000d58c     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0002:000055a0       __IMPORT_DESCRIPTOR_api-ms-win-crt-string-l1-1-0 000000018000d5a0     ucrt:api-ms-win-crt-string-l1-1-0.dll
+ 0002:000055b4       __IMPORT_DESCRIPTOR_api-ms-win-crt-heap-l1-1-0 000000018000d5b4     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0002:000055c8       __IMPORT_DESCRIPTOR_api-ms-win-crt-runtime-l1-1-0 000000018000d5c8     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:000055dc       __NULL_IMPORT_DESCRIPTOR   000000018000d5dc     ida:ida.dll
+ 0003:000027c8       _Init_global_epoch         00000001800117c8     MSVCRT:thread_safe_statics.obj
+ 0003:000027d0       __security_cookie_complement 00000001800117d0     MSVCRT:gs_cookie.obj
+ 0003:000027d8       __security_cookie          00000001800117d8     MSVCRT:gs_cookie.obj
+ 0003:000027e0       __scrt_native_dllmain_reason 00000001800117e0     MSVCRT:utility.obj
+ 0003:000027e8       __isa_available            00000001800117e8     MSVCRT:cpu_disp.obj
+ 0003:000027ec       __isa_enabled              00000001800117ec     MSVCRT:cpu_disp.obj
+ 0003:000027f0       __memcpy_nt_iters          00000001800117f0     MSVCRT:cpu_disp.obj
+ 0003:00002800       __scrt_ucrt_dll_is_in_use  0000000180011800     MSVCRT:ucrt_stubs.obj
+ 0003:00002808       ??_R0?AVexception@std@@@8  0000000180011808     strlist.obj
+ 0003:00002830       ??_R0?AVDirectorException@Swig@@@8 0000000180011830     strlist.obj
+ 0003:00002860       ??_R0?AVbad_alloc@std@@@8  0000000180011860     strlist.obj
+ 0003:00002888       ??_R0?AVout_of_range@std@@@8 0000000180011888     strlist.obj
+ 0003:000028b0       ??_R0?AUinterr_exc_t@@@8   00000001800118b0     strlist.obj
+ 0003:000028d8       ??_R0?AVtype_info@@@8      00000001800118d8     MSVCRT:std_type_info_static.obj
+ 0003:000028f8       ??_R0?AVbad_array_new_length@std@@@8 00000001800118f8     MSVCRT:throw_bad_alloc.obj
+ 0003:00002930       ?swig_mutex_own@Director@Swig@@0U_RTL_CRITICAL_SECTION@2@A 0000000180011930     strlist.obj
+ 0003:00002bb8       ?_OptionsStorage@?1??__local_stdio_printf_options@@9@4_KA 0000000180011bb8     strlist.obj
+ 0003:00002c40       _tls_index                 0000000180011c40     MSVCRT:tlssup.obj
+ 0003:00002c48       __scrt_current_native_startup_state 0000000180011c48     MSVCRT:utility.obj
+ 0003:00002c50       __scrt_native_startup_lock 0000000180011c50     MSVCRT:utility.obj
+ 0003:00002c90       __scrt_debugger_hook_flag  0000000180011c90     MSVCRT:utility_desktop.obj
+ 0003:00003210       ?__type_info_root_node@@3U__type_info_node@@A 0000000180012210     MSVCRT:tncleanup.obj
+ 0003:00003220       ?_OptionsStorage@?1??__local_stdio_scanf_options@@9@4_KA 0000000180012220     MSVCRT:default_local_stdio_options.obj
+ 0003:00003228       __favor                    0000000180012228     MSVCRT:cpu_disp.obj
+ 0003:00003230       __dyn_tls_init_callback    0000000180012230     <common>
+
+ entry point at        0001:00004c40
+
+ Static symbols
+
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     _ida_strlist.exp
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-string-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-string-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python:python.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     ida:ida.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0000:fffeb000       .debug$S                   0000000180000000     python38:python38.dll
+ 0001:00000000       SwigPyObject_repr2         0000000180001000 f   strlist.obj
+ 0001:00000010       SwigPyObject_append        0000000180001010 f   strlist.obj
+ 0001:00000070       SwigPyObject_next          0000000180001070 f   strlist.obj
+ 0001:00000090       SwigPyObject_disown        0000000180001090 f   strlist.obj
+ 0001:000000b0       SwigPyObject_acquire       00000001800010b0 f   strlist.obj
+ 0001:000000d0       SwigPyObject_own           00000001800010d0 f   strlist.obj
+ 0001:00000180       _wrap_new_strwinsetup_t    0000000180001180 f   strlist.obj
+ 0001:00000210       _wrap_strwinsetup_t_minlen_set 0000000180001210 f   strlist.obj
+ 0001:00000390       _wrap_strwinsetup_t_minlen_get 0000000180001390 f   strlist.obj
+ 0001:00000490       _wrap_strwinsetup_t_display_only_existing_strings_set 0000000180001490 f   strlist.obj
+ 0001:00000650       _wrap_strwinsetup_t_display_only_existing_strings_get 0000000180001650 f   strlist.obj
+ 0001:00000750       _wrap_strwinsetup_t_only_7bit_set 0000000180001750 f   strlist.obj
+ 0001:00000910       _wrap_strwinsetup_t_only_7bit_get 0000000180001910 f   strlist.obj
+ 0001:00000a10       _wrap_strwinsetup_t_ignore_heads_set 0000000180001a10 f   strlist.obj
+ 0001:00000bd0       _wrap_strwinsetup_t_ignore_heads_get 0000000180001bd0 f   strlist.obj
+ 0001:00000cd0       _wrap_strwinsetup_t_is_initialized 0000000180001cd0 f   strlist.obj
+ 0001:00000df0       _wrap_strwinsetup_t__get_strtypes 0000000180001df0 f   strlist.obj
+ 0001:00000f40       _wrap_strwinsetup_t__set_strtypes 0000000180001f40 f   strlist.obj
+ 0001:00001090       _wrap_delete_strwinsetup_t 0000000180002090 f   strlist.obj
+ 0001:000011c0       strwinsetup_t_swigregister 00000001800021c0 f   strlist.obj
+ 0001:00001250       strwinsetup_t_swiginit     0000000180002250 f   strlist.obj
+ 0001:00001250       string_info_t_swiginit     0000000180002250 f   strlist.obj
+ 0001:00001260       _wrap_string_info_t_ea_set 0000000180002260 f   strlist.obj
+ 0001:000013d0       _wrap_string_info_t_ea_get 00000001800023d0 f   strlist.obj
+ 0001:000014d0       _wrap_string_info_t_length_set 00000001800024d0 f   strlist.obj
+ 0001:00001670       _wrap_string_info_t_length_get 0000000180002670 f   strlist.obj
+ 0001:00001770       _wrap_string_info_t_type_set 0000000180002770 f   strlist.obj
+ 0001:00001910       _wrap_string_info_t_type_get 0000000180002910 f   strlist.obj
+ 0001:00001a10       _wrap_new_string_info_t    0000000180002a10 f   strlist.obj
+ 0001:00001ca0       _wrap_string_info_t___lt__ 0000000180002ca0 f   strlist.obj
+ 0001:00001f00       _wrap_delete_string_info_t 0000000180002f00 f   strlist.obj
+ 0001:00002030       string_info_t_swigregister 0000000180003030 f   strlist.obj
+ 0001:000020c0       _wrap_get_strlist_options  00000001800030c0 f   strlist.obj
+ 0001:00002150       _wrap_build_strlist        0000000180003150 f   strlist.obj
+ 0001:000021e0       _wrap_clear_strlist        00000001800031e0 f   strlist.obj
+ 0001:00002270       _wrap_get_strlist_qty      0000000180003270 f   strlist.obj
+ 0001:00002310       _wrap_get_strlist_item     0000000180003310 f   strlist.obj
+ 0001:00002510       _p_bytevec_tTo_p_qvectorT_unsigned_char_t 0000000180003510 f   strlist.obj
+ 0001:00002510       _p_relobj_tTo_p_qvectorT_unsigned_char_t 0000000180003510 f   strlist.obj
+ 0001:00002510       _p_reloc_info_tTo_p_qvectorT_unsigned_char_t 0000000180003510 f   strlist.obj
+ 0001:00002520       ?SWIG_Python_ErrorType@@YAPEAU_object@@H@Z 0000000180003520 f   strlist.obj
+ 0001:000025bc       $LN17                      00000001800035bc     strlist.obj
+ 0001:000025f0       ?SWIG_Python_UnpackTuple@@YA_JPEAU_object@@PEBD_J2PEAPEAU1@@Z 00000001800035f0 f   strlist.obj
+ 0001:000027c0       ?__raise_e@@YAXAEBVexception@std@@@Z 00000001800037c0 f   strlist.obj
+ 0001:00002800       ?__raise_ie@@YAXAEBUinterr_exc_t@@@Z 0000000180003800 f   strlist.obj
+ 0001:00002910       ?strwinsetup_t__set_strtypes@@YAPEAU_object@@PEAUstrwinsetup_t@@PEAU1@@Z 0000000180003910 f   strlist.obj
+ 0001:00002d50       SWIG_InitializeModule      0000000180003d50 f   strlist.obj
+ 0001:00003070       SWIG_MangledTypeQueryModule 0000000180004070 f   strlist.obj
+ 0001:00003140       SWIG_Python_DestroyModule  0000000180004140 f   strlist.obj
+ 0001:00003230       SWIG_Python_FixMethods     0000000180004230 f   strlist.obj
+ 0001:00003470       SWIG_Python_GetSwigThis    0000000180004470 f   strlist.obj
+ 0001:00003500       SWIG_Python_InitShadowInstance 0000000180004500 f   strlist.obj
+ 0001:00003600       SWIG_Python_NewPointerObj  0000000180004600 f   strlist.obj
+ 0001:00003820       SWIG_This                  0000000180004820 f   strlist.obj
+ 0001:00003850       SWIG_TypeCheck             0000000180004850 f   strlist.obj
+ 0001:000038f0       SWIG_TypeClientData        00000001800048f0 f   strlist.obj
+ 0001:00003940       SwigPyClientData_New       0000000180004940 f   strlist.obj
+ 0001:00003a50       SwigPyObject_Check         0000000180004a50 f   strlist.obj
+ 0001:00003ad0       SwigPyObject_New           0000000180004ad0 f   strlist.obj
+ 0001:00003b20       SwigPyObject_dealloc       0000000180004b20 f   strlist.obj
+ 0001:00003cb0       SwigPyObject_long          0000000180004cb0 f   strlist.obj
+ 0001:00003cc0       SwigPyObject_repr          0000000180004cc0 f   strlist.obj
+ 0001:00003d80       SwigPyObject_richcompare   0000000180004d80 f   strlist.obj
+ 0001:00003dd0       SwigPyObject_type          0000000180004dd0 f   strlist.obj
+ 0001:00003f10       SwigPyPacked_Check         0000000180004f10 f   strlist.obj
+ 0001:00003f90       SwigPyPacked_dealloc       0000000180004f90 f   strlist.obj
+ 0001:00003fc0       SwigPyPacked_repr          0000000180004fc0 f   strlist.obj
+ 0001:000040c0       SwigPyPacked_str           00000001800050c0 f   strlist.obj
+ 0001:000041c0       SwigPyPacked_type          00000001800051c0 f   strlist.obj
+ 0001:00004310       _wrap_new_string_info_t__SWIG_0 0000000180005310 f   strlist.obj
+ 0001:00004370       _wrap_new_string_info_t__SWIG_1 0000000180005370 f   strlist.obj
+ 0001:0000451c       ?__scrt_initialize_thread_safe_statics@@YAHXZ 000000018000551c f   MSVCRT:thread_safe_statics.obj
+ 0001:0000467c       ?__scrt_uninitialize_thread_safe_statics@@YAXXZ 000000018000567c f   MSVCRT:thread_safe_statics.obj
+ 0001:000048b0       $$000000                   00000001800058b0     MSVCRT:amdsecgs.obj
+ 0001:00004910       ?dllmain_crt_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 0000000180005910 f   MSVCRT:dll_dllmain.obj
+ 0001:00004960       ?dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z 0000000180005960 f   MSVCRT:dll_dllmain.obj
+ 0001:00004a7c       ?dllmain_crt_process_detach@@YAH_N@Z 0000000180005a7c f   MSVCRT:dll_dllmain.obj
+ 0001:00004b0c       ?dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 0000000180005b0c f   MSVCRT:dll_dllmain.obj
+ 0001:00005470       capture_previous_context   0000000180006470 f   MSVCRT:gs_report.obj
+ 0001:000058b0       $$000000                   00000001800068b0     MSVCRT:guard_dispatch.obj
+ 0001:000058d0       _wrap_build_strlist$catch$5 00000001800068d0 f   strlist.obj
+ 0001:000058dd       __catch$_wrap_build_strlist$1 00000001800068dd f   strlist.obj
+ 0001:00005903       _wrap_build_strlist$catch$4 0000000180006903 f   strlist.obj
+ 0001:00005910       __catch$_wrap_build_strlist$3 0000000180006910 f   strlist.obj
+ 0001:0000593c       _wrap_build_strlist$catch$3 000000018000693c f   strlist.obj
+ 0001:00005949       __catch$_wrap_build_strlist$5 0000000180006949 f   strlist.obj
+ 0001:00005961       _wrap_build_strlist$catch$2 0000000180006961 f   strlist.obj
+ 0001:0000596e       __catch$_wrap_build_strlist$7 000000018000696e f   strlist.obj
+ 0001:00005986       _wrap_build_strlist$catch$1 0000000180006986 f   strlist.obj
+ 0001:00005993       __catch$_wrap_build_strlist$9 0000000180006993 f   strlist.obj
+ 0001:000059bf       _wrap_build_strlist$catch$0 00000001800069bf f   strlist.obj
+ 0001:000059cc       __catch$_wrap_build_strlist$11 00000001800069cc f   strlist.obj
+ 0001:00005a00       _wrap_clear_strlist$catch$5 0000000180006a00 f   strlist.obj
+ 0001:00005a0d       __catch$_wrap_clear_strlist$1 0000000180006a0d f   strlist.obj
+ 0001:00005a33       _wrap_clear_strlist$catch$4 0000000180006a33 f   strlist.obj
+ 0001:00005a40       __catch$_wrap_clear_strlist$3 0000000180006a40 f   strlist.obj
+ 0001:00005a6c       _wrap_clear_strlist$catch$3 0000000180006a6c f   strlist.obj
+ 0001:00005a79       __catch$_wrap_clear_strlist$5 0000000180006a79 f   strlist.obj
+ 0001:00005a91       _wrap_clear_strlist$catch$2 0000000180006a91 f   strlist.obj
+ 0001:00005a9e       __catch$_wrap_clear_strlist$7 0000000180006a9e f   strlist.obj
+ 0001:00005ab6       _wrap_clear_strlist$catch$1 0000000180006ab6 f   strlist.obj
+ 0001:00005ac3       __catch$_wrap_clear_strlist$9 0000000180006ac3 f   strlist.obj
+ 0001:00005aef       _wrap_clear_strlist$catch$0 0000000180006aef f   strlist.obj
+ 0001:00005afc       __catch$_wrap_clear_strlist$11 0000000180006afc f   strlist.obj
+ 0001:00005b30       _wrap_delete_string_info_t$catch$5 0000000180006b30 f   strlist.obj
+ 0001:00005b3d       __catch$_wrap_delete_string_info_t$2 0000000180006b3d f   strlist.obj
+ 0001:00005b63       _wrap_delete_string_info_t$catch$4 0000000180006b63 f   strlist.obj
+ 0001:00005b70       __catch$_wrap_delete_string_info_t$4 0000000180006b70 f   strlist.obj
+ 0001:00005b9c       _wrap_delete_string_info_t$catch$3 0000000180006b9c f   strlist.obj
+ 0001:00005ba9       __catch$_wrap_delete_string_info_t$6 0000000180006ba9 f   strlist.obj
+ 0001:00005bc1       _wrap_delete_string_info_t$catch$2 0000000180006bc1 f   strlist.obj
+ 0001:00005bce       __catch$_wrap_delete_string_info_t$8 0000000180006bce f   strlist.obj
+ 0001:00005be6       _wrap_delete_string_info_t$catch$1 0000000180006be6 f   strlist.obj
+ 0001:00005bf3       __catch$_wrap_delete_string_info_t$10 0000000180006bf3 f   strlist.obj
+ 0001:00005c1f       _wrap_delete_string_info_t$catch$0 0000000180006c1f f   strlist.obj
+ 0001:00005c2c       __catch$_wrap_delete_string_info_t$12 0000000180006c2c f   strlist.obj
+ 0001:00005c60       _wrap_delete_strwinsetup_t$catch$7 0000000180006c60 f   strlist.obj
+ 0001:00005c6d       __catch$_wrap_delete_strwinsetup_t$2 0000000180006c6d f   strlist.obj
+ 0001:00005c93       _wrap_delete_strwinsetup_t$catch$6 0000000180006c93 f   strlist.obj
+ 0001:00005ca0       __catch$_wrap_delete_strwinsetup_t$4 0000000180006ca0 f   strlist.obj
+ 0001:00005ccc       _wrap_delete_strwinsetup_t$catch$5 0000000180006ccc f   strlist.obj
+ 0001:00005cd9       __catch$_wrap_delete_strwinsetup_t$6 0000000180006cd9 f   strlist.obj
+ 0001:00005cf1       _wrap_delete_strwinsetup_t$catch$4 0000000180006cf1 f   strlist.obj
+ 0001:00005cfe       __catch$_wrap_delete_strwinsetup_t$8 0000000180006cfe f   strlist.obj
+ 0001:00005d16       _wrap_delete_strwinsetup_t$catch$3 0000000180006d16 f   strlist.obj
+ 0001:00005d23       __catch$_wrap_delete_strwinsetup_t$10 0000000180006d23 f   strlist.obj
+ 0001:00005d4f       _wrap_delete_strwinsetup_t$catch$2 0000000180006d4f f   strlist.obj
+ 0001:00005d5c       __catch$_wrap_delete_strwinsetup_t$12 0000000180006d5c f   strlist.obj
+ 0001:00005d90       _wrap_get_strlist_item$catch$5 0000000180006d90 f   strlist.obj
+ 0001:00005d9d       __catch$_wrap_get_strlist_item$3 0000000180006d9d f   strlist.obj
+ 0001:00005dc3       _wrap_get_strlist_item$catch$4 0000000180006dc3 f   strlist.obj
+ 0001:00005dd0       __catch$_wrap_get_strlist_item$5 0000000180006dd0 f   strlist.obj
+ 0001:00005dfc       _wrap_get_strlist_item$catch$3 0000000180006dfc f   strlist.obj
+ 0001:00005e09       __catch$_wrap_get_strlist_item$7 0000000180006e09 f   strlist.obj
+ 0001:00005e21       _wrap_get_strlist_item$catch$2 0000000180006e21 f   strlist.obj
+ 0001:00005e2e       __catch$_wrap_get_strlist_item$9 0000000180006e2e f   strlist.obj
+ 0001:00005e46       _wrap_get_strlist_item$catch$1 0000000180006e46 f   strlist.obj
+ 0001:00005e53       __catch$_wrap_get_strlist_item$11 0000000180006e53 f   strlist.obj
+ 0001:00005e7f       _wrap_get_strlist_item$catch$0 0000000180006e7f f   strlist.obj
+ 0001:00005e8c       __catch$_wrap_get_strlist_item$13 0000000180006e8c f   strlist.obj
+ 0001:00005ec0       _wrap_get_strlist_options$catch$5 0000000180006ec0 f   strlist.obj
+ 0001:00005ecd       __catch$_wrap_get_strlist_options$1 0000000180006ecd f   strlist.obj
+ 0001:00005ef3       _wrap_get_strlist_options$catch$4 0000000180006ef3 f   strlist.obj
+ 0001:00005f00       __catch$_wrap_get_strlist_options$3 0000000180006f00 f   strlist.obj
+ 0001:00005f2c       _wrap_get_strlist_options$catch$3 0000000180006f2c f   strlist.obj
+ 0001:00005f39       __catch$_wrap_get_strlist_options$5 0000000180006f39 f   strlist.obj
+ 0001:00005f51       _wrap_get_strlist_options$catch$2 0000000180006f51 f   strlist.obj
+ 0001:00005f5e       __catch$_wrap_get_strlist_options$7 0000000180006f5e f   strlist.obj
+ 0001:00005f76       _wrap_get_strlist_options$catch$1 0000000180006f76 f   strlist.obj
+ 0001:00005f83       __catch$_wrap_get_strlist_options$9 0000000180006f83 f   strlist.obj
+ 0001:00005faf       _wrap_get_strlist_options$catch$0 0000000180006faf f   strlist.obj
+ 0001:00005fbc       __catch$_wrap_get_strlist_options$11 0000000180006fbc f   strlist.obj
+ 0001:00005ff0       _wrap_get_strlist_qty$catch$5 0000000180006ff0 f   strlist.obj
+ 0001:00005ffd       __catch$_wrap_get_strlist_qty$1 0000000180006ffd f   strlist.obj
+ 0001:00006023       _wrap_get_strlist_qty$catch$4 0000000180007023 f   strlist.obj
+ 0001:00006030       __catch$_wrap_get_strlist_qty$3 0000000180007030 f   strlist.obj
+ 0001:0000605c       _wrap_get_strlist_qty$catch$3 000000018000705c f   strlist.obj
+ 0001:00006069       __catch$_wrap_get_strlist_qty$5 0000000180007069 f   strlist.obj
+ 0001:00006081       _wrap_get_strlist_qty$catch$2 0000000180007081 f   strlist.obj
+ 0001:0000608e       __catch$_wrap_get_strlist_qty$7 000000018000708e f   strlist.obj
+ 0001:000060a6       _wrap_get_strlist_qty$catch$1 00000001800070a6 f   strlist.obj
+ 0001:000060b3       __catch$_wrap_get_strlist_qty$9 00000001800070b3 f   strlist.obj
+ 0001:000060df       _wrap_get_strlist_qty$catch$0 00000001800070df f   strlist.obj
+ 0001:000060ec       __catch$_wrap_get_strlist_qty$11 00000001800070ec f   strlist.obj
+ 0001:00006120       _wrap_new_string_info_t__SWIG_0$catch$1 0000000180007120 f   strlist.obj
+ 0001:0000612d       __catch$_wrap_new_string_info_t__SWIG_0$1 000000018000712d f   strlist.obj
+ 0001:00006153       _wrap_new_string_info_t__SWIG_0$catch$2 0000000180007153 f   strlist.obj
+ 0001:00006160       __catch$_wrap_new_string_info_t__SWIG_0$3 0000000180007160 f   strlist.obj
+ 0001:0000618c       _wrap_new_string_info_t__SWIG_0$catch$3 000000018000718c f   strlist.obj
+ 0001:00006199       __catch$_wrap_new_string_info_t__SWIG_0$5 0000000180007199 f   strlist.obj
+ 0001:000061b1       _wrap_new_string_info_t__SWIG_0$catch$4 00000001800071b1 f   strlist.obj
+ 0001:000061be       __catch$_wrap_new_string_info_t__SWIG_0$7 00000001800071be f   strlist.obj
+ 0001:000061d6       _wrap_new_string_info_t__SWIG_0$catch$5 00000001800071d6 f   strlist.obj
+ 0001:000061e3       __catch$_wrap_new_string_info_t__SWIG_0$9 00000001800071e3 f   strlist.obj
+ 0001:0000620f       _wrap_new_string_info_t__SWIG_0$catch$6 000000018000720f f   strlist.obj
+ 0001:0000621c       __catch$_wrap_new_string_info_t__SWIG_0$11 000000018000721c f   strlist.obj
+ 0001:00006250       _wrap_new_string_info_t__SWIG_1$catch$1 0000000180007250 f   strlist.obj
+ 0001:0000625d       __catch$_wrap_new_string_info_t__SWIG_1$2 000000018000725d f   strlist.obj
+ 0001:00006283       _wrap_new_string_info_t__SWIG_1$catch$2 0000000180007283 f   strlist.obj
+ 0001:00006290       __catch$_wrap_new_string_info_t__SWIG_1$4 0000000180007290 f   strlist.obj
+ 0001:000062bc       _wrap_new_string_info_t__SWIG_1$catch$3 00000001800072bc f   strlist.obj
+ 0001:000062c9       __catch$_wrap_new_string_info_t__SWIG_1$6 00000001800072c9 f   strlist.obj
+ 0001:000062e1       _wrap_new_string_info_t__SWIG_1$catch$4 00000001800072e1 f   strlist.obj
+ 0001:000062ee       __catch$_wrap_new_string_info_t__SWIG_1$8 00000001800072ee f   strlist.obj
+ 0001:00006306       _wrap_new_string_info_t__SWIG_1$catch$5 0000000180007306 f   strlist.obj
+ 0001:00006313       __catch$_wrap_new_string_info_t__SWIG_1$10 0000000180007313 f   strlist.obj
+ 0001:0000633f       _wrap_new_string_info_t__SWIG_1$catch$6 000000018000733f f   strlist.obj
+ 0001:0000634c       __catch$_wrap_new_string_info_t__SWIG_1$12 000000018000734c f   strlist.obj
+ 0001:00006380       _wrap_new_strwinsetup_t$catch$1 0000000180007380 f   strlist.obj
+ 0001:0000638d       __catch$_wrap_new_strwinsetup_t$1 000000018000738d f   strlist.obj
+ 0001:000063b3       _wrap_new_strwinsetup_t$catch$2 00000001800073b3 f   strlist.obj
+ 0001:000063c0       __catch$_wrap_new_strwinsetup_t$3 00000001800073c0 f   strlist.obj
+ 0001:000063ec       _wrap_new_strwinsetup_t$catch$3 00000001800073ec f   strlist.obj
+ 0001:000063f9       __catch$_wrap_new_strwinsetup_t$5 00000001800073f9 f   strlist.obj
+ 0001:00006411       _wrap_new_strwinsetup_t$catch$4 0000000180007411 f   strlist.obj
+ 0001:0000641e       __catch$_wrap_new_strwinsetup_t$7 000000018000741e f   strlist.obj
+ 0001:00006436       _wrap_new_strwinsetup_t$catch$5 0000000180007436 f   strlist.obj
+ 0001:00006443       __catch$_wrap_new_strwinsetup_t$9 0000000180007443 f   strlist.obj
+ 0001:0000646f       _wrap_new_strwinsetup_t$catch$6 000000018000746f f   strlist.obj
+ 0001:0000647c       __catch$_wrap_new_strwinsetup_t$11 000000018000747c f   strlist.obj
+ 0001:000064b0       _wrap_string_info_t___lt__$catch$5 00000001800074b0 f   strlist.obj
+ 0001:000064bd       __catch$_wrap_string_info_t___lt__$4 00000001800074bd f   strlist.obj
+ 0001:000064e3       _wrap_string_info_t___lt__$catch$4 00000001800074e3 f   strlist.obj
+ 0001:000064f0       __catch$_wrap_string_info_t___lt__$6 00000001800074f0 f   strlist.obj
+ 0001:0000651c       _wrap_string_info_t___lt__$catch$3 000000018000751c f   strlist.obj
+ 0001:00006529       __catch$_wrap_string_info_t___lt__$8 0000000180007529 f   strlist.obj
+ 0001:00006541       _wrap_string_info_t___lt__$catch$2 0000000180007541 f   strlist.obj
+ 0001:0000654e       __catch$_wrap_string_info_t___lt__$10 000000018000754e f   strlist.obj
+ 0001:00006566       _wrap_string_info_t___lt__$catch$1 0000000180007566 f   strlist.obj
+ 0001:00006573       __catch$_wrap_string_info_t___lt__$12 0000000180007573 f   strlist.obj
+ 0001:0000659f       _wrap_string_info_t___lt__$catch$0 000000018000759f f   strlist.obj
+ 0001:000065ac       __catch$_wrap_string_info_t___lt__$14 00000001800075ac f   strlist.obj
+ 0001:000065e0       _wrap_strwinsetup_t__get_strtypes$catch$5 00000001800075e0 f   strlist.obj
+ 0001:000065ed       __catch$_wrap_strwinsetup_t__get_strtypes$2 00000001800075ed f   strlist.obj
+ 0001:00006613       _wrap_strwinsetup_t__get_strtypes$catch$4 0000000180007613 f   strlist.obj
+ 0001:00006620       __catch$_wrap_strwinsetup_t__get_strtypes$4 0000000180007620 f   strlist.obj
+ 0001:0000664c       _wrap_strwinsetup_t__get_strtypes$catch$3 000000018000764c f   strlist.obj
+ 0001:00006659       __catch$_wrap_strwinsetup_t__get_strtypes$6 0000000180007659 f   strlist.obj
+ 0001:00006671       _wrap_strwinsetup_t__get_strtypes$catch$2 0000000180007671 f   strlist.obj
+ 0001:0000667e       __catch$_wrap_strwinsetup_t__get_strtypes$8 000000018000767e f   strlist.obj
+ 0001:00006696       _wrap_strwinsetup_t__get_strtypes$catch$1 0000000180007696 f   strlist.obj
+ 0001:000066a3       __catch$_wrap_strwinsetup_t__get_strtypes$10 00000001800076a3 f   strlist.obj
+ 0001:000066cf       _wrap_strwinsetup_t__get_strtypes$catch$0 00000001800076cf f   strlist.obj
+ 0001:000066dc       __catch$_wrap_strwinsetup_t__get_strtypes$12 00000001800076dc f   strlist.obj
+ 0001:00006710       _wrap_strwinsetup_t__set_strtypes$catch$5 0000000180007710 f   strlist.obj
+ 0001:0000671d       __catch$_wrap_strwinsetup_t__set_strtypes$2 000000018000771d f   strlist.obj
+ 0001:00006743       _wrap_strwinsetup_t__set_strtypes$catch$4 0000000180007743 f   strlist.obj
+ 0001:00006750       __catch$_wrap_strwinsetup_t__set_strtypes$4 0000000180007750 f   strlist.obj
+ 0001:0000677c       _wrap_strwinsetup_t__set_strtypes$catch$3 000000018000777c f   strlist.obj
+ 0001:00006789       __catch$_wrap_strwinsetup_t__set_strtypes$6 0000000180007789 f   strlist.obj
+ 0001:000067a1       _wrap_strwinsetup_t__set_strtypes$catch$2 00000001800077a1 f   strlist.obj
+ 0001:000067ae       __catch$_wrap_strwinsetup_t__set_strtypes$8 00000001800077ae f   strlist.obj
+ 0001:000067c6       _wrap_strwinsetup_t__set_strtypes$catch$1 00000001800077c6 f   strlist.obj
+ 0001:000067d3       __catch$_wrap_strwinsetup_t__set_strtypes$10 00000001800077d3 f   strlist.obj
+ 0001:000067ff       _wrap_strwinsetup_t__set_strtypes$catch$0 00000001800077ff f   strlist.obj
+ 0001:0000680c       __catch$_wrap_strwinsetup_t__set_strtypes$12 000000018000780c f   strlist.obj
+ 0001:00006840       _wrap_strwinsetup_t_is_initialized$catch$5 0000000180007840 f   strlist.obj
+ 0001:0000684d       __catch$_wrap_strwinsetup_t_is_initialized$2 000000018000784d f   strlist.obj
+ 0001:00006873       _wrap_strwinsetup_t_is_initialized$catch$4 0000000180007873 f   strlist.obj
+ 0001:00006880       __catch$_wrap_strwinsetup_t_is_initialized$4 0000000180007880 f   strlist.obj
+ 0001:000068ac       _wrap_strwinsetup_t_is_initialized$catch$3 00000001800078ac f   strlist.obj
+ 0001:000068b9       __catch$_wrap_strwinsetup_t_is_initialized$6 00000001800078b9 f   strlist.obj
+ 0001:000068d1       _wrap_strwinsetup_t_is_initialized$catch$2 00000001800078d1 f   strlist.obj
+ 0001:000068de       __catch$_wrap_strwinsetup_t_is_initialized$8 00000001800078de f   strlist.obj
+ 0001:000068f6       _wrap_strwinsetup_t_is_initialized$catch$1 00000001800078f6 f   strlist.obj
+ 0001:00006903       __catch$_wrap_strwinsetup_t_is_initialized$10 0000000180007903 f   strlist.obj
+ 0001:0000692f       _wrap_strwinsetup_t_is_initialized$catch$0 000000018000792f f   strlist.obj
+ 0001:0000693c       __catch$_wrap_strwinsetup_t_is_initialized$12 000000018000793c f   strlist.obj
+ 0001:00006962       ?fin$0@?0??dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z@4HA 0000000180007962 f   MSVCRT:dll_dllmain.obj
+ 0001:00006979       ?fin$0@?0??dllmain_crt_process_detach@@YAH_N@Z@4HA 0000000180007979 f   MSVCRT:dll_dllmain.obj
+ 0001:00006995       ?filt$0@?0??dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z@4HA 0000000180007995 f   MSVCRT:dll_dllmain.obj
+ 0001:000069cb       __scrt_is_nonwritable_in_current_image$filt$0 00000001800079cb f   MSVCRT:utility.obj
+ 0002:000004d0       ?__scrt_initialize_tss_var@@3P6AHXZEA 00000001800084d0     MSVCRT:thread_safe_statics.obj
+ 0002:000026a8       $cppxdata$_wrap_new_strwinsetup_t 000000018000a6a8     strlist.obj
+ 0002:000026d0       $cppxdata$_wrap_strwinsetup_t_is_initialized 000000018000a6d0     strlist.obj
+ 0002:000026f8       $cppxdata$_wrap_strwinsetup_t__get_strtypes 000000018000a6f8     strlist.obj
+ 0002:00002720       $cppxdata$_wrap_strwinsetup_t__set_strtypes 000000018000a720     strlist.obj
+ 0002:00002748       $cppxdata$_wrap_delete_strwinsetup_t 000000018000a748     strlist.obj
+ 0002:00002770       $cppxdata$_wrap_new_string_info_t__SWIG_0 000000018000a770     strlist.obj
+ 0002:00002798       $cppxdata$_wrap_new_string_info_t__SWIG_1 000000018000a798     strlist.obj
+ 0002:000027c0       $cppxdata$_wrap_string_info_t___lt__ 000000018000a7c0     strlist.obj
+ 0002:000027e8       $cppxdata$_wrap_delete_string_info_t 000000018000a7e8     strlist.obj
+ 0002:00002810       $cppxdata$_wrap_get_strlist_options 000000018000a810     strlist.obj
+ 0002:00002838       $cppxdata$_wrap_build_strlist 000000018000a838     strlist.obj
+ 0002:00002860       $cppxdata$_wrap_clear_strlist 000000018000a860     strlist.obj
+ 0002:00002888       $cppxdata$_wrap_get_strlist_qty 000000018000a888     strlist.obj
+ 0002:000028b0       $cppxdata$_wrap_get_strlist_item 000000018000a8b0     strlist.obj
+ 0002:000028d8       ?hex@?1??SWIG_PackData@@9@4QBDB 000000018000a8d8     strlist.obj
+ 0002:00003898       $cppxdata$?__scrt_initialize_thread_safe_statics@@YAHXZ 000000018000b898     MSVCRT:thread_safe_statics.obj
+ 0002:00003a10       GS_ExceptionPointers       000000018000ba10     MSVCRT:gs_report.obj
+ 0002:000040e0       $unwind$printf             000000018000c0e0     strlist.obj
+ 0002:000040ec       $unwind$SWIG_TypeClientData 000000018000c0ec     strlist.obj
+ 0002:000040ec       $unwind$??_Gbad_alloc@std@@UEAAPEAXI@Z 000000018000c0ec     MSVCRT:throw_bad_alloc.obj
+ 0002:000040ec       $unwind$??_Gbad_array_new_length@std@@UEAAPEAXI@Z 000000018000c0ec     MSVCRT:throw_bad_alloc.obj
+ 0002:000040ec       $unwind$_RTC_Initialize    000000018000c0ec     MSVCRT:initsect.obj
+ 0002:000040ec       $unwind$_RTC_Terminate     000000018000c0ec     MSVCRT:initsect.obj
+ 0002:000040ec       $unwind$??_Gexception@std@@UEAAPEAXI@Z 000000018000c0ec     MSVCRT:throw_bad_alloc.obj
+ 0002:000040ec       $unwind$SwigPyObject_append 000000018000c0ec     strlist.obj
+ 0002:000040f8       $unwind$SWIG_MangledTypeQueryModule 000000018000c0f8     strlist.obj
+ 0002:00004108       $unwind$?SWIG_Python_UnpackTuple@@YA_JPEAU_object@@PEBD_J2PEAPEAU1@@Z 000000018000c108     strlist.obj
+ 0002:0000411c       $chain$0$?SWIG_Python_UnpackTuple@@YA_JPEAU_object@@PEBD_J2PEAPEAU1@@Z 000000018000c11c     strlist.obj
+ 0002:00004130       $chain$1$?SWIG_Python_UnpackTuple@@YA_JPEAU_object@@PEBD_J2PEAPEAU1@@Z 000000018000c130     strlist.obj
+ 0002:00004140       $unwind$SwigPyClientData_New 000000018000c140     strlist.obj
+ 0002:00004150       $chain$2$SwigPyClientData_New 000000018000c150     strlist.obj
+ 0002:00004164       $chain$3$SwigPyClientData_New 000000018000c164     strlist.obj
+ 0002:00004174       $unwind$SwigPyObject_repr  000000018000c174     strlist.obj
+ 0002:00004180       $chain$0$SwigPyObject_repr 000000018000c180     strlist.obj
+ 0002:00004194       $chain$1$SwigPyObject_repr 000000018000c194     strlist.obj
+ 0002:000041a4       $unwind$SwigPyObject_type  000000018000c1a4     strlist.obj
+ 0002:000041b8       $unwind$SwigPyObject_Check 000000018000c1b8     strlist.obj
+ 0002:000041b8       $unwind$SwigPyPacked_Check 000000018000c1b8     strlist.obj
+ 0002:000041c4       $unwind$SwigPyObject_New   000000018000c1c4     strlist.obj
+ 0002:000041c4       $unwind$_DllMainCRTStartup 000000018000c1c4     MSVCRT:dll_dllmain.obj
+ 0002:000041d4       $unwind$SwigPyObject_dealloc 000000018000c1d4     strlist.obj
+ 0002:000041e0       $chain$2$SwigPyObject_dealloc 000000018000c1e0     strlist.obj
+ 0002:000041fc       $chain$3$SwigPyObject_dealloc 000000018000c1fc     strlist.obj
+ 0002:0000420c       $unwind$SwigPyObject_own   000000018000c20c     strlist.obj
+ 0002:00004214       $chain$0$SwigPyObject_own  000000018000c214     strlist.obj
+ 0002:00004228       $chain$2$SwigPyObject_own  000000018000c228     strlist.obj
+ 0002:0000423c       $unwind$SwigPyPacked_repr  000000018000c23c     strlist.obj
+ 0002:0000423c       $unwind$SwigPyPacked_str   000000018000c23c     strlist.obj
+ 0002:0000424c       $chain$0$SwigPyPacked_repr 000000018000c24c     strlist.obj
+ 0002:00004260       $chain$1$SwigPyPacked_repr 000000018000c260     strlist.obj
+ 0002:00004270       $chain$0$SwigPyPacked_str  000000018000c270     strlist.obj
+ 0002:00004284       $chain$1$SwigPyPacked_str  000000018000c284     strlist.obj
+ 0002:00004294       $unwind$SwigPyPacked_type  000000018000c294     strlist.obj
+ 0002:000042a4       $unwind$??2@YAPEAX_K@Z     000000018000c2a4     MSVCRT:new_scalar.obj
+ 0002:000042a4       $unwind$__raise_securityfailure 000000018000c2a4     MSVCRT:gs_report.obj
+ 0002:000042a4       $unwind$SWIG_Python_GetSwigThis 000000018000c2a4     strlist.obj
+ 0002:000042a4       $unwind$_Init_thread_wait  000000018000c2a4     MSVCRT:thread_safe_statics.obj
+ 0002:000042a4       $unwind$_onexit            000000018000c2a4     MSVCRT:utility.obj
+ 0002:000042a4       $unwind$SwigPyPacked_dealloc 000000018000c2a4     strlist.obj
+ 0002:000042a4       $unwind$??0bad_array_new_length@std@@QEAA@AEBV01@@Z 000000018000c2a4     MSVCRT:throw_bad_alloc.obj
+ 0002:000042a4       $unwind$??0exception@std@@QEAA@AEBV01@@Z 000000018000c2a4     MSVCRT:throw_bad_alloc.obj
+ 0002:000042a4       $unwind$??_Gtype_info@@UEAAPEAXI@Z 000000018000c2a4     MSVCRT:std_type_info_static.obj
+ 0002:000042a4       $unwind$_Init_thread_header 000000018000c2a4     MSVCRT:thread_safe_statics.obj
+ 0002:000042a4       $unwind$__scrt_release_startup_lock 000000018000c2a4     MSVCRT:utility.obj
+ 0002:000042a4       $unwind$__scrt_initialize_crt 000000018000c2a4     MSVCRT:utility.obj
+ 0002:000042a4       $unwind$__scrt_uninitialize_crt 000000018000c2a4     MSVCRT:utility.obj
+ 0002:000042a4       $unwind$??0bad_alloc@std@@QEAA@AEBV01@@Z 000000018000c2a4     MSVCRT:throw_bad_alloc.obj
+ 0002:000042a4       $unwind$_Init_thread_footer 000000018000c2a4     MSVCRT:thread_safe_statics.obj
+ 0002:000042ac       $unwind$__scrt_dllmain_before_initialize_c 000000018000c2ac     MSVCRT:utility.obj
+ 0002:000042ac       $unwind$__scrt_dllmain_after_initialize_c 000000018000c2ac     MSVCRT:utility.obj
+ 0002:000042ac       $unwind$SWIG_This          000000018000c2ac     strlist.obj
+ 0002:000042ac       $unwind$atexit             000000018000c2ac     MSVCRT:utility.obj
+ 0002:000042ac       $unwind$__scrt_dllmain_crt_thread_detach 000000018000c2ac     MSVCRT:utility.obj
+ 0002:000042ac       $unwind$SWIG_Python_DestroyModule 000000018000c2ac     strlist.obj
+ 0002:000042ac       $unwind$?dllmain_crt_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 000000018000c2ac     MSVCRT:dll_dllmain.obj
+ 0002:000042ac       $unwind$__GSHandlerCheck   000000018000c2ac     MSVCRT:gshandler.obj
+ 0002:000042ac       $unwind$__scrt_dllmain_uninitialize_c 000000018000c2ac     MSVCRT:utility.obj
+ 0002:000042ac       $unwind$?__raise_e@@YAXAEBVexception@std@@@Z 000000018000c2ac     strlist.obj
+ 0002:000042ac       $unwind$__scrt_dllmain_uninitialize_critical 000000018000c2ac     MSVCRT:utility.obj
+ 0002:000042ac       $unwind$_Init_thread_notify 000000018000c2ac     MSVCRT:thread_safe_statics.obj
+ 0002:000042ac       $unwind$?__scrt_uninitialize_thread_safe_statics@@YAXXZ 000000018000c2ac     MSVCRT:thread_safe_statics.obj
+ 0002:000042ac       $unwind$__scrt_acquire_startup_lock 000000018000c2ac     MSVCRT:utility.obj
+ 0002:000042ac       $unwind$__scrt_initialize_default_local_stdio_options 000000018000c2ac     MSVCRT:default_local_stdio_options.obj
+ 0002:000042ac       $unwind$DllMain            000000018000c2ac     MSVCRT:dll_dllmain_stub.obj
+ 0002:000042ac       $unwind$__scrt_dllmain_crt_thread_attach 000000018000c2ac     MSVCRT:utility.obj
+ 0002:000042b4       $unwind$SWIG_Python_InitShadowInstance 000000018000c2b4     strlist.obj
+ 0002:000042c4       $unwind$SWIG_Python_NewPointerObj 000000018000c2c4     strlist.obj
+ 0002:000042e0       $chain$2$SWIG_Python_DestroyModule 000000018000c2e0     strlist.obj
+ 0002:000042fc       $chain$3$SWIG_Python_DestroyModule 000000018000c2fc     strlist.obj
+ 0002:00004310       $chain$4$SWIG_Python_DestroyModule 000000018000c310     strlist.obj
+ 0002:00004320       $chain$5$SWIG_Python_DestroyModule 000000018000c320     strlist.obj
+ 0002:00004330       $unwind$?sprnt@?$_qstring@D@@QEAAAEAV1@PEBDZZ 000000018000c330     strlist.obj
+ 0002:00004340       $unwind$?__scrt_throw_std_bad_array_new_length@@YAXXZ 000000018000c340     MSVCRT:throw_bad_alloc.obj
+ 0002:00004340       $unwind$?__raise_ie@@YAXAEBUinterr_exc_t@@@Z 000000018000c340     strlist.obj
+ 0002:00004340       $unwind$?__scrt_throw_std_bad_alloc@@YAXXZ 000000018000c340     MSVCRT:throw_bad_alloc.obj
+ 0002:00004348       $unwind$?strwinsetup_t__set_strtypes@@YAPEAU_object@@PEAUstrwinsetup_t@@PEAU1@@Z 000000018000c348     strlist.obj
+ 0002:00004354       $chain$3$?strwinsetup_t__set_strtypes@@YAPEAU_object@@PEAUstrwinsetup_t@@PEAU1@@Z 000000018000c354     strlist.obj
+ 0002:00004374       $chain$5$?strwinsetup_t__set_strtypes@@YAPEAU_object@@PEAUstrwinsetup_t@@PEAU1@@Z 000000018000c374     strlist.obj
+ 0002:00004374       $chain$7$?strwinsetup_t__set_strtypes@@YAPEAU_object@@PEAUstrwinsetup_t@@PEAU1@@Z 000000018000c374     strlist.obj
+ 0002:00004394       $chain$6$?strwinsetup_t__set_strtypes@@YAPEAU_object@@PEAUstrwinsetup_t@@PEAU1@@Z 000000018000c394     strlist.obj
+ 0002:000043a4       $unwind$_wrap_new_strwinsetup_t 000000018000c3a4     strlist.obj
+ 0002:000043b4       $stateUnwindMap$_wrap_new_string_info_t__SWIG_0 000000018000c3b4     strlist.obj
+ 0002:000043b4       $stateUnwindMap$_wrap_strwinsetup_t_is_initialized 000000018000c3b4     strlist.obj
+ 0002:000043b4       $stateUnwindMap$_wrap_strwinsetup_t__get_strtypes 000000018000c3b4     strlist.obj
+ 0002:000043b4       $stateUnwindMap$_wrap_delete_string_info_t 000000018000c3b4     strlist.obj
+ 0002:000043b4       $stateUnwindMap$_wrap_new_strwinsetup_t 000000018000c3b4     strlist.obj
+ 0002:000043b4       $stateUnwindMap$_wrap_delete_strwinsetup_t 000000018000c3b4     strlist.obj
+ 0002:000043b4       $stateUnwindMap$_wrap_build_strlist 000000018000c3b4     strlist.obj
+ 0002:000043b4       $stateUnwindMap$_wrap_clear_strlist 000000018000c3b4     strlist.obj
+ 0002:000043b4       $stateUnwindMap$_wrap_strwinsetup_t__set_strtypes 000000018000c3b4     strlist.obj
+ 0002:000043b4       $stateUnwindMap$_wrap_get_strlist_qty 000000018000c3b4     strlist.obj
+ 0002:000043b4       $stateUnwindMap$_wrap_new_string_info_t__SWIG_1 000000018000c3b4     strlist.obj
+ 0002:000043b4       $stateUnwindMap$_wrap_get_strlist_item 000000018000c3b4     strlist.obj
+ 0002:000043b4       $stateUnwindMap$_wrap_string_info_t___lt__ 000000018000c3b4     strlist.obj
+ 0002:000043b4       $stateUnwindMap$_wrap_get_strlist_options 000000018000c3b4     strlist.obj
+ 0002:000043c4       $tryMap$_wrap_new_strwinsetup_t 000000018000c3c4     strlist.obj
+ 0002:000043d8       $handlerMap$0$_wrap_new_strwinsetup_t 000000018000c3d8     strlist.obj
+ 0002:00004450       $ip2state$_wrap_new_strwinsetup_t 000000018000c450     strlist.obj
+ 0002:00004470       $unwind$_wrap_new_strwinsetup_t$catch$2 000000018000c470     strlist.obj
+ 0002:00004470       $unwind$_wrap_new_strwinsetup_t$catch$3 000000018000c470     strlist.obj
+ 0002:00004470       $unwind$_wrap_new_strwinsetup_t$catch$1 000000018000c470     strlist.obj
+ 0002:00004470       $unwind$_wrap_new_strwinsetup_t$catch$4 000000018000c470     strlist.obj
+ 0002:00004470       $unwind$_wrap_new_strwinsetup_t$catch$5 000000018000c470     strlist.obj
+ 0002:00004470       $unwind$_wrap_new_strwinsetup_t$catch$6 000000018000c470     strlist.obj
+ 0002:00004480       $unwind$_wrap_string_info_t_ea_set 000000018000c480     strlist.obj
+ 0002:00004480       $unwind$_wrap_string_info_t_type_set 000000018000c480     strlist.obj
+ 0002:00004480       $unwind$_wrap_string_info_t_length_set 000000018000c480     strlist.obj
+ 0002:00004480       $unwind$_wrap_strwinsetup_t_minlen_set 000000018000c480     strlist.obj
+ 0002:00004490       $chain$0$_wrap_strwinsetup_t_minlen_set 000000018000c490     strlist.obj
+ 0002:000044a4       $chain$1$_wrap_strwinsetup_t_minlen_set 000000018000c4a4     strlist.obj
+ 0002:000044b4       $unwind$_wrap_strwinsetup_t_ignore_heads_get 000000018000c4b4     strlist.obj
+ 0002:000044b4       $unwind$_wrap_strwinsetup_t_only_7bit_get 000000018000c4b4     strlist.obj
+ 0002:000044b4       $unwind$_wrap_strwinsetup_t_minlen_get 000000018000c4b4     strlist.obj
+ 0002:000044b4       $unwind$_wrap_string_info_t_type_get 000000018000c4b4     strlist.obj
+ 0002:000044b4       $unwind$_wrap_strwinsetup_t_display_only_existing_strings_get 000000018000c4b4     strlist.obj
+ 0002:000044b4       $unwind$_wrap_string_info_t_ea_get 000000018000c4b4     strlist.obj
+ 0002:000044b4       $unwind$_wrap_string_info_t_length_get 000000018000c4b4     strlist.obj
+ 0002:000044c4       $chain$0$_wrap_strwinsetup_t_minlen_get 000000018000c4c4     strlist.obj
+ 0002:000044d8       $chain$1$_wrap_strwinsetup_t_minlen_get 000000018000c4d8     strlist.obj
+ 0002:000044e8       $unwind$_wrap_strwinsetup_t_display_only_existing_strings_set 000000018000c4e8     strlist.obj
+ 0002:000044e8       $unwind$_wrap_strwinsetup_t_ignore_heads_set 000000018000c4e8     strlist.obj
+ 0002:000044e8       $unwind$_wrap_strwinsetup_t_only_7bit_set 000000018000c4e8     strlist.obj
+ 0002:000044fc       $chain$0$_wrap_strwinsetup_t_display_only_existing_strings_set 000000018000c4fc     strlist.obj
+ 0002:00004510       $chain$1$_wrap_strwinsetup_t_display_only_existing_strings_set 000000018000c510     strlist.obj
+ 0002:00004520       $chain$0$_wrap_strwinsetup_t_display_only_existing_strings_get 000000018000c520     strlist.obj
+ 0002:00004534       $chain$1$_wrap_strwinsetup_t_display_only_existing_strings_get 000000018000c534     strlist.obj
+ 0002:00004544       $chain$0$_wrap_strwinsetup_t_only_7bit_set 000000018000c544     strlist.obj
+ 0002:00004558       $chain$1$_wrap_strwinsetup_t_only_7bit_set 000000018000c558     strlist.obj
+ 0002:00004568       $chain$0$_wrap_strwinsetup_t_only_7bit_get 000000018000c568     strlist.obj
+ 0002:0000457c       $chain$1$_wrap_strwinsetup_t_only_7bit_get 000000018000c57c     strlist.obj
+ 0002:0000458c       $chain$0$_wrap_strwinsetup_t_ignore_heads_set 000000018000c58c     strlist.obj
+ 0002:000045a0       $chain$1$_wrap_strwinsetup_t_ignore_heads_set 000000018000c5a0     strlist.obj
+ 0002:000045b0       $chain$0$_wrap_strwinsetup_t_ignore_heads_get 000000018000c5b0     strlist.obj
+ 0002:000045c4       $chain$1$_wrap_strwinsetup_t_ignore_heads_get 000000018000c5c4     strlist.obj
+ 0002:000045d4       $unwind$_wrap_strwinsetup_t_is_initialized 000000018000c5d4     strlist.obj
+ 0002:000045f0       $tryMap$_wrap_strwinsetup_t_is_initialized 000000018000c5f0     strlist.obj
+ 0002:00004604       $handlerMap$0$_wrap_strwinsetup_t_is_initialized 000000018000c604     strlist.obj
+ 0002:00004680       $ip2state$_wrap_strwinsetup_t_is_initialized 000000018000c680     strlist.obj
+ 0002:000046a0       $unwind$_wrap_strwinsetup_t_is_initialized$catch$0 000000018000c6a0     strlist.obj
+ 0002:000046a0       $unwind$_wrap_strwinsetup_t_is_initialized$catch$5 000000018000c6a0     strlist.obj
+ 0002:000046a0       $unwind$_wrap_strwinsetup_t_is_initialized$catch$1 000000018000c6a0     strlist.obj
+ 0002:000046a0       $unwind$_wrap_strwinsetup_t_is_initialized$catch$4 000000018000c6a0     strlist.obj
+ 0002:000046a0       $unwind$_wrap_strwinsetup_t_is_initialized$catch$2 000000018000c6a0     strlist.obj
+ 0002:000046a0       $unwind$_wrap_strwinsetup_t_is_initialized$catch$3 000000018000c6a0     strlist.obj
+ 0002:000046b0       $unwind$_wrap_strwinsetup_t__get_strtypes 000000018000c6b0     strlist.obj
+ 0002:000046d0       $tryMap$_wrap_strwinsetup_t__get_strtypes 000000018000c6d0     strlist.obj
+ 0002:000046e4       $handlerMap$0$_wrap_strwinsetup_t__get_strtypes 000000018000c6e4     strlist.obj
+ 0002:00004760       $ip2state$_wrap_strwinsetup_t__get_strtypes 000000018000c760     strlist.obj
+ 0002:00004780       $unwind$_wrap_strwinsetup_t__get_strtypes$catch$5 000000018000c780     strlist.obj
+ 0002:00004780       $unwind$_wrap_strwinsetup_t__get_strtypes$catch$4 000000018000c780     strlist.obj
+ 0002:00004780       $unwind$_wrap_strwinsetup_t__get_strtypes$catch$0 000000018000c780     strlist.obj
+ 0002:00004780       $unwind$_wrap_strwinsetup_t__get_strtypes$catch$3 000000018000c780     strlist.obj
+ 0002:00004780       $unwind$_wrap_strwinsetup_t__get_strtypes$catch$1 000000018000c780     strlist.obj
+ 0002:00004780       $unwind$_wrap_strwinsetup_t__get_strtypes$catch$2 000000018000c780     strlist.obj
+ 0002:00004790       $unwind$_wrap_strwinsetup_t__set_strtypes 000000018000c790     strlist.obj
+ 0002:000047ac       $tryMap$_wrap_strwinsetup_t__set_strtypes 000000018000c7ac     strlist.obj
+ 0002:000047c0       $handlerMap$0$_wrap_strwinsetup_t__set_strtypes 000000018000c7c0     strlist.obj
+ 0002:00004838       $ip2state$_wrap_strwinsetup_t__set_strtypes 000000018000c838     strlist.obj
+ 0002:00004858       $unwind$_wrap_strwinsetup_t__set_strtypes$catch$4 000000018000c858     strlist.obj
+ 0002:00004858       $unwind$_wrap_strwinsetup_t__set_strtypes$catch$3 000000018000c858     strlist.obj
+ 0002:00004858       $unwind$_wrap_strwinsetup_t__set_strtypes$catch$1 000000018000c858     strlist.obj
+ 0002:00004858       $unwind$_wrap_strwinsetup_t__set_strtypes$catch$2 000000018000c858     strlist.obj
+ 0002:00004858       $unwind$_wrap_strwinsetup_t__set_strtypes$catch$0 000000018000c858     strlist.obj
+ 0002:00004858       $unwind$_wrap_strwinsetup_t__set_strtypes$catch$5 000000018000c858     strlist.obj
+ 0002:00004868       $unwind$_wrap_delete_strwinsetup_t 000000018000c868     strlist.obj
+ 0002:00004884       $tryMap$_wrap_delete_strwinsetup_t 000000018000c884     strlist.obj
+ 0002:00004898       $handlerMap$0$_wrap_delete_strwinsetup_t 000000018000c898     strlist.obj
+ 0002:00004910       $ip2state$_wrap_delete_strwinsetup_t 000000018000c910     strlist.obj
+ 0002:00004930       $unwind$_wrap_delete_strwinsetup_t$catch$2 000000018000c930     strlist.obj
+ 0002:00004930       $unwind$_wrap_delete_strwinsetup_t$catch$3 000000018000c930     strlist.obj
+ 0002:00004930       $unwind$_wrap_delete_strwinsetup_t$catch$6 000000018000c930     strlist.obj
+ 0002:00004930       $unwind$_wrap_delete_strwinsetup_t$catch$7 000000018000c930     strlist.obj
+ 0002:00004930       $unwind$_wrap_delete_strwinsetup_t$catch$5 000000018000c930     strlist.obj
+ 0002:00004930       $unwind$_wrap_delete_strwinsetup_t$catch$4 000000018000c930     strlist.obj
+ 0002:00004940       $unwind$strwinsetup_t_swigregister 000000018000c940     strlist.obj
+ 0002:00004940       $unwind$string_info_t_swigregister 000000018000c940     strlist.obj
+ 0002:00004948       $chain$0$_wrap_string_info_t_ea_set 000000018000c948     strlist.obj
+ 0002:0000495c       $chain$1$_wrap_string_info_t_ea_set 000000018000c95c     strlist.obj
+ 0002:0000496c       $chain$0$_wrap_string_info_t_ea_get 000000018000c96c     strlist.obj
+ 0002:00004980       $chain$1$_wrap_string_info_t_ea_get 000000018000c980     strlist.obj
+ 0002:00004990       $chain$0$_wrap_string_info_t_length_set 000000018000c990     strlist.obj
+ 0002:000049a4       $chain$1$_wrap_string_info_t_length_set 000000018000c9a4     strlist.obj
+ 0002:000049b4       $chain$0$_wrap_string_info_t_length_get 000000018000c9b4     strlist.obj
+ 0002:000049c8       $chain$1$_wrap_string_info_t_length_get 000000018000c9c8     strlist.obj
+ 0002:000049d8       $chain$0$_wrap_string_info_t_type_set 000000018000c9d8     strlist.obj
+ 0002:000049ec       $chain$1$_wrap_string_info_t_type_set 000000018000c9ec     strlist.obj
+ 0002:000049fc       $chain$0$_wrap_string_info_t_type_get 000000018000c9fc     strlist.obj
+ 0002:00004a10       $chain$1$_wrap_string_info_t_type_get 000000018000ca10     strlist.obj
+ 0002:00004a20       $unwind$_wrap_new_string_info_t__SWIG_0 000000018000ca20     strlist.obj
+ 0002:00004a30       $tryMap$_wrap_new_string_info_t__SWIG_0 000000018000ca30     strlist.obj
+ 0002:00004a44       $handlerMap$0$_wrap_new_string_info_t__SWIG_0 000000018000ca44     strlist.obj
+ 0002:00004ac0       $ip2state$_wrap_new_string_info_t__SWIG_0 000000018000cac0     strlist.obj
+ 0002:00004ae0       $unwind$_wrap_new_string_info_t__SWIG_0$catch$1 000000018000cae0     strlist.obj
+ 0002:00004ae0       $unwind$_wrap_new_string_info_t__SWIG_0$catch$4 000000018000cae0     strlist.obj
+ 0002:00004ae0       $unwind$_wrap_new_string_info_t__SWIG_0$catch$5 000000018000cae0     strlist.obj
+ 0002:00004ae0       $unwind$_wrap_new_string_info_t__SWIG_0$catch$2 000000018000cae0     strlist.obj
+ 0002:00004ae0       $unwind$_wrap_new_string_info_t__SWIG_0$catch$6 000000018000cae0     strlist.obj
+ 0002:00004ae0       $unwind$_wrap_new_string_info_t__SWIG_0$catch$3 000000018000cae0     strlist.obj
+ 0002:00004af0       $unwind$_wrap_new_string_info_t__SWIG_1 000000018000caf0     strlist.obj
+ 0002:00004b04       $tryMap$_wrap_new_string_info_t__SWIG_1 000000018000cb04     strlist.obj
+ 0002:00004b18       $handlerMap$0$_wrap_new_string_info_t__SWIG_1 000000018000cb18     strlist.obj
+ 0002:00004b90       $ip2state$_wrap_new_string_info_t__SWIG_1 000000018000cb90     strlist.obj
+ 0002:00004bb0       $unwind$_wrap_new_string_info_t__SWIG_1$catch$6 000000018000cbb0     strlist.obj
+ 0002:00004bb0       $unwind$_wrap_new_string_info_t__SWIG_1$catch$5 000000018000cbb0     strlist.obj
+ 0002:00004bb0       $unwind$_wrap_new_string_info_t__SWIG_1$catch$1 000000018000cbb0     strlist.obj
+ 0002:00004bb0       $unwind$_wrap_new_string_info_t__SWIG_1$catch$2 000000018000cbb0     strlist.obj
+ 0002:00004bb0       $unwind$_wrap_new_string_info_t__SWIG_1$catch$4 000000018000cbb0     strlist.obj
+ 0002:00004bb0       $unwind$_wrap_new_string_info_t__SWIG_1$catch$3 000000018000cbb0     strlist.obj
+ 0002:00004bc0       $unwind$_wrap_new_string_info_t 000000018000cbc0     strlist.obj
+ 0002:00004bd4       $unwind$_wrap_string_info_t___lt__ 000000018000cbd4     strlist.obj
+ 0002:00004bf4       $tryMap$_wrap_string_info_t___lt__ 000000018000cbf4     strlist.obj
+ 0002:00004c08       $handlerMap$0$_wrap_string_info_t___lt__ 000000018000cc08     strlist.obj
+ 0002:00004c80       $ip2state$_wrap_string_info_t___lt__ 000000018000cc80     strlist.obj
+ 0002:00004ca8       $unwind$_wrap_string_info_t___lt__$catch$2 000000018000cca8     strlist.obj
+ 0002:00004ca8       $unwind$_wrap_string_info_t___lt__$catch$5 000000018000cca8     strlist.obj
+ 0002:00004ca8       $unwind$_wrap_string_info_t___lt__$catch$3 000000018000cca8     strlist.obj
+ 0002:00004ca8       $unwind$_wrap_string_info_t___lt__$catch$0 000000018000cca8     strlist.obj
+ 0002:00004ca8       $unwind$_wrap_string_info_t___lt__$catch$4 000000018000cca8     strlist.obj
+ 0002:00004ca8       $unwind$_wrap_string_info_t___lt__$catch$1 000000018000cca8     strlist.obj
+ 0002:00004cb8       $unwind$_wrap_delete_string_info_t 000000018000ccb8     strlist.obj
+ 0002:00004cd4       $tryMap$_wrap_delete_string_info_t 000000018000ccd4     strlist.obj
+ 0002:00004ce8       $handlerMap$0$_wrap_delete_string_info_t 000000018000cce8     strlist.obj
+ 0002:00004d60       $ip2state$_wrap_delete_string_info_t 000000018000cd60     strlist.obj
+ 0002:00004d80       $unwind$_wrap_delete_string_info_t$catch$5 000000018000cd80     strlist.obj
+ 0002:00004d80       $unwind$_wrap_delete_string_info_t$catch$2 000000018000cd80     strlist.obj
+ 0002:00004d80       $unwind$_wrap_delete_string_info_t$catch$1 000000018000cd80     strlist.obj
+ 0002:00004d80       $unwind$_wrap_delete_string_info_t$catch$3 000000018000cd80     strlist.obj
+ 0002:00004d80       $unwind$_wrap_delete_string_info_t$catch$4 000000018000cd80     strlist.obj
+ 0002:00004d80       $unwind$_wrap_delete_string_info_t$catch$0 000000018000cd80     strlist.obj
+ 0002:00004d90       $unwind$_wrap_get_strlist_options 000000018000cd90     strlist.obj
+ 0002:00004da0       $tryMap$_wrap_get_strlist_options 000000018000cda0     strlist.obj
+ 0002:00004db4       $handlerMap$0$_wrap_get_strlist_options 000000018000cdb4     strlist.obj
+ 0002:00004e30       $ip2state$_wrap_get_strlist_options 000000018000ce30     strlist.obj
+ 0002:00004e48       $unwind$_wrap_get_strlist_options$catch$5 000000018000ce48     strlist.obj
+ 0002:00004e48       $unwind$_wrap_get_strlist_options$catch$1 000000018000ce48     strlist.obj
+ 0002:00004e48       $unwind$_wrap_get_strlist_options$catch$0 000000018000ce48     strlist.obj
+ 0002:00004e48       $unwind$_wrap_get_strlist_options$catch$4 000000018000ce48     strlist.obj
+ 0002:00004e48       $unwind$_wrap_get_strlist_options$catch$2 000000018000ce48     strlist.obj
+ 0002:00004e48       $unwind$_wrap_get_strlist_options$catch$3 000000018000ce48     strlist.obj
+ 0002:00004e58       $unwind$_wrap_build_strlist 000000018000ce58     strlist.obj
+ 0002:00004e68       $tryMap$_wrap_build_strlist 000000018000ce68     strlist.obj
+ 0002:00004e7c       $handlerMap$0$_wrap_build_strlist 000000018000ce7c     strlist.obj
+ 0002:00004ef8       $ip2state$_wrap_build_strlist 000000018000cef8     strlist.obj
+ 0002:00004f10       $unwind$_wrap_build_strlist$catch$0 000000018000cf10     strlist.obj
+ 0002:00004f10       $unwind$_wrap_build_strlist$catch$4 000000018000cf10     strlist.obj
+ 0002:00004f10       $unwind$_wrap_build_strlist$catch$1 000000018000cf10     strlist.obj
+ 0002:00004f10       $unwind$_wrap_build_strlist$catch$5 000000018000cf10     strlist.obj
+ 0002:00004f10       $unwind$_wrap_build_strlist$catch$3 000000018000cf10     strlist.obj
+ 0002:00004f10       $unwind$_wrap_build_strlist$catch$2 000000018000cf10     strlist.obj
+ 0002:00004f20       $unwind$_wrap_clear_strlist 000000018000cf20     strlist.obj
+ 0002:00004f30       $tryMap$_wrap_clear_strlist 000000018000cf30     strlist.obj
+ 0002:00004f44       $handlerMap$0$_wrap_clear_strlist 000000018000cf44     strlist.obj
+ 0002:00004fc0       $ip2state$_wrap_clear_strlist 000000018000cfc0     strlist.obj
+ 0002:00004fd8       $unwind$_wrap_clear_strlist$catch$0 000000018000cfd8     strlist.obj
+ 0002:00004fd8       $unwind$_wrap_clear_strlist$catch$1 000000018000cfd8     strlist.obj
+ 0002:00004fd8       $unwind$_wrap_clear_strlist$catch$3 000000018000cfd8     strlist.obj
+ 0002:00004fd8       $unwind$_wrap_clear_strlist$catch$4 000000018000cfd8     strlist.obj
+ 0002:00004fd8       $unwind$_wrap_clear_strlist$catch$5 000000018000cfd8     strlist.obj
+ 0002:00004fd8       $unwind$_wrap_clear_strlist$catch$2 000000018000cfd8     strlist.obj
+ 0002:00004fe8       $unwind$_wrap_get_strlist_qty 000000018000cfe8     strlist.obj
+ 0002:00004ff8       $tryMap$_wrap_get_strlist_qty 000000018000cff8     strlist.obj
+ 0002:0000500c       $handlerMap$0$_wrap_get_strlist_qty 000000018000d00c     strlist.obj
+ 0002:00005088       $ip2state$_wrap_get_strlist_qty 000000018000d088     strlist.obj
+ 0002:000050a0       $unwind$_wrap_get_strlist_qty$catch$5 000000018000d0a0     strlist.obj
+ 0002:000050a0       $unwind$_wrap_get_strlist_qty$catch$0 000000018000d0a0     strlist.obj
+ 0002:000050a0       $unwind$_wrap_get_strlist_qty$catch$2 000000018000d0a0     strlist.obj
+ 0002:000050a0       $unwind$_wrap_get_strlist_qty$catch$4 000000018000d0a0     strlist.obj
+ 0002:000050a0       $unwind$_wrap_get_strlist_qty$catch$3 000000018000d0a0     strlist.obj
+ 0002:000050a0       $unwind$_wrap_get_strlist_qty$catch$1 000000018000d0a0     strlist.obj
+ 0002:000050b0       $unwind$_wrap_get_strlist_item 000000018000d0b0     strlist.obj
+ 0002:000050d0       $tryMap$_wrap_get_strlist_item 000000018000d0d0     strlist.obj
+ 0002:000050e4       $handlerMap$0$_wrap_get_strlist_item 000000018000d0e4     strlist.obj
+ 0002:00005160       $ip2state$_wrap_get_strlist_item 000000018000d160     strlist.obj
+ 0002:00005180       $unwind$_wrap_get_strlist_item$catch$2 000000018000d180     strlist.obj
+ 0002:00005180       $unwind$_wrap_get_strlist_item$catch$1 000000018000d180     strlist.obj
+ 0002:00005180       $unwind$_wrap_get_strlist_item$catch$4 000000018000d180     strlist.obj
+ 0002:00005180       $unwind$_wrap_get_strlist_item$catch$3 000000018000d180     strlist.obj
+ 0002:00005180       $unwind$_wrap_get_strlist_item$catch$0 000000018000d180     strlist.obj
+ 0002:00005180       $unwind$_wrap_get_strlist_item$catch$5 000000018000d180     strlist.obj
+ 0002:00005190       $unwind$SWIG_InitializeModule 000000018000d190     strlist.obj
+ 0002:000051a0       $chain$1$SWIG_InitializeModule 000000018000d1a0     strlist.obj
+ 0002:000051b4       $chain$4$SWIG_InitializeModule 000000018000d1b4     strlist.obj
+ 0002:000051d0       $chain$5$SWIG_InitializeModule 000000018000d1d0     strlist.obj
+ 0002:000051e0       $chain$6$SWIG_InitializeModule 000000018000d1e0     strlist.obj
+ 0002:000051f0       $unwind$SWIG_Python_FixMethods 000000018000d1f0     strlist.obj
+ 0002:000051fc       $chain$4$SWIG_Python_FixMethods 000000018000d1fc     strlist.obj
+ 0002:00005220       $chain$5$SWIG_Python_FixMethods 000000018000d220     strlist.obj
+ 0002:00005230       $unwind$PyInit__ida_strlist 000000018000d230     strlist.obj
+ 0002:0000523c       $chain$4$PyInit__ida_strlist 000000018000d23c     strlist.obj
+ 0002:00005260       $chain$5$PyInit__ida_strlist 000000018000d260     strlist.obj
+ 0002:00005270       $unwind$?__scrt_initialize_thread_safe_statics@@YAHXZ 000000018000d270     MSVCRT:thread_safe_statics.obj
+ 0002:00005288       $stateUnwindMap$?__scrt_initialize_thread_safe_statics@@YAHXZ 000000018000d288     MSVCRT:thread_safe_statics.obj
+ 0002:00005290       $ip2state$?__scrt_initialize_thread_safe_statics@@YAHXZ 000000018000d290     MSVCRT:thread_safe_statics.obj
+ 0002:00005298       $unwind$__GSHandlerCheckCommon 000000018000d298     MSVCRT:gshandler.obj
+ 0002:000052a0       $xdatasym                  000000018000d2a0     MSVCRT:amdsecgs.obj
+ 0002:000052a4       $unwind$?dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z 000000018000d2a4     MSVCRT:dll_dllmain.obj
+ 0002:000052e0       $unwind$?fin$0@?0??dllmain_crt_process_detach@@YAH_N@Z@4HA 000000018000d2e0     MSVCRT:dll_dllmain.obj
+ 0002:000052e0       $unwind$?fin$0@?0??dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z@4HA 000000018000d2e0     MSVCRT:dll_dllmain.obj
+ 0002:000052e8       $unwind$?dllmain_crt_process_detach@@YAH_N@Z 000000018000d2e8     MSVCRT:dll_dllmain.obj
+ 0002:00005320       $unwind$?dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 000000018000d320     MSVCRT:dll_dllmain.obj
+ 0002:00005348       $unwind$?filt$0@?0??dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z@4HA 000000018000d348     MSVCRT:dll_dllmain.obj
+ 0002:00005350       $unwind$__scrt_is_nonwritable_in_current_image 000000018000d350     MSVCRT:utility.obj
+ 0002:00005370       $unwind$__scrt_is_nonwritable_in_current_image$filt$0 000000018000d370     MSVCRT:utility.obj
+ 0002:00005378       $unwind$__scrt_initialize_onexit_tables 000000018000d378     MSVCRT:utility.obj
+ 0002:00005380       $unwind$__scrt_dllmain_exception_filter 000000018000d380     MSVCRT:utility.obj
+ 0002:00005394       $unwind$__scrt_fastfail    000000018000d394     MSVCRT:utility_desktop.obj
+ 0002:000053a4       $unwind$__report_gsfailure 000000018000d3a4     MSVCRT:gs_report.obj
+ 0002:000053ac       $unwind$capture_previous_context 000000018000d3ac     MSVCRT:gs_report.obj
+ 0002:000053b8       $unwind$__security_init_cookie 000000018000d3b8     MSVCRT:gs_support.obj
+ 0002:000053c4       $unwind$__isa_available_init 000000018000d3c4     MSVCRT:cpu_disp.obj
+ 0002:000053d8       $xdatasym                  000000018000d3d8     MSVCRT:guard_dispatch.obj
+ 0002:000054d0       .edata                     000000018000d4d0     _ida_strlist.exp
+ 0002:000054f8       rgpv                       000000018000d4f8     _ida_strlist.exp
+ 0002:000054fc       rgszName                   000000018000d4fc     _ida_strlist.exp
+ 0002:00005500       rgwOrd                     000000018000d500     _ida_strlist.exp
+ 0002:00005502       szName                     000000018000d502     _ida_strlist.exp
+ 0002:00005513       $N00001                    000000018000d513     _ida_strlist.exp
+ 0002:00005b4a       .idata$6                   000000018000db4a     ida:ida.dll
+ 0002:00006156       .idata$6                   000000018000e156     python38:python38.dll
+ 0002:00006174       .idata$6                   000000018000e174     python:python.dll
+ 0002:000063cc       .idata$6                   000000018000e3cc     kernel32:KERNEL32.dll
+ 0002:000064a0       .idata$6                   000000018000e4a0     vcruntime:VCRUNTIME140.dll
+ 0002:000065d6       .idata$6                   000000018000e5d6     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0002:000065f6       .idata$6                   000000018000e5f6     ucrt:api-ms-win-crt-string-l1-1-0.dll
+ 0002:00006618       .idata$6                   000000018000e618     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0002:00006638       .idata$6                   000000018000e638     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0003:00000000       ?swig_module@@3Uswig_module_info@@A 000000018000f000     strlist.obj
+ 0003:00000030       swigobject_methods         000000018000f030     strlist.obj
+ 0003:00000110       SwigMethods                000000018000f110     strlist.obj
+ 0003:00000510       _swigt__p__qstringT_char_t 000000018000f510     strlist.obj
+ 0003:00000540       _swigt__p__qstringT_unsigned_char_t 000000018000f540     strlist.obj
+ 0003:00000570       _swigt__p__qstringT_unsigned_short_t 000000018000f570     strlist.obj
+ 0003:000005a0       _swigt__p_action_ctx_base_t 000000018000f5a0     strlist.obj
+ 0003:000005d0       _swigt__p_biggest_t        000000018000f5d0     strlist.obj
+ 0003:00000600       _swigt__p_char             000000018000f600     strlist.obj
+ 0003:00000630       _swigt__p_const_iterator   000000018000f630     strlist.obj
+ 0003:00000660       _swigt__p_f_p_TWidget_int_int_p_void__bool 000000018000f660     strlist.obj
+ 0003:00000690       _swigt__p_f_p_TWidget_int_p_view_mouse_event_t_p_void__void 000000018000f690     strlist.obj
+ 0003:000006c0       _swigt__p_f_p_TWidget_int_p_void__bool 000000018000f6c0     strlist.obj
+ 0003:000006f0       _swigt__p_f_p_TWidget_p_lochist_entry_t_p_void__void 000000018000f6f0     strlist.obj
+ 0003:00000720       _swigt__p_f_p_TWidget_p_q_const__lochist_entry_t_p_q_const__lochist_entry_t_r_q_const__locchange_md_t_p_void__void 000000018000f720     strlist.obj
+ 0003:00000750       _swigt__p_f_p_TWidget_p_q_const__lochist_entry_t_r_q_const__locchange_md_t_p_void__int 000000018000f750     strlist.obj
+ 0003:00000780       _swigt__p_f_p_TWidget_p_q_const__place_t_int_int_p_void__void 000000018000f780     strlist.obj
+ 0003:000007b0       _swigt__p_f_p_TWidget_p_q_const__place_t_p_int_p_void__int 000000018000f7b0     strlist.obj
+ 0003:000007e0       _swigt__p_f_p_TWidget_p_q_const__place_t_p_q_const__place_t_p_void__int 000000018000f7e0     strlist.obj
+ 0003:00000810       _swigt__p_f_p_TWidget_p_q_const__place_t_p_unsigned_int_p_void__bool 000000018000f810     strlist.obj
+ 0003:00000840       _swigt__p_f_p_TWidget_p_void__int 000000018000f840     strlist.obj
+ 0003:00000870       _swigt__p_f_p_TWidget_p_void__void 000000018000f870     strlist.obj
+ 0003:000008a0       _swigt__p_f_p_chooser_multi_t_p_sizevec_t__chooser_base_t__cbres_t 000000018000f8a0     strlist.obj
+ 0003:000008d0       _swigt__p_f_p_chooser_t_ssize_t__chooser_t__cbret_t 000000018000f8d0     strlist.obj
+ 0003:00000900       _swigt__p_f_p_lochist_entry_t_r_q_const__lochist_entry_t_p_TWidget__bool 000000018000f900     strlist.obj
+ 0003:00000930       _swigt__p_f_p_q_const__char_p_void__void 000000018000f930     strlist.obj
+ 0003:00000960       _swigt__p_f_p_q_const__char_r_q_const__tinfo_t_p_q_const__char_p_q_const__unsigned_long_long_p_void__int 000000018000f960     strlist.obj
+ 0003:00000990       _swigt__p_f_p_q_const__char_v_______int 000000018000f990     strlist.obj
+ 0003:000009c0       _swigt__p_f_p_void_int_va_list__ssize_t 000000018000f9c0     strlist.obj
+ 0003:000009f0       _swigt__p_f_r_q_const__insn_t_p_int_p_int__bool 000000018000f9f0     strlist.obj
+ 0003:00000a20       _swigt__p_f_r_q_const__insn_t_r_q_const__op_t_r_q_const__tinfo_t_p_q_const__char__bool 000000018000fa20     strlist.obj
+ 0003:00000a50       _swigt__p_f_unsigned_int__bool 000000018000fa50     strlist.obj
+ 0003:00000a80       _swigt__p_f_unsigned_int_p_q_const__char_unsigned_int_p_void__int 000000018000fa80     strlist.obj
+ 0003:00000ab0       _swigt__p_f_unsigned_int_p_void__bool 000000018000fab0     strlist.obj
+ 0003:00000ae0       _swigt__p_f_unsigned_int_r_q_const__tinfo_t_p_void__int 000000018000fae0     strlist.obj
+ 0003:00000b10       _swigt__p_f_unsigned_int_unsigned_int__unsigned_int 000000018000fb10     strlist.obj
+ 0003:00000b40       _swigt__p_int              000000018000fb40     strlist.obj
+ 0003:00000b70       _swigt__p_iterator         000000018000fb70     strlist.obj
+ 0003:00000ba0       _swigt__p_location_t       000000018000fba0     strlist.obj
+ 0003:00000bd0       _swigt__p_long_long        000000018000fbd0     strlist.obj
+ 0003:00000c00       _swigt__p_qvectorT__qstringT_unsigned_short_t_t 000000018000fc00     strlist.obj
+ 0003:00000c30       _swigt__p_qvectorT_argloc_t_t 000000018000fc30     strlist.obj
+ 0003:00000c60       _swigt__p_qvectorT_bool_t  000000018000fc60     strlist.obj
+ 0003:00000c90       _swigt__p_qvectorT_channel_redir_t_t 000000018000fc90     strlist.obj
+ 0003:00000cc0       _swigt__p_qvectorT_compiled_binpat_t_t 000000018000fcc0     strlist.obj
+ 0003:00000cf0       _swigt__p_qvectorT_funcarg_t_t 000000018000fcf0     strlist.obj
+ 0003:00000d20       _swigt__p_qvectorT_int_t   000000018000fd20     strlist.obj
+ 0003:00000d50       _swigt__p_qvectorT_range_t_t 000000018000fd50     strlist.obj
+ 0003:00000d80       _swigt__p_qvectorT_rangeset_t_const_p_t 000000018000fd80     strlist.obj
+ 0003:00000db0       _swigt__p_qvectorT_rangeset_t_t 000000018000fdb0     strlist.obj
+ 0003:00000de0       _swigt__p_qvectorT_refinfo_desc_t_t 000000018000fde0     strlist.obj
+ 0003:00000e10       _swigt__p_qvectorT_simd_info_t_t 000000018000fe10     strlist.obj
+ 0003:00000e40       _swigt__p_qvectorT_simpleline_t_t 000000018000fe40     strlist.obj
+ 0003:00000e70       _swigt__p_qvectorT_size_t_t 000000018000fe70     strlist.obj
+ 0003:00000ea0       _swigt__p_qvectorT_tinfo_t_t 000000018000fea0     strlist.obj
+ 0003:00000ed0       _swigt__p_qvectorT_type_attr_t_t 000000018000fed0     strlist.obj
+ 0003:00000f00       _swigt__p_qvectorT_udt_member_t_t 000000018000ff00     strlist.obj
+ 0003:00000f30       _swigt__p_qvectorT_unsigned_char_t 000000018000ff30     strlist.obj
+ 0003:00000f60       _swigt__p_relobj_t         000000018000ff60     strlist.obj
+ 0003:00000f90       _swigt__p_bytevec_t        000000018000ff90     strlist.obj
+ 0003:00000fc0       _swigt__p_reloc_info_t     000000018000ffc0     strlist.obj
+ 0003:00000ff0       _swigt__p_qvectorT_unsigned_int_t 000000018000fff0     strlist.obj
+ 0003:00001020       _swigt__p_short            0000000180010020     strlist.obj
+ 0003:00001050       _swigt__p_signed_char      0000000180010050     strlist.obj
+ 0003:00001080       _swigt__p_string_info_t    0000000180010080     strlist.obj
+ 0003:000010b0       _swigt__p_strwinsetup_t    00000001800100b0     strlist.obj
+ 0003:000010e0       _swigt__p_unsigned_char    00000001800100e0     strlist.obj
+ 0003:00001110       _swigt__p_unsigned_int     0000000180010110     strlist.obj
+ 0003:00001140       _swigt__p_unsigned_long_long 0000000180010140     strlist.obj
+ 0003:00001170       _swigt__p_unsigned_short   0000000180010170     strlist.obj
+ 0003:000011a0       swig_type_initial          00000001800101a0     strlist.obj
+ 0003:000013c0       _swigc__p__qstringT_char_t 00000001800103c0     strlist.obj
+ 0003:00001400       _swigc__p__qstringT_unsigned_char_t 0000000180010400     strlist.obj
+ 0003:00001440       _swigc__p__qstringT_unsigned_short_t 0000000180010440     strlist.obj
+ 0003:00001480       _swigc__p_action_ctx_base_t 0000000180010480     strlist.obj
+ 0003:000014c0       _swigc__p_biggest_t        00000001800104c0     strlist.obj
+ 0003:00001500       _swigc__p_char             0000000180010500     strlist.obj
+ 0003:00001540       _swigc__p_const_iterator   0000000180010540     strlist.obj
+ 0003:00001580       _swigc__p_f_p_TWidget_int_int_p_void__bool 0000000180010580     strlist.obj
+ 0003:000015c0       _swigc__p_f_p_TWidget_int_p_view_mouse_event_t_p_void__void 00000001800105c0     strlist.obj
+ 0003:00001600       _swigc__p_f_p_TWidget_int_p_void__bool 0000000180010600     strlist.obj
+ 0003:00001640       _swigc__p_f_p_TWidget_p_lochist_entry_t_p_void__void 0000000180010640     strlist.obj
+ 0003:00001680       _swigc__p_f_p_TWidget_p_q_const__lochist_entry_t_p_q_const__lochist_entry_t_r_q_const__locchange_md_t_p_void__void 0000000180010680     strlist.obj
+ 0003:000016c0       _swigc__p_f_p_TWidget_p_q_const__lochist_entry_t_r_q_const__locchange_md_t_p_void__int 00000001800106c0     strlist.obj
+ 0003:00001700       _swigc__p_f_p_TWidget_p_q_const__place_t_int_int_p_void__void 0000000180010700     strlist.obj
+ 0003:00001740       _swigc__p_f_p_TWidget_p_q_const__place_t_p_int_p_void__int 0000000180010740     strlist.obj
+ 0003:00001780       _swigc__p_f_p_TWidget_p_q_const__place_t_p_q_const__place_t_p_void__int 0000000180010780     strlist.obj
+ 0003:000017c0       _swigc__p_f_p_TWidget_p_q_const__place_t_p_unsigned_int_p_void__bool 00000001800107c0     strlist.obj
+ 0003:00001800       _swigc__p_f_p_TWidget_p_void__int 0000000180010800     strlist.obj
+ 0003:00001840       _swigc__p_f_p_TWidget_p_void__void 0000000180010840     strlist.obj
+ 0003:00001880       _swigc__p_f_p_chooser_multi_t_p_sizevec_t__chooser_base_t__cbres_t 0000000180010880     strlist.obj
+ 0003:000018c0       _swigc__p_f_p_chooser_t_ssize_t__chooser_t__cbret_t 00000001800108c0     strlist.obj
+ 0003:00001900       _swigc__p_f_p_lochist_entry_t_r_q_const__lochist_entry_t_p_TWidget__bool 0000000180010900     strlist.obj
+ 0003:00001940       _swigc__p_f_p_q_const__char_p_void__void 0000000180010940     strlist.obj
+ 0003:00001980       _swigc__p_f_p_q_const__char_r_q_const__tinfo_t_p_q_const__char_p_q_const__unsigned_long_long_p_void__int 0000000180010980     strlist.obj
+ 0003:000019c0       _swigc__p_f_p_q_const__char_v_______int 00000001800109c0     strlist.obj
+ 0003:00001a00       _swigc__p_f_p_void_int_va_list__ssize_t 0000000180010a00     strlist.obj
+ 0003:00001a40       _swigc__p_f_r_q_const__insn_t_p_int_p_int__bool 0000000180010a40     strlist.obj
+ 0003:00001a80       _swigc__p_f_r_q_const__insn_t_r_q_const__op_t_r_q_const__tinfo_t_p_q_const__char__bool 0000000180010a80     strlist.obj
+ 0003:00001ac0       _swigc__p_f_unsigned_int__bool 0000000180010ac0     strlist.obj
+ 0003:00001b00       _swigc__p_f_unsigned_int_p_q_const__char_unsigned_int_p_void__int 0000000180010b00     strlist.obj
+ 0003:00001b40       _swigc__p_f_unsigned_int_p_void__bool 0000000180010b40     strlist.obj
+ 0003:00001b80       _swigc__p_f_unsigned_int_r_q_const__tinfo_t_p_void__int 0000000180010b80     strlist.obj
+ 0003:00001bc0       _swigc__p_f_unsigned_int_unsigned_int__unsigned_int 0000000180010bc0     strlist.obj
+ 0003:00001c00       _swigc__p_int              0000000180010c00     strlist.obj
+ 0003:00001c40       _swigc__p_iterator         0000000180010c40     strlist.obj
+ 0003:00001c80       _swigc__p_location_t       0000000180010c80     strlist.obj
+ 0003:00001cc0       _swigc__p_long_long        0000000180010cc0     strlist.obj
+ 0003:00001d00       _swigc__p_qvectorT__qstringT_unsigned_short_t_t 0000000180010d00     strlist.obj
+ 0003:00001d40       _swigc__p_qvectorT_argloc_t_t 0000000180010d40     strlist.obj
+ 0003:00001d80       _swigc__p_qvectorT_bool_t  0000000180010d80     strlist.obj
+ 0003:00001dc0       _swigc__p_qvectorT_channel_redir_t_t 0000000180010dc0     strlist.obj
+ 0003:00001e00       _swigc__p_qvectorT_compiled_binpat_t_t 0000000180010e00     strlist.obj
+ 0003:00001e40       _swigc__p_qvectorT_funcarg_t_t 0000000180010e40     strlist.obj
+ 0003:00001e80       _swigc__p_qvectorT_int_t   0000000180010e80     strlist.obj
+ 0003:00001ec0       _swigc__p_qvectorT_range_t_t 0000000180010ec0     strlist.obj
+ 0003:00001f00       _swigc__p_qvectorT_rangeset_t_const_p_t 0000000180010f00     strlist.obj
+ 0003:00001f40       _swigc__p_qvectorT_rangeset_t_t 0000000180010f40     strlist.obj
+ 0003:00001f80       _swigc__p_qvectorT_refinfo_desc_t_t 0000000180010f80     strlist.obj
+ 0003:00001fc0       _swigc__p_qvectorT_simd_info_t_t 0000000180010fc0     strlist.obj
+ 0003:00002000       _swigc__p_qvectorT_simpleline_t_t 0000000180011000     strlist.obj
+ 0003:00002040       _swigc__p_qvectorT_size_t_t 0000000180011040     strlist.obj
+ 0003:00002080       _swigc__p_qvectorT_tinfo_t_t 0000000180011080     strlist.obj
+ 0003:000020c0       _swigc__p_qvectorT_type_attr_t_t 00000001800110c0     strlist.obj
+ 0003:00002100       _swigc__p_qvectorT_udt_member_t_t 0000000180011100     strlist.obj
+ 0003:00002140       _swigc__p_relobj_t         0000000180011140     strlist.obj
+ 0003:00002180       _swigc__p_bytevec_t        0000000180011180     strlist.obj
+ 0003:000021c0       _swigc__p_reloc_info_t     00000001800111c0     strlist.obj
+ 0003:00002200       _swigc__p_qvectorT_unsigned_char_t 0000000180011200     strlist.obj
+ 0003:000022a0       _swigc__p_qvectorT_unsigned_int_t 00000001800112a0     strlist.obj
+ 0003:000022e0       _swigc__p_short            00000001800112e0     strlist.obj
+ 0003:00002320       _swigc__p_signed_char      0000000180011320     strlist.obj
+ 0003:00002360       _swigc__p_string_info_t    0000000180011360     strlist.obj
+ 0003:000023a0       _swigc__p_strwinsetup_t    00000001800113a0     strlist.obj
+ 0003:000023e0       _swigc__p_unsigned_char    00000001800113e0     strlist.obj
+ 0003:00002420       _swigc__p_unsigned_int     0000000180011420     strlist.obj
+ 0003:00002460       _swigc__p_unsigned_long_long 0000000180011460     strlist.obj
+ 0003:000024a0       _swigc__p_unsigned_short   00000001800114a0     strlist.obj
+ 0003:000024e0       swig_cast_initial          00000001800114e0     strlist.obj
+ 0003:000026f8       ?swigobject_doc@?1??SwigPyObject_TypeOnce@@9@4PADA 00000001800116f8     strlist.obj
+ 0003:00002728       ?swigpacked_doc@?1??SwigPyPacked_TypeOnce@@9@4PADA 0000000180011728     strlist.obj
+ 0003:00002760       ?SWIG_module@?1??PyInit__ida_strlist@@9@4UPyModuleDef@@A 0000000180011760     strlist.obj
+ 0003:00002960       ?swig_types@@3PAPEAUswig_type_info@@A 0000000180011960     strlist.obj
+ 0003:00002b80       Swig_This_global           0000000180011b80     strlist.obj
+ 0003:00002b88       swig_const_table           0000000180011b88     strlist.obj
+ 0003:00002bc0       ?type@?1??SwigPyObject_type@@9@4PEAU_typeobject@@EA 0000000180011bc0     strlist.obj
+ 0003:00002bc8       ?$TSS0@?1??SwigPyObject_type@@9@4HA 0000000180011bc8     strlist.obj
+ 0003:00002bd0       ?type@?1??SwigPyPacked_type@@9@4PEAU_typeobject@@EA 0000000180011bd0     strlist.obj
+ 0003:00002bd8       ?$TSS0@?1??SwigPyPacked_type@@9@4HA 0000000180011bd8     strlist.obj
+ 0003:00002be0       ?type_pointer@?1??SWIG_Python_GetModule@@9@4PEAXEA 0000000180011be0     strlist.obj
+ 0003:00002be8       ?cache@?1??SWIG_Python_TypeCache@@9@4PEAU_object@@EA 0000000180011be8     strlist.obj
+ 0003:00002bf0       ?$TSS0@?1??SWIG_Python_TypeCache@@9@4HA 0000000180011bf0     strlist.obj
+ 0003:00002bf8       ?_Tss_mutex@@3U_RTL_CRITICAL_SECTION@@A 0000000180011bf8     MSVCRT:thread_safe_statics.obj
+ 0003:00002c20       ?_Tss_cv@@3U_RTL_CONDITION_VARIABLE@@A 0000000180011c20     MSVCRT:thread_safe_statics.obj
+ 0003:00002c28       ?_Tss_event@@3PEAXEA       0000000180011c28     MSVCRT:thread_safe_statics.obj
+ 0003:00002c30       ?encoded_sleep_condition_variable_cs@@3P6AHPEAU_RTL_CONDITION_VARIABLE@@PEAU_RTL_CRITICAL_SECTION@@K@ZEA 0000000180011c30     MSVCRT:thread_safe_statics.obj
+ 0003:00002c38       ?encoded_wake_all_condition_variable@@3P6AXPEAU_RTL_CONDITION_VARIABLE@@@ZEA 0000000180011c38     MSVCRT:thread_safe_statics.obj
+ 0003:00002c44       ?__proc_attached@@3HA      0000000180011c44     MSVCRT:dll_dllmain.obj
+ 0003:00002c58       ?is_initialized_as_dll@@3_NA 0000000180011c58     MSVCRT:utility.obj
+ 0003:00002c59       ?module_local_atexit_table_initialized@@3_NA 0000000180011c59     MSVCRT:utility.obj
+ 0003:00002c60       ?module_local_atexit_table@@3U_onexit_table_t@@A 0000000180011c60     MSVCRT:utility.obj
+ 0003:00002c78       ?module_local_at_quick_exit_table@@3U_onexit_table_t@@A 0000000180011c78     MSVCRT:utility.obj
+ 0003:00002ca0       GS_ExceptionRecord         0000000180011ca0     MSVCRT:gs_report.obj
+ 0003:00002d40       GS_ContextRecord           0000000180011d40     MSVCRT:gs_report.obj
+ 0004:00000000       $pdata$printf              0000000180013000     strlist.obj
+ 0004:0000000c       $pdata$SWIG_TypeClientData 000000018001300c     strlist.obj
+ 0004:00000018       $pdata$SWIG_MangledTypeQueryModule 0000000180013018     strlist.obj
+ 0004:00000024       $pdata$?SWIG_Python_UnpackTuple@@YA_JPEAU_object@@PEBD_J2PEAPEAU1@@Z 0000000180013024     strlist.obj
+ 0004:00000030       $pdata$0$?SWIG_Python_UnpackTuple@@YA_JPEAU_object@@PEBD_J2PEAPEAU1@@Z 0000000180013030     strlist.obj
+ 0004:0000003c       $pdata$1$?SWIG_Python_UnpackTuple@@YA_JPEAU_object@@PEBD_J2PEAPEAU1@@Z 000000018001303c     strlist.obj
+ 0004:00000048       $pdata$SwigPyClientData_New 0000000180013048     strlist.obj
+ 0004:00000054       $pdata$2$SwigPyClientData_New 0000000180013054     strlist.obj
+ 0004:00000060       $pdata$3$SwigPyClientData_New 0000000180013060     strlist.obj
+ 0004:0000006c       $pdata$SwigPyObject_repr   000000018001306c     strlist.obj
+ 0004:00000078       $pdata$0$SwigPyObject_repr 0000000180013078     strlist.obj
+ 0004:00000084       $pdata$1$SwigPyObject_repr 0000000180013084     strlist.obj
+ 0004:00000090       $pdata$SwigPyObject_type   0000000180013090     strlist.obj
+ 0004:0000009c       $pdata$SwigPyObject_Check  000000018001309c     strlist.obj
+ 0004:000000a8       $pdata$SwigPyObject_New    00000001800130a8     strlist.obj
+ 0004:000000b4       $pdata$SwigPyObject_dealloc 00000001800130b4     strlist.obj
+ 0004:000000c0       $pdata$2$SwigPyObject_dealloc 00000001800130c0     strlist.obj
+ 0004:000000cc       $pdata$3$SwigPyObject_dealloc 00000001800130cc     strlist.obj
+ 0004:000000d8       $pdata$SwigPyObject_append 00000001800130d8     strlist.obj
+ 0004:000000e4       $pdata$SwigPyObject_own    00000001800130e4     strlist.obj
+ 0004:000000f0       $pdata$0$SwigPyObject_own  00000001800130f0     strlist.obj
+ 0004:000000fc       $pdata$2$SwigPyObject_own  00000001800130fc     strlist.obj
+ 0004:00000108       $pdata$SwigPyPacked_repr   0000000180013108     strlist.obj
+ 0004:00000114       $pdata$0$SwigPyPacked_repr 0000000180013114     strlist.obj
+ 0004:00000120       $pdata$1$SwigPyPacked_repr 0000000180013120     strlist.obj
+ 0004:0000012c       $pdata$SwigPyPacked_str    000000018001312c     strlist.obj
+ 0004:00000138       $pdata$0$SwigPyPacked_str  0000000180013138     strlist.obj
+ 0004:00000144       $pdata$1$SwigPyPacked_str  0000000180013144     strlist.obj
+ 0004:00000150       $pdata$SwigPyPacked_type   0000000180013150     strlist.obj
+ 0004:0000015c       $pdata$SwigPyPacked_Check  000000018001315c     strlist.obj
+ 0004:00000168       $pdata$SwigPyPacked_dealloc 0000000180013168     strlist.obj
+ 0004:00000174       $pdata$SWIG_This           0000000180013174     strlist.obj
+ 0004:00000180       $pdata$SWIG_Python_GetSwigThis 0000000180013180     strlist.obj
+ 0004:0000018c       $pdata$SWIG_Python_InitShadowInstance 000000018001318c     strlist.obj
+ 0004:00000198       $pdata$SWIG_Python_NewPointerObj 0000000180013198     strlist.obj
+ 0004:000001a4       $pdata$SWIG_Python_DestroyModule 00000001800131a4     strlist.obj
+ 0004:000001b0       $pdata$2$SWIG_Python_DestroyModule 00000001800131b0     strlist.obj
+ 0004:000001bc       $pdata$3$SWIG_Python_DestroyModule 00000001800131bc     strlist.obj
+ 0004:000001c8       $pdata$4$SWIG_Python_DestroyModule 00000001800131c8     strlist.obj
+ 0004:000001d4       $pdata$5$SWIG_Python_DestroyModule 00000001800131d4     strlist.obj
+ 0004:000001e0       $pdata$?sprnt@?$_qstring@D@@QEAAAEAV1@PEBDZZ 00000001800131e0     strlist.obj
+ 0004:000001ec       $pdata$?__raise_e@@YAXAEBVexception@std@@@Z 00000001800131ec     strlist.obj
+ 0004:000001f8       $pdata$?__raise_ie@@YAXAEBUinterr_exc_t@@@Z 00000001800131f8     strlist.obj
+ 0004:00000204       $pdata$?strwinsetup_t__set_strtypes@@YAPEAU_object@@PEAUstrwinsetup_t@@PEAU1@@Z 0000000180013204     strlist.obj
+ 0004:00000210       $pdata$3$?strwinsetup_t__set_strtypes@@YAPEAU_object@@PEAUstrwinsetup_t@@PEAU1@@Z 0000000180013210     strlist.obj
+ 0004:0000021c       $pdata$5$?strwinsetup_t__set_strtypes@@YAPEAU_object@@PEAUstrwinsetup_t@@PEAU1@@Z 000000018001321c     strlist.obj
+ 0004:00000228       $pdata$6$?strwinsetup_t__set_strtypes@@YAPEAU_object@@PEAUstrwinsetup_t@@PEAU1@@Z 0000000180013228     strlist.obj
+ 0004:00000234       $pdata$7$?strwinsetup_t__set_strtypes@@YAPEAU_object@@PEAUstrwinsetup_t@@PEAU1@@Z 0000000180013234     strlist.obj
+ 0004:00000240       $pdata$_wrap_new_strwinsetup_t 0000000180013240     strlist.obj
+ 0004:0000024c       $pdata$_wrap_new_strwinsetup_t$catch$1 000000018001324c     strlist.obj
+ 0004:00000258       $pdata$_wrap_new_strwinsetup_t$catch$2 0000000180013258     strlist.obj
+ 0004:00000264       $pdata$_wrap_new_strwinsetup_t$catch$3 0000000180013264     strlist.obj
+ 0004:00000270       $pdata$_wrap_new_strwinsetup_t$catch$4 0000000180013270     strlist.obj
+ 0004:0000027c       $pdata$_wrap_new_strwinsetup_t$catch$5 000000018001327c     strlist.obj
+ 0004:00000288       $pdata$_wrap_new_strwinsetup_t$catch$6 0000000180013288     strlist.obj
+ 0004:00000294       $pdata$_wrap_strwinsetup_t_minlen_set 0000000180013294     strlist.obj
+ 0004:000002a0       $pdata$0$_wrap_strwinsetup_t_minlen_set 00000001800132a0     strlist.obj
+ 0004:000002ac       $pdata$1$_wrap_strwinsetup_t_minlen_set 00000001800132ac     strlist.obj
+ 0004:000002b8       $pdata$_wrap_strwinsetup_t_minlen_get 00000001800132b8     strlist.obj
+ 0004:000002c4       $pdata$0$_wrap_strwinsetup_t_minlen_get 00000001800132c4     strlist.obj
+ 0004:000002d0       $pdata$1$_wrap_strwinsetup_t_minlen_get 00000001800132d0     strlist.obj
+ 0004:000002dc       $pdata$_wrap_strwinsetup_t_display_only_existing_strings_set 00000001800132dc     strlist.obj
+ 0004:000002e8       $pdata$0$_wrap_strwinsetup_t_display_only_existing_strings_set 00000001800132e8     strlist.obj
+ 0004:000002f4       $pdata$1$_wrap_strwinsetup_t_display_only_existing_strings_set 00000001800132f4     strlist.obj
+ 0004:00000300       $pdata$_wrap_strwinsetup_t_display_only_existing_strings_get 0000000180013300     strlist.obj
+ 0004:0000030c       $pdata$0$_wrap_strwinsetup_t_display_only_existing_strings_get 000000018001330c     strlist.obj
+ 0004:00000318       $pdata$1$_wrap_strwinsetup_t_display_only_existing_strings_get 0000000180013318     strlist.obj
+ 0004:00000324       $pdata$_wrap_strwinsetup_t_only_7bit_set 0000000180013324     strlist.obj
+ 0004:00000330       $pdata$0$_wrap_strwinsetup_t_only_7bit_set 0000000180013330     strlist.obj
+ 0004:0000033c       $pdata$1$_wrap_strwinsetup_t_only_7bit_set 000000018001333c     strlist.obj
+ 0004:00000348       $pdata$_wrap_strwinsetup_t_only_7bit_get 0000000180013348     strlist.obj
+ 0004:00000354       $pdata$0$_wrap_strwinsetup_t_only_7bit_get 0000000180013354     strlist.obj
+ 0004:00000360       $pdata$1$_wrap_strwinsetup_t_only_7bit_get 0000000180013360     strlist.obj
+ 0004:0000036c       $pdata$_wrap_strwinsetup_t_ignore_heads_set 000000018001336c     strlist.obj
+ 0004:00000378       $pdata$0$_wrap_strwinsetup_t_ignore_heads_set 0000000180013378     strlist.obj
+ 0004:00000384       $pdata$1$_wrap_strwinsetup_t_ignore_heads_set 0000000180013384     strlist.obj
+ 0004:00000390       $pdata$_wrap_strwinsetup_t_ignore_heads_get 0000000180013390     strlist.obj
+ 0004:0000039c       $pdata$0$_wrap_strwinsetup_t_ignore_heads_get 000000018001339c     strlist.obj
+ 0004:000003a8       $pdata$1$_wrap_strwinsetup_t_ignore_heads_get 00000001800133a8     strlist.obj
+ 0004:000003b4       $pdata$_wrap_strwinsetup_t_is_initialized 00000001800133b4     strlist.obj
+ 0004:000003c0       $pdata$_wrap_strwinsetup_t_is_initialized$catch$5 00000001800133c0     strlist.obj
+ 0004:000003cc       $pdata$_wrap_strwinsetup_t_is_initialized$catch$4 00000001800133cc     strlist.obj
+ 0004:000003d8       $pdata$_wrap_strwinsetup_t_is_initialized$catch$3 00000001800133d8     strlist.obj
+ 0004:000003e4       $pdata$_wrap_strwinsetup_t_is_initialized$catch$2 00000001800133e4     strlist.obj
+ 0004:000003f0       $pdata$_wrap_strwinsetup_t_is_initialized$catch$1 00000001800133f0     strlist.obj
+ 0004:000003fc       $pdata$_wrap_strwinsetup_t_is_initialized$catch$0 00000001800133fc     strlist.obj
+ 0004:00000408       $pdata$_wrap_strwinsetup_t__get_strtypes 0000000180013408     strlist.obj
+ 0004:00000414       $pdata$_wrap_strwinsetup_t__get_strtypes$catch$5 0000000180013414     strlist.obj
+ 0004:00000420       $pdata$_wrap_strwinsetup_t__get_strtypes$catch$4 0000000180013420     strlist.obj
+ 0004:0000042c       $pdata$_wrap_strwinsetup_t__get_strtypes$catch$3 000000018001342c     strlist.obj
+ 0004:00000438       $pdata$_wrap_strwinsetup_t__get_strtypes$catch$2 0000000180013438     strlist.obj
+ 0004:00000444       $pdata$_wrap_strwinsetup_t__get_strtypes$catch$1 0000000180013444     strlist.obj
+ 0004:00000450       $pdata$_wrap_strwinsetup_t__get_strtypes$catch$0 0000000180013450     strlist.obj
+ 0004:0000045c       $pdata$_wrap_strwinsetup_t__set_strtypes 000000018001345c     strlist.obj
+ 0004:00000468       $pdata$_wrap_strwinsetup_t__set_strtypes$catch$5 0000000180013468     strlist.obj
+ 0004:00000474       $pdata$_wrap_strwinsetup_t__set_strtypes$catch$4 0000000180013474     strlist.obj
+ 0004:00000480       $pdata$_wrap_strwinsetup_t__set_strtypes$catch$3 0000000180013480     strlist.obj
+ 0004:0000048c       $pdata$_wrap_strwinsetup_t__set_strtypes$catch$2 000000018001348c     strlist.obj
+ 0004:00000498       $pdata$_wrap_strwinsetup_t__set_strtypes$catch$1 0000000180013498     strlist.obj
+ 0004:000004a4       $pdata$_wrap_strwinsetup_t__set_strtypes$catch$0 00000001800134a4     strlist.obj
+ 0004:000004b0       $pdata$_wrap_delete_strwinsetup_t 00000001800134b0     strlist.obj
+ 0004:000004bc       $pdata$_wrap_delete_strwinsetup_t$catch$7 00000001800134bc     strlist.obj
+ 0004:000004c8       $pdata$_wrap_delete_strwinsetup_t$catch$6 00000001800134c8     strlist.obj
+ 0004:000004d4       $pdata$_wrap_delete_strwinsetup_t$catch$5 00000001800134d4     strlist.obj
+ 0004:000004e0       $pdata$_wrap_delete_strwinsetup_t$catch$4 00000001800134e0     strlist.obj
+ 0004:000004ec       $pdata$_wrap_delete_strwinsetup_t$catch$3 00000001800134ec     strlist.obj
+ 0004:000004f8       $pdata$_wrap_delete_strwinsetup_t$catch$2 00000001800134f8     strlist.obj
+ 0004:00000504       $pdata$strwinsetup_t_swigregister 0000000180013504     strlist.obj
+ 0004:00000510       $pdata$_wrap_string_info_t_ea_set 0000000180013510     strlist.obj
+ 0004:0000051c       $pdata$0$_wrap_string_info_t_ea_set 000000018001351c     strlist.obj
+ 0004:00000528       $pdata$1$_wrap_string_info_t_ea_set 0000000180013528     strlist.obj
+ 0004:00000534       $pdata$_wrap_string_info_t_ea_get 0000000180013534     strlist.obj
+ 0004:00000540       $pdata$0$_wrap_string_info_t_ea_get 0000000180013540     strlist.obj
+ 0004:0000054c       $pdata$1$_wrap_string_info_t_ea_get 000000018001354c     strlist.obj
+ 0004:00000558       $pdata$_wrap_string_info_t_length_set 0000000180013558     strlist.obj
+ 0004:00000564       $pdata$0$_wrap_string_info_t_length_set 0000000180013564     strlist.obj
+ 0004:00000570       $pdata$1$_wrap_string_info_t_length_set 0000000180013570     strlist.obj
+ 0004:0000057c       $pdata$_wrap_string_info_t_length_get 000000018001357c     strlist.obj
+ 0004:00000588       $pdata$0$_wrap_string_info_t_length_get 0000000180013588     strlist.obj
+ 0004:00000594       $pdata$1$_wrap_string_info_t_length_get 0000000180013594     strlist.obj
+ 0004:000005a0       $pdata$_wrap_string_info_t_type_set 00000001800135a0     strlist.obj
+ 0004:000005ac       $pdata$0$_wrap_string_info_t_type_set 00000001800135ac     strlist.obj
+ 0004:000005b8       $pdata$1$_wrap_string_info_t_type_set 00000001800135b8     strlist.obj
+ 0004:000005c4       $pdata$_wrap_string_info_t_type_get 00000001800135c4     strlist.obj
+ 0004:000005d0       $pdata$0$_wrap_string_info_t_type_get 00000001800135d0     strlist.obj
+ 0004:000005dc       $pdata$1$_wrap_string_info_t_type_get 00000001800135dc     strlist.obj
+ 0004:000005e8       $pdata$_wrap_new_string_info_t__SWIG_0 00000001800135e8     strlist.obj
+ 0004:000005f4       $pdata$_wrap_new_string_info_t__SWIG_0$catch$1 00000001800135f4     strlist.obj
+ 0004:00000600       $pdata$_wrap_new_string_info_t__SWIG_0$catch$2 0000000180013600     strlist.obj
+ 0004:0000060c       $pdata$_wrap_new_string_info_t__SWIG_0$catch$3 000000018001360c     strlist.obj
+ 0004:00000618       $pdata$_wrap_new_string_info_t__SWIG_0$catch$4 0000000180013618     strlist.obj
+ 0004:00000624       $pdata$_wrap_new_string_info_t__SWIG_0$catch$5 0000000180013624     strlist.obj
+ 0004:00000630       $pdata$_wrap_new_string_info_t__SWIG_0$catch$6 0000000180013630     strlist.obj
+ 0004:0000063c       $pdata$_wrap_new_string_info_t__SWIG_1 000000018001363c     strlist.obj
+ 0004:00000648       $pdata$_wrap_new_string_info_t__SWIG_1$catch$1 0000000180013648     strlist.obj
+ 0004:00000654       $pdata$_wrap_new_string_info_t__SWIG_1$catch$2 0000000180013654     strlist.obj
+ 0004:00000660       $pdata$_wrap_new_string_info_t__SWIG_1$catch$3 0000000180013660     strlist.obj
+ 0004:0000066c       $pdata$_wrap_new_string_info_t__SWIG_1$catch$4 000000018001366c     strlist.obj
+ 0004:00000678       $pdata$_wrap_new_string_info_t__SWIG_1$catch$5 0000000180013678     strlist.obj
+ 0004:00000684       $pdata$_wrap_new_string_info_t__SWIG_1$catch$6 0000000180013684     strlist.obj
+ 0004:00000690       $pdata$_wrap_new_string_info_t 0000000180013690     strlist.obj
+ 0004:0000069c       $pdata$_wrap_string_info_t___lt__ 000000018001369c     strlist.obj
+ 0004:000006a8       $pdata$_wrap_string_info_t___lt__$catch$5 00000001800136a8     strlist.obj
+ 0004:000006b4       $pdata$_wrap_string_info_t___lt__$catch$4 00000001800136b4     strlist.obj
+ 0004:000006c0       $pdata$_wrap_string_info_t___lt__$catch$3 00000001800136c0     strlist.obj
+ 0004:000006cc       $pdata$_wrap_string_info_t___lt__$catch$2 00000001800136cc     strlist.obj
+ 0004:000006d8       $pdata$_wrap_string_info_t___lt__$catch$1 00000001800136d8     strlist.obj
+ 0004:000006e4       $pdata$_wrap_string_info_t___lt__$catch$0 00000001800136e4     strlist.obj
+ 0004:000006f0       $pdata$_wrap_delete_string_info_t 00000001800136f0     strlist.obj
+ 0004:000006fc       $pdata$_wrap_delete_string_info_t$catch$5 00000001800136fc     strlist.obj
+ 0004:00000708       $pdata$_wrap_delete_string_info_t$catch$4 0000000180013708     strlist.obj
+ 0004:00000714       $pdata$_wrap_delete_string_info_t$catch$3 0000000180013714     strlist.obj
+ 0004:00000720       $pdata$_wrap_delete_string_info_t$catch$2 0000000180013720     strlist.obj
+ 0004:0000072c       $pdata$_wrap_delete_string_info_t$catch$1 000000018001372c     strlist.obj
+ 0004:00000738       $pdata$_wrap_delete_string_info_t$catch$0 0000000180013738     strlist.obj
+ 0004:00000744       $pdata$string_info_t_swigregister 0000000180013744     strlist.obj
+ 0004:00000750       $pdata$_wrap_get_strlist_options 0000000180013750     strlist.obj
+ 0004:0000075c       $pdata$_wrap_get_strlist_options$catch$5 000000018001375c     strlist.obj
+ 0004:00000768       $pdata$_wrap_get_strlist_options$catch$4 0000000180013768     strlist.obj
+ 0004:00000774       $pdata$_wrap_get_strlist_options$catch$3 0000000180013774     strlist.obj
+ 0004:00000780       $pdata$_wrap_get_strlist_options$catch$2 0000000180013780     strlist.obj
+ 0004:0000078c       $pdata$_wrap_get_strlist_options$catch$1 000000018001378c     strlist.obj
+ 0004:00000798       $pdata$_wrap_get_strlist_options$catch$0 0000000180013798     strlist.obj
+ 0004:000007a4       $pdata$_wrap_build_strlist 00000001800137a4     strlist.obj
+ 0004:000007b0       $pdata$_wrap_build_strlist$catch$5 00000001800137b0     strlist.obj
+ 0004:000007bc       $pdata$_wrap_build_strlist$catch$4 00000001800137bc     strlist.obj
+ 0004:000007c8       $pdata$_wrap_build_strlist$catch$3 00000001800137c8     strlist.obj
+ 0004:000007d4       $pdata$_wrap_build_strlist$catch$2 00000001800137d4     strlist.obj
+ 0004:000007e0       $pdata$_wrap_build_strlist$catch$1 00000001800137e0     strlist.obj
+ 0004:000007ec       $pdata$_wrap_build_strlist$catch$0 00000001800137ec     strlist.obj
+ 0004:000007f8       $pdata$_wrap_clear_strlist 00000001800137f8     strlist.obj
+ 0004:00000804       $pdata$_wrap_clear_strlist$catch$5 0000000180013804     strlist.obj
+ 0004:00000810       $pdata$_wrap_clear_strlist$catch$4 0000000180013810     strlist.obj
+ 0004:0000081c       $pdata$_wrap_clear_strlist$catch$3 000000018001381c     strlist.obj
+ 0004:00000828       $pdata$_wrap_clear_strlist$catch$2 0000000180013828     strlist.obj
+ 0004:00000834       $pdata$_wrap_clear_strlist$catch$1 0000000180013834     strlist.obj
+ 0004:00000840       $pdata$_wrap_clear_strlist$catch$0 0000000180013840     strlist.obj
+ 0004:0000084c       $pdata$_wrap_get_strlist_qty 000000018001384c     strlist.obj
+ 0004:00000858       $pdata$_wrap_get_strlist_qty$catch$5 0000000180013858     strlist.obj
+ 0004:00000864       $pdata$_wrap_get_strlist_qty$catch$4 0000000180013864     strlist.obj
+ 0004:00000870       $pdata$_wrap_get_strlist_qty$catch$3 0000000180013870     strlist.obj
+ 0004:0000087c       $pdata$_wrap_get_strlist_qty$catch$2 000000018001387c     strlist.obj
+ 0004:00000888       $pdata$_wrap_get_strlist_qty$catch$1 0000000180013888     strlist.obj
+ 0004:00000894       $pdata$_wrap_get_strlist_qty$catch$0 0000000180013894     strlist.obj
+ 0004:000008a0       $pdata$_wrap_get_strlist_item 00000001800138a0     strlist.obj
+ 0004:000008ac       $pdata$_wrap_get_strlist_item$catch$5 00000001800138ac     strlist.obj
+ 0004:000008b8       $pdata$_wrap_get_strlist_item$catch$4 00000001800138b8     strlist.obj
+ 0004:000008c4       $pdata$_wrap_get_strlist_item$catch$3 00000001800138c4     strlist.obj
+ 0004:000008d0       $pdata$_wrap_get_strlist_item$catch$2 00000001800138d0     strlist.obj
+ 0004:000008dc       $pdata$_wrap_get_strlist_item$catch$1 00000001800138dc     strlist.obj
+ 0004:000008e8       $pdata$_wrap_get_strlist_item$catch$0 00000001800138e8     strlist.obj
+ 0004:000008f4       $pdata$SWIG_InitializeModule 00000001800138f4     strlist.obj
+ 0004:00000900       $pdata$1$SWIG_InitializeModule 0000000180013900     strlist.obj
+ 0004:0000090c       $pdata$4$SWIG_InitializeModule 000000018001390c     strlist.obj
+ 0004:00000918       $pdata$5$SWIG_InitializeModule 0000000180013918     strlist.obj
+ 0004:00000924       $pdata$6$SWIG_InitializeModule 0000000180013924     strlist.obj
+ 0004:00000930       $pdata$SWIG_Python_FixMethods 0000000180013930     strlist.obj
+ 0004:0000093c       $pdata$4$SWIG_Python_FixMethods 000000018001393c     strlist.obj
+ 0004:00000948       $pdata$5$SWIG_Python_FixMethods 0000000180013948     strlist.obj
+ 0004:00000954       $pdata$PyInit__ida_strlist 0000000180013954     strlist.obj
+ 0004:00000960       $pdata$4$PyInit__ida_strlist 0000000180013960     strlist.obj
+ 0004:0000096c       $pdata$5$PyInit__ida_strlist 000000018001396c     strlist.obj
+ 0004:00000978       $pdata$??2@YAPEAX_K@Z      0000000180013978     MSVCRT:new_scalar.obj
+ 0004:00000984       $pdata$_Init_thread_header 0000000180013984     MSVCRT:thread_safe_statics.obj
+ 0004:00000990       $pdata$_Init_thread_footer 0000000180013990     MSVCRT:thread_safe_statics.obj
+ 0004:0000099c       $pdata$_Init_thread_wait   000000018001399c     MSVCRT:thread_safe_statics.obj
+ 0004:000009a8       $pdata$_Init_thread_notify 00000001800139a8     MSVCRT:thread_safe_statics.obj
+ 0004:000009b4       $pdata$?__scrt_uninitialize_thread_safe_statics@@YAXXZ 00000001800139b4     MSVCRT:thread_safe_statics.obj
+ 0004:000009c0       $pdata$?__scrt_initialize_thread_safe_statics@@YAHXZ 00000001800139c0     MSVCRT:thread_safe_statics.obj
+ 0004:000009cc       $pdata$__GSHandlerCheckCommon 00000001800139cc     MSVCRT:gshandler.obj
+ 0004:000009d8       $pdata$__GSHandlerCheck    00000001800139d8     MSVCRT:gshandler.obj
+ 0004:000009f0       $pdata$??_Gtype_info@@UEAAPEAXI@Z 00000001800139f0     MSVCRT:std_type_info_static.obj
+ 0004:000009fc       $pdata$?dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z 00000001800139fc     MSVCRT:dll_dllmain.obj
+ 0004:00000a08       $pdata$?fin$0@?0??dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z@4HA 0000000180013a08     MSVCRT:dll_dllmain.obj
+ 0004:00000a14       $pdata$?dllmain_crt_process_detach@@YAH_N@Z 0000000180013a14     MSVCRT:dll_dllmain.obj
+ 0004:00000a20       $pdata$?fin$0@?0??dllmain_crt_process_detach@@YAH_N@Z@4HA 0000000180013a20     MSVCRT:dll_dllmain.obj
+ 0004:00000a2c       $pdata$?dllmain_crt_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 0000000180013a2c     MSVCRT:dll_dllmain.obj
+ 0004:00000a38       $pdata$?dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 0000000180013a38     MSVCRT:dll_dllmain.obj
+ 0004:00000a44       $pdata$?filt$0@?0??dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z@4HA 0000000180013a44     MSVCRT:dll_dllmain.obj
+ 0004:00000a50       $pdata$_DllMainCRTStartup  0000000180013a50     MSVCRT:dll_dllmain.obj
+ 0004:00000a5c       $pdata$??0exception@std@@QEAA@AEBV01@@Z 0000000180013a5c     MSVCRT:throw_bad_alloc.obj
+ 0004:00000a68       $pdata$??_Gexception@std@@UEAAPEAXI@Z 0000000180013a68     MSVCRT:throw_bad_alloc.obj
+ 0004:00000a68       $pdata$??_Gbad_array_new_length@std@@UEAAPEAXI@Z 0000000180013a68     MSVCRT:throw_bad_alloc.obj
+ 0004:00000a68       $pdata$??_Gbad_alloc@std@@UEAAPEAXI@Z 0000000180013a68     MSVCRT:throw_bad_alloc.obj
+ 0004:00000a74       $pdata$??0bad_alloc@std@@QEAA@AEBV01@@Z 0000000180013a74     MSVCRT:throw_bad_alloc.obj
+ 0004:00000a80       $pdata$??0bad_array_new_length@std@@QEAA@AEBV01@@Z 0000000180013a80     MSVCRT:throw_bad_alloc.obj
+ 0004:00000a8c       $pdata$?__scrt_throw_std_bad_alloc@@YAXXZ 0000000180013a8c     MSVCRT:throw_bad_alloc.obj
+ 0004:00000a98       $pdata$?__scrt_throw_std_bad_array_new_length@@YAXXZ 0000000180013a98     MSVCRT:throw_bad_alloc.obj
+ 0004:00000aa4       $pdata$atexit              0000000180013aa4     MSVCRT:utility.obj
+ 0004:00000ab0       $pdata$_onexit             0000000180013ab0     MSVCRT:utility.obj
+ 0004:00000abc       $pdata$__scrt_is_nonwritable_in_current_image 0000000180013abc     MSVCRT:utility.obj
+ 0004:00000ac8       $pdata$__scrt_is_nonwritable_in_current_image$filt$0 0000000180013ac8     MSVCRT:utility.obj
+ 0004:00000ad4       $pdata$__scrt_acquire_startup_lock 0000000180013ad4     MSVCRT:utility.obj
+ 0004:00000ae0       $pdata$__scrt_release_startup_lock 0000000180013ae0     MSVCRT:utility.obj
+ 0004:00000aec       $pdata$__scrt_initialize_crt 0000000180013aec     MSVCRT:utility.obj
+ 0004:00000af8       $pdata$__scrt_uninitialize_crt 0000000180013af8     MSVCRT:utility.obj
+ 0004:00000b04       $pdata$__scrt_initialize_onexit_tables 0000000180013b04     MSVCRT:utility.obj
+ 0004:00000b10       $pdata$__scrt_dllmain_exception_filter 0000000180013b10     MSVCRT:utility.obj
+ 0004:00000b1c       $pdata$__scrt_dllmain_before_initialize_c 0000000180013b1c     MSVCRT:utility.obj
+ 0004:00000b28       $pdata$__scrt_dllmain_after_initialize_c 0000000180013b28     MSVCRT:utility.obj
+ 0004:00000b34       $pdata$__scrt_dllmain_uninitialize_c 0000000180013b34     MSVCRT:utility.obj
+ 0004:00000b40       $pdata$__scrt_dllmain_uninitialize_critical 0000000180013b40     MSVCRT:utility.obj
+ 0004:00000b4c       $pdata$__scrt_dllmain_crt_thread_attach 0000000180013b4c     MSVCRT:utility.obj
+ 0004:00000b58       $pdata$__scrt_dllmain_crt_thread_detach 0000000180013b58     MSVCRT:utility.obj
+ 0004:00000b64       $pdata$__scrt_fastfail     0000000180013b64     MSVCRT:utility_desktop.obj
+ 0004:00000b70       $pdata$__report_gsfailure  0000000180013b70     MSVCRT:gs_report.obj
+ 0004:00000b7c       $pdata$capture_previous_context 0000000180013b7c     MSVCRT:gs_report.obj
+ 0004:00000b88       $pdata$__raise_securityfailure 0000000180013b88     MSVCRT:gs_report.obj
+ 0004:00000b94       $pdata$__security_init_cookie 0000000180013b94     MSVCRT:gs_support.obj
+ 0004:00000ba0       $pdata$DllMain             0000000180013ba0     MSVCRT:dll_dllmain_stub.obj
+ 0004:00000bac       $pdata$__scrt_initialize_default_local_stdio_options 0000000180013bac     MSVCRT:default_local_stdio_options.obj
+ 0004:00000bb8       $pdata$_RTC_Initialize     0000000180013bb8     MSVCRT:initsect.obj
+ 0004:00000bc4       $pdata$_RTC_Terminate      0000000180013bc4     MSVCRT:initsect.obj
+ 0004:00000bd0       $pdata$__isa_available_init 0000000180013bd0     MSVCRT:cpu_disp.obj

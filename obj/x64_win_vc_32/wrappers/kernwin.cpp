@@ -3711,7 +3711,7 @@ static PyObject *py_unregister_timer(PyObject *py_timerctx)
     Py_RETURN_FALSE;
 
   python_timer_del(ctx);
-  PyCObject_SetVoidPtr(py_timerctx, NULL);
+  PyCapsule_SetName(py_timerctx, INVALID_CAPSULE_NAME);
   Py_RETURN_TRUE;
 }
 
@@ -4006,7 +4006,7 @@ bool py_del_hotkey(PyObject *pyctx)
   // Here we must ensure that the python object is invalidated.
   // This is to avoid the possibility of this function being called again
   // with the same ctx, which would contain a pointer to a deleted object.
-  PyCObject_SetVoidPtr(pyctx, NULL);
+  PyCapsule_SetName(pyctx, INVALID_CAPSULE_NAME);
 
   return true;
 }
@@ -4108,8 +4108,12 @@ static void idaapi py_ss_restore_callback(const char *err_msg, void *userdata)
 
   // userdata is a tuple of ( func, args )
   // func and args are borrowed references from userdata
-  PyObject *func = PyTuple_GET_ITEM(userdata, 0);
-  PyObject *args = PyTuple_GET_ITEM(userdata, 1);
+  PyObject *o = (PyObject *) userdata;
+  if ( !PyTuple_Check(o) )
+    return;
+
+  PyObject *func = PyTuple_GetItem(o, 0);
+  PyObject *args = PyTuple_GetItem(o, 1);
 
   // Create arguments tuple for python function
   PyObject *cb_args = Py_BuildValue("(sO)", err_msg, args);
@@ -5636,8 +5640,12 @@ bool idaapi py_menu_item_callback(void *userdata)
 
   // userdata is a tuple of ( func, args )
   // func and args are borrowed references from userdata
-  PyObject *func = PyTuple_GET_ITEM(userdata, 0);
-  PyObject *args = PyTuple_GET_ITEM(userdata, 1);
+  PyObject *o = (PyObject *) userdata;
+  if ( !PyTuple_Check(o) )
+    return false;
+
+  PyObject *func = PyTuple_GetItem(o, 0);
+  PyObject *args = PyTuple_GetItem(o, 1);
 
   // Call the python function
   newref_t result(PyEval_CallObject(func, args));
@@ -6264,7 +6272,7 @@ protected:
       {
         newref_t item(PySequence_GetItem(py_ret, 1));
         if ( item.o != NULL && IDAPyInt_Check(item.o) )
-          ret.idx = ssize_t(PyInt_AsSsize_t(item.o));
+          ret.idx = ssize_t(IDAPyInt_AsSsize_t(item.o));
       }
     }
     return ret;
@@ -8108,7 +8116,7 @@ private:
 
     if ( IDAPyStr_Check(py) )
     {
-      sl.line = IDAPyBytes_AsStringng(py);
+      sl.line = IDAPyBytes_AsString(py);
       return true;
     }
     Py_ssize_t sz;
@@ -8119,7 +8127,7 @@ private:
     if ( !IDAPyStr_Check(py_val) )
       return false;
 
-    sl.line = IDAPyBytes_AsStringng(py_val);
+    sl.line = IDAPyBytes_AsString(py_val);
     uint32 col;
     if ( sz > 1 && get_color(&col, borref_t(PyTuple_GetItem(py, 1))) )
       sl.color = color_t(col);
@@ -8214,7 +8222,7 @@ private:
     {
       if ( important_lines != NULL )
         *important_lines = IDAPyInt_AsLong(PyTuple_GetItem(py_result.o, 0));
-      hint = IDAPyBytes_AsStringng(PyTuple_GetItem(py_result.o, 1));
+      hint = IDAPyBytes_AsString(PyTuple_GetItem(py_result.o, 1));
     }
     return ok;
   }
@@ -8761,9 +8769,13 @@ public:
     return PyCapsule_New(new plgform_t(),VALID_CAPSULE_NAME, destroy);
   }
 
-  static void destroy(void *obj)
+static void destroy(PyObject *py_obj)
   {
-    delete (plgform_t *)obj;
+    if ( PyCapsule_IsValid(py_obj, VALID_CAPSULE_NAME) )
+    {
+      plgform_t *obj = (plgform_t *) PyCapsule_GetPointer(py_obj, VALID_CAPSULE_NAME);
+      delete (plgform_t *) obj;
+    }
   }
 };
 //</code(py_kernwin_plgform)>
@@ -8771,7 +8783,7 @@ public:
 
 //<inline(py_kernwin_plgform)>
 //---------------------------------------------------------------------------
-#define DECL_PLGFORM PYW_GIL_CHECK_LOCKED_SCOPE(); plgform_t *plgform = (plgform_t *) PyCObject_AsVoidPtr(py_link);
+#define DECL_PLGFORM PYW_GIL_CHECK_LOCKED_SCOPE(); plgform_t *plgform = (plgform_t *) PyCapsule_GetPointer(py_link, VALID_CAPSULE_NAME);
 static PyObject *plgform_new()
 {
   return plgform_t::create();
