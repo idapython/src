@@ -14,7 +14,6 @@ from __future__ import print_function
 #
 #---------------------------------------------------------------------
 # pylint: disable=C0103, C0111, C0301, C0326, W0511, R0903
-import sys
 import ctypes
 import idaapi
 import ida_idaapi
@@ -42,23 +41,21 @@ def get_struct(str_, off, struct):
     ctypes.memmove(ctypes.addressof(s), bytebuf, fit)
     return s
 
-_byte = ord if sys.version_info.major < 3 else lambda t: t
-
 # unpack base address
 def unpack_db(buf, off):
     x = 0
     if off < len(buf):
-        x = _byte(buf[off])
+        x = ord(buf[off])
         off += 1
     return (x, off)
 
 def get_dw(buf, off):
     x = 0
     if off < len(buf):
-        x = _byte(buf[off]) << 8
+        x = ord(buf[off]) << 8
         off += 1
     if off < len(buf):
-        x |= _byte(buf[off])
+        x |= ord(buf[off])
         off += 1
     return (x, off)
 
@@ -69,7 +66,7 @@ def unpack_dw(buf, off):
             (x, off) = get_dw(buf, off)
         else:
             if off < len(buf):
-                x = ((x & ~0x80) << 8) | _byte(buf[off])
+                x = ((x & ~0x80) << 8) | ord(buf[off])
                 off += 1
     return (x, off)
 
@@ -82,13 +79,13 @@ def unpack_dd(buf, off):
             else:
                 xh = 0
                 if off < len(buf):
-                    xh = ((x & ~0xC0) << 8) | _byte(buf[off])
+                    xh = ((x & ~0xC0) << 8) | ord(buf[off])
                     off += 1
             (xl, off) = get_dw(buf, off)
             x = (xh << 16) | xl
         else:
             if off < len(buf):
-                x = ((x & ~0x80) << 8) | _byte(buf[off])
+                x = ((x & ~0x80) << 8) | ord(buf[off])
                 off += 1
     return (x, off)
 
@@ -187,21 +184,21 @@ class Dex(object):
 
     # ea-based indexes
     DEXCMN_STRING_ID  = ord('S')    # string ea => string_id
-    DEXCMN_METHOD_ID  = ord('M')    # dex_method::func.start_ea => method_id
-    DEXCMN_TRY_TYPES  = ord('E')    # ea (handler start) => list of type_id, handled types
-    DEXCMN_TRY_IDS    = ord('Y')    # ea (handler start) => list of try_item_id
-    DEXCMN_DEBINFO    = ord('D')    # line start ea => dex_lineinfo_t
+    DEXCMN_METHOD_ID  = ord('M')    # dex_method::func.start_ea => method_id 
+    DEXCMN_TRY_TYPES  = ord('E')    # ea (handler start) => list of type_id, handled types                                                       
+    DEXCMN_TRY_IDS    = ord('Y')    # ea (handler start) => list of try_item_id 
+    DEXCMN_DEBINFO    = ord('D')    # line start ea => dex_lineinfo_t                                                                               
     DEXCMN_DEBSTR     = ord('B')    # line start ea => human readable debug info string
 
     # var indexes
     DEXVAR_STRING_IDS = ord('S')    # string_id => ea
     DEXVAR_TYPE_IDS   = ord('T')    # type_id => descriptor_idx
-    DEXVAR_TYPE_STR   = ord('U')    # type_id => type string (possible user redefined), char data
+    DEXVAR_TYPE_STR   = ord('U')    # type_id => type string (possible user redefined), char data                                                  
     DEXVAR_TYPE_STRO  = ord('V')    # type_id => type string (original), char data
     DEXVAR_METHOD     = ord('M')    # method_id => struct dex_method, supval
-    DEXVAR_METH_STR   = ord('N')    # method_id => method name, char data
+    DEXVAR_METH_STR   = ord('N')    # method_id => method name, char data                                                                          
     DEXVAR_METH_STRO  = ord('O')    # method_id => method name fromdex file, char data
-    DEXVAR_FIELD      = ord('F')    # field_id => struct dex_field
+    DEXVAR_FIELD      = ord('F')    # field_id => struct dex_field 
     DEXVAR_TRYLIST    = ord('Y')    # method_id => try_item
 
     # debug info representation
@@ -267,11 +264,6 @@ class Dex(object):
         return res[1:] if res else ""
 
     #---------------------------------------------------------------------------
-    @staticmethod
-    def as_string(s):
-        return s.decode("UTF-8") if sys.version_info.major >= 3 else s
-
-    #---------------------------------------------------------------------------
     def idx_to_ea(self, from_ea, idx, tag):
         nn_var = self.get_nn_var(from_ea)
         return nn_var.eaget_idx(idx, tag)
@@ -282,8 +274,7 @@ class Dex(object):
         if addr == ida_idaapi.BADADDR:
             return None
         length = ida_bytes.get_max_strlit_length(addr, idc.STRTYPE_C, ida_bytes.ALOPT_IGNHEADS|ida_bytes.ALOPT_IGNPRINT)
-        raw = ida_bytes.get_strlit_contents(addr, length, idc.STRTYPE_C)
-        return Dex.as_string(raw)
+        return ida_bytes.get_strlit_contents(addr, length, idc.STRTYPE_C)
 
     def get_method_idx(self, ea):
         return self.nn_cmn.altval(ea, Dex.DEXCMN_METHOD_ID)
@@ -308,9 +299,9 @@ class Dex(object):
             longname_director = get_struct(val, 0, longname_director_t)
             if longname_director.zero == 0:
                 nn = idaapi.netnode(longname_director.node)
-                return Dex.as_string(nn.getblob(0, tag)[:-1])
+                return nn.getblob(0, tag)[:-1]
         if len(val) > 0:
-            return Dex.as_string(val[:-1])
+            return val[:-1]
         return ""
 
     #---------------------------------------------------------------------------

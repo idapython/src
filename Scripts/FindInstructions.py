@@ -28,6 +28,7 @@ import ida_ua
 import ida_ida
 import ida_search
 import ida_funcs
+import sys
 
 import idautils
 
@@ -65,13 +66,13 @@ def FindInstructions(instr, asm_where=None):
         bufs.append(buf)
 
     # join the buffer into one string
-    buf = ''.join(bufs)
+    buf = b''.join(bufs)
 
     # take total assembled instructions length
     tlen = len(buf)
 
     # convert from binary string to space separated hex string
-    bin_str = ' '.join(["%02X" % ord(x) for x in buf])
+    bin_str = ' '.join(["%02X" % (ord(x) if sys.version_info.major < 3 else x) for x in buf])
 
     # find all binary strings
     print("Searching for: [%s]" % bin_str)

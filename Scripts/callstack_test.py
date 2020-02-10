@@ -61,7 +61,7 @@ m = int(sys.argv[2])
 
 func_params = {'n': 0, 'n1': 0, 'ident': '', 'pause' : ''}
 
-for i in xrange(1, n + 1):
+for i in range(1, n + 1):
     func_params['n'] = i
     func_params['n1'] = i+1
     func_params['ident'] = "  " * i

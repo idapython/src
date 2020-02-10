@@ -26,7 +26,7 @@ class ImpExpForm_t(PluginForm):
         tree = {}
         nimps = idaapi.get_import_module_qty()
 
-        for i in xrange(0, nimps):
+        for i in range(0, nimps):
             name = idaapi.get_import_module_name(i)
             if not name:
                 continue

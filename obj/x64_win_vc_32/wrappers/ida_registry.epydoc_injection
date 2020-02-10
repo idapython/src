@@ -1,8 +1,0 @@
-
-
-ida_registry.ROOT_KEY_NAME
-"""
-Key used to store IDA settings in registry (Windows version).this name
-is automatically prepended to all key names passed to functions in
-this file.
-"""
