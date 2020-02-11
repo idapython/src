@@ -16,6 +16,7 @@ import os
 import re
 import textwrap
 import xml.etree.ElementTree as ET
+import six
 
 try:
     from argparse import ArgumentParser
@@ -37,11 +38,16 @@ this_dir, _ = os.path.split(__file__)
 sys.path.append(this_dir)
 import doxygen_utils
 
-DOCSTR_MARKER  = '"""'
+DOCSTR_MARKER = '"""'
+DOCSTR_MARKER_START_RAW  = 'r"""'
 
 def verb(msg):
     if args.verbose:
         print(msg)
+
+def dbg(msg):
+    if args.debug:
+        print("DEBUG: " + msg)
 
 # --------------------------------------------------------------------------
 def load_patches(args):
@@ -55,11 +61,16 @@ def load_patches(args):
     return patches
 
 # --------------------------------------------------------------------------
-def split_oneliner_comments(lines):
+def split_oneliner_comments_and_remove_property_docstrings(lines):
     out_lines = []
+    pat = re.compile('(.*= property\(.*), doc=r""".*"""(\))')
     for line in lines:
 
         line = line.rstrip()
+
+        m = pat.match(line)
+        if m:
+            line = m.group(1) + m.group(2)
 
         if line.startswith("#"):
             out_lines.append(line)
@@ -69,22 +80,48 @@ def split_oneliner_comments(lines):
             out_lines.append("")
             continue
 
-        pfx = None
-        while line.find(DOCSTR_MARKER) > -1:
-            idx  = line.find(DOCSTR_MARKER)
-            meat = line[0:idx]
-            try:
-                if len(meat.strip()) == 0:
-                    pfx = meat
+        handled = False
+        if line.endswith(DOCSTR_MARKER):
+            emarker_idx = line.rfind(DOCSTR_MARKER)
+            if line.lstrip().startswith(DOCSTR_MARKER_START_RAW):
+                smarker = DOCSTR_MARKER_START_RAW
+                smarker_idx = line.find(DOCSTR_MARKER_START_RAW)
+            elif line.lstrip().startswith(DOCSTR_MARKER):
+                smarker = DOCSTR_MARKER
+                smarker_idx = line.find(DOCSTR_MARKER)
+            else:
+                smarker_idx = -1
+            if smarker_idx > -1:
+                pfx = line[0:smarker_idx]
+                meat = line[smarker_idx+len(smarker):emarker_idx]
+                if len(meat.strip()):
+                    out_lines.append(pfx + smarker)
+                    out_lines.append(pfx + meat)
                     out_lines.append(pfx + DOCSTR_MARKER)
-                else:
-                    out_lines.append((pfx if pfx is not None else "") + meat)
-                    out_lines.append((pfx if pfx is not None else "") + DOCSTR_MARKER)
-            except:
-                raise BaseException("Error at line: " + line)
-            line = line[idx + len(DOCSTR_MARKER):]
-        if len(line.strip()) > 0:
-            out_lines.append((pfx if pfx is not None else "") + line)
+                    handled = True
+        if not handled:
+            out_lines.append(line)
+                # meat = line[0:idx]
+
+        # pfx = None
+        # while line.find(DOCSTR_MARKER) > -1:
+        #     idx = line.find(DOCSTR_MARKER)
+        #     if idx > 0 and line[idx-1] == 'r':
+        #         idx -= 1
+        #     meat = line[0:idx]
+        #     # print("MEAT: '%s'" % meat)
+        #     try:
+        #         if len(meat.strip()) == 0:
+        #             pfx = meat
+        #             out_lines.append(pfx + DOCSTR_MARKER)
+        #         else:
+        #             out_lines.append((pfx if pfx is not None else "") + meat)
+        #             out_lines.append((pfx if pfx is not None else "") + DOCSTR_MARKER)
+        #     except:
+        #         raise BaseException("Error at line: " + line)
+        #     line = line[idx + len(DOCSTR_MARKER):]
+        # if len(line.strip()) > 0:
+        #     out_lines.append((pfx if pfx is not None else "") + line)
     return out_lines
 
 # --------------------------------------------------------------------------
@@ -216,8 +253,8 @@ class collect_pydoc_t(object):
 
     def collect_file_pydoc(self, filename):
         self.state = self.S_UNKNOWN
-        with open(filename, "rt") as f:
-            self.lines = split_oneliner_comments(f.readlines())
+        with open(filename) as f:
+            self.lines = split_oneliner_comments_and_remove_property_docstrings(f.readlines())
         context = None
         doc = []
         while len(self.lines) > 0:
@@ -497,7 +534,7 @@ class idaapi_fixer_t(object):
                         verb("fix_%s: found info for %s" % (
                             "method" if class_info else "fun", fun_name));
                         out.append("\n")
-                        out.extend(map(lambda l: indent + l, found))
+                        out.extend(list(map(lambda l: indent + l, found)))
 
 
                     #
@@ -507,13 +544,13 @@ class idaapi_fixer_t(object):
 
                     example = fun_patches.get("+example", None)
                     if example:
-                        ex_lines = map(lambda l: "Python> %s" % l, example.split("\n"))
-                        out.extend(map(lambda l: indent + l, ["", "Example:"] + ex_lines))
+                        ex_lines = list(map(lambda l: "Python> %s" % l, example.split("\n")))
+                        out.extend(list(map(lambda l: indent + l, ["", "Example:"] + ex_lines)))
 
                     repl_text = fun_patches.get("repl_text", None)
                     if repl_text:
                         from_text, to_text = repl_text
-                        for i in xrange(doc_start_line_idx, len(out)):
+                        for i in range(doc_start_line_idx, len(out)):
                             out[i] = out[i].replace(from_text, to_text)
 
                     out.append(line)
@@ -587,8 +624,8 @@ class idaapi_fixer_t(object):
 
     def fix_file(self, args):
         input_path, xml_dir_path, out_path = args.input, args.xml_doc_directory, args.output
-        with open(input_path, "rt") as f:
-            self.lines = split_oneliner_comments(f.readlines())
+        with open(input_path) as f:
+            self.lines = split_oneliner_comments_and_remove_property_docstrings(f.readlines())
         self.xml_tree = doxygen_utils.load_xml_for_module(xml_dir_path, args.module)
         out = []
         while len(self.lines) > 0:
@@ -606,7 +643,7 @@ class idaapi_fixer_t(object):
                     self.fix_assignment(out, m)
                 else:
                     out.append(line)
-        with open(out_path, "wt") as o:
+        with open(out_path, "w") as o:
             o.write("\n".join(out))
 
 # --------------------------------------------------------------------------

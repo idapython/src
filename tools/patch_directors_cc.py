@@ -1,10 +1,10 @@
 from __future__ import print_function
 
 try:
-  from argparse import ArgumentParser
+    from argparse import ArgumentParser
 except:
-  print("Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'")
-  raise
+    print("Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'")
+    raise
 
 parser = ArgumentParser(description='Patch calling conventions for some functions, so it builds on windows')
 parser.add_argument("-f", "--file", required=True)
@@ -102,7 +102,7 @@ patches = [
 
 
 outlines = []
-with open(args.file, "r") as f:
+with open(args.file) as f:
     lines = f.readlines()
     for line in lines:
         for patch in patches:
@@ -115,7 +115,7 @@ with open(args.file, "r") as f:
 
 import tempfile
 temp = tempfile.NamedTemporaryFile(mode="w", delete=False)
-temp.writelines(outlines)
+temp.write("".join(outlines))
 temp.close()
 
 import shutil
