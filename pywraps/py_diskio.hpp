@@ -15,7 +15,7 @@ int idaapi py_enumerate_files_cb(const char *file, void *ud)
                   (PyObject *)ud,
                   py_file.o,
                   NULL));
-  return (py_ret == NULL || !PyNumber_Check(py_ret.o)) ? 1 /* stop enum on failure */ : IDAPyInt_AsLong(py_ret.o);
+  return (py_ret == NULL || !PyNumber_Check(py_ret.o)) ? 1 /* stop enum on failure */ : PyInt_AsLong(py_ret.o);
 }
 
 //-------------------------------------------------------------------------
@@ -57,14 +57,18 @@ PyObject *py_enumerate_files(PyObject *path, PyObject *fname, PyObject *callback
     if ( !IDAPyStr_Check(path) || !IDAPyStr_Check(fname) || !PyCallable_Check(callback) )
       break;
 
-    const char *_path = IDAPyBytes_AsString(path);
-    const char *_fname = IDAPyBytes_AsString(fname);
-    if ( _path == NULL || _fname == NULL )
+    qstring _path;
+    qstring _fname;
+    if ( !IDAPyStr_AsUTF8(&_path, path) || !IDAPyStr_AsUTF8(&_fname, fname) )
       break;
 
     char answer[MAXSTR];
     answer[0] = '\0';
-    int r = enumerate_files(answer, sizeof(answer), _path, _fname, py_enumerate_files_cb, callback);
+    int r = enumerate_files(
+            answer, sizeof(answer),
+            _path.c_str(),
+            _fname.c_str(),
+            py_enumerate_files_cb, callback);
     return Py_BuildValue("(is)", r, answer);
   } while ( false );
   Py_RETURN_NONE;

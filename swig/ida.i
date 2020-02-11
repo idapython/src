@@ -62,3 +62,8 @@
 %include "ida.hpp"
 
 %clear(char *buf);
+
+%pythoncode %{
+#<pycode(py_ida)>
+#</pycode(py_ida)>
+%}

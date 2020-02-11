@@ -155,6 +155,11 @@ inline PyObject *IDAPyStr_FromUTF8(const char *v)
   return PyString_FromString(v);
 }
 
+inline PyObject *IDAPyStr_FromUTF8AndSize(const char *v, Py_ssize_t len)
+{
+  return PyString_FromStringAndSize(v, len);
+}
+
 inline int IDAPyBytes_Check(PyObject *obj)
 {
   return PyString_Check(obj);

@@ -20,6 +20,17 @@ import traceback
 import os
 import sys
 import bisect
+try:
+    import __builtin__ as builtins
+    # This basically mimics six's features (it's not ok to ask the IDAPython runtime to rely on six)
+    integer_types = (int, long)
+    string_types = (str, unicode)
+    long_type = long
+except:
+    import builtins
+    integer_types = (int,)
+    string_types = (str,)
+    long_type = int
 import imp
 import re
 
@@ -160,7 +171,7 @@ class py_clinked_object_t(pyidc_opaque_object_t):
         """
         Overwrite me.
         Creates a new clink
-        @return: PyCObject representing the C link
+        @return: PyCapsule representing the C link
         """
         pass
 
@@ -304,11 +315,17 @@ def as_cstr(val):
     return val if n == -1 else val[:n]
 
 # -----------------------------------------------------------------------
-def as_unicode(s):
+def as_UTF16(s):
     """Convenience function to convert a string into appropriate unicode format"""
     # use UTF16 big/little endian, depending on the environment?
     import _ida_ida
-    return unicode(s).encode("UTF-16" + ("BE" if _ida_ida.cvar.inf.is_be() else "LE"))
+    if sys.version_info.major >= 3:
+        if type(s) == bytes:
+            s = s.decode("UTF-8")
+    else:
+        s = unicode(s)
+    return s.encode("UTF-16" + ("BE" if _ida_ida.cvar.inf.is_be() else "LE"))
+as_unicode = as_UTF16
 
 # -----------------------------------------------------------------------
 def as_uint32(v):
@@ -401,15 +418,22 @@ def IDAPython_ExecSystem(cmd):
         return "%s\n%s" % (str(e), traceback.format_exc())
 
 # ------------------------------------------------------------
-def IDAPython_FormatExc(etype, value, tb, limit=None):
+def IDAPython_FormatExc(etype, value=None, tb=None, limit=None):
     """
     This function is used to format an exception given the
     values returned by a PyErr_Fetch()
     """
+    import traceback
     try:
         return ''.join(traceback.format_exception(etype, value, tb, limit))
     except:
-        return str(value)
+        parts = [str(value)]
+        if tb:
+            try:
+                parts.append("".join(traceback.format_tb(tb)))
+            finally:
+                pass
+        return "\n".join(parts)
 
 
 # ------------------------------------------------------------
@@ -436,7 +460,9 @@ def IDAPython_ExecScript(script, g, print_error=True):
     g[FILE_ATTR] = script
 
     try:
-        execfile(script, g)
+        with open(script) as fin:
+            code = compile(fin.read(), script, 'exec')
+            exec(code, g)
         PY_COMPILE_ERR = None
     except Exception as e:
         PY_COMPILE_ERR = "%s\n%s" % (str(e), traceback.format_exc())
@@ -537,7 +563,7 @@ class __IDAPython_Completion_Util(object):
                 if not line.startswith("?"):
                     to_add = "("
             # Is it iterable?
-            elif isinstance(attr, basestring) or getattr(attr, '__iter__', False):
+            elif isinstance(attr, string_types) or getattr(attr, '__iter__', False):
                 to_add = "["
         except:
             # self.debug("maybe_extend_syntactically() got an exception:\n%s", traceback.format_exc())
@@ -553,7 +579,7 @@ class __IDAPython_Completion_Util(object):
             ns = sys.modules['__main__']
             parts = qname.split('.')
             # self.debug("get_candidates() got parts: %s", parts)
-            for i in xrange(0, len(parts) - 1):
+            for i in range(0, len(parts) - 1):
                 ns = getattr(ns, parts[i])
         except Exception as e:
             # self.debug("get_candidates() got exception:\n%s", traceback.format_exc())
@@ -566,12 +592,12 @@ class __IDAPython_Completion_Util(object):
 
             # no completion found? looking from the global scope? then try the builtins
             if not results and len(parts) == 1:
-                results = self.dir_namespace(__builtin__, last_token)
-                # self.debug("get_candidates() completions for %s in %s: %s", last_token, __builtin__, results)
+                results = self.dir_namespace(builtins, last_token)
+                # self.debug("get_candidates() completions for %s in %s: %s", last_token, builtins, results)
 
             results = map(lambda r: self.maybe_extend_syntactically(ns, r, line, match_syntax_char), results)
             ns_parts = parts[:-1]
-            results = map(lambda r: ".".join(ns_parts + [r]), results)
+            results = list(map(lambda r: ".".join(ns_parts + [r]), results))
             # self.debug("get_candidates() => '%s'", str(results))
             return results
 
@@ -580,7 +606,7 @@ class __IDAPython_Completion_Util(object):
     def __call__(self, line, x):
         try:
             # self.debug("__call__(line=%s, x=%s)", line, x)
-            uline = line.decode("UTF-8")
+            uline = line.decode("UTF-8") if sys.version_info.major < 3 else line
             result = None
 
             # Kludge: if the we are past the last char, and that char is syntax:
@@ -596,7 +622,9 @@ class __IDAPython_Completion_Util(object):
 
             # Find what looks like an identifier (possibly qualified)
             for match in re.finditer(self.QNAME_PAT, uline):
-                qname, start, end = match.group(1).encode("UTF-8"), match.start(1), match.end(1)
+                qname, start, end = match.group(1), match.start(1), match.end(1)
+                if sys.version_info.major < 3:
+                    qname = qname.encode("UTF-8")
                 if x >= start and x <= end:
                     result = self.get_candidates(qname, line, match_syntax_char), start, end + (1 if match_syntax_char else 0)
 
@@ -614,6 +642,7 @@ def _listify_types(*classes):
         cls.at = cls.__getitem__ # '__getitem__' has bounds checkings
         cls.__len__ = cls.size
         cls.__iter__ = _bounded_getitem_iterator
+        cls.append = cls.push_back
 
 # The general callback format of notify_when() is:
 #    def notify_when_callback(nw_code)
@@ -629,6 +658,26 @@ NW_TERMIDA    = 0x0008
 """Notify when the IDA terminates. Its callback is of the form: def notify_when_callback(nw_code)"""
 NW_REMOVE     = 0x0010
 """Use this flag with other flags to uninstall a notifywhen callback"""
+
+
+_notify_when_dispatcher = None
+
+def notify_when(when, callback):
+    """
+    Register a callback that will be called when an event happens.
+    @param when: one of NW_XXXX constants
+    @param callback: This callback prototype varies depending on the 'when' parameter:
+                     The general callback format:
+                         def notify_when_callback(nw_code)
+                     In the case of NW_OPENIDB:
+                         def notify_when_callback(nw_code, is_old_database)
+    @return: Boolean
+    """
+    global _notify_when_dispatcher
+    import ida_idp
+    if _notify_when_dispatcher is None:
+        _notify_when_dispatcher = ida_idp._notify_when_dispatcher_t()
+    return _notify_when_dispatcher.notify_when(when, callback)
 
 
 # Since version 5.5, PyQt5 doesn't simply print the PyQt exceptions by default

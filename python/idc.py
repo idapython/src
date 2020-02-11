@@ -270,16 +270,20 @@ FF_JUMP  = ida_bytes.FF_JUMP & 0xFFFFFFFF  # Has jump table
 #
 #      Loader flags
 #
-NEF_SEGS   = ida_loader.NEF_SEGS   # Create segments
-NEF_RSCS   = ida_loader.NEF_RSCS   # Load resources
-NEF_NAME   = ida_loader.NEF_NAME   # Rename entries
-NEF_MAN    = ida_loader.NEF_MAN    # Manual load
-NEF_FILL   = ida_loader.NEF_FILL   # Fill segment gaps
-NEF_IMPS   = ida_loader.NEF_IMPS   # Create imports section
-NEF_FIRST  = ida_loader.NEF_FIRST  # This is the first file loaded
-NEF_CODE   = ida_loader.NEF_CODE   # for load_binary_file:
-NEF_RELOAD = ida_loader.NEF_RELOAD # reload the file at the same place:
-NEF_FLAT   = ida_loader.NEF_FLAT   # Autocreated FLAT group (PE)
+if ida_idaapi.uses_swig_builtins:
+    _scope = ida_loader.loader_t
+else:
+    _scope = ida_loader
+NEF_SEGS   = _scope.NEF_SEGS   # Create segments
+NEF_RSCS   = _scope.NEF_RSCS   # Load resources
+NEF_NAME   = _scope.NEF_NAME   # Rename entries
+NEF_MAN    = _scope.NEF_MAN    # Manual load
+NEF_FILL   = _scope.NEF_FILL   # Fill segment gaps
+NEF_IMPS   = _scope.NEF_IMPS   # Create imports section
+NEF_FIRST  = _scope.NEF_FIRST  # This is the first file loaded
+NEF_CODE   = _scope.NEF_CODE   # for load_binary_file:
+NEF_RELOAD = _scope.NEF_RELOAD # reload the file at the same place:
+NEF_FLAT   = _scope.NEF_FLAT   # Autocreated FLAT group (PE)
 
 #         List of built-in functions
 #         --------------------------
@@ -359,13 +363,13 @@ def rotate_left(value, count, nbits, offset):
     tmp = value & mask
 
     if count > 0:
-        for x in xrange(count):
+        for x in range(count):
             if (tmp >> (offset+nbits-1)) & 1:
                 tmp = (tmp << 1) | (1 << offset)
             else:
                 tmp = (tmp << 1)
     else:
-        for x in xrange(-count):
+        for x in range(-count):
             if (tmp >> offset) & 1:
                 tmp = (tmp >> 1) | (1 << (offset+nbits-1))
             else:
@@ -818,18 +822,7 @@ def define_local_var(start, end, location, name):
         return ida_frame.add_regvar(func, start, end, location, name, None)
 
 
-def del_items(ea, flags=0, size=1):
-    """
-    Convert the current item to an explored item
-
-    @param ea: linear address
-    @param flags: combination of DELIT_* constants
-    @param size: size of the range to undefine
-
-    @return: None
-    """
-    return ida_bytes.del_items(ea, flags, size)
-
+del_items = ida_bytes.del_items
 
 DELIT_SIMPLE   = ida_bytes.DELIT_SIMPLE   # simply undefine the specified item
 DELIT_EXPAND   = ida_bytes.DELIT_EXPAND   # propogate undefined items, for example

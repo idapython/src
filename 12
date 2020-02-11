@@ -1,0 +1,1048 @@
+C:/PROGRA~2/MIB055~1/2017/BUILDT~1/VC/Tools/MSVC/1416~1.270/bin/HostX64/x64/cl.exe /nologo @../../x64_win_vc_32.cfg /MD -I. -I../../include -Iobj/x64_win_vc_32/ -Iobj/x64_win_vc_32/swig -DBC695 -DPY3=1 -DPy_LIMITED_API=0x03040000 -DSWIG_TYPE_TABLE=idaapi -DUSE_STANDARD_FILE_FUNCTIONS -DVER_MAJOR="7" -DVER_MINOR="4" -DVER_PATCH="0" -DWITH_HEXRAYS -D__EXPR_SRC -w -wd4702 -wd4738 /bigobj -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -I../../include /U_DEBUG -IC:/Python38/include /EHsc /GR- -c /Foobj/x64_win_vc_32/python.obj python.cpp
+python.cpp
+C:/PROGRA~2/MIB055~1/2017/BUILDT~1/VC/Tools/MSVC/1416~1.270/bin/HostX64/x64/link.exe /nologo /DLL /OUT:../../bin/plugins/python.dll obj/x64_win_vc_32/python.obj ../../lib/x64_win_vc_32/ida.lib /PDB:../../pdb/x64_win_vc_32/ /PDBALTPATH:%_PDB% /ERRORREPORT:QUEUE /DEBUG /INCREMENTAL:NO /OPT:ICF /OPT:REF C:/Python38/libs/python38.lib C:/Python38/libs/python3.lib /map:obj/x64_win_vc_32/python.dll.map /DEF:idapython_implib.def /IMPLIB:obj/x64_win_vc_32/python.lib
+   Creating library obj/x64_win_vc_32/python.lib and object obj/x64_win_vc_32/python.exp
+(cd obj/x64_win_vc_32/ && unzip ../../out_of_tree/parsed_notifications.zip)
+Archive:  ../../out_of_tree/parsed_notifications.zip
+  inflating: parsed_notifications/xml/group__sa__.xml  
+  inflating: parsed_notifications/xml/group___t_c_m_p__.xml  
+  inflating: parsed_notifications/xml/group__regvar.xml  
+  inflating: parsed_notifications/xml/group___b_p_t_e_v__.xml  
+  inflating: parsed_notifications/xml/structuser__labels__iterator__t.xml  
+  inflating: parsed_notifications/xml/lex_8hpp.xml  
+  inflating: parsed_notifications/xml/group___a_f__.xml  
+  inflating: parsed_notifications/xml/group___s_f_l__.xml  
+  inflating: parsed_notifications/xml/struct_b_t_r_e_e___n_s_1_1___k_e_y__v1.xml  
+  inflating: parsed_notifications/xml/auto_8hpp.xml  
+  inflating: parsed_notifications/xml/group__choosers.xml  
+  inflating: parsed_notifications/xml/group__tf__int.xml  
+  inflating: parsed_notifications/xml/group___s_t__.xml  
+  inflating: parsed_notifications/xml/structedge__info__t.xml  
+  inflating: parsed_notifications/xml/group___i_m_p_t_y_p_e__.xml  
+  inflating: parsed_notifications/xml/group___s_e_a_r_c_h__.xml  
+  inflating: parsed_notifications/xml/classnode__iterator.xml  
+  inflating: parsed_notifications/xml/group___c_l_i_f__.xml  
+  inflating: parsed_notifications/xml/group__type.xml  
+  inflating: parsed_notifications/xml/group___s_r__.xml  
+  inflating: parsed_notifications/xml/group__fixup__type__t.xml  
+  inflating: parsed_notifications/xml/structmba__range__iterator__t.xml  
+  inflating: parsed_notifications/xml/structcompiler__info__t.xml  
+  inflating: parsed_notifications/xml/structceinsn__t.xml  
+  inflating: parsed_notifications/xml/structtest__box__t_1_1test__item__desc.xml  
+  inflating: parsed_notifications/xml/structoptblock__t.xml  
+  inflating: parsed_notifications/xml/structdata__format__t.xml  
+  inflating: parsed_notifications/xml/structivlset__t.xml  
+  inflating: parsed_notifications/xml/structinsn__cmt__t.xml  
+  inflating: parsed_notifications/xml/group__tf__ptr.xml  
+  inflating: parsed_notifications/xml/structpkt__push__md__result__t.xml  
+  inflating: parsed_notifications/xml/structenum__member__t.xml  
+  inflating: parsed_notifications/xml/group___b_p_t_c_k__.xml  
+  inflating: parsed_notifications/xml/group___c_h_i_t_e_m__.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__strace.xml  
+  inflating: parsed_notifications/xml/structjobj__t.xml  
+  inflating: parsed_notifications/xml/structudt__type__data__t.xml  
+  inflating: parsed_notifications/xml/group___g_l_n__.xml  
+  inflating: parsed_notifications/xml/pro_8h.xml  
+  inflating: parsed_notifications/xml/group___a_b_i__.xml  
+  inflating: parsed_notifications/xml/classplace__t.xml  
+  inflating: parsed_notifications/xml/structrenderer__info__t.xml  
+  inflating: parsed_notifications/xml/structdebapp__attrs__t.xml  
+  inflating: parsed_notifications/xml/structpkt__dump__md__result__t.xml  
+  inflating: parsed_notifications/xml/structbackward__flow__iterator__t.xml  
+  inflating: parsed_notifications/xml/classmblock__t.xml  
+  inflating: parsed_notifications/xml/group___e_q__.xml  
+  inflating: parsed_notifications/xml/structrect__t.xml  
+  inflating: parsed_notifications/xml/structfile__printer__t.xml  
+  inflating: parsed_notifications/xml/group___a_s__.xml  
+  inflating: parsed_notifications/xml/group___o_f__.xml  
+  inflating: parsed_notifications/xml/classscattered__aloc__t.xml  
+  inflating: parsed_notifications/xml/group___e_x_c__.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__tracing.xml  
+  inflating: parsed_notifications/xml/structprocessor__t.xml  
+  inflating: parsed_notifications/xml/group___c_o_m_p__.xml  
+  inflating: parsed_notifications/xml/structchannel__redir__t.xml  
+  inflating: parsed_notifications/xml/group___g_l_i_c_t_l__.xml  
+  inflating: parsed_notifications/xml/classvalstr__t.xml  
+  inflating: parsed_notifications/xml/structpattern__id__t.xml  
+  inflating: parsed_notifications/xml/classnode__ordering__t.xml  
+  inflating: parsed_notifications/xml/structreg__info__t.xml  
+  inflating: parsed_notifications/xml/structcustloc__desc__t.xml  
+  inflating: parsed_notifications/xml/group___v_r__.xml  
+  inflating: parsed_notifications/xml/classmcallinfo__t.xml  
+  inflating: parsed_notifications/xml/structudcall__t.xml  
+  inflating: parsed_notifications/xml/class_b_t_r_e_e___n_s_1_1b_tree.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__trcfunc.xml  
+  inflating: parsed_notifications/xml/structpkt__pull__md__result__t.xml  
+  inflating: parsed_notifications/xml/structclient__handlers__list__t.xml  
+  inflating: parsed_notifications/xml/structudt__member__t.xml  
+  inflating: parsed_notifications/xml/structpsymbol__t.xml  
+  inflating: parsed_notifications/xml/expr_8hpp.xml  
+  inflating: parsed_notifications/xml/structtextctrl__info__t.xml  
+  inflating: parsed_notifications/xml/structcustom__data__type__ids__t.xml  
+  inflating: parsed_notifications/xml/structexehdr.xml  
+  inflating: parsed_notifications/xml/group___m_o_v_e___f_u_n_c__.xml  
+  inflating: parsed_notifications/xml/coin__c__defines_8h.xml  
+  inflating: parsed_notifications/xml/structvivl__t.xml  
+  inflating: parsed_notifications/xml/group__seg__name.xml  
+  inflating: parsed_notifications/xml/sha256_8h.xml  
+  inflating: parsed_notifications/xml/structsha256__ctx.xml  
+  inflating: parsed_notifications/xml/structidp__desc__t.xml  
+  inflating: parsed_notifications/xml/help_8h.xml  
+  inflating: parsed_notifications/xml/classivlset__tpl.xml  
+  inflating: parsed_notifications/xml/group___l_n__.xml  
+  inflating: parsed_notifications/xml/structvdui__t.xml  
+  inflating: parsed_notifications/xml/structlvar__locator__t.xml  
+  inflating: parsed_notifications/xml/aes_8h.xml  
+  inflating: parsed_notifications/xml/structbytes__t.xml  
+  inflating: parsed_notifications/xml/classui__request__t.xml  
+  inflating: parsed_notifications/xml/structinput__file__t.xml  
+  inflating: parsed_notifications/xml/namespaceidb__event.xml  
+  inflating: parsed_notifications/xml/structrpc__packet__data__t.xml  
+  inflating: parsed_notifications/xml/structbptaddr__t.xml  
+  inflating: parsed_notifications/xml/group___c_c.xml  
+  inflating: parsed_notifications/xml/group__fh__options.xml  
+  inflating: parsed_notifications/xml/group___w_f_n_e__.xml  
+  inflating: parsed_notifications/xml/blowfish_8h.xml  
+  inflating: parsed_notifications/xml/group___r_e_f_i_n_f_o__.xml  
+  inflating: parsed_notifications/xml/struct_m_d5_context.xml  
+  inflating: parsed_notifications/xml/structskipped__func__t.xml  
+  inflating: parsed_notifications/xml/group___s_n__.xml  
+  inflating: parsed_notifications/xml/group___m_e_r_r__.xml  
+  inflating: parsed_notifications/xml/group___c_m__ptr.xml  
+  inflating: parsed_notifications/xml/structchain__visitor__t.xml  
+  inflating: parsed_notifications/xml/structidsfile__t.xml  
+  inflating: parsed_notifications/xml/netnode_8hpp.xml  
+  inflating: parsed_notifications/xml/group___b_f_a__.xml  
+  inflating: parsed_notifications/xml/group___d_b_f_l__.xml  
+  inflating: parsed_notifications/xml/group___t_i_l__.xml  
+  inflating: parsed_notifications/xml/structioport__bit__t.xml  
+  inflating: parsed_notifications/xml/classint128.xml  
+  inflating: parsed_notifications/xml/fpro_8h.xml  
+  inflating: parsed_notifications/xml/group___a_e_f__.xml  
+  inflating: parsed_notifications/xml/group___c_h_f__.xml  
+  inflating: parsed_notifications/xml/structinstruc__t.xml  
+  inflating: parsed_notifications/xml/classgraph__visitor__t.xml  
+  inflating: parsed_notifications/xml/classtryblk__t.xml  
+  inflating: parsed_notifications/xml/classargloc__t.xml  
+  inflating: parsed_notifications/xml/structpushinfo__t.xml  
+  inflating: parsed_notifications/xml/structmba__item__iterator__t.xml  
+  inflating: parsed_notifications/xml/group___c_v__.xml  
+  inflating: parsed_notifications/xml/group___s_e_g_p_e_r_m__.xml  
+  inflating: parsed_notifications/xml/structinterr__exc__t.xml  
+  inflating: parsed_notifications/xml/structchooser__base__t.xml  
+  inflating: parsed_notifications/xml/group___l_f_l_g__.xml  
+  inflating: parsed_notifications/xml/group___n_a_l_t___x.xml  
+  inflating: parsed_notifications/xml/structthread__name__t.xml  
+  inflating: parsed_notifications/xml/structvalue__u_1_1d128__t.xml  
+  inflating: parsed_notifications/xml/classmbl__array__t.xml  
+  inflating: parsed_notifications/xml/structimpinfo__t.xml  
+  inflating: parsed_notifications/xml/group___m_s_f__.xml  
+  inflating: parsed_notifications/xml/group___s_w___c.xml  
+  inflating: parsed_notifications/xml/structedge__infos__wrapper__t.xml  
+  inflating: parsed_notifications/xml/structrow__info__t.xml  
+  inflating: parsed_notifications/xml/group___f_f__opfuncs1.xml  
+  inflating: parsed_notifications/xml/classqlist.xml  
+  inflating: parsed_notifications/xml/structmop__visitor__t.xml  
+  inflating: parsed_notifications/xml/structfixup__data__t.xml  
+  inflating: parsed_notifications/xml/group__reftype__.xml  
+  inflating: parsed_notifications/xml/structhighlighter__cbs__t.xml  
+  inflating: parsed_notifications/xml/structcast__t.xml  
+  inflating: parsed_notifications/xml/structdbg__info__t.xml  
+  inflating: parsed_notifications/xml/structivl__with__name__t.xml  
+  inflating: parsed_notifications/xml/group___f_i_n_d___f_u_n_c___f.xml  
+  inflating: parsed_notifications/xml/structjanitor__t.xml  
+  inflating: parsed_notifications/xml/struct_t_point_double.xml  
+  inflating: parsed_notifications/xml/group__pack__vector.xml  
+  inflating: parsed_notifications/xml/group___f_f__statespecb.xml  
+  inflating: parsed_notifications/xml/structbpt__location__t.xml  
+  inflating: parsed_notifications/xml/structprintop__t.xml  
+  inflating: parsed_notifications/xml/structnode__info__t.xml  
+  inflating: parsed_notifications/xml/group___g_n_c_n__.xml  
+  inflating: parsed_notifications/xml/structlicense__info__t.xml  
+  inflating: parsed_notifications/xml/structrpc__packet__t.xml  
+  inflating: parsed_notifications/xml/workarounds_8hpp.xml  
+  inflating: parsed_notifications/xml/group___f_o_r_m___c.xml  
+  inflating: parsed_notifications/xml/dir_43724e81dd40e09f32417973865cdd64.xml  
+  inflating: parsed_notifications/xml/group___f_f__opfuncs2.xml  
+  inflating: parsed_notifications/xml/group__compression__methods.xml  
+  inflating: parsed_notifications/xml/structucdr__atom__t.xml  
+  inflating: parsed_notifications/xml/classrpc__engine__t.xml  
+  inflating: parsed_notifications/xml/classqrefcnt__obj__t.xml  
+  inflating: parsed_notifications/xml/class_b_t_r_e_e___n_s_1_1free__page__t.xml  
+  inflating: parsed_notifications/xml/structstkpnts__t.xml  
+  inflating: parsed_notifications/xml/group___v_a_r_s_l_i_c_e__.xml  
+  inflating: parsed_notifications/xml/classcancellable__graph__t.xml  
+  inflating: parsed_notifications/xml/group__o__.xml  
+  inflating: parsed_notifications/xml/group___f_a_i__.xml  
+  inflating: parsed_notifications/xml/structrelobj__t.xml  
+  inflating: parsed_notifications/xml/group__seg__sel.xml  
+  inflating: parsed_notifications/xml/structinsn__ops__repr__t.xml  
+  inflating: parsed_notifications/xml/group___s_u_d_t__.xml  
+  inflating: parsed_notifications/xml/graph_8hpp.xml  
+  inflating: parsed_notifications/xml/classmcases__t.xml  
+  inflating: parsed_notifications/xml/group__parse__tinfo.xml  
+  inflating: parsed_notifications/xml/gdl_8hpp.xml  
+  inflating: parsed_notifications/xml/structenum__member__visitor__t.xml  
+  inflating: parsed_notifications/xml/structinstant__dbgopts__t.xml  
+  inflating: parsed_notifications/xml/structctree__anchor__t.xml  
+  inflating: parsed_notifications/xml/group___n_a_l_t__.xml  
+  inflating: parsed_notifications/xml/group__tf__array.xml  
+  inflating: parsed_notifications/xml/structaction__desc__t.xml  
+  inflating: parsed_notifications/xml/structmmtype__t.xml  
+  inflating: parsed_notifications/xml/structcloop__t.xml  
+  inflating: parsed_notifications/xml/group___f_i_x_u_p_f__.xml  
+  inflating: parsed_notifications/xml/group__tf__float.xml  
+  inflating: parsed_notifications/xml/idtaccess_8hpp.xml  
+  inflating: parsed_notifications/xml/group___a_d_d_t_i_l___f.xml  
+  inflating: parsed_notifications/xml/structpkt__rpc__ok__t.xml  
+  inflating: parsed_notifications/xml/clp__c__interface_8h.xml  
+  inflating: parsed_notifications/xml/classmop__pair__t.xml  
+  inflating: parsed_notifications/xml/classsimple__graph__t.xml  
+  inflating: parsed_notifications/xml/structscif__visitor__t.xml  
+  inflating: parsed_notifications/xml/classtwinpos__t.xml  
+  inflating: parsed_notifications/xml/structrenderer__pos__info__t.xml  
+  inflating: parsed_notifications/xml/structpush__md__result__t.xml  
+  inflating: parsed_notifications/xml/structuser__identification__t.xml  
+  inflating: parsed_notifications/xml/structoutctx__t.xml  
+  inflating: parsed_notifications/xml/structcompiled__binpat__t.xml  
+  inflating: parsed_notifications/xml/allow__deprecated_8hpp.xml  
+  inflating: parsed_notifications/xml/group___c_m___m__.xml  
+  inflating: parsed_notifications/xml/structmlist__t.xml  
+  inflating: parsed_notifications/xml/structtreeloc__t.xml  
+  inflating: parsed_notifications/xml/dbg_8hpp.xml  
+  inflating: parsed_notifications/xml/group___n_f__.xml  
+  inflating: parsed_notifications/xml/parseucdr_8hpp.xml  
+  inflating: parsed_notifications/xml/structlvar__uservec__t.xml  
+  inflating: parsed_notifications/xml/class_varray_1_1chunklist__t.xml  
+  inflating: parsed_notifications/xml/structllabel__t.xml  
+  inflating: parsed_notifications/xml/group__argloc.xml  
+  inflating: parsed_notifications/xml/kernwin_8hpp.xml  
+  inflating: parsed_notifications/xml/classbitset__t_1_1iterator.xml  
+  inflating: parsed_notifications/xml/classidaplace__t.xml  
+  inflating: parsed_notifications/xml/vm_8hpp.xml  
+  inflating: parsed_notifications/xml/structsreg__range__t.xml  
+  inflating: parsed_notifications/xml/group___c___p_c__.xml  
+  inflating: parsed_notifications/xml/group___d_e_b_u_g_g_e_r___i_d__.xml  
+  inflating: parsed_notifications/xml/group__ui__scvh__funcs.xml  
+  inflating: parsed_notifications/xml/structcfgopt__t.xml  
+  inflating: parsed_notifications/xml/nalt_8hpp.xml  
+  inflating: parsed_notifications/xml/structjvalue__t.xml  
+  inflating: parsed_notifications/xml/ida_8hpp.xml  
+  inflating: parsed_notifications/xml/structuser__graph__place__t.xml  
+  inflating: parsed_notifications/xml/structpkt__dump__md__t.xml  
+  inflating: parsed_notifications/xml/structinterval__t.xml  
+  inflating: parsed_notifications/xml/structhexplace__gen__t.xml  
+  inflating: parsed_notifications/xml/structenum__const__t.xml  
+  inflating: parsed_notifications/xml/structproduct__entry__t.xml  
+  inflating: parsed_notifications/xml/struct_b_t_r_e_e___n_s_1_1stack__pos__t.xml  
+  inflating: parsed_notifications/xml/group___w_i_d_g_e_t___o_p_e_n.xml  
+  inflating: parsed_notifications/xml/group___c_h__.xml  
+  inflating: parsed_notifications/xml/structfixup__handler__t.xml  
+  inflating: parsed_notifications/xml/structctree__item__t.xml  
+  inflating: parsed_notifications/xml/demangle_8hpp.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__conv.xml  
+  inflating: parsed_notifications/xml/group___d_b_g___f_l_a_g2__.xml  
+  inflating: parsed_notifications/xml/class_v_m.xml  
+  inflating: parsed_notifications/xml/group__tf.xml  
+  inflating: parsed_notifications/xml/group___c_s_i_d_l.xml  
+  inflating: parsed_notifications/xml/structcmdopt__t.xml  
+  inflating: parsed_notifications/xml/namespacepc__module__t.xml  
+  inflating: parsed_notifications/xml/structbgcolors__t.xml  
+  inflating: parsed_notifications/xml/group___n_t__.xml  
+  inflating: parsed_notifications/xml/frame_8hpp.xml  
+  inflating: parsed_notifications/xml/group__tattr__ext.xml  
+  inflating: parsed_notifications/xml/structregobj__t.xml  
+  inflating: parsed_notifications/xml/group___r_e_g_i_s_t_e_r__.xml  
+  inflating: parsed_notifications/xml/group___a_c_f_l__.xml  
+  inflating: parsed_notifications/xml/group___i_d_a___s_u_b_d_i_r__.xml  
+  inflating: parsed_notifications/xml/group__tf__nontrivial.xml  
+  inflating: parsed_notifications/xml/problems_8hpp.xml  
+  inflating: parsed_notifications/xml/group___f_f___c_o_d_e.xml  
+  inflating: parsed_notifications/xml/structmt__client__handlers__list__t.xml  
+  inflating: parsed_notifications/xml/group___l_i_f__.xml  
+  inflating: parsed_notifications/xml/group___d_o_p_t__.xml  
+  inflating: parsed_notifications/xml/segregs_8hpp.xml  
+  inflating: parsed_notifications/xml/structpkt__pull__md__t.xml  
+  inflating: parsed_notifications/xml/classrefcnted__regex__t.xml  
+  inflating: parsed_notifications/xml/registry_8hpp.xml  
+  inflating: parsed_notifications/xml/structstrarray__t.xml  
+  inflating: parsed_notifications/xml/group___i_t_e_m___e_n_d__.xml  
+  inflating: parsed_notifications/xml/group___a_c_f__.xml  
+  inflating: parsed_notifications/xml/group___p_r_t_y_p_e__.xml  
+  inflating: parsed_notifications/xml/err_8h.xml  
+  inflating: parsed_notifications/xml/structbpt__t.xml  
+  inflating: parsed_notifications/xml/structenum__type__data__t.xml  
+  inflating: parsed_notifications/xml/group___h_t_i__.xml  
+  inflating: parsed_notifications/xml/classlumina__client__t.xml  
+  inflating: parsed_notifications/xml/structaction__ctx__base__t.xml  
+  inflating: parsed_notifications/xml/group__lx__.xml  
+  inflating: parsed_notifications/xml/group__seg__addr.xml  
+  inflating: parsed_notifications/xml/structea__name__t.xml  
+  inflating: parsed_notifications/xml/structcli__t.xml  
+  inflating: parsed_notifications/xml/group___a_f2__.xml  
+  inflating: parsed_notifications/xml/group___f_f__op.xml  
+  inflating: parsed_notifications/xml/structcinsn__t.xml  
+  inflating: parsed_notifications/xml/struct_varray_1_1vascan__info__t.xml  
+  inflating: parsed_notifications/xml/classidasgn__t.xml  
+  inflating: parsed_notifications/xml/group___i_d_c_h_k__.xml  
+  inflating: parsed_notifications/xml/structencrypted__block__t.xml  
+  inflating: parsed_notifications/xml/group__tf__shortcuts.xml  
+ extracting: parsed_notifications/xml/headers_generated.marker  
+  inflating: parsed_notifications/xml/classnetnode.xml  
+  inflating: parsed_notifications/xml/group___l_d_r_f__.xml  
+  inflating: parsed_notifications/xml/group___f_f__statespecf.xml  
+  inflating: parsed_notifications/xml/structcitem__cmt__t.xml  
+  inflating: parsed_notifications/xml/classcodegen__t.xml  
+  inflating: parsed_notifications/xml/structmicrocode__filter__t.xml  
+  inflating: parsed_notifications/xml/structvalinfo__t.xml  
+  inflating: parsed_notifications/xml/group__pack.xml  
+  inflating: parsed_notifications/xml/group___i_o_r_e_d_i_r__.xml  
+  inflating: parsed_notifications/xml/structivl__t.xml  
+  inflating: parsed_notifications/xml/structtry__handler__t.xml  
+  inflating: parsed_notifications/xml/namespaceinterval.xml  
+  inflating: parsed_notifications/xml/structirs__cancellable__op__t.xml  
+  inflating: parsed_notifications/xml/classgraph__node__visitor__t.xml  
+  inflating: parsed_notifications/xml/group___c_l_n_l__.xml  
+  inflating: parsed_notifications/xml/class_v_m_1_1const__page__visitor__t.xml  
+  inflating: parsed_notifications/xml/group__tf__complex.xml  
+  inflating: parsed_notifications/xml/group___e_n_u_m___m_e_m_b_e_r__.xml  
+  inflating: parsed_notifications/xml/group__tf__conv__unk.xml  
+  inflating: parsed_notifications/xml/structvalue__u_1_1dt__t.xml  
+  inflating: parsed_notifications/xml/structbitfield__type__data__t.xml  
+  inflating: parsed_notifications/xml/group__xref__type.xml  
+  inflating: parsed_notifications/xml/group__named__types.xml  
+  inflating: parsed_notifications/xml/group___o_p_t_i__.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs.xml  
+  inflating: parsed_notifications/xml/group___m_f_f__.xml  
+  inflating: parsed_notifications/xml/structframe__desc__t.xml  
+  inflating: parsed_notifications/xml/structlvar__saved__info__t.xml  
+  inflating: parsed_notifications/xml/parsejson_8hpp.xml  
+  inflating: parsed_notifications/xml/structlvars__t.xml  
+  inflating: parsed_notifications/xml/group___p_a_t_h___t_y_p_e__.xml  
+  inflating: parsed_notifications/xml/classgdl__graph__t.xml  
+  inflating: parsed_notifications/xml/structidp__name__t.xml  
+  inflating: parsed_notifications/xml/classfunc__t.xml  
+  inflating: parsed_notifications/xml/structtinfo__visitor__t.xml  
+  inflating: parsed_notifications/xml/group___w_i_d_g_e_t___c_l_o_s_e.xml  
+  inflating: parsed_notifications/xml/struct_8hpp.xml  
+  inflating: parsed_notifications/xml/intel_8hpp.xml  
+  inflating: parsed_notifications/xml/classqstack.xml  
+  inflating: parsed_notifications/xml/structaloc__visitor__t.xml  
+  inflating: parsed_notifications/xml/classrangeset__t.xml  
+  inflating: parsed_notifications/xml/group___c_o_l_o_r___p_f_x.xml  
+  inflating: parsed_notifications/xml/group___t_v_i_s__.xml  
+  inflating: parsed_notifications/xml/structhexrays__failure__t.xml  
+  inflating: parsed_notifications/xml/classmcallarg__t.xml  
+  inflating: parsed_notifications/xml/struct_b_t_r_e_e___n_s_1_1stack__item__t.xml  
+  inflating: parsed_notifications/xml/structuser__lvar__modifier__t.xml  
+  inflating: parsed_notifications/xml/group___c_h_a_r_t__1.xml  
+  inflating: parsed_notifications/xml/group___i_d_b_d_e_c__.xml  
+  inflating: parsed_notifications/xml/group___i_n_f_f_l__.xml  
+  inflating: parsed_notifications/xml/structmemreg__info__t.xml  
+  inflating: parsed_notifications/xml/structpkt__get__pop__result__t.xml  
+  inflating: parsed_notifications/xml/structidd__opinfo__t.xml  
+  inflating: parsed_notifications/xml/group___f_u_n_c__.xml  
+  inflating: parsed_notifications/xml/structvd__interr__t.xml  
+  inflating: parsed_notifications/xml/group___s_h_i_n_s__.xml  
+  inflating: parsed_notifications/xml/classchain__keeper__t.xml  
+  inflating: parsed_notifications/xml/group___c_f_s__.xml  
+  inflating: parsed_notifications/xml/structfunc__type__data__t.xml  
+  inflating: parsed_notifications/xml/group___s_v_f__.xml  
+  inflating: parsed_notifications/xml/structstruct__field__visitor__t.xml  
+  inflating: parsed_notifications/xml/group___a_l_o_p_t__.xml  
+  inflating: parsed_notifications/xml/structextlang__t.xml  
+  inflating: parsed_notifications/xml/structaction__handler__t.xml  
+  inflating: parsed_notifications/xml/structpost__event__visitor__t.xml  
+  inflating: parsed_notifications/xml/structvar__ref__t.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__modules.xml  
+  inflating: parsed_notifications/xml/structselection__item__t.xml  
+  inflating: parsed_notifications/xml/group__seg__man.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__high.xml  
+  inflating: parsed_notifications/xml/group___d_b_g___f_l_a_g__.xml  
+  inflating: parsed_notifications/xml/group___f_c_i__.xml  
+  inflating: parsed_notifications/xml/structinsn__site__t.xml  
+  inflating: parsed_notifications/xml/structwrite__sync__t.xml  
+  inflating: parsed_notifications/xml/structpkt__rpc__notify__t.xml  
+  inflating: parsed_notifications/xml/structbase__dispatcher__t.xml  
+  inflating: parsed_notifications/xml/group___a_s2__.xml  
+  inflating: parsed_notifications/xml/structmnumber__t.xml  
+  inflating: parsed_notifications/xml/group___i_d_a_s_g_n__.xml  
+  inflating: parsed_notifications/xml/group___c_s_s__.xml  
+  inflating: parsed_notifications/xml/structconst__aloc__visitor__t.xml  
+  inflating: parsed_notifications/xml/idp_8hpp.xml  
+  inflating: parsed_notifications/xml/structedge__layout__point__t.xml  
+  inflating: parsed_notifications/xml/structcasm__t.xml  
+  inflating: parsed_notifications/xml/group___d_b_g_i_n_v__.xml  
+  inflating: parsed_notifications/xml/group___c_c_n__.xml  
+  inflating: parsed_notifications/xml/structidsinfo__t.xml  
+  inflating: parsed_notifications/xml/group__tf__mask.xml  
+  inflating: parsed_notifications/xml/group___n_e_f__.xml  
+  inflating: parsed_notifications/xml/namespace_b_t_r_e_e___n_s.xml  
+  inflating: parsed_notifications/xml/loader_8hpp.xml  
+  inflating: parsed_notifications/xml/group___a_l_o_c__.xml  
+  inflating: parsed_notifications/xml/structsegm__move__infos__t.xml  
+  inflating: parsed_notifications/xml/group___s_e_g_m_o_d__.xml  
+  inflating: parsed_notifications/xml/structvd__failure__t.xml  
+  inflating: parsed_notifications/xml/classtest__box__t.xml  
+  inflating: parsed_notifications/xml/classlochist__t.xml  
+  inflating: parsed_notifications/xml/classmbl__graph__t.xml  
+  inflating: parsed_notifications/xml/structivl__tpl.xml  
+  inflating: parsed_notifications/xml/structsimpleline__t.xml  
+  inflating: parsed_notifications/xml/structblock__chains__iterator__t.xml  
+  inflating: parsed_notifications/xml/structboundaries__iterator__t.xml  
+  inflating: parsed_notifications/xml/classmetadata__iterator__t.xml  
+  inflating: parsed_notifications/xml/group___f_f__opfuncs3.xml  
+  inflating: parsed_notifications/xml/classida__lowertype__helper__t.xml  
+  inflating: parsed_notifications/xml/group__nn__res.xml  
+  inflating: parsed_notifications/xml/group___d_e_l_i_t__.xml  
+  inflating: parsed_notifications/xml/group__add__chooser__command.xml  
+  inflating: parsed_notifications/xml/classgraph__chains__t.xml  
+  inflating: parsed_notifications/xml/group___f_d__.xml  
+  inflating: parsed_notifications/xml/structvalstrs__t.xml  
+  inflating: parsed_notifications/xml/group___g_u_e_s_s__.xml  
+  inflating: parsed_notifications/xml/structarray__type__data__t.xml  
+  inflating: parsed_notifications/xml/group___c_e_f__.xml  
+  inflating: parsed_notifications/xml/group___s_e_t_c_o_m_p__.xml  
+  inflating: parsed_notifications/xml/classop__t.xml  
+  inflating: parsed_notifications/xml/classlinput__buffer__t.xml  
+  inflating: parsed_notifications/xml/group___i_w_i_d__.xml  
+  inflating: parsed_notifications/xml/group___d_s_t_a_t_e__.xml  
+  inflating: parsed_notifications/xml/group___r_v_t__.xml  
+  inflating: parsed_notifications/xml/structucd__ranges__t.xml  
+  inflating: parsed_notifications/xml/structlvar__ref__t.xml  
+  inflating: parsed_notifications/xml/structchooser__t.xml  
+  inflating: parsed_notifications/xml/ua_8hpp.xml  
+  inflating: parsed_notifications/xml/group___c_v_a_r__.xml  
+  inflating: parsed_notifications/xml/structcitem__t.xml  
+  inflating: parsed_notifications/xml/class_b_t_r_e_e___n_s_1_1page__item__t.xml  
+  inflating: parsed_notifications/xml/structudcall__map__iterator__t.xml  
+  inflating: parsed_notifications/xml/classlowertype__helper__t.xml  
+  inflating: parsed_notifications/xml/group___l_i_b_f_u_n_c__.xml  
+  inflating: parsed_notifications/xml/structfbase__reg__t.xml  
+  inflating: parsed_notifications/xml/structrange__item__iterator__t.xml  
+  inflating: parsed_notifications/xml/class_v_m__page.xml  
+  inflating: parsed_notifications/xml/classpointseq__t.xml  
+  inflating: parsed_notifications/xml/structmba__ranges__t.xml  
+  inflating: parsed_notifications/xml/group___i_d_b__.xml  
+  inflating: parsed_notifications/xml/ucd_8hpp.xml  
+  inflating: parsed_notifications/xml/group___d_b_g___p_r_o_c__.xml  
+  inflating: parsed_notifications/xml/structregex__t.xml  
+  inflating: parsed_notifications/xml/group__tattr__field.xml  
+  inflating: parsed_notifications/xml/structmd5__t.xml  
+  inflating: parsed_notifications/xml/segment_8hpp.xml  
+  inflating: parsed_notifications/xml/group___r_i_d_x__.xml  
+  inflating: parsed_notifications/xml/structdebugger__t.xml  
+  inflating: parsed_notifications/xml/structkvp__t.xml  
+  inflating: parsed_notifications/xml/name_8hpp.xml  
+  inflating: parsed_notifications/xml/structchooser__item__attrs__t.xml  
+  inflating: parsed_notifications/xml/group___l_x_o_p_t__.xml  
+  inflating: parsed_notifications/xml/structedge__segment__t.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__mem.xml  
+  inflating: parsed_notifications/xml/fuzzer_8hpp.xml  
+  inflating: parsed_notifications/xml/classnode__set__t.xml  
+  inflating: parsed_notifications/xml/offset_8hpp.xml  
+  inflating: parsed_notifications/xml/classmutable__graph__t.xml  
+  inflating: parsed_notifications/xml/structidt__info__t.xml  
+  inflating: parsed_notifications/xml/group__seg__grp.xml  
+  inflating: parsed_notifications/xml/structstrwinsetup__t.xml  
+  inflating: parsed_notifications/xml/group___o_f_l_g__.xml  
+  inflating: parsed_notifications/xml/structida__syntax__highlighter__t_1_1keywords__style__t.xml  
+  inflating: parsed_notifications/xml/group___s_t_k_v_a_r__1.xml  
+  inflating: parsed_notifications/xml/structdata__type__t.xml  
+  inflating: parsed_notifications/xml/structedge__t.xml  
+  inflating: parsed_notifications/xml/struct_varray_1_1vaptr16__t.xml  
+  inflating: parsed_notifications/xml/moves_8hpp.xml  
+  inflating: parsed_notifications/xml/structpkt__push__md__t.xml  
+  inflating: parsed_notifications/xml/tstfeat_8hpp.xml  
+  inflating: parsed_notifications/xml/classbookmarks__t.xml  
+  inflating: parsed_notifications/xml/group___p_k_z__.xml  
+  inflating: parsed_notifications/xml/structpushreg__t.xml  
+  inflating: parsed_notifications/xml/structcfor__t.xml  
+  inflating: parsed_notifications/xml/group__tattr__udt.xml  
+  inflating: parsed_notifications/xml/group___p_s_t_f__.xml  
+  inflating: parsed_notifications/xml/group___f_f__codebits.xml  
+  inflating: parsed_notifications/xml/group___f_f__codefuncs.xml  
+  inflating: parsed_notifications/xml/structcif__t.xml  
+  inflating: parsed_notifications/xml/group___d_p__.xml  
+  inflating: parsed_notifications/xml/structrpc__packet__type__desc__t.xml  
+  inflating: parsed_notifications/xml/group___b_p_t__.xml  
+  inflating: parsed_notifications/xml/structuser__unions__iterator__t.xml  
+  inflating: parsed_notifications/xml/structfunc__info__pattern__and__frequency__t.xml  
+  inflating: parsed_notifications/xml/group__tattr__enum.xml  
+  inflating: parsed_notifications/xml/group___f_f__opbits.xml  
+  inflating: parsed_notifications/xml/structrrel__t.xml  
+  inflating: parsed_notifications/xml/structrangevec__t.xml  
+  inflating: parsed_notifications/xml/group___m_f__.xml  
+  inflating: parsed_notifications/xml/structtypedef__type__data__t.xml  
+  inflating: parsed_notifications/xml/structcarglist__t.xml  
+  inflating: parsed_notifications/xml/group___x_r_e_f__.xml  
+  inflating: parsed_notifications/xml/group__color__conv.xml  
+  inflating: parsed_notifications/xml/classfunc__tail__iterator__t.xml  
+  inflating: parsed_notifications/xml/exehdr_8h.xml  
+  inflating: parsed_notifications/xml/structdebug__event__t.xml  
+  inflating: parsed_notifications/xml/classbytevec__t.xml  
+  inflating: parsed_notifications/xml/structserialized__tinfo.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__srcinfo.xml  
+  inflating: parsed_notifications/xml/struct_varray_1_1chunk__t.xml  
+  inflating: parsed_notifications/xml/group___t_i_n_f_o__.xml  
+  inflating: parsed_notifications/xml/structqbasic__block__t.xml  
+  inflating: parsed_notifications/xml/structregex__cache__t.xml  
+  inflating: parsed_notifications/xml/structvoff__t.xml  
+  inflating: parsed_notifications/xml/classtwinline__t.xml  
+  inflating: parsed_notifications/xml/classstructplace__t.xml  
+  inflating: parsed_notifications/xml/group__seg__cmt.xml  
+  inflating: parsed_notifications/xml/structxrefpos__t.xml  
+  inflating: parsed_notifications/xml/structmlist__mop__visitor__t.xml  
+  inflating: parsed_notifications/xml/dir_58f2bcc5aef3b53918b22cbf67d4e128.xml  
+  inflating: parsed_notifications/xml/structstrpath__t.xml  
+  inflating: parsed_notifications/xml/index.xsd  
+  inflating: parsed_notifications/xml/classqiterator.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__trcbb.xml  
+  inflating: parsed_notifications/xml/classcustom__viewer__handlers__t.xml  
+  inflating: parsed_notifications/xml/class_b_t_r_e_e___n_s_1_1b_tree_1_1pagemap__t.xml  
+  inflating: parsed_notifications/xml/structrange__chunk__iterator__t.xml  
+  inflating: parsed_notifications/xml/structgraph__location__info__t.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__cmds.xml  
+  inflating: parsed_notifications/xml/structsegm__move__info__t.xml  
+  inflating: parsed_notifications/xml/classhexplace__t.xml  
+  inflating: parsed_notifications/xml/structregmatch__t.xml  
+  inflating: parsed_notifications/xml/group__opattrs__t.xml  
+  inflating: parsed_notifications/xml/group___g_c_a__.xml  
+  inflating: parsed_notifications/xml/structpkt__clean__db__t.xml  
+  inflating: parsed_notifications/xml/hitcnt_8hpp.xml  
+  inflating: parsed_notifications/xml/group___c_i_t__.xml  
+  inflating: parsed_notifications/xml/structvalue__u_1_1dq__t.xml  
+  inflating: parsed_notifications/xml/group___op__.xml  
+  inflating: parsed_notifications/xml/structcall__stack__info__t.xml  
+  inflating: parsed_notifications/xml/structlvar__mapping__iterator__t.xml  
+  inflating: parsed_notifications/xml/structuser__iflags__iterator__t.xml  
+  inflating: parsed_notifications/xml/structvalstr__t_1_1flatten__args__t.xml  
+  inflating: parsed_notifications/xml/group___v_r_e_f__.xml  
+  inflating: parsed_notifications/xml/bytes_8hpp.xml  
+  inflating: parsed_notifications/xml/classsource__item__t.xml  
+  inflating: parsed_notifications/xml/group___s_u_b_d_i_r.xml  
+  inflating: parsed_notifications/xml/struct_varray_1_1vaidx__info__t.xml  
+  inflating: parsed_notifications/xml/range_8hpp.xml  
+  inflating: parsed_notifications/xml/group___s_w_i__.xml  
+  inflating: parsed_notifications/xml/group__tattr__ptr.xml  
+  inflating: parsed_notifications/xml/structcreturn__t.xml  
+  inflating: parsed_notifications/xml/group___s_t_r_f__.xml  
+  inflating: parsed_notifications/xml/group___n_t_f__.xml  
+  inflating: parsed_notifications/xml/structextlang__visitor__t.xml  
+  inflating: parsed_notifications/xml/network_8hpp.xml  
+  inflating: parsed_notifications/xml/structargpart__t.xml  
+  inflating: parsed_notifications/xml/group___c_o_l_o_r__.xml  
+  inflating: parsed_notifications/xml/structjarr__t.xml  
+  inflating: parsed_notifications/xml/group___u_p_i_d_b__.xml  
+  inflating: parsed_notifications/xml/structfixup__info__t.xml  
+  inflating: parsed_notifications/xml/group__simpleline.xml  
+  inflating: parsed_notifications/xml/group___a_d_d_t_i_l___r.xml  
+  inflating: parsed_notifications/xml/group___b_w_n__.xml  
+  inflating: parsed_notifications/xml/classgraph__item__t.xml  
+  inflating: parsed_notifications/xml/structgeneric__linput__t.xml  
+  inflating: parsed_notifications/xml/libfuncs_8hpp.xml  
+  inflating: parsed_notifications/xml/classrlist__t.xml  
+  inflating: parsed_notifications/xml/group___p_r_e_f__.xml  
+  inflating: parsed_notifications/xml/structcarg__t.xml  
+  inflating: parsed_notifications/xml/structseh__t.xml  
+  inflating: parsed_notifications/xml/diskio_8hpp.xml  
+  inflating: parsed_notifications/xml/group___c_r_e_a_t_e_t_b__.xml  
+  inflating: parsed_notifications/xml/group___p_r2__.xml  
+  inflating: parsed_notifications/xml/group__tattr.xml  
+  inflating: parsed_notifications/xml/lines_8hpp.xml  
+  inflating: parsed_notifications/xml/group___n_m__.xml  
+  inflating: parsed_notifications/xml/tryblks_8hpp.xml  
+  inflating: parsed_notifications/xml/classsnapshot__t.xml  
+  inflating: parsed_notifications/xml/group___n_i_f__.xml  
+  inflating: parsed_notifications/xml/classstruc__t.xml  
+  inflating: parsed_notifications/xml/structop__parent__info__t.xml  
+  inflating: parsed_notifications/xml/structregarg__t.xml  
+  inflating: parsed_notifications/xml/group___r_e_a_l___e_r_r_o_r__.xml  
+  inflating: parsed_notifications/xml/group___l_p__.xml  
+  inflating: parsed_notifications/xml/classmop__addr__t.xml  
+  inflating: parsed_notifications/xml/structprocess__info__t.xml  
+  inflating: parsed_notifications/xml/group___v_d_r_u_n__.xml  
+  inflating: parsed_notifications/xml/group___i_d_a___d_e_b_u_g__.xml  
+  inflating: parsed_notifications/xml/group___p_t_v__.xml  
+  inflating: parsed_notifications/xml/structida__syntax__highlighter__t.xml  
+  inflating: parsed_notifications/xml/group___f_f__.xml  
+  inflating: parsed_notifications/xml/structlibmod__t.xml  
+  inflating: parsed_notifications/xml/structregister__info__t.xml  
+  inflating: parsed_notifications/xml/structclient__handler__t.xml  
+  inflating: parsed_notifications/xml/structold__encrypt__block__t.xml  
+  inflating: parsed_notifications/xml/group___i_p_r_o_p__.xml  
+  inflating: parsed_notifications/xml/classlocchange__md__t.xml  
+  inflating: parsed_notifications/xml/structcexpr__t.xml  
+  inflating: parsed_notifications/xml/group___s_p_f__.xml  
+  inflating: parsed_notifications/xml/structtev__reg__value__t.xml  
+  inflating: parsed_notifications/xml/group___o_p___f_p___s_p.xml  
+  inflating: parsed_notifications/xml/regex_8h.xml  
+  inflating: parsed_notifications/xml/group___p_l_u_g_i_n___i_n_i_t.xml  
+  inflating: parsed_notifications/xml/structoprepr__t.xml  
+  inflating: parsed_notifications/xml/group___m_o_v_e___s_e_g_m__.xml  
+  inflating: parsed_notifications/xml/group___t_i_l___a_d_d__.xml  
+  inflating: parsed_notifications/xml/structrefinfo__desc__t.xml  
+  inflating: parsed_notifications/xml/group__seg.xml  
+  inflating: parsed_notifications/xml/dir_2492c1c35b600a9a2c29865da230543d.xml  
+  inflating: parsed_notifications/xml/group__dt__.xml  
+  inflating: parsed_notifications/xml/group__ui__addons__funcs.xml  
+  inflating: parsed_notifications/xml/structcatch__t.xml  
+  inflating: parsed_notifications/xml/group___n___t_a_g.xml  
+  inflating: parsed_notifications/xml/structextra__cmt__t.xml  
+  inflating: parsed_notifications/xml/structnumber__format__t.xml  
+  inflating: parsed_notifications/xml/structload__info__t.xml  
+  inflating: parsed_notifications/xml/group__layout__.xml  
+  inflating: parsed_notifications/xml/group___b_p_t___t.xml  
+  inflating: parsed_notifications/xml/structcwhile__t.xml  
+  inflating: parsed_notifications/xml/structidainfo.xml  
+  inflating: parsed_notifications/xml/group___d_b_g___r_e_s_m_o_d__.xml  
+  inflating: parsed_notifications/xml/structrefinfo__t.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__flow.xml  
+  inflating: parsed_notifications/xml/structsyntax__highlighter__t.xml  
+  inflating: parsed_notifications/xml/group__color__def.xml  
+  inflating: parsed_notifications/xml/group___h_i_f__.xml  
+  inflating: parsed_notifications/xml/index.xml  
+  inflating: parsed_notifications/xml/group___s_e_t_m_e_n_u__.xml  
+  inflating: parsed_notifications/xml/structchooser__t_1_1cbret__t.xml  
+  inflating: parsed_notifications/xml/group__str__funcs.xml  
+  inflating: parsed_notifications/xml/group___l_m_t__.xml  
+  inflating: parsed_notifications/xml/group__ui__uaa__funcs.xml  
+  inflating: parsed_notifications/xml/group___s_p_c_h__.xml  
+  inflating: parsed_notifications/xml/group___s_f__.xml  
+  inflating: parsed_notifications/xml/group___s_s_u_f__.xml  
+  inflating: parsed_notifications/xml/group__ui__choose__funcs.xml  
+  inflating: parsed_notifications/xml/structlaunch__process__params__t.xml  
+  inflating: parsed_notifications/xml/classbitrange__t.xml  
+  inflating: parsed_notifications/xml/testbox_8hpp.xml  
+  inflating: parsed_notifications/xml/group___f_i_n_d___f_u_n_c___r.xml  
+  inflating: parsed_notifications/xml/structtil__t.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__regs.xml  
+  inflating: parsed_notifications/xml/group___h_i_s_t__.xml  
+  inflating: parsed_notifications/xml/structgetname__info__t.xml  
+  inflating: parsed_notifications/xml/classqmutex__locker__t.xml  
+  inflating: parsed_notifications/xml/ieee_8h.xml  
+  inflating: parsed_notifications/xml/group___i_d_a_o_p_t___p_r_i_o.xml  
+  inflating: parsed_notifications/xml/structqstring__printer__t.xml  
+  inflating: parsed_notifications/xml/group___f_f__statebits.xml  
+  inflating: parsed_notifications/xml/xref_8hpp.xml  
+  inflating: parsed_notifications/xml/group___t_b_e_r_r__.xml  
+  inflating: parsed_notifications/xml/structida__syntax__highlighter__t_1_1plain__char__ptr__t.xml  
+  inflating: parsed_notifications/xml/structcblock__t.xml  
+  inflating: parsed_notifications/xml/classjump__pattern__t.xml  
+  inflating: parsed_notifications/xml/group___c_f__.xml  
+  inflating: parsed_notifications/xml/structctree__visitor__t.xml  
+  inflating: parsed_notifications/xml/group__chooser__index.xml  
+  inflating: parsed_notifications/xml/classplugin__t.xml  
+  inflating: parsed_notifications/xml/struct_varray_1_1vaptr__t.xml  
+  inflating: parsed_notifications/xml/classuint128.xml  
+  inflating: parsed_notifications/xml/classsegment__t.xml  
+  inflating: parsed_notifications/xml/structswitch__info__t.xml  
+  inflating: parsed_notifications/xml/group___p_m_f__.xml  
+  inflating: parsed_notifications/xml/classintset__t.xml  
+  inflating: parsed_notifications/xml/fixup_8hpp.xml  
+  inflating: parsed_notifications/xml/group___r_e_l_o_b_j__.xml  
+  inflating: parsed_notifications/xml/structucdr__entry__t.xml  
+  inflating: parsed_notifications/xml/group___a_d_d_s_e_g__.xml  
+  inflating: parsed_notifications/xml/group___d_e_c_o_m_p__.xml  
+  inflating: parsed_notifications/xml/group___n_s_u_p__.xml  
+  inflating: parsed_notifications/xml/structlowcnd__t.xml  
+  inflating: parsed_notifications/xml/group___f_t_i__.xml  
+  inflating: parsed_notifications/xml/structregval__t.xml  
+  inflating: parsed_notifications/xml/classqflow__chart__t.xml  
+  inflating: parsed_notifications/xml/structidc__global__t.xml  
+  inflating: parsed_notifications/xml/group___e_x_t_f_u_n__.xml  
+  inflating: parsed_notifications/xml/classbasic__parser__t.xml  
+  inflating: parsed_notifications/xml/structpush__md__opts__t.xml  
+  inflating: parsed_notifications/xml/structptr__type__data__t.xml  
+  inflating: parsed_notifications/xml/structexcinfo__t.xml  
+  inflating: parsed_notifications/xml/structbpt__visitor__t.xml  
+  inflating: parsed_notifications/xml/structxreflist__entry__t.xml  
+  inflating: parsed_notifications/xml/structcgoto__t.xml  
+  inflating: parsed_notifications/xml/classminsn__t.xml  
+  inflating: parsed_notifications/xml/group___p_l_f_m__.xml  
+  inflating: parsed_notifications/xml/classqvector.xml  
+  inflating: parsed_notifications/xml/structregvar__t.xml  
+  inflating: parsed_notifications/xml/group___p_l_u_g_i_n__.xml  
+  inflating: parsed_notifications/xml/group__tf__unk.xml  
+  inflating: parsed_notifications/xml/structtev__info__reg__t.xml  
+  inflating: parsed_notifications/xml/group___s_t_r_c_o_n_v__.xml  
+  inflating: parsed_notifications/xml/bitrange_8hpp.xml  
+  inflating: parsed_notifications/xml/group__seg__trans.xml  
+  inflating: parsed_notifications/xml/structcp__data__t.xml  
+  inflating: parsed_notifications/xml/classmetadata__t.xml  
+  inflating: parsed_notifications/xml/structpkt__get__pop__t.xml  
+  inflating: parsed_notifications/xml/structasm__t.xml  
+  inflating: parsed_notifications/xml/group__c__str__conv.xml  
+  inflating: parsed_notifications/xml/lumina_8hpp.xml  
+  inflating: parsed_notifications/xml/structfunc__info__and__pattern__t.xml  
+  inflating: parsed_notifications/xml/btree_8hpp.xml  
+  inflating: parsed_notifications/xml/allins_8hpp.xml  
+  inflating: parsed_notifications/xml/group___s_c_o_l_o_r__.xml  
+  inflating: parsed_notifications/xml/idadcr_8h.xml  
+  inflating: parsed_notifications/xml/group___a_p_p_c_a_l_l__.xml  
+  inflating: parsed_notifications/xml/structccases__t.xml  
+  inflating: parsed_notifications/xml/structregobjs__t.xml  
+  inflating: parsed_notifications/xml/group___l_o_c_o_p_t__.xml  
+  inflating: parsed_notifications/xml/jumptable_8hpp.xml  
+  inflating: parsed_notifications/xml/prodir_8h.xml  
+  inflating: parsed_notifications/xml/classtinfo__t.xml  
+  inflating: parsed_notifications/xml/structaddon__info__t.xml  
+  inflating: parsed_notifications/xml/classchain__t.xml  
+  inflating: parsed_notifications/xml/group___l_v_i_n_f__.xml  
+  inflating: parsed_notifications/xml/commerc_8hpp.xml  
+  inflating: parsed_notifications/xml/group___g_e_n_f_l_g__.xml  
+  inflating: parsed_notifications/xml/classvmclass.xml  
+  inflating: parsed_notifications/xml/structqffblk__t.xml  
+  inflating: parsed_notifications/xml/structmovbpt__info__t.xml  
+  inflating: parsed_notifications/xml/structpop__fun__t.xml  
+  inflating: parsed_notifications/xml/group___s_t_k_v_a_r__2.xml  
+  inflating: parsed_notifications/xml/structsimple__bfi__t.xml  
+  inflating: parsed_notifications/xml/group___f_f__datafuncs1.xml  
+  inflating: parsed_notifications/xml/group___a_m_d_f__.xml  
+  inflating: parsed_notifications/xml/structchooser__multi__t.xml  
+  inflating: parsed_notifications/xml/enum_8hpp.xml  
+  inflating: parsed_notifications/xml/structpkt__debug__sleep__t.xml  
+  inflating: parsed_notifications/xml/group__tf__conv__segreg.xml  
+  inflating: parsed_notifications/xml/group___x_r_e_f___t.xml  
+  inflating: parsed_notifications/xml/compress_8hpp.xml  
+  inflating: parsed_notifications/xml/group___p_c_n__.xml  
+  inflating: parsed_notifications/xml/group___s_t_r_t_y_p_e__.xml  
+  inflating: parsed_notifications/xml/structeamap__iterator__t.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__trcins.xml  
+  inflating: parsed_notifications/xml/ids_8hpp.xml  
+  inflating: parsed_notifications/xml/group___a_u__.xml  
+  inflating: parsed_notifications/xml/structqlist_1_1listnode__t.xml  
+  inflating: parsed_notifications/xml/classmetadata__creator__t.xml  
+  inflating: parsed_notifications/xml/group___f_c__.xml  
+  inflating: parsed_notifications/xml/group__conv.xml  
+  inflating: parsed_notifications/xml/group___s_t_r_m_e_m__.xml  
+  inflating: parsed_notifications/xml/structstkvar__ref__t.xml  
+  inflating: parsed_notifications/xml/group__tf__enum.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__bpts.xml  
+  inflating: parsed_notifications/xml/unionopinfo__t.xml  
+  inflating: parsed_notifications/xml/class_v_m_1_1page__visitor__t.xml  
+  inflating: parsed_notifications/xml/group__color__esc.xml  
+  inflating: parsed_notifications/xml/structrenderer__info__pos__t.xml  
+  inflating: parsed_notifications/xml/structidc__resolver__t.xml  
+  inflating: parsed_notifications/xml/structidt__entry__t.xml  
+  inflating: parsed_notifications/xml/group___s2_e_a_o_p_t__.xml  
+  inflating: parsed_notifications/xml/classfunc__item__iterator__t.xml  
+  inflating: parsed_notifications/xml/group___v_d_u_i__.xml  
+  inflating: parsed_notifications/xml/combine.xslt  
+  inflating: parsed_notifications/xml/classvdloc__t.xml  
+  inflating: parsed_notifications/xml/group___i_d_p_o_p_t___t.xml  
+  inflating: parsed_notifications/xml/group__seg__align.xml  
+  inflating: parsed_notifications/xml/group___g_n__.xml  
+  inflating: parsed_notifications/xml/structaes__key__t.xml  
+  inflating: parsed_notifications/xml/pronet_8h.xml  
+  inflating: parsed_notifications/xml/unionvalue__u.xml  
+  inflating: parsed_notifications/xml/group___f_f__states.xml  
+  inflating: parsed_notifications/xml/va_8hpp.xml  
+  inflating: parsed_notifications/xml/group___a_s_k_b_t_n__.xml  
+  inflating: parsed_notifications/xml/structoutctx__base__t.xml  
+  inflating: parsed_notifications/xml/classfunc__parent__iterator__t.xml  
+  inflating: parsed_notifications/xml/unionview__mouse__event__location__t.xml  
+  inflating: parsed_notifications/xml/structext__idcfunc__t.xml  
+  inflating: parsed_notifications/xml/classmember__t.xml  
+  inflating: parsed_notifications/xml/classlock__func.xml  
+  inflating: parsed_notifications/xml/structview__mouse__event__t.xml  
+  inflating: parsed_notifications/xml/structuser__numforms__iterator__t.xml  
+  inflating: parsed_notifications/xml/structidasgn__header__t.xml  
+  inflating: parsed_notifications/xml/group___c_h_c_o_l__.xml  
+  inflating: parsed_notifications/xml/structida__syntax__highlighter__t_1_1multicmt__t.xml  
+  inflating: parsed_notifications/xml/structarray__parameters__t.xml  
+  inflating: parsed_notifications/xml/structoperator__info__t.xml  
+  inflating: parsed_notifications/xml/structloader__t.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__trcev.xml  
+  inflating: parsed_notifications/xml/group__unp__templates.xml  
+  inflating: parsed_notifications/xml/group___r_h_f__.xml  
+  inflating: parsed_notifications/xml/structno__regs__t.xml  
+  inflating: parsed_notifications/xml/funcs_8hpp.xml  
+  inflating: parsed_notifications/xml/classeval__ctx__t.xml  
+  inflating: parsed_notifications/xml/unioncallui__t.xml  
+  inflating: parsed_notifications/xml/hexrays_8hpp.xml  
+  inflating: parsed_notifications/xml/group___r_e_g_v_a_r___e_r_r_o_r__.xml  
+  inflating: parsed_notifications/xml/structbf__key__t.xml  
+  inflating: parsed_notifications/xml/group___m_b_l__.xml  
+  inflating: parsed_notifications/xml/structformat__data__info__t.xml  
+  inflating: parsed_notifications/xml/md5_8h.xml  
+  inflating: parsed_notifications/xml/structhistory__item__t.xml  
+  inflating: parsed_notifications/xml/group__fixtype__t.xml  
+  inflating: parsed_notifications/xml/classidc__value__t.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__threads.xml  
+  inflating: parsed_notifications/xml/structqlist_1_1datanode__t.xml  
+  inflating: parsed_notifications/xml/classqrefcnt__t.xml  
+  inflating: parsed_notifications/xml/group__st__.xml  
+  inflating: parsed_notifications/xml/compound.xsd  
+  inflating: parsed_notifications/xml/namespace_d_o_n_t___u_s_e___f_u_n_c_s.xml  
+  inflating: parsed_notifications/xml/ida__highlighter_8hpp.xml  
+  inflating: parsed_notifications/xml/classcallregs__t.xml  
+  inflating: parsed_notifications/xml/structbackward__flow__iterator__t_1_1state__t.xml  
+  inflating: parsed_notifications/xml/structcswitch__t.xml  
+  inflating: parsed_notifications/xml/group___s_w___x.xml  
+  inflating: parsed_notifications/xml/group___t_v_s_t__.xml  
+  inflating: parsed_notifications/xml/structidsdeclarator__t.xml  
+  inflating: parsed_notifications/xml/structtype__attr__t.xml  
+  inflating: parsed_notifications/xml/group__instruction.xml  
+  inflating: parsed_notifications/xml/group___p_t__.xml  
+  inflating: parsed_notifications/xml/structfuncarg__t.xml  
+  inflating: parsed_notifications/xml/structcitem__locator__t.xml  
+  inflating: parsed_notifications/xml/structfunc__info__and__frequency__t.xml  
+  inflating: parsed_notifications/xml/structhidden__range__t.xml  
+  inflating: parsed_notifications/xml/classsrcinfo__provider__t.xml  
+  inflating: parsed_notifications/xml/structpoint__t.xml  
+  inflating: parsed_notifications/xml/structlochist__entry__t.xml  
+  inflating: parsed_notifications/xml/group___f_h_f__.xml  
+  inflating: parsed_notifications/xml/structgraph__path__visitor__t.xml  
+  inflating: parsed_notifications/xml/classmop__t.xml  
+  inflating: parsed_notifications/xml/classtest__features__t.xml  
+  inflating: parsed_notifications/xml/structexec__request__t.xml  
+  inflating: parsed_notifications/xml/structvd__printer__t.xml  
+  inflating: parsed_notifications/xml/structfnumber__t.xml  
+  inflating: parsed_notifications/xml/structgroup__crinfo__t.xml  
+  inflating: parsed_notifications/xml/struct_b_t_r_e_e___n_s_1_1btkey__t.xml  
+  inflating: parsed_notifications/xml/structexehdr__full.xml  
+  inflating: parsed_notifications/xml/group__seg__t.xml  
+  inflating: parsed_notifications/xml/classlvar__t.xml  
+  inflating: parsed_notifications/xml/structstkpnt__t.xml  
+  inflating: parsed_notifications/xml/group___f_f__databits.xml  
+  inflating: parsed_notifications/xml/structscattered__segm__t.xml  
+  inflating: parsed_notifications/xml/structfunc__info__t.xml  
+  inflating: parsed_notifications/xml/class__qstring.xml  
+  inflating: parsed_notifications/xml/group___f_f__opfuncs4.xml  
+  inflating: parsed_notifications/xml/classsimpleline__place__t.xml  
+  inflating: parsed_notifications/xml/structoptinsn__t.xml  
+  inflating: parsed_notifications/xml/structrange__t.xml  
+  inflating: parsed_notifications/xml/group___a_f_l__.xml  
+  inflating: parsed_notifications/xml/group__numbered__types.xml  
+  inflating: parsed_notifications/xml/classinsn__t.xml  
+  inflating: parsed_notifications/xml/group___b_p_t___h.xml  
+  inflating: parsed_notifications/xml/group__tf__bool.xml  
+  inflating: parsed_notifications/xml/structqstatbuf.xml  
+  inflating: parsed_notifications/xml/group___c_m___c_c__.xml  
+  inflating: parsed_notifications/xml/group___f_f__statefuncs.xml  
+  inflating: parsed_notifications/xml/structgco__info__t.xml  
+  inflating: parsed_notifications/xml/idd_8hpp.xml  
+  inflating: parsed_notifications/xml/structform__actions__t.xml  
+  inflating: parsed_notifications/xml/structcfunc__parentee__t.xml  
+  inflating: parsed_notifications/xml/group___a_d_f__.xml  
+  inflating: parsed_notifications/xml/group__seg__type.xml  
+  inflating: parsed_notifications/xml/structcnumber__t.xml  
+  inflating: parsed_notifications/xml/group__ui__gaa__funcs.xml  
+  inflating: parsed_notifications/xml/namespacestd.xml  
+  inflating: parsed_notifications/xml/group___s_e_t___m_e_m_t_i__.xml  
+  inflating: parsed_notifications/xml/classlock__segment.xml  
+  inflating: parsed_notifications/xml/structccase__t.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__trcm.xml  
+  inflating: parsed_notifications/xml/group___g_m_b__.xml  
+  inflating: parsed_notifications/xml/group___s_e_g__.xml  
+  inflating: parsed_notifications/xml/group__ui__open__builtin__funcs.xml  
+  inflating: parsed_notifications/xml/group___i_n_s_n__.xml  
+  inflating: parsed_notifications/xml/structctext__position__t.xml  
+  inflating: parsed_notifications/xml/structscreen__graph__selection__t.xml  
+  inflating: parsed_notifications/xml/group___t_x_t_f__.xml  
+  inflating: parsed_notifications/xml/group___e_x_f_l__.xml  
+  inflating: parsed_notifications/xml/group___c_d_v_f__.xml  
+  inflating: parsed_notifications/xml/group___f_u_n_c___n_a_m_e__.xml  
+  inflating: parsed_notifications/xml/structreloc__info__t.xml  
+  inflating: parsed_notifications/xml/entry_8hpp.xml  
+  inflating: parsed_notifications/xml/structupdate__bpt__info__t.xml  
+  inflating: parsed_notifications/xml/group___i_d_p_o_p_t___r_e_t.xml  
+  inflating: parsed_notifications/xml/group__operands.xml  
+  inflating: parsed_notifications/xml/classlinearray__t.xml  
+  inflating: parsed_notifications/xml/group___v_t__.xml  
+  inflating: parsed_notifications/xml/search_8hpp.xml  
+  inflating: parsed_notifications/xml/classbitset__t.xml  
+  inflating: parsed_notifications/xml/classsource__file__t.xml  
+  inflating: parsed_notifications/xml/typeinf_8hpp.xml  
+  inflating: parsed_notifications/xml/group__tf__func.xml  
+  inflating: parsed_notifications/xml/struct_varray_1_1va__file__header__t.xml  
+  inflating: parsed_notifications/xml/structsimd__info__t.xml  
+  inflating: parsed_notifications/xml/structidcfuncs__t.xml  
+  inflating: parsed_notifications/xml/group___b_i_n___s_e_a_r_c_h__.xml  
+  inflating: parsed_notifications/xml/strlist_8hpp.xml  
+  inflating: parsed_notifications/xml/group__winkeys.xml  
+  inflating: parsed_notifications/xml/group___u_i_j_m_p__.xml  
+  inflating: parsed_notifications/xml/group___c_h_a_r_t__2.xml  
+  inflating: parsed_notifications/xml/structauto__display__t.xml  
+  inflating: parsed_notifications/xml/structplugin__info__t.xml  
+  inflating: parsed_notifications/xml/structstring__info__t.xml  
+  inflating: parsed_notifications/xml/config_8hpp.xml  
+  inflating: parsed_notifications/xml/structctree__parentee__t.xml  
+  inflating: parsed_notifications/xml/group__sc__.xml  
+  inflating: parsed_notifications/xml/structbit__bound__t.xml  
+  inflating: parsed_notifications/xml/structoperand__locator__t.xml  
+  inflating: parsed_notifications/xml/structtoken__t.xml  
+  inflating: parsed_notifications/xml/group___c_m__.xml  
+  inflating: parsed_notifications/xml/structcfunc__t.xml  
+  inflating: parsed_notifications/xml/struct_b_t_r_e_e___n_s_1_1___d_a_t_a__.xml  
+  inflating: parsed_notifications/xml/group___s_s_f__.xml  
+  inflating: parsed_notifications/xml/structpredicate__t.xml  
+  inflating: parsed_notifications/xml/struct_varray_1_1vaheader16__t.xml  
+  inflating: parsed_notifications/xml/structexception__info__t.xml  
+  inflating: parsed_notifications/xml/classblock__chains__t.xml  
+  inflating: parsed_notifications/xml/group___p_r__.xml  
+  inflating: parsed_notifications/xml/classenumplace__t.xml  
+  inflating: parsed_notifications/xml/structtev__info__t.xml  
+  inflating: parsed_notifications/xml/class_varray.xml  
+  inflating: parsed_notifications/xml/structpkt__rpc__fail__t.xml  
+  inflating: parsed_notifications/xml/group___f_f__datafuncs2.xml  
+  inflating: parsed_notifications/xml/classabstract__graph__t.xml  
+  inflating: parsed_notifications/xml/classintmap__t.xml  
+  inflating: parsed_notifications/xml/group___c_p_l__.xml  
+  inflating: parsed_notifications/xml/structmemory__info__t.xml  
+  inflating: parsed_notifications/xml/group___u_l_v__.xml  
+  inflating: parsed_notifications/xml/group__qsnprintf.xml  
+  inflating: parsed_notifications/xml/parse_8hpp.xml  
+  inflating: parsed_notifications/xml/group__tf__last__basic.xml  
+  inflating: parsed_notifications/xml/group__tf__modifiers.xml  
+  inflating: parsed_notifications/xml/structpkt__helo__t.xml  
+  inflating: parsed_notifications/xml/group___o_o_f__.xml  
+  inflating: parsed_notifications/xml/structhexwarn__t.xml  
+  inflating: parsed_notifications/xml/structvc__printer__t.xml  
+  inflating: parsed_notifications/xml/structscif__t.xml  
+  inflating: parsed_notifications/xml/group__vdui.xml  
+  inflating: parsed_notifications/xml/structtype__mods__t.xml  
+  inflating: parsed_notifications/xml/structmodinfo__t.xml  
+  inflating: parsed_notifications/xml/structminsn__visitor__t.xml  
+  inflating: parsed_notifications/xml/structlibfunc__t.xml  
+  inflating: parsed_notifications/xml/group__operands__t.xml  
+  inflating: parsed_notifications/xml/classudc__filter__t.xml  
+  inflating: parsed_notifications/xml/group___f_c_b_f__.xml  
+  inflating: parsed_notifications/xml/structuser__cmts__iterator__t.xml  
+  inflating: parsed_notifications/xml/structlex__value__t.xml  
+  inflating: parsed_notifications/xml/llong_8hpp.xml  
+  inflating: parsed_notifications/xml/structcdo__t.xml  
+  inflating: parsed_notifications/xml/uphttp_8hpp.xml  
+  inflating: parsed_notifications/xml/struct____qtimer__t.xml  
+  inflating: parsed_notifications/xml/classui__requests__t.xml  
+  inflating: parsed_notifications/xml/group__dbg__funcs__trcbuf.xml  
+  inflating: parsed_notifications/xml/structframe__mem__t.xml  
+  inflating: parsed_notifications/xml/group___g_e_t_n__.xml  
+  inflating: parsed_notifications/xml/structcustom__refinfo__handler__t.xml  
+  inflating: parsed_notifications/xml/group___b_k_p_t__.xml  
+  inflating: parsed_notifications/xml/structxrefblk__t.xml  
+  inflating: parsed_notifications/xml/classvalrng__t.xml  
+  inflating: parsed_notifications/xml/structioport__t.xml  
+  inflating: parsed_notifications/xml/structhttp__request__params__t.xml  
+  inflating: parsed_notifications/xml/structtil__symbol__t.xml  
+  inflating: parsed_notifications/xml/group___c_c__funcs.xml  
+  inflating: parsed_notifications/xml/structuser__stkpnt__t.xml  
+  inflating: parsed_notifications/xml/structqffblk64__t.xml  
+  inflating: parsed_notifications/xml/group___d_e_m_n_a_m__.xml  
+  inflating: parsed_notifications/xml/structtext__sink__t.xml  
+  inflating: parsed_notifications/xml/group___b_v_f__.xml  
+  inflating: parsed_notifications/doxy_gen_notifs.cfg  
+C:/python38-x64/python.exe tools/genhooks/genhooks.py -i pywraps/py_hexrays_hooks.hpp -o obj/x64_win_vc_32/pywraps/py_hexrays_hooks.hpp \
+                -x obj/x64_win_vc_32/parsed_notifications/xml/hexrays_8hpp.xml -e hexrays_event_t \
+                -r int -n 0 -m hookgenHEXRAYS \
+                -R tools/genhooks/recipe_hexrays.py \
+                -s "hxe_,lxe_"
+C:/python38-x64/python.exe tools/genswigheader.py -i tools/deploy/header.i.in -o obj/x64_win_vc_32/swig/header.i -m hexrays,allins,auto,bytes,dbg,diskio,entry,enum,expr,fixup,fpro,frame,funcs,gdl,graph,ida,idaapi,idc,idd,idp,kernwin,lines,loader,moves,nalt,name,netnode,offset,pro,problems,range,registry,search,segment,segregs,strlist,struct,tryblks,typeinf,ua,xref -s ../../include
+C:/python38-x64/python.exe tools/genhooks/genhooks.py -i pywraps/py_idp_idbhooks.hpp -o obj/x64_win_vc_32/pywraps/py_idp_idbhooks.hpp \
+                -x obj/x64_win_vc_32/parsed_notifications/xml/namespaceidb__event.xml -e event_code_t \
+                -r int -n 0 -m hookgenIDB -q "idb_event::" \
+                -R tools/genhooks/recipe_idbhooks.py
+C:/python38-x64/python.exe tools/genhooks/genhooks.py -i pywraps/py_idp.hpp -o obj/x64_win_vc_32/pywraps/py_idp.hpp \
+                -x obj/x64_win_vc_32/parsed_notifications/xml/structprocessor__t.xml -e event_t \
+                -r int -n 0 -m hookgenIDP -q "processor_t::" \
+                -R tools/genhooks/recipe_idphooks.py
+C:/python38-x64/python.exe tools/inject_plfm.py -i pywraps/py_idp.py.in -o obj/x64_win_vc_32/pywraps/py_idp.py -d ../../include/idp.hpp
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/idp.i --output obj/x64_win_vc_32/swig/idp.i --module idp  --bc695 --interface-dependencies= --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/typeinf.i --output obj/x64_win_vc_32/swig/typeinf.i --module typeinf  --bc695 --interface-dependencies=idp --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/hexrays.i --output obj/x64_win_vc_32/swig/hexrays.i --module hexrays --lifecycle-aware --bc695 --interface-dependencies=typeinf --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/hexrays.cpp -I../../include obj/x64_win_vc_32/swig/hexrays.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/hexrays.cpp --module hexrays --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/hexrays.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/hexrays.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m hexrays -i obj/x64_win_vc_32/wrappers/ida_hexrays.py -w obj/x64_win_vc_32/swig/hexrays.i -o ../../bin/python/ida_hexrays.py -e obj/x64_win_vc_32/wrappers/ida_hexrays.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_hexrays.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/allins.i --output obj/x64_win_vc_32/swig/allins.i --module allins  --bc695 --interface-dependencies= --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/allins.cpp -I../../include obj/x64_win_vc_32/swig/allins.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/allins.cpp --module allins --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/allins.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/allins.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m allins -i obj/x64_win_vc_32/wrappers/ida_allins.py -w obj/x64_win_vc_32/swig/allins.i -o ../../bin/python/ida_allins.py -e obj/x64_win_vc_32/wrappers/ida_allins.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_allins.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/auto.i --output obj/x64_win_vc_32/swig/auto.i --module auto  --bc695 --interface-dependencies= --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/auto.cpp -I../../include obj/x64_win_vc_32/swig/auto.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/auto.cpp --module auto --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/auto.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/auto.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m auto -i obj/x64_win_vc_32/wrappers/ida_auto.py -w obj/x64_win_vc_32/swig/auto.i -o ../../bin/python/ida_auto.py -e obj/x64_win_vc_32/wrappers/ida_auto.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_auto.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/range.i --output obj/x64_win_vc_32/swig/range.i --module range  --bc695 --interface-dependencies= --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/bytes.i --output obj/x64_win_vc_32/swig/bytes.i --module bytes --lifecycle-aware --bc695 --interface-dependencies=range --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/bytes.cpp -I../../include obj/x64_win_vc_32/swig/bytes.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/bytes.cpp --module bytes --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/bytes.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/bytes.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m bytes -i obj/x64_win_vc_32/wrappers/ida_bytes.py -w obj/x64_win_vc_32/swig/bytes.i -o ../../bin/python/ida_bytes.py -e obj/x64_win_vc_32/wrappers/ida_bytes.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_bytes.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/genhooks/genhooks.py -i pywraps/py_dbg.hpp -o obj/x64_win_vc_32/pywraps/py_dbg.hpp \
+                -x obj/x64_win_vc_32/parsed_notifications/xml/dbg_8hpp.xml -e dbg_notification_t \
+                -r void -n 0 -m hookgenDBG \
+                -R tools/genhooks/recipe_dbghooks.py
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/idd.i --output obj/x64_win_vc_32/swig/idd.i --module idd  --bc695 --interface-dependencies=range --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/dbg.i --output obj/x64_win_vc_32/swig/dbg.i --module dbg  --bc695 --interface-dependencies=idd --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/dbg.cpp -I../../include obj/x64_win_vc_32/swig/dbg.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/dbg.cpp --module dbg --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/dbg.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/dbg.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m dbg -i obj/x64_win_vc_32/wrappers/ida_dbg.py -w obj/x64_win_vc_32/swig/dbg.i -o ../../bin/python/ida_dbg.py -e obj/x64_win_vc_32/wrappers/ida_dbg.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_dbg.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/diskio.i --output obj/x64_win_vc_32/swig/diskio.i --module diskio  --bc695 --interface-dependencies= --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/diskio.cpp -I../../include obj/x64_win_vc_32/swig/diskio.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/diskio.cpp --module diskio --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/diskio.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/diskio.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m diskio -i obj/x64_win_vc_32/wrappers/ida_diskio.py -w obj/x64_win_vc_32/swig/diskio.i -o ../../bin/python/ida_diskio.py -e obj/x64_win_vc_32/wrappers/ida_diskio.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_diskio.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/entry.i --output obj/x64_win_vc_32/swig/entry.i --module entry  --bc695 --interface-dependencies= --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/entry.cpp -I../../include obj/x64_win_vc_32/swig/entry.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/entry.cpp --module entry --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/entry.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/entry.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m entry -i obj/x64_win_vc_32/wrappers/ida_entry.py -w obj/x64_win_vc_32/swig/entry.i -o ../../bin/python/ida_entry.py -e obj/x64_win_vc_32/wrappers/ida_entry.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_entry.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/enum.i --output obj/x64_win_vc_32/swig/enum.i --module enum  --bc695 --interface-dependencies= --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/enum.cpp -I../../include obj/x64_win_vc_32/swig/enum.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/enum.cpp --module enum --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/enum.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/enum.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m enum -i obj/x64_win_vc_32/wrappers/ida_enum.py -w obj/x64_win_vc_32/swig/enum.i -o ../../bin/python/ida_enum.py -e obj/x64_win_vc_32/wrappers/ida_enum.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_enum.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/expr.i --output obj/x64_win_vc_32/swig/expr.i --module expr  --bc695 --interface-dependencies= --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/expr.cpp -I../../include obj/x64_win_vc_32/swig/expr.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/expr.cpp --module expr --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/expr.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/expr.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m expr -i obj/x64_win_vc_32/wrappers/ida_expr.py -w obj/x64_win_vc_32/swig/expr.i -o ../../bin/python/ida_expr.py -e obj/x64_win_vc_32/wrappers/ida_expr.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_expr.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/fixup.i --output obj/x64_win_vc_32/swig/fixup.i --module fixup  --bc695 --interface-dependencies= --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/fixup.cpp -I../../include obj/x64_win_vc_32/swig/fixup.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/fixup.cpp --module fixup --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/fixup.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/fixup.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m fixup -i obj/x64_win_vc_32/wrappers/ida_fixup.py -w obj/x64_win_vc_32/swig/fixup.i -o ../../bin/python/ida_fixup.py -e obj/x64_win_vc_32/wrappers/ida_fixup.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_fixup.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/fpro.i --output obj/x64_win_vc_32/swig/fpro.i --module fpro  --bc695 --interface-dependencies= --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/fpro.cpp -I../../include obj/x64_win_vc_32/swig/fpro.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/fpro.cpp --module fpro --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/fpro.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/fpro.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m fpro -i obj/x64_win_vc_32/wrappers/ida_fpro.py -w obj/x64_win_vc_32/swig/fpro.i -o ../../bin/python/ida_fpro.py -e obj/x64_win_vc_32/wrappers/ida_fpro.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_fpro.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/frame.i --output obj/x64_win_vc_32/swig/frame.i --module frame  --bc695 --interface-dependencies=range --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/frame.cpp -I../../include obj/x64_win_vc_32/swig/frame.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/frame.cpp --module frame --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/frame.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/frame.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m frame -i obj/x64_win_vc_32/wrappers/ida_frame.py -w obj/x64_win_vc_32/swig/frame.i -o ../../bin/python/ida_frame.py -e obj/x64_win_vc_32/wrappers/ida_frame.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_frame.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/funcs.i --output obj/x64_win_vc_32/swig/funcs.i --module funcs  --bc695 --interface-dependencies=range --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/funcs.cpp -I../../include obj/x64_win_vc_32/swig/funcs.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/funcs.cpp --module funcs --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/funcs.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/funcs.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m funcs -i obj/x64_win_vc_32/wrappers/ida_funcs.py -w obj/x64_win_vc_32/swig/funcs.i -o ../../bin/python/ida_funcs.py -e obj/x64_win_vc_32/wrappers/ida_funcs.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_funcs.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/gdl.i --output obj/x64_win_vc_32/swig/gdl.i --module gdl  --bc695 --interface-dependencies=range --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/gdl.cpp -I../../include obj/x64_win_vc_32/swig/gdl.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/gdl.cpp --module gdl --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/gdl.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/gdl.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m gdl -i obj/x64_win_vc_32/wrappers/ida_gdl.py -w obj/x64_win_vc_32/swig/gdl.i -o ../../bin/python/ida_gdl.py -e obj/x64_win_vc_32/wrappers/ida_gdl.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_gdl.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/graph.i --output obj/x64_win_vc_32/swig/graph.i --module graph  --bc695 --interface-dependencies= --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/graph.cpp -I../../include obj/x64_win_vc_32/swig/graph.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/graph.cpp --module graph --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/graph.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/graph.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m graph -i obj/x64_win_vc_32/wrappers/ida_graph.py -w obj/x64_win_vc_32/swig/graph.i -o ../../bin/python/ida_graph.py -e obj/x64_win_vc_32/wrappers/ida_graph.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_graph.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/ida.i --output obj/x64_win_vc_32/swig/ida.i --module ida  --bc695 --interface-dependencies= --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/ida.cpp -I../../include obj/x64_win_vc_32/swig/ida.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/ida.cpp --module ida --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/ida.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/ida.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m ida -i obj/x64_win_vc_32/wrappers/ida_ida.py -w obj/x64_win_vc_32/swig/ida.i -o ../../bin/python/ida_ida.py -e obj/x64_win_vc_32/wrappers/ida_ida.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_ida.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/idaapi.i --output obj/x64_win_vc_32/swig/idaapi.i --module idaapi  --bc695 --interface-dependencies= --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/idaapi.cpp -I../../include obj/x64_win_vc_32/swig/idaapi.i
+C:/python38-x64/python.exe tools/patch_codegen.py --apply-valist-patches --file obj/x64_win_vc_32/wrappers/idaapi.cpp --module idaapi --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml --patches tools/patch_codegen/idaapi.py
+C:/python38-x64/python.exe tools/patch_directors_cc.py --file obj/x64_win_vc_32/wrappers/idaapi.h
+C:/python38-x64/python.exe tools/inject_pydoc.py -x obj/x64_win_vc_32/parsed_notifications/xml -m idaapi -i obj/x64_win_vc_32/wrappers/ida_idaapi.py -w obj/x64_win_vc_32/swig/idaapi.i -o ../../bin/python/ida_idaapi.py -e obj/x64_win_vc_32/wrappers/ida_idaapi.epydoc_injection -v > obj/x64_win_vc_32/wrappers/ida_idaapi.pydoc_injection 2>&1
+C:/python38-x64/python.exe tools/deploy.py --pywraps obj/x64_win_vc_32/pywraps --template swig/idc.i --output obj/x64_win_vc_32/swig/idc.i --module idc  --bc695 --interface-dependencies= --xml-doc-directory obj/x64_win_vc_32/parsed_notifications/xml
+C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/swig.exe -modern -DWITH_HEXRAYS -python -threads -c++ -shadow -D__GNUC__ -D__NT__ -DWIN32 -D_USRDLL -IC:/Python38/include -Itools/typemaps-supplement -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib/python -IC:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi/Lib -DSWIG_TYPE_TABLE=idaapi -DBC695  -Iobj/x64_win_vc_32/swig -outdir obj/x64_win_vc_32/wrappers -o obj/x64_win_vc_32/wrappers/idc.cpp -I../../include obj/x64_win_vc_32/swig/idc.i
+
+### Building EAsize=32(bit) version of the plugin
+Running: "make", with additional environment: "{'OUT_OF_TREE_BUILD': '1', 'SWIG_HOME': 'C:/MinGW/msys/1.0/home/developer/swig-py3-stable-abi', 'HAS_HEXRAYS': '1', 'NDEBUG': '1'}"

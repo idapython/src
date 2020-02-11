@@ -178,6 +178,8 @@ void hexrays_register_python_clearable_instance(
         void *ptr,
         hx_clearable_type_t type)
 {
+  if ( ptr == NULL )
+    return;
   for ( size_t i = 0, n = python_clearables.size(); i < n; ++i )
     if ( python_clearables[i].ptr == ptr )
       return;
@@ -256,7 +258,7 @@ static void try_init()
 }
 
 //-------------------------------------------------------------------------
-static void *idaapi exit_time_dummy_hexdsp(int code, ...)
+static void *idaapi exit_time_dummy_hexdsp(int /*code*/, ...)
 {
 /* This callback exists to avoid crashes if the user calls any hexrays functions
    after unloading the decompiler.
@@ -316,6 +318,9 @@ static ssize_t idaapi ida_hexrays_ui_notification(void *, int code, va_list va)
   }
   return 0;
 }
+
+//-------------------------------------------------------------------------
+static void ida_hexrays_init(void) {}
 
 //-------------------------------------------------------------------------
 static void ida_hexrays_term(void)
@@ -390,5 +395,5 @@ void py_term_hexrays_plugin(void) {}
 //</inline(py_hexrays)>
 
 //<init(py_hexrays)>
-idapython_hook_to_notification_point(HT_UI, ida_hexrays_ui_notification, NULL);
+idapython_hook_to_notification_point(HT_UI, ida_hexrays_ui_notification, NULL, /*is_hooks_base=*/ false);
 //</init(py_hexrays)>

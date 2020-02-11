@@ -74,7 +74,8 @@ def register_data_types_and_formats(formats):
 
 # -----------------------------------------------------------------------
 def unregister_data_types_and_formats(formats):
-    """As opposed to register_data_types_and_formats(), this function
+    """
+    As opposed to register_data_types_and_formats(), this function
     unregisters multiple data types and formats at once.
     """
     def __unreg_format(df, dtid):
@@ -99,7 +100,7 @@ def unregister_data_types_and_formats(formats):
 #    in a data_type_t subclass
 #    """
 #
-#    def may_create_at(ea, nbytes):
+#    def may_create_at(self, ea, nbytes):
 #        """May create data?
 #        No such callback means: always succeed (i.e., no restriction where
 #        such a data type can be created.)
@@ -109,7 +110,7 @@ def unregister_data_types_and_formats(formats):
 #        """
 #        return True
 #
-#    def calc_item_size(ea, maxsize):
+#    def calc_item_size(self, ea, maxsize):
 #        """This callback is used to determine size of the (possible)
 #        item at `ea`.
 #        No such callback means that datatype is of fixed size `value_size`.
@@ -127,7 +128,7 @@ def unregister_data_types_and_formats(formats):
 #    in a data_format_t subclass
 #    """
 #
-#    def printf(value, current_ea, operand_num, dtid):
+#    def printf(self, value, current_ea, operand_num, dtid):
 #        """Convert `value` to colored string using custom format.
 #        @param value: value to print (of type 'str', sequence of bytes)
 #        @param current_ea: current address (BADADDR if unknown)
@@ -137,7 +138,7 @@ def unregister_data_types_and_formats(formats):
 #        """
 #        return None
 #
-#    def scan(input, current_ea, operand_num):
+#    def scan(self, input, current_ea, operand_num):
 #        """Convert uncolored string (user input) to the value.
 #        This callback is called from the debugger when an user enters a
 #        new value for a register with a custom data representation (e.g.,
@@ -151,7 +152,7 @@ def unregister_data_types_and_formats(formats):
 #        """
 #        return (False, "Not implemented")
 #
-#    def analyze(current_ea, operand_num):
+#    def analyze(self, current_ea, operand_num):
 #        """Analyze custom data format occurrence.
 #        This callback is called in 2 cases:
 #        - after emulating an instruction (after a call of

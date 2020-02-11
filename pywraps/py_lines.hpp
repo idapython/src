@@ -21,15 +21,7 @@ static void idaapi s_py_get_user_defined_prefix(
   // Error? Display it
   // No error? Copy the buffer
   if ( !PyW_ShowCbErr("py_get_user_defined_prefix") )
-  {
-    Py_ssize_t py_len;
-    char *py_str;
-    if ( IDAPyBytes_AsMemAndSize(py_ret.o, &py_str, &py_len) != -1 )
-    {
-      buf->qclear();
-      buf->append(py_str, py_len);
-    }
-  }
+    IDAPyStr_AsUTF8(buf, py_ret.o);
 }
 //</code(py_lines)>
 

@@ -12,7 +12,7 @@ public:
 
   bool hook()
   {
-    return idapython_hook_to_notification_point(HT_IDB, IDB_Callback, this);
+    return idapython_hook_to_notification_point(HT_IDB, IDB_Callback, this, false);
   }
   bool unhook()
   {

@@ -437,7 +437,7 @@ public:
       this);
 
     // Hook to UI notifications (for TWidget close event)
-    idapython_hook_to_notification_point(HT_UI, s_ui_cb, this);
+    idapython_hook_to_notification_point(HT_UI, s_ui_cb, this, false);
 
     return true;
   }
@@ -488,7 +488,7 @@ private:
 
     if ( IDAPyStr_Check(py) )
     {
-      sl.line = IDAPyBytes_AsString(py);
+      IDAPyStr_AsUTF8(&sl.line, py);
       return true;
     }
     Py_ssize_t sz;
@@ -499,7 +499,7 @@ private:
     if ( !IDAPyStr_Check(py_val) )
       return false;
 
-    sl.line = IDAPyBytes_AsString(py_val);
+    IDAPyStr_AsUTF8(&sl.line, py_val);
     uint32 col;
     if ( sz > 1 && get_color(&col, borref_t(PyTuple_GetItem(py, 1))) )
       sl.color = color_t(col);
@@ -511,7 +511,7 @@ private:
   //
   // Callbacks
   //
-  virtual bool on_click(int shift)
+  bool on_click(int shift)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CLICK, "i", shift));
@@ -521,7 +521,7 @@ private:
 
   //--------------------------------------------------------------------------
   // OnDblClick
-  virtual bool on_dblclick(int shift)
+  bool on_dblclick(int shift)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_DBL_CLICK, "i", shift));
@@ -531,7 +531,7 @@ private:
 
   //--------------------------------------------------------------------------
   // OnCurorPositionChanged
-  virtual void on_curpos_changed()
+  void on_curpos_changed()
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CURSOR_POS_CHANGED, NULL));
@@ -539,8 +539,7 @@ private:
   }
 
   //--------------------------------------------------------------------------
-  // OnHostFormClose
-  virtual void on_close()
+  void on_close()
   {
     if ( py_self != NULL )
     {
@@ -559,8 +558,7 @@ private:
   }
 
   //--------------------------------------------------------------------------
-  // OnKeyDown
-  virtual bool on_keydown(int vk_key, int shift)
+  bool on_keydown(int vk_key, int shift)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t py_result(
@@ -576,8 +574,7 @@ private:
   }
 
   //--------------------------------------------------------------------------
-  // OnHint
-  virtual bool on_hint(place_t *place, int *important_lines, qstring &hint)
+  bool on_hint(place_t *place, int *important_lines, qstring &hint)
   {
     size_t ln = data.to_lineno(place);
     PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -589,19 +586,20 @@ private:
                     bvsz_t(ln)));
 
     PyW_ShowCbErr(S_ON_HINT);
-    bool ok = py_result != NULL && PyTuple_Check(py_result.o) && PyTuple_Size(py_result.o) == 2;
+    bool ok = py_result != NULL
+           && PyTuple_Check(py_result.o)
+           && PyTuple_Size(py_result.o) == 2;
     if ( ok )
     {
       if ( important_lines != NULL )
-        *important_lines = IDAPyInt_AsLong(PyTuple_GetItem(py_result.o, 0));
-      hint = IDAPyBytes_AsString(PyTuple_GetItem(py_result.o, 1));
+        *important_lines = PyInt_AsLong(PyTuple_GetItem(py_result.o, 0));
+      IDAPyStr_AsUTF8(&hint, PyTuple_GetItem(py_result.o, 1));
     }
     return ok;
   }
 
   //--------------------------------------------------------------------------
-  // OnPopupMenuClick
-  virtual bool on_popup_menu(size_t menu_id)
+  bool on_popup_menu(size_t menu_id)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t py_result(

@@ -13,6 +13,16 @@
 #define PY_BV_SEL PY_BV_EA
 #define PY_BV_SVAL "L" // Convert a C long long to a Python long integer object
 
+#ifdef PY3
+#  define PY_BV_TYPE "y"
+#  define PY_BV_FIELDS "y"
+#  define PY_BV_BYTES "y"
+#else
+#  define PY_BV_TYPE "s"
+#  define PY_BV_FIELDS "s"
+#  define PY_BV_BYTES "s"
+#endif
+
 typedef unsigned PY_LONG_LONG bvea_t;
 typedef Py_ssize_t bvsz_t;
 typedef bvea_t bvuval_t;
@@ -66,6 +76,7 @@ static const char S_PY_OP_T_CLSNAME[]        = "op_t";
 static const char S_PROPS[]                  = "props";
 static const char S_NAME[]                   = "name";
 static const char S_TITLE[]                  = "title";
+static const char S_COLS[]                   = "cols";
 static const char S_ASM_KEYWORD[]            = "asm_keyword";
 static const char S_MENU_NAME[]              = "menu_name";
 static const char S_HOTKEY[]                 = "hotkey";
@@ -119,6 +130,10 @@ static const char S_M_TITLE[]                = "_title";
 static const char S_CLINK_NAME[]             = "__clink__";
 static const char S_ON_VIEW_MOUSE_MOVED[]    = "OnViewMouseMoved";
 static const char S_MAIN[]                   = "__main__";
+static const char S_FILE[]                   = "__file__";
+
+#define VALID_CAPSULE_NAME "$valid$"
+#define INVALID_CAPSULE_NAME "$INvalid$"
 
 #ifdef __PYWRAPS__
 static const char S_PY_IDA_IDAAPI_MODNAME[] = "__main__";
@@ -355,12 +370,20 @@ struct ref_vec_t : public qvector<ref_t>
 {
   void to_pyobject_pointers(qvector<PyObject*> *out)
   {
-    size_t n = size();
-    out->resize(n);
-    for ( size_t i = 0; i < n; ++i )
+    size_t _n = size();
+    out->resize(_n);
+    for ( size_t i = 0; i < _n; ++i )
       out->at(i) = at(i).o;
   }
 };
+
+#ifdef _MSC_VER
+// warning C4190: 'PyW_TryImportModule' has C-linkage specified, but returns UDT 'ref_t' which is incompatible with C
+#pragma warning(disable : 4190)
+#elif defined(__MAC__)
+GCC_DIAG_OFF(return-type-c-linkage);
+#endif
+
 
 // Tries to import a module and swallows the exception if it fails and returns NULL
 // Return value: New reference.
@@ -409,6 +432,7 @@ idaman error_t ida_export PyW_CreateIdcException(idc_value_t *res, const char *m
 //
 #define PYWCVTF_AS_TUPLE                 0x1
 #define PYWCVTF_INT64_AS_UNSIGNED_PYLONG 0x2 // don't wrap int64 into 'PyIdc_cvt_int64__' objects, but make them 'long' instead
+#define PYWCVTF_STR_AS_BYTES             0x4 // VT_STR objects will be converted into 'bytes', not strings coming from UTF-8 data
 
 // Converts from IDC to Python
 idaman bool ida_export pyw_convert_idc_args(
@@ -786,14 +810,13 @@ public:
 
 
 //-------------------------------------------------------------------------
-template <typename T>
-T *view_extract_this(PyObject *self)
+inline void *view_extract_this(PyObject *self)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   ref_t py_this(PyW_TryGetAttrString(self, S_M_THIS));
   if ( py_this == NULL || !PyCapsule_IsValid(py_this.o, VALID_CAPSULE_NAME) )
     return NULL;
-  return (T*) PyCapsule_GetPointer(py_this.o, VALID_CAPSULE_NAME);
+  return PyCapsule_GetPointer(py_this.o, VALID_CAPSULE_NAME);
 }
 
 //-------------------------------------------------------------------------
@@ -842,7 +865,8 @@ struct uninterruptible_op_t
 idaman bool ida_export idapython_hook_to_notification_point(
         hook_type_t hook_type,
         hook_cb_t *cb,
-        void *user_data);
+        void *user_data,
+        bool is_hooks_base);
 idaman bool ida_export idapython_unhook_from_notification_point(
         hook_type_t hook_type,
         hook_cb_t *cb,

@@ -276,7 +276,8 @@ static bool formchgcbfa_set_field_value(
       // Editable dropdown list
       if ( IDAPyStr_Check(py_val) )
       {
-        qstring val(IDAPyBytes_AsString(py_val));
+        qstring val;
+        IDAPyStr_AsUTF8(&val, py_val);
         return fa->set_combobox_value(fid, &val);
       }
       // Readonly dropdown list
@@ -308,7 +309,11 @@ static bool formchgcbfa_set_field_value(
     // strings
     case 3:
     case 1:
-      return fa->set_string_value(fid, IDAPyBytes_AsString(py_val));
+      {
+        qstring val;
+        IDAPyStr_AsUTF8(&val, py_val);
+        return fa->set_string_value(fid, val.c_str());
+      }
     // intvec_t
     case 5:
       {

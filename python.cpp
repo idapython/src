@@ -32,6 +32,17 @@
 #include <kernwin.hpp>
 #include <ida_highlighter.hpp>
 
+#if defined (PY_MAJOR_VERSION) && (PY_MAJOR_VERSION < 3)
+// in Python 2.x many APIs accept char * instead of const char *
+GCC_DIAG_OFF(write-strings)
+#endif
+
+#ifdef PY3
+#  define PYCODE_OBJECT_TO_PYEVAL_ARG(Expr) (Expr)
+#else
+#  define PYCODE_OBJECT_TO_PYEVAL_ARG(Expr) ((PyCodeObject *) Expr)
+#endif
+
 #include "extrapi.hpp"
 #include "extrapi.cpp"
 
@@ -100,7 +111,6 @@ static PyObject *get_module_globals_from_path(const char *path);
 //#define ENABLE_PYTHON_PROFILING
 #ifdef ENABLE_PYTHON_PROFILING
 #include "compile.h"
-#include "frameobject.h"
 static int tracefunc(PyObject *obj, _frame *frame, int what, PyObject *arg)
 {
   PyObject *str;
@@ -112,7 +122,7 @@ static int tracefunc(PyObject *obj, _frame *frame, int what, PyObject *arg)
     str = PyObject_Str(frame->f_code->co_filename);
     if ( str != NULL )
     {
-      msg("PROFILING: %s:%d\n", IDAPyBytes_AsString(str), frame->f_lineno);
+      msg("PROFILING: %s:%d\n", IDAPyStr_AsUTF8(str), frame->f_lineno);
       Py_DECREF(str);
     }
   }
@@ -456,10 +466,14 @@ static void PythonEvalOrExec(
         if ( PyUnicode_Check(py_result.o) )
         {
           qstring utf8;
+#ifdef PY3
+          IDAPyStr_AsUTF8(&utf8, py_result.o);
+#else
           newref_t py_result_utf8(PyUnicode_AsUTF8String(py_result.o));
           ok = py_result_utf8 != NULL;
           if ( ok )
             IDAPyStr_AsUTF8(&utf8, py_result_utf8.o);
+#endif
           msg("%s\n", utf8.c_str());
         }
         else
@@ -570,18 +584,6 @@ static bool check_python_dir()
       return false;
     }
   }
-
-  // on linux, PyQt needs to drop python/lib/python2.7/lib-dynload/sip.so,
-  // thus we can't rely on the mere presence of 'lib'. However, we know
-  // the bundled python drops python/lib/python27.zip. Let's look for that.
-#ifdef __LINUX__
-  qmakepath(filepath, sizeof(filepath), g_idapython_dir, "lib", "python27.zip", NULL);
-  if ( qfileexist(filepath) )
-  {
-    deb(IDA_DEBUG_PLUGIN, "Found \"%s\"; assuming local Python.\n", filepath);
-    g_use_local_python = true;
-  }
-#endif // __LINUX__
 
   return true;
 }
@@ -770,7 +772,7 @@ static bool IDAPython_ExecFile(
     }
     else if ( IDAPyStr_Check(ret_o) )
     {
-      *errbuf = IDAPyBytes_AsString(ret_o);
+      IDAPyStr_AsUTF8(errbuf, ret_o);
     }
     else
     {
@@ -870,12 +872,21 @@ static bool idaapi IDAPython_extlang_call_func(
     borref_t code(extapi.PyFunction_GetCode_ptr(func));
     qvector<PyObject*> pargs_ptrs;
     pargs.to_pyobject_pointers(&pargs_ptrs);
+#ifdef PY3
     newref_t py_res(PyEval_EvalCodeEx(
                             PYCODE_OBJECT_TO_PYEVAL_ARG(code.o),
                             globals, NULL,
                             pargs_ptrs.begin(),
                             nargs,
                             NULL, 0, NULL, 0, NULL, NULL));
+#else
+    newref_t py_res(PyEval_EvalCodeEx(
+                            PYCODE_OBJECT_TO_PYEVAL_ARG(code.o),
+                            globals, NULL,
+                            pargs_ptrs.begin(),
+                            nargs,
+                            NULL, 0, NULL, 0, NULL));
+#endif
     ok = return_python_result(result, py_res, errbuf);
   } while ( false );
 
@@ -887,13 +898,37 @@ static bool idaapi IDAPython_extlang_call_func(
 //-------------------------------------------------------------------------
 static void wrap_in_function(qstring *out, const qstring &body, const char *name)
 {
-  out->sprnt("def %s():\n", name);
-  // dont copy trailing whitespace
-  int i = body.length()-1;
-  while ( i >= 0 && qisspace(body.at(i)) )
-    i--;
-  out->append(body.substr(0, i+1));
-  out->replace("\n", "\n    ");
+  qstrvec_t lines;
+  lines.push_back().sprnt("def %s():\n", name);
+
+  qstring buf(body);
+  while ( !buf.empty() && qisspace(buf.last()) ) // dont copy trailing whitespace(s)
+    buf.remove_last();
+
+  char *ctx;
+  for ( char *p = qstrtok(buf.begin(), "\n", &ctx);
+        p != NULL;
+        p = qstrtok(NULL, "\n", &ctx) )
+  {
+    static const char FROM_FUTURE_IMPORT_STMT[] = "from __future__ import";
+    if ( strneq(p, FROM_FUTURE_IMPORT_STMT, sizeof(FROM_FUTURE_IMPORT_STMT)-1) )
+    {
+      lines.insert(lines.begin(), p);
+    }
+    else
+    {
+      qstring &s = lines.push_back();
+      s.append("    ", 4);
+      s.append(p);
+    }
+  }
+  out->qclear();
+  for ( size_t i = 0; i < lines.size(); ++i )
+  {
+    if ( i > 0 )
+      out->append('\n');
+    out->append(lines[i]);
+  }
 }
 
 //-------------------------------------------------------------------------
@@ -1032,7 +1067,11 @@ static bool idaapi IDAPython_extlang_create_object(
       py_res = try_create_swig_wrapper(py_mod, clsname, args[0].pvoid);
     if ( py_res != NULL )
     {
-      PyObject_SetAttrString(py_res.o, S_PY_IDCCVT_ID_ATTR, IDAPyInt_FromLong(PY_ICID_OPAQUE));
+#ifdef PY3
+      PyObject_SetAttrString(py_res.o, S_PY_IDCCVT_ID_ATTR, PyLong_FromLong(PY_ICID_OPAQUE));
+#else
+      PyObject_SetAttrString(py_res.o, S_PY_IDCCVT_ID_ATTR, PyInt_FromLong(PY_ICID_OPAQUE));
+#endif
     }
     else
     {
@@ -1128,8 +1167,8 @@ static bool idaapi IDAPython_extlang_get_attr(
         break;
 
       // Convert name python string to a C string
-      const char *clsname = IDAPyBytes_AsString(string.o);
-      if ( clsname == NULL )
+      qstring clsname;
+      if ( !IDAPyStr_AsUTF8(&clsname, string.o) )
         break;
 
       result->set_string(clsname);
@@ -1838,23 +1877,9 @@ bool IDAPython_Init(void)
     warning("Couldn't initialize IDAPython: %s", errbuf.c_str());
     return false;
   }
-#ifdef __LINUX__
-  // Export symbols from libpython to resolve imported module deps
-  // use the standard soname: libpython2.7.so.1.0
-#define PYLIB "libpython" QSTRINGIZE(PY_MAJOR_VERSION) "." QSTRINGIZE(PY_MINOR_VERSION) ".so.1.0"
-  if ( !dlopen(PYLIB, RTLD_NOLOAD | RTLD_GLOBAL | RTLD_LAZY) )
-  {
-    warning("IDAPython dlopen(" PYLIB ") error: %s", dlerror());
-    return false;
-  }
-#endif
 
 #ifdef __MAC__
-  // We should set python home to the module's path, otherwise it can pick up stray modules from $PATH
-  NSModule pythonModule = NSModuleForSymbol(NSLookupAndBindSymbol("_Py_InitializeEx"));
-  // Use dylib functions to find out where the framework was loaded from
-  const char *buf = (char *)NSLibraryNameForModule(pythonModule);
-  if ( buf != NULL )
+  if ( !extapi.lib_path.empty() )
   {
     // The path will be something like:
     // /System/Library/Frameworks/Python.framework/Versions/2.5/Python
@@ -1866,7 +1891,12 @@ bool IDAPython_Init(void)
     if ( lastslash != NULL )
     {
       *lastslash = 0;
+#ifdef PY3
+      static qvector<wchar_t> buf;
+      Py_SetPythonHome(utf8_wchar_t(&buf, pyhomepath));
+#else
       Py_SetPythonHome(pyhomepath);
+#endif
     }
   }
 #endif
@@ -2029,9 +2059,9 @@ msg("!!!!0000\n");
   if ( g_run_when == RUN_ON_INIT )
     RunScript(g_run_script);
 
-#ifdef _DEBUG
-  hook_to_notification_point(HT_UI, ui_debug_handler_cb);
-#endif
+// #ifdef _DEBUG
+//   hook_to_notification_point(HT_UI, ui_debug_handler_cb);
+// #endif
   hook_to_notification_point(HT_UI, on_ui_notification);
   hook_to_notification_point(HT_IDB, on_idb_notification);
 

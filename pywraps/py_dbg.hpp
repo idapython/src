@@ -73,7 +73,7 @@ class DBG_Hooks
 public:
   virtual ~DBG_Hooks() { unhook(); }
 
-  bool hook() { return idapython_hook_to_notification_point(HT_DBG, DBG_Callback, this); }
+  bool hook() { return idapython_hook_to_notification_point(HT_DBG, DBG_Callback, this, false); }
   bool unhook() { return idapython_unhook_from_notification_point(HT_DBG, DBG_Callback, this); }
 
   static ssize_t store_int(int rc, const debug_event_t *, int *warn)
@@ -177,7 +177,7 @@ static ea_t py_internal_get_sreg_base(thid_t tid, int sreg_value)
 static ssize_t py_write_dbg_memory(ea_t ea, PyObject *py_buf, size_t size=size_t(-1))
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !dbg_can_query() || !IDAPyStr_Check(py_buf) )
+  if ( !dbg_can_query() || !IDAPyBytes_Check(py_buf) )
     return -1;
   char *buf = NULL;
   Py_ssize_t sz;

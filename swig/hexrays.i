@@ -2,7 +2,12 @@
 #include <hexrays.hpp>
 %}
 
-%import "typeinf.i"
+%{
+SWIGINTERN void __raise_vdf(const vd_failure_t &e)
+{
+  PyErr_SetString(PyExc_RuntimeError, e.desc().c_str());
+}
+%}
 
 // KLUDGE: I have no idea how to force SWiG to declare a type for a module,
 // unless that type is indeed used. That's why this wrapper exists..

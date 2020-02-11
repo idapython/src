@@ -61,16 +61,16 @@ PyObject *py_reg_read_binary(const char *name, const char *subkey = NULL)
   ok = reg_read_binary(name, &bytes, subkey);
   Py_END_ALLOW_THREADS;
   if ( ok )
-    return IDAPyStr_FromUTF8AndSize((const char *) bytes.begin(), bytes.size());
+    return IDAPyBytes_FromMemAndSize((const char *) bytes.begin(), bytes.size());
   else
     Py_RETURN_NONE;
 }
 
 //-------------------------------------------------------------------------
-void py_reg_write_binary(const char *name, PyObject *py_bytes, const char *subkey = NULL)
+PyObject *py_reg_write_binary(const char *name, PyObject *py_bytes, const char *subkey = NULL)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( IDAPyStr_Check(py_bytes) )
+  if ( IDAPyBytes_Check(py_bytes) )
   {
     char *py_bytes_raw = NULL;
     Py_ssize_t py_size = 0;
@@ -80,10 +80,12 @@ void py_reg_write_binary(const char *name, PyObject *py_bytes, const char *subke
     Py_BEGIN_ALLOW_THREADS;
     reg_write_binary(name, bytes.begin(), bytes.size(), subkey);
     Py_END_ALLOW_THREADS;
+    Py_RETURN_NONE;
   }
   else
   {
     PyErr_SetString(PyExc_ValueError, "Bytes string expected!");
+    return NULL;
   }
 }
 

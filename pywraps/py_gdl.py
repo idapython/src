@@ -1,4 +1,6 @@
 #<pycode(py_gdl)>
+import types
+
 import _ida_idaapi
 import ida_idaapi
 # -----------------------------------------------------------------------

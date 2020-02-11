@@ -3,7 +3,7 @@
 
 //<code(py_idaapi)>
 //-------------------------------------------------------------------------
-#define GET_THIS() py_customidamemo_t *_this = view_extract_this<py_customidamemo_t>(self)
+#define GET_THIS() py_customidamemo_t *_this = (py_customidamemo_t *) view_extract_this(self)
 #define CHK_THIS()                                                      \
   GET_THIS();                                                           \
   if ( _this == NULL )                                                  \
@@ -204,6 +204,76 @@ def enable_extlang_python(enable):
 */
 idaman void ida_export enable_extlang_python(bool enable);
 idaman void ida_export enable_python_cli(bool enable);
+
+idaman PyObject *ida_export format_basestring(PyObject *_in)
+{
+  // This is basically a reimplementation of str.__repr__, except that
+  // we don't want to turn non-ASCII bytes into a \xNN equivalent: IDA
+  // accepts UTF-8 everywhere internally (and this will end up in a
+  // 'msg' call eventually.)
+  qstring utf8;
+#ifdef PY3
+  if ( !IDAPyStr_AsUTF8(&utf8, _in) )
+    return NULL;
+#else
+  PyObject *_pystr;
+  ref_t _tmp;
+  if ( PyUnicode_Check(_in) )
+  {
+    _tmp = newref_t(PyUnicode_AsUTF8String(_in));
+    if ( _tmp == NULL )
+      return _in;
+    _pystr = _tmp.o;
+  }
+  else
+  {
+    _pystr = _in;
+  }
+
+  if ( !IDAPyStr_AsUTF8(&utf8, _pystr) )
+    return NULL;
+#endif
+  char *in_bytes = utf8.begin();
+  Py_ssize_t in_len = utf8.length();
+
+  char quote = '\'';
+  if ( memchr(in_bytes, '\'', in_len) != NULL
+    && memchr(in_bytes, '"', in_len) == NULL )
+  {
+    quote = '"';
+  }
+
+  struct ida_local helper_t
+  {
+    static void put_escaped(qstring *out, char c)
+    {
+      out->append('\\');
+      out->append(c);
+    }
+  };
+
+  qstring buf;
+  buf.reserve(in_len + 10); // a few more bytes, let's assume a bit of escaping...
+  buf.append(quote);
+  for ( Py_ssize_t i = 0; i < in_len; ++i )
+  {
+    char c = in_bytes[i];
+    if ( c == quote || c == '\\' )
+      helper_t::put_escaped(&buf, c);
+    else if ( c == '\t' )
+      helper_t::put_escaped(&buf, 't');
+    else if ( c == '\n' )
+      helper_t::put_escaped(&buf, 'n');
+    else if ( c == '\r' )
+      helper_t::put_escaped(&buf, 'r');
+    else if ( uchar(c) < ' ' )
+      buf.cat_sprnt("\\x%02x", c);
+    else
+      buf.append(c);
+  }
+  buf.append(quote);
+  return IDAPyStr_FromUTF8AndSize(buf.c_str(), buf.length());
+}
 
 /*
 #<pydoc>

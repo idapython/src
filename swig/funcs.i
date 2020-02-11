@@ -1,6 +1,4 @@
 
-%import "range.i"
-
 %{
 #include <frame.hpp>
 %}

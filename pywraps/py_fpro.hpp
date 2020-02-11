@@ -14,7 +14,9 @@ class qfile_t(pyidc_opaque_object_t):
         pass
 
     def open(self, filename, mode):
-        """Opens a file
+        """
+        Opens a file
+
         @param filename: the file name
         @param mode: The mode string, ala fopen() style
         @return: Boolean
@@ -31,7 +33,8 @@ class qfile_t(pyidc_opaque_object_t):
         pass
 
     def seek(self, pos, whence = SEEK_SET):
-        """Set input source position
+        """
+        Set input source position
         @return: the new position (not 0 as fseek!)
         """
         pass
@@ -63,12 +66,12 @@ class qfile_t(pyidc_opaque_object_t):
     def flush(self):
         pass
 
-    def get_char(self):
-        """Reads a single character from the file. Returns None if EOF or the read character"""
+    def get_byte(self):
+        """Reads a single byte from the file. Returns None if EOF or the read byte"""
         pass
 
-    def put_char(self):
-        """Writes a single character to the file"""
+    def put_byte(self):
+        """Writes a single byte to the file"""
         pass
 
     def opened(self):
@@ -100,10 +103,10 @@ private:
     this->fp = fp;
     return true;
   }
-  inline void _from_cobject(PyObject *pycobject)
+  inline void _from_capsule(PyObject *pycapsule)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    _from_fp((FILE *)PyCapsule_GetPointer(pycobject, VALID_CAPSULE_NAME));
+    _from_fp((FILE *) PyCapsule_GetPointer(pycapsule, VALID_CAPSULE_NAME));
   }
 public:
   int __idc_cvt_id__;
@@ -114,7 +117,7 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  qfile_t(PyObject *pycobject = NULL)
+  qfile_t(PyObject *pycapsule = NULL)
   {
     fp = NULL;
     own = true;
@@ -123,10 +126,10 @@ public:
     bool ok;
     {
       PYW_GIL_CHECK_LOCKED_SCOPE();
-      ok = pycobject != NULL && PyCapsule_IsValid(pycobject, VALID_CAPSULE_NAME);
+      ok = pycapsule != NULL && PyCapsule_IsValid(pycapsule, VALID_CAPSULE_NAME);
     }
     if ( ok )
-      _from_cobject(pycobject);
+      _from_capsule(pycapsule);
   }
 
   //--------------------------------------------------------------------------
@@ -185,9 +188,11 @@ public:
 
   //--------------------------------------------------------------------------
   // This method can be used to pass a FILE* from C code
-  static qfile_t *from_cobject(PyObject *pycobject)
+  static qfile_t *from_capsule(PyObject *pycapsule)
   {
-    return PyCapsule_IsValid(pycobject, VALID_CAPSULE_NAME) ? from_fp((FILE *)PyCapsule_GetPointer(pycobject, VALID_CAPSULE_NAME)) : NULL;
+    return PyCapsule_IsValid(pycapsule, VALID_CAPSULE_NAME)
+         ? from_fp((FILE *) PyCapsule_GetPointer(pycapsule, VALID_CAPSULE_NAME))
+         : NULL;
   }
 
   //--------------------------------------------------------------------------
@@ -306,10 +311,8 @@ public:
   int writebytes(PyObject *py_buf, bool big_endian)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-
-    Py_ssize_t sz;
     char *buf;
-
+    Py_ssize_t sz;
     IDAPyBytes_AsMemAndSize(py_buf, &buf, &sz);
     int rc;
     Py_BEGIN_ALLOW_THREADS;
@@ -377,7 +380,7 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  PyObject *get_char()
+  PyObject *get_byte()
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     int ch;
@@ -386,11 +389,15 @@ public:
     Py_END_ALLOW_THREADS;
     if ( ch == EOF )
       Py_RETURN_NONE;
+#ifdef PY3
+    return Py_BuildValue("i", ch);
+#else
     return Py_BuildValue("c", ch);
+#endif
   }
 
   //--------------------------------------------------------------------------
-  int put_char(char chr)
+  int put_byte(int chr)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     int rc;

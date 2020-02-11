@@ -5,6 +5,7 @@
 #include <Python.h>
 
 #include "pywraps.hpp"
+#include "extrapi.hpp"
 
 #undef hook_to_notification_point
 #undef unhook_from_notification_point
@@ -128,11 +129,23 @@ static Py_ssize_t pyvar_walk_list(
       py_item = newref_t(PySequence_GetItem(o, i));
     else
       py_item = borref_t(PyList_GetItem(o, i));
-    if ( py_item == NULL || cb(py_item, i, ud) != CIP_OK )
+    bool ok = py_item != NULL && cb(py_item, i, ud) == CIP_OK;
+    if ( ok )
     {
-      qstring m;
-      m.sprnt("Sequence item #%d cannot be converted", int(i));
-      PyErr_SetString(PyExc_ValueError, m.c_str());
+      // We cannot have, at the same time, a 'successful conversion', and
+      // the Python runtime raising an exception. It's up to the callback
+      // implementation to ensure that whatever it did, didn't cause an
+      // error to be set.
+      QASSERT(30604, PyErr_Occurred() == NULL);
+    }
+    else
+    {
+      if ( PyErr_Occurred() == NULL )
+      {
+        qstring m;
+        m.sprnt("Sequence item #%d cannot be converted", int(i));
+        PyErr_SetString(PyExc_ValueError, m.c_str());
+      }
       return CIP_FAILED;
     }
   }
@@ -192,7 +205,7 @@ Py_ssize_t ida_export PyW_PyListToEaVec(eavec_t *out, PyObject *py_list)
           return CIP_FAILED;
         }
 #else
-        if ( IDAPyInt_Check(py_item.o) )
+        if ( PyInt_Check(py_item.o) )
           ea = PyInt_AsUnsignedLongMask(py_item.o);
         else if ( PyLong_Check(py_item.o) )
           ea = ea_t(PyLong_AsUnsignedLongLong(py_item.o));
@@ -410,9 +423,9 @@ int ida_export pyvar_to_idcvar(
     idc_var->_set_string(PyBytes_AsString(py_var.o), PyBytes_Size(py_var.o));
   }
 #else
-  else if ( IDAPyStr_Check(py_var.o) )
+  else if ( PyString_Check(py_var.o) )
   {
-    idc_var->_set_string(IDAPyBytes_AsString(py_var.o), PyString_Size(py_var.o));
+    idc_var->_set_string(PyString_AsString(py_var.o), PyString_Size(py_var.o));
   }
 #endif
   // Unicode
@@ -610,7 +623,7 @@ int ida_export pyvar_to_idcvar(
             IDAPyStr_AsUTF8(&field_name_buf, item.o);
             const char *field_name = field_name_buf.begin();
 #else
-            const char *field_name = IDAPyBytes_AsString(item.o);
+            const char *field_name = PyString_AsString(item.o);
 #endif
           if ( field_name == NULL )
             continue;
@@ -1122,12 +1135,7 @@ bool ida_export PyW_GetStringAttr(
   ref_t py_attr(PyW_TryGetAttrString(py_obj, attr_name));
   if ( py_attr == NULL )
     return false;
-
-  bool ok = IDAPyStr_Check(py_attr.o);
-  if ( ok )
-    *str = IDAPyBytes_AsString(py_attr.o);
-
-  return ok;
+  return IDAPyStr_Check(py_attr.o) != 0 && IDAPyStr_AsUTF8(str, py_attr.o);
 }
 
 //------------------------------------------------------------------------
@@ -1194,17 +1202,27 @@ bool ida_export PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64)
 
   do
   {
+#ifdef PY3
     if ( !PyLong_CheckExact(py_var) )
+#else
+    if ( !(PyInt_CheckExact(py_var) || PyLong_CheckExact(py_var)) )
+#endif
     {
       rc = false;
       break;
     }
 
+    constexpr bool is_long_64 = sizeof(long) > 4;
+
     // Can we convert to C long?
-    long l = IDAPyInt_AsLong(py_var);
+#ifdef PY3
+    long l = PyLong_AsLong(py_var);
+#else
+    long l = PyInt_AsLong(py_var);
+#endif
     if ( !PyErr_Occurred() )
     {
-      SETNUM(uint64(l), false);
+      SETNUM(uint64(l), is_long_64);
       break;
     }
 
@@ -1215,7 +1233,7 @@ bool ida_export PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64)
     unsigned long ul = PyLong_AsUnsignedLong(py_var);
     if ( !PyErr_Occurred() )    //-V547 '!PyErr_Occurred()' is always false
     {
-      SETNUM(uint64(ul), false);
+      SETNUM(uint64(ul), is_long_64);
       break;
     }
     PyErr_Clear();
@@ -1292,8 +1310,13 @@ bool ida_export PyW_ObjectToString(PyObject *obj, qstring *out)
   PYW_GIL_CHECK_LOCKED_SCOPE();
   newref_t py_str(PyObject_Str(obj));
   bool ok = py_str != NULL;
+#ifdef PY3
   if ( ok )
-    *out = IDAPyBytes_AsString(py_str.o);
+    IDAPyStr_AsUTF8(out, py_str.o);
+#else
+  if ( ok )
+    *out = PyString_AsString(py_str.o);
+#endif
   else
     out->qclear();
   return ok;
@@ -1309,78 +1332,51 @@ bool ida_export PyW_GetError(qstring *out, bool clear_err)
   if ( PyErr_Occurred() == NULL )
     return false;
 
-  // Error occurred but details not needed?
-  if ( out == NULL )
+  if ( out != NULL )
   {
-    // Just clear the error
+    // Get the exception info (this also clears the exception)
+    PyObject *err_type, *err_value, *err_traceback;
+    PyErr_Fetch(&err_type, &err_value, &err_traceback);
+
+    // Try helper first
+    ref_t py_ret;
+    ref_t py_fmtexc(get_idaapi_attr(S_IDAAPI_FORMATEXC));
+    if ( py_fmtexc != NULL )
+    {
+      py_ret = newref_t(PyObject_CallFunctionObjArgs(
+                                py_fmtexc.o,
+                                err_type,
+                                err_value,
+                                err_traceback,
+                                NULL));
+    }
+
+    // and fallback to simple stringification if needed
+    if ( py_ret == NULL )
+      py_ret = newref_t(PyObject_Str(err_value));
+
+    if ( py_ret != NULL )
+      IDAPyStr_AsUTF8(out, py_ret.o);
+    else
+      *out = "IDAPython: unknown error";
+
     if ( clear_err )
-      PyErr_Clear();
-    return true;
-  }
-
-  // Get the exception info
-  PyObject *err_type, *err_value, *err_traceback, *py_ret(NULL);
-  PyErr_Fetch(&err_type, &err_value, &err_traceback);
-
-  if ( !clear_err )
-    PyErr_Restore(err_type, err_value, err_traceback);
-
-  // Resolve FormatExc()
-  ref_t py_fmtexc(get_idaapi_attr(S_IDAAPI_FORMATEXC));
-
-  // Helper there?
-  if ( py_fmtexc != NULL )
-  {
-    // Call helper
-    py_ret = PyObject_CallFunctionObjArgs(
-      py_fmtexc.o,
-      err_type,
-      err_value,
-      err_traceback,
-      NULL);
-  }
-
-  // Clear the error
-  if ( clear_err )
-    PyErr_Clear();
-
-  // Helper failed?!
-  if ( py_ret == NULL )
-  {
-    // Just convert the 'value' part of the original error
-    py_ret = PyObject_Str(err_value);
-  }
-
-  // No exception text?
-  if ( py_ret == NULL )
-  {
-    *out = "IDAPython: unknown error!";
+    {
+      Py_XDECREF(err_traceback);
+      Py_XDECREF(err_value);
+      Py_XDECREF(err_type);
+    }
+    else
+    {
+      PyErr_Restore(err_type, err_value, err_traceback);
+    }
   }
   else
   {
-    *out = IDAPyBytes_AsString(py_ret);
-    Py_DECREF(py_ret);
+    if ( clear_err )
+      PyErr_Clear();
   }
 
-  if ( clear_err )
-  {
-    Py_XDECREF(err_traceback);
-    Py_XDECREF(err_value);
-    Py_XDECREF(err_type);
-  }
-  return true;
-}
-
-//-------------------------------------------------------------------------
-static bool PyW_GetError(char *buf, size_t bufsz, bool clear_err)
-{
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-
-  qstring s;
-  if ( !PyW_GetError(&s, clear_err) )
-    return false;
-
-  qstrncpy(buf, s.c_str(), bufsz);
   return true;
 }
 
@@ -1915,7 +1911,7 @@ PyObject *ida_export py_customidamemo_t_create_groups(
     }
     if ( !gi.nodes.empty() )
     {
-      gi.text = IDAPyBytes_AsString(text.o);
+      IDAPyStr_AsUTF8(&gi.text, text.o);
       gis.push_back(gi);
     }
   }
@@ -1980,7 +1976,11 @@ PyObject *ida_export py_customidamemo_t_set_groups_visibility(
   pynodes_to_idanodes(&ida_groups, groups);
   if ( ida_groups.empty() )
     Py_RETURN_NONE;
-  if ( viewer_set_groups_visibility(_this->view, ida_groups, expand.o == Py_True, int(IDAPyInt_AsLong(new_current.o))) )
+#ifdef PY3
+  if ( viewer_set_groups_visibility(_this->view, ida_groups, expand.o == Py_True, int(PyLong_AsLong(new_current.o))) )
+#else
+  if ( viewer_set_groups_visibility(_this->view, ida_groups, expand.o == Py_True, int(PyInt_AsLong(new_current.o))) )
+#endif
     Py_RETURN_TRUE;
   else
     Py_RETURN_FALSE;
@@ -2009,8 +2009,7 @@ void ida_export py_customidamemo_t_unbind(py_customidamemo_t *_this, bool clear_
     return;
   PYGLOG("%p: py_customidamemo_t::unbind(); self.o=%p, view=%p\n", _this, _this->self.o, _this->view);
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  newref_t py_cobj(PyCapsule_New(NULL,VALID_CAPSULE_NAME, NULL));
-  PyObject_SetAttrString(_this->self.o, S_M_THIS, py_cobj.o);
+  PyObject_SetAttrString(_this->self.o, S_M_THIS, Py_None);
   _this->self = newref_t(NULL);
   if ( clear_view )
     _this->view = NULL;
@@ -2186,11 +2185,15 @@ ssize_t ida_export get_callable_arg_count(ref_t callable)
   ssize_t cnt = -1;
   if ( py_module != NULL )
   {
+#ifdef PY3
+    ref_t py_fun = PyW_TryGetAttrString(py_module.o, "getfullargspec");
+#else
     ref_t py_fun = PyW_TryGetAttrString(py_module.o, "getargspec");
+#endif
     if ( py_fun != NULL )
     {
       newref_t py_tuple(PyObject_CallFunctionObjArgs(py_fun.o, callable.o, NULL));
-      if ( PyTuple_Check(py_tuple.o) )
+      if ( py_tuple != NULL && PyTuple_Check(py_tuple.o) )
       {
         borref_t py_args(PyTuple_GetItem(py_tuple.o, 0));
         if ( py_args != NULL && PySequence_Check(py_args.o) )
@@ -2229,7 +2232,8 @@ static hook_data_vec_t hook_data_vec;
 bool ida_export idapython_hook_to_notification_point(
         hook_type_t hook_type,
         hook_cb_t *cb,
-        void *user_data)
+        void *user_data,
+        bool is_hooks_base)
 {
   bool ok = hook_to_notification_point(hook_type, cb, user_data);
 #ifdef TESTABLE_BUILD

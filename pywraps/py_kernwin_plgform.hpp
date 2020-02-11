@@ -74,7 +74,7 @@ public:
     if ( widget == NULL )
       return false;
 
-    if ( !idapython_hook_to_notification_point(HT_UI, s_callback, this) )
+    if ( !idapython_hook_to_notification_point(HT_UI, s_callback, this, false) )
     {
       widget = NULL;
       return false;

@@ -188,7 +188,7 @@ private:
     PYW_GIL_GET;
 
     // Build a string from the buffer
-    newref_t py_value(IDAPyStr_FromUTF8AndSize(
+    newref_t py_value(IDAPyBytes_FromMemAndSize(
                               (const char *)value,
                               Py_ssize_t(size)));
     if ( py_value == NULL )
@@ -211,13 +211,8 @@ private:
     bool ok = false;
     if ( IDAPyStr_Check(py_result.o) )
     {
-      Py_ssize_t len;
-      char *buf;
-      if ( out != NULL && IDAPyBytes_AsMemAndSize(py_result.o, &buf, &len) != -1 )
-      {
-        out->qclear();
-        out->append(buf, len);
-      }
+      if ( out != NULL )
+        IDAPyStr_AsUTF8(out, py_result.o);
       ok = true;
     }
     return ok;
@@ -258,7 +253,7 @@ private:
       borref_t py_val(PyTuple_GetItem(py_result.o, 1));
 
       // Get return code from Python
-      ok = PyObject_IsTrue(py_bool.o);
+      ok = PyObject_IsTrue(py_bool.o) != 0;
 
       // We expect None or the value (depending on probe)
       if ( ok )
@@ -285,7 +280,7 @@ private:
           break;
         }
         // Get the error message
-        *errstr = IDAPyBytes_AsString(py_val.o);
+        IDAPyStr_AsUTF8(errstr, py_val.o);
       }
     } while ( false );
     return ok;

@@ -11,7 +11,13 @@
 struct py_idchotkey_ctx_t
 {
   qstring hotkey;
-  PyObject *pyfunc;
+  ref_t pyfunc;
+
+  py_idchotkey_ctx_t(
+          const char *_hotkey,
+          PyObject *_pyfunc)
+    : hotkey(_hotkey),
+      pyfunc(borref_t(_pyfunc)) {}
 };
 
 //------------------------------------------------------------------------
@@ -258,11 +264,11 @@ static PyObject *py_msg(PyObject *o)
   if ( PyUnicode_Check(o) )
   {
     py_utf8 = newref_t(PyUnicode_AsUTF8String(o));
-    utf8 = IDAPyBytes_AsString(py_utf8.o);
+    utf8 = PyString_AsString(py_utf8.o);
   }
-  else if ( IDAPyStr_Check(o) )
+  else if ( PyString_Check(o) )
   {
-    utf8 = IDAPyBytes_AsString(o);
+    utf8 = PyString_AsString(o);
   }
   else
   {
@@ -273,7 +279,7 @@ static PyObject *py_msg(PyObject *o)
   Py_BEGIN_ALLOW_THREADS;
   rc = msg("%s", utf8);
   Py_END_ALLOW_THREADS;
-  return IDAPyInt_FromLong(rc);
+  return PyInt_FromLong(rc);
 }
 
 //------------------------------------------------------------------------
@@ -403,7 +409,6 @@ bool py_del_hotkey(PyObject *pyctx)
   if ( ctx == NULL || !del_idc_hotkey(ctx->hotkey.c_str()) )
     return false;
 
-  Py_DECREF(ctx->pyfunc);
   delete ctx;
   // Here we must ensure that the python object is invalidated.
   // This is to avoid the possibility of this function being called again
@@ -468,15 +473,7 @@ PyObject *py_add_hotkey(const char *hotkey, PyObject *pyfunc)
         break;
 
       // Create new context
-      // Define context
-      py_idchotkey_ctx_t *ctx = new py_idchotkey_ctx_t();
-
-      // Remember the hotkey
-      ctx->hotkey = hotkey;
-
-      // Take reference to the callable
-      ctx->pyfunc = pyfunc;
-      Py_INCREF(pyfunc);
+      py_idchotkey_ctx_t *ctx = new py_idchotkey_ctx_t(hotkey, pyfunc);
 
       // Bind IDC variable w/ the PyCallable
       gvar->set_pvoid(pyfunc);
@@ -688,7 +685,7 @@ static bool py_execute_ui_requests(PyObject *py_list)
 
     static int idaapi s_py_list_walk_cb(
             const ref_t &py_item,
-            Py_ssize_t index,
+            Py_ssize_t /*index*/,
             void *ud)
     {
       PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -945,7 +942,7 @@ public:
 
   bool hook()
   {
-    return idapython_hook_to_notification_point(HT_UI, UI_Callback, this);
+    return idapython_hook_to_notification_point(HT_UI, UI_Callback, this, false);
   }
 
   bool unhook()
@@ -973,12 +970,10 @@ public:
     if ( o != NULL && PyTuple_Check(o) && PyTuple_Size(o) == 2 )
     {
       borref_t el0(PyTuple_GetItem(o, 0));
-      char *_buf;
-      Py_ssize_t _len;
       if ( el0 != NULL
         && IDAPyStr_Check(el0.o)
-        && IDAPyBytes_AsMemAndSize(el0.o, &_buf, &_len) != -1
-        && _len > 0 )
+        && IDAPyStr_AsUTF8(hint, el0.o)
+        && !hint->empty() )
       {
         borref_t el1(PyTuple_GetItem(o, 1));
         if ( el1 != NULL && IDAPyInt_Check(el1.o) )
@@ -987,7 +982,6 @@ public:
           if ( lns > 0 )
           {
             *important_lines = lns;
-            hint->append(_buf, _len);
             rc = 1;
           }
         }

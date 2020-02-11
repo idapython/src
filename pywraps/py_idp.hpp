@@ -35,7 +35,7 @@ static PyObject *AssembleLine(
   int inslen = ph.assemble((uchar *)buf, ea, cs, ip, use32, line);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( inslen > 0 )
-    return IDAPyStr_FromUTF8AndSize(buf, inslen);
+    return IDAPyBytes_FromMemAndSize(buf, inslen);
   else
     Py_RETURN_NONE;
 }
@@ -618,7 +618,7 @@ class IDP_Hooks
   static ssize_t handle_assemble_output(PyObject *o, uchar *bin, ea_t /*ea*/, ea_t /*cs*/, ea_t /*ip*/, bool /*use32*/, const char */*line*/)
   {
     ssize_t rc = 0;
-    if ( o != NULL && IDAPyStr_Check(o) )
+    if ( o != NULL && IDAPyBytes_Check(o) )
     {
       char *s;
       Py_ssize_t len = 0;
@@ -683,9 +683,9 @@ class IDP_Hooks
           PyObject *o,
           int32 *out_res,
           qstring *out,
-          const char *name,
-          uint32 disable_mask,
-          demreq_type_t demreq)
+          const char * /*name*/,
+          uint32 /*disable_mask*/,
+          demreq_type_t /*demreq*/)
   {
     ssize_t rc = 0;
     if ( PySequence_Check(o) && PySequence_Size(o) == 3 )
@@ -693,20 +693,16 @@ class IDP_Hooks
       newref_t py_rc(PySequence_GetItem(o, 0));
       newref_t py_out(PySequence_GetItem(o, 1));
       newref_t py_out_res(PySequence_GetItem(o, 2));
-      char *s;
-      Py_ssize_t len = 0;
+      qstring qs;
       if ( IDAPyInt_Check(py_rc.o)
         && IDAPyInt_Check(py_out_res.o)
         && IDAPyStr_Check(py_out.o)
-        && IDAPyBytes_AsMemAndSize(py_out.o, &s, &len) != -1 )
+        && IDAPyStr_AsUTF8(&qs, py_out.o) )
       {
         rc = IDAPyInt_AsLong(py_rc.o);
         *out_res = IDAPyInt_AsLong(py_out_res.o);
         if ( out != NULL )
-        {
-          out->qclear();
-          out->append(s, len);
-        }
+          out->swap(qs);
       }
     }
     return rc;
@@ -714,8 +710,8 @@ class IDP_Hooks
   static ssize_t handle_find_value_output(
           PyObject *o,
           uval_t *out,
-          const insn_t *pinsn,
-          int reg)
+          const insn_t * /*pinsn*/,
+          int /*reg*/)
   {
     uint64 num;
     ssize_t rc = PyW_GetNumber(o, &num);
@@ -732,7 +728,7 @@ public:
 
   bool hook()
   {
-    return idapython_hook_to_notification_point(HT_IDP, IDP_Callback, this);
+    return idapython_hook_to_notification_point(HT_IDP, IDP_Callback, this, false);
   }
 
   bool unhook()

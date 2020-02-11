@@ -132,3 +132,23 @@
 //<code(py_idp_idbhooks)>
 //</code(py_idp_idbhooks)>
 %}
+
+%pythoncode %{
+#<pycode(py_idp_idbhooks)>
+#</pycode(py_idp_idbhooks)>
+%}
+
+
+//-------------------------------------------------------------------------
+//                             notify_when()
+//-------------------------------------------------------------------------
+%{
+//<code(py_idp_notify_when)>
+//</code(py_idp_notify_when)>
+%}
+
+%pythoncode %{
+#<pycode(py_idp_notify_when)>
+#</pycode(py_idp_notify_when)>
+%}
+

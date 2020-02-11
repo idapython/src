@@ -16,7 +16,7 @@ public:
 bool py_idaview_t::Bind(PyObject *self)
 {
   // Already a py_idaview_t associated to this object?
-  py_idaview_t *_this = view_extract_this<py_idaview_t>(self);
+  py_idaview_t *_this = (py_idaview_t *) view_extract_this(self);
   if ( _this != NULL )
     return false;
 
@@ -54,7 +54,7 @@ bool py_idaview_t::Bind(PyObject *self)
 //-------------------------------------------------------------------------
 bool py_idaview_t::Unbind(PyObject *self)
 {
-  py_idaview_t *_this = view_extract_this<py_idaview_t>(self);
+  py_idaview_t *_this = (py_idaview_t *) view_extract_this(self);
   if ( _this == NULL )
     return false;
   _this->unbind(true);

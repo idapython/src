@@ -3,8 +3,6 @@
 #include <loader.hpp>
 %}
 
-%import "idd.i"
-
 %ignore dbg;
 %ignore register_srcinfo_provider;
 %ignore unregister_srcinfo_provider;
@@ -106,7 +104,7 @@ PyObject *bpt_t_condition_get(bpt_t *bpt)
 void bpt_t_condition_set(bpt_t *bpt, PyObject *val)
 {
   if ( IDAPyStr_Check(val) )
-    bpt->cndbody = IDAPyBytes_AsString(val);
+    IDAPyStr_AsUTF8(&bpt->cndbody, val);
   else
     PyErr_SetString(PyExc_ValueError, "expected a string");
 }
@@ -120,8 +118,9 @@ void bpt_t_elang_set(bpt_t *bpt, PyObject *val)
 {
   if ( IDAPyStr_Check(val) )
   {
-    char *cval = IDAPyBytes_AsString(val);
-    if ( !bpt->set_cnd_elang(cval) )
+    qstring cval;
+    IDAPyStr_AsUTF8(&cval, val);
+    if ( !bpt->set_cnd_elang(cval.c_str()) )
       PyErr_SetString(PyExc_ValueError, "too many extlangs");
   }
   else
@@ -138,7 +137,7 @@ void bpt_t_elang_set(bpt_t *bpt, PyObject *val)
 {
   PyObject *get_bytes() const
   {
-    return IDAPyStr_FromUTF8AndSize(
+    return IDAPyBytes_FromMemAndSize(
         (const char *) $self->bytes.begin(),
         $self->bytes.size());
   }

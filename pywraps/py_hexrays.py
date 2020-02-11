@@ -7,7 +7,8 @@ hexrays_failure_t.__str__ = lambda self: str(self.str)
 
 # ---------------------------------------------------------------------
 class DecompilationFailure(Exception):
-    """ Raised on a decompilation error.
+    """
+    Raised on a decompilation error.
 
     The associated hexrays_failure_t object is stored in the
     'info' member of this exception. """
@@ -130,8 +131,10 @@ def cexpr_operands(self):
 cexpr_t.operands = property(cexpr_operands)
 
 def cinsn_details(self):
-    """ return the details pointer for the cinsn_t object depending on the value of its op member. \
-        this is one of the cblock_t, cif_t, etc. objects. """
+    """
+    return the details pointer for the cinsn_t object depending on the value of its op member. \
+    this is one of the cblock_t, cif_t, etc. objects.
+    """
 
     if self.op not in self.op_to_typename:
         raise RuntimeError('unknown item->op type')
@@ -145,72 +148,6 @@ def cinsn_details(self):
 
     return getattr(self, 'c' + opname)
 cinsn_t.details = property(cinsn_details)
-
-def cblock_iter(self):
-
-    iter = self.begin()
-    for i in range(self.size()):
-        yield iter.cur
-        next(iter)
-
-    return
-cblock_t.__iter__ = cblock_iter
-cblock_t.__len__ = cblock_t.size
-
-# cblock.find(cinsn_t) -> returns the iterator positioned at the given item
-def cblock_find(self, item):
-
-    iter = self.begin()
-    for i in range(self.size()):
-        if iter.cur == item:
-            return iter
-        next(iter)
-
-    return
-cblock_t.find = cblock_find
-
-# cblock.index(cinsn_t) -> returns the index of the given item
-def cblock_index(self, item):
-
-    iter = self.begin()
-    for i in range(self.size()):
-        if iter.cur == item:
-            return i
-        next(iter)
-
-    return
-cblock_t.index = cblock_index
-
-# cblock.at(int) -> returns the item at the given index index
-def cblock_at(self, index):
-
-    iter = self.begin()
-    for i in range(self.size()):
-        if i == index:
-            return iter.cur
-        next(iter)
-
-    return
-cblock_t.at = cblock_at
-
-# cblock.remove(cinsn_t)
-def cblock_remove(self, item):
-
-    iter = self.find(item)
-    self.erase(iter)
-
-    return
-cblock_t.remove = cblock_remove
-
-# cblock.insert(index, cinsn_t)
-def cblock_insert(self, index, item):
-
-    pos = self.at(index)
-    iter = self.find(pos)
-    self.insert(iter, item)
-
-    return
-cblock_t.insert = cblock_insert
 
 cfuncptr_t.__str__ = lambda self: str(self.__deref__())
 
