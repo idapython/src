@@ -3,7 +3,12 @@
 import ida_funcs
 import ida_idaapi
 
-hexrays_failure_t.__str__ = lambda self: str(self.str)
+hexrays_failure_t.__str__ = lambda self: str("%x: %s" % (self.errea, self.desc()))
+
+# ---------------------------------------------------------------------
+# Renamings
+# is_allowed_on_small_struni = accepts_small_udts
+# is_small_struni = is_small_udt
 
 # ---------------------------------------------------------------------
 class DecompilationFailure(Exception):
@@ -19,8 +24,8 @@ class DecompilationFailure(Exception):
         return
 
 # ---------------------------------------------------------------------
-def decompile(ea, hf=None):
-    if isinstance(ea, ida_idaapi.integer_types)
+def decompile(ea, hf=None, flags=0):
+    if isinstance(ea, ida_idaapi.integer_types):
         func = ida_funcs.get_func(ea)
         if not func: return
     elif type(ea) == ida_funcs.func_t:
@@ -31,7 +36,7 @@ def decompile(ea, hf=None):
     if hf is None:
         hf = hexrays_failure_t()
 
-    ptr = _decompile(func, hf)
+    ptr = _ida_hexrays.decompile_func(func, hf, flags)
 
     if ptr.__deref__() is None:
         raise DecompilationFailure(hf)
@@ -150,6 +155,7 @@ def cinsn_details(self):
 cinsn_t.details = property(cinsn_details)
 
 cfuncptr_t.__str__ = lambda self: str(self.__deref__())
+cfuncptr_t.__eq__ = lambda self, other: self.__ptrval__() == other.__ptrval__()
 
 import ida_typeinf
 def cfunc_type(self):
@@ -354,8 +360,8 @@ _map_as_dict(user_cmts_t, 'user_cmts', treeloc_t, citem_cmt_t)
 _map_as_dict(user_numforms_t, 'user_numforms', operand_locator_t, number_format_t)
 _map_as_dict(user_iflags_t, 'user_iflags', citem_locator_t, int)
 import ida_pro
-_map_as_dict(user_unions_t, 'user_unions', (int, long), ida_pro.intvec_t)
-_map_as_dict(eamap_t, 'eamap', long, cinsnptrvec_t)
+_map_as_dict(user_unions_t, 'user_unions', ida_idaapi.integer_types, ida_pro.intvec_t)
+_map_as_dict(eamap_t, 'eamap', ida_idaapi.long_type, cinsnptrvec_t)
 import ida_range
 _map_as_dict(boundaries_t, 'boundaries', cinsn_t, ida_range.rangeset_t)
 
@@ -426,7 +432,7 @@ class __cbhooks_t(Hexrays_Hooks):
         Hexrays_Hooks.__init__(self)
 
     def maturity(self, *args): return self.callback(hxe_maturity, *args)
-    def interr(self, *args): return self.callback(hxe_interr, **args)
+    def interr(self, *args): return self.callback(hxe_interr, *args)
     def print_func(self, *args): return self.callback(hxe_print_func, *args)
     def func_printed(self, *args): return self.callback(hxe_func_printed, *args)
     def open_pseudocode(self, *args): return self.callback(hxe_open_pseudocode, *args)

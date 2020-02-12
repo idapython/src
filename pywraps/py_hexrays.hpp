@@ -47,9 +47,11 @@ static void *idaapi init_time_dummy_hexdsp(int code, ...)
 #ifdef _DEBUG
         va_list va;
         va_start(va, code);
-        citem_t *item = va_arg(va, citem_t *);
+        void *item = va_arg(va, void *);
         // catch leaks
-        if ( code == hx_cexpr_t_cleanup )
+        if ( code == hx_remitem )
+          QASSERT(30529, ((cinsn_t *)item)->op == cot_empty || ((cinsn_t *)item)->op == cit_empty);
+        else if ( code == hx_cexpr_t_cleanup )
           QASSERT(30497, ((cexpr_t *)item)->op == cot_empty && ((cexpr_t *)item)->n == NULL);
         else if ( code == hx_cinsn_t_cleanup )
           QASSERT(30498, ((cinsn_t *)item)->op == cit_empty && ((cinsn_t *)item)->cblock == NULL);
@@ -82,45 +84,6 @@ void delete_qstring_printer_t(qstring_printer_t *qs)
 {
   delete &(qs->s);
   delete qs;
-}
-
-//---------------------------------------------------------------------
-static ref_t hexrays_python_call(ref_t fct, ref_t args)
-{
-  PYW_GIL_GET;
-
-  newref_t resultobj(PyEval_CallObject(fct.o, args.o));
-  if ( PyErr_Occurred() )
-  {
-    PyErr_Print();
-    return borref_t(Py_None);
-  }
-  return resultobj;
-}
-
-//---------------------------------------------------------------------
-static int hexrays_python_intcall(ref_t fct, ref_t args)
-{
-  PYW_GIL_GET;
-
-  ref_t resultobj = hexrays_python_call(fct, args);
-  int result;
-  if ( SWIG_IsOK(SWIG_AsVal_int(resultobj.o, &result)) )
-    return result;
-  msg("IDAPython: Hex-rays python callback returned non-integer; value ignored.\n");
-  return 0;
-}
-
-//---------------------------------------------------------------------
-static bool idaapi __python_custom_viewer_popup_item_callback(void *ud)
-{
-  PYW_GIL_GET;
-
-  int ret;
-  borref_t fct((PyObject *)ud);
-  newref_t nil(NULL);
-  ret = hexrays_python_intcall(fct, nil);
-  return ret ? true : false;
 }
 
 //-------------------------------------------------------------------------
@@ -208,7 +171,6 @@ void hexrays_deregister_python_clearable_instance(void *ptr)
 }
 
 //-------------------------------------------------------------------------
-#ifdef TESTABLE_BUILD
 hx_clearable_type_t hexrays_is_registered_python_clearable_instance(
         const void *ptr)
 {
@@ -217,25 +179,9 @@ hx_clearable_type_t hexrays_is_registered_python_clearable_instance(
       return python_clearables[i].type;
   return hxclr_unknown;
 }
-#endif
 
 //-------------------------------------------------------------------------
 //
-//-------------------------------------------------------------------------
-cfuncptr_t _decompile(func_t *pfn, hexrays_failure_t *hf)
-{
-  try
-  {
-    cfuncptr_t cfunc = decompile(pfn, hf);
-    return cfunc;
-  }
-  catch(...)
-  {
-    error("Hex-Rays Python: decompiler threw an exception.\n");
-  }
-  return cfuncptr_t(0);
-}
-
 //-------------------------------------------------------------------------
 static bool is_hexrays_plugin(const plugin_info_t *pinfo)
 {
@@ -348,24 +294,6 @@ bool py_init_hexrays_plugin(int flags=0)
   return hexdsp_inited() || init_hexrays_plugin(flags);
 }
 
-cfuncptr_t _decompile(func_t *pfn, hexrays_failure_t *hf);
-
-//-------------------------------------------------------------------------
-bool py_decompile_many(const char *outfile, PyObject *funcaddrs, int flags)
-{
-  eavec_t leas, *eas = NULL;
-  if ( funcaddrs != Py_None )
-  {
-    if ( !PySequence_Check(funcaddrs)
-      || PyW_PyListToEaVec(&leas, funcaddrs) < 0 )
-    {
-      return false;
-    }
-    eas = &leas;
-  }
-  return decompile_many(outfile, eas, flags);
-}
-
 //-------------------------------------------------------------------------
 // Some examples will want to use action_handler_t's whose update() method
 // calls get_widget_vdui() to figure out whether the action should be enabled
@@ -380,12 +308,19 @@ vdui_t *py_get_widget_vdui(TWidget *f)
   return hexdsp_inited() ? get_widget_vdui(f) : NULL;
 }
 
-inline boundaries_iterator_t py_boundaries_find(const boundaries_t *map, const cinsn_t *key)
+//-------------------------------------------------------------------------
+inline boundaries_iterator_t py_boundaries_find(
+        const boundaries_t *map,
+        const cinsn_t *key)
 {
   return boundaries_find(map, key);
 }
 
-inline boundaries_iterator_t py_boundaries_insert(boundaries_t *map, const cinsn_t *key, const rangeset_t &val)
+//-------------------------------------------------------------------------
+inline boundaries_iterator_t py_boundaries_insert(
+        boundaries_t *map,
+        const cinsn_t *key,
+        const rangeset_t &val)
 {
   return boundaries_insert(map, key, val);
 }
