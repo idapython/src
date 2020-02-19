@@ -3,6 +3,8 @@
 #include <loader.hpp>
 %}
 
+%import "idd.i"
+
 %ignore dbg;
 %ignore register_srcinfo_provider;
 %ignore unregister_srcinfo_provider;

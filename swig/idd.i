@@ -5,6 +5,8 @@
 #include <err.h>
 %}
 
+%import "range.i"
+
 %ignore free_debug_event;
 %ignore copy_debug_event;
 %ignore debugger_t;

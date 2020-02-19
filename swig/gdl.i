@@ -2,6 +2,7 @@
 #include <gdl.hpp>
 %}
 
+%import "range.i"
 
 %ignore cancellable_graph_t;
 %ignore gdl_graph_t;

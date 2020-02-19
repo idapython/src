@@ -978,7 +978,12 @@ def op_stroff(ea, n, strid, delta):
     """
     path = ida_pro.tid_array(1)
     path[0] = strid
-    return ida_bytes.op_stroff(ea, n, path.cast(), 1, delta)
+    if isinstance(ea, ida_ua.insn_t):
+        insn = ea
+    else:
+        insn = ida_ua.insn_t()
+        ida_ua.decode_insn(insn, ea)
+    return ida_bytes.op_stroff(insn, n, path.cast(), 1, delta)
 
 
 op_stkvar = ida_bytes.op_stkvar
@@ -1002,18 +1007,7 @@ def op_offset_high16(ea, n, target):
 
 
 def MakeVar(ea):
-    """
-    Mark the location as "variable"
-
-    @param ea: address to mark
-
-    @return: None
-
-    @note: All that IDA does is to mark the location as "variable".
-    Nothing else, no additional analysis is performed.
-    This function may disappear in the future.
-    """
-    ida_bytes.doVar(ea, 1)
+    pass
 
 # Every anterior/posterior line has its number.
 # Anterior  lines have numbers from E_PREV
@@ -5190,8 +5184,8 @@ def apply_type(ea, py_type, flags = TINFO_DEFINITE):
 
     if py_type is None:
         py_type = ""
-    if isinstance(py_type, basestring) and len(py_type) == 0:
-        pt = ("", "")
+    if isinstance(py_type, ida_idaapi.string_types) and len(py_type) == 0:
+        pt = (b"", b"")
     else:
         if len(py_type) == 3:
           pt = py_type[1:]      # skip name component
@@ -5278,7 +5272,7 @@ def print_decls(ordinals, flags):
             return 0
 
     sink = def_sink()
-    py_ordinals = map(lambda l : int(l), ordinals.split(","))
+    py_ordinals = list(map(lambda l : int(l), ordinals.split(",")))
     ida_typeinf.print_decls(sink, None, py_ordinals, flags)
 
     return sink.text
@@ -5766,19 +5760,7 @@ def set_reg_value(value, name):
            It is not necessary to use this function to set register values.
            A register name in the left side of an assignment will do too.
     """
-    rv = ida_idd.regval_t()
-    if type(value) == bytes:
-        value = int(value, 16)
-    elif type(value) != int and type(value) != int:
-        print("set_reg_value: value must be integer!")
-        return BADADDR
-
-    if value < 0:
-        #ival_set cannot handle negative numbers
-        value &= 0xFFFFFFFF
-
-    rv.ival = value
-    return ida_dbg.set_reg_val(name, rv)
+    return ida_dbg.set_reg_val(name, value)
 
 
 def get_bpt_qty():

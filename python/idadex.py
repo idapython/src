@@ -14,6 +14,7 @@ from __future__ import print_function
 #
 #---------------------------------------------------------------------
 # pylint: disable=C0103, C0111, C0301, C0326, W0511, R0903
+import sys
 import ctypes
 import idaapi
 import ida_idaapi
@@ -41,21 +42,23 @@ def get_struct(str_, off, struct):
     ctypes.memmove(ctypes.addressof(s), bytebuf, fit)
     return s
 
+_byte = ord if sys.version_info.major < 3 else lambda t: t
+
 # unpack base address
 def unpack_db(buf, off):
     x = 0
     if off < len(buf):
-        x = ord(buf[off])
+        x = _byte(buf[off])
         off += 1
     return (x, off)
 
 def get_dw(buf, off):
     x = 0
     if off < len(buf):
-        x = ord(buf[off]) << 8
+        x = _byte(buf[off]) << 8
         off += 1
     if off < len(buf):
-        x |= ord(buf[off])
+        x |= _byte(buf[off])
         off += 1
     return (x, off)
 
@@ -66,7 +69,7 @@ def unpack_dw(buf, off):
             (x, off) = get_dw(buf, off)
         else:
             if off < len(buf):
-                x = ((x & ~0x80) << 8) | ord(buf[off])
+                x = ((x & ~0x80) << 8) | _byte(buf[off])
                 off += 1
     return (x, off)
 
@@ -79,13 +82,13 @@ def unpack_dd(buf, off):
             else:
                 xh = 0
                 if off < len(buf):
-                    xh = ((x & ~0xC0) << 8) | ord(buf[off])
+                    xh = ((x & ~0xC0) << 8) | _byte(buf[off])
                     off += 1
             (xl, off) = get_dw(buf, off)
             x = (xh << 16) | xl
         else:
             if off < len(buf):
-                x = ((x & ~0x80) << 8) | ord(buf[off])
+                x = ((x & ~0x80) << 8) | _byte(buf[off])
                 off += 1
     return (x, off)
 
@@ -262,6 +265,11 @@ class Dex(object):
             if flags & Dex.ACCESS_FLAGS[access_bit] != 0:
                 res += " " + access_bit
         return res[1:] if res else ""
+
+    #---------------------------------------------------------------------------
+    @staticmethod
+    def as_string(s):
+        return s.decode("UTF-8") if sys.version_info.major >= 3 else s
 
     #---------------------------------------------------------------------------
     def idx_to_ea(self, from_ea, idx, tag):

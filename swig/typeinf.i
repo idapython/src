@@ -3,6 +3,8 @@
 #include <struct.hpp>
 %}
 
+%import "idp.i"
+
 // Most of these could be wrapped if needed
 %ignore get_cc;
 %ignore get_cc_type_size;
