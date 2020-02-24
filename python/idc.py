@@ -2090,33 +2090,91 @@ ABI_GCC_LAYOUT   = 0x00000080 #   use gcc layout for udts (used for mingw)
 ABI_MAP_STKARGS  = 0x00000100 #   register arguments are mapped to stack area (and consume stack slots)
 INF_APPCALL_OPTIONS= 68       # uint32; appcall options
 
-_signed_inf_attrs = [
-    INF_NETDELTA,
-    INF_NAMETYPE,
-    INF_BIN_PREFIX_SIZE,
-    INF_STRLIT_ZEROES,
-    INF_STRTYPE,
-]
+_INF_attrs_accessors = {
+    INF_ABIBITS               : (ida_ida.inf_get_abibits,               ida_ida.inf_set_abibits),
+    INF_AF                    : (ida_ida.inf_get_af,                    ida_ida.inf_set_af),
+    INF_AF2                   : (ida_ida.inf_get_af2,                   ida_ida.inf_set_af2),
+    INF_APPCALL_OPTIONS       : (ida_ida.inf_get_appcall_options,       ida_ida.inf_set_appcall_options),
+    INF_APPTYPE               : (ida_ida.inf_get_apptype,               ida_ida.inf_set_apptype),
+    INF_ASMTYPE               : (ida_ida.inf_get_asmtype,               ida_ida.inf_set_asmtype),
+    INF_BASEADDR              : (ida_ida.inf_get_baseaddr,              ida_ida.inf_set_baseaddr),
+    INF_BIN_PREFIX_SIZE       : (ida_ida.inf_get_bin_prefix_size,       ida_ida.inf_set_bin_prefix_size),
+    INF_CC_CM                 : (ida_ida.inf_get_cc_cm,                 ida_ida.inf_set_cc_cm),
+    INF_CC_DEFALIGN           : (ida_ida.inf_get_cc_defalign,           ida_ida.inf_set_cc_defalign),
+    INF_CC_ID                 : (ida_ida.inf_get_cc_id,                 ida_ida.inf_set_cc_id),
+    INF_CC_SIZE_B             : (ida_ida.inf_get_cc_size_b,             ida_ida.inf_set_cc_size_b),
+    INF_CC_SIZE_E             : (ida_ida.inf_get_cc_size_e,             ida_ida.inf_set_cc_size_e),
+    INF_CC_SIZE_I             : (ida_ida.inf_get_cc_size_i,             ida_ida.inf_set_cc_size_i),
+    INF_CC_SIZE_L             : (ida_ida.inf_get_cc_size_l,             ida_ida.inf_set_cc_size_l),
+    INF_CC_SIZE_LDBL          : (ida_ida.inf_get_cc_size_ldbl,          ida_ida.inf_set_cc_size_ldbl),
+    INF_CC_SIZE_LL            : (ida_ida.inf_get_cc_size_ll,            ida_ida.inf_set_cc_size_ll),
+    INF_CC_SIZE_S             : (ida_ida.inf_get_cc_size_s,             ida_ida.inf_set_cc_size_s),
+    INF_CMTFLAG               : (ida_ida.inf_get_cmtflg,                ida_ida.inf_set_cmtflg),
+    INF_COMMENT               : (ida_ida.inf_get_comment,               ida_ida.inf_set_comment),
+    INF_DATABASE_CHANGE_COUNT : (ida_ida.inf_get_database_change_count, ida_ida.inf_set_database_change_count),
+    INF_DATATYPES             : (ida_ida.inf_get_datatypes,             ida_ida.inf_set_datatypes),
+    INF_DEMNAMES              : (ida_ida.inf_get_demnames,              ida_ida.inf_set_demnames),
+    INF_END_PRIVRANGE         : (ida_ida.inf_get_privrange_end_ea,      ida_ida.inf_set_privrange_end_ea),
+    INF_FILETYPE              : (ida_ida.inf_get_filetype,              ida_ida.inf_set_filetype),
+    INF_GENFLAGS              : (ida_ida.inf_get_genflags,              ida_ida.inf_set_genflags),
+    INF_HIGHOFF               : (ida_ida.inf_get_highoff,               ida_ida.inf_set_highoff),
+    INF_INDENT                : (ida_ida.inf_get_indent,                ida_ida.inf_set_indent),
+    INF_LENXREF               : (ida_ida.inf_get_lenxref,               ida_ida.inf_set_lenxref),
+    INF_LFLAGS                : (ida_ida.inf_get_lflags,                ida_ida.inf_set_lflags),
+    INF_LIMITER               : (ida_ida.inf_get_limiter,               ida_ida.inf_set_limiter),
+    INF_LISTNAMES             : (ida_ida.inf_get_listnames,             ida_ida.inf_set_listnames),
+    INF_LONG_DEMNAMES         : (ida_ida.inf_get_long_demnames,         ida_ida.inf_set_long_demnames),
+    INF_LOWOFF                : (ida_ida.inf_get_lowoff,                ida_ida.inf_set_lowoff),
+    INF_MAIN                  : (ida_ida.inf_get_main,                  ida_ida.inf_set_main),
+    INF_MARGIN                : (ida_ida.inf_get_margin,                ida_ida.inf_set_margin),
+    INF_MAXREF                : (ida_ida.inf_get_maxref,                ida_ida.inf_set_maxref),
+    INF_MAX_AUTONAME_LEN      : (ida_ida.inf_get_max_autoname_len,      ida_ida.inf_set_max_autoname_len),
+    INF_MAX_EA                : (ida_ida.inf_get_max_ea,                ida_ida.inf_set_max_ea),
+    INF_MIN_EA                : (ida_ida.inf_get_min_ea,                ida_ida.inf_set_min_ea),
+    INF_MODEL                 : (ida_ida.inf_get_cc_cm,                 ida_ida.inf_set_cc_cm),
+    INF_NAMETYPE              : (ida_ida.inf_get_nametype,              ida_ida.inf_set_nametype),
+    INF_NETDELTA              : (ida_ida.inf_get_netdelta,              ida_ida.inf_set_netdelta),
+    INF_OMAX_EA               : (ida_ida.inf_get_omax_ea,               ida_ida.inf_set_omax_ea),
+    INF_OMIN_EA               : (ida_ida.inf_get_omin_ea,               ida_ida.inf_set_omin_ea),
+    INF_OSTYPE                : (ida_ida.inf_get_ostype,                ida_ida.inf_set_ostype),
+    INF_OUTFLAGS              : (ida_ida.inf_get_outflags,              ida_ida.inf_set_outflags),
+    INF_PREFFLAG              : (ida_ida.inf_get_prefflag,              ida_ida.inf_set_prefflag),
+    INF_PRIVRANGE_END_EA      : (ida_ida.inf_get_privrange_end_ea,      ida_ida.inf_set_privrange_end_ea),
+    INF_PRIVRANGE_START_EA    : (ida_ida.inf_get_privrange_start_ea,    ida_ida.inf_set_privrange_start_ea),
+    INF_PROCNAME              : (ida_ida.inf_get_procname,              ida_ida.inf_set_procname),
+    INF_REFCMTNUM             : (ida_ida.inf_get_refcmtnum,             ida_ida.inf_set_refcmtnum),
+    INF_SHORT_DEMNAMES        : (ida_ida.inf_get_short_demnames,        ida_ida.inf_set_short_demnames),
+    INF_SPECSEGS              : (ida_ida.inf_get_specsegs,              ida_ida.inf_set_specsegs),
+    INF_START_CS              : (ida_ida.inf_get_start_cs,              ida_ida.inf_set_start_cs),
+    INF_START_EA              : (ida_ida.inf_get_start_ea,              ida_ida.inf_set_start_ea),
+    INF_START_IP              : (ida_ida.inf_get_start_ip,              ida_ida.inf_set_start_ip),
+    INF_START_PRIVRANGE       : (ida_ida.inf_get_privrange_start_ea,    ida_ida.inf_set_privrange_start_ea),
+    INF_START_SP              : (ida_ida.inf_get_start_sp,              ida_ida.inf_set_start_sp),
+    INF_START_SS              : (ida_ida.inf_get_start_ss,              ida_ida.inf_set_start_ss),
+    INF_STRLIT_BREAK          : (ida_ida.inf_get_strlit_break,          ida_ida.inf_set_strlit_break),
+    INF_STRLIT_FLAGS          : (ida_ida.inf_get_strlit_flags,          ida_ida.inf_set_strlit_flags),
+    INF_STRLIT_PREF           : (ida_ida.inf_get_strlit_pref,           ida_ida.inf_set_strlit_pref),
+    INF_STRLIT_SERNUM         : (ida_ida.inf_get_strlit_sernum,         ida_ida.inf_set_strlit_sernum),
+    INF_STRLIT_ZEROES         : (ida_ida.inf_get_strlit_zeroes,         ida_ida.inf_set_strlit_zeroes),
+    INF_STRTYPE               : (ida_ida.inf_get_strtype,               ida_ida.inf_set_strtype),
+    INF_TYPE_XREFNUM          : (ida_ida.inf_get_type_xrefnum,          ida_ida.inf_set_type_xrefnum),
+    INF_VERSION               : (ida_ida.inf_get_version,               ida_ida.inf_set_version),
+    INF_XREFFLAG              : (ida_ida.inf_get_xrefflag,              ida_ida.inf_set_xrefflag),
+    INF_XREFNUM               : (ida_ida.inf_get_xrefnum,               ida_ida.inf_set_xrefnum),
+}
 
 def get_inf_attr(attr):
     """
+    Deprecated. Please ida_ida.inf_get_* instead.
     """
-    if attr == INF_PROCNAME:
-        return eval_idc("get_processor_name()")
-    v = eval_idc("get_inf_attr(%d)" % attr)
-    if v < 0 and not attr in _signed_inf_attrs:
-        if abs(v) < (1 << 32):
-            v = (1 << 32) + v
-        else:
-            v = (1 << 64) + v
-    return v
+    return _INF_attrs_accessors[attr][0]()
 
 def set_inf_attr(attr, value):
-    if attr == INF_PROCNAME:
-        raise NotImplementedError("Please use ida_idp.set_processor_type() to change processor")
-    # We really want to go through IDC's equivalent, because it might
-    # have side-effects (i.e., send a notification, etc...)
-    return eval_idc("set_inf_attr(%d, %d)" % (attr, value))
+    """
+    Deprecated. Please ida_ida.inf_set_* instead.
+    """
+    _INF_attrs_accessors[attr][1](value)
+    return 1
 
 set_processor_type  = ida_idp.set_processor_type
 
