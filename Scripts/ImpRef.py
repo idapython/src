@@ -23,7 +23,7 @@ def find_imported_funcs(dllname):
 
     imports = []
     nimps = ida_nalt.get_import_module_qty()
-    for i in xrange(0, nimps):
+    for i in range(0, nimps):
         name = ida_nalt.get_import_module_name(i)
         if re.match(dllname, name, re.IGNORECASE) is None:
             continue

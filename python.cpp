@@ -1853,8 +1853,6 @@ static void init_ida_modules()
 // Initialize the Python environment
 bool IDAPython_Init(void)
 {
-
-  msg("!!!!0000\n");  
   if ( Py_IsInitialized() != 0 )
     return true;
 
@@ -1901,8 +1899,6 @@ bool IDAPython_Init(void)
   }
 #endif
 
-
-msg("!!!!0000\n");  
   // Read configuration value
   read_config_file("python.cfg", opts, qnumber(opts));
   if ( g_alert_auto_scripts )
@@ -1967,8 +1963,6 @@ msg("!!!!0000\n");
 
   init_ida_modules();
 
-  msg("!!!!-111111111\n"); 
-
 #ifdef Py_DEBUG
   msg("HexraysPython: Python compiled with DEBUG enabled.\n");
 #endif
@@ -1996,16 +1990,13 @@ msg("!!!!0000\n");
 #else
           "False"
 #endif
-                  );
-
-   msg("!!!!0000\n");                
+                  );               
 
   if (  extapi.PyRun_SimpleString_ptr(init_code.c_str()) != 0 )
   {
     warning("IDAPython: error executing bootstrap code");
     return false;
   }
-  msg("!!!!1111\n");
 
 
   // Install extlang. Needs to be done before running init.py
@@ -2013,8 +2004,7 @@ msg("!!!!0000\n");
   if ( g_namespace_aware )
     extlang_python.flags |= EXTLANG_NS_AWARE;
   install_extlang(&extlang_python);
-  
-  msg("!!!!!!222222\n");
+
 
   // Execute init.py (for Python side initialization)
   qmakepath(path, MAXSTR, g_idapython_dir, S_INIT_PY);
@@ -2025,7 +2015,6 @@ msg("!!!!0000\n");
     // Try to fetch a one line error string. We must do it before printing
     // the traceback information. Make sure that the exception is not cleared
     handle_python_error(&errbuf, false);
-     msg("!!!!!!3333 %s\n", path);
     // Print the exception traceback
      extapi.PyRun_SimpleString_ptr("import traceback;traceback.print_exc();");
 
@@ -2034,11 +2023,9 @@ msg("!!!!0000\n");
             "\n"
             "Refer to the message window to see the full error log.", errbuf.c_str());
 
-    msg("!!!!!!xxxxx %s\n", path);
     remove_extlang(&extlang_python);
     return false;
   }
-    msg("!!!!!!3333\n");
   // Init pywraps and notify_when
   if ( !init_pywraps() || !pywraps_nw_init() )
   {
@@ -2073,7 +2060,6 @@ msg("!!!!0000\n");
   PyEval_ReleaseThread(PyThreadState_Get());
 
   g_instance_initialized = true;
-    msg("!!!!!!444444\n");
   return true;
 }
 

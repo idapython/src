@@ -49,11 +49,11 @@ def calc_switch_cases(ea, si):
 
     The returned information can be used as follows:
 
-        for idx in xrange(len(results.cases)):
+        for idx in range(len(results.cases)):
             cur_case = results.cases[idx]
-            for cidx in xrange(len(cur_case)):
-                print "case: %d" % cur_case[cidx]
-            print "  goto 0x%x" % results.targets[idx]
+            for cidx in range(len(cur_case)):
+                print("case: %d" % cur_case[cidx])
+            print("  goto 0x%x" % results.targets[idx])
 
     @param ea: address of the 'indirect jump' instruction
     @param si: switch information

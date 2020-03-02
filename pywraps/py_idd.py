@@ -43,7 +43,7 @@ class Appcall_array__(object):
             return obj
         # at this point, we are sure we have an "idc list"
         # let us convert to a Python list
-        return [getattr(obj, str(x)) for x in xrange(0, self.__size)]
+        return [getattr(obj, str(x)) for x in range(0, self.__size)]
 
     def unpack(self, buf, as_list=True):
         """Unpacks an array back into a list or an object"""

@@ -20,7 +20,9 @@ def get_manual_regions():
 static PyObject *py_get_manual_regions()
 {
   meminfo_vec_t ranges;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   get_manual_regions(&ranges);
+  SWIG_PYTHON_THREAD_END_ALLOW;
   return meminfo_vec_t_to_py(ranges);
 }
 
@@ -53,6 +55,7 @@ def refresh_debugger_memory():
 */
 static PyObject *refresh_debugger_memory()
 {
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   invalidate_dbgmem_config();
   invalidate_dbgmem_contents(BADADDR, 0);
 
@@ -62,7 +65,7 @@ static PyObject *refresh_debugger_memory()
 
   // Invalidate the cache
   is_mapped(0);
-
+  SWIG_PYTHON_THREAD_END_ALLOW;
   PYW_GIL_CHECK_LOCKED_SCOPE();
   Py_RETURN_NONE;
 }

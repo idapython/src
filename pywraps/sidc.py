@@ -276,7 +276,7 @@ class insn_t(object):
         self.n = noperands
 
         # create operands
-        for i in xrange(0, noperands):
+        for i in range(0, noperands):
             op = op_t()
             op.n = i
             self.ops.append(op)

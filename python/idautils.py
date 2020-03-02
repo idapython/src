@@ -178,7 +178,7 @@ def XrefsTo(ea, flags=0):
     Return all references to address 'ea'
 
     @param ea: Reference address
-    @param flags: any of ida_xref.XREF_* flags
+    @param flags: one of ida_xref.XREF_ALL (default), ida_xref.XREF_FAR, ida_xref.XREF_DATA
 
     Example::
            for xref in XrefsTo(here(), 0):

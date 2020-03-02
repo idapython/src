@@ -44,7 +44,7 @@ class NearestName(object):
 
 
     def __iter__(self):
-        return (self._get_item(index) for index in xrange(0, len(self._addrs)))
+        return (self._get_item(index) for index in range(0, len(self._addrs)))
 
 
     def __getitem__(self, index):
