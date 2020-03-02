@@ -75650,6 +75650,7 @@ get_idb_path()
 Help on function get_inf_attr in module idc:
 
 get_inf_attr(attr)
+    Deprecated. Please ida_ida.inf_get_* instead.
 
 Help on function get_input_file_path in module ida_nalt:
 
@@ -78339,6 +78340,7 @@ set_ida_state(*args) -> 'idastate_t'
 Help on function set_inf_attr in module idc:
 
 set_inf_attr(attr, value)
+    Deprecated. Please ida_ida.inf_set_* instead.
 
 Help on function set_local_type in module idc:
 
