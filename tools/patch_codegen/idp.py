@@ -31,6 +31,19 @@ if ( __argcnt == 2 )
   }
 }
 """)),
+        ],
 
+    "SwigDirector_IDP_Hooks::ev_set_idp_options" : [
+        (
+            "repl_text",
+            (
+                "obj2 = SWIG_NewPointerObj(SWIG_as_voidptr(value), SWIGTYPE_p_void,  0 );",
+                (
+                    "obj2 = new_PyObject_from_idpopt_value(value_type, value);",
+                    "  if ( ((PyObject *) obj2) == nullptr )",
+                    "    Swig::DirectorException::raise(\"Unknown 'value_type'\");",
+                ),
+            ),
+        ),
     ],
 }

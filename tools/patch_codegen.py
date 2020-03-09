@@ -223,7 +223,10 @@ with open(args.input) as f:
                 elif patch_kind == "repl_text":
                     idx = line.find(patch_data[0])
                     if idx > -1:
-                        subst = line.rstrip().replace(patch_data[0], patch_data[1])
+                        repl = patch_data[1]
+                        if not isinstance(repl, str):
+                            repl = "\n".join(repl)
+                        subst = line.rstrip().replace(patch_data[0], repl)
                         subst = "%s %s" % (subst, patched_cmt)
                 elif patch_kind == "insert_before_text":
                     idx = line.find(patch_data[0])

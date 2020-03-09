@@ -181,4 +181,9 @@ recipe = {
             "convertor_pass_args" : True,
         }
     },
+    "ev_set_idp_options" : {
+        "params" : {
+            "errbuf" : { "suppress_for_call" : True, "qnotused" : True },
+        },
+    },
 }

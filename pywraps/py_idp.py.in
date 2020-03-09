@@ -131,10 +131,11 @@ class processor_t(IDP_Hooks):
     """
     Base class for all processor module scripts
 
-    A processor_t instance is both an ida_idp.IDP_Hooks, and
-    an ida_idp.IDB_Hooks at the same time: any method of
-    those two classes can be overridden in your processor_t
-    subclass.
+    A processor_t instance is both an ida_idp.IDP_Hooks, and an
+    ida_idp.IDB_Hooks at the same time: any method of those two classes
+    can be overridden in your processor_t subclass (with the exception of
+    'ida_idp.IDP_Hooks.ev_init' (replaced with processor_t.__init__),
+    and 'ida_idp.IDP_Hooks.ev_term' (replaced with processor_t.__del__)).
     """
     def __init__(self):
         IDP_Hooks.__init__(self, ida_idaapi.HBF_CALL_WITH_NEW_EXEC)
@@ -220,7 +221,7 @@ class processor_t(IDP_Hooks):
     def ev_endbinary(self, *args):
         return self._get_notify("endbinary")(*args)
 
-    def ev_set_idp_options(self, keyword, value_type, value):
+    def ev_set_idp_options(self, keyword, value_type, value, idb_loaded):
         res = self._get_notify("set_idp_options", unimp_val=None)(keyword, value_type, value)
         if res is None:
             return 0

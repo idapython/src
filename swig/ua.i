@@ -67,8 +67,8 @@
     return wrapped_array_t<op_t,UA_MAXOP>($self->ops);
   }
   op_t *__get_operand__(int n) { QASSERT(30502, n >= 0 && n < UA_MAXOP); return &($self->ops[n]); }
-  uint16 __get_auxpref__() { return $self->auxpref;  }
-  void __set_auxpref__(uint16 v) { $self->auxpref = v; }
+  uint32 __get_auxpref__() { return $self->auxpref;  }
+  void __set_auxpref__(uint32 v) { $self->auxpref = v; }
 
   void assign(const insn_t &other) { *($self) = other; }
 

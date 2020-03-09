@@ -621,6 +621,26 @@ struct IDP_Hooks : public hooks_base_t
     return ret;
   }
 
+protected:
+  static PyObject *new_PyObject_from_idpopt_value(
+        int value_type,
+        const void *value)
+  {
+    switch ( value_type )
+    {
+      case IDPOPT_STR:
+        return IDAPyStr_FromUTF8((const char *) value);
+      case IDPOPT_NUM:
+        return IDAPyInt_FromLong(*(const uval_t *) value);
+      case IDPOPT_BIT:
+        return IDAPyInt_FromLong(*(const int *) value);
+      case IDPOPT_I64:
+        return PyLong_FromLongLong(*(const int64 *) value);
+      default:
+        return nullptr;
+    }
+  }
+
 private:
   static ssize_t bool_to_insn_t_size(bool in, const insn_t *insn) { return in ? insn->size : 0; }
   static ssize_t bool_to_1or0(bool in) { return in ? 1 : 0; }

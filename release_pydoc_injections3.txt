@@ -41265,7 +41265,7 @@ class IDP_Hooks(builtins.object)
  |      ev_set_code16_mode(self, ea, code16) -> int
  |  
  |  ev_set_idp_options(self, *args) -> 'int'
- |      ev_set_idp_options(self, keyword, value_type, value, errbuf, idb_loaded) -> int
+ |      ev_set_idp_options(self, keyword, value_type, value, idb_loaded) -> int
  |  
  |  ev_set_proc_options(self, *args) -> 'int'
  |      ev_set_proc_options(self, options, confidence) -> int
@@ -42632,8 +42632,8 @@ class processor_t(IDP_Hooks)
  |          - If returns value <0, then the kernel should
  |            not rename it. See also the 'renamed' event
  |  
- |  ev_set_idp_options(self, keyword, value_type, value)
- |      ev_set_idp_options(self, keyword, value_type, value, errbuf, idb_loaded) -> int
+ |  ev_set_idp_options(self, keyword, value_type, value, idb_loaded)
+ |      ev_set_idp_options(self, keyword, value_type, value, idb_loaded) -> int
  |  
  |  ev_set_proc_options(self, *args)
  |      ev_set_proc_options(self, options, confidence) -> int
@@ -71611,8 +71611,8 @@ class insn_t(builtins.object)
  |  
  |  Methods defined here:
  |  
- |  __get_auxpref__(self, *args) -> 'uint16'
- |      __get_auxpref__(self) -> uint16
+ |  __get_auxpref__(self, *args) -> 'uint32'
+ |      __get_auxpref__(self) -> uint32
  |  
  |  __get_operand__(self, *args) -> 'op_t *'
  |      __get_operand__(self, n) -> op_t
@@ -71705,7 +71705,7 @@ class insn_t(builtins.object)
  |      list of weak references to the object (if defined)
  |  
  |  auxpref
- |      __get_auxpref__(self) -> uint16
+ |      __get_auxpref__(self) -> uint32
  |  
  |  cs
  |      insn_t_cs_get(self) -> ea_t
