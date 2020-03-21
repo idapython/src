@@ -15,16 +15,16 @@ import idautils
 
 #--------------------------------------------------------------------------
 class assemble_idp_hook_t(idaapi.IDP_Hooks):
-    def assemble(self, ea, cs, ip, use32, line):
+    def ev_assemble(self, ea, cs, ip, use32, line):
         line = line.strip()
-        if line == "xor eax, eax":
-            return "\x33\xC0"
-        elif line == "nop":
+        if line == "zero eax":
+            return b"\x33\xC0"
+        elif line == "nothing":
             # Decode current instruction to figure out its size
             cmd = idautils.DecodeInstruction(ea)
             if cmd:
                 # NOP all the instruction bytes
-                return "\x90" * cmd.size
+                return b"\x90" * cmd.size
         return None
 
 
