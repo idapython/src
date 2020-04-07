@@ -302,7 +302,7 @@ class Form(object):
         """
         String label control
         """
-        def __init__(self, value, tp=None, size=1024):
+        def __init__(self, value, tp=None, size=ida_pro.MAXSTR):
             """
             Type field can be one of:
             A - ascii string
@@ -524,7 +524,7 @@ class Form(object):
         """
         def __init__(self,
                      tp=None,
-                     width=1024,
+                     width=ida_pro.MAXSTR,
                      swidth=40,
                      hlp=None,
                      value=None,
@@ -1356,7 +1356,7 @@ class Form(object):
         elif isinstance(ctrl, (Form.GroupItemControl, Form.GroupControl)):
             return (2, 0)
         elif isinstance(ctrl, Form.StringLabel):
-            return (3, min(_ida_kernwin.MAXSTR, ctrl.size))
+            return (3, min(ida_pro.MAXSTR, ctrl.size))
         elif isinstance(ctrl, Form.ColorInput):
             return (4, 0)
         elif isinstance(ctrl, Form.NumericInput):

@@ -124,6 +124,8 @@ The end!
                 self.rBlue.id  : 0xFF0000,
             }
             self.SetControlValue(self.iColor1, color[fid])
+        elif fid == self.iColor1.id:
+            print("Color changed: %06x" % self.GetControlValue(self.iColor1))
         else:
             print(">>fid:%d" % fid)
         return 1

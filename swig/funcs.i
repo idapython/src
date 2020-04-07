@@ -19,14 +19,20 @@
 %ignore func_md_t::cbsize;
 %ignore func_pat_t::cbsize;
 
+%ignore func_t::llabelqty;
+%ignore func_t::llabels;
 %template (stkpnt_array) dynamic_wrapped_array_t<stkpnt_t>;
 %template (regvar_array) dynamic_wrapped_array_t<regvar_t>;
 %template (range_array) dynamic_wrapped_array_t<range_t>;
+%template (regarg_array) dynamic_wrapped_array_t<regarg_t>;
+
 
 %extend func_t
 {
   dynamic_wrapped_array_t<stkpnt_t> __get_points__()
   {
+    if ( $self->pntqty > 0 && $self->points == NULL ) // force load
+      get_sp_delta($self, $self->start_ea);
     return dynamic_wrapped_array_t<stkpnt_t>($self->points, $self->pntqty);
   }
 
@@ -42,10 +48,19 @@
     return dynamic_wrapped_array_t<range_t>($self->tails, $self->tailqty);
   }
 
+
+  dynamic_wrapped_array_t<regarg_t> __get_regargs__()
+  {
+    if ( $self->regargqty > 0 && $self->regargs == NULL ) // force load
+      read_regargs($self);
+    return dynamic_wrapped_array_t<regarg_t>($self->regargs, $self->regargqty);
+  }
+
   %pythoncode {
     points = property(__get_points__)
     regvars = property(__get_regvars__)
     tails = property(__get_tails__)
+    regargs = property(__get_regargs__)
   }
 }
 

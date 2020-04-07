@@ -11874,6 +11874,9 @@ class func_t(ida_range.range_t)
  |  __get_points__(self, *args)
  |      __get_points__(self) -> stkpnt_array
  |  
+ |  __get_regargs__(self, *args)
+ |      __get_regargs__(self) -> regarg_array
+ |  
  |  __get_regvars__(self, *args)
  |      __get_regvars__(self) -> regvar_array
  |  
@@ -11921,12 +11924,6 @@ class func_t(ida_range.range_t)
  |  frsize
  |      func_t_frsize_get(self) -> asize_t
  |  
- |  llabelqty
- |      func_t_llabelqty_get(self) -> int
- |  
- |  llabels
- |      func_t_llabels_get(self) -> llabel_t *
- |  
  |  owner
  |      func_t_owner_get(self) -> ea_t
  |  
@@ -11946,7 +11943,7 @@ class func_t(ida_range.range_t)
  |      func_t_regargqty_get(self) -> int
  |  
  |  regargs
- |      func_t_regargs_get(self) -> regarg_t
+ |      __get_regargs__(self) -> regarg_array
  |  
  |  regvarqty
  |      func_t_regvarqty_get(self) -> int
@@ -12600,6 +12597,54 @@ reanalyze_noret_flag(*args)
     if it is already present. It just plans to reanalysis.
     
     @param ea (C++: ea_t)
+
+Help on class regarg_array in module ida_funcs:
+
+class regarg_array(__builtin__.object)
+ |  Proxy of C++ dynamic_wrapped_array_t< regarg_t > class.
+ |  
+ |  Methods defined here:
+ |  
+ |  __getitem__(self, *args)
+ |      __getitem__(self, i) -> regarg_t
+ |  
+ |  __init__(self, *args)
+ |      __init__(self, _data, _count) -> regarg_array
+ |  
+ |  __iter__ = _bounded_getitem_iterator(self)
+ |      Helper function, to be set as __iter__ method for qvector-, or array-based classes.
+ |  
+ |  __len__(self, *args)
+ |      __len__(self) -> size_t
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  __setitem__(self, *args)
+ |      __setitem__(self, i, v)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  count
+ |      regarg_array_count_get(self) -> size_t
+ |  
+ |  data
+ |      regarg_array_data_get(self) -> regarg_t
+ |  
+ |  thisown
+ |      The membership flag
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  __swig_destroy__ = <built-in function delete_regarg_array>
+ |      delete_regarg_array(self)
 
 Help on class regarg_t in module ida_funcs:
 
