@@ -107,7 +107,7 @@ if ida_hexrays.init_hexrays_plugin():
                     mbr,
                     hf,
                     None,
-                    ida_hexrays.DECOMP_WARNINGS,
+                    ida_hexrays.DECOMP_WARNINGS | ida_hexrays.DECOMP_NO_CACHE,
                     ida_hexrays.MMAT_PREOPTIMIZED)
                 if mba:
                     merr = mba.build_graph()

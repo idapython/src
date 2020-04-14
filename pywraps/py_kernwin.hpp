@@ -1122,13 +1122,12 @@ bool py_attach_dynamic_action_to_popup(
 {
   bool ok = attach_dynamic_action_to_popup(
           widget, popup_handle, *desc, popuppath, flags);
-  if ( ok )
-    // Set the handler to null, so the desc won't destroy
-    // it, as it noticed ownership was taken by IDA.
-    // In addition, we don't need to register into the
-    // 'py_action_handlers', because IDA will destroy the
-    // handler as soon as the popup menu is closed.
-    desc->handler = NULL;
+  // If attaching
+  //  * succeeded: the action (and its handler) will be deleted after
+  //    the popup is dismissed,
+  //  * fails: the action (and its handler) will be deleted right away
+  // Therefore, we must always drop ownership.
+  desc->handler = NULL;
   return ok;
 }
 
