@@ -79,14 +79,12 @@ def apply_type(ti, ea, tp_name, py_type, py_fields, flags)
 */
 static bool py_apply_type(
         til_t *ti,
-        const bytevec_t &_type,
-        const bytevec_t &_fields,
+        const type_t *type,
+        const p_list *fields,
         ea_t ea,
         int flags)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  const type_t *type   = (const type_t *) _type.begin();
-  const p_list *fields = (const p_list *) _fields.begin();
   bool rc;
   Py_BEGIN_ALLOW_THREADS;
   struc_t *sptr;
@@ -161,14 +159,12 @@ def py_unpack_object_from_idb(ti, tp, fields, ea, pio_flags = 0):
 */
 PyObject *py_unpack_object_from_idb(
         til_t *ti,
-        const bytevec_t &_type,
-        const bytevec_t &_fields,
+        const type_t *type,
+        const p_list *fields,
         ea_t ea,
         int pio_flags = 0)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  const type_t *type   = (const type_t *) _type.begin();
-  const p_list *fields = (const p_list *) _fields.begin();
   idc_value_t idc_obj;
   error_t err;
   Py_BEGIN_ALLOW_THREADS;
@@ -218,13 +214,11 @@ def unpack_object_from_bv(ti, tp, fields, bytes, pio_flags = 0):
 */
 PyObject *py_unpack_object_from_bv(
         til_t *ti,
-        const bytevec_t &_type,
-        const bytevec_t &_fields,
+        const type_t *type,
+        const p_list *fields,
         const bytevec_t &bytes,
         int pio_flags = 0)
 {
-  const type_t *type   = (const type_t *) _type.begin();
-  const p_list *fields = (const p_list *) _fields.begin();
   idc_value_t idc_obj;
   error_t err;
   Py_BEGIN_ALLOW_THREADS;
@@ -272,8 +266,8 @@ def pack_object_to_idb(obj, ti, tp, fields, ea, pio_flags = 0):
 PyObject *py_pack_object_to_idb(
         PyObject *py_obj,
         til_t *ti,
-        const bytevec_t &_type,
-        const bytevec_t &_fields,
+        const type_t *type,
+        const p_list *fields,
         ea_t ea,
         int pio_flags = 0)
 {
@@ -284,9 +278,6 @@ PyObject *py_pack_object_to_idb(
   borref_t py_obj_ref(py_obj);
   if ( !pyvar_to_idcvar_or_error(py_obj_ref, &idc_obj) )
     return NULL;
-
-  const type_t *type   = (const type_t *) _type.begin();
-  const p_list *fields = (const p_list *) _fields.begin();
 
   // Pack
   // error_t err;
@@ -321,8 +312,8 @@ def pack_object_to_bv(obj, ti, tp, fields, base_ea, pio_flags = 0):
 PyObject *py_pack_object_to_bv(
         PyObject *py_obj,
         til_t *ti,
-        const bytevec_t &_type,
-        const bytevec_t &_fields,
+        const type_t *type,
+        const p_list *fields,
         ea_t base_ea,
         int pio_flags=0)
 {
@@ -333,9 +324,6 @@ PyObject *py_pack_object_to_bv(
   borref_t py_obj_ref(py_obj);
   if ( !pyvar_to_idcvar_or_error(py_obj_ref, &idc_obj) )
     return NULL;
-
-  const type_t *type   = (const type_t *) _type.begin();
-  const p_list *fields = (const p_list *) _fields.begin();
 
   // Pack
   relobj_t bytes;
@@ -484,15 +472,13 @@ int idc_get_local_type(int ordinal, int flags, char *buf, size_t maxsize)
 
 //-------------------------------------------------------------------------
 PyObject *idc_print_type(
-        const bytevec_t &_type,
-        const bytevec_t &_fields,
+        const type_t *type,
+        const p_list *fields,
         const char *name,
         int flags)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   qstring res;
-  const type_t *type   = (const type_t *) _type.begin();
-  const p_list *fields = (const p_list *) _fields.begin();
   bool ok;
   Py_BEGIN_ALLOW_THREADS;
   tinfo_t tif;

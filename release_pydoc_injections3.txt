@@ -64560,7 +64560,7 @@ apply_tinfo_to_stkarg(*args) -> 'bool'
 Help on function apply_type in module ida_typeinf:
 
 apply_type(*args) -> 'bool'
-    apply_type(ti, _type, _fields, ea, flags) -> bool
+    apply_type(ti, type, fields, ea, flags) -> bool
     
     
     Apply the specified type to the address
@@ -66830,7 +66830,7 @@ idc_parse_types(*args) -> 'int'
 Help on function idc_print_type in module ida_typeinf:
 
 idc_print_type(*args) -> 'PyObject *'
-    idc_print_type(_type, _fields, name, flags) -> PyObject *
+    idc_print_type(type, fields, name, flags) -> PyObject *
 
 Help on function idc_set_local_type in module ida_typeinf:
 
@@ -67631,7 +67631,7 @@ pack_idcobj_to_idb(*args) -> 'error_t'
 Help on function pack_object_to_bv in module ida_typeinf:
 
 pack_object_to_bv(*args) -> 'PyObject *'
-    pack_object_to_bv(py_obj, ti, _type, _fields, base_ea, pio_flags=0) -> PyObject *
+    pack_object_to_bv(py_obj, ti, type, fields, base_ea, pio_flags=0) -> PyObject *
     
     
     Packs a typed object to a string
@@ -67647,7 +67647,7 @@ pack_object_to_bv(*args) -> 'PyObject *'
 Help on function pack_object_to_idb in module ida_typeinf:
 
 pack_object_to_idb(*args) -> 'PyObject *'
-    pack_object_to_idb(py_obj, ti, _type, _fields, ea, pio_flags=0) -> PyObject *
+    pack_object_to_idb(py_obj, ti, type, fields, ea, pio_flags=0) -> PyObject *
     
     
     Write a typed object to the database.
@@ -70144,7 +70144,7 @@ unpack_idcobj_from_idb(*args) -> 'error_t'
 Help on function unpack_object_from_bv in module ida_typeinf:
 
 unpack_object_from_bv(*args) -> 'PyObject *'
-    unpack_object_from_bv(ti, _type, _fields, bytes, pio_flags=0) -> PyObject *
+    unpack_object_from_bv(ti, type, fields, bytes, pio_flags=0) -> PyObject *
     
     
     Unpacks a buffer into an object.
@@ -70161,7 +70161,7 @@ unpack_object_from_bv(*args) -> 'PyObject *'
 Help on function unpack_object_from_idb in module ida_typeinf:
 
 unpack_object_from_idb(*args) -> 'PyObject *'
-    unpack_object_from_idb(ti, _type, _fields, ea, pio_flags=0) -> PyObject *
+    unpack_object_from_idb(ti, type, fields, ea, pio_flags=0) -> PyObject *
 
 Help on class valstr_t in module ida_typeinf:
 
