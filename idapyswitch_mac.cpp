@@ -175,6 +175,7 @@ void pyver_tool_t::do_find_python_libs(pylib_entries_t *result) const
     "/Applications/Xcode.app/Contents/Developer/Library/Frameworks",
     "/usr/local/opt/python@3/Frameworks",
     "/usr/local/opt/python@2/Frameworks",
+    "/opt/local/Library/Frameworks",
   };
 
   struct ida_local python_framework_finder_t : public file_visitor_t
