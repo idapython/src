@@ -21,11 +21,12 @@
 
 %ignore func_t::llabelqty;
 %ignore func_t::llabels;
-%template (stkpnt_array) dynamic_wrapped_array_t<stkpnt_t>;
-%template (regvar_array) dynamic_wrapped_array_t<regvar_t>;
-%template (range_array) dynamic_wrapped_array_t<range_t>;
-%template (regarg_array) dynamic_wrapped_array_t<regarg_t>;
 
+%template (dyn_stkpnt_array) dynamic_wrapped_array_t<stkpnt_t>;
+%template (dyn_regvar_array) dynamic_wrapped_array_t<regvar_t>;
+%template (dyn_range_array) dynamic_wrapped_array_t<range_t>;
+%template (dyn_ea_array) dynamic_wrapped_array_t<ea_t>;
+%template (dyn_regarg_array) dynamic_wrapped_array_t<regarg_t>;
 
 %extend func_t
 {
@@ -48,6 +49,10 @@
     return dynamic_wrapped_array_t<range_t>($self->tails, $self->tailqty);
   }
 
+  dynamic_wrapped_array_t<ea_t> __get_referers__()
+  {
+    return dynamic_wrapped_array_t<ea_t>($self->referers, $self->refqty);
+  }
 
   dynamic_wrapped_array_t<regarg_t> __get_regargs__()
   {
@@ -60,6 +65,7 @@
     points = property(__get_points__)
     regvars = property(__get_regvars__)
     tails = property(__get_tails__)
+    referers = property(__get_referers__)
     regargs = property(__get_regargs__)
   }
 }

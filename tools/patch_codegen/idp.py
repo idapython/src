@@ -11,6 +11,7 @@
     "SwigDirector_IDP_Hooks::ev_get_bg_color" : [
 
         ("director_method_call_arity_cap", (
+            False, # add GIL lock
             "ev_get_bg_color",
             "(method , __argcnt == 2 ? (PyObject *) obj1 : (PyObject *) obj0, __argcnt == 2 ? (PyObject *) NULL : (PyObject *) obj1, NULL)",
             "(swig_get_self(), (PyObject *) swig_method_name , __argcnt == 2 ? (PyObject *) obj1 : (PyObject *) obj0, __argcnt == 2 ? (PyObject *) NULL : (PyObject *) obj1, NULL)")

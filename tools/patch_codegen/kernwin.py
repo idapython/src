@@ -1,7 +1,4 @@
 {
-    "vask_file" : [
-        ("va_copy", ("arg4", "temp")),
-    ],
     "SwigDirector_UI_Hooks::SwigDirector_UI_Hooks" : [
         ("maybe_collect_director_fixed_method_set",
          [
@@ -18,6 +15,7 @@
     ],
     "SwigDirector_UI_Hooks::populating_widget_popup" : [
         ("director_method_call_arity_cap", (
+            False, # add GIL lock
             "populating_widget_popup",
             "(method ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 3 ? NULL : (PyObject *)obj2), NULL)",
             "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 4 ? NULL : (PyObject *)obj2), NULL)",
@@ -25,6 +23,7 @@
     ],
     "SwigDirector_UI_Hooks::finish_populating_widget_popup" : [
         ("director_method_call_arity_cap", (
+            False, # add GIL lock
             "finish_populating_widget_popup",
             "(method ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 3 ? NULL : (PyObject *)obj2), NULL)",
             "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 4 ? NULL : (PyObject *)obj2), NULL)",

@@ -26,6 +26,7 @@ import ida_name
 import ida_netnode
 import ida_segment
 import ida_strlist
+import ida_struct
 import ida_ua
 import ida_xref
 
@@ -359,14 +360,14 @@ def StructMembers(sid):
     @note: This will not return 'holes' in structures/stack frames;
            it only returns defined structure members.
     """
-    m = idc.get_first_member(sid)
-    if m == -1:
+    sptr = ida_struct.get_struc(sid)
+    if sptr is None:
         raise Exception("No structure with ID: 0x%x" % sid)
-    while (m != ida_idaapi.BADADDR):
-        name = idc.get_member_name(sid, m)
+    for m in sptr.members:
+        name = idc.get_member_name(sid, m.soff)
         if name:
-            yield (m, name, idc.get_member_size(sid, m))
-        m = idc.get_next_offset(sid, m)
+            size = ida_struct.get_member_size(m)
+            yield (m.soff, name, size)
 
 
 def DecodePrecedingInstruction(ea):

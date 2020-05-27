@@ -14,49 +14,59 @@ static void py_get_int(PyObject *self, T *prm, const char *name)
 
 enum feature_t
 {
-  CFEAT_INIT      = 0x0001,
-  CFEAT_GETICON   = 0x0002,
-  CFEAT_GETATTR   = 0x0004,
-  CFEAT_INS       = 0x0008,
-  CFEAT_DEL       = 0x0010,
-  CFEAT_EDIT      = 0x0020,
-  CFEAT_ENTER     = 0x0040,
-  CFEAT_REFRESH   = 0x0080,
-  CFEAT_SELECT    = 0x0100,
-  CFEAT_ONCLOSE   = 0x0200,
-  CFEAT_EMBEDDED  = 0x0400,
+  CFEAT_INIT        = 0x0001,
+  CFEAT_GETICON     = 0x0002,
+  CFEAT_GETATTR     = 0x0004,
+  CFEAT_INS         = 0x0008,
+  CFEAT_DEL         = 0x0010,
+  CFEAT_EDIT        = 0x0020,
+  CFEAT_ENTER       = 0x0040,
+  CFEAT_REFRESH     = 0x0080,
+  CFEAT_SELECT      = 0x0100,
+  CFEAT_ONCLOSE     = 0x0200,
+  CFEAT_EMBEDDED    = 0x0400,
+  CFEAT_GETDIRTREE  = 0x0800,
+  CFEAT_INDEX2INODE = 0x1000,
 };
 
 //------------------------------------------------------------------------
 // we do not use virtual subclasses so we use #define for common code
-#define DEFINE_COMMON_CALLBACKS                                         \
-  virtual const void *get_obj_id(size_t *len) const ida_override        \
-  {                                                                     \
-    return mixin_get_obj_id(len);                                       \
-  }                                                                     \
-  virtual void *get_chooser_obj() ida_override                          \
-  {                                                                     \
-    return mixin_get_chooser_obj();                                     \
-  }                                                                     \
-  virtual bool idaapi init() ida_override                               \
-  {                                                                     \
-    return mixin_init(this);                                            \
-  }                                                                     \
-  virtual size_t idaapi get_count() const ida_override                  \
-  {                                                                     \
-    return mixin_get_count();                                           \
-  }                                                                     \
-  virtual void idaapi get_row(                                          \
-          qstrvec_t *cols,                                              \
-          int *icon_,                                                   \
-          chooser_item_attrs_t *attrs,                                  \
-          size_t n) const ida_override                                  \
-  {                                                                     \
-    mixin_get_row(cols, icon_, attrs, n, this);                         \
-  }                                                                     \
-  virtual void idaapi closed() ida_override                             \
-  {                                                                     \
-    mixin_closed(this);                                                 \
+#define DEFINE_COMMON_CALLBACKS                                  \
+  virtual const void *get_obj_id(size_t *len) const override     \
+  {                                                              \
+    return mixin_get_obj_id(len);                                \
+  }                                                              \
+  virtual void *get_chooser_obj() override                       \
+  {                                                              \
+    return mixin_get_chooser_obj();                              \
+  }                                                              \
+  virtual bool idaapi init() override                            \
+  {                                                              \
+    return mixin_init(this);                                     \
+  }                                                              \
+  virtual size_t idaapi get_count() const override               \
+  {                                                              \
+    return mixin_get_count();                                    \
+  }                                                              \
+  virtual void idaapi get_row(                                   \
+        qstrvec_t *cols,                                         \
+        int *icon_,                                              \
+        chooser_item_attrs_t *attrs,                             \
+        size_t n) const override                                 \
+  {                                                              \
+    mixin_get_row(cols, icon_, attrs, n, this);                  \
+  }                                                              \
+  virtual void idaapi closed() override                          \
+  {                                                              \
+    mixin_closed(this);                                          \
+  }                                                              \
+  virtual dirtree_t *idaapi get_dirtree() override               \
+  {                                                              \
+    return mixin_get_dirtree(this);                              \
+  }                                                              \
+  virtual inode_t idaapi index_to_inode(size_t n) const override \
+  {                                                              \
+    return mixin_index_to_inode(n);                              \
   }
 
 
@@ -89,23 +99,23 @@ struct py_chooser_props_t
   bool has_feature(feature_t f) const { return (features & f) == f; }
 
   static bool do_extract_from_pyobject(
-          py_chooser_props_t *out,
-          PyObject *o,
-          bool title_only,
-          qstring *errbuf);
+        py_chooser_props_t *out,
+        PyObject *o,
+        bool title_only,
+        qstring *errbuf);
 
   static bool extract_from_pyobject(
-          py_chooser_props_t *out,
-          PyObject *o,
-          qstring *errbuf)
+        py_chooser_props_t *out,
+        PyObject *o,
+        qstring *errbuf)
   {
     return do_extract_from_pyobject(out, o, /*title_only=*/ false, errbuf);
   }
 
   static bool get_title_from_pyobject(
-          qstring *out,
-          PyObject *o,
-          qstring *errbuf)
+        qstring *out,
+        PyObject *o,
+        qstring *errbuf)
   {
     py_chooser_props_t props;
     bool ok = do_extract_from_pyobject(&props, o, /*title_only=*/ true, errbuf);
@@ -214,6 +224,8 @@ bool py_chooser_props_t::do_extract_from_pyobject(
     { S_ON_REFRESH,          CFEAT_REFRESH, CH_CAN_REFRESH },
     { S_ON_SELECTION_CHANGE, CFEAT_SELECT,  0 },
     { S_ON_CLOSE,            CFEAT_ONCLOSE, 0 },
+    { S_ON_GET_DIRTREE,      CFEAT_GETDIRTREE, CH_HAS_DIRTREE },
+    { S_ON_INDEX_TO_INODE,   CFEAT_INDEX2INODE, CH_HAS_DIRTREE },
   };
   // we can forbid some callbacks explicitly
   uint32 forbidden_cb = 0;
@@ -253,6 +265,8 @@ bool py_chooser_props_t::do_extract_from_pyobject(
 struct py_chooser_mixin_t
 {
   ref_t self; // link to actual Python object
+  ref_t dirspec;
+  ref_t dirtree;
   py_chooser_props_t props;
 
   py_chooser_mixin_t(PyObject *_self, py_chooser_props_t &_props)
@@ -264,12 +278,14 @@ struct py_chooser_mixin_t
   {
     PYW_GIL_GET;
     self = newref_t(NULL);
+    dirspec = newref_t(NULL);
+    dirtree = newref_t(NULL);
   }
 
   bool has_feature(feature_t f) const { return props.has_feature(f); }
   static chooser_base_t *create_concrete_instance(
-          py_chooser_props_t &props,
-          PyObject *o);
+        py_chooser_props_t &props,
+        PyObject *o);
 
 protected:
   const void *mixin_get_obj_id(size_t *len) const { *len = sizeof(self.o); return self.o; }
@@ -277,12 +293,14 @@ protected:
   bool mixin_init(chooser_base_t *chobj);
   size_t mixin_get_count() const;
   void mixin_get_row(
-          qstrvec_t *cols,
-          int *icon_,
-          chooser_item_attrs_t *attrs,
-          size_t n,
-          const chooser_base_t *chobj) const;
+        qstrvec_t *cols,
+        int *icon_,
+        chooser_item_attrs_t *attrs,
+        size_t n,
+        const chooser_base_t *chobj) const;
   void mixin_closed(chooser_base_t *chobj);
+  dirtree_t *mixin_get_dirtree(const chooser_base_t *chobj);
+  inode_t mixin_index_to_inode(size_t n) const;
   void mixin_init_chooser_base_from_props(chooser_base_t *cb);
 };
 
@@ -415,6 +433,61 @@ void py_chooser_mixin_t::mixin_closed(chooser_base_t *chobj)
 }
 
 //-------------------------------------------------------------------------
+dirtree_t *py_chooser_mixin_t::mixin_get_dirtree(const chooser_base_t * /*chobj*/)
+{
+  if ( !has_feature(CFEAT_GETDIRTREE) )
+    return NULL;
+  PYW_GIL_GET;
+
+  pycall_res_t pyres(PyObject_CallMethod(self.o, (char *) S_ON_GET_DIRTREE, NULL));
+  if ( pyres.result == NULL )
+    return NULL;
+
+  if ( !PyTuple_Check(pyres.result.o) || PyTuple_Size(pyres.result.o) != 2 )
+  {
+GET_DIRTREE_BAD_RESULT:
+    PyErr_Format(PyExc_TypeError, "%s must return a tuple (dirspec_t, dirtree_t)", S_ON_GET_DIRTREE);
+    return NULL;
+  }
+
+  {
+    borref_t py_dirspec(PyTuple_GetItem(pyres.result.o, 0));
+    dirspec_t *dirspec_ptr = nullptr;
+    if ( !SWIG_IsOK(SWIG_ConvertPtr(py_dirspec.o, (void **) &dirspec_ptr, SWIGTYPE_p_dirspec_t, 0)) )
+      goto GET_DIRTREE_BAD_RESULT;
+    dirspec = py_dirspec;
+  }
+
+  dirtree_t *dirtree_ptr = nullptr;
+  {
+    borref_t py_dirtree(PyTuple_GetItem(pyres.result.o, 1));
+    if ( !SWIG_IsOK(SWIG_ConvertPtr(py_dirtree.o, (void **) &dirtree_ptr, SWIGTYPE_p_dirtree_t, 0)) )
+      goto GET_DIRTREE_BAD_RESULT;
+    dirtree = py_dirtree;
+  }
+
+  return dirtree_ptr;
+}
+
+//-------------------------------------------------------------------------
+inode_t py_chooser_mixin_t::mixin_index_to_inode(size_t n) const
+{
+  inode_t inode = BADADDR;
+  if ( has_feature(CFEAT_INDEX2INODE) )
+  {
+    PYW_GIL_GET;
+    pycall_res_t pyres(PyObject_CallMethod(self.o, (char *) S_ON_INDEX_TO_INODE, PY_BV_SZ, Py_ssize_t(n)));
+    if ( pyres.result != NULL )
+    {
+      uint64 u64;
+      if ( PyW_GetNumber(pyres.result.o, &u64) )
+        inode = inode_t(u64);
+    }
+  }
+  return inode;
+}
+
+//-------------------------------------------------------------------------
 void py_chooser_mixin_t::mixin_init_chooser_base_from_props(
         chooser_base_t *cb)
 {
@@ -472,37 +545,37 @@ public:
 
   DEFINE_COMMON_CALLBACKS
 
-  virtual cbret_t idaapi ins(ssize_t n) ida_override
+  virtual cbret_t idaapi ins(ssize_t n) override
   {
     cbret_t res;
     return _call(&res, CFEAT_INS, S_ON_INSERT_LINE, int(n)) ? res : chooser_t::ins(n);
   }
 
-  virtual cbret_t idaapi del(size_t n) ida_override
+  virtual cbret_t idaapi del(size_t n) override
   {
     cbret_t res;
     return _call(&res, CFEAT_DEL, S_ON_DELETE_LINE, int(n)) ? res : chooser_t::del(n);
   }
 
-  virtual cbret_t idaapi edit(size_t n) ida_override
+  virtual cbret_t idaapi edit(size_t n) override
   {
     cbret_t res;
     return _call(&res, CFEAT_EDIT, S_ON_EDIT_LINE, int(n)) ? res : chooser_t::edit(n);
   }
 
-  virtual cbret_t idaapi enter(size_t n) ida_override
+  virtual cbret_t idaapi enter(size_t n) override
   {
     cbret_t res;
     return _call(&res, CFEAT_ENTER, S_ON_SELECT_LINE, int(n)) ? res : chooser_t::enter(n);
   }
 
-  virtual cbret_t idaapi refresh(ssize_t n) ida_override
+  virtual cbret_t idaapi refresh(ssize_t n) override
   {
     cbret_t res;
     return _call(&res, CFEAT_REFRESH, S_ON_REFRESH, int(n)) ? res : chooser_t::refresh(n);
   }
 
-  virtual void idaapi select(ssize_t n) const ida_override
+  virtual void idaapi select(ssize_t n) const override
   {
     _call(NULL, CFEAT_SELECT, S_ON_SELECTION_CHANGE, int(n));
   }
@@ -555,37 +628,37 @@ public:
 
  DEFINE_COMMON_CALLBACKS
 
-  virtual cbres_t idaapi ins(sizevec_t *sel) ida_override
+  virtual cbres_t idaapi ins(sizevec_t *sel) override
   {
     cbres_t res = NOTHING_CHANGED;
     return _call(&res, CFEAT_INS, S_ON_INSERT_LINE, sel) ? res : chooser_multi_t::ins(sel);
   }
 
-  virtual cbres_t idaapi del(sizevec_t *sel) ida_override
+  virtual cbres_t idaapi del(sizevec_t *sel) override
   {
     cbres_t res = NOTHING_CHANGED;
     return _call(&res, CFEAT_DEL, S_ON_DELETE_LINE, sel) ? res : chooser_multi_t::del(sel);
   }
 
-  virtual cbres_t idaapi edit(sizevec_t *sel) ida_override
+  virtual cbres_t idaapi edit(sizevec_t *sel) override
   {
     cbres_t res = NOTHING_CHANGED;
     return _call(&res, CFEAT_EDIT, S_ON_EDIT_LINE, sel) ? res : chooser_multi_t::edit(sel);
   }
 
-  virtual cbres_t idaapi enter(sizevec_t *sel) ida_override
+  virtual cbres_t idaapi enter(sizevec_t *sel) override
   {
     cbres_t res = NOTHING_CHANGED;
     return _call(&res, CFEAT_ENTER, S_ON_SELECT_LINE, sel) ? res : chooser_multi_t::enter(sel);
   }
 
-  virtual cbres_t idaapi refresh(sizevec_t *sel) ida_override
+  virtual cbres_t idaapi refresh(sizevec_t *sel) override
   {
     cbres_t res = NOTHING_CHANGED;
     return _call(&res, CFEAT_REFRESH, S_ON_REFRESH, sel) ? res : chooser_multi_t::refresh(sel);
   }
 
-  virtual void idaapi select(const sizevec_t &_sel) const ida_override
+  virtual void idaapi select(const sizevec_t &_sel) const override
   {
     sizevec_t sel = _sel;
     _call(NULL, CFEAT_SELECT, S_ON_SELECTION_CHANGE, &sel);

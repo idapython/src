@@ -447,7 +447,7 @@ static ea_t py_internal_get_sreg_base(thid_t tid, int sreg_value)
 static ssize_t py_write_dbg_memory(ea_t ea, PyObject *py_buf, size_t size=size_t(-1))
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !dbg_can_query() || !IDAPyBytes_Check(py_buf) )
+  if ( !dbg_can_query(dbg) || !IDAPyBytes_Check(py_buf) )
     return -1;
   char *buf = NULL;
   Py_ssize_t sz;
@@ -473,6 +473,12 @@ def dbg_can_query():
     pass
 #</pydoc>
 */
+
+//-------------------------------------------------------------------------
+static bool py_dbg_can_query()
+{
+  return dbg_can_query(dbg);
+}
 
 //-------------------------------------------------------------------------
 static PyObject *py_set_reg_val(const char *regname, PyObject *o)

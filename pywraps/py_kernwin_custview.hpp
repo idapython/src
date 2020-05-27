@@ -132,10 +132,10 @@ class py_simplecustview_t
   };
 
   static bool idaapi s_cv_keydown(
-          TWidget * /*cv*/,
-          int vk_key,
-          int shift,
-          void *ud)
+        TWidget * /*cv*/,
+        int vk_key,
+        int shift,
+        void *ud)
   {
     PYW_GIL_GET;
     py_simplecustview_t *_this = (py_simplecustview_t *)ud;
@@ -196,7 +196,7 @@ class py_simplecustview_t
             break;
         }
         // fallthrough...
-      case ui_term:
+      case ui_database_closed:
         idapython_unhook_from_notification_point(HT_UI, s_ui_cb, _this);
         _this->on_close();
         _this->init_vars();
@@ -386,8 +386,8 @@ public:
   }
 
   bool set_range(
-          const place_t *minplace = NULL,
-          const place_t *maxplace = NULL)
+        const place_t *minplace = NULL,
+        const place_t *maxplace = NULL)
   {
     if ( widget == NULL )
       return false;

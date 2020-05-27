@@ -1,5 +1,5 @@
 from __future__ import print_function
-import idaapi
+import ida_idp
 import idautils
 
 """
@@ -14,7 +14,7 @@ import idautils
 """
 
 #--------------------------------------------------------------------------
-class assemble_idp_hook_t(idaapi.IDP_Hooks):
+class assemble_idp_hook_t(ida_idp.IDP_Hooks):
     def assemble(self, ea, cs, ip, use32, line):
         line = line.strip()
         if line == "xor eax, eax":

@@ -1,41 +1,39 @@
 from __future__ import print_function
-import idaapi
 
-PREFIX = idaapi.SCOLOR_INV + ' ' + idaapi.SCOLOR_INV
+import ida_lines
+import ida_idaapi
 
-class prefix_plugin_t(idaapi.plugin_t):
-    flags = 0
-    comment = "This is a user defined prefix sample plugin"
-    help = "This is help"
-    wanted_name = "user defined prefix"
-    wanted_hotkey = ""
+PREFIX = ida_lines.SCOLOR_INV + ' ' + ida_lines.SCOLOR_INV
 
-
-    def user_prefix(self, ea, lnnum, indent, line, bufsize):
-        #print("ea=%x lnnum=%d indent=%d line=%s bufsize=%d" % (ea, lnnum, indent, line, bufsize))
-
+class my_user_prefix_t(ida_lines.user_defined_prefix_t):
+    def get_user_defined_prefix(self, ea, insn, lnnum, indent, line):
         if (ea % 2 == 0) and indent == -1:
             return PREFIX
         else:
             return ""
 
 
+class prefix_plugin_t(ida_idaapi.plugin_t):
+    flags = 0
+    comment = "This is a user defined prefix sample plugin"
+    help = "This is help"
+    wanted_name = "user defined prefix"
+    wanted_hotkey = ""
+
+    def __init__(self):
+        self.prefix = None
+
     def init(self):
-        self.prefix_installed = idaapi.set_user_defined_prefix(8, self.user_prefix)
-        if self.prefix_installed:
-            print("prefix installed")
-
-        return idaapi.PLUGIN_KEEP
-
+        self.prefix = my_user_prefix_t(8)
+        print("prefix installed")
+        return ida_idaapi.PLUGIN_KEEP
 
     def run(self, arg):
         pass
 
-
     def term(self):
-        if self.prefix_installed:
-            idaapi.set_user_defined_prefix(0, None)
-            print("prefix uninstalled!")
+        self.prefix = None
+        print("prefix uninstalled!")
 
 
 def PLUGIN_ENTRY():

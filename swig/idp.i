@@ -9,11 +9,11 @@
 struct undo_records_t;
 %}
 
+%import "bitrange.hpp"
+
 // Ignore the following symbols
 %ignore rginfo;
-%ignore insn_t::get_canon_mnem;
-%ignore insn_t::get_canon_feature;
-%ignore insn_t::is_canon_insn;
+%ignore processor_t::is_canon_insn;
 %ignore bytes_t;
 %ignore IDPOPT_STR;
 %ignore IDPOPT_NUM;
@@ -26,10 +26,13 @@ struct undo_records_t;
 %ignore IDPOPT_BADVALUE;
 %ignore set_options_t;
 %ignore read_config;
+%ignore read_config2;
 %ignore read_config_file;
+%ignore read_config_file2;
 %ignore read_config_string;
 %ignore cfgopt_t;
 %ignore cfgopt_t__apply;
+%ignore cfgopt_t__apply2;
 %ignore parse_config_value;
 
 %define_Hooks_class(IDP);
@@ -45,9 +48,15 @@ struct undo_records_t;
 %ignore asm_t::get_type_name;
 %ignore instruc_t;
 %ignore processor_t;
-%ignore ph;
 %ignore IDP_Hooks::dispatch;
 %ignore _py_getreg;
+
+%ignore event_listener_t;
+%ignore hook_event_listener;
+%ignore unhook_event_listener;
+%ignore ignore_micro_t;
+%ignore procmod_t;
+%ignore plugmod_t;
 
 // @arnaud
 %ignore notify__calc_next_eas;
@@ -71,12 +80,18 @@ struct undo_records_t;
 %ignore notify__make_code;
 // @arnaud ^^^
 
+%template(reg_access_vec_t) qvector<reg_access_t>;
+
+// ph_calcrel
+%apply size_t *OUTPUT { size_t *out_consumed };
+%apply bytevec_t *vout { bytevec_t *out_relbits };
+
 // @arnaud ditch this once all modules are ported
 // temporary:
 %ignore out_old_data;
 %ignore out_old_specea;
 
-%nonnul_argument_prototype(
+%pywraps_nonnul_argument_prototype(
         static PyObject *AssembleLine(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *nonnul_line),
         const char *nonnul_line);
 

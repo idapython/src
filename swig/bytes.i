@@ -15,18 +15,13 @@
 %ignore is_visible_finally;
 %ignore setFlbits;
 %ignore clrFlbits;
-%ignore get_ascii_char;
 %ignore del_opinfo;
 %ignore del_one_opinfo;
-%ignore get_repeatable_cmt;
-%ignore get_any_indented_cmt;
-%ignore del_code_comments;
 %ignore coagulate;
 
 %ignore FlagsInit;
 %ignore FlagsTerm;
 %ignore FlagsReset;
-%ignore flush_flags;
 %ignore get_flags_linput;
 %ignore data_type_t::data_type_t();
 %ignore data_type_t::cbsize;

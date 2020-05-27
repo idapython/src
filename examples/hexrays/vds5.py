@@ -1,11 +1,11 @@
 from __future__ import print_function
 
-import ida_idaapi
 import ida_pro
 import ida_hexrays
 import ida_kernwin
 import ida_gdl
 import ida_lines
+import ida_idaapi
 
 ACTION_NAME = "vds5.py:displaygraph"
 ACTION_SHORTCUT = "Ctrl+Shift+G"
@@ -296,18 +296,31 @@ class display_graph_ah_t(ida_kernwin.action_handler_t):
 
 class vds5_hooks_t(ida_hexrays.Hexrays_Hooks):
     def populating_popup(self, widget, handle, vu):
-        idaapi.attach_action_to_popup(vu.ct, None, ACTION_NAME)
+        ida_kernwin.attach_action_to_popup(vu.ct, None, ACTION_NAME)
         return 0
 
-if ida_hexrays.init_hexrays_plugin():
-    ida_kernwin.register_action(
-        ida_kernwin.action_desc_t(
-            ACTION_NAME,
-            "Hex-Rays show C graph (IDAPython)",
-            display_graph_ah_t(),
-            ACTION_SHORTCUT))
-    vds5_hooks = vds5_hooks_t()
-    vds5_hooks.hook()
-else:
-    print('hexrays-graph: hexrays is not available.')
+# a plugin interface, boilerplate code
+class my_plugin_t(ida_idaapi.plugin_t):
+    flags = ida_idaapi.PLUGIN_HIDE
+    wanted_name = "Hex-Rays show C graph (IDAPython)"
+    wanted_hotkey = ""
+    comment = "Sample plugin5 for Hex-Rays decompiler"
+    help = ""
+    def init(self):
+        if ida_hexrays.init_hexrays_plugin():
+            ida_kernwin.register_action(
+                ida_kernwin.action_desc_t(
+                    ACTION_NAME,
+                    "Hex-Rays show C graph (IDAPython)",
+                    display_graph_ah_t(),
+                    ACTION_SHORTCUT))
+            self.vds5_hooks = vds5_hooks_t()
+            self.vds5_hooks.hook()
+            return ida_idaapi.PLUGIN_KEEP # keep us in the memory
+    def term(self):
+        self.vds5_hooks.unhook()
+    def run(self, arg):
+        pass
 
+def PLUGIN_ENTRY():
+    return my_plugin_t()

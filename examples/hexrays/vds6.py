@@ -51,15 +51,15 @@ def remove_spaces(sl):
     last = None # last seen character
     while True:
         # go until comments
+        if l.startswith("//"):
+            push(l)
+            break
         dbg("-" * 60)
         nchars = ida_lines.tag_advance(l, 1)
         push(l[0:nchars])
         l = l[nchars:]
         l = my_tag_skipcodes(l, out)
         if not l:
-            break
-        if l.startswith("//"):
-            push(l)
             break
         c = l[0]
         dbg("c: '%s', last: '%s', l: '%s'" % (c, last, l))
@@ -89,8 +89,22 @@ class vds6_hooks_t(ida_hexrays.Hexrays_Hooks):
             remove_spaces(sl);
         return 0
 
-if ida_hexrays.init_hexrays_plugin():
-    vds6_hooks = vds6_hooks_t()
-    vds6_hooks.hook()
-else:
-    print('remove spaces: hexrays is not available.')
+# a plugin interface, boilerplate code
+class my_plugin_t(ida_idaapi.plugin_t):
+    flags = ida_idaapi.PLUGIN_HIDE
+    wanted_name = "Hex-Rays space remover (IDAPython)"
+    wanted_hotkey = ""
+    comment = "Sample plugin6 for Hex-Rays decompiler"
+    help = ""
+    def init(self):
+        if ida_hexrays.init_hexrays_plugin():
+            self.vds6_hooks = vds6_hooks_t()
+            self.vds6_hooks.hook()
+            return ida_idaapi.PLUGIN_KEEP # keep us in the memory
+    def term(self):
+        self.vds6_hooks.unhook()
+    def run(self, arg):
+        pass
+
+def PLUGIN_ENTRY():
+    return my_plugin_t()

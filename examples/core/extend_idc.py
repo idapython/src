@@ -3,19 +3,13 @@ from __future__ import print_function
 # This is an example illustrating how to extend IDC from Python
 # (c) Hex-Rays
 #
-from idaapi import add_idc_func
 
-def py_power(n, e):
-    return n ** e
+import ida_expr
 
-desc = ext_idcfunc_t
-desc.name = "pow"
-desc.func = py_power,
-desc.args = (idaapi.VT_LONG, idaapi.VT_LONG),
-desc.defvals = ()
-desc.flags = 0
-ok = add_idc_func(desc)
-if ok:
-    print("Now the pow() will be present IDC!")
+if ida_expr.add_idc_func(
+        "pow",
+        lambda n, e: n ** e,
+        (ida_expr.VT_LONG, ida_expr.VT_LONG)):
+    print("The pow() function is now available in IDC")
 else:
     print("Failed to register pow() IDC function")

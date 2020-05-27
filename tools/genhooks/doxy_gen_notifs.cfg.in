@@ -1989,7 +1989,6 @@ PREDEFINED             = __cplusplus                        \
                          __NT__                             \
                          _MSC_VER                           \
                          UNICODE                            \
-                         NO_OBSOLETE_FUNCS                  \
                          define_place_exported_functions()= \
                          define_place_virtual_functions()=  \
                          AS_PRINTF()=                       \

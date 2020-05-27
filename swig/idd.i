@@ -5,6 +5,9 @@
 #include <err.h>
 %}
 
+%ignore dynamic_register_set_t;
+%ignore serialize_dynamic_register_set;
+%ignore deserialize_dynamic_register_set;
 %ignore free_debug_event;
 %ignore copy_debug_event;
 %ignore debugger_t;

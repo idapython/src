@@ -1,6 +1,6 @@
 #
 #      Hex-Rays Decompiler project
-#      Copyright (c) 2007-2019 by Hex-Rays, support@hex-rays.com
+#      Copyright (c) 2007-2020 by Hex-Rays, support@hex-rays.com
 #      ALL RIGHTS RESERVED.
 #
 #      Sample plugin for Hex-Rays Decompiler.
@@ -15,6 +15,7 @@ import ida_idaapi
 import ida_hexrays
 import ida_lines
 import ida_typeinf
+import ida_kernwin
 
 # --------------------------------------------------------------------------
 class func_stroff_ah_t(ida_kernwin.action_handler_t):
@@ -26,14 +27,16 @@ class func_stroff_ah_t(ida_kernwin.action_handler_t):
         vu = ida_hexrays.get_widget_vdui(ctx.widget)
         vu.get_current_item(ida_hexrays.USE_KEYBOARD)
 
-        # REGION1, will be referenced latter
+        # REGION1, will be referenced later
         # check that the current item is a union field
         if not vu.item.is_citem():
+            ida_kernwin.warning("Please position the cursor on a union member")
             return 0
         e = vu.item.e
         while True:
             op = e.op
             if op != ida_hexrays.cot_memptr and op != ida_hexrays.cot_memref:
+                ida_kernwin.warning("Please position the cursor on a union member")
                 return 0
             e = e.x
             if op == ida_hexrays.cot_memptr:
@@ -43,6 +46,7 @@ class func_stroff_ah_t(ida_kernwin.action_handler_t):
                 if ida_typeinf.remove_pointer(e.type).is_union():
                     break
             if not e.type.is_udt():
+                ida_kernwin.warning("Please position the cursor on a union member")
                 return 0
         # END REGION1
 
@@ -98,6 +102,7 @@ class func_stroff_ah_t(ida_kernwin.action_handler_t):
         # the item itself may be unaddressable.
         # TODO: find its addressable parent
         if ea == ida_idaapi.BADADDR:
+            ida_kernwin.warning("Sorry, the current item is not addressable")
             return 0
         # END REGION4
 
@@ -126,7 +131,7 @@ class func_stroff_ah_t(ida_kernwin.action_handler_t):
 
             def apply(self, opnum, path, top_tif, spath):
                 typename = ida_typeinf.print_tinfo('', 0, 0, ida_typeinf.PRTYPE_1LINE, top_tif, '', '')
-                idaapi.msg("User selected %s of type %s\n" % (spath, typename))
+                ida_kernwin.msg("User selected %s of type %s\n" % (spath, typename))
                 if path.empty():
                     return False
                 vu.cfunc.set_user_union_selection(self.ea, path)
@@ -151,16 +156,30 @@ class func_stroff_ah_t(ida_kernwin.action_handler_t):
 
 
 # --------------------------------------------------------------------------
-if ida_hexrays.init_hexrays_plugin():
-    print("Hex-rays version %s has been detected, Structure offsets ready to use" % ida_hexrays.get_hexrays_version())
-    ida_kernwin.register_action(
-        ida_kernwin.action_desc_t(
-            "vds17:strchoose",
-            "Structure offsets",
-            func_stroff_ah_t(),
-            "Shift+T"))
-else:
-    print('vds17: Hex-rays is not available.')
+# a plugin interface, boilerplate code
+class my_plugin_t(ida_idaapi.plugin_t):
+    flags = ida_idaapi.PLUGIN_HIDE
+    wanted_name = "Structure offsets (IDAPython)"
+    wanted_hotkey = ""
+    comment = "Sample plugin17 for Hex-Rays decompiler"
+    help = ""
+    def init(self):
+        if ida_hexrays.init_hexrays_plugin():
+            print("Hex-rays version %s has been detected, Structure offsets ready to use" % ida_hexrays.get_hexrays_version())
+            ida_kernwin.register_action(
+                ida_kernwin.action_desc_t(
+                    "vds17:strchoose",
+                    "Structure offsets",
+                    func_stroff_ah_t(),
+                    "Shift+T"))
+            return ida_idaapi.PLUGIN_KEEP # keep us in the memory
+    def term(self):
+        pass
+    def run(self, arg):
+        pass
+
+def PLUGIN_ENTRY():
+    return my_plugin_t()
 
 """
 # A few notes about the VDS17 sample

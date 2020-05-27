@@ -16,9 +16,9 @@ class py_custom_data_type_t : public data_type_t
 
   // may create data? NULL means always may
   static bool idaapi s_may_create_at(
-          void *ud,                       // user-defined data
-          ea_t ea,                        // address of the future item
-          size_t nbytes)                  // size of the future item
+        void *ud,                       // user-defined data
+        ea_t ea,                        // address of the future item
+        size_t nbytes)                  // size of the future item
   {
     py_custom_data_type_t *_this = (py_custom_data_type_t *)ud;
     PYW_GIL_GET;
@@ -36,11 +36,11 @@ class py_custom_data_type_t : public data_type_t
 
   // !=NULL means variable size datatype
   static asize_t idaapi s_calc_item_size(
-          // This function is used to determine
-          // size of the (possible) item at 'ea'
-          void *ud,                       // user-defined data
-          ea_t ea,                        // address of the item
-          asize_t maxsize)               // maximal size of the item
+        // This function is used to determine
+        // size of the (possible) item at 'ea'
+        void *ud,                       // user-defined data
+        ea_t ea,                        // address of the item
+        asize_t maxsize)               // maximal size of the item
   {
     PYW_GIL_GET;
     // Returns: 0-no such item can be created/displayed
@@ -136,8 +136,8 @@ public:
       // dtor to be called, which in turn will call this 'do_unregister' a
       // second time, but this is no problem since the dtid has already been
       // unregistered and thus we won't end up in this Py_XDECREF block.
+      dtid = -1; // modify the object now, otherwise it may get deleted
       Py_XDECREF(py_self);
-      dtid = -1;
     }
     return ok;
   }
@@ -176,14 +176,14 @@ private:
   PyObject *py_self;
   qstring df_name, df_menu_name, df_hotkey;
 
-  static bool idaapi s_print(             // convert to colored string
-          void *ud,                       // user-defined data
-          qstring *out,                   // output buffer. may be NULL
-          const void *value,              // value to print. may not be NULL
-          asize_t size,                   // size of value in bytes
-          ea_t current_ea,                // current address (BADADDR if unknown)
-          int operand_num,                // current operand number
-          int dtid)                       // custom data type id
+  static bool idaapi s_print(           // convert to colored string
+        void *ud,                       // user-defined data
+        qstring *out,                   // output buffer. may be NULL
+        const void *value,              // value to print. may not be NULL
+        asize_t size,                   // size of value in bytes
+        ea_t current_ea,                // current address (BADADDR if unknown)
+        int operand_num,                // current operand number
+        int dtid)                       // custom data type id
   {
     PYW_GIL_GET;
 
@@ -218,13 +218,13 @@ private:
     return ok;
   }
 
-  static bool idaapi s_scan(              // convert from uncolored string
-          void *ud,                       // user-defined data
-          bytevec_t *value,               // output buffer. may be NULL
-          const char *input,              // input string. may not be NULL
-          ea_t current_ea,                // current address (BADADDR if unknown)
-          int operand_num,                // current operand number (-1 if unknown)
-          qstring *errstr)                // buffer for error message
+  static bool idaapi s_scan(            // convert from uncolored string
+        void *ud,                       // user-defined data
+        bytevec_t *value,               // output buffer. may be NULL
+        const char *input,              // input string. may not be NULL
+        ea_t current_ea,                // current address (BADADDR if unknown)
+        int operand_num,                // current operand number (-1 if unknown)
+        qstring *errstr)                // buffer for error message
   {
     PYW_GIL_GET;
 
@@ -286,10 +286,10 @@ private:
     return ok;
   }
 
-  static void idaapi s_analyze(           // analyze custom data format occurrence
-          void *ud,                       // user-defined data
-          ea_t current_ea,                // current address (BADADDR if unknown)
-          int operand_num)                // current operand number
+  static void idaapi s_analyze(         // analyze custom data format occurrence
+        void *ud,                       // user-defined data
+        ea_t current_ea,                // current address (BADADDR if unknown)
+        int operand_num)                // current operand number
     // this callback can be used to create
     // xrefs from the current item.
     // this callback may be missing.
@@ -309,13 +309,13 @@ private:
   }
 public:
   py_custom_data_format_t(
-          PyObject *py_df,
-          const char *name,
-          asize_t value_size,
-          const char *menu_name,
-          int props,
-          const char *hotkey,
-          int32 text_width)
+        PyObject *py_df,
+        const char *name,
+        asize_t value_size,
+        const char *menu_name,
+        int props,
+        const char *hotkey,
+        int32 text_width)
   {
     memset(this, 0, sizeof(data_format_t));
     cbsize = sizeof(data_format_t);
@@ -381,8 +381,8 @@ public:
     if ( ok )
     {
       // see comment in py_custom_data_type_t::do_unregister()
-      Py_XDECREF(py_self);
       dfid = -1;
+      Py_XDECREF(py_self);
     }
     return ok;
   }
@@ -408,10 +408,10 @@ static int py_custom_data_format_t_get_id(data_format_t *_df)
 static void clear_custom_data_types_and_formats()
 {
   PYW_GIL_GET;
-  for ( size_t n = py_custom_data_types.size(); n > 0; --n )
-    py_custom_data_types[n-1]->do_unregister();
-  for ( size_t n = py_custom_data_formats.size(); n > 0; --n )
-    py_custom_data_formats[n-1]->do_unregister();
+  for ( ssize_t i=py_custom_data_types.size()-1; i >= 0; --i )
+    py_custom_data_types[i]->do_unregister();
+  for ( ssize_t i=py_custom_data_formats.size()-1; i >= 0; --i )
+    py_custom_data_formats[i]->do_unregister();
 }
 //</code(py_bytes_custdata)>
 

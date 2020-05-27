@@ -1,9 +1,10 @@
 from __future__ import print_function
-import idaapi
 
-class SayHi(idaapi.action_handler_t):
+import ida_kernwin
+
+class SayHi(ida_kernwin.action_handler_t):
     def __init__(self, message):
-        idaapi.action_handler_t.__init__(self)
+        ida_kernwin.action_handler_t.__init__(self)
         self.message = message
 
     def activate(self, ctx):
@@ -13,7 +14,7 @@ class SayHi(idaapi.action_handler_t):
     # You can implement update(), to inform IDA when:
     #  * your action is enabled
     #  * update() should queried again
-    # E.g., returning 'idaapi.AST_ENABLE_FOR_WIDGET' will
+    # E.g., returning 'ida_kernwin.AST_ENABLE_FOR_WIDGET' will
     # tell IDA that this action is available while the
     # user is in the current widget, and that update()
     # must be queried again once the user gives focus
@@ -25,7 +26,7 @@ class SayHi(idaapi.action_handler_t):
     # querying update() anymore until the user has moved
     # to another view..
     def update(self, ctx):
-        return idaapi.AST_ENABLE_FOR_WIDGET if ctx.widget_type == idaapi.BWN_DISASM else idaapi.AST_DISABLE_FOR_WIDGET
+        return ida_kernwin.AST_ENABLE_FOR_WIDGET if ctx.widget_type == ida_kernwin.BWN_DISASM else ida_kernwin.AST_DISABLE_FOR_WIDGET
 
 
 print("Creating a custom icon from raw data!")
@@ -49,12 +50,12 @@ icon_data = b"".join([
         b"\xF6\xC1\xED\x52\xB8\x77\xAB\x98\x3A\xCD\xC4\x73\x9D\x7C\x6F\xDE\xF9\xCF\x53\x0E\xFE\xA9\xCD\xAE\xB3\x87\xCE\x75\x35\x54\xE1\xD0\xCB\x47\x38\x39\x36\x88\xFF\x4D\xF8\x57\x41\x33",
         b"\xF1\xA4\x93\x0F\x00\x36\xAD\x3E\x4C\x6B\xC5\xC9\x5D\x77\x6A\x2F\xB4\x31\xA3\xC4\x40\x4F\x21\x0F\xD1\x4C\x3C\xE9\x2B\xE1\xF5\x0B\xD6\x90\xC8\x90\x4C\xE6\x35\xD0\xCC\x79\x5E\xFF",
         b"\x2E\xF8\x0B\x2F\x3D\xE5\xC3\x97\x06\xCF\xCF\x00\x00\x00\x00\x49\x45\x4E\x44\xAE\x42\x60\x82"])
-act_icon = idaapi.load_custom_icon(data=icon_data, format="png")
+act_icon = ida_kernwin.load_custom_icon(data=icon_data, format="png")
 
 hooks = None
 act_name = "example:add_action"
 
-if idaapi.register_action(idaapi.action_desc_t(
+if ida_kernwin.register_action(ida_kernwin.action_desc_t(
         act_name,           # Name. Acts as an ID. Must be unique.
         "Say hi!",          # Label. That's what users see.
         SayHi("developer"), # Handler. Called when activated, and for updating
@@ -64,13 +65,13 @@ if idaapi.register_action(idaapi.action_desc_t(
     print("Action registered. Attaching to menu.")
 
     # Insert the action in the menu
-    if idaapi.attach_action_to_menu("Edit/Export data", act_name, idaapi.SETMENU_APP):
+    if ida_kernwin.attach_action_to_menu("Edit/Export data", act_name, ida_kernwin.SETMENU_APP):
         print("Attached to menu.")
     else:
         print("Failed attaching to menu.")
 
     # Insert the action in a toolbar
-    if idaapi.attach_action_to_toolbar("AnalysisToolBar", act_name):
+    if ida_kernwin.attach_action_to_toolbar("AnalysisToolBar", act_name):
         print("Attached to toolbar.")
     else:
         print("Failed attaching to toolbar.")
@@ -81,7 +82,7 @@ if idaapi.register_action(idaapi.action_desc_t(
     # To do that, we could in theory retrieve a reference to "IDA View-A", and
     # then request to "permanently" attach the action to it, using something
     # like this:
-    #   idaapi.attach_action_to_popup(ida_view_a, None, act_name, None)
+    #   ida_kernwin.attach_action_to_popup(ida_view_a, None, act_name, None)
     #
     # but alas, that won't do: widgets in IDA are very "volatile", and
     # can be deleted & re-created on some occasions (e.g., starting a
@@ -92,17 +93,17 @@ if idaapi.register_action(idaapi.action_desc_t(
     # Instead, we can opt for a different method: attach our action on-the-fly,
     # when the popup for "IDA View-A" is being populated, right before
     # it is displayed.
-    class Hooks(idaapi.UI_Hooks):
+    class Hooks(ida_kernwin.UI_Hooks):
         def finish_populating_widget_popup(self, widget, popup):
             # We'll add our action to all "IDA View-*"s.
             # If we wanted to add it only to "IDA View-A", we could
             # also discriminate on the widget's title:
             #
-            #  if idaapi.get_widget_title(widget) == "IDA View-A":
+            #  if ida_kernwin.get_widget_title(widget) == "IDA View-A":
             #      ...
             #
-            if idaapi.get_widget_type(widget) == idaapi.BWN_DISASM:
-                idaapi.attach_action_to_popup(widget, popup, act_name, None)
+            if ida_kernwin.get_widget_type(widget) == ida_kernwin.BWN_DISASM:
+                ida_kernwin.attach_action_to_popup(widget, popup, act_name, None)
 
     hooks = Hooks()
     hooks.hook()
@@ -110,7 +111,7 @@ else:
     print("Action found; unregistering.")
     # No need to call detach_action_from_menu(); it'll be
     # done automatically on destruction of the action.
-    if idaapi.unregister_action(act_name):
+    if ida_kernwin.unregister_action(act_name):
         print("Unregistered.")
     else:
         print("Failed to unregister action.")

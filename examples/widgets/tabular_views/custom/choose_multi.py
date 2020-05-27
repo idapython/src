@@ -22,6 +22,14 @@ class MyChoose(Choose):
         self.deflt = n  # save current selection
         return (Choose.NOTHING_CHANGED, )
 
+    def OnDeleteLine(self, indices):
+        new_items = []
+        for idx, item in enumerate(self.items):
+            if idx not in indices:
+                new_items.append(item)
+        self.items = new_items
+        return [Choose.ALL_CHANGED] + indices
+
     def show(self, num):
         self.deflt = [x
                       for x in range(len(self.items))

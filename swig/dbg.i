@@ -58,6 +58,9 @@
 %ignore internal_get_sreg_base;
 %rename (internal_get_sreg_base) py_internal_get_sreg_base;
 
+%ignore dbg_can_query;
+%rename (dbg_can_query) py_dbg_can_query;
+
 //-------------------------------------------------------------------------
 //                       get_process_options()
 %define %get_process_options_out_qstring(ARG_NAME)
@@ -106,13 +109,6 @@ bool request_run_to(ea_t ea, pid_t pid = NO_PROCESS, thid_t tid = NO_THREAD);
 %ignore get_insn_tev_reg_result(int, const char *, uint64 *);
 
 %thread;
-
-%nonnul_argument_prototype(
-        inline void idaapi set_debugger_event_cond(const char *nonnul_cond),
-        const char *nonnul_cond);
-%nonnul_argument_prototype(
-        inline bool idaapi diff_trace_file(const char *nonnul_filename),
-        const char *nonnul_filename);
 
 // We want ALL wrappers around what is declared in dbg.hpp
 // to release the GIL when calling into the IDA api: those

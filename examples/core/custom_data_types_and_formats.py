@@ -3,7 +3,13 @@ from __future__ import print_function
 # This is an example illustrating how to use custom data types in Python
 # (c) Hex-Rays
 #
-from idaapi import data_type_t, data_format_t, NW_OPENIDB, NW_CLOSEIDB, NW_TERMIDA, NW_REMOVE, COLSTR
+
+import ida_bytes
+import ida_idaapi
+import ida_lines
+import ida_struct
+import ida_netnode
+import ida_nalt
 
 import sys
 import struct
@@ -11,9 +17,9 @@ import ctypes
 import platform
 
 # -----------------------------------------------------------------------
-class pascal_data_type(data_type_t):
+class pascal_data_type(ida_bytes.data_type_t):
     def __init__(self):
-        data_type_t.__init__(
+        ida_bytes.data_type_t.__init__(
             self,
             "py_pascal_string",
             2,
@@ -24,11 +30,11 @@ class pascal_data_type(data_type_t):
     def calc_item_size(self, ea, maxsize):
         # Custom data types may be used in structure definitions. If this case
         # ea is a member id. Check for this situation and return 1
-        if idaapi.is_member_id(ea):
+        if ida_struct.is_member_id(ea):
             return 1
 
         # get the length byte
-        n = idaapi.get_byte(ea)
+        n = ida_bytes.get_byte(ea)
 
         # string too big?
         if n > maxsize:
@@ -36,10 +42,10 @@ class pascal_data_type(data_type_t):
         # ok, accept the string
         return n + 1
 
-class pascal_data_format(data_format_t):
+class pascal_data_format(ida_bytes.data_format_t):
     FORMAT_NAME = "py_pascal_string_pstr"
     def __init__(self):
-        data_format_t.__init__(
+        ida_bytes.data_format_t.__init__(
             self,
             pascal_data_format.FORMAT_NAME)
 
@@ -57,7 +63,7 @@ class pascal_data_format(data_format_t):
         return "".join(o)
 
 # -----------------------------------------------------------------------
-class simplevm_data_type(data_type_t):
+class simplevm_data_type(ida_bytes.data_type_t):
     ASM_KEYWORD = "svm_emit"
     def __init__(
             self,
@@ -65,7 +71,7 @@ class simplevm_data_type(data_type_t):
             value_size=1,
             menu_name="SimpleVM",
             asm_keyword=ASM_KEYWORD):
-        data_type_t.__init__(
+        ida_bytes.data_type_t.__init__(
             self,
             name,
             value_size,
@@ -74,22 +80,22 @@ class simplevm_data_type(data_type_t):
             asm_keyword)
 
     def calc_item_size(self, ea, maxsize):
-        if idaapi.is_member_id(ea):
+        if ida_struct.is_member_id(ea):
             return 1
         # get the opcode and see if it has an imm
-        n = 5 if (idaapi.get_byte(ea) & 3) == 0 else 1
+        n = 5 if (ida_bytes.get_byte(ea) & 3) == 0 else 1
         # string too big?
         if n > maxsize:
             return 0
         # ok, accept
         return n
 
-class simplevm_data_format(data_format_t):
+class simplevm_data_format(ida_bytes.data_format_t):
     def __init__(
             self,
             name="py_simple_vm_format",
             menu_name="SimpleVM"):
-        data_format_t.__init__(
+        ida_bytes.data_format_t.__init__(
             self,
             name,
             0,
@@ -116,9 +122,9 @@ class simplevm_data_format(data_format_t):
             imm = None
             sz  = 1
         text = "%s %s, %s" % (
-            COLSTR(simplevm_data_format.INST[op], idaapi.SCOLOR_INSN),
-            COLSTR(simplevm_data_format.REGS[r1], idaapi.SCOLOR_REG),
-            COLSTR("0x%08X" % imm, idaapi.SCOLOR_NUMBER) if imm is not None else COLSTR(simplevm_data_format.REGS[r2], idaapi.SCOLOR_REG))
+            ida_lines.COLSTR(simplevm_data_format.INST[op], ida_lines.SCOLOR_INSN),
+            ida_lines.COLSTR(simplevm_data_format.REGS[r1], ida_lines.SCOLOR_REG),
+            ida_lines.COLSTR("0x%08X" % imm, ida_lines.SCOLOR_NUMBER) if imm is not None else ida_lines.COLSTR(simplevm_data_format.REGS[r2], ida_lines.SCOLOR_REG))
         return (sz, text)
 
     def printf(self, value, current_ea, operand_num, dtid):
@@ -131,9 +137,9 @@ class simplevm_data_format(data_format_t):
 
 # -----------------------------------------------------------------------
 # This format will display DWORD values as MAKE_DWORD(0xHI, 0xLO)
-class makedword_data_format(data_format_t):
+class makedword_data_format(ida_bytes.data_format_t):
     def __init__(self):
-        data_format_t.__init__(
+        ida_bytes.data_format_t.__init__(
             self,
             "py_makedword",
             4,
@@ -156,14 +162,14 @@ class makedword_data_format(data_format_t):
 #
 # The get_rsrc_string() is not optimal since it loads/unloads the
 # DLL each time for a new string. It can be improved in many ways.
-class rsrc_string_format(data_format_t):
+class rsrc_string_format(ida_bytes.data_format_t):
     def __init__(self):
-        data_format_t.__init__(
+        ida_bytes.data_format_t.__init__(
             self,
             "py_w32rsrcstring",
             1,
             "Resource string")
-        self.cache_node = idaapi.netnode("$ py_w32rsrcstring", 0, 1)
+        self.cache_node = ida_netnode.netnode("$ py_w32rsrcstring", 0, 1)
 
     def get_rsrc_string(self, fn, id):
         """
@@ -188,8 +194,8 @@ class rsrc_string_format(data_format_t):
         # Not cached?
         if val == None:
             # Retrieve it
-            num = idaapi.struct_unpack(value)
-            val = self.get_rsrc_string(idaapi.get_input_file_path(), num)
+            num = ida_idaapi.struct_unpack(value)
+            val = self.get_rsrc_string(ida_nalt.get_input_file_path(), num)
             # Cache it
             self.cache_node.supset(current_ea, val)
 
@@ -197,7 +203,7 @@ class rsrc_string_format(data_format_t):
         if val == "" or val == "\x00":
             return None
         # Return the format
-        return "RSRC_STR(\"%s\")" % COLSTR(val, idaapi.SCOLOR_IMPNAME)
+        return "RSRC_STR(\"%s\")" % ida_lines.COLSTR(val, ida_lines.SCOLOR_IMPNAME)
 
 # -----------------------------------------------------------------------
 # Table of formats and types to be registered/unregistered
@@ -219,21 +225,23 @@ except:
 # -----------------------------------------------------------------------
 def nw_handler(code, old=0):
     # delete notifications
-    if code == NW_OPENIDB:
-        if not idaapi.register_data_types_and_formats(new_formats):
+    if code == ida_idaapi.NW_OPENIDB:
+        if not ida_bytes.register_data_types_and_formats(new_formats):
             print("Failed to register types!")
-    elif code == NW_CLOSEIDB:
-        idaapi.unregister_data_types_and_formats(new_formats)
-    elif code == NW_TERMIDA:
-        idaapi.notify_when(NW_TERMIDA | NW_OPENIDB | NW_CLOSEIDB | NW_REMOVE, nw_handler)
+    elif code == ida_idaapi.NW_CLOSEIDB:
+        ida_bytes.unregister_data_types_and_formats(new_formats)
+    elif code == ida_idaapi.NW_TERMIDA:
+        f = ida_idaapi.NW_TERMIDA | ida_idaapi.NW_OPENIDB | ida_idaapi.NW_CLOSEIDB | ida_idaapi.NW_REMOVE
+        ida_idaapi.notify_when(f, nw_handler)
 
 # -----------------------------------------------------------------------
 # Check if already installed
-if idaapi.find_custom_data_type(pascal_data_format.FORMAT_NAME) == -1:
-    if not idaapi.register_data_types_and_formats(new_formats):
+if ida_bytes.find_custom_data_type(pascal_data_format.FORMAT_NAME) == -1:
+    if not ida_bytes.register_data_types_and_formats(new_formats):
         print("Failed to register types!")
     else:
-        idaapi.notify_when(NW_TERMIDA | NW_OPENIDB | NW_CLOSEIDB, nw_handler)
+        f = ida_idaapi.NW_TERMIDA | ida_idaapi.NW_OPENIDB | ida_idaapi.NW_CLOSEIDB
+        ida_idaapi.notify_when(f, nw_handler)
         print("Formats installed!")
 else:
     print("Formats already installed!")

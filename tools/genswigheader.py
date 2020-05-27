@@ -35,12 +35,32 @@ with open(args.input) as fin:
         parts.append("// nothing; has to be handled in pro.i")
         parts.append("#else")
         required_headers = ["pro", "ida", "xref", "typeinf", "enum", "netnode", "range", "lines", "kernwin", "bytes", "auto", "nalt", "idd", "idp"]
+        # required_headers = ["pro", "ida", "xref", "typeinf", "enum", "netnode", "range", "lines", "kernwin", "bytes", "auto", "nalt", "idd", "idp", "dirtree"]
         for rh in required_headers:
             add_imports_from_dep(rh)
         parts.append("#endif")
 
+        # Collect NONNULL typemaps
+        nonnul_typemaps_parts = []
+        for md_path in glob.glob(os.path.join(args.sdk, "*.metadata")):
+            with open(md_path, "rb") as md_fin:
+                raw = md_fin.read().decode("UTF-8")
+            md = eval(raw)
+            for ptype, pname in md:
+                nonnul_typemaps_parts.append(
+                    """
+%%typemap(check) (%s %s)
+{
+  if ( $1 == NULL )
+    SWIG_exception_fail(SWIG_ValueError, "invalid null pointer " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
+}
+                    """ % (ptype, pname))
+
         # Can't use string.Template here, because it's a nightmare
         # to use with a file that has many '$' is it.
         template = fin.read()
-        result = template.replace("${ALL_IMPORTS}", "\n".join(parts))
+        result = template\
+                 .replace("${ALL_IMPORTS}", "\n".join(parts))\
+                 .replace("${NONNULL_TYPEMAPS}", "\n".join(nonnul_typemaps_parts))
+
         fout.write(result)

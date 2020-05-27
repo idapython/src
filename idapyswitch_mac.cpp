@@ -82,7 +82,10 @@ static bool get_pylib_entry_for_macho(
   {
     pylib_entry_t *entry;
     lcid_finder_t(pylib_entry_t *_entry) : entry(_entry) {}
-    virtual int visit_dylib(const struct dylib_command *dl, const char *begin, const char *end)
+    virtual int visit_dylib(
+        const struct dylib_command *dl,
+        const char *begin,
+        const char *end) override
     {
       if ( dl->cmd == LC_ID_DYLIB )
       {
@@ -119,7 +122,7 @@ static int extract_pylib_bin(pylib_entries_t *result, const char *version_dir)
   {
     pylib_entries_t *result;
     pylib_finder_t(pylib_entries_t *_result) : result(_result) {}
-    virtual int visit_file(const char *bin)
+    virtual int visit_file(const char *bin) override
     {
       qstring errbuf;
       pylib_version_t dummy;
@@ -150,7 +153,7 @@ static void extract_pylib_versions(pylib_entries_t *result, const char *framewor
   {
     pylib_entries_t *result;
     version_visitor_t(pylib_entries_t *_result) : result(_result) {}
-    virtual int visit_file(const char *version_dir)
+    virtual int visit_file(const char *version_dir) override
     {
       extract_pylib_bin(result, version_dir);
       return 0;
@@ -182,7 +185,7 @@ void pyver_tool_t::do_find_python_libs(pylib_entries_t *result) const
   {
     pylib_entries_t *result;
     python_framework_finder_t(pylib_entries_t *_result) : result(_result) {}
-    virtual int visit_file(const char *framework)
+    virtual int visit_file(const char *framework) override
     {
       extract_pylib_versions(result, framework);
       return 0;
@@ -277,7 +280,10 @@ static bool get_python_lc_info(python_lc_info_t *plc, const char *path, qstring 
     {
       plc->off = sizeof(mach_header_64);
     }
-    virtual int visit_any_load_command(const struct load_command *lc, const char *begin, const char *end)
+    virtual int visit_any_load_command(
+        const struct load_command *lc,
+        const char *begin,
+        const char *end) override
     {
       if ( lc->cmd == LC_LOAD_DYLIB )
       {
@@ -433,7 +439,7 @@ bool pyver_tool_t::do_apply_version(
     const pylib_entry_t &entry;
     qstring *lerrbuf;
     patcher_t(const pylib_entry_t &_entry, qstring *_errbuf) : entry(_entry), lerrbuf(_errbuf) {}
-    virtual int visit_file(const char *path)
+    virtual int visit_file(const char *path) override
     {
       return patch_python_dylib_cmd(path, entry, lerrbuf) ? 0 : -1;
     }

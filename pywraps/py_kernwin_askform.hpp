@@ -286,7 +286,7 @@ static bool formchgcbfa_set_field_value(
     case 7:
       {
         textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(py_val);
-        return ti == NULL ? false : fa->set_text_value(fid, ti);
+        return ti != NULL && fa->set_text_value(fid, ti);
       }
     // button - uint32
     case 4:

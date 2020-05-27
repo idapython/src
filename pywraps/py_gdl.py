@@ -60,7 +60,7 @@ class FlowChart(object):
         Constructor
         @param f: A func_t type, use get_func(ea) to get a reference
         @param bounds: A tuple of the form (start, end). Used if "f" is None
-        @param flags: one of the FC_xxxx flags. One interesting flag is FC_PREDS
+        @param flags: one of the FC_xxxx flags.
         """
         if (f is None) and (bounds is None or type(bounds) != tuple):
             raise Exception("Please specifiy either a function or start/end pair")
@@ -98,5 +98,7 @@ class FlowChart(object):
             raise KeyError
         else:
             return self._getitem(index)
+
+FC_PREDS = 0 # obsolete bit, do not use
 
 #</pycode(py_gdl)>

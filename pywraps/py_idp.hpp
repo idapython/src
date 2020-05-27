@@ -32,7 +32,7 @@ static PyObject *AssembleLine(
         const char *line)
 {
   char buf[MAXSTR];
-  int inslen = ph.assemble((uchar *)buf, ea, cs, ip, use32, line);
+  int inslen = processor_t::assemble((uchar *)buf, ea, cs, ip, use32, line);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( inslen > 0 )
     return IDAPyBytes_FromMemAndSize(buf, inslen);
@@ -67,7 +67,7 @@ bool assemble(
   PYW_GIL_CHECK_LOCKED_SCOPE();
   bool rc = false;
   Py_BEGIN_ALLOW_THREADS;
-  int inslen = ph.assemble((uchar *)buf, ea, cs, ip, use32, line);
+  int inslen = processor_t::assemble((uchar *)buf, ea, cs, ip, use32, line);
   if ( inslen > 0 )
   {
     patch_bytes(ea, buf, inslen);
@@ -89,7 +89,7 @@ def ph_get_id():
 */
 static size_t ph_get_id()
 {
-  return ph.id;
+  return PH.id;
 }
 
 //-------------------------------------------------------------------------
@@ -104,7 +104,7 @@ def ph_get_version():
 */
 static size_t ph_get_version()
 {
-  return ph.version;
+  return PH.version;
 }
 
 //-------------------------------------------------------------------------
@@ -119,7 +119,7 @@ def ph_get_flag():
 */
 static size_t ph_get_flag()
 {
-  return ph.flag;
+  return PH.flag;
 }
 
 //-------------------------------------------------------------------------
@@ -134,7 +134,7 @@ def ph_get_cnbits():
 */
 static size_t ph_get_cnbits()
 {
-  return ph.cnbits;
+  return PH.cnbits;
 }
 
 //-------------------------------------------------------------------------
@@ -149,7 +149,7 @@ def ph_get_dnbits():
 */
 static size_t ph_get_dnbits()
 {
-  return ph.dnbits;
+  return PH.dnbits;
 }
 
 //-------------------------------------------------------------------------
@@ -164,7 +164,7 @@ def ph_get_reg_first_sreg():
 */
 static size_t ph_get_reg_first_sreg()
 {
-  return ph.reg_first_sreg;
+  return PH.reg_first_sreg;
 }
 
 //-------------------------------------------------------------------------
@@ -179,7 +179,7 @@ def ph_get_reg_last_sreg():
 */
 static size_t ph_get_reg_last_sreg()
 {
-  return ph.reg_last_sreg;
+  return PH.reg_last_sreg;
 }
 
 //-------------------------------------------------------------------------
@@ -194,7 +194,7 @@ def ph_get_segreg_size():
 */
 static size_t ph_get_segreg_size()
 {
-  return ph.segreg_size;
+  return PH.segreg_size;
 }
 
 //-------------------------------------------------------------------------
@@ -209,7 +209,7 @@ def ph_get_reg_code_sreg():
 */
 static size_t ph_get_reg_code_sreg()
 {
-  return ph.reg_code_sreg;
+  return PH.reg_code_sreg;
 }
 
 //-------------------------------------------------------------------------
@@ -224,7 +224,7 @@ def ph_get_reg_data_sreg():
 */
 static size_t ph_get_reg_data_sreg()
 {
-  return ph.reg_data_sreg;
+  return PH.reg_data_sreg;
 }
 
 //-------------------------------------------------------------------------
@@ -239,7 +239,7 @@ def ph_get_icode_return():
 */
 static size_t ph_get_icode_return()
 {
-  return ph.icode_return;
+  return PH.icode_return;
 }
 
 //-------------------------------------------------------------------------
@@ -254,7 +254,7 @@ def ph_get_instruc_start():
 */
 static size_t ph_get_instruc_start()
 {
-  return ph.instruc_start;
+  return PH.instruc_start;
 }
 
 //-------------------------------------------------------------------------
@@ -269,7 +269,7 @@ def ph_get_instruc_end():
 */
 static size_t ph_get_instruc_end()
 {
-  return ph.instruc_end;
+  return PH.instruc_end;
 }
 
 //-------------------------------------------------------------------------
@@ -284,7 +284,7 @@ def ph_get_tbyte_size():
 */
 static size_t ph_get_tbyte_size()
 {
-  return ph.tbyte_size;
+  return PH.tbyte_size;
 }
 
 //-------------------------------------------------------------------------
@@ -302,6 +302,7 @@ static PyObject *ph_get_instruc()
 {
   Py_ssize_t i = 0;
   PYW_GIL_CHECK_LOCKED_SCOPE();
+  processor_t &ph = PH;
   PyObject *py_result = PyTuple_New(ph.instruc_end - ph.instruc_start);
   for ( const instruc_t *p = ph.instruc + ph.instruc_start, *end = ph.instruc + ph.instruc_end;
         p != end;
@@ -325,6 +326,7 @@ def ph_get_regnames():
 static PyObject *ph_get_regnames()
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
+  processor_t &ph = PH;
   PyObject *py_result = PyList_New(ph.regs_num);
   for ( Py_ssize_t i=0; i < ph.regs_num; i++ )
     PyList_SetItem(py_result, i, IDAPyStr_FromUTF8(ph.reg_names[i]));
@@ -373,13 +375,13 @@ static PyObject *ph_get_operand_info(
       break;
 
     // Call the processor module
-    if ( ph.notify(ph.ev_get_idd_opinfo,
-              &opinf,
-              ea,
-              n,
-              tid,
-              _py_getreg,
-              regvalues.begin()) == 0 )
+    if ( processor_t::notify(processor_t::ev_get_idd_opinfo,
+                             &opinf,
+                             ea,
+                             n,
+                             tid,
+                             _py_getreg,
+                             regvalues.begin()) == 0 )
     {
       break;
     }
@@ -399,193 +401,32 @@ static PyObject *ph_get_operand_info(
 }
 
 //-------------------------------------------------------------------------
-static void ph_calcrel(bytevec_t *vout, ea_t ea)
+static void ph_calcrel(bytevec_t *out_relbits, size_t *out_consumed, ea_t ea)
 {
-  ph.calcrel(vout, ea);
+  processor_t::calcrel(out_relbits, out_consumed, ea);
 }
 
 //-------------------------------------------------------------------------
 static ssize_t ph_find_reg_value(uval_t *out, const insn_t &insn, int reg)
 {
-  return ph.find_reg_value(out, insn, reg);
+  return processor_t::find_reg_value(out, insn, reg);
 }
 
 //-------------------------------------------------------------------------
 static ssize_t ph_find_op_value(uval_t *out, const insn_t &insn, int op)
 {
-  return ph.find_op_value(out, insn, op);
+  return processor_t::find_op_value(out, insn, op);
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-class IDP_Hooks(object):
-    def hook(self):
-        """
-        Creates an IDP hook
+static ssize_t ph_get_reg_accesses(
+        reg_accesses_t *accvec,
+        const insn_t &insn,
+        int flags)
+{
+  return processor_t::get_reg_accesses(accvec, insn, flags);
+}
 
-        @return: Boolean true on success
-        """
-        pass
-
-
-    def unhook(self):
-        """
-        Removes the IDP hook
-        @return: Boolean true on success
-        """
-        pass
-
-
-    def ev_ana_insn(self, insn):
-        """
-        Analyzes and decodes an instruction at insn.ea
-           - insn.itype must be set >= idaapi.CUSTOM_CMD_ITYPE
-           - insn.size must be set to the instruction length
-
-        @return: Boolean
-            - False if the instruction is not recognized
-            - True if the instruction was decoded. 'insn' should be filled in that case.
-        """
-        pass
-
-
-    def ev_out_insn(self, ctx):
-        """
-        Outputs the instruction defined in 'ctx.insn'
-
-        @return: Boolean (whether this instruction can be outputted or not)
-        """
-        pass
-
-
-    def ev_emu_insn(self, insn):
-        """
-        Emulate instruction, create cross-references, plan to analyze
-        subsequent instructions, modify flags etc. Upon entrance to this function
-        all information about the instruction is in 'insn' structure.
-
-        @return: Boolean (whether this instruction has been emulated or not)
-        """
-        pass
-
-
-    def ev_out_operand(self, ctx, op):
-        """
-        Notification to generate operand text.
-        If False was returned, then the standard operand output function will be called.
-
-        this notification may use out_...() functions to form the operand text
-
-        @return: Boolean (whether the operand has been outputted or not)
-        """
-        pass
-
-    def ev_gen_mnem(self, ctx):
-        """
-        Notification to generate instruction mnemonics.
-
-        @return:
-            - None: No custom mnemonics. IDA will generate a mnemonic name
-            - 1: Generated the instruction mnemonics
-        """
-        pass
-
-
-    def ev_is_sane_insn(self, insn, no_crefs):
-       """
-       is the instruction sane for the current file type?
-       @param insn: the instruction
-       @param no_crefs:
-             - 1: the instruction has no code refs to it.
-                  ida just tries to convert unexplored bytes
-                  to an instruction (but there is no other
-                  reason to convert them into an instruction)
-             - 0: the instruction is created because
-                  of some coderef, user request or another
-                  weighty reason.
-       @return: >=0-ok, <0-no, the instruction isn't likely to appear in the program
-       """
-       pass
-
-
-    def ev_may_be_func(self, insn, state):
-       """
-       Can a function start here?
-       @param insn: the instruction
-       @param state: autoanalysis phase
-             0: creating functions
-             1: creating chunks
-
-       @return: integer (probability 0..100)
-       """
-       pass
-
-
-    def ev_rename(self, ea, new_name):
-       """
-       The kernel is going to rename a byte.
-
-       @param ea: Address
-       @param new_name: The new name
-
-       @return:
-           - If returns value <0, then the kernel should
-             not rename it. See also the 'renamed' event
-       """
-       pass
-
-
-    def ev_undefine(self, ea):
-       """
-       An item in the database (insn or data) is being deleted
-       @param ea: Address
-       @return:
-           - 1 - do not delete srranges at the item end
-           - 0 - srranges can be deleted
-       """
-       pass
-
-
-    def ev_is_call_insn(self, insn):
-       """
-       Is the instruction a "call"?
-
-       @param insn: instruction
-       @return: 0-unknown, 1-yes, -1-no
-       """
-       pass
-
-
-    def ev_is_ret_insn(self, insn, strict):
-       """
-       Is the instruction a "return"?
-
-       @param insn: instruction
-       @param strict: - True: report only ret instructions
-                        False: include instructions like "leave" which begins the function epilog
-       @return: 0-unknown, 1-yes, -1-no
-       """
-       pass
-
-
-    def ev_assemble(self, ea, cs, ip, use32, line):
-       """
-       Assembles an instruction
-
-       @param ea: linear address of instruction
-       @param cs: cs of instruction
-       @param ip: ip of instruction
-       @param use32: is 32bit segment?
-       @param line: line to assemble
-
-       @return: - None to let the underlying processor module assemble the line
-                - or a string containing the assembled buffer
-       """
-       pass
-
-#</pydoc>
-*/
 //---------------------------------------------------------------------------
 // IDP hooks
 //---------------------------------------------------------------------------
@@ -658,13 +499,13 @@ private:
     return _handle_qstring_output(o, out) && !out->empty() ? 1 : 0;
   }
   static ssize_t handle_assemble_output(
-          PyObject *o,
-          uchar *bin,
-          ea_t /*ea*/,
-          ea_t /*cs*/,
-          ea_t /*ip*/,
-          bool /*use32*/,
-          const char * /*line*/)
+        PyObject *o,
+        uchar *bin,
+        ea_t /*ea*/,
+        ea_t /*cs*/,
+        ea_t /*ip*/,
+        bool /*use32*/,
+        const char * /*line*/)
   {
     ssize_t rc = 0;
     if ( o != NULL && IDAPyBytes_Check(o) )
@@ -729,12 +570,12 @@ private:
     return rc;
   }
   static ssize_t handle_demangle_name_output(
-          PyObject *o,
-          int32 *out_res,
-          qstring *out,
-          const char * /*name*/,
-          uint32 /*disable_mask*/,
-          demreq_type_t /*demreq*/)
+        PyObject *o,
+        int32 *out_res,
+        qstring *out,
+        const char * /*name*/,
+        uint32 /*disable_mask*/,
+        demreq_type_t /*demreq*/)
   {
     ssize_t rc = 0;
     if ( PySequence_Check(o) && PySequence_Size(o) == 3 )
@@ -757,10 +598,10 @@ private:
     return rc;
   }
   static ssize_t handle_find_value_output(
-          PyObject *o,
-          uval_t *out,
-          const insn_t * /*pinsn*/,
-          int /*reg*/)
+        PyObject *o,
+        uval_t *out,
+        const insn_t * /*pinsn*/,
+        int /*reg*/)
   {
     uint64 num;
     ssize_t rc = PyW_GetNumber(o, &num);
@@ -769,17 +610,17 @@ private:
     return rc;
   }
   static ssize_t handle_get_autocmt_output(
-          PyObject *o,
-          qstring *buf,
-          const insn_t * /*pinsn*/)
+        PyObject *o,
+        qstring *buf,
+        const insn_t * /*pinsn*/)
   {
     return IDAPyStr_Check(o) && IDAPyStr_AsUTF8(buf, o);
   }
   static ssize_t handle_get_operand_string_output(
-          PyObject *o,
-          qstring *buf,
-          const insn_t * /*pinsn*/,
-          int /*opnum*/)
+        PyObject *o,
+        qstring *buf,
+        const insn_t * /*pinsn*/,
+        int /*opnum*/)
   {
     return IDAPyStr_Check(o) && IDAPyStr_AsUTF8(buf, o);
   }
@@ -796,6 +637,27 @@ PyObject *get_idp_notifier_addr(PyObject *)
 PyObject *get_idp_notifier_ud_addr(IDP_Hooks *hooks)
 {
   return _wrap_addr_in_pycapsule(hooks);
+}
+
+//-------------------------------------------------------------------------
+inline bool delay_slot_insn(ea_t *ea, bool *bexec, bool *fexec)
+{
+  processor_t &ph = PH;
+  return ph.delay_slot_insn(ea, bexec, fexec);
+}
+
+//-------------------------------------------------------------------------
+inline const char *get_reg_info(const char *regname, bitrange_t *bitrange)
+{
+  processor_t &ph = PH;
+  return ph.get_reg_info(regname, bitrange);
+}
+
+//-------------------------------------------------------------------------
+inline size_t sizeof_ldbl(void)
+{
+  processor_t &ph = PH;
+  return ph.sizeof_ldbl();
 }
 //</inline(py_idp)>
 

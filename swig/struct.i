@@ -47,18 +47,20 @@
   }
 }
 
-%nonnul_argument_prototype(
-        asize_t get_member_size(const member_t *nonnul_mptr),
-        const member_t *nonnul_mptr);
+%template (dyn_member_ref_array) dynamic_wrapped_array_t<member_t>;
 
 //-------------------------------------------------------------------------
 %include "struct.hpp"
-// Add a get_member() member function to struc_t.
-// This helps to access the members array in the class.
 %extend struc_t {
-  member_t *get_member(uint32 index)
+  dynamic_wrapped_array_t<member_t> __get_members__()
   {
-    return index < $self->memqty ? &$self->members[index] : nullptr;
+    return dynamic_wrapped_array_t<member_t>($self->members, $self->memqty);
+  }
+
+  %pythoncode {
+    members = property(__get_members__)
+    def get_member(self, index):
+        return self.members[index]
   }
 }
 

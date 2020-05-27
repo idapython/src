@@ -1,25 +1,29 @@
 from __future__ import print_function
-import idaapi
+
+import ida_hexrays
+import ida_lines
+import ida_funcs
+import ida_kernwin
 
 def main():
-    if not idaapi.init_hexrays_plugin():
+    if not ida_hexrays.init_hexrays_plugin():
         return False
 
-    print("Hex-rays version %s has been detected" % idaapi.get_hexrays_version())
+    print("Hex-rays version %s has been detected" % ida_hexrays.get_hexrays_version())
 
-    f = idaapi.get_func(idaapi.get_screen_ea());
+    f = ida_funcs.get_func(ida_kernwin.get_screen_ea());
     if f is None:
         print("Please position the cursor within a function")
         return True
 
-    cfunc = idaapi.decompile(f);
+    cfunc = ida_hexrays.decompile(f);
     if cfunc is None:
         print("Failed to decompile!")
         return True
 
     sv = cfunc.get_pseudocode();
     for sline in sv:
-        print(idaapi.tag_remove(sline.line));
+        print(ida_lines.tag_remove(sline.line));
 
     return True
 

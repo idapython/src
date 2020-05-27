@@ -96,11 +96,11 @@ private:
   // Returns: true-modified input line or x coordinate or selection length
   // This callback is optional
   bool on_keydown(
-          qstring *line,
-          int *p_x,
-          int *p_sellen,
-          int *vk_key,
-          int shift)
+        qstring *line,
+        int *p_x,
+        int *p_sellen,
+        int *vk_key,
+        int shift)
   {
     PYW_GIL_GET;
     newref_t result(
@@ -154,11 +154,11 @@ private:
   // Returns: true if generated a new completion
   // This callback is optional
   bool on_complete_line(
-          qstring *completion,
-          const char *prefix,
-          int n,
-          const char *line,
-          int x)
+        qstring *completion,
+        const char *prefix,
+        int n,
+        const char *line,
+        int x)
   {
     PYW_GIL_GET;
     newref_t result(
@@ -182,11 +182,11 @@ private:
   // Find completions
   // This callback is optional
   bool on_find_completions(
-          qstrvec_t *out_completions,
-          int *out_match_start,
-          int *out_match_end,
-          const char *line,
-          int x)
+        qstrvec_t *out_completions,
+        int *out_match_start,
+        int *out_match_end,
+        const char *line,
+        int x)
   {
     PYW_GIL_GET;
     newref_t py_res(

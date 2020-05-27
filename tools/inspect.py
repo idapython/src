@@ -2914,14 +2914,14 @@ class Signature:
     def bind(*args, **kwargs):
         """Get a BoundArguments object, that maps the passed `args`
         and `kwargs` to the function's signature.  Raises `TypeError`
-        if the passed arguments can not be bound.
+        if the passed arguments cannot be bound.
         """
         return args[0]._bind(args[1:], kwargs)
 
     def bind_partial(*args, **kwargs):
         """Get a BoundArguments object, that partially maps the
         passed `args` and `kwargs` to the function's signature.
-        Raises `TypeError` if the passed arguments can not be bound.
+        Raises `TypeError` if the passed arguments cannot be bound.
         """
         return args[0]._bind(args[1:], kwargs, partial=True)
 

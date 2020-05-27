@@ -28,7 +28,7 @@ static void debug_hexrays_ctree(const char *format, ...)
 //   - we receive the notification about hexrays going away and:
 //        + call hexrays_unloading__clear_python_clearable_references();
 //        + set 'hexdsp = exit_time_dummy_hexdsp' (an NOP hexdsp)
-//   - we receive 'ui_term', and
+//   - we receive 'ui_database_closed', and
 //        + set 'hexdsp = init_time_dummy_hexdsp'
 //   - IDAPython is unloaded, and during cleanup of the runtime data,
 //     reachable citem_t's will get destroyed.
@@ -44,7 +44,7 @@ static void *idaapi init_time_dummy_hexdsp(int code, ...)
     case hx_cexpr_t_cleanup:
     case hx_cinsn_t_cleanup:
     case hx_mop_t_erase:
-    case hx_mbl_array_t_term:
+    case hx_mba_t_term:
     case hx_valrng_t_clear:
       {
 #ifdef _DEBUG
@@ -60,8 +60,8 @@ static void *idaapi init_time_dummy_hexdsp(int code, ...)
           QASSERT(30498, ((cinsn_t *)item)->op == cit_empty && ((cinsn_t *)item)->cblock == NULL);
         else if ( code == hx_mop_t_erase )
           QASSERT(30595, ((mop_t *)item)->t == mop_z && ((mop_t *)item)->nnn == NULL);
-        else if ( code == hx_mbl_array_t_term )
-          QASSERT(30596, ((mbl_array_t *)item)->blocks == NULL);
+        else if ( code == hx_mba_t_term )
+          QASSERT(30596, ((mba_t *)item)->blocks == NULL);
         else if ( code == hx_valrng_t_clear )
           QASSERT(30601, ((valrng_t *)item)->empty());
         else
@@ -102,7 +102,29 @@ static void *idaapi init_time_dummy_hexdsp(int code, ...)
 #endif
       }
       break;
+    case hx_install_microcode_filter:
+      {
+        va_list va;
+        va_start(va, code);
+        microcode_filter_t *mf = va_arg(va, microcode_filter_t *);
+        bool install = va_argi(va, bool);
+        if ( install )
+          goto BAD_CODE;
+#ifdef _DEBUG
+        static bool in_removal = false;
+        if ( !in_removal )
+        {
+          in_removal = true;
+          QASSERT(30620, install_microcode_filter(mf, false) == false); // must have been removed already
+          in_removal = false;
+        }
+#else
+        qnotused(mf);
+#endif
+      }
+      break;
     default:
+BAD_CODE:
 #ifdef _DEBUG
       if ( under_debugger )
         BPT;
@@ -145,12 +167,13 @@ enum hx_clearable_type_t
   hxclr_cinsn_t,
   hxclr_cexpr_t,
   hxclr_cblock_t,
-  hxclr_mbl_array_t,
+  hxclr_mba_t,
   hxclr_mop_t,
   hxclr_minsn_t,
   hxclr_optinsn_t,
   hxclr_optblock_t,
   hxclr_valrng_t,
+  hxclr_udc_filter_t,
 };
 struct hx_clearable_t
 {
@@ -182,8 +205,8 @@ void hexrays_unloading__clear_python_clearable_references(void)
       case hxclr_cblock_t:
         ((cblock_t *) hxc.ptr)->clear();
         break;
-      case hxclr_mbl_array_t:
-        ((mbl_array_t *) hxc.ptr)->term();
+      case hxclr_mba_t:
+        ((mba_t *) hxc.ptr)->term();
         break;
       case hxclr_mop_t:
         ((mop_t *) hxc.ptr)->erase();
@@ -199,6 +222,9 @@ void hexrays_unloading__clear_python_clearable_references(void)
         break;
       case hxclr_valrng_t:
         ((valrng_t *) hxc.ptr)->set_none();
+        break;
+      case hxclr_udc_filter_t:
+        install_microcode_filter((microcode_filter_t *) hxc.ptr, false);
         break;
       default: INTERR(30499);
     }
@@ -327,7 +353,7 @@ static ssize_t idaapi ida_hexrays_ui_notification(void *, int code, va_list va)
         }
       }
       break;
-    case ui_term:
+    case ui_database_closed:
       hexdsp = init_time_dummy_hexdsp;
       break;
   }
@@ -346,6 +372,18 @@ static void ida_hexrays_term(void)
 
 //-------------------------------------------------------------------------
 static void ida_hexrays_closebase(void) {}
+
+//-------------------------------------------------------------------------
+static void install_udc_filter(udc_filter_t *instance)
+{
+  install_microcode_filter(instance, true);
+}
+
+//-------------------------------------------------------------------------
+static bool remove_udc_filter(udc_filter_t *instance)
+{
+  return install_microcode_filter(instance, false);
+}
 //</code(py_hexrays)>
 
 

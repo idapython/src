@@ -1,9 +1,9 @@
 #
 #      Hex-Rays Decompiler project
-#      Copyright (c) 2007-2019 by Hex-Rays, support@hex-rays.com
+#      Copyright (c) 2007-2020 by Hex-Rays, support@hex-rays.com
 #      ALL RIGHTS RESERVED.
 #
-#      Sample plugin for Hex-Rays Decompiler.
+#      Sample script for Hex-Rays Decompiler.
 #      It shows list of direct references to a register from the current
 #      instruction.
 #

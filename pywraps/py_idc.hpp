@@ -21,7 +21,7 @@ inline void mark_position(
 //-------------------------------------------------------------------------
 inline ea_t get_marked_pos(int32 slot)
 {
-  idaplace_t ip(inf.min_ea, 0);
+  idaplace_t ip(inf_get_min_ea(), 0);
   renderer_info_t ri;
   lochist_entry_t loc(&ip, ri);
   uint32 uslot = uint32(slot);
@@ -34,7 +34,7 @@ inline ea_t get_marked_pos(int32 slot)
 inline PyObject *get_mark_comment(int32 slot)
 {
   qstring desc;
-  idaplace_t ip(inf.min_ea, 0);
+  idaplace_t ip(inf_get_min_ea(), 0);
   renderer_info_t ri;
   lochist_entry_t loc(&ip, ri);
   if ( bookmarks_t::get_desc(&desc, loc, slot, NULL) )

@@ -17,8 +17,9 @@ import ida_entry
 ida_auto.auto_wait()
 ALL_DECOMPILERS = {
     ida_idp.PLFM_386 : ("hexrays", "hexx64"),
-    ida_idp.PLFM_ARM : ("hexarm", "hexarm64"),
-    ida_idp.PLFM_PPC : ("hexppc", "hexppc64"),
+    ida_idp.PLFM_ARM : ("hexarm",  "hexarm64"),
+    ida_idp.PLFM_PPC : ("hexppc",  "hexppc64"),
+    ida_idp.PLFM_MIPS: ("hexmips", "hexmips64"),
 }
 pair = ALL_DECOMPILERS.get(ida_idp.ph.id, None)
 if pair:

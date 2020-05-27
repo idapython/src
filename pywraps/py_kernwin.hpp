@@ -620,7 +620,7 @@ static int py_execute_sync(PyObject *py_callable, int reqf)
     struct py_exec_request_t : exec_request_t
     {
       ref_t py_callable;
-      virtual int idaapi execute()
+      virtual int idaapi execute() override
       {
         PYW_GIL_GET;
         newref_t py_result(PyObject_CallFunctionObjArgs(py_callable.o, NULL));
@@ -689,9 +689,9 @@ static bool py_execute_ui_requests(PyObject *py_list)
     size_t py_callable_idx;
 
     static int idaapi s_py_list_walk_cb(
-            const ref_t &py_item,
-            Py_ssize_t /*index*/,
-            void *ud)
+        const ref_t &py_item,
+        Py_ssize_t /*index*/,
+        void *ud)
     {
       PYW_GIL_CHECK_LOCKED_SCOPE();
       // Not callable? Terminate iteration
@@ -708,7 +708,7 @@ static bool py_execute_ui_requests(PyObject *py_list)
     {
     }
 
-    virtual bool idaapi run()
+    virtual bool idaapi run() override
     {
       PYW_GIL_GET;
 
@@ -855,119 +855,6 @@ public:
 // UI hooks
 //---------------------------------------------------------------------------
 ssize_t idaapi UI_Callback(void *ud, int notification_code, va_list va);
-/*
-#<pydoc>
-class UI_Hooks(object):
-    def hook(self):
-        """
-        Creates an UI hook
-
-        @return: Boolean true on success
-        """
-        pass
-
-    def unhook(self):
-        """
-        Removes the UI hook
-        @return: Boolean true on success
-        """
-        pass
-
-    def preprocess_action(self, name):
-        """
-        IDA ui is about to handle a user action
-
-        @param name: ui action name
-                     (these names can be looked up in ida[tg]ui.cfg)
-        @return: 0-ok, nonzero - a plugin has handled the action
-        """
-        pass
-
-    def postprocess_action(self):
-        """
-        An ida ui action has been handled
-
-        @return: Ignored
-        """
-        pass
-
-    def saving(self):
-        """
-        The kernel is saving the database.
-
-        @return: Ignored
-        """
-        pass
-
-    def saved(self):
-        """
-        The kernel has saved the database.
-
-        @return: Ignored
-        """
-        pass
-
-    def get_ea_hint(self, ea):
-        """
-        The UI wants to display a simple hint for an address in the navigation band
-
-        @param ea: The address
-        @return: String with the hint or None
-        """
-        pass
-
-    def updating_actions(self, ctx):
-        """
-        The UI is about to batch-update some actions.
-
-        @param ctx: The action_update_ctx_t instance
-        @return: Ignored
-        """
-        pass
-
-    def updated_actions(self):
-        """
-        The UI is done updating actions.
-
-        @return: Ignored
-        """
-        pass
-
-    def populating_widget_popup(self, widget, popup):
-        """
-        The UI is populating the TWidget's popup menu.
-        Now is a good time to call idaapi.attach_action_to_popup()
-
-        @param widget: The widget
-        @param popup: The popup menu.
-        @return: Ignored
-        """
-        pass
-
-    def finish_populating_widget_popup(self, widget, popup):
-        """
-        The UI is about to be done populating the TWidget's popup menu.
-        Now is a good time to call idaapi.attach_action_to_popup()
-
-        @param widget: The widget
-        @param popup: The popup menu.
-        @return: Ignored
-        """
-        pass
-
-    def term(self):
-        """
-        IDA is terminated and the database is already closed.
-        The UI may close its windows in this callback.
-        """
-        # if the user forgot to call unhook, do it for him
-        self.unhook()
-
-    def __term__(self):
-        self.term()
-
-#</pydoc>
-*/
 struct UI_Hooks : public hooks_base_t
 {
   // hookgenUI:methodsinfo_decl

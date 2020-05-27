@@ -212,7 +212,7 @@ def check_cpp(args):
         "_wrap_boundaries_find" : {
             "nostring" : "SWIGTYPE_p_p_cinsn_t",
         },
-        "mbl_array_t_serialize" : {
+        "mba_t_serialize" : {
             "string" : "bytes_container typemap(argout) (bytevec_t &vout)",
             "mustcall" : "_sized_binary_result",
         },

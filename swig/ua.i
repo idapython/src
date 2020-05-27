@@ -72,6 +72,10 @@
 
   void assign(const insn_t &other) { *($self) = other; }
 
+  bool is_canon_insn() const { return $self->is_canon_insn(PH); }
+  uint32 get_canon_feature() const { return $self->get_canon_feature(PH); }
+  const char *get_canon_mnem() const { return $self->get_canon_mnem(PH); }
+
   %pythoncode {
     ops = property(__get_ops__)
 #ifdef BC695

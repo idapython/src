@@ -135,6 +135,14 @@ class disabled_script_timeout_t(object):
         import _ida_idaapi
         _ida_idaapi.set_script_timeout(self.was_timeout)
 
+import ida_ida
+ida_ida.__wrap_hooks_callback(
+    UI_Hooks,
+    "database_closed",
+    "term",
+    lambda cb, *args: cb(*args))
+
+
 # ----------------------------------------------------------------------
 # bw-compat/deprecated. You shouldn't rely on this in new code
 from ida_pro import str2user
@@ -178,9 +186,8 @@ readsel2=read_selection
 switchto_tform=activate_widget
 umsg=msg
 
-import ida_ida
 def __wrap_uihooks_callback(name, do_call):
-    return ida_ida.__wrap_hooks_callback(UI_Hooks, name, name.replace("widget", "tform"), do_call)
+    return ida_ida.__wrap_695_hooks_callback(UI_Hooks, name, name.replace("widget", "tform"), do_call)
 
 
 __wrap_uihooks_callback("widget_visible", lambda cb, *args: cb(args[0], args[0]))

@@ -1087,7 +1087,7 @@ def gen_file(filetype, path, ea1, ea2, flags):
                 -1 if an error occurred
                 OFILE_EXE: 0-can't generate exe file, 1-ok
     """
-    f = ida_diskio.fopenWT(path)
+    f = ida_diskio.fopenWB(path)
 
     if f:
         retval = ida_loader.gen_file(filetype, f, ea1, ea2, flags)
@@ -1787,13 +1787,9 @@ def find_binary(ea, flag, searchstr, radix=16, from_bc695=False):
 #----------------------------------------------------------------------------
 def process_config_line(directive):
     """
-    Parse one or more ida.cfg config directives
-    @param directive: directives to process, for example: PACK_DATABASE=2
-
-    @note: If the directives are erroneous, a fatal error will be generated.
-           The settings are permanent: effective for the current session and the next ones
+    Obsolete. Please use ida_idp.process_config_directive().
     """
-    return eval_idc('process_config_line("%s")' % ida_kernwin.str2user(directive))
+    return eval_idc('process_config_directive("%s")' % ida_kernwin.str2user(directive))
 
 
 # The following functions allow you to set/get common parameters.
@@ -5675,22 +5671,7 @@ define_exception = ida_dbg.define_exception
 EXC_BREAK  = 0x0001 # break on the exception
 EXC_HANDLE = 0x0002 # should be handled by the debugger?
 
-
-def get_reg_value(name):
-    """
-    Get register value
-
-    @param name: the register name
-
-    @note: The debugger should be running. otherwise the function fails
-           the register name should be valid.
-           It is not necessary to use this function to get register values
-           because a register name in the script will do too.
-
-    @return: register value (integer or floating point)
-    """
-    return ida_dbg.get_reg_val(name)
-
+get_reg_value = ida_dbg.get_reg_val
 
 def set_reg_value(value, name):
     """

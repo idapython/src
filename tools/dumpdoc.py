@@ -3,6 +3,7 @@ import re
 import sys
 import inspect
 import types
+import argparse
 
 if sys.version_info[0] == 3:
     # for Python3, we always use the same pydoc module from Python3.5. this keeps the output consistent across different Python3 versions.
@@ -14,6 +15,7 @@ import inspect
 import pydoc
 
 import idc
+output, wrappers_dir, is_64 = idc.ARGV[1], idc.ARGV[2], idc.ARGV[3] == "True"
 
 try:
     from cStringIO import StringIO
@@ -106,6 +108,10 @@ all_specific_translations = {
             "qvector< unsigned int >::",
             "qvector< unsigned long long >::"
         ), "qvector< unsigned-ea-like-numeric-type >::", True),
+        ((
+            "qvector< unsigned int > &",
+            "qvector< unsigned long long > &"
+        ), "qvector< unsigned-ea-like-numeric-type > &", True),
     ],
     "ida_hexrays.ivl_t" : [
         ((
@@ -142,18 +148,34 @@ all_specific_translations = {
             ") -> unsigned int",
             ") -> unsigned long long", # py3
         ), ") -> unsigned-ea-like-numeric-type", True),
+        ((
+            "_off: unsigned int",
+            "_off: unsigned long long", # py3
+        ), "_off: unsigned-ea-like-numeric-type", True),
+        ((
+            "_size: unsigned int",
+            "_size: unsigned long long", # py3
+        ), "_size: unsigned-ea-like-numeric-type", True),
     ],
     "ida_hexrays.ivlset_t" : [
         ((
             "ivlset_tpl< ivl_t,unsigned int >::",
             "ivlset_tpl< ivl_t,unsigned long long >::", # py3
         ), "ivlset_tpl< ivl_t,unsigned-ea-like-numeric-type >::", True),
+        ((
+            "v: unsigned int",
+            "v: unsigned long long"
+        ), "v: unsigned-ea-like-numeric-type", True),
     ],
     "ida_hexrays.uval_ivl_ivlset_t" : [
         ((
             "ivlset_tpl< ivl_t,unsigned int >::",
             "ivlset_tpl< ivl_t,unsigned long long >::",
         ), "ivlset_tpl< ivl_t,unsigned-ea-like-numeric-type >::", True),
+        ((
+            "v: unsigned int",
+            "v: unsigned long long"
+        ), "v: unsigned-ea-like-numeric-type", True),
     ],
     "ida_nalt.strpath_ids_array" : [
         ((
@@ -165,6 +187,11 @@ all_specific_translations = {
             "unsigned int const &",
             "unsigned long long const &",
         ), "unsigned-ea-like-numeric-type const &", True),
+        # py3
+        ((
+            "data: unsigned int (&)",
+            "data: unsigned long long (&)",
+        ), "data: unsigned-ea-like-numeric-type (&)", True),
     ],
     "idc.add_func" : [
         (("add_func(start, end=4294967295)",
@@ -206,6 +233,29 @@ all_specific_translations = {
             "'uint64 *'",
         ), "'unsigned-ea-like-numeric-type *'", True),
     ],
+    "ida_funcs.dyn_ea_array" : [
+        ((
+            "-> unsigned int const &",
+            "-> unsigned long long const &",
+        ), "-> unsigned-ea-like-numeric-type const &", True),
+        ((
+            "-> unsigned int *",
+            "-> unsigned long long *",
+        ), "-> unsigned-ea-like-numeric-type *", True),
+        ((
+            "_data: unsigned int *",
+            "_data: unsigned long long *",
+        ), "_data: unsigned-ea-like-numeric-type *", True),
+        ((
+            "v: unsigned int const &",
+            "v: unsigned long long const &",
+        ), "v: unsigned-ea-like-numeric-type const &", True),
+        # Python3
+        ((
+            "-> 'unsigned int const &'",
+            "-> 'unsigned long long const &'",
+        ), "-> 'unsigned-ea-like-numeric-type const &'", True),
+    ],
     "ida_idp.ph_find_op_value" : [
         ((
             "uint32",
@@ -227,6 +277,16 @@ all_specific_translations = {
         ((
             "int([x]) -> integer",
         ), "int(x=0) -> integer", False),
+        ((
+            "_Keyval: unsigned int const &",
+            "_Keyval: unsigned long long const &"
+        ), "_Keyval: unsigned-ea-like-numeric-type const &", True),
+    ],
+    "ida_hexrays.user_unions_t" : [
+        ((
+            "_Keyval: unsigned int const &",
+            "_Keyval: unsigned long long const &"
+        ), "_Keyval: unsigned-ea-like-numeric-type const &", True),
     ],
     "ida_hexrays.DecompilationFailure" : [
         ((
@@ -238,7 +298,39 @@ all_specific_translations = {
             "Helper for pickle.",
         ), "helper for pickle", False),
     ],
+
+    #
+    # The following is a kludge: IDA 7.5 ships with
+    # release_pydoc_injections*.txt and ida_nalt.py files that have
+    # a very slightly different wrapping. We want to prevent this
+    # from building IDAPython under the SDK.
+    #
+    "ida_nalt.set_outfile_encoding_idx" : [
+        ((
+            "the encoding index idx can be 0 to use the IDB's default 1",
+            "the encoding index idx can be 0 to use the IDB's default",
+        ), "<snipped>", False ),
+        ((
+            "1-byte-per-unit encoding (C++: int)",
+            "-byte-per-unit encoding (C++: int)",
+        ), "<snipped>", False ),
+    ],
 }
+
+if is_64:
+    all_specific_translations["ida_dirtree.direntry_t"] = [
+        ((
+            "BADIDX = 18446744073709551615L",
+            "BADIDX = 18446744073709551615",
+        ), "BADIDX = unsigned-ea-like-numeric-type(-1)", False),
+    ]
+else:
+    all_specific_translations["ida_dirtree.direntry_t"] = [
+        ((
+            "BADIDX = 4294967295L",
+            "BADIDX = 4294967295",
+        ), "BADIDX = unsigned-ea-like-numeric-type(-1)", False),
+    ]
 
 def dump_namespace(namespace, namespace_name, keys, vec_info=None):
     spotted_things = []
@@ -266,8 +358,6 @@ def dump_namespace(namespace, namespace_name, keys, vec_info=None):
         else:
             pydoc.help(thing)
         spotted_things.append(thing)
-
-output, wrappers_dir = idc.ARGV[1], idc.ARGV[2]
 
 # By default, pydoc.help() hides members that start with "_"
 # unless they start and end with "__" (with an exception for

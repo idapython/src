@@ -71,6 +71,7 @@ forbidden = [
     "SetSegmentType",
     "CleanupAppcall",
     "DelUserInfo",
+    "process_config_line",
 ]
 
 symbols_modules = [

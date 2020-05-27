@@ -831,7 +831,7 @@ int ida_export idcvar_to_pyvar(
       if ( *py_var == NULL )
       {
         double x;
-        if ( ph.realcvt(&x, (uint16 *)idc_var.e, (sizeof(x)/2-1)|010) != 1 )
+        if ( processor_t::realcvt(&x, (uint16 *)idc_var.e, (sizeof(x)/2-1)|010) != 1 )
           INTERR(30160);
 
         *py_var = newref_t(PyFloat_FromDouble(x));
@@ -1555,9 +1555,6 @@ bool ida_export lookup_info_t_del_by_py_view(
   }
   return false;
 }
-
-//-------------------------------------------------------------------------
-lookup_info_t pycim_lookup_info;
 
 //-------------------------------------------------------------------------
 //                         py_customidamemo_t

@@ -11,7 +11,6 @@
 %ignore node_set_t;
 %ignore qflow_chart_t::blocks;
 %ignore flow_chart_t;
-%ignore default_graph_format;
 %ignore setup_graph_subsystem;
 %ignore qbasic_block_t::succ;
 %ignore qbasic_block_t::pred;

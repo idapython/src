@@ -22,6 +22,7 @@ EXPORTS
   enable_extlang_python
   enable_python_cli
   is_api695_compat_enabled
+  get_plugin_instance
   idcvar_to_pyvar
   lookup_info_t_commit
   lookup_info_t_del_by_py_view
@@ -65,4 +66,3 @@ EXPORTS
   idapython_hide_wait_box
   register_module_lifecycle_callbacks
   prepare_programmatic_plugin_load
-  pycim_lookup_info DATA

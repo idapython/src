@@ -8,11 +8,11 @@ from __future__ import print_function
 #
 #---------------------------------------------------------------------
 
-import idaapi
+import ida_kernwin
 
-class MyUiHook(idaapi.UI_Hooks):
+class MyUiHook(ida_kernwin.UI_Hooks):
     def __init__(self):
-        idaapi.UI_Hooks.__init__(self)
+        ida_kernwin.UI_Hooks.__init__(self)
         self.cmdname = "<no command>"
 
     def _log(self, msg):

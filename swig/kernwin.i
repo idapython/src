@@ -1,20 +1,19 @@
+
 %{
 #include <kernwin.hpp>
 #include <parsejson.hpp>
 %}
 
+%{
+struct dirspec_t;
+%}
+
+%force_declare_SWiG_type(dirspec_t);
+%force_declare_SWiG_type(dirtree_t);
+
 %apply qstring *result { qstring *label };
 %apply qstring *result { qstring *shortcut };
 %apply qstring *result { qstring *tooltip };
-
-%{
-#ifdef __NT__
-idaman __declspec(dllimport) plugin_t PLUGIN;
-#else
-extern plugin_t PLUGIN;
-#endif
-%}
-
 
 %typemap(out) void *get_window_id
 {
@@ -267,12 +266,40 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 %ignore remove_command_interpreter;
 %rename (remove_command_interpreter) py_remove_command_interpreter;
 
+%ignore qvector<line_rendering_output_entry_t*>::grow;
+%template(line_rendering_output_entries_refs_t) qvector<line_rendering_output_entry_t*>;
+%ignore line_rendering_output_entries_refs_t::push_back;
+
+%ignore qvector<const twinline_t*>::grow;
+%template(section_lines_refs_t) qvector<const twinline_t*>;
+%template(sections_lines_refs_t) qvector<section_lines_refs_t>;
+
+%uncomparable_elements_qvector(twinline_t, text_t);
+
+%ignore qvector<sync_source_t>::grow;
+%ignore qvector<sync_source_t>::resize;
+%ignore qvector<sync_source_t>::push_back();
+%template(sync_source_vec_t) qvector<sync_source_t>;
+
 //<typemaps(kernwin)>
 //</typemaps(kernwin)>
 
 %include "kernwin.hpp"
 
 %uncomparable_elements_qvector(disasm_line_t, disasm_text_t);
+
+%extend qvector<line_rendering_output_entry_t*> {
+  void _internal_push_back(line_rendering_output_entry_t *e)
+  {
+    $self->push_back(e);
+  }
+  %pythoncode {
+      def push_back(self, e):
+          if e and e.thisown:
+              self._internal_push_back(e)
+              e.thisown = False
+  }
+}
 
 %extend place_t {
   virtual bool idaapi deserialize(const bytevec_t &in)
@@ -301,7 +328,7 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 #undef DUPSTR
     ad->icon = icon;
     ad->handler = new py_action_handler_t(handler);
-    ad->flags = flags | ADF_OWN_HANDLER;
+    ad->flags = flags | ADF_OWN_HANDLER | ADF_GLOBAL | ADF_OT_PLUGIN;
     ad->owner = &PLUGIN;
     return ad;
   }

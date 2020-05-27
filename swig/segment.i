@@ -4,9 +4,6 @@
 %ignore enumerate_segments_with_selector;
 
 // Kernel-only
-%ignore init_groups;
-%ignore save_groups;
-%ignore term_groups;
 %ignore vset_segm_name;
 %ignore get_segm_expr;
 %ignore is_debugger_segm;

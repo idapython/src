@@ -47,9 +47,9 @@ public:
   plgform_t() : widget(NULL) {}
 
   bool show(
-          PyObject *obj,
-          const char *caption,
-          int options)
+        PyObject *obj,
+        const char *caption,
+        int options)
   {
     const bool create_only = options == -1;
 

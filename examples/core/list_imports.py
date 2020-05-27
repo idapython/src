@@ -3,28 +3,27 @@ from __future__ import print_function
 # This is an example illustrating how to enumerate imports
 # (c) Hex-Rays
 #
-import idaapi
+import ida_nalt
 
-def imp_cb(ea, name, ord):
-    if not name:
-        print("%08x: ord#%d" % (ea, ord))
-    else:
-        print("%08x: %s (ord#%d)" % (ea, name, ord))
-    # True -> Continue enumeration
-    # False -> Stop enumeration
-    return True
-
-nimps = idaapi.get_import_module_qty()
+nimps = ida_nalt.get_import_module_qty()
 
 print("Found %d import(s)..." % nimps)
 
-for i in range(0, nimps):
-    name = idaapi.get_import_module_name(i)
+for i in range(nimps):
+    name = ida_nalt.get_import_module_name(i)
     if not name:
         print("Failed to get import module name for #%d" % i)
-        continue
+        name = "<unnamed>"
 
-    print("Walking-> %s" % name)
-    idaapi.enum_import_names(i, imp_cb)
+    print("Walking imports for module %s" % name)
+    def imp_cb(ea, name, ordinal):
+        if not name:
+            print("%08x: ordinal #%d" % (ea, ordinal))
+        else:
+            print("%08x: %s (ordinal #%d)" % (ea, name, ordinal))
+        # True -> Continue enumeration
+        # False -> Stop enumeration
+        return True
+    ida_nalt.enum_import_names(i, imp_cb)
 
 print("All done...")

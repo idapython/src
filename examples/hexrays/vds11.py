@@ -1,6 +1,6 @@
 #
 #      Hex-Rays Decompiler project
-#      Copyright (c) 2007-2019 by Hex-Rays, support@hex-rays.com
+#      Copyright (c) 2007-2020 by Hex-Rays, support@hex-rays.com
 #      ALL RIGHTS RESERVED.
 #
 #      Sample plugin for Hex-Rays Decompiler.
@@ -22,6 +22,7 @@ import ida_range
 import ida_kernwin
 import ida_hexrays
 import ida_typeinf
+import ida_idaapi
 
 class goto_optimizer_t(ida_hexrays.optblock_t):
     def func(self, blk):
@@ -71,9 +72,27 @@ class goto_optimizer_t(ida_hexrays.optblock_t):
         mba.verify(True);
         return True
 
+# --------------------------------------------------------------------------
+# a plugin interface, boilerplate code
+class my_plugin_t(ida_idaapi.plugin_t):
+    flags = ida_idaapi.PLUGIN_HIDE
+    wanted_name = "Optimize goto chains (IDAPython)"
+    wanted_hotkey = ""
+    comment = "Sample plugin11 for Hex-Rays decompiler"
+    help = ""
+    def init(self):
+        if ida_hexrays.init_hexrays_plugin():
+            self.optimizer = goto_optimizer_t()
+            self.optimizer.install()
+            return ida_idaapi.PLUGIN_KEEP # keep us in the memory
+    def term(self):
+        self.optimizer.remove()
+    def run(self, arg):
+        if arg == 1:
+            return self.optimizer.remove()
+        elif arg == 2:
+            return self.optimizer.install()
 
-if ida_hexrays.init_hexrays_plugin():
-    optimizer = goto_optimizer_t()
-    optimizer.install()
-else:
-    print('vds11: Hex-rays is not available.')
+def PLUGIN_ENTRY():
+    return my_plugin_t()
+

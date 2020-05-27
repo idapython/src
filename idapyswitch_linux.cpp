@@ -43,8 +43,7 @@ void pyver_tool_t::do_find_python_libs(pylib_entries_t *result) const
         {
           qmakepath(path, sizeof(path), d, fb.ff_name, nullptr);
           out_verb("Found: \"%s\" (version: %s)\n", path, version.str(&verbuf));
-          pylib_entry_t &e = result->get_or_create_entry_for_version(version);
-          e.paths.push_back(path);
+          result->add_entry(version, path);
         }
       }
     }
@@ -333,7 +332,7 @@ bool pyver_tool_t::do_apply_version(
     patcher_t(const qstring &_soname, qstring *_errbuf)
       : lsoname(_soname), lerrbuf(_errbuf) {}
 
-    virtual int visit_file(const char *path)
+    virtual int visit_file(const char *path) override
     {
       return patch_dt_needed(path, lsoname, lerrbuf) ? 0 : -1;
     }

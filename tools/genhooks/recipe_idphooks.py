@@ -187,3 +187,5 @@ recipe = {
         },
     },
 }
+
+default_rtype = "int"

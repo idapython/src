@@ -121,13 +121,16 @@
 //-------------------------------------------------------------------------
 %typemap(in) (const uchar *ptr, const uchar *end) // for _wrap_extract_..._from_metadata
 {
-  if ( !IDAPyStr_Check($input) )
-    SWIG_exception_fail(SWIG_TypeError, "Expected string in method '$symname', argument $argnum of type 'str'");
-  qstring buf;
-  if ( IDAPyStr_AsUTF8(&buf, $input) )
+  if ( !IDAPyBytes_Check($input) )
+    SWIG_exception_fail(SWIG_TypeError, "Expected bytes in method '$symname', argument $argnum of type 'bytes'");
+  bytevec_t bytes;
+  char *buffer = nullptr;
+  Py_ssize_t length = 0;
+  if ( IDAPyBytes_AsMemAndSize($input, &buffer, &length) )
   {
-    $1 = (uchar *) buf.c_str();
-    $2 = $1 + buf.length();
+    bytes.append(buffer, length);
+    $1 = bytes.begin();
+    $2 = bytes.end();
     QASSERT(30575, $2 >= $1);
   }
 }

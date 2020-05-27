@@ -65,14 +65,21 @@ class Choose(object):
     CH_BUILTIN_SHIFT = _ida_kernwin.CH_BUILTIN_SHIFT
     CH_BUILTIN_MASK = _ida_kernwin.CH_BUILTIN_MASK
 
+    """The chooser can provide a dirtree_t, meaning a tree-like structure
+       can be provided to the user (instead of a flat table)"""
+    CH_HAS_DIRTREE = _ida_kernwin.CH_HAS_DIRTREE
+
     # column flags (are specified in the widths array)
-    CHCOL_PLAIN  =  _ida_kernwin.CHCOL_PLAIN
-    CHCOL_PATH   =  _ida_kernwin.CHCOL_PATH
-    CHCOL_HEX    =  _ida_kernwin.CHCOL_HEX
-    CHCOL_DEC    =  _ida_kernwin.CHCOL_DEC
-    CHCOL_EA     =  _ida_kernwin.CHCOL_EA
-    CHCOL_FNAME  =  _ida_kernwin.CHCOL_FNAME
-    CHCOL_FORMAT =  _ida_kernwin.CHCOL_FORMAT
+    CHCOL_PLAIN     = _ida_kernwin.CHCOL_PLAIN
+    CHCOL_PATH      = _ida_kernwin.CHCOL_PATH
+    CHCOL_HEX       = _ida_kernwin.CHCOL_HEX
+    CHCOL_DEC       = _ida_kernwin.CHCOL_DEC
+    CHCOL_EA        = _ida_kernwin.CHCOL_EA
+    CHCOL_FNAME     = _ida_kernwin.CHCOL_FNAME
+    CHCOL_FORMAT    = _ida_kernwin.CHCOL_FORMAT
+    CHCOL_DEFHIDDEN = _ida_kernwin.CHCOL_DEFHIDDEN
+    CHCOL_DRAGHINT  = _ida_kernwin.CHCOL_DRAGHINT
+    CHCOL_INODENAME = _ida_kernwin.CHCOL_INODENAME
 
     # special values of the chooser index
     NO_SELECTION   = -1

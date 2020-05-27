@@ -15,6 +15,15 @@
 
 #define SWIG_PYTHON_LEGACY_BOOL 1
 
+%{
+class plugin_t;
+#ifdef __NT__
+idaman __declspec(dllimport) plugin_t PLUGIN;
+#else
+extern plugin_t PLUGIN;
+#endif
+%}
+
 // Auto-inserted header
 // generate directors for all classes that have virtual methods
 %feature("director");
@@ -329,7 +338,7 @@ if _BC695:
 %exception_set_default_handlers();
 
 // Enable automatic docstring generation
-%feature(autodoc,0);
+%feature(autodoc,2);
 
 %{
 /* strnlen() arrived on OSX at v10.7. Provide it ourselves if needed. */
@@ -818,6 +827,23 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 { // bytes_container REFTYPE typemap(typecheck)
   $1 = CHECKER($input) ? 1 : 0;
 }
+%fragment("outarg_cvt_" #CONTAINER_TYPE, "header")
+{
+  bool outarg_cvt_##CONTAINER_TYPE(
+          CONTAINER_TYPE *out,
+          PyObject *obj,
+          bool can_be_none=false)
+  {
+    bool ok = can_be_none && obj == Py_None;
+    if ( !ok )
+    {
+      ok = CHECKER(obj);
+      if ( ok )
+        IN_CONVERTER(out, obj);
+    }
+    return ok;
+  }
+}
 %fragment("cvt_" #CONTAINER_TYPE, "header")
 {
   CONTAINER_TYPE *cvt_##CONTAINER_TYPE(PyObject *obj, bool can_be_none=false)
@@ -945,6 +971,24 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 %typemap(directorin) REFTYPE
 { // bytes_container typemap(directorin) REFTYPE
   $input = OUT_CONVERTER($1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
+}
+%typemap(directorout) CONTAINER_TYPE
+{ // bytes_container typemap(directorout) CONTAINER_TYPE
+  if ( CHECKER($1) )
+    IN_CONVERTER(&$result, $1);
+  else
+    Swig::DirectorTypeMismatchException::raise(
+            SWIG_ErrorType(SWIG_TypeError),
+            "in output value of type '" ELTYPE_TO_REPORT2 "' in method '$symname'");
+}
+%typemap(directorargout) CONTAINER_TYPE *vout
+{ // bytes_container typemap(directorargout) CONTAINER_TYPE *vout
+  if ( CHECKER($result) )
+  {
+    CONTAINER_TYPE _buf;
+    if ( IN_CONVERTER(&_buf, $result) )
+      vout->insert(vout->SIZE_ACCESSOR(), _buf.START_ACCESSOR(), _buf.SIZE_ACCESSOR());
+  }
 }
 %enddef
 
@@ -1100,6 +1144,7 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
     SWIG_exception_fail(SWIG_ValueError, "Expected either an address, or a non-null ida_ua.insn_t instance");
   $1 = &lins;
 }
+%typemap(doc) (const insn_t &) "$1_name: an ida_ua.insn_t, or an address (C++: const insn_t &)"
 
 //---------------------------------------------------------------------
 //                      varargs (mostly kernwin.hpp)
@@ -1219,13 +1264,13 @@ struct wrapped_array_t {
 %extend wrapped_array_t {
   inline size_t __len__() const { qnotused($self); return N; }
 
-  inline const Type& __getitem__(size_t i) const throw(std::out_of_range) {
+  inline const Type& __getitem__(size_t i) const {
     if ( i >= N )
       throw std::out_of_range("out of bounds access");
     return $self->data[i];
   }
 
-  inline void __setitem__(size_t i, const Type& v) throw(std::out_of_range) {
+  inline void __setitem__(size_t i, const Type& v) {
     if ( i >= N )
       throw std::out_of_range("out of bounds access");
     $self->data[i] = v;
@@ -1253,13 +1298,13 @@ struct dynamic_wrapped_array_t {
 %extend dynamic_wrapped_array_t {
   inline size_t __len__() const { return $self->count; }
 
-  inline const Type& __getitem__(size_t i) const throw(std::out_of_range) {
+  inline const Type& __getitem__(size_t i) const {
     if ( i >= $self->count )
       throw std::out_of_range("out of bounds access");
     return $self->data[i];
   }
 
-  inline void __setitem__(size_t i, const Type& v) throw(std::out_of_range) {
+  inline void __setitem__(size_t i, const Type& v) {
     if ( i >= $self->count )
       throw std::out_of_range("out of bounds access");
     $self->data[i] = v;
@@ -1463,7 +1508,10 @@ SWIGINTERN PyObject *qstrvec2pylist(const qstrvec_t &vec)
 // get_[next|prev]_serial_enum_member() take serials as input, and have the result present as output
 %apply unsigned char *INOUT { uchar *in_out_serial };
 
-%define %nonnul_argument_prototype(PROTO, ARGSIG)
+// This is meant only for the code that is defined in IDAPython,
+// as SDK non-null pointers should be marked by NONNULL and handled
+// automatically.
+%define %pywraps_nonnul_argument_prototype(PROTO, ARGSIG)
 /* first, define the typemap */
 %typemap(check) (ARGSIG)
 {
@@ -1681,6 +1729,14 @@ SWIGINTERN bool __chkreqidb()
 
 %}
 
+%define %force_declare_SWiG_type(NAME)
+// KLUDGE: I have no idea how to force SWiG to declare a type for a module,
+// unless that type is indeed used. That's why this wrapper exists..
+%inline %{
+inline void _kludge_force_declare_##NAME(const NAME *) {}
+%}
+%enddef
+
 %define %modal_dialog_triggering_function(NAME)
 %thread NAME;
 %pythonprepend NAME
@@ -1702,6 +1758,11 @@ SWIGINTERN bool __chkreqidb()
 // at the beginning of pro.i won't have any effect. Same for all
 // modules.
 ${ALL_IMPORTS}
+
+// This is where all the collected NONNULL information coming
+// from the SDK, will be injected in the form of 'check'
+// typemaps.
+${NONNULL_TYPEMAPS}
 
 #endif // __HEADER_I__
 // END: auto-inserted header

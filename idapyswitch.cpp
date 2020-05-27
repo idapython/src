@@ -36,6 +36,12 @@
 #  undef minor
 #endif
 
+#ifdef __NT__
+#  define PY_MODULE_EXT ".pyd"
+#else
+#  define PY_MODULE_EXT ".so"
+#endif
+
 //-------------------------------------------------------------------------
 struct user_args_t
 {
@@ -217,16 +223,20 @@ struct pylib_entries_t
     return nullptr;
   }
 
-  pylib_entry_t &get_or_create_entry_for_version(const pylib_version_t &version)
+  pylib_entry_t &add_entry(const pylib_version_t &version, const qstrvec_t &paths)
   {
-    pylib_entry_t *e = get_entry_for_version(version);
-    if ( e == nullptr )
-    {
-      pylib_entry_t ne(version);
-      entries.push_back(ne);
-      e = &entries.back();
-    }
+    pylib_entry_t ne(version);
+    ne.paths = paths;
+    entries.push_back(ne);
+    pylib_entry_t *e = &entries.back();
     return *e;
+  }
+
+  pylib_entry_t &add_entry(const pylib_version_t &version, const char *path)
+  {
+    qstrvec_t paths;
+    paths.push_back(path);
+    return add_entry(version, paths);
   }
 };
 
@@ -238,8 +248,8 @@ static void set_preferred_pylib_version(pylib_entries_t *result);
 struct pyver_tool_t
 {
   static bool reverse_compare_entries(
-          const pylib_entry_t &e0,
-          const pylib_entry_t &e1)
+        const pylib_entry_t &e0,
+        const pylib_entry_t &e1)
   {
     if ( e0.preferred )
       return true;
@@ -252,15 +262,14 @@ struct pyver_tool_t
   }
 
   bool path_to_pylib_entry(
-          pylib_entry_t *out,
-          const char *path,
-          qstring *errbuf) const
+        pylib_entry_t *out,
+        const char *path,
+        qstring *errbuf) const
   {
     return do_path_to_pylib_entry(out, path, errbuf);
   }
 
-  void find_python_libs(
-          pylib_entries_t *result) const
+  void find_python_libs(pylib_entries_t *result) const
   {
     do_find_python_libs(result);
 
@@ -280,10 +289,11 @@ struct pyver_tool_t
   }
 
   bool apply_version(
-          const pylib_entry_t &entry,
-          qstring *errbuf) const
+        const pylib_entry_t &entry,
+        qstring *errbuf) const
   {
-    return do_apply_version(entry, errbuf);
+    return do_pick_sip(entry, errbuf)
+        && do_apply_version(entry, errbuf);
   }
 
 private:
@@ -298,11 +308,46 @@ private:
   // Python3 version and produce an entry with it.
   bool do_path_to_pylib_entry(pylib_entry_t *entry, const char *path, qstring *errbuf) const;
 
+  // Pick the right sip.so for the selected version, and
+  // copy it in the PyQt5 directory
+  bool do_pick_sip(const pylib_entry_t &entry, qstring *errbuf) const;
+
   // Do patch the idapython.[so|dylib] binary (or the
   // registry on Windows) so that they refer to the right
   // Python3 version.
   bool do_apply_version(const pylib_entry_t &entry, qstring *errbuf) const;
 };
+
+//-------------------------------------------------------------------------
+bool pyver_tool_t::do_pick_sip(
+        const pylib_entry_t &entry,
+        qstring *errbuf) const
+{
+  const char *src_sip_subdir = entry.version.minor >= 8 ? "python_3.8" : "python_3.4";
+  char src_sip_path[QMAXPATH];
+  qmakepath(src_sip_path, sizeof(src_sip_path), idadir(""),
+            "python", "3", "PyQt5", src_sip_subdir, "sip" PY_MODULE_EXT, nullptr);
+
+  if ( !qfileexist(src_sip_path) )
+  {
+    errbuf->sprnt("File not found: \"%s\"", src_sip_path);
+    return false;
+  }
+
+  char dst_sip_path[QMAXPATH];
+  qmakepath(dst_sip_path, sizeof(dst_sip_path), idadir(""),
+            "python", "3", "PyQt5", "sip" PY_MODULE_EXT, nullptr);
+  out_verb("Copying \"%s\" to \"%s\"\n", src_sip_path, dst_sip_path);
+  const int code = qcopyfile(src_sip_path, dst_sip_path, /*overwrite=*/ true);
+  if ( code != 0 )
+  {
+    errbuf->sprnt("Couldn't copy file \"%s\" to \"%s\": %s",
+                  src_sip_path, dst_sip_path, qstrerror(-1));
+    return false;
+  }
+
+  return true;
+}
 
 //-------------------------------------------------------------------------
 // Accepts:
@@ -473,7 +518,9 @@ static int for_all_plugin_files(file_visitor_t &dv, qstring *errbuf)
     if ( qfileexist(path) )
     {
       found++;
-      qmakepath(path, sizeof(path), idadir(""), "plugins", is_ea64 ? "idapython64." SOSFX : "idapython." SOSFX, nullptr);
+      char fname[QMAXPATH];
+      qsnprintf(fname, sizeof(fname), "idapython%d%s.%s", args.major_version, is_ea64 ? "_64" : "", SOSFX);
+      qmakepath(path, sizeof(path), idadir(""), "plugins", fname, nullptr);
       int ret = dv.visit_file(path);
       if ( ret != 0 )
         return ret;
@@ -543,7 +590,7 @@ static const cliopt_t _opts[] =
   },
 
 #ifdef __UNIX__
-  { 'k', "ignore-python-config", "Don't use python-config to find out the preferred version number", set_ignore_python_config, 0 },
+  { 'k', "ignore-python-config", "Do not use python-config to find out the preferred version number", set_ignore_python_config, 0 },
 #endif
 #ifdef __LINUX__
   { 'x', "split-debug-and-expand-libpython3-dtneeded-room", "Expand the DT_NEEDED room to N bytes, using the local `patchelf` (needed at build-time only)", set_split_debug_expand_libpython3_dtneeded_room, 1 },
@@ -576,7 +623,7 @@ static const char usage_epilog[] =
   "\n"
   "  2) The 'automatic' way\n"
   "  ----------------------\n"
-  "     > $ idapyswitch --auto\n"
+  "     > $ idapyswitch --auto-apply\n"
   "   will look on the filesystem for available Python3 installations,\n"
   "   and automatically pick the one it deemed the most preferable.\n"
   "\n"

@@ -10,6 +10,9 @@ import ida_graph
 import ida_ua
 import ida_idp
 import ida_funcs
+import ida_xref
+
+import idautils
 
 class _base_graph_action_handler_t(ida_kernwin.action_handler_t):
     def __init__(self, graph):
@@ -117,17 +120,17 @@ class MyGraph(ida_graph.GraphViewer):
 
 
 def show_graph():
-    f = ida_funcs.get_func(here())
+    f = ida_funcs.get_func(ida_kernwin.get_screen_ea())
     if not f:
         print("Must be in a function")
         return
     # Iterate through all function instructions and take only call instructions
     result = []
     tmp = ida_ua.insn_t()
-    for x in [x for x in FuncItems(f.start_ea) if (ida_ua.decode_insn(tmp, x) and ida_idp.is_call_insn(tmp))]:
-        for xref in XrefsFrom(x, idaapi.XREF_FAR):
+    for x in [x for x in idautils.FuncItems(f.start_ea) if (ida_ua.decode_insn(tmp, x) and ida_idp.is_call_insn(tmp))]:
+        for xref in idautils.XrefsFrom(x, ida_xref.XREF_FAR):
             if not xref.iscode: continue
-            t = get_func_name(xref.to)
+            t = ida_funcs.get_func_name(xref.to)
             if not t:
                 t = hex(xref.to)
             result.append(t)

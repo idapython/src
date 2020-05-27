@@ -2,13 +2,13 @@
 //<inline(py_lumina)>
 
 //-------------------------------------------------------------------------
-bool py_extract_type_from_metadata(tinfo_t *out, const qstring &in)
+bool py_extract_type_from_metadata(tinfo_t *out, const bytevec_t &in)
 {
   md_type_parts_t tp;
   if ( !in.empty() )
   {
-    const uchar *ptr = (uchar *) in.begin();
-    const uchar *end = ptr + in.length();
+    const uchar *ptr = in.begin();
+    const uchar *end = in.end();
     extract_type_from_metadata(&tp, ptr, end);
     out->deserialize(NULL, &tp.type, &tp.fields);
   }

@@ -1,9 +1,7 @@
 
-from idaapi import PluginForm
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sip
 
-class MyPluginFormClass(PluginForm):
+class MyPluginFormClass(ida_kernwin.PluginForm):
     def OnCreate(self, form):
         """
         Called when the widget is created

@@ -401,8 +401,7 @@ static void enum_python_key(pylib_entries_t *result, const HKEY hkey, qstring *_
               &errbuf) )
             {
               out("Found: \"%s\" (version: %s)\n", install_path.c_str(), version.str(&verbuf));
-              pylib_entry_t &e = result->get_or_create_entry_for_version(version);
-              e.paths.insert(e.paths.end(), paths.begin(), paths.end());
+              pylib_entry_t &e = result->add_entry(version, paths);
               e.display_name = displayname;
             }
             else
@@ -587,9 +586,9 @@ bool pyver_tool_t::do_apply_version(
   }
 
   // Now, let's handle sip.pyd
-  out_verb("Handling sip.pyd\n");
+  out_verb("Handling sip" PY_MODULE_EXT "\n");
   char path[QMAXPATH];
-  qmakepath(path, sizeof(path), idadir(""), "python", "3", "PyQt5", "sip.pyd", nullptr);
+  qmakepath(path, sizeof(path), idadir(""), "python", "3", "PyQt5", "sip" PY_MODULE_EXT, nullptr);
   linput_t *linput = open_linput(path, /*remote=*/ false);
   if ( linput == nullptr )
   {

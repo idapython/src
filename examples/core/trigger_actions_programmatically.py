@@ -1,12 +1,17 @@
 from __future__ import print_function
 # -----------------------------------------------------------------------
-# This is an example illustrating how to use the execute_ui_requests()
-# and the idautils.ProcessUiActions()
+# This is an example illustrating how to use
+#   * ida_kernwin.execute_ui_requests()
+#   * ida_kernwin.process_ui_action()
+#
+# Ideally, this script should be run through the "File > Script file..."
+# menu, so as to keep focus on "IDA View-A" and have the
+# 'ProcessUiActions' part work as intended.
+#
 # (c) Hex-Rays
 #
-import idaapi
-import idautils
-import idc
+
+import ida_kernwin
 
 # --------------------------------------------------------------------------
 class __process_ui_actions_helper(object):
@@ -34,9 +39,9 @@ class __process_ui_actions_helper(object):
             return False
 
         # Execute one action
-        idaapi.process_ui_action(
-                self.__action_list[self.__idx],
-                self.__flags)
+        aname = self.__action_list[self.__idx]
+        print("executing: %s (flags=0x%x)" % (aname, self.__flags))
+        print("=> %s" % ida_kernwin.process_ui_action(aname, self.__flags))
 
         # Move to next action
         self.__idx += 1
@@ -55,7 +60,7 @@ def ProcessUiActions(actions, flags=0):
 
     # Instantiate a helper
     helper = __process_ui_actions_helper(actions, flags)
-    return False if len(helper) < 1 else idaapi.execute_ui_requests((helper,))
+    return False if len(helper) < 1 else ida_kernwin.execute_ui_requests((helper,))
 
 
 # --------------------------------------------------------------------------
@@ -63,14 +68,15 @@ class print_req_t(object):
     def __init__(self, s):
         self.s = s
     def __call__(self):
-        idaapi.msg("%s" % self.s)
+        ida_kernwin.msg("%s" % self.s)
         return False # Don't reschedule
 
 
-
-if idc.ask_yn(1,("HIDECANCEL\nDo you want to run execute_ui_requests() example?\n"
-                "Press NO to execute ProcessUiActions() example\n")):
-    idaapi.execute_ui_requests(
-       (print_req_t("Hello"), print_req_t(" world\n")) )
+if ida_kernwin.ask_yn(
+        1, ("HIDECANCEL\nDo you want to run execute_ui_requests() example?\n"
+            "Press NO to execute ProcessUiActions() example\n")):
+    ida_kernwin.execute_ui_requests(
+        (print_req_t("Hello"),
+         print_req_t(" world\n")) )
 else:
-    ProcessUiActions("JumpQ;JumpName")
+    ProcessUiActions("JumpQ;Breakpoints")

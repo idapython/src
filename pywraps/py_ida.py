@@ -152,6 +152,22 @@ SW_TESTMODE = _scope.SCF_TESTMODE
 SW_SHHID_ITEM = _scope.SCF_SHHID_ITEM
 SW_SHHID_FUNC = _scope.SCF_SHHID_FUNC
 SW_SHHID_SEGM = _scope.SCF_SHHID_SEGM
+
+def __wrap_hooks_callback(klass, new_name, old_name, do_call):
+    bkp_name = "__real_%s" % new_name
+    def __wrapper(self, *args):
+        rc = getattr(self, bkp_name)(*args)
+        cb = getattr(self, old_name, None)
+        if cb:
+            rc = do_call(cb, *args)
+        return rc
+
+    new_cb = getattr(klass, new_name)
+    __wrapper.__doc__ = new_cb.__doc__
+    setattr(klass, bkp_name, new_cb)
+    setattr(__wrapper, "__trampoline", True)
+    setattr(klass, new_name, __wrapper)
+    return __wrapper
 #</pycode(py_ida)>
 
 
@@ -187,20 +203,6 @@ showAllComments=show_all_comments
 showComments=show_comments
 showRepeatables=show_repeatables
 toEA=to_ea
-
-def __wrap_hooks_callback(klass, new_name, old_name, do_call):
-    bkp_name = "__real_%s" % new_name
-    def __wrapper(self, *args):
-        rc = getattr(self, bkp_name)(*args)
-        cb = getattr(self, old_name, None)
-        if cb:
-            rc = do_call(cb, *args)
-        return rc
-
-    setattr(klass, bkp_name, getattr(klass, new_name))
-    setattr(__wrapper, "bc695_trampoline", True)
-    setattr(klass, new_name, __wrapper)
-
 idainfo.ASCIIbreak = idainfo.strlit_break
 idainfo.ASCIIpref = idainfo.strlit_pref
 idainfo.ASCIIsernum = idainfo.strlit_sernum
@@ -253,4 +255,8 @@ def make_obsolete_accessors():
     return getter, setter
 idainfo.allow_nonmatched_ops = property(*make_obsolete_accessors())
 idainfo.check_manual_ops = property(*make_obsolete_accessors())
+
+def __wrap_695_hooks_callback(klass, new_name, old_name, do_call):
+    w = __wrap_hooks_callback(klass, new_name, old_name, do_call)
+    setattr(w, "bc695_trampoline", True)
 #</pycode_BC695(py_ida)>

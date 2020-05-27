@@ -7,7 +7,7 @@ class py_graph_t : public py_customidamemo_t
   typedef py_customidamemo_t inherited;
 
 protected:
-  void collect_class_callbacks_ids(pycim_callbacks_ids_t *out);
+  void collect_class_callbacks_ids(pycim_callbacks_ids_t *out) override;
 
 private:
   enum
@@ -59,7 +59,7 @@ private:
     // don't perform sanity check for 'grcode_destroyed', since if we called
     // Close() on this object, it'll have been marked for later deletion in the
     // UI, and thus when we end up here, the view has already been destroyed.
-    bool found = pycim_lookup_info.find_by_py_view(NULL, (py_graph_t *) obj);
+    bool found = get_plugin_instance()->pycim_lookup_info.find_by_py_view(NULL, (py_graph_t *) obj);
     QASSERT(30453, found || code == grcode_destroyed);
     if ( found )
     {
@@ -213,7 +213,7 @@ private:
   void show()
   {
     TWidget *view;
-    if ( pycim_lookup_info.find_by_py_view(&view, this) )
+    if ( get_plugin_instance()->pycim_lookup_info.find_by_py_view(&view, this) )
       display_widget(view, WOPN_DP_TAB);
   }
 
@@ -237,7 +237,7 @@ private:
     }
   }
 
-  virtual void refresh()
+  virtual void refresh() override
   {
     refresh_needed = true;
     inherited::refresh();
@@ -253,7 +253,7 @@ private:
     TWidget *widget = find_widget(title);
     if ( widget == NULL ) // create new widget
     {
-      lookup_entry_t &e = pycim_lookup_info.new_entry(this);
+      lookup_entry_t &e = get_plugin_instance()->pycim_lookup_info.new_entry(this);
       // get a unique graph id
       netnode id;
       char grnode[MAXSTR];
@@ -268,7 +268,7 @@ private:
       if ( pview != NULL )
         viewer_fit_window(pview);
       bind(self, pview);
-      pycim_lookup_info.commit(e, view);
+      get_plugin_instance()->pycim_lookup_info.commit(e, view);
     }
     else
     {
@@ -292,7 +292,7 @@ public:
       return;
 
     py_graph_t *_this = (py_graph_t *) view_extract_this(self);
-    if ( _this == NULL || !pycim_lookup_info.find_by_py_view(NULL, _this) )
+    if ( _this == NULL || !get_plugin_instance()->pycim_lookup_info.find_by_py_view(NULL, _this) )
       return;
 
     _this->jump_to_node(nid);
@@ -302,7 +302,7 @@ public:
   {
     TWidget *view;
     py_graph_t *_this = (py_graph_t *) view_extract_this(self);
-    if ( _this == NULL || !pycim_lookup_info.find_by_py_view(&view, _this) )
+    if ( _this == NULL || !get_plugin_instance()->pycim_lookup_info.find_by_py_view(&view, _this) )
       return NULL;
     newref_t ret(PyObject_CallMethod(self, "unhook", NULL));
     close_widget(view, WCLS_CLOSE_LATER);
@@ -326,7 +326,7 @@ public:
       // so that we reuse it
       TWidget *existing = find_widget(title.c_str());
       if ( existing != NULL )
-        pycim_lookup_info.find_by_view((py_customidamemo_t**) &py_graph, existing);
+        get_plugin_instance()->pycim_lookup_info.find_by_view((py_customidamemo_t**) &py_graph, existing);
 
       if ( py_graph == NULL )
       {

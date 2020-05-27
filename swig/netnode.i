@@ -77,6 +77,8 @@
 %ignore netnode_charshift;
 %ignore netnode_supshift;
 %ignore netnode_altadjust;
+%ignore netnode_altadjust2;
+%ignore altadjust_visitor_t;
 %ignore netnode_exist;
 
 %ignore netnode::truncate_zero_pages;
@@ -103,6 +105,7 @@
 %ignore netnode::setbase;
 
 %ignore netnode::altadjust;
+%ignore netnode::altadjust2;
 %ignore netnode::getblob(qstring *buf, nodeidx_t start, uchar tag);
 %ignore netnode::getblob(void *buf, size_t *bufsize, nodeidx_t start, uchar tag);
 %ignore netnode::getblob_ea(void *buf, size_t *bufsize, ea_t ea, uchar tag);

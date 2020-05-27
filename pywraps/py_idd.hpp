@@ -229,7 +229,7 @@ static PyObject *dbg_get_thread_sreg_base(thid_t tid, int sreg_value)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   ea_t answer;
-  if ( !dbg_can_query() || internal_get_sreg_base(&answer, tid, sreg_value) != DRC_OK )
+  if ( !dbg_can_query(dbg) || internal_get_sreg_base(&answer, tid, sreg_value) != DRC_OK )
     Py_RETURN_NONE;
   return Py_BuildValue(PY_BV_EA, bvea_t(answer));
 }
@@ -251,7 +251,7 @@ static PyObject *dbg_read_memory(ea_t ea, size_t sz)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  if ( !dbg_can_query() )
+  if ( !dbg_can_query(dbg) )
     Py_RETURN_NONE;
 
   // Create a Python string
@@ -288,7 +288,7 @@ static PyObject *dbg_write_memory(
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  if ( !dbg_can_query() )
+  if ( !dbg_can_query(dbg) )
     Py_RETURN_NONE;
 
   if ( write_dbg_memory(ea, buf.begin(), buf.size()) != buf.size() )
@@ -334,7 +334,7 @@ static PyObject *dbg_get_memory_info()
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  if ( !dbg_can_query() )
+  if ( !dbg_can_query(dbg) )
     Py_RETURN_NONE;
 
   // Invalidate memory

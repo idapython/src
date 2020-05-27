@@ -51,7 +51,7 @@ TWidget *pycim_get_widget(PyObject *self)
 {
   CHK_THIS_OR_NULL();
   TWidget *widget = NULL;
-  if ( !pycim_lookup_info.find_by_py_view(&widget, _this) )
+  if ( !get_plugin_instance()->pycim_lookup_info.find_by_py_view(&widget, _this) )
     return NULL;
   return widget;
 }

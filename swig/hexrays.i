@@ -9,14 +9,7 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 }
 %}
 
-// KLUDGE: I have no idea how to force SWiG to declare a type for a module,
-// unless that type is indeed used. That's why this wrapper exists..
-%{
-static void _kludge_use_TPopupMenu(TPopupMenu *) {}
-%}
-%inline %{
-static void _kludge_use_TPopupMenu(TPopupMenu *m);
-%}
+%force_declare_SWiG_type(TPopupMenu);
 
 //---------------------------------------------------------------------
 // SWIG bindings for Hexray Decompiler's hexrays.hpp
@@ -83,6 +76,7 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %ignore cfunc_t::sv;         // lazy member. Use get_pseudocode() instead
 %ignore cfunc_t::boundaries; // lazy member. Use get_boundaries() instead
 %ignore cfunc_t::eamap;      // lazy member. Use get_eamap() instead
+%ignore cfunc_t::reserved;
 %ignore ctree_item_t::verify;
 %ignore ccases_t::find_value;
 %ignore ccases_t::print;
@@ -98,7 +92,7 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %ignore cexpr_t::like_boolean;
 %ignore cexpr_t::contains_expr;
 %ignore cexpr_t::contains_expr;
-%ignore cexpr_t::cexpr_t(mbl_array_t *mba, const lvar_t &v);
+%ignore cexpr_t::cexpr_t(mba_t *mba, const lvar_t &v);
 %ignore cexpr_t::is_type_partial;
 %ignore cexpr_t::set_type_partial;
 %ignore cexpr_t::is_value_used;
@@ -132,13 +126,16 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 
 %ignore mlist_t::has_allmem;
 
-%ignore mbl_array_t::mbl_array_t;
-%ignore mbl_array_t::reserved;
-%ignore mbl_array_t::vdump_mba;
-%ignore mbl_array_t::idaloc2vd(const argloc_t &, int, sval_t);
-%ignore mbl_array_t::idaloc2vd(const mbl_array_t *, const argloc_t &, int);
-%ignore mbl_array_t::range_contains;
-%ignore mbl_array_t::get_stkvar;
+%ignore mba_t::mba_t;
+%ignore mba_t::reserved;
+%ignore mba_t::vdump_mba;
+%ignore mba_t::idaloc2vd(const argloc_t &, int, sval_t);
+%ignore mba_t::idaloc2vd(const mba_t *, const argloc_t &, int);
+%ignore mba_t::range_contains;
+%ignore mba_t::get_stkvar;
+
+%feature("nodirector") codegen_t;
+%ignore codegen_t::reserved;
 
 %ignore simple_graph_t::simple_graph_t;
 %ignore simple_graph_t::~simple_graph_t;
@@ -210,7 +207,7 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %ignore mba_ranges_t::range_contains;
 
 %newobject gen_microcode;
-%define_hexrays_lifecycle_object(mbl_array_t);
+%define_hexrays_lifecycle_object(mba_t);
 #ifdef PY3
 %const_void_pointer_and_size(uchar, bytes, nbytes);
 #else
@@ -223,13 +220,14 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %apply ulonglong *OUTPUT { uvlr_t *val };  // valrng_t::cvt_to_cmp
 %apply int       *OUTPUT { cmpop_t *cmp }; // valrng_t::cvt_to_cmp
 
-%define %def_opt_handler(TypeName, Install, Remove)
+%define %def_opt_handler(TypeName, Install, Remove, Hxclr)
 %ignore Install;
 %ignore Remove;
+%ignore Hxclr;
 %extend TypeName {
     void install()
     {
-        hexrays_register_python_clearable_instance($self, hxclr_optinsn_t);
+        hexrays_register_python_clearable_instance($self, Hxclr);
         Install($self);
     }
     bool remove()
@@ -245,8 +243,9 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
     }
 };
 %enddef
-%def_opt_handler(optinsn_t, install_optinsn_handler, remove_optinsn_handler);
-%def_opt_handler(optblock_t, install_optblock_handler, remove_optblock_handler)
+%def_opt_handler(optinsn_t, install_optinsn_handler, remove_optinsn_handler, hxclr_optinsn_t)
+%def_opt_handler(optblock_t, install_optblock_handler, remove_optblock_handler, hxclr_optblock_t)
+%def_opt_handler(udc_filter_t, install_udc_filter, remove_udc_filter, hxclr_udc_filter_t)
 
 // "Warning 473: Returning a pointer or reference in a director method is not recommended."
 %warnfilter(473) codegen_t::emit_micro_mvm;
@@ -379,12 +378,13 @@ public:
                   "cinsn_t",
                   "cexpr_t",
                   "cblock_t",
-                  "mbl_array_t",
+                  "mba_t",
                   "mop_t",
                   "minsn_t",
                   "optinsn_t",
                   "optblock_t",
-                  "valrng_t"][rkind]
+                  "valrng_t",
+                  "udc_filter_t"][rkind]
           return "%s [thisown=%s, owned by IDAPython as=%s]" % (
                   cpp,
                   self.thisown,
@@ -533,6 +533,9 @@ public:
     }
 };
 
+//-------------------------------------------------------------------------
+// Have SWiG generate constructors/destructors for the bitset_t::iterator
+%feature("flatnested") bitset_t::iterator;
 
 //-------------------------------------------------------------------------
 //

@@ -75,14 +75,15 @@ def del_idc_func(name):
     return _ida_expr.pyw_unregister_idc_func(f.ctxptr)
 
 # --------------------------------------------------------------------------
-def add_idc_func(name, fp, args, defvals=None, flags=0):
+def add_idc_func(name, fp, args, defvals=(), flags=0):
     """
     Extends the IDC language by exposing a new IDC function that is backed up by a Python function
 
     @param name: IDC function name to expose
     @param fp: Python callable that will receive the arguments and return a tuple.
     @param args: Arguments. A tuple of idaapi.VT_XXX constants
-    @param flags: IDC function flags. A combination of EXTFUN_XXX constants
+    @param defvals: default argument values (optional)
+    @param flags: IDC function flags. A combination of EXTFUN_XXX constants (optional)
 
     @return: Boolean
     """

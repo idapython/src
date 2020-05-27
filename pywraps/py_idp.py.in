@@ -524,6 +524,10 @@ class __ph(object):
 
 ph = __ph()
 
+class _idp_cvar_t:
+    ash = property(lambda self: get_ash())
+cvar = _idp_cvar_t()
+
 #</pycode(py_idp)>
 
 #<pycode_BC695(py_idp)>
@@ -565,7 +569,7 @@ def __call_IDP_Hooks_auto_queue_empty(cb, qtype):
     return rc
 
 import ida_ida
-ida_ida.__wrap_hooks_callback(
+ida_ida.__wrap_695_hooks_callback(
     IDP_Hooks,
     "ev_auto_queue_empty",
     "auto_queue_empty",

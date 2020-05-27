@@ -26,7 +26,7 @@ What follows, are example build commands
   python2 build.py \\
       --with-hexrays \\
       --swig-home C:/swigwin-2.0.12 \\
-      --idc "c:/Program\ Files/IDA_7.0-171130-tests/idc/idc.idc"
+      --ida-install "c:/Program\ Files/IDA_7.0-171130-tests"
 
 
 ### Linux/OSX (assume SWiG is installed in /opt/swiglinux-2.0.12, and IDA is in /opt/my-ida-install)
@@ -34,7 +34,7 @@ What follows, are example build commands
   python2 build.py \\
       --with-hexrays \\
       --swig-home /opt/swiglinux-2.0.12 \\
-      --idc /opt/my-ida-install/idc/idc.idc
+      --ida-install /opt/my-ida-install
 """,
                         formatter_class=argparse.RawTextHelpFormatter)
 parser.add_argument("--swig-home", type=str, help="Path to the SWIG installation", default=None)
@@ -42,7 +42,7 @@ parser.add_argument("--with-hexrays", help="Build Hex-Rays decompiler bindings (
 parser.add_argument("--debug", help="Build debug version of the plugin", default=False, action="store_true")
 parser.add_argument("-j", "--parallel", action="store_true", help="Build in parallel", default=False)
 parser.add_argument("-v", "--verbose", help="Verbose mode", default=False, action="store_true")
-parser.add_argument("-I", "--idc", required=True, help="IDA's idc.idc file (necessary for generating 6.95 compat API layer)", type=str)
+parser.add_argument("-I", "--ida-install", required=True, help="IDA's installation directory", type=str)
 args = parser.parse_args()
 
 _probe = os.path.join("..", "..", "include", "pro.h")
@@ -76,7 +76,7 @@ def main():
         env["NDEBUG"] = "1"
     if args.verbose:
         argv.append("-d")
-    env["IDC_BC695_IDC_SOURCE"] = args.idc.replace('\\', '/')
+    env["IDA_INSTALL"] = args.ida_install.replace('\\', '/')
     for ea64 in [True, False]:
         if ea64:
             env["__EA64__"] = "1"

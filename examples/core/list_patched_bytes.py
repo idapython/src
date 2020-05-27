@@ -3,7 +3,8 @@ from __future__ import print_function
 # This is an example illustrating how to visit all patched bytes in Python
 # (c) Hex-Rays
 
-import idaapi
+import ida_bytes
+import ida_idaapi
 
 # -------------------------------------------------------------------------
 class patched_bytes_visitor(object):
@@ -14,7 +15,7 @@ class patched_bytes_visitor(object):
     def __call__(self, ea, fpos, o, v, cnt=()):
         if fpos == -1:
             self.skip += 1
-            print("  ea: %x o: %x v: %x...skipped" % (ea, fpos, o, v))
+            print("  ea: %x o: %x v: %x...skipped" % (ea, o, v))
         else:
             self.patch += 1
             print("  ea: %x fpos: %x o: %x v: %x" % (ea, fpos, o, v))
@@ -25,7 +26,7 @@ class patched_bytes_visitor(object):
 def main():
     print("Visiting all patched bytes:")
     v = patched_bytes_visitor()
-    r = idaapi.visit_patched_bytes(0, idaapi.BADADDR, v)
+    r = ida_bytes.visit_patched_bytes(0, ida_idaapi.BADADDR, v)
     if r != 0:
         print("visit_patched_bytes() returned %d" % r)
     else:

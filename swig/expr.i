@@ -71,10 +71,10 @@
         size_t bufsize,
         const char *file); // get_idc_filename
 
-%nonnul_argument_prototype(
+%pywraps_nonnul_argument_prototype(
         bool py_compile_idc_file(const char *nonnul_line, qstring *errbuf),
         const char *nonnul_line);
-%nonnul_argument_prototype(
+%pywraps_nonnul_argument_prototype(
         bool py_compile_idc_text(const char *nonnul_line, qstring *errbuf),
         const char *nonnul_line);
 %{

@@ -6,15 +6,13 @@ This is a rewrite in Python of the vds4 example that comes with hexrays sdk.
 """
 from __future__ import print_function
 
-import idautils
-import idaapi
-import idc
-
-import traceback
+import ida_kernwin
+import ida_hexrays
+import ida_bytes
 
 def run():
 
-    cfunc = idaapi.decompile(idaapi.get_screen_ea())
+    cfunc = ida_hexrays.decompile(ida_kernwin.get_screen_ea())
     if not cfunc:
         print('Please move the cursor into a function.')
         return
@@ -23,31 +21,31 @@ def run():
     print("Dump of user-defined information for function at %x" % (entry_ea, ))
 
     # Display user defined labels.
-    labels = idaapi.restore_user_labels(entry_ea);
+    labels = ida_hexrays.restore_user_labels(entry_ea);
     if labels is not None:
         print("------- %u user defined labels" % (len(labels), ))
         for org_label, name in labels.items():
             print("Label %d: %s" % (org_label, str(name)))
-        idaapi.user_labels_free(labels)
+        ida_hexrays.user_labels_free(labels)
 
     # Display user defined comments
-    cmts = idaapi.restore_user_cmts(entry_ea);
+    cmts = ida_hexrays.restore_user_cmts(entry_ea);
     if cmts is not None:
         print("------- %u user defined comments" % (len(cmts), ))
         for tl, cmt in cmts.items():
             print("Comment at %x, preciser %x:\n%s\n" % (tl.ea, tl.itp, str(cmt)))
-        idaapi.user_cmts_free(cmts)
+        ida_hexrays.user_cmts_free(cmts)
 
     # Display user defined citem iflags
-    iflags = idaapi.restore_user_iflags(entry_ea)
+    iflags = ida_hexrays.restore_user_iflags(entry_ea)
     if iflags is not None:
         print("------- %u user defined citem iflags" % (len(iflags), ))
         for cl, f in iflags.items():
-            print("%x(%d): %08X%s" % (cl.ea, cl.op, f, " CIT_COLLAPSED" if f & idaapi.CIT_COLLAPSED else ""))
-        idaapi.user_iflags_free(iflags)
+            print("%x(%d): %08X%s" % (cl.ea, cl.op, f, " CIT_COLLAPSED" if f & ida_hexrays.CIT_COLLAPSED else ""))
+        ida_hexrays.user_iflags_free(iflags)
 
     # Display user defined number formats
-    numforms = idaapi.restore_user_numforms(entry_ea)
+    numforms = ida_hexrays.restore_user_numforms(entry_ea)
     if numforms is not None:
         print("------- %u user defined number formats" % (len(numforms), ))
         for ol, nf in numforms.items():
@@ -64,13 +62,13 @@ def run():
                 print("struct offset %s" % (str(nf.type_name), ))
 
             else:
-                print("number base=%d" % (idaapi.get_radix(nf.flags, ol.opnum), ))
+                print("number base=%d" % (ida_bytes.get_radix(nf.flags, ol.opnum), ))
 
-        idaapi.user_numforms_free(numforms)
+        ida_hexrays.user_numforms_free(numforms)
 
     # Display user-defined local variable information
-    lvinf = idaapi.lvar_uservec_t()
-    if idaapi.restore_user_lvar_settings(lvinf, entry_ea):
+    lvinf = ida_hexrays.lvar_uservec_t()
+    if ida_hexrays.restore_user_lvar_settings(lvinf, entry_ea):
         print("------- User defined local variable information\n")
         for lv in lvinf.lvvec:
             print("Lvar defined at %x" % (lv.ll.defea, ))
@@ -89,7 +87,7 @@ def run():
     return
 
 
-if idaapi.init_hexrays_plugin():
+if ida_hexrays.init_hexrays_plugin():
     run()
 else:
     print('dump user info: hexrays is not available.')

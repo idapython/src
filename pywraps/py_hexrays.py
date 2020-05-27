@@ -9,6 +9,7 @@ hexrays_failure_t.__str__ = lambda self: str("%x: %s" % (self.errea, self.desc()
 # Renamings
 is_allowed_on_small_struni = accepts_small_udts
 is_small_struni = is_small_udt
+mbl_array_t = mba_t
 
 # ---------------------------------------------------------------------
 class DecompilationFailure(Exception):
