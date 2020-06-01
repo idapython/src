@@ -674,9 +674,10 @@ SWIG_IFACE_tryblks=range
 # SWIG_IFACE_kernwin=dirtree
 # endif
 
-MODULE_LIFECYCLE_hexrays=--lifecycle-aware
 MODULE_LIFECYCLE_bytes=--lifecycle-aware
+MODULE_LIFECYCLE_hexrays=--lifecycle-aware
 MODULE_LIFECYCLE_idaapi=--lifecycle-aware
+MODULE_LIFECYCLE_kernwin=--lifecycle-aware
 
 define make-module-rules
 

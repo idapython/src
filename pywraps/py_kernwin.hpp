@@ -20,10 +20,11 @@ struct py_idchotkey_ctx_t
       pyfunc(borref_t(_pyfunc)) {}
 };
 
+static ref_t py_colorizer;
+
 //------------------------------------------------------------------------
 //</decls(py_kernwin)>
 //------------------------------------------------------------------------
-
 
 //------------------------------------------------------------------------
 //<inline(py_kernwin)>
@@ -1089,7 +1090,6 @@ def set_nav_colorizer(callback):
 */
 PyObject *py_set_nav_colorizer(PyObject *new_py_colorizer)
 {
-  static ref_t py_colorizer;
   struct ida_local lambda_t
   {
     static uint32 idaapi call_py_colorizer(ea_t ea, asize_t nbytes, void *)
@@ -1284,6 +1284,18 @@ bool idaapi py_menu_item_callback(void *userdata)
 
   return PyObject_IsTrue(result.o) != 0;
 }
+
+//-------------------------------------------------------------------------
+static void ida_kernwin_init(void) {}
+
+//-------------------------------------------------------------------------
+static void ida_kernwin_term(void)
+{
+  py_colorizer = ref_t();
+}
+
+//-------------------------------------------------------------------------
+static void ida_kernwin_closebase(void) {}
 
 /*
 #<pydoc>
