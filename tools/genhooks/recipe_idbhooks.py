@@ -14,6 +14,7 @@ recipe = {
             { "name" : "cid", "type" : "const_t" },
             ],
         },
+    "dirtree_segm_moved" : {"ignore" : True},
 }
 
 default_rtype = "void"

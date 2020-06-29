@@ -7664,8 +7664,9 @@ class dirspec_t(builtins.object)
  |  __disown__(self)
  |  
  |  __init__(self, *args)
- |      __init__(self, nm=None) -> dirspec_t
+ |      __init__(self, nm=None, f=0) -> dirspec_t
  |          nm: char const *
+ |          f: uint32
  |  
  |  __repr__ = _swig_repr(self)
  |  
@@ -7706,11 +7707,21 @@ class dirspec_t(builtins.object)
  |  __weakref__
  |      list of weak references to the object (if defined)
  |  
+ |  flags
+ |      dirspec_t_flags_get(self) -> uint32
+ |  
  |  nodename
  |      dirspec_t_nodename_get(self) -> qstring *
  |  
  |  thisown
  |      The membership flag
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  DSF_INODE_EA = 1
+ |  
+ |  DSF_PRIVRANGE = 2
 
 Help on class dirtree_cursor_t in module ida_dirtree:
 
@@ -28130,6 +28141,9 @@ class mba_t(builtins.object)
  |  clr_mba_flags2(self, *args) -> 'void'
  |      clr_mba_flags2(self, f)
  |          @param f (C++: int)
+ |  
+ |  code16_bit_removed(self, *args) -> 'bool'
+ |      code16_bit_removed(self) -> bool
  |  
  |  combine_blocks(self, *args) -> 'bool'
  |      Combine blocks. This function merges blocks constituting linear flow.
@@ -68010,8 +68024,8 @@ set_outfile_encoding_idx(*args) -> 'bool'
     set encoding to be used when producing files
     
     set_outfile_encoding_idx(idx) -> bool
-        @param idx: the encoding index idx can be 0 to use the IDB's default
-                    1-byte-per-unit encoding (C++: int)
+        @param idx: <snipped>
+                    <snipped>
 
 Help on function set_refinfo in module ida_nalt:
 

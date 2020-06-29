@@ -339,6 +339,12 @@ def dump_namespace(namespace, namespace_name, keys, vec_info=None):
         if should_ignore_name(thing_name):
             continue
         thing = getattr(namespace, thing_name)
+        # KLUDGE
+        if thing_name == "IDB_Hooks":
+            try:
+                del thing.dirtree_segm_moved
+            except:
+                pass
         if isinstance(thing, ignore_types):
             continue
         if thing in spotted_things:

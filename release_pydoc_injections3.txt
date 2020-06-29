@@ -27145,6 +27145,9 @@ class mba_t(builtins.object)
  |      clr_mba_flags2(self, f)
  |          @param f (C++: int)
  |  
+ |  code16_bit_removed(self, *args) -> 'bool'
+ |      code16_bit_removed(self) -> bool
+ |  
  |  combine_blocks(self, *args) -> 'bool'
  |      Combine blocks. This function merges blocks constituting linear flow.
  |      It calls 'remove_empty_blocks()' as well.

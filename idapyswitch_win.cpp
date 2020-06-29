@@ -303,7 +303,7 @@ static bool has_appx_path(qstrvec_t paths)
 //-------------------------------------------------------------------------
 // ignore known bad Pythons:
 // 3.8.0 release (https://bugs.python.org/issue37633)
-// Anaconda 2019.10 (https://github.com/ContinuumIO/anaconda-issues/issues/11374)
+// Anaconda 2019.10 and 2020.02 (https://github.com/ContinuumIO/anaconda-issues/issues/11374)
 // AppStore Python on Windows 10 (dll can't be loaded from outside of Appx package)
 static bool bad_entry(const pylib_entry_t &e)
 {
@@ -314,9 +314,10 @@ static bool bad_entry(const pylib_entry_t &e)
     out("Ignoring unusable Python 3.8.0 \"%s\"\n", !e.paths.empty() ? e.paths[0].c_str() : "?");
     return true;
   }
-  if ( e.display_name == "Anaconda 2019.10" )
+  if ( e.display_name == "Anaconda 2019.10"
+    || e.display_name == "Anaconda 2020.02" )
   {
-    out("Ignoring unusable Anaconda 2019.10 \"%s\"\n", !e.paths.empty() ? e.paths[0].c_str() : "?");
+    out("Ignoring unusable %s \"%s\"\n", e.display_name.c_str(), !e.paths.empty() ? e.paths[0].c_str() : "?");
     return true;
   }
   if ( has_appx_path(e.paths) )
