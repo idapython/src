@@ -466,9 +466,20 @@ def IDAPython_ExecScript(script, g, print_error=True):
     g[FILE_ATTR] = script
 
     try:
-        with open(script) as fin:
-            code = compile(fin.read(), script, 'exec')
-            exec(code, g)
+        with open(script, "rb") as fin:
+            raw = fin.read()
+        encoding = "UTF-8" # UTF-8 by default: https://www.python.org/dev/peps/pep-3120/
+
+        # Look for a 'coding' comment
+        encoding_pat = re.compile(r'\s*#.*coding[:=]\s*([-\w.]+).*')
+        for line in raw.decode("ASCII", errors='replace').split("\n"):
+            match = encoding_pat.match(line)
+            if match:
+                encoding = match.group(1)
+                break
+
+        code = compile(raw.decode(encoding), script, 'exec')
+        exec(code, g)
         PY_COMPILE_ERR = None
     except Exception as e:
         PY_COMPILE_ERR = "%s\n%s" % (str(e), traceback.format_exc())

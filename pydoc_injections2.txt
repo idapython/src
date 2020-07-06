@@ -16921,7 +16921,8 @@ class Hexrays_Hooks(__builtin__.object)
  |  
  |  func_printed(self, *args)
  |      Function text has been generated. Plugins may modify the text in
- |      'cfunc_t::sv' .
+ |      'cfunc_t::sv' . The text uses regular color codes (see 'lines.hpp' )
+ |      COLOR_ADDR is used to store pointers to ctree elements.
  |      
  |      func_printed(self, cfunc) -> int
  |          @param cfunc (C++: cfunc_t *)
@@ -17102,9 +17103,9 @@ class Hexrays_Hooks(__builtin__.object)
  |      Decompiled text is ready.
  |      
  |      text_ready(self, vu) -> int
- |          @param vu: This event can be used to modify the output text (sv). The
- |                     text uses regular color codes (see lines.hpp) COLOR_ADDR is
- |                     used to store pointers to ctree elements  (C++: vdui_t *)
+ |          @param vu: This event can be used to modify the output text (sv).
+ |                     Obsolete. Please use hxe_func_printed instead.  (C++:
+ |                     vdui_t *)
  |  
  |  unhook(self, *args)
  |      unhook(self) -> bool
