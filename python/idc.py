@@ -1800,29 +1800,7 @@ def process_config_line(directive):
 INF_VERSION    = 0            # short;   Version of database
 INF_PROCNAME   = 1            # char[8]; Name of current processor
 INF_GENFLAGS   = 2            # ushort;  General flags:
-INFFL_AUTO     = 0x01         #              Autoanalysis is enabled?
-INFFL_ALLASM   = 0x02         #              May use constructs not supported by
-                              #              the target assembler
-INFFL_LOADIDC  = 0x04         #              loading an idc file that contains database info
-INFFL_NOUSER   = 0x08         #              do not store user info in the database
-INFFL_READONLY = 0x10         #              (internal) temporary interdiction to modify the database
-INFFL_CHKOPS   =  0x20        #              check manual operands?
-INFFL_NMOPS    =  0x40        #              allow non-matched operands?
-INFFL_GRAPH_VIEW= 0x80        #              currently using graph options (\dto{graph})
 INF_LFLAGS     = 3            # uint32;  IDP-dependent flags
-LFLG_PC_FPP    = 0x00000001   #              decode floating point processor
-                              #              instructions?
-LFLG_PC_FLAT   = 0x00000002   #              Flat model?
-LFLG_64BIT     = 0x00000004   #              64-bit program?
-LFLG_IS_DLL    = 0x00000008   #              is dynamic library?
-LFLG_FLAT_OFF32= 0x00000010   #              treat REF_OFF32 as 32-bit offset for 16bit segments (otherwise try SEG16:OFF16)
-LFLG_MSF       = 0x00000020   #              byte order: is MSB first?
-LFLG_WIDE_HBF  = 0x00000040   #              bit order of wide bytes: high byte first?
-LFLG_DBG_NOPATH= 0x00000080   #              do not store input full path
-LFLG_SNAPSHOT  = 0x00000100   #              is memory snapshot?
-LFLG_PACK      = 0x00000200   # pack the database?
-LFLG_COMPRESS  = 0x00000400   # compress the database?
-LFLG_KERNMODE  = 0x00000800   # is kernel mode binary?
 
 INF_DATABASE_CHANGE_COUNT= 4  # uint32; database change counter; keeps track of byte and segment modifications
 INF_CHANGE_COUNTER=INF_DATABASE_CHANGE_COUNT
@@ -1873,49 +1851,37 @@ INF_ASMTYPE    = 8            # char;    target assembler number (0..n)
 INF_SPECSEGS   = 9
 
 INF_AF         = 10           # uint32;   Analysis flags:
-AF_CODE        = 0x00000001   #              Trace execution flow
-AF_MARKCODE    = 0x00000002   #              Mark typical code sequences as code
-AF_JUMPTBL     = 0x00000004   #              Locate and create jump tables
-AF_PURDAT      = 0x00000008   #              Control flow to data segment is ignored
-AF_USED        = 0x00000010   #              Analyze and create all xrefs
-AF_UNK         = 0x00000020   #              Delete instructions with no xrefs
 
-AF_PROCPTR     = 0x00000040   #              Create function if data xref data->code32 exists
-AF_PROC        = 0x00000080   #              Create functions if call is present
-AF_FTAIL       = 0x00000100   #              Create function tails
-AF_LVAR        = 0x00000200   #              Create stack variables
-AF_STKARG      = 0x00000400   #              Propagate stack argument information
-AF_REGARG      = 0x00000800   #              Propagate register argument information
-AF_TRACE       = 0x00001000   #              Trace stack pointer
-AF_VERSP       = 0x00002000   #              Perform full SP-analysis. (\ph{verify_sp})
-AF_ANORET      = 0x00004000   #              Perform 'no-return' analysis
-AF_MEMFUNC     = 0x00008000   #              Try to guess member function types
-AF_TRFUNC      = 0x00010000   #              Truncate functions upon code deletion
-
-AF_STRLIT      = 0x00020000   #              Create string literal if data xref exists
-AF_CHKUNI      = 0x00040000   #              Check for unicode strings
-AF_FIXUP       = 0x00080000   #              Create offsets and segments using fixup info
-AF_DREFOFF     = 0x00100000   #              Create offset if data xref to seg32 exists
-AF_IMMOFF      = 0x00200000   #              Convert 32bit instruction operand to offset
-AF_DATOFF      = 0x00400000   #              Automatically convert data to offsets
-
-AF_FLIRT       = 0x00800000   #              Use flirt signatures
-AF_SIGCMT      = 0x01000000   #              Append a signature name comment for recognized anonymous library functions
-AF_SIGMLT      = 0x02000000   #              Allow recognition of several copies of the same function
-AF_HFLIRT      = 0x04000000   #              Automatically hide library functions
-
-AF_JFUNC       = 0x08000000   #              Rename jump functions as j_...
-AF_NULLSUB     = 0x10000000   #              Rename empty functions as nullsub_...
-
-AF_DODATA      = 0x20000000   #              Coagulate data segs at the final pass
-AF_DOCODE      = 0x40000000   #              Coagulate code segs at the final pass
-AF_FINAL       = 0x80000000   #              Final pass of analysis
+def _import_module_flag_sets(module, prefixes):
+    if isinstance(prefixes, str):
+        prefixes = [prefixes]
+    for prefix in prefixes:
+        for key in dir(module):
+            if key.startswith(prefix):
+                value = getattr(module, key)
+                if isinstance(value, ida_idaapi.integer_types):
+                    globals()[key] = value
+_import_module_flag_sets(
+    ida_ida,
+    [
+        "INFFL_",
+        "LFLG_",
+        "IDB_",
+        "AF_",
+        "AF2_",
+        "SW_",
+        "NM_",
+        "DEMNAM_",
+        "LN_",
+        "OFLG_",
+        "SCF_",
+        "LMT_",
+        "PREF_",
+        "STRF_",
+        "ABI_",
+    ])
 
 INF_AF2        = 11           # uint32;  Analysis flags 2
-
-AF2_DOEH       = 0x00000001   #              Handle EH information
-AF2_DORTTI     = 0x00000002   #              Handle RTTI information
-AF2_MACRO      = 0x00000004   #              Try to combine several instructions into a macro instruction
 
 INF_BASEADDR   = 12           # uval_t;  base paragraph of the program
 INF_START_SS   = 13           # int32;   value of SS at the start
@@ -1959,41 +1925,17 @@ INF_REFCMTNUM  = 32          # uchar; number of comment lines to
 INF_REFCMTS=INF_REFCMTNUM
 INF_XREFFLAG   = 33          # char;    xrefs representation:
 INF_XREFS=INF_XREFFLAG
-SW_SEGXRF      = 0x01         #              show segments in xrefs?
-SW_XRFMRK      = 0x02         #              show xref type marks?
-SW_XRFFNC      = 0x04         #              show function offsets?
-SW_XRFVAL      = 0x08         #              show xref values? (otherwise-"...")
 
 # NAMES
 INF_MAX_AUTONAME_LEN = 34     # ushort;  max name length (without zero byte)
 INF_NAMETYPE   = 35           # char;    dummy names represenation type
-NM_REL_OFF     = 0
-NM_PTR_OFF     = 1
-NM_NAM_OFF     = 2
-NM_REL_EA      = 3
-NM_PTR_EA      = 4
-NM_NAM_EA      = 5
-NM_EA          = 6
-NM_EA4         = 7
-NM_EA8         = 8
-NM_SHORT       = 9
-NM_SERIAL      = 10
 INF_SHORT_DEMNAMES = 36      # int32;   short form of demangled names
 INF_SHORT_DN=INF_SHORT_DEMNAMES
 INF_LONG_DEMNAMES = 37       # int32;   long form of demangled names
                               #          see demangle.h for definitions
 INF_LONG_DN=INF_LONG_DEMNAMES
 INF_DEMNAMES   = 38           # char;    display demangled names as:
-DEMNAM_CMNT = 0               #              comments
-DEMNAM_NAME = 1               #              regular names
-DEMNAM_NONE = 2               #              don't display
-DEMNAM_GCC3 = 4               #          assume gcc3 names (valid for gnu compiler)
-DEMNAM_FIRST= 8               #          override type info
 INF_LISTNAMES  = 39           # uchar;   What names should be included in the list?
-LN_NORMAL      = 0x01         #              normal names
-LN_PUBLIC      = 0x02         #              public names
-LN_AUTO        = 0x04         #              autogenerated names
-LN_WEAK        = 0x08         #              weak names
 
 # DISASSEMBLY LISTING DETAILS
 INF_INDENT     = 40           # char;    Indention for instructions
@@ -2001,38 +1943,17 @@ INF_COMMENT    = 41           # char;    Indention for comments
 INF_MARGIN     = 42           # ushort;  max length of data lines
 INF_LENXREF    = 43           # ushort;  max length of line with xrefs
 INF_OUTFLAGS   = 44           # uint32;  output flags
-OFLG_SHOW_VOID = 0x0002       #              Display void marks?
-OFLG_SHOW_AUTO = 0x0004       #              Display autoanalysis indicator?
-OFLG_GEN_NULL  = 0x0010       #              Generate empty lines?
-OFLG_SHOW_PREF = 0x0020       #              Show line prefixes?
-OFLG_PREF_SEG  = 0x0040       #              line prefixes with segment name?
-OFLG_LZERO     = 0x0080       #              generate leading zeroes in numbers
-OFLG_GEN_ORG   = 0x0100       #              Generate 'org' directives?
-OFLG_GEN_ASSUME= 0x0200       #              Generate 'assume' directives?
-OFLG_GEN_TRYBLKS = 0x0400     #              Generate try/catch directives?
 INF_CMTFLG     = 45           # char;    comments:
 INF_CMTFLAG=INF_CMTFLG
-SW_RPTCMT      = 0x01         #              show repeatable comments?
-SW_ALLCMT      = 0x02         #              comment all lines?
-SW_NOCMT       = 0x04         #              no comments at all
-SW_LINNUM      = 0x08         #              show source line numbers
 INF_LIMITER    = 46           # char;    Generate borders?
 INF_BORDER=INF_LIMITER
 INF_BIN_PREFIX_SIZE = 47     # short;   # of instruction bytes to show
                               #          in line prefix
 INF_BINPREF=INF_BIN_PREFIX_SIZE
 INF_PREFFLAG   = 48           # char;    line prefix type:
-PREF_SEGADR    = 0x01         #              show segment addresses?
-PREF_FNCOFF    = 0x02         #              show function offsets?
-PREF_STACK     = 0x04         #              show stack pointer?
 
 # STRING LITERALS
 INF_STRLIT_FLAGS= 49          # uchar;   string literal flags
-STRF_GEN       = 0x01         #              generate names?
-STRF_AUTO      = 0x02         #              names have 'autogenerated' bit?
-STRF_SERIAL    = 0x04         #              generate serial names?
-STRF_COMMENT   = 0x10         #              generate auto comment for string references?
-STRF_SAVECASE  = 0x20         #              preserve case of strings for identifiers
 INF_STRLIT_BREAK= 50         # char;    string literal line break symbol
 INF_STRLIT_ZEROES= 51        # char;    leading zeroes
 INF_STRTYPE    = 52          # int32;   current ascii string type
@@ -2075,15 +1996,6 @@ INF_SIZEOF_LONG = INF_CC_SIZE_L
 INF_SIZEOF_LLONG= INF_CC_SIZE_LL
 INF_SIZEOF_LDBL = INF_CC_SIZE_LDBL
 INF_ABIBITS= 67               # uint32; ABI features
-ABI_8ALIGN4      = 0x00000001 #   4 byte alignment for 8byte scalars (__int64/double) inside structures?
-ABI_PACK_STKARGS = 0x00000002 #   do not align stack arguments to stack slots
-ABI_BIGARG_ALIGN = 0x00000004 #   use natural type alignment for argument if the alignment exceeds native word size (e.g. __int64 argument should be 8byte aligned on some 32bit platforms)
-ABI_STACK_LDBL   = 0x00000008 #   long double areuments are passed on stack
-ABI_STACK_VARARGS= 0x00000010 #   varargs are always passed on stack (even when there are free registers)
-ABI_HARD_FLOAT   = 0x00000020 #   use the floating-point register set
-ABI_SET_BY_USER  = 0x00000040 #   compiler/abi were set by user flag
-ABI_GCC_LAYOUT   = 0x00000080 #   use gcc layout for udts (used for mingw)
-ABI_MAP_STKARGS  = 0x00000100 #   register arguments are mapped to stack area (and consume stack slots)
 INF_APPCALL_OPTIONS= 68       # uint32; appcall options
 
 _INF_attrs_accessors = {

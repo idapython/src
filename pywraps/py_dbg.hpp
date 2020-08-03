@@ -112,16 +112,16 @@ static bool _to_reg_val(regval_t **out, regval_t *buf, const char *name, PyObjec
     {
       bytevec_t bytes;
       _cvt_status_t status(PyExc_TypeError, "Unexpected value");
-      size_t nbytes = 0;
+      size_t needed = 0;
       switch ( dt )
       {
-        case dt_byte16: nbytes = 16; break;
-        case dt_byte32: nbytes = 32; break;
-        case dt_byte64: nbytes = 64; break;
+        case dt_byte16: needed = 16; break;
+        case dt_byte32: needed = 32; break;
+        case dt_byte64: needed = 64; break;
         default:
           break;
       }
-      status.ok = nbytes > 0;
+      status.ok = needed > 0;
       Py_ssize_t got;
       if ( status.ok )
       {
@@ -129,13 +129,13 @@ static bool _to_reg_val(regval_t **out, regval_t *buf, const char *name, PyObjec
         if ( IDAPyBytes_Check(in) )
         {
           char *buf;
-          status.ok = IDAPyBytes_AsMemAndSize(in, &buf, &got) >= 0 && got <= nbytes;
+          status.ok = IDAPyBytes_AsMemAndSize(in, &buf, &got) >= 0 && got <= needed;
           if ( status.ok )
             bytes.append((const uchar *) buf, got);
           else
             status.failed(PyExc_ValueError).sprnt(
                     "List of bytes is too long; was expecting at most %d bytes",
-                    int(nbytes));
+                    int(needed));
         }
         else if ( IDAPyInt_Check(in) )
         {
@@ -179,23 +179,24 @@ TRY_RAW_LONG:
           //      being large enough to hold a sign bit.  OverflowError is set in this
           //      case, but bytes holds the least-significant n bytes of the true value.
           // */
-          bytes.resize(nbytes, 0);
+          bytes.resize(needed, 0);
           status.ok = pylong_to_byte_array(
                   &bytes,
                   in,
                   /*little_endian=*/ true,
                   /*is_signed=*/ true) >= 0;
           if ( status.ok )
-            got = nbytes;
+            got = needed;
           else
             status.failed(PyExc_ValueError).sprnt(
                     "Integer value is too large to fit in %d bytes",
-                    int(nbytes));
+                    int(needed));
         }
       }
       if ( status.ok )
       {
-        bytes.growfill(nbytes - got, 0);
+        if ( got < needed )
+          bytes.growfill(needed - got, 0);
         lout->set_bytes(bytes);
       }
       return status.ok;

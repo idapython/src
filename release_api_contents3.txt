@@ -2050,6 +2050,7 @@
                'codegen_t_mba_get',
                'codegen_t_mba_set',
                'codegen_t_microgen_completed',
+               'codegen_t_prepare_gen_micro',
                'collect_stack_trace',
                'compact_til',
                'compare_tinfo',

@@ -22428,6 +22428,10 @@ class codegen_t(__builtin__.object)
  |  microgen_completed(self, *args)
  |      This method is called when the microcode generation is done.
  |  
+ |  prepare_gen_micro(self, *args)
+ |      Setup internal data to handle new instruction This method should be
+ |      called before calling 'gen_micro()' The instruction is in INSN
+ |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
@@ -27088,6 +27092,9 @@ class mba_t(__builtin__.object)
  |  clr_mba_flags2(self, *args)
  |      clr_mba_flags2(self, f)
  |          @param f (C++: int)
+ |  
+ |  code16_bit_removed(self, *args)
+ |      code16_bit_removed(self) -> bool
  |  
  |  combine_blocks(self, *args)
  |      Combine blocks. This function merges blocks constituting linear flow.
@@ -84048,6 +84055,10 @@ Help on function _get_modules in module idc:
 
 _get_modules()
     INTERNAL: Enumerate process modules
+
+Help on function _import_module_flag_sets in module idc:
+
+_import_module_flag_sets(module, prefixes)
 
 Help on function add_auto_stkpnt in module idc:
 

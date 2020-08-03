@@ -71,6 +71,15 @@ extern plugin_t PLUGIN;
 %ignore qlist::reverse_iterator::operator--;
 %ignore qlist::const_reverse_iterator::operator--;
 
+// To be used e.g., when a '#define' in the source code
+// defines a uint32 value with the highest bit set, so that
+// SWiG knows it's not a negative integer.
+%define %predefine_uint32_macro(NAME, VALUE)
+%rename (NAME) PY_##NAME;
+%constant uint32 PY_##NAME = uint32(VALUE);
+%ignore NAME;
+%enddef
+
 %define %uncomparable_elements_qvector(ELEMENT_TYPE, VECTOR_TYPE)
 %ignore qvector<ELEMENT_TYPE>::operator==;
 %ignore qvector<ELEMENT_TYPE>::operator!=;

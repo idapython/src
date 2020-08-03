@@ -70,6 +70,8 @@
 %ignore BADADDR;
 %ignore BADSEL;
 
+%predefine_uint32_macro(AF_FINAL, 0x80000000);
+
 %include "ida.hpp"
 
 %clear(char *buf);

@@ -22479,6 +22479,10 @@ class codegen_t(builtins.object)
  |  microgen_completed(self, *args) -> 'void'
  |      This method is called when the microcode generation is done.
  |  
+ |  prepare_gen_micro(self, *args) -> 'merror_t'
+ |      Setup internal data to handle new instruction This method should be
+ |      called before calling 'gen_micro()' The instruction is in INSN
+ |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
@@ -84641,6 +84645,10 @@ Help on function _get_modules in module idc:
 
 _get_modules()
     INTERNAL: Enumerate process modules
+
+Help on function _import_module_flag_sets in module idc:
+
+_import_module_flag_sets(module, prefixes)
 
 Help on function add_auto_stkpnt in module idc:
 

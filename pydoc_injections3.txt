@@ -16894,8 +16894,7 @@ class Hexrays_Hooks(builtins.object)
  |  
  |  func_printed(self, *args) -> 'int'
  |      Function text has been generated. Plugins may modify the text in
- |      'cfunc_t::sv' . The text uses regular color codes (see 'lines.hpp' )
- |      COLOR_ADDR is used to store pointers to ctree elements.
+ |      'cfunc_t::sv' .
  |      
  |      func_printed(self, cfunc) -> int
  |          @param cfunc (C++: cfunc_t *)
@@ -17076,9 +17075,9 @@ class Hexrays_Hooks(builtins.object)
  |      Decompiled text is ready.
  |      
  |      text_ready(self, vu) -> int
- |          @param vu: This event can be used to modify the output text (sv).
- |                     Obsolete. Please use hxe_func_printed instead.  (C++:
- |                     vdui_t *)
+ |          @param vu: This event can be used to modify the output text (sv). The
+ |                     text uses regular color codes (see lines.hpp) COLOR_ADDR is
+ |                     used to store pointers to ctree elements  (C++: vdui_t *)
  |  
  |  unhook(self, *args) -> 'bool'
  |      unhook(self) -> bool
@@ -17140,8 +17139,7 @@ class __cbhooks_t(Hexrays_Hooks)
  |  
  |  func_printed(self, *args)
  |      Function text has been generated. Plugins may modify the text in
- |      'cfunc_t::sv' . The text uses regular color codes (see 'lines.hpp' )
- |      COLOR_ADDR is used to store pointers to ctree elements.
+ |      'cfunc_t::sv' .
  |      
  |      func_printed(self, cfunc) -> int
  |          @param cfunc (C++: cfunc_t *)
@@ -17217,9 +17215,9 @@ class __cbhooks_t(Hexrays_Hooks)
  |      Decompiled text is ready.
  |      
  |      text_ready(self, vu) -> int
- |          @param vu: This event can be used to modify the output text (sv).
- |                     Obsolete. Please use hxe_func_printed instead.  (C++:
- |                     vdui_t *)
+ |          @param vu: This event can be used to modify the output text (sv). The
+ |                     text uses regular color codes (see lines.hpp) COLOR_ADDR is
+ |                     used to store pointers to ctree elements  (C++: vdui_t *)
  |  
  |  ----------------------------------------------------------------------
  |  Data and other attributes defined here:
@@ -23477,6 +23475,10 @@ class codegen_t(builtins.object)
  |  
  |  microgen_completed(self, *args) -> 'void'
  |      This method is called when the microcode generation is done.
+ |  
+ |  prepare_gen_micro(self, *args) -> 'merror_t'
+ |      Setup internal data to handle new instruction This method should be
+ |      called before calling 'gen_micro()' The instruction is in INSN
  |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
@@ -89076,6 +89078,10 @@ Help on function _get_modules in module idc:
 
 _get_modules()
     INTERNAL: Enumerate process modules
+
+Help on function _import_module_flag_sets in module idc:
+
+_import_module_flag_sets(module, prefixes)
 
 Help on function add_auto_stkpnt in module idc:
 
