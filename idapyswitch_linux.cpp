@@ -70,11 +70,6 @@ bool pyver_tool_t::do_path_to_pylib_entry(
   return ok;
 }
 
-#define msg out
-#define warning out
-AS_PRINTF(1, 2) void ask_for_feedback(const char *format, ...)
-{
-}
 #include "../../ldr/elf/reader.cpp"
 
 //-------------------------------------------------------------------------

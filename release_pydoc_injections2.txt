@@ -64619,6 +64619,12 @@ get_long_name(*args)
         @param ea (C++: ea_t)
         @param gtn_flags (C++: int)
 
+Help on function get_mangled_name_type in module ida_name:
+
+get_mangled_name_type(*args)
+    get_mangled_name_type(name) -> mangled_name_type_t
+        name: char const *
+
 Help on function get_name in module ida_name:
 
 get_name(*args)

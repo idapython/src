@@ -23421,7 +23421,7 @@ class codegen_t(__builtin__.object)
  |  microgen_completed(self, *args)
  |      This method is called when the microcode generation is done.
  |  
- |  prepare_gen_micro(self, *args) -> 'merror_t'
+ |  prepare_gen_micro(self, *args)
  |      Setup internal data to handle new instruction This method should be
  |      called before calling 'gen_micro()' The instruction is in INSN
  |  
@@ -69188,6 +69188,12 @@ get_long_name(*args)
     get_long_name(ea, gtn_flags=0) -> qstring
         @param ea (C++: ea_t)
         @param gtn_flags (C++: int)
+
+Help on function get_mangled_name_type in module ida_name:
+
+get_mangled_name_type(*args)
+    get_mangled_name_type(name) -> mangled_name_type_t
+        name: char const *
 
 Help on function get_name in module ida_name:
 

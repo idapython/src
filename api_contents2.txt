@@ -4293,6 +4293,7 @@
                'get_long_name',
                'get_lookback',
                'get_lumina_rpc_packet_t_index_from_base',
+               'get_mangled_name_type',
                'get_manual_insn',
                'get_manual_regions',
                'get_manual_regions__SWIG_0',

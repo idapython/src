@@ -3821,6 +3821,7 @@
                'get_local_vars',
                'get_long_name',
                'get_lookback',
+               'get_mangled_name_type',
                'get_manual_insn',
                'get_manual_regions',
                'get_manual_regions__SWIG_0',
