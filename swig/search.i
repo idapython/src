@@ -6,6 +6,11 @@
 %ignore search;
 %ignore user2bin;
 
+%pythoncode %{
+#<pycode(py_search)>
+#</pycode(py_search)>
+%}
+
 %inline %{
 //<inline(py_search)>
 //</inline(py_search)>

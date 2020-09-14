@@ -2942,6 +2942,15 @@ next_unknown(*args)
         @param ea (C++: ea_t)
         @param maxea (C++: ea_t)
 
+Help on function next_visea in module ida_bytes:
+
+next_visea(*args)
+    Get next visible address.
+    
+    next_visea(ea) -> ea_t
+        @param ea (C++: ea_t)
+        @return: BADADDR  if none exists.
+
 Help on function num_flag in module ida_bytes:
 
 num_flag(*args)
@@ -3265,6 +3274,15 @@ prev_unknown(*args)
     prev_unknown(ea, minea) -> ea_t
         @param ea (C++: ea_t)
         @param minea (C++: ea_t)
+
+Help on function prev_visea in module ida_bytes:
+
+prev_visea(*args)
+    Get previous visible address.
+    
+    prev_visea(ea) -> ea_t
+        @param ea (C++: ea_t)
+        @return: BADADDR  if none exists.
 
 Help on function print_strlit_type in module ida_bytes:
 
@@ -70612,10 +70630,10 @@ Help on function op_offset in module ida_offset:
 op_offset(*args)
     See 'op_offset_ex()'
     
-    op_offset(ea, n, type, target=BADADDR, base=0, tdelta=0) -> bool
+    op_offset(ea, n, type_and_flags, target=BADADDR, base=0, tdelta=0) -> bool
         @param ea (C++: ea_t)
         @param n (C++: int)
-        @param type (C++: reftype_t)
+        @param type_and_flags (C++: uint32)
         @param target (C++: ea_t)
         @param base (C++: ea_t)
         @param tdelta (C++: adiff_t)
@@ -84282,6 +84300,9 @@ class udt_type_data_t(udtmembervec_t)
  |  is_vftable(self, *args)
  |      is_vftable(self) -> bool
  |  
+ |  set_vftable(self, *args)
+ |      set_vftable(self)
+ |  
  |  swap(self, *args)
  |      swap(self, r)
  |          @param r (C++: udt_type_data_t  &)
@@ -92178,10 +92199,10 @@ Help on function op_offset in module ida_offset:
 op_offset(*args)
     See 'op_offset_ex()'
     
-    op_offset(ea, n, type, target=BADADDR, base=0, tdelta=0) -> bool
+    op_offset(ea, n, type_and_flags, target=BADADDR, base=0, tdelta=0) -> bool
         @param ea (C++: ea_t)
         @param n (C++: int)
-        @param type (C++: reftype_t)
+        @param type_and_flags (C++: uint32)
         @param target (C++: ea_t)
         @param base (C++: ea_t)
         @param tdelta (C++: adiff_t)

@@ -7,8 +7,6 @@
 %ignore next_that;
 %ignore prev_that;
 %ignore adjust_visea;
-%ignore prev_visea;
-%ignore next_visea;
 %ignore visit_patched_bytes;
 %ignore is_first_visea;
 %ignore is_last_visea;

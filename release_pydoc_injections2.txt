@@ -585,12 +585,15 @@ Help on function bin_search in module ida_bytes:
 
 bin_search(*args)
     bin_search(start_ea, end_ea, image, imask, step, flags) -> ea_t
-        start_ea: ea_t
-        end_ea: ea_t
-        image: bytevec_t const &
-        imask: bytevec_t const &
-        step: int
-        flags: int
+    Search for a set of bytes in the program
+    
+    @param start_ea: linear address, start of range to search
+    @param end_ea: linear address, end of range to search (exclusive)
+    @param image: the set of bytes to search for
+    @param imask: a bitfield representing the mask in 'image' (can be None)
+    @param step: either BIN_SEARCH_FORWARD, or BIN_SEARCH_BACKWARD
+    @param flags: combination of BIN_SEARCH_* flags
+    @return: the address of a match, or ida_idaapi.BADADDR if not found
 
 Help on function byte_flag in module ida_bytes:
 
@@ -2942,6 +2945,15 @@ next_unknown(*args)
         @param ea (C++: ea_t)
         @param maxea (C++: ea_t)
 
+Help on function next_visea in module ida_bytes:
+
+next_visea(*args)
+    Get next visible address.
+    
+    next_visea(ea) -> ea_t
+        @param ea (C++: ea_t)
+        @return: BADADDR  if none exists.
+
 Help on function num_flag in module ida_bytes:
 
 num_flag(*args)
@@ -3265,6 +3277,15 @@ prev_unknown(*args)
     prev_unknown(ea, minea) -> ea_t
         @param ea (C++: ea_t)
         @param minea (C++: ea_t)
+
+Help on function prev_visea in module ida_bytes:
+
+prev_visea(*args)
+    Get previous visible address.
+    
+    prev_visea(ea) -> ea_t
+        @param ea (C++: ea_t)
+        @return: BADADDR  if none exists.
 
 Help on function print_strlit_type in module ida_bytes:
 

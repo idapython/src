@@ -2939,6 +2939,15 @@ next_unknown(*args) -> 'ea_t'
         @param ea (C++: ea_t)
         @param maxea (C++: ea_t)
 
+Help on function next_visea in module ida_bytes:
+
+next_visea(*args) -> 'ea_t'
+    Get next visible address.
+    
+    next_visea(ea) -> ea_t
+        @param ea (C++: ea_t)
+        @return: BADADDR  if none exists.
+
 Help on function num_flag in module ida_bytes:
 
 num_flag(*args) -> 'flags_t'
@@ -3262,6 +3271,15 @@ prev_unknown(*args) -> 'ea_t'
     prev_unknown(ea, minea) -> ea_t
         @param ea (C++: ea_t)
         @param minea (C++: ea_t)
+
+Help on function prev_visea in module ida_bytes:
+
+prev_visea(*args) -> 'ea_t'
+    Get previous visible address.
+    
+    prev_visea(ea) -> ea_t
+        @param ea (C++: ea_t)
+        @return: BADADDR  if none exists.
 
 Help on function print_strlit_type in module ida_bytes:
 
@@ -84756,6 +84774,9 @@ class udt_type_data_t(udtmembervec_t)
  |  
  |  is_vftable(self, *args) -> 'bool'
  |      is_vftable(self) -> bool
+ |  
+ |  set_vftable(self, *args) -> 'void'
+ |      set_vftable(self)
  |  
  |  swap(self, *args) -> 'void'
  |      swap(self, r)

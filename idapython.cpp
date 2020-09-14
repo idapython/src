@@ -27,7 +27,7 @@
 #include <loader.hpp>
 #include <kernwin.hpp>
 #include <ida_highlighter.hpp>
-
+#include <signal.h>
 #if defined (PY_MAJOR_VERSION) && (PY_MAJOR_VERSION < 3)
 // in Python 2.x many APIs accept char * instead of const char *
 GCC_DIAG_OFF(write-strings)
@@ -783,10 +783,10 @@ idapython_plugin_t::idapython_plugin_t()
 // Cleaning up Python
 idapython_plugin_t::~idapython_plugin_t()
 {
-  if ( !initialized || Py_IsInitialized() == 0 )
-    return;
-
   QASSERT(30616, instance == this);
+
+  if ( !initialized || Py_IsInitialized() == 0 )
+    goto SKIP_CLEANUP;
 
   if ( PyGILState_GetThisThreadState() )
   {
@@ -829,8 +829,64 @@ idapython_plugin_t::~idapython_plugin_t()
     const hook_data_t &hd = hook_data_vec[i-1];
     idapython_unhook_from_notification_point(hd.type, hd.cb, hd.ud);
   }
-
+SKIP_CLEANUP:
   instance = nullptr;
+}
+
+#ifdef __NT__
+// for MessageBox()
+#pragma comment(lib, "user32")
+#endif
+//--------------------------------------------------------------------------
+// show an error message, possibly during teardown of the process
+AS_PRINTF(1, 2) static void lerror(const char *format, ...)
+{
+  va_list va;
+  va_start(va, format);
+#ifdef __NT__
+  char buf[MAXSTR];
+  qvsnprintf(buf, sizeof(buf), format, va);
+  // use MB_SERVICE_NOTIFICATION to prevent UI message loop from running since ida.exe is mostly shut down at this point
+  // and can crash if messages get processed
+  MessageBox(NULL, buf, "IDA", MB_ICONERROR|MB_SERVICE_NOTIFICATION);
+#else
+  qveprintf(format, va);
+  //qgetchar();
+#endif
+}
+
+#define ERRMSG "Unexpected fatal error while intitailizing Python runtime. Please run idapyswitch to confirm or change the used Python runtime"
+
+volatile sig_atomic_t initdone = 0;
+//-------------------------------------------------------------------------
+// some Python runtimes may call abort() or exit() if they don't like something
+// catch this to avoid silent IDA exit
+static void exithandler(void)
+{
+  if ( !initdone )
+  {
+    initdone = 1;
+    lerror(ERRMSG);
+    // return to caller to continue exiting normally
+  }
+}
+
+//lint -e2761 call to non-async-signal-safe function '' within signal handler ''
+//lint -e2762 call to signal registration function 'signal' within signal handler 'aborthandler'
+//-------------------------------------------------------------------------
+// catch unexpected abort() call
+static void aborthandler(int sig)
+{
+  lerror(ERRMSG);
+  initdone = 1; // avoid duplicate message on exit
+  // from https://www.gnu.org/software/libc/manual/html_node/Termination-in-Handler.html
+  /* Now reraise the signal.  We reactivate the signal's
+     default handling, which is to terminate the process.
+     We could just call exit or abort,
+     but reraising the signal sets the return status
+     from the process correctly. */
+  signal(sig, SIG_DFL);
+  raise(sig);
 }
 
 //-------------------------------------------------------------------------
@@ -913,8 +969,18 @@ bool idapython_plugin_t::init()
     }
   }
 
+
+  typedef void(*SignalHandlerPointer)(int);
+  // catch unexpected abort()
+  SignalHandlerPointer previousHandler = signal(SIGABRT, aborthandler);
+  // ... and exit()
+  atexit(exithandler);
+
   // Start the interpreter
   Py_InitializeEx(0 /* Don't catch SIGPIPE, SIGXFZ, SIGXFSZ & SIGINT signals */);
+  // disable handlers
+  initdone = 1;
+  signal(SIGABRT, previousHandler);
 
   if ( !Py_IsInitialized() )
   {
