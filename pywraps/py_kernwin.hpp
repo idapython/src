@@ -1103,19 +1103,38 @@ PyObject *py_set_nav_colorizer(PyObject *new_py_colorizer)
               (unsigned long long) ea,
               (unsigned long long) nbytes);
       PyW_ShowCbErr("nav_colorizer");
-      if ( pyres.o == NULL )
-        return 0;
-      if ( !PyLong_Check(pyres.o) )
+      uint32 rc = 0;
+      bool ok = pyres.o != NULL && PyLong_Check(pyres.o);
+      if ( ok )
+      {
+        int overflow = 0;
+        const long l = PyLong_AsLongAndOverflow(pyres.o, &overflow);
+        ok = !PyErr_Occurred();
+        if ( ok )
+        {
+          if ( l == -1 && overflow != 0 )
+            ok = false;
+          else
+            rc = uint32(l);
+        }
+        else
+        {
+          PyErr_Print();
+        }
+      }
+
+      if ( !ok )
       {
         static bool warned = false;
         if ( !warned )
         {
-          msg("WARNING: set_nav_colorizer() callback must return a 'long'.\n");
+          msg("WARNING: set_nav_colorizer() callback must return an "
+              "unsigned 'long', that can be converted into a 32-bit "
+              "unsigned integer.\n");
           warned = true;
         }
-        return 0;
       }
-      return PyLong_AsLong(pyres.o);
+      return rc;
     }
   };
 
