@@ -272,6 +272,7 @@ struct py_chooser_mixin_t
   py_chooser_mixin_t(PyObject *_self, py_chooser_props_t &_props)
     : self(borref_t(_self))
   {
+    _instances.add_unique(this);
     props.swap(_props);
   }
   ~py_chooser_mixin_t()
@@ -280,12 +281,15 @@ struct py_chooser_mixin_t
     self = newref_t(NULL);
     dirspec = newref_t(NULL);
     dirtree = newref_t(NULL);
+    _instances.del(this);
   }
 
   bool has_feature(feature_t f) const { return props.has_feature(f); }
   static chooser_base_t *create_concrete_instance(
         py_chooser_props_t &props,
         PyObject *o);
+
+  static py_chooser_mixin_t *find_by_pyobj(PyObject *o);
 
 protected:
   const void *mixin_get_obj_id(size_t *len) const { *len = sizeof(self.o); return self.o; }
@@ -302,7 +306,13 @@ protected:
   dirtree_t *mixin_get_dirtree(const chooser_base_t *chobj);
   inode_t mixin_index_to_inode(size_t n) const;
   void mixin_init_chooser_base_from_props(chooser_base_t *cb);
+
+private:
+  static qvector<py_chooser_mixin_t*> _instances;
 };
+
+//-------------------------------------------------------------------------
+qvector<py_chooser_mixin_t*> py_chooser_mixin_t::_instances;
 
 //-------------------------------------------------------------------------
 bool py_chooser_mixin_t::mixin_init(chooser_base_t *chobj)
@@ -694,6 +704,16 @@ chooser_base_t *py_chooser_mixin_t::create_concrete_instance(
 }
 
 //-------------------------------------------------------------------------
+py_chooser_mixin_t * py_chooser_mixin_t::find_by_pyobj(
+        PyObject *o)
+{
+  for ( auto m : _instances )
+    if ( m->mixin_get_chooser_obj() == o )
+      return m;
+  return nullptr;
+}
+
+//-------------------------------------------------------------------------
 PyObject *choose_choose(PyObject *self)
 {
   qstring errbuf;
@@ -789,7 +809,9 @@ PyObject *choose_create_embedded_chobj(PyObject *self)
 PyObject *choose_find(const char *title)
 {
   PyObject *o = static_cast<PyObject*>(::get_chooser_obj(title));
-  if ( o == NULL )
+  if ( o == nullptr )
+    Py_RETURN_NONE;
+  if ( py_chooser_mixin_t::find_by_pyobj(o) == nullptr )
     Py_RETURN_NONE;
   Py_INCREF(o);
   return o;
