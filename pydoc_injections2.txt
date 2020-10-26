@@ -585,12 +585,15 @@ Help on function bin_search in module ida_bytes:
 
 bin_search(*args)
     bin_search(start_ea, end_ea, image, imask, step, flags) -> ea_t
-        start_ea: ea_t
-        end_ea: ea_t
-        image: bytevec_t const &
-        imask: bytevec_t const &
-        step: int
-        flags: int
+    Search for a set of bytes in the program
+    
+    @param start_ea: linear address, start of range to search
+    @param end_ea: linear address, end of range to search (exclusive)
+    @param image: the set of bytes to search for
+    @param imask: a bitfield representing the mask in 'image' (can be None)
+    @param step: either BIN_SEARCH_FORWARD, or BIN_SEARCH_BACKWARD
+    @param flags: combination of BIN_SEARCH_* flags
+    @return: the address of a match, or ida_idaapi.BADADDR if not found
 
 Help on function byte_flag in module ida_bytes:
 
@@ -70630,10 +70633,10 @@ Help on function op_offset in module ida_offset:
 op_offset(*args)
     See 'op_offset_ex()'
     
-    op_offset(ea, n, type_and_flags, target=BADADDR, base=0, tdelta=0) -> bool
+    op_offset(ea, n, type, target=BADADDR, base=0, tdelta=0) -> bool
         @param ea (C++: ea_t)
         @param n (C++: int)
-        @param type_and_flags (C++: uint32)
+        @param type (C++: reftype_t)
         @param target (C++: ea_t)
         @param base (C++: ea_t)
         @param tdelta (C++: adiff_t)
@@ -84300,9 +84303,6 @@ class udt_type_data_t(udtmembervec_t)
  |  is_vftable(self, *args)
  |      is_vftable(self) -> bool
  |  
- |  set_vftable(self, *args)
- |      set_vftable(self)
- |  
  |  swap(self, *args)
  |      swap(self, r)
  |          @param r (C++: udt_type_data_t  &)
@@ -92199,10 +92199,10 @@ Help on function op_offset in module ida_offset:
 op_offset(*args)
     See 'op_offset_ex()'
     
-    op_offset(ea, n, type_and_flags, target=BADADDR, base=0, tdelta=0) -> bool
+    op_offset(ea, n, type, target=BADADDR, base=0, tdelta=0) -> bool
         @param ea (C++: ea_t)
         @param n (C++: int)
-        @param type_and_flags (C++: uint32)
+        @param type (C++: reftype_t)
         @param target (C++: ea_t)
         @param base (C++: ea_t)
         @param tdelta (C++: adiff_t)

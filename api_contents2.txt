@@ -11111,7 +11111,6 @@
                'udt_type_data_t_pack_set',
                'udt_type_data_t_sda_get',
                'udt_type_data_t_sda_set',
-               'udt_type_data_t_set_vftable',
                'udt_type_data_t_swap',
                'udt_type_data_t_taudt_bits_get',
                'udt_type_data_t_taudt_bits_set',

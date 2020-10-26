@@ -584,12 +584,15 @@ Help on function bin_search in module ida_bytes:
 
 bin_search(*args) -> 'ea_t'
     bin_search(start_ea, end_ea, image, imask, step, flags) -> ea_t
-        start_ea: ea_t
-        end_ea: ea_t
-        image: bytevec_t const &
-        imask: bytevec_t const &
-        step: int
-        flags: int
+    Search for a set of bytes in the program
+    
+    @param start_ea: linear address, start of range to search
+    @param end_ea: linear address, end of range to search (exclusive)
+    @param image: the set of bytes to search for
+    @param imask: a bitfield representing the mask in 'image' (can be None)
+    @param step: either BIN_SEARCH_FORWARD, or BIN_SEARCH_BACKWARD
+    @param flags: combination of BIN_SEARCH_* flags
+    @return: the address of a match, or ida_idaapi.BADADDR if not found
 
 Help on function byte_flag in module ida_bytes:
 
@@ -84774,9 +84777,6 @@ class udt_type_data_t(udtmembervec_t)
  |  
  |  is_vftable(self, *args) -> 'bool'
  |      is_vftable(self) -> bool
- |  
- |  set_vftable(self, *args) -> 'void'
- |      set_vftable(self)
  |  
  |  swap(self, *args) -> 'void'
  |      swap(self, r)
