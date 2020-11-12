@@ -210,9 +210,12 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 %define_hexrays_lifecycle_object(mba_t);
 #ifdef PY3
 %const_void_pointer_and_size(uchar, bytes, nbytes);
+%const_void_pointer_and_size(void, bytes, _size);
 #else
 %apply (char *STRING, int LENGTH) { (const uchar *bytes, size_t nbytes) };
 %apply Pointer NONNULL { const uchar *bytes };
+%apply (char *STRING, int LENGTH) { (const void *bytes, size_t _size) };
+%apply Pointer NONNULL { const void *bytes };
 #endif
 
 %define_hexrays_lifecycle_object(valrng_t);

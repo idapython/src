@@ -846,7 +846,7 @@ endif
 PYDOC_INJECTIONS_IDAT_CMD=$(USE_PYTHON2_ENVVAR) $(IDAT_CMD) $(BATCH_SWITCH) "-OIDAPython:AUTOIMPORT_COMPAT_IDA695=NO" -S"$< $@ $(ST_WRAP) $(DUMPDOC_IS_64)" -t -L$(F)dumpdoc.log >/dev/null
 pydoc_injections: $(ST_PYDOC_INJECTIONS)
 $(ST_PYDOC_INJECTIONS): tools/dumpdoc.py $(IDAPYTHON_MODULES) $(PYTHON_BINARY_MODULES)
-ifeq ($(or $(__CODE_CHECKER__),$(NO_CMP_API),$(__ASAN__)),)
+ifeq ($(or $(__CODE_CHECKER__),$(NO_CMP_API),$(__ASAN__),$(IDAHOME)),)
 	$(QPYDOC_INJECTIONS)$(PYDOC_INJECTIONS_IDAT_CMD) || \
 	 (echo "Command \"$(PYDOC_INJECTIONS_IDAT_CMD)\" failed. Check \"$(F)dumpdoc.log\" for details." && false)
 	$(Q)(diff -w $(PYDOC_INJECTIONS) $(ST_PYDOC_INJECTIONS)) > /dev/null || \

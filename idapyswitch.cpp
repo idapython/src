@@ -273,6 +273,23 @@ struct pyver_tool_t
   {
     do_find_python_libs(result);
 
+    // Remove Python 3.9 entries
+    {
+      auto p = result->entries.begin();
+      while ( p != result->entries.end() )
+      {
+        const pylib_entry_t &e = *p;
+        if ( e.version.major == 3 && e.version.minor >= 9 )
+        {
+          out("Ignoring unusable Python 3.9.x \"%s\"\n",
+              !e.paths.empty() ? e.paths[0].c_str() : "?");
+          p = result->entries.erase(p);
+        }
+        else
+          ++p;
+      }
+    }
+
 #ifdef __UNIX__
     set_preferred_pylib_version(result);
 #endif
@@ -323,7 +340,14 @@ bool pyver_tool_t::do_pick_sip(
         const pylib_entry_t &entry,
         qstring *errbuf) const
 {
-  const char *src_sip_subdir = entry.version.minor >= 8 ? "python_3.8" : "python_3.4";
+  if ( entry.version.minor >= 9 )
+  {
+    errbuf->sprnt("IDAPython 7.5 is incompatible with Python 3.9.x");
+    return false;
+  }
+
+  const char *src_sip_subdir = entry.version.minor >= 8 ? "python_3.8"
+                             : "python_3.4";
   char src_sip_path[QMAXPATH];
   qmakepath(src_sip_path, sizeof(src_sip_path), idadir(""),
             "python", "3", "PyQt5", src_sip_subdir, "sip" PY_MODULE_EXT, nullptr);

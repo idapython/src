@@ -28779,11 +28779,10 @@ class mcallarg_t(mop_t)
  |  make_fpnum(self, *args)
  |      Create a floating point constant operand.
  |      
- |      make_fpnum(self, bytes, _size) -> bool
+ |      make_fpnum(self, bytes) -> bool
  |          @param bytes: pointer to the floating point value as used by the
  |                        current processor (e.g. for x86 it must be in IEEE 754)
  |                        (C++: const void *)
- |          @param _size: number of bytes occupied by the constant. (C++: size_t)
  |          @return: success
  |  
  |  make_gvar(self, *args)
@@ -30788,11 +30787,10 @@ class mop_addr_t(mop_t)
  |  make_fpnum(self, *args)
  |      Create a floating point constant operand.
  |      
- |      make_fpnum(self, bytes, _size) -> bool
+ |      make_fpnum(self, bytes) -> bool
  |          @param bytes: pointer to the floating point value as used by the
  |                        current processor (e.g. for x86 it must be in IEEE 754)
  |                        (C++: const void *)
- |          @param _size: number of bytes occupied by the constant. (C++: size_t)
  |          @return: success
  |  
  |  make_gvar(self, *args)
@@ -31597,11 +31595,10 @@ class mop_t(__builtin__.object)
  |  make_fpnum(self, *args)
  |      Create a floating point constant operand.
  |      
- |      make_fpnum(self, bytes, _size) -> bool
+ |      make_fpnum(self, bytes) -> bool
  |          @param bytes: pointer to the floating point value as used by the
  |                        current processor (e.g. for x86 it must be in IEEE 754)
  |                        (C++: const void *)
- |          @param _size: number of bytes occupied by the constant. (C++: size_t)
  |          @return: success
  |  
  |  make_gvar(self, *args)
