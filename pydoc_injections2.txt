@@ -24841,6 +24841,13 @@ class fnum_array(__builtin__.object)
  |          i: size_t
  |          v: unsigned short const &
  |  
+ |  _get_bytes(self, *args)
+ |      _get_bytes(self) -> bytevec_t
+ |  
+ |  _set_bytes(self, *args)
+ |      _set_bytes(self, bts)
+ |          bts: bytevec_t const &
+ |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
@@ -24849,6 +24856,9 @@ class fnum_array(__builtin__.object)
  |  
  |  __weakref__
  |      list of weak references to the object (if defined)
+ |  
+ |  bytes
+ |      _get_bytes(self) -> bytevec_t
  |  
  |  data
  |      fnum_array_data_get(self) -> unsigned short (&)[6]
@@ -66405,6 +66415,13 @@ class custom_data_type_ids_fids_array(__builtin__.object)
  |          i: size_t
  |          v: short const &
  |  
+ |  _get_bytes(self, *args)
+ |      _get_bytes(self) -> bytevec_t
+ |  
+ |  _set_bytes(self, *args)
+ |      _set_bytes(self, bts)
+ |          bts: bytevec_t const &
+ |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
@@ -66413,6 +66430,9 @@ class custom_data_type_ids_fids_array(__builtin__.object)
  |  
  |  __weakref__
  |      list of weak references to the object (if defined)
+ |  
+ |  bytes
+ |      _get_bytes(self) -> bytevec_t
  |  
  |  data
  |      custom_data_type_ids_fids_array_data_get(self) -> short (&)[8]
@@ -67665,6 +67685,13 @@ class strpath_ids_array(__builtin__.object)
  |          i: size_t
  |          v: unsigned-ea-like-numeric-type const &↗
  |  
+ |  _get_bytes(self, *args)
+ |      _get_bytes(self) -> bytevec_t
+ |  
+ |  _set_bytes(self, *args)
+ |      _set_bytes(self, bts)
+ |          bts: bytevec_t const &
+ |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
@@ -67673,6 +67700,9 @@ class strpath_ids_array(__builtin__.object)
  |  
  |  __weakref__
  |      list of weak references to the object (if defined)
+ |  
+ |  bytes
+ |      _get_bytes(self) -> bytevec_t
  |  
  |  data
  |      strpath_ids_array_data_get(self) -> unsigned-ea-like-numeric-type (&)[32]↗
@@ -86679,6 +86709,13 @@ class operands_array(__builtin__.object)
  |          i: size_t
  |          v: op_t const &
  |  
+ |  _get_bytes(self, *args)
+ |      _get_bytes(self) -> bytevec_t
+ |  
+ |  _set_bytes(self, *args)
+ |      _set_bytes(self, bts)
+ |          bts: bytevec_t const &
+ |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
@@ -86687,6 +86724,9 @@ class operands_array(__builtin__.object)
  |  
  |  __weakref__
  |      list of weak references to the object (if defined)
+ |  
+ |  bytes
+ |      _get_bytes(self) -> bytevec_t
  |  
  |  data
  |      operands_array_data_get(self) -> op_t (&)[8]

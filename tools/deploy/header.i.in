@@ -1285,8 +1285,23 @@ struct wrapped_array_t {
     $self->data[i] = v;
   }
 
+  inline bytevec_t _get_bytes() const {
+    bytevec_t bts;
+    bts.resize(N * sizeof(Type));
+    memmove(bts.begin(), $self->data, bts.size());
+    return bts;
+  }
+
+  inline void _set_bytes(const bytevec_t &bts) {
+    if ( bts.size() > N * sizeof(Type) )
+      throw std::out_of_range("out of bounds access");
+    memset($self->data, 0, sizeof($self->data));
+    memmove($self->data, bts.begin(), bts.size());
+  }
+
   %pythoncode {
     __iter__ = ida_idaapi._bounded_getitem_iterator
+    bytes = property(_get_bytes, _set_bytes)
   }
 }
 
