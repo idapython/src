@@ -396,7 +396,7 @@ ifeq ($(OUT_OF_TREE_BUILD),)
 	$(Q)$(CP) $? $@
     DEST_SIP += $(DEST_SIP34_PYDLL) $(DEST_SIP34_PYI)
 
-    # sip for Python >= 3.8
+    # sip for Python [3.8, 3.9)
     DEST_SIP38_DIR:=$(DEST_PYQT_DIR)/python_3.8
     $(DEST_SIP38_DIR):
 	-$(Q)if [ ! -d "$(DEST_SIP38_DIR)" ] ; then mkdir -p 2>/dev/null $(DEST_SIP38_DIR) ; fi
@@ -407,6 +407,19 @@ ifeq ($(OUT_OF_TREE_BUILD),)
     $(DEST_SIP38_PYI): $(wildcard $(SIP38_TREE)/lib/python*/PyQt5/$(SIP_PYI_FNAME)) | $(DEST_SIP38_DIR)
 	$(Q)$(CP) $? $@
     DEST_SIP += $(DEST_SIP38_PYDLL) $(DEST_SIP38_PYI)
+
+    # sip for Python [3.9, ...
+    DEST_SIP39_DIR:=$(DEST_PYQT_DIR)/python_3.9
+    $(DEST_SIP39_DIR):
+	-$(Q)if [ ! -d "$(DEST_SIP39_DIR)" ] ; then mkdir -p 2>/dev/null $(DEST_SIP39_DIR) ; fi
+    DEST_SIP39_PYDLL:=$(DEST_SIP39_DIR)/$(SIP_PYDLL_FNAME)
+    DEST_SIP39_PYI:=$(DEST_SIP39_DIR)/$(SIP_PYI_FNAME)
+    $(DEST_SIP39_PYDLL): $(wildcard $(SIP39_TREE)/lib/python*/PyQt5/$(SIP_PYDLL_FNAME)) | $(DEST_SIP39_DIR)
+	$(Q)$(CP) $? $@
+    $(DEST_SIP39_PYI): $(wildcard $(SIP39_TREE)/lib/python*/PyQt5/$(SIP_PYI_FNAME)) | $(DEST_SIP39_DIR)
+	$(Q)$(CP) $? $@
+    DEST_SIP += $(DEST_SIP39_PYDLL) $(DEST_SIP39_PYI)
+
   else
     # sip for Python 2.7
     DEST_SIP27_DIR:=$(DEST_PYQT_DIR)
@@ -421,10 +434,14 @@ ifeq ($(OUT_OF_TREE_BUILD),)
 
   # And pick the right sip.so now (Python3 only; for Python2, we already put it in the right place)
   ifeq ($(PYTHON_VERSION_MAJOR),3)
-    ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 7; echo $$?),0) # ugh
-      DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP38_PYDLL)
+    ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 8; echo $$?),0) # ugh
+      DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP39_PYDLL)
     else
-      DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP34_PYDLL)
+      ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 7; echo $$?),0) # ugh
+        DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP38_PYDLL)
+      else
+        DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP34_PYDLL)
+      endif
     endif
     $(DEST_PYQT_DIR)/$(SIP_PYDLL_FNAME): $(DEST_INSTALL_SIP_PYDLL)
 	$(Q)$(CP) $? $@

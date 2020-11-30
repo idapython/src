@@ -23897,6 +23897,13 @@ class fnum_array(builtins.object)
  |  __swig_destroy__ = delete_fnum_array(...)
  |      delete_fnum_array(self)
  |  
+ |  _get_bytes(self, *args) -> 'bytevec_t'
+ |      _get_bytes(self) -> bytevec_t
+ |  
+ |  _set_bytes(self, *args) -> 'void'
+ |      _set_bytes(self, bts)
+ |          bts: bytevec_t const &
+ |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
@@ -23905,6 +23912,9 @@ class fnum_array(builtins.object)
  |  
  |  __weakref__
  |      list of weak references to the object (if defined)
+ |  
+ |  bytes
+ |      _get_bytes(self) -> bytevec_t
  |  
  |  data
  |      fnum_array_data_get(self) -> unsigned short (&)[6]
@@ -62518,6 +62528,13 @@ class custom_data_type_ids_fids_array(builtins.object)
  |  __swig_destroy__ = delete_custom_data_type_ids_fids_array(...)
  |      delete_custom_data_type_ids_fids_array(self)
  |  
+ |  _get_bytes(self, *args) -> 'bytevec_t'
+ |      _get_bytes(self) -> bytevec_t
+ |  
+ |  _set_bytes(self, *args) -> 'void'
+ |      _set_bytes(self, bts)
+ |          bts: bytevec_t const &
+ |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
@@ -62526,6 +62543,9 @@ class custom_data_type_ids_fids_array(builtins.object)
  |  
  |  __weakref__
  |      list of weak references to the object (if defined)
+ |  
+ |  bytes
+ |      _get_bytes(self) -> bytevec_t
  |  
  |  data
  |      custom_data_type_ids_fids_array_data_get(self) -> short (&)[8]
@@ -63760,6 +63780,13 @@ class strpath_ids_array(builtins.object)
  |  __swig_destroy__ = delete_strpath_ids_array(...)
  |      delete_strpath_ids_array(self)
  |  
+ |  _get_bytes(self, *args) -> 'bytevec_t'
+ |      _get_bytes(self) -> bytevec_t
+ |  
+ |  _set_bytes(self, *args) -> 'void'
+ |      _set_bytes(self, bts)
+ |          bts: bytevec_t const &
+ |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
@@ -63768,6 +63795,9 @@ class strpath_ids_array(builtins.object)
  |  
  |  __weakref__
  |      list of weak references to the object (if defined)
+ |  
+ |  bytes
+ |      _get_bytes(self) -> bytevec_t
  |  
  |  data
  |      strpath_ids_array_data_get(self) -> unsigned-ea-like-numeric-type (&)[32]↗
@@ -82707,6 +82737,13 @@ class operands_array(builtins.object)
  |  __swig_destroy__ = delete_operands_array(...)
  |      delete_operands_array(self)
  |  
+ |  _get_bytes(self, *args) -> 'bytevec_t'
+ |      _get_bytes(self) -> bytevec_t
+ |  
+ |  _set_bytes(self, *args) -> 'void'
+ |      _set_bytes(self, bts)
+ |          bts: bytevec_t const &
+ |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
@@ -82715,6 +82752,9 @@ class operands_array(builtins.object)
  |  
  |  __weakref__
  |      list of weak references to the object (if defined)
+ |  
+ |  bytes
+ |      _get_bytes(self) -> bytevec_t
  |  
  |  data
  |      operands_array_data_get(self) -> op_t (&)[8]

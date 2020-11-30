@@ -55,6 +55,16 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 }
 %enddef
 
+%define %method_sets_type_and_gains_ownership_of_regular_object_argument(TYPE, METHOD)
+%feature("pythonprepend") TYPE::METHOD %{
+    o = args[0]
+    self._ensure_cond(self.t == mop_z, "self.t == mop_z")
+%}
+%feature("pythonappend") TYPE::METHOD %{
+    self._acquire_ownership(o, True)
+%}
+%enddef
+
 %typemap(directorin) (const char *format, ...)
 {
   // %typemap(directorin) (const char *format, ...)
@@ -150,6 +160,10 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 %define_hexrays_lifecycle_object(mop_t);
 %ignore mop_t::_make_strlit(qstring *);
 %template(mopvec_t) qvector<mop_t>;
+%method_sets_type_and_gains_ownership_of_regular_object_argument(mop_t, _make_cases)
+%method_sets_type_and_gains_ownership_of_regular_object_argument(mop_t, _make_callinfo)
+%method_sets_type_and_gains_ownership_of_regular_object_argument(mop_t, _make_pair)
+%method_sets_type_and_gains_ownership_of_regular_object_argument(mop_t, _make_insn)
 
 %template(mcallargs_t) qvector<mcallarg_t>;
 

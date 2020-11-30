@@ -553,6 +553,7 @@ class Strings(object):
         t.minlen = minlen
         t.only_7bit = only_7bit
         t.display_only_existing_strings = display_only_existing_strings
+        t.ignore_heads = ignore_instructions
         self.refresh()
 
 

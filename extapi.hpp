@@ -6,9 +6,11 @@
 #ifdef Py_LIMITED_API
 typedef void *Py_tracefunc;
 struct PyCompilerFlags;
+#  if PY_MAJOR_VERSION < 3 || PY_MINOR_VERSION < 9
 struct PyFrameObject;
+#  endif
 #else
-#include <frameobject.h>
+#  include <frameobject.h>
 #endif
 
 typedef void PyEval_SetTrace_t(Py_tracefunc, PyObject *);

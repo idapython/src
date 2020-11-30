@@ -122,22 +122,39 @@ static int extract_pylib_bin(pylib_entries_t *result, const char *version_dir)
   {
     pylib_entries_t *result;
     pylib_finder_t(pylib_entries_t *_result) : result(_result) {}
-    virtual int visit_file(const char *bin) override
+    virtual int visit_file(const char *_binpath) override
     {
+      // macOS is absurdly dependent on symlinks. remove them to limit noise.
+      char buf[PATH_MAX];
+      const char *binpath = realpath(_binpath, buf);
+      if ( binpath == nullptr )
+      {
+        out_verb("Skipping %s: realpath() failed: %s\n", _binpath, winerr(errno));
+        return 0;
+      }
+      if ( result->path_history.find(binpath) != result->path_history.end() )
+      {
+        out_verb("Skipping %s: duplicate of %s\n", _binpath, binpath);
+        return 0;
+      }
+
+      result->path_history.push_back(binpath);
+
       qstring errbuf;
       pylib_version_t dummy;
       pylib_entry_t entry(dummy);
 
-      if ( get_pylib_entry_for_macho(&entry, bin, &errbuf) )
+      if ( !get_pylib_entry_for_macho(&entry, binpath, &errbuf) )
       {
-        qstring verbuf;
-        out_verb("Found: \"%s\" (version: %s)\n", bin, entry.version.str(&verbuf));
-        result->entries.add_unique(entry);
-        return 1;
+        out_verb("Skipping %s: %s\n", binpath, errbuf.c_str());
+        return 0;
       }
 
-      out_verb("Skipping %s: %s\n", bin, errbuf.c_str());
-      return 0;
+      qstring verbuf;
+      out_verb("Found: \"%s\" (version: %s)\n", binpath, entry.version.str(&verbuf));
+      result->entries.add_unique(entry);
+
+      return 1;
     }
   };
 
@@ -170,16 +187,34 @@ static void extract_pylib_versions(pylib_entries_t *result, const char *framewor
 //-------------------------------------------------------------------------
 void pyver_tool_t::do_find_python_libs(pylib_entries_t *result) const
 {
-  static const char *framework_dirs[] =
+  // find all instances of Python.framework on the system
+  static const char *system_fwks[] =
   {
     "/Library/Frameworks",
     "/System/Library/Frameworks",
     "/Library/Developer/CommandLineTools/Library/Frameworks",
     "/Applications/Xcode.app/Contents/Developer/Library/Frameworks",
-    "/usr/local/opt/python@3/Frameworks",
-    "/usr/local/opt/python@2/Frameworks",
     "/opt/local/Library/Frameworks",
   };
+
+  qstrvec_t framework_dirs;
+  for ( size_t i = 0; i < qnumber(system_fwks); i++ )
+    framework_dirs.push_back(system_fwks[i]);
+
+  struct ida_local homebrew_handler_t : public file_visitor_t
+  {
+    qstrvec_t *framework_dirs;
+    homebrew_handler_t(qstrvec_t *_framework_dirs) : framework_dirs(_framework_dirs) {}
+    virtual int visit_file(const char *path) override
+    {
+      framework_dirs->push_back(qstring(path) + "/Frameworks");
+      return 0;
+    }
+  };
+
+  // homebrew keeps python installations in /usr/local/opt/python@X.X/Frameworks
+  homebrew_handler_t hh(&framework_dirs);
+  visit_files(hh, "/usr/local/opt", "python*", FA_DIREC);
 
   struct ida_local python_framework_finder_t : public file_visitor_t
   {
@@ -192,9 +227,10 @@ void pyver_tool_t::do_find_python_libs(pylib_entries_t *result) const
     }
   };
 
+  // check for a PythonX.framework in each framework dir
   python_framework_finder_t pff(result);
-  for ( size_t i = 0; i < qnumber(framework_dirs); ++i )
-    visit_files(pff, framework_dirs[i], "Python*.framework", FA_DIREC);
+  for ( size_t i = 0, n = framework_dirs.size(); i < n; i++ )
+    visit_files(pff, framework_dirs[i].c_str(), "Python*.framework", FA_DIREC);
 }
 
 //-------------------------------------------------------------------------
