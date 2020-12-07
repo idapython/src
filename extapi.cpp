@@ -56,8 +56,13 @@ bool ext_api_t::load(qstring *errbuf)
   } while ( 0 )
 
   BIND_SYMBOL(PyEval_SetTrace);
-  BIND_SYMBOL(PyRun_SimpleString);
-  BIND_SYMBOL(PyRun_String);
+  BIND_SYMBOL(PyRun_SimpleStringFlags);
+  BIND_SYMBOL(PyRun_StringFlags);
+#if PY_MAJOR_VERSION < 3
+  BIND_SYMBOL(Py_CompileString);
+#else
+  BIND_SYMBOL(Py_CompileStringExFlags);
+#endif
   BIND_SYMBOL(PyFunction_New);
   BIND_SYMBOL(PyFunction_GetCode);
   BIND_SYMBOL(_PyLong_AsByteArray);
@@ -112,8 +117,13 @@ bool ext_api_t::load(qstring *errbuf)
   } while ( 0 )
 
   BIND_SYMBOL(PyEval_SetTrace);
-  BIND_SYMBOL(PyRun_SimpleString);
-  BIND_SYMBOL(PyRun_String);
+  BIND_SYMBOL(PyRun_SimpleStringFlags);
+  BIND_SYMBOL(PyRun_StringFlags);
+#if PY_MAJOR_VERSION < 3
+  BIND_SYMBOL(Py_CompileString);
+#else
+  BIND_SYMBOL(Py_CompileStringExFlags);
+#endif
   BIND_SYMBOL(PyFunction_New);
   BIND_SYMBOL(PyFunction_GetCode);
   BIND_SYMBOL(_PyLong_AsByteArray);

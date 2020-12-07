@@ -1024,7 +1024,7 @@ bool idapython_plugin_t::init()
 #endif
                   );
 
-  if ( extapi.PyRun_SimpleString_ptr(init_code.c_str()) != 0 )
+  if ( extapi.PyRun_SimpleStringFlags_ptr(init_code.c_str(), nullptr) != 0 )
   {
     warning("IDAPython: error executing bootstrap code");
     return false;
@@ -1044,7 +1044,7 @@ bool idapython_plugin_t::init()
     handle_python_error(&errbuf, false);
 
     // Print the exception traceback
-    extapi.PyRun_SimpleString_ptr("import traceback;traceback.print_exc();");
+    extapi.PyRun_SimpleStringFlags_ptr("import traceback;traceback.print_exc();", nullptr);
 
     warning("IDAPython: error executing " S_INIT_PY ":\n"
             "%s\n"
@@ -1198,7 +1198,7 @@ bool idaapi idapython_plugin_t::run(size_t arg)
             {
               PYW_GIL_GET;
               new_execution_t exec;
-              extapi.PyRun_SimpleString_ptr(qbuf.c_str());
+              extapi.PyRun_SimpleStringFlags_ptr(qbuf.c_str(), nullptr);
             }
 
             // Store the statement to the database
@@ -1246,7 +1246,7 @@ ssize_t idaapi idapython_plugin_t::on_event(ssize_t code, va_list)
       {
         PYW_GIL_GET; // See above
         ui_ready = true;
-        extapi.PyRun_SimpleString_ptr("print_banner()");
+        extapi.PyRun_SimpleStringFlags_ptr("print_banner()", nullptr);
         if ( config.run_script.when == RSW_ui_ready_to_run )
           _run_user_script();
       }
@@ -1297,6 +1297,19 @@ bool idapython_plugin_t::_extlang_compile_file(
 }
 
 //-------------------------------------------------------------------------
+static PyObject *my_CompileString(
+        const char *str,
+        const char *file,
+        int start)
+{
+#if PY_MAJOR_VERSION < 3
+  return extapi.Py_CompileString_ptr(str, file, start);
+#else
+  return extapi.Py_CompileStringExFlags_ptr(str, file, start, nullptr, -1);
+#endif
+}
+
+//-------------------------------------------------------------------------
 // Compile callback for Python external language evaluator
 bool idapython_plugin_t::_extlang_compile_expr(
         const char *name,
@@ -1309,7 +1322,7 @@ bool idapython_plugin_t::_extlang_compile_expr(
   bool isfunc = false;
 
   qstring qstr(expr);
-  PyObject *code = Py_CompileString(insert_coding_cookie(&qstr), "<string>", Py_eval_input);
+  PyObject *code = my_CompileString(insert_coding_cookie(&qstr), "<string>", Py_eval_input);
   if ( code == NULL )
   {
     // try compiling as a list of statements
@@ -1318,7 +1331,7 @@ bool idapython_plugin_t::_extlang_compile_expr(
     qstring func;
     wrap_in_function(&func, expr, name);
     insert_coding_cookie(&func);
-    code = Py_CompileString(func.c_str(), "<string>", Py_file_input);
+    code = my_CompileString(func.c_str(), "<string>", Py_file_input);
     if ( code == NULL )
     {
       handle_python_error(errbuf);
@@ -1370,7 +1383,7 @@ bool idapython_plugin_t::_extlang_eval_expr(
   {
     {
       new_execution_t exec;
-      result = newref_t(extapi.PyRun_String_ptr(expr, Py_eval_input, globals, globals));
+      result = newref_t(extapi.PyRun_StringFlags_ptr(expr, Py_eval_input, globals, globals, nullptr));
     }
     ok = return_python_result(rv, result, errbuf);
   }
@@ -1494,11 +1507,12 @@ bool idapython_plugin_t::_extlang_eval_snippet(
     PyErr_Clear();
     {
       new_execution_t exec;
-      newref_t result(extapi.PyRun_String_ptr(
+      newref_t result(extapi.PyRun_StringFlags_ptr(
                               str,
                               Py_file_input,
                               globals,
-                              globals));
+                              globals,
+                              nullptr));
       ok = result != NULL && !PyErr_Occurred();
       if ( !ok )
         handle_python_error(errbuf);
@@ -1876,14 +1890,14 @@ bool idapython_plugin_t::_cli_execute_line(const char *line)
 
     // Compile as an expression
     qstring qstr(line);
-    newref_t py_code(Py_CompileString(insert_coding_cookie(&qstr), "<string>", Py_eval_input));
+    newref_t py_code(my_CompileString(insert_coding_cookie(&qstr), "<string>", Py_eval_input));
     if ( py_code == NULL || PyErr_Occurred() )
     {
       // Not an expression?
       PyErr_Clear();
 
       // Run as a string
-      extapi.PyRun_SimpleString_ptr(line);
+      extapi.PyRun_SimpleStringFlags_ptr(line, nullptr);
     }
     else
     {
@@ -2189,7 +2203,7 @@ bool idapython_plugin_t::_run_init_py()
   contents.resize(fpsz);
   qfread(fp, contents.begin(), fpsz);
 
-  newref_t code(Py_CompileString(contents.c_str(), path, Py_file_input));
+  newref_t code(my_CompileString(contents.c_str(), path, Py_file_input));
   if ( code == NULL )
     return false;
 

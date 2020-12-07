@@ -15,8 +15,14 @@ struct PyFrameObject;
 
 typedef void PyEval_SetTrace_t(Py_tracefunc, PyObject *);
 
-typedef int PyRun_SimpleString_t(const char *);
-typedef PyObject *PyRun_String_t(const char *, int, PyObject *, PyObject *);
+typedef int PyRun_SimpleStringFlags_t(const char *, PyCompilerFlags *);
+typedef PyObject *PyRun_StringFlags_t(const char *, int, PyObject *, PyObject *, PyCompilerFlags *);
+
+#if PY_MAJOR_VERSION < 3
+typedef PyObject *Py_CompileString_t(const char *, const char *, int);
+#else
+typedef PyObject *Py_CompileStringExFlags_t(const char *, const char *, int, PyCompilerFlags *, int);
+#endif
 
 typedef PyObject *PyFunction_New_t(PyObject *, PyObject *);
 typedef PyObject *PyFunction_GetCode_t(PyObject *);
@@ -29,8 +35,14 @@ struct ext_api_t
   void *lib_handle;
 
   PyEval_SetTrace_t *PyEval_SetTrace_ptr;
-  PyRun_SimpleString_t *PyRun_SimpleString_ptr;
-  PyRun_String_t *PyRun_String_ptr;
+  PyRun_SimpleStringFlags_t *PyRun_SimpleStringFlags_ptr;
+  PyRun_StringFlags_t *PyRun_StringFlags_ptr;
+#if PY_MAJOR_VERSION < 3
+  Py_CompileString_t *Py_CompileString_ptr;
+#else
+  Py_CompileStringExFlags_t *Py_CompileStringExFlags_ptr;
+#endif
+
   PyFunction_New_t *PyFunction_New_ptr;
   PyFunction_GetCode_t *PyFunction_GetCode_ptr;
   _PyLong_AsByteArray_t *_PyLong_AsByteArray_ptr;
