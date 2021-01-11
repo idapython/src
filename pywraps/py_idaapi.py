@@ -443,30 +443,30 @@ def IDAPython_FormatExc(etype, value=None, tb=None, limit=None):
 
 
 # ------------------------------------------------------------
-def IDAPython_ExecScript(script, g, print_error=True):
+def IDAPython_ExecScript(path, g, print_error=True):
     """
     Run the specified script.
 
     This function is used by the low-level plugin code.
     """
-    script = _utf8_native(script)
-    scriptpath = os.path.dirname(script)
-    if len(scriptpath) and scriptpath not in sys.path:
-        sys.path.append(scriptpath)
+    path = _utf8_native(path)
+    path_dir = os.path.dirname(path)
+    if len(path_dir) and path_dir not in sys.path:
+        sys.path.append(path_dir)
 
     argv = sys.argv
-    sys.argv = [ script ]
+    sys.argv = [path]
 
     # Adjust the __file__ path in the globals we pass to the script
     FILE_ATTR = "__file__"
     has__file__ = FILE_ATTR in g
     if has__file__:
         old__file__ = g[FILE_ATTR]
-    g[FILE_ATTR] = script
+    g[FILE_ATTR] = path
 
     try:
         if sys.version_info.major >= 3:
-            with open(script, "rb") as fin:
+            with open(path, "rb") as fin:
                 raw = fin.read()
             encoding = "UTF-8" # UTF-8 by default: https://www.python.org/dev/peps/pep-3120/
 
@@ -478,10 +478,10 @@ def IDAPython_ExecScript(script, g, print_error=True):
                     encoding = match.group(1)
                     break
 
-            code = compile(raw.decode(encoding), script, 'exec')
+            code = compile(raw.decode(encoding), path, 'exec')
             exec(code, g)
         else:
-            execfile(script, g)
+            execfile(path, g)
         PY_COMPILE_ERR = None
     except Exception as e:
         PY_COMPILE_ERR = "%s\n%s" % (str(e), traceback.format_exc())
@@ -498,23 +498,19 @@ def IDAPython_ExecScript(script, g, print_error=True):
     return PY_COMPILE_ERR
 
 # ------------------------------------------------------------
-def IDAPython_LoadProcMod(script, g, print_error=True):
+def IDAPython_LoadProcMod(path, g, print_error=True):
     """
     Load processor module.
     """
-    script = _utf8_native(script)
+    path = _utf8_native(path)
     pname = g['__name__'] if g and "__name__" in g else '__main__'
     parent = sys.modules[pname]
-
-    scriptpath, scriptname = os.path.split(script)
-    if len(scriptpath) and scriptpath not in sys.path:
-        sys.path.append(scriptpath)
-
-    procmod_name = os.path.splitext(scriptname)[0]
+    path_dir, path_fname = os.path.split(path)
+    procmod_name = os.path.splitext(path_fname)[0]
     procobj = None
     fp = None
     try:
-        fp, pathname, description = imp.find_module(procmod_name)
+        fp, pathname, description = imp.find_module(procmod_name, [path_dir])
         procmod = imp.load_module(procmod_name, fp, pathname, description)
         if parent:
             setattr(parent, procmod_name, procmod)
@@ -532,9 +528,8 @@ def IDAPython_LoadProcMod(script, g, print_error=True):
         if print_error:
             print(PY_COMPILE_ERR)
     finally:
-        if fp: fp.close()
-
-    sys.path.remove(scriptpath)
+        if fp:
+            fp.close()
 
     return (PY_COMPILE_ERR, procobj)
 
@@ -547,8 +542,8 @@ def IDAPython_UnLoadProcMod(script, g, print_error=True):
     pname = g['__name__'] if g and "__name__" in g else '__main__'
     parent = sys.modules[pname]
 
-    scriptname = os.path.split(script)[1]
-    procmod_name = os.path.splitext(scriptname)[0]
+    script_fname = os.path.split(script)[1]
+    procmod_name = os.path.splitext(script_fname)[0]
     if getattr(parent, procmod_name, None):
         delattr(parent, procmod_name)
         del sys.modules[procmod_name]

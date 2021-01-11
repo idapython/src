@@ -42040,7 +42040,7 @@ class __IDAPython_Completion_Util(__builtin__.object)
 
 Help on function IDAPython_ExecScript in module ida_idaapi:
 
-IDAPython_ExecScript(script, g, print_error=True)
+IDAPython_ExecScript(path, g, print_error=True)
     Run the specified script.
 
 Help on function IDAPython_ExecSystem in module ida_idaapi:
@@ -42056,7 +42056,7 @@ IDAPython_FormatExc(etype, value=None, tb=None, limit=None)
 
 Help on function IDAPython_LoadProcMod in module ida_idaapi:
 
-IDAPython_LoadProcMod(script, g, print_error=True)
+IDAPython_LoadProcMod(path, g, print_error=True)
     Load processor module.
 
 Help on function IDAPython_UnLoadProcMod in module ida_idaapi:
