@@ -342,13 +342,21 @@ bool pyver_tool_t::do_pick_sip(
   char dst_sip_path[QMAXPATH];
   qmakepath(dst_sip_path, sizeof(dst_sip_path), idadir(""),
             "python", "3", "PyQt5", "sip" PY_MODULE_EXT, nullptr);
-  out_verb("Copying \"%s\" to \"%s\"\n", src_sip_path, dst_sip_path);
-  const int code = qcopyfile(src_sip_path, dst_sip_path, /*overwrite=*/ true);
-  if ( code != 0 )
+
+  if ( args.dry_run )
   {
-    errbuf->sprnt("Couldn't copy file \"%s\" to \"%s\": %s",
-                  src_sip_path, dst_sip_path, qstrerror(-1));
-    return false;
+    out("Would copy %s to %s\n", src_sip_path, dst_sip_path);
+  }
+  else
+  {
+    out_verb("Copying \"%s\" to \"%s\"\n", src_sip_path, dst_sip_path);
+    const int code = qcopyfile(src_sip_path, dst_sip_path, /*overwrite=*/ true);
+    if ( code != 0 )
+    {
+      errbuf->sprnt("Couldn't copy file \"%s\" to \"%s\": %s",
+                    src_sip_path, dst_sip_path, qstrerror(-1));
+      return false;
+    }
   }
 
   return true;

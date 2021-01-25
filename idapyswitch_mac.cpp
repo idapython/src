@@ -423,7 +423,13 @@ static bool patch_python_dylib_cmd(
         const pylib_entry_t &entry,
         qstring *errbuf)
 {
-  out_verb("patching: %s\n", path);
+  if ( args.dry_run )
+  {
+    out("Would patch: %s\n", path);
+    return true;
+  }
+
+  out_verb("Patching: %s\n", path);
 
   python_lc_info_t plc;
   if ( !get_python_lc_info(&plc, path, errbuf) )
