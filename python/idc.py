@@ -5908,6 +5908,22 @@ def set_color(ea, what, color):
         else:
             return False
 
+#----------------------------------------------------------------------------
+#                       M I S S I N G   I N   A C T I O N
+#----------------------------------------------------------------------------
+def exec_idc(input): raise DeprecatedIDCError("exec_idc() deprecated.")
+def test_checkpoint(num): raise DeprecatedIDCError("test_checkpoint() deprecated.")
+def get_vxd_func_name(vxdnum, fnnum): raise DeprecatedIDCError("get_vxd_func_name() deprecated.")
+def get_fpnum(ea, n): raise DeprecatedIDCError("get_fpnum() deprecated.")
+def get_exception_code(idx): raise DeprecatedIDCError("get_exception_code() deprecated.")
+def get_exception_name(code): raise DeprecatedIDCError("get_exception_name() deprecated.")
+def get_exception_flags(code): raise DeprecatedIDCError("get_exception_flags() deprecated.")
+def set_exception_flags(code, flags): raise DeprecatedIDCError("set_exception_flags() deprecated.")
+def forget_exception(code): raise DeprecatedIDCError("forget_exception() deprecated.")
+def value_is_object(var): raise DeprecatedIDCError("value_is_object() deprecated.")
+def format_cdata(outvec, value, type, options, info): raise DeprecatedIDCError("format_cdata() deprecated.")
+def set_current_tev(event): raise DeprecatedIDCError("set_current_tev() deprecated.")
+def exec_python(stmt): raise DeprecatedIDCError("exec_python() deprecated.")
 
 #----------------------------------------------------------------------------
 #                       A R M   S P E C I F I C
