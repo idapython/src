@@ -7,6 +7,9 @@
 %ignore get_member_name(tid_t);
 %ignore get_member_by_id(tid_t, struc_t **); // allow version w/ qstring* only
 
+%ignore get_innermost_member;
+%rename (get_innermost_member) py_get_innermost_member;
+
 //-------------------------------------------------------------------------
 // For 'get_member_by_id()'
 %typemap(in,numinputs=0) qstring *out_mname (qstring temp) {

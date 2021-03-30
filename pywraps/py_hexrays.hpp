@@ -1,18 +1,25 @@
 //-------------------------------------------------------------------------
 //<code(py_hexrays)>
+static bool do_not_check_ctree = false;
 #ifdef WITH_HEXRAYS
+#define DCLVL_SIMPLE 1
+#define DCLVL_FULL 2
 static int _debug_hexrays_ctree = -1;
-static bool is_debug_hexrays_ctree()
+static int is_debug_hexrays_ctree(int level)
 {
   if ( _debug_hexrays_ctree < 0 )
-    _debug_hexrays_ctree = qgetenv("IDAPYTHON_DEBUG_HEXRAYS_CTREEE");
-  return bool(_debug_hexrays_ctree);
+  {
+    qstring tmp;
+    if ( qgetenv("IDAPYTHON_DEBUG_HEXRAYS_CTREE", &tmp) )
+      _debug_hexrays_ctree = atol(tmp.c_str());
+  }
+  return _debug_hexrays_ctree >= level;
 }
 
 //-------------------------------------------------------------------------
-static void debug_hexrays_ctree(const char *format, ...)
+static void debug_hexrays_ctree(int level, const char *format, ...)
 {
-  if ( is_debug_hexrays_ctree() )
+  if ( is_debug_hexrays_ctree(level) )
   {
     va_list va;
     va_start(va, format);
@@ -27,17 +34,18 @@ static void debug_hexrays_ctree(const char *format, ...)
 //   - hexrays is unloaded before IDAPython
 //   - we receive the notification about hexrays going away and:
 //        + call hexrays_unloading__clear_python_clearable_references();
-//        + set 'hexdsp = exit_time_dummy_hexdsp' (an NOP hexdsp)
+//        + set 'do_not_check_ctree = true'
 //   - we receive 'ui_database_closed', and
-//        + set 'hexdsp = init_time_dummy_hexdsp'
+//        + use 'idapython_dummy_hexdsp'
+//        + set 'do_not_check_ctree = false'
 //   - IDAPython is unloaded, and during cleanup of the runtime data,
 //     reachable citem_t's will get destroyed.
 // => this means we vill receive 'hx_c*t_cleanup' and 'hx_remitem'
-//    notifications most likely in the init_time_dummy_hexdsp(),
-//    rather than in exit_time_dummy_hexdsp() -- which is more than
-//    just a little counter-intuitive.
-static void *idaapi init_time_dummy_hexdsp(int code, ...)
+//    notifications most likely in the idapython_dummy_hexdsp()
+static void *idaapi idapython_dummy_hexdsp(int code, ...)
 {
+  if ( do_not_check_ctree )
+    return nullptr;
   switch ( code )
   {
     case hx_remitem:
@@ -47,7 +55,7 @@ static void *idaapi init_time_dummy_hexdsp(int code, ...)
     case hx_mba_t_term:
     case hx_valrng_t_clear:
       {
-#ifdef _DEBUG
+#ifdef TESTABLE_BUILD
         va_list va;
         va_start(va, code);
         void *item = va_arg(va, void *);
@@ -72,7 +80,7 @@ static void *idaapi init_time_dummy_hexdsp(int code, ...)
       break;
     case hx_remove_optinsn_handler:
       {
-#ifdef _DEBUG
+#ifdef TESTABLE_BUILD
         static bool in_removal = false;
         if ( !in_removal )
         {
@@ -88,7 +96,7 @@ static void *idaapi init_time_dummy_hexdsp(int code, ...)
       break;
     case hx_remove_optblock_handler:
       {
-#ifdef _DEBUG
+#ifdef TESTABLE_BUILD
         static bool in_removal = false;
         if ( !in_removal )
         {
@@ -110,7 +118,7 @@ static void *idaapi init_time_dummy_hexdsp(int code, ...)
         bool install = va_argi(va, bool);
         if ( install )
           goto BAD_CODE;
-#ifdef _DEBUG
+#ifdef TESTABLE_BUILD
         static bool in_removal = false;
         if ( !in_removal )
         {
@@ -135,7 +143,11 @@ BAD_CODE:
   return NULL;
 }
 
-hexdsp_t *hexdsp = init_time_dummy_hexdsp;
+hexdsp_t *get_idapython_hexdsp()
+{
+  auto hrdsp = get_hexdsp();
+  return hrdsp == nullptr ? idapython_dummy_hexdsp : hrdsp;
+}
 #endif // WITH_HEXRAYS
 
 #define MODULE_NAME   "Hex-Rays Decompiler" // Copied from vd/hexrays.cpp
@@ -158,8 +170,8 @@ void delete_qstring_printer_t(qstring_printer_t *qs)
 //-------------------------------------------------------------------------
 // A set of objects that were created from IDAPython. This is necessary in
 // order to delete those objects before the hexrays plugin is unloaded.
-// Otherwise, IDAPython will still delete them, but the plugin's 'hexdsp'
-// dispatcher function will point to dlclose()'d code.
+// Otherwise, IDAPython will still delete them, but the plugin's
+// dispatcher function will point to idapython_dummy_hexdsp
 enum hx_clearable_type_t
 {
   hxclr_unknown = 0,
@@ -184,13 +196,28 @@ DECLARE_TYPE_AS_MOVABLE(hx_clearable_t);
 
 typedef qvector<hx_clearable_t> hx_clearables_t;
 static hx_clearables_t python_clearables;
+
+//-------------------------------------------------------------------------
+static void debug_hexrays_dump_clearable_instances(int level=DCLVL_FULL)
+{
+  if ( is_debug_hexrays_ctree(level) )
+  {
+    for ( size_t i = 0, n = python_clearables.size(); i < n; ++i )
+    {
+      const hx_clearable_t &hxc = python_clearables[i];
+      debug_hexrays_ctree(level, "\t#%3d: %p (%d)\n", int(i), hxc.ptr, int(hxc.type));
+    }
+  }
+}
+
+//-------------------------------------------------------------------------
 void hexrays_unloading__clear_python_clearable_references(void)
 {
-  debug_hexrays_ctree("hexrays_unloading__clear_python_clearable_references()\n");
+  debug_hexrays_ctree(DCLVL_SIMPLE, "hexrays_unloading__clear_python_clearable_references()\n");
   for ( size_t i = 0, n = python_clearables.size(); i < n; ++i )
   {
     const hx_clearable_t &hxc = python_clearables[i];
-    debug_hexrays_ctree("cleaning up %p (%d)\n", hxc.ptr, int(hxc.type));
+    debug_hexrays_ctree(DCLVL_SIMPLE, "cleaning up %p (%d)\n", hxc.ptr, int(hxc.type));
     switch ( hxc.type )
     {
       case hxclr_cfuncptr:
@@ -244,7 +271,8 @@ void hexrays_register_python_clearable_instance(
   hx_clearable_t &hxc = python_clearables.push_back();
   hxc.ptr = ptr;
   hxc.type = type;
-  debug_hexrays_ctree("registered %p\n", hxc.ptr);
+  debug_hexrays_ctree(DCLVL_SIMPLE, "registered %p\n", hxc.ptr);
+  debug_hexrays_dump_clearable_instances(DCLVL_FULL);
 }
 
 //-------------------------------------------------------------------------
@@ -253,16 +281,18 @@ void hexrays_register_python_clearable_instance(
 // runtime, or it will be done by the C tree itself later.
 void hexrays_deregister_python_clearable_instance(void *ptr)
 {
+  debug_hexrays_ctree(DCLVL_SIMPLE, "maybe de-registering %p\n", ptr);
   for ( size_t i = 0, n = python_clearables.size(); i < n; ++i )
   {
     const hx_clearable_t &hxc = python_clearables[i];
     if ( hxc.ptr == ptr )
     {
+      debug_hexrays_ctree(DCLVL_SIMPLE, "de-registered %p\n", hxc.ptr);
       python_clearables.erase(python_clearables.begin() + i);
-      debug_hexrays_ctree("de-registered %p\n", hxc.ptr);
       break;
     }
   }
+  debug_hexrays_dump_clearable_instances(DCLVL_FULL);
 }
 
 //-------------------------------------------------------------------------
@@ -278,46 +308,23 @@ hx_clearable_type_t hexrays_is_registered_python_clearable_instance(
 //-------------------------------------------------------------------------
 //
 //-------------------------------------------------------------------------
-static bool is_hexrays_plugin(const plugin_info_t *pinfo)
+static bool is_hexrays_plugin(const plugin_t *entry)
 {
-  bool is_hx = false;
-  if ( pinfo != NULL && pinfo->entry != NULL )
-  {
-    const plugin_t *p = pinfo->entry;
-    if ( streq(p->wanted_name, MODULE_NAME) )
-      is_hx = true;
-  }
-  return is_hx;
+  return entry != nullptr && streq(entry->wanted_name, MODULE_NAME);
 }
 
 //-------------------------------------------------------------------------
 static void try_init()
 {
   init_hexrays_plugin(0);
-  if ( hexdsp != NULL )
+  if ( get_hexdsp() != nullptr )
     msg("IDAPython Hex-Rays bindings initialized.\n");
-}
-
-//-------------------------------------------------------------------------
-static void *idaapi exit_time_dummy_hexdsp(int /*code*/, ...)
-{
-/* This callback exists to avoid crashes if the user calls any hexrays functions
-   after unloading the decompiler.
-  switch ( code )
-  {
-    case hx_cexpr_t_cleanup: break;
-    case hx_cinsn_t_cleanup: break;
-    default: break;
-  }*/
-  return NULL;
 }
 
 //-------------------------------------------------------------------------
 inline bool hexdsp_inited()
 {
-  return hexdsp != NULL
-      && hexdsp != init_time_dummy_hexdsp
-      && hexdsp != exit_time_dummy_hexdsp;
+  return get_hexdsp() != nullptr;
 }
 
 //-------------------------------------------------------------------------
@@ -330,18 +337,19 @@ static ssize_t idaapi ida_hexrays_ui_notification(void *, int code, va_list va)
       if ( !hexdsp_inited() )
       {
         const plugin_info_t *pi = va_arg(va, plugin_info_t *);
-        if ( is_hexrays_plugin(pi) )
+        if ( pi != nullptr && is_hexrays_plugin(pi->entry) )
           try_init();
       }
       break;
 
-    case ui_plugin_unloading:
-      if ( hexdsp != NULL && hexdsp != init_time_dummy_hexdsp )
+    case ui_destroying_plugmod:
+      if ( get_hexdsp() != nullptr )
       {
-        const plugin_info_t *pi = va_arg(va, plugin_info_t *);
-        if ( is_hexrays_plugin(pi) )
+        /*const plugmod_t *plugmod =*/ va_arg(va, plugmod_t *);
+        const plugin_t *entry = va_arg(va, plugin_t *);
+        if ( is_hexrays_plugin(entry) )
         {
-          QASSERT(30500, hexdsp != exit_time_dummy_hexdsp);
+          QASSERT(30500, !do_not_check_ctree);
 
           // Make sure all the refcounted objects are cleared right away.
           hexrays_unloading__clear_python_clearable_references();
@@ -349,12 +357,12 @@ static ssize_t idaapi ida_hexrays_ui_notification(void *, int code, va_list va)
           // Make sure all hooks are unhooked
           hexrays_unloading__unhook_hooks();
 
-          hexdsp = exit_time_dummy_hexdsp;
+          do_not_check_ctree = true;
         }
       }
       break;
     case ui_database_closed:
-      hexdsp = init_time_dummy_hexdsp;
+      do_not_check_ctree = false;
       break;
   }
   return 0;
@@ -389,9 +397,9 @@ static bool remove_udc_filter(udc_filter_t *instance)
 
 //<inline(py_hexrays)>
 //-------------------------------------------------------------------------
-void py_debug_hexrays_ctree(const char *msg)
+void py_debug_hexrays_ctree(int level, const char *msg)
 {
-  debug_hexrays_ctree(msg);
+  debug_hexrays_ctree(level, msg);
 }
 
 //---------------------------------------------------------------------

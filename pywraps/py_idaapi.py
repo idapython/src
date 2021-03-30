@@ -312,7 +312,7 @@ class PyIdc_cvt_refclass__(pyidc_cvt_helper__):
 def as_cstr(val):
     """
     Returns a C str from the passed value. The passed value can be of type refclass (returned by a call to buffer() or byref())
-    It scans for the first \x00 and returns the string value up to that point.
+    It scans for the first \\x00 and returns the string value up to that point.
     """
     if isinstance(val, PyIdc_cvt_refclass__):
         val = val.value

@@ -36,9 +36,10 @@
 %ignore get_bytes;
 %ignore get_strlit_contents;
 %ignore get_hex_string;
-%ignore bin_search2;
 %ignore bin_search; // we redefine our own, w/ 2 params swapped, so we can apply the typemaps below
 %rename (bin_search) py_bin_search;
+%rename (bin_search) bin_search2;
+%ignore bin_search2(ea_t, ea_t, const uchar *, const uchar *, size_t, int);
 
 %ignore get_8bit;
 %rename (get_8bit) py_get_8bit;
@@ -46,9 +47,7 @@
 %ignore get_octet;
 %rename (get_octet) py_get_octet;
 
-%ignore compiled_binpat_t;
-%ignore compiled_binpat_vec_t;
-%ignore parse_binpat_str;
+%template(compiled_binpat_vec_t) qvector<compiled_binpat_t>;
 
 // TODO: This could be fixed (if needed)
 %ignore set_dbgmem_source;
@@ -177,8 +176,14 @@
 
 %include "bytes.hpp"
 
+// Make it so that 'imask' can be None
 %apply (const bytevec_t &_fields) { const bytevec_t &imask };
+%typemap(typecheck, precedence=SWIG_TYPECHECK_STRING_ARRAY) const bytevec_t &imask
+{ // %typemap(typecheck, precedence=SWIG_TYPECHECK_STRING_ARRAY) const bytevec_t &imask
+  $1 = ($input == Py_None || IDAPyBytes_Check($input)) ? 1 : 0;
+}
 
+//
 %clear(void *buf, ssize_t size);
 
 %clear(const void *buf, size_t size);

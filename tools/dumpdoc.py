@@ -22,7 +22,7 @@ try:
 except:
     from io import StringIO
 
-ignore_types = (int, float, str, bool, dict, list, tuple, types.ModuleType)
+ignore_types = (int, float, str, bool, dict, list, tuple, bytes, types.ModuleType)
 TRANSLATED_MARKER = b"\xE2\x86\x97"
 
 if sys.version_info.major < 3:
@@ -298,23 +298,6 @@ all_specific_translations = {
             "Helper for pickle.",
         ), "helper for pickle", False),
     ],
-
-    #
-    # The following is a kludge: IDA 7.5 ships with
-    # release_pydoc_injections*.txt and ida_nalt.py files that have
-    # a very slightly different wrapping. We want to prevent this
-    # from building IDAPython under the SDK.
-    #
-    "ida_nalt.set_outfile_encoding_idx" : [
-        ((
-            "the encoding index idx can be 0 to use the IDB's default 1",
-            "the encoding index idx can be 0 to use the IDB's default",
-        ), "<snipped>", False ),
-        ((
-            "1-byte-per-unit encoding (C++: int)",
-            "-byte-per-unit encoding (C++: int)",
-        ), "<snipped>", False ),
-    ],
 }
 
 if is_64:
@@ -339,12 +322,6 @@ def dump_namespace(namespace, namespace_name, keys, vec_info=None):
         if should_ignore_name(thing_name):
             continue
         thing = getattr(namespace, thing_name)
-        # KLUDGE
-        if thing_name == "IDB_Hooks":
-            try:
-                del thing.dirtree_segm_moved
-            except:
-                pass
         if isinstance(thing, ignore_types):
             continue
         if thing in spotted_things:

@@ -31,7 +31,7 @@
 
 %uncomparable_elements_qvector(exception_info_t, excvec_t);
 %uncomparable_elements_qvector(process_info_t, procinfo_vec_t);
-%template(call_stack_t) qvector<call_stack_info_t>;
+%template(call_stack_info_vec_t) qvector<call_stack_info_t>;
 %template(meminfo_vec_t) qvector<memory_info_t>;
 
 %include "idd.hpp"

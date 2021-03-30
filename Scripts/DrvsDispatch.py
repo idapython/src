@@ -2,7 +2,7 @@
 
 A script to demonstrate how to send commands to the debugger and then parse and use the output in IDA
 
-Copyright (c) 1990-2020 Hex-Rays
+Copyright (c) 1990-2021 Hex-Rays
 ALL RIGHTS RESERVED.
 
 """

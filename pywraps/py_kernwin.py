@@ -1,17 +1,5 @@
 # -----------------------------------------------------------------------
 #<pycode(py_kernwin)>
-DP_LEFT           = 0x0001
-DP_TOP            = 0x0002
-DP_RIGHT          = 0x0004
-DP_BOTTOM         = 0x0008
-DP_INSIDE         = 0x0010
-# if not before, then it is after
-# (use DP_INSIDE | DP_BEFORE to insert a tab before a given tab)
-# this flag alone cannot be used to determine orientation
-DP_BEFORE         = 0x0020
-# used with combination of other flags
-DP_TAB            = 0x0040
-DP_FLOATING       = 0x0080
 
 # ----------------------------------------------------------------------
 def load_custom_icon(file_name=None, data=None, format=None):

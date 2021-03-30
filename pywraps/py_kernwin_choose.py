@@ -62,12 +62,19 @@ class Choose(object):
     CH_RESTORE       = _ida_kernwin.CH_RESTORE
     """restore floating position if present (equivalent of WOPN_RESTORE) (GUI version only)"""
 
+    CH_RENAME_IS_EDIT = _ida_kernwin.CH_RENAME_IS_EDIT
+    """triggering a 'edit/rename' (i.e., F2 shortcut) on a cell,
+       should call the edit() callback for the corresponding row."""
+
     CH_BUILTIN_SHIFT = _ida_kernwin.CH_BUILTIN_SHIFT
     CH_BUILTIN_MASK = _ida_kernwin.CH_BUILTIN_MASK
 
     """The chooser can provide a dirtree_t, meaning a tree-like structure
        can be provided to the user (instead of a flat table)"""
     CH_HAS_DIRTREE = _ida_kernwin.CH_HAS_DIRTREE
+
+    """The chooser can be used in a diffing/merging workflow"""
+    CH_HAS_DIFF = _ida_kernwin.CH_HAS_DIFF
 
     # column flags (are specified in the widths array)
     CHCOL_PLAIN     = _ida_kernwin.CHCOL_PLAIN

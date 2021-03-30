@@ -441,13 +441,15 @@ static void handle_python_error(
 }
 
 //-------------------------------------------------------------------------
-static const char *insert_coding_cookie(qstring *out)
+#define ENCODING_COOKIE "# -*- coding: UTF-8 -*-\n"
+#define ENCODING_COOKIE_LEN 24
+static const char *insert_encoding_cookie(qstring *out)
 {
   // This is necessary for pre-3.9 parsers, to parse the
   // input text as proper UTF-8. Python 3.9 switches to the PEG
   // parser that, by default (and in particular since we don't
   // pass PyCompilerFlags), will always assume UTF-8.
-  out->insert(0, "# -*- coding: UTF-8 -*-\n");
+  out->insert(0, ENCODING_COOKIE, ENCODING_COOKIE_LEN);
   return out->c_str();
 }
 
@@ -1322,7 +1324,7 @@ bool idapython_plugin_t::_extlang_compile_expr(
   bool isfunc = false;
 
   qstring qstr(expr);
-  PyObject *code = my_CompileString(insert_coding_cookie(&qstr), "<string>", Py_eval_input);
+  PyObject *code = my_CompileString(insert_encoding_cookie(&qstr), "<string>", Py_eval_input);
   if ( code == NULL )
   {
     // try compiling as a list of statements
@@ -1330,7 +1332,7 @@ bool idapython_plugin_t::_extlang_compile_expr(
     handle_python_error(errbuf);
     qstring func;
     wrap_in_function(&func, expr, name);
-    insert_coding_cookie(&func);
+    insert_encoding_cookie(&func);
     code = my_CompileString(func.c_str(), "<string>", Py_file_input);
     if ( code == NULL )
     {
@@ -1890,7 +1892,7 @@ bool idapython_plugin_t::_cli_execute_line(const char *line)
 
     // Compile as an expression
     qstring qstr(line);
-    newref_t py_code(my_CompileString(insert_coding_cookie(&qstr), "<string>", Py_eval_input));
+    newref_t py_code(my_CompileString(insert_encoding_cookie(&qstr), "<string>", Py_eval_input));
     if ( py_code == NULL || PyErr_Occurred() )
     {
       // Not an expression?

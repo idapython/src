@@ -47,6 +47,12 @@
   }
 }
 
+// I am not sure how else to proceed for SWiG to not attempt
+// generating a setter...
+%ignore BADDIFF;
+%rename (BADDIFF) _BADDIFF;
+%constant diffpos_t _BADDIFF = diffpos_t(-1);
+
 //<typemaps(pro)>
 //</typemaps(pro)>
 

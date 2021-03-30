@@ -1,9 +1,20 @@
+"""
+summary: manipulate IDAView and graph
+
+description:
+  This is an example illustrating how to manipulate an existing IDA-provided
+  view (and thus its graph), in Python.
+
+keywords: idaview, graph
+
+see_also: custom_graph_with_actions, sync_two_graphs
+"""
+
+
 from __future__ import print_function
+
 # -----------------------------------------------------------------------
-# This is an example illustrating how to manipulate an existing IDA-provided
-# view (and thus its graph), in Python.
 # (c) Hex-Rays
-#
 
 from time import sleep
 import threading

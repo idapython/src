@@ -1,6 +1,6 @@
 #
 # This example illustrates how one can execute commands in the
-# "Output window", from their own widgets.
+# "Output" window, from their own widgets.
 #
 # In order to do so, we have to be careful that:
 #  - the original, underlying 'cli:Execute' action, that has to be
@@ -54,13 +54,13 @@ def show_dialog():
 
             # We'll now have to schedule a call to the standard
             # 'execute' action. We can't call it right away, because
-            # the "Output window" doesn't have focus, and thus
+            # the "Output" window doesn't have focus, and thus
             # the action will fail to execute since it requires
-            # the "Output window" as context.
+            # the "Output" window as context.
             text = text_edit.toPlainText()
 
             def delayed_exec(*args):
-                output_window_title = "Output window"
+                output_window_title = "Output"
                 tw = ida_kernwin.find_widget(output_window_title)
                 if not tw:
                     raise Exception("Couldn't find widget '%s'" % output_window_title)

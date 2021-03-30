@@ -191,7 +191,7 @@ static bool is_python3Y_dll_file_name(const char *fname)
   return fname != nullptr
       && strnieq(fname, "python3", 7)
       && qisdigit(fname[7])
-      && strieq(&fname[8], ".dll");
+      && strieq(get_file_ext(fname), "dll");
 }
 
 #include <exehdr.h>
@@ -303,7 +303,7 @@ static bool has_appx_path(qstrvec_t paths)
 //-------------------------------------------------------------------------
 // ignore known bad Pythons:
 // 3.8.0 release (https://bugs.python.org/issue37633)
-// Anaconda 2019.10 and 2020.02 (https://github.com/ContinuumIO/anaconda-issues/issues/11374)
+// Anaconda 2019.10, 2020.02 and 2020.11 (https://github.com/ContinuumIO/anaconda-issues/issues/11374)
 // AppStore Python on Windows 10 (dll can't be loaded from outside of Appx package)
 static bool bad_entry(const pylib_entry_t &e)
 {
@@ -315,7 +315,8 @@ static bool bad_entry(const pylib_entry_t &e)
     return true;
   }
   if ( e.display_name == "Anaconda 2019.10"
-    || e.display_name == "Anaconda 2020.02" )
+    || e.display_name == "Anaconda 2020.02"
+    || e.display_name == "Anaconda 2020.11" )
   {
     out("Ignoring unusable %s \"%s\"\n", e.display_name.c_str(), !e.paths.empty() ? e.paths[0].c_str() : "?");
     return true;
@@ -371,7 +372,7 @@ static void enum_python_key(pylib_entries_t *result, const HKEY hkey, qstring *_
     if ( RegOpenKeyExW(hkey, subkey, 0, KEY_READ, &ihkey) == ERROR_SUCCESS )
     {
       out_verb("Opened \"%ls\"\n", subkey);
-      //opened an install. get its version from SysVersion value
+      // opened an install. get its version from SysVersion value
       qstring sysver;
       pylib_version_t version;
       bool ok = read_string(&sysver, ihkey, PYTHON_SYSVER_SUBKEY);
@@ -421,7 +422,7 @@ static void enum_python_key(pylib_entries_t *result, const HKEY hkey, qstring *_
         }
         else
         {
-          out_verb("Couldn't open \"%s\"\n", subkey);
+          out("Couldn't open \"%s\"\n", subkey);
         }
       }
       else
@@ -534,14 +535,14 @@ void pyver_tool_t::do_find_python_libs(pylib_entries_t *result) const
       }
       else
       {
-        out_verb("\"%ls\" exists, but no \"%ls\" value found\n",
+        out("\"%ls\" exists, but no \"%ls\" value found\n",
                  IDA_ADDLIB_SUBKEY, IDA_ADDLIB_VALUE);
       }
       RegCloseKey(idahkey);
     }
     else
     {
-      out_verb("No \"%ls\" key found\n", IDA_ADDLIB_SUBKEY);
+      out("No \"%ls\" key found\n", IDA_ADDLIB_SUBKEY);
     }
   }
 }

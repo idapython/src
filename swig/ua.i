@@ -88,6 +88,8 @@
     Op4 = property(lambda self: self.__get_operand__(3))
     Op5 = property(lambda self: self.__get_operand__(4))
     Op6 = property(lambda self: self.__get_operand__(5))
+    Op7 = property(lambda self: self.__get_operand__(6))
+    Op8 = property(lambda self: self.__get_operand__(7))
 
     auxpref = property(__get_auxpref__, __set_auxpref__)
 

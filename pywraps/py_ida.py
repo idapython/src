@@ -45,7 +45,7 @@ idainfo_get_pack_mode = inf_get_pack_mode
 idainfo_set_pack_mode = inf_set_pack_mode
 __make_idainfo_accessors(None, "get_pack_mode", "set_pack_mode")
 
-idainfo_is_32bit = inf_is_32bit
+def idainfo_is_32bit(): return not inf_is_16bit() # in reality this means "is 32bit or higher"
 __make_idainfo_getter("is_32bit")
 
 idainfo_is_64bit = inf_is_64bit

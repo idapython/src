@@ -327,7 +327,7 @@ class generated_func_info_t:
                 m = self.PARAM_WITH_CPP_TYPE_INFO_RE.match(self.params[found_idx])
                 if m:
                     text = re.sub(r"(.*)\(C\+\+:.*\)(.*)", r"\1 - %s\2" % m.group(1), text)
-                lines = textwrap.wrap(text, 70, subsequent_indent=" " * indent)
+                lines = textwrap.wrap(text, 70, subsequent_indent=" " * indent, break_on_hyphens=False)
                 self.params = self.params[0:found_idx] + lines + self.params[found_idx+1:]
             else:
                 verb("No param named '%s' for function with prototype '%s'" % (name, self.prototype))
@@ -335,10 +335,10 @@ class generated_func_info_t:
         def append_return(self, text, indent):
             if self.returns is not None:
                 verb("Overriding return information")
-            self.returns = textwrap.wrap(text, 70, subsequent_indent=" " * indent)
+            self.returns = textwrap.wrap(text, 70, subsequent_indent=" " * indent, break_on_hyphens=False)
 
         def append_retval(self, text, indent):
-            self.retvals.extend(textwrap.wrap(text, 70, subsequent_indent=" " * indent))
+            self.retvals.extend(textwrap.wrap(text, 70, subsequent_indent=" " * indent, break_on_hyphens=False))
 
         def get_lines(self):
             return [self.prototype] \

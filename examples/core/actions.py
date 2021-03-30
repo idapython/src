@@ -9,6 +9,10 @@ class SayHi(ida_kernwin.action_handler_t):
 
     def activate(self, ctx):
         print("Hi, %s" % (self.message))
+        # print("context fields: %s" % dir(ctx))
+        print(" cur_ea %08X" % ctx.cur_ea)
+        print(" cur_value: %08X" % ctx.cur_value)
+        print(" cur_extracted_ea %08X" % ctx.cur_extracted_ea)
         return 1
 
     # You can implement update(), to inform IDA when:

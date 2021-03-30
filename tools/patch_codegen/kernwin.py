@@ -29,6 +29,19 @@
             "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 4 ? NULL : (PyObject *)obj2), NULL)",
         )),
     ],
+    "SwigDirector_UI_Hooks::saved" : [
+        ("director_method_call_arity_cap", (
+            True,  # add GIL lock
+            "saved",
+            "(method ,(__argcnt < 2 ? NULL : (PyObject *)obj0), NULL)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(__argcnt < 2 ? NULL : (PyObject *)obj0), NULL)",
+        )),
+        ("spontaneous_callback_call", (
+            False, # add GIL lock
+            None,  # try anchor
+            None   # catch anchor
+        )),
+    ],
     "__additional_thread_unsafe__" :
     [
         "py_get_ask_form",

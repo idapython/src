@@ -9,9 +9,6 @@
     "SwigDirector_dirspec_t::get_inode" : [
         ("spontaneous_callback_call", None)
     ],
-    "SwigDirector_dirspec_t::get_size" : [
-        ("spontaneous_callback_call", None)
-    ],
     "SwigDirector_dirspec_t::get_attrs" : [
         ("spontaneous_callback_call", None)
     ],

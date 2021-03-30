@@ -17,9 +17,6 @@
 %ignore set_wide_value;
 %ignore del_wide_value;
 
-%ignore get_strid;
-%ignore _set_strid;
-%ignore _del_strid;
 %ignore xrefpos_t;
 %ignore get_xrefpos;
 %ignore set_xrefpos;
@@ -63,10 +60,6 @@
 %ignore del_jumptable_info;
 %ignore set_jumptable_info;
 %ignore get_jumptable_info;
-
-%ignore refinfo_t::_get_target;
-%ignore refinfo_t::_get_value;
-%ignore refinfo_t::_get_opval;
 
 %ignore custom_refinfo_handler_t;
 %ignore custom_refinfo_handlers_t;

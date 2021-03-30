@@ -10,13 +10,13 @@
 // Context structure used by add|del_idc_hotkey()
 struct py_idchotkey_ctx_t
 {
-  qstring hotkey;
+  qstring action_name;
   ref_t pyfunc;
 
   py_idchotkey_ctx_t(
-          const char *_hotkey,
+          const char *_action_name,
           PyObject *_pyfunc)
-    : hotkey(_hotkey),
+    : action_name(_action_name),
       pyfunc(borref_t(_pyfunc)) {}
 };
 
@@ -411,7 +411,7 @@ bool py_del_hotkey(PyObject *pyctx)
     return false;
 
   py_idchotkey_ctx_t *ctx = (py_idchotkey_ctx_t *) PyCapsule_GetPointer(pyctx, VALID_CAPSULE_NAME);
-  if ( ctx == NULL || !del_idc_hotkey(ctx->hotkey.c_str()) )
+  if ( ctx == NULL || !unregister_action(ctx->action_name.c_str()) )
     return false;
 
   delete ctx;
@@ -476,7 +476,7 @@ PyObject *py_add_hotkey(const char *hotkey, PyObject *pyfunc)
         break;
 
       // Create new context
-      py_idchotkey_ctx_t *ctx = new py_idchotkey_ctx_t(hotkey, pyfunc);
+      py_idchotkey_ctx_t *ctx = new py_idchotkey_ctx_t(idc_func_name.c_str(), pyfunc);
 
       // Bind IDC variable w/ the PyCallable
       gvar->set_pvoid(pyfunc);
@@ -486,7 +486,7 @@ PyObject *py_add_hotkey(const char *hotkey, PyObject *pyfunc)
     } while (false);
   }
   // Cleanup
-  del_idc_hotkey(hotkey);
+  unregister_action(idc_func_name.c_str());
   Py_RETURN_NONE;
 }
 
@@ -893,14 +893,14 @@ private:
 
   static ssize_t handle_hint_output(PyObject *o, qstring *hint, int *important_lines)
   {
-    ssize_t rc = 0;
     if ( o != NULL && PyTuple_Check(o) && PyTuple_Size(o) == 2 )
     {
       borref_t el0(PyTuple_GetItem(o, 0));
+      qstring plug_hint;
       if ( el0 != NULL
         && IDAPyStr_Check(el0.o)
-        && IDAPyStr_AsUTF8(hint, el0.o)
-        && !hint->empty() )
+        && IDAPyStr_AsUTF8(&plug_hint, el0.o)
+        && !plug_hint.empty() )
       {
         borref_t el1(PyTuple_GetItem(o, 1));
         if ( el1 != NULL && IDAPyInt_Check(el1.o) )
@@ -908,13 +908,15 @@ private:
           long lns = IDAPyInt_AsLong(el1.o);
           if ( lns > 0 )
           {
-            *important_lines = lns;
-            rc = 1;
+            if ( !hint->empty() && hint->last() != '\n' )
+              hint->append('\n');
+            hint->append(plug_hint);
+            *important_lines += lns;
           }
         }
       }
     }
-    return rc;
+    return 0;
   }
 
   static ssize_t handle_hint_output(PyObject *o, qstring *hint, ea_t, int, int *important_lines)
@@ -1040,6 +1042,29 @@ struct disasm_line_t
 };
 DECLARE_TYPE_AS_MOVABLE(disasm_line_t);
 typedef qvector<disasm_line_t> disasm_text_t;
+
+//-------------------------------------------------------------------------
+// tuple(fields, icon, attr)
+static PyObject *py_chooser_base_t_get_row(
+        const chooser_base_t *chobj,
+        size_t n)
+{
+  qstrvec_t fields;
+  fields.resize(chobj->columns);
+  chooser_item_attrs_t *attrs = new chooser_item_attrs_t;
+  int icon;
+  chobj->get_row(&fields, &icon, attrs, n);
+
+  PyObject *tuple = PyTuple_New(3);
+  PyTuple_SetItem(tuple, 0, qstrvec2pylist(fields));
+  PyTuple_SetItem(tuple, 1, IDAPyInt_FromLong(icon));
+  PyObject *py_attrs = SWIG_NewPointerObj(
+          SWIG_as_voidptr(attrs),
+          SWIGTYPE_p_chooser_item_attrs_t,
+          SWIG_POINTER_OWN);
+  PyTuple_SetItem(tuple, 2, py_attrs);
+  return tuple;
+}
 
 //-------------------------------------------------------------------------
 void py_gen_disasm_text(disasm_text_t &text, ea_t ea1, ea_t ea2, bool truncate_lines)

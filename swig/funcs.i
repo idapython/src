@@ -21,6 +21,7 @@
 
 %ignore func_t::llabelqty;
 %ignore func_t::llabels;
+%ignore FUNC_RESERVED;
 
 %template (dyn_stkpnt_array) dynamic_wrapped_array_t<stkpnt_t>;
 %template (dyn_regvar_array) dynamic_wrapped_array_t<regvar_t>;

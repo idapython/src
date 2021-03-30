@@ -95,16 +95,16 @@ static bool _to_reg_val(regval_t **out, regval_t *buf, const char *name, PyObjec
 
     static bool convert_float(regval_t *lout, PyObject *in, op_dtype_t)
     {
-      eNE ene;
+      fpvalue_t fpval;
       _cvt_status_t status(PyExc_TypeError, "Expected float value");
       double dbl = PyFloat_AsDouble(in);
       status.ok = PyErr_Occurred() == NULL;
       if ( status.ok )
-        status.ok = ieee_realcvt(&dbl, ene, 003 /*load double*/) == 0;
+        status.ok = ieee_realcvt(&dbl, &fpval, 003 /*load double*/) == REAL_ERROR_OK;
       if ( !status.ok )
         status.failed(PyExc_ValueError).sprnt("Float conversion failed");
       if ( status.ok )
-        lout->set_float(ene);
+        lout->set_float(fpval);
       return status.ok;
     }
 
@@ -256,7 +256,7 @@ static PyObject *_from_reg_val(
     case dt_ldbl:
       {
         double dbl;
-        status.ok = ieee_realcvt(&dbl, (uint16 *) rv.fval, 013 /*store double*/) == 0;
+        status.ok = rv.fval.to_double(&dbl) == REAL_ERROR_OK;
         if ( status.ok )
           res = PyFloat_FromDouble(dbl);
       }

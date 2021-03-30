@@ -6,9 +6,9 @@ def get_switch_info(*args):
     else:
         si, ea = args
     return None if _real_get_switch_info(si, ea) <= 0 else si
-def get_abi_name(*args):
+def get_abi_name():
     import ida_typeinf
-    return ida_typeinf.get_abi_name(args)
+    return ida_typeinf.get_abi_name()
 #</pycode(py_nalt)>
 
 #<pycode_BC695(py_nalt)>

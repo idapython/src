@@ -721,16 +721,20 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 //-------------------------------------------------------------------------
 //                            OUT qstrvec_t
 //-------------------------------------------------------------------------
-%typemap(in,numinputs=0) qstrvec_t *out (qstrvec_t temp) {
-    $1 = &temp;
+%typemap(in,numinputs=0) qstrvec_t *out (qstrvec_t temp)
+{
+  // %typemap(in,numinputs=0) qstrvec_t *out (qstrvec_t temp)
+  $1 = &temp;
 }
 %typemap(argout) qstrvec_t *out
 {
+  // %typemap(argout) qstrvec_t *out
   Py_XDECREF(resultobj);
   resultobj = qstrvec2pylist(*($1));
 }
 %typemap(freearg) qstrvec_t* out
 {
+  // %typemap(freearg) qstrvec_t* out
   // Nothing. We certainly don't want 'temp' to be deleted.
 }
 
@@ -815,6 +819,13 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 
 %typemap(in) qtime64_t "$1 = PyLong_AsUnsignedLongLong($input);"
 %typemap(out) qtime64_t "$result = PyLong_FromUnsignedLongLong($1);"
+
+%typemap(typecheck, precedence=SWIG_TYPECHECK_STRING_ARRAY) ea_t
+{
+  // %typemap(typecheck, precedence=SWIG_TYPECHECK_STRING_ARRAY) ea_t
+  uint64 $1_temp;
+  $1 = PyW_GetNumber($input, &$1_temp);
+}
 
 //---------------------------------------------------------------------
 //                       IN/OUT qstring/bytevec_t
@@ -1479,17 +1490,17 @@ SWIGINTERN PyObject *qstrvec2pylist(const qstrvec_t &vec)
 }
 
 //-------------------------------------------------------------------------
-%define %uint_result_as_output(TYPE, CONVFUNC)
-%typemap(in,numinputs=0) TYPE *result (TYPE temp)
+%define %_uint_result_as_output(TYPE, CONVFUNC, CHECK_EXPR)
+%typemap(in,numinputs=0) TYPE *result (TYPE temp = 0)
 {
-  // %uint_result_as_output(TYPE, CONVFUNC) %typemap(in,numinputs=0) TYPE *result
+  // %_uint_result_as_output(TYPE, CONVFUNC, CHECK_EXPR) %typemap(in,numinputs=0) TYPE *result
   $1 = &temp;
 }
 %typemap(argout) TYPE *result
 {
-  // %uint_result_as_output(TYPE, CONVFUNC) %typemap(argout) TYPE *result
+  // %_uint_result_as_output(TYPE, CONVFUNC) %typemap(argout) TYPE *result
   Py_XDECREF(resultobj);
-  if ( int(result) > 0 )
+  if ( CHECK_EXPR )
   {
     resultobj = CONVFUNC(*(TYPE *) $1);
   }
@@ -1500,10 +1511,18 @@ SWIGINTERN PyObject *qstrvec2pylist(const qstrvec_t &vec)
   }
 }
 %enddef
+
+//-------------------------------------------------------------------------
+%define %uint_result_as_output(TYPE, CONVFUNC)
+%_uint_result_as_output(TYPE, CONVFUNC, int(result) > 0);
+%enddef
+
 %uint_result_as_output(uint32, PyLong_FromUnsignedLong);
 %uint_result_as_output(uint64, PyLong_FromUnsignedLongLong);
+%uint_result_as_output(int64, PyLong_FromLongLong);
 %apply uint32 *result { uint32 *out };
 %apply uint64 *result { uint64 *out };
+%apply int64 *result { int64 *out };
 #ifdef __EA64__
 %apply uint64 *result { ea_t *result };
 #else
@@ -1787,6 +1806,28 @@ ${ALL_IMPORTS}
 // from the SDK, will be injected in the form of 'check'
 // typemaps.
 ${NONNULL_TYPEMAPS}
+
+// gdl_graph_t & subclasses
+%cstring_output_maxstr_none(char *iobuf, int iobufsize);
+
+%typemap(argout) (char *iobuf, int iobufsize)
+{
+  // %typemap(argout) (char *iobuf, int iobufsize)
+  qfree($1);
+}
+
+%typemap(directorout) char *get_node_label (qstring tmp)
+{
+  // %typemap(directorout) char *get_node_label (qstring tmp)
+  if ( IDAPyStr_AsUTF8(&tmp, result) )
+    ::qstrncpy(iobuf, tmp.c_str(), iobufsize);
+  else
+    Swig::DirectorTypeMismatchException::raise(
+            SWIG_ErrorType(SWIG_TypeError),
+            "in output value of type 'char *' in method '$symname'");
+  $result = iobuf;
+}
+
 
 #endif // __HEADER_I__
 // END: auto-inserted header

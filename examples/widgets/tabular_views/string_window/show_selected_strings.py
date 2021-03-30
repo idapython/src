@@ -1,7 +1,7 @@
 
 #
 # This example lets the user programmatically retrieve
-# the strings currently selected in the "Strings window"
+# the strings currently selected in the "Strings" window
 #
 
 import ida_kernwin
@@ -57,7 +57,7 @@ klasses = [
     show_strings_using_get_strlist_item_ah_t,
 ]
 
-sw = ida_kernwin.find_widget("Strings window")
+sw = ida_kernwin.find_widget("Strings")
 if not sw:
     sw = ida_kernwin.open_strings_window(ida_idaapi.BADADDR)
 

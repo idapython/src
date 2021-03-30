@@ -1,8 +1,17 @@
+"""
+summary: change background colours
+
+description:
+  This illustrates the setting/retrieval of background colours
+  using the IDC wrappers
+
+category: disassembly
+
+keywords: coloring, idc
+"""
+
 from __future__ import print_function
 
-#---------------------------------------------------------------------
-# This illustrates the setting/retrievel of background colours,
-# using the IDC wrappers
 
 BG_BLUE  = 0xc02020
 BG_GREEN = 0x208020

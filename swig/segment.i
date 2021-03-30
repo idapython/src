@@ -21,6 +21,10 @@
 {
   ea_t start_ea;
   ea_t end_ea;
+
+  %pythoncode {
+      use64 = is_64bit
+  }
 }
 
 #ifdef __EA64__

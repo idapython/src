@@ -34,7 +34,7 @@ with open(args.input) as fin:
         parts.append("#if defined(IDA_MODULE_PRO)")
         parts.append("// nothing; has to be handled in pro.i")
         parts.append("#else")
-        required_headers = ["pro", "ida", "xref", "typeinf", "enum", "netnode", "range", "lines", "kernwin", "bytes", "auto", "nalt", "idd", "idp"]
+        required_headers = ["pro", "ida", "xref", "typeinf", "enum", "netnode", "range", "lines", "kernwin", "bytes", "auto", "nalt", "idd", "idp", "gdl"]
         # required_headers = ["pro", "ida", "xref", "typeinf", "enum", "netnode", "range", "lines", "kernwin", "bytes", "auto", "nalt", "idd", "idp", "dirtree"]
         for rh in required_headers:
             add_imports_from_dep(rh)

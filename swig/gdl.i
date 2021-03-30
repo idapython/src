@@ -2,8 +2,12 @@
 #include <gdl.hpp>
 %}
 
-%ignore cancellable_graph_t;
-%ignore gdl_graph_t;
+%ignore gdl_graph_t::gen_gdl;
+%ignore gdl_graph_t::gen_dot;
+%ignore gdl_graph_t::path_exists;
+
+%ignore cancellable_graph_t::padding;
+%ignore cancellable_graph_t::check_cancel;
 
 %ignore intmap_t;
 %ignore intset_t;

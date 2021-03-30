@@ -21,7 +21,9 @@ struct dirspec_t;
   $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
 }
 
+%ignore callui_t;
 %ignore sync_source_t::sync_source_t();
+%ignore l_compare;
 
 // Ignore the va_list functions
 %ignore vask_form;
@@ -88,8 +90,6 @@ struct dirspec_t;
 %ignore destroy_custom_viewerdestroy_custom_viewer;
 %ignore set_custom_viewer_handler;
 %ignore set_custom_viewer_range;
-%ignore is_idaview;
-%ignore refresh_custom_viewer;
 %ignore set_custom_viewer_handlers;
 %ignore get_viewer_name;
 // Ignore these string functions. There are trivial replacements in Python.
@@ -138,6 +138,33 @@ struct dirspec_t;
 
 %ignore chooser_item_attrs_t::cb;
 
+// chooser_base_t should be read-only
+%ignore chooser_base_t::chooser_base_t;
+%ignore chooser_base_t::~chooser_base_t;
+%ignore chooser_base_t::call_destructor;
+%ignore chooser_base_t::check_version;
+%ignore chooser_base_t::closed;
+%ignore chooser_base_t::get_chooser_obj;
+%ignore chooser_base_t::get_obj_id;
+%ignore chooser_base_t::init;
+%ignore chooser_base_t::set_ask_item_attrs;
+%ignore chooser_base_t::ALL_CHANGED;
+%ignore chooser_base_t::NOTHING_CHANGED;
+%ignore chooser_base_t::SELECTION_CHANGED;
+%ignore chooser_base_t::ALREADY_EXISTS;
+%ignore chooser_base_t::EMPTY_CHOOSER;
+%ignore chooser_base_t::NO_ATTR;
+%ignore chooser_base_t::NO_SELECTION;
+
+%feature("nodirector") chooser_base_t;
+%ignore chooser_base_t::get_row(qstrvec_t *, int *, chooser_item_attrs_t *, size_t) const;
+%extend chooser_base_t {
+  PyObject *get_row(size_t n) const
+  {
+    return py_chooser_base_t_get_row($self, n);
+  }
+}
+
 // Make ask_addr(), ask_seg(), and ask_long() return a
 // tuple: (result, value)
 %rename (_ask_long) ask_long;
@@ -163,8 +190,8 @@ struct dirspec_t;
 %apply bytevec_t *vout { bytevec_t *out };
 
 %ignore register_place_class;
-%ignore register_loc_converter;
-%ignore lookup_loc_converter;
+%ignore register_loc_converter2;
+%ignore lookup_loc_converter2;
 
 %ignore hexplace_t;
 %ignore hexplace_gen_t;

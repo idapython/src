@@ -24,8 +24,8 @@ include ../../allmake.mak
 
 #----------------------------------------------------------------------
 # default goals
-.PHONY: configs modules pyfiles deployed_modules idapython_modules api_contents pydoc_injections pyqt sip bins public_tree test_idc docs
-all: configs modules pyfiles deployed_modules idapython_modules api_contents pydoc_injections pyqt sip bins # public_tree test_idc docs
+.PHONY: configs modules pyfiles deployed_modules idapython_modules api_contents pydoc_injections pyqt sip bins public_tree test_idc docs tbd examples_index
+all: configs modules pyfiles deployed_modules idapython_modules api_contents pydoc_injections pyqt sip bins examples_index # public_tree test_idc docs
 
 ifeq ($(OUT_OF_TREE_BUILD),)
   BINS += $(IDAPYSWITCH)
@@ -127,6 +127,17 @@ else
   endif
 endif
 
+#----------------------------------------------------------------------
+ifdef __APPLE_SILICON__
+  # set up a stub .tbd library to link against, see tbd.readme
+  TBD_FILE = libpython$(PYTHON_VERSION_MAJOR).tbd
+  # note: this path must be compatible with -L$(R) -lpython(2|3) in pyplg.mak
+  TBD_MODULE_DEP = $(R)$(TBD_FILE)
+  # idapyswitch must be told that we're working with Python2
+  ifeq ($(PYTHON_VERSION_MAJOR),2)
+    TBD_IDAPYSWITCH_ARGS = --use-python2
+  endif
+endif
 
 #----------------------------------------------------------------------
 # we explicitly added our module targets
@@ -143,7 +154,7 @@ include ../pyplg.mak
 #----------------------------------------------------------------------
 PYTHON_OBJS += $(F)idapython$(O)
 $(MODULE): MODULE_OBJS += $(PYTHON_OBJS)
-$(MODULE): $(PYTHON_OBJS) $(IDAPYSWITCH_MODULE_DEP)
+$(MODULE): $(PYTHON_OBJS) $(IDAPYSWITCH_MODULE_DEP) $(TBD_MODULE_DEP)
 ifdef __NT__
   $(MODULE): LDFLAGS += /DEF:$(IDAPYTHON_IMPLIB_DEF) /IMPLIB:$(IDAPYTHON_IMPLIB_PATH)
 endif
@@ -177,6 +188,7 @@ ifdef DO_IDAMAKE_SIMPLIFY
   QUPDATE_SDK = @echo $(call qcolor,update_sdk) $< && #
   QSPLIT_HEXRAYS_TEMPLATES = @echo $(call qcolor,split_hexrays_templates) $< && #
   QPYDOC_INJECTIONS = @echo $(call qcolor,check_injections) $@ && #
+  QGEN_EXAMPLES_INDEX = @echo $(call qcolor,gen_examples_index) $@ && #
 endif
 
 #----------------------------------------------------------------------
@@ -226,7 +238,7 @@ ifeq ($(OUT_OF_TREE_BUILD),)
     SDK_SOURCES+=$(IDA_INCLUDE)/hexrays.hpp
   endif
   SDK_SOURCES+=$(IDA_INCLUDE)/lumina.hpp
-  SDK_SOURCES+=$(IDA_INCLUDE)/dirtree.hpp
+  SDK_SOURCES+=$(IDA_INCLUDE)/srclang.hpp
 else
   SDK_SOURCES=$(wildcard $(IDA_INCLUDE)/*.h) $(wildcard $(IDA_INCLUDE)/*.hpp)
 endif
@@ -273,6 +285,7 @@ MODULES_NAMES += bitrange
 MODULES_NAMES += bytes
 MODULES_NAMES += dbg
 MODULES_NAMES += diskio
+MODULES_NAMES += dirtree
 MODULES_NAMES += entry
 MODULES_NAMES += enum
 MODULES_NAMES += expr
@@ -287,15 +300,12 @@ MODULES_NAMES += idaapi
 MODULES_NAMES += idc
 MODULES_NAMES += idd
 MODULES_NAMES += idp
+MODULES_NAMES += ieee
 MODULES_NAMES += kernwin
 MODULES_NAMES += lines
 MODULES_NAMES += loader
 ifdef TESTABLE_BUILD
   MODULES_NAMES += lumina
-  # when dirtree.hpp makes it into the SDK, add all relevant scripts
-  # that are currently in tests/ui/, into plugins/idapython/examples/.
-  # Grep for 'dirtree' and 'dirspec' to spot those.
-  MODULES_NAMES += dirtree
 endif
 MODULES_NAMES += moves
 MODULES_NAMES += nalt
@@ -309,6 +319,9 @@ MODULES_NAMES += registry
 MODULES_NAMES += search
 MODULES_NAMES += segment
 MODULES_NAMES += segregs
+ifdef TESTABLE_BUILD
+  MODULES_NAMES += srclang
+endif
 MODULES_NAMES += strlist
 MODULES_NAMES += struct
 MODULES_NAMES += tryblks
@@ -419,6 +432,18 @@ ifeq ($(OUT_OF_TREE_BUILD),)
     $(DEST_SIP39_PYI): $(wildcard $(SIP39_TREE)/lib/python*/PyQt5/$(SIP_PYI_FNAME)) | $(DEST_SIP39_DIR)
 	$(Q)$(CP) $? $@
     DEST_SIP += $(DEST_SIP39_PYDLL) $(DEST_SIP39_PYI)
+
+    # sip for Python [3.10, ...
+    DEST_SIP310_DIR:=$(DEST_PYQT_DIR)/python_3.10
+    $(DEST_SIP310_DIR):
+	-$(Q)if [ ! -d "$(DEST_SIP310_DIR)" ] ; then mkdir -p 2>/dev/null $(DEST_SIP310_DIR) ; fi
+    DEST_SIP310_PYDLL:=$(DEST_SIP310_DIR)/$(SIP_PYDLL_FNAME)
+    DEST_SIP310_PYI:=$(DEST_SIP310_DIR)/$(SIP_PYI_FNAME)
+    $(DEST_SIP310_PYDLL): $(wildcard $(SIP310_TREE)/lib/python*/PyQt5/$(SIP_PYDLL_FNAME)) | $(DEST_SIP310_DIR)
+	$(Q)$(CP) $? $@
+    $(DEST_SIP310_PYI): $(wildcard $(SIP310_TREE)/lib/python*/PyQt5/$(SIP_PYI_FNAME)) | $(DEST_SIP310_DIR)
+	$(Q)$(CP) $? $@
+    DEST_SIP += $(DEST_SIP310_PYDLL) $(DEST_SIP310_PYI)
 
   else
     # sip for Python 2.7
@@ -680,16 +705,14 @@ SWIG_IFACE_dbg=idd
 SWIG_IFACE_frame=range
 SWIG_IFACE_funcs=range
 SWIG_IFACE_gdl=range
-SWIG_IFACE_hexrays=pro typeinf xref
+SWIG_IFACE_graph=gdl
+SWIG_IFACE_hexrays=pro typeinf xref gdl
 SWIG_IFACE_idd=range
 SWIG_IFACE_idp=bitrange
 SWIG_IFACE_segment=range
 SWIG_IFACE_segregs=range
 SWIG_IFACE_typeinf=idp
 SWIG_IFACE_tryblks=range
-# ifdef TESTABLE_BUILD
-# SWIG_IFACE_kernwin=dirtree
-# endif
 
 MODULE_LIFECYCLE_bytes=--lifecycle-aware
 MODULE_LIFECYCLE_hexrays=--lifecycle-aware
@@ -806,7 +829,7 @@ endif
 #       See Python's dynload_win.c:GetPythonImport() for more details.
 $(_IDA_X_SO): STDLIBS += $(LINKIDAPYTHON)
 $(_IDA_X_SO): LDFLAGS += $(PYTHON_LDFLAGS) $(PYTHON_LDFLAGS_RPATH_MODULE) $(OUTMAP)$(F)$(@F).map
-$(F)_ida_%$(PYDLL_EXT): $(F)%$(O) $(MODULE) $(IDAPYTHON_IMPLIB_DEF) $(IDAPYSWITCH_MODULE_DEP)
+$(F)_ida_%$(PYDLL_EXT): $(F)%$(O) $(MODULE) $(IDAPYTHON_IMPLIB_DEF) $(IDAPYSWITCH_MODULE_DEP) $(TBD_MODULE_DEP)
 	$(call link_dll, $<, $(LINKIDA))
 ifdef __NT__
 	$(Q)$(RM) $(@:$(PYDLL_EXT)=.exp) $(@:$(PYDLL_EXT)=.lib)
@@ -863,7 +886,7 @@ endif
 PYDOC_INJECTIONS_IDAT_CMD=$(USE_PYTHON2_ENVVAR) $(IDAT_CMD) $(BATCH_SWITCH) "-OIDAPython:AUTOIMPORT_COMPAT_IDA695=NO" -S"$< $@ $(ST_WRAP) $(DUMPDOC_IS_64)" -t -L$(F)dumpdoc.log >/dev/null
 pydoc_injections: $(ST_PYDOC_INJECTIONS)
 $(ST_PYDOC_INJECTIONS): tools/dumpdoc.py $(IDAPYTHON_MODULES) $(PYTHON_BINARY_MODULES)
-ifeq ($(or $(__CODE_CHECKER__),$(NO_CMP_API),$(__ASAN__),$(IDAHOME)),)
+ifeq ($(or $(__CODE_CHECKER__),$(NO_CMP_API),$(__ASAN__),$(IDAHOME),$(DEMO_OR_FREE)),)
 	$(QPYDOC_INJECTIONS)$(PYDOC_INJECTIONS_IDAT_CMD) || \
 	 (echo "Command \"$(PYDOC_INJECTIONS_IDAT_CMD)\" failed. Check \"$(F)dumpdoc.log\" for details." && false)
 	$(Q)(diff -w $(PYDOC_INJECTIONS) $(ST_PYDOC_INJECTIONS)) > /dev/null || \
@@ -889,8 +912,7 @@ endif
 
 # the demo version of ida does not have the -B command line option
 ifeq ($(OUT_OF_TREE_BUILD),)
-  ISDEMO=$(shell grep "define DEMO$$" $(IDA_INCLUDE)/commerc.hpp)
-  ifeq ($(ISDEMO),)
+  ifndef DEMO_OR_FREE
     BATCH_SWITCH=-B
   endif
 endif
@@ -939,6 +961,17 @@ endif
 $(R)idapyswitch$(B): $(call dumb_target, pro, $(IDAPYSWITCH_OBJS))
 
 #----------------------------------------------------------------------
+ifdef __APPLE_SILICON__
+tbd: $(TBD_MODULE_DEP)
+# copy the tbd library to idabin, and instruct idapyswitch to create the symlink to libpython
+$(TBD_MODULE_DEP): $(TBD_FILE) $(IDAPYSWITCH)
+	$(Q)$(CP) $< $@
+	cd $(R) && $(IDAPYSWITCH) $(TBD_IDAPYSWITCH_ARGS) --force-path $(shell $(PYTHON)-config --prefix)/Python
+else
+tbd: ;
+endif
+
+#----------------------------------------------------------------------
 # the 'echo_modules' target must be called explicitly
 # Note: used by ida/build/pkgbin.py
 echo_modules:
@@ -948,14 +981,56 @@ echo_modules:
 clean::
 	rm -rf obj/
 
+ifdef __CODE_CHECKER__
+  examples_index: ;
+else
+  EXAMPLES          := $(wildcard examples/**/*.py)
+  GEN_EXAMPLES_TOOL := tools/gen_examples_index.py
+
+  ST_EXAMPLES_INDEX_HTML := $(F)examples/index.html
+  ST_EXAMPLES_INDEX_MD   := $(F)examples/index.md
+
+  define make-examples-index-rules
+
+    $(eval EXAMPLES_INDEX    := examples/index.$(1))
+    $(eval ST_EXAMPLES_INDEX := $(2))
+    $(eval EXAMPLES_TEMPLATE := tools/examples_index_template.$(1))
+
+    .PRECIOUS: $(ST_EXAMPLES_INDEX)
+
+    $(eval EXAMPLES_INDEX_CMD := $(PYTHON) $(GEN_EXAMPLES_TOOL) \
+	-t $(EXAMPLES_TEMPLATE) \
+	-e examples \
+	-o $(ST_EXAMPLES_INDEX) \
+	   )
+
+    $(ST_EXAMPLES_INDEX): $(GEN_EXAMPLES_TOOL) $(EXAMPLES_TEMPLATE) $(EXAMPLES)
+	-$(Q)if [ ! -d "$(F)examples" ] ; then mkdir -p 2>/dev/null $(F)examples ; fi
+	$(QGEN_EXAMPLES_INDEX)$(EXAMPLES_INDEX_CMD) \
+	  || echo FAILED: $(EXAMPLES_INDEX_CMD)
+	$(Q)diff -w $(EXAMPLES_INDEX) $(ST_EXAMPLES_INDEX) > /dev/null \
+	  || (echo "EXAMPLES INDEX CHANGED! update $(EXAMPLES_INDEX)" \
+	   && echo "(New examples: $(ST_EXAMPLES_INDEX)) ***" \
+	   && diff -U 1 -w $(EXAMPLES_INDEX) $(ST_EXAMPLES_INDEX) \
+	   && false)
+  endef
+
+  $(eval $(call make-examples-index-rules,html,$(ST_EXAMPLES_INDEX_HTML)))
+  $(eval $(call make-examples-index-rules,md,$(ST_EXAMPLES_INDEX_MD)))
+
+  examples_index: $(ST_EXAMPLES_INDEX_HTML) $(ST_EXAMPLES_INDEX_MD)
+
+endif
+
 $(MODULE): LDFLAGS += $(PYTHON_LDFLAGS) $(PYTHON_LDFLAGS_RPATH_MAIN)
 
 # MAKEDEP dependency list ------------------
 $(F)idapyswitch$(O): $(I)auto.hpp $(I)bitrange.hpp $(I)bytes.hpp            \
                   $(I)config.hpp $(I)diskio.hpp $(I)entry.hpp $(I)err.h     \
                   $(I)exehdr.h $(I)fixup.hpp $(I)fpro.h $(I)funcs.hpp       \
-                  $(I)ida.hpp $(I)idp.hpp $(I)kernwin.hpp $(I)lines.hpp     \
-                  $(I)llong.hpp $(I)loader.hpp $(I)nalt.hpp $(I)name.hpp    \
+                  $(I)ida.hpp $(I)idp.hpp $(I)ieee.h $(I)kernwin.hpp        \
+                  $(I)lines.hpp $(I)llong.hpp $(I)loader.hpp $(I)lzfse.h    \
+                  $(I)lzvn_decode_base.h $(I)nalt.hpp $(I)name.hpp          \
                   $(I)netnode.hpp $(I)network.hpp $(I)offset.hpp $(I)pro.h  \
                   $(I)prodir.h $(I)range.hpp $(I)segment.hpp                \
                   $(I)segregs.hpp $(I)ua.hpp $(I)xref.hpp                   \
@@ -972,12 +1047,14 @@ $(F)idapyswitch$(O): $(I)auto.hpp $(I)bitrange.hpp $(I)bytes.hpp            \
                   ../../ldr/mach-o/h/i386/_types.h                          \
                   ../../ldr/mach-o/h/i386/eflags.h                          \
                   ../../ldr/mach-o/h/libkern/OSByteOrder.h                  \
+                  ../../ldr/mach-o/h/libkern/arm/OSByteOrder.h              \
                   ../../ldr/mach-o/h/libkern/i386/OSByteOrder.h             \
                   ../../ldr/mach-o/h/libkern/i386/_OSByteOrder.h            \
                   ../../ldr/mach-o/h/libkern/machine/OSByteOrder.h          \
                   ../../ldr/mach-o/h/mach-o/arm/reloc.h                     \
                   ../../ldr/mach-o/h/mach-o/arm64/reloc.h                   \
                   ../../ldr/mach-o/h/mach-o/fat.h                           \
+                  ../../ldr/mach-o/h/mach-o/fixup-chains.h                  \
                   ../../ldr/mach-o/h/mach-o/hppa/reloc.h                    \
                   ../../ldr/mach-o/h/mach-o/i860/reloc.h                    \
                   ../../ldr/mach-o/h/mach-o/loader.h                        \
@@ -1011,19 +1088,13 @@ $(F)idapyswitch$(O): $(I)auto.hpp $(I)bitrange.hpp $(I)bytes.hpp            \
                   ../../ldr/mach-o/h/mach/machine/vm_types.h                \
                   ../../ldr/mach-o/h/mach/message.h                         \
                   ../../ldr/mach-o/h/mach/port.h                            \
-                  ../../ldr/mach-o/h/mach/ppc/_structs.h                    \
-                  ../../ldr/mach-o/h/mach/ppc/boolean.h                     \
-                  ../../ldr/mach-o/h/mach/ppc/kern_return.h                 \
-                  ../../ldr/mach-o/h/mach/ppc/thread_status.h               \
-                  ../../ldr/mach-o/h/mach/ppc/vm_param.h                    \
-                  ../../ldr/mach-o/h/mach/ppc/vm_types.h                    \
                   ../../ldr/mach-o/h/mach/vm_prot.h                         \
                   ../../ldr/mach-o/h/mach/vm_types.h                        \
-                  ../../ldr/mach-o/h/ppc/_types.h                           \
                   ../../ldr/mach-o/h/sys/_posix_availability.h              \
                   ../../ldr/mach-o/h/sys/_symbol_aliasing.h                 \
                   ../../ldr/mach-o/h/sys/cdefs.h                            \
-                  ../../ldr/mach-o/macho_node.h ../../ldr/pe/../idaldr.h    \
+                  ../../ldr/mach-o/macho_node.h                             \
+                  ../../ldr/mach-o/uncompress.cpp ../../ldr/pe/../idaldr.h  \
                   ../../ldr/pe/common.cpp ../../ldr/pe/common.h             \
                   ../../ldr/pe/pe.h idapyswitch.cpp idapyswitch_linux.cpp   \
                   idapyswitch_mac.cpp idapyswitch_win.cpp

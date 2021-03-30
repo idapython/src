@@ -57,6 +57,8 @@ struct undo_records_t;
 %ignore ignore_micro_t;
 %ignore procmod_t;
 %ignore plugmod_t;
+%ignore get_hexdsp;
+%ignore set_hexdsp;
 
 // @arnaud
 %ignore notify__calc_next_eas;

@@ -515,7 +515,7 @@ class Strings(object):
             return self._toseq(True)
 
     def clear_cache(self):
-        """Clears the strings list cache"""
+        """Clears the string list cache"""
         ida_strlist.clear_strlist()
 
     def __init__(self, default_setup = False):
@@ -536,7 +536,7 @@ class Strings(object):
 
 
     def refresh(self):
-        """Refreshes the strings list"""
+        """Refreshes the string list"""
         ida_strlist.build_strlist()
         self.size = ida_strlist.get_strlist_qty()
 

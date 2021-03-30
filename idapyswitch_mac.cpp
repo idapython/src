@@ -476,6 +476,36 @@ bool pyver_tool_t::do_apply_version(
         const pylib_entry_t &entry,
         qstring *errbuf) const
 {
+#ifdef __APPLE_SILICON__
+  // modify the libpython symlink in idabin so that it points to the given libpython path
+  qstring link_name;
+  link_name.sprnt("libpython%d.link.dylib", entry.version.major);
+
+  char link_path[QMAXPATH];
+  qmakepath(link_path, sizeof(link_path), idadir(""), link_name.c_str(), nullptr);
+  if ( qfileexist(link_path) )
+  {
+    out_verb("Removing existing \"%s\"\n", link_path);
+    int rc = qunlink(link_path);
+    if ( rc != 0 )
+    {
+      errbuf->sprnt("Unlinking \"%s\" failed: %s", link_path, winerr(errno));
+      return false;
+    }
+  }
+
+  const char *target = entry.paths[0].c_str();
+  out_verb("Linking \"%s\" -> \"%s\"\n", link_path, target);
+  int rc = symlink(target, link_path);
+  if ( rc != 0 )
+  {
+    errbuf->sprnt("Linking to \"%s\" failed: %s", target, winerr(errno));
+    return false;
+  }
+
+  return true;
+#else
+  // patch the libpython load commands in all idapython modules
   struct ida_local patcher_t : public file_visitor_t
   {
     const pylib_entry_t &entry;
@@ -488,4 +518,5 @@ bool pyver_tool_t::do_apply_version(
   };
   patcher_t patcher(entry, errbuf);
   return for_all_plugin_files(patcher, patcher.lerrbuf) == 0;
+#endif
 }

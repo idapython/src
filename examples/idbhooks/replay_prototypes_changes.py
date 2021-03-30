@@ -1,17 +1,20 @@
 """
-This is a sample script, that will record (in memory) all changes in
-functions prototypes, in order to re-apply them later.
+summary: Record and replay changes in function prototypes
 
-To use this script:
- - open an IDB (say, "test.idb")
- - modify some functions prototypes (e.g., by triggering the 'Y'
-   shortcut when the cursor is placed on the first address of a
-   function)
- - reload that IDB, *without saving it first*
- - call rpc.replay(), to re-apply the modifications.
-
-Note: 'ti_changed' is also called for changes to the function
-frames, but we'll only record function prototypes changes.
+description:
+    This is a sample script, that will record (in memory) all changes in
+    functions prototypes, in order to re-apply them later.
+.
+    To use this script:
+     - open an IDB (say, "test.idb")
+     - modify some functions prototypes (e.g., by triggering the 'Y'
+       shortcut when the cursor is placed on the first address of a
+       function)
+     - reload that IDB, *without saving it first*
+     - call rpc.replay(), to re-apply the modifications.
+.
+    Note: 'ti_changed' is also called for changes to the function
+    frames, but we'll only record function prototypes changes.
 """
 import ida_idp
 import ida_funcs

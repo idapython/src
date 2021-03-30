@@ -11,9 +11,8 @@
 #  include <windows.h>
 #endif
 
-#include <algorithm>
-
 //lint -esym(1788, iinc) is referenced only by its constructor or destructor
+//lint -e754 local struct member 'pylib_entries_t::path_history' not referenced
 
 #include <pro.h>
 #include <err.h>
@@ -214,9 +213,7 @@ typedef qvector<pylib_entry_t> pylib_entry_vec_t;
 struct pylib_entries_t
 {
   pylib_entry_vec_t entries;
-#ifdef __MAC__
   qstrvec_t path_history;
-#endif
 
   pylib_entry_t *get_entry_for_version(const pylib_version_t &version)
   {
@@ -326,7 +323,12 @@ bool pyver_tool_t::do_pick_sip(
         const pylib_entry_t &entry,
         qstring *errbuf) const
 {
-  const char *src_sip_subdir = entry.version.minor >= 9 ? "python_3.9"
+#ifdef __MAC__
+  if ( entry.version.major == 2 )
+    return true; // nothing to do for Python2
+#endif
+  const char *src_sip_subdir = entry.version.minor >= 10 ? "python_3.10"
+                             : entry.version.minor >= 9 ? "python_3.9"
                              : entry.version.minor >= 8 ? "python_3.8"
                              : "python_3.4";
   char src_sip_path[QMAXPATH];

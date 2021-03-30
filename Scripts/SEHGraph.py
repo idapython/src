@@ -4,7 +4,7 @@ A script that graphs all the exception handlers in a given process
 
 It will be easy to see what thread uses what handler and what handlers are commonly used between threads
 
-Copyright (c) 1990-2020 Hex-Rays
+Copyright (c) 1990-2021 Hex-Rays
 ALL RIGHTS RESERVED.
 """
 from __future__ import print_function

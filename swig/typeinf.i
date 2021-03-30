@@ -5,6 +5,8 @@
 
 // Most of these could be wrapped if needed
 %ignore get_cc;
+%ignore get_effective_cc;
+%ignore ::use_golang_abi;
 %ignore get_cc_type_size;
 %ignore get_de;
 %ignore skip_ptr_type_header;

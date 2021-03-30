@@ -47,4 +47,31 @@ if ( __argcnt == 2 )
             ),
         ),
     ],
+
+    "SwigDirector_IDB_Hooks::renamed" : [
+        ("director_method_call_arity_cap", (
+            False, # add GIL lock
+            "renamed",
+            "(method ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2,(__argcnt < 5 ? NULL : (PyObject *)obj3), NULL)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2,(__argcnt < 5 ? NULL : (PyObject *)obj3), NULL)")
+        ),
+    ],
+
+    "SwigDirector_IDB_Hooks::compiler_changed" : [
+        ("director_method_call_arity_cap", (
+            False, # add GIL lock
+            "compiler_changed",
+            "(method ,(__argcnt == 1 ? NULL : (PyObject *)obj0), NULL)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(__argcnt == 1 ? NULL : (PyObject *)obj0), NULL)")
+        ),
+    ],
+
+    "SwigDirector_IDB_Hooks::bookmark_changed" : [
+        ("director_method_call_arity_cap", (
+            False, # add GIL lock
+            "bookmark_changed",
+            "(method ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2,(__argcnt < 5 ? NULL : (PyObject *)obj3), NULL)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2,(__argcnt < 5 ? NULL : (PyObject *)obj3), NULL)")
+        ),
+    ],
 }

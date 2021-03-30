@@ -387,6 +387,9 @@ def check_python(args):
         "structplace_t" : { "mustinherit" : "place_t" },
         "textctrl_info_t" : { "mustinherit" : "ida_idaapi.py_clinked_object_t" },
         "udt_type_data_t" : { "mustinherit" : "udtmembervec_t" },
+        "call_stack_t" : { "mustinherit" : "call_stack_info_vec_t" },
+        "abstract_graph_t" : { "mustinherit" : "ida_gdl.gdl_graph_t" },
+        "mutable_graph_t" : { "mustinherit" : "abstract_graph_t" },
 
         # Just look for the presence of those things
         "BADNODE" : {},
@@ -421,6 +424,7 @@ def check_python(args):
         # "vivl_t" : { "mustinherit" : "ivl_t" },
         "ivl_t" : { "mustinherit" : "uval_ivl_t" },
         "ivlset_t" : { "mustinherit" : "uval_ivl_ivlset_t" },
+        "simple_graph_t" : { "mustinherit" : "ida_gdl.gdl_graph_t" },
     }
 
     types_coherence = types_coherence_base.copy()

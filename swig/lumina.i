@@ -21,12 +21,15 @@
 %ignore func_info_and_frequency_t::swap;
 %ignore func_info_pattern_and_frequency_t::swap;
 %ignore input_file_t::swap;
+%ignore func_info_pattern_and_frequency_t::swap;
 %ignore mdkey2str;
 %ignore str2mdkey;
 %ignore serialize;
 %ignore deserialize;
 %ignore new_lumina_client;
 %ignore close_server_connection;
+%ignore close_server_connection2;
+%ignore close_server_connections;
 %ignore get_mdkey_preferred_format;
 %ignore extract_type_from_metadata;
 %rename (extract_type_from_metadata) py_extract_type_from_metadata;

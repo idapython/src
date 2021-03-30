@@ -332,15 +332,13 @@ static PyObject *py_get_8bit(ea_t ea, uint32 v, int nbit)
 //-------------------------------------------------------------------------
 /*
 #<pydoc>
-def bin_search(start_ea, end_ea, image, imask, step, flags):
+def bin_search(start_ea, end_ea, data, flags):
   """
   Search for a set of bytes in the program
 
   @param start_ea: linear address, start of range to search
   @param end_ea: linear address, end of range to search (exclusive)
-  @param image: the set of bytes to search for
-  @param imask: a bitfield representing the mask in 'image' (can be None)
-  @param step: either BIN_SEARCH_FORWARD, or BIN_SEARCH_BACKWARD
+  @param data: the prepared data to search for (see parse_binpat_str())
   @param flags: combination of BIN_SEARCH_* flags
   @return: the address of a match, or ida_idaapi.BADADDR if not found
   """

@@ -18,36 +18,41 @@
 
 // most of these aren't defined/exported through graph.hpp
 %ignore abstract_graph_t::callback;
-%ignore abstract_graph_t;
+%ignore abstract_graph_t::vgrcall;
+%ignore abstract_graph_t::clear;
+%ignore abstract_graph_t::dump_graph;
+%ignore abstract_graph_t::calc_bounds;
+%ignore abstract_graph_t::calc_fitting_params;
+%ignore abstract_graph_t::for_all_nodes_edges;
+%ignore abstract_graph_t::get_edge_ports;
+%ignore abstract_graph_t::add_node_edges;
+%ignore abstract_graph_t::create_polar_tree_layout;
+%ignore abstract_graph_t::create_radial_tree_layout;
+%ignore abstract_graph_t::create_orthogonal_layout;
+%ignore abstract_graph_t::clone;
+%ignore abstract_graph_t::nrect;
+%rename (nrect) my_nrect;
+%ignore abstract_graph_t::get_edge;
+%rename (get_edge) my_get_edge;
+
 %ignore edge_info_t::add_layout_point;
 %ignore edge_infos_wrapper_t::edge_infos_wrapper_t;
 %ignore edge_infos_wrapper_t::~edge_infos_wrapper_t;
 %ignore graph_dispatcher;
 %ignore graph_item_t::operator==;
-%ignore mutable_graph_t::add_edge;
-%ignore mutable_graph_t::add_node;
+
+// Meant to be constructed by the kernel/ui only
+%feature("nodirector") mutable_graph_t;
+%ignore mutable_graph_t::mutable_graph_t;
 %ignore mutable_graph_t::calc_center_of;
 %ignore mutable_graph_t::change_visibility;
 %ignore mutable_graph_t::check_new_group;
-%ignore mutable_graph_t::clone;
-%ignore mutable_graph_t::del_edge;
-%ignore mutable_graph_t::del_node;
-%ignore mutable_graph_t::fix_collapsed_group_edges;
-%ignore mutable_graph_t::get_edge(edge_t);
-%rename (get_edge) my_get_edge;
 %ignore mutable_graph_t::groups_are_present;
 %ignore mutable_graph_t::insert_simple_nodes;
 %ignore mutable_graph_t::insert_visible_nodes;
 %ignore mutable_graph_t::move_grouped_nodes;
 %ignore mutable_graph_t::move_to_same_place;
-%ignore mutable_graph_t::mutable_graph_t;
-%ignore mutable_graph_t::redo_layout;
-%ignore mutable_graph_t::refresh;
-%ignore mutable_graph_t::replace_edge;
-%ignore mutable_graph_t::resize;
-%ignore mutable_graph_t::set_nrect;
-%ignore node_ordering_t::clr;
-%ignore node_ordering_t::order;
+
 %ignore point_t::dstr;
 %ignore point_t::print;
 %ignore pointseq_t::dstr;
@@ -62,11 +67,15 @@ public:
   virtual int idaapi visit_edge(edge_t /*e*/, edge_info_t * /*ei*/) { qnotused(self); return 0; }
 }
 
-%extend mutable_graph_t {
+%extend abstract_graph_t {
 public:
   virtual edge_info_t my_get_edge(edge_t e)
   {
     return *($self->get_edge(e));
+  }
+  virtual rect_t my_nrect(int n)
+  {
+    return $self->nrect(n);
   }
 }
 

@@ -90,13 +90,23 @@ private:
       newref_t py_rc(PySequence_GetItem(o, 0));
       newref_t py_hint(PySequence_GetItem(o, 1));
       newref_t py_implines(PySequence_GetItem(o, 2));
+      qstring plugin_hint;
       if ( IDAPyInt_Check(py_rc.o)
         && IDAPyStr_Check(py_hint.o)
         && IDAPyInt_Check(py_implines.o)
-        && IDAPyStr_AsUTF8(out_hint, py_hint.o) )
+        && IDAPyStr_AsUTF8(&plugin_hint, py_hint.o) )
       {
+        if ( !out_hint->empty()
+          && out_hint->last() != '\n'
+          && !plugin_hint.empty() )
+        {
+          out_hint->append('\n');
+        }
+        out_hint->append(plugin_hint);
         rc = IDAPyInt_AsLong(py_rc.o);
-        *out_implines = IDAPyInt_AsLong(py_implines.o);
+        if ( rc == 2 )
+          rc = 0;
+        *out_implines += IDAPyInt_AsLong(py_implines.o);
       }
     }
     return rc;

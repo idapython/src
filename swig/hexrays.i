@@ -1,4 +1,7 @@
 %{
+#undef HEXDSP
+hexdsp_t *get_idapython_hexdsp();
+#define HEXDSP get_idapython_hexdsp()
 #include <hexrays.hpp>
 %}
 
@@ -38,6 +41,10 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 #ifdef __NT__
 %include <windows.i>
 #endif
+
+%typemap(check) const tinfo_t *type {
+  // %typemap(check) const tinfo_t *type
+}
 
 %define %define_hexrays_lifecycle_object(TypeName)
 %feature("ref") TypeName
@@ -147,8 +154,11 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 %feature("nodirector") codegen_t;
 %ignore codegen_t::reserved;
 
+%feature("nodirector") simple_graph_t;
 %ignore simple_graph_t::simple_graph_t;
 %ignore simple_graph_t::~simple_graph_t;
+
+%feature("nodirector") mbl_graph_t;
 %ignore mbl_graph_t::mbl_graph_t;
 %ignore mbl_graph_t::~mbl_graph_t;
 
@@ -205,6 +215,15 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
          """
          for ser in self.succset:
              yield self.mba.get_mblock(ser)
+   }
+};
+
+%extend mba_t {
+   %pythoncode {
+     """
+     Deprecated. Please do not use.
+     """
+     idb_node = property(lambda self: self.deprecated_idb_node)
    }
 };
 
@@ -289,6 +308,8 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 %rename (_ll_make_num) make_num;
 %rename (_ll_create_helper) create_helper;
 
+%delobject create_cfunc;
+
 %extend cfunc_t {
     %immutable argidx;
 
@@ -361,10 +382,13 @@ public:
               raise Exception("%s already owns attribute \"%s\" (%s); cannot be modified" % (self, attr, o))
           return True
 
+      def _ensure_ownership_transferrable(self, v):
+          if not v.thisown:
+              raise Exception("%s is already owned, and cannot be reused" % v)
+
       def _acquire_ownership(self, v, acquire):
           if acquire and (v is not None) and not isinstance(v, ida_idaapi.integer_types):
-              if not v.thisown:
-                  raise Exception("%s is already owned, and cannot be reused" % v)
+              self._ensure_ownership_transferrable(v)
               v.thisown = False
               dereg = getattr(v, "_deregister", None)
               if dereg:
@@ -662,6 +686,17 @@ cexpr_t *citem_t_cexpr_get(citem_t *item) { return (cexpr_t *) item; }
   CEXPR_MEMBER_REF_STR(char*, string, self.op == cot_str, None);
 };
 
+%feature("pythonprepend") cexpr_t::cexpr_t %{
+    for arg in args[1:]: # skip copy constructor's arg
+        if isinstance(arg, cexpr_t):
+            self._ensure_ownership_transferrable(arg)
+%}
+%feature("pythonappend") cexpr_t::cexpr_t %{
+    for arg in args[1:]: # skip copy constructor's arg
+        if isinstance(arg, cexpr_t):
+            self._acquire_ownership(arg, True)
+%}
+
 #undef CEXPR_MEMBER_REF_STR
 #undef CEXPR_MEMBER_REF
 
@@ -955,18 +990,6 @@ void qswap(cinsn_t &a, cinsn_t &b);
 %enddef
 %possible_director_exc(ctree_visitor_t::apply_to)
 %possible_director_exc(ctree_visitor_t::apply_to_exprs)
-
-%template (fnum_array) wrapped_array_t<uint16,6>;
-%extend fnumber_t {
-  wrapped_array_t<uint16,6> __get_fnum() {
-    return wrapped_array_t<uint16,6>($self->fnum);
-  }
-
-  %pythoncode {
-    fnum = property(__get_fnum)
-  }
-}
-
 
 %inline %{
 //<inline(py_hexrays)>

@@ -1,3 +1,7 @@
+"""
+summary: choose multi
+"""
+
 from __future__ import print_function
 from ida_kernwin import Choose
 

@@ -657,10 +657,10 @@ ssize_t py_graph_t::gr_callback(int code, va_list va)
       ret = 0;
       break;
   }
-  //grcode_changed_graph,       // new graph has been set
-  //grcode_user_size,           // calculate node size for user-defined graph
-  //grcode_user_title,          // render node title of a user-defined graph
-  //grcode_user_draw,           // render node of a user-defined graph
+  // grcode_changed_graph,       // new graph has been set
+  // grcode_user_size,           // calculate node size for user-defined graph
+  // grcode_user_title,          // render node title of a user-defined graph
+  // grcode_user_draw,           // render node of a user-defined graph
   return ret;
 }
 

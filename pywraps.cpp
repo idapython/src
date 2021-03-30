@@ -509,7 +509,7 @@ static int pyvar_to_idcvar2(
   else if ( PyFloat_Check(py_var.o) )
   {
     double dresult = PyFloat_AsDouble(py_var.o);
-    ieee_realcvt((void *)&dresult, idc_var->e, 3);
+    ieee_realcvt((void *)&dresult, &idc_var->e, 3);
     idc_var->vtype = VT_FLOAT;
   }
   // void*
@@ -831,7 +831,7 @@ int ida_export idcvar_to_pyvar(
       if ( *py_var == NULL )
       {
         double x;
-        if ( processor_t::realcvt(&x, (uint16 *)idc_var.e, (sizeof(x)/2-1)|010) != 1 )
+        if ( processor_t::realcvt(&x, (fpvalue_t*)&idc_var.e, (sizeof(x)/2-1)|010) != 1 )
           INTERR(30160);
 
         *py_var = newref_t(PyFloat_FromDouble(x));

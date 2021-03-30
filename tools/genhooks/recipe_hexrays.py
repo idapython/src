@@ -7,8 +7,8 @@ recipe = {
     },
     "create_hint" : {
         "params" : {
-            "result_hint" : { "suppress_for_call" : True, },
-            "implines" : { "suppress_for_call" : True, },
+            "hint" : { "suppress_for_call" : True, },
+            "important_lines" : { "suppress_for_call" : True, },
         },
         "return" : {
             "type" : "PyObject *",

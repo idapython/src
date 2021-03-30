@@ -4,7 +4,7 @@
 #
 # Misc constants
 #
-UA_MAXOP   = 6
+UA_MAXOP   = 8
 
 # ----------------------------------------------------------------------
 # instruc_t related constants
@@ -256,6 +256,7 @@ OOF_ZSTROFF      = 0x0200      #  meaningful only if is_stroff(uFlag)
 OOF_NOBNOT       = 0x0400      #  prohibit use of binary not
 OOF_SPACES       = 0x0800      #  do not suppress leading spaces
                                #     currently works only for floating point numbers
+OOF_ANYSERIAL    = 0x1000      #  if enum: select first available serial
 
 
 # ----------------------------------------------------------------------

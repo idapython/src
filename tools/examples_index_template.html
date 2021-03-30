@@ -1,0 +1,235 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>IDAPython examples</title>
+    <script type="text/javascript">
+      collapse_normal = "data:image/png;base64,"
+      +"iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgI"
+      +"fAhkiAAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAAE9JREFUSIntz8EJwFAIA9AY"
+      +"upiTtX8wwcm01/YW+JcWfEeJGIExxv+ZEoqIS8mRTHfP5+yQWpidSq6qAOB1"
+      +"gMriDumD7l5KjmRutRljfNQNRgQNjM3h6lA=";
+      collapse_hover = "data:image/png;base64,"
+      +"iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgI"
+      +"fAhkiAAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAAbVJREFUSInVlT1v01AUhp/3"
+      +"ioUoEiOIAl2QWDpCB4qIbKfZGPgB/AXE1ERiyYSo+BcsLAxVw4avrEgoUkBM"
+      +"UKEKsUbKxpjB9WGgRWnspLcuS9/x6Ph5fK4/Dlz2KLRxMBg0ms1mx8wi4BbQ"
+      +"AKbAAbAfx/FhLcFoNLo6m81eAF3g2opWD3TjOP4aLPDer0naA+6fdSPHOZL0"
+      +"Moqi3TMFWZbdMLMxcCcQ/i+SeicSV9XQ7/edmb2vAwcws1dpmm7Dkgm8988k"
+      +"va0Dn8uhpI3KCSTtXBAOcK8oiiclQZZld4GN/yBA0tMri0Uz26yo7S7WlgAf"
+      +"AVtzpc0qwU3p9KNJkqQXIvDe9yXNC9ZKR+ScsxBYYIrSBEVRTBYnyLKsG0Iz"
+      +"s62F0qQkAD5XXPg6RFCRcemIkiT5ZWbfagJPRdJe5XfgnAt6a1bFzH4AHyoF"
+      +"w+HwHfDpAvwj59zzKIrypT+7NE2vO+fGwHoNwU4cx29gyc8OoN1uT/M8fyjp"
+      +"yznAuaTeCXylAKDT6UyAx/xdNr9X9Ur6KOnB/C6Ac6zM4822LSkys9uSGkVR"
+      +"TJ1z351z+61W62co63LlD5ogjVIofsWl";
+      expand_normal = "data:image/png;base64,"
+      +"iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgI"
+      +"fAhkiAAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAAKpJREFUSIntk9ERgjAMhr/0"
+      +"HMANdARGIF3EUdRNXIQrbsAKbsAExBfg0FMsVR686/eUNvkvaZJCJvMtslQQ"
+      +"QtgCRX9sVbWZi98kFFWYWejtK1DOBbuEBItYPUHUDKqqOo0CkT1wADCzG3AZ"
+      +"fM65WlXrqTZqBiJyfHO/A0Zf13UADwlWb1HUC8zsPNifWvSsTfkH5XRNvffl"
+      +"XPz/r2nKT25ERHu7/WUxmcxr7pBbLDAu4/t2";
+      expand_hover = "data:image/png;base64,"
+      +"iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgI"
+      +"fAhkiAAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAAgxJREFUSInVlbFrFFEQxn/z"
+      +"2MbjQOQKLUwCYiUiiJgm4c59exErwVLwP7AREc/OrcSQUvAfsEgjiLnydnm5"
+      +"5iBCKo0gokWQwHEHsbC44m7H5k73cruXjdjkg4XHzDfzzZt9bx6cdkhRYrPZ"
+      +"LJXL5duq6gMXgRLQBfaALWvtl38S6HQ6ZwaDwSOgAZydQ42BhrV2t7BAu91e"
+      +"GA6H70Xk+nGFjDFU1cdBELw6VsA5d0FVd4DFgsn/QESe+b6/DmCyCGEYGlV9"
+      +"m5P8EIjG326GH1V9EUXRGuTswDn3QFXf5BS4ba31x7xbqupyeJ/7/f61zB2o"
+      +"aiMn6CS4UqlU7s4IOOcuA1f/gwAics87alTV5Qzbeiro+2Q9Go32RSTtWwVW"
+      +"UqHLM/8gjuMnIrKRtllrC13IOI5DEXmeMv2aaZExRoskK4hkpkVJkhyITBfs"
+      +"nGuk/PtBEGwCtFqtRc/z7k98qrrCNA5mBIAPRw2q+nKyFpFtYBPA87xLaV9W"
+      +"rpkWBUHwTVU/zgkqDBF5l3kPRGReVUWx1+v1mpmnIwxDU61W28BqhvuQvyPi"
+      +"HHAjgzMSkTu+70e5xy+KovPGmB1g6YSVAzy11m5AzrADqNfr3fHFyRxoORgC"
+      +"DyfJ5woA+L7/YyzSAH7O44pIS0RuWmtfT9mLljZ+2dZExFfVBREpJUnSNcZ8"
+      +"MsZs1Wq1r0VznS78BtXqtYTFW0oe";
+
+      var name_expanded = null;
+
+      function is_expanded()
+      {
+        return name_expanded != null;
+      }
+
+      function set_expanded(name)
+      {
+        name_expanded = name;
+      }
+
+      function init()
+      {
+        set_all_images("c_expand_gadget", expand_normal);
+      }
+
+      function image_with_hover(name)
+      {
+        set_image(name, name == name_expanded ? collapse_hover : expand_hover);
+      }
+
+      function image_without_hover(name)
+      {
+        set_image(name, name == name_expanded ? collapse_normal : expand_normal);
+      }
+
+      function expand_click(name)
+      {
+        if ( is_expanded() && name_expanded != name )
+        {
+          // something else is expanded - close it
+
+          expand_toggle(name_expanded);
+        }
+
+        expand_toggle(name, true);
+      }
+
+      function expand_toggle(name, cursor_is_there=false)
+      {
+        set_expanded(is_expanded() ? null : name);
+
+        if ( cursor_is_there )
+          image_with_hover(name);
+        else
+          image_without_hover(name);
+
+        // actual expansion / collapse
+
+        var div = document.getElementById('DIV_' + name);
+        div.style.display = is_expanded() ? 'initial' : 'none';
+
+        // scroll a little for divs at the bottom of the page
+
+        if ( is_expanded() )
+        {
+          var margin = 100;
+          var rect   = div.getBoundingClientRect();
+
+          var delta = rect.top + margin - window.innerHeight;
+          //console.log('rect.top = ' + rect.top);
+          //console.log('window.innerHeight = ' + window.innerHeight);
+          //console.log('delta = ' + delta);
+          if ( delta > 0 )
+            window.scrollBy(0, delta);
+        }
+      }
+
+      function on_see_also(see_also)
+      {
+        if ( is_expanded() )
+        {
+          // likely it is, since I clicked on "see also";
+          // close it
+
+          expand_toggle(name_expanded);
+        }
+
+        expand_toggle(see_also);
+
+        document.getElementById('IMG_' + see_also).scrollIntoView();
+        return true;
+      }
+
+      function set_image(name, source)
+      {
+        document.getElementById('IMG_' + name).src = source;
+      }
+
+      function set_all_images(classname, source)
+      {
+        var all = document.getElementsByClassName(classname);
+        for ( var i in all )
+          all[i].src = source;
+      }
+
+      function gotoMD()
+      {
+        location.href = "https://github.com/idapython/src/blob/master/examples/index.md";
+      }
+    </script>
+  </head>
+
+  <body onload="init();">
+    <div style="margin:20px 20px 50px 20px">
+      <span style="border:solid black 1px;padding:10px;font-size:small;cursor:pointer" onclick="gotoMD();">
+        Switch to MarkDown</span>
+    </div>
+
+    <h1>IDAPython examples:</h1>
+    <!--gen:group:category-->
+    <h2>Category: <!--gen:category--></h2>
+    <div class="c_list">
+      <!--gen:block-->
+      <a name="<!--gen:name-->"/>
+      <div>
+        <img id="IMG_<!--gen:name-->" class="c_expand_gadget"
+             onmouseover="image_with_hover('<!--gen:name-->');"
+             onmouseout="image_without_hover('<!--gen:name-->');"
+             onclick="expand_click('<!--gen:name-->');"/>
+        <!--gen:name-->: <i><!--gen:summary--></i>
+      </div>
+      <div id="DIV_<!--gen:name-->" style="display:none">
+
+        <hr/>
+
+        <h2><!--gen:name--></h2>
+
+        <h3>Category</h3>
+        <indent><!--gen:category--></indent>
+
+        <h3>Summary</h3>
+        <indent><!--gen:summary--></indent>
+
+        <h3>Source code</h3>
+        <indent><a target="_blank"
+                   href="https://github.com/idapython/src/blob/master/examples/<!--gen:path-->">
+        Jump to GitHub</a></indent>
+
+        <h3>Description</h3>
+        <indent>
+<pre>
+<!--gen:description-->
+</pre>
+          </indent>
+
+        <!-- "Keywords" heading produced only if there is data for it -->
+
+        <!--gen:block-->
+          <!--gen:first-->
+        <h3>Keywords</h3>
+          <!--gen:end-->
+        <span><!--gen:keywords--></span>
+        <!--gen:end-->
+
+        <h3>Uses</h3>
+        <ul>
+          <!--gen:block-->
+          <li><!--gen:uses--></li>
+          <!--gen:end-->
+        </ul>
+
+        <!-- "See also" heading produced only if there is data for it -->
+
+        <!--gen:block-->
+          <!--gen:first-->
+        <h3>See also</h3>
+        <ul>
+          <!--gen:end-->
+          <li><a href="#<!--gen:see_also-->"
+               onclick="on_see_also('<!--gen:see_also-->');">
+              <!--gen:see_also--></a></li>
+          <!--gen:last-->
+        </ul>
+          <!--gen:end-->
+        <!--gen:end-->
+
+        <hr/>
+
+      </div>
+      <!-- end block (per example in this category) -->
+      <!--gen:end-->
+
+    </div>
+    <!-- end group by category -->
+    <!--gen:end-->
+  </body>
+</html>

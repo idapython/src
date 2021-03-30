@@ -73,6 +73,8 @@
 %ignore netnode_inited;
 %ignore netnode_is_available;
 %ignore netnode_copy;
+%ignore netnode_copy2;
+%ignore netnode_copyto2;
 %ignore netnode_altshift;
 %ignore netnode_charshift;
 %ignore netnode_supshift;
