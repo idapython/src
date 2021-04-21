@@ -318,8 +318,8 @@ static bool bad_entry(const pylib_entry_t &e)
     || e.display_name == "Anaconda 2020.02"
     || e.display_name == "Anaconda 2020.11" )
   {
-    out("Ignoring unusable %s \"%s\"\n", e.display_name.c_str(), !e.paths.empty() ? e.paths[0].c_str() : "?");
-    return true;
+    out("Make sure Anaconda sets PATH environment variable in the installation and set PYTHONHOME environment variable to Anaconda installation directory");
+    return false;
   }
   if ( has_appx_path(e.paths) )
   {
