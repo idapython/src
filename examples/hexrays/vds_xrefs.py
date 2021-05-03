@@ -1,12 +1,14 @@
-""" Xref script for Hexrays Decompiler
+"""
+summary: show decompiler xrefs
 
-Author: EiNSTeiN_ <einstein@g3nius.org>
+description:
+  Show decompiler-style Xref when the `Ctrl+X` key is
+  pressed in the Decompiler window.
 
-Show decompiler-style Xref when the X key is pressed in the Decompiler window.
+  * supports any global name: functions, strings, integers, ...
+  * supports structure member.
 
-- It supports any global name: functions, strings, integers, etc.
-- It supports structure member.
-
+author: EiNSTeiN_ <einstein@g3nius.org>
 """
 from __future__ import print_function
 

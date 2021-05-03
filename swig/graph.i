@@ -31,9 +31,9 @@
 %ignore abstract_graph_t::create_orthogonal_layout;
 %ignore abstract_graph_t::clone;
 %ignore abstract_graph_t::nrect;
-%rename (nrect) my_nrect;
+%rename (nrect) novirt_nrect;
 %ignore abstract_graph_t::get_edge;
-%rename (get_edge) my_get_edge;
+%rename (get_edge) novirt_get_edge;
 
 %ignore edge_info_t::add_layout_point;
 %ignore edge_infos_wrapper_t::edge_infos_wrapper_t;
@@ -69,11 +69,11 @@ public:
 
 %extend abstract_graph_t {
 public:
-  virtual edge_info_t my_get_edge(edge_t e)
+  edge_info_t *novirt_get_edge(edge_t e)
   {
-    return *($self->get_edge(e));
+    return $self->get_edge(e);
   }
-  virtual rect_t my_nrect(int n)
+  rect_t novirt_nrect(int n)
   {
     return $self->nrect(n);
   }

@@ -1,3 +1,17 @@
+"""
+summary: show ctree graph
+
+description:
+  Registers an action that can be used to show the graph of the ctree.
+  The current item will be highlighted in the graph.
+
+  The command shortcut is `Ctrl+Shift+G`, and is also added
+  to the context menu.
+
+  To display the graph, we produce a .gdl file, and
+  request that ida displays that using `ida_gdl.display_gdl`.
+"""
+
 from __future__ import print_function
 
 import ida_pro

@@ -1,10 +1,11 @@
+"""
+summary: showing, updating & hiding the progress dialog
 
-#
-# A simple example showing how to use:
-#  ida_kernwin.show_wait_box
-#  ida_kernwin.hide_wait_box
-#  ida_kernwin.replace_wait_box
-#
+description:
+  Using the progress dialog (aka 'wait box') primitives.
+
+keywords: actions
+"""
 
 import time
 import random

@@ -1,14 +1,18 @@
-#
-#      Hex-Rays Decompiler project
-#      Copyright (c) 2007-2021 by Hex-Rays, support@hex-rays.com
-#      ALL RIGHTS RESERVED.
-#
-#      Sample plugin for Hex-Rays Decompiler.
-#      It installs a custom microcode optimization rule:
-#        x | ~x => -1
-#
-#      To see this plugin in action please use be_ornot_be.idb
-#
+"""
+summary: a custom microcode instruction optimization rule (`x | ~x => -1`)
+
+description:
+  Installs a custom microcode instruction optimization rule,
+  to transform:
+
+      x | ~x
+
+  into
+
+      -1
+
+  To see this plugin in action please use be_ornot_be.idb
+"""
 
 import ida_hexrays
 import ida_idaapi

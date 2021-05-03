@@ -1,7 +1,12 @@
+"""
+summary: enumerate patched bytes
+
+description:
+  Using the API to iterate over all the places in the file,
+  that were patched using IDA.
+"""
+
 from __future__ import print_function
-# -------------------------------------------------------------------------
-# This is an example illustrating how to visit all patched bytes in Python
-# (c) Hex-Rays
 
 import ida_bytes
 import ida_idaapi

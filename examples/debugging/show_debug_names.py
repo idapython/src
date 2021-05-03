@@ -1,3 +1,11 @@
+"""
+summary: retrieving & dumping debuggee symbols
+
+description:
+  Queries the debugger (possibly remotely) for the list of
+  symbols that the process being debugged, provides.
+"""
+
 from __future__ import print_function
 
 import ida_dbg

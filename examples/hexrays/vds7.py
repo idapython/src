@@ -1,9 +1,13 @@
-""" It demonstrates how to iterate a cblock_t object.
-
-Author: EiNSTeiN_ <einstein@g3nius.org>
-
-This is a rewrite in Python of the vds7 example that comes with hexrays sdk.
 """
+summary: iterate a cblock_t object
+
+description:
+  Using a `ida_hexrays.ctree_visitor_t`, search for
+  `ida_hexrays.cit_block` instances and dump them.
+
+author: EiNSTeiN_ <einstein@g3nius.org>
+"""
+
 from __future__ import print_function
 
 import ida_hexrays

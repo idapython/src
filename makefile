@@ -28,20 +28,19 @@ include ../../allmake.mak
 all: configs modules pyfiles deployed_modules idapython_modules api_contents pydoc_injections pyqt sip bins examples_index # public_tree test_idc docs
 
 ifeq ($(OUT_OF_TREE_BUILD),)
+  IDAPYSWITCH:=$(R)idapyswitch$(B)
+  IDAPYSWITCH_DEP:=$(IDAPYSWITCH)
+  IDAPYSWITCH_PATH:=$(IDAPYSWITCH)
   BINS += $(IDAPYSWITCH)
 else
-  # when out-of-tree (i.e., from github), we only build idapyswitch64,
-  # and rely on it even for the __EA32__ build
-  ifdef __EA64__
-    BINS += $(IDAPYSWITCH)
+  ifdef __NT__
+    IDAPYSWITCH_PATH:=$(IDA_INSTALL)/idapyswitch.exe
   else
-    IDAPYSWITCH_64_HACK := 64
+    IDAPYSWITCH_PATH:=$(IDA_INSTALL)/idapyswitch
   endif
 endif
 
-IDAPYSWITCH:=$(R)idapyswitch$(IDAPYSWITCH_64_HACK)$(B)
-
-BINS += $(IDAPYSWITCH)
+BINS += $(IDAPYSWITCH_DEP)
 bins: $(BINS)
 
 #----------------------------------------------------------------------
@@ -116,12 +115,12 @@ else
     # build-time, let's use our tool (which will in turn use patchelf)
     # to expand the DT_NEEDED 'slot' size.
     ifeq ($(PYTHON_VERSION_MAJOR),3)
-      IDAPYSWITCH_MODULE_DEP := $(IDAPYSWITCH)
+      IDAPYSWITCH_MODULE_DEP := $(IDAPYSWITCH_DEP)
       ifndef __CODE_CHECKER__
         # this is for idapython[64].so
-        POSTACTION=$(Q)$(IDAPYSWITCH) --split-debug-and-expand-libpython3-dtneeded-room $(MODULE)
+        POSTACTION=$(Q)$(IDAPYSWITCH_PATH) --split-debug-and-expand-libpython3-dtneeded-room $(MODULE)
         # and this for _ida_*.so
-        POSTACTION_IDA_X_SO=$(Q)$(IDAPYSWITCH) --split-debug-and-expand-libpython3-dtneeded-room
+        POSTACTION_IDA_X_SO=$(Q)$(IDAPYSWITCH_PATH) --split-debug-and-expand-libpython3-dtneeded-room
       endif
     endif
   endif
@@ -964,9 +963,9 @@ $(R)idapyswitch$(B): $(call dumb_target, pro, $(IDAPYSWITCH_OBJS))
 ifdef __APPLE_SILICON__
 tbd: $(TBD_MODULE_DEP)
 # copy the tbd library to idabin, and instruct idapyswitch to create the symlink to libpython
-$(TBD_MODULE_DEP): $(TBD_FILE) $(IDAPYSWITCH)
+$(TBD_MODULE_DEP): $(TBD_FILE) $(IDAPYSWITCH_DEP)
 	$(Q)$(CP) $< $@
-	cd $(R) && $(IDAPYSWITCH) $(TBD_IDAPYSWITCH_ARGS) --force-path $(shell $(PYTHON)-config --prefix)/Python
+	cd $(R) && $(IDAPYSWITCH_PATH) $(TBD_IDAPYSWITCH_ARGS) --force-path $(shell $(PYTHON)-config --prefix)/Python
 else
 tbd: ;
 endif

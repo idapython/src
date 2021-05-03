@@ -1,12 +1,12 @@
+"""
+summary: being notified, and logging a few UI events
+
+description:
+  hooks to be notified about certain UI events, and
+  dump their information to the "Output" window
+"""
+
 from __future__ import print_function
-#---------------------------------------------------------------------
-# UI hook example
-#
-# (c) Hex-Rays
-#
-# Maintained By: IDAPython Team
-#
-#---------------------------------------------------------------------
 
 import ida_kernwin
 

@@ -1,3 +1,16 @@
+"""
+summary: Non-trivial uses of the `ida_kernwin.Form` helper class
+
+description:
+  How to query for complex user input, using IDA's built-in forms.
+
+  Note: while this example produces full-fledged forms for complex input,
+  simpler types of inputs might can be retrieved by using
+  `ida_kernwin.ask_str` and similar functions.
+
+keywords: forms
+"""
+
 from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to use the Form class

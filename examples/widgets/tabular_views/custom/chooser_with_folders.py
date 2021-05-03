@@ -1,3 +1,22 @@
+"""
+summary: A widget that can show tabular data either as a simple table,
+  or with a tree-like structure.
+
+description:
+  By adding the necessary bits to a ida_kernwin.Choose subclass,
+  IDA can show the otherwise tabular data, in a tree-like fashion.
+
+  The important bits to enable this are:
+
+    * ida_dirtree.dirspec_t (and my_dirspec_t)
+    * ida_kernwin.CH_HAS_DIRTREE
+    * ida_kernwin.Choose.OnGetDirTree
+    * ida_kernwin.Choose.OnIndexToInode
+
+keywords: chooser, folders, actions
+
+see_also: choose, choose_multi
+"""
 
 import inspect
 

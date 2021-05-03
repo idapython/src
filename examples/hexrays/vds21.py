@@ -1,26 +1,27 @@
-""" Example: provide custom call type dynamically
+"""
+summary: dynamically provide a custom call type
 
-        This plugin can greatly improve decompilation of indirect calls:
+description:
+  This plugin can greatly improve decompilation of indirect calls:
 
-                call    [eax+4]
+      call    [eax+4]
 
-        For them, the decompiler has to guess the prototype of the called function.
-        This has to be done at a very early phase of decompilation because
-        the function prototype influences the data flow analysis. On the other
-        hand, we do not have global data flow analysis results yet because
-        we haven't analyzed all calls in the function. It is a chicked-and-egg
-        problem.
+  For them, the decompiler has to guess the prototype of the called function.
+  This has to be done at a very early phase of decompilation because
+  the function prototype influences the data flow analysis. On the other
+  hand, we do not have global data flow analysis results yet because
+  we haven't analyzed all calls in the function. It is a chicked-and-egg
+  problem.
 
-        The decompiler uses various techniques to guess the called function
-        prototype. While it works very well, it may fail in some cases.
+  The decompiler uses various techniques to guess the called function
+  prototype. While it works very well, it may fail in some cases.
 
-        To fix, the user can specify the call prototype manually, using
-        "Edit, Operand types, Set operand type" at the call instruction.
+  To fix, the user can specify the call prototype manually, using
+  "Edit, Operand types, Set operand type" at the call instruction.
 
-        This plugin illustrates another approach to the problem:
-        if you happen to be able to calculate the call prototypes dynamically,
-        this is how to inform the decompiler about them.
-
+  This plugin illustrates another approach to the problem:
+  if you happen to be able to calculate the call prototypes dynamically,
+  this is how to inform the decompiler about them.
 """
 
 import ida_idaapi

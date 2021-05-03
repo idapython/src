@@ -1,8 +1,11 @@
 """
-This example shows how one can dynamically alter the lines background
-rendering (as opposed to, say, using ida_nalt.set_item_color()), and
-also shows how that rendering can be limited to just a few glyphs,
-not the whole line.
+summary: dynamically colorize lines backgrounds (or parts of them)
+
+description:
+  shows how one can dynamically alter the lines background
+  rendering (as opposed to, say, using ida_nalt.set_item_color()),
+  and also shows how that rendering can be limited to just a few
+  glyphs, not the whole line.
 """
 
 import ida_kernwin

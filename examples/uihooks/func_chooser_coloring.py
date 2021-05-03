@@ -1,6 +1,9 @@
 """
-We color the function in the Function window according to its size.
-The larger the function, the darker the color.
+summary: using `ida_kernwin.UI_Hooks.get_chooser_item_attrs` to override some defaults
+
+description:
+  color the function in the Function window according to its size.
+  The larger the function, the darker the color.
 """
 
 import ida_kernwin

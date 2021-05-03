@@ -1,13 +1,15 @@
+"""
+summary: retrieve extra comments
+
+description:
+  Use the `ida_lines.get_extra_cmt` API to retrieve anterior
+  and posterior extra comments.
+
+  This script registers two actions, that can be used to dump
+  the previous and next extra comments.
+"""
+
 from __future__ import print_function
-# -----------------------------------------------------------------------
-# This example illustrates how to use the 'get_extra_cmt' API,
-# to retrieve anterior and posterior extra comments.
-#
-# After running this script, use Ctrl+Shift+Y when in the disassembly
-# view to print previous extra comment, and Ctrl+Shift+Z to print next
-# extra comments.
-#
-# (c) Hex-Rays
 
 import ida_lines
 import ida_kernwin

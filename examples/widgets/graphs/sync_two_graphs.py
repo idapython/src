@@ -1,3 +1,19 @@
+"""
+summary: follow the movements of a disassembly graph, in another.
+
+description:
+  Since it is possible to be notified of movements that happen
+  take place in a widget, it's possible to "replay" those
+  movements in another.
+
+  In this case, "IDA View-B" (will be opened if necessary) will
+  show the same contents as "IDA View-A", slightly zoomed out.
+
+keywords: graph, idaview
+
+see_also: wrap_idaview
+"""
+
 from __future__ import print_function
 
 import ida_kernwin

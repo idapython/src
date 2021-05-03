@@ -1,3 +1,13 @@
+"""
+summary: drawing custom graphs
+
+description:
+  Showing custom graphs, using `ida_graph.GraphViewer`. In addition,
+  show how to write actions that can be performed on those.
+
+keywords: graph, actions
+"""
+
 from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to use the user graphing functionality

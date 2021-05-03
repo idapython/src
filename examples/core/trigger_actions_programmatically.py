@@ -1,15 +1,21 @@
+"""
+summary: execute existing actions programmatically
+
+description:
+  It's possible to invoke any action programmatically, by using
+  either of those two:
+
+    * ida_kernwin.execute_ui_requests()
+    * ida_kernwin.process_ui_action()
+
+  Ideally, this script should be run through the "File > Script file..."
+  menu, so as to keep focus on "IDA View-A" and have the
+  'ProcessUiActions' part work as intended.
+
+keywords: actions
+"""
+
 from __future__ import print_function
-# -----------------------------------------------------------------------
-# This is an example illustrating how to use
-#   * ida_kernwin.execute_ui_requests()
-#   * ida_kernwin.process_ui_action()
-#
-# Ideally, this script should be run through the "File > Script file..."
-# menu, so as to keep focus on "IDA View-A" and have the
-# 'ProcessUiActions' part work as intended.
-#
-# (c) Hex-Rays
-#
 
 import ida_kernwin
 

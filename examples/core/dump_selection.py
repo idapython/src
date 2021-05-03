@@ -1,14 +1,21 @@
+"""
+summary: retrieve & dump current selection
+
+description:
+  Shows how to retrieve the selection from a listing
+  widget ("IDA View-A", "Hex View-1", "Pseudocode-A", ...) as
+  two "cursors", and from there retrieve (in fact, generate)
+  the corresponding text.
+
+  After running this script:
+
+    * select some text in one of the listing widgets (i.e.,
+      "IDA View-*", "Enums", "Structures", "Pseudocode-*")
+    * press Ctrl+Shift+S to dump the selection
+
+"""
 
 from __future__ import print_function
-
-# This example illustrates how to accurately retrieve the current selection.
-#
-# After running this script:
-#  * select some text in one of the listing widgets (i.e.,
-#    "IDA View-*", "Enums", "Structures", "Pseudocode-*")
-#  * press Ctrl+Shift+S to dump the selection
-#
-# (c) Hex-Rays
 
 import ida_kernwin
 import ida_lines

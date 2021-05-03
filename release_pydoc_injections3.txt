@@ -15057,7 +15057,7 @@ class abstract_graph_t(ida_gdl.gdl_graph_t)
  |  create_tree_layout(self, *args) -> 'bool'
  |      create_tree_layout(self) -> bool
  |  
- |  get_edge(self, *args) -> 'edge_info_t'
+ |  get_edge(self, *args) -> 'edge_info_t *'
  |      get_edge(self, e) -> edge_info_t
  |          @param e (C++: edge_t)
  |  
@@ -16146,7 +16146,7 @@ class mutable_graph_t(abstract_graph_t)
  |  create_tree_layout(self, *args) -> 'bool'
  |      create_tree_layout(self) -> bool
  |  
- |  get_edge(self, *args) -> 'edge_info_t'
+ |  get_edge(self, *args) -> 'edge_info_t *'
  |      get_edge(self, e) -> edge_info_t
  |          @param e (C++: edge_t)
  |  

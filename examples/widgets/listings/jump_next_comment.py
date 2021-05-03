@@ -1,7 +1,5 @@
 """
-summary:
-  This example illustrates how one can implement a "jump to next comment"
-  action within IDA's disassembly view.
+summary: implement a "jump to next comment" action within IDA's disassembly view.
 
 description:
   We want our action not only to find the next line containing a comment,
@@ -18,6 +16,8 @@ description:
   Those tags are primarily used for rendering (i.e., switching colors),
   but can also be very handy for spotting tokens of interest (registers,
   addresses, comments, prefixes, instruction mnemonics, ...)
+
+keywords: idaview, actions
 
 see_also: save_and_restore_listing_pos
 """

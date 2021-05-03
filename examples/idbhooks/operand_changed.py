@@ -1,7 +1,11 @@
 """
-This example shows notifications whenever the user changes
-an instruction's operand, or a data item.
+summary: notify the user when an instruction operand changes
+
+description:
+  Show notifications whenever the user changes
+  an instruction's operand, or a data item.
 """
+
 import binascii
 
 import ida_idp

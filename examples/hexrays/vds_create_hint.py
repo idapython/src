@@ -1,10 +1,17 @@
-"""'Hints' example for Hexrays Decompiler
+"""
+summary: decompiler hints
 
-Handle 'hxe_create_hint' notification using hooks, to return our own.
-If the object under the cursor is:
- - a function call, prefix the original decompiler hint with "==> "
- - a local variable declaration, replace the hint with our own in the form of "!{varname}" (where '{varname}' is replaced w/ the variable name)
- - an 'if' statement, replace the hint with our own, saying "condition"
+description:
+  Handle `ida_hexrays.hxe_create_hint` notification using hooks,
+  to return our own.
+
+  If the object under the cursor is:
+
+  * a function call, prefix the original decompiler hint with `==> `
+  * a local variable declaration, replace the hint with our own in
+    the form of `!{varname}` (where `{varname}` is replaced with the
+    variable name)
+  * an `if` statement, replace the hint with our own, saying "condition"
 """
 
 import ida_idaapi

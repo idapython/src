@@ -1,4 +1,4 @@
-[Switch to HTML](http://htmlpreview.github.io/?https://github.com/idapython/src/blob/master/examples/index.html)
+[HTML version](http://htmlpreview.github.io/?https://github.com/idapython/src/blob/master/examples/index.html)
 
 # IDAPython examples
 

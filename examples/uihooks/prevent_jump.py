@@ -1,6 +1,10 @@
 """
-This example shows how to use ida_kernwin.UI_Hooks, to respond to a
-command instead of the action that would otherwise do it.
+summary: taking precedence over actions
+
+description:
+  Using `ida_kernwin.UI_Hooks.preprocess_action`, it is possible
+  to respond to a command instead of the action that would
+  otherwise do it.
 """
 
 import ida_kernwin

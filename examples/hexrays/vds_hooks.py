@@ -1,5 +1,14 @@
 """
-Various hooks for Hexrays Decompiler
+summary: various decompiler hooks
+
+description:
+  Shows how to hook to many notifications sent by the decompiler.
+
+  This plugin doesn't really accomplish anything: it just prints
+  the parameters.
+
+  Also, the list of notifications handled below, isn't exhaustive.
+  Please investigate `ida_hexrays.Hexrays_Hooks` for a full list.
 """
 from __future__ import print_function
 

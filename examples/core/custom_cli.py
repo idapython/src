@@ -1,3 +1,14 @@
+"""
+summary: a custom command-line interpreter
+
+description:
+  Illustrates how one can add command-line interpreters to IDA
+
+  This custom interpreter doesn't actually run any code; it's
+  there as a 'getting started'.
+  It provides an example tab completion support.
+"""
+
 from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to implement a CLI

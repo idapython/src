@@ -1,18 +1,18 @@
-#
-#      Hex-Rays Decompiler project
-#      Copyright (c) 2007-2021 by Hex-Rays, support@hex-rays.com
-#      ALL RIGHTS RESERVED.
-#
-#      Sample plugin for Hex-Rays Decompiler.
-#      It installs a custom microcode optimization rule:
-#        call   !DbgRaiseAssertionFailure <fast:>.0
-#      =>
-#        call   !DbgRaiseAssertionFailure <fast:"char *" "assertion text">.0
-#
-#      To see this plugin in action please use arm64_brk.i64, in the hexrays sdk
-#
-#      This is a rewrite in Python of the vds10 example that comes with hexrays sdk.
-#
+"""
+summary: a custom microcode instruction optimization rule
+
+description:
+  Installs a custom microcode instruction optimization rule,
+  to transform:
+
+      call   !DbgRaiseAssertionFailure <fast:>.0
+
+  into
+
+      call   !DbgRaiseAssertionFailure <fast:"char *" "assertion text">.0
+
+  To see this plugin in action please use arm64_brk.i64
+"""
 
 import ida_bytes
 import ida_range

@@ -1,8 +1,12 @@
+"""
+summary: enumerate file imports
+
+description:
+  Using the API to enumerate file imports.
+"""
+
 from __future__ import print_function
-# -----------------------------------------------------------------------
-# This is an example illustrating how to enumerate imports
-# (c) Hex-Rays
-#
+
 import ida_nalt
 
 nimps = ida_nalt.get_import_module_qty()

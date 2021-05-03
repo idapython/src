@@ -1,13 +1,9 @@
-#
-#      Hex-Rays Decompiler project
-#      Copyright (c) 2007-2021 by Hex-Rays, support@hex-rays.com
-#      ALL RIGHTS RESERVED.
-#
-#      Sample script for Hex-Rays Decompiler.
-#      It generates microcode for selection and dumps it to the output window.
-#
-#      This is a rewrite in Python of the vds13 example that comes with hexrays sdk.
-#
+"""
+summary: generates microcode for selection
+
+description:
+  Generates microcode for selection and dumps it to the output window.
+"""
 
 import ida_bytes
 import ida_range

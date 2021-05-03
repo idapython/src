@@ -1,10 +1,16 @@
 """
-This example shows how one can dynamically alter the lines background
-rendering for pseudocode listings (as opposed to using
-ida_hexrays.cfunc_t.pseudocode[N].bgcolor)
+summary: interactively color certain pseudocode lines
 
-After running this script, pressing 'M' on a line in a "Pseudocode-?"
-widget, will cause that line to be rendered with a special background color.
+description:
+  Provides an action that can be used to dynamically alter the
+  lines background rendering for pseudocode listings (as opposed to
+  using `ida_hexrays.cfunc_t.pseudocode[N].bgcolor`)
+
+  After running this script, pressing 'M' on a line in a
+  "Pseudocode-?" widget, will cause that line to be rendered
+  with a special background color.
+
+keywords: colors
 """
 
 import ida_kernwin

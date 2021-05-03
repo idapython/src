@@ -1,7 +1,15 @@
+"""
+summary: override some parts of the processor module
+
+description:
+  Implements disassembly of BUG_INSTR used in Linux kernel
+  BUG() macro, which is architecturally undefined and is not
+  disassembled by IDA's ARM module
+
+  See Linux/arch/arm/include/asm/bug.h for more info
+"""
+
 from __future__ import print_function
-# this script implements disassembly of BUG_INSTR used in Linux kernel BUG() macro
-# normally it's architecturally undefined and is not disassembled by IDA's ARM module
-# see Linux/arch/arm/include/asm/bug.h
 
 import ida_idp
 import ida_bytes

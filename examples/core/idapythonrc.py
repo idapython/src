@@ -1,9 +1,15 @@
-#---------------------------------------------------------------------
-# Example user initialisation script: idapythonrc.py
-#
-# Place this script to ~/.idapro/ or to
-# %APPDATA%\Hex-Rays\IDA Pro
-#---------------------------------------------------------------------
+"""
+summary: code to be run right after IDAPython initialization
+
+description:
+  The `idapythonrc.py` file:
+
+    * %APPDATA%\Hex-Rays\IDA Pro\idapythonrc.py (on Windows)
+    * ~/.idapro/idapythonrc.py (on Linux & Mac)
+
+  can contain any IDAPython code that will be run as soon as
+  IDAPython is done successfully initializing.
+"""
 
 # Add your favourite script to ScriptBox for easy access
 # scriptbox.addscript("/here/is/my/favourite/script.py")

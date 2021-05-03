@@ -1,9 +1,38 @@
-""" Invert the then and else blocks of a cif_t.
-
-Author: EiNSTeiN_ <einstein@g3nius.org>
-
-This is a rewrite in Python of the vds3 example that comes with hexrays sdk.
 """
+summary: invert if/else blocks
+
+description:
+  Registers an action that can be used to invert the `if`
+  and `else` blocks of a `ida_hexrays.cif_t`.
+
+  For example, a statement like
+
+      if ( cond )
+      {
+        statements1;
+      }
+      else
+      {
+        statements2;
+      }
+
+  will be displayed as
+
+      if ( !cond )
+      {
+        statements2;
+      }
+      else
+      {
+        statements1;
+      }
+
+  The modifications are persistent: the user can quit & restart
+  IDA, and the changes will be present.
+
+author: EiNSTeiN_ <einstein@g3nius.org>
+"""
+
 from __future__ import print_function
 
 import idautils

@@ -1,14 +1,10 @@
-#
-#      Hex-Rays Decompiler project
-#      Copyright (c) 2007-2021 by Hex-Rays, support@hex-rays.com
-#      ALL RIGHTS RESERVED.
-#
-#      Sample script for Hex-Rays Decompiler.
-#      It shows list of direct references to a register from the current
-#      instruction.
-#
-#      This is a rewrite in Python of the vds12 example that comes with hexrays sdk.
-#
+"""
+summary: list instruction registers
+
+description:
+  Shows a list of direct references to a register from the
+  current instruction.
+"""
 
 import ida_pro
 import ida_hexrays

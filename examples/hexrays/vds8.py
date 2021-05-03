@@ -1,14 +1,16 @@
+"""
+summary: using `ida_hexrays.udc_filter_t`
 
-# Hex-Rays Decompiler project
-# Copyright (c) 2007-2021 by Hex-Rays, support@hex-rays.com
-# ALL RIGHTS RESERVED.
-#
-# Sample script for Hex-Rays Decompiler usage of udc_filter_t
-# class: decompile svc 0x900001 and svc 0x9000F8 as function calls to
-# svc_exit() and svc_exit_group() respectively.
-# NOTE: You will need to have an ARM + Linux IDB for this script to be usable
-#
-# It is also added into the right-click menu as "vds8.py:Toggle UDC"
+description:
+  Registers an action that uses a `ida_hexrays.udc_filter_t` to decompile
+  `svc 0x900001` and `svc 0x9000F8` as function calls to
+  `svc_exit()` and `svc_exit_group()` respectively.
+
+  You will need to have an ARM + Linux IDB for this script to be usable
+
+  In addition to having a shortcut, the action will be present
+  in the context menu.
+"""
 
 import ida_idaapi
 import ida_hexrays

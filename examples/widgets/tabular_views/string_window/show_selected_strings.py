@@ -1,8 +1,19 @@
+"""
+summary: retrieve the strings that are selected in the "Strings" window.
 
-#
-# This example lets the user programmatically retrieve
-# the strings currently selected in the "Strings" window
-#
+description:
+  In IDA it's possible to write actions that can be applied even to
+  core (i.e., "standard") widgets. The actions in this example use the
+  action "context" to know what the current selection is.
+
+  This example shows how you can either retrieve string literals data
+  directly from the chooser (`ida_kernwin.get_chooser_data`), or
+  by querying the IDB (`ida_bytes.get_strlit_contents`)
+
+keywords: actions
+
+see_also: list_strings
+"""
 
 import ida_kernwin
 import ida_strlist

@@ -1,3 +1,11 @@
+"""
+summary: programmatically create & populate a structure
+
+description:
+  Usage of the API to create & populate a structure with
+  members of different types.
+"""
+
 from __future__ import print_function
 #---------------------------------------------------------------------
 # Structure test

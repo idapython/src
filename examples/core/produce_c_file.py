@@ -1,15 +1,20 @@
 """
-This example demonstrates how one can automate IDA to perform auto-analysis
-on a file and, as soon as it is finished, produce a .c file containing the
-decompilation of all the functions that the file contains.
+summary: decompile entire file
 
-Run like so:
-  ida -A "-S...path/to/produce_c_file.py" <binary-file>
+description:
+  automate IDA to perform auto-analysis on a file and,
+  once that is done, produce a .c file containing the
+  decompilation of all the functions in that file.
 
-where:
-  -A instructs IDA to run in non-interactive mode
-  -S holds a path to the script to run (note this is a single token;
-     there is no space between '-S' and its path.)
+  Run like so:
+
+        ida -A "-S...path/to/produce_c_file.py" <binary-file>
+
+  where:
+
+    * -A instructs IDA to run in non-interactive mode
+    * -S holds a path to the script to run (note this is a single token;
+         there is no space between '-S' and its path.)
 """
 
 import ida_pro

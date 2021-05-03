@@ -1,0 +1,28 @@
+
+body
+{
+    margin: 3%;
+}
+
+.exp-col
+{
+    cursor: pointer;
+    padding: 0 4px 0 6px;
+}
+
+.collapsed-entry .details
+{
+    display: none;
+}
+
+.example-entry .details
+{
+    margin-left: 3%;
+    padding: 6px;
+    background-color: #eef;
+}
+
+a
+{
+    text-decoration: none;
+}

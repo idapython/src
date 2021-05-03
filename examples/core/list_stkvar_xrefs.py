@@ -1,14 +1,13 @@
-#
-# This example demonstrates how to retrieve all xrefs to
-# a stack variable within a function.
-# Contrary to (in-memory) data & code xrefs, retrieving
-# stack variables xrefs require a bit more work than just
-# using ida_xref's first_to(), next_to() (or higher level
-# utilities such as idautils.XrefsTo)
-#
-# Press Ctrl+Shift+F7 to invoke the action that will print xrefs
-# to the variable name that's under the cursor.
-#
+"""
+summary: list all xrefs to a function stack variable
+
+description:
+  Contrary to (in-memory) data & code xrefs, retrieving stack variables
+  xrefs requires a bit more work than just using ida_xref's first_to(),
+  next_to() (or higher level utilities such as idautils.XrefsTo)
+
+keywords: xrefs
+"""
 
 ACTION_NAME = "list_stkvar_xrefs:list"
 ACTION_SHORTCUT = "Ctrl+Shift+F7"

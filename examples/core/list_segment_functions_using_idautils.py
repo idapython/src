@@ -1,3 +1,18 @@
+"""
+summary: list all functions (and xrefs) in segment
+
+description:
+  List all the functions in the current segment, as well as
+  all the cross-references to them.
+
+  Contrary to @list_segment_functions, this uses the somewhat
+  higher-level `idautils` module.
+
+keywords: xrefs
+
+see_also: list_segment_functions
+"""
+
 from __future__ import print_function
 #
 # Reference Lister

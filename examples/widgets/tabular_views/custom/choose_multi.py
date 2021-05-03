@@ -1,5 +1,12 @@
 """
-summary: choose multi
+summary: A widget showing data in a tabular fashion, providing multiple selection
+
+description:
+  Similar to @{choose}, but with multiple selection
+
+keywords: chooser, actions
+
+see_also: choose, chooser_with_folders
 """
 
 from __future__ import print_function

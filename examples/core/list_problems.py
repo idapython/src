@@ -1,3 +1,10 @@
+"""
+summary: enumerate problems
+
+description:
+  Using the API to list all problem[atic situation]s that IDA
+  encountered during analysis.
+"""
 
 import ida_ida
 import ida_idaapi

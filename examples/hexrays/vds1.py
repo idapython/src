@@ -1,3 +1,7 @@
+"""
+summary: decompile & print current function.
+"""
+
 from __future__ import print_function
 
 import ida_hexrays

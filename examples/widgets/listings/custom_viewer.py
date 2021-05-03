@@ -1,8 +1,19 @@
+"""
+summary: create custom listings in IDA
+
+description:
+  How to create simple listings, that will share many of the features
+  as the built-in IDA widgets (highlighting, copy & paste,
+  notifications, ...)
+
+  In addition, creates actions that will be bound to the
+  freshly-created widget (using `ida_kernwin.attach_action_to_popup`.)
+
+keywords: listing, actions
+"""
+
 from __future__ import print_function
-# -----------------------------------------------------------------------
-# This is an example illustrating how to use customview in Python
-# (c) Hex-Rays
-#
+
 import ida_kernwin
 import ida_lines
 

@@ -1,15 +1,15 @@
-#
-#      Hex-Rays Decompiler project
-#      Copyright (c) 2007-2021 by Hex-Rays, support@hex-rays.com
-#      ALL RIGHTS RESERVED.
-#
-#      Sample plugin for Hex-Rays Decompiler.
-#      It shows how to use "Select offsets" widget (select_udt_by_offset() call).
-#      This plugin repeats the Alt-Y functionality.
-#      Usage: place cursor on the union field and press Shift-T
-#
-#      This is a rewrite in Python of the vds17 example that comes with hexrays sdk.
-#
+"""
+summary: using the "Select offsets" widget
+
+description:
+  Registers an action opens the "Select offsets" widget
+  (select_udt_by_offset() call).
+
+  This effectively repeats the functionality already available
+  through Alt+Y.
+
+  Place cursor on the union field and press Shift+T
+"""
 
 import ida_idaapi
 import ida_hexrays

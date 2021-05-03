@@ -1,10 +1,13 @@
-
 """
-This is a crude (and not very pythonic) reimplementation of the example
-hexrays plugin 'hexrays_sample6.cpp', shipped with the Hex-Rays decompiler.
+summary: superficially modify the decompilation output
 
-It modifies the decompilation output: removes some space characters.
+description:
+  modifies the decompilation output in a superficial manner,
+  by removing some white spaces
+
+  Note: this is rather crude, not quite "pythonic" code.
 """
+
 from __future__ import print_function
 
 import idautils

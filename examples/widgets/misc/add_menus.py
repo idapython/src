@@ -1,8 +1,18 @@
-# -----------------------------------------------------------------------
-# This is an example illustrating how to add custom menus to IDA, either
-# at the toplevel (i.e., the menubar), or as submenus in existing menus.
-# (c) Hex-Rays
-#
+"""
+summary: adding custom menus to IDA
+
+description:
+  It is possible to add custom menus to IDA, either at the
+  toplevel (i.e., into the menubar), or as submenus of existing
+  menus.
+
+  Notes:
+
+    * the same action can be present in more than 1 menu
+    * this example does not deal with context menus
+
+keywords: actions
+"""
 
 import ida_kernwin
 

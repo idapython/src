@@ -1,3 +1,13 @@
+"""
+summary: adding actions to the "registers" widget(s)
+
+description:
+  It's possible to add actions to the context menu of
+  pretty much all widgets in IDA.
+
+  This example shows how to do just that for
+  registers-displaying widgets (e.g., "General registers")
+"""
 
 import ida_dbg
 import ida_idd

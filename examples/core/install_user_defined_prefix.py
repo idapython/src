@@ -1,3 +1,13 @@
+"""
+summary: inserting information into disassembly prefixes
+
+description:
+  By default, disassembly line prefixes contain segment + address
+  information (e.g., '.text:08047718'), but it is possible to
+  "inject" other bits of information in there, thanks to the
+  `ida_lines.user_defined_prefix_t` helper type.
+"""
+
 from __future__ import print_function
 
 import ida_lines

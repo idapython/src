@@ -1,7 +1,11 @@
+"""
+summary: using timers for delayed execution
+
+description:
+  Register (possibly repeating) timers.
+"""
+
 from __future__ import print_function
-# -------------------------------------------------------------------------
-# This is an example illustrating how to use timers
-# (c) Hex-Rays
 
 import ida_kernwin
 

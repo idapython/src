@@ -1,3 +1,15 @@
+"""
+summary: An alternative view over the list of functions
+
+description:
+  Partially re-implements the "Functions" widget present in
+  IDA, with a custom widget.
+
+keywords: chooser, functions
+
+see_also: choose, choose_multi, chooser_with_folders
+"""
+
 from __future__ import print_function
 import idautils
 import idc

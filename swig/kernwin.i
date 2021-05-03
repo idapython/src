@@ -398,10 +398,10 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 %newobject place_t::as_structplace_t;
 %newobject place_t::as_simpleline_place_t;
 %extend place_t {
-  static idaplace_t *as_idaplace_t(place_t *p) { return (idaplace_t *) p->clone(); }
-  static enumplace_t *as_enumplace_t(place_t *p) { return (enumplace_t *) p->clone(); }
-  static structplace_t *as_structplace_t(place_t *p) { return (structplace_t *) p->clone(); }
-  static simpleline_place_t *as_simpleline_place_t(place_t *p) { return (simpleline_place_t *) p->clone(); }
+  static idaplace_t *as_idaplace_t(place_t *p) { return p != nullptr ? (idaplace_t *) p->clone() : nullptr; }
+  static enumplace_t *as_enumplace_t(place_t *p) { return p != nullptr ? (enumplace_t *) p->clone() : nullptr; }
+  static structplace_t *as_structplace_t(place_t *p) { return p != nullptr ? (structplace_t *) p->clone() : nullptr; }
+  static simpleline_place_t *as_simpleline_place_t(place_t *p) { return p != nullptr ? (simpleline_place_t *) p->clone() : nullptr; }
 
   PyObject *py_generate(void *ud, int maxsize)
   {

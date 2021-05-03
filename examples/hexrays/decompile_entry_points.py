@@ -1,13 +1,16 @@
-from __future__ import print_function
+"""
+summary: automatic decompilation of functions
 
-#
-# This example tries to load a decompiler plugin corresponding to the current
-# architecture (and address size) right after auto-analysis is performed,
-# and then tries to decompile the function at the first entrypoint.
-#
-# It is particularly suited for use with the '-S' flag, for example:
-# idat -Ldecompile.log -Sdecompile_entry_points.py -c file
-#
+description:
+  Attempts to load a decompiler plugin corresponding to the current
+  architecture (and address size) right after auto-analysis is performed,
+  and then tries to decompile the function at the first entrypoint.
+
+  It is particularly suited for use with the '-S' flag, for example:
+  idat -Ldecompile.log -Sdecompile_entry_points.py -c file
+"""
+
+from __future__ import print_function
 
 import ida_ida
 import ida_auto

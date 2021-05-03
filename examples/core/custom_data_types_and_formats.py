@@ -1,8 +1,17 @@
+"""
+summary: using custom data types & printers
+
+description:
+  IDA can be extended to support certain data types that it
+  does not know about out-of-the-box.
+
+  A 'custom data type' provide information about the type &
+  size of a piece of data, while a 'custom data format' is in
+  charge of formatting that data (there can be more than
+  one format for a specific 'custom data type'.)
+"""
+
 from __future__ import print_function
-# -----------------------------------------------------------------------
-# This is an example illustrating how to use custom data types in Python
-# (c) Hex-Rays
-#
 
 import ida_bytes
 import ida_idaapi

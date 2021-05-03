@@ -1,7 +1,13 @@
 """
-This script demonstrates using the low-level tracing hook (dbg_trace)
-It can be run like: ida[t].exe -B -Sdbg_trace.py -Ltrace.log file.exe
+summary: using the low-level tracing hook
+
+description:
+  This script demonstrates using the low-level tracing hook
+  (ida_dbg.DBG_Hooks.dbg_trace). It can be run like so:
+
+       ida[t].exe -B -Sdbg_trace.py -Ltrace.log file.exe
 """
+
 import time
 
 import ida_dbg

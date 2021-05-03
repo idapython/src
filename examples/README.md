@@ -30,3 +30,8 @@ test as well.
 
 There should be no such thing as a non-tested example.
 
+## Updating the examples index
+
+All examples are automatically integrated in the examples index.
+In order to show user-friendly & relevant information, a proper
+header (docstring) needs to be present.

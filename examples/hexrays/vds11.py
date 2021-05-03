@@ -1,21 +1,22 @@
-#
-#      Hex-Rays Decompiler project
-#      Copyright (c) 2007-2021 by Hex-Rays, support@hex-rays.com
-#      ALL RIGHTS RESERVED.
-#
-#      Sample plugin for Hex-Rays Decompiler.
-#      It installs a custom block optimization rule:
-#
-#        goto L1     =>        goto L2
-#        ...
-#      L1:
-#        goto L2
-#
-#      In other words we fix a goto target if it points to a chain of gotos.
-#      This improves the decompiler output in some cases.
-#
-#      This is a rewrite in Python of the vds11 example that comes with hexrays sdk.
-#
+"""
+summary: a custom microcode block optimization rule (resolve `goto` chains)
+
+description:
+  Installs a custom microcode block optimization rule,
+  to transform:
+
+        goto L1
+        ...
+      L1:
+        goto L2
+
+  into
+
+        goto L2
+
+  In other words we fix a goto target if it points to a chain of gotos.
+  This improves the decompiler output in some cases.
+"""
 
 import ida_bytes
 import ida_range

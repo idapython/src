@@ -1,15 +1,13 @@
+"""
+summary: programmatically drive a debugging session
+
+description:
+  Start a debugging session, step through the first five
+  instructions. Each instruction is disassembled after
+  execution.
+"""
+
 from __future__ import print_function
-#---------------------------------------------------------------------
-# Debug notification hook test
-#
-# This script start the executable and steps through the first five
-# instructions. Each instruction is disassembled after execution.
-#
-# Original Author: Gergely Erdelyi <gergely.erdelyi@d-dome.net>
-#
-# Maintained By: IDAPython Team
-#
-#---------------------------------------------------------------------
 
 import ida_dbg
 import ida_ida

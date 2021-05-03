@@ -1,14 +1,22 @@
+"""
+summary: showcasing `ida_bytes.bin_search`
+
+description:
+  IDAPython's ida_bytes.bin_search function is pretty powerful,
+  but can be tough to figure out at first. This example introduces
+
+   * `ida_bytes.bin_search`, and
+   * `ida_bytes.parse_binpat_str`
+
+  in order to implement a simple replacement for the
+  'Search > Sequence of bytes...' dialog, that lets users
+  search for sequences of bytes that compose string literals
+  in the binary file (either in the default 1-byte-per-char
+  encoding, or as UTF-16.)
+"""
+
 from __future__ import print_function
 
-# IDAPython's ida_bytes.bin_search function is pretty powerful,
-# but can be tough to figure out at first. This example introduces
-#  * ida_bytes.bin_search, and
-#  * ida_bytes.parse_binpat_str
-# in order to implement a simple replacement for the
-# 'Search > Sequence of bytes...' dialog, that lets users
-# search for sequences of bytes that compose string literals
-# in the binary file (either in the default 1-byte-per-char
-# encoding, or as UTF-16.)
 
 import ida_kernwin
 import ida_bytes

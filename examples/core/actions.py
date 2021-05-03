@@ -1,3 +1,23 @@
+"""
+summary: custom actions, with icons & tooltips
+
+description:
+  How to create user actions, that once created can be
+  inserted in menus, toolbars, context menus, ...
+
+  Those actions, when triggered, will be passed a 'context'
+  that contains some of the most frequently needed bits of
+  information.
+
+  In addition, custom actions can determine when they want
+  to be available (through their
+  `ida_kernwin.action_handler_t.update` callback)
+
+keywords: actions
+
+see_also: add_hotkey
+"""
+
 from __future__ import print_function
 
 import ida_kernwin

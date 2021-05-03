@@ -1,9 +1,18 @@
-""" Print user-defined details to the output window.
-
-Author: EiNSTeiN_ <einstein@g3nius.org>
-
-This is a rewrite in Python of the vds4 example that comes with hexrays sdk.
 """
+summary: dump user-defined information
+
+description:
+  Prints user-defined information to the "Output" window.
+  Namely:
+
+    * user defined label names
+    * user defined indented comments
+    * user defined number formats
+    * user defined local variable names, types, comments
+
+author: EiNSTeiN_ <einstein@g3nius.org>
+"""
+
 from __future__ import print_function
 
 import ida_kernwin

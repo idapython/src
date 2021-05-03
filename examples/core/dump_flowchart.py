@@ -1,4 +1,14 @@
 # -*- coding: utf-8 -*-
+"""
+summary: dump function flowchart
+
+description:
+  Dumps the current function's flowchart, using 2 methods:
+
+    * the low-level `ida_gdl.qflow_chart_t` type
+    * the somewhat higher-level, and slightly more pythonic
+      `ida_gdl.FlowChart` type.
+"""
 
 from __future__ import print_function
 

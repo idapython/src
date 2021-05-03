@@ -1,12 +1,17 @@
+"""
+summary: triggering bits of code by pressing a shortcut (older version)
+
+description:
+  This is a somewhat ancient way of registering actions & binding
+  shortcuts. It's still here for reference, but "fresher" alternatives
+  should be preferred.
+
+keywords: actions
+
+see_also: actions, add_hotkey
+"""
+
 from __future__ import print_function
-#---------------------------------------------------------------------
-# This script demonstrates the usage of hotkeys, using an alternative API.
-# See also:
-#   add_hotkey.py
-#   actions.py
-#
-# Author: Gergely Erdelyi <gergely.erdelyi@d-dome.net>
-#---------------------------------------------------------------------
 
 import ida_expr
 import ida_kernwin

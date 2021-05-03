@@ -1,19 +1,23 @@
-#
-# This example illustrates how one can execute commands in the
-# "Output" window, from their own widgets.
-#
-# In order to do so, we have to be careful that:
-#  - the original, underlying 'cli:Execute' action, that has to be
-#    triggered for the code present in the input field to execute
-#    and be placed in the history, requires that the input field
-#    has focus (otherwise it simply won't do anything.)
-#  - this, in turn, forces us to do "delayed" execution of that action,
-#    hence the need for a QTimer
-#  - the IDA/SWiG 'TWidget' type that we retrieve through
-#    `ida_kernwin.find_widget`, is not the same type as a
-#    `QtWidgets.QWidget`. We therefore need to convert it using
-#    `ida_kernwin.PluginForm.TWidgetToPyQtWidget`
-#
+"""
+summary: injecting commands is the "Output" window
+
+description:
+  This example illustrates how one can execute commands in the
+  "Output" window, from their own widgets.
+
+  A few notes:
+
+  * the original, underlying `cli:Execute` action, that has to be
+    triggered for the code present in the input field to execute
+    and be placed in the history, requires that the input field
+    has focus (otherwise it simply won't do anything.)
+  * this, in turn, forces us to do "delayed" execution of that action,
+    hence the need for a `QTimer`
+  * the IDA/SWiG 'TWidget' type that we retrieve through
+    `ida_kernwin.find_widget`, is not the same type as a
+    `QtWidgets.QWidget`. We therefore need to convert it using
+    `ida_kernwin.PluginForm.TWidgetToPyQtWidget`
+"""
 
 from PyQt5 import QtCore
 from PyQt5 import QtGui

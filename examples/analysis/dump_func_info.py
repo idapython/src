@@ -1,4 +1,11 @@
-# get information about function(s)
+"""
+summary: dump (some) information about the current function.
+
+description:
+  Dump some of the most interesting bits of information about
+  the function we are currently looking at.
+"""
+
 import binascii
 
 import ida_kernwin

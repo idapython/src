@@ -1,8 +1,21 @@
+"""
+summary: save, and then restore, positions in a listing
 
-#
-# This example lets the user save the current position of
-# the current listing widget, and restore it later
-#
+description:
+  Shows how it is possible re-implement IDA's bookmark capability,
+  using 2 custom actions: one action saves the current location,
+  and the other restores it.
+
+  Note that, contrary to actual bookmarks, this example:
+
+    * remembers only 1 saved position
+    * doesn't save that position in the IDB (and therefore cannot
+      be restored if IDA is closed & reopened.)
+
+keywords: listing, actions
+
+see_also: jump_next_comment
+"""
 
 import ida_kernwin
 import ida_moves
