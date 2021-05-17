@@ -105,7 +105,7 @@ class hexrays_callback_info(object):
 
         return
 
-    def invert_if(self, cfunc, insn):
+    def invert_if(self, insn):
 
         if insn.opname != 'if':
             return False
@@ -168,12 +168,11 @@ class hexrays_callback_info(object):
 
     def invert_if_event(self, vu):
 
-        cfunc = vu.cfunc.__deref__()
         i = self.find_if_statement(vu)
         if not i:
             return False
 
-        if self.invert_if(cfunc, i):
+        if self.invert_if(i):
             vu.refresh_ctext()
             self.add_location(i.ea)
 
@@ -192,7 +191,7 @@ class hexrays_callback_info(object):
             def visit_insn(self, i):
                 try:
                     if i.op == ida_hexrays.cit_if and i.ea in self.inverter.stored:
-                        self.inverter.invert_if(self.cfunc, i)
+                        self.inverter.invert_if(i)
                 except:
                     traceback.print_exc()
                 return 0 # continue enumeration

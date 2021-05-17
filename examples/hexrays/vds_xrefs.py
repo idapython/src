@@ -133,7 +133,7 @@ class XrefsForm(ida_kernwin.PluginForm):
         lines = []
         for stmt in insnvec:
 
-            qp = ida_hexrays.qstring_printer_t(cfunc.__deref__(), False)
+            qp = ida_hexrays.qstring_printer_t(cfunc, False)
 
             stmt._print(0, qp)
             s = qp.s.split('\n')[0]

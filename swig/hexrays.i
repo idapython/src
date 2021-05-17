@@ -310,6 +310,41 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 
 %delobject create_cfunc;
 
+%fragment("cvt_cfunc_t", "header")
+{
+  bool cvt_cfunc_t(cfunc_t **out, PyObject *obj)
+  {
+    cfunc_t *cfunc = 0;
+    int res = SWIG_ConvertPtr(obj, (void **) &cfunc, SWIGTYPE_p_cfunc_t, 0 | 0);
+    if ( SWIG_IsOK(res) )
+    {
+      *out = cfunc;
+    }
+    else
+    {
+      cfuncptr_t *cfuncptr = 0;
+      res = SWIG_ConvertPtr(obj, (void **) &cfuncptr, SWIGTYPE_p_qrefcnt_tT_cfunc_t_t, 0 | 0);
+      if ( SWIG_IsOK(res) )
+        *out = *cfuncptr;
+    }
+    return res;
+  }
+}
+
+%typemap(typecheck, fragment="cvt_cfunc_t", precedence=SWIG_TYPECHECK_POINTER) cfunc_t * {
+  // %typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) cfunc_t *
+  cfunc_t *cfunc = nullptr;
+  const int res$argnum = cvt_cfunc_t(&cfunc, $input);
+  _v = SWIG_CheckState(res$argnum);
+}
+
+%typemap(in, fragment="cvt_cfunc_t") cfunc_t * {
+  // %typemap(in, fragment="cvt_cfunc_t") cfunc_t *
+  int res$argnum = cvt_cfunc_t(&$1, $input);
+  if ( !SWIG_IsOK(res$argnum) )
+    SWIG_exception_fail(SWIG_ArgError(res$argnum), "in method '$symname', argument $argnum of type $1_type");
+}
+
 %extend cfunc_t {
     %immutable argidx;
 
