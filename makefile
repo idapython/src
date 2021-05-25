@@ -177,7 +177,6 @@ ifdef DO_IDAMAKE_SIMPLIFY
   QGENIDAAPI = @echo $(call qcolor,genidaapi) $< && #
   QGENSWIGHEADER = @echo $(call qcolor,genswigheader) $< && #
   QGEN_IDC_BC695 = @echo $(call qcolor,gen_idc_bc695) $< && #
-  QINJECT_PLFM = @echo $(call qcolor,inject_plfm) $< && #
   QINJECT_PYDOC = @echo $(call qcolor,inject_pydoc) $$< && #
   QINJECT_BASE_HOOKS_FLAGS = @echo $(call qcolor,inject_base_hooks_flags) $< && #
   QPATCH_CODEGEN = @echo $(call qcolor,patch_codegen) $$< && #
@@ -686,10 +685,6 @@ endif
 find-pywraps-deps = $(wildcard pywraps/py_$(subst .i,,$(notdir $(1)))*.hpp) $(wildcard pywraps/py_$(subst .i,,$(notdir $(1)))*.py)
 find-pydoc-patches-deps = $(wildcard tools/inject_pydoc/$(1).py)
 find-patch-codegen-deps = $(wildcard tools/patch_codegen/*$(1)*.py)
-
-ADDITIONAL_PYWRAP_DEP_idp=$(ST_PYW)/py_idp.py
-$(ST_PYW)/py_idp.py: pywraps/py_idp.py.in tools/inject_plfm.py $(ST_SDK)/idp.hpp
-	$(QINJECT_PLFM)$(PYTHON) tools/inject_plfm.py -i $< -o $@ -d $(ST_SDK)/idp.hpp
 
 ADDITIONAL_PYWRAP_DEP_idaapi=$(ST_PYW)/py_idaapi.hpp
 $(ST_PYW)/py_idaapi.hpp: pywraps/py_idaapi.hpp.in tools/inject_base_hooks_flags.py pywraps.hpp

@@ -52697,6 +52697,16 @@ ida_idp.CF_CHG6
 The instruction modifies 6 operand.
 """
 
+ida_idp.CF_CHG7
+"""
+The instruction modifies the 7th operand.
+"""
+
+ida_idp.CF_CHG8
+"""
+The instruction modifies the 8th operand.
+"""
+
 ida_idp.CF_HLL
 """
 language function.
@@ -52751,6 +52761,16 @@ The instruction uses value of the 5 operand.
 ida_idp.CF_USE6
 """
 The instruction uses value of the 6 operand.
+"""
+
+ida_idp.CF_USE7
+"""
+The instruction uses value of the 7th operand.
+"""
+
+ida_idp.CF_USE8
+"""
+The instruction uses value of the 8th operand.
 """
 
 ida_idp.CUSTOM_INSN_ITYPE
@@ -53163,6 +53183,45 @@ ida_idp.PLFM_Z80
 8085, Z80
 """
 
+ida_idp.PR2_CODE16_BIT
+"""
+e.g. ARM Thumb, MIPS16
+
+low bit of code addresses has special meaning
+"""
+
+ida_idp.PR2_IDP_OPTS
+"""
+the module has processor-specific configuration options
+"""
+
+ida_idp.PR2_MACRO
+"""
+processor supports macro instructions
+"""
+
+ida_idp.PR2_MAPPINGS
+"""
+the processor module uses memory mapping
+"""
+
+ida_idp.PR2_REALCVT
+"""
+the module has a custom 'ev_realcvt' implementation (otherwise
+IEEE-754 format is assumed)
+"""
+
+ida_idp.PR2_REL_BITS
+"""
+(Lumina) calcrel info has bits granularity, not bytes - construction
+flag only
+"""
+
+ida_idp.PR2_USE_CALCREL
+"""
+(Lumina) the module supports calcrel info
+"""
+
 ida_idp.PRN_BIN
 """
 binary
@@ -53255,6 +53314,11 @@ ida_idp.PR_NO_SEGMOVE
 (i.e. the user can't move segments)
 
 the processor module doesn't support 'move_segm()'
+"""
+
+ida_idp.PR_OUTER
+"""
+has outer operands (currently only mc68k)
 """
 
 ida_idp.PR_PURGING
