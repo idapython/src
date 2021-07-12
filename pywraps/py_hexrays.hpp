@@ -251,7 +251,11 @@ void hexrays_unloading__clear_python_clearable_references(void)
         ((valrng_t *) hxc.ptr)->set_none();
         break;
       case hxclr_udc_filter_t:
-        install_microcode_filter((microcode_filter_t *) hxc.ptr, false);
+        {
+          udc_filter_t *uf = (udc_filter_t *) hxc.ptr;
+          install_microcode_filter(uf, false);
+          uf->cleanup();
+        }
         break;
       default: INTERR(30499);
     }

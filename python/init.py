@@ -57,6 +57,8 @@ class IDAPythonStdOut:
     """
     Dummy file-like class that receives stout and stderr
     """
+    encoding = "UTF-8"
+
     def write(self, text):
         # NB: in case 'text' is Unicode, msg() will decode it
         # and call msg() to print it

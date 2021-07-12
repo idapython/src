@@ -11374,6 +11374,7 @@
                'uchar_array_cast',
                'uchar_array_frompointer',
                'udc_filter_t_apply',
+               'udc_filter_t_cleanup',
                'udc_filter_t_init',
                'udc_filter_t_install',
                'udc_filter_t_match',

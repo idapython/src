@@ -36745,6 +36745,10 @@ class udc_filter_t(microcode_filter_t)
  |                   the next instruction MERR_INSN - not generated - the caller
  |                   should try the standard way else - error
  |  
+ |  cleanup(self, *args) -> 'void'
+ |      Cleanup the filter This function properly clears type information
+ |      associated to this filter.
+ |  
  |  init(self, *args) -> 'bool'
  |      init(self, decl) -> bool
  |          @param decl (C++: const char *)

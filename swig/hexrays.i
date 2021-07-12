@@ -283,6 +283,20 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 %def_opt_handler(optblock_t, install_optblock_handler, remove_optblock_handler, hxclr_optblock_t)
 %def_opt_handler(udc_filter_t, install_udc_filter, remove_udc_filter, hxclr_udc_filter_t)
 
+// udc_filter_t::init() will create a tinfo_t from the user-provided
+// declaration. We must also ensure the instance is registered
+// even if only init() is called (but install() isn't)
+%extend udc_filter_t {
+    bool init(const char *decl)
+    {
+        const bool ok = $self->init(decl);
+        if ( ok )
+            hexrays_register_python_clearable_instance($self, hxclr_udc_filter_t);
+        return ok;
+    }
+};
+
+
 // "Warning 473: Returning a pointer or reference in a director method is not recommended."
 %warnfilter(473) codegen_t::emit_micro_mvm;
 
