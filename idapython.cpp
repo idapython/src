@@ -861,7 +861,7 @@ AS_PRINTF(1, 2) static void lerror(const char *format, ...)
 #endif
 }
 
-#define ERRMSG "Unexpected fatal error while intitailizing Python runtime. Please run idapyswitch to confirm or change the used Python runtime"
+#define ERRMSG "Unexpected fatal error while initializing Python runtime. Please run idapyswitch to confirm or change the used Python runtime"
 
 volatile sig_atomic_t initdone = 0;
 //-------------------------------------------------------------------------
