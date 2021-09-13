@@ -12664,38 +12664,6 @@ func_does_return(*args)
     func_does_return(callee) -> bool
         @param callee (C++: ea_t)
 
-Help on function func_item_iterator_decode_preceding_insn in module ida_funcs:
-
-func_item_iterator_decode_preceding_insn(*args)
-    func_item_iterator_decode_preceding_insn(fii, visited, p_farref, out) -> bool
-        fii: func_item_iterator_t *
-        visited: eavec_t *
-        p_farref: bool *
-        out: insn_t *
-
-Help on function func_item_iterator_decode_prev_insn in module ida_funcs:
-
-func_item_iterator_decode_prev_insn(*args)
-    func_item_iterator_decode_prev_insn(fii, out) -> bool
-        fii: func_item_iterator_t *
-        out: insn_t *
-
-Help on function func_item_iterator_next in module ida_funcs:
-
-func_item_iterator_next(*args)
-    func_item_iterator_next(fii, testf, ud) -> bool
-        fii: func_item_iterator_t *
-        testf: testf_t *
-        ud: void *
-
-Help on function func_item_iterator_prev in module ida_funcs:
-
-func_item_iterator_prev(*args)
-    func_item_iterator_prev(fii, testf, ud) -> bool
-        fii: func_item_iterator_t *
-        testf: testf_t *
-        ud: void *
-
 Help on class func_item_iterator_t in module ida_funcs:
 
 class func_item_iterator_t(__builtin__.object)
@@ -12709,9 +12677,8 @@ class func_item_iterator_t(__builtin__.object)
  |          _ea: ea_t
  |  
  |  __next__(self, *args)
- |      __next__(self, func, ud) -> bool
+ |      __next__(self, func) -> bool
  |          func: testf_t *
- |          ud: void *
  |  
  |  __repr__ = _swig_repr(self)
  |  
@@ -12755,9 +12722,8 @@ class func_item_iterator_t(__builtin__.object)
  |      next_not_tail(self) -> bool
  |  
  |  prev(self, *args)
- |      prev(self, func, ud) -> bool
+ |      prev(self, func) -> bool
  |          @param func (C++: testf_t  *)
- |          @param ud (C++: void *)
  |  
  |  prev_addr(self, *args)
  |      prev_addr(self) -> bool

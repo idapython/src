@@ -29,6 +29,12 @@
 %template (dyn_ea_array) dynamic_wrapped_array_t<ea_t>;
 %template (dyn_regarg_array) dynamic_wrapped_array_t<regarg_t>;
 
+%ignore func_item_iterator_next;
+%ignore func_item_iterator_prev;
+%ignore func_item_iterator_decode_prev_insn;
+%ignore func_item_iterator_decode_preceding_insn;
+%ignore func_item_iterator_succ;
+
 %extend func_t
 {
   dynamic_wrapped_array_t<stkpnt_t> __get_points__()

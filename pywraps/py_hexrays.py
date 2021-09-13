@@ -157,7 +157,7 @@ def cinsn_details(self):
 cinsn_t.details = property(cinsn_details)
 
 cfuncptr_t.__str__ = lambda self: str(self.__deref__())
-cfuncptr_t.__eq__ = lambda self, other: self.__ptrval__() == other.__ptrval__()
+cfuncptr_t.__eq__ = lambda self, other: self.__ptrval__() == other.__ptrval__() if isinstance(other, cfuncptr_t) else False
 
 import ida_typeinf
 def cfunc_type(self):

@@ -1828,6 +1828,29 @@ ${NONNULL_TYPEMAPS}
   $result = iobuf;
 }
 
+%fragment("call_py_testf_t", "header")
+{
+  bool call_py_testf_t(flags_t flags, void *ud)
+  {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    PyObject *py_callable = (PyObject *) ud;
+    QASSERT(0, PyCallable_Check(py_callable));
+    newref_t py_flags(PyLong_FromUnsignedLong(flags));
+    newref_t result(PyObject_CallFunctionObjArgs(py_callable, py_flags.o, nullptr));
+    return result != nullptr && PyObject_IsTrue(result.o);
+  }
+}
+
+%typemap(in, fragment="call_py_testf_t") (testf_t *func, void *ud)
+{
+  // %typemap(in, fragment="call_py_testf_t") (testf_t *func, void *ud)
+  if ( !PyCallable_Check($input) )
+    SWIG_exception_fail(
+            SWIG_TypeError,
+            "in method '" "$symname" "', argument " "$argnum"" of type 'callable'");
+  $1 = call_py_testf_t;
+  $2 = $input;
+}
 
 #endif // __HEADER_I__
 // END: auto-inserted header
