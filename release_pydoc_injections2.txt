@@ -3913,9 +3913,7 @@ CP1252))
 
 ida_bytes.ALOPT_MAX4K
 """
-accumulated length
-
-if string length is more than 4K, return the
+if string length is more than 4K, return the accumulated length
 """
 
 ida_bytes.BIN_SEARCH_BACKWARD
@@ -3968,9 +3966,7 @@ to unexplored the next instruction too.
 
 ida_bytes.DELIT_KEEPFUNC
 """
-Just delete xrefs, ops e.t.c.
-
-do not undefine the function start.
+do not undefine the function start. Just delete xrefs, ops e.t.c.
 """
 
 ida_bytes.DELIT_NOCMT
@@ -3981,9 +3977,7 @@ starting address). this bit is valid if nbytes > 1
 
 ida_bytes.DELIT_NOTRUNC
 """
-even if 'AF_TRFUNC' is set
-
-don't truncate the current function
+don't truncate the current function even if 'AF_TRFUNC' is set
 """
 
 ida_bytes.DELIT_NOUNAME
@@ -4315,9 +4309,8 @@ debugging because the kernel needs to read the process memory.
 
 ida_bytes.GMB_READALL
 """
-if this bit is not set, fail at first uninited byte
-
-try to read all bytes
+try to read all bytes if this bit is not set, fail at first uninited
+byte
 """
 
 ida_bytes.GMB_WAITBOX
@@ -4389,9 +4382,8 @@ mask for operand number
 
 ida_bytes.OPND_OUTER
 """
-used only in set, get, del_offset() functions
-
-outer offset base (combined with operand number).
+outer offset base (combined with operand number). used only in set,
+get, del_offset() functions
 """
 
 ida_bytes.PSTF_ENC
@@ -7399,9 +7391,8 @@ condition has been compiled
 
 ida_dbg.BKPT_FAKEPEND
 """
-bpt of the same type is active at the same address(es)
-
-fake pending bpt: it is inactive but another
+fake pending bpt: it is inactive but another bpt of the same type is
+active at the same address(es)
 """
 
 ida_dbg.BKPT_LISTBPT
@@ -7411,9 +7402,8 @@ include in bpt list (user-defined bpt)
 
 ida_dbg.BKPT_PAGE
 """
-only after writing the bpt to the process.
-
-written to the process as a page bpt. is available
+written to the process as a page bpt. is available only after writing
+the bpt to the process.
 """
 
 ida_dbg.BKPT_PARTIAL
@@ -7731,9 +7721,8 @@ continue from the suspended state
 
 ida_dbg.WFNE_NOWAIT
 """
-(to be used with 'WFNE_CONT' )
-
-do not wait for any event, immediately return 'DEC_TIMEOUT'
+do not wait for any event, immediately return 'DEC_TIMEOUT' (to be
+used with 'WFNE_CONT' )
 """
 
 ida_dbg.WFNE_SILENT
@@ -7748,9 +7737,8 @@ wait until the process gets suspended
 
 ida_dbg.WFNE_USEC
 """
-(minimum non-zero timeout is 40000us)
-
-timeout is specified in microseconds
+timeout is specified in microseconds (minimum non-zero timeout is
+40000us)
 """
 === ida_dbg EPYDOC INJECTIONS END ===
 Help on class direntry_t in module ida_dirtree:
@@ -9228,9 +9216,8 @@ accordingly Specifying AEF_IDBENC also implies AEF_NODUMMY
 
 ida_entry.AEF_NODUMMY
 """
-it begins with a dummy suffix. See also AEF_IDBENC
-
-automatically prepend the name with '_' if
+automatically prepend the name with '_' if it begins with a dummy
+suffix. See also AEF_IDBENC
 """
 
 ida_entry.AEF_UTF8
@@ -13662,9 +13649,7 @@ create instruction if undefined byte is encountered
 
 ida_funcs.FIND_FUNC_EXIST
 """
-its bounds are returned in 'nfn'.
-
-function exists already.
+function exists already. its bounds are returned in 'nfn'.
 """
 
 ida_funcs.FIND_FUNC_IGNOREFN
@@ -13675,9 +13660,8 @@ function boundaries if ea belongs to a function.
 
 ida_funcs.FIND_FUNC_KEEPBD
 """
-just create instructions inside the boundaries.
-
-do not modify incoming function boundaries,
+do not modify incoming function boundaries, just create instructions
+inside the boundaries.
 """
 
 ida_funcs.FIND_FUNC_NORMAL
@@ -13692,10 +13676,8 @@ ok, 'nfn' is ready for 'add_func()'
 
 ida_funcs.FIND_FUNC_UNDEF
 """
-nfn->end_ea will have the address of the unexplored byte.
-
 function has instructions that pass execution flow to unexplored
-bytes.
+bytes. nfn->end_ea will have the address of the unexplored byte.
 """
 
 ida_funcs.FUNC_BOTTOMBP
@@ -13715,9 +13697,8 @@ Function uses frame pointer (BP)
 
 ida_funcs.FUNC_FUZZY_SP
 """
-for example: and esp, 0FFFFFFF0h
-
-Function changes SP in untraceable way,
+Function changes SP in untraceable way, for example: and esp,
+0FFFFFFF0h
 """
 
 ida_funcs.FUNC_HIDDEN
@@ -13742,16 +13723,13 @@ Function doesn't return.
 
 ida_funcs.FUNC_NORET_PENDING
 """
-This flag is verified upon 'func_does_return()'
-
-Function 'non-return' analysis must be performed.
+Function 'non-return' analysis must be performed. This flag is
+verified upon 'func_does_return()'
 """
 
 ida_funcs.FUNC_PROLOG_OK
 """
-by last SP-analysis
-
-Prolog analysis has be performed
+Prolog analysis has be performed by last SP-analysis
 """
 
 ida_funcs.FUNC_PURGED_OK
@@ -13786,9 +13764,7 @@ Thunk (jump) function.
 
 ida_funcs.FUNC_USERFAR
 """
-of the function
-
-User has specified far-ness
+User has specified far-ness of the function
 """
 
 ida_funcs.IDASGN_APPLIED
@@ -40308,9 +40284,7 @@ update minbstkref and minbargref
 
 ida_hexrays.CPBLK_OPTJMP
 """
-if it becomes useless
-
-del the jump insn at the end of the block
+del the jump insn at the end of the block if it becomes useless
 """
 
 ida_hexrays.CV_FAST
@@ -40474,9 +40448,8 @@ and at least one of them was a call to a real functions
 
 ida_hexrays.FCI_HASFMT
 """
-printf- or scanf-style format string
-
-A variadic function with recognized
+A variadic function with recognized printf- or scanf-style format
+string
 """
 
 ida_hexrays.FCI_NORET
@@ -40518,9 +40491,8 @@ look for definition
 
 ida_hexrays.FD_DIRTY
 """
-by function calls and indirect memory access
-
-ignore possible implicit definitions
+ignore possible implicit definitions by function calls and indirect
+memory access
 """
 
 ida_hexrays.FD_FORWARD
@@ -40606,9 +40578,8 @@ optimizer. assertions are ignored when generating ctree
 
 ida_hexrays.IPROP_CLNPOP
 """
-(e.g. "pop ecx" is often used for that)
-
-the purpose of the instruction is to clean stack
+the purpose of the instruction is to clean stack (e.g. "pop ecx" is
+often used for that)
 """
 
 ida_hexrays.IPROP_COMBINED
@@ -40654,17 +40625,16 @@ inverted conditional jump
 
 ida_hexrays.IPROP_MBARRIER
 """
-(instructions accessing memory may not be reordered past it)
-
-this instruction acts as a memory barrier
+this instruction acts as a memory barrier (instructions accessing
+memory may not be reordered past it)
 """
 
 ida_hexrays.IPROP_MULTI_MOV
 """
-(example: STM on ARM may transfer multiple registers)
+bits that can be set by plugins:
 
-the minsn was generated as part of insn that moves multiple
-registersbits that can be set by plugins:
+the minsn was generated as part of insn that moves multiple registers
+(example: STM on ARM may transfer multiple registers)
 """
 
 ida_hexrays.IPROP_OPTIONAL
@@ -40719,9 +40689,8 @@ match multiple insns
 
 ida_hexrays.LOCOPT_ALL
 """
-is not set, only dirty blocks will be optimized
-
-redo optimization for all blocks. if this bit
+redo optimization for all blocks. if this bit is not set, only dirty
+blocks will be optimized
 """
 
 ida_hexrays.LOCOPT_REFINE
@@ -40975,9 +40944,8 @@ dead end block: doesn't return execution control
 
 ida_hexrays.MBL_PRIV
 """
-the specified are accepted (used in patterns)
-
-private block - no instructions except
+private block - no instructions except the specified are accepted
+(used in patterns)
 """
 
 ida_hexrays.MBL_PROP
@@ -41078,16 +41046,14 @@ reuse existing window
 
 ida_hexrays.OPF_REUSE_ACTIVE
 """
-currently active widget is a pseudocode view
-
-reuse existing window, only if the
+reuse existing window, only if the currently active widget is a
+pseudocode view
 """
 
 ida_hexrays.OPROP_CCFLAGS
 """
-else: value of a condition code register (like mr_cc)
-
-mop_n: a pc-relative value
+mop_n: a pc-relative value else: value of a condition code register
+(like mr_cc)
 """
 
 ida_hexrays.OPROP_FLOAT
@@ -41224,16 +41190,14 @@ the last instruction (if M is NULL)
 
 ida_hexrays.VR_AT_START
 """
-at the block start (if M is NULL)
-
-get value ranges before the instruction or
+get value ranges before the instruction or at the block start (if M is
+NULL)
 """
 
 ida_hexrays.VR_EXACT
 """
-valrng size will be >= vivl.size
-
-find exact match. if not set, the returned
+find exact match. if not set, the returned valrng size will be >=
+vivl.size
 """
 === ida_hexrays EPYDOC INJECTIONS END ===
 Help on function __make_idainfo_accessors in module ida_ida:
@@ -43630,11 +43594,9 @@ ida_ida.ABI_8ALIGN4
 
 ida_ida.ABI_BIGARG_ALIGN
 """
-(e.g. __int64 argument should be 8byte aligned on some 32bit
-platforms)
-
 use natural type alignment for argument if the alignment exceeds
-native word size
+native word size (e.g. __int64 argument should be 8byte aligned on
+some 32bit platforms)
 """
 
 ida_ida.ABI_GCC_LAYOUT
@@ -43911,9 +43873,7 @@ leave database components unpacked
 
 ida_ida.INFFL_ALLASM
 """
-the target assembler
-
-may use constructs not supported by
+may use constructs not supported by the target assembler
 """
 
 ida_ida.INFFL_AUTO
@@ -44009,9 +43969,8 @@ memory snapshot was taken?
 
 ida_ida.LFLG_WIDE_HBF
 """
-(wide bytes: \\ph{dnbits} > 8)
-
-Bit order of wide bytes: high byte first?
+Bit order of wide bytes: high byte first? (wide bytes: \\ph{dnbits} >
+8)
 """
 
 ida_ida.LMT_EMPTY
@@ -47343,10 +47302,8 @@ instruction pointer
 
 ida_idd.REGISTER_NOLF
 """
-allowing the next register to be displayed to its right (on the same
-line)
-
-displays this register without returning to the next line
+displays this register without returning to the next line allowing the
+next register to be displayed to its right (on the same line)
 """
 
 ida_idd.REGISTER_READONLY
@@ -47376,9 +47333,7 @@ integer
 
 ida_idd.RVT_UNAVAILABLE
 """
-other values mean custom data type
-
-unavailable
+unavailable other values mean custom data type
 """
 === ida_idd EPYDOC INJECTIONS END ===
 Help on function AssembleLine in module ida_idp:
@@ -52348,9 +52303,7 @@ Use braces for all expressions.
 
 ida_idp.AS2_BYTE1CHAR
 """
-Meaningful only for wide byte processors.
-
-One symbol per processor byte
+One symbol per processor byte Meaningful only for wide byte processors
 """
 
 ida_idp.AS2_COLONSUF
@@ -52367,16 +52320,13 @@ name) the same as in borland tasm ideal
 
 ida_idp.AS2_STRINV
 """
-(For processors with bytes bigger than 8 bits)
-
-Invert meaning of \\inf{wide_high_byte_first} for text strings
+Invert meaning of \\inf{wide_high_byte_first} for text strings (For
+processors with bytes bigger than 8 bits)
 """
 
 ida_idp.AS2_TERSESTR
 """
-NAME<fld,fld,...> is supported.
-
-'terse' structure initialization form
+'terse' structure initialization form NAME<fld,fld,...> is supported
 """
 
 ida_idp.AS2_YWORD
@@ -52511,16 +52461,13 @@ double char constants are: "xy
 
 ida_idp.AS_ALIGN2
 """
-(.align 5 means to align at 32byte boundary)
-
-.align directive expects an exponent rather than a power of 2
+.align directive expects an exponent rather than a power of 2 (.align
+5 means to align at 32byte boundary)
 """
 
 ida_idp.AS_ASCIIC
 """
-(\\n,\\x01 and similar)
-
-ascii directive accepts C-like escape sequences
+ascii directive accepts C-like escape sequences (\\n,\\x01 and similar)
 """
 
 ida_idp.AS_ASCIIZ
@@ -52670,16 +52617,13 @@ The instruction modifies the 8th operand.
 
 ida_idp.CF_HLL
 """
-language function.
-
-Instruction may be present in a high level
+Instruction may be present in a high level language function.
 """
 
 ida_idp.CF_JUMP
 """
-jump or call (thus needs additional analysis)
-
-The instruction passes execution using indirect
+The instruction passes execution using indirect jump or call (thus
+needs additional analysis)
 """
 
 ida_idp.CF_SHFT
@@ -52689,9 +52633,7 @@ Bit-shift instruction (shl,shr...)
 
 ida_idp.CF_STOP
 """
-next instruction
-
-Instruction doesn't pass execution to the
+Instruction doesn't pass execution to the next instruction
 """
 
 ida_idp.CF_USE1
@@ -53146,9 +53088,7 @@ ida_idp.PLFM_Z80
 
 ida_idp.PR2_CODE16_BIT
 """
-e.g. ARM Thumb, MIPS16
-
-low bit of code addresses has special meaning
+low bit of code addresses has special meaning e.g. ARM Thumb, MIPS16
 """
 
 ida_idp.PR2_IDP_OPTS
@@ -53265,16 +53205,13 @@ has delayed jumps and calls if this flag is set,
 
 ida_idp.PR_NOCHANGE
 """
-(display only)
-
-The user can't change segments and code/data attributes
+The user can't change segments and code/data attributes (display only)
 """
 
 ida_idp.PR_NO_SEGMOVE
 """
-(i.e. the user can't move segments)
-
-the processor module doesn't support 'move_segm()'
+the processor module doesn't support 'move_segm()' (i.e. the user
+can't move segments)
 """
 
 ida_idp.PR_OUTER
@@ -53320,9 +53257,8 @@ the stack grows up
 
 ida_idp.PR_TYPEINFO
 """
-ALL OF THEM SHOULD BE IMPLEMENTED!
-
-the processor module supports type information callbacks
+the processor module supports type information callbacks ALL OF THEM
+SHOULD BE IMPLEMENTED!
 """
 
 ida_idp.PR_USE32
@@ -61464,23 +61400,20 @@ cur_ea is in 'externs' segment
 
 ida_kernwin.ADF_GLOBAL
 """
-available even if no IDB is present
-
-Register the action globally, so that it's
+Register the action globally, so that it's available even if no IDB is
+present
 """
 
 ida_kernwin.ADF_NO_HIGHLIGHT
 """
-according to what's under the cursor (listings only.)
-
-After activating, do not update the highlight
+After activating, do not update the highlight according to what's
+under the cursor (listings only.)
 """
 
 ida_kernwin.ADF_NO_UNDO
 """
-useful for actions that do not modify the database.
-
-the action does not create an undo point.
+the action does not create an undo point. useful for actions that do
+not modify the database.
 """
 
 ida_kernwin.ADF_OT_MASK
@@ -62222,9 +62155,8 @@ on_location_changed() handler wouldn't be called.)
 
 ida_kernwin.CVNF_JUMP
 """
-'lochist_t' before going to the new location
-
-push the current position in this viewer's
+push the current position in this viewer's 'lochist_t' before going to
+the new location
 """
 
 ida_kernwin.CVNF_LAZY
@@ -62235,9 +62167,8 @@ possible. This might disregard the Y position in case of success
 
 ida_kernwin.DP_BEFORE
 """
-used with 'DP_INSIDE' .
-
-place src_form before dst_form in the tab bar instead of after
+place src_form before dst_form in the tab bar instead of after used
+with 'DP_INSIDE' .
 """
 
 ida_kernwin.DP_BOTTOM
@@ -62754,9 +62685,7 @@ jump in any ea_t-capable view
 
 ida_kernwin.UIJMP_DONTPUSH
 """
-in the navigation history
-
-do not remember the current address
+do not remember the current address in the navigation history
 """
 
 ida_kernwin.UIJMP_IDAVIEW
@@ -63238,16 +63167,12 @@ Lumina function.
 
 ida_lines.COLOR_OFF
 """
-Followed by a color code ( 'color_t' ).
-
-Escape character (OFF).
+Escape character (OFF). Followed by a color code ( 'color_t' ).
 """
 
 ida_lines.COLOR_ON
 """
-Followed by a color code ( 'color_t' ).
-
-Escape character (ON).
+Escape character (ON). Followed by a color code ( 'color_t' ).
 """
 
 ida_lines.COLOR_REGFUNC
@@ -64263,9 +64188,7 @@ temporary database
 
 ida_loader.FILEREG_NOTPATCHABLE
 """
-form in the file.
-
-the data is kept in some encoded
+the data is kept in some encoded form in the file.
 """
 
 ida_loader.FILEREG_PATCHABLE
@@ -64333,9 +64256,7 @@ Maximum database snapshot description length.
 
 ida_loader.NEF_CODE
 """
-load as a code segment
-
-for 'load_binary_file()' :
+for 'load_binary_file()' : load as a code segment
 """
 
 ida_loader.NEF_FILL
@@ -64345,9 +64266,7 @@ Fill segment gaps.
 
 ida_loader.NEF_FIRST
 """
-into the database.
-
-This is the first file loaded
+This is the first file loaded into the database.
 """
 
 ida_loader.NEF_FLAT
@@ -64388,7 +64307,7 @@ Rename entries.
 
 ida_loader.NEF_RELOAD
 """
-reload the file at the same place: - don't create segmentsdon't create
+reload the file at the same place:don't create segmentsdon't create
 fixup infodon't import segmentsetc load only the bytes into the base.
 a loader should have 'LDRF_RELOAD' bit set
 """
@@ -67395,9 +67314,7 @@ has user defined instruction color?
 
 ida_nalt.AFL_FIXEDSPD
 """
-should not be modified by modules
-
-sp delta value is fixed by analysis.
+sp delta value is fixed by analysis. should not be modified by modules
 """
 
 ida_nalt.AFL_HIDDEN
@@ -67530,9 +67447,7 @@ who guessed the type information?
 
 ida_nalt.AFL_USEMODSP
 """
-example: pop [rsp+N]
-
-insn modifes SP and uses the modified value
+insn modifes SP and uses the modified value example: pop [rsp+N]
 """
 
 ida_nalt.AFL_USERSP
@@ -67620,9 +67535,8 @@ additional flags for an item
 
 ida_nalt.NALT_ALIGN
 """
-(should by equal to power of 2)
-
-alignment value if the item is 'FF_ALIGN'
+alignment value if the item is 'FF_ALIGN' (should by equal to power of
+2)
 """
 
 ida_nalt.NALT_COLOR
@@ -67990,9 +67904,8 @@ usual) being added to it
 
 ida_nalt.REFINFO_TYPE
 """
-reference ID if REFINFO_CUSTOM set
-
-reference type (reftype_t), or custom
+reference type (reftype_t), or custom reference ID if REFINFO_CUSTOM
+set
 """
 
 ida_nalt.RIDX_ABINAME
@@ -68183,9 +68096,8 @@ find_defjump_from_table() helper function.
 
 ida_nalt.SWI_ELBASE
 """
-segment will be used)
-
-elbase is present (otherwise the base of the switch
+elbase is present (otherwise the base of the switch segment will be
+used)
 """
 
 ida_nalt.SWI_HXNOLOWCASE
@@ -68195,9 +68107,8 @@ lowcase value should not be used by the decompiler (internal flag)
 
 ida_nalt.SWI_INDIRECT
 """
-(for sparse switches)
-
-value table elements are used as indexes into the jump table
+value table elements are used as indexes into the jump table (for
+sparse switches)
 """
 
 ida_nalt.SWI_J32
@@ -68215,9 +68126,7 @@ insn like a 'mov' and jump to the end of case, and so on.
 
 ida_nalt.SWI_JMP_INV
 """
-for first entry in values table)
-
-jumptable is inversed. (last entry is
+jumptable is inversed. (last entry is for first entry in values table)
 """
 
 ida_nalt.SWI_JSIZE
@@ -68247,9 +68156,7 @@ jump table entries are signed
 
 ida_nalt.SWI_SPARSE
 """
-otherwise lowcase present
-
-sparse switch (value table present)
+sparse switch (value table present) otherwise lowcase present
 """
 
 ida_nalt.SWI_STDTBL
@@ -69061,9 +68968,8 @@ Name prefix used by IDA for the imported functions.
 
 ida_name.GETN_APPZERO
 """
-append a struct field name if the field offset is zero?
-
-meaningful only if the name refers to a structure.
+meaningful only if the name refers to a structure. append a struct
+field name if the field offset is zero?
 """
 
 ida_name.GETN_NODUMMY
@@ -69239,9 +69145,8 @@ if set, make name autogenerated
 
 ida_name.SN_DELTAIL
 """
-delete the hindering item
-
-if name cannot be set because of a tail byte,
+if name cannot be set because of a tail byte, delete the hindering
+item
 """
 
 ida_name.SN_FORCE
@@ -74686,9 +74591,8 @@ failure. it cannot hold more than ~1000 gaps.
 
 ida_segment.ADDSEG_IDBENC
 """
-non-ASCII bytes will be decoded accordingly
-
-'name' and 'sclass' are given in the IDB encoding;
+'name' and 'sclass' are given in the IDB encoding; non-ASCII bytes
+will be decoded accordingly
 """
 
 ida_segment.ADDSEG_NOAA
@@ -74698,17 +74602,14 @@ do not mark new segment for auto-analysis
 
 ida_segment.ADDSEG_NOSREG
 """
-(undefine all default segment registers)
-
-set all default segment register values to 'BADSEL'
+set all default segment register values to 'BADSEL' (undefine all
+default segment registers)
 """
 
 ida_segment.ADDSEG_NOTRUNC
 """
-destroy/truncate old segments instead.
-
 don't truncate the new segment at the beginning of the next segment if
-they overlap.
+they overlap. destroy/truncate old segments instead.
 """
 
 ida_segment.ADDSEG_OR_DIE
@@ -74740,9 +74641,7 @@ debugger is not running
 
 ida_segment.CSS_NOMEM
 """
-is too big)
-
-not enough memory (might be because the segment
+not enough memory (might be because the segment is too big)
 """
 
 ida_segment.CSS_NORANGE
@@ -74812,9 +74711,8 @@ Not enough free room at the target address.
 
 ida_segment.MSF_FIXONCE
 """
-valid for 'rebase_program()' . see 'loader_t::move_segm' .
-
-call loader only once with the special calling method.
+call loader only once with the special calling method. valid for
+'rebase_program()' . see 'loader_t::move_segm' .
 """
 
 ida_segment.MSF_LDKEEP
@@ -74824,9 +74722,8 @@ keep the loader in the memory (optimization)
 
 ida_segment.MSF_NETNODES
 """
-valid for 'rebase_program()'
-
-move netnodes instead of changing inf.netdelta (this is slower)
+move netnodes instead of changing inf.netdelta (this is slower) valid
+for 'rebase_program()'
 """
 
 ida_segment.MSF_NOFIX
@@ -74836,10 +74733,8 @@ don't call the loader to fix relocations
 
 ida_segment.MSF_PRIORITY
 """
-valid for 'move_segm()'
-
 loader segments will overwrite any existing debugger segments when
-moved.
+moved. valid for 'move_segm()'
 """
 
 ida_segment.MSF_SILENT
@@ -74869,9 +74764,8 @@ disable addresses if segment gets shrinked or deleted
 
 ida_segment.SEGMOD_NOMOVE
 """
-(for 'set_segm_start()' )
-
 don't move info from the start of segment to the new start address
+(for 'set_segm_start()' )
 """
 
 ida_segment.SEGMOD_SILENT
@@ -74881,9 +74775,8 @@ be silent
 
 ida_segment.SEGMOD_SPARSE
 """
-(for 'set_segm_start()' , 'set_segm_end()' )
-
-use sparse storage if extending the segment
+use sparse storage if extending the segment (for 'set_segm_start()' ,
+'set_segm_end()' )
 """
 
 ida_segment.SEGPERM_EXEC
@@ -74958,9 +74851,7 @@ undefined segment type (not used)
 
 ida_segment.SEG_XTRN
 """
-no instructions are allowed
-
-segment with 'extern' definitions.
+segment with 'extern' definitions. no instructions are allowed
 """
 
 ida_segment.SFL_COMORG
@@ -75037,9 +74928,8 @@ ida_segment.saRel32Bytes
 
 ida_segment.saRel4K
 """
-alignment. It is not supported by LINK.
-
-This value is used by the PharLap OMF for page (4K)
+This value is used by the PharLap OMF for page (4K) alignment. It is
+not supported by LINK.
 """
 
 ida_segment.saRel512Bytes
@@ -75059,9 +74949,7 @@ Relocatable, byte aligned.
 
 ida_segment.saRelDble
 """
-boundary.
-
-Relocatable, aligned on a double word (4-byte)
+Relocatable, aligned on a double word (4-byte) boundary.
 """
 
 ida_segment.saRelPage
@@ -75096,16 +74984,13 @@ Segment group.
 
 ida_segment.scPriv
 """
-segment.
-
-Private. Do not combine with any other program
+Private. Do not combine with any other program segment.
 """
 
 ida_segment.scPub
 """
-the alignment requirement.
-
-Public. Combine by appending at an offset that meets
+Public. Combine by appending at an offset that meets the alignment
+requirement.
 """
 
 ida_segment.scPub2
@@ -75120,9 +75005,7 @@ As defined by Microsoft, same as C=2 (public).
 
 ida_segment.scStack
 """
-byte alignment.
-
-Stack. Combine as for C=2. This combine type forces
+Stack. Combine as for C=2. This combine type forces byte alignment.
 """
 === ida_segment EPYDOC INJECTIONS END ===
 Help on function copy_sreg_ranges in module ida_segregs:
@@ -76463,9 +76346,7 @@ the structure comes from type library
 
 ida_struct.SF_UNION
 """
-varunions are prohibited!
-
-is a union?
+is a union? varunions are prohibited!
 """
 
 ida_struct.SF_VAR
@@ -84710,9 +84591,8 @@ all defined bits
 
 ida_typeinf.FTI_ARGLOCS
 """
-(stkargs and retloc too)
-
-info about argument locations has been calculated
+info about argument locations has been calculated (stkargs and retloc
+too)
 """
 
 ida_typeinf.FTI_CALLTYPE
@@ -84807,16 +84687,12 @@ debug: print external representation of types
 
 ida_typeinf.HTI_FIL
 """
-otherwise "input" contains a C declaration
-
-"input" is file name,
+"input" is file name, otherwise "input" contains a C declaration
 """
 
 ida_typeinf.HTI_HIGH
 """
-(with hidden args, etc)
-
-assume high level prototypes
+assume high level prototypes (with hidden args, etc)
 """
 
 ida_typeinf.HTI_INT
@@ -84940,16 +84816,14 @@ value is 64bit
 
 ida_typeinf.NTF_CHKSYNC
 """
-(set_numbered_type, set_named_type)
-
-check that synchronization to IDB passed OK
+check that synchronization to IDB passed OK (set_numbered_type,
+set_named_type)
 """
 
 ida_typeinf.NTF_FIXNAME
 """
-(set_named_type, set_numbered_type only)
-
-force-validate the name of the type when setting
+force-validate the name of the type when setting (set_named_type,
+set_numbered_type only)
 """
 
 ida_typeinf.NTF_IDBENC
@@ -84975,9 +84849,8 @@ replace original type (for set_named_type)
 
 ida_typeinf.NTF_SYMM
 """
-only one of 'NTF_TYPE' and 'NTF_SYMU' , 'NTF_SYMM' can be used
-
-symbol, name is mangled ('_func')
+symbol, name is mangled ('_func') only one of 'NTF_TYPE' and
+'NTF_SYMU' , 'NTF_SYMM' can be used
 """
 
 ida_typeinf.NTF_SYMU
@@ -85147,9 +85020,7 @@ print type declaration (not variable declaration)
 
 ida_typeinf.PT_HIGH
 """
-(with hidden args, etc)
-
-assume high level prototypes
+assume high level prototypes (with hidden args, etc)
 """
 
 ida_typeinf.PT_LOWER
@@ -85226,7 +85097,7 @@ too.
 
 ida_typeinf.STRMEM_AUTO
 """
-get member by offset if struct, or get member by index if union - nb:
+get member by offset if struct, or get member by index if unionnb:
 union: index is stored in the udm->offset field!nb: struct: offset is
 in bytes (not in bits)!
 """
@@ -85239,7 +85110,7 @@ the specified type
 
 ida_typeinf.STRMEM_INDEX
 """
-get member by number- in: udm->offset - is a member number
+get member by numberin: udm->offset - is a member number
 """
 
 ida_typeinf.STRMEM_MAXS
@@ -85254,17 +85125,17 @@ get smallest member by size.
 
 ida_typeinf.STRMEM_NAME
 """
-get member by name- in: udm->name - the desired member name.
+get member by namein: udm->name - the desired member name.
 """
 
 ida_typeinf.STRMEM_OFFSET
 """
-get member by offset- in: udm->offset - is a member offset in bits
+get member by offsetin: udm->offset - is a member offset in bits
 """
 
 ida_typeinf.STRMEM_SIZE
 """
-get member by size.- in: udm->size - the desired member size.
+get member by size.in: udm->size - the desired member size.
 """
 
 ida_typeinf.STRMEM_SKIP_EMPTY
@@ -85275,7 +85146,7 @@ members (i.e. having zero size) only last empty member can be returned
 
 ida_typeinf.STRMEM_TYPE
 """
-get member by type. - in: udm->type - the desired member type. member
+get member by type.in: udm->type - the desired member type. member
 types are compared with tinfo_t::equals_to()
 """
 
@@ -85287,9 +85158,8 @@ instead of the base class
 
 ida_typeinf.SUDT_ALIGN
 """
-to match the offsets and size info
-
-recalculate field alignments, struct packing, etc
+recalculate field alignments, struct packing, etc to match the offsets
+and size info
 """
 
 ida_typeinf.SUDT_CONST
@@ -87107,9 +86977,8 @@ those are not defined and the INFFL_ALLASM is not set,
 
 ida_ua.FCBF_ERR_REPL
 """
-of a hex representation of the problematic byte
-
-in case of an error, use a CP_REPLCHAR instead
+in case of an error, use a CP_REPLCHAR instead of a hex representation
+of the problematic byte
 """
 
 ida_ua.FCBF_FF_LIT
@@ -87238,9 +87107,8 @@ sign symbol (+/-) output
 
 ida_ua.OOF_SPACES
 """
-currently works only for floating point numbers
-
-do not suppress leading spaces
+do not suppress leading spaces currently works only for floating point
+numbers
 """
 
 ida_ua.OOF_WIDTHMASK
@@ -87257,9 +87125,7 @@ ignored.
 
 ida_ua.PACK_FORM_DEF
 """
-(! 'o_reg' + 'dt_packreal' )
-
-packed factor defined.
+packed factor defined. (! 'o_reg' + 'dt_packreal' )
 """
 
 ida_ua.dt_bitfild
