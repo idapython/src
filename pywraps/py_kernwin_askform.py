@@ -1374,7 +1374,11 @@ try:
     # Setup the numeric argument size
     Form.NumericArgument.DefI64 = _ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFF
     __ask_form_callable = ctypes.CFUNCTYPE(ctypes.c_long)(_ida_kernwin.py_get_ask_form())
+    # specify type of the fixed argument so that varargs are passed correctly
+    # https://bugs.python.org/issue42880
+    __ask_form_callable.argtypes = [ ctypes.c_char_p ]
     __open_form_callable = ctypes.CFUNCTYPE(ctypes.c_long)(_ida_kernwin.py_get_open_form())
+    __open_form_callable.argtypes = [ ctypes.c_char_p ]
 except:
     def __ask_form_callable(*args):
         warning("ask_form() needs ctypes library in order to work")
