@@ -790,32 +790,11 @@ def define_local_var(start, end, location, name):
     if m:
         # Location in the form of [bp+xx]
         register = ida_idp.str2reg(m.group(1))
-        offset = int(m.group(2), 0)
-        frame = ida_frame.get_frame(func)
-
-        if register == -1 or not frame:
+        if register == -1:
             return 0
 
-        offset += func.frsize
-        member = ida_struct.get_member(frame, offset)
-
-        if member:
-            # Member already exists, rename it
-            if ida_struct.set_member_name(frame, offset, name):
-                return 1
-            else:
-                return 0
-        else:
-            # No member at the offset, create a new one
-            if ida_struct.add_struc_member(
-                    frame,
-                    name,
-                    offset,
-                    ida_bytes.byte_flag(),
-                    None, 1) == 0:
-                return 1
-            else:
-                return 0
+        offset = int(m.group(2), 0)
+        return 1 if ida_frame.define_stkvar(func, name, offset, ida_bytes.byte_flag(), None, 1) else 0
     else:
         # Location as simple register name
         return ida_frame.add_regvar(func, start, end, location, name, None)
