@@ -51,7 +51,7 @@ static PyObject *py_register_timer(int interval, PyObject *py_callback)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  if ( py_callback == NULL || !PyCallable_Check(py_callback) )
+  if ( py_callback == nullptr || !PyCallable_Check(py_callback) )
     Py_RETURN_NONE;
 
   // An inner class hosting the callback method
@@ -61,14 +61,14 @@ static PyObject *py_register_timer(int interval, PyObject *py_callback)
     {
       PYW_GIL_GET;
       py_timer_ctx_t *ctx = (py_timer_ctx_t *)ud;
-      newref_t py_result(PyObject_CallFunctionObjArgs(ctx->pyfunc.o, NULL));
+      newref_t py_result(PyObject_CallFunctionObjArgs(ctx->pyfunc.o, nullptr));
       int ret = -1;
       if ( PyErr_Occurred() )
       {
         msg("Exception in timer callback. This timer will be unregistered.\n");
         PyErr_Print();
       }
-      else if ( py_result != NULL )
+      else if ( py_result != nullptr )
       {
         ret = PyLong_AsLong(py_result.o);
       }
@@ -86,9 +86,9 @@ static PyObject *py_register_timer(int interval, PyObject *py_callback)
           tmr_t::callback,
           ctx);
 
-  if ( ctx->timer_id != NULL )
+  if ( ctx->timer_id != nullptr )
   {
-    return PyCapsule_New(ctx, VALID_CAPSULE_NAME, NULL);
+    return PyCapsule_New(ctx, VALID_CAPSULE_NAME, nullptr);
   }
   else
   {
@@ -115,11 +115,11 @@ static bool py_unregister_timer(PyObject *py_timerctx)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  if ( py_timerctx == NULL || !PyCapsule_IsValid(py_timerctx, VALID_CAPSULE_NAME) )
+  if ( py_timerctx == nullptr || !PyCapsule_IsValid(py_timerctx, VALID_CAPSULE_NAME) )
     return false;
 
   py_timer_ctx_t *ctx = (py_timer_ctx_t *) PyCapsule_GetPointer(py_timerctx, VALID_CAPSULE_NAME);
-  if ( ctx == NULL || !unregister_timer(ctx->timer_id) )
+  if ( ctx == nullptr || !unregister_timer(ctx->timer_id) )
     return false;
 
   python_timer_del(ctx);
@@ -144,7 +144,7 @@ static PyObject *py_choose_idasgn()
 {
   char *name = choose_idasgn();
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( name == NULL )
+  if ( name == nullptr )
   {
     Py_RETURN_NONE;
   }
@@ -159,21 +159,23 @@ static PyObject *py_choose_idasgn()
 //------------------------------------------------------------------------
 /*
 #<pydoc>
-def get_highlight():
+def get_highlight(v, flags=0):
     """
     Returns the currently highlighted identifier and flags
 
+    @param v: The UI widget to operate on
+    @param flags: Optionally specify a slot (see kernwin.hpp), current otherwise
     @return: a tuple (text, flags), or None if nothing
              is highlighted or in case of error.
     """
     pass
 #</pydoc>
 */
-static PyObject *py_get_highlight(TWidget *v)
+static PyObject *py_get_highlight(TWidget *v, uint32 in_flags=0)
 {
   qstring buf;
   uint32 flags;
-  bool ok = get_highlight(&buf, v, &flags);
+  bool ok = get_highlight(&buf, v, &flags, in_flags);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !ok )
     Py_RETURN_NONE;
@@ -249,26 +251,15 @@ def read_selection(view, p0, p1):
 */
 
 //------------------------------------------------------------------------
-/*
-#<pydoc>
-def msg(text):
-    """
-    Prints text into IDA's Output window
-
-    @param text: text to print
-                 Can be Unicode, or string in local encoding
-    @return: number of bytes printed
-    """
-    pass
-#</pydoc>
-*/
 static PyObject *py_msg(PyObject *o)
 {
-  const char *utf8 = NULL;
+  const char *utf8 = nullptr;
   ref_t py_utf8;
   if ( PyUnicode_Check(o) )
   {
     py_utf8 = newref_t(PyUnicode_AsUTF8String(o));
+    if ( PyErr_Occurred() != nullptr )
+      return nullptr;
     utf8 = PyString_AsString(py_utf8.o);
   }
   else if ( PyString_Check(o) )
@@ -278,7 +269,7 @@ static PyObject *py_msg(PyObject *o)
   else
   {
     PyErr_SetString(PyExc_TypeError, "A string expected");
-    return NULL;
+    return nullptr;
   }
   int rc;
   Py_BEGIN_ALLOW_THREADS;
@@ -387,7 +378,7 @@ def process_ui_action(name):
 */
 static bool py_process_ui_action(const char *name, int flags = 0)
 {
-  return process_ui_action(name, flags, NULL);
+  return process_ui_action(name, flags, nullptr);
 }
 
 //------------------------------------------------------------------------
@@ -411,7 +402,7 @@ bool py_del_hotkey(PyObject *pyctx)
     return false;
 
   py_idchotkey_ctx_t *ctx = (py_idchotkey_ctx_t *) PyCapsule_GetPointer(pyctx, VALID_CAPSULE_NAME);
-  if ( ctx == NULL || !unregister_action(ctx->action_name.c_str()) )
+  if ( ctx == nullptr || !unregister_action(ctx->action_name.c_str()) )
     return false;
 
   delete ctx;
@@ -442,7 +433,7 @@ PyObject *py_add_hotkey(const char *hotkey, PyObject *pyfunc)
   PYW_GIL_CHECK_LOCKED_SCOPE();
   // Make sure a callable was passed
   if ( !PyCallable_Check(pyfunc) )
-    return NULL;
+    return nullptr;
 
   // Form the function name
   qstring idc_func_name;
@@ -459,7 +450,7 @@ PyObject *py_add_hotkey(const char *hotkey, PyObject *pyfunc)
 
       // Now add the global variable
       idc_value_t *gvar = add_idc_gvar(idc_gvarname.c_str());
-      if ( gvar == NULL )
+      if ( gvar == nullptr )
         break;
 
       // The function body will call a registered IDC function that
@@ -482,7 +473,7 @@ PyObject *py_add_hotkey(const char *hotkey, PyObject *pyfunc)
       gvar->set_pvoid(pyfunc);
 
       // Return the context
-      return PyCapsule_New(ctx, VALID_CAPSULE_NAME, NULL);
+      return PyCapsule_New(ctx, VALID_CAPSULE_NAME, nullptr);
     } while (false);
   }
   // Cleanup
@@ -500,7 +491,7 @@ static PyObject *py_take_database_snapshot(snapshot_t *ss)
   bool b = take_database_snapshot(ss, &err_msg);
 
   // Return (b, err_msg)
-  return Py_BuildValue("(Ns)", PyBool_FromLong(b), err_msg.empty() ? NULL : err_msg.c_str());
+  return Py_BuildValue("(Ns)", PyBool_FromLong(b), err_msg.empty() ? nullptr : err_msg.c_str());
 }
 
 //------------------------------------------------------------------------
@@ -529,7 +520,7 @@ static void idaapi py_ss_restore_callback(const char *err_msg, void *userdata)
   Py_DECREF(o);
 
   // We cannot raise an exception in the callback, just print it.
-  if ( result == NULL )
+  if ( result == nullptr )
     PyErr_Print();
 }
 
@@ -543,14 +534,14 @@ static PyObject *py_restore_database_snapshot(
 
   // If there is no callback, just call the function directly
   if ( pyfunc_or_none == Py_None )
-    return PyBool_FromLong(restore_database_snapshot(ss, NULL, NULL));
+    return PyBool_FromLong(restore_database_snapshot(ss, nullptr, nullptr));
 
   // Create a new tuple or increase reference to pytuple_or_none
   if ( pytuple_or_none == Py_None )
   {
     pytuple_or_none = PyTuple_New(0);
-    if ( pytuple_or_none == NULL )
-      return NULL;
+    if ( pytuple_or_none == nullptr )
+      return nullptr;
   }
   else
   {
@@ -624,8 +615,8 @@ static int py_execute_sync(PyObject *py_callable, int reqf)
       virtual int idaapi execute() override
       {
         PYW_GIL_GET;
-        newref_t py_result(PyObject_CallFunctionObjArgs(py_callable.o, NULL));
-        int ret = py_result == NULL || !IDAPyInt_Check(py_result.o)
+        newref_t py_result(PyObject_CallFunctionObjArgs(py_callable.o, nullptr));
+        int ret = py_result == nullptr || !IDAPyInt_Check(py_result.o)
                 ? -1
                 : IDAPyInt_AsLong(py_result.o);
         // if the requesting thread decided not to wait for the request to
@@ -716,8 +707,8 @@ static bool py_execute_ui_requests(PyObject *py_list)
       // Get callable
       ref_t py_callable = py_callables.at(py_callable_idx);
       bool reschedule;
-      newref_t py_result(PyObject_CallFunctionObjArgs(py_callable.o, NULL));
-      reschedule = py_result != NULL && PyObject_IsTrue(py_result.o);
+      newref_t py_result(PyObject_CallFunctionObjArgs(py_callable.o, nullptr));
+      reschedule = py_result != nullptr && PyObject_IsTrue(py_result.o);
 
       // No rescheduling? Then advance to the next callable
       if ( !reschedule )
@@ -750,7 +741,7 @@ static bool py_execute_ui_requests(PyObject *py_list)
     delete req;
     return false;
   }
-  execute_ui_requests(req, NULL);
+  execute_ui_requests(req, nullptr);
   return true;
 }
 
@@ -761,14 +752,16 @@ def set_dock_pos(src, dest, orient, left = 0, top = 0, right = 0, bottom = 0):
     """
     Sets the dock orientation of a window relatively to another window.
 
+    Use the left, top, right, bottom parameters if DP_FLOATING is used,
+    or if you want to specify the width of docked windows.
+
     @param src: Source docking control
     @param dest: Destination docking control
-    @param orient: One of DOR_XXXX constants
-    @param left, top, right, bottom: These parameter if DOR_FLOATING is used, or if you want to specify the width of docked windows
+    @param orient: One of DP_XXXX constants
     @return: Boolean
 
     Example:
-        set_dock_pos('Structures', 'Enums', DOR_RIGHT) <- docks the Structures window to the right of Enums window
+        set_dock_pos('Structures', 'Enums', DP_RIGHT) <- docks the Structures window to the right of Enums window
     """
     pass
 #</pydoc>
@@ -796,19 +789,19 @@ public:
   PyObject *get_dict()
   {
     newref_t json_module(PyImport_ImportModule("json"));
-    if ( json_module != NULL )
+    if ( json_module != nullptr )
     {
       borref_t json_globals(PyModule_GetDict(json_module.o));
-      if ( json_globals != NULL )
+      if ( json_globals != nullptr )
       {
         borref_t json_loads(PyDict_GetItemString(json_globals.o, "loads"));
-        if ( json_loads != NULL )
+        if ( json_loads != nullptr )
         {
           qstring clob;
           if ( serialize_json(&clob, o) )
           {
             newref_t dict(PyObject_CallFunction(json_loads.o, "s", clob.c_str()));
-            if ( dict != NULL )
+            if ( dict != nullptr )
             {
               dict.incref();
               return dict.o;
@@ -825,13 +818,13 @@ public:
     if ( PyDict_Check(dict) )
     {
       newref_t json_module(PyImport_ImportModule("json"));
-      if ( json_module != NULL )
+      if ( json_module != nullptr )
       {
         borref_t json_globals(PyModule_GetDict(json_module.o));
-        if ( json_globals != NULL )
+        if ( json_globals != nullptr )
         {
           borref_t json_dumps(PyDict_GetItemString(json_globals.o, "dumps"));
-          if ( json_dumps != NULL )
+          if ( json_dumps != nullptr )
           {
             newref_t str(PyObject_CallFunction(json_dumps.o, "O", dict));
             qstring buf;
@@ -866,7 +859,7 @@ struct UI_Hooks : public hooks_base_t
   bool hook() { return hooks_base_t::hook(); }
   bool unhook() { return hooks_base_t::unhook(); }
 #ifdef TESTABLE_BUILD
-  qstring dump_state() { return hooks_base_t::dump_state(mappings, mappings_size); }
+  PyObject *dump_state(bool assert_all_reimplemented=false) { return hooks_base_t::dump_state(mappings, mappings_size, assert_all_reimplemented); }
 #endif
 
   // hookgenUI:methods
@@ -885,7 +878,7 @@ private:
   static ssize_t handle_get_ea_hint_output(PyObject *o, qstring *buf, ea_t)
   {
     ssize_t rc = 0;
-    if ( o != NULL && IDAPyStr_Check(o) && IDAPyStr_AsUTF8(buf, o) )
+    if ( o != nullptr && IDAPyStr_Check(o) && IDAPyStr_AsUTF8(buf, o) )
       rc = 1;
     Py_XDECREF(o);
     return rc;
@@ -893,17 +886,17 @@ private:
 
   static ssize_t handle_hint_output(PyObject *o, qstring *hint, int *important_lines)
   {
-    if ( o != NULL && PyTuple_Check(o) && PyTuple_Size(o) == 2 )
+    if ( o != nullptr && PyTuple_Check(o) && PyTuple_Size(o) == 2 )
     {
       borref_t el0(PyTuple_GetItem(o, 0));
       qstring plug_hint;
-      if ( el0 != NULL
+      if ( el0 != nullptr
         && IDAPyStr_Check(el0.o)
         && IDAPyStr_AsUTF8(&plug_hint, el0.o)
         && !plug_hint.empty() )
       {
         borref_t el1(PyTuple_GetItem(o, 1));
-        if ( el1 != NULL && IDAPyInt_Check(el1.o) )
+        if ( el1 != nullptr && IDAPyInt_Check(el1.o) )
         {
           long lns = IDAPyInt_AsLong(el1.o);
           if ( lns > 0 )
@@ -938,9 +931,9 @@ private:
   {
     if ( o == Py_None )
       return 0;
-    TWidget *widget = NULL;
+    TWidget *widget = nullptr;
     int cvt = SWIG_ConvertPtr(o, (void **) &widget, SWIGTYPE_p_TWidget, 0);
-    if ( !SWIG_IsOK(cvt) || widget == NULL )
+    if ( !SWIG_IsOK(cvt) || widget == nullptr )
       return 0;
     return ssize_t(widget);
   }
@@ -958,10 +951,10 @@ bool py_register_action(action_desc_t *desc)
   bool ok = register_action(*desc);
   if ( ok )
   {
-    // Let's set this to NULL, so when the wrapping Python action_desc_t
+    // Let's set this to nullptr, so when the wrapping Python action_desc_t
     // instance is deleted, it doesn't try to delete the handler (See
     // kernwin.i's action_desc_t::~action_desc_t()).
-    desc->handler = NULL;
+    desc->handler = nullptr;
   }
   return ok;
 }
@@ -983,7 +976,7 @@ def py_attach_dynamic_action_to_popup(
         popup_handle,
         desc,
         popuppath = None,
-        flags = 0)
+        flags = 0):
     """
     Create & insert an action into the widget's popup menu
     (::ui_attach_dynamic_action_to_popup).
@@ -1007,7 +1000,7 @@ bool py_attach_dynamic_action_to_popup(
         TWidget *widget,
         TPopupMenu *popup_handle,
         action_desc_t *desc,
-        const char *popuppath = NULL,
+        const char *popuppath = nullptr,
         int flags = 0)
 {
   bool ok = attach_dynamic_action_to_popup(
@@ -1017,7 +1010,7 @@ bool py_attach_dynamic_action_to_popup(
   //    the popup is dismissed,
   //  * fails: the action (and its handler) will be deleted right away
   // Therefore, we must always drop ownership.
-  desc->handler = NULL;
+  desc->handler = nullptr;
   return ok;
 }
 
@@ -1025,13 +1018,13 @@ bool py_attach_dynamic_action_to_popup(
 // twinline_t has a dummy destructor, that performs no cleanup.
 struct disasm_line_t
 {
-  disasm_line_t() : at(NULL) {}
+  disasm_line_t() : at(nullptr) {}
   ~disasm_line_t() { qfree(at); }
   disasm_line_t(const disasm_line_t &other) { *this = other; }
   disasm_line_t &operator=(const disasm_line_t &other)
   {
     qfree(at);
-    at = other.at == NULL ? NULL : other.at->clone();
+    at = other.at == nullptr ? nullptr : other.at->clone();
     return *this;
   }
   place_t *at;
@@ -1121,7 +1114,7 @@ PyObject *py_set_nav_colorizer(PyObject *new_py_colorizer)
     {
       PYW_GIL_GET;
 
-      if ( py_colorizer == NULL ) // Shouldn't happen.
+      if ( py_colorizer == nullptr ) // Shouldn't happen.
         return 0;
       newref_t pyres = PyObject_CallFunction(
               py_colorizer.o, "KK",
@@ -1129,7 +1122,7 @@ PyObject *py_set_nav_colorizer(PyObject *new_py_colorizer)
               (unsigned long long) nbytes);
       PyW_ShowCbErr("nav_colorizer");
       uint32 rc = 0;
-      bool ok = pyres.o != NULL && PyLong_Check(pyres.o);
+      bool ok = pyres.o != nullptr && PyLong_Check(pyres.o);
       if ( ok )
       {
         int overflow = 0;
@@ -1165,15 +1158,15 @@ PyObject *py_set_nav_colorizer(PyObject *new_py_colorizer)
 
   // Always perform the call to set_nav_colorizer(): that has side-effects
   // (e.g., updating the legend.)
-  bool first_install = py_colorizer == NULL;
+  bool first_install = py_colorizer == nullptr;
   py_colorizer = borref_t(new_py_colorizer);
-  nav_colorizer_t *was_fun = NULL;
-  void *was_ud = NULL;
-  set_nav_colorizer(&was_fun, &was_ud, lambda_t::call_py_colorizer, NULL);
+  nav_colorizer_t *was_fun = nullptr;
+  void *was_ud = nullptr;
+  set_nav_colorizer(&was_fun, &was_ud, lambda_t::call_py_colorizer, nullptr);
   if ( !first_install )
     Py_RETURN_NONE;
-  PyObject *was_fun_ptr = PyCapsule_New((void *) was_fun, VALID_CAPSULE_NAME, NULL);
-  PyObject *was_ud_ptr = PyCapsule_New(was_ud, VALID_CAPSULE_NAME, NULL);
+  PyObject *was_fun_ptr = PyCapsule_New((void *) was_fun, VALID_CAPSULE_NAME, nullptr);
+  PyObject *was_ud_ptr = PyCapsule_New(was_ud, VALID_CAPSULE_NAME, nullptr);
   PyObject *dict = PyDict_New();
   PyDict_SetItemString(dict, "fun", was_fun_ptr);
   PyDict_SetItemString(dict, "ud", was_ud_ptr);
@@ -1200,7 +1193,7 @@ uint32 py_call_nav_colorizer(
     return 0;
   borref_t py_fun(PyDict_GetItemString(dict, "fun"));
   borref_t py_ud(PyDict_GetItemString(dict, "ud"));
-  if ( py_fun == NULL
+  if ( py_fun == nullptr
     || !PyCapsule_IsValid(py_fun.o, VALID_CAPSULE_NAME)
     || !PyCapsule_IsValid(py_ud.o, VALID_CAPSULE_NAME) )
   {
@@ -1208,7 +1201,7 @@ uint32 py_call_nav_colorizer(
   }
   nav_colorizer_t *fun = (nav_colorizer_t *) PyCapsule_GetPointer(py_fun.o, VALID_CAPSULE_NAME);
   void *ud = PyCapsule_GetPointer(py_ud.o, VALID_CAPSULE_NAME);
-  if ( fun == NULL )
+  if ( fun == nullptr )
     return 0;
   return fun(ea, nbytes, ud);
 }
@@ -1320,7 +1313,7 @@ bool idaapi py_menu_item_callback(void *userdata)
   newref_t result(PyEval_CallObject(func, args));
 
   // We cannot raise an exception in the callback, just print it.
-  if ( result == NULL )
+  if ( result == nullptr )
   {
     PyErr_Print();
     return false;

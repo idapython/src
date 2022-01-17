@@ -137,17 +137,17 @@ public:
   // class from and to IDC. The value of this variable must be set to two
   int __idc_cvt_id__;
   //--------------------------------------------------------------------------
-  loader_input_t(PyObject *pycapsule = NULL): li(NULL), own(OWN_NONE), __idc_cvt_id__(PY_ICID_OPAQUE)
+  loader_input_t(PyObject *pycapsule = nullptr): li(nullptr), own(OWN_NONE), __idc_cvt_id__(PY_ICID_OPAQUE)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( pycapsule != NULL && PyCapsule_IsValid(pycapsule, VALID_CAPSULE_NAME) )
+    if ( pycapsule != nullptr && PyCapsule_IsValid(pycapsule, VALID_CAPSULE_NAME) )
       _from_capsule(pycapsule);
   }
 
   //--------------------------------------------------------------------------
   void close()
   {
-    if ( li == NULL )
+    if ( li == nullptr )
       return;
 
     PYW_GIL_GET;
@@ -157,7 +157,7 @@ public:
     else if ( own == OWN_FROM_FP )
       unmake_linput(li);
     Py_END_ALLOW_THREADS;
-    li = NULL;
+    li = nullptr;
     own = OWN_NONE;
   }
 
@@ -174,14 +174,14 @@ public:
     PYW_GIL_GET;
     Py_BEGIN_ALLOW_THREADS;
     li = open_linput(filename, remote);
-    if ( li != NULL )
+    if ( li != nullptr )
     {
       // Save file name
       fn = filename;
       own = OWN_CREATE;
     }
     Py_END_ALLOW_THREADS;
-    return li != NULL;
+    return li != nullptr;
   }
 
   //--------------------------------------------------------------------------
@@ -207,7 +207,7 @@ public:
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( !PyCapsule_IsValid(pycapsule, VALID_CAPSULE_NAME) )
-      return NULL;
+      return nullptr;
     loader_input_t *l = new loader_input_t();
     l->_from_capsule(pycapsule);
     return l;
@@ -217,10 +217,10 @@ public:
   static loader_input_t *from_fp(FILE *fp)
   {
     PYW_GIL_GET;
-    loader_input_t *l = NULL;
+    loader_input_t *l = nullptr;
     Py_BEGIN_ALLOW_THREADS;
     linput_t *fp_li = make_linput(fp);
-    if ( fp_li != NULL )
+    if ( fp_li != nullptr )
     {
       l = new loader_input_t();
       l->own = OWN_FROM_FP;
@@ -244,7 +244,7 @@ public:
     linput_t *l;
     Py_BEGIN_ALLOW_THREADS;
     l = create_memory_linput(start, size);
-    if ( l != NULL )
+    if ( l != nullptr )
     {
       close();
       li = l;
@@ -252,7 +252,7 @@ public:
       own = OWN_CREATE;
     }
     Py_END_ALLOW_THREADS;
-    return l != NULL;
+    return l != nullptr;
   }
 
   //--------------------------------------------------------------------------
@@ -284,7 +284,7 @@ public:
     do
     {
       char *buf = (char *) malloc(sz + 5);
-      if ( buf == NULL )
+      if ( buf == nullptr )
         break;
       Py_BEGIN_ALLOW_THREADS;
       qlgetz(li, fpos, buf, sz);
@@ -304,7 +304,7 @@ public:
     buf.resize(len);
     bool ok;
     Py_BEGIN_ALLOW_THREADS;
-    ok = qlgets((char *) buf.begin(), buf.size(), li) != NULL;
+    ok = qlgets((char *) buf.begin(), buf.size(), li) != nullptr;
     Py_END_ALLOW_THREADS;
     if ( !ok )
       Py_RETURN_NONE;
@@ -329,7 +329,7 @@ public:
   //--------------------------------------------------------------------------
   bool opened()
   {
-    return li != NULL;
+    return li != nullptr;
   }
 
   //--------------------------------------------------------------------------
@@ -339,7 +339,7 @@ public:
     do
     {
       char *buf = (char *) malloc(size + 5);
-      if ( buf == NULL )
+      if ( buf == nullptr )
         break;
       int r;
       Py_BEGIN_ALLOW_THREADS;

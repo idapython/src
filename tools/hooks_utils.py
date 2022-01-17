@@ -10,12 +10,7 @@ genhooks_dir = os.path.join(mydir, "genhooks")
 if genhooks_dir not in sys.path:
     sys.path.append(genhooks_dir)
 
-import recipe_idphooks
-import recipe_idbhooks
-import recipe_dbghooks
-import recipe_uihooks
-import recipe_viewhooks
-import recipe_hexrays
+import all_recipes
 
 class enum_info_t:
     def __init__(
@@ -35,62 +30,24 @@ class enum_info_t:
         self.recipe = recipe
         self.default_rtype = default_rtype
 
+_hooks_enum_info = {}
+for klass in all_recipes.hooks:
+    fname,            \
+    enum_name,        \
+    discard_prefixes, \
+    discard_doc,      \
+    strip_prefixes,   \
+    recipe_module = all_recipes.hooks[klass]
 
-_hooks_enum_info = {
-    "IDP_Hooks" : enum_info_t(
-        "structprocessor__t.xml",
-        "event_t",
-        [],
-        None,
-        [],
-        recipe_idphooks.recipe,
-        recipe_idphooks.default_rtype),
+    _hooks_enum_info[klass] = enum_info_t(
+        fname,
+        enum_name,
+        discard_prefixes,
+        discard_doc,
+        strip_prefixes,
+        recipe_module.recipe,
+        recipe_module.default_rtype)
 
-    "IDB_Hooks" : enum_info_t(
-        "namespaceidb__event.xml",
-        "event_code_t",
-        [],
-        None,
-        [],
-        recipe_idbhooks.recipe,
-        recipe_idbhooks.default_rtype),
-
-    "DBG_Hooks" : enum_info_t(
-        "dbg_8hpp.xml",
-        "dbg_notification_t",
-        [],
-        None,
-        [],
-        recipe_dbghooks.recipe,
-        recipe_dbghooks.default_rtype),
-
-    "UI_Hooks" : enum_info_t(
-        "kernwin_8hpp.xml",
-        "ui_notification_t",
-        ["ui_dbg_", "ui_obsolete"],
-        "ui:",
-        ["ui_"],
-        recipe_uihooks.recipe,
-        recipe_uihooks.default_rtype),
-
-    "View_Hooks" : enum_info_t(
-        "kernwin_8hpp.xml",
-        "view_notification_t",
-        [],
-        None,
-        [],
-        recipe_viewhooks.recipe,
-        recipe_viewhooks.default_rtype),
-
-    "Hexrays_Hooks" : enum_info_t(
-        "hexrays_8hpp.xml",
-        "hexrays_event_t",
-        [],
-        None,
-        ["hxe_", "lxe_"],
-        recipe_hexrays.recipe,
-        recipe_hexrays.default_rtype),
-}
 
 def get_hooks_enum_information(class_name):
     return _hooks_enum_info[class_name]

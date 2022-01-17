@@ -8,7 +8,7 @@ template <class T>
 static void py_get_int(PyObject *self, T *prm, const char *name)
 {
   ref_t attr(PyW_TryGetAttrString(self, name));
-  if ( attr != NULL && attr.o != Py_None )
+  if ( attr != nullptr && attr.o != Py_None )
     *prm = T(PyInt_AsLong(attr.o));
 }
 
@@ -151,7 +151,7 @@ bool py_chooser_props_t::do_extract_from_pyobject(
   // Get flags
   out->flags = 0;
   ref_t flags_attr(PyW_TryGetAttrString(o, S_FLAGS));
-  if ( flags_attr == NULL )
+  if ( flags_attr == nullptr )
     RETERR("Missing or invalid mandatory '%s' attribute", S_FLAGS);
 
   if ( IDAPyInt_Check(flags_attr.o) )
@@ -163,7 +163,7 @@ bool py_chooser_props_t::do_extract_from_pyobject(
   // Get columns
   int ncols = -1;
   ref_t cols_attr(PyW_TryGetAttrString(o, "cols"));
-  if ( cols_attr != NULL )
+  if ( cols_attr != nullptr )
     ncols = int(PyList_Size(cols_attr.o));
   if ( ncols < 1 )
     RETERR("Missing or invalid mandatory '%s' attribute", S_COLS);
@@ -179,7 +179,7 @@ bool py_chooser_props_t::do_extract_from_pyobject(
     borref_t v(PyList_GetItem(list.o, 0));
 
     // Extract string
-    if ( v != NULL )
+    if ( v != nullptr )
       IDAPyStr_AsUTF8(&out->header_strings[i], v.o);
     out->header[i] = out->header_strings[i].c_str();
 
@@ -187,7 +187,7 @@ bool py_chooser_props_t::do_extract_from_pyobject(
     int width;
     borref_t v2(PyList_GetItem(list.o, 1));
     // No width? Guess width from column title
-    if ( v2 == NULL )
+    if ( v2 == nullptr )
       width = ::qustrlen(out->header_strings[i].c_str());
     else
       width = PyInt_AsLong(v2.o);
@@ -197,7 +197,7 @@ bool py_chooser_props_t::do_extract_from_pyobject(
   // Get popup names
   // An array of 4 strings: ("Insert", "Delete", "Edit", "Refresh")
   ref_t pn_attr(PyW_TryGetAttrString(o, S_POPUP_NAMES));
-  if ( pn_attr != NULL && PyList_Check(pn_attr.o) )
+  if ( pn_attr != nullptr && PyList_Check(pn_attr.o) )
   {
     Py_ssize_t npopups = PyList_Size(pn_attr.o);
     if ( npopups > chooser_base_t::NSTDPOPUPS )
@@ -236,14 +236,14 @@ bool py_chooser_props_t::do_extract_from_pyobject(
   // we can forbid some callbacks explicitly
   uint32 forbidden_cb = 0;
   ref_t forbidden_cb_attr(PyW_TryGetAttrString(o, "forbidden_cb"));
-  if ( forbidden_cb_attr != NULL && IDAPyInt_Check(forbidden_cb_attr.o) )
+  if ( forbidden_cb_attr != nullptr && IDAPyInt_Check(forbidden_cb_attr.o) )
     forbidden_cb = uint32(IDAPyInt_AsLong(forbidden_cb_attr.o));
 
   out->features = 0;
   for ( int i = 0; i < qnumber(callbacks); ++i )
   {
     ref_t cb_attr(PyW_TryGetAttrString(o, callbacks[i].name));
-    bool have_cb = cb_attr != NULL && PyCallable_Check(cb_attr.o);
+    bool have_cb = cb_attr != nullptr && PyCallable_Check(cb_attr.o);
     if ( have_cb && (forbidden_cb & callbacks[i].have) == 0 )
     {
       out->features |= callbacks[i].have;
@@ -259,7 +259,7 @@ bool py_chooser_props_t::do_extract_from_pyobject(
 
   // Check if *embedded
   ref_t emb_attr(PyW_TryGetAttrString(o, S_EMBEDDED));
-  if ( emb_attr != NULL && PyObject_IsTrue(emb_attr.o) == 1 )
+  if ( emb_attr != nullptr && PyObject_IsTrue(emb_attr.o) == 1 )
     out->features |= CFEAT_EMBEDDED;
 
 #undef RETERR
@@ -284,9 +284,9 @@ struct py_chooser_mixin_t
   ~py_chooser_mixin_t()
   {
     PYW_GIL_GET;
-    self = newref_t(NULL);
-    dirspec = newref_t(NULL);
-    dirtree = newref_t(NULL);
+    self = newref_t(nullptr);
+    dirspec = newref_t(nullptr);
+    dirtree = newref_t(nullptr);
     _instances.del(this);
   }
 
@@ -327,8 +327,8 @@ bool py_chooser_mixin_t::mixin_init(chooser_base_t *chobj)
   if ( !has_feature(CFEAT_INIT) )
     return chobj->chooser_base_t::init();
   PYW_GIL_GET;
-  pycall_res_t pyres(PyObject_CallMethod(self.o, (char *)S_ON_INIT, NULL));
-  if ( pyres.result == NULL || pyres.result.o == Py_None )
+  pycall_res_t pyres(PyObject_CallMethod(self.o, (char *)S_ON_INIT, nullptr));
+  if ( pyres.result == nullptr || pyres.result.o == Py_None )
     return chobj->chooser_base_t::init();
   return bool(PyInt_AsLong(pyres.result.o));
 }
@@ -337,8 +337,8 @@ bool py_chooser_mixin_t::mixin_init(chooser_base_t *chobj)
 size_t py_chooser_mixin_t::mixin_get_count() const
 {
   PYW_GIL_GET;
-  pycall_res_t pyres(PyObject_CallMethod(self.o, (char *)S_ON_GET_SIZE, NULL));
-  if ( pyres.result == NULL || pyres.result.o == Py_None )
+  pycall_res_t pyres(PyObject_CallMethod(self.o, (char *)S_ON_GET_SIZE, nullptr));
+  if ( pyres.result == nullptr || pyres.result.o == Py_None )
     return 0;
   return size_t(PyInt_AsLong(pyres.result.o));
 }
@@ -359,9 +359,9 @@ void py_chooser_mixin_t::mixin_get_row(
           PyObject_CallMethod(
                   self.o, (char *)S_ON_GET_LINE,
                   "i", int(n)));
-  if ( PyErr_Occurred() != NULL )
+  if ( PyErr_Occurred() != nullptr )
     return;
-  if ( list.result != NULL )
+  if ( list.result != nullptr )
   {
     if ( PySequence_Check(list.result.o) )
     {
@@ -369,7 +369,7 @@ void py_chooser_mixin_t::mixin_get_row(
       for ( int i = chobj->columns - 1; i >= 0; --i )
       {
         newref_t item(PySequence_GetItem(list.result.o, Py_ssize_t(i)));
-        if ( item != NULL )
+        if ( item != nullptr )
         {
           if ( !IDAPyStr_Check(item.o) )
           {
@@ -389,7 +389,7 @@ void py_chooser_mixin_t::mixin_get_row(
               "Expected 'list' for row %" FMT_Z, n);
     }
   }
-  if ( PyErr_Occurred() != NULL )
+  if ( PyErr_Occurred() != nullptr )
     return;
 
   *icon_ = chobj->icon;
@@ -399,9 +399,9 @@ void py_chooser_mixin_t::mixin_get_row(
             PyObject_CallMethod(
                     self.o, (char *)S_ON_GET_ICON,
                     "i", int(n)));
-    if ( PyErr_Occurred() != NULL )
+    if ( PyErr_Occurred() != nullptr )
       return;
-    if ( pyres.result != NULL )
+    if ( pyres.result != nullptr )
       *icon_ = PyInt_AsLong(pyres.result.o);
   }
 
@@ -411,14 +411,14 @@ void py_chooser_mixin_t::mixin_get_row(
             PyObject_CallMethod(
                     self.o, (char *)S_ON_GET_LINE_ATTR,
                     "i", int(n)));
-    if ( PyErr_Occurred() != NULL )
+    if ( PyErr_Occurred() != nullptr )
       return;
-    if ( pyres.result != NULL && PyList_Check(pyres.result.o) )
+    if ( pyres.result != nullptr && PyList_Check(pyres.result.o) )
     {
       PyObject *item;
-      if ( (item = PyList_GetItem(pyres.result.o, 0)) != NULL )
+      if ( (item = PyList_GetItem(pyres.result.o, 0)) != nullptr )
         attrs->color = PyInt_AsLong(item);
-      if ( (item = PyList_GetItem(pyres.result.o, 1)) != NULL )
+      if ( (item = PyList_GetItem(pyres.result.o, 1)) != nullptr )
         attrs->flags = PyInt_AsLong(item);
     }
   }
@@ -430,7 +430,7 @@ void py_chooser_mixin_t::mixin_closed(chooser_base_t *chobj)
   PYW_GIL_GET;
   if ( has_feature(CFEAT_ONCLOSE) )
   {
-    pycall_res_t pyres(PyObject_CallMethod(self.o, (char *)S_ON_CLOSE, NULL));
+    pycall_res_t pyres(PyObject_CallMethod(self.o, (char *)S_ON_CLOSE, nullptr));
   }
   else
   {
@@ -442,7 +442,7 @@ void py_chooser_mixin_t::mixin_closed(chooser_base_t *chobj)
       newref_t tramp(PyObject_GetAttrString(self.o, "ui_hooks_trampoline"));
       if ( tramp.o != Py_None )
       {
-        newref_t unhook_res(PyObject_CallMethod(tramp.o, "unhook", NULL));
+        newref_t unhook_res(PyObject_CallMethod(tramp.o, "unhook", nullptr));
       }
     }
     PyObject_DelAttrString(self.o, "ui_hooks_trampoline");
@@ -453,18 +453,18 @@ void py_chooser_mixin_t::mixin_closed(chooser_base_t *chobj)
 dirtree_t *py_chooser_mixin_t::mixin_get_dirtree(const chooser_base_t * /*chobj*/)
 {
   if ( !has_feature(CFEAT_GETDIRTREE) )
-    return NULL;
+    return nullptr;
   PYW_GIL_GET;
 
-  pycall_res_t pyres(PyObject_CallMethod(self.o, (char *) S_ON_GET_DIRTREE, NULL));
-  if ( pyres.result == NULL )
-    return NULL;
+  pycall_res_t pyres(PyObject_CallMethod(self.o, (char *) S_ON_GET_DIRTREE, nullptr));
+  if ( pyres.result == nullptr )
+    return nullptr;
 
   if ( !PyTuple_Check(pyres.result.o) || PyTuple_Size(pyres.result.o) != 2 )
   {
 GET_DIRTREE_BAD_RESULT:
     PyErr_Format(PyExc_TypeError, "%s must return a tuple (dirspec_t, dirtree_t)", S_ON_GET_DIRTREE);
-    return NULL;
+    return nullptr;
   }
 
   {
@@ -494,7 +494,7 @@ inode_t py_chooser_mixin_t::mixin_index_to_inode(size_t n) const
   {
     PYW_GIL_GET;
     pycall_res_t pyres(PyObject_CallMethod(self.o, (char *) S_ON_INDEX_TO_INODE, PY_BV_SZ, Py_ssize_t(n)));
-    if ( pyres.result != NULL )
+    if ( pyres.result != nullptr )
     {
       uint64 u64;
       if ( PyW_GetNumber(pyres.result.o, &u64) )
@@ -512,7 +512,7 @@ diffpos_t py_chooser_mixin_t::mixin_index_to_diffpos(size_t n) const
   {
     PYW_GIL_GET;
     pycall_res_t pyres(PyObject_CallMethod(self.o, (char *) S_ON_INDEX_TO_DIFFPOS, PY_BV_SZ, Py_ssize_t(n)));
-    if ( pyres.result != NULL )
+    if ( pyres.result != nullptr )
     {
       uint64 u64;
       if ( PyW_GetNumber(pyres.result.o, &u64) )
@@ -540,9 +540,9 @@ class py_chooser_t : public chooser_t, public py_chooser_mixin_t
       return false;
     PYW_GIL_GET;
     pycall_res_t pyres(PyObject_CallMethod(self.o, (char *) name, "i", n));
-    if ( pyres.result == NULL || pyres.result.o == Py_None )
+    if ( pyres.result == nullptr || pyres.result.o == Py_None )
       return false;
-    if ( out != NULL )
+    if ( out != nullptr )
     {
       // [ changed, idx ]
       cbret_t ret;
@@ -550,13 +550,13 @@ class py_chooser_t : public chooser_t, public py_chooser_mixin_t
       {
         {
           newref_t item(PySequence_GetItem(pyres.result.o, 0));
-          if ( item.o != NULL && IDAPyInt_Check(item.o) )
+          if ( item.o != nullptr && IDAPyInt_Check(item.o) )
             ret.changed = cbres_t(IDAPyInt_AsLong(item.o));
         }
         if ( ret.changed != NOTHING_CHANGED )
         {
           newref_t item(PySequence_GetItem(pyres.result.o, 1));
-          if ( item.o != NULL && IDAPyInt_Check(item.o) )
+          if ( item.o != nullptr && IDAPyInt_Check(item.o) )
             ret.idx = ssize_t(IDAPyInt_AsSsize_t(item.o));
         }
       }
@@ -612,7 +612,7 @@ public:
 
   virtual void idaapi select(ssize_t n) const override
   {
-    _call(NULL, CFEAT_SELECT, S_ON_SELECTION_CHANGE, int(n));
+    _call(nullptr, CFEAT_SELECT, S_ON_SELECTION_CHANGE, int(n));
   }
 };
 
@@ -627,7 +627,7 @@ class py_chooser_multi_t : public chooser_multi_t, public py_chooser_mixin_t
     PYW_GIL_GET;
     ref_t py_list(PyW_SizeVecToPyList(*sel));
     pycall_res_t pyres(PyObject_CallMethod(self.o, (char *) name, "O", py_list.o));
-    if ( pyres.result == NULL || pyres.result.o == Py_None )
+    if ( pyres.result == nullptr || pyres.result.o == Py_None )
       return false;
     // [ changed, idx, ... ]
     cbres_t res;
@@ -643,7 +643,7 @@ class py_chooser_multi_t : public chooser_multi_t, public py_chooser_mixin_t
       res = cbres_t(sel->front());
       sel->erase(sel->begin());
     }
-    if ( out != NULL )
+    if ( out != nullptr )
       *out = res;
     return true;
   }
@@ -696,7 +696,7 @@ public:
   virtual void idaapi select(const sizevec_t &_sel) const override
   {
     sizevec_t sel = _sel;
-    _call(NULL, CFEAT_SELECT, S_ON_SELECTION_CHANGE, &sel);
+    _call(nullptr, CFEAT_SELECT, S_ON_SELECTION_CHANGE, &sel);
   }
 };
 
@@ -705,7 +705,7 @@ chooser_base_t *py_chooser_mixin_t::create_concrete_instance(
         py_chooser_props_t &props,
         PyObject *o)
 {
-  chooser_base_t *chobj = NULL;
+  chooser_base_t *chobj = nullptr;
   if ( (props.flags & CH_MULTI) == 0 )
     chobj = new py_chooser_t(o, props);
   else
@@ -746,7 +746,7 @@ PyObject *choose_choose(PyObject *self)
   if ( !py_chooser_props_t::extract_from_pyobject(&props, self, &errbuf) )
   {
     PyErr_SetString(PyExc_AttributeError, errbuf.c_str());
-    return NULL;
+    return nullptr;
   }
   chooser_base_t *chobj = py_chooser_mixin_t::create_concrete_instance(props, self);
 
@@ -763,7 +763,7 @@ PyObject *choose_choose(PyObject *self)
     // Get *deflt
     sizevec_t deflt;
     ref_t deflt_attr(PyW_TryGetAttrString(self, "deflt"));
-    if ( deflt_attr != NULL
+    if ( deflt_attr != nullptr
       && PyList_Check(deflt_attr.o)
       && PyW_PyListToSizeVec(&deflt, deflt_attr.o) < 0 )
     {
@@ -798,14 +798,14 @@ TWidget *choose_get_widget(PyObject *self)
   qstring title, errbuf;
   return py_chooser_props_t::get_title_from_pyobject(&title, self, &errbuf)
        ? find_widget(title.c_str())
-       : NULL;
+       : nullptr;
 }
 
 //------------------------------------------------------------------------
 void choose_activate(PyObject *self)
 {
   TWidget *w = choose_get_widget(self);
-  if ( w != NULL )
+  if ( w != nullptr )
     activate_widget(w, true);
 }
 
@@ -825,7 +825,7 @@ PyObject *choose_create_embedded_chobj(PyObject *self)
   else
   {
     PyErr_SetString(PyExc_AttributeError, errbuf.c_str());
-    return NULL;
+    return nullptr;
   }
   return PyLong_FromUnsignedLongLong(ptr);
 }

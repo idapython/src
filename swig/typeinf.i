@@ -228,13 +228,13 @@
 %ignore tinfo_t::~tinfo_t(void);
 
 %template(funcargvec_t)      qvector<funcarg_t>;
-%template(udtmembervec_t)    qvector<udt_member_t>;
 %template(reginfovec_t)      qvector<reg_info_t>;
 %template(enum_member_vec_t) qvector<enum_member_t>;
 %template(argpartvec_t)      qvector<argpart_t>;
 %uncomparable_elements_qvector(valstr_t, valstrvec_t);
 %uncomparable_elements_qvector(regobj_t, regobjvec_t);
 %uncomparable_elements_qvector(type_attr_t, type_attrs_t);
+%template(udtmembervec_template_t) qvector<udt_member_t>;
 
 %extend tinfo_t {
   PyObject *get_attr(const qstring &key, bool all_attrs=true)

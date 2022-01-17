@@ -303,12 +303,12 @@ static PyObject *ph_get_instruc()
   Py_ssize_t i = 0;
   PYW_GIL_CHECK_LOCKED_SCOPE();
   processor_t &ph = PH;
-  PyObject *py_result = PyTuple_New(ph.instruc_end - ph.instruc_start);
+  PyObject *py_result = PyList_New(ph.instruc_end - ph.instruc_start);
   for ( const instruc_t *p = ph.instruc + ph.instruc_start, *end = ph.instruc + ph.instruc_end;
         p != end;
         ++p )
   {
-    PyTuple_SetItem(py_result, i++, Py_BuildValue("(sI)", p->name, p->feature));
+    PyList_SetItem(py_result, i++, Py_BuildValue("(sI)", p->name, p->feature));
   }
   return py_result;
 }
@@ -363,7 +363,7 @@ static PyObject *ph_get_operand_info(
   Py_BEGIN_ALLOW_THREADS;
   do
   {
-    if ( dbg == NULL || n == - 1 )
+    if ( dbg == nullptr || n == - 1 )
       break;
 
     // Allocate register space
@@ -447,7 +447,7 @@ struct IDP_Hooks : public hooks_base_t
   bool hook() { return hooks_base_t::hook(); }
   bool unhook() { return hooks_base_t::unhook(); }
 #ifdef TESTABLE_BUILD
-  qstring dump_state() { return hooks_base_t::dump_state(mappings, mappings_size); }
+  PyObject *dump_state(bool assert_all_reimplemented=false) { return hooks_base_t::dump_state(mappings, mappings_size, assert_all_reimplemented); }
 #endif
 
   // hookgenIDP:methods
@@ -488,8 +488,8 @@ private:
   static ssize_t cm_t_to_ssize_t(cm_t cm) { return ssize_t(cm); }
   static bool _handle_qstring_output(PyObject *o, qstring *buf)
   {
-    bool is_str = o != NULL && IDAPyStr_Check(o);
-    if ( is_str && buf != NULL )
+    bool is_str = o != nullptr && IDAPyStr_Check(o);
+    if ( is_str && buf != nullptr )
       IDAPyStr_AsUTF8(buf, o);
     Py_XDECREF(o);
     return is_str;
@@ -508,7 +508,7 @@ private:
         const char * /*line*/)
   {
     ssize_t rc = 0;
-    if ( o != NULL && IDAPyBytes_Check(o) )
+    if ( o != nullptr && IDAPyBytes_Check(o) )
     {
       char *s;
       Py_ssize_t len = 0;
@@ -543,11 +543,11 @@ private:
         && PyBool_Check(py_bexec.o)
         && PyBool_Check(py_fexec.o) )
       {
-        if ( pea != NULL )
+        if ( pea != nullptr )
           *pea = nea;
-        if ( pbexec != NULL )
+        if ( pbexec != nullptr )
           *pbexec = py_bexec.o == Py_True;
-        if ( pfexec != NULL )
+        if ( pfexec != nullptr )
           *pfexec = py_fexec.o == Py_True;
         return 1;
       }
@@ -591,7 +591,7 @@ private:
       {
         rc = IDAPyInt_AsLong(py_rc.o);
         *out_res = IDAPyInt_AsLong(py_out_res.o);
-        if ( out != NULL )
+        if ( out != nullptr )
           out->swap(qs);
       }
     }
@@ -669,7 +669,7 @@ inline size_t sizeof_ldbl(void)
 //-------------------------------------------------------------------------
 static PyObject *_wrap_addr_in_pycapsule(void *addr)
 {
-  return PyCapsule_New(addr, VALID_CAPSULE_NAME, NULL);
+  return PyCapsule_New(addr, VALID_CAPSULE_NAME, nullptr);
 }
 
 //-------------------------------------------------------------------------

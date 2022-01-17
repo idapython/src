@@ -2,10 +2,9 @@
 #include <bytes.hpp>
 %}
 
+%apply (testf_t *func, void *ud) { (testf_t *testf, void *ud=nullptr) };
+
 // Unexported and kernel-only declarations
-%ignore testf_t;
-%ignore next_that;
-%ignore prev_that;
 %ignore adjust_visea;
 %ignore visit_patched_bytes;
 %ignore is_first_visea;
@@ -48,6 +47,8 @@
 %rename (get_octet) py_get_octet;
 
 %template(compiled_binpat_vec_t) qvector<compiled_binpat_t>;
+
+%apply size_t * OUTPUT { size_t *out_matched_idx }; // bin_search3
 
 // TODO: This could be fixed (if needed)
 %ignore set_dbgmem_source;
@@ -118,12 +119,6 @@
     __real__init__ = __init__
     def __init__(self, *args):
         self.__real__init__(self, *args) # pass 'self' as part of args
-#ifdef BC695
-    if _BC695:
-        def __init__(self, name, value_size = 0, menu_name = None, hotkey = None, asm_keyword = None, props = 0):
-            args = (name, value_size, menu_name, hotkey, asm_keyword, props)
-            self.__real__init__(self, *args) # pass 'self' as part of args
-#endif
   }
 }
 
@@ -162,12 +157,6 @@
     __real__init__ = __init__
     def __init__(self, *args):
         self.__real__init__(self, *args) # pass 'self' as part of args
-#ifdef BC695
-    if _BC695:
-        def __init__(self, name, value_size = 0, menu_name = None, props = 0, hotkey = None, text_width = 0):
-            args = (name, value_size, menu_name, props, hotkey, text_width)
-            self.__real__init__(self, *args) # pass 'self' as part of args
-#endif
   }
 }
 
@@ -191,9 +180,6 @@
 %clear(opinfo_t *);
 
 %rename (visit_patched_bytes) py_visit_patched_bytes;
-%rename (next_that) py_next_that;
-%rename (prev_that) py_prev_that;
-
 %rename (get_bytes) py_get_bytes;
 %rename (get_bytes_and_mask) py_get_bytes_and_mask;
 %rename (get_strlit_contents) py_get_strlit_contents;

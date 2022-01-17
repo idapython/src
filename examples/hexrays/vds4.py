@@ -10,7 +10,9 @@ description:
     * user defined number formats
     * user defined local variable names, types, comments
 
-author: EiNSTeiN_ <einstein@g3nius.org>
+  This script loads information from the database without decompiling anything.
+
+author: EiNSTeiN_ (einstein@g3nius.org)
 """
 
 from __future__ import print_function
@@ -20,19 +22,17 @@ import ida_hexrays
 import ida_bytes
 
 def run():
-
-    cfunc = ida_hexrays.decompile(ida_kernwin.get_screen_ea())
-    if not cfunc:
-        print('Please move the cursor into a function.')
-        return
-
-    entry_ea = cfunc.entry_ea
-    print("Dump of user-defined information for function at %x" % (entry_ea, ))
+    f = ida_funcs.get_func(ida_kernwin.get_screen_ea());
+    if f is None:
+        print("Please position the cursor within a function")
+        return True
+    entry_ea = f.start_ea
+    print("Dump of user-defined information for function at %x" % entry_ea)
 
     # Display user defined labels.
     labels = ida_hexrays.restore_user_labels(entry_ea);
     if labels is not None:
-        print("------- %u user defined labels" % (len(labels), ))
+        print("------- %u user defined labels" % len(labels))
         for org_label, name in labels.items():
             print("Label %d: %s" % (org_label, str(name)))
         ida_hexrays.user_labels_free(labels)
@@ -58,8 +58,10 @@ def run():
     if numforms is not None:
         print("------- %u user defined number formats" % (len(numforms), ))
         for ol, nf in numforms.items():
-
-            print("Number format at %a, operand %d: %s" % (ol.ea, ol.opnum, "negated " if (nf.props & NF_NEGATE) != 0 else ""))
+            print("Number format at %a, operand %d: %s" % \
+                  (ol.ea,
+                   ol.opnum,
+                   "negated " if (ord(nf.props) & ida_hexrays.NF_NEGATE) != 0 else ""))
 
             if nf.is_enum():
                 print("enum %s (serial %d)" % (str(nf.type_name), nf.serial))

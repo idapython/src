@@ -68,10 +68,6 @@
 %rpc_packet_data_t(pkt_push_md_result_t, PKT_PUSH_MD_RESULT);
 %rpc_packet_data_t(pkt_get_pop_t, PKT_GET_POP);
 %rpc_packet_data_t(pkt_get_pop_result_t, PKT_GET_POP_RESULT);
-%rpc_packet_data_t(pkt_dump_md_t, PKT_DUMP_MD);
-%rpc_packet_data_t(pkt_dump_md_result_t, PKT_DUMP_MD_RESULT);
-%rpc_packet_data_t(pkt_clean_db_t, PKT_CLEAN_DB);
-%rpc_packet_data_t(pkt_debugctl_t, PKT_DEBUGCTL);
 
 %template(lumina_op_res_vec_t) qvector<lumina_op_res_t>;
 

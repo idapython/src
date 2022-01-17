@@ -1,18 +1,15 @@
 
 function on_see_also(see_also)
 {
-        if ( is_expanded() )
+        var idx = see_also.indexOf("#");
+        if ( idx > -1 )
+                see_also = see_also.substring(idx+1,see_also.length);
+        var entry = find_entry_el(document.getElementById('DIV_' + see_also));
+        if ( entry )
         {
-                // likely it is, since I clicked on "see also";
-                // close it
-
-                expand_toggle(name_expanded);
+                set_entry_state(entry, true);
+                entry.scrollIntoView();
         }
-
-        expand_toggle(see_also);
-
-        document.getElementById('IMG_' + see_also).scrollIntoView();
-        return true;
 }
 
 function find_parent_with_class(el, klass)
@@ -56,6 +53,8 @@ function handle_click(e)
                 set_entry_state(entry_el, false);
         else if ( el.classList.contains("expander") )
                 set_entry_state(entry_el, true);
+        else if ( el.classList.contains("ex_link") ) // see also
+                on_see_also(el.href);
         else
                 return;
         e.stopPropagation();

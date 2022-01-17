@@ -6,7 +6,7 @@
 
 #### dump_func_info
 <details>
-  <summary>dump (some) information about the current function.</summary>
+  <summary>Dump (some) information about the current function.</summary>
 
 <blockquote>
 
@@ -20,8 +20,6 @@ analysis
 Dump some of the most interesting bits of information about
 the function we are currently looking at.
 
-#### Keywords
-
 #### Uses
 * ida_funcs.FUNC_FRAME
 * ida_funcs.FUNC_LUMINA
@@ -31,8 +29,6 @@ the function we are currently looking at.
 * ida_funcs.is_func_tail
 * ida_kernwin.get_screen_ea
 
-#### See also
-
 </blockquote>
 
   </details>
@@ -41,7 +37,7 @@ the function we are currently looking at.
 
 #### actions
 <details>
-  <summary>custom actions, with icons & tooltips</summary>
+  <summary>Custom actions, with icons & tooltips</summary>
 
 <blockquote>
 
@@ -55,8 +51,19 @@ core
 How to create user actions, that once created can be
 inserted in menus, toolbars, context menus, ...
 
+Those actions, when triggered, will be passed a 'context'
+that contains some of the most frequently needed bits of
+information.
+
+In addition, custom actions can determine when they want
+to be available (through their
+`ida_kernwin.action_handler_t.update` callback)
+
+#### Shortcut
+Ctrl+F12
+
 #### Keywords
-actions
+actions ctxmenu UI_Hooks
 
 #### Uses
 * ida_kernwin.AST_DISABLE_FOR_WIDGET
@@ -83,7 +90,7 @@ actions
 
 #### add_hotkey
 <details>
-  <summary>triggering bits of code by pressing a shortcut</summary>
+  <summary>Triggering bits of code by pressing a shortcut</summary>
 
 <blockquote>
 
@@ -97,6 +104,11 @@ core
 `ida_kernwin.add_hotkey` is a simpler, but much less flexible
 alternative to `ida_kernwin.register_action` (though it does
 use the same mechanism under the hood.)
+
+It's particularly useful during prototyping, but note that the
+actions that are created cannot be inserted in menus, toolbars
+or cannot provide a custom `ida_kernwin.action_handler_t.update`
+callback.
 
 #### Keywords
 actions
@@ -114,7 +126,7 @@ actions
 
 #### add_idc_hotkey
 <details>
-  <summary>triggering bits of code by pressing a shortcut (older version)</summary>
+  <summary>Triggering bits of code by pressing a shortcut (older version)</summary>
 
 <blockquote>
 
@@ -146,7 +158,7 @@ actions
 
 #### auto_instantiate_widget_plugin
 <details>
-  <summary>better integrating custom widgets in the desktop layout</summary>
+  <summary>Better integrating custom widgets in the desktop layout</summary>
 
 <blockquote>
 
@@ -160,8 +172,24 @@ core
 This is an example demonstrating how one can create widgets from a plugin,
 and have them re-created automatically at IDA startup-time or at desktop load-time.
 
+This example should be placed in the 'plugins' directory of the
+IDA installation, for it to work.
+
+There are 2 ways to use this example:
+1) reloading an IDB, where the widget was opened
+   - open the widget ('View > Open subview > ...')
+   - save this IDB, and close IDA
+   - restart IDA with this IDB
+     => the widget will be visible
+
+2) reloading a desktop, where the widget was opened
+   - open the widget ('View > Open subview > ...')
+   - save the desktop ('Windows > Save desktop...') under, say, the name 'with_auto'
+   - start another IDA instance with some IDB, and load that desktop
+     => the widget will be visible
+
 #### Keywords
-desktop
+desktop plugin UI_Hooks
 
 #### Uses
 * ida_idaapi.plugin_t
@@ -176,15 +204,13 @@ desktop
 * ida_kernwin.simplecustviewer_t
 * ida_kernwin.simplecustviewer_t.Create
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### bin_search
 <details>
-  <summary>showcasing `ida_bytes.bin_search`</summary>
+  <summary>Showcasing `ida_bytes.bin_search`</summary>
 
 <blockquote>
 
@@ -198,7 +224,17 @@ core
 IDAPython's ida_bytes.bin_search function is pretty powerful,
 but can be tough to figure out at first. This example introduces
 
-#### Keywords
+ * `ida_bytes.bin_search`, and
+ * `ida_bytes.parse_binpat_str`
+
+in order to implement a simple replacement for the
+'Search > Sequence of bytes...' dialog, that lets users
+search for sequences of bytes that compose string literals
+in the binary file (either in the default 1-byte-per-char
+encoding, or as UTF-16.)
+
+#### Shortcut
+Ctrl+Shift+S
 
 #### Uses
 * ida_bytes.BIN_SEARCH_FORWARD
@@ -224,7 +260,58 @@ but can be tough to figure out at first. This example introduces
 * ida_nalt.BPU_2B
 * ida_nalt.get_default_encoding_idx
 
+</blockquote>
+
+  </details>
+
+#### colorize_disassembly_on_the_fly
+<details>
+  <summary>An easy-to-use way to colorize lines</summary>
+
+<blockquote>
+
+#### Source code
+<a href="https://github.com/idapython/src/blob/master/examples/core/colorize_disassembly_on_the_fly.py">core/colorize_disassembly_on_the_fly.py</a>
+
+#### Category
+core
+
+#### Description
+This builds upon the `ida_kernwin.UI_Hooks.get_lines_rendering_info`
+feature, to provide a quick & easy way to colorize disassembly
+lines.
+
+Contrary to @colorize_disassembly, the coloring is not persisted in
+the database, and will therefore be lost after the session.
+
+By triggering the action multiple times, the user can "carousel"
+across 4 predefined colors (and return to the "no color" state.)
+
+#### Shortcut
+!
+
+#### Keywords
+coloring UI_Hooks
+
+#### Uses
+* ida_kernwin.AST_DISABLE_FOR_WIDGET
+* ida_kernwin.AST_ENABLE_FOR_WIDGET
+* ida_kernwin.CK_EXTRA5
+* ida_kernwin.CK_EXTRA6
+* ida_kernwin.CK_EXTRA7
+* ida_kernwin.CK_EXTRA8
+* ida_kernwin.UI_Hooks
+* ida_kernwin.action_desc_t
+* ida_kernwin.get_current_viewer
+* ida_kernwin.get_custom_viewer_location
+* ida_kernwin.get_custom_viewer_place_xcoord
+* ida_kernwin.get_widget_title
+* ida_kernwin.line_rendering_output_entry_t
+* ida_kernwin.register_action
+* ida_moves.lochist_entry_t
+
 #### See also
+* [colorize_disassembly](#colorize_disassembly)
 
 </blockquote>
 
@@ -232,7 +319,7 @@ but can be tough to figure out at first. This example introduces
 
 #### create_structure_programmatically
 <details>
-  <summary>programmatically create & populate a structure</summary>
+  <summary>Programmatically create & populate a structure</summary>
 
 <blockquote>
 
@@ -245,8 +332,6 @@ core
 #### Description
 Usage of the API to create & populate a structure with
 members of different types.
-
-#### Keywords
 
 #### Uses
 * ida_bytes.FF_BYTE
@@ -273,7 +358,8 @@ members of different types.
 * idc.del_struc
 * idc.set_member_type
 
-#### See also
+#### Author
+Gergely Erdelyi (gergely.erdelyi@d-dome.net)
 
 </blockquote>
 
@@ -281,7 +367,7 @@ members of different types.
 
 #### custom_cli
 <details>
-  <summary>a custom command-line interpreter</summary>
+  <summary>A custom command-line interpreter</summary>
 
 <blockquote>
 
@@ -294,7 +380,9 @@ core
 #### Description
 Illustrates how one can add command-line interpreters to IDA
 
-#### Keywords
+This custom interpreter doesn't actually run any code; it's
+there as a 'getting started'.
+It provides an example tab completion support.
 
 #### Uses
 * ida_idaapi.NW_CLOSEIDB
@@ -304,15 +392,13 @@ Illustrates how one can add command-line interpreters to IDA
 * ida_idaapi.notify_when
 * ida_kernwin.cli_t
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### custom_data_types_and_formats
 <details>
-  <summary>using custom data types & printers</summary>
+  <summary>Using custom data types & printers</summary>
 
 <blockquote>
 
@@ -326,7 +412,10 @@ core
 IDA can be extended to support certain data types that it
 does not know about out-of-the-box.
 
-#### Keywords
+A 'custom data type' provide information about the type &
+size of a piece of data, while a 'custom data format' is in
+charge of formatting that data (there can be more than
+one format for a specific 'custom data type'.)
 
 #### Uses
 * ida_bytes.data_format_t
@@ -350,15 +439,13 @@ does not know about out-of-the-box.
 * ida_netnode.netnode
 * ida_struct.is_member_id
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### dump_extra_comments
 <details>
-  <summary>retrieve extra comments</summary>
+  <summary>Retrieve extra comments</summary>
 
 <blockquote>
 
@@ -372,7 +459,14 @@ core
 Use the `ida_lines.get_extra_cmt` API to retrieve anterior
 and posterior extra comments.
 
+This script registers two actions, that can be used to dump
+the previous and next extra comments.
+
+#### Shortcuts
+Ctrl+Shift+Y Ctrl+Shift+Z
+
 #### Keywords
+ctxmenu
 
 #### Uses
 * ida_kernwin.AST_DISABLE_FOR_WIDGET
@@ -390,15 +484,13 @@ and posterior extra comments.
 * ida_lines.get_extra_cmt
 * ida_view
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### dump_flowchart
 <details>
-  <summary>dump function flowchart</summary>
+  <summary>Dump function flowchart</summary>
 
 <blockquote>
 
@@ -411,7 +503,9 @@ core
 #### Description
 Dumps the current function's flowchart, using 2 methods:
 
-#### Keywords
+  * the low-level `ida_gdl.qflow_chart_t` type
+  * the somewhat higher-level, and slightly more pythonic
+    `ida_gdl.FlowChart` type.
 
 #### Uses
 * ida_funcs.get_func
@@ -419,15 +513,13 @@ Dumps the current function's flowchart, using 2 methods:
 * ida_gdl.qflow_chart_t
 * ida_kernwin.get_screen_ea
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### dump_selection
 <details>
-  <summary>retrieve & dump current selection</summary>
+  <summary>Retrieve & dump current selection</summary>
 
 <blockquote>
 
@@ -443,7 +535,14 @@ widget ("IDA View-A", "Hex View-1", "Pseudocode-A", ...) as
 two "cursors", and from there retrieve (in fact, generate)
 the corresponding text.
 
-#### Keywords
+After running this script:
+
+  * select some text in one of the listing widgets (i.e.,
+    "IDA View-*", "Enums", "Structures", "Pseudocode-*")
+  * press Ctrl+Shift+S to dump the selection
+
+#### Shortcut
+Ctrl+Shift+S
 
 #### Uses
 * ida_kernwin.ACF_HAS_SELECTION
@@ -462,15 +561,13 @@ the corresponding text.
 * ida_kernwin.unregister_action
 * ida_lines.tag_remove
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### extend_idc
 <details>
-  <summary>add functions to the IDC runtime from IDAPython</summary>
+  <summary>Add functions to the IDC runtime from IDAPython</summary>
 
 <blockquote>
 
@@ -484,13 +581,17 @@ core
 You can add IDC functions to IDA, whose "body" consists of
 IDAPython statements!
 
-#### Keywords
+We'll register a 'pow' function, available to all IDC code,
+that when invoked will call back into IDAPython, and execute
+the provided function body.
+
+After running this script, try switching to the IDC interpreter
+(using the button on the lower-left corner of IDA) and executing
+`pow(3, 7)`
 
 #### Uses
 * ida_expr.VT_LONG
 * ida_expr.add_idc_func
-
-#### See also
 
 </blockquote>
 
@@ -498,7 +599,7 @@ IDAPython statements!
 
 #### idapythonrc
 <details>
-  <summary>code to be run right after IDAPython initialization</summary>
+  <summary>Code to be run right after IDAPython initialization</summary>
 
 <blockquote>
 
@@ -511,11 +612,11 @@ core
 #### Description
 The `idapythonrc.py` file:
 
-#### Keywords
+  * %APPDATA%\Hex-Rays\IDA Pro\idapythonrc.py (on Windows)
+  * ~/.idapro/idapythonrc.py (on Linux & Mac)
 
-#### Uses
-
-#### See also
+can contain any IDAPython code that will be run as soon as
+IDAPython is done successfully initializing.
 
 </blockquote>
 
@@ -523,7 +624,7 @@ The `idapythonrc.py` file:
 
 #### install_user_defined_prefix
 <details>
-  <summary>inserting information into disassembly prefixes</summary>
+  <summary>Inserting information into disassembly prefixes</summary>
 
 <blockquote>
 
@@ -540,6 +641,7 @@ information (e.g., '.text:08047718'), but it is possible to
 `ida_lines.user_defined_prefix_t` helper type.
 
 #### Keywords
+plugin
 
 #### Uses
 * ida_idaapi.PLUGIN_KEEP
@@ -547,7 +649,58 @@ information (e.g., '.text:08047718'), but it is possible to
 * ida_lines.SCOLOR_INV
 * ida_lines.user_defined_prefix_t
 
-#### See also
+</blockquote>
+
+  </details>
+
+#### list_function_items
+<details>
+  <summary>Showcases (a few of) the iterators available on a function</summary>
+
+<blockquote>
+
+#### Source code
+<a href="https://github.com/idapython/src/blob/master/examples/core/list_function_items.py">core/list_function_items.py</a>
+
+#### Category
+core
+
+#### Description
+This demonstrates how to use some of the iterators available on the func_t type.
+
+This example will focus on:
+
+  * `func_t[.__iter__]`: the default iterator; iterates on instructions
+  * `func_t.data_items`: iterate on data items contained within a function
+  * `func_t.head_items`: iterate on 'heads' (i.e., addresses containing
+                         the start of an instruction, or a data item.
+  * `func_t.addresses`: iterate on all addresses within function (code
+                        and data, beginning of an item or not)
+
+Type `help(ida_funcs.func_t)` for a full list of iterators.
+
+In addition, one can use:
+
+  * `func_tail_iterator_t`: iterate on all the chunks (including
+                            the main one) of the function
+  * `func_parent_iterator_t`: iterate on all the parent functions,
+                              that include this chunk
+
+#### Keywords
+funcs iterator
+
+#### Uses
+* ida_bytes.get_flags
+* ida_bytes.is_code
+* ida_bytes.is_data
+* ida_bytes.is_tail
+* ida_bytes.is_unknown
+* ida_funcs.func_tail_iterator_t
+* ida_funcs.get_fchunk
+* ida_funcs.get_func
+* ida_funcs.get_func_name
+* ida_kernwin.get_screen_ea
+* ida_ua.print_insn_mnem
 
 </blockquote>
 
@@ -555,7 +708,7 @@ information (e.g., '.text:08047718'), but it is possible to
 
 #### list_imports
 <details>
-  <summary>enumerate file imports</summary>
+  <summary>Enumerate file imports</summary>
 
 <blockquote>
 
@@ -568,14 +721,10 @@ core
 #### Description
 Using the API to enumerate file imports.
 
-#### Keywords
-
 #### Uses
 * ida_nalt.enum_import_names
 * ida_nalt.get_import_module_name
 * ida_nalt.get_import_module_qty
-
-#### See also
 
 </blockquote>
 
@@ -583,7 +732,7 @@ Using the API to enumerate file imports.
 
 #### list_patched_bytes
 <details>
-  <summary>enumerate patched bytes</summary>
+  <summary>Enumerate patched bytes</summary>
 
 <blockquote>
 
@@ -597,13 +746,9 @@ core
 Using the API to iterate over all the places in the file,
 that were patched using IDA.
 
-#### Keywords
-
 #### Uses
 * ida_bytes.visit_patched_bytes
 * ida_idaapi.BADADDR
-
-#### See also
 
 </blockquote>
 
@@ -611,7 +756,7 @@ that were patched using IDA.
 
 #### list_problems
 <details>
-  <summary>enumerate problems</summary>
+  <summary>Enumerate problems</summary>
 
 <blockquote>
 
@@ -624,8 +769,6 @@ core
 #### Description
 Using the API to list all problem[atic situation]s that IDA
 encountered during analysis.
-
-#### Keywords
 
 #### Uses
 * ida_ida.inf_get_min_ea
@@ -649,15 +792,13 @@ encountered during analysis.
 * ida_problems.get_problem
 * ida_problems.get_problem_name
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### list_segment_functions
 <details>
-  <summary>list all functions (and xrefs) in segment</summary>
+  <summary>List all functions (and xrefs) in segment</summary>
 
 <blockquote>
 
@@ -678,11 +819,9 @@ xrefs
 * ida_funcs.get_func
 * ida_funcs.get_func_name
 * ida_funcs.get_next_func
-* ida_idaapi.BADADDR
 * ida_kernwin.get_screen_ea
 * ida_segment.getseg
-* ida_xref.get_first_cref_to
-* ida_xref.get_next_cref_to
+* ida_xref.xrefblk_t
 
 #### See also
 * [list_segment_functions_using_idautils](#list_segment_functions_using_idautils)
@@ -693,7 +832,7 @@ xrefs
 
 #### list_segment_functions_using_idautils
 <details>
-  <summary>list all functions (and xrefs) in segment</summary>
+  <summary>List all functions (and xrefs) in segment</summary>
 
 <blockquote>
 
@@ -706,6 +845,9 @@ core
 #### Description
 List all the functions in the current segment, as well as
 all the cross-references to them.
+
+Contrary to @list_segment_functions, this uses the somewhat
+higher-level `idautils` module.
 
 #### Keywords
 xrefs
@@ -727,7 +869,7 @@ xrefs
 
 #### list_stkvar_xrefs
 <details>
-  <summary>list all xrefs to a function stack variable</summary>
+  <summary>List all xrefs to a function stack variable</summary>
 
 <blockquote>
 
@@ -742,6 +884,9 @@ Contrary to (in-memory) data & code xrefs, retrieving stack variables
 xrefs requires a bit more work than just using ida_xref's first_to(),
 next_to() (or higher level utilities such as idautils.XrefsTo)
 
+#### Shortcut
+Ctrl+Shift+F7
+
 #### Keywords
 xrefs
 
@@ -750,7 +895,6 @@ xrefs
 * ida_bytes.is_stkvar
 * ida_frame.calc_stkvar_struc_offset
 * ida_frame.get_frame
-* ida_funcs.func_item_iterator_t
 * ida_funcs.get_func
 * ida_ida.UA_MAXOP
 * ida_kernwin.AST_DISABLE_FOR_WIDGET
@@ -767,15 +911,13 @@ xrefs
 * ida_ua.decode_insn
 * ida_ua.insn_t
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### list_strings
 <details>
-  <summary>retrieve the strings that are present in the IDB</summary>
+  <summary>Retrieve the strings that are present in the IDB</summary>
 
 <blockquote>
 
@@ -790,8 +932,6 @@ This uses `idautils.Strings` to iterate over the string literals
 that are present in the IDB. Contrary to @show_selected_strings,
 this will not require that the "Strings" window is opened & available.
 
-#### Keywords
-
 #### Uses
 * idautils.Strings
 
@@ -804,7 +944,7 @@ this will not require that the "Strings" window is opened & available.
 
 #### produce_c_file
 <details>
-  <summary>decompile entire file</summary>
+  <summary>Decompile entire file</summary>
 
 <blockquote>
 
@@ -815,11 +955,19 @@ this will not require that the "Strings" window is opened & available.
 core
 
 #### Description
-automate IDA to perform auto-analysis on a file and,
+Automate IDA to perform auto-analysis on a file and,
 once that is done, produce a .c file containing the
 decompilation of all the functions in that file.
 
-#### Keywords
+Run like so:
+
+      ida -A "-S...path/to/produce_c_file.py" <binary-file>
+
+where:
+
+  * -A instructs IDA to run in non-interactive mode
+  * -S holds a path to the script to run (note this is a single token;
+       there is no space between '-S' and its path.)
 
 #### Uses
 * ida_auto.auto_wait
@@ -831,15 +979,13 @@ decompilation of all the functions in that file.
 * ida_loader.get_path
 * ida_pro.qexit
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### produce_lst_file
 <details>
-  <summary>produce listing</summary>
+  <summary>Produce listing</summary>
 
 <blockquote>
 
@@ -850,10 +996,18 @@ decompilation of all the functions in that file.
 core
 
 #### Description
-automate IDA to perform auto-analysis on a file and,
+Automate IDA to perform auto-analysis on a file and,
 once that is done, produce a .lst file with the disassembly.
 
-#### Keywords
+Run like so:
+
+      ida -A "-S...path/to/produce_lst_file.py" <binary-file>
+
+where:
+
+  * -A instructs IDA to run in non-interactive mode
+  * -S holds a path to the script to run (note this is a single token;
+       there is no space between '-S' and its path.)
 
 #### Uses
 * ida_auto.auto_wait
@@ -866,15 +1020,13 @@ once that is done, produce a .lst file with the disassembly.
 * ida_loader.get_path
 * ida_pro.qexit
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### register_timer
 <details>
-  <summary>using timers for delayed execution</summary>
+  <summary>Using timers for delayed execution</summary>
 
 <blockquote>
 
@@ -887,12 +1039,8 @@ core
 #### Description
 Register (possibly repeating) timers.
 
-#### Keywords
-
 #### Uses
 * ida_kernwin.register_timer
-
-#### See also
 
 </blockquote>
 
@@ -900,7 +1048,7 @@ Register (possibly repeating) timers.
 
 #### trigger_actions_programmatically
 <details>
-  <summary>execute existing actions programmatically</summary>
+  <summary>Execute existing actions programmatically</summary>
 
 <blockquote>
 
@@ -914,6 +1062,13 @@ core
 It's possible to invoke any action programmatically, by using
 either of those two:
 
+  * ida_kernwin.execute_ui_requests()
+  * ida_kernwin.process_ui_action()
+
+Ideally, this script should be run through the "File > Script file..."
+menu, so as to keep focus on "IDA View-A" and have the
+'ProcessUiActions' part work as intended.
+
 #### Keywords
 actions
 
@@ -923,8 +1078,6 @@ actions
 * ida_kernwin.msg
 * ida_kernwin.process_ui_action
 
-#### See also
-
 </blockquote>
 
   </details>
@@ -933,7 +1086,7 @@ actions
 
 #### automatic_steps
 <details>
-  <summary>programmatically drive a debugging session</summary>
+  <summary>Programmatically drive a debugging session</summary>
 
 <blockquote>
 
@@ -949,6 +1102,7 @@ instructions. Each instruction is disassembled after
 execution.
 
 #### Keywords
+DBG_Hooks
 
 #### Uses
 * ida_dbg.DBG_Hooks
@@ -962,15 +1116,13 @@ execution.
 * ida_lines.generate_disasm_line
 * ida_lines.tag_remove
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### dbg_trace
 <details>
-  <summary>using the low-level tracing hook</summary>
+  <summary>Using the low-level tracing hook</summary>
 
 <blockquote>
 
@@ -984,7 +1136,10 @@ debugging
 This script demonstrates using the low-level tracing hook
 (ida_dbg.DBG_Hooks.dbg_trace). It can be run like so:
 
+     ida[t].exe -B -Sdbg_trace.py -Ltrace.log file.exe
+
 #### Keywords
+DBG_Hooks
 
 #### Uses
 * GENDSM_FORCE_CODE
@@ -1021,7 +1176,53 @@ This script demonstrates using the low-level tracing hook
 * ida_ua.insn_t
 * idc.ARGV
 
-#### See also
+</blockquote>
+
+  </details>
+
+#### print_call_stack
+<details>
+  <summary>Print call stack (on Linux)</summary>
+
+<blockquote>
+
+#### Source code
+<a href="https://github.com/idapython/src/blob/master/examples/debugging/misc/print_call_stack.py">debugging/misc/print_call_stack.py</a>
+
+#### Category
+debugging
+
+#### Description
+           Print the return addresses from the call stack at a breakpoint.
+           (and print also the module and the debug name from debugger)
+
+To use this example:
+
+  * run `ida64` on test program `simple_appcall_linux64`, or
+    `ida` on test program `simple_appcall_linux32`, and wait for
+    auto-analysis to finish
+  * put a breakpoint where you want to see the call stack
+  * select the 'linux debugger' (either local, or remote)
+  * start debugging
+  * Press Shift+C at the breakpoint
+
+#### Shortcut
+Shift+C
+
+#### Uses
+* ida_dbg.collect_stack_trace
+* ida_dbg.get_current_thread
+* ida_dbg.get_module_info
+* ida_idd.call_stack_t
+* ida_idd.modinfo_t
+* ida_kernwin.AST_ENABLE_ALWAYS
+* ida_kernwin.action_desc_t
+* ida_kernwin.register_action
+* ida_name.GNCN_NOCOLOR
+* ida_name.GNCN_NOLABEL
+* ida_name.GNCN_NOSEG
+* ida_name.GNCN_PREFDBG
+* ida_name.get_nice_colored_name
 
 </blockquote>
 
@@ -1029,7 +1230,7 @@ This script demonstrates using the low-level tracing hook
 
 #### registers_context_menu
 <details>
-  <summary>adding actions to the "registers" widget(s)</summary>
+  <summary>Adding actions to the "registers" widget(s)</summary>
 
 <blockquote>
 
@@ -1043,7 +1244,11 @@ debugging
 It's possible to add actions to the context menu of
 pretty much all widgets in IDA.
 
+This example shows how to do just that for
+registers-displaying widgets (e.g., "General registers")
+
 #### Keywords
+ctxmenu UI_Hooks
 
 #### Uses
 * ida_dbg.get_dbg_reg_info
@@ -1063,15 +1268,13 @@ pretty much all widgets in IDA.
 * ida_ua.dt_qword
 * ida_ua.dt_word
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### show_debug_names
 <details>
-  <summary>retrieving & dumping debuggee symbols</summary>
+  <summary>Retrieving & dumping debuggee symbols</summary>
 
 <blockquote>
 
@@ -1085,8 +1288,6 @@ debugging
 Queries the debugger (possibly remotely) for the list of
 symbols that the process being debugged, provides.
 
-#### Keywords
-
 #### Uses
 * ida_dbg.get_process_state
 * ida_dbg.is_debugger_on
@@ -1094,50 +1295,13 @@ symbols that the process being debugged, provides.
 * ida_ida.inf_get_min_ea
 * ida_name.get_debug_names
 
-#### See also
-
-</blockquote>
-
-  </details>
-
-#### simple_appcall_common
-<details>
-  <summary></summary>
-
-<blockquote>
-
-#### Source code
-<a href="https://github.com/idapython/src/blob/master/examples/debugging/appcall/simple_appcall_common.py">debugging/appcall/simple_appcall_common.py</a>
-
-#### Category
-debugging
-
-#### Description
-
-
-#### Keywords
-
-#### Uses
-* ida_dbg.DBG_Hooks
-* ida_dbg.run_to
-* ida_idaapi.BADADDR
-* ida_idd.Appcall
-* ida_idd.Appcall.byref
-* ida_idd.Appcall.int64
-* ida_kernwin.get_screen_ea
-* ida_name.get_name_ea
-* ida_name.set_name
-* ida_typeinf.apply_cdecl
-
-#### See also
-
 </blockquote>
 
   </details>
 
 #### simple_appcall_linux
 <details>
-  <summary>executing code into the application being debugged (on Linux)</summary>
+  <summary>Executing code into the application being debugged (on Linux)</summary>
 
 <blockquote>
 
@@ -1151,11 +1315,34 @@ debugging
 Using the `ida_idd.Appcall` utility to execute code in
 the process being debugged.
 
-#### Keywords
+This example will run the test program and stop wherever
+the cursor currently is, and then perform an appcall to
+execute the `ref4` and `ref8` functions.
+
+To use this example:
+
+  * run `ida64` on test program `simple_appcall_linux64`, or
+    `ida` on test program `simple_appcall_linux32`, and wait for
+    auto-analysis to finish
+  * select the 'linux debugger' (either local, or remote)
+  * run this script
+
+Note: the real body of code is in `simple_appcall_common.py`.
+
+#### Imports
+* simple_appcall_common
 
 #### Uses
-
-#### See also
+* ida_dbg.DBG_Hooks
+* ida_dbg.run_to
+* ida_idaapi.BADADDR
+* ida_idd.Appcall
+* ida_idd.Appcall.byref
+* ida_idd.Appcall.int64
+* ida_kernwin.get_screen_ea
+* ida_name.get_name_ea
+* ida_name.set_name
+* ida_typeinf.apply_cdecl
 
 </blockquote>
 
@@ -1163,7 +1350,7 @@ the process being debugged.
 
 #### simple_appcall_win
 <details>
-  <summary>executing code into the application being debugged (on Windows)</summary>
+  <summary>Executing code into the application being debugged (on Windows)</summary>
 
 <blockquote>
 
@@ -1177,12 +1364,35 @@ debugging
 Using the `ida_idd.Appcall` utility to execute code in
 the process being debugged.
 
-#### Keywords
+This example will run the test program and stop wherever
+the cursor currently is, and then perform an appcall to
+execute the `ref4` and `ref8` functions.
+
+To use this example:
+
+  * run `ida64` on test program `simple_appcall_win64.exe`, or
+    `ida` on test program `simple_appcall_win32.exe`, and wait for
+    auto-analysis to finish
+  * select the 'windows debugger' (either local, or remote)
+  * run this script
+
+Note: the real body of code is in `simple_appcall_common.py`.
+
+#### Imports
+* simple_appcall_common
 
 #### Uses
+* ida_dbg.DBG_Hooks
+* ida_dbg.run_to
 * ida_ida.inf_is_64bit
-
-#### See also
+* ida_idaapi.BADADDR
+* ida_idd.Appcall
+* ida_idd.Appcall.byref
+* ida_idd.Appcall.int64
+* ida_kernwin.get_screen_ea
+* ida_name.get_name_ea
+* ida_name.set_name
+* ida_typeinf.apply_cdecl
 
 </blockquote>
 
@@ -1192,7 +1402,7 @@ the process being debugged.
 
 #### colorize_disassembly
 <details>
-  <summary>change background colours</summary>
+  <summary>Change background colours</summary>
 
 <blockquote>
 
@@ -1206,9 +1416,12 @@ disassembly
 This illustrates the setting/retrieval of background colours
 using the IDC wrappers
 
+In order to do so, we'll be assigning colors to specific ranges
+(item, function, or segment). Those will be persisted in the
+database.
+
 #### Keywords
-coloring
-idc
+coloring idc
 
 #### Uses
 * idc.CIC_FUNC
@@ -1219,6 +1432,7 @@ idc
 * idc.set_color
 
 #### See also
+* [colorize_disassembly_on_the_fly](#colorize_disassembly_on_the_fly)
 
 </blockquote>
 
@@ -1228,7 +1442,7 @@ idc
 
 #### colorize_pseudocode_lines
 <details>
-  <summary>interactively color certain pseudocode lines</summary>
+  <summary>Interactively color certain pseudocode lines</summary>
 
 <blockquote>
 
@@ -1243,8 +1457,15 @@ Provides an action that can be used to dynamically alter the
 lines background rendering for pseudocode listings (as opposed to
 using `ida_hexrays.cfunc_t.pseudocode[N].bgcolor`)
 
+After running this script, pressing 'M' on a line in a
+"Pseudocode-?" widget, will cause that line to be rendered
+with a special background color.
+
+#### Shortcut
+M
+
 #### Keywords
-colors
+colors UI_Hooks
 
 #### Uses
 * ida_hexrays.get_widget_vdui
@@ -1261,7 +1482,42 @@ colors
 * ida_kernwin.register_action
 * ida_moves.lochist_entry_t
 
+</blockquote>
+
+  </details>
+
+#### curpos_details
+<details>
+  <summary>A focus on the 'curpos' hook, printing additional details about user input</summary>
+
+<blockquote>
+
+#### Source code
+<a href="https://github.com/idapython/src/blob/master/examples/hexrays/curpos_details.py">hexrays/curpos_details.py</a>
+
+#### Category
+hexrays
+
+#### Description
+Shows how user input information can be retrieved during
+processing of a notification triggered by that input
+
+#### Keywords
+Hexrays_Hooks
+
+#### Uses
+* ida_hexrays.Hexrays_Hooks
+* ida_kernwin.get_user_input_event
+* ida_kernwin.iek_key_press
+* ida_kernwin.iek_key_release
+* ida_kernwin.iek_mouse_button_press
+* ida_kernwin.iek_mouse_button_release
+* ida_kernwin.iek_mouse_wheel
+* ida_kernwin.iek_shortcut
+* ida_kernwin.input_event_t
+
 #### See also
+* [vds_hooks](#vds_hooks)
 
 </blockquote>
 
@@ -1269,7 +1525,7 @@ colors
 
 #### decompile_entry_points
 <details>
-  <summary>automatic decompilation of functions</summary>
+  <summary>Automatic decompilation of functions</summary>
 
 <blockquote>
 
@@ -1284,7 +1540,8 @@ Attempts to load a decompiler plugin corresponding to the current
 architecture (and address size) right after auto-analysis is performed,
 and then tries to decompile the function at the first entrypoint.
 
-#### Keywords
+It is particularly suited for use with the '-S' flag, for example:
+idat -Ldecompile.log -Sdecompile_entry_points.py -c file
 
 #### Uses
 * ida_auto.auto_wait
@@ -1305,15 +1562,13 @@ and then tries to decompile the function at the first entrypoint.
 * ida_pro.qexit
 * idc.get_idb_path
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### vds1
 <details>
-  <summary>decompile & print current function.</summary>
+  <summary>Decompile & print current function.</summary>
 
 <blockquote>
 
@@ -1324,9 +1579,7 @@ and then tries to decompile the function at the first entrypoint.
 hexrays
 
 #### Description
-
-
-#### Keywords
+Decompile & print current function.
 
 #### Uses
 * ida_funcs.get_func
@@ -1336,15 +1589,13 @@ hexrays
 * ida_kernwin.get_screen_ea
 * ida_lines.tag_remove
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### vds10
 <details>
-  <summary>a custom microcode instruction optimization rule</summary>
+  <summary>A custom microcode instruction optimization rule</summary>
 
 <blockquote>
 
@@ -1358,7 +1609,16 @@ hexrays
 Installs a custom microcode instruction optimization rule,
 to transform:
 
+    call   !DbgRaiseAssertionFailure <fast:>.0
+
+into
+
+    call   !DbgRaiseAssertionFailure <fast:"char *" "assertion text">.0
+
+To see this plugin in action please use arm64_brk.i64
+
 #### Keywords
+plugin
 
 #### Uses
 * ida_bytes.get_cmt
@@ -1371,15 +1631,13 @@ to transform:
 * ida_typeinf.STI_PCCHAR
 * ida_typeinf.tinfo_t.get_stock
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### vds11
 <details>
-  <summary>a custom microcode block optimization rule (resolve `goto` chains)</summary>
+  <summary>A custom microcode block optimization rule (resolve `goto` chains)</summary>
 
 <blockquote>
 
@@ -1393,7 +1651,20 @@ hexrays
 Installs a custom microcode block optimization rule,
 to transform:
 
+      goto L1
+      ...
+    L1:
+      goto L2
+
+into
+
+      goto L2
+
+In other words we fix a goto target if it points to a chain of gotos.
+This improves the decompiler output in some cases.
+
 #### Keywords
+plugin
 
 #### Uses
 * ida_hexrays.getf_reginsn
@@ -1404,15 +1675,13 @@ to transform:
 * ida_idaapi.PLUGIN_KEEP
 * ida_idaapi.plugin_t
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### vds12
 <details>
-  <summary>list instruction registers</summary>
+  <summary>List instruction registers</summary>
 
 <blockquote>
 
@@ -1425,8 +1694,6 @@ hexrays
 #### Description
 Shows a list of direct references to a register from the
 current instruction.
-
-#### Keywords
 
 #### Uses
 * ida_bytes.get_flags
@@ -1459,15 +1726,13 @@ current instruction.
 * ida_lines.generate_disasm_line
 * ida_pro.eavec_t
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### vds13
 <details>
-  <summary>generates microcode for selection</summary>
+  <summary>Generates microcode for selection</summary>
 
 <blockquote>
 
@@ -1479,8 +1744,6 @@ hexrays
 
 #### Description
 Generates microcode for selection and dumps it to the output window.
-
-#### Keywords
 
 #### Uses
 * ida_bytes.get_flags
@@ -1495,15 +1758,13 @@ Generates microcode for selection and dumps it to the output window.
 * ida_kernwin.warning
 * ida_range.range_t
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### vds17
 <details>
-  <summary>using the "Select offsets" widget</summary>
+  <summary>Using the "Select offsets" widget</summary>
 
 <blockquote>
 
@@ -1517,7 +1778,16 @@ hexrays
 Registers an action opens the "Select offsets" widget
 (select_udt_by_offset() call).
 
+This effectively repeats the functionality already available
+through Alt+Y.
+
+Place cursor on the union field and press Shift+T
+
+#### Shortcut
+Shift+T
+
 #### Keywords
+plugin
 
 #### Uses
 * ida_hexrays.USE_KEYBOARD
@@ -1551,15 +1821,13 @@ Registers an action opens the "Select offsets" widget
 * ida_typeinf.print_tinfo
 * ida_typeinf.remove_pointer
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### vds19
 <details>
-  <summary>a custom microcode instruction optimization rule (`x | ~x => -1`)</summary>
+  <summary>A custom microcode instruction optimization rule (`x | ~x => -1`)</summary>
 
 <blockquote>
 
@@ -1573,7 +1841,16 @@ hexrays
 Installs a custom microcode instruction optimization rule,
 to transform:
 
+    x | ~x
+
+into
+
+    -1
+
+To see this plugin in action please use be_ornot_be.idb
+
 #### Keywords
+plugin
 
 #### Uses
 * ida_hexrays.init_hexrays_plugin
@@ -1587,15 +1864,13 @@ to transform:
 * ida_idaapi.PLUGIN_KEEP
 * ida_idaapi.plugin_t
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### vds21
 <details>
-  <summary>dynamically provide a custom call type</summary>
+  <summary>Dynamically provide a custom call type</summary>
 
 <blockquote>
 
@@ -1608,22 +1883,44 @@ hexrays
 #### Description
 This plugin can greatly improve decompilation of indirect calls:
 
+    call    [eax+4]
+
+For them, the decompiler has to guess the prototype of the called function.
+This has to be done at a very early phase of decompilation because
+the function prototype influences the data flow analysis. On the other
+hand, we do not have global data flow analysis results yet because
+we haven't analyzed all calls in the function. It is a chicked-and-egg
+problem.
+
+The decompiler uses various techniques to guess the called function
+prototype. While it works very well, it may fail in some cases.
+
+To fix, the user can specify the call prototype manually, using
+"Edit, Operand types, Set operand type" at the call instruction.
+
+This plugin illustrates another approach to the problem:
+if you happen to be able to calculate the call prototypes dynamically,
+this is how to inform the decompiler about them.
+
 #### Keywords
+Hexrays_Hooks plugin
 
 #### Uses
 * ida_hexrays.Hexrays_Hooks
 * ida_hexrays.init_hexrays_plugin
 * ida_hexrays.m_call
+* ida_hexrays.mcallinfo_t
 * ida_idaapi.PLUGIN_HIDE
 * ida_idaapi.PLUGIN_KEEP
 * ida_idaapi.plugin_t
 * ida_kernwin.msg
 * ida_kernwin.warning
 * ida_nalt.get_op_tinfo
+* ida_typeinf.BT_INT
+* ida_typeinf.CM_CC_STDCALL
+* ida_typeinf.CM_N32_F48
 * ida_typeinf.parse_decl
 * ida_typeinf.tinfo_t
-
-#### See also
 
 </blockquote>
 
@@ -1631,7 +1928,7 @@ This plugin can greatly improve decompilation of indirect calls:
 
 #### vds3
 <details>
-  <summary>invert if/else blocks</summary>
+  <summary>Invert if/else blocks</summary>
 
 <blockquote>
 
@@ -1645,7 +1942,36 @@ hexrays
 Registers an action that can be used to invert the `if`
 and `else` blocks of a `ida_hexrays.cif_t`.
 
+For example, a statement like
+
+    if ( cond )
+    {
+      statements1;
+    }
+    else
+    {
+      statements2;
+    }
+
+will be displayed as
+
+    if ( !cond )
+    {
+      statements2;
+    }
+    else
+    {
+      statements1;
+    }
+
+The modifications are persistent: the user can quit & restart
+IDA, and the changes will be present.
+
+#### Shortcut
+I
+
 #### Keywords
+ctxmenu Hexrays_Hooks IDP_Hooks plugin
 
 #### Uses
 * ida_hexrays.CMAT_FINAL
@@ -1665,6 +1991,7 @@ and `else` blocks of a `ida_hexrays.cif_t`.
 * ida_idaapi.PLUGIN_HIDE
 * ida_idaapi.PLUGIN_KEEP
 * ida_idaapi.plugin_t
+* ida_idp.IDP_Hooks
 * ida_kernwin.AST_DISABLE_FOR_WIDGET
 * ida_kernwin.AST_ENABLE_FOR_WIDGET
 * ida_kernwin.BWN_PSEUDOCODE
@@ -1674,7 +2001,8 @@ and `else` blocks of a `ida_hexrays.cif_t`.
 * ida_kernwin.register_action
 * ida_netnode.netnode
 
-#### See also
+#### Author
+EiNSTeiN_ (einstein@g3nius.org)
 
 </blockquote>
 
@@ -1682,7 +2010,7 @@ and `else` blocks of a `ida_hexrays.cif_t`.
 
 #### vds4
 <details>
-  <summary>dump user-defined information</summary>
+  <summary>Dump user-defined information</summary>
 
 <blockquote>
 
@@ -1696,12 +2024,18 @@ hexrays
 Prints user-defined information to the "Output" window.
 Namely:
 
-#### Keywords
+  * user defined label names
+  * user defined indented comments
+  * user defined number formats
+  * user defined local variable names, types, comments
+
+This script loads information from the database without decompiling anything.
 
 #### Uses
 * ida_bytes.get_radix
+* ida_funcs.get_func
 * ida_hexrays.CIT_COLLAPSED
-* ida_hexrays.decompile
+* ida_hexrays.NF_NEGATE
 * ida_hexrays.init_hexrays_plugin
 * ida_hexrays.lvar_uservec_t
 * ida_hexrays.restore_user_cmts
@@ -1715,7 +2049,8 @@ Namely:
 * ida_hexrays.user_numforms_free
 * ida_kernwin.get_screen_ea
 
-#### See also
+#### Author
+EiNSTeiN_ (einstein@g3nius.org)
 
 </blockquote>
 
@@ -1723,7 +2058,7 @@ Namely:
 
 #### vds5
 <details>
-  <summary>show ctree graph</summary>
+  <summary>Show ctree graph</summary>
 
 <blockquote>
 
@@ -1737,7 +2072,17 @@ hexrays
 Registers an action that can be used to show the graph of the ctree.
 The current item will be highlighted in the graph.
 
+The command shortcut is `Ctrl+Shift+G`, and is also added
+to the context menu.
+
+To display the graph, we produce a .gdl file, and
+request that ida displays that using `ida_gdl.display_gdl`.
+
+#### Shortcut
+Ctrl+Shift+G
+
 #### Keywords
+ctxmenu Hexrays_Hooks plugin
 
 #### Uses
 * ida_gdl.display_gdl
@@ -1771,15 +2116,13 @@ The current item will be highlighted in the graph.
 * ida_lines.tag_remove
 * ida_pro.str2user
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### vds6
 <details>
-  <summary>superficially modify the decompilation output</summary>
+  <summary>Superficially modify the decompilation output</summary>
 
 <blockquote>
 
@@ -1790,10 +2133,13 @@ The current item will be highlighted in the graph.
 hexrays
 
 #### Description
-modifies the decompilation output in a superficial manner,
+Modifies the decompilation output in a superficial manner,
 by removing some white spaces
 
+Note: this is rather crude, not quite "pythonic" code.
+
 #### Keywords
+Hexrays_Hooks plugin
 
 #### Uses
 * ida_hexrays.Hexrays_Hooks
@@ -1804,15 +2150,13 @@ by removing some white spaces
 * ida_lines.tag_advance
 * ida_lines.tag_skipcodes
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### vds7
 <details>
-  <summary>iterate a cblock_t object</summary>
+  <summary>Iterate a cblock_t object</summary>
 
 <blockquote>
 
@@ -1827,6 +2171,7 @@ Using a `ida_hexrays.ctree_visitor_t`, search for
 `ida_hexrays.cit_block` instances and dump them.
 
 #### Keywords
+Hexrays_Hooks
 
 #### Uses
 * ida_hexrays.CMAT_BUILT
@@ -1836,7 +2181,8 @@ Using a `ida_hexrays.ctree_visitor_t`, search for
 * ida_hexrays.ctree_visitor_t
 * ida_hexrays.init_hexrays_plugin
 
-#### See also
+#### Author
+EiNSTeiN_ (einstein@g3nius.org)
 
 </blockquote>
 
@@ -1844,7 +2190,7 @@ Using a `ida_hexrays.ctree_visitor_t`, search for
 
 #### vds8
 <details>
-  <summary>using `ida_hexrays.udc_filter_t`</summary>
+  <summary>Using `ida_hexrays.udc_filter_t`</summary>
 
 <blockquote>
 
@@ -1859,7 +2205,16 @@ Registers an action that uses a `ida_hexrays.udc_filter_t` to decompile
 `svc 0x900001` and `svc 0x9000F8` as function calls to
 `svc_exit()` and `svc_exit_group()` respectively.
 
+You will need to have an ARM + Linux IDB for this script to be usable
+
+In addition to having a shortcut, the action will be present
+in the context menu.
+
+#### Shortcut
+Ctrl+Shift+U
+
 #### Keywords
+ctxmenu UI_Hooks
 
 #### Uses
 * ida_allins.ARM_svc
@@ -1877,15 +2232,13 @@ Registers an action that uses a `ida_hexrays.udc_filter_t` to decompile
 * ida_kernwin.get_widget_type
 * ida_kernwin.register_action
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### vds_create_hint
 <details>
-  <summary>decompiler hints</summary>
+  <summary>Decompiler hints</summary>
 
 <blockquote>
 
@@ -1899,7 +2252,16 @@ hexrays
 Handle `ida_hexrays.hxe_create_hint` notification using hooks,
 to return our own.
 
+If the object under the cursor is:
+
+* a function call, prefix the original decompiler hint with `==> `
+* a local variable declaration, replace the hint with our own in
+  the form of `!{varname}` (where `{varname}` is replaced with the
+  variable name)
+* an `if` statement, replace the hint with our own, saying "condition"
+
 #### Keywords
+Hexrays_Hooks
 
 #### Uses
 * ida_hexrays.Hexrays_Hooks
@@ -1909,15 +2271,13 @@ to return our own.
 * ida_hexrays.cit_if
 * ida_hexrays.cot_call
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### vds_hooks
 <details>
-  <summary>various decompiler hooks</summary>
+  <summary>Various decompiler hooks</summary>
 
 <blockquote>
 
@@ -1930,12 +2290,24 @@ hexrays
 #### Description
 Shows how to hook to many notifications sent by the decompiler.
 
+This plugin doesn't really accomplish anything: it just prints
+the parameters.
+
+The list of notifications handled below should be exhaustive,
+and is there to hint at what is possible to accomplish by
+subclassing `ida_hexrays.Hexrays_Hooks`
+
 #### Keywords
+Hexrays_Hooks
 
 #### Uses
 * ida_hexrays.Hexrays_Hooks
+* ida_hexrays.cfunc_t
+* ida_hexrays.lvar_t
+* ida_hexrays.vdui_t
 
 #### See also
+* [curpos_details](#curpos_details)
 
 </blockquote>
 
@@ -1943,7 +2315,7 @@ Shows how to hook to many notifications sent by the decompiler.
 
 #### vds_modify_user_lvars
 <details>
-  <summary>modifying local variables</summary>
+  <summary>Modifying local variables</summary>
 
 <blockquote>
 
@@ -1957,8 +2329,6 @@ hexrays
 Use a `ida_hexrays.user_lvar_modifier_t` to modify names,
 comments and/or types of local variables.
 
-#### Keywords
-
 #### Uses
 * ida_hexrays.modify_user_lvars
 * ida_hexrays.user_lvar_modifier_t
@@ -1966,15 +2336,13 @@ comments and/or types of local variables.
 * ida_typeinf.tinfo_t
 * idc.here
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### vds_xrefs
 <details>
-  <summary>show decompiler xrefs</summary>
+  <summary>Show decompiler xrefs</summary>
 
 <blockquote>
 
@@ -1988,7 +2356,14 @@ hexrays
 Show decompiler-style Xref when the `Ctrl+X` key is
 pressed in the Decompiler window.
 
+* supports any global name: functions, strings, integers, ...
+* supports structure member.
+
+#### Shortcut
+Ctrl+X
+
 #### Keywords
+ctxmenu Hexrays_Hooks
 
 #### Uses
 * ida_funcs.get_func_name
@@ -2023,7 +2398,8 @@ pressed in the Decompiler window.
 * idautils.Functions
 * idautils.XrefsTo
 
-#### See also
+#### Author
+EiNSTeiN_ (einstein@g3nius.org)
 
 </blockquote>
 
@@ -2031,9 +2407,35 @@ pressed in the Decompiler window.
 
 ## Category: idbhooks
 
+#### log_idb_events
+<details>
+  <summary>Logging IDB events</summary>
+
+<blockquote>
+
+#### Source code
+<a href="https://github.com/idapython/src/blob/master/examples/idbhooks/log_idb_events.py">idbhooks/log_idb_events.py</a>
+
+#### Category
+idbhooks
+
+#### Description
+These hooks will be notified about IDB events, and
+dump their information to the "Output" window
+
+#### Keywords
+IDB_Hooks
+
+#### Uses
+* ida_idp.IDB_Hooks
+
+</blockquote>
+
+  </details>
+
 #### operand_changed
 <details>
-  <summary>notify the user when an instruction operand changes</summary>
+  <summary>Notify the user when an instruction operand changes</summary>
 
 <blockquote>
 
@@ -2048,6 +2450,7 @@ Show notifications whenever the user changes
 an instruction's operand, or a data item.
 
 #### Keywords
+IDB_Hooks
 
 #### Uses
 * ida_bytes.ALOPT_IGNCLT
@@ -2072,8 +2475,6 @@ an instruction's operand, or a data item.
 * ida_nalt.get_strtype_bpu
 * ida_nalt.opinfo_t
 * ida_struct.get_struc_name
-
-#### See also
 
 </blockquote>
 
@@ -2107,6 +2508,7 @@ Note: 'ti_changed' is also called for changes to the function
 frames, but we'll only record function prototypes changes.
 
 #### Keywords
+IDB_Hooks
 
 #### Uses
 * ida_funcs.get_func
@@ -2117,8 +2519,6 @@ frames, but we'll only record function prototypes changes.
 * ida_typeinf.get_idati
 * ida_typeinf.tinfo_t
 
-#### See also
-
 </blockquote>
 
   </details>
@@ -2127,7 +2527,7 @@ frames, but we'll only record function prototypes changes.
 
 #### ana_emu_out
 <details>
-  <summary>override some parts of the processor module</summary>
+  <summary>Override some parts of the processor module</summary>
 
 <blockquote>
 
@@ -2142,7 +2542,10 @@ Implements disassembly of BUG_INSTR used in Linux kernel
 BUG() macro, which is architecturally undefined and is not
 disassembled by IDA's ARM module
 
+See Linux/arch/arm/include/asm/bug.h for more info
+
 #### Keywords
+IDP_Hooks
 
 #### Uses
 * ida_bytes.get_wide_dword
@@ -2154,15 +2557,13 @@ disassembled by IDA's ARM module
 * ida_idp.str2reg
 * ida_segregs.get_sreg
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### assemble
 <details>
-  <summary>an `ida_idp.IDP_Hooks.assembly` implementation</summary>
+  <summary>An `ida_idp.IDP_Hooks.assembly` implementation</summary>
 
 <blockquote>
 
@@ -2175,13 +2576,15 @@ idphooks
 #### Description
 We add support for assembling the following pseudo instructions:
 
+* "zero eax" -> xor eax, eax
+* "nothing" -> nop
+
 #### Keywords
+IDP_Hooks
 
 #### Uses
 * ida_idp.IDP_Hooks
 * idautils.DecodeInstruction
-
-#### See also
 
 </blockquote>
 
@@ -2191,7 +2594,7 @@ We add support for assembling the following pseudo instructions:
 
 #### inject_command
 <details>
-  <summary>injecting commands is the "Output" window</summary>
+  <summary>Injecting commands in the "Output" window</summary>
 
 <blockquote>
 
@@ -2205,7 +2608,18 @@ pyqt
 This example illustrates how one can execute commands in the
 "Output" window, from their own widgets.
 
-#### Keywords
+A few notes:
+
+* the original, underlying `cli:Execute` action, that has to be
+  triggered for the code present in the input field to execute
+  and be placed in the history, requires that the input field
+  has focus (otherwise it simply won't do anything.)
+* this, in turn, forces us to do "delayed" execution of that action,
+  hence the need for a `QTimer`
+* the IDA/SWiG 'TWidget' type that we retrieve through
+  `ida_kernwin.find_widget`, is not the same type as a
+  `QtWidgets.QWidget`. We therefore need to convert it using
+  `ida_kernwin.PluginForm.TWidgetToPyQtWidget`
 
 #### Uses
 * ida_kernwin.PluginForm.TWidgetToPyQtWidget
@@ -2213,15 +2627,13 @@ This example illustrates how one can execute commands in the
 * ida_kernwin.find_widget
 * ida_kernwin.process_ui_action
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### paint_over_navbar
 <details>
-  <summary>custom painting on top of the navigation band</summary>
+  <summary>Custom painting on top of the navigation band</summary>
 
 <blockquote>
 
@@ -2236,8 +2648,6 @@ Using an "event filter", we'll intercept paint events
 targeted at the navigation band widget, let it paint itself,
 and then add our own markers on top.
 
-#### Keywords
-
 #### Uses
 * ida_kernwin.PluginForm.FormToPyQtWidget
 * ida_kernwin.get_navband_pixel
@@ -2246,15 +2656,13 @@ and then add our own markers on top.
 * ida_segment.getnseg
 * idc.here
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### populate_pluginform_with_pyqt_widgets
 <details>
-  <summary>adding PyQt5 widgets into an `ida_kernwin.PluginForm`</summary>
+  <summary>Adding PyQt5 widgets into an `ida_kernwin.PluginForm`</summary>
 
 <blockquote>
 
@@ -2270,12 +2678,8 @@ converts IDA's own dockable widget into a type that is
 recognized by PyQt5, which then enables populating it with
 regular Qt widgets.
 
-#### Keywords
-
 #### Uses
 * ida_kernwin.PluginForm
-
-#### See also
 
 </blockquote>
 
@@ -2285,7 +2689,7 @@ regular Qt widgets.
 
 #### func_chooser_coloring
 <details>
-  <summary>using `ida_kernwin.UI_Hooks.get_chooser_item_attrs` to override some defaults</summary>
+  <summary>Using `ida_kernwin.UI_Hooks.get_chooser_item_attrs` to override some defaults</summary>
 
 <blockquote>
 
@@ -2296,17 +2700,16 @@ regular Qt widgets.
 uihooks
 
 #### Description
-color the function in the Function window according to its size.
+Color the function in the Function window according to its size.
 The larger the function, the darker the color.
 
 #### Keywords
+UI_Hooks
 
 #### Uses
 * ida_funcs.get_func
 * ida_kernwin.UI_Hooks
 * ida_kernwin.enable_chooser_item_attrs
-
-#### See also
 
 </blockquote>
 
@@ -2314,7 +2717,7 @@ The larger the function, the darker the color.
 
 #### lines_rendering
 <details>
-  <summary>dynamically colorize lines backgrounds (or parts of them)</summary>
+  <summary>Dynamically colorize lines backgrounds (or parts of them)</summary>
 
 <blockquote>
 
@@ -2325,12 +2728,13 @@ The larger the function, the darker the color.
 uihooks
 
 #### Description
-shows how one can dynamically alter the lines background
+Shows how one can dynamically alter the lines background
 rendering (as opposed to, say, using ida_nalt.set_item_color()),
 and also shows how that rendering can be limited to just a few
 glyphs, not the whole line.
 
 #### Keywords
+UI_Hooks
 
 #### Uses
 * ida_bytes.next_head
@@ -2359,15 +2763,13 @@ glyphs, not the whole line.
 * ida_kernwin.line_rendering_output_entry_t
 * ida_kernwin.refresh_idaview_anyway
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### log_misc_events
 <details>
-  <summary>being notified, and logging a few UI events</summary>
+  <summary>Being notified, and logging a few UI events</summary>
 
 <blockquote>
 
@@ -2378,15 +2780,14 @@ glyphs, not the whole line.
 uihooks
 
 #### Description
-hooks to be notified about certain UI events, and
+Hooks to be notified about certain UI events, and
 dump their information to the "Output" window
 
 #### Keywords
+UI_Hooks
 
 #### Uses
 * ida_kernwin.UI_Hooks
-
-#### See also
 
 </blockquote>
 
@@ -2394,7 +2795,7 @@ dump their information to the "Output" window
 
 #### prevent_jump
 <details>
-  <summary>taking precedence over actions</summary>
+  <summary>Taking precedence over actions</summary>
 
 <blockquote>
 
@@ -2410,11 +2811,10 @@ to respond to a command instead of the action that would
 otherwise do it.
 
 #### Keywords
+UI_Hooks
 
 #### Uses
 * ida_kernwin.UI_Hooks
-
-#### See also
 
 </blockquote>
 
@@ -2424,7 +2824,7 @@ otherwise do it.
 
 #### add_menus
 <details>
-  <summary>adding custom menus to IDA</summary>
+  <summary>Adding custom menus to IDA</summary>
 
 <blockquote>
 
@@ -2439,6 +2839,11 @@ It is possible to add custom menus to IDA, either at the
 toplevel (i.e., into the menubar), or as submenus of existing
 menus.
 
+Notes:
+
+  * the same action can be present in more than 1 menu
+  * this example does not deal with context menus
+
 #### Keywords
 actions
 
@@ -2450,8 +2855,6 @@ actions
 * ida_kernwin.attach_action_to_menu
 * ida_kernwin.create_menu
 * ida_kernwin.register_action
-
-#### See also
 
 </blockquote>
 
@@ -2472,6 +2875,10 @@ widgets
 #### Description
 How to query for complex user input, using IDA's built-in forms.
 
+Note: while this example produces full-fledged forms for complex input,
+simpler types of inputs might can be retrieved by using
+`ida_kernwin.ask_str` and similar functions.
+
 #### Keywords
 forms
 
@@ -2481,8 +2888,6 @@ forms
 * ida_kernwin.Form
 * ida_kernwin.PluginForm.FORM_TAB
 * ida_kernwin.ask_str
-
-#### See also
 
 </blockquote>
 
@@ -2506,8 +2911,7 @@ show data organized in a simple table.
 In addition, registers a couple actions that can be applied to it.
 
 #### Keywords
-chooser
-actions
+actions chooser ctxmenu
 
 #### Uses
 * Choose
@@ -2548,11 +2952,10 @@ actions
 widgets
 
 #### Description
-Similar to @{choose}, but with multiple selection
+Similar to <a class="ex_link" href="#choose">choose</a>, but with multiple selection
 
 #### Keywords
-chooser
-actions
+actions chooser
 
 #### Uses
 * Choose
@@ -2571,7 +2974,7 @@ actions
 
 #### chooser_with_folders
 <details>
-  <summary>       A widget that can show tabular data either as a simple table, or with a tree-like structure.</summary>
+  <summary>A widget that can show tabular data either as a simple table, or with a tree-like structure.</summary>
 
 <blockquote>
 
@@ -2585,10 +2988,15 @@ widgets
 By adding the necessary bits to a ida_kernwin.Choose subclass,
 IDA can show the otherwise tabular data, in a tree-like fashion.
 
+The important bits to enable this are:
+
+  * ida_dirtree.dirspec_t (and my_dirspec_t)
+  * ida_kernwin.CH_HAS_DIRTREE
+  * ida_kernwin.Choose.OnGetDirTree
+  * ida_kernwin.Choose.OnIndexToInode
+
 #### Keywords
-chooser
-folders
-actions
+actions chooser folders
 
 #### Uses
 * ida_dirtree.DTE_OK
@@ -2622,7 +3030,7 @@ actions
 
 #### custom_graph_with_actions
 <details>
-  <summary>drawing custom graphs</summary>
+  <summary>Drawing custom graphs</summary>
 
 <blockquote>
 
@@ -2637,8 +3045,7 @@ Showing custom graphs, using `ida_graph.GraphViewer`. In addition,
 show how to write actions that can be performed on those.
 
 #### Keywords
-graph
-actions
+actions graph View_Hooks
 
 #### Uses
 * ida_funcs.get_func
@@ -2657,10 +3064,7 @@ actions
 * ida_ua.decode_insn
 * ida_ua.insn_t
 * ida_xref.XREF_FAR
-* idautils.FuncItems
-* idautils.XrefsFrom
-
-#### See also
+* ida_xref.xrefblk_t
 
 </blockquote>
 
@@ -2668,7 +3072,7 @@ actions
 
 #### custom_viewer
 <details>
-  <summary>create custom listings in IDA</summary>
+  <summary>Create custom listings in IDA</summary>
 
 <blockquote>
 
@@ -2683,9 +3087,11 @@ How to create simple listings, that will share many of the features
 as the built-in IDA widgets (highlighting, copy & paste,
 notifications, ...)
 
+In addition, creates actions that will be bound to the
+freshly-created widget (using `ida_kernwin.attach_action_to_popup`.)
+
 #### Keywords
-listing
-actions
+actions ctxmenu listing
 
 #### Uses
 * ida_kernwin.AST_ENABLE_ALWAYS
@@ -2704,8 +3110,6 @@ actions
 * ida_lines.COLSTR
 * ida_lines.SCOLOR_PREFIX
 * ida_lines.SCOLOR_VOIDOP
-
-#### See also
 
 </blockquote>
 
@@ -2728,8 +3132,7 @@ Partially re-implements the "Functions" widget present in
 IDA, with a custom widget.
 
 #### Keywords
-chooser
-functions
+chooser functions
 
 #### Uses
 * Choose
@@ -2752,7 +3155,7 @@ functions
 
 #### jump_next_comment
 <details>
-  <summary>implement a "jump to next comment" action within IDA's disassembly view.</summary>
+  <summary>Implement a "jump to next comment" action within IDA's disassembly view.</summary>
 
 <blockquote>
 
@@ -2766,9 +3169,23 @@ widgets
 We want our action not only to find the next line containing a comment,
 but to also place the cursor at the right horizontal position.
 
+To find that position, we will have to inspect the text that IDA
+generates, looking for the start of a comment.
+However, we won't be looking for a comment "prefix" (e.g., "; "),
+as that would be too fragile.
+
+Instead, we will look for special "tags" that IDA injects into textual
+lines, and that bear semantic information.
+
+Those tags are primarily used for rendering (i.e., switching colors),
+but can also be very handy for spotting tokens of interest (registers,
+addresses, comments, prefixes, instruction mnemonics, ...)
+
+#### Shortcut
+Ctrl+Alt+C
+
 #### Keywords
-idaview
-actions
+actions idaview
 
 #### Uses
 * ida_bytes.next_head
@@ -2801,7 +3218,7 @@ actions
 
 #### save_and_restore_listing_pos
 <details>
-  <summary>save, and then restore, positions in a listing</summary>
+  <summary>Save, and then restore, positions in a listing</summary>
 
 <blockquote>
 
@@ -2816,9 +3233,17 @@ Shows how it is possible re-implement IDA's bookmark capability,
 using 2 custom actions: one action saves the current location,
 and the other restores it.
 
+Note that, contrary to actual bookmarks, this example:
+
+  * remembers only 1 saved position
+  * doesn't save that position in the IDB (and therefore cannot
+    be restored if IDA is closed & reopened.)
+
+#### Shortcuts
+Ctrl+Shift+O Ctrl+Shift+S
+
 #### Keywords
-listing
-actions
+actions listing
 
 #### Uses
 * ida_kernwin.AST_DISABLE_FOR_WIDGET
@@ -2846,7 +3271,7 @@ actions
 
 #### show_and_hide_waitbox
 <details>
-  <summary>showing, updating & hiding the progress dialog</summary>
+  <summary>Showing, updating & hiding the progress dialog</summary>
 
 <blockquote>
 
@@ -2872,15 +3297,13 @@ actions
 * ida_kernwin.user_cancelled
 * idautils.Functions
 
-#### See also
-
 </blockquote>
 
   </details>
 
 #### show_selected_strings
 <details>
-  <summary>retrieve the strings that are selected in the "Strings" window.</summary>
+  <summary>Retrieve the strings that are selected in the "Strings" window.</summary>
 
 <blockquote>
 
@@ -2895,8 +3318,15 @@ In IDA it's possible to write actions that can be applied even to
 core (i.e., "standard") widgets. The actions in this example use the
 action "context" to know what the current selection is.
 
+This example shows how you can either retrieve string literals data
+directly from the chooser (`ida_kernwin.get_chooser_data`), or
+by querying the IDB (`ida_bytes.get_strlit_contents`)
+
+#### Shortcuts
+Ctrl+Shift+K Ctrl+Shift+S
+
 #### Keywords
-actions
+actions ctxmenu
 
 #### Uses
 * ida_bytes.get_strlit_contents
@@ -2924,7 +3354,7 @@ actions
 
 #### sync_two_graphs
 <details>
-  <summary>follow the movements of a disassembly graph, in another.</summary>
+  <summary>Follow the movements of a disassembly graph, in another.</summary>
 
 <blockquote>
 
@@ -2939,9 +3369,11 @@ Since it is possible to be notified of movements that happen
 take place in a widget, it's possible to "replay" those
 movements in another.
 
+In this case, "IDA View-B" (will be opened if necessary) will
+show the same contents as "IDA View-A", slightly zoomed out.
+
 #### Keywords
-graph
-idaview
+graph idaview
 
 #### Uses
 * ida_graph.GLICTL_CENTER
@@ -2970,7 +3402,7 @@ idaview
 
 #### wrap_idaview
 <details>
-  <summary>manipulate IDAView and graph</summary>
+  <summary>Manipulate IDAView and graph</summary>
 
 <blockquote>
 
@@ -2985,8 +3417,7 @@ This is an example illustrating how to manipulate an existing IDA-provided
 view (and thus possibly its graph), in Python.
 
 #### Keywords
-idaview
-graph
+graph idaview
 
 #### Uses
 * ida_graph.NIF_BG_COLOR

@@ -18,14 +18,14 @@ struct _cvt_status_t
   _cvt_status_t(PyObject *_def_err_class, const char *_def_err_string)
     : def_err_class(_def_err_class),
     def_err_string(_def_err_string),
-    err_class(NULL),
+    err_class(nullptr),
     ok(true) {}
 
   ~_cvt_status_t()
   {
     if ( !ok )
     {
-      if ( err_class == NULL )
+      if ( err_class == nullptr )
       {
         err_class = def_err_class;
         err_string = def_err_string;
@@ -50,7 +50,7 @@ static bool _to_reg_val(regval_t **out, regval_t *buf, const char *name, PyObjec
     return false;
 
   int cvt = SWIG_ConvertPtr(o, (void **) out, SWIGTYPE_p_regval_t, 0);
-  if ( SWIG_IsOK(cvt) && *out != NULL )
+  if ( SWIG_IsOK(cvt) && *out != nullptr )
     return true;
 
   register_info_t ri;
@@ -98,7 +98,7 @@ static bool _to_reg_val(regval_t **out, regval_t *buf, const char *name, PyObjec
       fpvalue_t fpval;
       _cvt_status_t status(PyExc_TypeError, "Expected float value");
       double dbl = PyFloat_AsDouble(in);
-      status.ok = PyErr_Occurred() == NULL;
+      status.ok = PyErr_Occurred() == nullptr;
       if ( status.ok )
         status.ok = ieee_realcvt(&dbl, &fpval, 003 /*load double*/) == REAL_ERROR_OK;
       if ( !status.ok )
@@ -240,7 +240,7 @@ static PyObject *_from_reg_val(
   if ( !get_dbg_reg_info(name, &ri) ) // see _to_reg_val()
     ri.dtype = dt_dword;
 
-  PyObject *res = NULL;
+  PyObject *res = nullptr;
   _cvt_status_t status(PyExc_ValueError, "Conversion failed");
   switch ( ri.dtype )
   {
@@ -309,7 +309,7 @@ def dbg_is_loaded():
 */
 static bool dbg_is_loaded()
 {
-  return dbg != NULL;
+  return dbg != nullptr;
 }
 
 //-------------------------------------------------------------------------
@@ -330,7 +330,7 @@ static PyObject *refresh_debugger_memory()
   invalidate_dbgmem_contents(BADADDR, 0);
 
   // Ask the debugger to populate debug names
-  if ( dbg != NULL )
+  if ( dbg != nullptr )
     dbg->suspended(true);
 
   // Invalidate the cache
@@ -351,7 +351,7 @@ struct DBG_Hooks : public hooks_base_t
   bool hook() { return hooks_base_t::hook(); }
   bool unhook() { return hooks_base_t::unhook(); }
 #ifdef TESTABLE_BUILD
-  qstring dump_state() { return hooks_base_t::dump_state(mappings, mappings_size); }
+  PyObject *dump_state(bool assert_all_reimplemented=false) { return hooks_base_t::dump_state(mappings, mappings_size, assert_all_reimplemented); }
 #endif
 
   // hookgenDBG:methods
@@ -411,21 +411,6 @@ static PyObject *py_list_bptgrps()
 //------------------------------------------------------------------------
 /*
 #<pydoc>
-def move_bpt_to_grp():
-    """
-    Sets new group for the breakpoint
-    """
-    pass
-#</pydoc>
-*/
-static void move_bpt_to_grp(bpt_t *bpt, const char *grp_name)
-{
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  set_bpt_group(*bpt, grp_name);
-}
-
-/*
-#<pydoc>
 def internal_get_sreg_base():
     """
     Get the sreg base, for the given thread.
@@ -450,7 +435,7 @@ static ssize_t py_write_dbg_memory(ea_t ea, PyObject *py_buf, size_t size=size_t
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !dbg_can_query(dbg) || !IDAPyBytes_Check(py_buf) )
     return -1;
-  char *buf = NULL;
+  char *buf = nullptr;
   Py_ssize_t sz;
   if ( IDAPyBytes_AsMemAndSize(py_buf, &buf, &sz) < 0 )
     return -1;
@@ -487,14 +472,14 @@ static PyObject *py_set_reg_val(const char *regname, PyObject *o)
   regval_t buf;
   regval_t *ptr;
   if ( !_to_reg_val(&ptr, &buf, regname, o) )
-    return NULL;
+    return nullptr;
   SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   bool ok = set_reg_val(regname, ptr);
   SWIG_PYTHON_THREAD_END_ALLOW;
   if ( !ok )
   {
     PyErr_SetString(PyExc_Exception, "Failed to set register value");
-    return NULL;
+    return nullptr;
   }
   Py_RETURN_TRUE;
 }
@@ -502,23 +487,23 @@ static PyObject *py_set_reg_val(const char *regname, PyObject *o)
 //-------------------------------------------------------------------------
 static PyObject *py_set_reg_val(thid_t tid, int regidx, PyObject *o)
 {
-  if ( dbg == NULL )
+  if ( dbg == nullptr )
   {
     PyErr_SetString(PyExc_Exception, "No debugger loaded");
-    return NULL;
+    return nullptr;
   }
   if ( regidx < 0 || regidx >= dbg->nregs )
   {
     qstring buf;
     buf.sprnt("Bad register index: %d", regidx);
     PyErr_SetString(PyExc_Exception, buf.c_str());
-    return NULL;
+    return nullptr;
   }
   const register_info_t &ri = dbg->regs(regidx);
   regval_t buf;
   regval_t *ptr;
   if ( !_to_reg_val(&ptr, &buf, ri.name, o) )
-    return NULL;
+    return nullptr;
   SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   bool ok = set_reg_val(tid, regidx, ptr) > 0;
   SWIG_PYTHON_THREAD_END_ALLOW;
@@ -531,14 +516,14 @@ static PyObject *py_request_set_reg_val(const char *regname, PyObject *o)
   regval_t buf;
   regval_t *ptr;
   if ( !_to_reg_val(&ptr, &buf, regname, o) )
-    return NULL;
+    return nullptr;
   SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   bool ok = request_set_reg_val(regname, ptr);
   SWIG_PYTHON_THREAD_END_ALLOW;
   if ( !ok )
   {
     PyErr_SetString(PyExc_Exception, "Failed to request set register value");
-    return NULL;
+    return nullptr;
   }
   Py_RETURN_TRUE;
 }
@@ -553,7 +538,7 @@ static PyObject *py_get_reg_val(const char *regname)
   if ( !ok )
   {
     PyErr_SetString(PyExc_Exception, "Failed to retrieve register value");
-    return NULL;
+    return nullptr;
   }
   return _from_reg_val(regname, buf);
 }

@@ -33,10 +33,7 @@ class list_stkvar_xrefs_ah_t(ida_kernwin.action_handler_t):
                 sptr = ida_struct.get_struc(frame.id)
                 mptr = ida_struct.get_member_by_name(sptr, stkvar_name)
                 if mptr:
-                    fii = ida_funcs.func_item_iterator_t()
-                    ok = fii.set(pfn)
-                    while ok:
-                        ea = fii.current()
+                    for ea in pfn:
                         F = ida_bytes.get_flags(ea)
                         for n in range(ida_ida.UA_MAXOP):
                             if not ida_bytes.is_stkvar(F, n):
@@ -47,7 +44,6 @@ class list_stkvar_xrefs_ah_t(ida_kernwin.action_handler_t):
                             v = ida_frame.calc_stkvar_struc_offset(pfn, insn, n)
                             if v >= mptr.soff and v < mptr.eoff:
                                 print("Found xref at 0x%08x, operand #%d" % (ea, n))
-                        ok = fii.next_code()
                 else:
                     print("No stack variable named \"%s\"" % stkvar_name)
         else:

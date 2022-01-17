@@ -139,6 +139,7 @@ with open(args.input) as f:
     current_function_proto = None
     current_function_uses_args = False
     current_function_uses_varargs = False
+    current_function_uses_AppendOutput = False
 
     def prepend_subst(subst, to_prepend, orig_line):
         if not isinstance(to_prepend, list):
@@ -188,6 +189,7 @@ with open(args.input) as f:
             current_function_proto = line
             current_function_uses_args = False
             current_function_uses_varargs = False
+            current_function_uses_AppendOutput = False
             func_patches = patches.get(current_function, [])[:]
             if current_function == "SWIG_Python_TypeError":
                 func_patches.append(
@@ -216,12 +218,23 @@ with open(args.input) as f:
                     ))
             line = line.replace(", ...arg0)", ", ...)")
         else:
-            if line.find("PyArg_UnpackTuple(args") > -1:
+            if line.find("(args") > -1:
                 current_function_uses_args = True
-            elif line.find(" = args;"):
+            elif line.find(" = args;") > -1:
                 current_function_uses_args = True
             elif line.find("varargs") > -1:
                 current_function_uses_varargs = True
+
+            if line.find("SWIG_Python_AppendOutput") > -1:
+                current_function_uses_AppendOutput = True
+            elif line.find("return resultobj;") > -1:
+                if current_function_uses_AppendOutput:
+                    subst = line.rstrip().replace(
+                        "resultobj",
+                        "PyList_Check(resultobj) ? PyList_AsTuple(resultobj) : resultobj"
+                    )
+                    subst = "%s %s" % (subst, patched_cmt)
+
             for patch_kind, patch_data in func_patches:
                 if patch_kind == "spontaneous_callback_call":
                     if patch_data is not None:
@@ -283,7 +296,7 @@ with open(args.input) as f:
                                 hooks_class_name, hooks_class_name),
                         ]
                         for forbidden, replacement in (patch_data or []):
-                            subst.append("ensure_no_method_when_no_695_compat(self, \"%s\", \"%s\");" % (
+                            subst.append("ensure_no_method(self, \"%s\", \"%s\");" % (
                                 forbidden, replacement))
 
                 elif patch_kind == "thread_unsafe":
@@ -318,6 +331,12 @@ with open(args.input) as f:
                             subst = re.sub("\(.*\);", call_args + ";", line)
                             if add_error:
                                 subst = ["#error CHECK_THAT_THIS_WORKS", subst]
+                elif patch_kind == "nullptr_result_on_py_error":
+                    rpfx = "  resultobj = "
+                    idx = line.find(rpfx)
+                    if idx > -1:
+                        repl = line[0:idx+len(rpfx)] + "PyErr_Occurred() != nullptr ? nullptr : " + line[idx+len(rpfx):]
+                        subst = ["%s %s" % (repl, patched_cmt)]
                 else:
                     raise Exception("Unknown patch kind: %s" % patch_kind)
             entered_function = False

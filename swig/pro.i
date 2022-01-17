@@ -53,6 +53,8 @@
 %rename (BADDIFF) _BADDIFF;
 %constant diffpos_t _BADDIFF = diffpos_t(-1);
 
+%ignore SSF_DROP_EMPTY;
+
 //<typemaps(pro)>
 //</typemaps(pro)>
 

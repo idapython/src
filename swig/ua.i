@@ -78,10 +78,6 @@
 
   %pythoncode {
     ops = property(__get_ops__)
-#ifdef BC695
-    if _BC695:
-        Operands = ops
-#endif
     Op1 = property(lambda self: self.__get_operand__(0))
     Op2 = property(lambda self: self.__get_operand__(1))
     Op3 = property(lambda self: self.__get_operand__(2))

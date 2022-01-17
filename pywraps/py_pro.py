@@ -97,10 +97,3 @@ class _qstrvec_t(ida_idaapi.py_clinked_object_t):
         return _ida_pro.qstrvec_t_remove(self, idx)
 
 #</pycode(py_pro)>
-
-#<pycode_BC695(py_pro)>
-def strlwr(s):
-    return str(s).lower()
-def strupr(s):
-    return str(s).upper()
-#</pycode_BC695(py_pro)>

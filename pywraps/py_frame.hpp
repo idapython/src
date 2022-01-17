@@ -21,7 +21,7 @@ PyObject *py_get_stkvar(const insn_t &insn, const op_t &op, sval_t v)
   PYW_GIL_CHECK_LOCKED_SCOPE();
   sval_t actval;
   member_t *member = get_stkvar(&actval, insn, op, v);
-  if ( member == NULL )
+  if ( member == nullptr )
     Py_RETURN_NONE;
 
   return Py_BuildValue("(O" PY_BV_SVAL ")",

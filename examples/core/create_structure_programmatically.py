@@ -4,6 +4,8 @@ summary: programmatically create & populate a structure
 description:
   Usage of the API to create & populate a structure with
   members of different types.
+
+author: Gergely Erdelyi (gergely.erdelyi@d-dome.net)
 """
 
 from __future__ import print_function
@@ -12,8 +14,6 @@ from __future__ import print_function
 #
 # This script demonstrates how to create structures and populate them
 # with members of different types.
-#
-# Author: Gergely Erdelyi <gergely.erdelyi@d-dome.net>
 #---------------------------------------------------------------------
 
 import ida_struct

@@ -774,33 +774,33 @@ class IDAPython_displayhook:
 _IDAPython_displayhook = IDAPython_displayhook()
 sys.displayhook = _IDAPython_displayhook.displayhook
 
-# ----------------------------------- helpers for bw-compat w/ 6.95 API
-class __BC695:
-    def __init__(self):
-        self.FIXME = "FIXME @arnaud"
-
-    def false_p(self, *args):
-        return False
-
-    def identity(self, arg):
-        return arg
-
-    def dummy(self, *args):
-        pass
-
-    def replace_fun(self, new):
-        new.__dict__["bc695redef"] = True
-        _replace_module_function(new)
-
-_BC695 = __BC695()
-
 def _make_badattr_property(bad_attr, new_attr):
     def _raise(*args):
         raise AttributeError("Property %s has been replaced with %s" % (bad_attr, new_attr))
     return property(_raise, _raise)
-#</pycode(py_idaapi)>
 
-#<pycode_BC695(py_idaapi)>
-pycim_get_tcustom_control=pycim_get_widget
-pycim_get_tform=pycim_get_widget
-#</pycode_BC695(py_idaapi)>
+def _make_one_time_warning_message(bad_attr, new_attr):
+    warned = [False]
+    def f():
+        if not warned[0]:
+            import traceback
+            # skip two frames to get the actual line which triggered the  access
+            f = sys._getframe().f_back.f_back
+            traceback.print_stack(f)
+            print("Please use \"%s\" instead of \"%s\" (\"%s\" is kept for backward-compatibility, and will be removed soon.)" % (new_attr, bad_attr, bad_attr))
+            warned[0] = True
+    return f
+
+def _make_missed_695bwcompat_property(bad_attr, new_attr, has_setter):
+    _notify_bwcompat = _make_one_time_warning_message(bad_attr, new_attr)
+    def _getter(self):
+        _notify_bwcompat()
+        return getattr(self, new_attr)
+    def _setter(self, v):
+        _notify_bwcompat()
+        return setattr(self, new_attr, v)
+    return property(_getter, _setter if has_setter else None)
+
+
+
+#</pycode(py_idaapi)>

@@ -473,22 +473,30 @@ class Form(object):
         Generic form input control.
         It could be numeric control, string control, directory/file browsing, etc...
         """
-        def __init__(self, tp, width, swidth, hlp = None):
+        def __init__(self,
+                     tp,
+                     width,
+                     swidth,
+                     hlp=None,
+                     is_relative_offset=False):
             """
-            @param width: Display width
-            @param swidth: String width
+            @param width:  The maximum possible number of characters that
+                           can be entered into the input field
+            @param swidth: The width of visible part of the input field
             """
             Form.Control.__init__(self)
             self.tp = tp
             self.width = width
-            self.switdh = swidth
+            self.swidth = swidth
             self.hlp = hlp
+            self.is_relative_offset = is_relative_offset
 
         def get_tag(self):
-            return "%s%d:%s:%s:%s" % (
+            return "%s%d:%s%s:%s:%s" % (
                 self.tp, self.id,
+                "+" if self.is_relative_offset else "",
                 self.width,
-                self.switdh,
+                self.swidth,
                 ":" if self.hlp is None else self.hlp)
 
         def is_input_field(self):
@@ -499,10 +507,17 @@ class Form(object):
         """
         A composite class serving as a base numeric input control class
         """
-        def __init__(self, tp=None, value=0, width=50, swidth=10, hlp=None):
+        def __init__(self,
+                     tp=None,
+                     value=0,
+                     width=50,
+                     swidth=10,
+                     hlp=None,
+                     is_relative_offset=False):
             if tp is None:
                 tp = Form.FT_HEX
-            Form.InputControl.__init__(self, tp, width, swidth, hlp)
+            Form.InputControl.__init__(self,
+                tp, width, swidth, hlp, is_relative_offset)
             Form.NumericArgument.__init__(self, self.tp, value)
 
 

@@ -79,7 +79,25 @@
 
 %rename (__next__) next;
 
-%define %make_python2_iterator(TYPE)
+%define %def_simple_generator(TYPE, FUNC_NAME, START_FUNC, NEXT_FUNC, OBJ_FUNC, PYDOC)
+%extend TYPE
+{
+  %pythoncode {
+    def FUNC_NAME(self):
+        """
+        Provide an iterator on PYDOC
+        """
+        ok = self.START_FUNC()
+        while ok:
+            yield self.OBJ_FUNC()
+            ok = self.NEXT_FUNC()
+  }
+}
+%enddef
+
+%define %def_simple_iterator_generator(TYPE, START_FUNC, NEXT_FUNC, OBJ_FUNC, PYDOC)
+%def_simple_generator(TYPE, __iter__, START_FUNC, NEXT_FUNC, OBJ_FUNC, PYDOC);
+// KLUDGE: Keep the 'next' attribute available
 %extend TYPE
 {
   %pythoncode {
@@ -87,9 +105,49 @@
   }
 }
 %enddef
-%make_python2_iterator(func_tail_iterator_t);
-%make_python2_iterator(func_item_iterator_t);
-%make_python2_iterator(func_parent_iterator_t);
+%def_simple_iterator_generator(func_tail_iterator_t, main, next, chunk, function tails);
+%def_simple_iterator_generator(func_item_iterator_t, first, next_code, current, code items);
+%def_simple_iterator_generator(func_parent_iterator_t, first, next, parent, function parents);
+
+%define %def_simple_func_item_iterator_t_generator(FUNC_NAME, NEXT_NAME, PYDOC)
+%def_simple_generator(func_item_iterator_t, FUNC_NAME, first, NEXT_NAME, current, PYDOC);
+%enddef
+%def_simple_func_item_iterator_t_generator(addresses, next_addr, addresses contained within the function);
+%def_simple_func_item_iterator_t_generator(code_items, next_code, code items contained within the function);
+%def_simple_func_item_iterator_t_generator(data_items, next_data, data items contained within the function);
+%def_simple_func_item_iterator_t_generator(head_items, next_head, item heads contained within the function);
+%def_simple_func_item_iterator_t_generator(not_tails, next_not_tail, non-tail addresses contained within the function);
+
+#ifdef PY3
+%define %alias_func_item_iterator(PROP_NAME)
+%extend func_t
+{
+  %pythoncode {
+    def PROP_NAME(self):
+        """
+        Alias for func_item_iterator_t(self).PROP_NAME()
+        """
+        yield from func_item_iterator_t(self).PROP_NAME()
+  }
+}
+%enddef
+%alias_func_item_iterator(addresses);
+%alias_func_item_iterator(code_items);
+%alias_func_item_iterator(data_items);
+%alias_func_item_iterator(head_items);
+%alias_func_item_iterator(not_tails);
+#endif
+
+%extend func_t
+{
+  %pythoncode {
+    def __iter__(self):
+        """
+        Alias for func_item_iterator_t(self).__iter__()
+        """
+        return func_item_iterator_t(self).__iter__()
+  }
+}
 
 //<typemaps(funcs)>
 //</typemaps(funcs)>

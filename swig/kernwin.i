@@ -78,6 +78,7 @@ struct dirspec_t;
 
 %define_Hooks_class(UI);
 
+%ignore ida_checkmem;
 %ignore vnomem;
 %ignore vmsg;
 %ignore show_wait_box_v;
@@ -198,6 +199,40 @@ struct dirspec_t;
 
 %ignore msg_get_lines;
 %rename (msg_get_lines) py_msg_get_lines;
+
+%extend input_event_t {
+
+  size_t _source_as_size() const { return size_t($self->source); }
+  size_t _target_as_size() const { return size_t($self->target); }
+
+  %pythoncode {
+     def get_source_QEvent(self):
+         ptr = self._source_as_size();
+         if ptr:
+             from PyQt5 import sip
+             if self.kind in [iek_key_press, iek_key_release]:
+                 from PyQt5.QtGui import QInputEvent
+                 return sip.wrapinstance(ptr, QInputEvent)
+             elif self.kind in [
+                     iek_mouse_button_press,
+                     iek_mouse_button_release]:
+                 from PyQt5.QtGui import QMouseEvent
+                 return sip.wrapinstance(ptr, QMouseEvent)
+             elif self.kind == iek_mouse_wheel:
+                 from PyQt5.QtGui import QWheelEvent
+                 return sip.wrapinstance(ptr, QWheelEvent)
+             else:
+                 from PyQt5.QtCore import QEvent
+                 return sip.wrapinstance(ptr, QEvent)
+
+     def get_target_QWidget(self):
+         ptr = self._target_as_size()
+         if ptr:
+              from PyQt5 import sip
+              from PyQt5.QtWidgets import QWidget, QAbstractScrollArea
+              return sip.wrapinstance(ptr, QWidget)
+  }
+}
 
 %feature("director") UI_Hooks;
 
@@ -376,18 +411,12 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 
 %extend action_ctx_base_t {
 
-#ifdef BC695
-  TWidget *_get_form() const { return $self->widget; }
-  twidget_type_t _get_form_type() const { return $self->widget_type; }
-  qstring _get_form_title() const { return $self->widget_title; }
-#endif
-
   %pythoncode {
     cur_extracted_ea = cur_value
-#ifdef BC695
-    form = property(_get_form)
-    form_type = property(_get_form_type)
-    form_title = property(_get_form_title)
+#ifdef MISSED_BC695
+    form = ida_idaapi._make_missed_695bwcompat_property("form", "widget", has_setter=False)
+    form_type = ida_idaapi._make_missed_695bwcompat_property("form_type", "widget_type", has_setter=False)
+    form_title = ida_idaapi._make_missed_695bwcompat_property("form_title", "widget_title", has_setter=False)
 #endif
   }
 }

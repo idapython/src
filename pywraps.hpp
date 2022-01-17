@@ -248,7 +248,7 @@ struct ref_t
 {
   PyObject *o;
 
-  ref_t() : o(NULL) {}
+  ref_t() : o(nullptr) {}
   ref_t(const ref_t &other) : o(other.o) { incref(); }
   ~ref_t() { decref(); }
   ref_t &operator=(const ref_t &other)
@@ -272,13 +272,13 @@ struct ref_t
     PyObject *was = o;
     o = other.o;
     incref();
-    if ( was != NULL )
+    if ( was != nullptr )
       Py_DECREF(was);
     return *this;
   }
 
-  void incref() const { if ( o != NULL ) Py_INCREF(o); }
-  void decref() const { if ( o != NULL ) { QASSERT(30469, o->ob_refcnt > 0); Py_DECREF(o); } }
+  void incref() const { if ( o != nullptr ) Py_INCREF(o); }
+  void decref() const { if ( o != nullptr ) { QASSERT(30469, o->ob_refcnt > 0); Py_DECREF(o); } }
 
   bool operator==(PyObject *other) const { return o == other; }
   bool operator!=(PyObject *other) const { return !((*this) == other); }
@@ -310,7 +310,7 @@ struct newref_t : public ref_t
   newref_t(PyObject *_o)
   {
 #ifdef _DEBUG
-    QASSERT(30409, _o == NULL || _o->ob_refcnt >= 1);
+    QASSERT(30409, _o == nullptr || _o->ob_refcnt >= 1);
 #endif
     o = _o;
   }
@@ -366,11 +366,11 @@ GCC_DIAG_OFF(return-type-c-linkage);
 #endif
 
 
-// Tries to import a module and swallows the exception if it fails and returns NULL
+// Tries to import a module and swallows the exception if it fails and returns nullptr
 // Return value: New reference.
 idaman ref_t ida_export PyW_TryImportModule(const char *name);
 
-// Tries to get an attribute and swallows the exception if it fails and returns NULL
+// Tries to get an attribute and swallows the exception if it fails and returns nullptr
 idaman ref_t ida_export PyW_TryGetAttrString(PyObject *py_var, const char *attr);
 
 // Converts a Python number (LONGLONG or normal integer) to an IDC variable (VT_LONG or VT_INT64)
@@ -383,13 +383,13 @@ idaman bool ida_export PyW_GetStringAttr(
         qstring *str);
 
 // Deprecated. Please use specific functions instead.
-idaman bool ida_export PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64 = NULL);
+idaman bool ida_export PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64 = nullptr);
 
 // Checks if an Python object can be treated like a sequence
 idaman bool ida_export PyW_IsSequenceType(PyObject *obj);
 
 // Returns an error string from the last exception (and clears it)
-idaman bool ida_export PyW_GetError(qstring *out = NULL, bool clear_err = true);
+idaman bool ida_export PyW_GetError(qstring *out = nullptr, bool clear_err = true);
 
 // If an error occurred (it calls PyGetError) it displays it and return TRUE
 // This function is used when calling callbacks
@@ -421,7 +421,7 @@ idaman bool ida_export pyw_convert_idc_args(
         int nargs,
         ref_vec_t &pargs,
         uint32 flags,
-        qstring *errbuf = NULL);
+        qstring *errbuf = nullptr);
 
 // Converts from IDC to Python
 // We support converting VT_REF IDC variable types
@@ -436,14 +436,14 @@ idaman int ida_export idcvar_to_pyvar(
 idaman int ida_export pyvar_to_idcvar(
         const ref_t &py_var,
         idc_value_t *idc_var,
-        int *gvar_sn=NULL);
+        int *gvar_sn=nullptr);
 
 //-------------------------------------------------------------------------
 // Walks a Python list or Sequence and calls the callback
 idaman Py_ssize_t ida_export pyvar_walk_list(
         PyObject *py_list,
-        int (idaapi *cb)(const ref_t &py_item, Py_ssize_t index, void *ud)=NULL,
-        void *ud = NULL);
+        int (idaapi *cb)(const ref_t &py_item, Py_ssize_t index, void *ud)=nullptr,
+        void *ud = nullptr);
 
 // Converts a vector to a Python list object
 idaman ref_t ida_export PyW_SizeVecToPyList(const sizevec_t &vec);
@@ -499,7 +499,7 @@ struct pycall_res_t
       PyErr_Print();
   }
 
-  inline bool success() const { return result.o != NULL; }
+  inline bool success() const { return result.o != nullptr; }
 
   newref_t result;
 
@@ -516,7 +516,7 @@ class lookup_info_t;
 class py_customidamemo_t;
 struct lookup_entry_t
 {
-  lookup_entry_t() : view(NULL), py_view(NULL) {}
+  lookup_entry_t() : view(nullptr), py_view(nullptr) {}
 
   TWidget *view;
   py_customidamemo_t *py_view;
@@ -713,8 +713,8 @@ inline void *view_extract_this(PyObject *self)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   ref_t py_this(PyW_TryGetAttrString(self, S_M_THIS));
-  if ( py_this == NULL || !PyCapsule_IsValid(py_this.o, VALID_CAPSULE_NAME) )
-    return NULL;
+  if ( py_this == nullptr || !PyCapsule_IsValid(py_this.o, VALID_CAPSULE_NAME) )
+    return nullptr;
   return PyCapsule_GetPointer(py_this.o, VALID_CAPSULE_NAME);
 }
 
@@ -736,7 +736,7 @@ DECL_REG_UNREG_REFCOUNTED(udt_type_data_t);
 // Context structure used by register/unregister timer
 struct py_timer_ctx_t
 {
-  py_timer_ctx_t() : timer_id(NULL) {}
+  py_timer_ctx_t() : timer_id(nullptr) {}
   qtimer_t timer_id;
   ref_t pyfunc;
 };
@@ -791,22 +791,13 @@ struct idapython_plugin_config_t
     run_script_t() : when(RSW_UNKNOWN) {}
   };
   run_script_t run_script;
-  uint32 execution_timeout;
-  bool alert_auto_scripts;
-  bool remove_cwd_sys_path;
-  bool autoimport_compat_idaapi;
-  bool autoimport_compat_ida695;
-  bool namespace_aware;
-  bool repl_use_sys_displayhook;
-
-  idapython_plugin_config_t()
-    : execution_timeout(0),
-      alert_auto_scripts(true),
-      remove_cwd_sys_path(false),
-      autoimport_compat_idaapi(true),
-      autoimport_compat_ida695(false),
-      namespace_aware(true),
-      repl_use_sys_displayhook(true) {}
+  uint32 execution_timeout = 0;
+  bool alert_auto_scripts = true;
+  bool remove_cwd_sys_path = false;
+  bool autoimport_compat_idaapi = true;
+  bool namespace_aware = true;
+  bool repl_use_sys_displayhook = true;
+  bool idausr_syspath = true;
 };
 
 //-------------------------------------------------------------------------
@@ -1022,7 +1013,7 @@ private:
         PyObject *globals,
         qstring *errbuf,
         const char *idaapi_executor_func_name = S_IDAAPI_EXECSCRIPT,
-        idc_value_t *second_res = NULL,
+        idc_value_t *second_res = nullptr,
         bool want_tuple = false);
 
   bool _run_user_script();
@@ -1042,13 +1033,12 @@ private:
 };
 
 idaman idapython_plugin_t *ida_export get_plugin_instance();
-idaman bool ida_export is_api695_compat_enabled();
 
 //-------------------------------------------------------------------------
 py_customidamemo_t::py_customidamemo_t()
   : cb_flags(0),
-    self(newref_t(NULL)),
-    view(NULL)
+    self(newref_t(nullptr)),
+    view(nullptr)
 {
   PYGLOG("%p: py_customidamemo_t()\n", this);
 }
@@ -1087,8 +1077,8 @@ struct hooks_base_t
   typedef std::map<int,uchar> has_nondef_map_t;
   has_nondef_map_t has_nondef;
 
-  bool hook() { return cb != NULL && idapython_hook_to_notification_point(type, cb, this, true); }
-  bool unhook() { return cb != NULL && idapython_unhook_from_notification_point(type, cb, this); }
+  bool hook() { return cb != nullptr && idapython_hook_to_notification_point(type, cb, this, true); }
+  bool unhook() { return cb != nullptr && idapython_unhook_from_notification_point(type, cb, this); }
 
   bool call_requires_new_execution() const { return (flags & HBF_CALL_WITH_NEW_EXEC) != 0; }
   bool has_fixed_method_set() const { return (flags & HBF_VOLATILE_METHOD_SET) == 0; }
@@ -1122,9 +1112,9 @@ protected:
       ref_t py_id;
       if ( PyObject_HasAttrString(self, "id") )
         py_id = newref_t(PyObject_GetAttrString(self, "id"));
-      if ( py_id == NULL || !IDAPyStr_Check(py_id.o) )
+      if ( py_id == nullptr || !IDAPyStr_Check(py_id.o) )
         py_id = newref_t(PyObject_Repr(self));
-      if ( py_id != NULL && IDAPyStr_Check(py_id.o) )
+      if ( py_id != nullptr && IDAPyStr_Check(py_id.o) )
         IDAPyStr_AsUTF8(&identifier, py_id.o);
     }
 
@@ -1133,20 +1123,20 @@ protected:
     qstring buf(class_name);
     QASSERT(30589, !buf.empty());
     char *p = qstrchr(buf.begin(), '.');
-    QASSERT(30590, p != NULL);
+    QASSERT(30590, p != nullptr);
     *p++ = '\0';
     newref_t py_mod(PyImport_ImportModule(buf.c_str()));
 #ifdef TESTABLE_BUILD
-    QASSERT(30591, py_mod != NULL);
+    QASSERT(30591, py_mod != nullptr);
 #endif
-    if ( py_mod != NULL )
+    if ( py_mod != nullptr )
     {
       newref_t py_def_class(PyObject_GetAttrString(py_mod.o, p));
       newref_t py_this_class(PyObject_GetAttrString(self, "__class__"));
 #ifdef TESTABLE_BUILD
-      QASSERT(30592, py_def_class != NULL && py_this_class != NULL);
+      QASSERT(30592, py_def_class != nullptr && py_this_class != nullptr);
 #endif
-      if ( py_def_class != NULL && py_this_class != NULL )
+      if ( py_def_class != nullptr && py_this_class != nullptr )
       {
         for ( size_t i = 0; i < count; ++i )
         {
@@ -1155,30 +1145,21 @@ protected:
           newref_t py_def_meth(PyObject_GetAttrString(py_def_class.o, cur.method_name));
           newref_t py_this_meth(PyObject_GetAttrString(py_this_class.o, cur.method_name));
 #ifdef TESTABLE_BUILD
-          QASSERT(30593, py_def_meth != NULL && py_this_meth != NULL);
+          QASSERT(30593, py_def_meth != nullptr && py_this_meth != nullptr);
 #endif
-          if ( py_def_meth != NULL && py_this_meth != NULL )
+          if ( py_def_meth != nullptr && py_this_meth != nullptr )
           {
-#ifdef BC695
-            if ( PyObject_HasAttrString(py_def_meth.o, "bc695_trampoline") > 0 )
+            if ( PyObject_HasAttrString(py_def_meth.o, "__trampoline") > 0 )
             {
-              _has_nondef = 3;
+              _has_nondef = 2;
             }
             else
-#endif
             {
-              if ( PyObject_HasAttrString(py_def_meth.o, "__trampoline") > 0 )
-              {
-                _has_nondef = 2;
-              }
-              else
-              {
 #ifdef PY3
-                _has_nondef = PyObject_RichCompareBool(py_this_meth.o, py_def_meth.o, Py_EQ) == 0 ? 1 : 0;
+              _has_nondef = PyObject_RichCompareBool(py_this_meth.o, py_def_meth.o, Py_EQ) == 0 ? 1 : 0;
 #else
-                _has_nondef = PyObject_Compare(py_this_meth.o, py_def_meth.o) != 0 ? 1 : 0;
+              _has_nondef = PyObject_Compare(py_this_meth.o, py_def_meth.o) != 0 ? 1 : 0;
 #endif
-              }
             }
           }
           has_nondef[cur.code] = _has_nondef;
@@ -1187,30 +1168,29 @@ protected:
     }
   }
 
-  void ensure_no_method_when_no_695_compat(
+  void ensure_no_method(
         PyObject *self,
         const char *forbidden_method_name,
         const char *replacement_method_name)
   {
-    if ( !is_api695_compat_enabled() )
+    if ( PyObject_HasAttrString(self, "__class__") )
     {
-      if ( PyObject_HasAttrString(self, "__class__") )
+      newref_t py_this_class(PyObject_GetAttrString(self, "__class__"));
+      if ( py_this_class != nullptr
+        && PyObject_HasAttrString(py_this_class.o, forbidden_method_name) )
       {
-        newref_t py_this_class(PyObject_GetAttrString(self, "__class__"));
-        if ( py_this_class != NULL
-          && PyObject_HasAttrString(py_this_class.o, forbidden_method_name) )
-        {
-          msg("WARNING: The method \"%s::%s\" won't be called (it has been replaced with \"%s::%s\")\n",
-              class_name, forbidden_method_name, class_name, replacement_method_name);
-        }
+        msg("WARNING: The method \"%s::%s\" won't be called (it has been replaced with \"%s::%s\")\n",
+            class_name, forbidden_method_name, class_name, replacement_method_name);
       }
     }
   }
 
-  qstring dump_state(
+  PyObject *dump_state(
           const event_code_to_method_name_t *mappings,
-          size_t mappings_size) const
+          size_t mappings_size,
+          bool assert_all_reimplemented) const
   {
+    qstrvec_t missing_reimpls;
     qstring buf;
 #ifdef TESTABLE_BUILD
     buf.sprnt("%s(this=%p) \"%s\" {type=%d, cb=%p, flags=%x}",
@@ -1230,6 +1210,27 @@ protected:
             how = " (as 6.95 bw-compat)";
           buf.cat_sprnt("\n\treimplements \"%s\"%s", m.method_name, how);
         }
+        else
+        {
+          missing_reimpls.push_back(m.method_name);
+        }
+      }
+      const size_t nmr = missing_reimpls.size();
+      if ( assert_all_reimplemented && nmr > 0 )
+      {
+        qstring ebuf;
+        for ( size_t i = 0; i < nmr; ++i )
+        {
+          if ( !ebuf.empty() )
+            ebuf.append(", ", 2);
+          ebuf.append(missing_reimpls[i]);
+        }
+        PyErr_Format(PyExc_NotImplementedError,
+                     "%s(this=%p) \"%s\" {type=%d, cb=%p, flags=%x} is "
+                     "missing reimplementations for: \"%s\"",
+                     class_name, this, identifier.c_str(), int(type), cb,
+                     flags, ebuf.c_str());
+        return nullptr;
       }
     }
     else
@@ -1243,7 +1244,7 @@ protected:
     qnotused(mappings);
     qnotused(mappings_size);
 #endif
-    return buf;
+    return IDAPyStr_FromUTF8(buf);
   }
 };
 

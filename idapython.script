@@ -28,7 +28,6 @@ global:
   idapython_show_wait_box;
   idapython_hide_wait_box;
   idcvar_to_pyvar;
-  is_api695_compat_enabled;
   get_plugin_instance;
   lookup_info_t_commit;
   lookup_info_t_del_by_py_view;

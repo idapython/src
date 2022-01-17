@@ -3,7 +3,13 @@ import re
 import sys
 import inspect
 import types
+import ast
+import os
 import argparse
+
+sys.stdout.write("### dumpdoc here!\n")
+for key in os.environ:
+    sys.stdout.write("### %s = \"%s\"\n" % (key, os.environ[key]))
 
 if sys.version_info[0] == 3:
     # for Python3, we always use the same pydoc module from Python3.5. this keeps the output consistent across different Python3 versions.
@@ -16,6 +22,10 @@ import pydoc
 
 import idc
 output, wrappers_dir, is_64 = idc.ARGV[1], idc.ARGV[2], idc.ARGV[3] == "True"
+
+sys.stdout.write("### Parameter \"output\"       = \"%s\"\n" % output)
+sys.stdout.write("### Parameter \"wrappers_dir\" = \"%s\"\n" % wrappers_dir)
+sys.stdout.write("### Parameter \"is_64\"        = \"%s\"\n" % is_64)
 
 try:
     from cStringIO import StringIO
@@ -54,12 +64,14 @@ ignore_names = [
     "svalvec_t", # aliased with intvec_t or longlongvec_t
     "uvalvec_t", # aliased with uintvec_t or ulonglongvec_t
     "eavec_t", # aliased with uvalvec_t
+    ("ida_ida", "__getattr__"),
+    ("idc", "__getattr__"),
 ]
 
-def should_ignore_name(name):
+def should_ignore_name(namespace_name, name):
     for ign in ignore_names:
         if isinstance(ign, tuple):
-            if ".".join(ign) == name:
+            if ign == (namespace_name, name):
                 return True
         elif isinstance(ign, string_types):
             if ign == name:
@@ -319,7 +331,7 @@ def dump_namespace(namespace, namespace_name, keys, vec_info=None):
     spotted_things = []
     for thing_name in keys:
         # sys.stderr.write("THING NAME: %s\n" % thing_name)
-        if should_ignore_name(thing_name):
+        if should_ignore_name(namespace_name, thing_name):
             continue
         thing = getattr(namespace, thing_name)
         if isinstance(thing, ignore_types):
@@ -342,6 +354,97 @@ def dump_namespace(namespace, namespace_name, keys, vec_info=None):
             pydoc.help(thing)
         spotted_things.append(thing)
 
+class variable_collector_t(ast.NodeVisitor):
+    OUTSIDE     = 0
+    IN_CLASS    = 1
+    IN_FUNCTION = 2
+
+    def __init__(self, variables, module_name):
+        self.variables        = variables
+        self.module_name      = module_name
+        self.context          = self.OUTSIDE
+        self.class_name       = ""
+        self.assign_last_line = -1
+
+        super(variable_collector_t, self).__init__()
+
+    def visit_FunctionDef(self, node):
+        old_context  = self.context
+        self.context = self.IN_FUNCTION
+        self.generic_visit(node)
+        self.context = old_context
+
+    def visit_ClassDef(self, node):
+        if self.context == self.IN_FUNCTION:
+            return
+        if self.context == self.IN_CLASS:
+            prefix = self.class_name + "."
+        else:
+            prefix = ""
+        self.class_name = prefix + node.name
+
+        old_context  = self.context
+        self.context = self.IN_CLASS
+        self.generic_visit(node)
+        self.context = old_context
+
+    def visit_Assign(self, node):
+        if self.context == self.IN_FUNCTION:
+            return
+        if self.context == self.IN_CLASS:
+            prefix = self.class_name + "."
+        else:
+            prefix = ""
+
+        if len(node.targets) == 1:
+            target = node.targets[0]
+            if isinstance(target, ast.Name):
+                self.assign_variable  = prefix + target.id
+                self.assign_last_line = self._highest_lineno(node)
+
+    def _highest_lineno(self, node):
+        if hasattr(node, "end_lineno"):
+            return node.end_lineno
+
+        highest = node.lineno
+        for child in ast.walk(node):
+            if hasattr(child, "lineno") and child.lineno > highest:
+                highest = child.lineno
+        return highest
+
+    def visit_Expr(self, node):
+        if not isinstance(node.value, ast.Str):
+            return
+
+        if hasattr(node, "end_lineno"):
+            line_before = node.lineno - 1   # in this case, lineno = start
+        else:
+            # hack until Python 3.8; if <3.8, lineno = end
+            line_before = node.lineno - len(node.value.s.split("\n"))
+
+        if line_before == self.assign_last_line:
+            self.variables.append(
+                "\nDocumentation on variable %s in module %s:\n\n%s\n" \
+                % (self.assign_variable,
+                   self.module_name,
+                   self._cleandoc(node.value.s)))
+
+    def _cleandoc(self, docstring):
+        if docstring:
+            docstring = inspect.cleandoc(docstring)
+
+            # 4-blanks indent
+            docstring = "\n".join("    " + line for line in docstring.split("\n"))
+
+        return docstring
+
+def collect_variables(variables, module_name, filename):
+    with open(filename, "r") as f:
+        tree = ast.parse(f.read())
+
+    visitor = variable_collector_t(variables, module_name)
+    visitor.visit(tree)
+
 # By default, pydoc.help() hides members that start with "_"
 # unless they start and end with "__" (with an exception for
 # __doc__ and __module__)
@@ -355,26 +458,47 @@ def my_visiblename(name, all=None, obj=None):
     return v
 pydoc.visiblename = my_visiblename
 
+def iter_modules():
+    for mname in sorted(sys.modules):
+        if mname.startswith("ida_") or mname == "idc":
+            yield mname, sys.modules[mname]
+
+sys.stdout.write("### Before collecting help\n")
+old_stdout = sys.stdout ### debug
+
 sys.stdout = StringIO()
-for mname in sorted(sys.modules):
-    if mname.startswith("ida_") or mname == "idc":
-        module = sys.modules[mname]
-        dump_namespace(module, mname, sorted(dir(module)))
-        epydoc_path = os.path.join(wrappers_dir, "%s.epydoc_injection" % mname)
-        if os.path.isfile(epydoc_path):
-            with open(epydoc_path) as epydoc_f:
-                epydoc_injections = epydoc_f.read()
-            epydoc_injections = epydoc_injections.strip()
-            if epydoc_injections:
-                print("=== %s EPYDOC INJECTIONS ===" % mname)
-                print(epydoc_injections)
-                print("=== %s EPYDOC INJECTIONS END ===" % mname)
+for mname, module in iter_modules():
+    print("Module \"%s\"s docstring:\n\"\"\"%s\"\"\"\n" % (mname, module.__doc__))
+    dump_namespace(module, mname, sorted(dir(module)))
+
+old_stdout.write("### After collecting help\n")
 
 final = apply_translations([], sys.stdout.getvalue())
+
+old_stdout.write("### After applying translations\n")
+
+def module_file(module):
+    name, ext = os.path.splitext(module.__file__)
+    if ext == ".pyc":
+        ext = ".py"
+    return name + ext
+
+old_stdout.write("### Before collecting variables\n")
+
+variables = ["\n=== DOCUMENTATION FOR VARIABLES ===\n"]
+for mname, module in iter_modules():
+    collect_variables(variables, mname, module_file(module))
+
+old_stdout.write("### After collecting variables (%d of them)\n" % len(variables))
+
+final += "".join(variables)
+
 with open(output, "wb") as f:
     if sys.version_info.major <= 2:
         f.write(final)
     else:
         f.write(final.encode("utf-8"))
+
+old_stdout.write("### Wrote output (%d chars), end of script\n" % len(final))
 
 idaapi.qexit(0)

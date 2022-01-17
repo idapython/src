@@ -80,7 +80,7 @@ private:
                     "s",
                     line));
     PyW_ShowCbErr(S_ON_EXECUTE_LINE);
-    return result != NULL && PyObject_IsTrue(result.o);
+    return result != nullptr && PyObject_IsTrue(result.o);
   }
 
   //--------------------------------------------------------------------------
@@ -114,7 +114,7 @@ private:
                     *vk_key,
                     shift));
 
-    bool ok = result != NULL && PyTuple_Check(result.o);
+    bool ok = result != nullptr && PyTuple_Check(result.o);
 
     PyW_ShowCbErr(S_ON_KEYDOWN);
 
@@ -124,7 +124,7 @@ private:
       if ( sz > 0 )
       {
         borref_t _r(PyTuple_GetItem(result.o, 0));
-        if ( _r != NULL && IDAPyStr_Check(_r.o) )
+        if ( _r != nullptr && IDAPyStr_Check(_r.o) )
           IDAPyStr_AsUTF8(line, _r.o);
       }
 
@@ -134,7 +134,7 @@ private:
         if ( sz > col )                                                 \
         {                                                               \
           borref_t _r(PyTuple_GetItem(result.o, col));                  \
-          if ( _r != NULL && PyThingy##_Check(_r.o) )                   \
+          if ( _r != nullptr && PyThingy##_Check(_r.o) )                   \
             *out = PyThingy##_##AsThingy(_r.o);                         \
         }                                                               \
       } while ( false )
@@ -171,7 +171,7 @@ private:
                     line,
                     x));
 
-    bool ok = result != NULL && IDAPyStr_Check(result.o);
+    bool ok = result != nullptr && IDAPyStr_Check(result.o);
     PyW_ShowCbErr(S_ON_COMPLETE_LINE);
     if ( ok )
       IDAPyStr_AsUTF8(completion, result.o);
@@ -197,7 +197,7 @@ private:
                     line,
                     x));
     PyW_ShowCbErr(S_ON_FIND_COMPLETIONS);
-    if ( PyErr_Occurred() != NULL )
+    if ( PyErr_Occurred() != nullptr )
       return false;
     return idapython_convert_cli_completions(
             out_completions, out_match_start, out_match_end, py_res);
@@ -218,10 +218,10 @@ public:
     // Find an empty slot
     for ( cli_idx = 0; cli_idx < MAX_PY_CLI; ++cli_idx )
     {
-      if ( py_clis[cli_idx] == NULL )
+      if ( py_clis[cli_idx] == nullptr )
         break;
     }
-    py_cli_t *py_cli = NULL;
+    py_cli_t *py_cli = nullptr;
     do
     {
       // No free slots?
@@ -237,7 +237,7 @@ public:
       // Store 'flags'
       {
         ref_t flags_attr(PyW_TryGetAttrString(py_obj, S_FLAGS));
-        if ( flags_attr == NULL )
+        if ( flags_attr == nullptr )
           py_cli->cli.flags = 0;
         else
           py_cli->cli.flags = PyLong_AsLong(flags_attr.o);
@@ -262,9 +262,9 @@ public:
       if ( !PyObject_HasAttrString(py_obj, S_ON_EXECUTE_LINE) )
         break;
       py_cli->cli.execute_line = py_cli_cbs[cli_idx].execute_line;
-      py_cli->cli.unused = (void *) (PyObject_HasAttrString(py_obj, S_ON_COMPLETE_LINE) ? py_cli_cbs[cli_idx].complete_line : NULL);
-      py_cli->cli.keydown = PyObject_HasAttrString(py_obj, S_ON_KEYDOWN) ? py_cli_cbs[cli_idx].keydown : NULL;
-      py_cli->cli.find_completions = PyObject_HasAttrString(py_obj, S_ON_FIND_COMPLETIONS) ? py_cli_cbs[cli_idx].find_completions : NULL;
+      py_cli->cli.unused = (void *) (PyObject_HasAttrString(py_obj, S_ON_COMPLETE_LINE) ? py_cli_cbs[cli_idx].complete_line : nullptr);
+      py_cli->cli.keydown = PyObject_HasAttrString(py_obj, S_ON_KEYDOWN) ? py_cli_cbs[cli_idx].keydown : nullptr;
+      py_cli->cli.find_completions = PyObject_HasAttrString(py_obj, S_ON_FIND_COMPLETIONS) ? py_cli_cbs[cli_idx].find_completions : nullptr;
 
       // install CLI
       install_command_interpreter(&py_cli->cli);
@@ -287,7 +287,7 @@ public:
   static void unbind(int cli_idx)
   {
     // Out of bounds or not set?
-    if ( cli_idx < 0 || cli_idx >= MAX_PY_CLI || py_clis[cli_idx] == NULL )
+    if ( cli_idx < 0 || cli_idx >= MAX_PY_CLI || py_clis[cli_idx] == nullptr )
       return;
 
     py_cli_t *py_cli = py_clis[cli_idx];
@@ -299,12 +299,12 @@ public:
       delete py_cli;
     }
 
-    py_clis[cli_idx] = NULL;
+    py_clis[cli_idx] = nullptr;
 
     return;
   }
 };
-py_cli_t *py_cli_t::py_clis[MAX_PY_CLI] = { NULL };
+py_cli_t *py_cli_t::py_clis[MAX_PY_CLI] = { nullptr };
 #define DECL_PY_CLI_CB(CBN) { s_execute_line##CBN, s_complete_line##CBN, s_keydown##CBN }
 const py_cli_cbs_t py_cli_t::py_cli_cbs[MAX_PY_CLI] =
 {

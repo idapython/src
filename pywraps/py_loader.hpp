@@ -53,11 +53,11 @@ static PyObject *py_load_plugin(const char *name)
     prepare_programmatic_plugin_load(name);
   plugin_t *r = load_plugin(name);
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  prepare_programmatic_plugin_load(NULL);
-  if ( r == NULL )
+  prepare_programmatic_plugin_load(nullptr);
+  if ( r == nullptr )
     Py_RETURN_NONE;
   else
-    return PyCapsule_New(r, VALID_CAPSULE_NAME, NULL);
+    return PyCapsule_New(r, VALID_CAPSULE_NAME, nullptr);
 }
 
 //------------------------------------------------------------------------
@@ -72,7 +72,7 @@ def run_plugin(plg):
     pass
 #</pydoc>
 */
-static bool py_run_plugin(PyObject *plg, int arg)
+static bool py_run_plugin(PyObject *plg, size_t arg)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !PyCapsule_IsValid(plg, VALID_CAPSULE_NAME) )
@@ -96,14 +96,14 @@ static bool py_load_and_run_plugin(const char *name, size_t arg)
   if ( qfileexist(name) )
     prepare_programmatic_plugin_load(name);
   bool rc = load_and_run_plugin(name, arg);
-  prepare_programmatic_plugin_load(NULL);
+  prepare_programmatic_plugin_load(nullptr);
   return rc;
 }
 
 //-------------------------------------------------------------------------
 static PyObject *py_extract_module_from_archive(const char *fname, bool is_remote=false)
 {
-  char *temp_file_ptr = NULL;
+  char *temp_file_ptr = nullptr;
   char fname_buf[QMAXPATH];
   qstrncpy(fname_buf, fname, sizeof(fname_buf));
   bool ok = extract_module_from_archive(
@@ -111,7 +111,7 @@ static PyObject *py_extract_module_from_archive(const char *fname, bool is_remot
           sizeof(fname_buf),
           &temp_file_ptr,
           is_remote);
-  return Py_BuildValue("(ss)", ok ? fname_buf : NULL, ok ? temp_file_ptr : NULL);
+  return Py_BuildValue("(ss)", ok ? fname_buf : nullptr, ok ? temp_file_ptr : nullptr);
 }
 
 //</inline(py_loader)>

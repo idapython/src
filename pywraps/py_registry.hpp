@@ -7,18 +7,18 @@
 static PyObject *_py_reg_subkey_children(const char *name, bool subkeys)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  PyObject *result = NULL;
+  PyObject *result = nullptr;
   qstrvec_t children;
   Py_BEGIN_ALLOW_THREADS;
   if ( reg_subkey_children(&children, name, subkeys) )
   {
     result = PyList_New(children.size());
-    if ( result != NULL )
+    if ( result != nullptr )
       for ( size_t i = 0, n = children.size(); i < n; ++i )
         PyList_SET_ITEM(result, i, IDAPyStr_FromUTF8(children[i].c_str()));
   }
   Py_END_ALLOW_THREADS;
-  if ( result == NULL )
+  if ( result == nullptr )
     Py_RETURN_NONE;
   else
     return result;
@@ -28,19 +28,19 @@ static PyObject *_py_reg_subkey_children(const char *name, bool subkeys)
 
 //<inline(py_registry)>
 //-------------------------------------------------------------------------
-PyObject *py_reg_read_string(const char *name, const char *subkey = NULL, const char *def = NULL)
+PyObject *py_reg_read_string(const char *name, const char *subkey = nullptr, const char *def = nullptr)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   qstring utf8;
   Py_BEGIN_ALLOW_THREADS;
-  if ( !reg_read_string(&utf8, name, subkey) && def != NULL )
+  if ( !reg_read_string(&utf8, name, subkey) && def != nullptr )
     utf8 = def;
   Py_END_ALLOW_THREADS;
   return IDAPyStr_FromUTF8(utf8.c_str());
 }
 
 //-------------------------------------------------------------------------
-regval_type_t py_reg_data_type(const char *name, const char *subkey = NULL)
+regval_type_t py_reg_data_type(const char *name, const char *subkey = nullptr)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   regval_type_t rt = reg_unknown;
@@ -51,7 +51,7 @@ regval_type_t py_reg_data_type(const char *name, const char *subkey = NULL)
 }
 
 //-------------------------------------------------------------------------
-PyObject *py_reg_read_binary(const char *name, const char *subkey = NULL)
+PyObject *py_reg_read_binary(const char *name, const char *subkey = nullptr)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   bytevec_t bytes;
@@ -66,12 +66,12 @@ PyObject *py_reg_read_binary(const char *name, const char *subkey = NULL)
 }
 
 //-------------------------------------------------------------------------
-PyObject *py_reg_write_binary(const char *name, PyObject *py_bytes, const char *subkey = NULL)
+PyObject *py_reg_write_binary(const char *name, PyObject *py_bytes, const char *subkey = nullptr)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( IDAPyBytes_Check(py_bytes) )
   {
-    char *py_bytes_raw = NULL;
+    char *py_bytes_raw = nullptr;
     Py_ssize_t py_size = 0;
     IDAPyBytes_AsMemAndSize(py_bytes, &py_bytes_raw, &py_size);
     bytevec_t bytes;
@@ -84,7 +84,7 @@ PyObject *py_reg_write_binary(const char *name, PyObject *py_bytes, const char *
   else
   {
     PyErr_SetString(PyExc_ValueError, "Bytes string expected!");
-    return NULL;
+    return nullptr;
   }
 }
 

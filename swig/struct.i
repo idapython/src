@@ -10,6 +10,8 @@
 %ignore get_innermost_member;
 %rename (get_innermost_member) py_get_innermost_member;
 
+%ignore MF_RESERVED1;
+
 //-------------------------------------------------------------------------
 // For 'get_member_by_id()'
 %typemap(in,numinputs=0) qstring *out_mname (qstring temp) {

@@ -8,15 +8,33 @@ description:
 
 from __future__ import print_function
 
+import inspect
+
 import ida_kernwin
 
 class MyUiHook(ida_kernwin.UI_Hooks):
     def __init__(self):
         ida_kernwin.UI_Hooks.__init__(self)
         self.cmdname = "<no command>"
+        self.inhibit_log = 0;
 
-    def _log(self, msg):
-        print(">>> MyUiHook: %s" % msg)
+    def _format_value(self, v):
+        return str(v)
+
+    def _log(self, msg=None):
+        if self.inhibit_log <= 0:
+            if msg:
+                print(">>> MyUiHook: %s" % msg)
+            else:
+                stack = inspect.stack()
+                frame, _, _, _, _, _ = stack[1]
+                args, _, _, values = inspect.getargvalues(frame)
+                method_name = inspect.getframeinfo(frame)[2]
+                argstrs = []
+                for arg in args[1:]:
+                    argstrs.append("%s=%s" % (arg, self._format_value(values[arg])))
+                print(">>> MyUiHook.%s: %s" % (method_name, ", ".join(argstrs)))
+        return 0
 
     def preprocess_action(self, name):
         self._log("IDA preprocessing command: %s" % name)
@@ -74,6 +92,90 @@ class MyUiHook(ida_kernwin.UI_Hooks):
         attach actions.
         """
         self._log("finish_populating_widget_popup; title: %s" % (ctx.widget_title,))
+
+    def range(self):
+        self._log()
+
+    def idcstart(self):
+        self._log()
+
+    def idcstop(self):
+        self._log()
+
+    def suspend(self):
+        self._log()
+
+    def resume(self):
+        self._log()
+
+    def debugger_menu_change(self, enable):
+        self._log()
+
+    def widget_visible(self, widget):
+        self._log()
+
+    def widget_closing(self, widget):
+        self._log()
+
+    def widget_invisible(self, widget):
+        self._log()
+
+    def get_item_hint(self, ea, max_lines):
+        self._log()
+
+    def get_custom_viewer_hint(self, viewer, place):
+        self._log()
+
+    def database_inited(self, is_new_database, idc_script):
+        self._log()
+
+    def ready_to_run(self):
+        self._log()
+
+    def get_chooser_item_attrs(self, chooser, n, attrs):
+        self._log()
+
+    def updating_actions(self, ctx):
+        self._log()
+
+    def updated_actions(self):
+        self._log()
+
+    def plugin_loaded(self, plugin_info):
+        self._log()
+
+    def plugin_unloading(self, plugin_info):
+        self._log()
+
+    def current_widget_changed(self, widget, prev_widget):
+        self._log()
+
+    def screen_ea_changed(self, ea, prev_ea):
+        self._log()
+
+    def create_desktop_widget(self, title, cfg):
+        self._log()
+
+    def get_lines_rendering_info(self, out, widget, info):
+        self._log()
+
+    def get_widget_config(self, widget, cfg):
+        self._log()
+
+    def set_widget_config(self, widget, cfg):
+        self._log()
+
+    def initing_database(self):
+        self._log()
+
+    def destroying_procmod(self, procmod):
+        self._log()
+
+    def destroying_plugmod(self, plugmod, entry):
+        self._log()
+
+    def desktop_applied(self, name, from_idb, type):
+        self._log()
 
 
 #---------------------------------------------------------------------

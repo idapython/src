@@ -39,15 +39,8 @@ class BasicBlock(object):
         for i in range(0, q.nsucc(self.id)):
             yield self._fc[q.succ(self.id, i)]
 
-    try:
-        if _BC695:
-            startEA = property(lambda self: self.start_ea, lambda self, ea: setattr(self, "start_ea", ea))
-            endEA = property(lambda self: self.end_ea, lambda self, ea: setattr(self, "end_ea", ea))
-        else:
-            startEA = ida_idaapi._make_badattr_property("startEA", "start_ea")
-            endEA = ida_idaapi._make_badattr_property("endEA", "end_ea")
-    except:
-        pass # BC695 not defined at compile-time
+    startEA = ida_idaapi._make_badattr_property("startEA", "start_ea")
+    endEA = ida_idaapi._make_badattr_property("endEA", "end_ea")
 
 # -----------------------------------------------------------------------
 class FlowChart(object):

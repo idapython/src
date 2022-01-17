@@ -200,20 +200,3 @@ class PluginForm(object):
     WCLS_CLOSE_LATER  = WCLS_DELETE_LATER
 
 #</pycode(py_kernwin_plgform)>
-
-plg = PluginForm()
-plg.Show("This is it")
-
-#<pycode_BC695(py_kernwin_plgform)>
-PluginForm.FORM_MDI = PluginForm.WOPN_MDI
-PluginForm.FORM_TAB = PluginForm.WOPN_TAB
-PluginForm.FORM_RESTORE = PluginForm.WOPN_RESTORE
-PluginForm.FORM_ONTOP = PluginForm.WOPN_ONTOP
-PluginForm.FORM_MENU = PluginForm.WOPN_MENU
-PluginForm.FORM_CENTERED = PluginForm.WOPN_CENTERED
-PluginForm.FORM_PERSIST = PluginForm.WOPN_PERSIST
-PluginForm.FORM_SAVE = PluginForm.WCLS_SAVE
-PluginForm.FORM_NO_CONTEXT = PluginForm.WCLS_NO_CONTEXT
-PluginForm.FORM_DONT_SAVE_SIZE = PluginForm.WCLS_DONT_SAVE_SIZE
-PluginForm.FORM_CLOSE_LATER = PluginForm.WCLS_CLOSE_LATER
-#</pycode_BC695(py_kernwin_plgform)>

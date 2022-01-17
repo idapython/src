@@ -44,10 +44,10 @@ inline int IDAPyStr_Check(PyObject *obj)
 inline bool IDAPyStr_AsUTF8(qstring *out, PyObject *obj)
 {
   PyObject *utf8 = PyUnicode_AsUTF8String(obj);
-  bool ok = utf8 != NULL;
+  bool ok = utf8 != nullptr;
   if ( ok )
   {
-    char *buffer = NULL;
+    char *buffer = nullptr;
     Py_ssize_t length = 0;
     ok = PyBytes_AsStringAndSize(utf8, &buffer, &length) >= 0;
     if ( ok )
@@ -139,7 +139,7 @@ inline int IDAPyStr_Check(PyObject *obj)
 
 inline bool IDAPyStr_AsUTF8(qstring *out, PyObject *obj)
 {
-  char *buffer = NULL;
+  char *buffer = nullptr;
   Py_ssize_t length = 0;
   bool ok = PyString_AsStringAndSize(obj, &buffer, &length) >= 0;
   if ( ok )
@@ -199,7 +199,7 @@ inline char *IDAPyBytes_AsString(PyObject *o)
 
 inline bool IDAPyBytes_AsBytes(bytevec_t *out, PyObject *obj)
 {
-  char *buffer = NULL;
+  char *buffer = nullptr;
   Py_ssize_t length = 0;
   bool ok = IDAPyBytes_AsMemAndSize(obj, &buffer, &length) >= 0;
   if ( ok )
@@ -220,6 +220,11 @@ inline bool IDAPyBytes_as_qtype(qtype *out, PyObject *obj)
     out->append(bytes.begin(), bytes.size());
   }
   return ok;
+}
+
+inline PyObject *IDAPyStr_FromUTF8(const qstring &s)
+{
+  return IDAPyStr_FromUTF8AndSize(s.c_str(), s.length());
 }
 
 #endif // IDAPY_HPP

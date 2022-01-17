@@ -21,7 +21,6 @@ EXPORTS
   disable_script_timeout
   enable_extlang_python
   enable_python_cli
-  is_api695_compat_enabled
   get_plugin_instance
   idcvar_to_pyvar
   lookup_info_t_commit

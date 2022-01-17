@@ -10,13 +10,13 @@ PyObject *py_appcall(
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
   if ( !PyList_Check(arg_list) )
-    return NULL;
+    return nullptr;
 
   const type_t *type   = (const type_t *) _type_or_none.begin();
   const type_t *fields = (const p_list *) _fields.begin();
   tinfo_t tif;
-  tinfo_t *ptif = NULL;
-  if ( tif.deserialize(NULL, &type, &fields) )
+  tinfo_t *ptif = nullptr;
+  if ( tif.deserialize(nullptr, &type, &fields) )
     ptif = &tif;
 
   // Convert Python arguments into IDC values
@@ -49,7 +49,7 @@ PyObject *py_appcall(
     PyErr_SetString(
         PyExc_ValueError,
         "PyAppCall: Failed to convert Python values to IDC values");
-    return NULL;
+    return nullptr;
   }
 
   error_t ret;
@@ -89,13 +89,13 @@ PyObject *py_appcall(
       ref_t py_appcall_exc;
       idcvar_to_pyvar(idc_result, &py_appcall_exc);
       PyErr_SetObject(PyExc_OSError, py_appcall_exc.o);
-      return NULL;
+      return nullptr;
     }
     // An error in the Appcall? (or an exception but AppCallOptions/DEBEV is not set)
     else
     {
       PyErr_SetString(PyExc_Exception, qstrerror(ret));
-      return NULL;
+      return nullptr;
     }
   }
 
@@ -122,7 +122,7 @@ PyObject *py_appcall(
     if ( idcvar_to_pyvar(idc_args[i], &py_item) == CIP_FAILED )
     {
       PyErr_SetString(PyExc_ValueError, "PyAppCall: Failed while converting IDC values to Python values");
-      return NULL;
+      return nullptr;
     }
   }
 
@@ -133,7 +133,7 @@ PyObject *py_appcall(
   if ( idcvar_to_pyvar(idc_result, &py_result, PYWCVTF_STR_AS_BYTES) <= CIP_IMMUTABLE )
   {
     PyErr_SetString(PyExc_ValueError, "PyAppCall: Failed while converting IDC return value to Python return value");
-    return NULL;
+    return nullptr;
   }
   if ( (debug & IDA_DEBUG_APPCALL) != 0 )
   {
@@ -169,7 +169,7 @@ static PyObject *dbg_get_registers()
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  if ( dbg == NULL )
+  if ( dbg == nullptr )
     Py_RETURN_NONE;
 
   PyObject *py_list = PyList_New(dbg->nregs);
@@ -181,14 +181,14 @@ static PyObject *dbg_get_registers()
 
     // Does this register have bit strings?
     // (Make sure it does not use custom formats because bit_string would be the format name)
-    if ( ri.bit_strings != NULL && (ri.flags & REGISTER_CUSTFMT) == 0 )
+    if ( ri.bit_strings != nullptr && (ri.flags & REGISTER_CUSTFMT) == 0 )
     {
       int nbits = (int)b2a_width((int)get_dtype_size(ri.dtype), 0) * 4;
       py_bits = PyList_New(nbits);
       for ( int i=0; i < nbits; i++ )
       {
         const char *s = ri.bit_strings[i];
-        PyList_SetItem(py_bits, i, IDAPyStr_FromUTF8(s == NULL ? "" : s));
+        PyList_SetItem(py_bits, i, IDAPyStr_FromUTF8(s == nullptr ? "" : s));
       }
     }
     else
@@ -255,8 +255,8 @@ static PyObject *dbg_read_memory(ea_t ea, size_t sz)
     Py_RETURN_NONE;
 
   // Create a Python string
-  PyObject *ret = IDAPyBytes_FromMemAndSize(NULL, Py_ssize_t(sz));
-  if ( ret == NULL )
+  PyObject *ret = IDAPyBytes_FromMemAndSize(nullptr, Py_ssize_t(sz));
+  if ( ret == nullptr )
     Py_RETURN_NONE;
 
   // Get the internal buffer
@@ -311,7 +311,7 @@ static PyObject *dbg_get_name()
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  if ( dbg == NULL )
+  if ( dbg == nullptr )
     Py_RETURN_NONE;
   else
     return IDAPyStr_FromUTF8(dbg->name);

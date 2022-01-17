@@ -44,15 +44,6 @@ BINS += $(IDAPYSWITCH_DEP)
 bins: $(BINS)
 
 #----------------------------------------------------------------------
-# configurable variables for this makefile
-BC695 = 1
-ifdef BC695
-  BC695_CC_DEF = BC695
-  BC695_SWIGFLAGS = -DBC695
-  BC695_DEPLOYFLAGS = --bc695
-endif
-
-#----------------------------------------------------------------------
 # Build system hacks
 
 # HACK HIJACK the $(I) variable to point to our staging SDK
@@ -176,7 +167,6 @@ ifdef DO_IDAMAKE_SIMPLIFY
   QGENHOOKS = @echo $(call qcolor,genhooks) $< && #
   QGENIDAAPI = @echo $(call qcolor,genidaapi) $< && #
   QGENSWIGHEADER = @echo $(call qcolor,genswigheader) $< && #
-  QGEN_IDC_BC695 = @echo $(call qcolor,gen_idc_bc695) $< && #
   QINJECT_PYDOC = @echo $(call qcolor,inject_pydoc) $$< && #
   QINJECT_BASE_HOOKS_FLAGS = @echo $(call qcolor,inject_base_hooks_flags) $< && #
   QPATCH_CODEGEN = @echo $(call qcolor,patch_codegen) $$< && #
@@ -204,7 +194,6 @@ DEPLOY_PYDIR=$(R)python/$(PYTHON_VERSION_MAJOR)
 DEPLOY_INIT_PY=$(DEPLOY_PYDIR)/init.py
 DEPLOY_IDC_PY=$(DEPLOY_PYDIR)/idc.py
 DEPLOY_IDAUTILS_PY=$(DEPLOY_PYDIR)/idautils.py
-DEPLOY_IDC_BC695_PY=$(DEPLOY_PYDIR)/idc_bc695.py
 DEPLOY_IDAAPI_PY=$(DEPLOY_PYDIR)/idaapi.py
 DEPLOY_IDADEX_PY=$(DEPLOY_PYDIR)/idadex.py
 ifdef TESTABLE_BUILD
@@ -212,23 +201,19 @@ ifdef TESTABLE_BUILD
 endif
 ifeq ($(OUT_OF_TREE_BUILD),)
   TEST_IDC=test_idc
-  IDC_BC695_IDC_SOURCE?=$(DEPLOY_PYDIR)/../../idc/idc.idc
   IDAT_PATH?=$(R)/idat
 else
-  IDC_BC695_IDC_SOURCE?=$(IDA_INSTALL)/idc/idc.idc
   IDAT_PATH?=$(IDA_INSTALL)/idat
 endif
 
 IDAT_CMD=TVHEADLESS=1 $(IDAT_PATH)$(SUFF64)
 
-ifneq ($(OUT_OF_TREE_BUILD),)
-  # envvar HAS_HEXRAYS must have been set by build.py if needed
-else
-  ifeq ($(BUILD_VD),1)
-    HAS_HEXRAYS=1 # force hexrays bindings
-  endif
+# envvar HAS_HEXRAYS must have been set by build.py if needed
+ifeq ($(OUT_OF_TREE_BUILD),)
+  HAS_HEXRAYS=1 # force hexrays bindings
 endif
-#
+
+# determine SDK_SOURCES
 ifeq ($(OUT_OF_TREE_BUILD),)
   include ../../etc/sdk/sdk_files.mak
   SDK_SOURCES=$(sort $(foreach v,$(SDK_FILES),$(if $(findstring include/,$(v)),$(addprefix $(IDA_INCLUDE)/,$(notdir $(v))))))
@@ -236,7 +221,6 @@ ifeq ($(OUT_OF_TREE_BUILD),)
     SDK_SOURCES+=$(IDA_INCLUDE)/hexrays.hpp
   endif
   SDK_SOURCES+=$(IDA_INCLUDE)/lumina.hpp
-  SDK_SOURCES+=$(IDA_INCLUDE)/srclang.hpp
 else
   SDK_SOURCES=$(wildcard $(IDA_INCLUDE)/*.h) $(wildcard $(IDA_INCLUDE)/*.hpp)
 endif
@@ -264,9 +248,7 @@ ifneq ($(HAS_HEXRAYS),)
   WITH_HEXRAYS_DEF = WITH_HEXRAYS
   WITH_HEXRAYS_CHKAPI=--with-hexrays
   HEXRAYS_MODNAME=hexrays
-  ifdef BC695
-    CMP_API = 1
-  endif
+  CMP_API = 1
   # Warning: adding an empty HEXRAYS_MODNAME will lead to idaapy trying to load
   # a module called ida_.
   MODULES_NAMES += $(HEXRAYS_MODNAME)
@@ -317,9 +299,7 @@ MODULES_NAMES += registry
 MODULES_NAMES += search
 MODULES_NAMES += segment
 MODULES_NAMES += segregs
-ifdef TESTABLE_BUILD
-  MODULES_NAMES += srclang
-endif
+MODULES_NAMES += srclang
 MODULES_NAMES += strlist
 MODULES_NAMES += struct
 MODULES_NAMES += tryblks
@@ -364,11 +344,10 @@ endif
 #  three modules will share type information. But any other project's
 #  types will not interfere or clash with the types in your module.
 DEF_TYPE_TABLE = SWIG_TYPE_TABLE=idaapi
-SWIGFLAGS=$(_SWIGFLAGS) -Itools/typemaps-supplement $(SWIG_INCLUDES) $(addprefix -D,$(DEF_TYPE_TABLE)) $(BC695_SWIGFLAGS)
+SWIGFLAGS=$(_SWIGFLAGS) -Itools/typemaps-supplement $(SWIG_INCLUDES) $(addprefix -D,$(DEF_TYPE_TABLE)) -DMISSED_BC695
 
 pyfiles: $(DEPLOY_IDAUTILS_PY)  \
          $(DEPLOY_IDC_PY)       \
-         $(DEPLOY_IDC_BC695_PY) \
          $(DEPLOY_INIT_PY)      \
          $(DEPLOY_IDAAPI_PY)    \
          $(DEPLOY_IDADEX_PY)    \
@@ -486,9 +465,6 @@ $(DEPLOY_IDC_PY): python/idc.py
 
 $(DEPLOY_IDAUTILS_PY): python/idautils.py
 	$(CP) $? $@
-
-$(DEPLOY_IDC_BC695_PY): $(IDC_BC695_IDC_SOURCE) python/idc.py tools/gen_idc_bc695.py
-	$(QGEN_IDC_BC695)$(PYTHON) tools/gen_idc_bc695.py --idc $(IDC_BC695_IDC_SOURCE) --output $@
 
 $(DEPLOY_IDAAPI_PY): python/idaapi.py tools/genidaapi.py $(IDAPYTHON_MODULES)
 	$(QGENIDAAPI)$(PYTHON) tools/genidaapi.py -i $< -o $@ -m $(subst $(space),$(comma),$(MODULES_NAMES))
@@ -608,7 +584,7 @@ $(ST_PYW)/py_kernwin.hpp: pywraps/py_kernwin.hpp \
 	$(QGENHOOKS)$(PYTHON) $(GENHOOKS)genhooks.py -i $< -o $@ \
                 -c UI_Hooks \
                 -x $(ST_PARSED_HEADERS) \
-	        -q "ui_notification_t::" \
+                -q "ui_notification_t::" \
                 -m hookgenUI
 $(ST_PYW)/py_kernwin_viewhooks.hpp: pywraps/py_kernwin_viewhooks.hpp \
         $(I)kernwin.hpp \
@@ -632,7 +608,7 @@ $(ST_PYW)/py_hexrays_hooks.hpp: pywraps/py_hexrays_hooks.hpp \
 
 #----------------------------------------------------------------------
 CFLAGS += $(PYTHON_CFLAGS)
-CC_DEFS += $(BC695_CC_DEF)
+CC_DEFS += MISSED_BC695
 CC_DEFS += $(DEF_TYPE_TABLE)
 CC_DEFS += $(WITH_HEXRAYS_DEF)
 CC_DEFS += USE_STANDARD_FILE_FUNCTIONS
@@ -727,16 +703,17 @@ define make-module-rules
     # files.
 
     # ../../bin/x86_linux_gcc/python/ida_$(1).py (note: dep. on .cpp. See note above.)
-    $(DEPLOY_PYDIR)/ida_$(1).py: $(ST_WRAP)/$(1).cpp $(PARSED_HEADERS_MARKER) $(call find-pydoc-patches-deps,$(1)) $(call find-patch-codegen-deps,$(1)) | tools/inject_pydoc.py tools/wrapper_utils.py
+    $(DEPLOY_PYDIR)/ida_$(1).py: $(ST_WRAP)/$(1).cpp tools/inject_pydoc.py $(PARSED_HEADERS_MARKER) $(call find-pydoc-patches-deps,$(1)) $(call find-patch-codegen-deps,$(1))
 	$(QINJECT_PYDOC)$(PYTHON) tools/inject_pydoc.py \
                 --xml-doc-directory $(ST_PARSED_HEADERS) \
                 --module $(1) \
                 --input $(ST_WRAP)/ida_$(1).py \
                 --interface $(ST_SWIG)/$(1).i \
                 --cpp-wrapper $(ST_WRAP)/$(1).cpp \
+                --traces tools/collected_traces.txt \
+                --cases tools/inject_pydoc_cases.txt \
                 --output $$@ \
-                --epydoc-injections $(ST_WRAP)/ida_$(1).epydoc_injection \
-                --verbose > $(ST_WRAP)/ida_$(1).pydoc_injection 2>&1
+                --verbose > $(ST_WRAP)/ida_$(1).pydoc_injection
 
     # obj/x86_linux_gcc/swig/X.i
     $(ST_SWIG)/$(1).i: $(addprefix $(F),$(call find-pywraps-deps,$(1))) $(ADDITIONAL_PYWRAP_DEP_$(1)) swig/$(1).i $(ST_SWIG_HEADER) $(SWIG_IFACE_$(1):%=$(ST_SWIG)/%.i) $(ST_SWIG_HEADER) tools/deploy.py $(PARSED_HEADERS_MARKER)
@@ -746,7 +723,6 @@ define make-module-rules
                 --output $$@ \
                 --module $$(subst .i,,$$(notdir $$@)) \
                 $(MODULE_LIFECYCLE_$(1)) \
-                $(BC695_DEPLOYFLAGS) \
                 --interface-dependencies=$(subst $(space),$(comma),$(SWIG_IFACE_$(1))) \
 		--xml-doc-directory $(ST_PARSED_HEADERS)
 
@@ -877,7 +853,7 @@ else
   DUMPDOC_IS_64:=False
 endif
 
-PYDOC_INJECTIONS_IDAT_CMD=$(USE_PYTHON2_ENVVAR) $(IDAT_CMD) $(BATCH_SWITCH) "-OIDAPython:AUTOIMPORT_COMPAT_IDA695=NO" -S"$< $@ $(ST_WRAP) $(DUMPDOC_IS_64)" -t -L$(F)dumpdoc.log >/dev/null
+PYDOC_INJECTIONS_IDAT_CMD=$(USE_PYTHON2_ENVVAR) $(IDAT_CMD) $(BATCH_SWITCH) -S"$< $@ $(ST_WRAP) $(DUMPDOC_IS_64)" -t -L$(F)dumpdoc.log >/dev/null
 pydoc_injections: $(ST_PYDOC_INJECTIONS)
 $(ST_PYDOC_INJECTIONS): tools/dumpdoc.py $(IDAPYTHON_MODULES) $(PYTHON_BINARY_MODULES)
 ifeq ($(or $(__CODE_CHECKER__),$(NO_CMP_API),$(__ASAN__),$(IDAHOME),$(DEMO_OR_FREE)),)
@@ -893,13 +869,11 @@ endif
 
 #----------------------------------------------------------------------
 DOCS_MODULES=$(foreach mod,$(MODULES_NAMES),ida_$(mod))
-tools/docs/hrdoc.cfg: tools/docs/hrdoc.cfg.in
-	sed s/%IDA_MODULES%/"$(DOCS_MODULES)"/ < $^ > $@
-
-# the html files are produced in docs\hr-html directory
-docs:   tools/docs/hrdoc.py tools/docs/hrdoc.cfg tools/docs/hrdoc.css
+SORTED_DOCS_MODULES=$(sort $(DOCS_MODULES))
+docs:   tools/docs/hrdoc.py tools/docs/hrdoc.css
 ifndef __NT__
-	$(IDAT_CMD) -Stools/docs/hrdoc.py -t > /dev/null
+	$(IDAT_CMD) $(BATCH_SWITCH) -S"tools/docs/hrdoc.py -o docs/hr-html -m $(subst $(space),$(comma),$(SORTED_DOCS_MODULES)),idc,idautils -s idc,idautils -x ida_allins" -t > /dev/null
+#	$(IDAT_CMD) $(BATCH_SWITCH) -S"tools/docs/hrdoc.py -o docs/hr-html -m ida_pro,ida_kernwin -s idc,idautils -x ida_allins" -t > /dev/null  # use this one for testing (faster)
 else
 	$(R)ida -Stools/docs/hrdoc.py -t
 endif
@@ -980,6 +954,7 @@ ifdef __CODE_CHECKER__
 else
   EXAMPLES          := $(wildcard examples/**/*.py)
   GEN_EXAMPLES_TOOL := tools/gen_examples_index.py
+  GEN_EXAMPLES_CFG  := tools/gen_examples_index.cfg
 
   ST_EXAMPLES_INDEX_HTML := $(F)examples/index.html
   ST_EXAMPLES_INDEX_MD   := $(F)examples/index.md
@@ -992,13 +967,14 @@ else
 
     .PRECIOUS: $(ST_EXAMPLES_INDEX)
 
-    $(eval EXAMPLES_INDEX_CMD := $(PYTHON) $(GEN_EXAMPLES_TOOL) \
+    $(eval EXAMPLES_INDEX_CMD := $(PYTHON) $(GEN_EXAMPLES_TOOL) write \
 	-t $(EXAMPLES_TEMPLATE) \
 	-e examples \
 	-o $(ST_EXAMPLES_INDEX) \
 	   )
 
-    $(ST_EXAMPLES_INDEX): $(GEN_EXAMPLES_TOOL) $(EXAMPLES_TEMPLATE) $(EXAMPLES)
+    $(ST_EXAMPLES_INDEX): $(GEN_EXAMPLES_TOOL) $(GEN_EXAMPLES_CFG) \
+                          $(EXAMPLES_TEMPLATE) $(EXAMPLES)
 	-$(Q)if [ ! -d "$(F)examples" ] ; then mkdir -p 2>/dev/null $(F)examples ; fi
 	$(QGEN_EXAMPLES_INDEX)$(EXAMPLES_INDEX_CMD) \
 	  || echo FAILED: $(EXAMPLES_INDEX_CMD)

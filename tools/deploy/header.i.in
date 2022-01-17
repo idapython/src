@@ -1,5 +1,10 @@
 #ifndef __HEADER_I__
 #define __HEADER_I__
+
+%begin %{
+#define PY_SSIZE_T_CLEAN 1
+%}
+
 %{
 #ifndef USE_DANGEROUS_FUNCTIONS
   #define USE_DANGEROUS_FUNCTIONS 1
@@ -14,6 +19,10 @@
 %}
 
 #define SWIG_PYTHON_LEGACY_BOOL 1
+
+// Have SWiG flatten the hierarchy of types
+// (instead of plain ignoring nested ones.)
+%feature("flatnested");
 
 %{
 class plugin_t;
@@ -70,6 +79,19 @@ extern plugin_t PLUGIN;
 %ignore qlist::const_iterator::operator--;
 %ignore qlist::reverse_iterator::operator--;
 %ignore qlist::const_reverse_iterator::operator--;
+%ignore qlist::iterator::operator==;
+%ignore qlist::const_iterator::operator==;
+%ignore qlist::reverse_iterator::operator==;
+%ignore qlist::const_reverse_iterator::operator==;
+%ignore qlist::iterator::operator!=;
+%ignore qlist::const_iterator::operator!=;
+%ignore qlist::reverse_iterator::operator!=;
+%ignore qlist::const_reverse_iterator::operator!=;
+%ignore qlist::iterator;
+%ignore qlist::const_iterator;
+%ignore qlist::reverse_iterator;
+%ignore qlist::const_reverse_iterator;
+
 
 // To be used e.g., when a '#define' in the source code
 // defines a uint32 value with the highest bit set, so that
@@ -194,24 +216,6 @@ extern plugin_t PLUGIN;
 import ida_idaapi
 }
 
-#ifdef BC695
-%pythoncode {
-import sys
-_BC695 = sys.modules["__main__"].IDAPYTHON_COMPAT_695_API
-
-if _BC695:
-    ## This is a helper for replacing an existing function, with a wrapper
-    ## providing backwards-compatibility for API 6.95 -- typically because
-    ## the number/types of arguments changed, while the function name itself
-    ## remained the same in 7.0.
-    ## (Note that this shouldn't be used for functions that don't exist
-    ## in the vanilla 7.0 API, such as 'choose_named_type2'.)
-    def bc695redef(func):
-        ida_idaapi._BC695.replace_fun(func)
-        return func
-}
-#endif // BC695
-
 //---------------------------------------------------------------------
 %extend qvector {
   inline size_t __len__() const { return $self->size(); }
@@ -321,6 +325,42 @@ if _BC695:
             next(it)
   }
 }
+
+%define %qlist_template(QLIST_TYPE, ELEMENT_TYPE)
+// a typedef for the C++ side
+%{
+typedef qlist<ELEMENT_TYPE>::iterator QLIST_TYPE##_iterator;
+%}
+// we need a concrete type for the iterators, so SWiG properly
+// generates type information, including a destructor (otherwise
+// calling mylist.begin() will cause an ABORT for lack of dtor.)
+class QLIST_TYPE##_iterator {};
+%extend QLIST_TYPE##_iterator {
+    const ELEMENT_TYPE &cur { return *(*self); }
+    void __next__(void) { (*self)++; }
+    bool operator==(const QLIST_TYPE##_iterator *x) const { return &(self->operator*()) == &(x->operator*()); }
+    bool operator!=(const QLIST_TYPE##_iterator *x) const { return &(self->operator*()) != &(x->operator*()); }
+    %pythoncode {
+      next = __next__
+    }
+};
+%extend qlist<ELEMENT_TYPE> {
+    QLIST_TYPE##_iterator begin() { return self->begin(); }
+    QLIST_TYPE##_iterator end(void) { return self->end(); }
+    QLIST_TYPE##_iterator insert(QLIST_TYPE##_iterator p, const ELEMENT_TYPE& x) { return self->insert(p, x); }
+    void erase(QLIST_TYPE##_iterator p) { self->erase(p); }
+};
+%ignore qlist< ELEMENT_TYPE >::insert(iterator);
+%ignore qlist< ELEMENT_TYPE >::insert(iterator, const ELEMENT_TYPE &);
+%ignore qlist< ELEMENT_TYPE >::insert(iterator, iterator, iterator);
+%ignore qlist< ELEMENT_TYPE >::erase(iterator);
+%ignore qlist< ELEMENT_TYPE >::erase(iterator, iterator);
+%ignore qlist< ELEMENT_TYPE >::begin();
+%ignore qlist< ELEMENT_TYPE >::begin() const;
+%ignore qlist< ELEMENT_TYPE >::end();
+%ignore qlist< ELEMENT_TYPE >::end() const;
+%template(QLIST_TYPE) qlist<ELEMENT_TYPE>;
+%enddef
 
 #if IDAPYTHON_MODULE_hexrays
 %define %ida_hexrays_wrapper_exception_catch()
@@ -1141,7 +1181,7 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
     if ( ok )
     {
       insn_t tmp;
-      ok = decode_insn(&tmp, ea_t(ea));
+      ok = decode_insn(&tmp, ea_t(ea)) > 0;
       if ( ok )
         *out = tmp;
     }
@@ -1833,6 +1873,8 @@ ${NONNULL_TYPEMAPS}
   bool call_py_testf_t(flags_t flags, void *ud)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
+    if ( PyErr_Occurred() )
+      return false;
     PyObject *py_callable = (PyObject *) ud;
     QASSERT(0, PyCallable_Check(py_callable));
     newref_t py_flags(PyLong_FromUnsignedLong(flags));

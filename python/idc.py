@@ -70,7 +70,7 @@ import types
 import sys
 
 __EA64__ = ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFF
-WORDMASK = 0xFFFFFFFFFFFFFFFF if __EA64__ else 0xFFFFFFFF
+WORDMASK = 0xFFFFFFFFFFFFFFFF if __EA64__ else 0xFFFFFFFF # just there for bw-compat purposes; please don't use
 class DeprecatedIDCError(Exception):
     """
     Exception for deprecated function calls
@@ -115,8 +115,13 @@ def _IDC_SetAttr(obj, attrmap, attroffs, value):
 
 BADADDR         = ida_idaapi.BADADDR # Not allowed address value
 BADSEL          = ida_idaapi.BADSEL  # Not allowed selector value/number
-MAXADDR         = ida_ida.MAXADDR & WORDMASK
 SIZE_MAX        = _ida_idaapi.SIZE_MAX
+ida_ida.__set_module_dynattrs(
+    __name__,
+    {
+        "MAXADDR" : (lambda: ida_ida.inf_get_privrange_start_ea(), None),
+    })
+
 #
 #      Flag bit definitions (for get_full_flags())
 #
@@ -1748,15 +1753,13 @@ SEARCH_NOBRK    = ida_search.SEARCH_NOBRK    # don't test ctrl-break
 SEARCH_NOSHOW   = ida_search.SEARCH_NOSHOW   # don't display the search progress
 
 
-def find_text(ea, flag, y, x, searchstr, from_bc695=False):
-    if not from_bc695:
-        __warn_once_deprecated_proto_confusion("find_text", "ida_search.find_text")
+def find_text(ea, flag, y, x, searchstr):
+    __warn_once_deprecated_proto_confusion("find_text", "ida_search.find_text")
     return ida_search.find_text(ea, y, x, searchstr, flag)
 
 
-def find_binary(ea, flag, searchstr, radix=16, from_bc695=False):
-    if not from_bc695:
-        __warn_once_deprecated_proto_confusion("find_binary", "ida_search.find_binary")
+def find_binary(ea, flag, searchstr, radix=16):
+    __warn_once_deprecated_proto_confusion("find_binary", "ida_search.find_binary")
     endea = flag & 1 and ida_ida.cvar.inf.max_ea or ida_ida.cvar.inf.min_ea
     return ida_search.find_binary(ea, endea, searchstr, radix, flag)
 
@@ -1918,7 +1921,8 @@ INF_LISTNAMES  = 39           # uchar;   What names should be included in the li
 
 # DISASSEMBLY LISTING DETAILS
 INF_INDENT     = 40           # char;    Indention for instructions
-INF_COMMENT    = 41           # char;    Indention for comments
+INF_CMT_INDENT = 41           # char;    Indention for comments
+INF_COMMENT    = 41           # for compatibility
 INF_MARGIN     = 42           # ushort;  max length of data lines
 INF_LENXREF    = 43           # ushort;  max length of line with xrefs
 INF_OUTFLAGS   = 44           # uint32;  output flags
@@ -1997,7 +2001,7 @@ _INF_attrs_accessors = {
     INF_CC_SIZE_LL            : (ida_ida.inf_get_cc_size_ll,            ida_ida.inf_set_cc_size_ll),
     INF_CC_SIZE_S             : (ida_ida.inf_get_cc_size_s,             ida_ida.inf_set_cc_size_s),
     INF_CMTFLAG               : (ida_ida.inf_get_cmtflg,                ida_ida.inf_set_cmtflg),
-    INF_COMMENT               : (ida_ida.inf_get_comment,               ida_ida.inf_set_comment),
+    INF_CMT_INDENT            : (ida_ida.inf_get_cmt_indent,            ida_ida.inf_set_cmt_indent),
     INF_DATABASE_CHANGE_COUNT : (ida_ida.inf_get_database_change_count, ida_ida.inf_set_database_change_count),
     INF_DATATYPES             : (ida_ida.inf_get_datatypes,             ida_ida.inf_set_datatypes),
     INF_DEMNAMES              : (ida_ida.inf_get_demnames,              ida_ida.inf_set_demnames),
@@ -5927,94 +5931,6 @@ def set_flag(off, bit, value):
   else:
     v = v & ~bit
   set_inf_attr(off, v)
-
-#--------------------------------------------------------------------------
-# Compatibility macros (auto-generated part. Comes first so
-# that any re-definition below will override auto-generated part)
-if sys.modules["__main__"].IDAPYTHON_COMPAT_695_API:
-
-    # see header.i.in
-    bc695redef = ida_idaapi.bc695redef
-
-    # although many things have changed in the 'inf' structure,
-    # let's still try and do the best we can here even though
-    # some INF_* accessor enumerators don't exist anymore
-    GetCharPrm=get_inf_attr
-    GetLongPrm=get_inf_attr
-    GetShortPrm=get_inf_attr
-    SetCharPrm=set_inf_attr
-    SetLongPrm=set_inf_attr
-    SetShortPrm=set_inf_attr
-
-    #--------------------------------------------------------------------------
-    # Compatibility macros (non-auto-generated part)
-    def CompileEx(inp, isfile): return compile_idc_file(inp) if isfile else compile_idc_text(inp)
-
-    def WriteMap(filepath):
-        return gen_file(OFILE_MAP, filepath, 0, BADADDR, GENFLG_MAPSEG|GENFLG_MAPNAME)
-
-    def WriteTxt(filepath, ea1, ea2):
-        return gen_file(OFILE_ASM, filepath, ea1, ea2, 0)
-
-    def WriteExe(filepath):
-        return gen_file(OFILE_EXE, filepath, 0, BADADDR, 0)
-
-    UTP_STRUCT = ida_typeinf.UTP_STRUCT
-    UTP_ENUM   = ida_typeinf.UTP_ENUM
-
-
-    def begin_type_updating(utp):
-        """
-        Begin type updating. Use this function if you
-        plan to call AddEnumConst or similar type modification functions
-        many times or from inside a loop
-
-        @param utp: one of UTP_xxxx consts
-        @return: None
-        """
-        return ida_typeinf.begin_type_updating(utp)
-
-
-    def end_type_updating(utp):
-        """
-        End type updating. Refreshes the type system
-        at the end of type modification operations
-
-        @param utp: one of ida_typeinf.UTP_xxxx consts
-        @return: None
-        """
-        return ida_typeinf.end_type_updating(utp)
-
-    from idc_bc695 import *
-
-    SendDbgCommand=send_dbg_command
-
-    def MakeFunction(start, end=ida_idaapi.BADADDR):
-        return ida_funcs.add_func(start, end)
-
-    ApplyType = apply_type
-    GetManyBytes = get_bytes
-    GetString = get_strlit_contents
-    ClearTraceFile = clear_trace
-    def FindBinary(ea, flag, searchstr, radix=16):
-        return find_binary(ea, flag, searchstr, radix, from_bc695=True)
-    def FindText(ea, flag, y, x, text):
-        return find_text(ea, flag, y, x, text, from_bc695=True)
-    NextHead = next_head
-    ParseTypes = parse_decls
-    PrevHead = prev_head
-    ProcessUiAction = process_ui_action
-    SaveBase = save_database
-    Eval = eval_idc
-    def MakeStr(ea, endea):
-        return create_strlit(ea, endea)
-
-    def GetProcessorName():
-        return ida_ida.cvar.inf.procname
-
-    def SegStart(ea): return get_segm_start(ea)
-    def SegEnd(ea): return get_segm_end(ea)
-    def SetSegmentType(ea, type): return set_segm_type(ea, type)
 
 # Convenience functions:
 def here(): return get_screen_ea()

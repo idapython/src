@@ -5,9 +5,15 @@ description:
   This illustrates the setting/retrieval of background colours
   using the IDC wrappers
 
+  In order to do so, we'll be assigning colors to specific ranges
+  (item, function, or segment). Those will be persisted in the
+  database.
+
 category: disassembly
 
 keywords: coloring, idc
+
+see_also: colorize_disassembly_on_the_fly
 """
 
 from __future__ import print_function

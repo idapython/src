@@ -14,8 +14,8 @@ int idaapi py_enumerate_files_cb(const char *file, void *ud)
           PyObject_CallFunctionObjArgs(
                   (PyObject *)ud,
                   py_file.o,
-                  NULL));
-  return (py_ret == NULL || !PyNumber_Check(py_ret.o)) ? 1 /* stop enum on failure */ : PyInt_AsLong(py_ret.o);
+                  nullptr));
+  return (py_ret == nullptr || !PyNumber_Check(py_ret.o)) ? 1 /* stop enum on failure */ : PyInt_AsLong(py_ret.o);
 }
 
 //-------------------------------------------------------------------------
@@ -79,7 +79,7 @@ linput_t *py_create_bytearray_linput(const qstring &s)
 {
   qstring *bytes = new qstring(s);
   linput_t *li = create_bytearray_linput((const uchar *) bytes->c_str(), bytes->length());
-  if ( li != NULL )
+  if ( li != nullptr )
   {
     bytearray_linput_data_t &ld = bytearray_linput_data_vec.push_back();
     ld.bytes = bytes;

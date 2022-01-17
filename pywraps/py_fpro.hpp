@@ -96,7 +96,7 @@ private:
   //--------------------------------------------------------------------------
   bool _from_fp(FILE *fp)
   {
-    if ( fp == NULL )
+    if ( fp == nullptr )
       return false;
     own = false;
     fn.sprnt("<FILE * %p>", fp);
@@ -117,16 +117,16 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  qfile_t(PyObject *pycapsule = NULL)
+  qfile_t(PyObject *pycapsule = nullptr)
   {
-    fp = NULL;
+    fp = nullptr;
     own = true;
     fn.qclear();
     __idc_cvt_id__ = PY_ICID_OPAQUE;
     bool ok;
     {
       PYW_GIL_CHECK_LOCKED_SCOPE();
-      ok = pycapsule != NULL && PyCapsule_IsValid(pycapsule, VALID_CAPSULE_NAME);
+      ok = pycapsule != nullptr && PyCapsule_IsValid(pycapsule, VALID_CAPSULE_NAME);
     }
     if ( ok )
       _from_capsule(pycapsule);
@@ -135,13 +135,13 @@ public:
   //--------------------------------------------------------------------------
   bool opened()
   {
-    return fp != NULL;
+    return fp != nullptr;
   }
 
   //--------------------------------------------------------------------------
   void close()
   {
-    if ( fp == NULL )
+    if ( fp == nullptr )
       return;
     if ( own )
     {
@@ -149,7 +149,7 @@ public:
       qfclose(fp);
       Py_END_ALLOW_THREADS;
     }
-    fp = NULL;
+    fp = nullptr;
     own = true;
   }
 
@@ -166,7 +166,7 @@ public:
     Py_BEGIN_ALLOW_THREADS;
     fp = qfopen(filename, mode);
     Py_END_ALLOW_THREADS;
-    if ( fp == NULL )
+    if ( fp == nullptr )
       return false;
     // Save file name
     fn = filename;
@@ -177,8 +177,8 @@ public:
   //--------------------------------------------------------------------------
   static qfile_t *from_fp(FILE *fp)
   {
-    if ( fp == NULL )
-      return NULL;
+    if ( fp == nullptr )
+      return nullptr;
     qfile_t *qf = new qfile_t();
     qf->own = false;
     qf->fn.sprnt("<FILE * %p>", fp);
@@ -192,7 +192,7 @@ public:
   {
     return PyCapsule_IsValid(pycapsule, VALID_CAPSULE_NAME)
          ? from_fp((FILE *) PyCapsule_GetPointer(pycapsule, VALID_CAPSULE_NAME))
-         : NULL;
+         : nullptr;
   }
 
   //--------------------------------------------------------------------------
@@ -237,7 +237,7 @@ public:
     do
     {
       char *buf = (char *) malloc(size + 5);
-      if ( buf == NULL )
+      if ( buf == nullptr )
         break;
       PYW_GIL_CHECK_LOCKED_SCOPE();
       int r;
@@ -263,7 +263,7 @@ public:
     do
     {
       char *buf = (char *) malloc(size + 5);
-      if ( buf == NULL )
+      if ( buf == nullptr )
         break;
       PYW_GIL_CHECK_LOCKED_SCOPE();
       int r;
@@ -288,14 +288,14 @@ public:
     do
     {
       char *buf = (char *) malloc(size + 5);
-      if ( buf == NULL )
+      if ( buf == nullptr )
         break;
       PYW_GIL_CHECK_LOCKED_SCOPE();
       char *p;
       Py_BEGIN_ALLOW_THREADS;
       p = qfgets(buf, size, fp);
       Py_END_ALLOW_THREADS;
-      if ( p == NULL )
+      if ( p == nullptr )
       {
         free(buf);
         break;

@@ -129,11 +129,17 @@ if os.getcwd() in sys.path:
 if not IDAPYTHON_REMOVE_CWD_SYS_PATH:
     sys.path.append(os.getcwd())
 
+# Additional $IDAUSR-derived paths
+if IDAPYTHON_IDAUSR_SYSPATH:
+    idausr_python_list = ida_diskio.get_ida_subdirs("python")
+    for idausr_python in idausr_python_list:
+        one = os.path.join(idausr_python, str(sys.version_info.major))
+        if one not in sys.path:
+            sys.path.append(one)
+
 if IDAPYTHON_COMPAT_AUTOIMPORT_MODULES:
     # Import all the required modules
     from idaapi import get_user_idadir, cvar, Appcall, Form
-    if IDAPYTHON_COMPAT_695_API:
-        from idaapi import Choose2
     from idc      import *
     from idautils import *
     import idaapi

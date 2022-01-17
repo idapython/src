@@ -1,0 +1,10 @@
+
+# Individual exceptions to the general processing in "inject_pydoc.py".
+
+{
+  "typeinf.til_t.base" : [
+    {
+      "doxy-kind" : "variable"
+    }
+  ]
+}

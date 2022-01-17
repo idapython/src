@@ -18,7 +18,7 @@ static void hexrays_unloading__unhook_hooks(void)
 
 //-------------------------------------------------------------------------
 Hexrays_Hooks::Hexrays_Hooks(uint32 _flags)
-  : hooks_base_t("ida_hexrays.Hexrays_Hooks", NULL, hook_type_t(-1), _flags),
+  : hooks_base_t("ida_hexrays.Hexrays_Hooks", nullptr, hook_type_t(-1), _flags),
     hooked(false)
 {
   hexrays_hooks_instances.push_back(this);
@@ -66,7 +66,7 @@ struct Hexrays_Hooks : public hooks_base_t
     return !hooked;
   }
 #ifdef TESTABLE_BUILD
-  qstring dump_state() { return hooks_base_t::dump_state(mappings, mappings_size); }
+  PyObject *dump_state(bool assert_all_reimplemented=false) { return hooks_base_t::dump_state(mappings, mappings_size, assert_all_reimplemented); }
 #endif
 
   // hookgenHEXRAYS:methods
@@ -82,10 +82,14 @@ struct Hexrays_Hooks : public hooks_base_t
   }
 
 private:
-  static ssize_t handle_create_hint_output(PyObject *o, vdui_t *, qstring *out_hint, int *out_implines)
+  static ssize_t handle_create_hint_output(
+        PyObject *o,
+        vdui_t *,
+        qstring *out_hint,
+        int *out_implines)
   {
     ssize_t rc = 0;
-    if ( o != NULL && PySequence_Check(o) && PySequence_Size(o) == 3 )
+    if ( o != nullptr && PySequence_Check(o) && PySequence_Size(o) == 3 )
     {
       newref_t py_rc(PySequence_GetItem(o, 0));
       newref_t py_hint(PySequence_GetItem(o, 1));
@@ -110,6 +114,22 @@ private:
       }
     }
     return rc;
+  }
+
+  static ssize_t handle_build_callinfo_output(
+        PyObject *o,
+        mblock_t *,
+        tinfo_t *,
+        mcallinfo_t **out_callinfo)
+  {
+    if ( o == nullptr || o == Py_None )
+      return 0;
+    mcallinfo_t *mi = nullptr;
+    const int cvt = SWIG_ConvertPtr(o, (void **) &mi, SWIGTYPE_p_mcallinfo_t, 0);
+    if ( !SWIG_IsOK(cvt) || mi == nullptr )
+      return 0;
+    *out_callinfo = new mcallinfo_t(*mi);
+    return 0;
   }
 };
 //</inline(py_hexrays_hooks)>

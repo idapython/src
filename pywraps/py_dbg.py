@@ -55,19 +55,6 @@ def send_dbg_command(command):
     else:
         return False, "eval_idc_expr(): wrong return type: %d" % vtype
 
-#</pycode(py_dbg)>
+move_bpt_to_grp = set_bpt_group
 
-#<pycode_BC695(py_dbg)>
-import ida_idd
-def get_process_info(n, pi):
-    pis = ida_idd.procinfo_vec_t()
-    cnt = get_processes(pis)
-    if n >= cnt:
-        return ida_idd.NO_PROCESS
-    pi.name = pis[n].name
-    pi.pid = pis[n].pid
-    return pi.pid
-def get_process_qty():
-    pis = ida_idd.procinfo_vec_t()
-    return get_processes(pis)
-#</pycode_BC695(py_dbg)>
+#</pycode(py_dbg)>

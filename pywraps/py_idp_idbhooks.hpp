@@ -15,7 +15,7 @@ struct IDB_Hooks : public hooks_base_t
   bool hook() { return hooks_base_t::hook(); }
   bool unhook() { return hooks_base_t::unhook(); }
 #ifdef TESTABLE_BUILD
-  qstring dump_state() { return hooks_base_t::dump_state(mappings, mappings_size); }
+  PyObject *dump_state(bool assert_all_reimplemented=false) { return hooks_base_t::dump_state(mappings, mappings_size, assert_all_reimplemented); }
 #endif
 
   // hookgenIDB:methods

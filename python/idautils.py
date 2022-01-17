@@ -35,6 +35,8 @@ import types
 import os
 import sys
 
+# TO_REFACTOR_ON_PY2_REMOVAL
+# this internal function can be dropped
 def refs(ea, funcfirst, funcnext):
     """
     Generic reference collector - INTERNAL USE ONLY.
@@ -60,6 +62,13 @@ def CodeRefsTo(ea, flow):
         for ref in CodeRefsTo(get_screen_ea(), 1):
             print(ref)
     """
+    # TO_REFACTOR_ON_PY2_REMOVAL
+    # we can use the new generators
+    # xref = ida_xref.xrefblk_t()
+    # if flow == 1:
+    #     yield from xref.crefs_to(ea)
+    # else:
+    #     yield from xref.fcrefs_to(ea)
     if flow == 1:
         return refs(ea, ida_xref.get_first_cref_to, ida_xref.get_next_cref_to)
     else:
@@ -81,6 +90,7 @@ def CodeRefsFrom(ea, flow):
         for ref in CodeRefsFrom(get_screen_ea(), 1):
             print(ref)
     """
+    # TO_REFACTOR_ON_PY2_REMOVAL
     if flow == 1:
         return refs(ea, ida_xref.get_first_cref_from, ida_xref.get_next_cref_from)
     else:
@@ -100,6 +110,7 @@ def DataRefsTo(ea):
         for ref in DataRefsTo(get_screen_ea()):
             print(ref)
     """
+    # TO_REFACTOR_ON_PY2_REMOVAL
     return refs(ea, ida_xref.get_first_dref_to, ida_xref.get_next_dref_to)
 
 
@@ -116,6 +127,7 @@ def DataRefsFrom(ea):
         for ref in DataRefsFrom(get_screen_ea()):
             print(ref)
     """
+    # TO_REFACTOR_ON_PY2_REMOVAL
     return refs(ea, ida_xref.get_first_dref_from, ida_xref.get_next_dref_from)
 
 
@@ -144,16 +156,6 @@ def XrefTypeName(typecode):
     assert typecode in _ref_types, "unknown reference type %d" % typecode
     return _ref_types[typecode]
 
-def _copy_xref(xref):
-    """ Make a private copy of the xref class to preserve its contents """
-    class _xref(object):
-        pass
-
-    xr = _xref()
-    for attr in [ 'frm', 'to', 'iscode', 'type', 'user' ]:
-        setattr(xr, attr, getattr(xref, attr))
-    return xr
-
 
 def XrefsFrom(ea, flags=0):
     """
@@ -168,10 +170,7 @@ def XrefsFrom(ea, flags=0):
                          'from', hex(xref.frm), 'to', hex(xref.to))
     """
     xref = ida_xref.xrefblk_t()
-    if xref.first_from(ea, flags):
-        yield _copy_xref(xref)
-        while xref.next_from():
-            yield _copy_xref(xref)
+    return xref.refs_from(ea, flags)
 
 
 def XrefsTo(ea, flags=0):
@@ -187,10 +186,7 @@ def XrefsTo(ea, flags=0):
                          'from', hex(xref.frm), 'to', hex(xref.to))
     """
     xref = ida_xref.xrefblk_t()
-    if xref.first_to(ea, flags):
-        yield _copy_xref(xref)
-        while xref.next_to():
-            yield _copy_xref(xref)
+    return xref.refs_to(ea, flags)
 
 
 def Threads():
@@ -253,18 +249,16 @@ def Functions(start=None, end=None):
 def Chunks(start):
     """
     Get a list of function chunks
+    See also ida_funcs.func_tail_iterator_t
 
     @param start: address of the function
 
-    @return: list of funcion chunks (tuples of the form (start_ea, end_ea))
+    @return: list of function chunks (tuples of the form (start_ea, end_ea))
              belonging to the function
     """
     func_iter = ida_funcs.func_tail_iterator_t( ida_funcs.get_func( start ) )
-    status = func_iter.main()
-    while status:
-        chunk = func_iter.chunk()
+    for chunk in func_iter:
         yield (chunk.start_ea, chunk.end_ea)
-        status = next(func_iter)
 
 
 def Modules():
@@ -319,19 +313,13 @@ def Entries():
 def FuncItems(start):
     """
     Get a list of function items (instruction or data items inside function boundaries)
+    See also ida_funcs.func_item_iterator_t
 
     @param start: address of the function
 
     @return: ea of each item in the function
     """
-    func = ida_funcs.get_func(start)
-    if not func:
-        return
-    fii = ida_funcs.func_item_iterator_t()
-    ok = fii.set(func)
-    while ok:
-        yield fii.current()
-        ok = fii.next_code()
+    return ida_funcs.func_item_iterator_t(ida_funcs.get_func(start))
 
 
 def Structs():
@@ -691,7 +679,12 @@ class _procregs(object):
 class _cpu(object):
     "Simple wrapper around get_reg_value/set_reg_value"
     def __getattr__(self, name):
-        return idc.get_reg_value(name)
+        try:
+            return idc.get_reg_value(name)
+        except Exception as ex:
+            raise AttributeError("_cpu: \"{}\" is not a register;"
+                                 " inner exception: [{}] {}"
+                                 .format(name, type(ex).__name__, ex))
 
     def __setattr__(self, name, value):
         return idc.set_reg_value(value, name)

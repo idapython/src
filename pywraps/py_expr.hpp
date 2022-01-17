@@ -42,7 +42,7 @@ static error_t py_call_idc_func(
   // Call the Python function
   newref_t py_result = PyObject_CallObject(
                              ctx->py_func.o,
-                             pargs.empty() ? NULL : pargs[0].o);
+                             pargs.empty() ? nullptr : pargs[0].o);
 
   int cvt;
   error_t err;
@@ -113,7 +113,7 @@ static bool pyw_convert_defvals(idc_values_t *out, PyObject *py_seq)
   {
     newref_t py_var(PySequence_GetItem(py_seq, i));
     idc_value_t &idc_var = out->push_back();
-    if ( pyvar_to_idcvar(py_var, &idc_var, NULL) != CIP_OK )
+    if ( pyvar_to_idcvar(py_var, &idc_var, nullptr) != CIP_OK )
       return false;
   }
   return true;

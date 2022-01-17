@@ -1,5 +1,5 @@
 """
-summary: injecting commands is the "Output" window
+summary: injecting commands in the "Output" window
 
 description:
   This example illustrates how one can execute commands in the

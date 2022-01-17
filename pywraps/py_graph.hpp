@@ -38,7 +38,7 @@ private:
     {
       iterator it = find(node_id);
       if ( it == end() )
-        return NULL;
+        return nullptr;
       return &it->second;
     }
     nodetext_cache_t *add(const int node_id, const char *text, bgcolor_t bgcolor = DEFCOLOR)
@@ -59,7 +59,7 @@ private:
     // don't perform sanity check for 'grcode_destroyed', since if we called
     // Close() on this object, it'll have been marked for later deletion in the
     // UI, and thus when we end up here, the view has already been destroyed.
-    bool found = get_plugin_instance()->pycim_lookup_info.find_by_py_view(NULL, (py_graph_t *) obj);
+    bool found = get_plugin_instance()->pycim_lookup_info.find_by_py_view(nullptr, (py_graph_t *) obj);
     QASSERT(30453, found || code == grcode_destroyed);
     if ( found )
     {
@@ -88,7 +88,7 @@ private:
   int _on_hint_epilog(char **hint, ref_t result);
 
   // graph is being destroyed
-  void on_graph_destroyed(mutable_graph_t * /*g*/ = NULL)
+  void on_graph_destroyed(mutable_graph_t * /*g*/ = nullptr)
   {
     refresh_needed = true;
     node_cache.clear();
@@ -120,7 +120,7 @@ private:
                     "i",
                     item2->n));
     PyW_ShowCbErr(S_ON_CLICK);
-    return result == NULL || !PyObject_IsTrue(result.o);
+    return result == nullptr || !PyObject_IsTrue(result.o);
   }
 
   // a graph node has been double clicked
@@ -139,13 +139,13 @@ private:
                     "i",
                     item->node));
     PyW_ShowCbErr(S_ON_DBL_CLICK);
-    return result == NULL || !PyObject_IsTrue(result.o);
+    return result == nullptr || !PyObject_IsTrue(result.o);
   }
 
   // a graph viewer got focus
   void on_gotfocus(graph_viewer_t * /*view*/)
   {
-    if ( self.o == NULL )
+    if ( self.o == nullptr )
       return;
 
     PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -153,14 +153,14 @@ private:
             PyObject_CallMethod(
                     self.o,
                     (char *)S_ON_ACTIVATE,
-                    NULL));
+                    nullptr));
     PyW_ShowCbErr(S_ON_ACTIVATE);
   }
 
   // a graph viewer lost focus
   void on_lostfocus(graph_viewer_t * /*view*/)
   {
-    if ( self.o == NULL )
+    if ( self.o == nullptr )
       return;
 
     PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -168,7 +168,7 @@ private:
             PyObject_CallMethod(
                     self.o,
                     (char *)S_ON_DEACTIVATE,
-                    NULL));
+                    nullptr));
     PyW_ShowCbErr(S_ON_DEACTIVATE);
   }
 
@@ -188,7 +188,7 @@ private:
                     "O",
                     py_nodes.o));
     PyW_ShowCbErr(S_ON_CREATING_GROUP);
-    return (py_result == NULL || !IDAPyInt_Check(py_result.o))
+    return (py_result == nullptr || !IDAPyInt_Check(py_result.o))
          ? 1
          : IDAPyInt_AsLong(py_result.o);
   }
@@ -228,7 +228,7 @@ private:
 
     // will return a place only when a node was previously selected
     place_t *old_pl = get_custom_viewer_place(view, false, &x, &y);
-    if ( old_pl != NULL )
+    if ( old_pl != nullptr )
     {
       user_graph_place_t *new_pl = (user_graph_place_t *) old_pl->clone();
       new_pl->node = nid;
@@ -251,7 +251,7 @@ private:
       return -1;
 
     TWidget *widget = find_widget(title);
-    if ( widget == NULL ) // create new widget
+    if ( widget == nullptr ) // create new widget
     {
       lookup_entry_t &e = get_plugin_instance()->pycim_lookup_info.new_entry(this);
       // get a unique graph id
@@ -264,8 +264,8 @@ private:
       graph_viewer_t *pview = create_graph_viewer(title, id, s_callback, this, 0);
       this->self = ref_t();
       display_widget(pview, WOPN_DP_TAB);
-      newref_t ret(PyObject_CallMethod(self, "hook", NULL));
-      if ( pview != NULL )
+      newref_t ret(PyObject_CallMethod(self, "hook", nullptr));
+      if ( pview != nullptr )
         viewer_fit_window(pview);
       bind(self, pview);
       get_plugin_instance()->pycim_lookup_info.commit(e, view);
@@ -282,7 +282,7 @@ private:
 public:
   py_graph_t()
   {
-    // form = NULL;
+    // form = nullptr;
     refresh_needed = true;
   }
 
@@ -292,7 +292,7 @@ public:
       return;
 
     py_graph_t *_this = (py_graph_t *) view_extract_this(self);
-    if ( _this == NULL || !get_plugin_instance()->pycim_lookup_info.find_by_py_view(NULL, _this) )
+    if ( _this == nullptr || !get_plugin_instance()->pycim_lookup_info.find_by_py_view(nullptr, _this) )
       return;
 
     _this->jump_to_node(nid);
@@ -302,9 +302,9 @@ public:
   {
     TWidget *view;
     py_graph_t *_this = (py_graph_t *) view_extract_this(self);
-    if ( _this == NULL || !get_plugin_instance()->pycim_lookup_info.find_by_py_view(&view, _this) )
-      return NULL;
-    newref_t ret(PyObject_CallMethod(self, "unhook", NULL));
+    if ( _this == nullptr || !get_plugin_instance()->pycim_lookup_info.find_by_py_view(&view, _this) )
+      return nullptr;
+    newref_t ret(PyObject_CallMethod(self, "unhook", nullptr));
     close_widget(view, WCLS_CLOSE_LATER);
     return _this;
   }
@@ -316,19 +316,19 @@ public:
     py_graph_t *py_graph = (py_graph_t *) view_extract_this(self);
 
     // New instance?
-    if ( py_graph == NULL )
+    if ( py_graph == nullptr )
     {
       qstring title;
       if ( !PyW_GetStringAttr(self, S_M_TITLE, &title) )
-        return NULL;
+        return nullptr;
 
       // Form already created? try to get associated py_graph instance
       // so that we reuse it
       TWidget *existing = find_widget(title.c_str());
-      if ( existing != NULL )
+      if ( existing != nullptr )
         get_plugin_instance()->pycim_lookup_info.find_by_view((py_customidamemo_t**) &py_graph, existing);
 
-      if ( py_graph == NULL )
+      if ( py_graph == nullptr )
       {
         py_graph = new py_graph_t();
       }
@@ -341,7 +341,7 @@ public:
       if ( py_graph->initialize(self, title.c_str()) < 0 )
       {
         delete py_graph;
-        py_graph = NULL;
+        py_graph = nullptr;
       }
     }
     else
@@ -379,17 +379,17 @@ void py_graph_t::on_user_refresh(mutable_graph_t *g)
 
   // Check return value to OnRefresh() call
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  newref_t ret(PyObject_CallMethod(self.o, (char *)S_ON_REFRESH, NULL));
+  newref_t ret(PyObject_CallMethod(self.o, (char *)S_ON_REFRESH, nullptr));
   PyW_ShowCbErr(S_ON_REFRESH);
-  if ( ret != NULL && PyObject_IsTrue(ret.o) )
+  if ( ret != nullptr && PyObject_IsTrue(ret.o) )
   {
     // Refer to the nodes
     ref_t nodes(PyW_TryGetAttrString(self.o, S_M_NODES));
-    if ( ret != NULL && PyList_Check(nodes.o) )
+    if ( ret != nullptr && PyList_Check(nodes.o) )
     {
       // Refer to the edges
       ref_t edges(PyW_TryGetAttrString(self.o, S_M_EDGES));
-      if ( ret != NULL && PyList_Check(edges.o) )
+      if ( ret != nullptr && PyList_Check(edges.o) )
       {
         // Resize the nodes
         int max_nodes = abs(int(PyList_Size(nodes.o)));
@@ -416,7 +416,7 @@ void py_graph_t::on_user_refresh(mutable_graph_t *g)
           for ( j=0; j < qnumber(edge_ids); j++ )
           {
             newref_t id(PySequence_GetItem(item.o, j));
-            if ( id == NULL || !IDAPyInt_Check(id.o) )
+            if ( id == nullptr || !IDAPyInt_Check(id.o) )
               break;
             int v = int(IDAPyInt_AsLong(id.o));
             if ( v > max_nodes )
@@ -429,7 +429,7 @@ void py_graph_t::on_user_refresh(mutable_graph_t *g)
             break;
 
           // Add the edge
-          g->add_edge(edge_ids[0], edge_ids[1], NULL);
+          g->add_edge(edge_ids[0], edge_ids[1], nullptr);
         }
       }
     }
@@ -441,10 +441,10 @@ bool py_graph_t::on_user_text(mutable_graph_t * /*g*/, int node, const char **st
 {
   // If already cached then return the value
   nodetext_cache_t *c = node_cache.get(node);
-  if ( c != NULL )
+  if ( c != nullptr )
   {
     *str = c->text.c_str();
-    if ( bg_color != NULL )
+    if ( bg_color != nullptr )
       *bg_color = c->bgcolor;
     return true;
   }
@@ -453,10 +453,10 @@ bool py_graph_t::on_user_text(mutable_graph_t * /*g*/, int node, const char **st
   PYW_GIL_CHECK_LOCKED_SCOPE();
   newref_t result(PyObject_CallMethod(self.o, (char *)S_ON_GETTEXT, "i", node));
   PyW_ShowCbErr(S_ON_GETTEXT);
-  if ( result == NULL )
+  if ( result == nullptr )
     return false;
 
-  bgcolor_t cl = bg_color == NULL ? DEFCOLOR : *bg_color;
+  bgcolor_t cl = bg_color == nullptr ? DEFCOLOR : *bg_color;
   qstring buf;
 
   // User returned a string?
@@ -472,16 +472,16 @@ bool py_graph_t::on_user_text(mutable_graph_t * /*g*/, int node, const char **st
     newref_t py_str(PySequence_GetItem(result.o, 0));
     newref_t py_color(PySequence_GetItem(result.o, 1));
 
-    if ( py_str != NULL && IDAPyStr_Check(py_str.o) )
+    if ( py_str != nullptr && IDAPyStr_Check(py_str.o) )
       IDAPyStr_AsUTF8(&buf, py_str.o);
-    if ( py_color != NULL && PyNumber_Check(py_color.o) )
+    if ( py_color != nullptr && PyNumber_Check(py_color.o) )
       cl = bgcolor_t(PyLong_AsUnsignedLong(py_color.o));
 
     c = node_cache.add(node, buf.c_str(), cl);
   }
 
   *str = c->text.c_str();
-  if ( bg_color != NULL )
+  if ( bg_color != nullptr )
     *bg_color = c->bgcolor;
 
   return true;
@@ -510,7 +510,7 @@ int py_graph_t::_on_hint_epilog(char **hint, ref_t result)
 {
   // 'hint' must be allocated by qalloc() or qstrdup()
   // out: 0-use default hint, 1-use proposed hint
-  bool ok = result != NULL && IDAPyStr_Check(result.o);
+  bool ok = result != nullptr && IDAPyStr_Check(result.o);
   if ( ok )
   {
     qstring buf;
@@ -565,7 +565,7 @@ ssize_t py_graph_t::gr_callback(int code, va_list va)
         {
           graph_viewer_t *view = va_arg(va, graph_viewer_t *);
           selection_item_t *item = va_arg(va, selection_item_t *);
-          handled = item != NULL && item->is_node;
+          handled = item != nullptr && item->is_node;
           if ( handled )
             ret = on_dblclicked(view, item);
         }
@@ -667,13 +667,13 @@ ssize_t py_graph_t::gr_callback(int code, va_list va)
 //-------------------------------------------------------------------------
 bool pyg_show(PyObject *self)
 {
-  return py_graph_t::Show(self) != NULL;
+  return py_graph_t::Show(self) != nullptr;
 }
 
 void pyg_close(PyObject *self)
 {
   py_graph_t *pyg = py_graph_t::Close(self);
-  if ( pyg != NULL )
+  if ( pyg != nullptr )
     delete pyg;
 }
 

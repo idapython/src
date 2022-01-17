@@ -1,6 +1,7 @@
 //-------------------------------------------------------------------------
 //<code(py_hexrays)>
 static bool do_not_check_ctree = false;
+static bool idapython_exiting = false;
 #ifdef WITH_HEXRAYS
 #define DCLVL_SIMPLE 1
 #define DCLVL_FULL 2
@@ -54,6 +55,7 @@ static void *idaapi idapython_dummy_hexdsp(int code, ...)
     case hx_mop_t_erase:
     case hx_mba_t_term:
     case hx_valrng_t_clear:
+    case hx_udc_filter_t_cleanup:
       {
 #ifdef TESTABLE_BUILD
         va_list va;
@@ -63,15 +65,18 @@ static void *idaapi idapython_dummy_hexdsp(int code, ...)
         if ( code == hx_remitem )
           QASSERT(30529, ((cinsn_t *)item)->op == cot_empty || ((cinsn_t *)item)->op == cit_empty);
         else if ( code == hx_cexpr_t_cleanup )
-          QASSERT(30497, ((cexpr_t *)item)->op == cot_empty && ((cexpr_t *)item)->n == NULL);
+          QASSERT(30497, ((cexpr_t *)item)->op == cot_empty && ((cexpr_t *)item)->n == nullptr);
         else if ( code == hx_cinsn_t_cleanup )
-          QASSERT(30498, ((cinsn_t *)item)->op == cit_empty && ((cinsn_t *)item)->cblock == NULL);
+          QASSERT(30498, ((cinsn_t *)item)->op == cit_empty && ((cinsn_t *)item)->cblock == nullptr);
         else if ( code == hx_mop_t_erase )
-          QASSERT(30595, ((mop_t *)item)->t == mop_z && ((mop_t *)item)->nnn == NULL);
+          QASSERT(30595, ((mop_t *)item)->t == mop_z && ((mop_t *)item)->nnn == nullptr);
         else if ( code == hx_mba_t_term )
-          QASSERT(30596, ((mba_t *)item)->blocks == NULL);
+          QASSERT(30596, ((mba_t *)item)->blocks == nullptr);
         else if ( code == hx_valrng_t_clear )
           QASSERT(30601, ((valrng_t *)item)->empty());
+        else if ( code == hx_udc_filter_t_cleanup )
+          QASSERT(30633, ((udc_filter_t *)item)->empty()
+                  && !install_microcode_filter((udc_filter_t *)item, false));
         else
           INTERR(30597);
         va_end(va);
@@ -131,6 +136,12 @@ static void *idaapi idapython_dummy_hexdsp(int code, ...)
 #endif
       }
       break;
+    case hx_hexrays_free:
+#ifdef TESTABLE_BUILD
+      if ( !idapython_exiting )
+        goto BAD_CODE;
+#endif
+      break;
     default:
 BAD_CODE:
 #ifdef _DEBUG
@@ -140,7 +151,7 @@ BAD_CODE:
       warning("Hex-Rays Decompiler got called from Python without being loaded");
       break;
   }
-  return NULL;
+  return nullptr;
 }
 
 hexdsp_t *get_idapython_hexdsp()
@@ -267,7 +278,7 @@ void hexrays_register_python_clearable_instance(
         void *ptr,
         hx_clearable_type_t type)
 {
-  if ( ptr == NULL )
+  if ( ptr == nullptr )
     return;
   for ( size_t i = 0, n = python_clearables.size(); i < n; ++i )
     if ( python_clearables[i].ptr == ptr )
@@ -378,8 +389,9 @@ static void ida_hexrays_init(void) {}
 //-------------------------------------------------------------------------
 static void ida_hexrays_term(void)
 {
+  idapython_exiting = true;
   idapython_unhook_from_notification_point(
-          HT_UI, ida_hexrays_ui_notification, NULL);
+          HT_UI, ida_hexrays_ui_notification, nullptr);
 }
 
 //-------------------------------------------------------------------------
@@ -424,7 +436,7 @@ bool py_init_hexrays_plugin(int flags=0)
 // the idapython_hr-decompile test.)
 vdui_t *py_get_widget_vdui(TWidget *f)
 {
-  return hexdsp_inited() ? get_widget_vdui(f) : NULL;
+  return hexdsp_inited() ? get_widget_vdui(f) : nullptr;
 }
 
 //-------------------------------------------------------------------------
@@ -449,5 +461,5 @@ void py_term_hexrays_plugin(void) {}
 //</inline(py_hexrays)>
 
 //<init(py_hexrays)>
-idapython_hook_to_notification_point(HT_UI, ida_hexrays_ui_notification, NULL, /*is_hooks_base=*/ false);
+idapython_hook_to_notification_point(HT_UI, ida_hexrays_ui_notification, nullptr, /*is_hooks_base=*/ false);
 //</init(py_hexrays)>

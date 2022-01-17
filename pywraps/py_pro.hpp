@@ -6,7 +6,7 @@ static bool qstrvec_t_assign(PyObject *self, PyObject *other)
 {
   qstrvec_t *lhs = qstrvec_t_get_clink(self);
   qstrvec_t *rhs = qstrvec_t_get_clink(other);
-  if ( lhs == NULL || rhs == NULL )
+  if ( lhs == nullptr || rhs == nullptr )
     return false;
   *lhs = *rhs;
   return true;
@@ -16,7 +16,7 @@ static PyObject *qstrvec_t_addressof(PyObject *self, size_t idx)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   qstrvec_t *sv = qstrvec_t_get_clink(self);
-  if ( sv == NULL || idx >= sv->size() )
+  if ( sv == nullptr || idx >= sv->size() )
     Py_RETURN_NONE;
   else
     return PyLong_FromUnsignedLongLong(size_t(&sv->at(idx)));
@@ -29,7 +29,7 @@ static bool qstrvec_t_set(
         const char *s)
 {
   qstrvec_t *sv = qstrvec_t_get_clink(self);
-  if ( sv == NULL || idx >= sv->size() )
+  if ( sv == nullptr || idx >= sv->size() )
     return false;
   (*sv)[idx] = s;
   return true;
@@ -41,7 +41,7 @@ static bool qstrvec_t_from_list(
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   qstrvec_t *sv = qstrvec_t_get_clink(self);
-  return (sv == NULL || !PySequence_Check(py_list))
+  return (sv == nullptr || !PySequence_Check(py_list))
        ? false
        : (PyW_PyListToStrVec(sv, py_list) >= 0);
 }
@@ -49,14 +49,14 @@ static bool qstrvec_t_from_list(
 static size_t qstrvec_t_size(PyObject *self)
 {
   qstrvec_t *sv = qstrvec_t_get_clink(self);
-  return sv == NULL ? 0 : sv->size();
+  return sv == nullptr ? 0 : sv->size();
 }
 
 static PyObject *qstrvec_t_get(PyObject *self, size_t idx)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   qstrvec_t *sv = qstrvec_t_get_clink(self);
-  if ( sv == NULL || idx >= sv->size() )
+  if ( sv == nullptr || idx >= sv->size() )
     Py_RETURN_NONE;
   return IDAPyStr_FromUTF8(sv->at(idx).c_str());
 }
@@ -64,7 +64,7 @@ static PyObject *qstrvec_t_get(PyObject *self, size_t idx)
 static bool qstrvec_t_add(PyObject *self, const char *s)
 {
   qstrvec_t *sv = qstrvec_t_get_clink(self);
-  if ( sv == NULL )
+  if ( sv == nullptr )
     return false;
   sv->push_back(s);
   return true;
@@ -73,7 +73,7 @@ static bool qstrvec_t_add(PyObject *self, const char *s)
 static bool qstrvec_t_clear(PyObject *self, bool qclear)
 {
   qstrvec_t *sv = qstrvec_t_get_clink(self);
-  if ( sv == NULL )
+  if ( sv == nullptr )
     return false;
 
   if ( qclear )
@@ -90,7 +90,7 @@ static bool qstrvec_t_insert(
         const char *s)
 {
   qstrvec_t *sv = qstrvec_t_get_clink(self);
-  if ( sv == NULL || idx >= sv->size() )
+  if ( sv == nullptr || idx >= sv->size() )
     return false;
   sv->insert(sv->begin() + idx, s);
   return true;
@@ -99,7 +99,7 @@ static bool qstrvec_t_insert(
 static bool qstrvec_t_remove(PyObject *self, size_t idx)
 {
   qstrvec_t *sv = qstrvec_t_get_clink(self);
-  if ( sv == NULL || idx >= sv->size() )
+  if ( sv == nullptr || idx >= sv->size() )
     return false;
 
   sv->erase(sv->begin()+idx);

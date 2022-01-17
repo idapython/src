@@ -484,77 +484,89 @@ public:
 };
 %enddef
 
-#define ___MEMBER_REF_BASE__ACCESSORS(Type, PName, Setexpr)             \
-  Type _get_##PName() const { return self->##PName; }                   \
-  void _set_##PName(Type _v) { self->##PName = Setexpr; }
+%define %define_node_property_accessors(TNAME, PNAME, PTYPE)
+  %extend TNAME {
+    PTYPE _get_##PNAME() const { return $self->PNAME; }
+    void _set_##PNAME(PTYPE _v) { $self->PNAME = _v; }
+  }
+%enddef
 
-#define ___MEMBER_REF_BASE__PROPERTY(PName, Cond, Defval, Acquire)      \
-  %pythoncode {                                                         \
-    PName = property(                                                   \
-            lambda self: self._get_##PName() if Cond else Defval,       \
-            lambda self, v:                                             \
-                self._ensure_cond(Cond, #Cond)                          \
-                and self._ensure_no_obj(self._get_##PName(), #PName, Acquire) \
-                and self._acquire_ownership(v, Acquire)                 \
-                and self._set_##PName(v))                               \
+%define %define_node_cstring_property_accessors(TNAME, PNAME)
+  %extend TNAME {
+    const char *_get_##PNAME() const { return $self->PNAME; }
+    void _set_##PNAME(const char *_v)
+    {
+      if ( $self->PNAME != NULL )
+      {
+        ::qfree($self->PNAME);
+        $self->PNAME = NULL;
       }
+      $self->PNAME = ::qstrdup(_v);
+    }
+  }
+%enddef
 
-//-------------------------------------------------------------------------
-#define ___MEMBER_REF_BASE(Type, PName, Cond, Defval, Acquire, Setexpr) \
-  ___MEMBER_REF_BASE__ACCESSORS(Type, PName, Setexpr)                   \
-  ___MEMBER_REF_BASE__PROPERTY(PName, Cond, Defval, Acquire)
+%define %define_node_obj_property(TNAME, COND, PNAME, DEFVAL, ACQUIRE)
+  %extend TNAME {
+    %pythoncode {
+      PNAME = property(
+              lambda self: self._get_##PNAME() if COND else DEFVAL,
+              lambda self, v: self._ensure_cond(COND, #COND) \
+                              and self._ensure_no_obj(self._get_##PNAME(), #PNAME, ACQUIRE) \
+                              and self._acquire_ownership(v, ACQUIRE) \
+                              and self._set_##PNAME(v))
+    }
+  }
+%enddef
 
-//-------------------------------------------------------------------------
-#define ___SCALAR_MEMBER_REF_BASE__PROPERTY(PName, Cond, Defval)        \
-  %pythoncode {                                                         \
-    PName = property(                                                   \
-            lambda self: self._get_##PName() if Cond else Defval,       \
-            lambda self, v:                                             \
-                self._ensure_cond(Cond, #Cond)                          \
-                and self._set_##PName(v))                               \
-      }
+%define %define_node_scalar_property(TNAME, COND, PNAME, DEFVAL)
+  %extend TNAME {
+    %pythoncode {
+      PNAME = property(
+              lambda self: self._get_##PNAME() if COND else DEFVAL,
+              lambda self, v: self._ensure_cond(COND, #COND) and self._set_##PNAME(v))
+    }
+  }
+%enddef
+
+// ------------------------------
+
+%define %override_node_obj_property(TNAME, COND, PNAME, PTYPE, DEFVAL, ACQUIRE)
+  %define_node_property_accessors(TNAME, PNAME, PTYPE);
+  %define_node_obj_property(TNAME, COND, PNAME, DEFVAL, ACQUIRE);
+  %ignore TNAME::PNAME;
+%enddef
+
+%define %override_node_scalar_property(TNAME, COND, PNAME, PTYPE, DEFVAL)
+  %define_node_property_accessors(TNAME, PNAME, PTYPE);
+  %define_node_scalar_property(TNAME, COND, PNAME, DEFVAL);
+  %ignore TNAME::PNAME;
+%enddef
+
+%define %override_node_cstring_property(TNAME, COND, PNAME)
+  %define_node_cstring_property_accessors(TNAME, PNAME);
+  %define_node_obj_property(TNAME, COND, PNAME, None, False);
+  %ignore TNAME::PNAME;
+%enddef
 
 
 //-------------------------------------------------------------------------
 //                               mop_t
 //-------------------------------------------------------------------------
-#define MOP_MEMBER_REF(Type, PName, Mopt)                             \
-  ___MEMBER_REF_BASE(Type, PName, self.t == Mopt, None, True, _v)
 
-#define MOP_SCALAR_MEMBER_REF(Type, PName, Mopt)                      \
-  ___MEMBER_REF_BASE__ACCESSORS(Type, PName, _v)                      \
-  ___SCALAR_MEMBER_REF_BASE__PROPERTY(PName, self.t == Mopt, None)
+%define %override_mop_t_obj_property(MOP_OP, PNAME, PTYPE)
+  %override_node_obj_property(mop_t, self.t == MOP_OP, PNAME, PTYPE, None, True);
+%enddef
 
-#define MOP_CSTRING_MEMBER_REF(PName, Mopt)                           \
-  const char *_get_##PName() const { return self->PName; }            \
-  void _set_##PName(const char *_v)                                   \
-  {                                                                   \
-    if ( $self->PName != NULL )                                       \
-    {                                                                 \
-      ::qfree($self->PName);                                          \
-      $self->PName = NULL;                                            \
-    }                                                                 \
-    $self->PName = ::qstrdup(_v);                                     \
-  }                                                                   \
-  ___MEMBER_REF_BASE__PROPERTY(PName, self.t == Mopt, None, False)
+%define %override_mop_t_scalar_property(MOP_OP, PNAME, PTYPE)
+  %override_node_scalar_property(mop_t, self.t == MOP_OP, PNAME, PTYPE, None);
+%enddef
 
+%define %override_mop_t_cstring_property(MOP_OP, PNAME)
+  %override_node_cstring_property(mop_t, self.t == MOP_OP, PNAME);
+%enddef
 
 %extend mop_t {
-  MOP_SCALAR_MEMBER_REF(mreg_t, r, mop_r);
-  MOP_MEMBER_REF(mnumber_t*, nnn, mop_n);
-  MOP_CSTRING_MEMBER_REF(cstr, mop_str);
-  MOP_MEMBER_REF(minsn_t*, d, mop_d)
-  MOP_MEMBER_REF(stkvar_ref_t*, s, mop_S);
-  MOP_SCALAR_MEMBER_REF(ea_t, g, mop_v);
-  MOP_SCALAR_MEMBER_REF(int, b, mop_b);
-  MOP_MEMBER_REF(mcallinfo_t*, f, mop_f);
-  MOP_MEMBER_REF(lvar_ref_t*, l, mop_l);
-  MOP_MEMBER_REF(mop_addr_t*, a, mop_a);
-  MOP_CSTRING_MEMBER_REF(helper, mop_h);
-  MOP_MEMBER_REF(mcases_t*, c, mop_c);
-  MOP_MEMBER_REF(fnumber_t*, fpc, mop_fn);
-  MOP_MEMBER_REF(mop_pair_t*, pair, mop_p);
-  MOP_MEMBER_REF(scif_t*, scif, mop_sc);
 
     mopt_t _get_t() const { return self->t; }
     void _set_t(mopt_t v) { self->t = v; }
@@ -575,8 +587,25 @@ public:
       return s;
     }
 }
-#undef MOP_MEMBER_REF
+
 %monitored_lifecycle_object_t(mop_t);
+
+%override_mop_t_obj_property(mop_n, nnn, mnumber_t *);
+%override_mop_t_obj_property(mop_d, d, minsn_t *);
+%override_mop_t_obj_property(mop_S, s, stkvar_ref_t *);
+%override_mop_t_obj_property(mop_f, f, mcallinfo_t *);
+%override_mop_t_obj_property(mop_l, l, lvar_ref_t *);
+%override_mop_t_obj_property(mop_a, a, mop_addr_t *);
+%override_mop_t_obj_property(mop_c, c, mcases_t *);
+%override_mop_t_obj_property(mop_fn, fpc, fnumber_t *);
+%override_mop_t_obj_property(mop_p, pair, mop_pair_t *);
+%override_mop_t_obj_property(mop_sc, scif, scif_t *);
+%override_mop_t_obj_property(mop_sc, scif, scif_t *);
+%override_mop_t_scalar_property(mop_r, r, mreg_t);
+%override_mop_t_scalar_property(mop_v, g, ea_t);
+%override_mop_t_scalar_property(mop_b, b, int);
+%override_mop_t_cstring_property(mop_str, cstr);
+%override_mop_t_cstring_property(mop_h, helper);
 
 //-------------------------------------------------------------------------
 //                               minsn_t
@@ -622,10 +651,6 @@ public:
              self.inc(it)
     }
 };
-
-//-------------------------------------------------------------------------
-// Have SWiG generate constructors/destructors for the bitset_t::iterator
-%feature("flatnested") bitset_t::iterator;
 
 //-------------------------------------------------------------------------
 //
@@ -679,22 +704,8 @@ cexpr_t *citem_t_cexpr_get(citem_t *item) { return (cexpr_t *) item; }
 //---------------------------------------------------------------------
 //                               cinsn_t
 //---------------------------------------------------------------------
-#define CINSN_MEMBER_REF(Name)                                          \
-  ___MEMBER_REF_BASE(c##Name##_t*, c##Name, self.op == cit_##Name, None, True, _v)
-
 %define_hexrays_lifecycle_object(cinsn_t);
 %extend cinsn_t {
-  CINSN_MEMBER_REF(block);
-  CINSN_MEMBER_REF(expr);
-  CINSN_MEMBER_REF(if);
-  CINSN_MEMBER_REF(for);
-  CINSN_MEMBER_REF(while);
-  CINSN_MEMBER_REF(do);
-  CINSN_MEMBER_REF(switch);
-  CINSN_MEMBER_REF(return);
-  CINSN_MEMBER_REF(goto);
-  CINSN_MEMBER_REF(asm);
-
   static bool insn_is_epilog(const cinsn_t *insn) { return insn == INS_EPILOG; }
 
   %pythoncode {
@@ -702,38 +713,58 @@ cexpr_t *citem_t_cexpr_get(citem_t *item) { return (cexpr_t *) item; }
         return cinsn_t.insn_is_epilog(self)
   }
 };
-#undef CINSN_MEMBER_REF
+
+
+%define %override_cinsn_t_obj_property(CIT_OP, PNAME, PTYPE)
+  %override_node_obj_property(cinsn_t, self.op == CIT_OP, PNAME, PTYPE, None, True);
+%enddef
+%override_cinsn_t_obj_property(cit_block,  cblock,  cblock_t *);
+%override_cinsn_t_obj_property(cit_expr,   cexpr,   cexpr_t *);
+%override_cinsn_t_obj_property(cit_if,     cif,     cif_t *);
+%override_cinsn_t_obj_property(cit_for,    cfor,    cfor_t *);
+%override_cinsn_t_obj_property(cit_while,  cwhile,  cwhile_t *);
+%override_cinsn_t_obj_property(cit_do,     cdo,     cdo_t *);
+%override_cinsn_t_obj_property(cit_switch, cswitch, cswitch_t *);
+%override_cinsn_t_obj_property(cit_return, creturn, creturn_t *);
+%override_cinsn_t_obj_property(cit_goto,   cgoto,   cgoto_t *);
+%override_cinsn_t_obj_property(cit_asm,    casm,    casm_t *);
 
 //-------------------------------------------------------------------------
 //                             cexpr_t
 //-------------------------------------------------------------------------
-#define CEXPR_MEMBER_REF(Type, PName, Cond, Defval, Acquire) \
-  ___MEMBER_REF_BASE(Type, PName, Cond, Defval, Acquire, _v)
-
-#define CEXPR_MEMBER_REF_STR(Type, PName, Cond, Defval)      \
-  ___MEMBER_REF_BASE(Type, PName, Cond, Defval, False, ::qstrdup(_v))
-
 %define_hexrays_lifecycle_object(cexpr_t);
 %extend cexpr_t {
-  CEXPR_MEMBER_REF(cnumber_t*, n, self.op == cot_num, None, True);
-  CEXPR_MEMBER_REF(fnumber_t*, fpc, self.op == cot_fnum, None, True);
   var_ref_t* get_v() { if ( self->op == cot_var ) { return &self->v; } else { return NULL; } }
   void set_v(const var_ref_t *v) { if ( self->op == cot_var ) { self->v = *v; } }
   %pythoncode {
     v = property(lambda self: self.get_v(), lambda self, v: self.set_v(v))
   }
-  CEXPR_MEMBER_REF(ea_t, obj_ea, self.op == cot_obj, ida_idaapi.BADADDR, False);
-  CEXPR_MEMBER_REF(int, refwidth, True, 0, False);
-  CEXPR_MEMBER_REF(cexpr_t*, x, op_uses_x(self.op), None, True);
-  CEXPR_MEMBER_REF(cexpr_t*, y, op_uses_y(self.op), None, True);
-  CEXPR_MEMBER_REF(carglist_t*, a, self.op == cot_call, None, True);
-  CEXPR_MEMBER_REF(int, m, (self.op == cot_memptr or self.op == cot_memref), 0, False);
-  CEXPR_MEMBER_REF(cexpr_t*, z, op_uses_z(self.op), None, True);
-  CEXPR_MEMBER_REF(int, ptrsize, (self.op == cot_ptr or self.op == cot_memptr), 0, False);
-  CEXPR_MEMBER_REF(cinsn_t*, insn, self.op == cot_insn, None, True);
-  CEXPR_MEMBER_REF_STR(char*, helper, self.op == cot_helper, None);
-  CEXPR_MEMBER_REF_STR(char*, string, self.op == cot_str, None);
 };
+%ignore cexpr_t::v;
+
+%define %override_cexpr_t_obj_property(COND, PNAME, PTYPE, DEFVAL, ACQUIRE)
+  %override_node_obj_property(cexpr_t, COND, PNAME, PTYPE, DEFVAL, ACQUIRE);
+%enddef
+%define %override_cexpr_t_scalar_property(COND, PNAME, PTYPE, DEFVAL)
+  %override_node_scalar_property(cexpr_t, COND, PNAME, PTYPE, DEFVAL);
+%enddef
+%define %override_cexpr_t_cstring_property(COND, PNAME)
+  %override_node_cstring_property(cexpr_t, COND, PNAME);
+%enddef
+
+%override_cexpr_t_obj_property(self.op == cot_num, n, cnumber_t *, None, True);
+%override_cexpr_t_obj_property(self.op == cot_fnum, fpc, fnumber_t *, None, True);
+%override_cexpr_t_obj_property(op_uses_x(self.op), x, cexpr_t *, None, True);
+%override_cexpr_t_obj_property(op_uses_y(self.op), y, cexpr_t *, None, True);
+%override_cexpr_t_obj_property(op_uses_z(self.op), z, cexpr_t *, None, True);
+%override_cexpr_t_obj_property(self.op == cot_call, a, carglist_t *, None, True);
+%override_cexpr_t_obj_property(self.op == cot_insn, insn, cinsn_t *, None, True);
+%override_cexpr_t_scalar_property(self.op == cot_memptr or self.op == cot_memref, m, int, 0);
+%override_cexpr_t_scalar_property(self.op == cot_ptr or self.op == cot_memptr, ptrsize, int, 0);
+%override_cexpr_t_scalar_property(self.op == cot_obj, obj_ea, ea_t, ida_idaapi.BADADDR);
+%override_cexpr_t_scalar_property(True, refwidth, int, 0);
+%override_cexpr_t_cstring_property(self.op == cot_helper, helper);
+%override_cexpr_t_cstring_property(self.op == cot_str, string);
 
 %feature("pythonprepend") cexpr_t::cexpr_t %{
     for arg in args[1:]: # skip copy constructor's arg
@@ -745,9 +776,6 @@ cexpr_t *citem_t_cexpr_get(citem_t *item) { return (cexpr_t *) item; }
         if isinstance(arg, cexpr_t):
             self._acquire_ownership(arg, True)
 %}
-
-#undef CEXPR_MEMBER_REF_STR
-#undef CEXPR_MEMBER_REF
 
 //-------------------------------------------------------------------------
 //                             ctree_item_t
@@ -797,6 +825,8 @@ cexpr_t *citem_t_cexpr_get(citem_t *item) { return (cexpr_t *) item; }
   CTREE_CONDITIONAL_ITEM_MEMBER_REF(cfunc_t*, f, VDI_FUNC);
   treeloc_t *loc const;
 };
+
+%ignore ctree_item_t::loc;
 
 %{
 treeloc_t *ctree_item_t_loc_get(ctree_item_t *item) { return item->citype == VDI_TAIL ? &item->loc : NULL; }
@@ -889,42 +919,9 @@ inline const ReturnType &py_ ## NameBase ## _second(NameBase ## _iterator_t p) {
 %template(history_t) qstack<history_item_t>;
 typedef int iterator_word;
 
-/* no support for nested classes in swig means we need to wrap
-    this iterator and do some magic...
+%qlist_template(cinsn_list_t, cinsn_t);
 
-    to use it, call qlist< cinsn_t >::begin() which will return the
-    proper iterator type which can then be used to get the current item.
-*/
-%{
-typedef qlist<cinsn_t>::iterator qlist_cinsn_t_iterator;
-%}
-class qlist_cinsn_t_iterator {};
-%extend qlist_cinsn_t_iterator {
-    const cinsn_t &cur { return *(*self); }
-    void __next__(void) { (*self)++; }
-    bool operator==(const qlist_cinsn_t_iterator *x) const { return &(self->operator*()) == &(x->operator*()); }
-    bool operator!=(const qlist_cinsn_t_iterator *x) const { return &(self->operator*()) != &(x->operator*()); }
-    %pythoncode {
-      next = __next__
-    }
-};
-
-%extend qlist<cinsn_t> {
-    qlist_cinsn_t_iterator begin() { return self->begin(); }
-    qlist_cinsn_t_iterator end(void) { return self->end(); }
-    qlist_cinsn_t_iterator insert(qlist_cinsn_t_iterator p, const cinsn_t& x) { return self->insert(p, x); }
-    void erase(qlist_cinsn_t_iterator p) { self->erase(p); }
-};
-%ignore qlist< cinsn_t >::insert();
-%ignore qlist< cinsn_t >::erase();
-%ignore qlist< cinsn_t >::begin();
-%ignore qlist< cinsn_t >::begin() const;
-%ignore qlist< cinsn_t >::end();
-%ignore qlist< cinsn_t >::end() const;
-
-//%template(qvector_meminfo_t) qvector<meminfo_t>;
 %template(qvector_lvar_t) qvector<lvar_t>;
-%template(qlist_cinsn_t) qlist<cinsn_t>;
 %template(qvector_carg_t) qvector<carg_t>;
 %template(qvector_ccase_t) qvector<ccase_t>;
 %template(lvar_saved_infos_t) qvector<lvar_saved_info_t>;

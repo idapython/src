@@ -46,11 +46,9 @@ def main():
         funcea = func.start_ea
         print("Function %s at 0x%x" % (ida_funcs.get_func_name(funcea), funcea))
 
-        ref = ida_xref.get_first_cref_to(funcea)
-
-        while ref != ida_idaapi.BADADDR:
+        xb = ida_xref.xrefblk_t()
+        for ref in xb.crefs_to(funcea):
             print("  called from %s(0x%x)" % (ida_funcs.get_func_name(ref), ref))
-            ref = ida_xref.get_next_cref_to(funcea, ref)
 
         func = ida_funcs.get_next_func(funcea)
 

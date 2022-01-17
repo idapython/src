@@ -1,3 +1,28 @@
+<!--
+Used keywords:
+  actions
+  chooser
+  coloring
+  colors
+  ctxmenu
+  DBG_Hooks
+  desktop
+  folders
+  forms
+  funcs iterator
+  functions
+  graph
+  Hexrays_Hooks
+  idaview
+  IDB_Hooks
+  idc
+  IDP_Hooks
+  listing
+  plugin
+  UI_Hooks
+  View_Hooks
+  xrefs
+-->
 <html>
   <head>
     <meta charset="UTF-8">
@@ -12,7 +37,8 @@
     </div>
     <div class="toplevel-actions" onclick="handle_toplevel_action()">
       <a href="#" class="exp-col-all expand-all">Expand all</a>
-      <a href="#" class="exp-col-all collapse-all">collapse all</a>
+      |
+      <a href="#" class="exp-col-all collapse-all">Collapse all</a>
     </div>
 
     <h1>IDAPython examples:</h1>
@@ -22,7 +48,7 @@
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="analysis/dump_func_info.py">dump_func_info</a>: <i>dump (some) information about the current function.</i>
+        <a href="analysis/dump_func_info.py">dump_func_info</a>: <i>Dump (some) information about the current function.</i>
         </div>
         <div class="details" id="DIV_dump_func_info">
 
@@ -33,10 +59,10 @@ the function we are currently looking at.
 
           <ul>
             <li>Category: analysis</li>
-            <li>Summary: dump (some) information about the current function.</li>
+            <li>Summary: Dump (some) information about the current function.</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/analysis/dump_func_info.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -49,40 +75,50 @@ the function we are currently looking at.
                 <li>ida_kernwin.get_screen_ea</li>
               </ul>
             </li>
-            <li>Summary: dump (some) information about the current function.</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
 
     </div>
-    <!-- end group by category -->
     <h2>Category: core</h2>
     <div class="c_list" onclick="handle_click()">
       <div class="example-entry collapsed-entry" name="actions">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/actions.py">actions</a>: <i>custom actions, with icons & tooltips</i>
+        <a href="core/actions.py">actions</a>: <i>Custom actions, with icons & tooltips</i>
         </div>
         <div class="details" id="DIV_actions">
 
 <pre>
 How to create user actions, that once created can be
 inserted in menus, toolbars, context menus, ...
+
+Those actions, when triggered, will be passed a 'context'
+that contains some of the most frequently needed bits of
+information.
+
+In addition, custom actions can determine when they want
+to be available (through their
+`ida_kernwin.action_handler_t.update` callback)
 </pre>
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: custom actions, with icons & tooltips</li>
+            <li>Summary: Custom actions, with icons & tooltips</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/actions.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
             actions
-            </span>
+            ctxmenu
+            UI_Hooks
+            </li>
+
+            <li>Shortcut:
+            Ctrl+F12
+            </li>
+
 
             <li>APIs used
               <ul>
@@ -102,25 +138,21 @@ inserted in menus, toolbars, context menus, ...
                 <li>ida_kernwin.unregister_action</li>
               </ul>
             </li>
-            <li>Summary: custom actions, with icons & tooltips</li>
 
-          <!-- only if there is data for it -->
           <li>See also:
             <ul>
-              <li><a href="#add_hotkey"
-                   onclick="on_see_also('add_hotkey');">
-                  add_hotkey</a></li>
+              <li><a class="ex_link" href="#add_hotkey">add_hotkey</a></li>
             </ul>
           </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="add_hotkey">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/add_hotkey.py">add_hotkey</a>: <i>triggering bits of code by pressing a shortcut</i>
+        <a href="core/add_hotkey.py">add_hotkey</a>: <i>Triggering bits of code by pressing a shortcut</i>
         </div>
         <div class="details" id="DIV_add_hotkey">
 
@@ -128,17 +160,22 @@ inserted in menus, toolbars, context menus, ...
 `ida_kernwin.add_hotkey` is a simpler, but much less flexible
 alternative to `ida_kernwin.register_action` (though it does
 use the same mechanism under the hood.)
+
+It's particularly useful during prototyping, but note that the
+actions that are created cannot be inserted in menus, toolbars
+or cannot provide a custom `ida_kernwin.action_handler_t.update`
+callback.
 </pre>
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: triggering bits of code by pressing a shortcut</li>
+            <li>Summary: Triggering bits of code by pressing a shortcut</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/add_hotkey.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
             actions
-            </span>
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -146,25 +183,21 @@ use the same mechanism under the hood.)
                 <li>ida_kernwin.del_hotkey</li>
               </ul>
             </li>
-            <li>Summary: triggering bits of code by pressing a shortcut</li>
 
-          <!-- only if there is data for it -->
           <li>See also:
             <ul>
-              <li><a href="#actions"
-                   onclick="on_see_also('actions');">
-                  actions</a></li>
+              <li><a class="ex_link" href="#actions">actions</a></li>
             </ul>
           </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="add_idc_hotkey">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/add_idc_hotkey.py">add_idc_hotkey</a>: <i>triggering bits of code by pressing a shortcut (older version)</i>
+        <a href="core/add_idc_hotkey.py">add_idc_hotkey</a>: <i>Triggering bits of code by pressing a shortcut (older version)</i>
         </div>
         <div class="details" id="DIV_add_idc_hotkey">
 
@@ -176,13 +209,13 @@ should be preferred.
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: triggering bits of code by pressing a shortcut (older version)</li>
+            <li>Summary: Triggering bits of code by pressing a shortcut (older version)</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/add_idc_hotkey.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
             actions
-            </span>
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -190,46 +223,57 @@ should be preferred.
                 <li>ida_kernwin.add_idc_hotkey</li>
               </ul>
             </li>
-            <li>Summary: triggering bits of code by pressing a shortcut (older version)</li>
 
-          <!-- only if there is data for it -->
           <li>See also:
             <ul>
-              <li><a href="#actions"
-                   onclick="on_see_also('actions');">
-                  actions</a></li>
-          </li>
-              <li><a href="#add_hotkey"
-                   onclick="on_see_also('add_hotkey');">
-                  add_hotkey</a></li>
+              <li><a class="ex_link" href="#actions">actions</a></li>
+              <li><a class="ex_link" href="#add_hotkey">add_hotkey</a></li>
             </ul>
           </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="auto_instantiate_widget_plugin">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/auto_instantiate_widget_plugin.py">auto_instantiate_widget_plugin</a>: <i>better integrating custom widgets in the desktop layout</i>
+        <a href="core/auto_instantiate_widget_plugin.py">auto_instantiate_widget_plugin</a>: <i>Better integrating custom widgets in the desktop layout</i>
         </div>
         <div class="details" id="DIV_auto_instantiate_widget_plugin">
 
 <pre>
 This is an example demonstrating how one can create widgets from a plugin,
 and have them re-created automatically at IDA startup-time or at desktop load-time.
+
+This example should be placed in the 'plugins' directory of the
+IDA installation, for it to work.
+
+There are 2 ways to use this example:
+1) reloading an IDB, where the widget was opened
+   - open the widget ('View > Open subview > ...')
+   - save this IDB, and close IDA
+   - restart IDA with this IDB
+     => the widget will be visible
+
+2) reloading a desktop, where the widget was opened
+   - open the widget ('View > Open subview > ...')
+   - save the desktop ('Windows > Save desktop...') under, say, the name 'with_auto'
+   - start another IDA instance with some IDB, and load that desktop
+     => the widget will be visible
 </pre>
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: better integrating custom widgets in the desktop layout</li>
+            <li>Summary: Better integrating custom widgets in the desktop layout</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/auto_instantiate_widget_plugin.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
             desktop
-            </span>
+            plugin
+            UI_Hooks
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -246,32 +290,42 @@ and have them re-created automatically at IDA startup-time or at desktop load-ti
                 <li>ida_kernwin.simplecustviewer_t.Create</li>
               </ul>
             </li>
-            <li>Summary: better integrating custom widgets in the desktop layout</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="bin_search">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/bin_search.py">bin_search</a>: <i>showcasing `ida_bytes.bin_search`</i>
+        <a href="core/bin_search.py">bin_search</a>: <i>Showcasing `ida_bytes.bin_search`</i>
         </div>
         <div class="details" id="DIV_bin_search">
 
 <pre>
 IDAPython's ida_bytes.bin_search function is pretty powerful,
 but can be tough to figure out at first. This example introduces
+
+ * `ida_bytes.bin_search`, and
+ * `ida_bytes.parse_binpat_str`
+
+in order to implement a simple replacement for the
+'Search > Sequence of bytes...' dialog, that lets users
+search for sequences of bytes that compose string literals
+in the binary file (either in the default 1-byte-per-char
+encoding, or as UTF-16.)
 </pre>
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: showcasing `ida_bytes.bin_search`</li>
+            <li>Summary: Showcasing `ida_bytes.bin_search`</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/bin_search.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+            <li>Shortcut:
+            Ctrl+Shift+S
+            </li>
+
 
             <li>APIs used
               <ul>
@@ -299,18 +353,79 @@ but can be tough to figure out at first. This example introduces
                 <li>ida_nalt.get_default_encoding_idx</li>
               </ul>
             </li>
-            <li>Summary: showcasing `ida_bytes.bin_search`</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
+      <div class="example-entry collapsed-entry" name="colorize_disassembly_on_the_fly">
+        <div>
+          <span class="exp-col expander">&#x25B9;</span>
+          <span class="exp-col collapser" style="display:none">&#x25BF;</span>
+        <a href="core/colorize_disassembly_on_the_fly.py">colorize_disassembly_on_the_fly</a>: <i>An easy-to-use way to colorize lines</i>
+        </div>
+        <div class="details" id="DIV_colorize_disassembly_on_the_fly">
+
+<pre>
+This builds upon the `ida_kernwin.UI_Hooks.get_lines_rendering_info`
+feature, to provide a quick & easy way to colorize disassembly
+lines.
+
+Contrary to @colorize_disassembly, the coloring is not persisted in
+the database, and will therefore be lost after the session.
+
+By triggering the action multiple times, the user can "carousel"
+across 4 predefined colors (and return to the "no color" state.)
+</pre>
+
+          <ul>
+            <li>Category: core</li>
+            <li>Summary: An easy-to-use way to colorize lines</li>
+            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/colorize_disassembly_on_the_fly.py">GitHub</a></li>
+            <li>Keywords:
+            coloring
+            UI_Hooks
+            </li>
+
+            <li>Shortcut:
+            !
+            </li>
+
+
+            <li>APIs used
+              <ul>
+                <li>ida_kernwin.AST_DISABLE_FOR_WIDGET</li>
+                <li>ida_kernwin.AST_ENABLE_FOR_WIDGET</li>
+                <li>ida_kernwin.CK_EXTRA5</li>
+                <li>ida_kernwin.CK_EXTRA6</li>
+                <li>ida_kernwin.CK_EXTRA7</li>
+                <li>ida_kernwin.CK_EXTRA8</li>
+                <li>ida_kernwin.UI_Hooks</li>
+                <li>ida_kernwin.action_desc_t</li>
+                <li>ida_kernwin.get_current_viewer</li>
+                <li>ida_kernwin.get_custom_viewer_location</li>
+                <li>ida_kernwin.get_custom_viewer_place_xcoord</li>
+                <li>ida_kernwin.get_widget_title</li>
+                <li>ida_kernwin.line_rendering_output_entry_t</li>
+                <li>ida_kernwin.register_action</li>
+                <li>ida_moves.lochist_entry_t</li>
+              </ul>
+            </li>
+
+          <li>See also:
+            <ul>
+              <li><a class="ex_link" href="#colorize_disassembly">colorize_disassembly</a></li>
+            </ul>
+          </li>
+
+      </ul>
+        </div>
+      </div>
       <div class="example-entry collapsed-entry" name="create_structure_programmatically">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/create_structure_programmatically.py">create_structure_programmatically</a>: <i>programmatically create & populate a structure</i>
+        <a href="core/create_structure_programmatically.py">create_structure_programmatically</a>: <i>Programmatically create & populate a structure</i>
         </div>
         <div class="details" id="DIV_create_structure_programmatically">
 
@@ -321,10 +436,10 @@ members of different types.
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: programmatically create & populate a structure</li>
+            <li>Summary: Programmatically create & populate a structure</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/create_structure_programmatically.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -353,31 +468,34 @@ members of different types.
                 <li>idc.set_member_type</li>
               </ul>
             </li>
-            <li>Summary: programmatically create & populate a structure</li>
 
-          <!-- only if there is data for it -->
+
+          <li>Author: Gergely Erdelyi (gergely.erdelyi@d-dome.net)</li>
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="custom_cli">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/custom_cli.py">custom_cli</a>: <i>a custom command-line interpreter</i>
+        <a href="core/custom_cli.py">custom_cli</a>: <i>A custom command-line interpreter</i>
         </div>
         <div class="details" id="DIV_custom_cli">
 
 <pre>
 Illustrates how one can add command-line interpreters to IDA
+
+This custom interpreter doesn't actually run any code; it's
+there as a 'getting started'.
+It provides an example tab completion support.
 </pre>
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: a custom command-line interpreter</li>
+            <li>Summary: A custom command-line interpreter</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/custom_cli.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -389,32 +507,35 @@ Illustrates how one can add command-line interpreters to IDA
                 <li>ida_kernwin.cli_t</li>
               </ul>
             </li>
-            <li>Summary: a custom command-line interpreter</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="custom_data_types_and_formats">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/custom_data_types_and_formats.py">custom_data_types_and_formats</a>: <i>using custom data types & printers</i>
+        <a href="core/custom_data_types_and_formats.py">custom_data_types_and_formats</a>: <i>Using custom data types & printers</i>
         </div>
         <div class="details" id="DIV_custom_data_types_and_formats">
 
 <pre>
 IDA can be extended to support certain data types that it
 does not know about out-of-the-box.
+
+A 'custom data type' provide information about the type &
+size of a piece of data, while a 'custom data format' is in
+charge of formatting that data (there can be more than
+one format for a specific 'custom data type'.)
 </pre>
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: using custom data types & printers</li>
+            <li>Summary: Using custom data types & printers</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/custom_data_types_and_formats.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -440,32 +561,40 @@ does not know about out-of-the-box.
                 <li>ida_struct.is_member_id</li>
               </ul>
             </li>
-            <li>Summary: using custom data types & printers</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="dump_extra_comments">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/dump_extra_comments.py">dump_extra_comments</a>: <i>retrieve extra comments</i>
+        <a href="core/dump_extra_comments.py">dump_extra_comments</a>: <i>Retrieve extra comments</i>
         </div>
         <div class="details" id="DIV_dump_extra_comments">
 
 <pre>
 Use the `ida_lines.get_extra_cmt` API to retrieve anterior
 and posterior extra comments.
+
+This script registers two actions, that can be used to dump
+the previous and next extra comments.
 </pre>
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: retrieve extra comments</li>
+            <li>Summary: Retrieve extra comments</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/dump_extra_comments.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            ctxmenu
+            </li>
+
+            <li>Shortcuts:
+            Ctrl+Shift+Y
+            Ctrl+Shift+Z
+            </li>
+
 
             <li>APIs used
               <ul>
@@ -485,31 +614,33 @@ and posterior extra comments.
                 <li>ida_view</li>
               </ul>
             </li>
-            <li>Summary: retrieve extra comments</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="dump_flowchart">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/dump_flowchart.py">dump_flowchart</a>: <i>dump function flowchart</i>
+        <a href="core/dump_flowchart.py">dump_flowchart</a>: <i>Dump function flowchart</i>
         </div>
         <div class="details" id="DIV_dump_flowchart">
 
 <pre>
 Dumps the current function's flowchart, using 2 methods:
+
+  * the low-level `ida_gdl.qflow_chart_t` type
+  * the somewhat higher-level, and slightly more pythonic
+    `ida_gdl.FlowChart` type.
 </pre>
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: dump function flowchart</li>
+            <li>Summary: Dump function flowchart</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/dump_flowchart.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -519,18 +650,16 @@ Dumps the current function's flowchart, using 2 methods:
                 <li>ida_kernwin.get_screen_ea</li>
               </ul>
             </li>
-            <li>Summary: dump function flowchart</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="dump_selection">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/dump_selection.py">dump_selection</a>: <i>retrieve & dump current selection</i>
+        <a href="core/dump_selection.py">dump_selection</a>: <i>Retrieve & dump current selection</i>
         </div>
         <div class="details" id="DIV_dump_selection">
 
@@ -539,14 +668,23 @@ Shows how to retrieve the selection from a listing
 widget ("IDA View-A", "Hex View-1", "Pseudocode-A", ...) as
 two "cursors", and from there retrieve (in fact, generate)
 the corresponding text.
+
+After running this script:
+
+  * select some text in one of the listing widgets (i.e.,
+    "IDA View-*", "Enums", "Structures", "Pseudocode-*")
+  * press Ctrl+Shift+S to dump the selection
 </pre>
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: retrieve & dump current selection</li>
+            <li>Summary: Retrieve & dump current selection</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/dump_selection.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+            <li>Shortcut:
+            Ctrl+Shift+S
+            </li>
+
 
             <li>APIs used
               <ul>
@@ -567,32 +705,38 @@ the corresponding text.
                 <li>ida_lines.tag_remove</li>
               </ul>
             </li>
-            <li>Summary: retrieve & dump current selection</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="extend_idc">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/extend_idc.py">extend_idc</a>: <i>add functions to the IDC runtime from IDAPython</i>
+        <a href="core/extend_idc.py">extend_idc</a>: <i>Add functions to the IDC runtime from IDAPython</i>
         </div>
         <div class="details" id="DIV_extend_idc">
 
 <pre>
 You can add IDC functions to IDA, whose "body" consists of
 IDAPython statements!
+
+We'll register a 'pow' function, available to all IDC code,
+that when invoked will call back into IDAPython, and execute
+the provided function body.
+
+After running this script, try switching to the IDC interpreter
+(using the button on the lower-left corner of IDA) and executing
+`pow(3, 7)`
 </pre>
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: add functions to the IDC runtime from IDAPython</li>
+            <li>Summary: Add functions to the IDC runtime from IDAPython</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/extend_idc.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -600,48 +744,46 @@ IDAPython statements!
                 <li>ida_expr.add_idc_func</li>
               </ul>
             </li>
-            <li>Summary: add functions to the IDC runtime from IDAPython</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="idapythonrc">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/idapythonrc.py">idapythonrc</a>: <i>code to be run right after IDAPython initialization</i>
+        <a href="core/idapythonrc.py">idapythonrc</a>: <i>Code to be run right after IDAPython initialization</i>
         </div>
         <div class="details" id="DIV_idapythonrc">
 
 <pre>
 The `idapythonrc.py` file:
+
+  * %APPDATA%\Hex-Rays\IDA Pro\idapythonrc.py (on Windows)
+  * ~/.idapro/idapythonrc.py (on Linux & Mac)
+
+can contain any IDAPython code that will be run as soon as
+IDAPython is done successfully initializing.
 </pre>
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: code to be run right after IDAPython initialization</li>
+            <li>Summary: Code to be run right after IDAPython initialization</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/idapythonrc.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
 
-            <li>APIs used
-              <ul>
-              </ul>
-            </li>
-            <li>Summary: code to be run right after IDAPython initialization</li>
 
-          <!-- only if there is data for it -->
+
+
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="install_user_defined_prefix">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/install_user_defined_prefix.py">install_user_defined_prefix</a>: <i>inserting information into disassembly prefixes</i>
+        <a href="core/install_user_defined_prefix.py">install_user_defined_prefix</a>: <i>Inserting information into disassembly prefixes</i>
         </div>
         <div class="details" id="DIV_install_user_defined_prefix">
 
@@ -654,10 +796,13 @@ information (e.g., '.text:08047718'), but it is possible to
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: inserting information into disassembly prefixes</li>
+            <li>Summary: Inserting information into disassembly prefixes</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/install_user_defined_prefix.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            plugin
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -667,18 +812,76 @@ information (e.g., '.text:08047718'), but it is possible to
                 <li>ida_lines.user_defined_prefix_t</li>
               </ul>
             </li>
-            <li>Summary: inserting information into disassembly prefixes</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
+      <div class="example-entry collapsed-entry" name="list_function_items">
+        <div>
+          <span class="exp-col expander">&#x25B9;</span>
+          <span class="exp-col collapser" style="display:none">&#x25BF;</span>
+        <a href="core/list_function_items.py">list_function_items</a>: <i>Showcases (a few of) the iterators available on a function</i>
+        </div>
+        <div class="details" id="DIV_list_function_items">
+
+<pre>
+This demonstrates how to use some of the iterators available on the func_t type.
+
+This example will focus on:
+
+  * `func_t[.__iter__]`: the default iterator; iterates on instructions
+  * `func_t.data_items`: iterate on data items contained within a function
+  * `func_t.head_items`: iterate on 'heads' (i.e., addresses containing
+                         the start of an instruction, or a data item.
+  * `func_t.addresses`: iterate on all addresses within function (code
+                        and data, beginning of an item or not)
+
+Type `help(ida_funcs.func_t)` for a full list of iterators.
+
+In addition, one can use:
+
+  * `func_tail_iterator_t`: iterate on all the chunks (including
+                            the main one) of the function
+  * `func_parent_iterator_t`: iterate on all the parent functions,
+                              that include this chunk
+</pre>
+
+          <ul>
+            <li>Category: core</li>
+            <li>Summary: Showcases (a few of) the iterators available on a function</li>
+            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/list_function_items.py">GitHub</a></li>
+            <li>Keywords:
+            funcs iterator
+            </li>
+
+
+
+            <li>APIs used
+              <ul>
+                <li>ida_bytes.get_flags</li>
+                <li>ida_bytes.is_code</li>
+                <li>ida_bytes.is_data</li>
+                <li>ida_bytes.is_tail</li>
+                <li>ida_bytes.is_unknown</li>
+                <li>ida_funcs.func_tail_iterator_t</li>
+                <li>ida_funcs.get_fchunk</li>
+                <li>ida_funcs.get_func</li>
+                <li>ida_funcs.get_func_name</li>
+                <li>ida_kernwin.get_screen_ea</li>
+                <li>ida_ua.print_insn_mnem</li>
+              </ul>
+            </li>
+
+
+      </ul>
+        </div>
+      </div>
       <div class="example-entry collapsed-entry" name="list_imports">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/list_imports.py">list_imports</a>: <i>enumerate file imports</i>
+        <a href="core/list_imports.py">list_imports</a>: <i>Enumerate file imports</i>
         </div>
         <div class="details" id="DIV_list_imports">
 
@@ -688,10 +891,10 @@ Using the API to enumerate file imports.
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: enumerate file imports</li>
+            <li>Summary: Enumerate file imports</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/list_imports.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -700,18 +903,16 @@ Using the API to enumerate file imports.
                 <li>ida_nalt.get_import_module_qty</li>
               </ul>
             </li>
-            <li>Summary: enumerate file imports</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="list_patched_bytes">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/list_patched_bytes.py">list_patched_bytes</a>: <i>enumerate patched bytes</i>
+        <a href="core/list_patched_bytes.py">list_patched_bytes</a>: <i>Enumerate patched bytes</i>
         </div>
         <div class="details" id="DIV_list_patched_bytes">
 
@@ -722,10 +923,10 @@ that were patched using IDA.
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: enumerate patched bytes</li>
+            <li>Summary: Enumerate patched bytes</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/list_patched_bytes.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -733,18 +934,16 @@ that were patched using IDA.
                 <li>ida_idaapi.BADADDR</li>
               </ul>
             </li>
-            <li>Summary: enumerate patched bytes</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="list_problems">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/list_problems.py">list_problems</a>: <i>enumerate problems</i>
+        <a href="core/list_problems.py">list_problems</a>: <i>Enumerate problems</i>
         </div>
         <div class="details" id="DIV_list_problems">
 
@@ -755,10 +954,10 @@ encountered during analysis.
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: enumerate problems</li>
+            <li>Summary: Enumerate problems</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/list_problems.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -784,18 +983,16 @@ encountered during analysis.
                 <li>ida_problems.get_problem_name</li>
               </ul>
             </li>
-            <li>Summary: enumerate problems</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="list_segment_functions">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/list_segment_functions.py">list_segment_functions</a>: <i>list all functions (and xrefs) in segment</i>
+        <a href="core/list_segment_functions.py">list_segment_functions</a>: <i>List all functions (and xrefs) in segment</i>
         </div>
         <div class="details" id="DIV_list_segment_functions">
 
@@ -806,62 +1003,59 @@ all the cross-references to them.
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: list all functions (and xrefs) in segment</li>
+            <li>Summary: List all functions (and xrefs) in segment</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/list_segment_functions.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
             xrefs
-            </span>
+            </li>
+
+
 
             <li>APIs used
               <ul>
                 <li>ida_funcs.get_func</li>
                 <li>ida_funcs.get_func_name</li>
                 <li>ida_funcs.get_next_func</li>
-                <li>ida_idaapi.BADADDR</li>
                 <li>ida_kernwin.get_screen_ea</li>
                 <li>ida_segment.getseg</li>
-                <li>ida_xref.get_first_cref_to</li>
-                <li>ida_xref.get_next_cref_to</li>
+                <li>ida_xref.xrefblk_t</li>
               </ul>
             </li>
-            <li>Summary: list all functions (and xrefs) in segment</li>
 
-          <!-- only if there is data for it -->
           <li>See also:
             <ul>
-              <li><a href="#list_segment_functions_using_idautils"
-                   onclick="on_see_also('list_segment_functions_using_idautils');">
-                  list_segment_functions_using_idautils</a></li>
+              <li><a class="ex_link" href="#list_segment_functions_using_idautils">list_segment_functions_using_idautils</a></li>
             </ul>
           </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="list_segment_functions_using_idautils">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/list_segment_functions_using_idautils.py">list_segment_functions_using_idautils</a>: <i>list all functions (and xrefs) in segment</i>
+        <a href="core/list_segment_functions_using_idautils.py">list_segment_functions_using_idautils</a>: <i>List all functions (and xrefs) in segment</i>
         </div>
         <div class="details" id="DIV_list_segment_functions_using_idautils">
 
 <pre>
 List all the functions in the current segment, as well as
 all the cross-references to them.
+
+Contrary to @list_segment_functions, this uses the somewhat
+higher-level `idautils` module.
 </pre>
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: list all functions (and xrefs) in segment</li>
+            <li>Summary: List all functions (and xrefs) in segment</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/list_segment_functions_using_idautils.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
             xrefs
-            </span>
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -873,25 +1067,21 @@ all the cross-references to them.
                 <li>idautils.Functions</li>
               </ul>
             </li>
-            <li>Summary: list all functions (and xrefs) in segment</li>
 
-          <!-- only if there is data for it -->
           <li>See also:
             <ul>
-              <li><a href="#list_segment_functions"
-                   onclick="on_see_also('list_segment_functions');">
-                  list_segment_functions</a></li>
+              <li><a class="ex_link" href="#list_segment_functions">list_segment_functions</a></li>
             </ul>
           </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="list_stkvar_xrefs">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/list_stkvar_xrefs.py">list_stkvar_xrefs</a>: <i>list all xrefs to a function stack variable</i>
+        <a href="core/list_stkvar_xrefs.py">list_stkvar_xrefs</a>: <i>List all xrefs to a function stack variable</i>
         </div>
         <div class="details" id="DIV_list_stkvar_xrefs">
 
@@ -903,13 +1093,16 @@ next_to() (or higher level utilities such as idautils.XrefsTo)
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: list all xrefs to a function stack variable</li>
+            <li>Summary: List all xrefs to a function stack variable</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/list_stkvar_xrefs.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
             xrefs
-            </span>
+            </li>
+
+            <li>Shortcut:
+            Ctrl+Shift+F7
+            </li>
+
 
             <li>APIs used
               <ul>
@@ -917,7 +1110,6 @@ next_to() (or higher level utilities such as idautils.XrefsTo)
                 <li>ida_bytes.is_stkvar</li>
                 <li>ida_frame.calc_stkvar_struc_offset</li>
                 <li>ida_frame.get_frame</li>
-                <li>ida_funcs.func_item_iterator_t</li>
                 <li>ida_funcs.get_func</li>
                 <li>ida_ida.UA_MAXOP</li>
                 <li>ida_kernwin.AST_DISABLE_FOR_WIDGET</li>
@@ -935,18 +1127,16 @@ next_to() (or higher level utilities such as idautils.XrefsTo)
                 <li>ida_ua.insn_t</li>
               </ul>
             </li>
-            <li>Summary: list all xrefs to a function stack variable</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="list_strings">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/list_strings.py">list_strings</a>: <i>retrieve the strings that are present in the IDB</i>
+        <a href="core/list_strings.py">list_strings</a>: <i>Retrieve the strings that are present in the IDB</i>
         </div>
         <div class="details" id="DIV_list_strings">
 
@@ -958,50 +1148,56 @@ this will not require that the "Strings" window is opened & available.
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: retrieve the strings that are present in the IDB</li>
+            <li>Summary: Retrieve the strings that are present in the IDB</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/list_strings.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
                 <li>idautils.Strings</li>
               </ul>
             </li>
-            <li>Summary: retrieve the strings that are present in the IDB</li>
 
-          <!-- only if there is data for it -->
           <li>See also:
             <ul>
-              <li><a href="#show_selected_strings"
-                   onclick="on_see_also('show_selected_strings');">
-                  show_selected_strings</a></li>
+              <li><a class="ex_link" href="#show_selected_strings">show_selected_strings</a></li>
             </ul>
           </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="produce_c_file">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/produce_c_file.py">produce_c_file</a>: <i>decompile entire file</i>
+        <a href="core/produce_c_file.py">produce_c_file</a>: <i>Decompile entire file</i>
         </div>
         <div class="details" id="DIV_produce_c_file">
 
 <pre>
-automate IDA to perform auto-analysis on a file and,
+Automate IDA to perform auto-analysis on a file and,
 once that is done, produce a .c file containing the
 decompilation of all the functions in that file.
+
+Run like so:
+
+      ida -A "-S...path/to/produce_c_file.py" <binary-file>
+
+where:
+
+  * -A instructs IDA to run in non-interactive mode
+  * -S holds a path to the script to run (note this is a single token;
+       there is no space between '-S' and its path.)
 </pre>
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: decompile entire file</li>
+            <li>Summary: Decompile entire file</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/produce_c_file.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -1015,32 +1211,40 @@ decompilation of all the functions in that file.
                 <li>ida_pro.qexit</li>
               </ul>
             </li>
-            <li>Summary: decompile entire file</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="produce_lst_file">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/produce_lst_file.py">produce_lst_file</a>: <i>produce listing</i>
+        <a href="core/produce_lst_file.py">produce_lst_file</a>: <i>Produce listing</i>
         </div>
         <div class="details" id="DIV_produce_lst_file">
 
 <pre>
-automate IDA to perform auto-analysis on a file and,
+Automate IDA to perform auto-analysis on a file and,
 once that is done, produce a .lst file with the disassembly.
+
+Run like so:
+
+      ida -A "-S...path/to/produce_lst_file.py" <binary-file>
+
+where:
+
+  * -A instructs IDA to run in non-interactive mode
+  * -S holds a path to the script to run (note this is a single token;
+       there is no space between '-S' and its path.)
 </pre>
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: produce listing</li>
+            <li>Summary: Produce listing</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/produce_lst_file.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -1055,18 +1259,16 @@ once that is done, produce a .lst file with the disassembly.
                 <li>ida_pro.qexit</li>
               </ul>
             </li>
-            <li>Summary: produce listing</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="register_timer">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/register_timer.py">register_timer</a>: <i>using timers for delayed execution</i>
+        <a href="core/register_timer.py">register_timer</a>: <i>Using timers for delayed execution</i>
         </div>
         <div class="details" id="DIV_register_timer">
 
@@ -1076,45 +1278,50 @@ Register (possibly repeating) timers.
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: using timers for delayed execution</li>
+            <li>Summary: Using timers for delayed execution</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/register_timer.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
                 <li>ida_kernwin.register_timer</li>
               </ul>
             </li>
-            <li>Summary: using timers for delayed execution</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="trigger_actions_programmatically">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/trigger_actions_programmatically.py">trigger_actions_programmatically</a>: <i>execute existing actions programmatically</i>
+        <a href="core/trigger_actions_programmatically.py">trigger_actions_programmatically</a>: <i>Execute existing actions programmatically</i>
         </div>
         <div class="details" id="DIV_trigger_actions_programmatically">
 
 <pre>
 It's possible to invoke any action programmatically, by using
 either of those two:
+
+  * ida_kernwin.execute_ui_requests()
+  * ida_kernwin.process_ui_action()
+
+Ideally, this script should be run through the "File > Script file..."
+menu, so as to keep focus on "IDA View-A" and have the
+'ProcessUiActions' part work as intended.
 </pre>
 
           <ul>
             <li>Category: core</li>
-            <li>Summary: execute existing actions programmatically</li>
+            <li>Summary: Execute existing actions programmatically</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/trigger_actions_programmatically.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
             actions
-            </span>
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -1124,23 +1331,20 @@ either of those two:
                 <li>ida_kernwin.process_ui_action</li>
               </ul>
             </li>
-            <li>Summary: execute existing actions programmatically</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
 
     </div>
-    <!-- end group by category -->
     <h2>Category: debugging</h2>
     <div class="c_list" onclick="handle_click()">
       <div class="example-entry collapsed-entry" name="automatic_steps">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="debugging/dbghooks/automatic_steps.py">automatic_steps</a>: <i>programmatically drive a debugging session</i>
+        <a href="debugging/dbghooks/automatic_steps.py">automatic_steps</a>: <i>Programmatically drive a debugging session</i>
         </div>
         <div class="details" id="DIV_automatic_steps">
 
@@ -1152,10 +1356,13 @@ execution.
 
           <ul>
             <li>Category: debugging</li>
-            <li>Summary: programmatically drive a debugging session</li>
+            <li>Summary: Programmatically drive a debugging session</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/debugging/dbghooks/automatic_steps.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            DBG_Hooks
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -1171,32 +1378,35 @@ execution.
                 <li>ida_lines.tag_remove</li>
               </ul>
             </li>
-            <li>Summary: programmatically drive a debugging session</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="dbg_trace">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="debugging/dbghooks/dbg_trace.py">dbg_trace</a>: <i>using the low-level tracing hook</i>
+        <a href="debugging/dbghooks/dbg_trace.py">dbg_trace</a>: <i>Using the low-level tracing hook</i>
         </div>
         <div class="details" id="DIV_dbg_trace">
 
 <pre>
 This script demonstrates using the low-level tracing hook
 (ida_dbg.DBG_Hooks.dbg_trace). It can be run like so:
+
+     ida[t].exe -B -Sdbg_trace.py -Ltrace.log file.exe
 </pre>
 
           <ul>
             <li>Category: debugging</li>
-            <li>Summary: using the low-level tracing hook</li>
+            <li>Summary: Using the low-level tracing hook</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/debugging/dbghooks/dbg_trace.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            DBG_Hooks
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -1235,32 +1445,92 @@ This script demonstrates using the low-level tracing hook
                 <li>idc.ARGV</li>
               </ul>
             </li>
-            <li>Summary: using the low-level tracing hook</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
+      <div class="example-entry collapsed-entry" name="print_call_stack">
+        <div>
+          <span class="exp-col expander">&#x25B9;</span>
+          <span class="exp-col collapser" style="display:none">&#x25BF;</span>
+        <a href="debugging/misc/print_call_stack.py">print_call_stack</a>: <i>Print call stack (on Linux)</i>
+        </div>
+        <div class="details" id="DIV_print_call_stack">
+
+<pre>
+           Print the return addresses from the call stack at a breakpoint.
+           (and print also the module and the debug name from debugger)
+
+To use this example:
+
+  * run `ida64` on test program `simple_appcall_linux64`, or
+    `ida` on test program `simple_appcall_linux32`, and wait for
+    auto-analysis to finish
+  * put a breakpoint where you want to see the call stack
+  * select the 'linux debugger' (either local, or remote)
+  * start debugging
+  * Press Shift+C at the breakpoint
+</pre>
+
+          <ul>
+            <li>Category: debugging</li>
+            <li>Summary: Print call stack (on Linux)</li>
+            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/debugging/misc/print_call_stack.py">GitHub</a></li>
+
+            <li>Shortcut:
+            Shift+C
+            </li>
+
+
+            <li>APIs used
+              <ul>
+                <li>ida_dbg.collect_stack_trace</li>
+                <li>ida_dbg.get_current_thread</li>
+                <li>ida_dbg.get_module_info</li>
+                <li>ida_idd.call_stack_t</li>
+                <li>ida_idd.modinfo_t</li>
+                <li>ida_kernwin.AST_ENABLE_ALWAYS</li>
+                <li>ida_kernwin.action_desc_t</li>
+                <li>ida_kernwin.register_action</li>
+                <li>ida_name.GNCN_NOCOLOR</li>
+                <li>ida_name.GNCN_NOLABEL</li>
+                <li>ida_name.GNCN_NOSEG</li>
+                <li>ida_name.GNCN_PREFDBG</li>
+                <li>ida_name.get_nice_colored_name</li>
+              </ul>
+            </li>
+
+
+      </ul>
+        </div>
+      </div>
       <div class="example-entry collapsed-entry" name="registers_context_menu">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="debugging/misc/registers_context_menu.py">registers_context_menu</a>: <i>adding actions to the "registers" widget(s)</i>
+        <a href="debugging/misc/registers_context_menu.py">registers_context_menu</a>: <i>Adding actions to the "registers" widget(s)</i>
         </div>
         <div class="details" id="DIV_registers_context_menu">
 
 <pre>
 It's possible to add actions to the context menu of
 pretty much all widgets in IDA.
+
+This example shows how to do just that for
+registers-displaying widgets (e.g., "General registers")
 </pre>
 
           <ul>
             <li>Category: debugging</li>
-            <li>Summary: adding actions to the "registers" widget(s)</li>
+            <li>Summary: Adding actions to the "registers" widget(s)</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/debugging/misc/registers_context_menu.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            ctxmenu
+            UI_Hooks
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -1282,18 +1552,16 @@ pretty much all widgets in IDA.
                 <li>ida_ua.dt_word</li>
               </ul>
             </li>
-            <li>Summary: adding actions to the "registers" widget(s)</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="show_debug_names">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="debugging/show_debug_names.py">show_debug_names</a>: <i>retrieving & dumping debuggee symbols</i>
+        <a href="debugging/show_debug_names.py">show_debug_names</a>: <i>Retrieving & dumping debuggee symbols</i>
         </div>
         <div class="details" id="DIV_show_debug_names">
 
@@ -1304,10 +1572,10 @@ symbols that the process being debugged, provides.
 
           <ul>
             <li>Category: debugging</li>
-            <li>Summary: retrieving & dumping debuggee symbols</li>
+            <li>Summary: Retrieving & dumping debuggee symbols</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/debugging/show_debug_names.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -1318,31 +1586,49 @@ symbols that the process being debugged, provides.
                 <li>ida_name.get_debug_names</li>
               </ul>
             </li>
-            <li>Summary: retrieving & dumping debuggee symbols</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
-      <div class="example-entry collapsed-entry" name="simple_appcall_common">
+      <div class="example-entry collapsed-entry" name="simple_appcall_linux">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="debugging/appcall/simple_appcall_common.py">simple_appcall_common</a>: <i></i>
+        <a href="debugging/appcall/simple_appcall_linux.py">simple_appcall_linux</a>: <i>Executing code into the application being debugged (on Linux)</i>
         </div>
-        <div class="details" id="DIV_simple_appcall_common">
+        <div class="details" id="DIV_simple_appcall_linux">
 
 <pre>
+Using the `ida_idd.Appcall` utility to execute code in
+the process being debugged.
 
+This example will run the test program and stop wherever
+the cursor currently is, and then perform an appcall to
+execute the `ref4` and `ref8` functions.
+
+To use this example:
+
+  * run `ida64` on test program `simple_appcall_linux64`, or
+    `ida` on test program `simple_appcall_linux32`, and wait for
+    auto-analysis to finish
+  * select the 'linux debugger' (either local, or remote)
+  * run this script
+
+Note: the real body of code is in `simple_appcall_common.py`.
 </pre>
 
           <ul>
             <li>Category: debugging</li>
-            <li>Summary: </li>
-            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/debugging/appcall/simple_appcall_common.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+            <li>Summary: Executing code into the application being debugged (on Linux)</li>
+            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/debugging/appcall/simple_appcall_linux.py">GitHub</a></li>
+
+
+            <li>Imports
+              <ul>
+                <li>simple_appcall_common</li>
+              </ul>
+            </li>
 
             <li>APIs used
               <ul>
@@ -1358,106 +1644,101 @@ symbols that the process being debugged, provides.
                 <li>ida_typeinf.apply_cdecl</li>
               </ul>
             </li>
-            <li>Summary: </li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
-      <div class="example-entry collapsed-entry" name="simple_appcall_linux">
-        <div>
-          <span class="exp-col expander">&#x25B9;</span>
-          <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="debugging/appcall/simple_appcall_linux.py">simple_appcall_linux</a>: <i>executing code into the application being debugged (on Linux)</i>
-        </div>
-        <div class="details" id="DIV_simple_appcall_linux">
-
-<pre>
-Using the `ida_idd.Appcall` utility to execute code in
-the process being debugged.
-</pre>
-
-          <ul>
-            <li>Category: debugging</li>
-            <li>Summary: executing code into the application being debugged (on Linux)</li>
-            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/debugging/appcall/simple_appcall_linux.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
-
-            <li>APIs used
-              <ul>
-              </ul>
-            </li>
-            <li>Summary: executing code into the application being debugged (on Linux)</li>
-
-          <!-- only if there is data for it -->
-      </ul>
-        </div>
-      </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="simple_appcall_win">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="debugging/appcall/simple_appcall_win.py">simple_appcall_win</a>: <i>executing code into the application being debugged (on Windows)</i>
+        <a href="debugging/appcall/simple_appcall_win.py">simple_appcall_win</a>: <i>Executing code into the application being debugged (on Windows)</i>
         </div>
         <div class="details" id="DIV_simple_appcall_win">
 
 <pre>
 Using the `ida_idd.Appcall` utility to execute code in
 the process being debugged.
+
+This example will run the test program and stop wherever
+the cursor currently is, and then perform an appcall to
+execute the `ref4` and `ref8` functions.
+
+To use this example:
+
+  * run `ida64` on test program `simple_appcall_win64.exe`, or
+    `ida` on test program `simple_appcall_win32.exe`, and wait for
+    auto-analysis to finish
+  * select the 'windows debugger' (either local, or remote)
+  * run this script
+
+Note: the real body of code is in `simple_appcall_common.py`.
 </pre>
 
           <ul>
             <li>Category: debugging</li>
-            <li>Summary: executing code into the application being debugged (on Windows)</li>
+            <li>Summary: Executing code into the application being debugged (on Windows)</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/debugging/appcall/simple_appcall_win.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
+            <li>Imports
+              <ul>
+                <li>simple_appcall_common</li>
+              </ul>
+            </li>
 
             <li>APIs used
               <ul>
+                <li>ida_dbg.DBG_Hooks</li>
+                <li>ida_dbg.run_to</li>
                 <li>ida_ida.inf_is_64bit</li>
+                <li>ida_idaapi.BADADDR</li>
+                <li>ida_idd.Appcall</li>
+                <li>ida_idd.Appcall.byref</li>
+                <li>ida_idd.Appcall.int64</li>
+                <li>ida_kernwin.get_screen_ea</li>
+                <li>ida_name.get_name_ea</li>
+                <li>ida_name.set_name</li>
+                <li>ida_typeinf.apply_cdecl</li>
               </ul>
             </li>
-            <li>Summary: executing code into the application being debugged (on Windows)</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
 
     </div>
-    <!-- end group by category -->
     <h2>Category: disassembly</h2>
     <div class="c_list" onclick="handle_click()">
       <div class="example-entry collapsed-entry" name="colorize_disassembly">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="core/colorize_disassembly.py">colorize_disassembly</a>: <i>change background colours</i>
+        <a href="core/colorize_disassembly.py">colorize_disassembly</a>: <i>Change background colours</i>
         </div>
         <div class="details" id="DIV_colorize_disassembly">
 
 <pre>
 This illustrates the setting/retrieval of background colours
 using the IDC wrappers
+
+In order to do so, we'll be assigning colors to specific ranges
+(item, function, or segment). Those will be persisted in the
+database.
 </pre>
 
           <ul>
             <li>Category: disassembly</li>
-            <li>Summary: change background colours</li>
+            <li>Summary: Change background colours</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/colorize_disassembly.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
             coloring
-            </span>
-            <span>
             idc
-            </span>
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -1469,23 +1750,25 @@ using the IDC wrappers
                 <li>idc.set_color</li>
               </ul>
             </li>
-            <li>Summary: change background colours</li>
 
-          <!-- only if there is data for it -->
+          <li>See also:
+            <ul>
+              <li><a class="ex_link" href="#colorize_disassembly_on_the_fly">colorize_disassembly_on_the_fly</a></li>
+            </ul>
+          </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
 
     </div>
-    <!-- end group by category -->
     <h2>Category: hexrays</h2>
     <div class="c_list" onclick="handle_click()">
       <div class="example-entry collapsed-entry" name="colorize_pseudocode_lines">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/colorize_pseudocode_lines.py">colorize_pseudocode_lines</a>: <i>interactively color certain pseudocode lines</i>
+        <a href="hexrays/colorize_pseudocode_lines.py">colorize_pseudocode_lines</a>: <i>Interactively color certain pseudocode lines</i>
         </div>
         <div class="details" id="DIV_colorize_pseudocode_lines">
 
@@ -1493,17 +1776,25 @@ using the IDC wrappers
 Provides an action that can be used to dynamically alter the
 lines background rendering for pseudocode listings (as opposed to
 using `ida_hexrays.cfunc_t.pseudocode[N].bgcolor`)
+
+After running this script, pressing 'M' on a line in a
+"Pseudocode-?" widget, will cause that line to be rendered
+with a special background color.
 </pre>
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: interactively color certain pseudocode lines</li>
+            <li>Summary: Interactively color certain pseudocode lines</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/colorize_pseudocode_lines.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
             colors
-            </span>
+            UI_Hooks
+            </li>
+
+            <li>Shortcut:
+            M
+            </li>
+
 
             <li>APIs used
               <ul>
@@ -1522,18 +1813,62 @@ using `ida_hexrays.cfunc_t.pseudocode[N].bgcolor`)
                 <li>ida_moves.lochist_entry_t</li>
               </ul>
             </li>
-            <li>Summary: interactively color certain pseudocode lines</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
+      <div class="example-entry collapsed-entry" name="curpos_details">
+        <div>
+          <span class="exp-col expander">&#x25B9;</span>
+          <span class="exp-col collapser" style="display:none">&#x25BF;</span>
+        <a href="hexrays/curpos_details.py">curpos_details</a>: <i>A focus on the 'curpos' hook, printing additional details about user input</i>
+        </div>
+        <div class="details" id="DIV_curpos_details">
+
+<pre>
+Shows how user input information can be retrieved during
+processing of a notification triggered by that input
+</pre>
+
+          <ul>
+            <li>Category: hexrays</li>
+            <li>Summary: A focus on the 'curpos' hook, printing additional details about user input</li>
+            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/curpos_details.py">GitHub</a></li>
+            <li>Keywords:
+            Hexrays_Hooks
+            </li>
+
+
+
+            <li>APIs used
+              <ul>
+                <li>ida_hexrays.Hexrays_Hooks</li>
+                <li>ida_kernwin.get_user_input_event</li>
+                <li>ida_kernwin.iek_key_press</li>
+                <li>ida_kernwin.iek_key_release</li>
+                <li>ida_kernwin.iek_mouse_button_press</li>
+                <li>ida_kernwin.iek_mouse_button_release</li>
+                <li>ida_kernwin.iek_mouse_wheel</li>
+                <li>ida_kernwin.iek_shortcut</li>
+                <li>ida_kernwin.input_event_t</li>
+              </ul>
+            </li>
+
+          <li>See also:
+            <ul>
+              <li><a class="ex_link" href="#vds_hooks">vds_hooks</a></li>
+            </ul>
+          </li>
+
+      </ul>
+        </div>
+      </div>
       <div class="example-entry collapsed-entry" name="decompile_entry_points">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/decompile_entry_points.py">decompile_entry_points</a>: <i>automatic decompilation of functions</i>
+        <a href="hexrays/decompile_entry_points.py">decompile_entry_points</a>: <i>Automatic decompilation of functions</i>
         </div>
         <div class="details" id="DIV_decompile_entry_points">
 
@@ -1541,14 +1876,17 @@ using `ida_hexrays.cfunc_t.pseudocode[N].bgcolor`)
 Attempts to load a decompiler plugin corresponding to the current
 architecture (and address size) right after auto-analysis is performed,
 and then tries to decompile the function at the first entrypoint.
+
+It is particularly suited for use with the '-S' flag, for example:
+idat -Ldecompile.log -Sdecompile_entry_points.py -c file
 </pre>
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: automatic decompilation of functions</li>
+            <li>Summary: Automatic decompilation of functions</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/decompile_entry_points.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -1571,31 +1909,29 @@ and then tries to decompile the function at the first entrypoint.
                 <li>idc.get_idb_path</li>
               </ul>
             </li>
-            <li>Summary: automatic decompilation of functions</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds1">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds1.py">vds1</a>: <i>decompile & print current function.</i>
+        <a href="hexrays/vds1.py">vds1</a>: <i>Decompile & print current function.</i>
         </div>
         <div class="details" id="DIV_vds1">
 
 <pre>
-
+Decompile & print current function.
 </pre>
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: decompile & print current function.</li>
+            <li>Summary: Decompile & print current function.</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds1.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -1607,32 +1943,41 @@ and then tries to decompile the function at the first entrypoint.
                 <li>ida_lines.tag_remove</li>
               </ul>
             </li>
-            <li>Summary: decompile & print current function.</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds10">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds10.py">vds10</a>: <i>a custom microcode instruction optimization rule</i>
+        <a href="hexrays/vds10.py">vds10</a>: <i>A custom microcode instruction optimization rule</i>
         </div>
         <div class="details" id="DIV_vds10">
 
 <pre>
 Installs a custom microcode instruction optimization rule,
 to transform:
+
+    call   !DbgRaiseAssertionFailure <fast:>.0
+
+into
+
+    call   !DbgRaiseAssertionFailure <fast:"char *" "assertion text">.0
+
+To see this plugin in action please use arm64_brk.i64
 </pre>
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: a custom microcode instruction optimization rule</li>
+            <li>Summary: A custom microcode instruction optimization rule</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds10.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            plugin
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -1647,32 +1992,45 @@ to transform:
                 <li>ida_typeinf.tinfo_t.get_stock</li>
               </ul>
             </li>
-            <li>Summary: a custom microcode instruction optimization rule</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds11">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds11.py">vds11</a>: <i>a custom microcode block optimization rule (resolve `goto` chains)</i>
+        <a href="hexrays/vds11.py">vds11</a>: <i>A custom microcode block optimization rule (resolve `goto` chains)</i>
         </div>
         <div class="details" id="DIV_vds11">
 
 <pre>
 Installs a custom microcode block optimization rule,
 to transform:
+
+      goto L1
+      ...
+    L1:
+      goto L2
+
+into
+
+      goto L2
+
+In other words we fix a goto target if it points to a chain of gotos.
+This improves the decompiler output in some cases.
 </pre>
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: a custom microcode block optimization rule (resolve `goto` chains)</li>
+            <li>Summary: A custom microcode block optimization rule (resolve `goto` chains)</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds11.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            plugin
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -1685,18 +2043,16 @@ to transform:
                 <li>ida_idaapi.plugin_t</li>
               </ul>
             </li>
-            <li>Summary: a custom microcode block optimization rule (resolve `goto` chains)</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds12">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds12.py">vds12</a>: <i>list instruction registers</i>
+        <a href="hexrays/vds12.py">vds12</a>: <i>List instruction registers</i>
         </div>
         <div class="details" id="DIV_vds12">
 
@@ -1707,10 +2063,10 @@ current instruction.
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: list instruction registers</li>
+            <li>Summary: List instruction registers</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds12.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -1745,18 +2101,16 @@ current instruction.
                 <li>ida_pro.eavec_t</li>
               </ul>
             </li>
-            <li>Summary: list instruction registers</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds13">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds13.py">vds13</a>: <i>generates microcode for selection</i>
+        <a href="hexrays/vds13.py">vds13</a>: <i>Generates microcode for selection</i>
         </div>
         <div class="details" id="DIV_vds13">
 
@@ -1766,10 +2120,10 @@ Generates microcode for selection and dumps it to the output window.
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: generates microcode for selection</li>
+            <li>Summary: Generates microcode for selection</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds13.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -1786,32 +2140,41 @@ Generates microcode for selection and dumps it to the output window.
                 <li>ida_range.range_t</li>
               </ul>
             </li>
-            <li>Summary: generates microcode for selection</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds17">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds17.py">vds17</a>: <i>using the "Select offsets" widget</i>
+        <a href="hexrays/vds17.py">vds17</a>: <i>Using the "Select offsets" widget</i>
         </div>
         <div class="details" id="DIV_vds17">
 
 <pre>
 Registers an action opens the "Select offsets" widget
 (select_udt_by_offset() call).
+
+This effectively repeats the functionality already available
+through Alt+Y.
+
+Place cursor on the union field and press Shift+T
 </pre>
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: using the "Select offsets" widget</li>
+            <li>Summary: Using the "Select offsets" widget</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds17.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            plugin
+            </li>
+
+            <li>Shortcut:
+            Shift+T
+            </li>
+
 
             <li>APIs used
               <ul>
@@ -1847,32 +2210,41 @@ Registers an action opens the "Select offsets" widget
                 <li>ida_typeinf.remove_pointer</li>
               </ul>
             </li>
-            <li>Summary: using the "Select offsets" widget</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds19">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds19.py">vds19</a>: <i>a custom microcode instruction optimization rule (`x | ~x => -1`)</i>
+        <a href="hexrays/vds19.py">vds19</a>: <i>A custom microcode instruction optimization rule (`x | ~x => -1`)</i>
         </div>
         <div class="details" id="DIV_vds19">
 
 <pre>
 Installs a custom microcode instruction optimization rule,
 to transform:
+
+    x | ~x
+
+into
+
+    -1
+
+To see this plugin in action please use be_ornot_be.idb
 </pre>
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: a custom microcode instruction optimization rule (`x | ~x => -1`)</li>
+            <li>Summary: A custom microcode instruction optimization rule (`x | ~x => -1`)</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds19.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            plugin
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -1888,73 +2260,130 @@ to transform:
                 <li>ida_idaapi.plugin_t</li>
               </ul>
             </li>
-            <li>Summary: a custom microcode instruction optimization rule (`x | ~x => -1`)</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds21">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds21.py">vds21</a>: <i>dynamically provide a custom call type</i>
+        <a href="hexrays/vds21.py">vds21</a>: <i>Dynamically provide a custom call type</i>
         </div>
         <div class="details" id="DIV_vds21">
 
 <pre>
 This plugin can greatly improve decompilation of indirect calls:
+
+    call    [eax+4]
+
+For them, the decompiler has to guess the prototype of the called function.
+This has to be done at a very early phase of decompilation because
+the function prototype influences the data flow analysis. On the other
+hand, we do not have global data flow analysis results yet because
+we haven't analyzed all calls in the function. It is a chicked-and-egg
+problem.
+
+The decompiler uses various techniques to guess the called function
+prototype. While it works very well, it may fail in some cases.
+
+To fix, the user can specify the call prototype manually, using
+"Edit, Operand types, Set operand type" at the call instruction.
+
+This plugin illustrates another approach to the problem:
+if you happen to be able to calculate the call prototypes dynamically,
+this is how to inform the decompiler about them.
 </pre>
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: dynamically provide a custom call type</li>
+            <li>Summary: Dynamically provide a custom call type</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds21.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            Hexrays_Hooks
+            plugin
+            </li>
+
+
 
             <li>APIs used
               <ul>
                 <li>ida_hexrays.Hexrays_Hooks</li>
                 <li>ida_hexrays.init_hexrays_plugin</li>
                 <li>ida_hexrays.m_call</li>
+                <li>ida_hexrays.mcallinfo_t</li>
                 <li>ida_idaapi.PLUGIN_HIDE</li>
                 <li>ida_idaapi.PLUGIN_KEEP</li>
                 <li>ida_idaapi.plugin_t</li>
                 <li>ida_kernwin.msg</li>
                 <li>ida_kernwin.warning</li>
                 <li>ida_nalt.get_op_tinfo</li>
+                <li>ida_typeinf.BT_INT</li>
+                <li>ida_typeinf.CM_CC_STDCALL</li>
+                <li>ida_typeinf.CM_N32_F48</li>
                 <li>ida_typeinf.parse_decl</li>
                 <li>ida_typeinf.tinfo_t</li>
               </ul>
             </li>
-            <li>Summary: dynamically provide a custom call type</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds3">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds3.py">vds3</a>: <i>invert if/else blocks</i>
+        <a href="hexrays/vds3.py">vds3</a>: <i>Invert if/else blocks</i>
         </div>
         <div class="details" id="DIV_vds3">
 
 <pre>
 Registers an action that can be used to invert the `if`
 and `else` blocks of a `ida_hexrays.cif_t`.
+
+For example, a statement like
+
+    if ( cond )
+    {
+      statements1;
+    }
+    else
+    {
+      statements2;
+    }
+
+will be displayed as
+
+    if ( !cond )
+    {
+      statements2;
+    }
+    else
+    {
+      statements1;
+    }
+
+The modifications are persistent: the user can quit & restart
+IDA, and the changes will be present.
 </pre>
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: invert if/else blocks</li>
+            <li>Summary: Invert if/else blocks</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds3.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            ctxmenu
+            Hexrays_Hooks
+            IDP_Hooks
+            plugin
+            </li>
+
+            <li>Shortcut:
+            I
+            </li>
+
 
             <li>APIs used
               <ul>
@@ -1975,6 +2404,7 @@ and `else` blocks of a `ida_hexrays.cif_t`.
                 <li>ida_idaapi.PLUGIN_HIDE</li>
                 <li>ida_idaapi.PLUGIN_KEEP</li>
                 <li>ida_idaapi.plugin_t</li>
+                <li>ida_idp.IDP_Hooks</li>
                 <li>ida_kernwin.AST_DISABLE_FOR_WIDGET</li>
                 <li>ida_kernwin.AST_ENABLE_FOR_WIDGET</li>
                 <li>ida_kernwin.BWN_PSEUDOCODE</li>
@@ -1985,38 +2415,45 @@ and `else` blocks of a `ida_hexrays.cif_t`.
                 <li>ida_netnode.netnode</li>
               </ul>
             </li>
-            <li>Summary: invert if/else blocks</li>
 
-          <!-- only if there is data for it -->
+
+          <li>Author: EiNSTeiN_ (einstein@g3nius.org)</li>
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds4">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds4.py">vds4</a>: <i>dump user-defined information</i>
+        <a href="hexrays/vds4.py">vds4</a>: <i>Dump user-defined information</i>
         </div>
         <div class="details" id="DIV_vds4">
 
 <pre>
 Prints user-defined information to the "Output" window.
 Namely:
+
+  * user defined label names
+  * user defined indented comments
+  * user defined number formats
+  * user defined local variable names, types, comments
+
+This script loads information from the database without decompiling anything.
 </pre>
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: dump user-defined information</li>
+            <li>Summary: Dump user-defined information</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds4.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
                 <li>ida_bytes.get_radix</li>
+                <li>ida_funcs.get_func</li>
                 <li>ida_hexrays.CIT_COLLAPSED</li>
-                <li>ida_hexrays.decompile</li>
+                <li>ida_hexrays.NF_NEGATE</li>
                 <li>ida_hexrays.init_hexrays_plugin</li>
                 <li>ida_hexrays.lvar_uservec_t</li>
                 <li>ida_hexrays.restore_user_cmts</li>
@@ -2031,32 +2468,45 @@ Namely:
                 <li>ida_kernwin.get_screen_ea</li>
               </ul>
             </li>
-            <li>Summary: dump user-defined information</li>
 
-          <!-- only if there is data for it -->
+
+          <li>Author: EiNSTeiN_ (einstein@g3nius.org)</li>
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds5">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds5.py">vds5</a>: <i>show ctree graph</i>
+        <a href="hexrays/vds5.py">vds5</a>: <i>Show ctree graph</i>
         </div>
         <div class="details" id="DIV_vds5">
 
 <pre>
 Registers an action that can be used to show the graph of the ctree.
 The current item will be highlighted in the graph.
+
+The command shortcut is `Ctrl+Shift+G`, and is also added
+to the context menu.
+
+To display the graph, we produce a .gdl file, and
+request that ida displays that using `ida_gdl.display_gdl`.
 </pre>
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: show ctree graph</li>
+            <li>Summary: Show ctree graph</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds5.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            ctxmenu
+            Hexrays_Hooks
+            plugin
+            </li>
+
+            <li>Shortcut:
+            Ctrl+Shift+G
+            </li>
+
 
             <li>APIs used
               <ul>
@@ -2092,32 +2542,36 @@ The current item will be highlighted in the graph.
                 <li>ida_pro.str2user</li>
               </ul>
             </li>
-            <li>Summary: show ctree graph</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds6">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds6.py">vds6</a>: <i>superficially modify the decompilation output</i>
+        <a href="hexrays/vds6.py">vds6</a>: <i>Superficially modify the decompilation output</i>
         </div>
         <div class="details" id="DIV_vds6">
 
 <pre>
-modifies the decompilation output in a superficial manner,
+Modifies the decompilation output in a superficial manner,
 by removing some white spaces
+
+Note: this is rather crude, not quite "pythonic" code.
 </pre>
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: superficially modify the decompilation output</li>
+            <li>Summary: Superficially modify the decompilation output</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds6.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            Hexrays_Hooks
+            plugin
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -2130,18 +2584,16 @@ by removing some white spaces
                 <li>ida_lines.tag_skipcodes</li>
               </ul>
             </li>
-            <li>Summary: superficially modify the decompilation output</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds7">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds7.py">vds7</a>: <i>iterate a cblock_t object</i>
+        <a href="hexrays/vds7.py">vds7</a>: <i>Iterate a cblock_t object</i>
         </div>
         <div class="details" id="DIV_vds7">
 
@@ -2152,10 +2604,13 @@ Using a `ida_hexrays.ctree_visitor_t`, search for
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: iterate a cblock_t object</li>
+            <li>Summary: Iterate a cblock_t object</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds7.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            Hexrays_Hooks
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -2167,18 +2622,17 @@ Using a `ida_hexrays.ctree_visitor_t`, search for
                 <li>ida_hexrays.init_hexrays_plugin</li>
               </ul>
             </li>
-            <li>Summary: iterate a cblock_t object</li>
 
-          <!-- only if there is data for it -->
+
+          <li>Author: EiNSTeiN_ (einstein@g3nius.org)</li>
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds8">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds8.py">vds8</a>: <i>using `ida_hexrays.udc_filter_t`</i>
+        <a href="hexrays/vds8.py">vds8</a>: <i>Using `ida_hexrays.udc_filter_t`</i>
         </div>
         <div class="details" id="DIV_vds8">
 
@@ -2186,14 +2640,26 @@ Using a `ida_hexrays.ctree_visitor_t`, search for
 Registers an action that uses a `ida_hexrays.udc_filter_t` to decompile
 `svc 0x900001` and `svc 0x9000F8` as function calls to
 `svc_exit()` and `svc_exit_group()` respectively.
+
+You will need to have an ARM + Linux IDB for this script to be usable
+
+In addition to having a shortcut, the action will be present
+in the context menu.
 </pre>
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: using `ida_hexrays.udc_filter_t`</li>
+            <li>Summary: Using `ida_hexrays.udc_filter_t`</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds8.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            ctxmenu
+            UI_Hooks
+            </li>
+
+            <li>Shortcut:
+            Ctrl+Shift+U
+            </li>
+
 
             <li>APIs used
               <ul>
@@ -2213,32 +2679,41 @@ Registers an action that uses a `ida_hexrays.udc_filter_t` to decompile
                 <li>ida_kernwin.register_action</li>
               </ul>
             </li>
-            <li>Summary: using `ida_hexrays.udc_filter_t`</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds_create_hint">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds_create_hint.py">vds_create_hint</a>: <i>decompiler hints</i>
+        <a href="hexrays/vds_create_hint.py">vds_create_hint</a>: <i>Decompiler hints</i>
         </div>
         <div class="details" id="DIV_vds_create_hint">
 
 <pre>
 Handle `ida_hexrays.hxe_create_hint` notification using hooks,
 to return our own.
+
+If the object under the cursor is:
+
+* a function call, prefix the original decompiler hint with `==> `
+* a local variable declaration, replace the hint with our own in
+  the form of `!{varname}` (where `{varname}` is replaced with the
+  variable name)
+* an `if` statement, replace the hint with our own, saying "condition"
 </pre>
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: decompiler hints</li>
+            <li>Summary: Decompiler hints</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds_create_hint.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            Hexrays_Hooks
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -2250,49 +2725,63 @@ to return our own.
                 <li>ida_hexrays.cot_call</li>
               </ul>
             </li>
-            <li>Summary: decompiler hints</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds_hooks">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds_hooks.py">vds_hooks</a>: <i>various decompiler hooks</i>
+        <a href="hexrays/vds_hooks.py">vds_hooks</a>: <i>Various decompiler hooks</i>
         </div>
         <div class="details" id="DIV_vds_hooks">
 
 <pre>
 Shows how to hook to many notifications sent by the decompiler.
+
+This plugin doesn't really accomplish anything: it just prints
+the parameters.
+
+The list of notifications handled below should be exhaustive,
+and is there to hint at what is possible to accomplish by
+subclassing `ida_hexrays.Hexrays_Hooks`
 </pre>
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: various decompiler hooks</li>
+            <li>Summary: Various decompiler hooks</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds_hooks.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            Hexrays_Hooks
+            </li>
+
+
 
             <li>APIs used
               <ul>
                 <li>ida_hexrays.Hexrays_Hooks</li>
+                <li>ida_hexrays.cfunc_t</li>
+                <li>ida_hexrays.lvar_t</li>
+                <li>ida_hexrays.vdui_t</li>
               </ul>
             </li>
-            <li>Summary: various decompiler hooks</li>
 
-          <!-- only if there is data for it -->
+          <li>See also:
+            <ul>
+              <li><a class="ex_link" href="#curpos_details">curpos_details</a></li>
+            </ul>
+          </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds_modify_user_lvars">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds_modify_user_lvars.py">vds_modify_user_lvars</a>: <i>modifying local variables</i>
+        <a href="hexrays/vds_modify_user_lvars.py">vds_modify_user_lvars</a>: <i>Modifying local variables</i>
         </div>
         <div class="details" id="DIV_vds_modify_user_lvars">
 
@@ -2303,10 +2792,10 @@ comments and/or types of local variables.
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: modifying local variables</li>
+            <li>Summary: Modifying local variables</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds_modify_user_lvars.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -2317,32 +2806,40 @@ comments and/or types of local variables.
                 <li>idc.here</li>
               </ul>
             </li>
-            <li>Summary: modifying local variables</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="vds_xrefs">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="hexrays/vds_xrefs.py">vds_xrefs</a>: <i>show decompiler xrefs</i>
+        <a href="hexrays/vds_xrefs.py">vds_xrefs</a>: <i>Show decompiler xrefs</i>
         </div>
         <div class="details" id="DIV_vds_xrefs">
 
 <pre>
 Show decompiler-style Xref when the `Ctrl+X` key is
 pressed in the Decompiler window.
+
+* supports any global name: functions, strings, integers, ...
+* supports structure member.
 </pre>
 
           <ul>
             <li>Category: hexrays</li>
-            <li>Summary: show decompiler xrefs</li>
+            <li>Summary: Show decompiler xrefs</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/hexrays/vds_xrefs.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            ctxmenu
+            Hexrays_Hooks
+            </li>
+
+            <li>Shortcut:
+            Ctrl+X
+            </li>
+
 
             <li>APIs used
               <ul>
@@ -2379,23 +2876,54 @@ pressed in the Decompiler window.
                 <li>idautils.XrefsTo</li>
               </ul>
             </li>
-            <li>Summary: show decompiler xrefs</li>
 
-          <!-- only if there is data for it -->
+
+          <li>Author: EiNSTeiN_ (einstein@g3nius.org)</li>
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
 
     </div>
-    <!-- end group by category -->
     <h2>Category: idbhooks</h2>
     <div class="c_list" onclick="handle_click()">
+      <div class="example-entry collapsed-entry" name="log_idb_events">
+        <div>
+          <span class="exp-col expander">&#x25B9;</span>
+          <span class="exp-col collapser" style="display:none">&#x25BF;</span>
+        <a href="idbhooks/log_idb_events.py">log_idb_events</a>: <i>Logging IDB events</i>
+        </div>
+        <div class="details" id="DIV_log_idb_events">
+
+<pre>
+These hooks will be notified about IDB events, and
+dump their information to the "Output" window
+</pre>
+
+          <ul>
+            <li>Category: idbhooks</li>
+            <li>Summary: Logging IDB events</li>
+            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/idbhooks/log_idb_events.py">GitHub</a></li>
+            <li>Keywords:
+            IDB_Hooks
+            </li>
+
+
+
+            <li>APIs used
+              <ul>
+                <li>ida_idp.IDB_Hooks</li>
+              </ul>
+            </li>
+
+
+      </ul>
+        </div>
+      </div>
       <div class="example-entry collapsed-entry" name="operand_changed">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="idbhooks/operand_changed.py">operand_changed</a>: <i>notify the user when an instruction operand changes</i>
+        <a href="idbhooks/operand_changed.py">operand_changed</a>: <i>Notify the user when an instruction operand changes</i>
         </div>
         <div class="details" id="DIV_operand_changed">
 
@@ -2406,10 +2934,13 @@ an instruction's operand, or a data item.
 
           <ul>
             <li>Category: idbhooks</li>
-            <li>Summary: notify the user when an instruction operand changes</li>
+            <li>Summary: Notify the user when an instruction operand changes</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/idbhooks/operand_changed.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            IDB_Hooks
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -2437,13 +2968,11 @@ an instruction's operand, or a data item.
                 <li>ida_struct.get_struc_name</li>
               </ul>
             </li>
-            <li>Summary: notify the user when an instruction operand changes</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="replay_prototypes_changes">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
@@ -2472,8 +3001,11 @@ frames, but we'll only record function prototypes changes.
             <li>Category: idbhooks</li>
             <li>Summary: Record and replay changes in function prototypes</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/idbhooks/replay_prototypes_changes.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            IDB_Hooks
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -2486,23 +3018,20 @@ frames, but we'll only record function prototypes changes.
                 <li>ida_typeinf.tinfo_t</li>
               </ul>
             </li>
-            <li>Summary: Record and replay changes in function prototypes</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
 
     </div>
-    <!-- end group by category -->
     <h2>Category: idphooks</h2>
     <div class="c_list" onclick="handle_click()">
       <div class="example-entry collapsed-entry" name="ana_emu_out">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="idphooks/ana_emu_out.py">ana_emu_out</a>: <i>override some parts of the processor module</i>
+        <a href="idphooks/ana_emu_out.py">ana_emu_out</a>: <i>Override some parts of the processor module</i>
         </div>
         <div class="details" id="DIV_ana_emu_out">
 
@@ -2510,14 +3039,19 @@ frames, but we'll only record function prototypes changes.
 Implements disassembly of BUG_INSTR used in Linux kernel
 BUG() macro, which is architecturally undefined and is not
 disassembled by IDA's ARM module
+
+See Linux/arch/arm/include/asm/bug.h for more info
 </pre>
 
           <ul>
             <li>Category: idphooks</li>
-            <li>Summary: override some parts of the processor module</li>
+            <li>Summary: Override some parts of the processor module</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/idphooks/ana_emu_out.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            IDP_Hooks
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -2531,31 +3065,35 @@ disassembled by IDA's ARM module
                 <li>ida_segregs.get_sreg</li>
               </ul>
             </li>
-            <li>Summary: override some parts of the processor module</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="assemble">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="idphooks/assemble.py">assemble</a>: <i>an `ida_idp.IDP_Hooks.assembly` implementation</i>
+        <a href="idphooks/assemble.py">assemble</a>: <i>An `ida_idp.IDP_Hooks.assembly` implementation</i>
         </div>
         <div class="details" id="DIV_assemble">
 
 <pre>
 We add support for assembling the following pseudo instructions:
+
+* "zero eax" -> xor eax, eax
+* "nothing" -> nop
 </pre>
 
           <ul>
             <li>Category: idphooks</li>
-            <li>Summary: an `ida_idp.IDP_Hooks.assembly` implementation</li>
+            <li>Summary: An `ida_idp.IDP_Hooks.assembly` implementation</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/idphooks/assemble.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            IDP_Hooks
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -2563,37 +3101,47 @@ We add support for assembling the following pseudo instructions:
                 <li>idautils.DecodeInstruction</li>
               </ul>
             </li>
-            <li>Summary: an `ida_idp.IDP_Hooks.assembly` implementation</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
 
     </div>
-    <!-- end group by category -->
     <h2>Category: pyqt</h2>
     <div class="c_list" onclick="handle_click()">
       <div class="example-entry collapsed-entry" name="inject_command">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="pyqt/inject_command.py">inject_command</a>: <i>injecting commands is the "Output" window</i>
+        <a href="pyqt/inject_command.py">inject_command</a>: <i>Injecting commands in the "Output" window</i>
         </div>
         <div class="details" id="DIV_inject_command">
 
 <pre>
 This example illustrates how one can execute commands in the
 "Output" window, from their own widgets.
+
+A few notes:
+
+* the original, underlying `cli:Execute` action, that has to be
+  triggered for the code present in the input field to execute
+  and be placed in the history, requires that the input field
+  has focus (otherwise it simply won't do anything.)
+* this, in turn, forces us to do "delayed" execution of that action,
+  hence the need for a `QTimer`
+* the IDA/SWiG 'TWidget' type that we retrieve through
+  `ida_kernwin.find_widget`, is not the same type as a
+  `QtWidgets.QWidget`. We therefore need to convert it using
+  `ida_kernwin.PluginForm.TWidgetToPyQtWidget`
 </pre>
 
           <ul>
             <li>Category: pyqt</li>
-            <li>Summary: injecting commands is the "Output" window</li>
+            <li>Summary: Injecting commands in the "Output" window</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/pyqt/inject_command.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -2603,18 +3151,16 @@ This example illustrates how one can execute commands in the
                 <li>ida_kernwin.process_ui_action</li>
               </ul>
             </li>
-            <li>Summary: injecting commands is the "Output" window</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="paint_over_navbar">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="pyqt/paint_over_navbar.py">paint_over_navbar</a>: <i>custom painting on top of the navigation band</i>
+        <a href="pyqt/paint_over_navbar.py">paint_over_navbar</a>: <i>Custom painting on top of the navigation band</i>
         </div>
         <div class="details" id="DIV_paint_over_navbar">
 
@@ -2626,10 +3172,10 @@ and then add our own markers on top.
 
           <ul>
             <li>Category: pyqt</li>
-            <li>Summary: custom painting on top of the navigation band</li>
+            <li>Summary: Custom painting on top of the navigation band</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/pyqt/paint_over_navbar.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
@@ -2641,18 +3187,16 @@ and then add our own markers on top.
                 <li>idc.here</li>
               </ul>
             </li>
-            <li>Summary: custom painting on top of the navigation band</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="populate_pluginform_with_pyqt_widgets">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="pyqt/populate_pluginform_with_pyqt_widgets.py">populate_pluginform_with_pyqt_widgets</a>: <i>adding PyQt5 widgets into an `ida_kernwin.PluginForm`</i>
+        <a href="pyqt/populate_pluginform_with_pyqt_widgets.py">populate_pluginform_with_pyqt_widgets</a>: <i>Adding PyQt5 widgets into an `ida_kernwin.PluginForm`</i>
         </div>
         <div class="details" id="DIV_populate_pluginform_with_pyqt_widgets">
 
@@ -2665,47 +3209,47 @@ regular Qt widgets.
 
           <ul>
             <li>Category: pyqt</li>
-            <li>Summary: adding PyQt5 widgets into an `ida_kernwin.PluginForm`</li>
+            <li>Summary: Adding PyQt5 widgets into an `ida_kernwin.PluginForm`</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/pyqt/populate_pluginform_with_pyqt_widgets.py">GitHub</a></li>
-            <!-- only if there is data for it -->
-            <li>Keywords:
+
+
 
             <li>APIs used
               <ul>
                 <li>ida_kernwin.PluginForm</li>
               </ul>
             </li>
-            <li>Summary: adding PyQt5 widgets into an `ida_kernwin.PluginForm`</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
 
     </div>
-    <!-- end group by category -->
     <h2>Category: uihooks</h2>
     <div class="c_list" onclick="handle_click()">
       <div class="example-entry collapsed-entry" name="func_chooser_coloring">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="uihooks/func_chooser_coloring.py">func_chooser_coloring</a>: <i>using `ida_kernwin.UI_Hooks.get_chooser_item_attrs` to override some defaults</i>
+        <a href="uihooks/func_chooser_coloring.py">func_chooser_coloring</a>: <i>Using `ida_kernwin.UI_Hooks.get_chooser_item_attrs` to override some defaults</i>
         </div>
         <div class="details" id="DIV_func_chooser_coloring">
 
 <pre>
-color the function in the Function window according to its size.
+Color the function in the Function window according to its size.
 The larger the function, the darker the color.
 </pre>
 
           <ul>
             <li>Category: uihooks</li>
-            <li>Summary: using `ida_kernwin.UI_Hooks.get_chooser_item_attrs` to override some defaults</li>
+            <li>Summary: Using `ida_kernwin.UI_Hooks.get_chooser_item_attrs` to override some defaults</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/uihooks/func_chooser_coloring.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            UI_Hooks
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -2714,23 +3258,21 @@ The larger the function, the darker the color.
                 <li>ida_kernwin.enable_chooser_item_attrs</li>
               </ul>
             </li>
-            <li>Summary: using `ida_kernwin.UI_Hooks.get_chooser_item_attrs` to override some defaults</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="lines_rendering">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="uihooks/lines_rendering.py">lines_rendering</a>: <i>dynamically colorize lines backgrounds (or parts of them)</i>
+        <a href="uihooks/lines_rendering.py">lines_rendering</a>: <i>Dynamically colorize lines backgrounds (or parts of them)</i>
         </div>
         <div class="details" id="DIV_lines_rendering">
 
 <pre>
-shows how one can dynamically alter the lines background
+Shows how one can dynamically alter the lines background
 rendering (as opposed to, say, using ida_nalt.set_item_color()),
 and also shows how that rendering can be limited to just a few
 glyphs, not the whole line.
@@ -2738,10 +3280,13 @@ glyphs, not the whole line.
 
           <ul>
             <li>Category: uihooks</li>
-            <li>Summary: dynamically colorize lines backgrounds (or parts of them)</li>
+            <li>Summary: Dynamically colorize lines backgrounds (or parts of them)</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/uihooks/lines_rendering.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            UI_Hooks
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -2772,50 +3317,49 @@ glyphs, not the whole line.
                 <li>ida_kernwin.refresh_idaview_anyway</li>
               </ul>
             </li>
-            <li>Summary: dynamically colorize lines backgrounds (or parts of them)</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="log_misc_events">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="uihooks/log_misc_events.py">log_misc_events</a>: <i>being notified, and logging a few UI events</i>
+        <a href="uihooks/log_misc_events.py">log_misc_events</a>: <i>Being notified, and logging a few UI events</i>
         </div>
         <div class="details" id="DIV_log_misc_events">
 
 <pre>
-hooks to be notified about certain UI events, and
+Hooks to be notified about certain UI events, and
 dump their information to the "Output" window
 </pre>
 
           <ul>
             <li>Category: uihooks</li>
-            <li>Summary: being notified, and logging a few UI events</li>
+            <li>Summary: Being notified, and logging a few UI events</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/uihooks/log_misc_events.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            UI_Hooks
+            </li>
+
+
 
             <li>APIs used
               <ul>
                 <li>ida_kernwin.UI_Hooks</li>
               </ul>
             </li>
-            <li>Summary: being notified, and logging a few UI events</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="prevent_jump">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="uihooks/prevent_jump.py">prevent_jump</a>: <i>taking precedence over actions</i>
+        <a href="uihooks/prevent_jump.py">prevent_jump</a>: <i>Taking precedence over actions</i>
         </div>
         <div class="details" id="DIV_prevent_jump">
 
@@ -2827,33 +3371,33 @@ otherwise do it.
 
           <ul>
             <li>Category: uihooks</li>
-            <li>Summary: taking precedence over actions</li>
+            <li>Summary: Taking precedence over actions</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/uihooks/prevent_jump.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
+            UI_Hooks
+            </li>
+
+
 
             <li>APIs used
               <ul>
                 <li>ida_kernwin.UI_Hooks</li>
               </ul>
             </li>
-            <li>Summary: taking precedence over actions</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
 
     </div>
-    <!-- end group by category -->
     <h2>Category: widgets</h2>
     <div class="c_list" onclick="handle_click()">
       <div class="example-entry collapsed-entry" name="add_menus">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="widgets/misc/add_menus.py">add_menus</a>: <i>adding custom menus to IDA</i>
+        <a href="widgets/misc/add_menus.py">add_menus</a>: <i>Adding custom menus to IDA</i>
         </div>
         <div class="details" id="DIV_add_menus">
 
@@ -2861,17 +3405,22 @@ otherwise do it.
 It is possible to add custom menus to IDA, either at the
 toplevel (i.e., into the menubar), or as submenus of existing
 menus.
+
+Notes:
+
+  * the same action can be present in more than 1 menu
+  * this example does not deal with context menus
 </pre>
 
           <ul>
             <li>Category: widgets</li>
-            <li>Summary: adding custom menus to IDA</li>
+            <li>Summary: Adding custom menus to IDA</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/widgets/misc/add_menus.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
             actions
-            </span>
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -2884,13 +3433,11 @@ menus.
                 <li>ida_kernwin.register_action</li>
               </ul>
             </li>
-            <li>Summary: adding custom menus to IDA</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="askusingform">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
@@ -2901,17 +3448,21 @@ menus.
 
 <pre>
 How to query for complex user input, using IDA's built-in forms.
+
+Note: while this example produces full-fledged forms for complex input,
+simpler types of inputs might can be retrieved by using
+`ida_kernwin.ask_str` and similar functions.
 </pre>
 
           <ul>
             <li>Category: widgets</li>
             <li>Summary: Non-trivial uses of the `ida_kernwin.Form` helper class</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/widgets/forms/askusingform.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
             forms
-            </span>
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -2922,13 +3473,11 @@ How to query for complex user input, using IDA's built-in forms.
                 <li>ida_kernwin.ask_str</li>
               </ul>
             </li>
-            <li>Summary: Non-trivial uses of the `ida_kernwin.Form` helper class</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="choose">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
@@ -2947,14 +3496,13 @@ In addition, registers a couple actions that can be applied to it.
             <li>Category: widgets</li>
             <li>Summary: A widget showing data in a tabular fashion</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/widgets/tabular_views/custom/choose.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
-            chooser
-            </span>
-            <span>
             actions
-            </span>
+            chooser
+            ctxmenu
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -2976,24 +3524,17 @@ In addition, registers a couple actions that can be applied to it.
                 <li>ida_kernwin.unregister_action</li>
               </ul>
             </li>
-            <li>Summary: A widget showing data in a tabular fashion</li>
 
-          <!-- only if there is data for it -->
           <li>See also:
             <ul>
-              <li><a href="#choose_multi"
-                   onclick="on_see_also('choose_multi');">
-                  choose_multi</a></li>
-          </li>
-              <li><a href="#chooser_with_folders"
-                   onclick="on_see_also('chooser_with_folders');">
-                  chooser_with_folders</a></li>
+              <li><a class="ex_link" href="#choose_multi">choose_multi</a></li>
+              <li><a class="ex_link" href="#chooser_with_folders">chooser_with_folders</a></li>
             </ul>
           </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="choose_multi">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
@@ -3003,21 +3544,19 @@ In addition, registers a couple actions that can be applied to it.
         <div class="details" id="DIV_choose_multi">
 
 <pre>
-Similar to @{choose}, but with multiple selection
+Similar to <a class="ex_link" href="#choose">choose</a>, but with multiple selection
 </pre>
 
           <ul>
             <li>Category: widgets</li>
             <li>Summary: A widget showing data in a tabular fashion, providing multiple selection</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/widgets/tabular_views/custom/choose_multi.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
-            chooser
-            </span>
-            <span>
             actions
-            </span>
+            chooser
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -3028,52 +3567,48 @@ Similar to @{choose}, but with multiple selection
                 <li>Choose.NOTHING_CHANGED</li>
               </ul>
             </li>
-            <li>Summary: A widget showing data in a tabular fashion, providing multiple selection</li>
 
-          <!-- only if there is data for it -->
           <li>See also:
             <ul>
-              <li><a href="#choose"
-                   onclick="on_see_also('choose');">
-                  choose</a></li>
-          </li>
-              <li><a href="#chooser_with_folders"
-                   onclick="on_see_also('chooser_with_folders');">
-                  chooser_with_folders</a></li>
+              <li><a class="ex_link" href="#choose">choose</a></li>
+              <li><a class="ex_link" href="#chooser_with_folders">chooser_with_folders</a></li>
             </ul>
           </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="chooser_with_folders">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="widgets/tabular_views/custom/chooser_with_folders.py">chooser_with_folders</a>: <i>       A widget that can show tabular data either as a simple table, or with a tree-like structure.</i>
+        <a href="widgets/tabular_views/custom/chooser_with_folders.py">chooser_with_folders</a>: <i>A widget that can show tabular data either as a simple table, or with a tree-like structure.</i>
         </div>
         <div class="details" id="DIV_chooser_with_folders">
 
 <pre>
 By adding the necessary bits to a ida_kernwin.Choose subclass,
 IDA can show the otherwise tabular data, in a tree-like fashion.
+
+The important bits to enable this are:
+
+  * ida_dirtree.dirspec_t (and my_dirspec_t)
+  * ida_kernwin.CH_HAS_DIRTREE
+  * ida_kernwin.Choose.OnGetDirTree
+  * ida_kernwin.Choose.OnIndexToInode
 </pre>
 
           <ul>
             <li>Category: widgets</li>
-            <li>Summary:        A widget that can show tabular data either as a simple table, or with a tree-like structure.</li>
+            <li>Summary: A widget that can show tabular data either as a simple table, or with a tree-like structure.</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/widgets/tabular_views/custom/chooser_with_folders.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
-            chooser
-            </span>
-            <span>
-            folders
-            </span>
-            <span>
             actions
-            </span>
+            chooser
+            folders
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -3099,29 +3634,22 @@ IDA can show the otherwise tabular data, in a tree-like fashion.
                 <li>ida_netnode.netnode</li>
               </ul>
             </li>
-            <li>Summary:        A widget that can show tabular data either as a simple table, or with a tree-like structure.</li>
 
-          <!-- only if there is data for it -->
           <li>See also:
             <ul>
-              <li><a href="#choose"
-                   onclick="on_see_also('choose');">
-                  choose</a></li>
-          </li>
-              <li><a href="#choose_multi"
-                   onclick="on_see_also('choose_multi');">
-                  choose_multi</a></li>
+              <li><a class="ex_link" href="#choose">choose</a></li>
+              <li><a class="ex_link" href="#choose_multi">choose_multi</a></li>
             </ul>
           </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="custom_graph_with_actions">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="widgets/graphs/custom_graph_with_actions.py">custom_graph_with_actions</a>: <i>drawing custom graphs</i>
+        <a href="widgets/graphs/custom_graph_with_actions.py">custom_graph_with_actions</a>: <i>Drawing custom graphs</i>
         </div>
         <div class="details" id="DIV_custom_graph_with_actions">
 
@@ -3132,16 +3660,15 @@ show how to write actions that can be performed on those.
 
           <ul>
             <li>Category: widgets</li>
-            <li>Summary: drawing custom graphs</li>
+            <li>Summary: Drawing custom graphs</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/widgets/graphs/custom_graph_with_actions.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
-            graph
-            </span>
-            <span>
             actions
-            </span>
+            graph
+            View_Hooks
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -3161,22 +3688,19 @@ show how to write actions that can be performed on those.
                 <li>ida_ua.decode_insn</li>
                 <li>ida_ua.insn_t</li>
                 <li>ida_xref.XREF_FAR</li>
-                <li>idautils.FuncItems</li>
-                <li>idautils.XrefsFrom</li>
+                <li>ida_xref.xrefblk_t</li>
               </ul>
             </li>
-            <li>Summary: drawing custom graphs</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="custom_viewer">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="widgets/listings/custom_viewer.py">custom_viewer</a>: <i>create custom listings in IDA</i>
+        <a href="widgets/listings/custom_viewer.py">custom_viewer</a>: <i>Create custom listings in IDA</i>
         </div>
         <div class="details" id="DIV_custom_viewer">
 
@@ -3184,20 +3708,22 @@ show how to write actions that can be performed on those.
 How to create simple listings, that will share many of the features
 as the built-in IDA widgets (highlighting, copy & paste,
 notifications, ...)
+
+In addition, creates actions that will be bound to the
+freshly-created widget (using `ida_kernwin.attach_action_to_popup`.)
 </pre>
 
           <ul>
             <li>Category: widgets</li>
-            <li>Summary: create custom listings in IDA</li>
+            <li>Summary: Create custom listings in IDA</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/widgets/listings/custom_viewer.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
-            listing
-            </span>
-            <span>
             actions
-            </span>
+            ctxmenu
+            listing
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -3219,13 +3745,11 @@ notifications, ...)
                 <li>ida_lines.SCOLOR_VOIDOP</li>
               </ul>
             </li>
-            <li>Summary: create custom listings in IDA</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="func_chooser">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
@@ -3243,14 +3767,12 @@ IDA, with a custom widget.
             <li>Category: widgets</li>
             <li>Summary: An alternative view over the list of functions</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/widgets/tabular_views/custom/func_chooser.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
             chooser
-            </span>
-            <span>
             functions
-            </span>
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -3264,53 +3786,56 @@ IDA, with a custom widget.
                 <li>idc.jumpto</li>
               </ul>
             </li>
-            <li>Summary: An alternative view over the list of functions</li>
 
-          <!-- only if there is data for it -->
           <li>See also:
             <ul>
-              <li><a href="#choose"
-                   onclick="on_see_also('choose');">
-                  choose</a></li>
-          </li>
-              <li><a href="#choose_multi"
-                   onclick="on_see_also('choose_multi');">
-                  choose_multi</a></li>
-          </li>
-              <li><a href="#chooser_with_folders"
-                   onclick="on_see_also('chooser_with_folders');">
-                  chooser_with_folders</a></li>
+              <li><a class="ex_link" href="#choose">choose</a></li>
+              <li><a class="ex_link" href="#choose_multi">choose_multi</a></li>
+              <li><a class="ex_link" href="#chooser_with_folders">chooser_with_folders</a></li>
             </ul>
           </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="jump_next_comment">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="widgets/listings/jump_next_comment.py">jump_next_comment</a>: <i>implement a "jump to next comment" action within IDA's disassembly view.</i>
+        <a href="widgets/listings/jump_next_comment.py">jump_next_comment</a>: <i>Implement a "jump to next comment" action within IDA's disassembly view.</i>
         </div>
         <div class="details" id="DIV_jump_next_comment">
 
 <pre>
 We want our action not only to find the next line containing a comment,
 but to also place the cursor at the right horizontal position.
+
+To find that position, we will have to inspect the text that IDA
+generates, looking for the start of a comment.
+However, we won't be looking for a comment "prefix" (e.g., "; "),
+as that would be too fragile.
+
+Instead, we will look for special "tags" that IDA injects into textual
+lines, and that bear semantic information.
+
+Those tags are primarily used for rendering (i.e., switching colors),
+but can also be very handy for spotting tokens of interest (registers,
+addresses, comments, prefixes, instruction mnemonics, ...)
 </pre>
 
           <ul>
             <li>Category: widgets</li>
-            <li>Summary: implement a "jump to next comment" action within IDA's disassembly view.</li>
+            <li>Summary: Implement a "jump to next comment" action within IDA's disassembly view.</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/widgets/listings/jump_next_comment.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
-            idaview
-            </span>
-            <span>
             actions
-            </span>
+            idaview
+            </li>
+
+            <li>Shortcut:
+            Ctrl+Alt+C
+            </li>
+
 
             <li>APIs used
               <ul>
@@ -3336,25 +3861,21 @@ but to also place the cursor at the right horizontal position.
                 <li>ida_moves.lochist_entry_t</li>
               </ul>
             </li>
-            <li>Summary: implement a "jump to next comment" action within IDA's disassembly view.</li>
 
-          <!-- only if there is data for it -->
           <li>See also:
             <ul>
-              <li><a href="#save_and_restore_listing_pos"
-                   onclick="on_see_also('save_and_restore_listing_pos');">
-                  save_and_restore_listing_pos</a></li>
+              <li><a class="ex_link" href="#save_and_restore_listing_pos">save_and_restore_listing_pos</a></li>
             </ul>
           </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="save_and_restore_listing_pos">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="widgets/listings/save_and_restore_listing_pos.py">save_and_restore_listing_pos</a>: <i>save, and then restore, positions in a listing</i>
+        <a href="widgets/listings/save_and_restore_listing_pos.py">save_and_restore_listing_pos</a>: <i>Save, and then restore, positions in a listing</i>
         </div>
         <div class="details" id="DIV_save_and_restore_listing_pos">
 
@@ -3362,20 +3883,28 @@ but to also place the cursor at the right horizontal position.
 Shows how it is possible re-implement IDA's bookmark capability,
 using 2 custom actions: one action saves the current location,
 and the other restores it.
+
+Note that, contrary to actual bookmarks, this example:
+
+  * remembers only 1 saved position
+  * doesn't save that position in the IDB (and therefore cannot
+    be restored if IDA is closed & reopened.)
 </pre>
 
           <ul>
             <li>Category: widgets</li>
-            <li>Summary: save, and then restore, positions in a listing</li>
+            <li>Summary: Save, and then restore, positions in a listing</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/widgets/listings/save_and_restore_listing_pos.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
-            listing
-            </span>
-            <span>
             actions
-            </span>
+            listing
+            </li>
+
+            <li>Shortcuts:
+            Ctrl+Shift+O
+            Ctrl+Shift+S
+            </li>
+
 
             <li>APIs used
               <ul>
@@ -3396,25 +3925,21 @@ and the other restores it.
                 <li>ida_moves.lochist_entry_t</li>
               </ul>
             </li>
-            <li>Summary: save, and then restore, positions in a listing</li>
 
-          <!-- only if there is data for it -->
           <li>See also:
             <ul>
-              <li><a href="#jump_next_comment"
-                   onclick="on_see_also('jump_next_comment');">
-                  jump_next_comment</a></li>
+              <li><a class="ex_link" href="#jump_next_comment">jump_next_comment</a></li>
             </ul>
           </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="show_and_hide_waitbox">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="widgets/waitbox/show_and_hide_waitbox.py">show_and_hide_waitbox</a>: <i>showing, updating & hiding the progress dialog</i>
+        <a href="widgets/waitbox/show_and_hide_waitbox.py">show_and_hide_waitbox</a>: <i>Showing, updating & hiding the progress dialog</i>
         </div>
         <div class="details" id="DIV_show_and_hide_waitbox">
 
@@ -3424,13 +3949,13 @@ Using the progress dialog (aka 'wait box') primitives.
 
           <ul>
             <li>Category: widgets</li>
-            <li>Summary: showing, updating & hiding the progress dialog</li>
+            <li>Summary: Showing, updating & hiding the progress dialog</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/widgets/waitbox/show_and_hide_waitbox.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
             actions
-            </span>
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -3444,18 +3969,16 @@ Using the progress dialog (aka 'wait box') primitives.
                 <li>idautils.Functions</li>
               </ul>
             </li>
-            <li>Summary: showing, updating & hiding the progress dialog</li>
 
-          <!-- only if there is data for it -->
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="show_selected_strings">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="widgets/tabular_views/string_window/show_selected_strings.py">show_selected_strings</a>: <i>retrieve the strings that are selected in the "Strings" window.</i>
+        <a href="widgets/tabular_views/string_window/show_selected_strings.py">show_selected_strings</a>: <i>Retrieve the strings that are selected in the "Strings" window.</i>
         </div>
         <div class="details" id="DIV_show_selected_strings">
 
@@ -3463,17 +3986,26 @@ Using the progress dialog (aka 'wait box') primitives.
 In IDA it's possible to write actions that can be applied even to
 core (i.e., "standard") widgets. The actions in this example use the
 action "context" to know what the current selection is.
+
+This example shows how you can either retrieve string literals data
+directly from the chooser (`ida_kernwin.get_chooser_data`), or
+by querying the IDB (`ida_bytes.get_strlit_contents`)
 </pre>
 
           <ul>
             <li>Category: widgets</li>
-            <li>Summary: retrieve the strings that are selected in the "Strings" window.</li>
+            <li>Summary: Retrieve the strings that are selected in the "Strings" window.</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/widgets/tabular_views/string_window/show_selected_strings.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
             actions
-            </span>
+            ctxmenu
+            </li>
+
+            <li>Shortcuts:
+            Ctrl+Shift+K
+            Ctrl+Shift+S
+            </li>
+
 
             <li>APIs used
               <ul>
@@ -3494,25 +4026,21 @@ action "context" to know what the current selection is.
                 <li>ida_strlist.string_info_t</li>
               </ul>
             </li>
-            <li>Summary: retrieve the strings that are selected in the "Strings" window.</li>
 
-          <!-- only if there is data for it -->
           <li>See also:
             <ul>
-              <li><a href="#list_strings"
-                   onclick="on_see_also('list_strings');">
-                  list_strings</a></li>
+              <li><a class="ex_link" href="#list_strings">list_strings</a></li>
             </ul>
           </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="sync_two_graphs">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="widgets/graphs/sync_two_graphs.py">sync_two_graphs</a>: <i>follow the movements of a disassembly graph, in another.</i>
+        <a href="widgets/graphs/sync_two_graphs.py">sync_two_graphs</a>: <i>Follow the movements of a disassembly graph, in another.</i>
         </div>
         <div class="details" id="DIV_sync_two_graphs">
 
@@ -3520,20 +4048,21 @@ action "context" to know what the current selection is.
 Since it is possible to be notified of movements that happen
 take place in a widget, it's possible to "replay" those
 movements in another.
+
+In this case, "IDA View-B" (will be opened if necessary) will
+show the same contents as "IDA View-A", slightly zoomed out.
 </pre>
 
           <ul>
             <li>Category: widgets</li>
-            <li>Summary: follow the movements of a disassembly graph, in another.</li>
+            <li>Summary: Follow the movements of a disassembly graph, in another.</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/widgets/graphs/sync_two_graphs.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
             graph
-            </span>
-            <span>
             idaview
-            </span>
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -3555,25 +4084,21 @@ movements in another.
                 <li>ida_moves.graph_location_info_t</li>
               </ul>
             </li>
-            <li>Summary: follow the movements of a disassembly graph, in another.</li>
 
-          <!-- only if there is data for it -->
           <li>See also:
             <ul>
-              <li><a href="#wrap_idaview"
-                   onclick="on_see_also('wrap_idaview');">
-                  wrap_idaview</a></li>
+              <li><a class="ex_link" href="#wrap_idaview">wrap_idaview</a></li>
             </ul>
           </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
       <div class="example-entry collapsed-entry" name="wrap_idaview">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="widgets/idaview/wrap_idaview.py">wrap_idaview</a>: <i>manipulate IDAView and graph</i>
+        <a href="widgets/idaview/wrap_idaview.py">wrap_idaview</a>: <i>Manipulate IDAView and graph</i>
         </div>
         <div class="details" id="DIV_wrap_idaview">
 
@@ -3584,16 +4109,14 @@ view (and thus possibly its graph), in Python.
 
           <ul>
             <li>Category: widgets</li>
-            <li>Summary: manipulate IDAView and graph</li>
+            <li>Summary: Manipulate IDAView and graph</li>
             <li>View on <a href="https://github.com/idapython/src/blob/master/examples/widgets/idaview/wrap_idaview.py">GitHub</a></li>
-            <!-- only if there is data for it -->
             <li>Keywords:
-            <span>
-            idaview
-            </span>
-            <span>
             graph
-            </span>
+            idaview
+            </li>
+
+
 
             <li>APIs used
               <ul>
@@ -3607,26 +4130,18 @@ view (and thus possibly its graph), in Python.
                 <li>ida_kernwin.execute_sync</li>
               </ul>
             </li>
-            <li>Summary: manipulate IDAView and graph</li>
 
-          <!-- only if there is data for it -->
           <li>See also:
             <ul>
-              <li><a href="#custom_graph_with_actions"
-                   onclick="on_see_also('custom_graph_with_actions');">
-                  custom_graph_with_actions</a></li>
-          </li>
-              <li><a href="#sync_two_graphs"
-                   onclick="on_see_also('sync_two_graphs');">
-                  sync_two_graphs</a></li>
+              <li><a class="ex_link" href="#custom_graph_with_actions">custom_graph_with_actions</a></li>
+              <li><a class="ex_link" href="#sync_two_graphs">sync_two_graphs</a></li>
             </ul>
           </li>
+
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
 
     </div>
-    <!-- end group by category -->
   </body>
 </html>

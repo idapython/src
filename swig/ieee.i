@@ -110,7 +110,9 @@
 
   void _set_10bytes(const bytevec10_t &in)
   {
-    memmove($self->w, (const void *) in.begin(), sizeof($self->w));
+    CASSERT(sizeof($self) == 10);
+    memmove($self->w, (const void *) in.begin(), in.size()); // guaranteed to be 10 bytes long, thanks to %typemap(check) (const bytevec10_t)
+    $self->w[FPVAL_NWORDS-1] = 0;
   }
 
   // yes, it's called '_get_float', but we return a 'double' because

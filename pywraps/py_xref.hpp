@@ -71,7 +71,7 @@ cases_and_targets_t *py_calc_switch_cases(
   if ( !calc_switch_cases(&ct->cases, &ct->targets, ea, si) )
   {
     delete ct;
-    return NULL;
+    return nullptr;
   }
   return ct;
 }

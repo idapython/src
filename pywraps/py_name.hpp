@@ -14,10 +14,10 @@ PyObject *get_debug_names(ea_t ea1, ea_t ea2, bool return_list=false)
   get_debug_names(&names, ea1, ea2);
   Py_END_ALLOW_THREADS;
   PyObject *dict = Py_BuildValue("{}");
-  if ( dict != NULL )
+  if ( dict != nullptr )
   {
     ea_t last_ea = BADADDR;
-    PyObject *list = NULL;
+    PyObject *list = nullptr;
     for ( ea_name_vec_t::iterator it = names.begin(); it != names.end(); ++it )
     {
       PyObject *name_obj = IDAPyStr_FromUTF8(it->name.c_str());

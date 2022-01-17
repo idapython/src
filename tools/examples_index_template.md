@@ -2,43 +2,64 @@
 
 # IDAPython examples
 
-<!--gen:group:category-->
-## Category: <!--gen:category-->
+% for category in sorted(examples):
+## Category: {{category}}
 
-<!--gen:block-->
-#### <!--gen:name-->
+  % for example in sorted(examples[category], key=lambda e: e.name):
+#### {{example.name}}
 <details>
-  <summary><!--gen:summary--></summary>
+  <summary>{{example.summary}}</summary>
 
 <blockquote>
 
 #### Source code
-<a href="https://github.com/idapython/src/blob/master/examples/<!--gen:path-->"><!--gen:path--></a>
+<a href="https://github.com/idapython/src/blob/master/examples/{{example.path}}">{{example.path}}</a>
 
 #### Category
-<!--gen:category-->
+{{example.category}}
 
 #### Description
-<!--gen:description-->
+{{example.description if example.description else example.summary}}
 
+    % if example.shortcuts:
+#### Shortcut{{'s' if len(example.shortcuts) > 1 else ''}}
+{{' '.join(example.shortcuts)}}
+
+    % endif
+    % if example.keywords:
 #### Keywords
-<!--gen:block-->
-<!--gen:keywords-->
-<!--gen:end-->
+{{' '.join(example.keywords)}}
 
+    % endif
+    % if example.imports:
+#### Imports
+      % for imported in example.imports:
+* {{imported}}
+      % endfor
+
+    % endif
+    % if example.uses:
 #### Uses
-<!--gen:block-->
-* <!--gen:uses-->
-<!--gen:end-->
+      % for use in example.uses:
+* {{use}}
+      % endfor
 
+    % endif
+    % if example.see_also:
 #### See also
-<!--gen:block-->
-* [<!--gen:see_also-->](#<!--gen:see_also-->)
-<!--gen:end-->
+      % for see in example.see_also:
+* [{{see}}](#{{see}})
+      % endfor
 
+    % endif
+    % if example.author:
+#### Author
+{{example.author}}
+
+    % endif
 </blockquote>
 
   </details>
 
-<!--gen:end-->
-<!--gen:end-->
+  % endfor # examples of a category
+% endfor   # categories

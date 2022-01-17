@@ -10,7 +10,7 @@ PyObject *idc_parse_decl(til_t *ti, const char *decl, int flags)
   qtype fields, type;
   bool ok = parse_decl(&tif, &name, ti, decl, flags);
   if ( ok )
-    ok = tif.serialize(&type, &fields, NULL, SUDT_FAST);
+    ok = tif.serialize(&type, &fields, nullptr, SUDT_FAST);
 
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( ok )
@@ -47,7 +47,7 @@ PyObject *py_calc_type_size(const til_t *ti, PyObject *tp)
     size_t sz;
     Py_BEGIN_ALLOW_THREADS;
     tinfo_t tif;
-    tif.deserialize(ti, &data, NULL, NULL);
+    tif.deserialize(ti, &data, nullptr, nullptr);
     sz = tif.get_size();
     Py_END_ALLOW_THREADS;
     if ( sz != BADSIZE )
@@ -57,14 +57,14 @@ PyObject *py_calc_type_size(const til_t *ti, PyObject *tp)
   else
   {
     PyErr_SetString(PyExc_ValueError, "String expected!");
-    return NULL;
+    return nullptr;
   }
 }
 
 //-------------------------------------------------------------------------
 /*
 #<pydoc>
-def apply_type(ti, ea, tp_name, py_type, py_fields, flags)
+def apply_type(ti, ea, tp_name, py_type, py_fields, flags):
     """
     Apply the specified type to the address
     @param ti: Type info library. 'None' can be used.
@@ -89,9 +89,9 @@ static bool py_apply_type(
   Py_BEGIN_ALLOW_THREADS;
   struc_t *sptr;
   member_t *mptr = get_member_by_id(ea, &sptr);
-  if ( type == NULL || type[0] == '\0' )
+  if ( type == nullptr || type[0] == '\0' )
   {
-    if ( mptr != NULL )
+    if ( mptr != nullptr )
     {
       rc = mptr->has_ti();
       if ( rc )
@@ -107,10 +107,10 @@ static bool py_apply_type(
   else
   {
     tinfo_t tif;
-    rc = tif.deserialize(ti, &type, &fields, NULL);
+    rc = tif.deserialize(ti, &type, &fields, nullptr);
     if ( rc )
     {
-      if ( mptr != NULL )
+      if ( mptr != nullptr )
         rc = set_member_tinfo(sptr, mptr, 0, tif, 0) > SMT_FAILED;
       else
         rc = apply_tinfo(ea, tif, flags);
@@ -174,7 +174,7 @@ PyObject *py_unpack_object_from_idb(
       &idc_obj,
       tif,
       ea,
-      NULL,
+      nullptr,
       pio_flags);
   Py_END_ALLOW_THREADS;
 
@@ -277,7 +277,7 @@ PyObject *py_pack_object_to_idb(
   idc_value_t idc_obj;
   borref_t py_obj_ref(py_obj);
   if ( !pyvar_to_idcvar_or_error(py_obj_ref, &idc_obj) )
-    return NULL;
+    return nullptr;
 
   // Pack
   // error_t err;
@@ -323,7 +323,7 @@ PyObject *py_pack_object_to_bv(
   idc_value_t idc_obj;
   borref_t py_obj_ref(py_obj);
   if ( !pyvar_to_idcvar_or_error(py_obj_ref, &idc_obj) )
-    return NULL;
+    return nullptr;
 
   // Pack
   relobj_t bytes;
@@ -335,13 +335,13 @@ PyObject *py_pack_object_to_bv(
     &idc_obj,
     tif,
     &bytes,
-    NULL,
+    nullptr,
     pio_flags);
   if ( err == eOk && !bytes.relocate(base_ea, inf_is_be()) )
     err = -1;
   Py_END_ALLOW_THREADS;
   if ( err == eOk )
-    return Py_BuildValue("(i" PY_BV_BYTES "#)", 1, bytes.begin(), bytes.size());
+    return Py_BuildValue("(i" PY_BV_BYTES "#)", 1, bytes.begin(), (Py_ssize_t) bytes.size());
   else
     return Py_BuildValue("(ii)", 0, err);
 }
@@ -359,7 +359,7 @@ int idc_parse_types(const char *input, int flags)
     flags &= ~PT_FILE;
   }
 
-  return parse_decls(NULL, input, (flags & PT_SIL) == 0 ? msg : NULL, hti);
+  return parse_decls(nullptr, input, (flags & PT_SIL) == 0 ? msg : nullptr, hti);
 }
 
 //-------------------------------------------------------------------------
@@ -369,7 +369,7 @@ PyObject *py_idc_get_type_raw(ea_t ea)
   qtype type, fields;
   bool ok = get_tinfo(&tif, ea);
   if ( ok )
-    ok = tif.serialize(&type, &fields, NULL, SUDT_FAST);
+    ok = tif.serialize(&type, &fields, nullptr, SUDT_FAST);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( ok )
     return Py_BuildValue("(" PY_BV_TYPE PY_BV_FIELDS ")", (char *)type.c_str(), (char *)fields.c_str());
@@ -382,7 +382,7 @@ PyObject *py_idc_get_local_type_raw(int ordinal)
 {
   const type_t *type;
   const p_list *fields;
-  bool ok = get_numbered_type(NULL, ordinal, &type, &fields);
+  bool ok = get_numbered_type(nullptr, ordinal, &type, &fields);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( ok )
     return Py_BuildValue("(" PY_BV_TYPE PY_BV_FIELDS ")", (char *)type, (char *)fields);
@@ -399,7 +399,7 @@ char *idc_guess_type(ea_t ea, char *buf, size_t bufsize)
     if ( tif.print(&out) )
       return qstrncpy(buf, out.begin(), bufsize);
   }
-  return NULL;
+  return nullptr;
 }
 
 //-------------------------------------------------------------------------
@@ -415,34 +415,34 @@ char *idc_get_type(ea_t ea, char *buf, size_t bufsize)
       return buf;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 //-------------------------------------------------------------------------
 int idc_set_local_type(int ordinal, const char *dcl, int flags)
 {
-  if ( dcl == NULL || dcl[0] == '\0' )
+  if ( dcl == nullptr || dcl[0] == '\0' )
   {
-    if ( !del_numbered_type(NULL, ordinal) )
+    if ( !del_numbered_type(nullptr, ordinal) )
       return 0;
   }
   else
   {
     tinfo_t tif;
     qstring name;
-    if ( !parse_decl(&tif, &name, NULL, dcl, flags) )
+    if ( !parse_decl(&tif, &name, nullptr, dcl, flags) )
       return 0;
 
     if ( ordinal <= 0 )
     {
       if ( !name.empty() )
-        ordinal = get_type_ordinal(NULL, name.begin());
+        ordinal = get_type_ordinal(nullptr, name.begin());
 
       if ( ordinal <= 0 )
-        ordinal = alloc_type_ordinal(NULL);
+        ordinal = alloc_type_ordinal(nullptr);
     }
 
-    if ( tif.set_numbered_type(NULL, ordinal, 0, name.c_str()) != TERR_OK )
+    if ( tif.set_numbered_type(nullptr, ordinal, 0, name.c_str()) != TERR_OK )
       return 0;
   }
   return ordinal;
@@ -452,14 +452,14 @@ int idc_set_local_type(int ordinal, const char *dcl, int flags)
 int idc_get_local_type(int ordinal, int flags, char *buf, size_t maxsize)
 {
   tinfo_t tif;
-  if ( !tif.get_numbered_type(NULL, ordinal) )
+  if ( !tif.get_numbered_type(nullptr, ordinal) )
   {
     buf[0] = 0;
     return false;
   }
 
   qstring res;
-  const char *name = get_numbered_type_name(NULL, ordinal);
+  const char *name = get_numbered_type_name(nullptr, ordinal);
   if ( !tif.print(&res, name, flags, 2, 40) )
   {
     buf[0] = 0;
@@ -482,7 +482,7 @@ PyObject *idc_print_type(
   bool ok;
   Py_BEGIN_ALLOW_THREADS;
   tinfo_t tif;
-  ok = tif.deserialize(NULL, &type, &fields, NULL)
+  ok = tif.deserialize(nullptr, &type, &fields, nullptr)
     && tif.print(&res, name, flags, 2, 40);
   Py_END_ALLOW_THREADS;
   if ( ok )
@@ -494,8 +494,8 @@ PyObject *idc_print_type(
 //-------------------------------------------------------------------------
 char idc_get_local_type_name(int ordinal, char *buf, size_t bufsize)
 {
-  const char *name = get_numbered_type_name(NULL, ordinal);
-  if ( name == NULL )
+  const char *name = get_numbered_type_name(nullptr, ordinal);
+  if ( name == nullptr )
     return false;
 
   qstrncpy(buf, name, bufsize);
@@ -520,9 +520,9 @@ def get_named_type(til, name, ntf_flags):
 */
 PyObject *py_get_named_type(const til_t *til, const char *name, int ntf_flags)
 {
-  const type_t *type = NULL;
-  const p_list *fields = NULL, *field_cmts = NULL;
-  const char *cmt = NULL;
+  const type_t *type = nullptr;
+  const p_list *fields = nullptr, *field_cmts = nullptr;
+  const char *cmt = nullptr;
   sclass_t sclass = sc_unk;
   uint64 value = 0;
   int code = get_named_type(til, name, ntf_flags, &type, &fields, &cmt, &field_cmts, &sclass, (uint32 *) &value);
@@ -547,9 +547,9 @@ PyObject *py_get_named_type(const til_t *til, const char *name, int ntf_flags)
 
   ADD(PyInt_FromLong(long(code)));
   ADD(IDAPyBytes_FromMem((const char *) type));
-  ADD_OR_NONE(fields != NULL, IDAPyBytes_FromMem((const char *) fields));
-  ADD_OR_NONE(cmt != NULL, IDAPyStr_FromUTF8(cmt));
-  ADD_OR_NONE(field_cmts != NULL, IDAPyStr_FromUTF8((const char *) field_cmts));
+  ADD_OR_NONE(fields != nullptr, IDAPyBytes_FromMem((const char *) fields));
+  ADD_OR_NONE(cmt != nullptr, IDAPyStr_FromUTF8(cmt));
+  ADD_OR_NONE(field_cmts != nullptr, IDAPyStr_FromUTF8((const char *) field_cmts));
   ADD(PyInt_FromLong(long(sclass)));
   if ( (ntf_flags & NTF_64BIT) != 0 )
     ADD(PyLong_FromUnsignedLongLong(value));
@@ -572,7 +572,7 @@ PyObject *py_print_decls(text_sink_t &printer, til_t *til, PyObject *py_ordinals
   if ( !PyList_Check(py_ordinals) )
   {
     PyErr_SetString(PyExc_ValueError, "'ordinals' must be a list");
-    return NULL;
+    return nullptr;
   }
 
   Py_ssize_t nords = PyList_Size(py_ordinals);
@@ -581,31 +581,25 @@ PyObject *py_print_decls(text_sink_t &printer, til_t *til, PyObject *py_ordinals
   for ( Py_ssize_t i = 0; i < nords; ++i )
   {
     borref_t item(PyList_GetItem(py_ordinals, i));
-    if ( item == NULL || !IDAPyIntOrLong_Check(item.o) )
+    if ( item == nullptr || !IDAPyIntOrLong_Check(item.o) )
     {
       qstring msg;
       msg.sprnt("ordinals[%d] is not a valid value", int(i));
       PyErr_SetString(PyExc_ValueError, msg.begin());
-      return NULL;
+      return nullptr;
     }
     uint32 ord = IDAPyIntOrLong_AsLong(item.o);
     ordinals.push_back(ord);
   }
-  return IDAPyInt_FromLong(print_decls(printer, til, ordinals.empty() ? NULL : &ordinals, flags));
+  return IDAPyInt_FromLong(print_decls(printer, til, ordinals.empty() ? nullptr : &ordinals, flags));
 }
-
-#ifdef BC695
-// dummy idati, to generate the cvar. We'll patch the code so
-// it does retrieve the real idati through get_idati()
-til_t *idati = NULL;
-#endif
 
 //-------------------------------------------------------------------------
 PyObject *py_remove_tinfo_pointer(tinfo_t *tif, const char *name, const til_t *til)
 {
-  const char **pname = name == NULL ? NULL : &name;
+  const char **pname = name == nullptr ? nullptr : &name;
   bool rc = remove_tinfo_pointer(tif, pname, til);
-  return Py_BuildValue("(Os)", PyBool_FromLong(rc), pname != NULL ? *pname : NULL);
+  return Py_BuildValue("(Os)", PyBool_FromLong(rc), pname != nullptr ? *pname : nullptr);
 }
 
 //-------------------------------------------------------------------------

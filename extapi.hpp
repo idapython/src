@@ -29,6 +29,9 @@ typedef PyObject *PyFunction_GetCode_t(PyObject *);
 
 typedef int _PyLong_AsByteArray_t(PyObject *, unsigned char *, size_t, int, int);
 
+typedef int  PyEval_ThreadsInitialized_t(void);
+typedef void PyEval_InitThreads_t(void);
+
 struct ext_api_t
 {
   qstring lib_path;
@@ -46,6 +49,8 @@ struct ext_api_t
   PyFunction_New_t *PyFunction_New_ptr;
   PyFunction_GetCode_t *PyFunction_GetCode_ptr;
   _PyLong_AsByteArray_t *_PyLong_AsByteArray_ptr;
+  PyEval_ThreadsInitialized_t *PyEval_ThreadsInitialized_ptr;
+  PyEval_InitThreads_t *PyEval_InitThreads_ptr;
 
   ext_api_t() { memset(this, 0, sizeof(*this)); }
   ~ext_api_t() { clear(); }

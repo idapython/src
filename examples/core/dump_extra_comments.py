@@ -14,7 +14,6 @@ from __future__ import print_function
 import ida_lines
 import ida_kernwin
 
-
 # -----------------------------------------------------------------------
 class dump_at_point_handler_t(ida_kernwin.action_handler_t):
     def __init__(self, anchor):
@@ -41,25 +40,43 @@ class dump_at_point_handler_t(ida_kernwin.action_handler_t):
         return "dump_extra_comments:%s" % v
 
 
+# --------------------------------------------------------
+# action variants
+
+class action_previous_handler_t(dump_at_point_handler_t):
+    ACTION_LABEL    = "previous"
+    ACTION_SHORTCUT = "Ctrl+Shift+Y"
+
+    def __init__(self):
+        super(action_previous_handler_t, self).__init__(ida_lines.E_PREV)
+
+class action_next_handler_t(dump_at_point_handler_t):
+    ACTION_LABEL    = "next"
+    ACTION_SHORTCUT = "Ctrl+Shift+Z"
+
+    def __init__(self):
+        super(action_next_handler_t, self).__init__(ida_lines.E_NEXT)
+
+
 # -----------------------------------------------------------------------
 # create actions (and attach them to IDA View-A's context menu if possible)
 widget_title = "IDA View-A"
 ida_view = ida_kernwin.find_widget(widget_title)
 
-actions_variants = [
-    ("previous", ida_lines.E_PREV, "Ctrl+Shift+Y"),
-    ("next", ida_lines.E_NEXT, "Ctrl+Shift+Z"),
+action_variants = [
+    action_previous_handler_t,
+    action_next_handler_t,
 ]
-for label, anchor, shortcut in actions_variants:
-    actname = dump_at_point_handler_t.compose_action_name(label)
+for variant in action_variants:
+    actname = dump_at_point_handler_t.compose_action_name(variant.ACTION_LABEL)
     if ida_kernwin.unregister_action(actname):
         print("Unregistered previously-registered action \"%s\"" % actname)
 
     desc = ida_kernwin.action_desc_t(
         actname,
-        "Dump %s extra comments" % label,
-        dump_at_point_handler_t(anchor),
-        shortcut)
+        "Dump %s extra comments" % variant.ACTION_LABEL,
+        variant(),
+        variant.ACTION_SHORTCUT)
     if ida_kernwin.register_action(desc):
         print("Registered action \"%s\"" % actname)
 

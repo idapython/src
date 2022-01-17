@@ -465,10 +465,3 @@ def remove_hexrays_callback(callback):
     return 0
 
 #</pycode(py_hexrays)>
-
-#<pycode_BC695(py_hexrays)>
-get_tform_vdui=get_widget_vdui
-hx_get_tform_vdui=hx_get_widget_vdui
-HEXRAYS_API_MAGIC1=(HEXRAYS_API_MAGIC>>32)
-HEXRAYS_API_MAGIC2=(HEXRAYS_API_MAGIC&0xFFFFFFFF)
-#</pycode_BC695(py_hexrays)>

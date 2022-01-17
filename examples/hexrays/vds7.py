@@ -5,7 +5,7 @@ description:
   Using a `ida_hexrays.ctree_visitor_t`, search for
   `ida_hexrays.cit_block` instances and dump them.
 
-author: EiNSTeiN_ <einstein@g3nius.org>
+author: EiNSTeiN_ (einstein@g3nius.org)
 """
 
 from __future__ import print_function

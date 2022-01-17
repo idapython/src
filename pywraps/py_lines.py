@@ -35,9 +35,3 @@ def COLSTR(str, tag):
     return SCOLOR_ON + tag + str + SCOLOR_OFF + tag
 
 #</pycode(py_lines)>
-
-#<pycode_BC695(py_lines)>
-COLOR_UTF8=cvar.COLOR_ADDR+10 # old value of COLOR_UTF8; shouldn't trigger anything
-add_long_cmt=add_extra_cmt
-describe=add_extra_line
-#</pycode_BC695(py_lines)>

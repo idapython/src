@@ -37,14 +37,14 @@ class my_dirspec_t(ida_dirtree.dirspec_t):
             args, _, _, values = inspect.getargvalues(frame)
             print(">>> %s: args=%s" % (inspect.getframeinfo(frame)[2], [(i, values[i]) for i in args[1:]]))
 
-    def get_name(self, inode):
+    def get_name(self, inode, flags):
         self.log_frame()
         def find_inode(index, ordinal, _inode):
             if inode == _inode:
                 return "inode #%d" % inode
         return self.chooser._for_each_item(find_inode)
 
-    def get_inode(self, diridx, name):
+    def get_inode(self, dirpath, name):
         self.log_frame()
         if not name.startswith("inode #"):
             return ida_dirtree.direntry_t.BADIDX

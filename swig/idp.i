@@ -5,6 +5,7 @@
 #include <auto.hpp>
 #include <fixup.hpp>
 #include <tryblks.hpp>
+#include <idacfg.hpp>
 
 struct undo_records_t;
 %}
@@ -33,6 +34,9 @@ struct undo_records_t;
 %ignore cfgopt_t;
 %ignore cfgopt_t__apply;
 %ignore cfgopt_t__apply2;
+%ignore cfgopt_t__apply3;
+%ignore cfgopt_set_t;
+%ignore cfgopt_set_vec_t;
 %ignore parse_config_value;
 
 %define_Hooks_class(IDP);
@@ -59,6 +63,7 @@ struct undo_records_t;
 %ignore plugmod_t;
 %ignore get_hexdsp;
 %ignore set_hexdsp;
+%ignore remove_event_listener;
 
 // @arnaud
 %ignore notify__calc_next_eas;
@@ -113,6 +118,7 @@ struct undo_records_t;
 
 %include "idp.hpp"
 %include "config.hpp"
+%include "idacfg.hpp"
 
 #ifndef SWIGIMPORTED // see above
 // prevent tinfo_t * check in some functions (e.g., '_wrap_IDP_Hooks_ev_adjust_argloc')

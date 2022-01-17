@@ -17,7 +17,7 @@ bool py_idaview_t::Bind(PyObject *self)
 {
   // Already a py_idaview_t associated to this object?
   py_idaview_t *_this = (py_idaview_t *) view_extract_this(self);
-  if ( _this != NULL )
+  if ( _this != nullptr )
     return false;
 
   qstring title;
@@ -26,7 +26,7 @@ bool py_idaview_t::Bind(PyObject *self)
 
   // Get the IDAView associated to this TWidget
   TWidget *widget = find_widget(title.c_str());
-  if ( widget == NULL )
+  if ( widget == nullptr )
     return false;
 
   // Get unique py_idaview_t associated to that TWidget
@@ -55,7 +55,7 @@ bool py_idaview_t::Bind(PyObject *self)
 bool py_idaview_t::Unbind(PyObject *self)
 {
   py_idaview_t *_this = (py_idaview_t *) view_extract_this(self);
-  if ( _this == NULL )
+  if ( _this == nullptr )
     return false;
   _this->unbind(true);
   return true;

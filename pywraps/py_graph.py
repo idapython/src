@@ -183,11 +183,3 @@ class GraphViewer(ida_kernwin.CustomIDAMemo):
 #        return True
 #</pydoc>
 #</pycode(py_graph)>
-
-#<pycode_BC695(py_graph)>
-clr_node_info2=clr_node_info
-del_node_info2=del_node_info
-get_node_info2=get_node_info
-set_node_info2=set_node_info
-GraphViewer.GetTForm = GraphViewer.GetWidget
-#</pycode_BC695(py_graph)>

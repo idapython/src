@@ -30,7 +30,7 @@ description:
   The modifications are persistent: the user can quit & restart
   IDA, and the changes will be present.
 
-author: EiNSTeiN_ <einstein@g3nius.org>
+author: EiNSTeiN_ (einstein@g3nius.org)
 """
 
 from __future__ import print_function
@@ -41,6 +41,7 @@ import ida_kernwin
 import ida_hexrays
 import ida_netnode
 import ida_idaapi
+import ida_idp
 
 import traceback
 
@@ -215,6 +216,17 @@ class vds3_hooks_t(ida_hexrays.Hexrays_Hooks):
             self.i.restore(cfunc)
         return 0
 
+class idp_hooks_t(ida_idp.IDP_Hooks):
+    def __init__(self, i):
+        ida_idp.IDP_Hooks.__init__(self)
+        self.i = i
+
+    # 'node' refers to index of the named node, this index became invalid after
+    # privrange moving, so we recreate the node here to update nodeidx
+    def ev_privrange_changed(self, old_privrange, delta):
+        i.node.create(NETNODE_NAME)
+
+
 # a plugin interface, boilerplate code
 class my_plugin_t(ida_idaapi.plugin_t):
     flags = ida_idaapi.PLUGIN_HIDE
@@ -233,6 +245,9 @@ class my_plugin_t(ida_idaapi.plugin_t):
                     "I"))
             self.vds3_hooks = vds3_hooks_t(i)
             self.vds3_hooks.hook()
+            # we need this hook to react to privrange moving event
+            self.idp_hooks = idp_hooks_t(i)
+            self.idp_hooks.hook()
             return ida_idaapi.PLUGIN_KEEP # keep us in the memory
     def term(self):
         self.vds3_hooks.unhook()

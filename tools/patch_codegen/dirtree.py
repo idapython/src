@@ -1,10 +1,20 @@
 {
     "SwigDirector_dirspec_t::get_name" : [
-        ("spontaneous_callback_call", None),
         ("repl_text", (
             "int swig_res = SWIG_AsVal_bool(result, &swig_val);",
             ("int swig_res = IDAPyStr_Check(result) && (out == nullptr || IDAPyStr_AsUTF8(out, result));",
              "  swig_val = static_cast<bool>(swig_res);"))),
+        ("director_method_call_arity_cap", (
+            True, # add GIL lock
+            "get_name",
+            "(method ,(PyObject *)obj0,(__argcnt < 2 ? NULL : (PyObject *)obj1), NULL)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(__argcnt < 3 ? NULL : (PyObject *)obj1), NULL)",
+        )),
+        ("spontaneous_callback_call", (
+            False,                               # add GIL lock
+            None,                                # try anchor
+            None,                                # catch anchor
+        )),
     ],
     "SwigDirector_dirspec_t::get_inode" : [
         ("spontaneous_callback_call", None)

@@ -74,4 +74,13 @@ if ( __argcnt == 2 )
             "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2,(__argcnt < 5 ? NULL : (PyObject *)obj3), NULL)")
         ),
     ],
+
+    "SwigDirector_IDB_Hooks::segm_deleted" : [
+        ("director_method_call_arity_cap", (
+            False, # add GIL lock
+            "segm_deleted",
+            "(method ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 4 ? NULL : (PyObject *)obj2), NULL)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 4 ? NULL : (PyObject *)obj2), NULL)")
+        ),
+    ],
 }

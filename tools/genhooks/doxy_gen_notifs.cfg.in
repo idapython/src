@@ -228,7 +228,43 @@ TAB_SIZE               = 4
 # "Side Effects:". You can put \n's in the value part of an alias to insert
 # newlines.
 
-ALIASES                =
+# Copied from etc/sdk/doxygen.cfg;
+# alias \sq not included, because it translated to HTML;
+# implemented at plugins/idapython/tools/docs/epytext.py
+# Also, added \insn_t
+
+                         #"ph{1}      = ::ph::\link processor_t::\1 \1\endlink"                 \
+                         #"inf{1}     = ::inf::\link idainfo::\1 \1\endlink"                    \
+                         #"ash{1}     = ::ash.\link asm_t::\1 \1\endlink"                       \
+                         #"cmd{1}     = ::cmd::\link insn_t::\1 \1\endlink"                     \
+                         #"dto{1}     = ::dto::\link text_options_t::\1 \1\endlink"             \
+                         #"sq{4}      = <TABLE>                                                 \
+                         #                <TR><TD>\1</TD><TD>\2</TD></TR>                       \
+                         #                <TR><TD>\3</TD><TD>\4</TD></TR>                       \
+                         #              </TABLE>"                                               \
+
+ALIASES                = "varmem{3}  = \link ::\1 \1\endlink.\link \2::\3 \3\endlink"          \
+                         "call1{2}   = \link \1() \1\endlink(\2)"                              \
+                         "call2{3}   = \link \1() \1\endlink(\2, \3)"                          \
+                         "isdecl{1}  = \link \1(type_t) \1\endlink(get_decltype())"            \
+                         "isreal{1}  = \link \1(type_t) \1\endlink(get_realtype())"            \
+                         "getset{1}  = \link get\1() get\endlink/\link set\1()\endlink"        \
+                         "tinfocc{1} = \link \1(cm_t) \1\endlink(get_cc())"                    \
+                         "ph{1}      = processor_t::\1"                                        \
+                         "inf{1}     = idainfo::\1"                                            \
+                         "ash{1}     = asm_t::\1"                                              \
+                         "cmd{1}     = insn_t::\1"                                             \
+                         "insn_t{1}  = insn_t::\1"                                             \
+                         "dto{1}     = text_options_t::\1"                                     \
+                         "dbg{1}     = debugger_t::\1"                                         \
+                         "idpcode{1} = \link processor_t::\1 \1\endlink"                       \
+                         "def{2}     = \def \1\n \2"                                           \
+                         "typedef{2} = \typedef \1\n \2"                                       \
+                         "struct{2}  = \struct \1\n \2"                                        \
+                         "fn{2}      = \fn \1\n \2"                                            \
+                         "var{2}     = \var \1\n \2"                                           \
+                         "v{1}       = \verbatim \1 \endverbatim"                              \
+                         "union{1}   = \name \1"
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"
@@ -291,7 +327,7 @@ EXTENSION_MAPPING      =
 # case of backward compatibilities issues.
 # The default value is: YES.
 
-MARKDOWN_SUPPORT       = YES
+MARKDOWN_SUPPORT       = NO
 
 # When enabled doxygen tries to link words that correspond to documented
 # classes, or namespaces to their corresponding documentation. Such a link can

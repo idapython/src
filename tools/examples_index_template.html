@@ -1,3 +1,9 @@
+<!--
+Used keywords:
+% for keyword in all_keywords:
+  {{keyword}}
+% endfor
+-->
 <html>
   <head>
     <meta charset="UTF-8">
@@ -12,71 +18,86 @@
     </div>
     <div class="toplevel-actions" onclick="handle_toplevel_action()">
       <a href="#" class="exp-col-all expand-all">Expand all</a>
-      <a href="#" class="exp-col-all collapse-all">collapse all</a>
+      |
+      <a href="#" class="exp-col-all collapse-all">Collapse all</a>
     </div>
 
     <h1>IDAPython examples:</h1>
-    <!--gen:group:category-->
-    <h2>Category: <!--gen:category--></h2>
+% for category in sorted(examples):
+    <h2>Category: {{category}}</h2>
     <div class="c_list" onclick="handle_click()">
-      <!--gen:block-->
-      <div class="example-entry collapsed-entry" name="<!--gen:name-->">
+  % for example in sorted(examples[category], key=lambda e: e.name):
+      <div class="example-entry collapsed-entry" name="{{example.name}}">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
           <span class="exp-col collapser" style="display:none">&#x25BF;</span>
-        <a href="<!--gen:path-->"><!--gen:name--></a>: <i><!--gen:summary--></i>
+        <a href="{{example.path}}">{{example.name}}</a>: <i>{{example.summary}}</i>
         </div>
-        <div class="details" id="DIV_<!--gen:name-->">
+        <div class="details" id="DIV_{{example.name}}">
 
 <pre>
-<!--gen:description-->
+{{example.description if example.description else example.summary}}
 </pre>
 
           <ul>
-            <li>Category: <!--gen:category--></li>
-            <li>Summary: <!--gen:summary--></li>
-            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/<!--gen:path-->">GitHub</a></li>
-            <!-- only if there is data for it -->
+            <li>Category: {{example.category}}</li>
+            <li>Summary: {{example.summary}}</li>
+            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/{{example.path}}">GitHub</a></li>
+    % if example.keywords:
             <li>Keywords:
-          <!--gen:block-->
-            <span>
-            <!--gen:first-->
-            <!--gen:end-->
-            <!--gen:keywords-->
-            </span>
-          <!--gen:end-->
+      % for keyword in example.keywords:
+            {{keyword}}
+      % endfor
+            </li>
+    % endif
 
-            <li>APIs used
+    % if example.shortcuts:
+            <li>Shortcut{{'s' if len(example.shortcuts) > 1 else ''}}:
+      % for shortcut in example.shortcuts:
+            {{shortcut}}
+      % endfor
+            </li>
+    % endif
+
+    % if example.imports:
+            <li>Imports
               <ul>
-                <!--gen:block-->
-                <li><!--gen:uses--></li>
-                <!--gen:end-->
+      % for imported in example.imports:
+                <li>{{imported}}</li>
+      % endfor
               </ul>
             </li>
-            <li>Summary: <!--gen:summary--></li>
+    % endif
 
-          <!-- only if there is data for it -->
-          <!--gen:block-->
-            <!--gen:first-->
+    % if example.uses:
+            <li>APIs used
+              <ul>
+      % for use in example.uses:
+                <li>{{use}}</li>
+      % endfor
+              </ul>
+            </li>
+    % endif
+
+    % if example.see_also:
           <li>See also:
             <ul>
-              <!--gen:end-->
-              <li><a href="#<!--gen:see_also-->"
-                   onclick="on_see_also('<!--gen:see_also-->');">
-                  <!--gen:see_also--></a></li>
-              <!--gen:last-->
+      % for see in example.see_also:
+              <li><a class="ex_link" href="#{{see}}">{{see}}</a></li>
+      % endfor
             </ul>
-            <!--gen:end-->
           </li>
-         <!--gen:end-->
+    % endif
+
+    % if example.author:
+          <li>Author: {{example.author}}</li>
+    % endif
       </ul>
         </div>
       </div>
-      <!-- end block (per example in this category) -->
-      <!--gen:end-->
+  % endfor # examples of a category
 
     </div>
-    <!-- end group by category -->
-    <!--gen:end-->
+% endfor # categories
   </body>
 </html>

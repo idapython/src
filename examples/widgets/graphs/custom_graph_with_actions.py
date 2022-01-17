@@ -137,8 +137,9 @@ def show_graph():
     # Iterate through all function instructions and take only call instructions
     result = []
     tmp = ida_ua.insn_t()
-    for x in [x for x in idautils.FuncItems(f.start_ea) if (ida_ua.decode_insn(tmp, x) and ida_idp.is_call_insn(tmp))]:
-        for xref in idautils.XrefsFrom(x, ida_xref.XREF_FAR):
+    for x in [x for x in f if (ida_ua.decode_insn(tmp, x) and ida_idp.is_call_insn(tmp))]:
+        xb = ida_xref.xrefblk_t()
+        for xref in xb.refs_from(x, ida_xref.XREF_FAR):
             if not xref.iscode: continue
             t = ida_funcs.get_func_name(xref.to)
             if not t:

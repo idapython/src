@@ -3,7 +3,7 @@
 
 //<code(py_lines)>
 //------------------------------------------------------------------------
-static PyObject *py_get_user_defined_prefix = NULL;
+static PyObject *py_get_user_defined_prefix = nullptr;
 static void idaapi s_py_get_user_defined_prefix(
         qstring *buf,
         ea_t ea,
@@ -48,10 +48,10 @@ static PyObject *py_set_user_defined_prefix(size_t width, PyObject *pycb)
     Py_XDECREF(py_get_user_defined_prefix);
 
     // ...and clear it
-    py_get_user_defined_prefix = NULL;
+    py_get_user_defined_prefix = nullptr;
 
     // Uninstall user defind prefix
-    set_user_defined_prefix(0, NULL);
+    set_user_defined_prefix(0, nullptr);
   }
   else if ( PyCallable_Check(pycb) )
   {
@@ -119,8 +119,8 @@ def generate_disassembly(ea, max_lines, as_stack, notags):
     @param as_stack: Display undefined items as 2/4/8 bytes
     @return:
         - None on failure
-        - tuple(most_important_line_number, tuple(lines)) : Returns a tuple containing
-          the most important line number and a tuple of generated lines
+        - tuple(most_important_line_number, list(lines)) : Returns a tuple containing
+          the most important line number and a list of generated lines
     """
     pass
 #</pydoc>
@@ -140,7 +140,7 @@ PyObject *py_generate_disassembly(
   int lnnum;
   int nlines = generate_disassembly(&lines, &lnnum, ea, max_lines, as_stack);
 
-  newref_t py_tuple(PyTuple_New(nlines));
+  newref_t py_list(PyList_New(nlines));
   for ( int i=0; i < nlines; i++ )
   {
     const qstring &l = lines[i];
@@ -150,9 +150,9 @@ PyObject *py_generate_disassembly(
       tag_remove(&qbuf, l);
       s = qbuf.c_str();
     }
-    PyTuple_SetItem(py_tuple.o, i, IDAPyStr_FromUTF8(s));
+    PyList_SetItem(py_list.o, i, IDAPyStr_FromUTF8(s));
   }
-  return Py_BuildValue("(iO)", lnnum, py_tuple.o);
+  return Py_BuildValue("(iO)", lnnum, py_list.o);
 }
 //</inline(py_lines)>
 #endif

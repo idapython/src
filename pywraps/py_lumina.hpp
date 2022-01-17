@@ -10,7 +10,7 @@ bool py_extract_type_from_metadata(tinfo_t *out, const bytevec_t &in)
     const uchar *ptr = in.begin();
     const uchar *end = in.end();
     extract_type_from_metadata(&tp, ptr, end);
-    out->deserialize(NULL, &tp.type, &tp.fields);
+    out->deserialize(nullptr, &tp.type, &tp.fields);
   }
   return tp.userti;
 }
