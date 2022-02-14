@@ -667,7 +667,7 @@ def execute_ui_requests(callable_list):
 
     @param callable_list: A list of python callable objects.
     @note: A callable should return True if it wants to be called more than once.
-    @return: Boolean. False if the list contains a non callabale item
+    @return: Boolean. False if the list contains a non callable item
     """
     pass
 #</pydoc>
@@ -708,6 +708,17 @@ static bool py_execute_ui_requests(PyObject *py_list)
       ref_t py_callable = py_callables.at(py_callable_idx);
       bool reschedule;
       newref_t py_result(PyObject_CallFunctionObjArgs(py_callable.o, nullptr));
+      // execute_ui_requests() will cause this run() code to be executed
+      // asynchronously. This means that, should an exception have been raised
+      // in the Python code we just executed, it won't have the possibility of
+      // trickling all the way up to the Python runtime.
+      // Since it would interfere with subsequent Python code execution, we
+      // want to report it right away.
+      if ( PyErr_Occurred() )
+      {
+        PyErr_Print();
+        return false;
+      }
       reschedule = py_result != nullptr && PyObject_IsTrue(py_result.o);
 
       // No rescheduling? Then advance to the next callable

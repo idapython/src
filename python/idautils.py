@@ -582,9 +582,14 @@ def GetInstructionList():
     return [i[0] for i in ida_idp.ph_get_instruc() if i[0]]
 
 # -----------------------------------------------------------------------
-def _Assemble(ea, line):
+def Assemble(ea, line):
     """
-    Please refer to Assemble() - INTERNAL USE ONLY
+    Assembles one or more lines (does not display an message dialogs)
+    If line is a list then this function will attempt to assemble all the lines
+    This function will turn on batch mode temporarily so that no messages are displayed on the screen
+
+    @param ea:       start address
+    @return: (False, "Error message") or (True, asm_buf) or (True, [asm_buf1, asm_buf2, asm_buf3])
     """
     if type(line) in ([bytes] + list(ida_idaapi.string_types)):
         lines = [line]
@@ -606,21 +611,11 @@ def _Assemble(ea, line):
         ret = ret[0]
     return (True, ret)
 
+# -----------------------------------------------------------------------
+_Assemble = Assemble
 
-def Assemble(ea, line):
-    """
-    Assembles one or more lines (does not display an message dialogs)
-    If line is a list then this function will attempt to assemble all the lines
-    This function will turn on batch mode temporarily so that no messages are displayed on the screen
 
-    @param ea:       start address
-    @return: (False, "Error message") or (True, asm_buf) or (True, [asm_buf1, asm_buf2, asm_buf3])
-    """
-    old_batch = idc.batch(1)
-    ret = _Assemble(ea, line)
-    idc.batch(old_batch)
-    return ret
-
+# -----------------------------------------------------------------------
 def _copy_obj(src, dest, skip_list = None):
     """
     Copy non private/non callable attributes from a class instance to another

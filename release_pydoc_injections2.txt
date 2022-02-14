@@ -6532,8 +6532,9 @@ Help on function set_reg_val in module ida_dbg:
 
 set_reg_val(*args)
     set_reg_val(regname, o) -> PyObject
+    Write a register value to the current thread.
     
-    @param regname: char const *
+    @param regname: (C++: const char *) char const *
     @param o: PyObject *
     
     set_reg_val(tid, regidx, o) -> bool, int
@@ -55839,7 +55840,7 @@ execute_ui_requests(*args)
     
     @param callable_list: A list of python callable objects.
     @note: A callable should return True if it wants to be called more than once.
-    @return: Boolean. False if the list contains a non callabale item
+    @return: Boolean. False if the list contains a non callable item
 
 Help on function find_widget in module ida_kernwin:
 

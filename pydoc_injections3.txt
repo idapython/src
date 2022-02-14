@@ -56553,7 +56553,7 @@ execute_ui_requests(*args) -> 'bool'
     
     @param callable_list: A list of python callable objects.
     @note: A callable should return True if it wants to be called more than once.
-    @return: Boolean. False if the list contains a non callabale item
+    @return: Boolean. False if the list contains a non callable item
 
 Help on function find_widget in module ida_kernwin:
 
