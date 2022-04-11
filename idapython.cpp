@@ -1492,7 +1492,7 @@ bool idapython_plugin_t::_extlang_eval_snippet(
 {
   PYW_GIL_GET;
 #ifdef TESTABLE_BUILD
-  QASSERT(0, PyErr_Occurred() == nullptr);
+  QASSERT(30639, PyErr_Occurred() == nullptr);
 #endif
   PyObject *globals = _get_module_globals();
   bool ok;

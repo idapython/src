@@ -107,7 +107,7 @@ typedef qvector<idc_value_t> idc_values_t;
 //-------------------------------------------------------------------------
 static bool pyw_convert_defvals(idc_values_t *out, PyObject *py_seq)
 {
-  if ( !PySequence_Check(py_seq) )
+  if ( out == nullptr || !PySequence_Check(py_seq) )
     return false;
   for ( Py_ssize_t i = 0, n = PySequence_Size(py_seq); i < n; ++i )
   {

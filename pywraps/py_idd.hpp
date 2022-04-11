@@ -358,50 +358,56 @@ PyObject *py_appcall(
 
 char get_event_module_name(const debug_event_t *ev, char *buf, size_t bufsize)
 {
+  if ( ev == nullptr )
+    return false;
   qstrncpy(buf, ev->modinfo().name.c_str(), bufsize);
   return true;
 }
 
 ea_t get_event_module_base(const debug_event_t *ev)
 {
-  return ev->modinfo().base;
+  return ev != nullptr ? ev->modinfo().base : BADADDR;
 }
 
 asize_t get_event_module_size(const debug_event_t *ev)
 {
-  return ev->modinfo().size;
+  return ev != nullptr ? ev->modinfo().size : 0;
 }
 
 char get_event_exc_info(const debug_event_t *ev, char *buf, size_t bufsize)
 {
+  if ( ev == nullptr )
+    return false;
   qstrncpy(buf, ev->exc().info.c_str(), bufsize);
   return true;
 }
 
 char get_event_info(const debug_event_t *ev, char *buf, size_t bufsize)
 {
+  if ( ev == nullptr )
+    return false;
   qstrncpy(buf, ev->info().c_str(), bufsize);
   return true;
 }
 
 ea_t get_event_bpt_hea(const debug_event_t *ev)
 {
-  return ev->bpt().hea;
+  return ev != nullptr ? ev->bpt().hea : BADADDR;
 }
 
 uint get_event_exc_code(const debug_event_t *ev)
 {
-  return ev->exc().code;
+  return ev != nullptr ? ev->exc().code : 0;
 }
 
 ea_t get_event_exc_ea(const debug_event_t *ev)
 {
-  return ev->exc().ea;
+  return ev != nullptr ? ev->exc().ea : BADADDR;
 }
 
 bool can_exc_continue(const debug_event_t *ev)
 {
-  return ev->exc().can_cont;
+  return ev != nullptr && ev->exc().can_cont;
 }
 
 //</inline(py_idd)>

@@ -167,11 +167,6 @@ extern plugin_t PLUGIN;
 %ignore set_codepages;
 %ignore get_codepages;
 %ignore convert_codepage;
-%ignore test_bit;
-%ignore set_bit;
-%ignore clear_bit;
-%ignore set_all_bits;
-%ignore clear_all_bits;
 %ignore interval::last;
 %ignore interval::overlap;
 %ignore interval::includes;
@@ -374,6 +369,7 @@ class QLIST_TYPE##_iterator {};
 %exception {
     try
     {
+      set_interr_throws_t sit;
       $action
     }
     catch ( const std::bad_alloc &ba ) { __raise_ba(ba); SWIG_fail; }
@@ -1747,6 +1743,16 @@ SWIGINTERN void __raise_e(const std::exception &e)
     PyErr_SetString(PyExc_RuntimeError, what);
   }
 }
+
+// a setter for the 'interr_should_throw' flag. Since that flag has to be set,
+// or reset possibly in the context of stack unwinding, let's leave it up to
+// the compiler to make sure that it's reset as it should be using RAII.
+struct set_interr_throws_t
+{
+  bool was;
+  set_interr_throws_t() { was = interr_should_throw; interr_should_throw = true; }
+  ~set_interr_throws_t() { interr_should_throw = was; }
+};
 
 SWIGINTERN void __raise_ie(const interr_exc_t &ie)
 {

@@ -1,3 +1,4 @@
 obj/
 *.pyc
 idapyswitch*
+fuzzer/

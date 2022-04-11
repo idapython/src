@@ -39,6 +39,13 @@
 %ignore unpack_memory;
 %ignore cliopt_t;
 %ignore cliopts_t;
+%ignore test_bit;
+%ignore set_bit;
+%ignore set_bits;
+%ignore clear_bit;
+%ignore clear_bits;
+%ignore set_all_bits;
+%ignore clear_all_bits;
 
 %extend qrefcnt_t {
   size_t __ptrval__() const

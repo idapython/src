@@ -50411,7 +50411,7 @@ has_insn_feature(*args)
     has_insn_feature(icode, bit) -> bool
     Does the specified instruction have the specified feature?
     
-    @param icode: (C++: int)
+    @param icode: (C++: uint16)
     @param bit: (C++: uint32)
 
 Help on function is_align_insn in module ida_idp:
@@ -58096,14 +58096,6 @@ py_register_compiled_form(*args)
     py_register_compiled_form(py_form)
     
     @param py_form: PyObject *
-
-Help on function py_ss_restore_callback in module ida_kernwin:
-
-py_ss_restore_callback(*args)
-    py_ss_restore_callback(err_msg, userdata)
-    
-    @param err_msg: char const *
-    @param userdata: void *
 
 Help on function py_unregister_compiled_form in module ida_kernwin:
 
@@ -71436,16 +71428,6 @@ check_process_exit(*args)
     @retval 1: process has not exited yet
     @retval -1: error happened, see error code for winerr() in *exit_code
 
-Help on function clear_bits in module ida_pro:
-
-clear_bits(*args)
-    clear_bits(bitmap, low, high)
-    Clear bits between [low, high) in 'bitmap'.
-    
-    @param bitmap: (C++: uchar *)
-    @param low: (C++: size_t)
-    @param high: (C++: size_t)
-
 Help on class ea_array in module ida_pro:
 
 class ea_array(__builtin__.object)
@@ -72463,16 +72445,6 @@ sel_pointer_frompointer(*args)
     sel_pointer_frompointer(t) -> sel_pointer
     
     @param t: sel_t *
-
-Help on function set_bits in module ida_pro:
-
-set_bits(*args)
-    set_bits(bitmap, low, high)
-    Set bits between [low, high) in 'bitmap'.
-    
-    @param bitmap: (C++: uchar *)
-    @param low: (C++: size_t)
-    @param high: (C++: size_t)
 
 Help on class sizevec_t in module ida_pro:
 

@@ -22,6 +22,8 @@ struct py_idchotkey_ctx_t
 
 static ref_t py_colorizer;
 
+static void py_ss_restore_callback(const char *err_msg, void *userdata);
+
 //------------------------------------------------------------------------
 //</decls(py_kernwin)>
 //------------------------------------------------------------------------
@@ -494,36 +496,6 @@ static PyObject *py_take_database_snapshot(snapshot_t *ss)
   return Py_BuildValue("(Ns)", PyBool_FromLong(b), err_msg.empty() ? nullptr : err_msg.c_str());
 }
 
-//------------------------------------------------------------------------
-static void idaapi py_ss_restore_callback(const char *err_msg, void *userdata)
-{
-  PYW_GIL_GET;
-
-  // userdata is a tuple of ( func, args )
-  // func and args are borrowed references from userdata
-
-  PyObject *o = (PyObject *) userdata;
-  if ( !PyTuple_Check(o) )
-    return;
-
-  PyObject *func = PyTuple_GetItem(o, 0);
-  PyObject *args = PyTuple_GetItem(o, 1);
-
-  // Create arguments tuple for python function
-  PyObject *cb_args = Py_BuildValue("(sO)", err_msg, args);
-
-  // Call the python function
-  newref_t result(PyEval_CallObject(func, cb_args));
-
-  // Free cb_args and userdata
-  Py_DECREF(cb_args);
-  Py_DECREF(o);
-
-  // We cannot raise an exception in the callback, just print it.
-  if ( result == nullptr )
-    PyErr_Print();
-}
-
 //-------------------------------------------------------------------------
 static PyObject *py_restore_database_snapshot(
         const snapshot_t *ss,
@@ -958,14 +930,18 @@ private:
 //-------------------------------------------------------------------------
 bool py_register_action(action_desc_t *desc)
 {
-  desc->flags |= ADF_OWN_HANDLER;
-  bool ok = register_action(*desc);
+  bool ok = desc != nullptr;
   if ( ok )
   {
-    // Let's set this to nullptr, so when the wrapping Python action_desc_t
-    // instance is deleted, it doesn't try to delete the handler (See
-    // kernwin.i's action_desc_t::~action_desc_t()).
-    desc->handler = nullptr;
+    desc->flags |= ADF_OWN_HANDLER;
+    ok = register_action(*desc);
+    if ( ok )
+    {
+      // Let's set this to nullptr, so when the wrapping Python action_desc_t
+      // instance is deleted, it doesn't try to delete the handler (See
+      // kernwin.i's action_desc_t::~action_desc_t()).
+      desc->handler = nullptr;
+    }
   }
   return ok;
 }
@@ -1053,6 +1029,11 @@ static PyObject *py_chooser_base_t_get_row(
         const chooser_base_t *chobj,
         size_t n)
 {
+  if ( chobj == nullptr )
+  {
+    PyErr_SetString(PyExc_ValueError, "A valid chooser_base_t pointer is expected as first argument");
+    return nullptr;
+  }
   qstrvec_t fields;
   fields.resize(chobj->columns);
   chooser_item_attrs_t *attrs = new chooser_item_attrs_t;
@@ -1266,14 +1247,23 @@ static TWidget *TWidget__from_ptrval__(size_t ptrval)
   return (TWidget *) ptrval;
 }
 
+// we limit the the number of spaces that can be added to 512k
+#define MAX_SPACES_ADDED 524288
 //-------------------------------------------------------------------------
 static PyObject *py_add_spaces(const char *s, size_t len)
 {
   qstring qbuf(s);
   const size_t slen = tag_strlen(qbuf.c_str());
-  const size_t delta = qbuf.length() - slen;
-  if ( len > slen )
-    qbuf.resize(len + delta);
+  const size_t nlen = qbuf.length() - slen + len;
+  if ( len > slen && nlen < MAX_SPACES_ADDED )
+  {
+    qbuf.resize(nlen);
+  }
+  else
+  {
+    if ( s == nullptr )
+      qbuf.resize(1);
+  }
   // we use the actual 'size' because we know that
   // 'add_spaces()' will add a terminating zero anyway
   add_spaces(qbuf.begin(), qbuf.size(), len);
@@ -1344,6 +1334,36 @@ static void ida_kernwin_term(void)
 
 //-------------------------------------------------------------------------
 static void ida_kernwin_closebase(void) {}
+
+//------------------------------------------------------------------------
+static void py_ss_restore_callback(const char *err_msg, void *userdata)
+{
+  PYW_GIL_GET;
+
+  // userdata is a tuple of ( func, args )
+  // func and args are borrowed references from userdata
+
+  PyObject *o = (PyObject *) userdata;
+  if ( o == nullptr || !PyTuple_Check(o) )
+    return;
+
+  PyObject *func = PyTuple_GetItem(o, 0);
+  PyObject *args = PyTuple_GetItem(o, 1);
+
+  // Create arguments tuple for python function
+  PyObject *cb_args = Py_BuildValue("(sO)", err_msg, args);
+
+  // Call the python function
+  newref_t result(PyEval_CallObject(func, cb_args));
+
+  // Free cb_args and userdata
+  Py_DECREF(cb_args);
+  Py_DECREF(o);
+
+  // We cannot raise an exception in the callback, just print it.
+  if ( result == nullptr )
+    PyErr_Print();
+}
 
 /*
 #<pydoc>
