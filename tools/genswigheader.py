@@ -4,11 +4,7 @@ import sys
 import os
 import glob
 
-try:
-    from argparse import ArgumentParser
-except:
-    print("Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'")
-    raise
+from argparse import ArgumentParser
 
 parser = ArgumentParser()
 parser.add_argument("-i", "--input", required=True)
@@ -51,7 +47,7 @@ with open(args.input) as fin:
                     """
 %%typemap(check) (%s %s)
 {
-  if ( $1 == NULL )
+  if ( $1 == nullptr )
     SWIG_exception_fail(SWIG_ValueError, "invalid null pointer " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
 }
                     """ % (ptype, pname))

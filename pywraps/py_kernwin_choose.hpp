@@ -154,8 +154,8 @@ bool py_chooser_props_t::do_extract_from_pyobject(
   if ( flags_attr == nullptr )
     RETERR("Missing or invalid mandatory '%s' attribute", S_FLAGS);
 
-  if ( IDAPyInt_Check(flags_attr.o) )
-    out->flags = uint32(IDAPyInt_AsLong(flags_attr.o));
+  if ( PyLong_Check(flags_attr.o) )
+    out->flags = uint32(PyLong_AsLong(flags_attr.o));
   // instruct TChooser destructor to delete this chooser when widget
   // closes
   out->flags &= ~CH_KEEP;
@@ -180,7 +180,7 @@ bool py_chooser_props_t::do_extract_from_pyobject(
 
     // Extract string
     if ( v != nullptr )
-      IDAPyStr_AsUTF8(&out->header_strings[i], v.o);
+      PyUnicode_as_qstring(&out->header_strings[i], v.o);
     out->header[i] = out->header_strings[i].c_str();
 
     // Extract width
@@ -205,7 +205,7 @@ bool py_chooser_props_t::do_extract_from_pyobject(
     for ( Py_ssize_t i = 0; i < npopups; ++i )
     {
       qstring &buf = out->popup_names.push_back();
-      IDAPyStr_AsUTF8(&buf, PyList_GetItem(pn_attr.o, i));
+      PyUnicode_as_qstring(&buf, PyList_GetItem(pn_attr.o, i));
     }
   }
 
@@ -236,8 +236,8 @@ bool py_chooser_props_t::do_extract_from_pyobject(
   // we can forbid some callbacks explicitly
   uint32 forbidden_cb = 0;
   ref_t forbidden_cb_attr(PyW_TryGetAttrString(o, "forbidden_cb"));
-  if ( forbidden_cb_attr != nullptr && IDAPyInt_Check(forbidden_cb_attr.o) )
-    forbidden_cb = uint32(IDAPyInt_AsLong(forbidden_cb_attr.o));
+  if ( forbidden_cb_attr != nullptr && PyLong_Check(forbidden_cb_attr.o) )
+    forbidden_cb = uint32(PyLong_AsLong(forbidden_cb_attr.o));
 
   out->features = 0;
   for ( int i = 0; i < qnumber(callbacks); ++i )
@@ -371,14 +371,14 @@ void py_chooser_mixin_t::mixin_get_row(
         newref_t item(PySequence_GetItem(list.result.o, Py_ssize_t(i)));
         if ( item != nullptr )
         {
-          if ( !IDAPyStr_Check(item.o) )
+          if ( !PyUnicode_Check(item.o) )
           {
             PyErr_Format(
                     PyExc_TypeError,
                     "Expected 'str' data for row %" FMT_Z ", column %d", n, i);
             break;
           }
-          IDAPyStr_AsUTF8(&cols->at(i), item.o);
+          PyUnicode_as_qstring(&cols->at(i), item.o);
         }
       }
     }
@@ -550,14 +550,14 @@ class py_chooser_t : public chooser_t, public py_chooser_mixin_t
       {
         {
           newref_t item(PySequence_GetItem(pyres.result.o, 0));
-          if ( item.o != nullptr && IDAPyInt_Check(item.o) )
-            ret.changed = cbres_t(IDAPyInt_AsLong(item.o));
+          if ( item.o != nullptr && PyLong_Check(item.o) )
+            ret.changed = cbres_t(PyLong_AsLong(item.o));
         }
         if ( ret.changed != NOTHING_CHANGED )
         {
           newref_t item(PySequence_GetItem(pyres.result.o, 1));
-          if ( item.o != nullptr && IDAPyInt_Check(item.o) )
-            ret.idx = ssize_t(IDAPyInt_AsSsize_t(item.o));
+          if ( item.o != nullptr && PyLong_Check(item.o) )
+            ret.idx = ssize_t(PyLong_AsSsize_t(item.o));
         }
       }
       *out = ret;
@@ -870,7 +870,7 @@ PyObject *py_get_chooser_data(const char *chooser_caption, int n)
     Py_RETURN_NONE;
   PyObject *py_list = PyList_New(data.size());
   for ( size_t i = 0; i < data.size(); ++i )
-    PyList_SetItem(py_list, i, IDAPyStr_FromUTF8(data[i].c_str()));
+    PyList_SetItem(py_list, i, PyUnicode_FromString(data[i].c_str()));
   return py_list;
 }
 

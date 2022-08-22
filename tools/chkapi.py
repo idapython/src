@@ -119,11 +119,11 @@ def check_cpp(args):
 
         "_wrap_warning__varargs__" : {
             "nullptrcheck" : 1, # 1st arg
-            "mustcall" : "IDAPyStr_AsUTF8",
+            "mustcall" : "PyUnicode_as_qstring",
         },
         "_wrap_error__varargs__" : {
             "nullptrcheck" : 1,
-            "mustcall" : "IDAPyStr_AsUTF8",
+            "mustcall" : "PyUnicode_as_qstring",
         },
         "_wrap_tag_remove" : {
             "nullptrcheck" : 1,
@@ -156,19 +156,19 @@ def check_cpp(args):
 
     functions_coherence_hexrays = {
         "_wrap_cfuncptr_t___str__" : {
-            "mustcall" : ["cfunc_t___str__", "IDAPyStr_FromUTF8AndSize"],
+            "mustcall" : ["cfunc_t___str__", "PyUnicode_FromStringAndSize"],
         },
         "_wrap_cfunc_t___str__" : {
-            "mustcall" : ["cfunc_t___str__", "IDAPyStr_FromUTF8AndSize"],
+            "mustcall" : ["cfunc_t___str__", "PyUnicode_FromStringAndSize"],
         },
         "_wrap_hexrays_failure_t_desc" : {
-            "mustcall" : "IDAPyStr_FromUTF8AndSize",
+            "mustcall" : "PyUnicode_FromStringAndSize",
         },
         "_wrap_vd_failure_t_desc" : {
-            "mustcall" : "IDAPyStr_FromUTF8AndSize",
+            "mustcall" : "PyUnicode_FromStringAndSize",
         },
         "_wrap_create_field_name" : {
-            "mustcall" : "IDAPyStr_FromUTF8AndSize",
+            "mustcall" : "PyUnicode_FromStringAndSize",
         },
         "delete_qrefcnt_t_Sl_cfunc_t_Sg_" : {
             "mustcall" : "hexrays_deregister_python_clearable_instance",

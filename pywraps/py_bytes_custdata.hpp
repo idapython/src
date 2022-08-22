@@ -188,7 +188,7 @@ private:
     PYW_GIL_GET;
 
     // Build a string from the buffer
-    newref_t py_value(IDAPyBytes_FromMemAndSize(
+    newref_t py_value(PyBytes_FromStringAndSize(
                               (const char *)value,
                               Py_ssize_t(size)));
     if ( py_value == nullptr )
@@ -209,10 +209,10 @@ private:
       return false;
 
     bool ok = false;
-    if ( IDAPyStr_Check(py_result.o) )
+    if ( PyUnicode_Check(py_result.o) )
     {
       if ( out != nullptr )
-        IDAPyStr_AsUTF8(out, py_result.o);
+        PyUnicode_as_qstring(out, py_result.o);
       ok = true;
     }
     return ok;
@@ -264,7 +264,7 @@ private:
 
         Py_ssize_t len;
         char *buf;
-        if ( IDAPyBytes_AsMemAndSize(py_val.o, &buf, &len) != -1 )
+        if ( PyBytes_AsStringAndSize(py_val.o, &buf, &len) != -1 )
         {
           value->qclear();
           value->append(buf, len);
@@ -274,13 +274,13 @@ private:
       else
       {
         // Make sure the user returned (False, String)
-        if ( py_bool.o != Py_False || !IDAPyStr_Check(py_val.o) )
+        if ( py_bool.o != Py_False || !PyUnicode_Check(py_val.o) )
         {
           *errstr = "Invalid return value returned from the Python callback!";
           break;
         }
         // Get the error message
-        IDAPyStr_AsUTF8(errstr, py_val.o);
+        PyUnicode_as_qstring(errstr, py_val.o);
       }
     } while ( false );
     return ok;

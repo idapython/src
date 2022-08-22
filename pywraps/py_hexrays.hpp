@@ -20,7 +20,7 @@ static int is_debug_hexrays_ctree(int level)
 //-------------------------------------------------------------------------
 static void debug_hexrays_ctree(int level, const char *format, ...)
 {
-  if ( is_debug_hexrays_ctree(level) )
+  if ( is_debug_hexrays_ctree(level) && format != nullptr )
   {
     va_list va;
     va_start(va, format);
@@ -93,7 +93,7 @@ static void *idaapi idapython_dummy_hexdsp(int code, ...)
           va_list va;
           va_start(va, code);
           optinsn_t *oi = va_arg(va, optinsn_t *);
-          QASSERT(30598, remove_optinsn_handler(oi) == false); // must have been removed already
+          QASSERT(30598, !remove_optinsn_handler(oi)); // must have been removed already
           in_removal = false;
         }
 #endif
@@ -109,7 +109,7 @@ static void *idaapi idapython_dummy_hexdsp(int code, ...)
           va_list va;
           va_start(va, code);
           optblock_t *ob = va_arg(va, optblock_t *);
-          QASSERT(30599, remove_optblock_handler(ob) == false); // must have been removed already
+          QASSERT(30599, !remove_optblock_handler(ob)); // must have been removed already
           in_removal = false;
         }
 #endif
@@ -128,7 +128,7 @@ static void *idaapi idapython_dummy_hexdsp(int code, ...)
         if ( !in_removal )
         {
           in_removal = true;
-          QASSERT(30620, install_microcode_filter(mf, false) == false); // must have been removed already
+          QASSERT(30620, !install_microcode_filter(mf, false)); // must have been removed already
           in_removal = false;
         }
 #else

@@ -151,7 +151,7 @@ static PyObject *formchgcbfa_get_field_value(
       {
         qstring val;
         if ( fa->get_combobox_value(fid, &val) )
-          return IDAPyStr_FromUTF8(val.c_str());
+          return PyUnicode_FromString(val.c_str());
       }
       break;
 
@@ -184,7 +184,7 @@ static PyObject *formchgcbfa_get_field_value(
       {
         char val[MAXSTR];
         if ( fa->get_string_value(fid, val, sizeof(val)) )
-          return IDAPyStr_FromUTF8(val);
+          return PyUnicode_FromString(val);
         break;
       }
     // string input
@@ -193,7 +193,7 @@ static PyObject *formchgcbfa_get_field_value(
         qstring val;
         val.resize(sz + 1);
         if ( fa->get_string_value(fid, val.begin(), val.size()) )
-          return IDAPyStr_FromUTF8(val.begin());
+          return PyUnicode_FromString(val.begin());
         break;
       }
     case 5:
@@ -215,7 +215,7 @@ static PyObject *formchgcbfa_get_field_value(
           sel_t sel;
           sval_t sval;
           uval_t uval;
-          ulonglong ull;
+          uint64 ull;
         } u;
         switch ( sz )
         {
@@ -268,10 +268,10 @@ static bool formchgcbfa_set_field_value(
     // dropdown list
     case 8:
       // Editable dropdown list
-      if ( IDAPyStr_Check(py_val) )
+      if ( PyUnicode_Check(py_val) )
       {
         qstring val;
-        IDAPyStr_AsUTF8(&val, py_val);
+        PyUnicode_as_qstring(&val, py_val);
         return fa->set_combobox_value(fid, &val);
       }
       // Readonly dropdown list
@@ -305,7 +305,7 @@ static bool formchgcbfa_set_field_value(
     case 1:
       {
         qstring val;
-        IDAPyStr_AsUTF8(&val, py_val);
+        PyUnicode_as_qstring(&val, py_val);
         return fa->set_string_value(fid, val.c_str());
       }
     // intvec_t

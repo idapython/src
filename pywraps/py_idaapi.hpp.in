@@ -6,15 +6,15 @@
 #define GET_THIS() py_customidamemo_t *_this = (py_customidamemo_t *) view_extract_this(self)
 #define CHK_THIS()                                                      \
   GET_THIS();                                                           \
-  if ( _this == NULL )                                                  \
+  if ( _this == nullptr )                                               \
     return;
 #define CHK_THIS_OR_NULL()                                              \
   GET_THIS();                                                           \
-  if ( _this == NULL )                                                  \
-    return NULL;
+  if ( _this == nullptr )                                               \
+    return nullptr;
 #define CHK_THIS_OR_NONE()                                              \
   GET_THIS();                                                           \
-  if ( _this == NULL )                                                  \
+  if ( _this == nullptr )                                               \
     Py_RETURN_NONE
 
 
@@ -50,9 +50,9 @@ PyObject *pygc_set_groups_visibility(PyObject *self, PyObject *groups, PyObject 
 TWidget *pycim_get_widget(PyObject *self)
 {
   CHK_THIS_OR_NULL();
-  TWidget *widget = NULL;
+  TWidget *widget = nullptr;
   if ( !get_plugin_instance()->pycim_lookup_info.find_by_py_view(&widget, _this) )
-    return NULL;
+    return nullptr;
   return widget;
 }
 
@@ -77,10 +77,10 @@ void pycim_view_close(PyObject *self)
 static void _ida_idaapi_notify_init_term(int what)
 {
   newref_t py_mod(PyImport_ImportModule("ida_idaapi"));
-  if ( py_mod != NULL )
+  if ( py_mod != nullptr )
   {
     newref_t py_obj(PyObject_GetAttrString(py_mod.o, NOTIFY_DISPATCHER_INSTANCE));
-    if ( py_obj != NULL && py_obj.o != Py_None )
+    if ( py_obj != nullptr && py_obj.o != Py_None )
       PyObject_CallMethod(py_obj.o, NOTIFY_DISPATCHER_DISPATCH_METHOD, "i", what);
   }
 }
@@ -124,7 +124,7 @@ static PyObject *py_parse_command_line(const char *cmdline)
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
   qstrvec_t args;
-  if ( parse_command_line(&args, NULL, cmdline, LP_PATH_WITH_ARGS) == 0 )
+  if ( parse_command_line(&args, nullptr, cmdline, LP_PATH_WITH_ARGS) == 0 )
     Py_RETURN_NONE;
   return qstrvec2pylist(args);
 }
@@ -197,33 +197,14 @@ idaman PyObject *ida_export format_basestring(PyObject *_in)
   // accepts UTF-8 everywhere internally (and this will end up in a
   // 'msg' call eventually.)
   qstring utf8;
-#ifdef PY3
-  if ( !IDAPyStr_AsUTF8(&utf8, _in) )
-    return NULL;
-#else
-  PyObject *_pystr;
-  ref_t _tmp;
-  if ( PyUnicode_Check(_in) )
-  {
-    _tmp = newref_t(PyUnicode_AsUTF8String(_in));
-    if ( _tmp == NULL )
-      return _in;
-    _pystr = _tmp.o;
-  }
-  else
-  {
-    _pystr = _in;
-  }
-
-  if ( !IDAPyStr_AsUTF8(&utf8, _pystr) )
-    return NULL;
-#endif
+  if ( !PyUnicode_as_qstring(&utf8, _in) )
+    return nullptr;
   char *in_bytes = utf8.begin();
   Py_ssize_t in_len = utf8.length();
 
   char quote = '\'';
-  if ( memchr(in_bytes, '\'', in_len) != NULL
-    && memchr(in_bytes, '"', in_len) == NULL )
+  if ( memchr(in_bytes, '\'', in_len) != nullptr
+    && memchr(in_bytes, '"', in_len) == nullptr )
   {
     quote = '"';
   }
@@ -257,7 +238,7 @@ idaman PyObject *ida_export format_basestring(PyObject *_in)
       buf.append(c);
   }
   buf.append(quote);
-  return IDAPyStr_FromUTF8AndSize(buf.c_str(), buf.length());
+  return PyUnicode_FromStringAndSize(buf.c_str(), buf.length());
 }
 
 /*

@@ -21,7 +21,7 @@ static int idaapi py_visit_patched_bytes_cb(
                   o,
                   v));
   PyW_ShowCbErr("visit_patched_bytes");
-  return (py_result != nullptr && IDAPyInt_Check(py_result.o)) ? IDAPyInt_AsLong(py_result.o) : 0;
+  return (py_result != nullptr && PyLong_Check(py_result.o)) ? PyLong_AsLong(py_result.o) : 0;
 }
 
 //-------------------------------------------------------------------------
@@ -52,7 +52,7 @@ static bool py_do_get_bytes(
 
     // Allocate memory via Python
 
-    newref_t py_bytes(IDAPyBytes_FromMemAndSize(nullptr, Py_ssize_t(size)));
+    newref_t py_bytes(PyBytes_FromStringAndSize(nullptr, Py_ssize_t(size)));
     if ( py_bytes == nullptr )
       break;
 
@@ -61,7 +61,7 @@ static bool py_do_get_bytes(
       mask.resize((size + 7) / 8, 0);
 
     // Read bytes
-    int code = get_bytes(IDAPyBytes_AsString(py_bytes.o),
+    int code = get_bytes(PyBytes_AsString(py_bytes.o),
                          size,
                          ea,
                          gmb_flags,
@@ -72,7 +72,7 @@ static bool py_do_get_bytes(
     // note: specify size, as '0' bytes would otherwise cut the mask short
     if ( has_mask )
     {
-      newref_t py_mask(IDAPyBytes_FromMemAndSize(
+      newref_t py_mask(PyBytes_FromStringAndSize(
                                (const char *) mask.begin(),
                                mask.size()));
       if ( py_mask == nullptr )
@@ -213,7 +213,7 @@ static PyObject *py_get_strlit_contents(
   if ( type == STRTYPE_C && buf.length() > 0 && buf.last() == '\0' )
     buf.remove_last();
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  newref_t py_buf(IDAPyBytes_FromMemAndSize(buf.begin(), buf.length()));
+  newref_t py_buf(PyBytes_FromStringAndSize(buf.begin(), buf.length()));
   py_buf.incref();
   return py_buf.o;
 }

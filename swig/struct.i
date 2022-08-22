@@ -20,7 +20,7 @@
 %typemap(argout) qstring *out_mname {
   if (result)
   {
-    %append_output(IDAPyStr_FromUTF8AndSize($1->begin(), $1->length()));
+    %append_output(PyUnicode_FromStringAndSize($1->begin(), $1->length()));
   }
   else
   {

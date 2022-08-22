@@ -17,8 +17,8 @@ static void hexrays_unloading__unhook_hooks(void)
 }
 
 //-------------------------------------------------------------------------
-Hexrays_Hooks::Hexrays_Hooks(uint32 _flags)
-  : hooks_base_t("ida_hexrays.Hexrays_Hooks", nullptr, hook_type_t(-1), _flags),
+Hexrays_Hooks::Hexrays_Hooks(uint32 _flags, uint32 _hkcb_flags)
+  : hooks_base_t("ida_hexrays.Hexrays_Hooks", nullptr, hook_type_t(-1), _flags, _hkcb_flags),
     hooked(false)
 {
   hexrays_hooks_instances.push_back(this);
@@ -50,7 +50,7 @@ struct Hexrays_Hooks : public hooks_base_t
 
   bool hooked;
 
-  Hexrays_Hooks(uint32 _flags=0);
+  Hexrays_Hooks(uint32 _flags=0, uint32 _hkcb_flags=HKCB_GLOBAL);
   virtual ~Hexrays_Hooks();
 
   bool hook()
@@ -95,10 +95,10 @@ private:
       newref_t py_hint(PySequence_GetItem(o, 1));
       newref_t py_implines(PySequence_GetItem(o, 2));
       qstring plugin_hint;
-      if ( IDAPyInt_Check(py_rc.o)
-        && IDAPyStr_Check(py_hint.o)
-        && IDAPyInt_Check(py_implines.o)
-        && IDAPyStr_AsUTF8(&plugin_hint, py_hint.o) )
+      if ( PyLong_Check(py_rc.o)
+        && PyUnicode_Check(py_hint.o)
+        && PyLong_Check(py_implines.o)
+        && PyUnicode_as_qstring(&plugin_hint, py_hint.o) )
       {
         if ( !out_hint->empty()
           && out_hint->last() != '\n'
@@ -107,10 +107,10 @@ private:
           out_hint->append('\n');
         }
         out_hint->append(plugin_hint);
-        rc = IDAPyInt_AsLong(py_rc.o);
+        rc = PyLong_AsLong(py_rc.o);
         if ( rc == 2 )
           rc = 0;
-        *out_implines += IDAPyInt_AsLong(py_implines.o);
+        *out_implines += PyLong_AsLong(py_implines.o);
       }
     }
     return rc;

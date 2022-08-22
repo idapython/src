@@ -36,7 +36,7 @@ struct _cvt_status_t
 
   qstring &failed(PyObject *_err_class)
   {
-    QASSERT(30587, ok == false);
+    QASSERT(30587, !ok);
     err_class = _err_class;
     return err_string;
   }
@@ -126,10 +126,10 @@ static bool _to_reg_val(regval_t **out, regval_t *buf, const char *name, PyObjec
       if ( status.ok )
       {
         status.ok = false;
-        if ( IDAPyBytes_Check(in) )
+        if ( PyBytes_Check(in) )
         {
           char *buf;
-          status.ok = IDAPyBytes_AsMemAndSize(in, &buf, &got) >= 0 && got <= needed;
+          status.ok = PyBytes_AsStringAndSize(in, &buf, &got) >= 0 && got <= needed;
           if ( status.ok )
             bytes.append((const uchar *) buf, got);
           else
@@ -137,7 +137,7 @@ static bool _to_reg_val(regval_t **out, regval_t *buf, const char *name, PyObjec
                     "List of bytes is too long; was expecting at most %d bytes",
                     int(needed));
         }
-        else if ( IDAPyInt_Check(in) )
+        else if ( PyLong_Check(in) )
         {
           uint64 u64 = 0;
           status.ok = PyW_GetNumber(in, &u64);
@@ -266,7 +266,7 @@ static PyObject *_from_reg_val(
     case dt_byte64:
       {
         const bytevec_t &b = rv.bytes();
-        res = IDAPyBytes_FromMemAndSize((const char *) b.begin(), b.size());
+        res = PyBytes_FromStringAndSize((const char *) b.begin(), b.size());
       }
       break;
   }
@@ -345,8 +345,8 @@ struct DBG_Hooks : public hooks_base_t
 {
   // hookgenDBG:methodsinfo_decl
 
-  DBG_Hooks(uint32 _flags=0)
-    : hooks_base_t("ida_dbg.DBG_Hooks", DBG_Callback, HT_DBG, _flags) {}
+  DBG_Hooks(uint32 _flags=0, uint32 _hkcb_flags=HKCB_GLOBAL)
+    : hooks_base_t("ida_dbg.DBG_Hooks", DBG_Callback, HT_DBG, _flags, _hkcb_flags) {}
 
   bool hook() { return hooks_base_t::hook(); }
   bool unhook() { return hooks_base_t::unhook(); }
@@ -433,11 +433,11 @@ static ea_t py_internal_get_sreg_base(thid_t tid, int sreg_value)
 static ssize_t py_write_dbg_memory(ea_t ea, PyObject *py_buf, size_t size=size_t(-1))
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !dbg_can_query(dbg) || !IDAPyBytes_Check(py_buf) )
+  if ( !dbg_can_query(dbg) || !PyBytes_Check(py_buf) )
     return -1;
   char *buf = nullptr;
   Py_ssize_t sz;
-  if ( IDAPyBytes_AsMemAndSize(py_buf, &buf, &sz) < 0 )
+  if ( PyBytes_AsStringAndSize(py_buf, &buf, &sz) < 0 )
     return -1;
   if ( size == size_t(-1) )
     size = size_t(sz);

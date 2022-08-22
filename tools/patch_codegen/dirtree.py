@@ -2,13 +2,13 @@
     "SwigDirector_dirspec_t::get_name" : [
         ("repl_text", (
             "int swig_res = SWIG_AsVal_bool(result, &swig_val);",
-            ("int swig_res = IDAPyStr_Check(result) && (out == nullptr || IDAPyStr_AsUTF8(out, result));",
+            ("int swig_res = PyUnicode_Check(result) && (out == nullptr || PyUnicode_as_qstring(out, result));",
              "  swig_val = static_cast<bool>(swig_res);"))),
         ("director_method_call_arity_cap", (
             True, # add GIL lock
             "get_name",
-            "(method ,(PyObject *)obj0,(__argcnt < 2 ? NULL : (PyObject *)obj1), NULL)",
-            "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(__argcnt < 3 ? NULL : (PyObject *)obj1), NULL)",
+            "(method ,(PyObject *)obj0,(__argcnt < 2 ? nullptr : (PyObject *)obj1), nullptr)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(__argcnt < 3 ? nullptr : (PyObject *)obj1), nullptr)",
         )),
         ("spontaneous_callback_call", (
             False,                               # add GIL lock

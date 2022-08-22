@@ -25,6 +25,8 @@ def dump_flags(fn):
         print("  Thunk function")
     if fn.flags & ida_funcs.FUNC_LUMINA:
         print("  Function info is provided by Lumina")
+    if fn.flags & ida_funcs.FUNC_OUTLINE:
+        print("  Outlined code, not a real function")
 
 
 def dump_regvars(pfn):

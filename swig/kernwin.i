@@ -245,11 +245,11 @@ struct py_action_handler_t : public action_handler_t
     : pyah(borref_t(_o)), has_activate(false), has_update(false)
   {
     ref_t act(PyW_TryGetAttrString(pyah.o, "activate"));
-    if ( act != NULL && PyCallable_Check(act.o) > 0 )
+    if ( act != nullptr && PyCallable_Check(act.o) > 0 )
       has_activate = true;
 
     ref_t upd(PyW_TryGetAttrString(pyah.o, "update"));
-    if ( upd != NULL && PyCallable_Check(upd.o) > 0 )
+    if ( upd != nullptr && PyCallable_Check(upd.o) > 0 )
       has_update = true;
   }
   virtual idaapi ~py_action_handler_t()
@@ -267,7 +267,7 @@ struct py_action_handler_t : public action_handler_t
     PYW_GIL_GET_AND_REPORT_ERROR;
     newref_t pyctx(SWIG_InternalNewPointerObj(SWIG_as_voidptr(ctx), SWIGTYPE_p_action_ctx_base_t, 0));
     newref_t pyres(PyObject_CallMethod(pyah.o, (char *)"activate", (char *) "O", pyctx.o));
-    return PyErr_Occurred() ? 0 : ((pyres != NULL && IDAPyInt_Check(pyres.o)) ? IDAPyInt_AsLong(pyres.o) : 0);
+    return PyErr_Occurred() != nullptr ? 0 : ((pyres != nullptr && PyLong_Check(pyres.o)) ? PyLong_AsLong(pyres.o) : 0);
   }
   virtual action_state_t idaapi update(action_update_ctx_t *ctx)
   {
@@ -276,7 +276,7 @@ struct py_action_handler_t : public action_handler_t
     PYW_GIL_GET_AND_REPORT_ERROR;
     newref_t pyctx(SWIG_InternalNewPointerObj(SWIG_as_voidptr(ctx), SWIGTYPE_p_action_ctx_base_t, 0));
     newref_t pyres(PyObject_CallMethod(pyah.o, (char *)"update", (char *) "O", pyctx.o));
-    return PyErr_Occurred() ? AST_DISABLE_ALWAYS : ((pyres != NULL && IDAPyInt_Check(pyres.o)) ? action_state_t(IDAPyInt_AsLong(pyres.o)) : AST_DISABLE);
+    return PyErr_Occurred() != nullptr ? AST_DISABLE_ALWAYS : ((pyres != nullptr && PyLong_Check(pyres.o)) ? action_state_t(PyLong_AsLong(pyres.o)) : AST_DISABLE);
   }
 
 private:
@@ -290,9 +290,9 @@ private:
 %inline %{
 void refresh_choosers(void)
 {
-  Py_BEGIN_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   callui(ui_refresh_choosers);
-  Py_END_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_END_ALLOW;
 }
 %}
 
@@ -376,13 +376,13 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
           const char *name,
           const char *label,
           PyObject *handler,
-          const char *shortcut = NULL,
-          const char *tooltip = NULL,
+          const char *shortcut = nullptr,
+          const char *tooltip = nullptr,
           int icon = -1,
           int flags = 0)
   {
     action_desc_t *ad = new action_desc_t();
-#define DUPSTR(Prop) ad->Prop = Prop == NULL ? NULL : qstrdup(Prop)
+#define DUPSTR(Prop) ad->Prop = Prop == nullptr ? nullptr : qstrdup(Prop)
     DUPSTR(name);
     DUPSTR(label);
     DUPSTR(shortcut);
@@ -397,7 +397,7 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 
   ~action_desc_t()
   {
-    if ( $self->handler != NULL ) // Ownership not taken?
+    if ( $self->handler != nullptr ) // Ownership not taken?
       delete $self->handler;
 #define FREESTR(Prop) qfree((char *) $self->Prop)
     FREESTR(name);

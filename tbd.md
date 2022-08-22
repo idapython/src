@@ -72,14 +72,3 @@ So far it seems that only the following options are required:
     ...
 
 Everything else can be removed.
-
-Python 2
-========
-
-The same approach can be used for Python2, but instead use:
-
-    $ cp /System/Library/Frameworks/Python.framework/Versions/2.7/Python /tmp/
-
-and use this install name instead:
-
-    install-name:    '@executable_path/libpython2.link.dylib'

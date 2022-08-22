@@ -65,7 +65,7 @@ static PyObject *py_register_timer(int interval, PyObject *py_callback)
       py_timer_ctx_t *ctx = (py_timer_ctx_t *)ud;
       newref_t py_result(PyObject_CallFunctionObjArgs(ctx->pyfunc.o, nullptr));
       int ret = -1;
-      if ( PyErr_Occurred() )
+      if ( PyErr_Occurred() != nullptr )
       {
         msg("Exception in timer callback. This timer will be unregistered.\n");
         PyErr_Print();
@@ -152,7 +152,7 @@ static PyObject *py_choose_idasgn()
   }
   else
   {
-    PyObject *py_str = IDAPyStr_FromUTF8(name);
+    PyObject *py_str = PyUnicode_FromString(name);
     qfree(name);
     return py_str;
   }
@@ -196,7 +196,7 @@ static int py_load_custom_icon_data(PyObject *data, const char *format)
   Py_ssize_t len;
   char *s;
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( IDAPyBytes_AsMemAndSize(data, &s, &len) == -1 )
+  if ( PyBytes_AsStringAndSize(data, &s, &len) == -1 )
     return 0;
   else
     return load_custom_icon(s, len, format);
@@ -274,9 +274,9 @@ static PyObject *py_msg(PyObject *o)
     return nullptr;
   }
   int rc;
-  Py_BEGIN_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   rc = msg("%s", utf8);
-  Py_END_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_END_ALLOW;
   return PyInt_FromLong(rc);
 }
 
@@ -304,7 +304,7 @@ PyObject *py_ask_text(size_t max_size, const char *defval, const char *prompt)
   PyObject *py_ret;
   if ( ask_text(&qbuf, max_size, defval, "%s", prompt) )
   {
-    py_ret = IDAPyStr_FromUTF8AndSize(qbuf.begin(), qbuf.length());
+    py_ret = PyUnicode_FromStringAndSize(qbuf.begin(), qbuf.length());
   }
   else
   {
@@ -336,7 +336,7 @@ PyObject *py_ask_str(qstring *defval, int hist, const char *prompt)
   PyObject *py_ret;
   if ( ask_str(defval, hist, "%s", prompt) )
   {
-    py_ret = IDAPyStr_FromUTF8AndSize(defval->begin(), defval->length());
+    py_ret = PyUnicode_FromStringAndSize(defval->begin(), defval->length());
   }
   else
   {
@@ -588,9 +588,9 @@ static int py_execute_sync(PyObject *py_callable, int reqf)
       {
         PYW_GIL_GET;
         newref_t py_result(PyObject_CallFunctionObjArgs(py_callable.o, nullptr));
-        int ret = py_result == nullptr || !IDAPyInt_Check(py_result.o)
+        int ret = py_result == nullptr || !PyLong_Check(py_result.o)
                 ? -1
-                : IDAPyInt_AsLong(py_result.o);
+                : PyLong_AsLong(py_result.o);
         // if the requesting thread decided not to wait for the request to
         // complete, we have to self-destroy, nobody else will do it
         if ( (code & MFF_NOWAIT) != 0 )
@@ -616,9 +616,9 @@ static int py_execute_sync(PyObject *py_callable, int reqf)
     // Release GIL before executing, or if this is running in the
     // non-main thread, this will wait on the req.sem, while the main
     // thread might be waiting for the GIL to be available.
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     rc = execute_sync(*req, reqf);
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     // destroy the request once it is finished. exception: NOWAIT requests
     // will be handled in the future, so do not destroy them yet!
     if ( (reqf & MFF_NOWAIT) == 0 )
@@ -686,7 +686,7 @@ static bool py_execute_ui_requests(PyObject *py_list)
       // trickling all the way up to the Python runtime.
       // Since it would interfere with subsequent Python code execution, we
       // want to report it right away.
-      if ( PyErr_Occurred() )
+      if ( PyErr_Occurred() != nullptr )
       {
         PyErr_Print();
         return false;
@@ -811,7 +811,7 @@ public:
           {
             newref_t str(PyObject_CallFunction(json_dumps.o, "O", dict));
             qstring buf;
-            if ( IDAPyStr_AsUTF8(&buf, str.o) )
+            if ( PyUnicode_as_qstring(&buf, str.o) )
             {
               jvalue_t tmp;
               if ( parse_json_string(&tmp, buf.c_str()) == eOk )
@@ -836,8 +836,8 @@ struct UI_Hooks : public hooks_base_t
 {
   // hookgenUI:methodsinfo_decl
 
-  UI_Hooks(uint32 _flags=0)
-    : hooks_base_t("ida_kernwin.UI_Hooks", UI_Callback, HT_UI, _flags) {}
+  UI_Hooks(uint32 _flags=0, uint32 _hkcb_flags=HKCB_GLOBAL)
+    : hooks_base_t("ida_kernwin.UI_Hooks", UI_Callback, HT_UI, _flags, _hkcb_flags) {}
 
   bool hook() { return hooks_base_t::hook(); }
   bool unhook() { return hooks_base_t::unhook(); }
@@ -861,7 +861,7 @@ private:
   static ssize_t handle_get_ea_hint_output(PyObject *o, qstring *buf, ea_t)
   {
     ssize_t rc = 0;
-    if ( o != nullptr && IDAPyStr_Check(o) && IDAPyStr_AsUTF8(buf, o) )
+    if ( o != nullptr && PyUnicode_Check(o) && PyUnicode_as_qstring(buf, o) )
       rc = 1;
     Py_XDECREF(o);
     return rc;
@@ -874,14 +874,14 @@ private:
       borref_t el0(PyTuple_GetItem(o, 0));
       qstring plug_hint;
       if ( el0 != nullptr
-        && IDAPyStr_Check(el0.o)
-        && IDAPyStr_AsUTF8(&plug_hint, el0.o)
+        && PyUnicode_Check(el0.o)
+        && PyUnicode_as_qstring(&plug_hint, el0.o)
         && !plug_hint.empty() )
       {
         borref_t el1(PyTuple_GetItem(o, 1));
-        if ( el1 != nullptr && IDAPyInt_Check(el1.o) )
+        if ( el1 != nullptr && PyLong_Check(el1.o) )
         {
-          long lns = IDAPyInt_AsLong(el1.o);
+          long lns = PyLong_AsLong(el1.o);
           if ( lns > 0 )
           {
             if ( !hint->empty() && hint->last() != '\n' )
@@ -959,7 +959,7 @@ PyObject *py_get_registered_actions()
 /*
 #<pydoc>
 def py_attach_dynamic_action_to_popup(
-        widget,
+        unused,
         popup_handle,
         desc,
         popuppath = None,
@@ -973,7 +973,7 @@ def py_attach_dynamic_action_to_popup(
         desc = idaapi.action_desc_t(None, 'Dynamic popup action', Handler())
         idaapi.attach_dynamic_action_to_popup(form, popup, desc)
 
-    @param widget:       target widget
+    @param unused:       deprecated; should be None
     @param popup_handle: target popup
     @param desc:         action description of type action_desc_t
     @param popuppath:    can be None
@@ -984,14 +984,17 @@ def py_attach_dynamic_action_to_popup(
 #</pydoc>
 */
 bool py_attach_dynamic_action_to_popup(
-        TWidget *widget,
+        TWidget *unused,
         TPopupMenu *popup_handle,
         action_desc_t *desc,
         const char *popuppath = nullptr,
         int flags = 0)
 {
+  qnotused(unused);
+  if ( popup_handle == nullptr || desc == nullptr )
+    return false;
   bool ok = attach_dynamic_action_to_popup(
-          widget, popup_handle, *desc, popuppath, flags);
+          nullptr, popup_handle, *desc, popuppath, flags);
   // If attaching
   //  * succeeded: the action (and its handler) will be deleted after
   //    the popup is dismissed,
@@ -1042,7 +1045,7 @@ static PyObject *py_chooser_base_t_get_row(
 
   PyObject *tuple = PyTuple_New(3);
   PyTuple_SetItem(tuple, 0, qstrvec2pylist(fields));
-  PyTuple_SetItem(tuple, 1, IDAPyInt_FromLong(icon));
+  PyTuple_SetItem(tuple, 1, PyLong_FromLong(icon));
   PyObject *py_attrs = SWIG_NewPointerObj(
           SWIG_as_voidptr(attrs),
           SWIGTYPE_p_chooser_item_attrs_t,
@@ -1119,7 +1122,7 @@ PyObject *py_set_nav_colorizer(PyObject *new_py_colorizer)
       {
         int overflow = 0;
         const long l = PyLong_AsLongAndOverflow(pyres.o, &overflow);
-        ok = !PyErr_Occurred();
+        ok = PyErr_Occurred() == nullptr;
         if ( ok )
         {
           if ( l == -1 && overflow != 0 )
@@ -1267,7 +1270,7 @@ static PyObject *py_add_spaces(const char *s, size_t len)
   // we use the actual 'size' because we know that
   // 'add_spaces()' will add a terminating zero anyway
   add_spaces(qbuf.begin(), qbuf.size(), len);
-  return IDAPyStr_FromUTF8(qbuf.c_str());
+  return PyUnicode_FromString(qbuf.c_str());
 }
 
 //-------------------------------------------------------------------------

@@ -10,12 +10,13 @@ see_also: show_selected_strings
 """
 
 from __future__ import print_function
+import ida_nalt
 import idautils
 
 s = idautils.Strings(False)
-s.setup(strtypes=Strings.STR_UNICODE | Strings.STR_C)
+s.setup(strtypes=[ida_nalt.STRTYPE_C, ida_nalt.STRTYPE_C_16])
 for i, v in enumerate(s):
     if v is None:
         print("Failed to retrieve string index %d" % i)
     else:
-        print("%x: len=%d type=%d index=%d-> '%s'" % (v.ea, v.length, v.type, i, str(v)))
+        print("%x: len=%d type=0x%x index=%d-> '%s'" % (v.ea, v.length, v.strtype, i, str(v)))

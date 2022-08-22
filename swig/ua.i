@@ -145,10 +145,8 @@
 %apply ea_t { adiff_t off };
 %apply ea_t { adiff_t off };
 
-#ifdef PY3
 %apply uchar { char segpref };
 %apply uchar { char insnpref };
-#endif
 
 %include "ua.hpp"
 

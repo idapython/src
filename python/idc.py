@@ -363,6 +363,7 @@ def rotate_left(value, count, nbits, offset):
     """
     assert offset >= 0, "offset must be >= 0"
     assert nbits > 0, "nbits must be > 0"
+    count %= nbits # no need to spin the wheel more than 1 rotation
 
     mask = 2**(offset+nbits) - 2**offset
     tmp = value & mask
@@ -554,11 +555,11 @@ def set_name(ea, name, flags=ida_name.SN_CHECK):
     """
     return ida_name.set_name(ea, name, flags)
 
-SN_CHECK      = ida_name.SN_CHECK
+SN_CHECK      = ida_name.SN_CHECK    # Fail if the name contains invalid characters.
 SN_NOCHECK    = ida_name.SN_NOCHECK  # Don't fail if the name contains invalid characters.
-                                     # If this bit is clear, all invalid chars
-                                     # (those !is_ident_cp()) will be replaced
-                                     # by SUBSTCHAR (usually '_').
+                                     # If this bit is set, all invalid chars
+                                     # (not in NameChars or MangleChars) will be replaced
+                                     # by '_'.
                                      # List of valid characters is defined in ida.cfg
 SN_PUBLIC     = ida_name.SN_PUBLIC   # if set, make name public
 SN_NON_PUBLIC = ida_name.SN_NON_PUBLIC # if set, make name non-public
@@ -2970,6 +2971,8 @@ FUNC_PURGED_OK     = _scope.FUNC_PURGED_OK     # 'argsize' field has been valida
 FUNC_TAIL          = _scope.FUNC_TAIL          # This is a function tail.
                                                # Other bits must be clear
                                                # (except FUNC_HIDDEN)
+FUNC_LUMINA        = _scope.FUNC_LUMINA        # Function info is provided by Lumina.
+FUNC_OUTLINE       = _scope.FUNC_OUTLINE       # Outlined code, not a real function.
 
 
 def set_func_flags(ea, flags):
@@ -5351,9 +5354,8 @@ get_process_state = ida_dbg.get_process_state
 DSTATE_SUSP            = -1 # process is suspended
 DSTATE_NOTASK          =  0 # no process is currently debugged
 DSTATE_RUN             =  1 # process is running
-DSTATE_RUN_WAIT_ATTACH =  2 # process is running, waiting for process properly attached
-DSTATE_RUN_WAIT_END    =  3 # process is running, but the user asked to kill/detach the process
-                            # remark: in this case, most events are ignored
+DSTATE_RUN_WAIT_ATTACH =  2 # deprecated
+DSTATE_RUN_WAIT_END    =  3 # deprecated
 
 """
  Get various information about the current debug event

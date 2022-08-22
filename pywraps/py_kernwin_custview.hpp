@@ -209,16 +209,16 @@ class py_simplecustview_t
   //-------------------------------------------------------------------------
   static bool get_color(uint32 *out, ref_t obj)
   {
-    bool ok = PyLong_Check(obj.o);
+    bool ok = PyLong_Check(obj.o) != 0;
     if ( ok )
     {
       *out = uint32(PyLong_AsUnsignedLong(obj.o));
     }
     else
     {
-      ok = IDAPyInt_Check(obj.o) != 0;
+      ok = PyLong_Check(obj.o) != 0;
       if ( ok )
-        *out = uint32(IDAPyInt_AsLong(obj.o));
+        *out = uint32(PyLong_AsLong(obj.o));
     }
     return ok;
   }
@@ -229,9 +229,9 @@ class py_simplecustview_t
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
 
-    if ( IDAPyStr_Check(py) )
+    if ( PyUnicode_Check(py) )
     {
-      IDAPyStr_AsUTF8(&sl.line, py);
+      PyUnicode_as_qstring(&sl.line, py);
       return true;
     }
     Py_ssize_t sz;
@@ -239,10 +239,10 @@ class py_simplecustview_t
       return false;
 
     PyObject *py_val = PyTuple_GetItem(py, 0);
-    if ( !IDAPyStr_Check(py_val) )
+    if ( !PyUnicode_Check(py_val) )
       return false;
 
-    IDAPyStr_AsUTF8(&sl.line, py_val);
+    PyUnicode_as_qstring(&sl.line, py_val);
     uint32 col;
     if ( sz > 1 && get_color(&col, borref_t(PyTuple_GetItem(py, 1))) )
       sl.color = color_t(col);
@@ -336,7 +336,7 @@ class py_simplecustview_t
     {
       if ( important_lines != nullptr )
         *important_lines = PyInt_AsLong(PyTuple_GetItem(py_result.o, 0));
-      IDAPyStr_AsUTF8(&hint, PyTuple_GetItem(py_result.o, 1));
+      PyUnicode_as_qstring(&hint, PyTuple_GetItem(py_result.o, 1));
     }
     return ok;
   }
@@ -708,6 +708,8 @@ public:
 PyObject *pyscv_init(PyObject *py_link, const char *title)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
+  if ( py_link == nullptr )
+    Py_RETURN_NONE;
   py_simplecustview_t *_this = new py_simplecustview_t();
   bool ok = _this->init(py_link, title);
   if ( !ok )
@@ -737,7 +739,7 @@ PyObject *pyscv_get_current_line(PyObject *py_this, bool mouse, bool notags)
   _this->get_current_line(&line, mouse, notags);
   if ( line.empty() )
     Py_RETURN_NONE;
-  return IDAPyStr_FromUTF8AndSize(line.c_str(), line.length());
+  return PyUnicode_FromStringAndSize(line.c_str(), line.length());
 }
 
 //--------------------------------------------------------------------------
@@ -857,7 +859,7 @@ PyObject *pyscv_get_current_word(PyObject *py_this, bool mouse)
   {
     qstring word;
     if ( _this->get_current_word(mouse, word) )
-      return IDAPyStr_FromUTF8(word.c_str());
+      return PyUnicode_FromString(word.c_str());
   }
   Py_RETURN_NONE;
 }

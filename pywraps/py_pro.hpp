@@ -58,7 +58,7 @@ static PyObject *qstrvec_t_get(PyObject *self, size_t idx)
   qstrvec_t *sv = qstrvec_t_get_clink(self);
   if ( sv == nullptr || idx >= sv->size() )
     Py_RETURN_NONE;
-  return IDAPyStr_FromUTF8(sv->at(idx).c_str());
+  return PyUnicode_FromString(sv->at(idx).c_str());
 }
 
 static bool qstrvec_t_add(PyObject *self, const char *s)
@@ -125,6 +125,6 @@ PyObject *py_str2user(const char *str)
     Py_RETURN_NONE;
   qstring retstr;
   qstr2user(&retstr, str);
-  return IDAPyStr_FromUTF8(retstr.c_str());
+  return PyUnicode_FromString(retstr.c_str());
 }
 //</inline(py_pro)>

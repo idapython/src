@@ -145,9 +145,9 @@ public:
       return;
     if ( own )
     {
-      Py_BEGIN_ALLOW_THREADS;
+      SWIG_PYTHON_THREAD_BEGIN_ALLOW;
       qfclose(fp);
-      Py_END_ALLOW_THREADS;
+      SWIG_PYTHON_THREAD_END_ALLOW;
     }
     fp = nullptr;
     own = true;
@@ -163,9 +163,9 @@ public:
   bool open(const char *filename, const char *mode)
   {
     close();
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     fp = qfopen(filename, mode);
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     if ( fp == nullptr )
       return false;
     // Save file name
@@ -199,9 +199,9 @@ public:
   static qfile_t *tmpfile()
   {
     FILE *fp;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     fp = qtmpfile();
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     return from_fp(fp);
   }
 
@@ -215,9 +215,9 @@ public:
   int seek(int64 offset, int whence = SEEK_SET)
   {
     int rc;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     rc = qfseek(fp, offset, whence);
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     return rc;
   }
 
@@ -225,9 +225,9 @@ public:
   int64 tell()
   {
     int64 rc;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     rc = qftell(fp);
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     return rc;
   }
 
@@ -241,16 +241,16 @@ public:
         break;
       PYW_GIL_CHECK_LOCKED_SCOPE();
       int r;
-      Py_BEGIN_ALLOW_THREADS;
+      SWIG_PYTHON_THREAD_BEGIN_ALLOW;
       r = freadbytes(fp, buf, size, big_endian);
-      Py_END_ALLOW_THREADS;
+      SWIG_PYTHON_THREAD_END_ALLOW;
       if ( r != 0 )
       {
         free(buf);
         break;
       }
 
-      PyObject *ret = IDAPyStr_FromUTF8AndSize(buf, r);
+      PyObject *ret = PyUnicode_FromStringAndSize(buf, r);
       free(buf);
       return ret;
     } while ( false );
@@ -267,15 +267,15 @@ public:
         break;
       PYW_GIL_CHECK_LOCKED_SCOPE();
       int r;
-      Py_BEGIN_ALLOW_THREADS;
+      SWIG_PYTHON_THREAD_BEGIN_ALLOW;
       r = qfread(fp, buf, size);
-      Py_END_ALLOW_THREADS;
+      SWIG_PYTHON_THREAD_END_ALLOW;
       if ( r <= 0 )
       {
         free(buf);
         break;
       }
-      PyObject *ret = IDAPyStr_FromUTF8AndSize(buf, r);
+      PyObject *ret = PyUnicode_FromStringAndSize(buf, r);
       free(buf);
       return ret;
     } while ( false );
@@ -292,15 +292,15 @@ public:
         break;
       PYW_GIL_CHECK_LOCKED_SCOPE();
       char *p;
-      Py_BEGIN_ALLOW_THREADS;
+      SWIG_PYTHON_THREAD_BEGIN_ALLOW;
       p = qfgets(buf, size, fp);
-      Py_END_ALLOW_THREADS;
+      SWIG_PYTHON_THREAD_END_ALLOW;
       if ( p == nullptr )
       {
         free(buf);
         break;
       }
-      PyObject *ret = IDAPyStr_FromUTF8(buf);
+      PyObject *ret = PyUnicode_FromString(buf);
       free(buf);
       return ret;
     } while ( false );
@@ -313,11 +313,11 @@ public:
     PYW_GIL_CHECK_LOCKED_SCOPE();
     char *buf;
     Py_ssize_t sz;
-    IDAPyBytes_AsMemAndSize(py_buf, &buf, &sz);
+    PyBytes_AsStringAndSize(py_buf, &buf, &sz);
     int rc;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     rc = fwritebytes(fp, buf, int(sz), big_endian);
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     return rc;
   }
 
@@ -325,16 +325,16 @@ public:
   int write(PyObject *py_buf)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( !IDAPyStr_Check(py_buf) )
+    if ( !PyUnicode_Check(py_buf) )
       return 0;
     // Just so that there is no risk that the buffer returned by
     borref_t py_buf_ref(py_buf);
     qstring buf;
-    IDAPyStr_AsUTF8(&buf, py_buf);
+    PyUnicode_as_qstring(&buf, py_buf);
     int rc;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     rc = qfwrite(fp, buf.c_str(), buf.length());
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     return rc;
   }
 
@@ -343,9 +343,9 @@ public:
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     int rc;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     rc = qfputs(str, fp);
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     return rc;
   }
 
@@ -354,11 +354,11 @@ public:
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     qoff64_t r;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     int pos = qfseek(fp, 0, SEEK_END);
     r = qftell(fp);
     qfseek(fp, pos, SEEK_SET);
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     return r;
   }
 
@@ -367,9 +367,9 @@ public:
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     int rc;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     rc = qflush(fp);
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     return rc;
   }
 
@@ -377,42 +377,30 @@ public:
   PyObject *filename()
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    return IDAPyStr_FromUTF8(fn.c_str());
+    return PyUnicode_FromString(fn.c_str());
   }
 
   //--------------------------------------------------------------------------
-#ifdef PY3
   PyObject *get_byte()
-#else
-  PyObject *get_char()
-#endif
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     int ch;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     ch = qfgetc(fp);
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     if ( ch == EOF )
       Py_RETURN_NONE;
-#ifdef PY3
     return Py_BuildValue("i", ch);
-#else
-    return Py_BuildValue("c", ch);
-#endif
   }
 
   //--------------------------------------------------------------------------
-#ifdef PY3
   int put_byte(int chr)
-#else
-  int put_char(char chr)
-#endif
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     int rc;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     rc = qfputc(chr, fp);
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     return rc;
   }
 };

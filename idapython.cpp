@@ -28,16 +28,6 @@
 #include <kernwin.hpp>
 #include <ida_highlighter.hpp>
 #include <signal.h>
-#if defined (PY_MAJOR_VERSION) && (PY_MAJOR_VERSION < 3)
-// in Python 2.x many APIs accept char * instead of const char *
-GCC_DIAG_OFF(write-strings)
-#endif
-
-#ifdef PY3
-#  define PYCODE_OBJECT_TO_PYEVAL_ARG(Expr) (Expr)
-#else
-#  define PYCODE_OBJECT_TO_PYEVAL_ARG(Expr) ((PyCodeObject *) Expr)
-#endif
 
 #include "pywraps.hpp"
 
@@ -704,7 +694,7 @@ void convert_idc_args()
     char attr_name[20] = { "0" };
     for ( int i=1; get_idcv_attr(&attr, idc_args, attr_name) == eOk; i++ )
     {
-      PyList_Insert(py_args.o, i, IDAPyStr_FromUTF8(attr.c_str()));
+      PyList_Insert(py_args.o, i, PyUnicode_FromString(attr.c_str()));
       qsnprintf(attr_name, sizeof(attr_name), "%d", i);
     }
   }
@@ -743,7 +733,6 @@ static void send_modules_lifecycle_notification(module_lifecycle_notification_t 
 }
 
 //-------------------------------------------------------------------------
-#ifdef PY3
 static wchar_t *utf8_wchar_t(qvector<wchar_t> *out, const char *in)
 {
 #ifdef __NT__
@@ -764,8 +753,6 @@ static wchar_t *utf8_wchar_t(qvector<wchar_t> *out, const char *in)
 #endif
   return out->begin();
 }
-#endif // PY3
-
 
 //-------------------------------------------------------------------------
 idapython_plugin_t::idapython_plugin_t()
@@ -944,11 +931,7 @@ bool idapython_plugin_t::init()
     if ( lastslash != nullptr )
     {
       *lastslash = 0;
-#  ifdef PY3
       utf8_wchar_t(&pyhomepath, utf8_pyhomepath);
-#  else
-      pyhomepath = utf8_pyhomepath;
-#  endif
       Py_SetPythonHome(pyhomepath.begin());
     }
   }
@@ -1454,11 +1437,7 @@ bool idapython_plugin_t::_extlang_create_object(
       py_res = try_create_swig_wrapper(py_mod, clsname, args[0].pvoid);
     if ( py_res != nullptr )
     {
-#ifdef PY3
       PyObject_SetAttrString(py_res.o, S_PY_IDCCVT_ID_ATTR, PyLong_FromLong(PY_ICID_OPAQUE));
-#else
-      PyObject_SetAttrString(py_res.o, S_PY_IDCCVT_ID_ATTR, PyInt_FromLong(PY_ICID_OPAQUE));
-#endif
     }
     else
     {
@@ -1512,7 +1491,7 @@ bool idapython_plugin_t::_extlang_eval_snippet(
                               globals,
                               globals,
                               nullptr));
-      ok = result != nullptr && !PyErr_Occurred();
+      ok = result != nullptr && !PyErr_Occurred(); //-V560 is always true: !PyErr_Occurred()
       if ( !ok )
         handle_python_error(errbuf);
     }
@@ -1572,21 +1551,12 @@ bool idapython_plugin_t::_extlang_call_func(
     borref_t code(extapi.PyFunction_GetCode_ptr(func));
     qvector<PyObject*> pargs_ptrs;
     pargs.to_pyobject_pointers(&pargs_ptrs);
-#ifdef PY3
     newref_t py_res(PyEval_EvalCodeEx(
-                            PYCODE_OBJECT_TO_PYEVAL_ARG(code.o),
+                            code.o,
                             globals, nullptr,
                             pargs_ptrs.begin(),
                             nargs,
                             nullptr, 0, nullptr, 0, nullptr, nullptr));
-#else
-    newref_t py_res(PyEval_EvalCodeEx(
-                            PYCODE_OBJECT_TO_PYEVAL_ARG(code.o),
-                            globals, nullptr,
-                            pargs_ptrs.begin(),
-                            nargs,
-                            nullptr, 0, nullptr, 0, nullptr));
-#endif
     ok = return_python_result(result, py_res, errbuf);
   } while ( false );
 
@@ -1749,7 +1719,7 @@ bool idapython_plugin_t::_extlang_get_attr(
 
       // Convert name python string to a C string
       qstring clsname;
-      if ( !IDAPyStr_AsUTF8(&clsname, string.o) )
+      if ( !PyUnicode_as_qstring(&clsname, string.o) )
         break;
 
       result->set_string(clsname);  //-V595 'result' was utilized before it was verified against nullptr
@@ -1901,11 +1871,7 @@ bool idapython_plugin_t::_cli_execute_line(const char *line)
     else
     {
       PyObject *py_globals = _get_module_globals();
-      newref_t py_result(
-              PyEval_EvalCode(
-                      PYCODE_OBJECT_TO_PYEVAL_ARG(py_code.o),
-                      py_globals,
-                      py_globals));
+      newref_t py_result(PyEval_EvalCode(py_code.o, py_globals, py_globals));
 
       if ( py_result == nullptr || PyErr_Occurred() )    //-V560 is always false: PyErr_Occurred()
       {
@@ -1925,14 +1891,7 @@ bool idapython_plugin_t::_cli_execute_line(const char *line)
           if ( PyUnicode_Check(py_result.o) )
           {
             qstring utf8;
-#ifdef PY3
-            IDAPyStr_AsUTF8(&utf8, py_result.o);
-#else
-            newref_t py_result_utf8(PyUnicode_AsUTF8String(py_result.o));
-            ok = py_result_utf8 != nullptr;
-            if ( ok )
-              IDAPyStr_AsUTF8(&utf8, py_result_utf8.o);
-#endif
+            PyUnicode_as_qstring(&utf8, py_result.o);
             msg("%s\n", utf8.c_str());
           }
           else
@@ -2002,7 +1961,7 @@ bool idapython_plugin_t::_handle_file(
   char script[MAXSTR];
   qstrncpy(script, path, sizeof(script));
   strrpl(script, '\\', '/');
-  newref_t py_script(IDAPyStr_FromUTF8(script));
+  newref_t py_script(PyUnicode_FromString(script));
 
   if ( globals == nullptr )
     globals = _get_module_globals();
@@ -2012,7 +1971,7 @@ bool idapython_plugin_t::_handle_file(
     // should have the '__file__' attribute properly set (so that
     // it doesn't just get temporarily set and then removed by
     // `ida_idaapi.IDAPython_ExecScript`.
-    newref_t py_file_key(IDAPyStr_FromUTF8(S_FILE));
+    newref_t py_file_key(PyUnicode_FromString(S_FILE));
     if ( !PyDict_Contains(globals, py_file_key.o) )
       PyDict_SetItem(globals, py_file_key.o, py_script.o);
   }
@@ -2068,9 +2027,9 @@ bool idapython_plugin_t::_handle_file(
         ok = true;
       }
     }
-    else if ( IDAPyStr_Check(ret_o) )
+    else if ( PyUnicode_Check(ret_o) )
     {
-      IDAPyStr_AsUTF8(errbuf, ret_o);
+      PyUnicode_as_qstring(errbuf, ret_o);
     }
     else
     {
@@ -2140,8 +2099,8 @@ void idapython_plugin_t::_prepare_sys_path()
       qstring path_el_utf8;
       newref_t path_el(PySequence_GetItem(path.o, i));
       if ( path_el != nullptr
-        && IDAPyStr_Check(path_el.o) > 0
-        && IDAPyStr_AsUTF8(&path_el_utf8, path_el.o) )
+        && PyUnicode_Check(path_el.o)
+        && PyUnicode_as_qstring(&path_el_utf8, path_el.o) )
       {
         if ( path_el_utf8.empty() )
           continue; // skip empty entry
@@ -2154,12 +2113,8 @@ void idapython_plugin_t::_prepare_sys_path()
   if ( !new_path.empty() )
     new_path.append(DELIMITER);
   new_path.append(idadir("python"));
-#ifdef PY3
   qvector<wchar_t> wpath;
   PySys_SetPath(utf8_wchar_t(&wpath, new_path.c_str()));
-#else
-  PySys_SetPath(new_path.begin());
-#endif
 }
 
 //-------------------------------------------------------------------------
@@ -2169,7 +2124,7 @@ void idapython_plugin_t::_prepare_sys_path()
 bool idapython_plugin_t::_run_init_py()
 {
   char path[QMAXPATH];
-  qmakepath(path, MAXSTR, idapython_dir.c_str(), S_INIT_PY, nullptr);
+  qmakepath(path, sizeof(path), idapython_dir.c_str(), S_INIT_PY, nullptr);
 
 #ifdef __NT__
   // if the current disk has no space (sic, the current directory, not the one
@@ -2209,10 +2164,7 @@ bool idapython_plugin_t::_run_init_py()
   if ( code == nullptr )
     return false;
 
-  newref_t result(PyEval_EvalCode(
-                          PYCODE_OBJECT_TO_PYEVAL_ARG(code.o),
-                          __main__globals,
-                          __main__globals));
+  newref_t result(PyEval_EvalCode(code.o, __main__globals, __main__globals));
   return result != nullptr && !PyErr_Occurred();
 }
 

@@ -21,19 +21,19 @@ had to build/install it yourself, you will have to specify '--swig-home'.
 
 What follows, are example build commands
 
-### Windows (assume SWiG is installed in C:\swigwin-2.0.12, and IDA is in C:\Program Files\IDA7)
+### Windows (assume SWiG is installed in C:\swigwin-4.0.1, and IDA is in C:\Program Files\IDA8)
 
-  python2 build.py \\
+  python3 build.py \\
       --with-hexrays \\
-      --swig-home C:/swigwin-2.0.12 \\
-      --ida-install "c:/Program\ Files/IDA_7.0-171130-tests"
+      --swig-home C:/swigwin-4.0.1 \\
+      --ida-install "c:/Program\ Files/IDA_8.0"
 
 
-### Linux/OSX (assume SWiG is installed in /opt/swiglinux-2.0.12, and IDA is in /opt/my-ida-install)
+### Linux/OSX (assume SWiG is installed in /opt/swiglinux-4.0.1, and IDA is in /opt/my-ida-install)
 
-  python2 build.py \\
+  python3 build.py \\
       --with-hexrays \\
-      --swig-home /opt/swiglinux-2.0.12 \\
+      --swig-home /opt/swiglinux-4.0.1 \\
       --ida-install /opt/my-ida-install
 """,
                         formatter_class=argparse.RawTextHelpFormatter)

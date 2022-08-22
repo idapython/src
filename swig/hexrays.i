@@ -23,24 +23,17 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 // Integrated into IDAPython project by the IDAPython Team <idapython@googlegroups.com>
 //---------------------------------------------------------------------
 
-// Suppress 'previous definition of XX' warnings
-#pragma SWIG nowarn=302
-// and others...
-#pragma SWIG nowarn=312
-#pragma SWIG nowarn=325
-#pragma SWIG nowarn=314
-#pragma SWIG nowarn=362
-#pragma SWIG nowarn=383
-#pragma SWIG nowarn=389
-#pragma SWIG nowarn=401
-#pragma SWIG nowarn=451
-#pragma SWIG nowarn=454 // Setting a pointer/reference variable may leak memory
-
 #define _STD_BEGIN
 
 #ifdef __NT__
 %include <windows.i>
 #endif
+
+%typemap(check) ctype_t cexpr_op {
+  // %typemap(check) ctype_t cexpr_op
+  if ( $1 < cot_empty || $1 > cot_last )
+    SWIG_exception_fail(SWIG_ValueError, "invalid op " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
+}
 
 %typemap(check) const tinfo_t *type {
   // %typemap(check) const tinfo_t *type
@@ -241,20 +234,13 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 
 %newobject gen_microcode;
 %define_hexrays_lifecycle_object(mba_t);
-#ifdef PY3
 %const_void_pointer_and_size(uchar, bytes, nbytes);
 %const_void_pointer_and_size(void, bytes, _size);
-#else
-%apply (char *STRING, int LENGTH) { (const uchar *bytes, size_t nbytes) };
-%apply Pointer NONNULL { const uchar *bytes };
-%apply (char *STRING, int LENGTH) { (const void *bytes, size_t _size) };
-%apply Pointer NONNULL { const void *bytes };
-#endif
 
 %define_hexrays_lifecycle_object(valrng_t);
-%apply ulonglong *OUTPUT { uvlr_t *v };    // valrng_t::cvt_to_single_value
-%apply ulonglong *OUTPUT { uvlr_t *val };  // valrng_t::cvt_to_cmp
-%apply int       *OUTPUT { cmpop_t *cmp }; // valrng_t::cvt_to_cmp
+%apply uint64 *OUTPUT { uvlr_t *v };    // valrng_t::cvt_to_single_value
+%apply uint64 *OUTPUT { uvlr_t *val };  // valrng_t::cvt_to_cmp
+%apply int    *OUTPUT { cmpop_t *cmp }; // valrng_t::cvt_to_cmp
 
 %define %def_opt_handler(TypeName, Install, Remove, Hxclr)
 %ignore Install;
@@ -326,7 +312,7 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 
 %fragment("cvt_cfunc_t", "header")
 {
-  bool cvt_cfunc_t(cfunc_t **out, PyObject *obj)
+  int cvt_cfunc_t(cfunc_t **out, PyObject *obj)
   {
     cfunc_t *cfunc = 0;
     int res = SWIG_ConvertPtr(obj, (void **) &cfunc, SWIGTYPE_p_cfunc_t, 0 | 0);
@@ -496,10 +482,10 @@ public:
     const char *_get_##PNAME() const { return $self->PNAME; }
     void _set_##PNAME(const char *_v)
     {
-      if ( $self->PNAME != NULL )
+      if ( $self->PNAME != nullptr )
       {
         ::qfree($self->PNAME);
-        $self->PNAME = NULL;
+        $self->PNAME = nullptr;
       }
       $self->PNAME = ::qstrdup(_v);
     }
@@ -734,7 +720,7 @@ cexpr_t *citem_t_cexpr_get(citem_t *item) { return (cexpr_t *) item; }
 //-------------------------------------------------------------------------
 %define_hexrays_lifecycle_object(cexpr_t);
 %extend cexpr_t {
-  var_ref_t* get_v() { if ( self->op == cot_var ) { return &self->v; } else { return NULL; } }
+  var_ref_t* get_v() { if ( self->op == cot_var ) { return &self->v; } else { return nullptr; } }
   void set_v(const var_ref_t *v) { if ( self->op == cot_var ) { self->v = *v; } }
   %pythoncode {
     v = property(lambda self: self.get_v(), lambda self, v: self.set_v(v))
@@ -792,7 +778,7 @@ cexpr_t *citem_t_cexpr_get(citem_t *item) { return (cexpr_t *) item; }
 //   }
 //
 // #define CTREE_CONDITIONAL_ITEM_MEMBER_REF(type, name, wanted_citype)  \
-//   type get_##name() const { if ( self->citype == wanted_citype ) { return self->##name; } else { return NULL; } } \
+//   type get_##name() const { if ( self->citype == wanted_citype ) { return self->##name; } else { return nullptr; } } \
 //   void set_##name(type _v) { if ( self->citype == wanted_citype ) { self->##name = _v; } } \
 //   %pythoncode {                                                       \
 //     name = property(lambda self: self.get_##name(), lambda self, v: self.set_##name(v)) \
@@ -810,7 +796,7 @@ cexpr_t *citem_t_cexpr_get(citem_t *item) { return (cexpr_t *) item; }
     if ( self->citype == wanted_citype )                                \
       return self->##name;                                              \
     else                                                                \
-      return NULL;                                                      \
+      return nullptr;                                                   \
   }                                                                     \
   %pythoncode {                                                         \
     name = property(lambda self: self._get_##name())                    \
@@ -829,7 +815,7 @@ cexpr_t *citem_t_cexpr_get(citem_t *item) { return (cexpr_t *) item; }
 %ignore ctree_item_t::loc;
 
 %{
-treeloc_t *ctree_item_t_loc_get(ctree_item_t *item) { return item->citype == VDI_TAIL ? &item->loc : NULL; }
+treeloc_t *ctree_item_t_loc_get(ctree_item_t *item) { return item->citype == VDI_TAIL ? &item->loc : nullptr; }
 %}
 
 #undef CTREE_CONDITIONAL_ITEM_MEMBER_REF
@@ -1009,7 +995,7 @@ void qswap(cinsn_t &a, cinsn_t &b);
   if (!PyCallable_Check($1))
   {
       PyErr_SetString(PyExc_TypeError, "Need a callable object!");
-      return NULL;
+      return nullptr;
   }
 }
 %enddef

@@ -17,24 +17,24 @@
         ("director_method_call_arity_cap", (
             False, # add GIL lock
             "populating_widget_popup",
-            "(method ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 3 ? NULL : (PyObject *)obj2), NULL)",
-            "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 4 ? NULL : (PyObject *)obj2), NULL)",
+            "(method ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 3 ? nullptr : (PyObject *)obj2), nullptr)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 4 ? nullptr : (PyObject *)obj2), nullptr)",
         )),
     ],
     "SwigDirector_UI_Hooks::finish_populating_widget_popup" : [
         ("director_method_call_arity_cap", (
             False, # add GIL lock
             "finish_populating_widget_popup",
-            "(method ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 3 ? NULL : (PyObject *)obj2), NULL)",
-            "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 4 ? NULL : (PyObject *)obj2), NULL)",
+            "(method ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 3 ? nullptr : (PyObject *)obj2), nullptr)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 4 ? nullptr : (PyObject *)obj2), nullptr)",
         )),
     ],
     "SwigDirector_UI_Hooks::saved" : [
         ("director_method_call_arity_cap", (
             True,  # add GIL lock
             "saved",
-            "(method ,(__argcnt < 2 ? NULL : (PyObject *)obj0), NULL)",
-            "(swig_get_self(), (PyObject *) swig_method_name ,(__argcnt < 2 ? NULL : (PyObject *)obj0), NULL)",
+            "(method ,(__argcnt < 2 ? nullptr : (PyObject *)obj0), nullptr)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(__argcnt < 2 ? nullptr : (PyObject *)obj0), nullptr)",
         )),
         ("spontaneous_callback_call", (
             False, # add GIL lock
@@ -42,6 +42,14 @@
             None   # catch anchor
         )),
     ],
+    # "SwigDirector_UI_Hooks::database_closed" : [
+    #     ("director_method_call_arity_cap", (
+    #         True,  # add GIL lock
+    #         "database_closed",
+    #         "(method ,(__argcnt < 2 ? nullptr : (PyObject *)obj0), nullptr)",
+    #         "(swig_get_self(), (PyObject *) swig_method_name ,(__argcnt < 2 ? nullptr : (PyObject *)obj0), nullptr)",
+    #     )),
+    # ],
     "__additional_thread_unsafe__" :
     [
         "py_get_ask_form",

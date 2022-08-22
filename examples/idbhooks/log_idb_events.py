@@ -322,7 +322,7 @@ class idb_logger_hooks_t(ida_idp.IDB_Hooks):
     def struc_member_renamed(self, sptr, mptr):
         return self._log()
 
-    def struc_renamed(self, sptr):
+    def struc_renamed(self, sptr, success):
         return self._log()
 
     def tail_owner_changed(self, tail, owner_func, old_owner):

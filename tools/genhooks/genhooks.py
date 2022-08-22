@@ -186,14 +186,14 @@ def gen_notifications(out):
 
             pass_expr = pname
             if deref:
-                pass_expr = "%s != NULL ? *(%s) : (%s)" % (
+                pass_expr = "%s != nullptr ? *(%s) : (%s)" % (
                     pname,
                     pname,
                     deref["ifNULL"])
             if clinked:
                 out.write("  ref_t clinked_%s = create_linked_class_instance(%s, %s, %s);\n" %
                           (pname, clinked["module_define"], clinked["class_define"], pname))
-                out.write("  if ( clinked_%s == NULL )\n" % pname)
+                out.write("  if ( clinked_%s == nullptr )\n" % pname)
                 out.write("    break;\n")
                 pass_expr = "clinked_%s.o" % pname
             elif synth:

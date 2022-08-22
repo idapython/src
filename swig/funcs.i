@@ -39,7 +39,7 @@
 {
   dynamic_wrapped_array_t<stkpnt_t> __get_points__()
   {
-    if ( $self->pntqty > 0 && $self->points == NULL ) // force load
+    if ( $self->pntqty > 0 && $self->points == nullptr ) // force load
       get_sp_delta($self, $self->start_ea);
     return dynamic_wrapped_array_t<stkpnt_t>($self->points, $self->pntqty);
   }
@@ -47,7 +47,7 @@
   dynamic_wrapped_array_t<regvar_t> __get_regvars__()
   {
     if ( $self->regvarqty < 0 ) // force load
-      find_regvar($self, $self->start_ea, NULL);
+      find_regvar($self, $self->start_ea, nullptr);
     return dynamic_wrapped_array_t<regvar_t>($self->regvars, $self->regvarqty);
   }
 
@@ -63,7 +63,7 @@
 
   dynamic_wrapped_array_t<regarg_t> __get_regargs__()
   {
-    if ( $self->regargqty > 0 && $self->regargs == NULL ) // force load
+    if ( $self->regargqty > 0 && $self->regargs == nullptr ) // force load
       read_regargs($self);
     return dynamic_wrapped_array_t<regarg_t>($self->regargs, $self->regargqty);
   }
@@ -118,7 +118,6 @@
 %def_simple_func_item_iterator_t_generator(head_items, next_head, item heads contained within the function);
 %def_simple_func_item_iterator_t_generator(not_tails, next_not_tail, non-tail addresses contained within the function);
 
-#ifdef PY3
 %define %alias_func_item_iterator(PROP_NAME)
 %extend func_t
 {
@@ -136,7 +135,6 @@
 %alias_func_item_iterator(data_items);
 %alias_func_item_iterator(head_items);
 %alias_func_item_iterator(not_tails);
-#endif
 
 %extend func_t
 {

@@ -12,16 +12,9 @@
 #define PY_BV_ASIZE PY_BV_EA
 #define PY_BV_SEL PY_BV_EA
 #define PY_BV_SVAL "L" // Convert a C long long to a Python long integer object
-
-#ifdef PY3
-#  define PY_BV_TYPE "y"
-#  define PY_BV_FIELDS "y"
-#  define PY_BV_BYTES "y"
-#else
-#  define PY_BV_TYPE "s"
-#  define PY_BV_FIELDS "s"
-#  define PY_BV_BYTES "s"
-#endif
+#define PY_BV_TYPE "y"
+#define PY_BV_FIELDS "y"
+#define PY_BV_BYTES "y"
 
 typedef unsigned PY_LONG_LONG bvea_t;
 typedef Py_ssize_t bvsz_t;
@@ -157,6 +150,59 @@ static const char S_PY_IDA_IDAAPI_MODNAME[] = S_IDA_IDAAPI_MODNAME;
 #define CIP_OK           1 // Success
 #define CIP_OK_OPAQUE    2 // Success, but the data pointed to by the PyObject* is an opaque object.
 
+//-------------------------------------------------------------------------
+inline bool PyUnicode_as_qstring(qstring *out, PyObject *obj)
+{
+  PyObject *utf8 = PyUnicode_AsUTF8String(obj);
+  bool ok = utf8 != nullptr;
+  if ( ok )
+  {
+    char *buffer = nullptr;
+    Py_ssize_t length = 0;
+    ok = PyBytes_AsStringAndSize(utf8, &buffer, &length) >= 0;
+    if ( ok )
+    {
+      out->qclear();
+      out->append(buffer, length);
+    }
+  }
+  Py_XDECREF(utf8);
+  return ok;
+}
+
+//-------------------------------------------------------------------------
+inline PyObject *PyUnicode_from_qstring(const qstring &s)
+{
+  return PyUnicode_FromStringAndSize(s.c_str(), s.length());
+}
+
+//-------------------------------------------------------------------------
+inline bool PyBytes_as_bytevec_t(bytevec_t *out, PyObject *obj)
+{
+  char *buffer = nullptr;
+  Py_ssize_t length = 0;
+  bool ok = PyBytes_AsStringAndSize(obj, &buffer, &length) >= 0;
+  if ( ok )
+  {
+    out->qclear();
+    out->append((const uchar *) buffer, length);
+  }
+  return ok;
+}
+
+//-------------------------------------------------------------------------
+inline bool PyBytes_as_qtype(qtype *out, PyObject *obj)
+{
+  bytevec_t bytes;
+  bool ok = PyBytes_as_bytevec_t(&bytes, obj);
+  if ( ok )
+  {
+    out->qclear();
+    out->append(bytes.begin(), bytes.size());
+  }
+  return ok;
+}
+
 //---------------------------------------------------------------------------
 class gil_lock_t
 {
@@ -184,18 +230,11 @@ idaman uint32 ida_export_data debug;
 THREAD_SAFE AS_PRINTF(1, 2) inline int msg(const char *format, ...);
 #endif // __KERNWIN_HPP
 
-#ifdef PY3
-#  ifdef Py_LIMITED_API
-#    define GIL_CHKCONDFAIL (false)
-#  else
-#    define GIL_CHKCONDFAIL (((debug & IDA_DEBUG_PLUGIN) != 0) && !PyGILState_Check())
-#  endif
+#ifdef Py_LIMITED_API
+#  define GIL_CHKCONDFAIL (false)
 #else
-#  define GIL_CHKCONDFAIL (((debug & IDA_DEBUG_PLUGIN) != 0) \
-                        && PyGILState_GetThisThreadState() != _PyThreadState_Current)
+#  define GIL_CHKCONDFAIL (((debug & IDA_DEBUG_PLUGIN) != 0) && !PyGILState_Check())
 #endif
-
-#include "idapy.hpp"
 
 #define PYW_GIL_CHECK_LOCKED_SCOPE()                                    \
   do                                                                    \
@@ -808,11 +847,7 @@ struct idapython_plugin_t : public plugmod_t, public event_listener_t
   qstring idapython_dir;
   qstring requested_plugin_path;
 #ifdef __MAC__
-#  ifdef PY3
   qvector<wchar_t> pyhomepath;
-#  else
-  qstring pyhomepath;
-#  endif
 #endif
   bool initialized;
   bool ui_ready;
@@ -1052,6 +1087,17 @@ py_customidamemo_t::~py_customidamemo_t()
 }
 
 //-------------------------------------------------------------------------
+idaman void ida_export idapython_register_hook(
+        hook_type_t hook_type,
+        hook_cb_t *cb,
+        void *user_data,
+        bool is_hooks_base);
+idaman void ida_export idapython_unregister_hook(
+        hook_type_t hook_type,
+        hook_cb_t *cb,
+        void *user_data);
+
+//-------------------------------------------------------------------------
 idaman bool ida_export idapython_hook_to_notification_point(
         hook_type_t hook_type,
         hook_cb_t *cb,
@@ -1069,16 +1115,52 @@ idaman bool ida_export idapython_unhook_from_notification_point(
 #define HBF_VOLATILE_METHOD_SET 0x00000002
 struct hooks_base_t
 {
+  struct idapython_listener_t : public event_listener_t
+  {
+    hook_cb_t *cb;
+    void *ud;
+    idapython_listener_t(hook_cb_t *_cb, void *_ud) : cb(_cb), ud(_ud) {}
+    virtual ssize_t idaapi on_event(ssize_t code, va_list va) override
+    {
+      return cb(ud, code, va);
+    }
+  };
+
   const char *class_name;
   qstring identifier;
-  hook_cb_t *cb;
+  idapython_listener_t listener;
   hook_type_t type;
   uint32 flags;
+  uint32 hkcb_flags;
   typedef std::map<int,uchar> has_nondef_map_t;
   has_nondef_map_t has_nondef;
+  bool hook_added = false;
 
-  bool hook() { return cb != nullptr && idapython_hook_to_notification_point(type, cb, this, true); }
-  bool unhook() { return cb != nullptr && idapython_unhook_from_notification_point(type, cb, this); }
+  bool hook()
+  {
+    if ( !hook_added
+      && listener.cb != nullptr
+      && hook_event_listener(type, &listener, nullptr /*owner*/, hkcb_flags) )
+    {
+      idapython_register_hook(type, listener.cb, this, true);
+      hook_added = true;
+    }
+    return hook_added;
+  }
+  bool unhook()
+  {
+    if ( hook_added && listener.cb != nullptr )
+    {
+      // there is no need to check the return result of unhook_event_listener,
+      // if HKCB_GLOBAL flag is not used
+      // the LISTENER will be freed earlier
+      // than this method will be called.
+      unhook_event_listener(type, &listener);
+      idapython_unregister_hook(type, listener.cb, this);
+      hook_added = false;
+    }
+    return !hook_added;
+  }
 
   bool call_requires_new_execution() const { return (flags & HBF_CALL_WITH_NEW_EXEC) != 0; }
   bool has_fixed_method_set() const { return (flags & HBF_VOLATILE_METHOD_SET) == 0; }
@@ -1087,11 +1169,13 @@ struct hooks_base_t
           const char *_class_name,
           hook_cb_t *_cb,
           hook_type_t _type,
-          uint32 _flags=0)
+          uint32 _flags,
+          uint32 _hkcb_flags)
     : class_name(_class_name),
-      cb(_cb),
+      listener(_cb, this),
       type(_type),
-      flags(_flags) {}
+      flags(_flags),
+      hkcb_flags(_hkcb_flags) {}
 
   virtual ~hooks_base_t() { unhook(); }
 
@@ -1112,10 +1196,10 @@ protected:
       ref_t py_id;
       if ( PyObject_HasAttrString(self, "id") )
         py_id = newref_t(PyObject_GetAttrString(self, "id"));
-      if ( py_id == nullptr || !IDAPyStr_Check(py_id.o) )
+      if ( py_id == nullptr || !PyUnicode_Check(py_id.o) )
         py_id = newref_t(PyObject_Repr(self));
-      if ( py_id != nullptr && IDAPyStr_Check(py_id.o) )
-        IDAPyStr_AsUTF8(&identifier, py_id.o);
+      if ( py_id != nullptr && PyUnicode_Check(py_id.o) )
+        PyUnicode_as_qstring(&identifier, py_id.o);
     }
 
     // method set
@@ -1150,17 +1234,9 @@ protected:
           if ( py_def_meth != nullptr && py_this_meth != nullptr )
           {
             if ( PyObject_HasAttrString(py_def_meth.o, "__trampoline") > 0 )
-            {
               _has_nondef = 2;
-            }
             else
-            {
-#ifdef PY3
               _has_nondef = PyObject_RichCompareBool(py_this_meth.o, py_def_meth.o, Py_EQ) == 0 ? 1 : 0;
-#else
-              _has_nondef = PyObject_Compare(py_this_meth.o, py_def_meth.o) != 0 ? 1 : 0;
-#endif
-            }
           }
           has_nondef[cur.code] = _has_nondef;
         }
@@ -1194,7 +1270,7 @@ protected:
     qstring buf;
 #ifdef TESTABLE_BUILD
     buf.sprnt("%s(this=%p) \"%s\" {type=%d, cb=%p, flags=%x}",
-              class_name, this, identifier.c_str(), int(type), cb, flags);
+              class_name, this, identifier.c_str(), int(type), listener.cb, flags);
     if ( has_fixed_method_set() )
     {
       for ( size_t i = 0; i < mappings_size; ++i )
@@ -1228,7 +1304,7 @@ protected:
         PyErr_Format(PyExc_NotImplementedError,
                      "%s(this=%p) \"%s\" {type=%d, cb=%p, flags=%x} is "
                      "missing reimplementations for: \"%s\"",
-                     class_name, this, identifier.c_str(), int(type), cb,
+                     class_name, this, identifier.c_str(), int(type), listener.cb,
                      flags, ebuf.c_str());
         return nullptr;
       }
@@ -1244,7 +1320,7 @@ protected:
     qnotused(mappings);
     qnotused(mappings_size);
 #endif
-    return IDAPyStr_FromUTF8(buf);
+    return PyUnicode_from_qstring(buf);
   }
 };
 

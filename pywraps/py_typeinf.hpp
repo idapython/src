@@ -39,17 +39,17 @@ def calc_type_size(ti, tp):
 PyObject *py_calc_type_size(const til_t *ti, PyObject *tp)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( IDAPyBytes_Check(tp) )
+  if ( PyBytes_Check(tp) )
   {
     // To avoid release of 'data' during Py_BEGIN|END_ALLOW_THREADS section.
     borref_t tpref(tp);
-    const type_t *data = (type_t *)IDAPyBytes_AsString(tp);
+    const type_t *data = (type_t *)PyBytes_AsString(tp);
     size_t sz;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     tinfo_t tif;
     tif.deserialize(ti, &data, nullptr, nullptr);
     sz = tif.get_size();
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     if ( sz != BADSIZE )
       return PyInt_FromLong(sz);
     Py_RETURN_NONE;
@@ -86,7 +86,7 @@ static bool py_apply_type(
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   bool rc;
-  Py_BEGIN_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   struc_t *sptr;
   member_t *mptr = get_member_by_id(ea, &sptr);
   if ( type == nullptr || type[0] == '\0' )
@@ -116,7 +116,7 @@ static bool py_apply_type(
         rc = apply_tinfo(ea, tif, flags);
     }
   }
-  Py_END_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_END_ALLOW;
   return rc;
 }
 
@@ -167,7 +167,7 @@ PyObject *py_unpack_object_from_idb(
   PYW_GIL_CHECK_LOCKED_SCOPE();
   idc_value_t idc_obj;
   error_t err;
-  Py_BEGIN_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   tinfo_t tif;
   tif.deserialize(ti, &type, &fields);
   err = unpack_idcobj_from_idb(
@@ -176,7 +176,7 @@ PyObject *py_unpack_object_from_idb(
       ea,
       nullptr,
       pio_flags);
-  Py_END_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_END_ALLOW;
 
   // Unpacking failed?
   if ( err != eOk )
@@ -221,7 +221,7 @@ PyObject *py_unpack_object_from_bv(
 {
   idc_value_t idc_obj;
   error_t err;
-  Py_BEGIN_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   tinfo_t tif;
   tif.deserialize(ti, &type, &fields);
   err = unpack_idcobj_from_bv(
@@ -229,7 +229,7 @@ PyObject *py_unpack_object_from_bv(
       tif,
       bytes,
       pio_flags);
-  Py_END_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_END_ALLOW;
 
   // Unpacking failed?
   if ( err != eOk )
@@ -282,11 +282,11 @@ PyObject *py_pack_object_to_idb(
   // Pack
   // error_t err;
   error_t err;
-  Py_BEGIN_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   tinfo_t tif;
   tif.deserialize(ti, &type, &fields);
   err = pack_idcobj_to_idb(&idc_obj, tif, ea, pio_flags);
-  Py_END_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_END_ALLOW;
   return PyInt_FromLong(err);
 }
 
@@ -328,7 +328,7 @@ PyObject *py_pack_object_to_bv(
   // Pack
   relobj_t bytes;
   error_t err;
-  Py_BEGIN_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   tinfo_t tif;
   tif.deserialize(ti, &type, &fields);
   err = pack_idcobj_to_bv(
@@ -339,7 +339,7 @@ PyObject *py_pack_object_to_bv(
     pio_flags);
   if ( err == eOk && !bytes.relocate(base_ea, inf_is_be()) )
     err = -1;
-  Py_END_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_END_ALLOW;
   if ( err == eOk )
     return Py_BuildValue("(i" PY_BV_BYTES "#)", 1, bytes.begin(), (Py_ssize_t) bytes.size());
   else
@@ -449,24 +449,18 @@ int idc_set_local_type(int ordinal, const char *dcl, int flags)
 }
 
 //-------------------------------------------------------------------------
-int idc_get_local_type(int ordinal, int flags, char *buf, size_t maxsize)
+int idc_get_local_type(int ordinal, int flags, char *buf, size_t bufsize)
 {
   tinfo_t tif;
   if ( !tif.get_numbered_type(nullptr, ordinal) )
-  {
-    buf[0] = 0;
     return false;
-  }
 
   qstring res;
   const char *name = get_numbered_type_name(nullptr, ordinal);
   if ( !tif.print(&res, name, flags, 2, 40) )
-  {
-    buf[0] = 0;
     return false;
-  }
 
-  qstrncpy(buf, res.begin(), maxsize);
+  qstrncpy(buf, res.begin(), bufsize);
   return true;
 }
 
@@ -480,13 +474,13 @@ PyObject *idc_print_type(
   PYW_GIL_CHECK_LOCKED_SCOPE();
   qstring res;
   bool ok;
-  Py_BEGIN_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   tinfo_t tif;
   ok = tif.deserialize(nullptr, &type, &fields, nullptr)
     && tif.print(&res, name, flags, 2, 40);
-  Py_END_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_END_ALLOW;
   if ( ok )
-    return IDAPyStr_FromUTF8(res.begin());
+    return PyUnicode_FromString(res.begin());
   else
     Py_RETURN_NONE;
 }
@@ -546,10 +540,10 @@ PyObject *py_get_named_type(const til_t *til, const char *name, int ntf_flags)
   } while ( false )
 
   ADD(PyInt_FromLong(long(code)));
-  ADD(IDAPyBytes_FromMem((const char *) type));
-  ADD_OR_NONE(fields != nullptr, IDAPyBytes_FromMem((const char *) fields));
-  ADD_OR_NONE(cmt != nullptr, IDAPyStr_FromUTF8(cmt));
-  ADD_OR_NONE(field_cmts != nullptr, IDAPyStr_FromUTF8((const char *) field_cmts));
+  ADD(PyBytes_FromString((const char *) type));
+  ADD_OR_NONE(fields != nullptr, PyBytes_FromString((const char *) fields));
+  ADD_OR_NONE(cmt != nullptr, PyUnicode_FromString(cmt));
+  ADD_OR_NONE(field_cmts != nullptr, PyUnicode_FromString((const char *) field_cmts));
   ADD(PyInt_FromLong(long(sclass)));
   if ( (ntf_flags & NTF_64BIT) != 0 )
     ADD(PyLong_FromUnsignedLongLong(value));
@@ -581,17 +575,17 @@ PyObject *py_print_decls(text_sink_t &printer, til_t *til, PyObject *py_ordinals
   for ( Py_ssize_t i = 0; i < nords; ++i )
   {
     borref_t item(PyList_GetItem(py_ordinals, i));
-    if ( item == nullptr || !IDAPyIntOrLong_Check(item.o) )
+    if ( item == nullptr || !PyLong_Check(item.o) )
     {
       qstring msg;
       msg.sprnt("ordinals[%d] is not a valid value", int(i));
       PyErr_SetString(PyExc_ValueError, msg.begin());
       return nullptr;
     }
-    uint32 ord = IDAPyIntOrLong_AsLong(item.o);
+    uint32 ord = PyLong_AsLong(item.o);
     ordinals.push_back(ord);
   }
-  return IDAPyInt_FromLong(print_decls(printer, til, ordinals.empty() ? nullptr : &ordinals, flags));
+  return PyLong_FromLong(print_decls(printer, til, ordinals.empty() ? nullptr : &ordinals, flags));
 }
 
 //-------------------------------------------------------------------------
@@ -637,7 +631,7 @@ static PyObject *py_tinfo_t_serialize(
     if ( (Thing).empty() )                                      \
       Py_INCREF(Py_None);                                       \
     else                                                        \
-      o = IDAPyBytes_FromMem((const char *) (Thing).begin());   \
+      o = PyBytes_FromString((const char *) (Thing).begin());   \
     PyTuple_SetItem(tuple, ctr, o);                             \
     ++ctr;                                                      \
   } while ( false )

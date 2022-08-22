@@ -545,7 +545,7 @@ add_dword(*args) -> 'void'
 Help on function add_hidden_range in module ida_bytes:
 
 add_hidden_range(*args) -> 'bool'
-    add_hidden_range(ea1, ea2, description, header, footer, color) -> bool
+    add_hidden_range(ea1, ea2, description, header, footer, color=bgcolor_t(-1)) -> bool
     Mark a range of addresses as hidden. The range will be created in the invisible
     state with the default color
     
@@ -554,7 +554,7 @@ add_hidden_range(*args) -> 'bool'
     @param description: (C++: const char *) ,header,footer: range parameters
     @param header: (C++: const char *) char const *
     @param footer: (C++: const char *) char const *
-    @param color: (C++: bgcolor_t)
+    @param color: (C++: bgcolor_t) the range color
     @return: success
 
 Help on function add_mapping in module ida_bytes:
@@ -736,16 +736,8 @@ can_define_item(*args) -> 'bool'
     @note: this function converts to unexplored all encountered data items with
            fixup information. Should be fixed in the future.
     
-    @param flags: (C++: flags_t) if not 0, then the kernel will ignore the data types specified by
-                  the flags and destroy them. For example:
-    1000 dw 5
-                     1002 db 5 ; undef
-                     1003 db 5 ; undef
-                     1004 dw 5
-                     1006 dd 5
-                      can_define_item(1000, 6, 0) - false because of dw at 1004
-    can_define_item(1000, 6, word_flag()) - true, word at 1004 is destroyed
-    @param length: (C++: asize_t)
+    @param ea: (C++: ea_t) start of the range for the new item
+    @param length: (C++: asize_t) length of the new item in bytes
     @param flags: (C++: flags_t) if not 0, then the kernel will ignore the data types specified by
                   the flags and destroy them. For example:
     1000 dw 5
@@ -799,10 +791,13 @@ Help on function clr_lzero in module ida_bytes:
 
 clr_lzero(*args) -> 'bool'
     clr_lzero(ea, n) -> bool
-    Clear lzero bit.
+    Clear toggle lzero bit. This function reset the display of leading zeroes for
+    the specified operand to the default. If the default is not to display leading
+    zeroes, leading zeroes will not be displayed, as vice versa.
     
-    @param ea: (C++: ea_t)
-    @param n: (C++: int)
+    @param ea: (C++: ea_t) the item (insn/data) address
+    @param n: (C++: int) the operand number (0-first operand, 1-other operands)
+    @return: success
 
 Help on function clr_op_type in module ida_bytes:
 
@@ -1791,6 +1786,18 @@ find_custom_data_type(*args) -> 'int'
     @param name: (C++: const char *) name of the custom data type
     @return: id or -1
 
+Help on function find_free_chunk in module ida_bytes:
+
+find_free_chunk(*args) -> 'ea_t'
+    find_free_chunk(start, size, alignment) -> ea_t
+    Search for a hole in the addressing space of the program.
+    
+    @param start: (C++: ea_t) Address to start searching from
+    @param size: (C++: asize_t) Size of the desired empty range
+    @param alignment: (C++: asize_t) Alignment bitmask, must be a pow2-1. (for example, 0xF would
+                      align the returned range to 16 bytes).
+    @return: Start of the found empty range or BADADDR
+
 Help on function float_flag in module ida_bytes:
 
 float_flag(*args) -> 'flags_t'
@@ -1807,15 +1814,10 @@ Help on function free_chunk in module ida_bytes:
 
 free_chunk(*args) -> 'ea_t'
     free_chunk(bottom, size, step) -> ea_t
-    Search for a hole in the addressing space of the program.
     
-    @param bottom: (C++: ea_t) address to start searching
-    @param size: (C++: asize_t) size of desired block
-    @param step: (C++: int32) bit mask for the start of hole (0xF would align hole to a
-                 paragraph). if 'step' is negative, the bottom address with be
-                 aligned. otherwise the kernel will try to use it as is and align it
-                 only when the hole is too small.
-    @return: start of the hole or BADADDR
+    @param bottom: ea_t
+    @param size: asize_t
+    @param step: int32
 
 Help on function get_16bit in module ida_bytes:
 
@@ -2200,20 +2202,17 @@ Help on function get_octet in module ida_bytes:
 
 get_octet(*args) -> 'PyObject *'
     get_octet(ea, v, nbit) -> (int, int, int, int)
-    Get 8 bits of the program at 'ea'. The main usage of this function is to iterate
-    range of bytes. Here is an example:
-    uint64 v;
-    int nbit = 0;
-    for ( ... ) {
-    uchar byte = get_octet(&ea, &v, &nbit);
-    ...
-    }
-    'ea' is incremented each time when a new byte is read. In the above example, it
-    will be incremented in the first loop iteration.
     
-    @param ea: (C++: ea_t *) ea_t
-    @param v: (C++: uint64 *) uint64
-    @param nbit: (C++: int *) int
+    @param ea: ea_t
+    @param v: uint64
+    @param nbit: int
+
+Help on function get_octet2 in module ida_bytes:
+
+get_octet2(*args) -> 'uchar *'
+    get_octet2(ogen) -> bool
+    
+    @param ogen: octet_generator_t *
 
 Help on function get_opinfo in module ida_bytes:
 
@@ -2906,12 +2905,13 @@ Help on function is_lzero in module ida_bytes:
 
 is_lzero(*args) -> 'bool'
     is_lzero(ea, n) -> bool
-    Display leading zeroes in operands. The global switch for the leading zeroes is
-    in idainfo::s_genflags The leading zeroes doesn't work if the octal numbers
-    start with 0 Display leading zeroes? (takes into account idainfo::s_genflags)
+    Display leading zeroes? Display leading zeroes in operands. The global switch
+    for the leading zeroes is in idainfo::s_genflags Note: the leading zeroes
+    doesn't work if for the target assembler octal numbers start with 0.
     
-    @param ea: (C++: ea_t)
-    @param n: (C++: int)
+    @param ea: (C++: ea_t) the item (insn/data) address
+    @param n: (C++: int) the operand number (0-first operand, 1-other operands)
+    @return: success
 
 Help on function is_manual in module ida_bytes:
 
@@ -3306,6 +3306,50 @@ oct_flag(*args) -> 'flags_t'
     oct_flag() -> flags_t
     Get number flag of the base, regardless of current processor - better to use
     num_flag()
+
+Help on class octet_generator_t in module ida_bytes:
+
+class octet_generator_t(builtins.object)
+ |  Proxy of C++ octet_generator_t class.
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, *args)
+ |      __init__(self, _ea) -> octet_generator_t
+ |      
+ |      @param _ea: ea_t
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  __swig_destroy__ = delete_octet_generator_t(...)
+ |      delete_octet_generator_t(self)
+ |  
+ |  invert_byte_order(self, *args) -> 'void'
+ |      invert_byte_order(self)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  avail_bits
+ |      avail_bits
+ |  
+ |  ea
+ |      ea
+ |  
+ |  high_byte_first
+ |      high_byte_first
+ |  
+ |  thisown
+ |      The membership flag
+ |  
+ |  value
+ |      value
 
 Help on function off_flag in module ida_bytes:
 
@@ -3823,10 +3867,13 @@ Help on function set_lzero in module ida_bytes:
 
 set_lzero(*args) -> 'bool'
     set_lzero(ea, n) -> bool
-    Set toggle lzero bit.
+    Set toggle lzero bit. This function changes the display of leading zeroes for
+    the specified operand. If the default is not to display leading zeroes, this
+    function will display them and vice versa.
     
-    @param ea: (C++: ea_t)
-    @param n: (C++: int)
+    @param ea: (C++: ea_t) the item (insn/data) address
+    @param n: (C++: int) the operand number (0-first operand, 1-other operands)
+    @return: success
 
 Help on function set_manual_insn in module ida_bytes:
 
@@ -3911,9 +3958,11 @@ Help on function toggle_lzero in module ida_bytes:
 
 toggle_lzero(*args) -> 'bool'
     toggle_lzero(ea, n) -> bool
+    Toggle lzero bit.
     
-    @param ea: ea_t
-    @param n: int
+    @param ea: (C++: ea_t) the item (insn/data) address
+    @param n: (C++: int) the operand number (0-first operand, 1-other operands)
+    @return: success
 
 Help on function toggle_sign in module ida_bytes:
 
@@ -4021,9 +4070,10 @@ class DBG_Hooks(builtins.object)
  |  __disown__(self)
  |  
  |  __init__(self, *args)
- |      __init__(self, _flags=0) -> DBG_Hooks
+ |      __init__(self, _flags=0, _hkcb_flags=0x0001) -> DBG_Hooks
  |      
  |      @param _flags: uint32
+ |      @param _hkcb_flags: uint32
  |  
  |  __repr__ = _swig_repr(self)
  |  
@@ -5308,7 +5358,7 @@ get_grp_bpts(*args) -> 'ssize_t'
     Retrieve a copy the bpts stored in a folder \sq{Type, Synchronous function,
     Notification, none (synchronous function)}
     
-    @param output: bpts : pointer to a vector where the copy of bpts are stored
+    @param bpts: (C++: bpt_vec_t *) : pointer to a vector where the copy of bpts are stored
     @param grp_name: (C++: const char *) absolute path to the folder
     @return: number of bpts present in the vector
 
@@ -5423,7 +5473,7 @@ get_processes(*args) -> 'ssize_t'
     Take a snapshot of running processes and return their description. \sq{Type,
     Synchronous function, Notification, none (synchronous function)}
     
-    @param proclist: (C++: procinfo_vec_t *)
+    @param proclist: (C++: procinfo_vec_t *) array with information about each running process
     @return: number of processes or -1 on error
 
 Help on function get_reg_val in module ida_dbg:
@@ -5808,6 +5858,13 @@ is_step_trace_enabled(*args) -> 'bool'
     Get current state of step tracing. \sq{Type, Synchronous function, Notification,
     none (synchronous function)}
 
+Help on function is_valid_dstate in module ida_dbg:
+
+is_valid_dstate(*args) -> 'bool'
+    is_valid_dstate(state) -> bool
+    
+    @param state: int
+
 Help on function is_valid_trace_file in module ida_dbg:
 
 is_valid_trace_file(*args) -> 'bool'
@@ -5823,7 +5880,7 @@ list_bptgrps(*args) -> 'PyObject *'
     Retrieve the list of absolute path of all folders of bpt dirtree \sq{Type,
     Synchronous function, Notification, none (synchronous function)}
     
-    @param output: bptgrps list of absolute path in the bpt dirtree
+    @param bptgrps: (C++: qstrvec_t *) list of absolute path in the bpt dirtree
     @return: number of folders returned
     list_bptgrps() -> [str, ...]
 
@@ -6519,8 +6576,9 @@ Help on function set_reg_val in module ida_dbg:
 
 set_reg_val(*args) -> 'PyObject *'
     set_reg_val(regname, o) -> PyObject
+    Write a register value to the current thread.
     
-    @param regname: char const *
+    @param regname: (C++: const char *) char const *
     @param o: PyObject *
     
     set_reg_val(tid, regidx, o) -> bool, int
@@ -7450,8 +7508,7 @@ class dirspec_t(builtins.object)
  |      get_name(self, inode, name_flags=DTN_FULL_NAME) -> bool
  |      get the entry name. for example, the structure name
  |      
- |      @param out: (C++: qstring *) may be nullptr; in this case get_name can be used to validate an
- |                  inode.
+ |      @param inode: (C++: inode_t) inode number of the entry
  |      @param name_flags: (C++: uint32) how exactly the name should be retrieved. combination of bits
  |                         for get_...name() methods bits
  |      @return: false if the entry does not exist.
@@ -8014,8 +8071,8 @@ class dirtree_t(builtins.object)
  |      Change ordering rank of an item.
  |      
  |      @param path: (C++: const char *) path to the item
- |      @param delta: the amount of the change. positive numbers mean to move down in
- |                    the list; negative numbers mean to move up.
+ |      @param rank_delta: (C++: ssize_t) the amount of the change. positive numbers mean to move down
+ |                         in the list; negative numbers mean to move up.
  |      @return: dterr_t error code
  |      @note: All subdirectories go before all file entries.
  |  
@@ -8030,7 +8087,7 @@ class dirtree_t(builtins.object)
  |      find_entry(self, de) -> dirtree_cursor_t
  |      Find the cursor corresponding to an entry of a directory
  |      
- |      @param directory: entry
+ |      @param de: (C++: const direntry_t &) directory entry
  |      @return: cursor corresponding to the directory entry
  |  
  |  findfirst(self, *args) -> 'bool'
@@ -8161,7 +8218,7 @@ class dirtree_t(builtins.object)
  |      notify_dirtree(self, added, inode)
  |      Notify dirtree about a change of an inode.
  |      
- |      @param add: are we adding or deleting an inode?
+ |      @param added: (C++: bool) are we adding or deleting an inode?
  |      @param inode: (C++: inode_t) inode in question
  |  
  |  rename(self, *args) -> 'dterr_t'
@@ -9052,10 +9109,10 @@ get_enum_width(*args) -> 'size_t'
 Help on function get_first_bmask in module ida_enum:
 
 get_first_bmask(*args) -> 'bmask_t'
-    get_first_bmask(id) -> bmask_t
+    get_first_bmask(enum_id) -> bmask_t
     Get first bitmask in the enum (bitfield)
     
-    @param enum_id: id of enum (bitfield)
+    @param enum_id: (C++: enum_t) id of enum (bitfield)
     @return: the smallest bitmask for enum, or DEFMASK
 
 Help on function get_first_enum_member in module ida_enum:
@@ -9078,10 +9135,10 @@ get_first_serial_enum_member(*args) -> 'uchar *'
 Help on function get_last_bmask in module ida_enum:
 
 get_last_bmask(*args) -> 'bmask_t'
-    get_last_bmask(id) -> bmask_t
+    get_last_bmask(enum_id) -> bmask_t
     Get last bitmask in the enum (bitfield)
     
-    @param enum_id: id of enum
+    @param enum_id: (C++: enum_t) id of enum
     @return: the biggest bitmask for enum, or DEFMASK
 
 Help on function get_last_enum_member in module ida_enum:
@@ -9104,11 +9161,11 @@ get_last_serial_enum_member(*args) -> 'uchar *'
 Help on function get_next_bmask in module ida_enum:
 
 get_next_bmask(*args) -> 'bmask_t'
-    get_next_bmask(id, bmask) -> bmask_t
+    get_next_bmask(enum_id, bmask) -> bmask_t
     Get next bitmask in the enum (bitfield)
     
-    @param enum_id: id of enum
-    @param bmask: (C++: bmask_t)
+    @param enum_id: (C++: enum_t) id of enum
+    @param bmask: (C++: bmask_t) the current bitmask
     @return: value of a bitmask with value higher than the specified value, or
              DEFMASK
 
@@ -9132,11 +9189,11 @@ get_next_serial_enum_member(*args) -> 'uchar *'
 Help on function get_prev_bmask in module ida_enum:
 
 get_prev_bmask(*args) -> 'bmask_t'
-    get_prev_bmask(id, bmask) -> bmask_t
+    get_prev_bmask(enum_id, bmask) -> bmask_t
     Get prev bitmask in the enum (bitfield)
     
-    @param enum_id: id of enum
-    @param bmask: (C++: bmask_t)
+    @param enum_id: (C++: enum_t) id of enum
+    @param bmask: (C++: bmask_t) the current bitmask
     @return: value of a bitmask with value lower than the specified value, or
              DEFMASK
 
@@ -11812,8 +11869,7 @@ append_func_tail(*args) -> 'bool'
     be created and its owner will be set to be our function If a new tail cannot be
     created, then this function will fail.
     
-    @param ea1: (C++: ea_t) start of the tail. If a tail already exists at the specified address
-                it must start at 'ea1'
+    @param pfn: (C++: func_t *) pointer to the function
     @param ea1: (C++: ea_t) start of the tail. If a tail already exists at the specified address
                 it must start at 'ea1'
     @param ea2: (C++: ea_t) end of the tail. If a tail already exists at the specified address
@@ -13163,8 +13219,8 @@ remove_func_tail(*args) -> 'bool'
     completely removed. Otherwise if the function was the tail owner, the first
     function using this tail becomes the owner of the tail.
     
-    @param pfn: (C++: func_t *)
-    @param tail_ea: (C++: ea_t)
+    @param pfn: (C++: func_t *) pointer to the function
+    @param tail_ea: (C++: ea_t) any address inside the tail to remove
 
 Help on function set_func_cmt in module ida_funcs:
 
@@ -13226,12 +13282,12 @@ set_noret_insn(*args) -> 'bool'
 Help on function set_tail_owner in module ida_funcs:
 
 set_tail_owner(*args) -> 'bool'
-    set_tail_owner(fnt, func_start) -> bool
-    Set a function as the possessing function of a function tail. The function
-    should already refer to the tail (after append_func_tail).
+    set_tail_owner(fnt, new_owner) -> bool
+    Set a new owner of a function tail. The new owner function must be already
+    referring to the tail (after append_func_tail).
     
-    @param fnt: (C++: func_t *)
-    @param func_start: (C++: ea_t)
+    @param fnt: (C++: func_t *) pointer to the function tail
+    @param new_owner: (C++: ea_t) the entry point of the new owner function
 
 Help on function set_visible_func in module ida_funcs:
 
@@ -14696,7 +14752,7 @@ create_graph_viewer(*args) -> 'graph_viewer_t *'
     @param callback: (C++: hook_cb_t *) callback to handle graph notifications (graph_notification_t)
     @param ud: (C++: void *) user data passed to callback
     @param title_height: (C++: int) node title height
-    @param parent: (C++: TWidget *)
+    @param parent: (C++: TWidget *) the parent widget of the graph viewer
     @return: new viewer
 
 Help on function create_mutable_graph in module ida_graph:
@@ -14826,10 +14882,6 @@ class edge_layout_point_t(builtins.object)
  |  
  |  __init__(self, *args)
  |      __init__(self) -> edge_layout_point_t
- |      __init__(self, r) -> edge_layout_point_t
- |      
- |      @param r: edge_layout_point_t const &
- |      
  |      __init__(self, _e, _pidx) -> edge_layout_point_t
  |      
  |      @param _e: edge_t const &
@@ -17264,7 +17316,7 @@ viewer_attach_menu_item(*args) -> 'bool'
     Attach a previously-registered action to the view's context menu. See
     kernwin.hpp for how to register actions.
     
-    @param name: (C++: const char *) action name
+    @param g: (C++: graph_viewer_t *) graph viewer
     @param name: (C++: const char *) action name
     @return: success
 
@@ -17497,9 +17549,10 @@ class Hexrays_Hooks(builtins.object)
  |  __disown__(self)
  |  
  |  __init__(self, *args)
- |      __init__(self, _flags=0) -> Hexrays_Hooks
+ |      __init__(self, _flags=0, _hkcb_flags=0x0001) -> Hexrays_Hooks
  |      
  |      @param _flags: uint32
+ |      @param _hkcb_flags: uint32
  |  
  |  __repr__ = _swig_repr(self)
  |  
@@ -17777,9 +17830,10 @@ class __cbhooks_t(Hexrays_Hooks)
  |  Methods defined here:
  |  
  |  __init__(self, callback)
- |      __init__(self, _flags=0) -> Hexrays_Hooks
+ |      __init__(self, _flags=0, _hkcb_flags=0x0001) -> Hexrays_Hooks
  |      
  |      @param _flags: uint32
+ |      @param _hkcb_flags: uint32
  |  
  |  close_pseudocode(self, *args)
  |      close_pseudocode(self, vu) -> int
@@ -21601,20 +21655,20 @@ class cexpr_t(citem_t)
  |  
  |  __init__(self, *args)
  |      __init__(self) -> cexpr_t
- |      __init__(self, cop, _x) -> cexpr_t
+ |      __init__(self, cexpr_op, _x) -> cexpr_t
  |      
- |      @param cop: enum ctype_t
+ |      @param cexpr_op: enum ctype_t
  |      @param _x: cexpr_t *
  |      
- |      __init__(self, cop, _x, _y) -> cexpr_t
+ |      __init__(self, cexpr_op, _x, _y) -> cexpr_t
  |      
- |      @param cop: enum ctype_t
+ |      @param cexpr_op: enum ctype_t
  |      @param _x: cexpr_t *
  |      @param _y: cexpr_t *
  |      
- |      __init__(self, cop, _x, _y, _z) -> cexpr_t
+ |      __init__(self, cexpr_op, _x, _y, _z) -> cexpr_t
  |      
- |      @param cop: enum ctype_t
+ |      @param cexpr_op: enum ctype_t
  |      @param _x: cexpr_t *
  |      @param _y: cexpr_t *
  |      @param _z: cexpr_t *
@@ -24903,8 +24957,8 @@ class codegen_t(builtins.object)
  |      load_operand(self, opnum, flags=0) -> mreg_t
  |      Generate microcode to load one operand.
  |      
- |      @param opnum: (C++: int)
- |      @param flags: (C++: int) - reserved for future use
+ |      @param opnum: (C++: int) number of INSN operand
+ |      @param flags: (C++: int) reserved for future use
  |      @return: register containing the operand.
  |  
  |  microgen_completed(self, *args) -> 'void'
@@ -26614,7 +26668,7 @@ get_mreg_name(*args) -> 'qstring *'
     get_mreg_name(reg, width, ud=None) -> str
     Get the microregister name.
     
-    @param out: (C++: qstring *) output buffer, may be nullptr
+    @param reg: (C++: mreg_t) microregister number
     @param width: (C++: int) size of microregister in bytes. may be bigger than the real
                   register size.
     @param ud: (C++: void *) reserved, must be nullptr
@@ -29004,7 +29058,7 @@ class lvar_t(lvar_locator_t)
  |      
  |      @param mba: (C++: const mba_t *) ptr to the current mba_t
  |      @param lst: (C++: mlist_t *) list to append to
- |      @param pad_if_scattered: (C++: bool)
+ |      @param pad_if_scattered: (C++: bool) if true, append padding bytes in case of scattered lvar
  |  
  |  clear_used(self, *args) -> 'void'
  |      clear_used(self)
@@ -29044,6 +29098,9 @@ class lvar_t(lvar_locator_t)
  |  
  |  clr_overlapped_var(self, *args) -> 'void'
  |      clr_overlapped_var(self)
+ |  
+ |  clr_shared(self, *args) -> 'void'
+ |      clr_shared(self)
  |  
  |  clr_spoiled_var(self, *args) -> 'void'
  |      clr_spoiled_var(self)
@@ -29118,6 +29175,10 @@ class lvar_t(lvar_locator_t)
  |      is_notarg(self) -> bool
  |      Is a local variable? (local variable cannot be an input argument)
  |  
+ |  is_shared(self, *args) -> 'bool'
+ |      is_shared(self) -> bool
+ |      Is lvar mapped to several chains.
+ |  
  |  is_thisarg(self, *args) -> 'bool'
  |      is_thisarg(self) -> bool
  |      Is 'this' argument of a C++ member function?
@@ -29182,6 +29243,9 @@ class lvar_t(lvar_locator_t)
  |  
  |  set_overlapped_var(self, *args) -> 'void'
  |      set_overlapped_var(self)
+ |  
+ |  set_shared(self, *args) -> 'void'
+ |      set_shared(self)
  |  
  |  set_spoiled_var(self, *args) -> 'void'
  |      set_spoiled_var(self)
@@ -30086,6 +30150,9 @@ class mba_t(builtins.object)
  |  has_bad_sp(self, *args) -> 'bool'
  |      has_bad_sp(self) -> bool
  |  
+ |  has_outlines(self, *args) -> 'bool'
+ |      has_outlines(self) -> bool
+ |  
  |  has_over_chains(self, *args) -> 'bool'
  |      has_over_chains(self) -> bool
  |  
@@ -30229,7 +30296,7 @@ class mba_t(builtins.object)
  |      set_maturity(self, mat) -> bool
  |      Set maturity level.
  |      
- |      @param mat: (C++: mba_maturity_t) enum mba_maturity_t
+ |      @param mat: (C++: mba_maturity_t) new maturity level
  |      @return: true if it is time to stop analysis Plugins may use this function to
  |               skip some parts of the analysis. The maturity level cannot be
  |               decreased.
@@ -30781,10 +30848,12 @@ class mblock_t(builtins.object)
  |      inside one block.
  |      
  |      @param op: (C++: const mop_t &) operand to search for
- |      @param p_i1: ptr to ptr to a top level instruction. denotes the beginning of the
- |                   search range.
- |      @param mend: (C++: const minsn_t *) minsn_t const *
- |      @param fdflags: (C++: int)
+ |      @param parent: (C++: minsn_t **) ptr to ptr to a top level instruction. denotes the beginning of
+ |                     the search range.
+ |      @param mend: (C++: const minsn_t *) end instruction of the range (must be a top level insn) mend is
+ |                   excluded from the range. it can be specified as nullptr. parent and
+ |                   mend must belong to the same block.
+ |      @param fdflags: (C++: int) combination of bits for mblock_t::find_access bits
  |      @return: the instruction that accesses the operand. this instruction may be a
  |               sub-instruction. to find out the top level instruction, check out
  |               *p_i1. nullptr means 'not found'.
@@ -32409,13 +32478,13 @@ class microcode_filter_t(builtins.object)
  |      generate microcode for an instruction
  |      
  |      @param cdg: (C++: codegen_t &)
- |      @return: MERR_... code: MERR_OK - user-defined call generated, go to the next
- |               instruction MERR_INSN - not generated - the caller should try the
+ |      @return: MERR_... code: MERR_OK - user-defined microcode generated, go to the
+ |               next instruction MERR_INSN - not generated - the caller should try the
  |               standard way else - error
  |  
  |  match(self, *args) -> 'bool'
  |      match(self, cdg) -> bool
- |      check if the filter object is to be appied
+ |      check if the filter object is to be applied
  |      
  |      @param cdg: (C++: codegen_t &)
  |      @return: success
@@ -32677,8 +32746,7 @@ class minsn_t(builtins.object)
  |      is_noret_call(self, flags=0) -> bool
  |      Is a non-returing call?
  |      
- |      @param ignore_noret_icall: if set, indirect calls to noret functions will return
- |                                 false
+ |      @param flags: (C++: int) combination of NORET_... bits
  |  
  |  is_optional(self, *args) -> 'bool'
  |      is_optional(self) -> bool
@@ -32714,8 +32782,8 @@ class minsn_t(builtins.object)
  |      may_use_aliased_memory(self) -> bool
  |      Is it possible for the instruction to use aliased memory?
  |  
- |  modifes_d(self, *args) -> 'bool'
- |      modifes_d(self) -> bool
+ |  modifies_d(self, *args) -> 'bool'
+ |      modifies_d(self) -> bool
  |      Does the instruction modify its 'd' operand? Some instructions (e.g. m_stx) do
  |      not modify the 'd' operand.
  |  
@@ -32792,6 +32860,9 @@ class minsn_t(builtins.object)
  |  set_tailcall(self, *args) -> 'void'
  |      set_tailcall(self)
  |  
+ |  set_unmerged(self, *args) -> 'void'
+ |      set_unmerged(self)
+ |  
  |  set_wild_match(self, *args) -> 'void'
  |      set_wild_match(self)
  |  
@@ -32813,6 +32884,9 @@ class minsn_t(builtins.object)
  |  
  |  was_split(self, *args) -> 'bool'
  |      was_split(self) -> bool
+ |  
+ |  was_unmerged(self, *args) -> 'bool'
+ |      was_unmerged(self) -> bool
  |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
@@ -37260,7 +37334,8 @@ select_udt_by_offset(*args) -> 'int'
     @param udts: (C++: const qvector< tinfo_t > *) list of UDT tinfo_t for the selection, if nullptr or empty then
                  UDTs from the "Local types" will be used
     @param ops: (C++: const ui_stroff_ops_t &) operands
-    @param applicator: (C++: ui_stroff_applicator_t &)
+    @param applicator: (C++: ui_stroff_applicator_t &) callback will be called to apply the selection for every
+                       operand
 
 Help on function send_database in module ida_hexrays:
 
@@ -37633,8 +37708,8 @@ class udc_filter_t(microcode_filter_t)
  |      generate microcode for an instruction
  |      
  |      @param cdg: (C++: codegen_t &)
- |      @return: MERR_... code: MERR_OK - user-defined call generated, go to the next
- |               instruction MERR_INSN - not generated - the caller should try the
+ |      @return: MERR_... code: MERR_OK - user-defined microcode generated, go to the
+ |               next instruction MERR_INSN - not generated - the caller should try the
  |               standard way else - error
  |  
  |  cleanup(self, *args) -> 'void'
@@ -37655,7 +37730,7 @@ class udc_filter_t(microcode_filter_t)
  |  
  |  match(self, *args) -> 'bool'
  |      match(self, cdg) -> bool
- |      return true if the filter object should be appied to given instruction
+ |      return true if the filter object should be applied to given instruction
  |      
  |      @param cdg: (C++: codegen_t &)
  |  
@@ -41464,7 +41539,7 @@ Help on function delinf in module ida_ida:
 
 delinf(*args) -> 'bool'
     delinf(tag) -> bool
-    undefine a program specific information
+    Undefine a program specific information
     
     @param tag: (C++: inftag_t) one of inftag_t constants
     @return: success
@@ -41489,7 +41564,7 @@ Help on function getinf_str in module ida_ida:
 
 getinf_str(*args) -> 'qstring *'
     getinf_str(tag) -> str
-    get program specific information (a non-scalar value)
+    Get program specific information (a non-scalar value)
     
     @param tag: (C++: inftag_t) one of inftag_t constants
     @return: number of bytes stored in the buffer (<0 - not defined)
@@ -42055,6 +42130,186 @@ Help on function inf_use_gcc_layout in module ida_ida:
 
 inf_use_gcc_layout(*args) -> 'bool'
     inf_use_gcc_layout() -> bool
+
+Help on class idbattr_info_t in module ida_ida:
+
+class idbattr_info_t(builtins.object)
+ |  Proxy of C++ idbattr_info_t class.
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, *args)
+ |      __init__(self, name, offset, width, bitmask=0, tag=0, idi_flags=0) -> idbattr_info_t
+ |      
+ |      @param name: char const *
+ |      @param offset: uintptr_t
+ |      @param width: size_t
+ |      @param bitmask: uint64
+ |      @param tag: uchar
+ |      @param idi_flags: uint
+ |  
+ |  __lt__(self, *args) -> 'bool'
+ |      __lt__(self, r) -> bool
+ |      
+ |      @param r: idbattr_info_t const &
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  __swig_destroy__ = delete_idbattr_info_t(...)
+ |      delete_idbattr_info_t(self)
+ |  
+ |  has_individual_node(self, *args) -> 'bool'
+ |      has_individual_node(self) -> bool
+ |  
+ |  hashname(self, *args) -> 'char const *'
+ |      hashname(self) -> char const *
+ |  
+ |  is_bitfield(self, *args) -> 'bool'
+ |      is_bitfield(self) -> bool
+ |  
+ |  is_bitmap(self, *args) -> 'bool'
+ |      is_bitmap(self) -> bool
+ |  
+ |  is_boolean(self, *args) -> 'bool'
+ |      is_boolean(self) -> bool
+ |  
+ |  is_buf_var(self, *args) -> 'bool'
+ |      is_buf_var(self) -> bool
+ |  
+ |  is_bytearray(self, *args) -> 'bool'
+ |      is_bytearray(self) -> bool
+ |  
+ |  is_cstr(self, *args) -> 'bool'
+ |      is_cstr(self) -> bool
+ |  
+ |  is_decimal(self, *args) -> 'bool'
+ |      is_decimal(self) -> bool
+ |  
+ |  is_hash(self, *args) -> 'bool'
+ |      is_hash(self) -> bool
+ |  
+ |  is_hexadecimal(self, *args) -> 'bool'
+ |      is_hexadecimal(self) -> bool
+ |  
+ |  is_incremented(self, *args) -> 'bool'
+ |      is_incremented(self) -> bool
+ |  
+ |  is_node_altval(self, *args) -> 'bool'
+ |      is_node_altval(self) -> bool
+ |  
+ |  is_node_blob(self, *args) -> 'bool'
+ |      is_node_blob(self) -> bool
+ |  
+ |  is_node_supval(self, *args) -> 'bool'
+ |      is_node_supval(self) -> bool
+ |  
+ |  is_node_valobj(self, *args) -> 'bool'
+ |      is_node_valobj(self) -> bool
+ |  
+ |  is_node_var(self, *args) -> 'bool'
+ |      is_node_var(self) -> bool
+ |  
+ |  is_onoff(self, *args) -> 'bool'
+ |      is_onoff(self) -> bool
+ |  
+ |  is_qstring(self, *args) -> 'bool'
+ |      is_qstring(self) -> bool
+ |  
+ |  is_readonly_var(self, *args) -> 'bool'
+ |      is_readonly_var(self) -> bool
+ |  
+ |  is_scalar_var(self, *args) -> 'bool'
+ |      is_scalar_var(self) -> bool
+ |  
+ |  is_struc_field(self, *args) -> 'bool'
+ |      is_struc_field(self) -> bool
+ |  
+ |  is_val_mapped(self, *args) -> 'bool'
+ |      is_val_mapped(self) -> bool
+ |  
+ |  ridx(self, *args) -> 'size_t'
+ |      ridx(self) -> size_t
+ |  
+ |  str_false(self, *args) -> 'char const *'
+ |      str_false(self) -> char const *
+ |  
+ |  str_true(self, *args) -> 'char const *'
+ |      str_true(self) -> char const *
+ |  
+ |  use_hlpstruc(self, *args) -> 'bool'
+ |      use_hlpstruc(self) -> bool
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  bitmask
+ |      bitmask
+ |  
+ |  idi_flags
+ |      idi_flags
+ |  
+ |  individual_node
+ |      individual_node
+ |  
+ |  maxsize
+ |      maxsize
+ |  
+ |  name
+ |      name
+ |  
+ |  offset
+ |      offset
+ |  
+ |  tag
+ |      tag
+ |  
+ |  thisown
+ |      The membership flag
+ |  
+ |  vmap
+ |      vmap
+ |  
+ |  width
+ |      width
+
+Help on class idbattr_valmap_t in module ida_ida:
+
+class idbattr_valmap_t(builtins.object)
+ |  Proxy of C++ idbattr_valmap_t class.
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, *args)
+ |      __init__(self) -> idbattr_valmap_t
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  __swig_destroy__ = delete_idbattr_valmap_t(...)
+ |      delete_idbattr_valmap_t(self)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  thisown
+ |      The membership flag
+ |  
+ |  valname
+ |      valname
+ |  
+ |  value
+ |      value
 
 Help on function inf_abi_set_by_user in module ida_ida:
 
@@ -44041,9 +44296,10 @@ class CustomIDAMemo(View_Hooks)
  |      @param values: A dictionary of 'int -> node_info_t' objects.
  |  
  |  __init__(self)
- |      __init__(self, _flags=0) -> View_Hooks
+ |      __init__(self, _flags=0, _hkcb_flags=0x0001) -> View_Hooks
  |      
  |      @param _flags: uint32
+ |      @param _hkcb_flags: uint32
  |  
  |  _get_cb(self, view, cb_name)
  |  
@@ -45862,7 +46118,10 @@ dbg_appcall(*args) -> 'error_t'
     dbg_appcall(retval, func_ea, tid, ptif, argv, argnum) -> error_t
     Call a function from the debugged application.
     
-    @param retval: (C++: idc_value_t *)
+    @param retval: (C++: idc_value_t *) function return value
+    * for APPCALL_MANUAL, r will hold the new stack point value
+    * for APPCALL_DEBEV, r will hold the exception information upon failure and the
+    return code will be eExecThrow
     @param func_ea: (C++: ea_t) address to call
     @param tid: (C++: thid_t) thread to use. NO_THREAD means to use the current thread
     @param ptif: (C++: const tinfo_t *) pointer to type of the function to call
@@ -47264,9 +47523,10 @@ class IDB_Hooks(builtins.object)
  |  __disown__(self)
  |  
  |  __init__(self, *args)
- |      __init__(self, _flags=0) -> IDB_Hooks
+ |      __init__(self, _flags=0, _hkcb_flags=0x0001) -> IDB_Hooks
  |      
  |      @param _flags: uint32
+ |      @param _hkcb_flags: uint32
  |  
  |  __repr__ = _swig_repr(self)
  |  
@@ -47971,10 +48231,11 @@ class IDB_Hooks(builtins.object)
  |      @param mptr: (member_t *)
  |  
  |  struc_renamed(self, *args) -> 'void'
- |      struc_renamed(self, sptr)
+ |      struc_renamed(self, sptr, success)
  |      A structure type has been renamed.
  |      
  |      @param sptr: (struc_t *)
+ |      @param success: (::bool) the structure was successfully renamed
  |  
  |  tail_owner_changed(self, *args) -> 'void'
  |      tail_owner_changed(self, tail, owner_func, old_owner)
@@ -48041,9 +48302,10 @@ class IDP_Hooks(builtins.object)
  |  __disown__(self)
  |  
  |  __init__(self, *args)
- |      __init__(self, _flags=0) -> IDP_Hooks
+ |      __init__(self, _flags=0, _hkcb_flags=0x0001) -> IDP_Hooks
  |      
  |      @param _flags: uint32
+ |      @param _hkcb_flags: uint32
  |  
  |  __repr__ = _swig_repr(self)
  |  
@@ -48352,7 +48614,7 @@ class IDP_Hooks(builtins.object)
  |      ev_create_merge_handlers(self, md) -> int
  |      Create merge handlers, if needed
  |      
- |      @param md: (::merge_data_t *) This event is generated immediately after opening
+ |      @param md: (merge_data_t *) This event is generated immediately after opening
  |                 idbs.
  |      @return: must be 0
  |  
@@ -48890,12 +49152,15 @@ class IDP_Hooks(builtins.object)
  |  
  |  ev_is_switch(self, *args) -> 'int'
  |      ev_is_switch(self, si, insn) -> int
- |      Find 'switch' idiom. It will be called for instructions marked with CF_JUMP.
+ |      Find 'switch' idiom or override processor module's decision. It will be called
+ |      for instructions marked with CF_JUMP.
  |      
  |      @param si: (switch_info_t *), out
  |      @param insn: (const insn_t *) instruction possibly belonging to a switch
- |      @retval 1: switch is found, 'si' is filled
- |      @retval -1: no switch found
+ |      @retval 1: switch is found, 'si' is filled. IDA will create the switch using the
+ |                 filled 'si'
+ |      @retval -1: no switch found. This value forbids switch creation by the processor
+ |                  module
  |      @retval 0: not implemented
  |  
  |  ev_last_cb_before_loader(self, *args) -> 'int'
@@ -48968,7 +49233,7 @@ class IDP_Hooks(builtins.object)
  |      @param fileoff: (qoff64_t) offset in the file
  |      @param basepara: (::ea_t) base loading paragraph
  |      @param binoff: (::ea_t) loader offset
- |      @param nbytes: (uint64) number of bytes to load
+ |      @param nbytes: (::uint64) number of bytes to load
  |  
  |  ev_newfile(self, *args) -> 'int'
  |      ev_newfile(self, fname) -> int
@@ -49423,9 +49688,10 @@ class _processor_t_Trampoline_IDB_Hooks(IDB_Hooks)
  |  Methods defined here:
  |  
  |  __init__(self, proc)
- |      __init__(self, _flags=0) -> IDB_Hooks
+ |      __init__(self, _flags=0, _hkcb_flags=0x0001) -> IDB_Hooks
  |      
  |      @param _flags: uint32
+ |      @param _hkcb_flags: uint32
  |  
  |  _processor_t_Trampoline_IDB_Hooks__dummy = __dummy(self, *args)
  |  
@@ -50139,10 +50405,11 @@ class _processor_t_Trampoline_IDB_Hooks(IDB_Hooks)
  |      @param mptr: (member_t *)
  |  
  |  struc_renamed(self, *args) -> 'void'
- |      struc_renamed(self, sptr)
+ |      struc_renamed(self, sptr, success)
  |      A structure type has been renamed.
  |      
  |      @param sptr: (struc_t *)
+ |      @param success: (::bool) the structure was successfully renamed
  |  
  |  tail_owner_changed(self, *args) -> 'void'
  |      tail_owner_changed(self, tail, owner_func, old_owner)
@@ -50418,17 +50685,6 @@ cfg_get_cc_predefined_macros(*args) -> 'char const *'
     
     @param compid: comp_t
 
-Help on function clr_module_data in module ida_idp:
-
-clr_module_data(*args) -> 'void *'
-    clr_module_data(data_id) -> void *
-    Unregister pointer to database specific module data.
-    
-    @param data_id: (C++: int) an data_id that was assigned by set_module_data()
-    @return: previously registered pointer for the current database. it can be
-             deallocated now. Multiple calls to this function with the same id are
-             forbidden.
-
 Help on function delay_slot_insn in module ida_idp:
 
 delay_slot_insn(*args) -> 'bool'
@@ -50487,15 +50743,6 @@ get_idp_notifier_ud_addr(*args) -> 'PyObject *'
     get_idp_notifier_ud_addr(hooks) -> PyObject *
     
     @param hooks: IDP_Hooks *
-
-Help on function get_module_data in module ida_idp:
-
-get_module_data(*args) -> 'void *'
-    get_module_data(data_id) -> void *
-    Get pointer to the database specific module data.
-    
-    @param data_id: (C++: int) data id that was initialized by set_module_data()
-    @return: previously registered pointer for the current database
 
 Help on function get_ph in module ida_idp:
 
@@ -50882,9 +51129,10 @@ class processor_t(IDP_Hooks)
  |  Methods defined here:
  |  
  |  __init__(self)
- |      __init__(self, _flags=0) -> IDP_Hooks
+ |      __init__(self, _flags=0, _hkcb_flags=0x0001) -> IDP_Hooks
  |      
  |      @param _flags: uint32
+ |      @param _hkcb_flags: uint32
  |  
  |  _get_idb_notifier_addr(self)
  |  
@@ -51206,12 +51454,15 @@ class processor_t(IDP_Hooks)
  |  
  |  ev_is_switch(self, *args)
  |      ev_is_switch(self, si, insn) -> int
- |      Find 'switch' idiom. It will be called for instructions marked with CF_JUMP.
+ |      Find 'switch' idiom or override processor module's decision. It will be called
+ |      for instructions marked with CF_JUMP.
  |      
  |      @param si: (switch_info_t *), out
  |      @param insn: (const insn_t *) instruction possibly belonging to a switch
- |      @retval 1: switch is found, 'si' is filled
- |      @retval -1: no switch found
+ |      @retval 1: switch is found, 'si' is filled. IDA will create the switch using the
+ |                 filled 'si'
+ |      @retval -1: no switch found. This value forbids switch creation by the processor
+ |                  module
  |      @retval 0: not implemented
  |  
  |  ev_may_be_func(self, *args)
@@ -51249,7 +51500,7 @@ class processor_t(IDP_Hooks)
  |      @param fileoff: (qoff64_t) offset in the file
  |      @param basepara: (::ea_t) base loading paragraph
  |      @param binoff: (::ea_t) loader offset
- |      @param nbytes: (uint64) number of bytes to load
+ |      @param nbytes: (::uint64) number of bytes to load
  |  
  |  ev_newfile(self, *args)
  |      ev_newfile(self, fname) -> int
@@ -51722,7 +51973,7 @@ class processor_t(IDP_Hooks)
  |      ev_create_merge_handlers(self, md) -> int
  |      Create merge handlers, if needed
  |      
- |      @param md: (::merge_data_t *) This event is generated immediately after opening
+ |      @param md: (merge_data_t *) This event is generated immediately after opening
  |                 idbs.
  |      @return: must be 0
  |  
@@ -52738,22 +52989,6 @@ register_cfgopts(*args) -> 'bool'
     @param cb: config_changed_cb_t *
     @param obj: void *
 
-Help on function set_module_data in module ida_idp:
-
-set_module_data(*args) -> 'void *'
-    set_module_data(data_id, data_ptr) -> void *
-    Starting from IDA v7.5 all modules should use the following 3 functions to
-    handle idb specific static data because now the kernel supports opening and
-    working with multiple idbs files simultaneously. See the source code of the
-    processor modules in the SDK for the usage examples. Register pointer to
-    database specific module data.
-    
-    @param data_id: (C++: int *) initially the pointed-to value must be 0, the kernel will fill
-                    it with a unique id. once assigned, the data_id does not change.
-    @param data_ptr: (C++: void *) pointer to the data to register
-    @return: data_ptr. The registered pointer can later be retrieved using
-             get_module_data()
-
 Help on function set_processor_type in module ida_idp:
 
 set_processor_type(*args) -> 'bool'
@@ -53439,9 +53674,10 @@ class CustomIDAMemo(View_Hooks)
  |      @param values: A dictionary of 'int -> node_info_t' objects.
  |  
  |  __init__(self)
- |      __init__(self, _flags=0) -> View_Hooks
+ |      __init__(self, _flags=0, _hkcb_flags=0x0001) -> View_Hooks
  |      
  |      @param _flags: uint32
+ |      @param _hkcb_flags: uint32
  |  
  |  _get_cb(self, view, cb_name)
  |  
@@ -53900,9 +54136,10 @@ class IDAViewWrapper(CustomIDAMemo)
  |  Unbind(self)
  |  
  |  __init__(self, title)
- |      __init__(self, _flags=0) -> View_Hooks
+ |      __init__(self, _flags=0, _hkcb_flags=0x0001) -> View_Hooks
  |      
  |      @param _flags: uint32
+ |      @param _hkcb_flags: uint32
  |  
  |  ----------------------------------------------------------------------
  |  Methods inherited from CustomIDAMemo:
@@ -54270,9 +54507,10 @@ class UI_Hooks(builtins.object)
  |  __disown__(self)
  |  
  |  __init__(self, *args)
- |      __init__(self, _flags=0) -> UI_Hooks
+ |      __init__(self, _flags=0, _hkcb_flags=0x0001) -> UI_Hooks
  |      
  |      @param _flags: uint32
+ |      @param _hkcb_flags: uint32
  |  
  |  __real_database_closed = database_closed(self, *args) -> 'void'
  |      database_closed(self)
@@ -54583,9 +54821,10 @@ class View_Hooks(builtins.object)
  |  __disown__(self)
  |  
  |  __init__(self, *args)
- |      __init__(self, _flags=0) -> View_Hooks
+ |      __init__(self, _flags=0, _hkcb_flags=0x0001) -> View_Hooks
  |      
  |      @param _flags: uint32
+ |      @param _hkcb_flags: uint32
  |  
  |  __repr__ = _swig_repr(self)
  |  
@@ -55178,7 +55417,7 @@ ask_buttons(*args) -> 'int'
     (ui_ask_buttons).
     @note: for all buttons:
     * use "" or nullptr to take the default name for the button.
-    * use 'format' to hide the cancel button
+    * prepend "HIDECANCEL\n" in 'format' to hide the Cancel button
     
     @param Yes: (C++: const char *) text for the first button
     @param No: (C++: const char *) text for the second button
@@ -55214,11 +55453,12 @@ ask_form(*args)
     <title>" keyword, then the return values are the same as in the ask_yn()
     function (Button IDs)
     
-    @retval 0: the user pressed Esc, no memory to display or form syntax error a
-               dialog box (a warning is displayed in this case). all variables
-               retain their original values.
+    @retval 0: no memory to display or form syntax error (a warning is displayed in
+               this case). the user pressed the 'No' button (if the form has it) or
+               the user cancelled the dialog otherwise. all variables retain their
+               original values.
     @retval 1: ok, all input fields are filled and validated.
-    @retval -1: the form had BUTTON CANCEL and the user cancelled the dialog
+    @retval -1: the form has the 'No' button and the user cancelled the dialog
 
 Help on function ask_ident in module ida_kernwin:
 
@@ -55335,13 +55575,13 @@ attach_action_to_toolbar(*args) -> 'bool'
 Help on function attach_dynamic_action_to_popup in module ida_kernwin:
 
 attach_dynamic_action_to_popup(*args) -> 'bool'
-    attach_dynamic_action_to_popup(widget, popup_handle, desc, popuppath=None, flags=0) -> bool
+    attach_dynamic_action_to_popup(unused, popup_handle, desc, popuppath=None, flags=0) -> bool
     Create & insert an action into the widget's popup menu
     (ui_attach_dynamic_action_to_popup).
     @note: action_desc_t::handler for 'desc' must be instantiated using 'new', as it
            will be 'delete'd when the action is unregistered.
     
-    @param widget: (C++: TWidget *) target widget
+    @param unused: (C++: TWidget *) deprecated; should be nullptr
     @param popup_handle: (C++: TPopupMenu *) target popup
     @param desc: (C++: const action_desc_t &) created with DYNACTION_DESC_LITERAL
     @param popuppath: (C++: const char *) can be nullptr
@@ -55660,10 +55900,10 @@ class chooser_base_t(builtins.object)
  |      is_status_bar_hidden(self) -> bool
  |  
  |  popup_allowed(self, *args) -> 'bool'
- |      popup_allowed(self, i) -> bool
- |      is a popup action allowed?
+ |      popup_allowed(self, stdact_idx) -> bool
+ |      is a standard action allowed?
  |      
- |      @param i: (C++: int)
+ |      @param stdact_idx: (C++: int)
  |  
  |  should_rename_trigger_edit(self, *args) -> 'bool'
  |      should_rename_trigger_edit(self) -> bool
@@ -55770,6 +56010,60 @@ class chooser_item_attrs_t(builtins.object)
  |  
  |  thisown
  |      The membership flag
+
+Help on class chooser_stdact_desc_t in module ida_kernwin:
+
+class chooser_stdact_desc_t(builtins.object)
+ |  Proxy of C++ chooser_stdact_desc_t class.
+ |  
+ |  Methods defined here:
+ |  
+ |  __disown__(self)
+ |  
+ |  __init__(self, *args)
+ |      __init__(self, _label=None, _tooltip=None, _icon=-1) -> chooser_stdact_desc_t
+ |      
+ |      @param _label: char const *
+ |      @param _tooltip: char const *
+ |      @param _icon: int
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  __swig_destroy__ = delete_chooser_stdact_desc_t(...)
+ |      delete_chooser_stdact_desc_t(self)
+ |  
+ |  ucb(self, *args) -> 'action_state_t'
+ |      ucb(self, arg0) -> action_state_t
+ |      the update callback, see action_handler_t::update() When the update callback is
+ |      called from the chooser UI engine, it can be sure that ctx.source.chooser is a
+ |      valid pointer to chooser_base_t and that there are selected items for the Delete
+ |      and Edit actions.
+ |      
+ |      @param arg0: action_update_ctx_t *
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  icon
+ |      icon
+ |  
+ |  label
+ |      label
+ |  
+ |  thisown
+ |      The membership flag
+ |  
+ |  tooltip
+ |      tooltip
+ |  
+ |  version
+ |      version
 
 Help on function clear_refresh_request in module ida_kernwin:
 
@@ -57093,7 +57387,7 @@ get_window_id(*args) -> 'void *'
     get_window_id(name=None) -> void *
     Get the system-specific window ID (GUI version only)
     
-    @param the: name of the window (nullptr means the main IDA window)
+    @param name: (C++: const char *) name of the window (nullptr means the main IDA window)
     @return: the low-level window ID
 
 Help on function hide_wait_box in module ida_kernwin:
@@ -58155,7 +58449,8 @@ open_bookmarks_window(*args) -> 'TWidget *'
     open_bookmarks_window(w) -> TWidget *
     Open the bookmarks window (ui_open_builtin).
     
-    @param ea: index of entry to select by default
+    @param w: (C++: TWidget *) The widget for which the bookmarks will open. For example, this can be
+              an IDAView, or Enums view, etc.
     @return: pointer to resulting window
 
 Help on function open_bpts_window in module ida_kernwin:
@@ -58208,7 +58503,12 @@ open_exports_window(*args) -> 'TWidget *'
 Help on function open_form in module ida_kernwin:
 
 open_form(*args)
-    Display a dockable modeless dialog box and return a handle to it.
+    Display a dockable modeless dialog box and return a handle to it. The modeless
+    form can be closed in the following ways:
+    * by pressing the small 'x' in the window title
+    * by calling form_actions_t::close() from the form callback (form_actions_t)
+    @note: pressing the 'Yes/No/Cancel' buttons does not close the modeless form,
+           except if the form callback explicitly calls close().
     
     @return: handle to the form or nullptr. the handle can be used with TWidget
 
@@ -61841,8 +62141,9 @@ class user_defined_prefix_t(builtins.object)
  |      @param ea: (C++: ea_t) the current address
  |      @param insn: (C++: const class insn_t &) the current instruction. if the current item is not an instruction,
  |                   then insn.itype is zero.
- |      @param insn: (C++: const class insn_t &) the current instruction. if the current item is not an instruction,
- |                   then insn.itype is zero.
+ |      @param lnnum: (C++: int) number of the current line (each address may have several listing
+ |                    lines for it). 0 means the very first line for the current
+ |                    address.
  |      @param indent: (C++: int) see explanations for gen_printf()
  |      @param line: (C++: const char *) the line to be generated. the line usually contains color tags.
  |                   this argument can be examined to decide whether to generate the
@@ -62316,14 +62617,15 @@ Help on function process_archive in module ida_loader:
 process_archive(*args) -> 'qstring *'
     process_archive(temp_file, li, module_name, neflags, defmember, loader) -> str
     Calls loader_t::process_archive() For parameters and return value description
-    look at loader_t::process_archive(). Additional parameter:
+    look at loader_t::process_archive(). Additional parameter 'loader' is a pointer
+    to load_info_t structure.
     
-    @param loader: (C++: const load_info_t *) pointer to load_info_t structure.
+    @param temp_file: (C++: qstring *)
     @param li: (C++: linput_t *)
     @param module_name: (C++: qstring *)
     @param neflags: (C++: ushort *)
     @param defmember: (C++: const char *) char const *
-    @param loader: (C++: const load_info_t *) pointer to load_info_t structure.
+    @param loader: (C++: const load_info_t *) load_info_t const *
 
 Help on class qvector_snapshotvec_t in module ida_loader:
 
@@ -62714,13 +63016,6 @@ diff_metadata(*args) -> 'bool'
     @param left: func_info_t const &
     @param right: func_info_t const &
     @param flags: uint32
-
-Help on function ea_to_ea64 in module ida_lumina:
-
-ea_to_ea64(*args) -> 'ea64_t'
-    ea_to_ea64(ea) -> ea64_t
-    
-    @param ea: ea_t
 
 Help on class extra_cmt_t in module ida_lumina:
 
@@ -66207,6 +66502,739 @@ class user_stkpnts_t(builtins.object)
  |  
  |  thisown
  |      The membership flag
+
+Module "ida_merge"s docstring:
+"""
+Merge functionality.
+
+NOTE: this functionality is available in IDA Teams (not IDA Pro)
+
+There are 3 databases involved in merging: base_idb, local_db, and remote_idb.
+* base_idb: the common base ancestor of 'local_db' and 'remote_db'. in the UI
+this database is located in the middle.
+* local_idb: local database that will contain the result of the merging. in the
+UI this database is located on the left.
+* remote_idb: remote database that will merge into local_idb. It may reside
+locally on the current computer, despite its name. in the UI this database is
+located on the right. base_idb and remote_idb are opened for reading only.
+base_idb may be absent, in this case a 2-way merging is performed.
+
+Conflicts can be resolved automatically or interactively. The automatic
+resolving scores the conflicting blocks and takes the better one. The
+interactive resolving displays the full rendered contents side by side, and
+expects the user to select the better side for each conflict.
+
+Since IDB files contain various kinds of information, there are many merging
+phases. The entire list can be found in merge.cpp. Below are just some selected
+examples:
+* merge global database settings (inf and other global vars)
+* merge segmentation and changes to the database bytes
+* merge various lists: exports, imports, loaded tils, etc
+* merge names, functions, function frames
+* merge debugger settings, breakpoints
+* merge struct/enum views
+* merge local type libraries
+* merge the disassembly items (i.e. the segment contents) this includes operand
+types, code/data separation, etc
+* merge plugin specific info like decompiler types, dwarf mappings, etc
+
+To unify UI elements of each merge phase, we use merger views:
+* A view that consists of 2 or 3 panes: left (local_idb) and right (remote_idb).
+The common base is in the middle, if present.
+* Rendering of the panes depends on the phase, different phases show different
+contents.
+* The conflicts are highlighted by a colored background. Also, the detail pane
+can be consulted for additional info.
+* The user can select a conflict (or a bunch of conflicts) and say "use this
+block".
+* The user can browse the panes as he wishes. He will not be forced to handle
+conflicts in any particular order. However, once he finishes working with a
+merge handler and proceeds to the next one, he cannot go back.
+* Scrolling the left pane will synchronously scroll the right pane and vice
+versa.
+* There are the navigation commands like "go to the prev/next conflict"
+* The number of remaining conflicts to resolve is printed in the "Progress"
+chooser.
+* The user may manually modify local database inside the merger view. For that
+he may use the regular hotkeys. However, editing the database may lead to new
+conflicts, so we better restrict the available actions to some reasonable
+minimum. Currently, this is not implemented.
+
+IDA works in a new "merge" mode during merging. In this mode most events are not
+generated. We forbid them to reduce the risk that a rogue third-party plugin
+that is not aware of the "merge" mode would spoil something.
+
+For example, normally renaming a function causes a cascade of events and may
+lead to other database modifications. Some of them may be desired, some - not.
+Since there are some undesired events, it is better to stop generating them.
+However, some events are required to render the disassembly listing. For
+example, ev_ana_insn, av_out_insn. This is why some events are still generated
+in the "merge" mode.
+
+To let processor modules and plugins merge their data, we introduce a new event:
+ev_create_merge_handlers. It is generated immediately after opening all three
+idbs. The interested modules should react to this event by creating new merge
+handlers, if they need them.
+
+While the kernel can create arbitrary merge handlers, modules can create only
+the standard ones returned by:
+
+create_nodeval_merge_handler() create_nodeval_merge_handlers()
+create_std_modmerge_handlers()
+
+We do not document merge_handler_t because once a merge handler is created, it
+is used exclusively by the kernel.
+
+See mergemod.hpp for more information about the merge mode for modules."""
+
+Help on function create_nodeval_merge_handler in module ida_merge:
+
+create_nodeval_merge_handler(*args) -> 'merge_handler_t *'
+    create_nodeval_merge_handler(mhp, label, nodename, tag, nds_flags, node_helper=None, skip_empty_nodes=True) -> merge_handler_t *
+    Create a merge handler for netnode scalar/string values
+    
+    @param mhp: (C++: const merge_handler_params_t &) merging parameters
+    @param label: (C++: const char *) handler short name (to be be appended to mhp.label)
+    @param nodename: (C++: const char *) netnode name
+    @param tag: (C++: uchar) a tag used to access values in the netnode
+    @param nds_flags: (C++: uint32) netnode value attributes (a combination of nds_flags_t)
+    @param node_helper: merge_node_helper_t *
+    @param skip_empty_nodes: (C++: bool) do not create handler in case of empty netnode
+    @return: diff source object (normally should be attahced to a merge handler)
+
+Help on function create_nodeval_merge_handlers in module ida_merge:
+
+create_nodeval_merge_handlers(*args) -> 'void'
+    create_nodeval_merge_handlers(out, mhp, nodename, valdesc, skip_empty_nodes=True)
+    Create a serie of merge handlers for netnode scalar/string values (call
+    create_nodeval_merge_handler() for each member of VALDESC)
+    
+    @param out: (C++: merge_handlers_t *) [out] created handlers will be placed here
+    @param mhp: (C++: const merge_handler_params_t &) merging parameters
+    @param nodename: (C++: const char *) netnode name
+    @param valdesc: (C++: const merge_node_info_t *) array of handler descriptions
+    @param skip_empty_nodes: (C++: bool) do not create handlers for empty netnodes
+    @return: diff source object (normally should be attahced to a merge handler)
+
+Help on function destroy_moddata_merge_handlers in module ida_merge:
+
+destroy_moddata_merge_handlers(*args) -> 'void'
+    destroy_moddata_merge_handlers(data_id)
+    
+    @param data_id: int
+
+Help on function get_ea_diffpos_name in module ida_merge:
+
+get_ea_diffpos_name(*args) -> 'qstring *'
+    get_ea_diffpos_name(ea) -> str
+    Get nice name for EA diffpos
+    
+    @param ea: (C++: ea_t) diffpos
+    @note
+    @see: get_nice_colored_name
+
+Help on function is_diff_merge_mode in module ida_merge:
+
+is_diff_merge_mode(*args) -> 'bool'
+    is_diff_merge_mode() -> bool
+    Return TRUE if IDA is running in diff mode (MERGE_POLICY_DIFF)
+
+Help on class item_block_locator_t in module ida_merge:
+
+class item_block_locator_t(builtins.object)
+ |  Proxy of C++ merge_data_t::item_block_locator_t class.
+ |  
+ |  Methods defined here:
+ |  
+ |  __disown__(self)
+ |  
+ |  __init__(self, *args)
+ |      __init__(self) -> item_block_locator_t
+ |      
+ |      @param self: PyObject *
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  __swig_destroy__ = delete_item_block_locator_t(...)
+ |      delete_item_block_locator_t(self)
+ |  
+ |  get_block_head(self, *args) -> 'ea_t'
+ |      get_block_head(self, md, idx, item_head) -> ea_t
+ |      
+ |      @param md: merge_data_t &
+ |      @param idx: diff_source_idx_t
+ |      @param item_head: ea_t
+ |  
+ |  setup_blocks(self, *args) -> 'bool'
+ |      setup_blocks(self, md, _from, to, region) -> bool
+ |      
+ |      @param md: merge_data_t &
+ |      @param from: diff_source_idx_t
+ |      @param to: diff_source_idx_t
+ |      @param region: diff_range_t const &
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  thisown
+ |      The membership flag
+
+Help on class merge_data_t in module ida_merge:
+
+class merge_data_t(builtins.object)
+ |  Proxy of C++ merge_data_t class.
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, *args, **kwargs)
+ |      Initialize self.  See help(type(self)) for accurate signature.
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  add_event_handler(self, *args) -> 'void'
+ |      add_event_handler(self, handler)
+ |      
+ |      @param handler: merge_handler_t *
+ |  
+ |  base_id(self, *args) -> 'int'
+ |      base_id(self) -> int
+ |  
+ |  compare_merging_tifs(self, *args) -> 'int'
+ |      compare_merging_tifs(self, tif1, diffidx1, tif2, diffidx2) -> int
+ |      compare types from two databases
+ |      
+ |      @param tif1: (C++: const tinfo_t &) type
+ |      @param diffidx1: (C++: diff_source_idx_t) database index, diff_source_idx_t
+ |      @param tif2: (C++: const tinfo_t &) type
+ |      @param diffidx2: (C++: diff_source_idx_t) database index, diff_source_idx_t
+ |      @return: -1, 0, 1
+ |  
+ |  get_block_head(self, *args) -> 'ea_t'
+ |      get_block_head(self, idx, item_head) -> ea_t
+ |      
+ |      @param idx: diff_source_idx_t
+ |      @param item_head: ea_t
+ |  
+ |  has_existing_node(self, *args) -> 'bool'
+ |      has_existing_node(self, nodename) -> bool
+ |      check that node exists in any of databases
+ |      
+ |      @param nodename: (C++: const char *) char const *
+ |  
+ |  local_id(self, *args) -> 'int'
+ |      local_id(self) -> int
+ |  
+ |  map_privrange_id(self, *args) -> 'bool'
+ |      map_privrange_id(self, tid, ea, _from, to, strict=True) -> bool
+ |      map IDs of structures, enumerations and their members
+ |      
+ |      @param tid: (C++: tid_t *) item ID in TO database
+ |      @param ea: (C++: ea_t) item ID to find counterpart
+ |      @param from: (C++: diff_source_idx_t) source database index, diff_source_idx_t
+ |      @param to: (C++: diff_source_idx_t) destination database index, diff_source_idx_t
+ |      @param strict: (C++: bool) raise interr if could not map
+ |      @return: success
+ |  
+ |  map_tinfo(self, *args) -> 'bool'
+ |      map_tinfo(self, tif, _from, to, strict=True) -> bool
+ |      migrate type, replaces type references into FROM database to references into TO
+ |      database
+ |      
+ |      @param tif: (C++: tinfo_t *) type to migrate, will be cleared in case of fail
+ |      @param from: (C++: diff_source_idx_t) source database index, diff_source_idx_t
+ |      @param to: (C++: diff_source_idx_t) destination database index, diff_source_idx_t
+ |      @param strict: (C++: bool) raise interr if could not map
+ |      @return: success
+ |  
+ |  remote_id(self, *args) -> 'int'
+ |      remote_id(self) -> int
+ |  
+ |  remove_event_handler(self, *args) -> 'void'
+ |      remove_event_handler(self, handler)
+ |      
+ |      @param handler: merge_handler_t *
+ |  
+ |  set_dbctx_ids(self, *args) -> 'void'
+ |      set_dbctx_ids(self, local, remote, base)
+ |      
+ |      @param local: int
+ |      @param remote: int
+ |      @param base: int
+ |  
+ |  setup_blocks(self, *args) -> 'bool'
+ |      setup_blocks(self, dst_idx, src_idx, region) -> bool
+ |      
+ |      @param dst_idx: diff_source_idx_t
+ |      @param src_idx: diff_source_idx_t
+ |      @param region: diff_range_t const &
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  dbctx_ids
+ |      dbctx_ids
+ |  
+ |  ev_handlers
+ |      ev_handlers
+ |  
+ |  item_block_locator
+ |      item_block_locator
+ |  
+ |  last_udt_related_merger
+ |      last_udt_related_merger
+ |  
+ |  nbases
+ |      nbases
+ |  
+ |  thisown
+ |      The membership flag
+
+Help on class merge_handler_params_t in module ida_merge:
+
+class merge_handler_params_t(builtins.object)
+ |  Proxy of C++ merge_handler_params_t class.
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, *args)
+ |      __init__(self, _md, _label, _kind, _insert_after, _mh_flags) -> merge_handler_params_t
+ |      
+ |      @param _md: merge_data_t &
+ |      @param _label: qstring const &
+ |      @param _kind: enum merge_kind_t
+ |      @param _insert_after: enum merge_kind_t
+ |      @param _mh_flags: uint32
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  __swig_destroy__ = delete_merge_handler_params_t(...)
+ |      delete_merge_handler_params_t(self)
+ |  
+ |  ui_complex_details(self, *args) -> 'bool'
+ |      ui_complex_details(self, _mh_flags) -> bool
+ |      Do not display the diffpos details in the chooser. For example, the
+ |      MERGE_KIND_SCRIPTS handler puts the script body as the diffpos detail. It would
+ |      not be great to show them as part of the chooser.
+ |      
+ |      @param _mh_flags: (C++: uint32)
+ |      
+ |      ui_complex_details(self) -> bool
+ |  
+ |  ui_complex_name(self, *args) -> 'bool'
+ |      ui_complex_name(self, _mh_flags) -> bool
+ |      It customary to create long diffpos names having many components that are
+ |      separated by any 7-bit ASCII character (besides of '\0'). In this case it is
+ |      possible to instruct IDA to use this separator to create a multi-column chooser.
+ |      For example the MERGE_KIND_ENUMS handler has the following diffpos name:
+ |      enum_1,enum_2 If MH_UI_COMMANAME is specified, IDA will create 2 columns for
+ |      these names.
+ |      
+ |      @param _mh_flags: (C++: uint32)
+ |      
+ |      ui_complex_name(self) -> bool
+ |  
+ |  ui_dp_shortname(self, *args) -> 'bool'
+ |      ui_dp_shortname(self, _mh_flags) -> bool
+ |      The detail pane shows the diffpos details for the current diffpos range as a
+ |      tree-like view. In this pane the diffpos names are used as tree node names and
+ |      the diffpos details as their children. Sometimes, for complex diffpos names, the
+ |      first part of the name looks better than the entire name. For example, the
+ |      MERGE_KIND_SEGMENTS handler has the following diffpos name:
+ |      <range>,<segm1>,<segm2>,<segm3> if MH_UI_DP_SHORTNAME is specified, IDA will use
+ |      <range> as a tree node name
+ |      
+ |      @param _mh_flags: (C++: uint32)
+ |      
+ |      ui_dp_shortname(self) -> bool
+ |  
+ |  ui_has_details(self, *args) -> 'bool'
+ |      ui_has_details(self, _mh_flags) -> bool
+ |      Should IDA display the diffpos detail pane?
+ |      
+ |      @param _mh_flags: (C++: uint32)
+ |      
+ |      ui_has_details(self) -> bool
+ |  
+ |  ui_indent(self, *args) -> 'bool'
+ |      ui_indent(self, _mh_flags) -> bool
+ |      In the ordinary situation the spaces from the both sides of diffpos name are
+ |      trimmed. Use this UI hint to preserve the leading spaces.
+ |      
+ |      @param _mh_flags: (C++: uint32)
+ |      
+ |      ui_indent(self) -> bool
+ |  
+ |  ui_linediff(self, *args) -> 'bool'
+ |      ui_linediff(self, _mh_flags) -> bool
+ |      In detail pane IDA shows difference between diffpos details. IDA marks added or
+ |      deleted detail by color. In the modified detail the changes are marked. Use this
+ |      UI hint if you do not want to show the differences inside detail.
+ |      
+ |      @param _mh_flags: (C++: uint32)
+ |      
+ |      ui_linediff(self) -> bool
+ |  
+ |  ui_split_char(self, *args) -> 'char'
+ |      ui_split_char(self, _mh_flags) -> char
+ |      
+ |      @param _mh_flags: uint32
+ |      
+ |      ui_split_char(self) -> char
+ |  
+ |  ui_split_str(self, *args) -> 'qstring'
+ |      ui_split_str(self, _mh_flags) -> qstring
+ |      
+ |      @param _mh_flags: uint32
+ |      
+ |      ui_split_str(self) -> qstring
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  insert_after
+ |      insert_after
+ |  
+ |  kind
+ |      kind
+ |  
+ |  label
+ |      label
+ |  
+ |  md
+ |      md
+ |  
+ |  mh_flags
+ |      mh_flags
+ |  
+ |  thisown
+ |      The membership flag
+
+Help on class merge_node_helper_t in module ida_merge:
+
+class merge_node_helper_t(builtins.object)
+ |  Proxy of C++ merge_node_helper_t class.
+ |  
+ |  Methods defined here:
+ |  
+ |  __disown__(self)
+ |  
+ |  __init__(self, *args)
+ |      __init__(self) -> merge_node_helper_t
+ |      
+ |      @param self: PyObject *
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  __swig_destroy__ = delete_merge_node_helper_t(...)
+ |      delete_merge_node_helper_t(self)
+ |  
+ |  get_column_headers(self, *args) -> 'void'
+ |      get_column_headers(self, arg0, arg1, arg2)
+ |      get column headers for chooser (to be used in
+ |      linear_diff_source_t::get_column_headers)
+ |      
+ |      @param arg0: qstrvec_t *
+ |      @param arg1: uchar
+ |      @param arg2: void *
+ |  
+ |  get_netnode(self, *args) -> 'netnode'
+ |      get_netnode(self) -> netnode
+ |      return netnode to be used as source. If this function returns BADNODE netnode
+ |      will be created using netnode name passed to create_nodeval_diff_source
+ |  
+ |  is_mergeable(self, *args) -> 'bool'
+ |      is_mergeable(self, arg0, arg1) -> bool
+ |      
+ |      @param filter: check if we should perform merging for given record
+ |      @param arg1: nodeidx_t
+ |  
+ |  map_scalar(self, *args) -> 'void'
+ |      map_scalar(self, arg0, arg1, arg2, arg3)
+ |      map scalar/string/buffered value
+ |      
+ |      @param arg0: nodeidx_t *
+ |      @param arg1: void *
+ |      @param arg2: diff_source_idx_t
+ |      @param arg3: diff_source_idx_t
+ |  
+ |  map_string(self, *args) -> 'void'
+ |      map_string(self, arg0, arg1, arg2, arg3)
+ |      
+ |      @param arg0: qstring *
+ |      @param arg1: void *
+ |      @param arg2: diff_source_idx_t
+ |      @param arg3: diff_source_idx_t
+ |  
+ |  print_entry_details(self, *args) -> 'void'
+ |      print_entry_details(self, arg0, arg1, arg2, arg3)
+ |      print the details of the specified entry usually contains multiple lines, one
+ |      for each attribute or detail. (to be used in print_diffpos_details)
+ |      
+ |      @param arg0: qstrvec_t *
+ |      @param arg1: uchar
+ |      @param arg2: nodeidx_t
+ |      @param arg3: void *
+ |  
+ |  print_entry_name(self, *args) -> 'qstring'
+ |      print_entry_name(self, arg0, arg1, arg2) -> qstring
+ |      print the name of the specified entry (to be used in print_diffpos_name)
+ |      
+ |      @param arg0: uchar
+ |      @param arg1: nodeidx_t
+ |      @param arg2: void *
+ |  
+ |  refresh(self, *args) -> 'void'
+ |      refresh(self, arg0, arg1)
+ |      notify helper that some data was changed in the database and internal structures
+ |      (e.g. caches) should be refreshed
+ |      
+ |      @param arg0: uchar
+ |      @param arg1: void *
+ |  
+ |  ----------------------------------------------------------------------
+ |  Static methods defined here:
+ |  
+ |  append_eavec(*args) -> 'void'
+ |      append_eavec(s, prefix, eas)
+ |      can be used by derived classes
+ |      
+ |      @param s: (C++: qstring *)
+ |      @param prefix: (C++: const char *) char const *
+ |      @param eas: (C++: const eavec_t &) eavec_t const &
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  thisown
+ |      The membership flag
+
+Help on function merge_node_helper_t_append_eavec in module ida_merge:
+
+merge_node_helper_t_append_eavec(*args) -> 'void'
+    merge_node_helper_t_append_eavec(s, prefix, eas)
+    
+    @param s: qstring *
+    @param prefix: char const *
+    @param eas: eavec_t const &
+
+Help on class merge_node_info_t in module ida_merge:
+
+class merge_node_info_t(builtins.object)
+ |  Proxy of C++ merge_node_info2_t class.
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, *args)
+ |      __init__(self, name, tag, nds_flags, node_helper=None) -> merge_node_info_t
+ |      
+ |      @param name: char const *
+ |      @param tag: uchar
+ |      @param nds_flags: uint32
+ |      @param node_helper: merge_node_helper_t *
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  __swig_destroy__ = delete_merge_node_info_t(...)
+ |      delete_merge_node_info_t(self)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  name
+ |      name
+ |  
+ |  nds_flags
+ |      nds_flags
+ |  
+ |  node_helper
+ |      node_helper
+ |  
+ |  tag
+ |      tag
+ |  
+ |  thisown
+ |      The membership flag
+
+Help on class moddata_diff_helper_t in module ida_merge:
+
+class moddata_diff_helper_t(builtins.object)
+ |  Proxy of C++ moddata_diff_helper_t class.
+ |  
+ |  Methods defined here:
+ |  
+ |  __disown__(self)
+ |  
+ |  __init__(self, *args)
+ |      __init__(self, _module_name, _netnode_name, _fields) -> moddata_diff_helper_t
+ |      
+ |      @param _module_name: char const *
+ |      @param _netnode_name: char const *
+ |      @param _fields: idbattr_info_t const *
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  __swig_destroy__ = delete_moddata_diff_helper_t(...)
+ |      delete_moddata_diff_helper_t(self)
+ |  
+ |  get_struc_ptr(self, *args) -> 'void *'
+ |      get_struc_ptr(self, arg0, arg1, arg2) -> void *
+ |      
+ |      @param arg0: merge_data_t &
+ |      @param arg1: diff_source_idx_t
+ |      @param arg2: idbattr_info_t const &
+ |  
+ |  merge_ending(self, *args) -> 'void'
+ |      merge_ending(self, arg0, arg1)
+ |      
+ |      @param arg0: diff_source_idx_t
+ |      @param arg1: void *
+ |  
+ |  merge_starting(self, *args) -> 'void'
+ |      merge_starting(self, arg0, arg1)
+ |      
+ |      @param arg0: diff_source_idx_t
+ |      @param arg1: void *
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  fields
+ |      fields
+ |  
+ |  module_name
+ |      module_name
+ |  
+ |  netnode_name
+ |      netnode_name
+ |  
+ |  nfields
+ |      nfields
+ |  
+ |  thisown
+ |      The membership flag
+
+Module "ida_mergemod"s docstring:
+"""
+Merge functionality for modules.
+
+NOTE: this functionality is available in IDA Teams (not IDA Pro)
+
+This file contains helper classes and convenience functions for module (plugin
+or processor module) merging.
+
+Each module is responsible for merging the data it owns (the module data). At
+the very beginning, the merging engine generates the ev_create_merge_handlers
+event. Modules should hook to this event to create merge handlers (mergers) that
+are responsible for the module data.
+
+We assume that each module may have:
+
+* its data structure, derived from plugmod_t or procmod_t. we call this
+structure moddata.
+* a dedicated netnode (module node), modnode for short.
+
+Moddata is registered with the IDA kernel using the set_module_data() function,
+which returns an integer, moddata_id. moddata_id is used to access the module
+data structure during merging, so it is mandatory for all modules that support
+merging.
+
+The following sources of mergeable data are supported:
+
+1. Data fields inside moddata 2. Values (scalar or binary, including blobs)
+stored in the module node 3. Values (scalar or binary, including blobs) stored
+in arbitrary netnodes 4. Data fields inside an auxiliary structure (provided by
+a special helper) 5. Indexed arrays of data stored in netnodes
+
+Usually the sources #1-4 are handled by a single merger, which can be
+parameterized using the folowing information:
+
+* moddata_id
+* module name
+* module node name
+* array of field descriptors (idbattr_info_t idpopts_info[], see ida.hpp)
+
+See plugins/mex1 for an example of such a merger.
+
+These parameters are stored in a helper class (moddata_diff_helper_t or
+derived). The helper class can override the following virtual methods:
+
+merge_starting - prepare module data for merging (e.g. load data from idb)
+merge_ending - opposite to merge_starting (e.g. save merged data to idb)
+get_struc_ptr - get pointer to the auxiliary structure (to handle source #4);
+this method will be called only if the fields with the IDI_HLPSTRUC bit are
+present in the idpopts_info[] array
+
+For most plugins, the default implementation of moddata_diff_helper_t or the
+std_moddata_diff_helper_t helper (presented below) is sufficient. You can find
+examples of non-standard helpers in plugins/mex2 and plugins/callgraph.
+
+The source #5 is handled by a different set of mergers described by an array of
+merge_node_info_t entries: a merger per entry. A non-trivial example can be
+found in plugins/mex3 and plugins/ex_merge_ldrdata.
+
+A module can use the create_std_modmerge_handlers() function to create necessary
+merge handlers. Please pay attention to the following arguments:
+
+helper - a helper class responsible for access to the internal module data for
+the sources #1-4. It can be used to prepare a pointer to the internal module
+structure and load/save data before/after merging (example: plugins/mex2). Im
+most cases the default helper class moddata_diff_helper_t can be used.
+merge_node_info - array of descriptions for the source #5. Note that the same
+module node is used for all array elements. If you need this kind of mergers for
+other netnodes, you should add them manually using the
+create_nodeval_merge_handler() function (example: plugins/mex3)
+
+See also module/mergecmn.cpp for procmod-specific functions and macros.
+
+Glossary:
+
+modmerger = module merger moddata = module data moddata_id = module data id"""
+
+Help on function create_std_modmerge_handlers in module ida_mergemod:
+
+create_std_modmerge_handlers(*args) -> 'void'
+    create_std_modmerge_handlers(mhp, helper, merge_node_info=None)
+    convinience function to create merge handlers for modules/plugins
+    
+    @param mhp: (C++: merge_handler_params_t &)
+    @param helper: (C++: moddata_diff_helper_t &)
+    @param merge_node_info: (C++: const merge_node_info_t *) merge_node_info2_t const *
 
 Module "ida_moves"s docstring:
 """
@@ -69945,12 +70973,12 @@ Help on function get_name_ea in module ida_name:
 
 get_name_ea(*args) -> 'ea_t'
     get_name_ea(_from, name) -> ea_t
-    Get address of the name. Dummy names (like byte_xxxx where xxxx are hex digits)
-    are parsed by this function to obtain the address. The database is not consulted
-    for them. This function works only with regular names.
+    Get the address of a name. This function resolves a name into an address. It can
+    handle regular global and local names, as well as debugger names.
     
-    @param from: (C++: ea_t) linear address where the name is used. if not applicable, then
-                 should be BADADDR.
+    @param from: (C++: ea_t) linear address where the name is used. If specified, the local
+                 labels of the function at the specified address will will be
+                 checked. BADADDR means that local names won't be consulted.
     @param name: (C++: const char *) any name in the program or nullptr
     @return: address of the name or BADADDR
 
@@ -72076,9 +73104,9 @@ class instant_dbgopts_t(builtins.object)
  |  thisown
  |      The membership flag
 
-Help on class longlongvec_t in module ida_pro:
+Help on class int64vec_t in module ida_pro:
 
-class longlongvec_t(builtins.object)
+class int64vec_t(builtins.object)
  |  Proxy of C++ qvector< long long > class.
  |  
  |  Methods defined here:
@@ -72094,8 +73122,8 @@ class longlongvec_t(builtins.object)
  |      @param i: size_t
  |  
  |  __init__(self, *args)
- |      __init__(self) -> longlongvec_t
- |      __init__(self, x) -> longlongvec_t
+ |      __init__(self) -> int64vec_t
+ |      __init__(self, x) -> int64vec_t
  |      
  |      @param x: qvector< long long > const &
  |  
@@ -72117,8 +73145,8 @@ class longlongvec_t(builtins.object)
  |      @param i: size_t
  |      @param v: long long const &
  |  
- |  __swig_destroy__ = delete_longlongvec_t(...)
- |      delete_longlongvec_t(self)
+ |  __swig_destroy__ = delete_int64vec_t(...)
+ |      delete_int64vec_t(self)
  |  
  |  _del(self, *args) -> 'bool'
  |      _del(self, x) -> bool
@@ -73407,9 +74435,9 @@ uchar_array_frompointer(*args) -> 'uchar_array *'
     
     @param t: uchar *
 
-Help on class ulonglongvec_t in module ida_pro:
+Help on class uint64vec_t in module ida_pro:
 
-class ulonglongvec_t(builtins.object)
+class uint64vec_t(builtins.object)
  |  Proxy of C++ qvector< unsigned long long > class.
  |  
  |  Methods defined here:
@@ -73425,8 +74453,8 @@ class ulonglongvec_t(builtins.object)
  |      @param i: size_t
  |  
  |  __init__(self, *args)
- |      __init__(self) -> ulonglongvec_t
- |      __init__(self, x) -> ulonglongvec_t
+ |      __init__(self) -> uint64vec_t
+ |      __init__(self, x) -> uint64vec_t
  |      
  |      @param x: qvector< unsigned long long > const &
  |  
@@ -73448,8 +74476,8 @@ class ulonglongvec_t(builtins.object)
  |      @param i: size_t
  |      @param v: unsigned long long const &
  |  
- |  __swig_destroy__ = delete_ulonglongvec_t(...)
- |      delete_ulonglongvec_t(self)
+ |  __swig_destroy__ = delete_uint64vec_t(...)
+ |      delete_uint64vec_t(self)
  |  
  |  _del(self, *args) -> 'bool'
  |      _del(self, x) -> bool
@@ -75016,6 +76044,13 @@ reg_write_string(*args) -> 'void'
     @param utf8: (C++: const char *) utf8-encoded string
     @param subkey: (C++: const char *) key name
 
+Help on function set_registry_root in module ida_registry:
+
+set_registry_root(*args) -> 'bool'
+    set_registry_root(name) -> bool
+    
+    @param name: char const *
+
 Module "ida_search"s docstring:
 """
 Middle-level search functions.
@@ -75224,9 +76259,9 @@ add_segm(*args) -> 'bool'
     * "XTRN" -> SEG_XTRN
     * "COMM" -> SEG_COMM
     * "ABS" -> SEG_ABSSYM
+    @param flags: (C++: int) Add segment flags
     @retval 1: ok
     @retval 0: failed, a warning message is displayed
-    @param flags: (C++: int)
 
 Help on function add_segm_ex in module ida_segment:
 
@@ -75330,6 +76365,8 @@ Help on function get_defsr in module ida_segment:
 
 get_defsr(*args) -> 'sel_t'
     get_defsr(s, reg) -> sel_t
+    Deprecated, use instead:
+        value = s.defsr[reg]
     
     @param s: segment_t *
     @param reg: int
@@ -75692,6 +76729,68 @@ segm_adjust_ea(*args) -> 'ea_t'
     @param s: (C++: const segment_t *) segment_t const *
     @param ea: (C++: ea_t)
 
+Help on class segment_defsr_array in module ida_segment:
+
+class segment_defsr_array(builtins.object)
+ |  Proxy of C++ wrapped_array_t< sel_t,SREG_NUM > class.
+ |  
+ |  Methods defined here:
+ |  
+ |  __getitem__(self, *args) -> 'unsigned-ea-like-numeric-type const &'↗
+ |      __getitem__(self, i) -> unsigned-ea-like-numeric-type const &↗
+ |      
+ |      @param i: size_t
+ |  
+ |  __init__(self, *args)
+ |      __init__(self, data) -> segment_defsr_array
+ |      
+ |      @param data: unsigned-ea-like-numeric-type (&)[SREG_NUM]↗
+ |  
+ |  __iter__ = _bounded_getitem_iterator(self)
+ |      Helper function, to be set as __iter__ method for qvector-, or array-based classes.
+ |  
+ |  __len__(self, *args) -> 'size_t'
+ |      __len__(self) -> size_t
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  __setitem__(self, *args) -> 'void'
+ |      __setitem__(self, i, v)
+ |      
+ |      @param i: size_t
+ |      @param v: unsigned-ea-like-numeric-type const &↗
+ |  
+ |  __swig_destroy__ = delete_segment_defsr_array(...)
+ |      delete_segment_defsr_array(self)
+ |  
+ |  _get_bytes(self, *args) -> 'bytevec_t'
+ |      _get_bytes(self) -> bytevec_t
+ |  
+ |  _set_bytes(self, *args) -> 'void'
+ |      _set_bytes(self, bts)
+ |      
+ |      Parameters
+ |      ----------
+ |      bts: bytevec_t const &
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  bytes
+ |      _get_bytes(self) -> bytevec_t
+ |  
+ |  data
+ |      data
+ |  
+ |  thisown
+ |      The membership flag
+
 Help on class segment_t in module ida_segment:
 
 class segment_t(ida_range.range_t)
@@ -75711,6 +76810,9 @@ class segment_t(ida_range.range_t)
  |  
  |  __swig_destroy__ = delete_segment_t(...)
  |      delete_segment_t(self)
+ |  
+ |  _segment_t__getDefsr = __getDefsr(self, *args) -> 'wrapped_array_t< sel_t,SREG_NUM >'
+ |      __getDefsr(self) -> segment_defsr_array
  |  
  |  abits(self, *args) -> 'int'
  |      abits(self) -> int
@@ -75813,7 +76915,7 @@ class segment_t(ida_range.range_t)
  |      comb
  |  
  |  defsr
- |      defsr
+ |      __getDefsr(self) -> segment_defsr_array
  |  
  |  end_ea
  |      end_ea
@@ -75968,6 +77070,8 @@ Help on function set_defsr in module ida_segment:
 
 set_defsr(*args) -> 'void'
     set_defsr(s, reg, value)
+    Deprecated, use instead:
+        s.defsr[reg] = value
     
     @param s: segment_t *
     @param reg: int
@@ -76027,9 +77131,9 @@ set_segm_class(*args) -> 'int'
     * "STACK" -> SEG_BSS
     * "BSS" -> SEG_BSS
     * if "UNK" then segment type is reset to SEG_NORM.
+    @param flags: (C++: int) Add segment flags
     @retval 1: ok, name is good and segment is renamed
     @retval 0: failure, name is nullptr or bad or segment is nullptr
-    @param flags: (C++: int)
 
 Help on function set_segm_end in module ida_segment:
 
@@ -80869,11 +81973,14 @@ Help on function first_named_type in module ida_typeinf:
 
 first_named_type(*args) -> 'char const *'
     first_named_type(ti, ntf_flags) -> char const *
-    Enumerate types. Returns mangled names. Never returns anonymous types. To
-    include it, enumerate types by ordinals.
+    Enumerate types.
     
-    @param ti: (C++: const til_t *) til_t const *
-    @param ntf_flags: (C++: int)
+    @param ti: (C++: const til_t *) type library. nullptr means the local type library for the current
+               database.
+    @param ntf_flags: (C++: int) combination of Flags for named types
+    @return: Type or symbol names, depending of ntf_flags. Returns mangled names.
+             Never returns anonymous types. To include them, enumerate types by
+             ordinals.
 
 Help on function for_all_arglocs in module ida_typeinf:
 
@@ -81807,13 +82914,11 @@ class ida_lowertype_helper_t(lowertype_helper_t)
 
 Help on function idc_get_local_type in module ida_typeinf:
 
-idc_get_local_type(*args) -> 'int'
-    idc_get_local_type(ordinal, flags, buf, maxsize) -> int
+idc_get_local_type(*args) -> 'size_t'
+    idc_get_local_type(ordinal, flags) -> str
     
     @param ordinal: int
     @param flags: int
-    @param buf: char *
-    @param maxsize: size_t
 
 Help on function idc_get_local_type_name in module ida_typeinf:
 
@@ -82512,12 +83617,15 @@ Help on function next_named_type in module ida_typeinf:
 
 next_named_type(*args) -> 'char const *'
     next_named_type(ti, name, ntf_flags) -> char const *
-    Enumerate types. Returns mangled names. Never returns anonymous types. To
-    include it, enumerate types by ordinals.
+    Enumerate types.
     
-    @param ti: (C++: const til_t *) til_t const *
-    @param name: (C++: const char *) char const *
-    @param ntf_flags: (C++: int)
+    @param ti: (C++: const til_t *) type library. nullptr means the local type library for the current
+               database.
+    @param name: (C++: const char *) the current name. the name that follows this one will be returned.
+    @param ntf_flags: (C++: int) combination of Flags for named types
+    @return: Type or symbol names, depending of ntf_flags. Returns mangled names.
+             Never returns anonymous types. To include them, enumerate types by
+             ordinals.
 
 Help on function optimize_argloc in module ida_typeinf:
 
@@ -82670,13 +83778,13 @@ Help on function print_decls in module ida_typeinf:
 
 print_decls(*args) -> 'PyObject *'
     print_decls(printer, til, py_ordinals, flags) -> int
-    Print types (and possibly their dependencies) in a format suitable for use in a
-    header file. This is the reverse parse_decls().
+    Print types (and possibly their dependencies) in a format suitable for using in
+    a header file. This is the reverse parse_decls().
     
     @param printer: (C++: text_sink_t &) a handler for printing text
     @param til: (C++: til_t *) the type library holding the ordinals
     @param py_ordinals: ordinals of types to export. nullptr means: all ordinals in til
-    @param flags: (C++: uint32) flags for the algorithm. A combination of PDF_* constants
+    @param pdf_flags: (C++: uint32) flags for the algorithm. A combination of PDF_ constants
     @retval >0: the number of types exported
     @retval 0: an error occurred
     @retval <0: the negated number of types exported. There were minor errors and
@@ -84036,7 +85144,8 @@ class tinfo_t(builtins.object)
  |      Calculate set of covered bytes for the type
  |      
  |      @param out: (C++: rangeset_t *) pointer to the output buffer. covered bytes will be appended to it.
- |      @param offset: (C++: uint64)
+ |      @param offset: (C++: uint64) delta in bytes to add to all calculations. used internally during
+ |                     recurion.
  |  
  |  calc_gaps(self, *args) -> 'bool'
  |      calc_gaps(self, out) -> bool
@@ -84885,7 +85994,7 @@ class tinfo_t(builtins.object)
  |      Requires full qualifier? (name is not unique)
  |      
  |      @param name: (C++: const char *) field name
- |      @param offset: (C++: uint64)
+ |      @param offset: (C++: uint64) field offset in bits
  |      @return: if the name is not unique, returns true
  |  
  |  serialize(self, *args) -> 'PyObject *'
@@ -86508,7 +87617,7 @@ verify_argloc(*args) -> 'int'
     verify_argloc(vloc, size, gaps) -> int
     Verify argloc_t.
     
-    @param vloc: (C++: const argloc_t &) argloc_t const &
+    @param vloc: (C++: const argloc_t &) argloc to verify
     @param size: (C++: int) total size of the variable
     @param gaps: (C++: const rangeset_t *) if not nullptr, specifies gaps in structure definition. these gaps
                  should not map to any argloc, but everything else must be covered
@@ -87538,7 +88647,7 @@ class outctx_base_t(builtins.object)
  |      * 0 is output as a number or character or segment
  |      
  |      @param x: (C++: const op_t &) value to output
- |      @param outflags: Output value flags
+ |      @param outf: (C++: int) Output value flags
  |      @return: flags of the output value
  |  
  |  print_label_now(self, *args) -> 'bool'
@@ -88015,7 +89124,7 @@ class outctx_t(outctx_base_t)
  |      * 0 is output as a number or character or segment
  |      
  |      @param x: (C++: const op_t &) value to output
- |      @param outflags: Output value flags
+ |      @param outf: (C++: int) Output value flags
  |      @return: flags of the output value
  |  
  |  print_label_now(self, *args) -> 'bool'
@@ -88103,7 +89212,8 @@ print_operand(*args) -> 'qstring *'
     
     @param ea: (C++: ea_t) the item address (instruction or data)
     @param n: (C++: int) operand number (0,1,2...). meaningful only for instructions
-    @param getn_flags: (C++: int)
+    @param getn_flags: (C++: int) Name expression flags Currently only GETN_NODUMMY is
+                       accepted.
     @param newtype: (C++: struct printop_t *) if specified, print the operand using the specified type
     @return: success
 
@@ -88562,7 +89672,7 @@ Help on function has_external_refs in module ida_xref:
 
 has_external_refs(*args) -> 'bool'
     has_external_refs(pfn, ea) -> bool
-    Has a location external to the function references?
+    Does 'ea' have references from outside of 'pfn'?
     
     @param pfn: (C++: func_t *)
     @param ea: (C++: ea_t)
@@ -89140,7 +90250,7 @@ add_func(*args) -> 'bool'
 Help on function add_hidden_range in module ida_bytes:
 
 add_hidden_range(*args) -> 'bool'
-    add_hidden_range(ea1, ea2, description, header, footer, color) -> bool
+    add_hidden_range(ea1, ea2, description, header, footer, color=bgcolor_t(-1)) -> bool
     Mark a range of addresses as hidden. The range will be created in the invisible
     state with the default color
     
@@ -89149,7 +90259,7 @@ add_hidden_range(*args) -> 'bool'
     @param description: (C++: const char *) ,header,footer: range parameters
     @param header: (C++: const char *) char const *
     @param footer: (C++: const char *) char const *
-    @param color: (C++: bgcolor_t)
+    @param color: (C++: bgcolor_t) the range color
     @return: success
 
 Help on function add_idc_hotkey in module ida_kernwin:
@@ -90634,10 +91744,10 @@ get_fchunk_referer(*args) -> 'ea_t'
 Help on function get_first_bmask in module ida_enum:
 
 get_first_bmask(*args) -> 'bmask_t'
-    get_first_bmask(id) -> bmask_t
+    get_first_bmask(enum_id) -> bmask_t
     Get first bitmask in the enum (bitfield)
     
-    @param enum_id: id of enum (bitfield)
+    @param enum_id: (C++: enum_t) id of enum (bitfield)
     @return: the smallest bitmask for enum, or DEFMASK
 
 Help on function get_first_cref_from in module ida_xref:
@@ -91021,10 +92131,10 @@ get_item_size(ea)
 Help on function get_last_bmask in module ida_enum:
 
 get_last_bmask(*args) -> 'bmask_t'
-    get_last_bmask(id) -> bmask_t
+    get_last_bmask(enum_id) -> bmask_t
     Get last bitmask in the enum (bitfield)
     
-    @param enum_id: id of enum
+    @param enum_id: (C++: enum_t) id of enum
     @return: the biggest bitmask for enum, or DEFMASK
 
 Help on function get_last_enum_member in module idc:
@@ -91275,12 +92385,12 @@ Help on function get_name_ea in module ida_name:
 
 get_name_ea(*args) -> 'ea_t'
     get_name_ea(_from, name) -> ea_t
-    Get address of the name. Dummy names (like byte_xxxx where xxxx are hex digits)
-    are parsed by this function to obtain the address. The database is not consulted
-    for them. This function works only with regular names.
+    Get the address of a name. This function resolves a name into an address. It can
+    handle regular global and local names, as well as debugger names.
     
-    @param from: (C++: ea_t) linear address where the name is used. if not applicable, then
-                 should be BADADDR.
+    @param from: (C++: ea_t) linear address where the name is used. If specified, the local
+                 labels of the function at the specified address will will be
+                 checked. BADADDR means that local names won't be consulted.
     @param name: (C++: const char *) any name in the program or nullptr
     @return: address of the name or BADADDR
 
@@ -91297,11 +92407,11 @@ get_name_ea_simple(name)
 Help on function get_next_bmask in module ida_enum:
 
 get_next_bmask(*args) -> 'bmask_t'
-    get_next_bmask(id, bmask) -> bmask_t
+    get_next_bmask(enum_id, bmask) -> bmask_t
     Get next bitmask in the enum (bitfield)
     
-    @param enum_id: id of enum
-    @param bmask: (C++: bmask_t)
+    @param enum_id: (C++: enum_t) id of enum
+    @param bmask: (C++: bmask_t) the current bitmask
     @return: value of a bitmask with value higher than the specified value, or
              DEFMASK
 
@@ -91543,11 +92653,11 @@ get_original_byte(*args) -> 'uint64'
 Help on function get_prev_bmask in module ida_enum:
 
 get_prev_bmask(*args) -> 'bmask_t'
-    get_prev_bmask(id, bmask) -> bmask_t
+    get_prev_bmask(enum_id, bmask) -> bmask_t
     Get prev bitmask in the enum (bitfield)
     
-    @param enum_id: id of enum
-    @param bmask: (C++: bmask_t)
+    @param enum_id: (C++: enum_t) id of enum
+    @param bmask: (C++: bmask_t) the current bitmask
     @return: value of a bitmask with value lower than the specified value, or
              DEFMASK
 
@@ -91665,7 +92775,7 @@ get_processes(*args) -> 'ssize_t'
     Take a snapshot of running processes and return their description. \sq{Type,
     Synchronous function, Notification, none (synchronous function)}
     
-    @param proclist: (C++: procinfo_vec_t *)
+    @param proclist: (C++: procinfo_vec_t *) array with information about each running process
     @return: number of processes or -1 on error
 
 Help on function get_qword in module ida_bytes:
@@ -95670,6 +96780,10 @@ Documentation on variable FUNC_LUMINA in module ida_funcs:
 
     Function info is provided by Lumina.
 
+Documentation on variable FUNC_OUTLINE in module ida_funcs:
+
+    Outlined code, not a real function.
+
 Documentation on variable MOVE_FUNC_OK in module ida_funcs:
 
     ok
@@ -95860,6 +96974,10 @@ Documentation on variable FC_CALL_ENDS in module ida_gdl:
 Documentation on variable FC_NOPREDS in module ida_gdl:
 
     do not compute predecessor lists
+
+Documentation on variable FC_OUTLINES in module ida_gdl:
+
+    include outlined code (with FUNC_OUTLINE)
 
 Documentation on variable qflow_chart_t.bounds in module ida_gdl:
 
@@ -96446,7 +97564,7 @@ Documentation on variable MERR_LVARS in module ida_hexrays:
 
 Documentation on variable MERR_BITNESS in module ida_hexrays:
 
-    only 32/16bit functions can be decompiled
+    16-bit functions cannot be decompiled
 
 Documentation on variable MERR_BADCALL in module ida_hexrays:
 
@@ -96769,7 +97887,7 @@ Documentation on variable mop_n in module ida_hexrays:
 
 Documentation on variable mop_str in module ida_hexrays:
 
-    immediate string constant
+    immediate string constant (user representation)
 
 Documentation on variable mop_d in module ida_hexrays:
 
@@ -97442,6 +98560,10 @@ Documentation on variable IPROP_MBARRIER in module ida_hexrays:
     this instruction acts as a memory barrier (instructions accessing memory may not
     be reordered past it)
 
+Documentation on variable IPROP_UNMERGED in module ida_hexrays:
+
+    'goto' instruction was transformed info 'call'
+
 Documentation on variable OPTI_ADDREXPRS in module ida_hexrays:
 
     optimize all address expressions (&x+N; &x-&y)
@@ -97600,7 +98722,7 @@ Documentation on variable MBL_NONFAKE in module ida_hexrays:
 
 Documentation on variable MBL_FAKE in module ida_hexrays:
 
-    fake block (after a tail call)
+    fake block
 
 Documentation on variable MBL_GOTO in module ida_hexrays:
 
@@ -97980,11 +99102,11 @@ Documentation on variable MMIDX_GLBHIGH in module ida_hexrays:
 
 Documentation on variable mba_ranges_t.pfn in module ida_hexrays:
 
-    function to decompile
+    function to decompile. if not null, then function mode.
 
 Documentation on variable mba_ranges_t.ranges in module ida_hexrays:
 
-    empty ? function_mode : snippet mode
+    snippet mode: ranges to decompile. function mode: list of outlined ranges
 
 Documentation on variable mba_t.qty in module ida_hexrays:
 
@@ -98313,6 +99435,14 @@ Documentation on variable MBA2_CODE16_BIT in module ida_hexrays:
 Documentation on variable MBA2_STACK_RETVAL in module ida_hexrays:
 
     the return value is on the stack
+
+Documentation on variable MBA2_HAS_OUTLINES in module ida_hexrays:
+
+    calls to outlined code have been inlined
+
+Documentation on variable MBA2_NO_FRAME in module ida_hexrays:
+
+    do not use function frame info (only snippet mode)
 
 Documentation on variable MBA2_DONT_VERIFY in module ida_hexrays:
 
@@ -98734,7 +99864,7 @@ Documentation on variable cot_fnum in module ida_hexrays:
 
 Documentation on variable cot_str in module ida_hexrays:
 
-    string constant
+    string constant (user representation)
 
 Documentation on variable cot_obj in module ida_hexrays:
 
@@ -99692,7 +100822,7 @@ Documentation on variable f_OMF in module ida_ida:
 
 Documentation on variable f_SREC in module ida_ida:
 
-    R-records.
+    Motorola SREC (S-record)
 
 Documentation on variable f_ZIP in module ida_ida:
 
@@ -99740,7 +100870,7 @@ Documentation on variable f_AIXAR in module ida_ida:
 
 Documentation on variable f_MACHO in module ida_ida:
 
-    Mac OS X.
+    Mac OS X Mach-O.
 
 Documentation on variable f_PSXOBJ in module ida_ida:
 
@@ -100611,6 +101741,103 @@ Documentation on variable INF_OUTFILEENC in module ida_ida:
 Documentation on variable UA_MAXOP in module ida_ida:
 
     max number of operands allowed for an instruction
+
+Documentation on variable idbattr_info_t.name in module ida_ida:
+
+    human-readable name
+
+Documentation on variable idbattr_info_t.offset in module ida_ida:
+
+    field position: offset within a structure (IDI_STRUCFLD) altval or supval index
+    (IDI_NODEVAL) hashval name (IDI_NODEVAL+IDI_HASH)
+
+Documentation on variable idbattr_info_t.width in module ida_ida:
+
+    field width in bytes
+
+Documentation on variable idbattr_info_t.bitmask in module ida_ida:
+
+    mask for bitfields (0-not bitfield)
+
+Documentation on variable idbattr_info_t.tag in module ida_ida:
+
+    tag of node value (if IDI_NODEVAL is set)
+
+Documentation on variable idbattr_info_t.vmap in module ida_ida:
+
+    array value=>name (terminated by empty element)
+
+Documentation on variable idbattr_info_t.individual_node in module ida_ida:
+
+    individual node name (nullptr - use default)
+
+Documentation on variable idbattr_info_t.maxsize in module ida_ida:
+
+    max bytes reserved for storage in netnode
+
+Documentation on variable IDI_STRUCFLD in module ida_ida:
+
+    structure field (opposite to IDI_NODEVAL)
+
+Documentation on variable IDI_SCALAR in module ida_ida:
+
+    scalar value (default)
+
+Documentation on variable IDI_CSTR in module ida_ida:
+
+    string
+
+Documentation on variable IDI_QSTRING in module ida_ida:
+
+    qstring
+
+Documentation on variable IDI_BYTEARRAY in module ida_ida:
+
+    byte array: binary representation
+
+Documentation on variable IDI_EA_HEX in module ida_ida:
+
+    default representation: hex or "BADADDR"
+
+Documentation on variable IDI_DEC in module ida_ida:
+
+    show as decimal
+
+Documentation on variable IDI_HEX in module ida_ida:
+
+    show as hexadecimal
+
+Documentation on variable IDI_INC in module ida_ida:
+
+    stored value is incremented (scalars only)
+
+Documentation on variable IDI_MAP_VAL in module ida_ida:
+
+    apply ea2node() to value
+
+Documentation on variable IDI_HASH in module ida_ida:
+
+    hashed node field, hash name in offset
+
+Documentation on variable IDI_HLPSTRUC in module ida_ida:
+
+    call helper for pointer to structure
+
+Documentation on variable IDI_READONLY in module ida_ida:
+
+    read-only field (cannot be modified)
+
+Documentation on variable IDI_BITMAP in module ida_ida:
+
+    bitmap field: interpret bitmask as bit number
+
+Documentation on variable IDI_ONOFF in module ida_ida:
+
+    show boolean as on/off (not true/false)
+
+Documentation on variable IDI_NOMERGE in module ida_ida:
+
+    field should not be merged as part of INF
 
 Documentation on variable PY_ICID_INT64 in module ida_idaapi:
 
@@ -102395,9 +103622,9 @@ Documentation on variable SETMENU_FIRST in module ida_kernwin:
 
     add item to the beginning of menu
 
-Documentation on variable SETMENU_IF_ENABLED in module ida_kernwin:
+Documentation on variable SETMENU_ENSURE_SEP in module ida_kernwin:
 
-    add item only if it is enabled (prevents unusable, greyed-out items)
+    make sure there is a separator before the action
 
 Documentation on variable CREATETB_ADV in module ida_kernwin:
 
@@ -103294,6 +104521,40 @@ Documentation on variable IWID_STACK in module ida_kernwin:
     Alias. Some IWID_* were confusing, and thus have been renamed. This is to ensure
     bw-compat.
 
+Documentation on variable AST_ENABLE_ALWAYS in module ida_kernwin:
+
+    enable action and do not call action_handler_t::update() anymore
+
+Documentation on variable AST_ENABLE_FOR_IDB in module ida_kernwin:
+
+    enable action for the current idb. call action_handler_t::update() when a
+    database is opened/closed
+
+Documentation on variable AST_ENABLE_FOR_WIDGET in module ida_kernwin:
+
+    enable action for the current widget. call action_handler_t::update() when a
+    widget gets/loses focus
+
+Documentation on variable AST_ENABLE in module ida_kernwin:
+
+    enable action - call action_handler_t::update() when anything changes
+
+Documentation on variable AST_DISABLE_ALWAYS in module ida_kernwin:
+
+    disable action and do not call action_handler_t::action() anymore
+
+Documentation on variable AST_DISABLE_FOR_IDB in module ida_kernwin:
+
+    analog of AST_ENABLE_FOR_IDB
+
+Documentation on variable AST_DISABLE_FOR_WIDGET in module ida_kernwin:
+
+    analog of AST_ENABLE_FOR_WIDGET
+
+Documentation on variable AST_DISABLE in module ida_kernwin:
+
+    analog of AST_ENABLE
+
 Documentation on variable CH_MODAL in module ida_kernwin:
 
     Modal chooser.
@@ -103503,6 +104764,14 @@ Documentation on variable chooser_item_attrs_t.color in module ida_kernwin:
 
     item color
 
+Documentation on variable chooser_stdact_desc_t.version in module ida_kernwin:
+
+    to support the backward compatibility
+
+Documentation on variable chooser_stdact_desc_t.label in module ida_kernwin:
+
+    see action_desc_t
+
 Documentation on variable chooser_base_t.x0 in module ida_kernwin:
 
     screen position, Functions: generic list choosers
@@ -103542,11 +104811,12 @@ Documentation on variable chooser_base_t.icon in module ida_kernwin:
 
 Documentation on variable chooser_base_t.popup_names in module ida_kernwin:
 
-    array of custom popup menu names. Used to replace labels for the standard
-    handlers (Insert, Delete, Edit, Refresh).
+    array of custom labels of the standard actions. Used to replace labels for these
+    actions.
     An empty name means that the default name will be used.
-    @note: Availability of items in the popup menu is determined by the `CH_CAN_...`
-           flags.
+    @note: Availability of these actions is determined by the CH_CAN_... flags. The
+           label, icon and other action attributes can be overwritten in the action
+           description returned by get_stdact_descs()
 
 Documentation on variable chooser_base_t.deflt_col in module ida_kernwin:
 
@@ -103958,40 +105228,6 @@ Documentation on variable AHF_VERSION_MASK in module ida_kernwin:
 
     mask for action_handler_t::flags
 
-Documentation on variable AST_ENABLE_ALWAYS in module ida_kernwin:
-
-    enable action and do not call action_handler_t::update() anymore
-
-Documentation on variable AST_ENABLE_FOR_IDB in module ida_kernwin:
-
-    enable action for the current idb. call action_handler_t::update() when a
-    database is opened/closed
-
-Documentation on variable AST_ENABLE_FOR_WIDGET in module ida_kernwin:
-
-    enable action for the current widget. call action_handler_t::update() when a
-    widget gets/loses focus
-
-Documentation on variable AST_ENABLE in module ida_kernwin:
-
-    enable action - call action_handler_t::update() when anything changes
-
-Documentation on variable AST_DISABLE_ALWAYS in module ida_kernwin:
-
-    disable action and do not call action_handler_t::action() anymore
-
-Documentation on variable AST_DISABLE_FOR_IDB in module ida_kernwin:
-
-    analog of AST_ENABLE_FOR_IDB
-
-Documentation on variable AST_DISABLE_FOR_WIDGET in module ida_kernwin:
-
-    analog of AST_ENABLE_FOR_WIDGET
-
-Documentation on variable AST_DISABLE in module ida_kernwin:
-
-    analog of AST_ENABLE
-
 Documentation on variable action_desc_t.cb in module ida_kernwin:
 
     size of this structure
@@ -104061,6 +105297,14 @@ Documentation on variable ADF_NO_HIGHLIGHT in module ida_kernwin:
 
     After activating, do not update the highlight according to what's under the
     cursor (listings only.)
+
+Documentation on variable ADF_CHECKABLE in module ida_kernwin:
+
+    action is checkable
+
+Documentation on variable ADF_CHECKED in module ida_kernwin:
+
+    starts in a checked state (requires ADF_CHECKABLE)
 
 Documentation on variable AA_NONE in module ida_kernwin:
 
@@ -105214,6 +106458,358 @@ Documentation on variable AMDF_FORCE in module ida_lumina:
     apply kvps regardless of what's currently in the IDB, possibly removing some
     attributes currently present (e.g., name, or prototype could be lost)
 
+Documentation on variable MERGE_KIND_NETNODE in module ida_merge:
+
+    netnode (no merging, to be used in idbunits)
+
+Documentation on variable MERGE_KIND_AUTOQ in module ida_merge:
+
+    auto queues
+
+Documentation on variable MERGE_KIND_INF in module ida_merge:
+
+    merge the inf variable (global settings)
+
+Documentation on variable MERGE_KIND_ENCODINGS in module ida_merge:
+
+    merge encodings
+
+Documentation on variable MERGE_KIND_ENCODINGS2 in module ida_merge:
+
+    merge default encodings
+
+Documentation on variable MERGE_KIND_SCRIPTS2 in module ida_merge:
+
+    merge scripts common info
+
+Documentation on variable MERGE_KIND_SCRIPTS in module ida_merge:
+
+    merge scripts
+
+Documentation on variable MERGE_KIND_CUSTDATA in module ida_merge:
+
+    merge custom data type and formats
+
+Documentation on variable MERGE_KIND_ENUMS in module ida_merge:
+
+    merge enums
+
+Documentation on variable MERGE_KIND_STRUCTS in module ida_merge:
+
+    merge structs (globally: add/delete structs entirely)
+
+Documentation on variable MERGE_KIND_TILS in module ida_merge:
+
+    merge type libraries
+
+Documentation on variable MERGE_KIND_TINFO in module ida_merge:
+
+    merge tinfo
+
+Documentation on variable MERGE_KIND_STRMEM in module ida_merge:
+
+    merge struct members
+
+Documentation on variable MERGE_KIND_UDTMEM in module ida_merge:
+
+    merge UDT members (local types)
+
+Documentation on variable MERGE_KIND_GHSTRCMT in module ida_merge:
+
+    merge ghost structure comment
+
+Documentation on variable MERGE_KIND_STRMEMCMT in module ida_merge:
+
+    merge member comments for ghost struc
+
+Documentation on variable MERGE_KIND_SELECTORS in module ida_merge:
+
+    merge selectors
+
+Documentation on variable MERGE_KIND_STT in module ida_merge:
+
+    merge flag storage types
+
+Documentation on variable MERGE_KIND_SEGMENTS in module ida_merge:
+
+    merge segments
+
+Documentation on variable MERGE_KIND_SEGGRPS in module ida_merge:
+
+    merge segment groups
+
+Documentation on variable MERGE_KIND_SEGREGS in module ida_merge:
+
+    merge segment registers
+
+Documentation on variable MERGE_KIND_ORPHANS in module ida_merge:
+
+    merge orphan bytes
+
+Documentation on variable MERGE_KIND_BYTEVAL in module ida_merge:
+
+    merge byte values
+
+Documentation on variable MERGE_KIND_FIXUPS in module ida_merge:
+
+    merge fixups
+
+Documentation on variable MERGE_KIND_MAPPING in module ida_merge:
+
+    merge manual memory mapping
+
+Documentation on variable MERGE_KIND_EXPORTS in module ida_merge:
+
+    merge exports
+
+Documentation on variable MERGE_KIND_IMPORTS in module ida_merge:
+
+    merge imports
+
+Documentation on variable MERGE_KIND_PATCHES in module ida_merge:
+
+    merge patched bytes
+
+Documentation on variable MERGE_KIND_FLAGS in module ida_merge:
+
+    merge flags_t
+
+Documentation on variable MERGE_KIND_EXTRACMT in module ida_merge:
+
+    merge extra next or prev lines
+
+Documentation on variable MERGE_KIND_AFLAGS_EA in module ida_merge:
+
+    merge aflags for mapped EA
+
+Documentation on variable MERGE_KIND_IGNOREMICRO in module ida_merge:
+
+    IM ("$ ignore micro") flags.
+
+Documentation on variable MERGE_KIND_HIDDENRANGES in module ida_merge:
+
+    merge hidden ranges
+
+Documentation on variable MERGE_KIND_SOURCEFILES in module ida_merge:
+
+    merge source files ranges
+
+Documentation on variable MERGE_KIND_FUNC in module ida_merge:
+
+    merge func info
+
+Documentation on variable MERGE_KIND_FRAMEMGR in module ida_merge:
+
+    merge frames (globally: add/delete frames entirely)
+
+Documentation on variable MERGE_KIND_FRAME in module ida_merge:
+
+    merge function frame info (frame members)
+
+Documentation on variable MERGE_KIND_STKPNTS in module ida_merge:
+
+    merge SP change points
+
+Documentation on variable MERGE_KIND_FLOWS in module ida_merge:
+
+    merge flows
+
+Documentation on variable MERGE_KIND_CREFS in module ida_merge:
+
+    merge crefs
+
+Documentation on variable MERGE_KIND_DREFS in module ida_merge:
+
+    merge drefs
+
+Documentation on variable MERGE_KIND_BPTS in module ida_merge:
+
+    merge breakpoints
+
+Documentation on variable MERGE_KIND_WATCHPOINTS in module ida_merge:
+
+    merge watchpoints
+
+Documentation on variable MERGE_KIND_BOOKMARKS in module ida_merge:
+
+    merge bookmarks
+
+Documentation on variable MERGE_KIND_TRYBLKS in module ida_merge:
+
+    merge try blocks
+
+Documentation on variable MERGE_KIND_DIRTREE in module ida_merge:
+
+    merge std dirtrees
+
+Documentation on variable MERGE_KIND_VFTABLES in module ida_merge:
+
+    merge vftables
+
+Documentation on variable MERGE_KIND_SIGNATURES in module ida_merge:
+
+    signatures
+
+Documentation on variable MERGE_KIND_PROBLEMS in module ida_merge:
+
+    problems
+
+Documentation on variable MERGE_KIND_UI in module ida_merge:
+
+    UI.
+
+Documentation on variable MERGE_KIND_NOTEPAD in module ida_merge:
+
+    notepad
+
+Documentation on variable MERGE_KIND_LOADER in module ida_merge:
+
+    loader data
+
+Documentation on variable MERGE_KIND_DEBUGGER in module ida_merge:
+
+    debugger data
+
+Documentation on variable MERGE_KIND_LAST in module ida_merge:
+
+    last predefined merge handler type. please note that there can be more merge
+    handler types, registered by plugins and processor modules.
+
+Documentation on variable MERGE_KIND_END in module ida_merge:
+
+    insert to the end of handler list, valid for
+    merge_handler_params_t::insert_after
+
+Documentation on variable merge_data_t.dbctx_ids in module ida_merge:
+
+    local, remote, base ids
+
+Documentation on variable merge_data_t.nbases in module ida_merge:
+
+    number of database participating in merge process, maybe 2 or 3
+
+Documentation on variable merge_data_t.ev_handlers in module ida_merge:
+
+    event handlers
+
+Documentation on variable merge_handler_params_t.kind in module ida_merge:
+
+    merge handler kind merge_kind_t
+
+Documentation on variable merge_handler_params_t.insert_after in module ida_merge:
+
+    desired position inside 'handlers' merge_kind_t
+
+Documentation on variable MH_LISTEN in module ida_merge:
+
+    merge handler will receive merge events
+
+Documentation on variable MH_TERSE in module ida_merge:
+
+    do not display equal lines in the merge results table
+
+Documentation on variable MH_UI_NODETAILS in module ida_merge:
+
+    ida will not show the diffpos details
+
+Documentation on variable MH_UI_COMPLEX in module ida_merge:
+
+    diffpos details won't be displayed in the diffpos chooser
+
+Documentation on variable MH_UI_DP_NOLINEDIFF in module ida_merge:
+
+    Detail pane: do not show differences inside the line.
+
+Documentation on variable MH_UI_DP_SHORTNAME in module ida_merge:
+
+    Detail pane: use the first part of a complex diffpos name as the tree node name.
+
+Documentation on variable MH_UI_INDENT in module ida_merge:
+
+    preserve indent for diffpos name in diffpos chooser
+
+Documentation on variable MH_UI_SPLITNAME in module ida_merge:
+
+    ida will split the diffpos name by 7-bit ASCII char to create chooser columns
+
+Documentation on variable MH_UI_CHAR_MASK in module ida_merge:
+
+    7-bit ASCII split character
+
+Documentation on variable MH_UI_COMMANAME in module ida_merge:
+
+    ida will split the diffpos name by ',' to create chooser columns
+
+Documentation on variable MH_UI_COLONNAME in module ida_merge:
+
+    ida will split the diffpos name by ':' to create chooser columns
+
+Documentation on variable moddata_diff_helper_t.module_name in module ida_merge:
+
+    will be used as a prefix for field desc
+
+Documentation on variable NDS_IS_BOOL in module ida_merge:
+
+    boolean value
+
+Documentation on variable NDS_IS_EA in module ida_merge:
+
+    EA value.
+
+Documentation on variable NDS_IS_RELATIVE in module ida_merge:
+
+    value is relative to index (stored as delta)
+
+Documentation on variable NDS_IS_STR in module ida_merge:
+
+    string value
+
+Documentation on variable NDS_SUPVAL in module ida_merge:
+
+    stored as netnode supvals (not scalar)
+
+Documentation on variable NDS_BLOB in module ida_merge:
+
+    stored as netnode blobs
+
+Documentation on variable NDS_EV_RANGE in module ida_merge:
+
+    enable default handling of mev_modified_ranges, mev_deleting_segm
+
+Documentation on variable NDS_EV_FUNC in module ida_merge:
+
+    enable default handling of mev_added_func/mev_deleting_func
+
+Documentation on variable NDS_MAP_IDX in module ida_merge:
+
+    apply ea2node() to index (==NETMAP_IDX)
+
+Documentation on variable NDS_MAP_VAL in module ida_merge:
+
+    apply ea2node() to value. Along with NDS_INC it gives effect of NETMAP_VAL,
+    examples: altval_ea : NDS_MAP_IDX charval : NDS_VAL8 charval_ea:
+    NDS_MAP_IDX|NDS_VAL8 eaget : NDS_MAP_IDX|NDS_MAP_VAL|NDS_INC
+
+Documentation on variable NDS_VAL8 in module ida_merge:
+
+    use 8-bit values (==NETMAP_V8)
+
+Documentation on variable NDS_INC in module ida_merge:
+
+    stored value is incremented (scalars only)
+
+Documentation on variable merge_node_info_t.name in module ida_merge:
+
+    name of the array (label)
+
+Documentation on variable merge_node_info_t.tag in module ida_merge:
+
+    a tag used to access values in the netnode
+
+Documentation on variable merge_node_info_t.nds_flags in module ida_merge:
+
+    node value attributes (a combination of nds_flags_t)
+
 Documentation on variable NALT_SWITCH in module ida_nalt:
 
     switch idiom address (used at jump targets)
@@ -106084,11 +107680,15 @@ Documentation on variable FUNC_IMPORT_PREFIX in module ida_name:
 
     Name prefix used by IDA for the imported functions.
 
+Documentation on variable SN_CHECK in module ida_name:
+
+    Fail if the name contains invalid characters.
+
 Documentation on variable SN_NOCHECK in module ida_name:
 
-    Don't fail if the name contains invalid characters. If this bit is clear, all
-    invalid chars (those !is_ident_cp()) will be replaced by SUBSTCHAR List of valid
-    characters is defined in ida.cfg
+    Replace invalid characters silently. If this bit is set, all invalid chars (not
+    in NameChars or MangleChars) will be replaced by '_' List of valid characters is
+    defined in ida.cfg
 
 Documentation on variable SN_PUBLIC in module ida_name:
 
@@ -106341,7 +107941,7 @@ Documentation on variable ltag in module ida_netnode:
 
 Documentation on variable IDA_SDK_VERSION in module ida_pro:
 
-    IDA SDK v7.7.
+    IDA SDK v8.0.
 
 Documentation on variable MAXSTR in module ida_pro:
 
@@ -106528,7 +108128,7 @@ Documentation on variable RANGE_KIND_HIDDEN_RANGE in module ida_range:
 
 Documentation on variable ROOT_KEY_NAME in module ida_registry:
 
-    Key used to store IDA settings in registry (Windows version).
+    Default key used to store IDA settings in registry (Windows version).
     @note: this name is automatically prepended to all key names passed to functions
            in this file.
 

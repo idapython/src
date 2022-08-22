@@ -46,7 +46,7 @@
   Py_XDECREF(resultobj);
   if (result >= 0)
   {
-    resultobj = IDAPyStr_FromUTF8AndSize((const char *) $1->c_str(), $1->length());
+    resultobj = PyUnicode_FromStringAndSize((const char *) $1->c_str(), $1->length());
   }
   else
   {

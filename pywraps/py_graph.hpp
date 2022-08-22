@@ -188,9 +188,9 @@ private:
                     "O",
                     py_nodes.o));
     PyW_ShowCbErr(S_ON_CREATING_GROUP);
-    return (py_result == nullptr || !IDAPyInt_Check(py_result.o))
+    return (py_result == nullptr || !PyLong_Check(py_result.o))
          ? 1
-         : IDAPyInt_AsLong(py_result.o);
+         : PyLong_AsLong(py_result.o);
   }
 
   // a group is being deleted
@@ -416,9 +416,9 @@ void py_graph_t::on_user_refresh(mutable_graph_t *g)
           for ( j=0; j < qnumber(edge_ids); j++ )
           {
             newref_t id(PySequence_GetItem(item.o, j));
-            if ( id == nullptr || !IDAPyInt_Check(id.o) )
+            if ( id == nullptr || !PyLong_Check(id.o) )
               break;
-            int v = int(IDAPyInt_AsLong(id.o));
+            int v = int(PyLong_AsLong(id.o));
             if ( v > max_nodes )
               break;
             edge_ids[j] = v;
@@ -460,9 +460,9 @@ bool py_graph_t::on_user_text(mutable_graph_t * /*g*/, int node, const char **st
   qstring buf;
 
   // User returned a string?
-  if ( IDAPyStr_Check(result.o) )
+  if ( PyUnicode_Check(result.o) )
   {
-    IDAPyStr_AsUTF8(&buf, result.o);
+    PyUnicode_as_qstring(&buf, result.o);
     c = node_cache.add(node, buf.c_str(), cl);
   }
   // User returned a sequence of text and bgcolor
@@ -472,8 +472,8 @@ bool py_graph_t::on_user_text(mutable_graph_t * /*g*/, int node, const char **st
     newref_t py_str(PySequence_GetItem(result.o, 0));
     newref_t py_color(PySequence_GetItem(result.o, 1));
 
-    if ( py_str != nullptr && IDAPyStr_Check(py_str.o) )
-      IDAPyStr_AsUTF8(&buf, py_str.o);
+    if ( py_str != nullptr && PyUnicode_Check(py_str.o) )
+      PyUnicode_as_qstring(&buf, py_str.o);
     if ( py_color != nullptr && PyNumber_Check(py_color.o) )
       cl = bgcolor_t(PyLong_AsUnsignedLong(py_color.o));
 
@@ -510,11 +510,11 @@ int py_graph_t::_on_hint_epilog(char **hint, ref_t result)
 {
   // 'hint' must be allocated by qalloc() or qstrdup()
   // out: 0-use default hint, 1-use proposed hint
-  bool ok = result != nullptr && IDAPyStr_Check(result.o);
+  bool ok = result != nullptr && PyUnicode_Check(result.o);
   if ( ok )
   {
     qstring buf;
-    IDAPyStr_AsUTF8(&buf, result.o);
+    PyUnicode_as_qstring(&buf, result.o);
     *hint = buf.extract();
   }
   return ok;

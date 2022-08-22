@@ -112,21 +112,21 @@ class MyGraph(ida_graph.GraphViewer):
     def OnGetText(self, node_id):
         return self[node_id]
 
-    def OnPopup(self, form, popup_handle):
+    def OnPopup(self, widget, popup_handle):
         # graph closer
         actname = "graph_closer:%s" % self.title
         desc = ida_kernwin.action_desc_t(actname, "Close: %s" % self.title, GraphCloser(self))
-        ida_kernwin.attach_dynamic_action_to_popup(form, popup_handle, desc)
+        ida_kernwin.attach_dynamic_action_to_popup(None, popup_handle, desc)
 
         # color changer
         actname = "color_changer:%s" % self.title
         desc = ida_kernwin.action_desc_t(actname, "Change colors: %s" % self.title, ColorChanger(self))
-        ida_kernwin.attach_dynamic_action_to_popup(form, popup_handle, desc)
+        ida_kernwin.attach_dynamic_action_to_popup(None, popup_handle, desc)
 
         # selection printer
         actname = "selection_printer:%s" % self.title
         desc = ida_kernwin.action_desc_t(actname, "Print selection: %s" % self.title, SelectionPrinter(self))
-        ida_kernwin.attach_dynamic_action_to_popup(form, popup_handle, desc)
+        ida_kernwin.attach_dynamic_action_to_popup(None, popup_handle, desc)
 
 
 def show_graph():

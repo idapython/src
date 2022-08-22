@@ -16,8 +16,8 @@
         ("director_method_call_arity_cap", (
             True,  # add GIL lock
             "func",
-            "(method ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 3 ? NULL : (PyObject *)obj2), NULL)",
-            "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 4 ? NULL : (PyObject *)obj2), NULL)",
+            "(method ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 3 ? nullptr : (PyObject *)obj2), nullptr)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 4 ? nullptr : (PyObject *)obj2), nullptr)",
         )),
         ("spontaneous_callback_call", (
             False, # add GIL lock

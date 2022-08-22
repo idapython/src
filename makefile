@@ -1,10 +1,4 @@
 
-ifeq ($(PYTHON_VERSION_MAJOR),2)
-  OBJDIR=obj/$(SYSDIR)/2
-else
-  OBJDIR=obj/$(SYSDIR)/3
-endif
-
 include ../../allmake.mak
 
 #----------------------------------------------------------------------
@@ -78,18 +72,10 @@ CONFIGS += idapython.cfg
 
 #----------------------------------------------------------------------
 # the 'modules' target is in $(IDA)module.mak
-ifeq ($(PYTHON_VERSION_MAJOR),3)
-  ifdef __EA64__
-    MODULE_NAME_STEM:=idapython3_
-  else
-    MODULE_NAME_STEM:=idapython3
-  endif
+ifdef __EA64__
+  MODULE_NAME_STEM:=idapython3_
 else
-  ifdef __EA64__
-    MODULE_NAME_STEM:=idapython2_
-  else
-    MODULE_NAME_STEM:=idapython2
-  endif
+  MODULE_NAME_STEM:=idapython3
 endif
 MODULE = $(call module_dll,$(MODULE_NAME_STEM))
 MODULES += $(MODULE)
@@ -105,14 +91,12 @@ else
     # to hold any libpython3.Y<modifiers>.so<suffix>. Therefore, at
     # build-time, let's use our tool (which will in turn use patchelf)
     # to expand the DT_NEEDED 'slot' size.
-    ifeq ($(PYTHON_VERSION_MAJOR),3)
-      IDAPYSWITCH_MODULE_DEP := $(IDAPYSWITCH_DEP)
-      ifndef __CODE_CHECKER__
-        # this is for idapython[64].so
-        POSTACTION=$(Q)$(IDAPYSWITCH_PATH) --split-debug-and-expand-libpython3-dtneeded-room $(MODULE)
-        # and this for _ida_*.so
-        POSTACTION_IDA_X_SO=$(Q)$(IDAPYSWITCH_PATH) --split-debug-and-expand-libpython3-dtneeded-room
-      endif
+    IDAPYSWITCH_MODULE_DEP := $(IDAPYSWITCH_DEP)
+    ifndef __CODE_CHECKER__
+      # this is for idapython[64].so
+      POSTACTION=$(Q)$(IDAPYSWITCH_PATH) --split-debug-and-expand-libpython3-dtneeded-room $(MODULE)
+      # and this for _ida_*.so
+      POSTACTION_IDA_X_SO=$(Q)$(IDAPYSWITCH_PATH) --split-debug-and-expand-libpython3-dtneeded-room
     endif
   endif
 endif
@@ -121,12 +105,9 @@ endif
 ifdef __APPLE_SILICON__
   # set up a stub .tbd library to link against, see tbd.readme
   TBD_FILE = libpython$(PYTHON_VERSION_MAJOR).tbd
-  # note: this path must be compatible with -L$(R) -lpython(2|3) in pyplg.mak
+  # note: this path must be compatible with -L$(R) -lpython3 in pyplg.mak
   TBD_MODULE_DEP = $(R)$(TBD_FILE)
   # idapyswitch must be told that we're working with Python2
-  ifeq ($(PYTHON_VERSION_MAJOR),2)
-    TBD_IDAPYSWITCH_ARGS = --use-python2
-  endif
 endif
 
 #----------------------------------------------------------------------
@@ -226,14 +207,9 @@ else
 endif
 ST_SDK_TARGETS = $(SDK_SOURCES:$(IDA_INCLUDE)/%=$(ST_SDK)/%)
 
-# Python 2-3
-ifeq ($(PYTHON_VERSION_MAJOR),3)
-  _SWIGPY3FLAG := -py3 -py3-stable-abi -DPY3=1
-  CC_DEFS += PY3=1
-  CC_DEFS += Py_LIMITED_API=0x03040000 # we should make sure we use the same version as SWiG
-else
-  USE_PYTHON2_ENVVAR := USE_PYTHON2=1
-endif
+_SWIGPY3FLAG := -py3 -py3-stable-abi -DPY3=1
+CC_DEFS += PY3=1
+CC_DEFS += Py_LIMITED_API=0x03040000 # we should make sure we use the same version as SWiG
 DYNLOAD_SUBDIR := python$(PYTHON_VERSION_MAJOR).$(PYTHON_VERSION_MINOR)
 
 DEPLOY_LIBDIR=$(DEPLOY_PYDIR)/ida_$(ADRSIZE)
@@ -248,14 +224,27 @@ ifneq ($(HAS_HEXRAYS),)
   WITH_HEXRAYS_DEF = WITH_HEXRAYS
   WITH_HEXRAYS_CHKAPI=--with-hexrays
   HEXRAYS_MODNAME=hexrays
-  CMP_API = 1
   # Warning: adding an empty HEXRAYS_MODNAME will lead to idaapy trying to load
   # a module called ida_.
   MODULES_NAMES += $(HEXRAYS_MODNAME)
 endif
 
-ifeq ($(CMP_API),)
+ifeq ($(OUT_OF_TREE_BUILD),)
+  ifndef NOTEAMS
+    HAS_MERGE=1
+  endif
+else
+  ifneq (,$(wildcard $(IDA_INCLUDE)/merge.hpp))
+    HAS_MERGE=1
+  endif
+endif
+
+ifeq ($(HAS_HEXRAYS),)
   NO_CMP_API := 1
+else
+  ifeq ($(HAS_MERGE),)
+    NO_CMP_API := 1
+  endif
 endif
 
 #----------------------------------------------------------------------
@@ -306,6 +295,10 @@ MODULES_NAMES += tryblks
 MODULES_NAMES += typeinf
 MODULES_NAMES += ua
 MODULES_NAMES += xref
+ifneq ($(HAS_MERGE),)
+  MODULES_NAMES += mergemod
+  MODULES_NAMES += merge
+endif
 
 ALL_ST_WRAP_CPP = $(foreach mod,$(MODULES_NAMES),$(ST_WRAP)/$(mod).cpp)
 ALL_ST_WRAP_PY = $(foreach mod,$(MODULES_NAMES),$(ST_WRAP)/ida_$(mod).py)
@@ -345,6 +338,9 @@ endif
 #  types will not interfere or clash with the types in your module.
 DEF_TYPE_TABLE = SWIG_TYPE_TABLE=idaapi
 SWIGFLAGS=$(_SWIGFLAGS) -Itools/typemaps-supplement $(SWIG_INCLUDES) $(addprefix -D,$(DEF_TYPE_TABLE)) -DMISSED_BC695
+ifeq ($(HAS_MERGE),)
+  SWIGFLAGS += -DNOTEAMS
+endif
 
 pyfiles: $(DEPLOY_IDAUTILS_PY)  \
          $(DEPLOY_IDC_PY)       \
@@ -373,83 +369,68 @@ ifeq ($(OUT_OF_TREE_BUILD),)
   SIP_PYDLL_FNAME:=sip$(PYDLL_EXT)
   SIP_PYI_FNAME:=sip.pyi
 
-  ifeq ($(PYTHON_VERSION_MAJOR),3)
-    # sip for Python < 3.8
-    DEST_SIP34_DIR:=$(DEST_PYQT_DIR)/python_3.4
-    $(DEST_SIP34_DIR):
+  # sip for Python < 3.8
+  DEST_SIP34_DIR:=$(DEST_PYQT_DIR)/python_3.4
+  $(DEST_SIP34_DIR):
 	-$(Q)if [ ! -d "$(DEST_SIP34_DIR)" ] ; then mkdir -p 2>/dev/null $(DEST_SIP34_DIR) ; fi
-    DEST_SIP34_PYDLL:=$(DEST_SIP34_DIR)/$(SIP_PYDLL_FNAME)
-    DEST_SIP34_PYI:=$(DEST_SIP34_DIR)/$(SIP_PYI_FNAME)
-    $(DEST_SIP34_PYDLL): $(wildcard $(SIP34_TREE)/lib/python*/PyQt5/$(SIP_PYDLL_FNAME)) | $(DEST_SIP34_DIR)
+  DEST_SIP34_PYDLL:=$(DEST_SIP34_DIR)/$(SIP_PYDLL_FNAME)
+  DEST_SIP34_PYI:=$(DEST_SIP34_DIR)/$(SIP_PYI_FNAME)
+  $(DEST_SIP34_PYDLL): $(wildcard $(SIP34_TREE)/lib/python*/PyQt5/$(SIP_PYDLL_FNAME)) | $(DEST_SIP34_DIR)
 	$(Q)$(CP) $? $@
-    $(DEST_SIP34_PYI): $(wildcard $(SIP34_TREE)/lib/python*/PyQt5/$(SIP_PYI_FNAME)) | $(DEST_SIP34_DIR)
+  $(DEST_SIP34_PYI): $(wildcard $(SIP34_TREE)/lib/python*/PyQt5/$(SIP_PYI_FNAME)) | $(DEST_SIP34_DIR)
 	$(Q)$(CP) $? $@
-    DEST_SIP += $(DEST_SIP34_PYDLL) $(DEST_SIP34_PYI)
+  DEST_SIP += $(DEST_SIP34_PYDLL) $(DEST_SIP34_PYI)
 
-    # sip for Python [3.8, 3.9)
-    DEST_SIP38_DIR:=$(DEST_PYQT_DIR)/python_3.8
-    $(DEST_SIP38_DIR):
+  # sip for Python [3.8, 3.9)
+  DEST_SIP38_DIR:=$(DEST_PYQT_DIR)/python_3.8
+  $(DEST_SIP38_DIR):
 	-$(Q)if [ ! -d "$(DEST_SIP38_DIR)" ] ; then mkdir -p 2>/dev/null $(DEST_SIP38_DIR) ; fi
-    DEST_SIP38_PYDLL:=$(DEST_SIP38_DIR)/$(SIP_PYDLL_FNAME)
-    DEST_SIP38_PYI:=$(DEST_SIP38_DIR)/$(SIP_PYI_FNAME)
-    $(DEST_SIP38_PYDLL): $(wildcard $(SIP38_TREE)/lib/python*/PyQt5/$(SIP_PYDLL_FNAME)) | $(DEST_SIP38_DIR)
+  DEST_SIP38_PYDLL:=$(DEST_SIP38_DIR)/$(SIP_PYDLL_FNAME)
+  DEST_SIP38_PYI:=$(DEST_SIP38_DIR)/$(SIP_PYI_FNAME)
+  $(DEST_SIP38_PYDLL): $(wildcard $(SIP38_TREE)/lib/python*/PyQt5/$(SIP_PYDLL_FNAME)) | $(DEST_SIP38_DIR)
 	$(Q)$(CP) $? $@
-    $(DEST_SIP38_PYI): $(wildcard $(SIP38_TREE)/lib/python*/PyQt5/$(SIP_PYI_FNAME)) | $(DEST_SIP38_DIR)
+  $(DEST_SIP38_PYI): $(wildcard $(SIP38_TREE)/lib/python*/PyQt5/$(SIP_PYI_FNAME)) | $(DEST_SIP38_DIR)
 	$(Q)$(CP) $? $@
-    DEST_SIP += $(DEST_SIP38_PYDLL) $(DEST_SIP38_PYI)
+  DEST_SIP += $(DEST_SIP38_PYDLL) $(DEST_SIP38_PYI)
 
-    # sip for Python [3.9, ...
-    DEST_SIP39_DIR:=$(DEST_PYQT_DIR)/python_3.9
-    $(DEST_SIP39_DIR):
+  # sip for Python [3.9, ...
+  DEST_SIP39_DIR:=$(DEST_PYQT_DIR)/python_3.9
+  $(DEST_SIP39_DIR):
 	-$(Q)if [ ! -d "$(DEST_SIP39_DIR)" ] ; then mkdir -p 2>/dev/null $(DEST_SIP39_DIR) ; fi
-    DEST_SIP39_PYDLL:=$(DEST_SIP39_DIR)/$(SIP_PYDLL_FNAME)
-    DEST_SIP39_PYI:=$(DEST_SIP39_DIR)/$(SIP_PYI_FNAME)
-    $(DEST_SIP39_PYDLL): $(wildcard $(SIP39_TREE)/lib/python*/PyQt5/$(SIP_PYDLL_FNAME)) | $(DEST_SIP39_DIR)
+  DEST_SIP39_PYDLL:=$(DEST_SIP39_DIR)/$(SIP_PYDLL_FNAME)
+  DEST_SIP39_PYI:=$(DEST_SIP39_DIR)/$(SIP_PYI_FNAME)
+  $(DEST_SIP39_PYDLL): $(wildcard $(SIP39_TREE)/lib/python*/PyQt5/$(SIP_PYDLL_FNAME)) | $(DEST_SIP39_DIR)
 	$(Q)$(CP) $? $@
-    $(DEST_SIP39_PYI): $(wildcard $(SIP39_TREE)/lib/python*/PyQt5/$(SIP_PYI_FNAME)) | $(DEST_SIP39_DIR)
+  $(DEST_SIP39_PYI): $(wildcard $(SIP39_TREE)/lib/python*/PyQt5/$(SIP_PYI_FNAME)) | $(DEST_SIP39_DIR)
 	$(Q)$(CP) $? $@
-    DEST_SIP += $(DEST_SIP39_PYDLL) $(DEST_SIP39_PYI)
+  DEST_SIP += $(DEST_SIP39_PYDLL) $(DEST_SIP39_PYI)
 
-    # sip for Python [3.10, ...
-    DEST_SIP310_DIR:=$(DEST_PYQT_DIR)/python_3.10
-    $(DEST_SIP310_DIR):
+  # sip for Python [3.10, ...
+  DEST_SIP310_DIR:=$(DEST_PYQT_DIR)/python_3.10
+  $(DEST_SIP310_DIR):
 	-$(Q)if [ ! -d "$(DEST_SIP310_DIR)" ] ; then mkdir -p 2>/dev/null $(DEST_SIP310_DIR) ; fi
-    DEST_SIP310_PYDLL:=$(DEST_SIP310_DIR)/$(SIP_PYDLL_FNAME)
-    DEST_SIP310_PYI:=$(DEST_SIP310_DIR)/$(SIP_PYI_FNAME)
-    $(DEST_SIP310_PYDLL): $(wildcard $(SIP310_TREE)/lib/python*/PyQt5/$(SIP_PYDLL_FNAME)) | $(DEST_SIP310_DIR)
+  DEST_SIP310_PYDLL:=$(DEST_SIP310_DIR)/$(SIP_PYDLL_FNAME)
+  DEST_SIP310_PYI:=$(DEST_SIP310_DIR)/$(SIP_PYI_FNAME)
+  $(DEST_SIP310_PYDLL): $(wildcard $(SIP310_TREE)/lib/python*/PyQt5/$(SIP_PYDLL_FNAME)) | $(DEST_SIP310_DIR)
 	$(Q)$(CP) $? $@
-    $(DEST_SIP310_PYI): $(wildcard $(SIP310_TREE)/lib/python*/PyQt5/$(SIP_PYI_FNAME)) | $(DEST_SIP310_DIR)
+  $(DEST_SIP310_PYI): $(wildcard $(SIP310_TREE)/lib/python*/PyQt5/$(SIP_PYI_FNAME)) | $(DEST_SIP310_DIR)
 	$(Q)$(CP) $? $@
-    DEST_SIP += $(DEST_SIP310_PYDLL) $(DEST_SIP310_PYI)
-
-  else
-    # sip for Python 2.7
-    DEST_SIP27_DIR:=$(DEST_PYQT_DIR)
-    DEST_SIP27_PYDLL:=$(DEST_SIP27_DIR)/$(SIP_PYDLL_FNAME)
-    DEST_SIP27_PYI:=$(DEST_SIP27_DIR)/$(SIP_PYI_FNAME)
-    $(DEST_SIP27_PYDLL): $(wildcard $(SIP27_TREE)/lib/python*/PyQt5/$(SIP_PYDLL_FNAME)) | $(DEST_SIP27_DIR)
-	$(Q)$(CP) $? $@
-    $(DEST_SIP27_PYI): $(wildcard $(SIP27_TREE)/lib/python*/PyQt5/$(SIP_PYI_FNAME)) | $(DEST_SIP27_DIR)
-	$(Q)$(CP) $? $@
-    DEST_SIP += $(DEST_SIP27_PYDLL) $(DEST_SIP27_PYI)
-  endif
+  DEST_SIP += $(DEST_SIP310_PYDLL) $(DEST_SIP310_PYI)
 
   # And pick the right sip.so now (Python3 only; for Python2, we already put it in the right place)
-  ifeq ($(PYTHON_VERSION_MAJOR),3)
-    ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 8; echo $$?),0) # ugh
-      DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP39_PYDLL)
+  ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 8; echo $$?),0) # ugh
+    DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP39_PYDLL)
+  else
+    ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 7; echo $$?),0) # ugh
+      DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP38_PYDLL)
     else
-      ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 7; echo $$?),0) # ugh
-        DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP38_PYDLL)
-      else
-        DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP34_PYDLL)
-      endif
+      DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP34_PYDLL)
     endif
-    $(DEST_PYQT_DIR)/$(SIP_PYDLL_FNAME): $(DEST_INSTALL_SIP_PYDLL)
+  endif
+  $(DEST_PYQT_DIR)/$(SIP_PYDLL_FNAME): $(DEST_INSTALL_SIP_PYDLL)
 	$(Q)$(CP) $? $@
 	$(Q)chmod +w $@
-    DEST_SIP += $(DEST_PYQT_DIR)/$(SIP_PYDLL_FNAME)
-  endif
+  DEST_SIP += $(DEST_PYQT_DIR)/$(SIP_PYDLL_FNAME)
 endif
 
 pyqt: $(DEST_PYQT)
@@ -490,7 +471,7 @@ $(PARSED_HEADERS_MARKER): $(ST_SDK_TARGETS) $(ST_PARSED_HEADERS_CONFIG) $(ST_SDK
 ifeq ($(OUT_OF_TREE_BUILD),)
 	$(Q)( cat $(ST_PARSED_HEADERS_CONFIG); echo "OUTPUT_DIRECTORY=$(ST_PARSED_HEADERS_NOXML)" ) | $(DOXYGEN_BIN) - >/dev/null
 else
-	(cd $(F) && unzip ../../../out_of_tree/parsed_notifications.zip)
+	(cd $(F) && unzip ../../out_of_tree/parsed_notifications.zip)
 endif
 	$(Q)touch $@
 
@@ -776,6 +757,7 @@ ifdef __NT__
   $(X_O): CFLAGS += /wd4296 /wd4647 /wd4700 /wd4706
 endif
 # disable -fno-rtti
+$(X_O): pywraps.hpp
 $(X_O): NORTTI =
 $(X_O): CC_DEFS += PLUGIN_SUBMODULE
 $(X_O): CC_DEFS += SWIG_DIRECTOR_NORTTI
@@ -789,7 +771,7 @@ _IDA_X_SO = $(addprefix $(F)_ida_,$(addsuffix $(PYDLL_EXT),$(MODULES_NAMES)))
 ifdef __NT__
   $(_IDA_X_SO): STDLIBS += user32.lib
 endif
-# Note: On Windows, IDAPython's python.lib must come *after* python27.lib
+# Note: On Windows, IDAPython's python.lib must come *after* python3x.lib
 #       in the linking command line, otherwise Python will misdetect
 #       IDAPython's python.dll as the main "python" DLL, and IDAPython
 #       will fail to load with the following error:
@@ -805,44 +787,46 @@ ifdef __NT__
 	$(Q)$(RM) $(@:$(PYDLL_EXT)=.exp) $(@:$(PYDLL_EXT)=.lib)
 endif
 
-# ../../bin/x64_linux_gcc/python/2/ida_32/_ida_X.so
+# ../../bin/x64_linux_gcc/python/ida_32/_ida_X.so
 $(DEPLOY_LIBDIR)/_ida_%$(PYDLL_EXT): $(F)_ida_%$(PYDLL_EXT)
 	$(Q)$(CP) $< $@
 ifdef __LINUX__
   ifndef __CODE_CHECKER__
-    ifeq ($(PYTHON_VERSION_MAJOR),3)
 	$(Q)$(POSTACTION_IDA_X_SO) $@
-    endif
   endif
 endif
 
 #----------------------------------------------------------------------
 ifdef TESTABLE_BUILD
-API_CONTENTS = api_contents$(PYTHON_VERSION_MAJOR).txt
+API_CONTENTS = api_contents$(EXTRASUF1)$(PYTHON_VERSION_MAJOR).txt
 else
-API_CONTENTS = release_api_contents$(PYTHON_VERSION_MAJOR).txt
+API_CONTENTS = release_api_contents$(EXTRASUF1)$(PYTHON_VERSION_MAJOR).txt
 endif
 ST_API_CONTENTS = $(F)$(API_CONTENTS)
 .PRECIOUS: $(ST_API_CONTENTS)
 
 api_contents: $(ST_API_CONTENTS)
 $(ST_API_CONTENTS): $(ALL_ST_WRAP_CPP)
+ifeq ($(or $(__CODE_CHECKER__),$(NO_CMP_API),$(__ASAN__),$(IDAHOME),$(DEMO_OR_FREE)),)
 	$(QCHKAPI)$(PYTHON) tools/chkapi.py $(WITH_HEXRAYS_CHKAPI) -i $(subst $(space),$(comma),$(ALL_ST_WRAP_CPP)) -p $(subst $(space),$(comma),$(ALL_ST_WRAP_PY)) -r $(ST_API_CONTENTS)
-ifeq ($(OUT_OF_TREE_BUILD),)
-  ifdef CMP_API # turn off comparison when bw-compat is off, or api_contents will differ
+  ifeq ($(OUT_OF_TREE_BUILD),)
+    ifdef CMP_API # turn off comparison when bw-compat is off, or api_contents will differ
 	$(Q)(diff -w $(API_CONTENTS) $(ST_API_CONTENTS)) > /dev/null || \
           (echo "API CONTENTS CHANGED! update $(API_CONTENTS) or fix the API" && \
            echo "(New API: $(ST_API_CONTENTS)) ***" && \
            (diff -U 1 -w $(API_CONTENTS) $(ST_API_CONTENTS) && false))
+    endif
   endif
+else
+	$(Q)touch $@
 endif
 
 #----------------------------------------------------------------------
 # Check that doc injection is stable
 ifdef TESTABLE_BUILD
-PYDOC_INJECTIONS = pydoc_injections$(PYTHON_VERSION_MAJOR).txt
+PYDOC_INJECTIONS = pydoc_injections$(EXTRASUF1)$(PYTHON_VERSION_MAJOR).txt
 else
-PYDOC_INJECTIONS = release_pydoc_injections$(PYTHON_VERSION_MAJOR).txt
+PYDOC_INJECTIONS = release_pydoc_injections$(EXTRASUF1)$(PYTHON_VERSION_MAJOR).txt
 endif
 ST_PYDOC_INJECTIONS = $(F)$(PYDOC_INJECTIONS)
 .PRECIOUS: $(ST_PYDOC_INJECTIONS)
@@ -853,7 +837,7 @@ else
   DUMPDOC_IS_64:=False
 endif
 
-PYDOC_INJECTIONS_IDAT_CMD=$(USE_PYTHON2_ENVVAR) $(IDAT_CMD) $(BATCH_SWITCH) -S"$< $@ $(ST_WRAP) $(DUMPDOC_IS_64)" -t -L$(F)dumpdoc.log >/dev/null
+PYDOC_INJECTIONS_IDAT_CMD=$(IDAT_CMD) $(BATCH_SWITCH) -S"$< $@ $(ST_WRAP) $(DUMPDOC_IS_64)" -t -L$(F)dumpdoc.log >/dev/null
 pydoc_injections: $(ST_PYDOC_INJECTIONS)
 $(ST_PYDOC_INJECTIONS): tools/dumpdoc.py $(IDAPYTHON_MODULES) $(PYTHON_BINARY_MODULES)
 ifeq ($(or $(__CODE_CHECKER__),$(NO_CMP_API),$(__ASAN__),$(IDAHOME),$(DEMO_OR_FREE)),)
@@ -899,7 +883,7 @@ ifneq ($(wildcard ../../tests),)
 endif
 
 #----------------------------------------------------------------------
-PUBTREE_DIR=$(F)/public_tree
+PUBTREE_DIR=$(F)public_tree
 public_tree: all
 ifeq ($(OUT_OF_TREE_BUILD),)
 	-$(Q)if [ ! -d "$(PUBTREE_DIR)/out_of_tree" ] ; then mkdir -p 2>/dev/null $(PUBTREE_DIR)/out_of_tree ; fi
@@ -911,7 +895,7 @@ ifeq ($(OUT_OF_TREE_BUILD),)
                 --exclude=docs/hr-html/ \
                 --exclude=**/*~ \
                 . $(PUBTREE_DIR)
-	(cd $(F) && zip -r ../../../$(PUBTREE_DIR)/out_of_tree/parsed_notifications.zip parsed_notifications)
+	(cd $(F) && zip -r ../../$(PUBTREE_DIR)/out_of_tree/parsed_notifications.zip parsed_notifications)
 endif
 
 #----------------------------------------------------------------------
@@ -1075,5 +1059,5 @@ $(F)idapython$(O): $(I)bitrange.hpp $(I)bytes.hpp $(I)config.hpp            \
                   $(I)ieee.h $(I)kernwin.hpp $(I)lines.hpp $(I)llong.hpp    \
                   $(I)loader.hpp $(I)nalt.hpp $(I)name.hpp $(I)netnode.hpp  \
                   $(I)pro.h $(I)range.hpp $(I)segment.hpp $(I)typeinf.hpp   \
-                  $(I)ua.hpp $(I)xref.hpp extapi.cpp extapi.hpp idapy.hpp   \
+                  $(I)ua.hpp $(I)xref.hpp extapi.cpp extapi.hpp             \
                   idapython.cpp pywraps.cpp pywraps.hpp

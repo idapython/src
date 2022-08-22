@@ -61,8 +61,8 @@ ignore_names = [
     re.compile("_Swig.*"),
     re.compile("_swig.*"),
     "SWIG_PyInstanceMethod_New",
-    "svalvec_t", # aliased with intvec_t or longlongvec_t
-    "uvalvec_t", # aliased with uintvec_t or ulonglongvec_t
+    "svalvec_t", # aliased with intvec_t or int64vec_t
+    "uvalvec_t", # aliased with uintvec_t or uint64vec_t
     "eavec_t", # aliased with uvalvec_t
     ("ida_ida", "__getattr__"),
     ("idc", "__getattr__"),
@@ -102,7 +102,7 @@ all_specific_translations = {
     "ida_hexrays.casm_t" : [
         ((
             "uintvec_t",
-            "ulonglongvec_t"
+            "uint64vec_t"
         ), "eavec_t", True),
         ((
             "unsigned int *",
@@ -127,14 +127,6 @@ all_specific_translations = {
     ],
     "ida_hexrays.ivl_t" : [
         ((
-            "uval_ivl_t_off_get(self) -> unsigned int",
-            "uval_ivl_t_off_get(self) -> unsigned long long",
-        ), "uval_ivl_t_off_get(self) -> unsigned-ea-like-numeric-type", True),
-        ((
-            "uval_ivl_t_size_get(self) -> unsigned int",
-            "uval_ivl_t_size_get(self) -> unsigned long long",
-        ), "uval_ivl_t_size_get(self) -> unsigned-ea-like-numeric-type", True),
-        ((
             ") -> 'unsigned int'",
             ") -> 'unsigned long long'", # py3
         ), ") -> 'unsigned-ea-like-numeric-type'", True),
@@ -144,14 +136,6 @@ all_specific_translations = {
         ), ") -> unsigned-ea-like-numeric-type", True),
     ],
     "ida_hexrays.uval_ivl_t" : [
-        ((
-            "uval_ivl_t_off_get(self) -> unsigned int",
-            "uval_ivl_t_off_get(self) -> unsigned long long",
-        ), "uval_ivl_t_off_get(self) -> unsigned-ea-like-numeric-type", True),
-        ((
-            "uval_ivl_t_size_get(self) -> unsigned int",
-            "uval_ivl_t_size_get(self) -> unsigned long long",
-        ), "uval_ivl_t_size_get(self) -> unsigned-ea-like-numeric-type", True),
         ((
             ") -> 'unsigned int'",
             ") -> 'unsigned long long'", # py3
@@ -189,11 +173,17 @@ all_specific_translations = {
             "v: unsigned long long"
         ), "v: unsigned-ea-like-numeric-type", True),
     ],
-    "ida_nalt.strpath_ids_array" : [
+    "ida_segment.segment_defsr_array" : [
         ((
-            "strpath_ids_array_data_get(self) -> unsigned int",
-            "strpath_ids_array_data_get(self) -> unsigned long long"
-        ), "strpath_ids_array_data_get(self) -> unsigned-ea-like-numeric-type", True),
+            "unsigned int const &",
+            "unsigned long long const &",
+        ), "unsigned-ea-like-numeric-type const &", True),
+        ((
+            "data: unsigned int (&)",
+            "data: unsigned long long (&)",
+        ), "data: unsigned-ea-like-numeric-type (&)", True),
+    ],
+    "ida_nalt.strpath_ids_array" : [
         # py3
         ((
             "unsigned int const &",

@@ -23,6 +23,7 @@ the function we are currently looking at.
 #### Uses
 * ida_funcs.FUNC_FRAME
 * ida_funcs.FUNC_LUMINA
+* ida_funcs.FUNC_OUTLINE
 * ida_funcs.FUNC_THUNK
 * ida_funcs.get_fchunk
 * ida_funcs.is_func_entry
@@ -933,6 +934,8 @@ that are present in the IDB. Contrary to @show_selected_strings,
 this will not require that the "Strings" window is opened & available.
 
 #### Uses
+* ida_nalt.STRTYPE_C
+* ida_nalt.STRTYPE_C_16
 * idautils.Strings
 
 #### See also
@@ -2585,6 +2588,153 @@ IDP_Hooks
 #### Uses
 * ida_idp.IDP_Hooks
 * idautils.DecodeInstruction
+
+</blockquote>
+
+  </details>
+
+## Category: merge
+
+#### py_mex1
+<details>
+  <summary>Add merge functionality to a simple plugin, example 1</summary>
+
+<blockquote>
+
+#### Source code
+<a href="https://github.com/idapython/src/blob/master/examples/merge/py_mex1.py">merge/py_mex1.py</a>
+
+#### Category
+merge
+
+#### Description
+This is a primitive plugin which asks user for some info and saves it for
+some addresses.
+
+We will add a merge functionality to plugin.
+
+An IDA plugin may have two kinds of data with permanent storage:
+  1. Data common for entire database (e.g. the options).
+     To describe them we will use the idbattr_info_t type.
+  2. Data specific to a particular address.
+     To describe them we will use the merge_node_info_t type.
+
+Also, see SDK/plugins/mex1 example
+
+#### Keywords
+IDP_Hooks plugin
+
+#### Uses
+* ida_funcs.get_func
+* ida_ida.IDI_ALTVAL
+* ida_ida.IDI_CSTR
+* ida_ida.IDI_SCALAR
+* ida_ida.IDI_SUPVAL
+* ida_ida.idbattr_info_t
+* ida_idaapi.BADADDR
+* ida_idaapi.PLUGIN_MOD
+* ida_idaapi.PLUGIN_MULTI
+* ida_idaapi.plugin_t
+* ida_idaapi.plugmod_t
+* ida_idp.IDP_Hooks
+* ida_kernwin.Form
+* ida_kernwin.Form.ChkGroupControl
+* ida_kernwin.Form.StringInput
+* ida_kernwin.get_screen_ea
+* ida_merge.MERGE_KIND_END
+* ida_merge.MERGE_KIND_NONE
+* ida_merge.NDS_IS_STR
+* ida_merge.NDS_MAP_IDX
+* ida_merge.merge_handler_params_t
+* ida_merge.merge_node_info_t
+* ida_merge.moddata_diff_helper_t
+* ida_mergemod.create_std_modmerge_handlers
+* ida_netnode.BADNODE
+* ida_netnode.SIZEOF_nodeidx_t
+* ida_netnode.atag
+* ida_netnode.netnode
+* ida_netnode.stag
+
+</blockquote>
+
+  </details>
+
+#### py_mex3
+<details>
+  <summary>This example uses the mex1 example and improves the user-interface for it.</summary>
+
+<blockquote>
+
+#### Source code
+<a href="https://github.com/idapython/src/blob/master/examples/merge/py_mex3.py">merge/py_mex3.py</a>
+
+#### Category
+merge
+
+#### Description
+IDA Teams uses a chooser to display the merge conflicts.
+To fill the chooser columns IDA Teams uses the following methods from diff_source_t type:
+  * print_diffpos_name()
+  * print_diffpos_details()
+and UI hints from merge_handler_params_t type:
+  * ui_has_details()
+  * ui_complex_details()
+  * ui_complex_name()
+
+In general, chooser columns are filled as following:
+  columns.clear()
+  NAME = print_diffpos_name()
+  if ui_complex_name()
+  then
+    columns.add(split NAME by ui_split_char())
+  else
+    columns[0] = NAME
+  if not ui_complex_details()
+  then
+    columns.add(print_diffpos_details())
+
+Also, see SDK/plugins/mex3 example
+
+#### Keywords
+IDP_Hooks plugin
+
+#### Uses
+* ida_funcs.get_func
+* ida_ida.IDI_ALTVAL
+* ida_ida.IDI_CSTR
+* ida_ida.IDI_SCALAR
+* ida_ida.IDI_SUPVAL
+* ida_ida.idbattr_info_t
+* ida_idaapi.BADADDR
+* ida_idaapi.PLUGIN_MOD
+* ida_idaapi.PLUGIN_MULTI
+* ida_idaapi.plugin_t
+* ida_idaapi.plugmod_t
+* ida_idp.IDP_Hooks
+* ida_kernwin.Form
+* ida_kernwin.Form.ChkGroupControl
+* ida_kernwin.Form.StringInput
+* ida_kernwin.get_screen_ea
+* ida_merge.MERGE_KIND_END
+* ida_merge.MERGE_KIND_NONE
+* ida_merge.MH_UI_COLONNAME
+* ida_merge.MH_UI_COMMANAME
+* ida_merge.MH_UI_NODETAILS
+* ida_merge.NDS_IS_STR
+* ida_merge.NDS_MAP_IDX
+* ida_merge.create_nodeval_merge_handlers
+* ida_merge.get_ea_diffpos_name
+* ida_merge.merge_handler_params_t
+* ida_merge.merge_node_helper_t
+* ida_merge.merge_node_info_t
+* ida_merge.moddata_diff_helper_t
+* ida_mergemod.create_std_modmerge_handlers
+* ida_nalt.node2ea
+* ida_netnode.BADNODE
+* ida_netnode.SIZEOF_nodeidx_t
+* ida_netnode.atag
+* ida_netnode.netnode
+* ida_netnode.stag
 
 </blockquote>
 

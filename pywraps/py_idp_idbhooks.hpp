@@ -9,8 +9,8 @@ struct IDB_Hooks : public hooks_base_t
 {
   // hookgenIDB:methodsinfo_decl
 
-  IDB_Hooks(uint32 _flags=0)
-    : hooks_base_t("ida_idp.IDB_Hooks", IDB_Callback, HT_IDB, _flags) {}
+  IDB_Hooks(uint32 _flags=0, uint32 _hkcb_flags=HKCB_GLOBAL)
+    : hooks_base_t("ida_idp.IDB_Hooks", IDB_Callback, HT_IDB, _flags, _hkcb_flags) {}
 
   bool hook() { return hooks_base_t::hook(); }
   bool unhook() { return hooks_base_t::unhook(); }

@@ -68,6 +68,7 @@ the function we are currently looking at.
               <ul>
                 <li>ida_funcs.FUNC_FRAME</li>
                 <li>ida_funcs.FUNC_LUMINA</li>
+                <li>ida_funcs.FUNC_OUTLINE</li>
                 <li>ida_funcs.FUNC_THUNK</li>
                 <li>ida_funcs.get_fchunk</li>
                 <li>ida_funcs.is_func_entry</li>
@@ -1155,6 +1156,8 @@ this will not require that the "Strings" window is opened & available.
 
             <li>APIs used
               <ul>
+                <li>ida_nalt.STRTYPE_C</li>
+                <li>ida_nalt.STRTYPE_C_16</li>
                 <li>idautils.Strings</li>
               </ul>
             </li>
@@ -3099,6 +3102,171 @@ We add support for assembling the following pseudo instructions:
               <ul>
                 <li>ida_idp.IDP_Hooks</li>
                 <li>idautils.DecodeInstruction</li>
+              </ul>
+            </li>
+
+
+      </ul>
+        </div>
+      </div>
+
+    </div>
+    <h2>Category: merge</h2>
+    <div class="c_list" onclick="handle_click()">
+      <div class="example-entry collapsed-entry" name="py_mex1">
+        <div>
+          <span class="exp-col expander">&#x25B9;</span>
+          <span class="exp-col collapser" style="display:none">&#x25BF;</span>
+        <a href="merge/py_mex1.py">py_mex1</a>: <i>Add merge functionality to a simple plugin, example 1</i>
+        </div>
+        <div class="details" id="DIV_py_mex1">
+
+<pre>
+This is a primitive plugin which asks user for some info and saves it for
+some addresses.
+
+We will add a merge functionality to plugin.
+
+An IDA plugin may have two kinds of data with permanent storage:
+  1. Data common for entire database (e.g. the options).
+     To describe them we will use the idbattr_info_t type.
+  2. Data specific to a particular address.
+     To describe them we will use the merge_node_info_t type.
+
+Also, see SDK/plugins/mex1 example
+</pre>
+
+          <ul>
+            <li>Category: merge</li>
+            <li>Summary: Add merge functionality to a simple plugin, example 1</li>
+            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/merge/py_mex1.py">GitHub</a></li>
+            <li>Keywords:
+            IDP_Hooks
+            plugin
+            </li>
+
+
+
+            <li>APIs used
+              <ul>
+                <li>ida_funcs.get_func</li>
+                <li>ida_ida.IDI_ALTVAL</li>
+                <li>ida_ida.IDI_CSTR</li>
+                <li>ida_ida.IDI_SCALAR</li>
+                <li>ida_ida.IDI_SUPVAL</li>
+                <li>ida_ida.idbattr_info_t</li>
+                <li>ida_idaapi.BADADDR</li>
+                <li>ida_idaapi.PLUGIN_MOD</li>
+                <li>ida_idaapi.PLUGIN_MULTI</li>
+                <li>ida_idaapi.plugin_t</li>
+                <li>ida_idaapi.plugmod_t</li>
+                <li>ida_idp.IDP_Hooks</li>
+                <li>ida_kernwin.Form</li>
+                <li>ida_kernwin.Form.ChkGroupControl</li>
+                <li>ida_kernwin.Form.StringInput</li>
+                <li>ida_kernwin.get_screen_ea</li>
+                <li>ida_merge.MERGE_KIND_END</li>
+                <li>ida_merge.MERGE_KIND_NONE</li>
+                <li>ida_merge.NDS_IS_STR</li>
+                <li>ida_merge.NDS_MAP_IDX</li>
+                <li>ida_merge.merge_handler_params_t</li>
+                <li>ida_merge.merge_node_info_t</li>
+                <li>ida_merge.moddata_diff_helper_t</li>
+                <li>ida_mergemod.create_std_modmerge_handlers</li>
+                <li>ida_netnode.BADNODE</li>
+                <li>ida_netnode.SIZEOF_nodeidx_t</li>
+                <li>ida_netnode.atag</li>
+                <li>ida_netnode.netnode</li>
+                <li>ida_netnode.stag</li>
+              </ul>
+            </li>
+
+
+      </ul>
+        </div>
+      </div>
+      <div class="example-entry collapsed-entry" name="py_mex3">
+        <div>
+          <span class="exp-col expander">&#x25B9;</span>
+          <span class="exp-col collapser" style="display:none">&#x25BF;</span>
+        <a href="merge/py_mex3.py">py_mex3</a>: <i>This example uses the mex1 example and improves the user-interface for it.</i>
+        </div>
+        <div class="details" id="DIV_py_mex3">
+
+<pre>
+IDA Teams uses a chooser to display the merge conflicts.
+To fill the chooser columns IDA Teams uses the following methods from diff_source_t type:
+  * print_diffpos_name()
+  * print_diffpos_details()
+and UI hints from merge_handler_params_t type:
+  * ui_has_details()
+  * ui_complex_details()
+  * ui_complex_name()
+
+In general, chooser columns are filled as following:
+  columns.clear()
+  NAME = print_diffpos_name()
+  if ui_complex_name()
+  then
+    columns.add(split NAME by ui_split_char())
+  else
+    columns[0] = NAME
+  if not ui_complex_details()
+  then
+    columns.add(print_diffpos_details())
+
+Also, see SDK/plugins/mex3 example
+</pre>
+
+          <ul>
+            <li>Category: merge</li>
+            <li>Summary: This example uses the mex1 example and improves the user-interface for it.</li>
+            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/merge/py_mex3.py">GitHub</a></li>
+            <li>Keywords:
+            IDP_Hooks
+            plugin
+            </li>
+
+
+
+            <li>APIs used
+              <ul>
+                <li>ida_funcs.get_func</li>
+                <li>ida_ida.IDI_ALTVAL</li>
+                <li>ida_ida.IDI_CSTR</li>
+                <li>ida_ida.IDI_SCALAR</li>
+                <li>ida_ida.IDI_SUPVAL</li>
+                <li>ida_ida.idbattr_info_t</li>
+                <li>ida_idaapi.BADADDR</li>
+                <li>ida_idaapi.PLUGIN_MOD</li>
+                <li>ida_idaapi.PLUGIN_MULTI</li>
+                <li>ida_idaapi.plugin_t</li>
+                <li>ida_idaapi.plugmod_t</li>
+                <li>ida_idp.IDP_Hooks</li>
+                <li>ida_kernwin.Form</li>
+                <li>ida_kernwin.Form.ChkGroupControl</li>
+                <li>ida_kernwin.Form.StringInput</li>
+                <li>ida_kernwin.get_screen_ea</li>
+                <li>ida_merge.MERGE_KIND_END</li>
+                <li>ida_merge.MERGE_KIND_NONE</li>
+                <li>ida_merge.MH_UI_COLONNAME</li>
+                <li>ida_merge.MH_UI_COMMANAME</li>
+                <li>ida_merge.MH_UI_NODETAILS</li>
+                <li>ida_merge.NDS_IS_STR</li>
+                <li>ida_merge.NDS_MAP_IDX</li>
+                <li>ida_merge.create_nodeval_merge_handlers</li>
+                <li>ida_merge.get_ea_diffpos_name</li>
+                <li>ida_merge.merge_handler_params_t</li>
+                <li>ida_merge.merge_node_helper_t</li>
+                <li>ida_merge.merge_node_info_t</li>
+                <li>ida_merge.moddata_diff_helper_t</li>
+                <li>ida_mergemod.create_std_modmerge_handlers</li>
+                <li>ida_nalt.node2ea</li>
+                <li>ida_netnode.BADNODE</li>
+                <li>ida_netnode.SIZEOF_nodeidx_t</li>
+                <li>ida_netnode.atag</li>
+                <li>ida_netnode.netnode</li>
+                <li>ida_netnode.stag</li>
               </ul>
             </li>
 

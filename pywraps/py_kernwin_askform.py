@@ -179,13 +179,13 @@ class Form(object):
         Factory method returning a ctype class corresponding to the field type string
         """
         if tp in (Form.FT_SEG, Form.FT_HEX, Form.FT_RAWHEX, Form.FT_ADDR):
-            return ctypes.c_ulonglong if i64 else ctypes.c_ulong
+            return ctypes.c_uint64 if i64 else ctypes.c_ulong
         elif tp in (Form.FT_SHEX, Form.FT_DEC, Form.FT_OCT, Form.FT_BIN, Form.FT_CHAR):
-            return ctypes.c_longlong if i64 else ctypes.c_long
+            return ctypes.c_int64 if i64 else ctypes.c_long
         elif tp == Form.FT_UINT64:
-            return ctypes.c_ulonglong
+            return ctypes.c_uint64
         elif tp == Form.FT_INT64:
-            return ctypes.c_longlong
+            return ctypes.c_int64
         elif tp == Form.FT_COLOR:
             return ctypes.c_ulong
         elif tp == Form._FT_USHORT:

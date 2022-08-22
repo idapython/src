@@ -54,7 +54,7 @@ PyObject *py_appcall(
 
   error_t ret;
   idc_value_t idc_result;
-  Py_BEGIN_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
 
   if ( (debug & IDA_DEBUG_APPCALL) != 0 )
   {
@@ -78,7 +78,7 @@ PyObject *py_appcall(
                     idc_args.begin(),
                     idc_args.size());
 
-  Py_END_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_END_ALLOW;
 
   if ( ret != eOk )
   {
@@ -188,7 +188,7 @@ static PyObject *dbg_get_registers()
       for ( int i=0; i < nbits; i++ )
       {
         const char *s = ri.bit_strings[i];
-        PyList_SetItem(py_bits, i, IDAPyStr_FromUTF8(s == nullptr ? "" : s));
+        PyList_SetItem(py_bits, i, PyUnicode_FromString(s == nullptr ? "" : s));
       }
     }
     else
@@ -255,14 +255,14 @@ static PyObject *dbg_read_memory(ea_t ea, size_t sz)
     Py_RETURN_NONE;
 
   // Create a Python string
-  PyObject *ret = IDAPyBytes_FromMemAndSize(nullptr, Py_ssize_t(sz));
+  PyObject *ret = PyBytes_FromStringAndSize(nullptr, Py_ssize_t(sz));
   if ( ret == nullptr )
     Py_RETURN_NONE;
 
   // Get the internal buffer
   Py_ssize_t len;
   char *buf;
-  IDAPyBytes_AsMemAndSize(ret, &buf, &len);
+  PyBytes_AsStringAndSize(ret, &buf, &len);
   if ( size_t(read_dbg_memory(ea, buf, sz)) != sz )
   {
     Py_DECREF(ret);
@@ -314,7 +314,7 @@ static PyObject *dbg_get_name()
   if ( dbg == nullptr )
     Py_RETURN_NONE;
   else
-    return IDAPyStr_FromUTF8(dbg->name);
+    return PyUnicode_FromString(dbg->name);
 }
 
 //-------------------------------------------------------------------------
@@ -339,12 +339,12 @@ static PyObject *dbg_get_memory_info()
 
   // Invalidate memory
   meminfo_vec_t ranges;
-  Py_BEGIN_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   invalidate_dbgmem_config();
   invalidate_dbgmem_contents(BADADDR, BADADDR);
 
   get_dbg_memory_info(&ranges);
-  Py_END_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_END_ALLOW;
   return meminfo_vec_t_to_py(ranges);
 }
 

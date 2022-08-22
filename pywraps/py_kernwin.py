@@ -112,7 +112,7 @@ class quick_widget_commands_t:
                                      cmd.shortcut,
                                      None,
                                      cmd.icon)
-                attach_dynamic_action_to_popup(widget, popup, desc)
+                attach_dynamic_action_to_popup(None, popup, desc)
 
 class disabled_script_timeout_t(object):
     def __enter__(self):
@@ -134,5 +134,6 @@ ida_ida.__wrap_hooks_callback(
 # ----------------------------------------------------------------------
 # bw-compat/deprecated. You shouldn't rely on this in new code
 from ida_pro import str2user
+SETMENU_IF_ENABLED = 4
 
 #</pycode(py_kernwin)>

@@ -27,7 +27,7 @@ static int py_mem2base(PyObject *py_mem, ea_t ea, qoff64_t fpos = -1)
   char *buf;
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( IDAPyBytes_AsMemAndSize(py_mem, &buf, &len) == -1 )
+    if ( PyBytes_AsStringAndSize(py_mem, &buf, &len) == -1 )
       return 0;
   }
 
@@ -83,9 +83,9 @@ static bool py_run_plugin(PyObject *plg, size_t arg)
   {
     plugin_t *p = (plugin_t *) PyCapsule_GetPointer(plg, VALID_CAPSULE_NAME);
     bool rc;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     rc = run_plugin(p, arg);
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     return rc;
   }
 }

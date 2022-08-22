@@ -64,6 +64,10 @@ struct undo_records_t;
 %ignore get_hexdsp;
 %ignore set_hexdsp;
 %ignore remove_event_listener;
+%ignore set_module_data;
+%ignore clr_module_data;
+%ignore get_module_data;
+
 
 // @arnaud
 %ignore notify__calc_next_eas;

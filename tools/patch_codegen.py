@@ -5,12 +5,7 @@ import re
 import sys
 import six
 import xml.etree.ElementTree as ET
-
-try:
-    from argparse import ArgumentParser
-except:
-    print("Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'")
-    raise
+from argparse import ArgumentParser
 
 parser = ArgumentParser(description='Patch some code generation, so it builds')
 parser.add_argument("-i", "--input", required=True)
@@ -210,7 +205,7 @@ with open(args.input) as f:
                             "printf(\"swig/python detected a memory leak",
                             (
                                 "#ifdef TESTABLE_BUILD",
-                                "      if ( name == NULL || strcmp(name, \"std::out_of_range *\") != 0 )",
+                                "      if ( name == nullptr || strcmp(name, \"std::out_of_range *\") != 0 )",
                                 "        abort();",
                                 "#endif",
                             ),
@@ -301,10 +296,10 @@ with open(args.input) as f:
 
                 elif patch_kind == "thread_unsafe":
                     if entered_function:
-                        subst = prepend_subst(subst, "  if ( !__chkthr() ) return NULL; %s" % patched_cmt, line)
+                        subst = prepend_subst(subst, "  if ( !__chkthr() ) return nullptr; %s" % patched_cmt, line)
                 elif patch_kind == "requires_idb":
                     if entered_function:
-                        subst = prepend_subst(subst, "  if ( !__chkreqidb() ) return NULL; %s" % patched_cmt, line)
+                        subst = prepend_subst(subst, "  if ( !__chkreqidb() ) return nullptr; %s" % patched_cmt, line)
                 elif patch_kind == "director_method_call_arity_cap":
                     add_gil_lock, method_name, args_cfoa, args_cmoa = patch_data
                     if entered_function:

@@ -55,14 +55,14 @@ recipe = {
     "populating_widget_popup" : {
         "params" : {
             "ctx" : {
-                "default" : "NULL",
+                "default" : "nullptr",
             },
         },
     },
     "finish_populating_widget_popup" : {
         "params" : {
             "ctx" : {
-                "default" : "NULL",
+                "default" : "nullptr",
             },
         },
     },
@@ -99,6 +99,15 @@ recipe = {
                 "type" : "jobj_wrapper_t",
                 "convertor" : "UI_Hooks::wrap_widget_cfg",
                 "convertor_pass_args" : True,
+            },
+        },
+    },
+    "database_closed" : {
+        "params" : {
+            "reserved" :
+            {
+                "suppress_for_call" : True,
+                "qnotused" : True,
             },
         },
     },

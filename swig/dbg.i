@@ -72,7 +72,7 @@
 %typemap(argout) qstring *ARG_NAME
 {
   // %get_process_options_out_qstring %typemap(argout) qstring *ARG_NAME
-  $result = SWIG_Python_AppendOutput($result, IDAPyStr_FromUTF8($1->c_str()));
+  $result = SWIG_Python_AppendOutput($result, PyUnicode_FromString($1->c_str()));
 }
 %typemap(freearg) qstring* ARG_NAME
 {
@@ -93,7 +93,7 @@
 {
   // %typemap(argout) qstring *path (specialization)
   Py_XDECREF($result);
-  $result = IDAPyStr_FromUTF8($1->c_str());
+  $result = PyUnicode_FromString($1->c_str());
 }
 
 //-------------------------------------------------------------------------
@@ -130,28 +130,28 @@ bool request_run_to(ea_t ea, pid_t pid = NO_PROCESS, thid_t tid = NO_THREAD);
 %{
 PyObject *bpt_t_condition_get(bpt_t *bpt)
 {
-  return IDAPyStr_FromUTF8(bpt->cndbody.c_str());
+  return PyUnicode_FromString(bpt->cndbody.c_str());
 }
 
 void bpt_t_condition_set(bpt_t *bpt, PyObject *val)
 {
-  if ( IDAPyStr_Check(val) )
-    IDAPyStr_AsUTF8(&bpt->cndbody, val);
+  if ( PyUnicode_Check(val) )
+    PyUnicode_as_qstring(&bpt->cndbody, val);
   else
     PyErr_SetString(PyExc_ValueError, "expected a string");
 }
 
 PyObject *bpt_t_elang_get(bpt_t *bpt)
 {
-  return IDAPyStr_FromUTF8(bpt->get_cnd_elang());
+  return PyUnicode_FromString(bpt->get_cnd_elang());
 }
 
 void bpt_t_elang_set(bpt_t *bpt, PyObject *val)
 {
-  if ( IDAPyStr_Check(val) )
+  if ( PyUnicode_Check(val) )
   {
     qstring cval;
-    IDAPyStr_AsUTF8(&cval, val);
+    PyUnicode_as_qstring(&cval, val);
     if ( !bpt->set_cnd_elang(cval.c_str()) )
       PyErr_SetString(PyExc_ValueError, "too many extlangs");
   }
@@ -169,7 +169,7 @@ void bpt_t_elang_set(bpt_t *bpt, PyObject *val)
 {
   PyObject *get_bytes() const
   {
-    return IDAPyBytes_FromMemAndSize(
+    return PyBytes_FromStringAndSize(
         (const char *) $self->bytes.begin(),
         $self->bytes.size());
   }

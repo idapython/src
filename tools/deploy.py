@@ -9,11 +9,7 @@ import sys, re, os, glob
 
 major, minor, micro, _, _ = sys.version_info
 
-try:
-    from argparse import ArgumentParser
-except:
-    print("Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'")
-    raise
+from argparse import ArgumentParser
 
 parser = ArgumentParser()
 parser.add_argument("-t", "--template", required=True)
@@ -56,7 +52,7 @@ if xml_tree is not None:
                     name, ptyp, desc = tpl
                     signature.append("%s %s" % (ptyp, name or ""))
                     if relevant_and_non_null(ptyp, desc):
-                        body.append("if ( $%d == NULL )" % (idx+1))
+                        body.append("if ( $%d == nullptr )" % (idx+1))
                         body.append("""  SWIG_exception_fail(SWIG_ValueError, "invalid null reference in method '$symname', argument $argnum of type '$%d_type'");""" % (idx+1))
                     pass
                 typemaps.append("%%typemap(check) (%s)" % ", ".join(signature))

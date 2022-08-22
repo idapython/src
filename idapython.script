@@ -25,6 +25,8 @@ global:
   enable_python_cli;
   idapython_hook_to_notification_point;
   idapython_unhook_from_notification_point;
+  idapython_register_hook;
+  idapython_unregister_hook;
   idapython_show_wait_box;
   idapython_hide_wait_box;
   idcvar_to_pyvar;

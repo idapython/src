@@ -29,6 +29,10 @@
 %ignore setinf;
 %ignore setinf_buf;
 %ignore setinf_flag;
+#ifdef NOTEAMS
+%ignore idbattr_info_t;
+%ignore idbattr_valmap_t;
+#endif
 
 %extend idainfo
 {
@@ -49,6 +53,39 @@
 #endif
   }
 }
+
+%apply size_t { uintptr_t offset }
+
+%extend idbattr_info_t
+{
+  idbattr_info_t(
+          const char *name,
+          uintptr_t offset,
+          size_t width,
+          uint64 bitmask=0,
+          uchar tag=0,
+          uint idi_flags=0)
+  {
+    idbattr_info_t *ii = new idbattr_info_t();
+#define DUPSTR(Prop) ii->Prop = Prop == nullptr ? nullptr : qstrdup(Prop)
+    DUPSTR(name);
+#undef DUPSTR
+    ii->offset = offset;
+    ii->width = width;
+    ii->bitmask = bitmask;
+    ii->tag = tag;
+    ii->idi_flags = idi_flags;
+    return ii;
+  }
+
+  ~idbattr_info_t()
+  {
+#define FREESTR(Prop) qfree((char *) $self->Prop)
+    FREESTR(name);
+#undef FREESTR
+    delete $self;
+  }
+};
 
 %ignore setflag(uchar &where,uchar bit,int value);
 %ignore setflag(ushort &where,ushort bit,int value);

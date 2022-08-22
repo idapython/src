@@ -35,7 +35,7 @@ static PyObject *AssembleLine(
   int inslen = processor_t::assemble((uchar *)buf, ea, cs, ip, use32, line);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( inslen > 0 )
-    return IDAPyBytes_FromMemAndSize(buf, inslen);
+    return PyBytes_FromStringAndSize(buf, inslen);
   else
     Py_RETURN_NONE;
 }
@@ -66,14 +66,14 @@ bool assemble(
   char buf[MAXSTR];
   PYW_GIL_CHECK_LOCKED_SCOPE();
   bool rc = false;
-  Py_BEGIN_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   int inslen = processor_t::assemble((uchar *)buf, ea, cs, ip, use32, line);
   if ( inslen > 0 )
   {
     patch_bytes(ea, buf, inslen);
     rc = true;
   }
-  Py_END_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_END_ALLOW;
   return rc;
 }
 
@@ -329,7 +329,7 @@ static PyObject *ph_get_regnames()
   processor_t &ph = PH;
   PyObject *py_result = PyList_New(ph.regs_num);
   for ( Py_ssize_t i=0; i < ph.regs_num; i++ )
-    PyList_SetItem(py_result, i, IDAPyStr_FromUTF8(ph.reg_names[i]));
+    PyList_SetItem(py_result, i, PyUnicode_FromString(ph.reg_names[i]));
   return py_result;
 }
 
@@ -360,7 +360,7 @@ static PyObject *ph_get_operand_info(
   PYW_GIL_CHECK_LOCKED_SCOPE();
   bool ok = false;
   idd_opinfo_t opinf;
-  Py_BEGIN_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   do
   {
     if ( dbg == nullptr || n == - 1 )
@@ -388,7 +388,7 @@ static PyObject *ph_get_operand_info(
     ok = true;
   } while (false);
 
-  Py_END_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_END_ALLOW;
   if ( ok )
     return Py_BuildValue("(i" PY_BV_EA "Kii)",
                          opinf.modified,
@@ -441,8 +441,8 @@ struct IDP_Hooks : public hooks_base_t
 {
   // hookgenIDP:methodsinfo_decl
 
-  IDP_Hooks(uint32 _flags=0)
-    : hooks_base_t("ida_idp.IDP_Hooks", IDP_Callback, HT_IDP, _flags) {}
+  IDP_Hooks(uint32 _flags=0, uint32 _hkcb_flags=HKCB_GLOBAL)
+    : hooks_base_t("ida_idp.IDP_Hooks", IDP_Callback, HT_IDP, _flags, _hkcb_flags) {}
 
   bool hook() { return hooks_base_t::hook(); }
   bool unhook() { return hooks_base_t::unhook(); }
@@ -470,11 +470,15 @@ protected:
     switch ( value_type )
     {
       case IDPOPT_STR:
-        return IDAPyStr_FromUTF8((const char *) value);
+        return PyUnicode_FromString((const char *) value);
       case IDPOPT_NUM:
-        return IDAPyInt_FromLong(*(const uval_t *) value);
+#ifdef __EA64__
+        return PyLong_FromLongLong(*(const uval_t *) value);
+#else
+        return PyLong_FromLong(*(const uval_t *) value);
+#endif
       case IDPOPT_BIT:
-        return IDAPyInt_FromLong(*(const int *) value);
+        return PyLong_FromLong(*(const int *) value);
       case IDPOPT_I64:
         return PyLong_FromLongLong(*(const int64 *) value);
       default:
@@ -488,9 +492,9 @@ private:
   static ssize_t cm_t_to_ssize_t(cm_t cm) { return ssize_t(cm); }
   static bool _handle_qstring_output(PyObject *o, qstring *buf)
   {
-    bool is_str = o != nullptr && IDAPyStr_Check(o);
+    bool is_str = o != nullptr && PyUnicode_Check(o);
     if ( is_str && buf != nullptr )
-      IDAPyStr_AsUTF8(buf, o);
+      PyUnicode_as_qstring(buf, o);
     Py_XDECREF(o);
     return is_str;
   }
@@ -508,11 +512,11 @@ private:
         const char * /*line*/)
   {
     ssize_t rc = 0;
-    if ( o != nullptr && IDAPyBytes_Check(o) )
+    if ( o != nullptr && PyBytes_Check(o) )
     {
       char *s;
       Py_ssize_t len = 0;
-      if ( IDAPyBytes_AsMemAndSize(o, &s, &len) != -1 )
+      if ( PyBytes_AsStringAndSize(o, &s, &len) != -1 )
       {
         if ( len > MAXSTR )
           len = MAXSTR;
@@ -561,10 +565,10 @@ private:
     {
       newref_t py_rc(PySequence_GetItem(o, 0));
       newref_t py_idx(PySequence_GetItem(o, 1));
-      if ( IDAPyInt_Check(py_rc.o) && IDAPyInt_Check(py_idx.o) )
+      if ( PyLong_Check(py_rc.o) && PyLong_Check(py_idx.o) )
       {
-        rc = IDAPyInt_AsLong(py_rc.o);
-        *idx = IDAPyInt_AsLong(py_idx.o);
+        rc = PyLong_AsLong(py_rc.o);
+        *idx = PyLong_AsLong(py_idx.o);
       }
     }
     return rc;
@@ -584,13 +588,13 @@ private:
       newref_t py_out(PySequence_GetItem(o, 1));
       newref_t py_out_res(PySequence_GetItem(o, 2));
       qstring qs;
-      if ( IDAPyInt_Check(py_rc.o)
-        && IDAPyInt_Check(py_out_res.o)
-        && IDAPyStr_Check(py_out.o)
-        && IDAPyStr_AsUTF8(&qs, py_out.o) )
+      if ( PyLong_Check(py_rc.o)
+        && PyLong_Check(py_out_res.o)
+        && PyUnicode_Check(py_out.o)
+        && PyUnicode_as_qstring(&qs, py_out.o) )
       {
-        rc = IDAPyInt_AsLong(py_rc.o);
-        *out_res = IDAPyInt_AsLong(py_out_res.o);
+        rc = PyLong_AsLong(py_rc.o);
+        *out_res = PyLong_AsLong(py_out_res.o);
         if ( out != nullptr )
           out->swap(qs);
       }
@@ -614,7 +618,7 @@ private:
         qstring *buf,
         const insn_t * /*pinsn*/)
   {
-    return IDAPyStr_Check(o) && IDAPyStr_AsUTF8(buf, o);
+    return PyUnicode_Check(o) && PyUnicode_as_qstring(buf, o);
   }
   static ssize_t handle_get_operand_string_output(
         PyObject *o,
@@ -622,7 +626,7 @@ private:
         const insn_t * /*pinsn*/,
         int /*opnum*/)
   {
-    return IDAPyStr_Check(o) && IDAPyStr_AsUTF8(buf, o);
+    return PyUnicode_Check(o) && PyUnicode_as_qstring(buf, o);
   }
 };
 

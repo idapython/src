@@ -11,6 +11,12 @@
 %ignore enum_import_names;
 %rename (enum_import_names) py_enum_import_names;
 
+%typemap(check) (const char* text, size_t size) {
+  size_t len = $1 != nullptr ? qstrlen($1) : 0;
+  if ( $2 > len )
+    $2 = len;
+}
+
 %ignore calc_nodeidx;
 
 %ignore get_wide_value;

@@ -39,12 +39,15 @@
 %rename (bin_search) py_bin_search;
 %rename (bin_search) bin_search2;
 %ignore bin_search2(ea_t, ea_t, const uchar *, const uchar *, size_t, int);
+%ignore bytes_match_for_bin_search;
 
 %ignore get_8bit;
 %rename (get_8bit) py_get_8bit;
 
 %ignore get_octet;
 %rename (get_octet) py_get_octet;
+
+%apply uchar * OUTPUT { uchar *out }; // get_octet2
 
 %template(compiled_binpat_vec_t) qvector<compiled_binpat_t>;
 
@@ -54,7 +57,7 @@
 %ignore set_dbgmem_source;
 
 %typemap(argout) opinfo_t *buf {
-  if ( result != NULL )
+  if ( result != nullptr )
   {
     // kludge: discard newly-constructed object; return input
     Py_XDECREF($result);
@@ -90,9 +93,9 @@
           PyObject *self,
           const char *name,
           asize_t value_size=0,
-          const char *menu_name=NULL,
-          const char *hotkey=NULL,
-          const char *asm_keyword=NULL,
+          const char *menu_name=nullptr,
+          const char *hotkey=nullptr,
+          const char *asm_keyword=nullptr,
           int props=0)
   {
     py_custom_data_type_t *inst = new py_custom_data_type_t(
@@ -128,9 +131,9 @@
           PyObject *self,
           const char *name,
           asize_t value_size=0,
-          const char *menu_name=NULL,
+          const char *menu_name=nullptr,
           int props=0,
-          const char *hotkey=NULL,
+          const char *hotkey=nullptr,
           int32 text_width=0)
   {
     py_custom_data_format_t *inst = new py_custom_data_format_t(
@@ -169,7 +172,7 @@
 %apply (const bytevec_t &_fields) { const bytevec_t &imask };
 %typemap(typecheck, precedence=SWIG_TYPECHECK_STRING_ARRAY) const bytevec_t &imask
 { // %typemap(typecheck, precedence=SWIG_TYPECHECK_STRING_ARRAY) const bytevec_t &imask
-  $1 = ($input == Py_None || IDAPyBytes_Check($input)) ? 1 : 0;
+  $1 = ($input == Py_None || PyBytes_Check($input)) ? 1 : 0;
 }
 
 //

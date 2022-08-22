@@ -39,7 +39,7 @@
 {
   // %typemap(argout) (char *buf, size_t bufsize) (ieee.i specialization)
   Py_XDECREF(resultobj);
-  $result = IDAPyStr_FromUTF8($1);
+  $result = PyUnicode_FromString($1);
 }
 
 %_uint_result_as_output(sval_t, PyLong_FromLong, result == REAL_ERROR_OK);

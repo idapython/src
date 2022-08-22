@@ -36,14 +36,40 @@ ea_t segment_t_end_ea_get(segment_t *segm)
 //</code(py_segment)>
 
 //<inline(py_segment)>
+//--------------------------------------------------------------------------
+/*
+#<pydoc>
+def get_defsr(s, reg):
+    """
+    Deprecated, use instead:
+        value = s.defsr[reg]
+    """
+    pass
+#</pydoc>
+*/
 sel_t get_defsr(segment_t *s, int reg)
 {
-  return s->defsr[reg];
+  return s != nullptr && reg >= 0 && reg < SREG_NUM ? s->defsr[reg] : BADSEL;
 }
+
+//--------------------------------------------------------------------------
+/*
+#<pydoc>
+def set_defsr(s, reg, value):
+    """
+    Deprecated, use instead:
+        s.defsr[reg] = value
+    """
+    pass
+#</pydoc>
+*/
 void set_defsr(segment_t *s, int reg, sel_t value)
 {
-  s->defsr[reg] = value;
+  if ( s != nullptr && reg >= 0 && reg < SREG_NUM )
+    s->defsr[reg] = value;
 }
+
+//--------------------------------------------------------------------------
 int py_rebase_program(PyObject *delta, int flags)
 {
   int rc = MOVE_SEGM_PARAM;

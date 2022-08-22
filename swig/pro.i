@@ -39,6 +39,9 @@
 %ignore unpack_memory;
 %ignore cliopt_t;
 %ignore cliopts_t;
+%ignore plugin_option_t;
+%ignore plugins_option_t;
+%ignore parse_plugin_options;
 %ignore test_bit;
 %ignore set_bit;
 %ignore set_bits;
@@ -46,6 +49,8 @@
 %ignore clear_bits;
 %ignore set_all_bits;
 %ignore clear_all_bits;
+%ignore calc_file_crc32;
+%ignore calc_crc32;
 
 %extend qrefcnt_t {
   size_t __ptrval__() const
@@ -88,11 +93,11 @@ void qvector<unsigned long long>::grow(const unsigned long long &x=0);
 %ignore qvector<unsigned long long>::grow;
 
 //---------------------------------------------------------------------
-%template(intvec_t)       qvector<int>;
-%template(uintvec_t)      qvector<unsigned int>;
-%template(longlongvec_t)  qvector<long long>;
-%template(ulonglongvec_t) qvector<unsigned long long>;
-%template(boolvec_t)      qvector<bool>;
+%template(intvec_t)    qvector<int>;
+%template(uintvec_t)   qvector<unsigned int>;
+%template(int64vec_t)  qvector<long long>;
+%template(uint64vec_t) qvector<unsigned long long>;
+%template(boolvec_t)   qvector<bool>;
 
 %uncomparable_elements_qvector(simpleline_t, strvec_t);
 %template(sizevec_t)      qvector<size_t>;

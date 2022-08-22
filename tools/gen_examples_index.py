@@ -39,10 +39,6 @@ class ProcessException(Exception):
     pass
 
 # --------------------------------------------------------------------------
-def python2():
-    return sys.version_info.major == 2
-
-# --------------------------------------------------------------------------
 def read_config():
     global config
 
@@ -899,18 +895,12 @@ class TemplateReplacer(object):
         )
 
     def _function_def(self, fun_name, fun_args, fun_body):
-        if python2():
-            fun_args = ast.arguments(args=[ast.Name(id=a, ctx=ast.Param()) \
-                                           for a in fun_args],
-                                     defaults=[])
-        else:
-            fun_args = ast.arguments(args=[ast.arg(a, None) \
-                                           for a in fun_args],
-                                     posonlyargs=[],
-                                     kwonlyargs=[],
-                                     kw_defaults=[],
-                                     defaults=[])
-
+        fun_args = ast.arguments(args=[ast.arg(a, None) \
+                                       for a in fun_args],
+                                 posonlyargs=[],
+                                 kwonlyargs=[],
+                                 kw_defaults=[],
+                                 defaults=[])
         return ast.FunctionDef(name=fun_name,
                                args=fun_args,
                                body=fun_body,

@@ -14,10 +14,6 @@
 #define DEPRECATED
 %}
 
-%{
-#include "../../../idapy.hpp"
-%}
-
 #define SWIG_PYTHON_LEGACY_BOOL 1
 
 // Have SWiG flatten the hierarchy of types
@@ -67,6 +63,10 @@ extern plugin_t PLUGIN;
 #pragma SWIG nowarn=451
 #pragma SWIG nowarn=454 // Setting a pointer/reference variable may leak memory
 #pragma SWIG nowarn=514 // Director base class 'x' has no virtual destructor.
+#pragma SWIG nowarn=350 // operator new ignored
+#pragma SWIG nowarn=394 // operator new[] ignored
+#pragma SWIG nowarn=395 // operator delete[] ignored
+#pragma SWIG nowarn=351 // operator delete ignored
 
 // Do not create separate wrappers for default arguments
 %feature("compactdefaultargs");
@@ -395,7 +395,7 @@ class QLIST_TYPE##_iterator {};
 inline size_t strnlen(const char *s, size_t maxlen)
 {
   const char *found = (const char *) memchr(s, 0, maxlen);
-  return found != NULL ? size_t(found - s) : maxlen;
+  return found != nullptr ? size_t(found - s) : maxlen;
 }
 #endif
 #endif
@@ -406,7 +406,7 @@ inline size_t strnlen(const char *s, size_t maxlen)
 static PyObject *type##_create()
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  return PyCapsule_New(new type(), VALID_CAPSULE_NAME, NULL);
+  return PyCapsule_New(new type(), VALID_CAPSULE_NAME, nullptr);
 }
 static bool type##_destroy(PyObject *py_obj)
 {
@@ -437,12 +437,11 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 %typemap(directorout) PyObject * "/*%dout%*/$result = result;Py_XINCREF($result);"
 
 //---------------------------------------------------------------------
-#ifdef PY3
 %define %treat_serialized_tinfo_raw_pointer_as_bytes_1(_TYPE)
 %typemap(in) _TYPE *
 { // %treat_serialized_tinfo_raw_pointer_as_bytes_1 %typemap(in) _TYPE *
   if ( $input == Py_None )
-    $1 = ($1_ltype) NULL;
+    $1 = ($1_ltype) nullptr;
   else if ( PyBytes_Check($input) )
     $1 = ($1_ltype) PyBytes_AsString($input);
   else
@@ -452,11 +451,11 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 }
 %typemap(directorin) _TYPE *
 { // %treat_serialized_tinfo_raw_pointer_as_bytes_1 %typemap(directorin) _TYPE *
-  $input = PyBytes_FromString($1 != NULL ? (const char *) $1 : "");
+  $input = PyBytes_FromString($1 != nullptr ? (const char *) $1 : "");
 }
 %typemap(out) _TYPE *
 { // %treat_serialized_tinfo_raw_pointer_as_bytes_1 %typemap(out) _TYPE *
-  $result = PyBytes_FromString($1 != NULL ? (const char *) $1 : "");
+  $result = PyBytes_FromString($1 != nullptr ? (const char *) $1 : "");
 }
 // 'typecheck' typemaps are used for polymorphism. We want to favor
 // tinfo_t wrappers at the expense of 'type_t *' ones, so we want the
@@ -470,12 +469,6 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 %treat_serialized_tinfo_raw_pointer_as_bytes_1(TYPE);
 %treat_serialized_tinfo_raw_pointer_as_bytes_1(const TYPE);
 %enddef
-#else
-%define %treat_serialized_tinfo_raw_pointer_as_bytes(TYPE)
-%apply char * { TYPE * }
-%apply const char * { const TYPE * }
-%enddef
-#endif
 %treat_serialized_tinfo_raw_pointer_as_bytes(type_t);
 %treat_serialized_tinfo_raw_pointer_as_bytes(p_list);
 
@@ -511,7 +504,7 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
     if (!PySequence_Check($input))
     {
         PyErr_SetString(PyExc_TypeError,"Expecting a sequence");
-        return NULL;
+        return nullptr;
     }
 
     /* Cap the number of elements to copy */
@@ -523,7 +516,7 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
         if (!PyLong_Check(item.o))
         {
             PyErr_SetString(PyExc_ValueError,"Expecting a sequence of long integers");
-            return NULL;
+            return nullptr;
         }
 
         temp[i] = PyLong_AsUnsignedLong(item.o);
@@ -537,13 +530,13 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
     if (!PySequence_Check($input))
     {
         PyErr_SetString(PyExc_TypeError,"Expecting a sequence");
-        return NULL;
+        return nullptr;
     }
     int plen = PySequence_Length($input);
     if ( plen <= 0 )
     {
         PyErr_SetString(PyExc_TypeError, "Sequence must have at least 1 item");
-        return NULL;
+        return nullptr;
     }
     temp.resize(plen);
     for ( int i =0; i < plen; ++i )
@@ -552,7 +545,7 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
         if (!PyLong_Check(item.o))
         {
             PyErr_SetString(PyExc_ValueError,"Expecting a sequence of long integers");
-            return NULL;
+            return nullptr;
         }
 
         temp[i] = PyLong_AsUnsignedLong(item.o);
@@ -570,7 +563,7 @@ SWIGINTERN PyObject *_maybe_cstring_result(
   Py_XDECREF(resultobj);
   if ( result <= 0 )
     Py_RETURN_NONE;
-  return IDAPyStr_FromUTF8(cstr);
+  return PyUnicode_FromString(cstr);
 }
 
 SWIGINTERN PyObject *_sized_cstring_result(
@@ -579,7 +572,7 @@ SWIGINTERN PyObject *_sized_cstring_result(
         size_t cstrsz)
 {
   Py_XDECREF(resultobj);
-  return IDAPyStr_FromUTF8AndSize(cstr, cstrsz);
+  return PyUnicode_FromStringAndSize(cstr, cstrsz);
 }
 
 SWIGINTERN PyObject *_maybe_sized_cstring_result(
@@ -591,7 +584,7 @@ SWIGINTERN PyObject *_maybe_sized_cstring_result(
   Py_XDECREF(resultobj);
   if ( result <= 0 )
     Py_RETURN_NONE;
-  return IDAPyStr_FromUTF8AndSize(cstr, cstrsz);
+  return PyUnicode_FromStringAndSize(cstr, cstrsz);
 }
 
 SWIGINTERN PyObject *_maybe_cstring_result_on_charptr_using_allocated_buf(
@@ -600,10 +593,10 @@ SWIGINTERN PyObject *_maybe_cstring_result_on_charptr_using_allocated_buf(
         char *buf)
 {
   Py_XDECREF(resultobj);
-  PyObject *out = NULL;
-  if ( result != NULL )
+  PyObject *out = nullptr;
+  if ( result != nullptr )
   {
-    out = IDAPyStr_FromUTF8(buf);
+    out = PyUnicode_FromString(buf);
   }
   else
   {
@@ -620,9 +613,9 @@ SWIGINTERN PyObject *_maybe_cstring_result_on_charptr_using_qbuf(
         const qstring &buf)
 {
   Py_XDECREF(resultobj);
-  if ( result == NULL )
+  if ( result == nullptr )
     Py_RETURN_NONE;
-  return IDAPyStr_FromUTF8AndSize(buf.begin(), buf.length());
+  return PyUnicode_FromStringAndSize(buf.begin(), buf.length());
 }
 
 SWIGINTERN PyObject *_maybe_binary_result(
@@ -633,11 +626,7 @@ SWIGINTERN PyObject *_maybe_binary_result(
   Py_XDECREF(resultobj);
   if ( result <= 0 )
     Py_RETURN_NONE;
-#ifdef PY3
   return PyBytes_FromStringAndSize((const char *) buf, result);
-#else
-  return PyString_FromStringAndSize((const char *) buf, result);
-#endif
 }
 
 SWIGINTERN PyObject *_sized_binary_result(
@@ -646,7 +635,7 @@ SWIGINTERN PyObject *_sized_binary_result(
         size_t cstrsz)
 {
   Py_XDECREF(resultobj);
-  return IDAPyBytes_FromMemAndSize(cstr, cstrsz);
+  return PyBytes_FromStringAndSize(cstr, cstrsz);
 }
 
 SWIGINTERN PyObject *_maybe_sized_binary_result(
@@ -658,7 +647,7 @@ SWIGINTERN PyObject *_maybe_sized_binary_result(
   Py_XDECREF(resultobj);
   if ( result <= 0 )
     Py_RETURN_NONE;
-  return IDAPyBytes_FromMemAndSize(cstr, cstrsz);
+  return PyBytes_FromStringAndSize(cstr, cstrsz);
 }
 
 %}
@@ -666,7 +655,6 @@ SWIGINTERN PyObject *_maybe_sized_binary_result(
 #if defined(IDA_MODULE_NALT)
 %{
 #include <bytes.hpp>
-#ifdef PY3
 SWIGINTERN PyObject *_maybe_byte_array_or_none_result(
         PyObject *resultobj,
         bool result,
@@ -676,24 +664,8 @@ SWIGINTERN PyObject *_maybe_byte_array_or_none_result(
   Py_XDECREF(resultobj);
   if ( !result )
     Py_RETURN_NONE;
-  return IDAPyBytes_FromMemAndSize((const char *) bytes, nbytes);
+  return PyBytes_FromStringAndSize((const char *) bytes, nbytes);
 }
-#else
-SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
-        PyObject *resultobj,
-        bool result,
-        const uchar *bytes,
-        size_t nbytes)
-{
-  Py_XDECREF(resultobj);
-  if ( !result )
-    Py_RETURN_NONE;
-  qstring buf;
-  buf.resize(2*nbytes);
-  get_hex_string(buf.begin(), buf.size(), bytes, nbytes);
-  return IDAPyBytes_FromMemAndSize(buf.c_str(), buf.length());
-}
-#endif
 %}
 #endif
 
@@ -777,7 +749,6 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 //-------------------------------------------------------------------------
 //          md5/sha256 hash retrieval (as hex representation)
 //-------------------------------------------------------------------------
-#ifdef PY3
 %define %byte_array_or_none(PARAM_NAME)
 %typemap(in, numinputs=0) uchar PARAM_NAME[ANY] (uchar temp[$1_dim0])
 { // byte_array_or_none typemap(in, numinputs=0) uchar PARAM_NAME[ANY] (uchar temp[$1_dim0])
@@ -789,26 +760,13 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 }
 %enddef
 %byte_array_or_none(hash);
-#else
-%define %byte_array_as_hex_or_none(PARAM_NAME)
-%typemap(in, numinputs=0) uchar PARAM_NAME[ANY] (uchar temp[$1_dim0])
-{ // byte_array_as_hex_or_none typemap(in, numinputs=0) uchar PARAM_NAME[ANY] (uchar temp[$1_dim0])
-  $1 = temp;
-}
-%typemap(argout) uchar PARAM_NAME[ANY]
-{ // byte_array_as_hex_or_none typemap(argout) uchar PARAM_NAME[ANY]
-  resultobj = _maybe_byte_array_as_hex_or_none_result(resultobj, result, $1, $1_dim0);
-}
-%enddef
-%byte_array_as_hex_or_none(hash);
-#endif
 
 // Check that the argument is a callable Python object
 //---------------------------------------------------------------------
 %typemap(in) PyObject *pyfunc {
     if (!PyCallable_Check($input)) {
         PyErr_SetString(PyExc_TypeError, "Expected a callable object");
-        return NULL;
+        return nullptr;
     }
     $1 = $input;
 }
@@ -817,7 +775,7 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 %typemap(in) PyObject *pyfunc_or_none {
     if ($input != Py_None && !PyCallable_Check($input)) {
         PyErr_SetString(PyExc_TypeError, "Expected None or a callable object");
-        return NULL;
+        return nullptr;
     }
     $1 = $input;
 }
@@ -826,7 +784,7 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 %typemap(in) PyObject *tuple_or_none {
     if ($input != Py_None && !PyTuple_Check($input)) {
         PyErr_SetString(PyExc_TypeError, "Expected None or a tuple");
-        return NULL;
+        return nullptr;
     }
     $1 = $input;
 }
@@ -904,7 +862,7 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 {
   CONTAINER_TYPE *cvt_##CONTAINER_TYPE(PyObject *obj, bool can_be_none=false)
   {
-    CONTAINER_TYPE *out = NULL;
+    CONTAINER_TYPE *out = nullptr;
     if ( can_be_none && obj == Py_None )
     {
       out = new CONTAINER_TYPE;
@@ -922,7 +880,7 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 %typemap(in, fragment="cvt_" #CONTAINER_TYPE) REFTYPE
 { // bytes_container REFTYPE, CONTAINER_TYPE typemap(in)
   $1 = cvt_ ## CONTAINER_TYPE($input);
-  if ( $1 == NULL )
+  if ( $1 == nullptr )
     SWIG_exception_fail(
             SWIG_ValueError,
             "Expected " ELTYPE_TO_REPORT1 " " "in method '" "$symname" "', argument " "$argnum"" of type '" ELTYPE_TO_REPORT2 "'");
@@ -931,7 +889,7 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 %typemap(in) const REFTYPE _type_or_none
 { // bytes_container REFTYPE _type_or_none, CONTAINER_TYPE typemap(in)
   $1 = cvt_ ## CONTAINER_TYPE($input, /*can_be_none=*/ true);
-  if ( $1 == NULL )
+  if ( $1 == nullptr )
     SWIG_exception_fail(
             SWIG_ValueError,
             "Expected " ELTYPE_TO_REPORT1 " " "in method '" "$symname" "', argument " "$argnum"" of type '" ELTYPE_TO_REPORT2 "'");
@@ -939,7 +897,7 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 %typemap(in) const REFTYPE _fields
 { // bytes_container REFTYPE _fields, CONTAINER_TYPE typemap(in)
   $1 = cvt_ ## CONTAINER_TYPE($input, /*can_be_none=*/ true);
-  if ( $1 == NULL )
+  if ( $1 == nullptr )
     SWIG_exception_fail(
             SWIG_ValueError,
             "Expected " ELTYPE_TO_REPORT1 " " "in method '" "$symname" "', argument " "$argnum"" of type '" ELTYPE_TO_REPORT2 "'");
@@ -1014,7 +972,7 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 }
 %typemap(directorin) CONTAINER_TYPE *
 { // bytes_container typemap(directorin) CONTAINER_TYPE *
-  if ( $1 != NULL )
+  if ( $1 != nullptr )
   {
     $input = OUT_CONVERTER($1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
   }
@@ -1089,15 +1047,14 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 %enddef
 
 
-#ifdef PY3
 %bytes_container_ptr_and_ref(
         qstring,
         c_str,
         length,
         ,
-        IDAPyStr_Check,
-        IDAPyStr_AsUTF8,
-        IDAPyStr_FromUTF8AndSize,
+        PyUnicode_Check,
+        PyUnicode_as_qstring,
+        PyUnicode_FromStringAndSize,
         _sized_cstring_result,
         _maybe_sized_cstring_result,
         "string",
@@ -1107,9 +1064,9 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
         begin,
         size,
         ,
-        IDAPyBytes_Check,
-        IDAPyBytes_AsBytes,
-        IDAPyBytes_FromMemAndSize,
+        PyBytes_Check,
+        PyBytes_as_bytevec_t,
+        PyBytes_FromStringAndSize,
         _sized_binary_result,
         _maybe_sized_binary_result,
         "bytes",
@@ -1119,51 +1076,13 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
         begin,
         length,
         (const uchar *),
-        IDAPyBytes_Check,
-        IDAPyBytes_as_qtype,
-        IDAPyBytes_FromMemAndSize,
+        PyBytes_Check,
+        PyBytes_as_qtype,
+        PyBytes_FromStringAndSize,
         _sized_binary_result,
         _maybe_sized_binary_result,
         "bytes",
         "bytes");
-#else
-%bytes_container_ptr_and_ref(
-        qstring,
-        c_str,
-        length,
-        ,
-        IDAPyStr_Check,
-        IDAPyStr_AsUTF8,
-        IDAPyStr_FromUTF8AndSize,
-        _sized_cstring_result,
-        _maybe_sized_cstring_result,
-        "string",
-        "str");
-%bytes_container_ptr_and_ref(
-        bytevec_t,
-        begin,
-        size,
-        ,
-        IDAPyBytes_Check,
-        IDAPyBytes_AsBytes,
-        IDAPyBytes_FromMemAndSize,
-        _sized_binary_result,
-        _maybe_sized_binary_result,
-        "string",
-        "str");
-%bytes_container_ptr_and_ref(
-        qtype,
-        begin,
-        length,
-        (const uchar *),
-        IDAPyBytes_Check,
-        IDAPyBytes_as_qtype,
-        IDAPyBytes_FromMemAndSize,
-        _sized_binary_result,
-        _maybe_sized_binary_result,
-        "string",
-        "str");
-#endif
 
 //-------------------------------------------------------------------------
 //                                insn_t
@@ -1209,11 +1128,11 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 %typemap(in) (const char *format, ...) (qstring buf)
 {
     $1 = "%s";                                /* Fix format string to %s */
-    IDAPyStr_AsUTF8(&buf, $input);            /* Get string argument */
+    PyUnicode_as_qstring(&buf, $input);            /* Get string argument */
     $2 = (void *) buf.begin();
     /* Note: we cannot rely on 'nonnul_argument_prototype' for */
     /* these, since we fiddle with the arguments number */
-    if ( $2 == NULL )
+    if ( $2 == nullptr )
       SWIG_exception_fail(
               SWIG_ValueError,
               "invalid null pointer " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
@@ -1226,24 +1145,37 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
   $1 = size_t(PyLong_AsUnsignedLongLong($input));
 }
 
-// Help SWIG to figure out the ulonglong type
 #ifdef SWIGWIN
-typedef unsigned __int64 ulonglong;
-typedef          __int64 longlong;
+typedef unsigned __int64 uint64;
+typedef          __int64 int64;
 #else
-typedef unsigned long long ulonglong;
-typedef          long long longlong;
+typedef unsigned long long uint64;
+typedef          long long int64;
 #endif
 
+#ifdef __NT__
+%{
+CASSERT(sizeof(time_t) == sizeof(int64));
+%}
+typedef int64 time_t;
+#else
+%{
+CASSERT(sizeof(time_t) == sizeof(long int));
+%}
+typedef long int time_t;
+#endif
+
+typedef int ui_notification_t;
+
 #ifdef __EA64__
-%apply longlong  *INOUT { sval_t *value };
-%apply longlong  *INOUT { adiff_t *disp };
-%apply ulonglong *INOUT { ea_t *addr };
-%apply ulonglong *INPUT { ea_t *ea_ptr }; // get_debug_name
-%apply ulonglong *INOUT { sel_t *sel };
-%apply ulonglong *OUTPUT { ea_t *ea1, ea_t *ea2 }; // read_range_selection()
-%apply ulonglong *OUTPUT { ea_t *from, ea_t *to, asize_t *size }; // get_mapping()
-%apply ulonglong *OUTPUT { uval_t *value }; // get_name_value
+%apply int64  *INOUT { sval_t *value };
+%apply int64  *INOUT { adiff_t *disp };
+%apply uint64 *INOUT { ea_t *addr };
+%apply uint64 *INPUT { ea_t *ea_ptr }; // get_debug_name
+%apply uint64 *INOUT { sel_t *sel };
+%apply uint64 *OUTPUT { ea_t *ea1, ea_t *ea2 }; // read_range_selection()
+%apply uint64 *OUTPUT { ea_t *from, ea_t *to, asize_t *size }; // get_mapping()
+%apply uint64 *OUTPUT { uval_t *value }; // get_name_value
 #else
 %apply int          *INOUT { sval_t  *value };
 %apply int          *INOUT { adiff_t *disp };
@@ -1274,7 +1206,7 @@ typedef          long long longlong;
   // %typemap(argout) qstring *errbuf (from: %make_argout_errbuf_raise_exception_when_non_empty)
   if ( !$1->empty() )
   {
-    if ( $result != NULL )
+    if ( $result != nullptr )
       Py_XDECREF($result);
     SWIG_exception_fail(SWIG_RuntimeError, $1->c_str());
   }
@@ -1285,9 +1217,9 @@ typedef          long long longlong;
 %typemap(argout) (qstring *errbuf)
 {
   // %typemap(argout) qstring *errbuf (from: %make_argout_errbuf_raise_when_null_result)
-  if ( result == NULL )
+  if ( result == nullptr )
   {
-    if ( $result != NULL )
+    if ( $result != nullptr )
       Py_XDECREF($result);
     SWIG_exception_fail(SWIG_RuntimeError, $1->c_str());
   }
@@ -1400,7 +1332,7 @@ struct dynamic_wrapped_array_t {
 %typemap(check) tinfo_t *
 {
   // %typemap(check) tinfo_t *
-  if ( $1 == NULL )
+  if ( $1 == nullptr )
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
 }
 
@@ -1433,7 +1365,6 @@ struct dynamic_wrapped_array_t {
 %apply (char *STRING, int LENGTH) { (const void *buf, size_t len) };
 %apply (char *STRING, int LENGTH) { (const void *value, size_t length) };
 %apply (char *STRING, int LENGTH) { (const void *dataptr,size_t len) };
-#ifdef PY3
 %define %const_pointer_and_size(PTRTYPE, BUFNAME, SIZENAME, STORAGE_TYPE, CONVERTER, LENGTH_GETTER)
 %typemap(in) (const PTRTYPE *BUFNAME, size_t SIZENAME) (STORAGE_TYPE tmp)
 {
@@ -1455,11 +1386,11 @@ struct dynamic_wrapped_array_t {
   { // %typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) (const PTRTYPE *BUFNAME, size_t SIZENAME)
     $1 = PyBytes_Check($input) ? 1 : 0;
   }
-  %const_pointer_and_size(PTRTYPE, BUFNAME, SIZENAME, bytevec_t, IDAPyBytes_AsBytes, size)
+  %const_pointer_and_size(PTRTYPE, BUFNAME, SIZENAME, bytevec_t, PyBytes_as_bytevec_t, size)
 %enddef
 
 %define %const_char_pointer_and_size(PTRTYPE, BUFNAME, SIZENAME)
-  %const_pointer_and_size(PTRTYPE, BUFNAME, SIZENAME, qstring, IDAPyStr_AsUTF8, length)
+  %const_pointer_and_size(PTRTYPE, BUFNAME, SIZENAME, qstring, PyUnicode_as_qstring, length)
 %enddef
 
 %const_void_pointer_and_size(void, buf, size);
@@ -1468,7 +1399,6 @@ struct dynamic_wrapped_array_t {
 %const_void_pointer_and_size(void, value, length);
 %const_void_pointer_and_size(void, dataptr, len);
 %const_char_pointer_and_size(char, value, length);
-#endif
 
 // Create wrapper classes for basic type arrays
 %array_class(uchar, uchar_array);
@@ -1488,7 +1418,7 @@ SWIGINTERN PyObject *qstrvec2pylist(const qstrvec_t &vec)
   size_t n = vec.size();
   PyObject *py_list = PyList_New(n);
   for ( size_t i=0; i < n; ++i )
-    PyList_SetItem(py_list, i, IDAPyStr_FromUTF8AndSize(vec[i].c_str(), vec[i].length()));
+    PyList_SetItem(py_list, i, PyUnicode_FromStringAndSize(vec[i].c_str(), vec[i].length()));
   return py_list;
 }
 %}
@@ -1594,7 +1524,7 @@ SWIGINTERN PyObject *qstrvec2pylist(const qstrvec_t &vec)
 /* first, define the typemap */
 %typemap(check) (ARGSIG)
 {
-  if ( $1 == NULL )
+  if ( $1 == nullptr )
     SWIG_exception_fail(SWIG_ValueError, "invalid null pointer " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
 }
 /* Then, redeclare prototype. Note that we want this prototype _only_ seen */
@@ -1734,7 +1664,7 @@ SWIGINTERN void __raise_u()
 SWIGINTERN void __raise_e(const std::exception &e)
 {
   const char *what = e.what();
-  if ( what == NULL || what[0] == '\0' )
+  if ( what == nullptr || what[0] == '\0' )
   {
     __raise_u();
   }
@@ -1750,8 +1680,8 @@ SWIGINTERN void __raise_e(const std::exception &e)
 struct set_interr_throws_t
 {
   bool was;
-  set_interr_throws_t() { was = interr_should_throw; interr_should_throw = true; }
-  ~set_interr_throws_t() { interr_should_throw = was; }
+  set_interr_throws_t() { was = set_interr_throws(true); }
+  ~set_interr_throws_t() { set_interr_throws(was); }
 };
 
 SWIGINTERN void __raise_ie(const interr_exc_t &ie)
@@ -1764,25 +1694,25 @@ SWIGINTERN void __raise_ie(const interr_exc_t &ie)
 SWIGINTERN void __raise_de(const Swig::DirectorException &e)
 {
   bool handled = false;
-  if ( PyErr_Occurred() != NULL )
+  if ( PyErr_Occurred() != nullptr )
   {
     // Add the new bits of info to the error
     PyObject *exception, *v, *tb;
     PyErr_Fetch(&exception, &v, &tb);
-    if ( exception != NULL )
+    if ( exception != nullptr )
     {
       PyErr_NormalizeException(&exception, &v, &tb);
-      if ( exception != NULL )
+      if ( exception != nullptr )
       {
         // FIXME: We retrieve the message, but not the context (i.e., the
         // stack trace.) Ideally we should perhaps swoop in our own
         // 'sys.stderr', call PyErr_Print(), retrieve the result, and
         // append that to the new exception message.
         newref_t as_str(PyObject_Str(v));
-        if ( as_str != NULL )
+        if ( as_str != nullptr )
         {
           qstring buf;
-          IDAPyStr_AsUTF8(&buf, as_str.o);
+          PyUnicode_as_qstring(&buf, as_str.o);
           buf.insert(" : ");
           buf.insert(e.getMessage());
           PyErr_SetString(PyExc_RuntimeError, buf.c_str());
@@ -1865,7 +1795,7 @@ ${NONNULL_TYPEMAPS}
 %typemap(directorout) char *get_node_label (qstring tmp)
 {
   // %typemap(directorout) char *get_node_label (qstring tmp)
-  if ( IDAPyStr_AsUTF8(&tmp, result) )
+  if ( PyUnicode_as_qstring(&tmp, result) )
     ::qstrncpy(iobuf, tmp.c_str(), iobufsize);
   else
     Swig::DirectorTypeMismatchException::raise(

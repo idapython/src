@@ -35,18 +35,6 @@ import types
 import os
 import sys
 
-# TO_REFACTOR_ON_PY2_REMOVAL
-# this internal function can be dropped
-def refs(ea, funcfirst, funcnext):
-    """
-    Generic reference collector - INTERNAL USE ONLY.
-    """
-    ref = funcfirst(ea)
-    while ref != ida_idaapi.BADADDR:
-        yield ref
-        ref = funcnext(ea, ref)
-
-
 def CodeRefsTo(ea, flow):
     """
     Get a list of code references to 'ea'
@@ -62,17 +50,11 @@ def CodeRefsTo(ea, flow):
         for ref in CodeRefsTo(get_screen_ea(), 1):
             print(ref)
     """
-    # TO_REFACTOR_ON_PY2_REMOVAL
-    # we can use the new generators
-    # xref = ida_xref.xrefblk_t()
-    # if flow == 1:
-    #     yield from xref.crefs_to(ea)
-    # else:
-    #     yield from xref.fcrefs_to(ea)
+    xref = ida_xref.xrefblk_t()
     if flow == 1:
-        return refs(ea, ida_xref.get_first_cref_to, ida_xref.get_next_cref_to)
+        yield from xref.crefs_to(ea)
     else:
-        return refs(ea, ida_xref.get_first_fcref_to, ida_xref.get_next_fcref_to)
+        yield from xref.fcrefs_to(ea)
 
 
 def CodeRefsFrom(ea, flow):
@@ -90,12 +72,11 @@ def CodeRefsFrom(ea, flow):
         for ref in CodeRefsFrom(get_screen_ea(), 1):
             print(ref)
     """
-    # TO_REFACTOR_ON_PY2_REMOVAL
+    xref = ida_xref.xrefblk_t()
     if flow == 1:
-        return refs(ea, ida_xref.get_first_cref_from, ida_xref.get_next_cref_from)
+        yield from xref.crefs_from(ea)
     else:
-        return refs(ea, ida_xref.get_first_fcref_from, ida_xref.get_next_fcref_from)
-
+        yield from xref.fcrefs_from(ea)
 
 def DataRefsTo(ea):
     """
@@ -110,8 +91,8 @@ def DataRefsTo(ea):
         for ref in DataRefsTo(get_screen_ea()):
             print(ref)
     """
-    # TO_REFACTOR_ON_PY2_REMOVAL
-    return refs(ea, ida_xref.get_first_dref_to, ida_xref.get_next_dref_to)
+    xref = ida_xref.xrefblk_t()
+    yield from xref.drefs_to(ea)
 
 
 def DataRefsFrom(ea):
@@ -127,8 +108,8 @@ def DataRefsFrom(ea):
         for ref in DataRefsFrom(get_screen_ea()):
             print(ref)
     """
-    # TO_REFACTOR_ON_PY2_REMOVAL
-    return refs(ea, ida_xref.get_first_dref_from, ida_xref.get_next_dref_from)
+    xref = ida_xref.xrefblk_t()
+    yield from xref.drefs_from(ea)
 
 
 # Xref type names table

@@ -21,7 +21,7 @@ static void idaapi s_py_get_user_defined_prefix(
   // Error? Display it
   // No error? Copy the buffer
   if ( !PyW_ShowCbErr("py_get_user_defined_prefix") )
-    IDAPyStr_AsUTF8(buf, py_ret.o);
+    PyUnicode_as_qstring(buf, py_ret.o);
 }
 //</code(py_lines)>
 
@@ -77,7 +77,7 @@ PyObject *py_tag_remove(const char *str)
   PYW_GIL_CHECK_LOCKED_SCOPE();
   qstring qbuf;
   tag_remove(&qbuf, str);
-  return IDAPyStr_FromUTF8(qbuf.c_str());
+  return PyUnicode_FromString(qbuf.c_str());
 }
 
 //-------------------------------------------------------------------------
@@ -86,7 +86,7 @@ PyObject *py_tag_addr(ea_t ea)
   qstring tag;
   tag_addr(&tag, ea);
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  return IDAPyStr_FromUTF8(tag.begin());
+  return PyUnicode_FromString(tag.begin());
 }
 
 //-------------------------------------------------------------------------
@@ -150,7 +150,7 @@ PyObject *py_generate_disassembly(
       tag_remove(&qbuf, l);
       s = qbuf.c_str();
     }
-    PyList_SetItem(py_list.o, i, IDAPyStr_FromUTF8(s));
+    PyList_SetItem(py_list.o, i, PyUnicode_FromString(s));
   }
   return Py_BuildValue("(iO)", lnnum, py_list.o);
 }

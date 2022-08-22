@@ -124,8 +124,8 @@ private:
       if ( sz > 0 )
       {
         borref_t _r(PyTuple_GetItem(result.o, 0));
-        if ( _r != nullptr && IDAPyStr_Check(_r.o) )
-          IDAPyStr_AsUTF8(line, _r.o);
+        if ( _r != nullptr && PyUnicode_Check(_r.o) )
+          PyUnicode_as_qstring(line, _r.o);
       }
 
 #define GET_TUPLE_ENTRY(col, PyThingy, AsThingy, out)                   \
@@ -171,10 +171,10 @@ private:
                     line,
                     x));
 
-    bool ok = result != nullptr && IDAPyStr_Check(result.o);
+    bool ok = result != nullptr && PyUnicode_Check(result.o);
     PyW_ShowCbErr(S_ON_COMPLETE_LINE);
     if ( ok )
-      IDAPyStr_AsUTF8(completion, result.o);
+      PyUnicode_as_qstring(completion, result.o);
     return ok;
   }
 
