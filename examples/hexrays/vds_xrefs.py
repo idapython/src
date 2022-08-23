@@ -151,7 +151,9 @@ class XrefsForm(ida_kernwin.PluginForm):
         for ea in frm:
             try:
                 cfunc = ida_hexrays.decompile(ea)
-
+                if cfunc is None:
+                    print('decompilation failed for ea:', ea)
+                    continue
                 self.functions.append(cfunc.entry_ea)
                 self.items.append((ea, ida_funcs.get_func_name(cfunc.entry_ea) or "", self.get_decompiled_line(cfunc, ea)))
 
