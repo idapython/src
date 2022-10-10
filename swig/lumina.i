@@ -5,6 +5,7 @@
 
 %feature("nodirector") lumina_client_t;
 %ignore lumina_client_t::lumina_client_t;
+%ignore lumina_client_t::can_del_history;
 
 %ignore metadata_t;
 %ignore metadata_creator_t;
@@ -62,6 +63,8 @@
 %rpc_packet_data_t(pkt_push_md_result_t, PKT_PUSH_MD_RESULT);
 %rpc_packet_data_t(pkt_get_pop_t, PKT_GET_POP);
 %rpc_packet_data_t(pkt_get_pop_result_t, PKT_GET_POP_RESULT);
+%rpc_packet_data_t(pkt_get_lumina_info_t, PKT_GET_LUMINA_INFO);
+%rpc_packet_data_t(pkt_get_lumina_info_result_t, PKT_GET_LUMINA_INFO_RESULT);
 
 %template(lumina_op_res_vec_t) qvector<lumina_op_res_t>;
 

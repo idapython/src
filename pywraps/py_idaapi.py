@@ -774,11 +774,6 @@ class IDAPython_displayhook:
 _IDAPython_displayhook = IDAPython_displayhook()
 sys.displayhook = _IDAPython_displayhook.displayhook
 
-def _make_badattr_property(bad_attr, new_attr):
-    def _raise(*args):
-        raise AttributeError("Property %s has been replaced with %s" % (bad_attr, new_attr))
-    return property(_raise, _raise)
-
 def _make_one_time_warning_message(bad_attr, new_attr):
     warned = [False]
     def f():

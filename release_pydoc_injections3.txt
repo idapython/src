@@ -2624,12 +2624,8 @@ class hidden_range_t(ida_range.range_t)
  |  __weakref__
  |      list of weak references to the object (if defined)
  |  
- |  endEA
- |  
  |  end_ea
  |      end_ea
- |  
- |  startEA
  |  
  |  start_ea
  |      start_ea
@@ -11319,12 +11315,8 @@ class regvar_t(ida_range.range_t)
  |  __weakref__
  |      list of weak references to the object (if defined)
  |  
- |  endEA
- |  
  |  end_ea
  |      end_ea
- |  
- |  startEA
  |  
  |  start_ea
  |      start_ea
@@ -12674,12 +12666,8 @@ class func_t(ida_range.range_t)
  |  __weakref__
  |      list of weak references to the object (if defined)
  |  
- |  endEA
- |  
  |  end_ea
  |      end_ea
- |  
- |  startEA
  |  
  |  start_ea
  |      start_ea
@@ -13342,10 +13330,6 @@ class BasicBlock(builtins.object)
  |  
  |  __weakref__
  |      list of weak references to the object (if defined)
- |  
- |  endEA
- |  
- |  startEA
 
 Help on class FlowChart in module ida_gdl:
 
@@ -13914,12 +13898,8 @@ class qbasic_block_t(ida_range.range_t)
  |  __weakref__
  |      list of weak references to the object (if defined)
  |  
- |  endEA
- |  
  |  end_ea
  |      end_ea
- |  
- |  startEA
  |  
  |  start_ea
  |      start_ea
@@ -27952,7 +27932,7 @@ class ivl_t(uval_ivl_t)
  |      @param r: ivl_t const &
  |  
  |  __init__(self, *args)
- |      __init__(self, _off, _size) -> ivl_t
+ |      __init__(self, _off=0, _size=0) -> ivl_t
  |      
  |      @param _off: uval_t
  |      @param _size: uval_t
@@ -41561,6 +41541,16 @@ class idainfo(builtins.object)
  |  
  |  __repr__ = _swig_repr(self)
  |  
+ |  _get_lflags(self, *args) -> 'uint32'
+ |      _get_lflags(self) -> uint32
+ |  
+ |  _set_lflags(self, *args) -> 'void'
+ |      _set_lflags(self, _f)
+ |      
+ |      Parameters
+ |      ----------
+ |      _f: uint32
+ |  
  |  big_arg_align = __func(self, *args)
  |  
  |  gen_lzero = __func(self, *args)
@@ -41716,7 +41706,7 @@ class idainfo(builtins.object)
  |      lenxref
  |  
  |  lflags
- |      lflags
+ |      _get_lflags(self) -> uint32
  |  
  |  listnames
  |      listnames
@@ -46609,7 +46599,194 @@ get_event_module_size(*args) -> 'asize_t'
 
 Help on class meminfo_vec_t in module ida_idd:
 
-class meminfo_vec_t(builtins.object)
+class meminfo_vec_t(meminfo_vec_template_t)
+ |  Proxy of C++ meminfo_vec_t class.
+ |  
+ |  Method resolution order:
+ |      meminfo_vec_t
+ |      meminfo_vec_template_t
+ |      builtins.object
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, *args)
+ |      __init__(self) -> meminfo_vec_t
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  __swig_destroy__ = delete_meminfo_vec_t(...)
+ |      delete_meminfo_vec_t(self)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  thisown
+ |      The membership flag
+ |  
+ |  ----------------------------------------------------------------------
+ |  Methods inherited from meminfo_vec_template_t:
+ |  
+ |  __eq__(self, *args) -> 'bool'
+ |      __eq__(self, r) -> bool
+ |      
+ |      @param r: qvector< memory_info_t > const &
+ |  
+ |  __getitem__(self, *args) -> 'memory_info_t const &'
+ |      __getitem__(self, i) -> memory_info_t
+ |      
+ |      @param i: size_t
+ |  
+ |  __iter__ = _bounded_getitem_iterator(self)
+ |      Helper function, to be set as __iter__ method for qvector-, or array-based classes.
+ |  
+ |  __len__(self, *args) -> 'size_t'
+ |      __len__(self) -> size_t
+ |  
+ |  __ne__(self, *args) -> 'bool'
+ |      __ne__(self, r) -> bool
+ |      
+ |      @param r: qvector< memory_info_t > const &
+ |  
+ |  __setitem__(self, *args) -> 'void'
+ |      __setitem__(self, i, v)
+ |      
+ |      @param i: size_t
+ |      @param v: memory_info_t const &
+ |  
+ |  _del(self, *args) -> 'bool'
+ |      _del(self, x) -> bool
+ |      
+ |      Parameters
+ |      ----------
+ |      x: memory_info_t const &
+ |  
+ |  add_unique(self, *args) -> 'bool'
+ |      add_unique(self, x) -> bool
+ |      
+ |      @param x: memory_info_t const &
+ |  
+ |  at(self, *args) -> 'memory_info_t const &'
+ |      at(self, _idx) -> memory_info_t
+ |      
+ |      @param _idx: size_t
+ |  
+ |  back = _qvector_back(self)
+ |      # -----------------------------------------------------------------------
+ |  
+ |  begin(self, *args) -> 'qvector< memory_info_t >::const_iterator'
+ |      begin(self) -> memory_info_t
+ |  
+ |  capacity(self, *args) -> 'size_t'
+ |      capacity(self) -> size_t
+ |  
+ |  clear(self, *args) -> 'void'
+ |      clear(self)
+ |  
+ |  empty(self, *args) -> 'bool'
+ |      empty(self) -> bool
+ |  
+ |  end(self, *args) -> 'qvector< memory_info_t >::const_iterator'
+ |      end(self) -> memory_info_t
+ |  
+ |  erase(self, *args) -> 'qvector< memory_info_t >::iterator'
+ |      erase(self, it) -> memory_info_t
+ |      
+ |      @param it: qvector< memory_info_t >::iterator
+ |      
+ |      erase(self, first, last) -> memory_info_t
+ |      
+ |      @param first: qvector< memory_info_t >::iterator
+ |      @param last: qvector< memory_info_t >::iterator
+ |  
+ |  extract(self, *args) -> 'memory_info_t *'
+ |      extract(self) -> memory_info_t
+ |  
+ |  find(self, *args) -> 'qvector< memory_info_t >::const_iterator'
+ |      find(self, x) -> memory_info_t
+ |      
+ |      @param x: memory_info_t const &
+ |  
+ |  front = _qvector_front(self)
+ |      # -----------------------------------------------------------------------
+ |  
+ |  grow(self, *args) -> 'void'
+ |      grow(self, x=memory_info_t())
+ |      
+ |      @param x: memory_info_t const &
+ |  
+ |  has(self, *args) -> 'bool'
+ |      has(self, x) -> bool
+ |      
+ |      @param x: memory_info_t const &
+ |  
+ |  inject(self, *args) -> 'void'
+ |      inject(self, s, len)
+ |      
+ |      @param s: memory_info_t *
+ |      @param len: size_t
+ |  
+ |  insert(self, *args) -> 'qvector< memory_info_t >::iterator'
+ |      insert(self, it, x) -> memory_info_t
+ |      
+ |      @param it: qvector< memory_info_t >::iterator
+ |      @param x: memory_info_t const &
+ |  
+ |  pop_back(self, *args) -> 'void'
+ |      pop_back(self)
+ |  
+ |  push_back(self, *args) -> 'memory_info_t &'
+ |      push_back(self, x)
+ |      
+ |      @param x: memory_info_t const &
+ |      
+ |      push_back(self) -> memory_info_t
+ |  
+ |  qclear(self, *args) -> 'void'
+ |      qclear(self)
+ |  
+ |  reserve(self, *args) -> 'void'
+ |      reserve(self, cnt)
+ |      
+ |      @param cnt: size_t
+ |  
+ |  resize(self, *args) -> 'void'
+ |      resize(self, _newsize, x)
+ |      
+ |      @param _newsize: size_t
+ |      @param x: memory_info_t const &
+ |      
+ |      resize(self, _newsize)
+ |      
+ |      @param _newsize: size_t
+ |  
+ |  size(self, *args) -> 'size_t'
+ |      size(self) -> size_t
+ |  
+ |  swap(self, *args) -> 'void'
+ |      swap(self, r)
+ |      
+ |      @param r: qvector< memory_info_t > &
+ |  
+ |  truncate(self, *args) -> 'void'
+ |      truncate(self)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from meminfo_vec_template_t:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes inherited from meminfo_vec_template_t:
+ |  
+ |  __hash__ = None
+
+Help on class meminfo_vec_template_t in module ida_idd:
+
+class meminfo_vec_template_t(builtins.object)
  |  Proxy of C++ qvector< memory_info_t > class.
  |  
  |  Methods defined here:
@@ -46625,8 +46802,8 @@ class meminfo_vec_t(builtins.object)
  |      @param i: size_t
  |  
  |  __init__(self, *args)
- |      __init__(self) -> meminfo_vec_t
- |      __init__(self, x) -> meminfo_vec_t
+ |      __init__(self) -> meminfo_vec_template_t
+ |      __init__(self, x) -> meminfo_vec_template_t
  |      
  |      @param x: qvector< memory_info_t > const &
  |  
@@ -46649,8 +46826,8 @@ class meminfo_vec_t(builtins.object)
  |      @param i: size_t
  |      @param v: memory_info_t const &
  |  
- |  __swig_destroy__ = delete_meminfo_vec_t(...)
- |      delete_meminfo_vec_t(self)
+ |  __swig_destroy__ = delete_meminfo_vec_template_t(...)
+ |      delete_meminfo_vec_template_t(self)
  |  
  |  _del(self, *args) -> 'bool'
  |      _del(self, x) -> bool
@@ -46913,12 +47090,8 @@ class memory_info_t(ida_range.range_t)
  |  __weakref__
  |      list of weak references to the object (if defined)
  |  
- |  endEA
- |  
  |  end_ea
  |      end_ea
- |  
- |  startEA
  |  
  |  start_ea
  |      start_ea
@@ -47399,12 +47572,8 @@ class scattered_segm_t(ida_range.range_t)
  |  __weakref__
  |      list of weak references to the object (if defined)
  |  
- |  endEA
- |  
  |  end_ea
  |      end_ea
- |  
- |  startEA
  |  
  |  start_ea
  |      start_ea
@@ -49164,6 +49333,9 @@ class IDP_Hooks(builtins.object)
  |      @param insn: (const insn_t*) the instruction
  |      @param state: (int) autoanalysis phase 0: creating functions 1: creating chunks
  |      @return: probability 1..100
+ |      @note: Actually IDA uses 3 intervals of a probability: 0..50 not a function,
+ |             51..99 a function (IDA needs another proof), 100 a function (no other
+ |             proofs needed)
  |  
  |  ev_may_show_sreg(self, *args) -> 'int'
  |      ev_may_show_sreg(self, current_ea) -> int
@@ -51432,6 +51604,9 @@ class processor_t(IDP_Hooks)
  |      @param insn: (const insn_t*) the instruction
  |      @param state: (int) autoanalysis phase 0: creating functions 1: creating chunks
  |      @return: probability 1..100
+ |      @note: Actually IDA uses 3 intervals of a probability: 0..50 not a function,
+ |             51..99 a function (IDA needs another proof), 100 a function (no other
+ |             proofs needed)
  |  
  |  ev_may_show_sreg(self, *args)
  |      ev_may_show_sreg(self, current_ea) -> int
@@ -63523,6 +63698,12 @@ class moddata_diff_helper_t(builtins.object)
  |      @param arg0: diff_source_idx_t
  |      @param arg1: void *
  |  
+ |  print_diffpos_details(self, *args) -> 'void'
+ |      print_diffpos_details(self, arg0, arg1)
+ |      
+ |      @param arg0: qstrvec_t *
+ |      @param arg1: idbattr_info_t const &
+ |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
@@ -63531,6 +63712,9 @@ class moddata_diff_helper_t(builtins.object)
  |  
  |  __weakref__
  |      list of weak references to the object (if defined)
+ |  
+ |  additional_mh_flags
+ |      additional_mh_flags
  |  
  |  fields
  |      fields
@@ -71629,12 +71813,8 @@ class range_t(builtins.object)
  |  __weakref__
  |      list of weak references to the object (if defined)
  |  
- |  endEA
- |  
  |  end_ea
  |      end_ea
- |  
- |  startEA
  |  
  |  start_ea
  |      start_ea
@@ -73426,10 +73606,6 @@ class segment_t(ida_range.range_t)
  |  __weakref__
  |      list of weak references to the object (if defined)
  |  
- |  endEA
- |  
- |  startEA
- |  
  |  ----------------------------------------------------------------------
  |  Data and other attributes inherited from ida_range.range_t:
  |  
@@ -73928,12 +74104,8 @@ class sreg_range_t(ida_range.range_t)
  |  __weakref__
  |      list of weak references to the object (if defined)
  |  
- |  endEA
- |  
  |  end_ea
  |      end_ea
- |  
- |  startEA
  |  
  |  start_ea
  |      start_ea
@@ -85174,6 +85346,14 @@ class outctx_t(outctx_base_t)
  |  gen_xref_lines(self, *args) -> 'bool'
  |      gen_xref_lines(self) -> bool
  |  
+ |  out_btoa(self, *args) -> 'void'
+ |      out_btoa(self, Word, radix=0)
+ |      Output a number with the specified base (binary, octal, decimal, hex) The number
+ |      is output without color codes. see also out_long()
+ |      
+ |      @param Word: (C++: uval_t)
+ |      @param radix: (C++: char)
+ |  
  |  out_custom_mnem(self, *args) -> 'void'
  |      out_custom_mnem(self, mnem, width=8, postfix=None)
  |      Output custom mnemonic for 'insn'. E.g. if it should differ from the one in
@@ -85408,14 +85588,6 @@ class outctx_t(outctx_base_t)
  |      Output "address" escape sequence.
  |      
  |      @param ea: (C++: ea_t)
- |  
- |  out_btoa(self, *args) -> 'void'
- |      out_btoa(self, Word, radix=0)
- |      Output a number with the specified base (binary, octal, decimal, hex) The number
- |      is output without color codes. see also out_long()
- |      
- |      @param Word: (C++: uval_t)
- |      @param radix: (C++: char)
  |  
  |  out_char(self, *args) -> 'void'
  |      out_char(self, c)
@@ -86507,6 +86679,13 @@ Help on function __l2m1 in module idc:
 __l2m1(v)
     Long to minus 1: If the 'v' appears to be the
     'signed long' version of -1, then return -1.
+    Otherwise, return 'v'.
+
+Help on function __m1tol in module idc:
+
+__m1tol(v)
+    Long -1 to BADNODE: If the 'v' appears to be the
+    'signed long' version of -1, then return BADNODE.
     Otherwise, return 'v'.
 
 Help on function __warn_once_deprecated_proto_confusion in module idc:
@@ -91656,6 +91835,10 @@ Documentation on variable GFE_VALUE in module ida_bytes:
 
     get flags with FF_IVL & MS_VAL. It is much slower under remote debugging because
     the kernel needs to read the process memory.
+
+Documentation on variable GFE_IDB_VALUE in module ida_bytes:
+
+    get flags with FF_IVL & MS_VAL. but never use the debugger memory.
 
 Documentation on variable MS_VAL in module ida_bytes:
 
@@ -97351,10 +97534,6 @@ Documentation on variable idainfo.s_genflags in module ida_ida:
 
     General idainfo flags
 
-Documentation on variable idainfo.lflags in module ida_ida:
-
-    Misc. database flags
-
 Documentation on variable idainfo.database_change_count in module ida_ida:
 
     incremented after each byte and regular segment modifications
@@ -97575,6 +97754,10 @@ Documentation on variable idainfo.abibits in module ida_ida:
 Documentation on variable idainfo.appcall_options in module ida_ida:
 
     appcall options, see idd.hpp
+
+Documentation on variable idainfo.lflags in module ida_ida:
+
+    Misc. database flags
 
 Documentation on variable INFFL_AUTO in module ida_ida:
 
@@ -103055,6 +103238,10 @@ Documentation on variable MERGE_KIND_DEBUGGER in module ida_merge:
 
     debugger data
 
+Documentation on variable MERGE_KIND_DBG_MEMREGS in module ida_merge:
+
+    manual memory regions (debugger)
+
 Documentation on variable MERGE_KIND_LAST in module ida_merge:
 
     last predefined merge handler type. please note that there can be more merge
@@ -103132,6 +103319,22 @@ Documentation on variable MH_UI_COLONNAME in module ida_merge:
 Documentation on variable moddata_diff_helper_t.module_name in module ida_merge:
 
     will be used as a prefix for field desc
+
+Documentation on variable moddata_diff_helper_t.netnode_name in module ida_merge:
+
+    name of netnode with module data attributes
+
+Documentation on variable moddata_diff_helper_t.fields in module ida_merge:
+
+    module data attribute descriptions
+
+Documentation on variable moddata_diff_helper_t.nfields in module ida_merge:
+
+    number of descriptions
+
+Documentation on variable moddata_diff_helper_t.additional_mh_flags in module ida_merge:
+
+    additional merge handler flags
 
 Documentation on variable NDS_IS_BOOL in module ida_merge:
 
@@ -104326,7 +104529,7 @@ Documentation on variable ltag in module ida_netnode:
 
 Documentation on variable IDA_SDK_VERSION in module ida_pro:
 
-    IDA SDK v8.0.
+    IDA SDK v8.1.
 
 Documentation on variable MAXSTR in module ida_pro:
 
@@ -104948,6 +105151,10 @@ Documentation on variable MOVE_SEGM_SOURCEFILES in module ida_segment:
 Documentation on variable MOVE_SEGM_MAPPING in module ida_segment:
 
     Memory mapping ranges of addresses hinder segment movement.
+
+Documentation on variable MOVE_SEGM_INVAL in module ida_segment:
+
+    Invalid argument (delta/target does not fit the address space)
 
 Documentation on variable CSS_OK in module ida_segment:
 

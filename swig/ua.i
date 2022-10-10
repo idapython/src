@@ -14,6 +14,10 @@
 %ignore get_printable_immvals;
 %rename (get_printable_immvals) py_get_printable_immvals;
 %ignore get_immval;
+%ignore insn_get_next_byte;
+%ignore insn_get_next_word;
+%ignore insn_get_next_dword;
+%ignore insn_get_next_qword;
 %ignore insn_create_op_data;
 
 %ignore construct_macro;

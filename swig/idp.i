@@ -59,6 +59,8 @@ struct undo_records_t;
 %ignore hook_event_listener;
 %ignore unhook_event_listener;
 %ignore ignore_micro_t;
+%ignore modctx_t;
+%ignore ea_helper_t;
 %ignore procmod_t;
 %ignore plugmod_t;
 %ignore get_hexdsp;
@@ -67,7 +69,7 @@ struct undo_records_t;
 %ignore set_module_data;
 %ignore clr_module_data;
 %ignore get_module_data;
-
+%ignore get_modctx;
 
 // @arnaud
 %ignore notify__calc_next_eas;

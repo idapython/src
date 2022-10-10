@@ -64,3 +64,27 @@ To achieve that, you want to use the `directorargout` typemap:
                 "in output value of type 'qstrvec_t' in method '$symname'");
       }
     }
+
+# "intercept" access to a structure/class field, in order to perform extra work
+
+For example, `idainfo.lflags` bits should be set using proper setters,
+because they can have side-effects.
+
+. tell swig to consider the member as unreachable:
+
+    %ignore idainfo::lflags;
+
+. extend the type to "manually" provide the field:
+
+    %extend idainfo
+    {
+      // ...
+      uint32 _get_lflags() const { return $self->lflags; }
+      void _set_lflags(uint32 _f)
+      {
+        // do the job here
+      }
+
+      %pythoncode {
+        lflags = property(_get_lflags, _set_lflags)
+

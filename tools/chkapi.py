@@ -391,6 +391,7 @@ def check_python(args):
         "call_stack_t" : { "mustinherit" : "call_stack_info_vec_t" },
         "abstract_graph_t" : { "mustinherit" : "ida_gdl.gdl_graph_t" },
         "mutable_graph_t" : { "mustinherit" : "abstract_graph_t" },
+        "meminfo_vec_t" : { "mustinherit" : "meminfo_vec_template_t" },
 
         # Just look for the presence of those things
         "BADNODE" : {},

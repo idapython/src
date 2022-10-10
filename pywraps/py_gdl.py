@@ -39,9 +39,6 @@ class BasicBlock(object):
         for i in range(0, q.nsucc(self.id)):
             yield self._fc[q.succ(self.id, i)]
 
-    startEA = ida_idaapi._make_badattr_property("startEA", "start_ea")
-    endEA = ida_idaapi._make_badattr_property("endEA", "end_ea")
-
 # -----------------------------------------------------------------------
 class FlowChart(object):
     """

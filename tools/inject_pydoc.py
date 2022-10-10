@@ -1727,6 +1727,8 @@ class prototype_t(object):
             name, desc = case.change_param(name, desc)
 
         text = indent + "@param " + name
+        if name.startswith("NONNULL_") and not name in self.ctypes:
+            name = name[8:]
         if name in self.ctypes:
             if desc == self.ctypes[name]: # avoid some duplication
                 desc = ""

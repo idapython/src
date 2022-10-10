@@ -4502,6 +4502,17 @@ def __l2m1(v):
         return v
 
 
+def __m1tol(v):
+    """
+    Long -1 to BADNODE: If the 'v' appears to be the
+    'signed long' version of -1, then return BADNODE.
+    Otherwise, return 'v'.
+    """
+    if v == -1:
+        return ida_netnode.BADNODE 
+    else:
+        return v
+
 
 AR_LONG = ida_netnode.atag
 """Array of longs"""
@@ -4749,9 +4760,9 @@ def get_next_index(tag, array_id, idx):
     node = __GetArrayById(array_id)
     try:
         if tag == AR_LONG:
-            return __l2m1(node.altnext(idx, tag))
+            return __l2m1(node.altnext(__m1tol(idx), tag))
         elif tag == AR_STR:
-            return __l2m1(node.supnext(idx, tag))
+            return __l2m1(node.supnext(__m1tol(idx), tag))
         else:
             return -1
     except OverflowError:
@@ -4773,9 +4784,9 @@ def get_prev_index(tag, array_id, idx):
     node = __GetArrayById(array_id)
     try:
         if tag == AR_LONG:
-            return __l2m1(node.altprev(idx, tag))
+            return __l2m1(node.altprev(__m1tol(idx), tag))
         elif tag == AR_STR:
-            return __l2m1(node.supprev(idx, tag))
+            return __l2m1(node.supprev(__m1tol(idx), tag))
         else:
             return -1
     except OverflowError:

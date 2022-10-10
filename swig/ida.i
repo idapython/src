@@ -10,6 +10,7 @@
 %ignore idainfo::padding2;
 %ignore idainfo::idainfo;
 %ignore idainfo::~idainfo;
+%ignore idainfo::lflags;
 
 %ignore inf_get_procname();
 %ignore inf_get_strlit_pref();
@@ -44,8 +45,29 @@
     return buf;
   }
 
+  uint32 _get_lflags() const { return $self->lflags; }
+  void _set_lflags(uint32 _f)
+  {
+    const uint32 _was = $self->lflags;
+#define _DEF_BITSET(Bit, Setter) if ( (_was & Bit) != (_f & Bit) ) Setter((_f & Bit) != 0);
+    _DEF_BITSET(LFLG_PC_FPP, inf_set_decode_fpp);
+    _DEF_BITSET(LFLG_PC_FLAT, inf_set_32bit);
+    _DEF_BITSET(LFLG_64BIT, inf_set_64bit);
+    _DEF_BITSET(LFLG_IS_DLL, inf_set_dll);
+    _DEF_BITSET(LFLG_FLAT_OFF32, inf_set_flat_off32);
+    _DEF_BITSET(LFLG_MSF, inf_set_be);
+    _DEF_BITSET(LFLG_WIDE_HBF, inf_set_wide_high_byte_first);
+    _DEF_BITSET(LFLG_DBG_NOPATH, inf_set_dbg_no_store_path);
+    _DEF_BITSET(LFLG_SNAPSHOT, inf_set_snapshot);
+    _DEF_BITSET(LFLG_PACK, inf_set_pack_idb);
+    _DEF_BITSET(LFLG_COMPRESS, inf_set_compress_idb);
+    _DEF_BITSET(LFLG_KERNMODE, inf_set_kernel_mode);
+#undef _DEF_BITSET
+  }
+
   %pythoncode {
     abiname = property(get_abiname)
+    lflags = property(_get_lflags, _set_lflags)
 #ifdef MISSED_BC695
     minEA = ida_idaapi._make_missed_695bwcompat_property("minEA", "min_ea", has_setter=True)
     maxEA = ida_idaapi._make_missed_695bwcompat_property("maxEA", "max_ea", has_setter=True)

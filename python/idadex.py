@@ -31,6 +31,10 @@ ushort = uint16
 __EA64__ = ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFF
 ea_t = uint64 if __EA64__ else uint32
 
+# Dalvik indices are stored as uint32
+def to_uint32(v):
+    return int.from_bytes(v, byteorder='little') & 0xFFFFFFFF
+
 # parse a ctypes struct from byte data in str_ at 'off'
 def get_struct(str_, off, struct):
     s = struct()
@@ -95,7 +99,7 @@ def unpack_dd(buf, off):
 def unpack_dq(buf, off):
     (xl, off) = unpack_dd(buf, off)
     (xh, off) = unpack_dd(buf, off)
-    x = (long(xh) << 32) | xl
+    x = (xh << 32) | xl
     if x > 0x8000000000000000:
         x = x - 0x10000000000000000
     return (x, off)
@@ -286,7 +290,7 @@ class Dex(object):
         return Dex.as_string(raw)
 
     def get_method_idx(self, ea):
-        return self.nn_cmn.altval(ea, Dex.DEXCMN_METHOD_ID)
+        return to_uint32(self.nn_cmn.supval_ea(ea, Dex.DEXCMN_METHOD_ID))
 
     def get_method(self, from_ea, method_idx):
         nn_var = self.get_nn_var(from_ea)
