@@ -38,9 +38,9 @@
 %ignore request_set_reg_val;
 %rename (request_set_reg_val) py_request_set_reg_val;
 %rename (get_reg_val) py_get_reg_val;
-
-/* %ignore invalidate_dbg_state; */
-/* %ignore is_request_running; */
+%ignore get_reg_vals;
+%rename (get_reg_vals) py_get_reg_vals;
+%newobject py_get_reg_vals;
 
 %rename (list_bptgrps) py_list_bptgrps;
 %apply qstring *result { qstring *grp_name };
@@ -60,6 +60,8 @@
 
 %ignore dbg_can_query;
 %rename (dbg_can_query) py_dbg_can_query;
+
+%define_regval_python_accessors();
 
 //-------------------------------------------------------------------------
 //                       get_process_options()

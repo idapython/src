@@ -28,6 +28,7 @@ enum feature_t
   CFEAT_GETDIRTREE    = 0x0800,
   CFEAT_INDEX2INODE   = 0x1000,
   CFEAT_INDEX2DIFFPOS = 0x2000,
+  CFEAT_LAZYLOADDIR   = 0x4000,
 };
 
 //------------------------------------------------------------------------
@@ -87,6 +88,7 @@ struct py_chooser_props_t
   // See CHOOSE_xxxx
   uint32 features;
   uint32 flags;
+  uint16 flags2;
 
   py_chooser_props_t() : features(0), flags(0) {}
 
@@ -99,9 +101,14 @@ struct py_chooser_props_t
     popup_names.swap(o.popup_names);
     qswap(features, o.features);
     qswap(flags, o.flags);
+    qswap(flags2, o.flags2);
   }
 
   bool has_feature(feature_t f) const { return (features & f) == f; }
+
+  static bool is_valid_cb(
+        PyObject *o,
+        const char *name);
 
   static bool do_extract_from_pyobject(
         py_chooser_props_t *out,
@@ -129,6 +136,57 @@ struct py_chooser_props_t
     return ok;
   }
 };
+
+//-------------------------------------------------------------------------
+bool py_chooser_props_t::is_valid_cb(
+        PyObject *o,
+        const char *name)
+{
+  newref_t py_o_class(PyObject_GetAttrString(o, "__class__"));
+  bool ok = py_o_class != nullptr;
+#ifdef TESTABLE_BUILD
+  QASSERT(30706, ok);
+#endif
+  if ( ok )
+  {
+    newref_t py_oclass_meth(PyObject_GetAttrString(py_o_class.o, name));
+    ok = py_oclass_meth != nullptr && PyCallable_Check(py_oclass_meth.o);
+#ifdef TESTABLE_BUILD
+    QASSERT(30707, ok);
+#endif
+    if ( ok )
+    {
+      newref_t py_ida_kernwin(PyImport_ImportModule("ida_kernwin"));
+      ok = py_ida_kernwin != nullptr;
+#ifdef TESTABLE_BUILD
+      QASSERT(30708, ok);
+#endif
+      if ( ok )
+      {
+        newref_t py_chooser(PyObject_GetAttrString(py_ida_kernwin.o, "Choose"));
+        ok = py_chooser != nullptr;
+#ifdef TESTABLE_BUILD
+        QASSERT(30709, ok);
+#endif
+        if ( ok )
+        {
+          newref_t py_def_cb(PyObject_GetAttrString(py_chooser.o, name));
+          ok = py_def_cb != nullptr;
+#ifdef TESTABLE_BUILD
+          QASSERT(30710, ok);
+#endif
+          if ( ok )
+          {
+            ok = PyObject_RichCompareBool(py_def_cb.o, /*cb_attr*/py_oclass_meth.o, Py_EQ) == 0;
+            // if ( ok )
+            //   msg("HAS NON-DEF: %s\n", name);
+          }
+        }
+      }
+    }
+  }
+  return ok;
+}
 
 //-------------------------------------------------------------------------
 bool py_chooser_props_t::do_extract_from_pyobject(
@@ -159,6 +217,12 @@ bool py_chooser_props_t::do_extract_from_pyobject(
   // instruct TChooser destructor to delete this chooser when widget
   // closes
   out->flags &= ~CH_KEEP;
+
+  // Optionally get the extended flags
+  out->flags2 = 0;
+  ref_t flags2_attr(PyW_TryGetAttrString(o, S_FLAGS2));
+  if ( flags2_attr != nullptr && PyLong_Check(flags2_attr.o) )
+    out->flags2 = uint16(PyLong_AsLong(flags2_attr.o));
 
   // Get columns
   int ncols = -1;
@@ -215,23 +279,25 @@ bool py_chooser_props_t::do_extract_from_pyobject(
     const char *name;
     unsigned int have; // 0 = mandatory callback
     int chooser_t_flags;
+    int chooser_t_flags2;
   } callbacks[] =
   {
-    { S_ON_INIT,             CFEAT_INIT,    0 },
-    { S_ON_GET_SIZE,         0 },
-    { S_ON_GET_LINE,         0 },
-    { S_ON_GET_ICON,         CFEAT_GETICON, 0 },
-    { S_ON_GET_LINE_ATTR,    CFEAT_GETATTR, 0 },
-    { S_ON_INSERT_LINE,      CFEAT_INS,     CH_CAN_INS },
-    { S_ON_DELETE_LINE,      CFEAT_DEL,     CH_CAN_DEL },
-    { S_ON_EDIT_LINE,        CFEAT_EDIT,    CH_CAN_EDIT },
-    { S_ON_SELECT_LINE,      CFEAT_ENTER,   0 },
-    { S_ON_REFRESH,          CFEAT_REFRESH, CH_CAN_REFRESH },
-    { S_ON_SELECTION_CHANGE, CFEAT_SELECT,  0 },
-    { S_ON_CLOSE,            CFEAT_ONCLOSE, 0 },
-    { S_ON_GET_DIRTREE,      CFEAT_GETDIRTREE, CH_HAS_DIRTREE },
-    { S_ON_INDEX_TO_INODE,   CFEAT_INDEX2INODE, CH_HAS_DIRTREE },
-    { S_ON_INDEX_TO_DIFFPOS, CFEAT_INDEX2DIFFPOS, CH_HAS_DIFF },
+    { S_ON_INIT,             CFEAT_INIT,    0, 0 },
+    { S_ON_GET_SIZE,         0, 0 },
+    { S_ON_GET_LINE,         0, 0 },
+    { S_ON_GET_ICON,         CFEAT_GETICON, 0, 0 },
+    { S_ON_GET_LINE_ATTR,    CFEAT_GETATTR, 0, 0 },
+    { S_ON_INSERT_LINE,      CFEAT_INS,     CH_CAN_INS, 0 },
+    { S_ON_DELETE_LINE,      CFEAT_DEL,     CH_CAN_DEL, 0 },
+    { S_ON_EDIT_LINE,        CFEAT_EDIT,    CH_CAN_EDIT, 0 },
+    { S_ON_SELECT_LINE,      CFEAT_ENTER,   0, 0 },
+    { S_ON_REFRESH,          CFEAT_REFRESH, CH_CAN_REFRESH, 0 },
+    { S_ON_SELECTION_CHANGE, CFEAT_SELECT,  0, 0 },
+    { S_ON_CLOSE,            CFEAT_ONCLOSE, 0, 0 },
+    { S_ON_GET_DIRTREE,      CFEAT_GETDIRTREE, CH_HAS_DIRTREE, 0 },
+    { S_ON_INDEX_TO_INODE,   CFEAT_INDEX2INODE, CH_HAS_DIRTREE, 0 },
+    { S_ON_INDEX_TO_DIFFPOS, CFEAT_INDEX2DIFFPOS, CH_HAS_DIFF, 0 },
+    { S_ON_LAZY_LOAD_DIR,    CFEAT_LAZYLOADDIR, CH_HAS_DIRTREE, CH2_LAZY_LOADED },
   };
   // we can forbid some callbacks explicitly
   uint32 forbidden_cb = 0;
@@ -242,12 +308,12 @@ bool py_chooser_props_t::do_extract_from_pyobject(
   out->features = 0;
   for ( int i = 0; i < qnumber(callbacks); ++i )
   {
-    ref_t cb_attr(PyW_TryGetAttrString(o, callbacks[i].name));
-    bool have_cb = cb_attr != nullptr && PyCallable_Check(cb_attr.o);
-    if ( have_cb && (forbidden_cb & callbacks[i].have) == 0 )
+    if ( (forbidden_cb & callbacks[i].have) == 0
+      && is_valid_cb(o, callbacks[i].name) )
     {
       out->features |= callbacks[i].have;
       out->flags |= callbacks[i].chooser_t_flags;
+      out->flags2 |= callbacks[i].chooser_t_flags2;
     }
     else
     {
@@ -313,6 +379,7 @@ protected:
   inode_t mixin_index_to_inode(size_t n) const;
   diffpos_t mixin_index_to_diffpos(size_t n) const;
   void mixin_init_chooser_base_from_props(chooser_base_t *cb);
+  bool mixin_lazy_load_dir(dirtree_t *dt, const qstring &dir_path);
 
 private:
   static qvector<py_chooser_mixin_t*> _instances;
@@ -530,6 +597,20 @@ void py_chooser_mixin_t::mixin_init_chooser_base_from_props(
     cb->popup_names[i] = props.popup_names[i].begin();
 }
 
+//-------------------------------------------------------------------------
+bool py_chooser_mixin_t::mixin_lazy_load_dir(
+        dirtree_t *dt,
+        const qstring &dir_path)
+{
+  if ( !has_feature(CFEAT_LAZYLOADDIR) )
+    return false;
+  PYW_GIL_GET;
+  pycall_res_t pyres(PyObject_CallMethod(self.o, (char *)S_ON_LAZY_LOAD_DIR, "s", dir_path.c_str())); // TODO: pass the dirtree_t (presumably using PyObject_CallFunctionObjArgs)
+  if ( pyres.result == nullptr || pyres.result.o == Py_None )
+    return false;
+  return bool(PyInt_AsLong(pyres.result.o));
+}
+
 //------------------------------------------------------------------------
 // chooser class without multi-selection
 class py_chooser_t : public chooser_t, public py_chooser_mixin_t
@@ -572,7 +653,8 @@ public:
             props_.widths.size(),
             props_.widths.begin(),
             props_.header.begin(),
-            props_.title.c_str()),
+            props_.title.c_str(),
+            props_.flags2),
       py_chooser_mixin_t(self_, props_)
   {
     mixin_init_chooser_base_from_props(this);
@@ -613,6 +695,13 @@ public:
   virtual void idaapi select(ssize_t n) const override
   {
     _call(nullptr, CFEAT_SELECT, S_ON_SELECTION_CHANGE, int(n));
+  }
+
+  virtual bool idaapi do_lazy_load_dir(
+        dirtree_t *dt,
+        const qstring &dir_path) override
+  {
+    return mixin_lazy_load_dir(dt, dir_path);
   }
 };
 
@@ -655,7 +744,8 @@ public:
             props_.widths.size(),
             props_.widths.begin(),
             props_.header.begin(),
-            props_.title.c_str()),
+            props_.title.c_str(),
+            props_.flags2),
       py_chooser_mixin_t(self_, props_)
   {
     mixin_init_chooser_base_from_props(this);
@@ -697,6 +787,13 @@ public:
   {
     sizevec_t sel = _sel;
     _call(nullptr, CFEAT_SELECT, S_ON_SELECTION_CHANGE, &sel);
+  }
+
+  virtual bool idaapi do_lazy_load_dir(
+        dirtree_t *dt,
+        const qstring &dir_path) override
+  {
+    return mixin_lazy_load_dir(dt, dir_path);
   }
 };
 

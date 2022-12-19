@@ -352,6 +352,12 @@ def as_signed(v, nbits = 32):
     return -(( ~v & ((1 << nbits)-1) ) + 1) if v & (1 << nbits-1) else v
 
 # ----------------------------------------------------------------------
+def TRUNC(ea):
+    """ Truncate EA for the current application bitness"""
+    import _ida_ida
+    return (ea & 0xFFFFFFFFFFFFFFFF) if _ida_ida.inf_is_64bit() else (ea & 0xFFFFFFFF)
+
+# ----------------------------------------------------------------------
 def copy_bits(v, s, e=-1):
     """
     Copy bits from a value

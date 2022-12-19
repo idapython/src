@@ -1508,6 +1508,55 @@ To use this example:
       </ul>
         </div>
       </div>
+      <div class="example-entry collapsed-entry" name="print_registers">
+        <div>
+          <span class="exp-col expander">&#x25B9;</span>
+          <span class="exp-col collapser" style="display:none">&#x25BF;</span>
+        <a href="debugging/misc/print_registers.py">print_registers</a>: <i>Print all registers, for all threads</i>
+        </div>
+        <div class="details" id="DIV_print_registers">
+
+<pre>
+           Iterate over the list of threads in the program being
+           debugged, and dump all registers contents
+
+To use this example:
+
+  * run `ida64` on test program `simple_appcall_linux64`, or
+    `ida` on test program `simple_appcall_linux32`, and wait for
+    auto-analysis to finish
+  * put a breakpoint somewhere in the code
+  * select the 'linux debugger' (either local, or remote)
+  * start debugging
+  * Press Alt+Shift+C at the breakpoint
+</pre>
+
+          <ul>
+            <li>Category: debugging</li>
+            <li>Summary: Print all registers, for all threads</li>
+            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/debugging/misc/print_registers.py">GitHub</a></li>
+
+            <li>Shortcut:
+            Alt+Shift+C
+            </li>
+
+
+            <li>APIs used
+              <ul>
+                <li>ida_dbg.get_reg_vals</li>
+                <li>ida_dbg.get_thread_qty</li>
+                <li>ida_dbg.getn_thread</li>
+                <li>ida_idd.get_dbg</li>
+                <li>ida_kernwin.AST_ENABLE_ALWAYS</li>
+                <li>ida_kernwin.action_desc_t</li>
+                <li>ida_kernwin.register_action</li>
+              </ul>
+            </li>
+
+
+      </ul>
+        </div>
+      </div>
       <div class="example-entry collapsed-entry" name="registers_context_menu">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
@@ -4035,6 +4084,30 @@ addresses, comments, prefixes, instruction mnemonics, ...)
               <li><a class="ex_link" href="#save_and_restore_listing_pos">save_and_restore_listing_pos</a></li>
             </ul>
           </li>
+
+      </ul>
+        </div>
+      </div>
+      <div class="example-entry collapsed-entry" name="lazy_loaded_chooser">
+        <div>
+          <span class="exp-col expander">&#x25B9;</span>
+          <span class="exp-col collapser" style="display:none">&#x25BF;</span>
+        <a href="widgets/tabular_views/custom/lazy_loaded_chooser.py">lazy_loaded_chooser</a>: <i></i>
+        </div>
+        <div class="details" id="DIV_lazy_loaded_chooser">
+
+<pre>
+
+</pre>
+
+          <ul>
+            <li>Category: widgets</li>
+            <li>Summary: </li>
+            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/widgets/tabular_views/custom/lazy_loaded_chooser.py">GitHub</a></li>
+
+
+
+
 
       </ul>
         </div>

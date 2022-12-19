@@ -120,7 +120,7 @@
 // Renaming one version of hashset() otherwise SWIG will not be able to activate the other one
 %rename (hashset_idx) netnode::hashset(const char *idx, nodeidx_t value, uchar tag=htag);
 
-%apply char { uchar tag };
+%define_netnode_tag_accessors();
 
 %include "netnode.hpp"
 

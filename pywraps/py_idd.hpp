@@ -151,6 +151,12 @@ PyObject *py_appcall(
 
 //-------------------------------------------------------------------------
 //<inline(py_idd)>
+
+static debugger_t *get_dbg()
+{
+  return dbg;
+}
+
 /*
 #<pydoc>
 def dbg_get_registers():

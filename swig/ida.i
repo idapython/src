@@ -15,6 +15,7 @@
 %ignore inf_get_procname();
 %ignore inf_get_strlit_pref();
 
+%ignore ea_helper_t;
 %ignore hook_cb_t;
 %ignore hook_type_t;
 %ignore hook_to_notification_point;
@@ -89,9 +90,13 @@
           uint idi_flags=0)
   {
     idbattr_info_t *ii = new idbattr_info_t();
-#define DUPSTR(Prop) ii->Prop = Prop == nullptr ? nullptr : qstrdup(Prop)
-    DUPSTR(name);
-#undef DUPSTR
+    ii->name = nullptr;
+    if ( name != nullptr )
+    {
+      // mimick SWiG's `new`-based string allocation
+      size_t len = strlen(name) + 1;
+      ii->name = (char *) memcpy(new char[len], name, len);
+    }
     ii->offset = offset;
     ii->width = width;
     ii->bitmask = bitmask;
@@ -102,9 +107,8 @@
 
   ~idbattr_info_t()
   {
-#define FREESTR(Prop) qfree((char *) $self->Prop)
-    FREESTR(name);
-#undef FREESTR
+    delete [] $self->name;
+    $self->name = nullptr;
     delete $self;
   }
 };

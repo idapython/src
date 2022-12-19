@@ -133,7 +133,7 @@ class Choose(object):
                  icon=-1, x1=-1, y1=-1, x2=-1, y2=-1,
                  deflt = None,
                  embedded = False, width = None, height = None,
-                 forbidden_cb = 0):
+                 forbidden_cb = 0, flags2 = 0):
         """
         Constructs a chooser window.
         @param title: The chooser title
@@ -141,6 +141,7 @@ class Choose(object):
             example: [ ["Address", 10 | Choose.CHCOL_HEX],
                        ["Name",    30 | Choose.CHCOL_PLAIN] ]
         @param flags: One of CH_XXXX constants
+        @param flags2: One of CH2_XXXX constants
         @param deflt: The index of the default item (0-based) for single
             selection choosers or the list of indexes for multi selection
             chooser
@@ -156,6 +157,7 @@ class Choose(object):
         """
         self.title = title
         self.flags = flags
+        self.flags2 = flags2
         self.cols = cols
         if deflt == None:
           deflt = 0 if (flags & Choose.CH_MULTI) == 0 else [0]
@@ -287,5 +289,155 @@ class Choose(object):
 
     def OnPopup(self, widget, popup_handle):
         self._quick_commands.populate_popup(widget, popup_handle)
+
+    def OnInit(self):
+        """
+        Initialize the chooser and populate it.
+
+        This callback is optional
+        """
+        pass
+
+    def OnGetSize(self):
+        """
+        Get the number of elements in the chooser.
+
+        This callback is mandatory
+
+        @return the number of elements
+        """
+        pass
+
+    def OnGetLine(self, n):
+        """
+        Get data for an element
+
+        This callback is mandatory
+
+        @param n the index to fetch data for
+        @return a list of strings
+        """
+        pass
+
+    def OnGetIcon(self, n):
+        """
+        Get an icon to associate with the first cell of an element
+
+        @param n index of the element
+        @return an icon ID
+        """
+        pass
+
+    def OnGetLineAttr(self, n):
+        """
+        Get attributes for an element
+
+        @param n index of the element
+        @return a tuple (color, flags)
+        """
+        pass
+
+    def OnInsertLine(self, sel):
+        """
+        User asked to insert an element
+
+        @param sel the current selection
+        @return a tuple (changed, selection)
+        """
+        pass
+
+    def OnDeleteLine(self, sel):
+        """
+        User deleted an element
+
+        @param sel the current selection
+        @return a tuple (changed, selection)
+        """
+        pass
+
+    def OnEditLine(self, sel):
+        """
+        User asked to edit an element.
+
+        @param sel the current selection
+        @return a tuple (changed, selection)
+        """
+        pass
+
+    def OnSelectLine(self, sel):
+        """
+        User pressed the enter key, or double-clicked a selection
+
+        @param sel the current selection
+        @return a tuple (changed, selection)
+        """
+        pass
+
+    def OnSelectionChange(self, sel):
+        """
+        Selection changed
+
+        @param sel the new selection
+        """
+        pass
+
+    def OnRefresh(self, sel):
+        """
+        The chooser needs to be refreshed.
+        It returns the new positions of the selected items.
+
+        @param sel the current selection
+        @return a tuple (changed, selection)
+        """
+        pass
+
+    def OnClose(self):
+        """
+        The chooser window is closed.
+        """
+        pass
+
+    def OnGetDirTree(self):
+        """
+        Get the dirtree_t that will be used to present a tree-like
+        structure to the user (see CH_HAS_DIRTREE)
+
+        @return the dirtree_t, or None
+        """
+        pass
+
+    def OnIndexToInode(self, n):
+        """
+        Map an element index to a dirtree_t inode
+
+        This callback is mandatory if CH_HAS_DIRTREE is specified
+
+        @param n index of the element
+        @return the inode number
+        """
+        pass
+
+    def OnIndexToDiffpos(self, n):
+        """
+        Map an element index to a diffpos_t
+
+        This callback is mandatory if CH_HAS_DIFF is specified
+
+        @param n index of the element
+        @return the diffpos
+        """
+        pass
+
+    def OnLazyLoadDir(self, path):
+        """
+        Callback for lazy-loaded, dirtree-based choosers;
+        the function will be called when a folder is expanded and it has
+        not been loaded before. The implementation should use the
+        given dirtree's link() or mkdir() methods to add the folder contents.
+
+        @param path an absolute dirtree path to the directory that is being expanded
+        @return success
+        """
+        pass
 
 #</pycode(py_kernwin_choose)>

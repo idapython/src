@@ -323,7 +323,6 @@ ifdef __NT__                   # os and compiler specific flags
   CFLAGS += /bigobj $(_SWIGFLAGS) -I$(ST_SDK) /U_DEBUG
 else # unix/mac
   ifdef __LINUX__
-    PYTHON_LDFLAGS_RPATH_MAIN=-Wl,-rpath='$$ORIGIN/..'
     PYTHON_LDFLAGS_RPATH_MODULE=-Wl,-rpath='$$ORIGIN/../../..'
     _SWIGFLAGS = -D__LINUX__
   else ifdef __MAC__
@@ -803,10 +802,11 @@ else
 API_CONTENTS = release_api_contents$(EXTRASUF1)$(PYTHON_VERSION_MAJOR).txt
 endif
 ST_API_CONTENTS = $(F)$(API_CONTENTS)
+ST_API_CONTENTS_SUCCESS = $(ST_API_CONTENTS).success
 .PRECIOUS: $(ST_API_CONTENTS)
 
-api_contents: $(ST_API_CONTENTS)
-$(ST_API_CONTENTS): $(ALL_ST_WRAP_CPP)
+api_contents: $(ST_API_CONTENTS_SUCCESS)
+$(ST_API_CONTENTS_SUCCESS): $(ALL_ST_WRAP_CPP)
 ifeq ($(or $(__CODE_CHECKER__),$(NO_CMP_API),$(__ASAN__),$(IDAHOME),$(DEMO_OR_FREE)),)
 	$(QCHKAPI)$(PYTHON) tools/chkapi.py $(WITH_HEXRAYS_CHKAPI) -i $(subst $(space),$(comma),$(ALL_ST_WRAP_CPP)) -p $(subst $(space),$(comma),$(ALL_ST_WRAP_PY)) -r $(ST_API_CONTENTS)
   ifeq ($(OUT_OF_TREE_BUILD),)
@@ -817,9 +817,8 @@ ifeq ($(or $(__CODE_CHECKER__),$(NO_CMP_API),$(__ASAN__),$(IDAHOME),$(DEMO_OR_FR
            (diff -U 1 -w $(API_CONTENTS) $(ST_API_CONTENTS) && false))
     endif
   endif
-else
-	$(Q)touch $@
 endif
+	$(Q)touch $@
 
 #----------------------------------------------------------------------
 # Check that doc injection is stable
@@ -829,6 +828,7 @@ else
 PYDOC_INJECTIONS = release_pydoc_injections$(EXTRASUF1)$(PYTHON_VERSION_MAJOR).txt
 endif
 ST_PYDOC_INJECTIONS = $(F)$(PYDOC_INJECTIONS)
+ST_PYDOC_INJECTIONS_SUCCESS = $(ST_PYDOC_INJECTIONS).success
 .PRECIOUS: $(ST_PYDOC_INJECTIONS)
 
 ifdef __EA64__
@@ -837,9 +837,9 @@ else
   DUMPDOC_IS_64:=False
 endif
 
-PYDOC_INJECTIONS_IDAT_CMD=$(IDAT_CMD) $(BATCH_SWITCH) -S"$< $@ $(ST_WRAP) $(DUMPDOC_IS_64)" -t -L$(F)dumpdoc.log >/dev/null
-pydoc_injections: $(ST_PYDOC_INJECTIONS)
-$(ST_PYDOC_INJECTIONS): tools/dumpdoc.py $(IDAPYTHON_MODULES) $(PYTHON_BINARY_MODULES)
+PYDOC_INJECTIONS_IDAT_CMD=$(IDAT_CMD) $(BATCH_SWITCH) -S"$< $(ST_PYDOC_INJECTIONS) $(ST_WRAP) $(DUMPDOC_IS_64)" -t -L$(F)dumpdoc.log >/dev/null
+pydoc_injections: $(ST_PYDOC_INJECTIONS_SUCCESS)
+$(ST_PYDOC_INJECTIONS_SUCCESS): tools/dumpdoc.py $(IDAPYTHON_MODULES) $(PYTHON_BINARY_MODULES)
 ifeq ($(or $(__CODE_CHECKER__),$(NO_CMP_API),$(__ASAN__),$(IDAHOME),$(DEMO_OR_FREE)),)
 	$(QPYDOC_INJECTIONS)$(PYDOC_INJECTIONS_IDAT_CMD) || \
 	 (echo "Command \"$(PYDOC_INJECTIONS_IDAT_CMD)\" failed. Check \"$(F)dumpdoc.log\" for details." && false)
@@ -847,9 +847,8 @@ ifeq ($(or $(__CODE_CHECKER__),$(NO_CMP_API),$(__ASAN__),$(IDAHOME),$(DEMO_OR_FR
           (echo "PYDOC INJECTION CHANGED! update $(PYDOC_INJECTIONS) or fix .. what needs fixing" && \
            echo "(New API: $(ST_PYDOC_INJECTIONS)) ***" && \
            (diff -U 1 -w $(PYDOC_INJECTIONS) $(ST_PYDOC_INJECTIONS) && false))
-else
-	$(Q)touch $@
 endif
+	$(Q)touch $@
 
 #----------------------------------------------------------------------
 DOCS_MODULES=$(foreach mod,$(MODULES_NAMES),ida_$(mod))
@@ -976,7 +975,7 @@ else
 
 endif
 
-$(MODULE): LDFLAGS += $(PYTHON_LDFLAGS) $(PYTHON_LDFLAGS_RPATH_MAIN)
+$(MODULE): LDFLAGS += $(PYTHON_LDFLAGS)
 
 # MAKEDEP dependency list ------------------
 $(F)idapyswitch$(O): $(I)auto.hpp $(I)bitrange.hpp $(I)bytes.hpp            \

@@ -83,28 +83,57 @@ class cppsyntax_exception_t(Exception):
 class process_exception_t(Exception):
     pass
 
+selective_debug = False
+
 # --------------------------------------------------------------------------
 def pyver():
     return sys.version_info.major
 
-# --------------------------------------------------------------------------
-selective_debug = False
-def debug(msg):
-    if isinstance(msg, bytes):
-        msg = msg.decode("utf-8")
-    if args.debug or selective_debug:
-        lines = msg.split("\n")
-        for line in lines:
-            print("DEBUG: %s" % line)
+LOG_LEVEL_DEBUG = 1
+LOG_LEVEL_VERB = 2
+LOG_LEVEL_INFO = 3
+log_level_pfx = {
+    LOG_LEVEL_DEBUG : "DEBUG",
+    LOG_LEVEL_VERB : "VERB",
+    LOG_LEVEL_INFO : "INFO",
+}
+
+log_level = LOG_LEVEL_INFO
+log_indent = 0
+class new_log_indent_t(object):
+    def __enter__(self):
+        global log_indent
+        log_indent += 1
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        global log_indent
+        log_indent -= 1
+        if exc_value:
+            raise
+
 
 # --------------------------------------------------------------------------
-def verb(msg):
-    if isinstance(msg, bytes):
-        msg = msg.decode("utf-8")
-    if args.verbose or args.debug or selective_debug:
+def log(level, msg):
+    if log_level >= level:
+        pfx = log_level_pfx[level]
+        if isinstance(msg, bytes):
+            msg = msg.decode("utf-8")
         lines = msg.split("\n")
         for line in lines:
-            print("VERBOSE: %s" % line)
+            print("%s: %s%s" % (pfx, log_indent * "    ", line))
+
+# --------------------------------------------------------------------------
+def log_debug(msg):
+    return log(LOG_LEVEL_DEBUG, msg)
+
+# --------------------------------------------------------------------------
+def log_verb(msg):
+    return log(LOG_LEVEL_VERB, msg)
+
+# --------------------------------------------------------------------------
+def log_info(msg):
+    return log(LOG_LEVEL_INFO, msg)
 
 # --------------------------------------------------------------------------
 # TL;DR: we need the proper "inspect" module,
@@ -309,15 +338,14 @@ KIND_DEFINE = "define"
 KIND_FILE = "module"
 
 class repo_t(object):
-    def __init__(self, storage):
+    def __init__(self, storage, ident):
         self.storage = storage
+        self.ident = ident
 
-    def find(self, kind, long_name):
-        chain = long_name.split(".")
+    def match(self, kind, long_name):
+        return self._match(kind, long_name.split("."), self.storage)
 
-        return self._find(kind, chain, self.storage)
-
-    def _find(self, kind, chain, storage):
+    def _match(self, kind, chain, storage):
         name = chain[0]
 
         if len(chain) > 1:
@@ -325,19 +353,16 @@ class repo_t(object):
             if name not in storage.classes:
                 return None
 
-            return self._find(kind, chain[1:], storage.classes[name])
+            return self._match(kind, chain[1:], storage.classes[name])
 
         # right terminal
 
         if kind == KIND_CLASS:
-            if name in storage.classes:
-                return storage.classes[name]
+            return storage.classes.get(name, None)
         elif kind == KIND_FUNCTION:
-            if name in storage.functions:
-                return storage.functions[name]
+            return storage.functions.get(name, None)
         elif kind == KIND_VARIABLE:
-            if name in storage.variables:
-                return storage.variables[name]
+            return storage.variables.get(name, None)
 
         return None
 
@@ -468,7 +493,7 @@ class pydoc_visitor_t(ast.NodeVisitor):
                 # (as opposed to a class or function)
 
                 if self.assign_warn:
-                    verb("%s, line %d: %s"
+                    log_verb("%s, line %d: %s"
                          % (self.path, node.lineno, self.assign_warn))
                     return
 
@@ -487,7 +512,7 @@ class pydoc_visitor_t(ast.NodeVisitor):
         if private or nested:
             # ignore internals
             if not private:
-                verb("Ignoring nested (%s): %s"
+                log_verb("Ignoring nested (%s): %s"
                      % (nested[-1].name, node.name))
             return None
 
@@ -515,7 +540,7 @@ class pydoc_visitor_t(ast.NodeVisitor):
                     msg = "method"
                 msg = "%s in class %s" % (msg, target.name)
 
-            verb("Duplicate %s: %s" % (msg, info.name))
+            log_verb("Duplicate %s: %s" % (msg, info.name))
             return # keep the first
 
         storage[info.name] = info
@@ -571,6 +596,7 @@ class swig_pydoc_collector_t(object):
 
         for pydoc in pydocs:
             try:
+                log_verb("swig_pydoc_collector_t: parsing clob %s" % pydoc)
                 tree = ast.parse(pydoc)
             except Exception as ex:
                 message = ex.__class__.__name__ + ": " + str(ex)
@@ -660,7 +686,7 @@ class cpp_patterns_t(object):
         for pattern, ret_type in cpp_patterns_t.PATTERNS:
             if fun_info.body.find(pattern) >= 0:
                 if have_type:
-                    verb("C++ function \"%s\", multiple patterns match"
+                    log_verb("C++ function \"%s\", multiple patterns match"
                          % fun_info.name)
                 have_type = ret_type
 
@@ -689,7 +715,7 @@ class hook_info_t(object):
             info = self.storage.classes[klass] = class_info_t(klass, "", None)
 
         if fun in info.functions:
-            verb("%s: existing function collides with hook callback \"%s\""
+            log_verb("%s: existing function collides with hook callback \"%s\""
                  % (klass, fun))
 
         info.functions[fun] = fun_info = doc_info_t(fun, doc, None)
@@ -734,7 +760,7 @@ class doxygen_info_t(object):
         for filename in file_index:
             pathname = os.path.join(self.xml_dir, filename)
             if not os.path.exists(pathname):
-                verb("A hook recipe calls for XML file \"%s\","
+                log_verb("A hook recipe calls for XML file \"%s\","
                      " which does not exist!"
                      % filename)
                 continue
@@ -751,7 +777,7 @@ class doxygen_info_t(object):
                 info  = self.hook_recipes[klass]
 
                 if enum_nodes is None:
-                    verb("Hooks recipe \"%s\" calls for enum \"%s\""
+                    log_verb("Hooks recipe \"%s\" calls for enum \"%s\""
                          " in file \"%s\", which has no data!"
                          % (klass, info.enum_name, filename))
                     continue
@@ -809,7 +835,7 @@ class doxygen_info_t(object):
         xmodule = self._load_module(module)
         if xmodule is None:
             return False
-        verb("Loading module %s" % module)
+        log_verb("Loading module %s" % module)
         self._examine_xml(xmodule, module, self)
         return True
 
@@ -828,7 +854,7 @@ class doxygen_info_t(object):
             detailed_doc = self._outer_paragraphs(detailed_node)
             doc          = self._join_paragraphs( (brief_doc, detailed_doc) )
 
-            # verb("section_kind=%s, compound_kind=%s, member_kind=%s, name=%s, brief_doc=%s" % (
+            # log_verb("section_kind=%s, compound_kind=%s, member_kind=%s, name=%s, brief_doc=%s" % (
             #     section_kind,
             #     compound_kind,
             #     member_kind,
@@ -921,7 +947,7 @@ class doxygen_info_t(object):
         if name_node is not None:
             name = name_node.text
         if not name:
-            verb("Doxygen xml: compound \"%s\", section \"%s\","
+            log_verb("Doxygen xml: compound \"%s\", section \"%s\","
                  " member \"%s\"%s has no name but has content!"
                  % (compound_kind, section_kind, member_kind,
                   (", enum \"%s\"" % enum) if enum else ""))
@@ -1084,7 +1110,7 @@ class doxygen_info_t(object):
                 texts[-1] += self._clean(child)
 
             else:
-                verb("Unrecognized tag \"%s\"" % child.tag)
+                log_verb("Unrecognized tag \"%s\"" % child.tag)
                 if child.text is not None:
                     texts.append(self._paragraphs(child))
                 if child.tail is not None:
@@ -1186,9 +1212,9 @@ class pydoc_patcher_t(object):
     def patch(self, infile, extra_sources, outfile):
         swig, cpp, doxy = extra_sources
 
-        swig_repo = repo_t(swig)
-        cpp_repo  = repo_t(cpp)
-        doxy_repo = repo_t(doxy)
+        swig_repo = repo_t(swig, "SWiG")
+        cpp_repo  = repo_t(cpp, "CPP parsing")
+        doxy_repo = repo_t(doxy, "Doxygen parsing")
 
         self.classes   = {}
         self.functions = {}
@@ -1210,8 +1236,10 @@ class pydoc_patcher_t(object):
             message = ex.__class__.__name__ + ": " + str(ex)
             raise pysyntax_exception_t(message, bad_line)
 
-        visitor = pydoc_visitor_t(self.classes, self.functions, self.variables)
-        visitor.collect_from(tree)
+        log_info("Collecting from %s" % infile)
+        with new_log_indent_t():
+            visitor = pydoc_visitor_t(self.classes, self.functions, self.variables)
+            visitor.collect_from(tree)
 
         cpp_patterns = cpp_patterns_t()
 
@@ -1248,7 +1276,7 @@ class pydoc_patcher_t(object):
                     global selective_debug
                     selective_debug = info.name == args.debug_name
 
-                    debug("### Processing %s" % long_name)
+                    log_debug("### Processing %s" % long_name)
 
                     # pywraps comments for functions typically contain
                     # a function prototype before the parameter documentation;
@@ -1268,12 +1296,12 @@ class pydoc_patcher_t(object):
                                 if special_case else kind
 
                     swig_cmt  = structured_comment_t(True)
-                    swig_info = swig_repo.find(kind, long_name)
+                    swig_info = swig_repo.match(kind, long_name)
                     if swig_info and swig_info.doc:
                         swig_cmt.parse(swig_info.doc)
 
                     doxy_cmt  = structured_comment_t(True)
-                    doxy_info = doxy_repo.find(doxy_kind, long_name)
+                    doxy_info = doxy_repo.match(doxy_kind, long_name)
                     if doxy_info and doxy_info.doc:
                         # no prototypes from doxygen; also, avoid lines
                         # wrapped by textwrap to be interpreted as
@@ -1282,11 +1310,11 @@ class pydoc_patcher_t(object):
                         # for functions, doxy_info.extra = C++ parameter types
                         doxy_cmt.add_cpp_params(doxy_info.extra)
 
-                    cpp_info = cpp_repo.find(kind, long_name)
+                    cpp_info = cpp_repo.match(kind, long_name)
 
-                    debug("==== From wrappers (.py)\n" + comment.total())
-                    debug("==== From swig (.i)\n"      + swig_cmt.total())
-                    debug("==== From Doxygen (.xml)\n" + doxy_cmt.total())
+                    log_debug("==== From wrappers (.py)\n" + comment.total())
+                    log_debug("==== From swig (.i)\n"      + swig_cmt.total())
+                    log_debug("==== From Doxygen (.xml)\n" + doxy_cmt.total())
 
                     assembled = assembled_comment_t(special_case)
                     if comment.text_before.strip():
@@ -1305,7 +1333,7 @@ class pydoc_patcher_t(object):
                     ret_type = cpp_patterns.from_pattern(cpp_info) \
                                if cpp_info else None
                     if ret_type:
-                        debug("==== Return type from C++/Doxygen: \"%s\"" % ret_type)
+                        log_debug("==== Return type from C++/Doxygen: \"%s\"" % ret_type)
                         for p in assembled.prototypes:
                             p.replace_return_type(ret_type)
                     else:
@@ -1314,7 +1342,7 @@ class pydoc_patcher_t(object):
                         if have_pyobject:
                             runtime_type = self.traces.suggest_return_type(long_name)
                             if runtime_type:
-                                debug("==== Return type from runtime trace: \"%s\"" \
+                                log_debug("==== Return type from runtime trace: \"%s\"" \
                                       % runtime_type)
                                 for p in assembled.prototypes:
                                     if p.get_return_type() == "PyObject *":
@@ -1325,15 +1353,15 @@ class pydoc_patcher_t(object):
                             n = assembled.match_prototype(p)
                             if n < 0:
                                 continue
-                            debug("==== Matched prototype # %d, replaced" % n)
+                            log_debug("==== Matched prototype # %d, replaced" % n)
                             assembled.replace_after_prototype(n, p)
 
                     # SWIG has precedence
                     if swig_cmt.parsed:
-                        debug("==== Taking from swig:")
+                        log_debug("==== Taking from swig:")
                         replace(swig_cmt)
                     elif doxy_cmt.parsed:
-                        debug("==== Taking from doxygen:")
+                        log_debug("==== Taking from doxygen:")
                         replace(doxy_cmt)
 
                     if info.parent:
@@ -1343,13 +1371,13 @@ class pydoc_patcher_t(object):
                                 hook.ignore_parameters.get(info.name))
 
                     out_comment = assembled.total()
-                    debug("==== Final comment:\n" + out_comment)
+                    log_debug("==== Final comment:\n" + out_comment)
                     if out_comment:
                         f.write(quote_open)
                         f.write(self._indent(indent, out_comment))
                         f.write(quote_close)
                     else:
-                        debug("==== (Empty, not written)")
+                        log_debug("==== (Empty, not written)")
 
                     if info.doc:
                         if skip_upto == lineno:
@@ -1750,7 +1778,7 @@ class prototype_t(object):
             return ""
 
         if len(self.proto) == 1:
-            verb("Internal error, prototype with only 1 part: %s"
+            log_verb("Internal error, prototype with only 1 part: %s"
                  % repr(self.proto))
             return self.proto[0] + "\n"
 
@@ -1873,7 +1901,7 @@ class structured_comment_t(object):
                 else:
                     return self.PAT_TEXT
 
-            verb("Missing or invalid tag after \"@\": " + line)
+            log_verb("Missing or invalid tag after \"@\": " + line)
             return self.PAT_TEXT
 
         if self.RE_TITLE.match(line) or self.RE_DASHES.match(line):
@@ -1995,7 +2023,7 @@ class assembled_comment_t(object):
         for i in range(len(names_in_proto), len(given.params)):
             name = given.params[i][NAME]
             if name not in selected:
-                debug("Param %d: ignored \"%s\"" % (i, name))
+                log_debug("Param %d: ignored \"%s\"" % (i, name))
                 self.ignore_parameter(name)
                 proto.params.append(given.params[i])
                 proto.inter .append(given.inter [i])
@@ -2036,13 +2064,13 @@ class assembled_comment_t(object):
         NAME = 1
         DESC = 2
 
-        debug("Param %d: in prototype \"%s\", original doc \"%s\", given doc \"%s\""
+        log_debug("Param %d: in prototype \"%s\", original doc \"%s\", given doc \"%s\""
               % (i, in_proto, old_param[NAME] if old_param else "",
                               given_param[NAME] if given_param else ""))
 
         if given_param is None:
             if old_param:
-                debug("- choosing old \"%s\" because none given" % old_param[NAME])
+                log_debug("- choosing old \"%s\" because none given" % old_param[NAME])
             return old_param, old_inter
 
         # make "py_XXX" match "XXX"
@@ -2052,33 +2080,33 @@ class assembled_comment_t(object):
         given_param = tuple(given_param)
 
         if in_proto == "" or given_param[NAME] == in_proto:
-            debug("- choosing given \"%s\"" % given_param[NAME])
+            log_debug("- choosing given \"%s\"" % given_param[NAME])
             return given_param, given_inter
 
         if old_param is None:
-            debug("- no match")
+            log_debug("- no match")
             return None, None
 
         # even if there is no match,
         # choose data if it appears to be more informative
 
         if len(old_param[NAME]) <= 2 and len(given_param[NAME]) > 2:
-            debug("- choosing given \"%s\" because of short name \"%s\""
+            log_debug("- choosing given \"%s\" because of short name \"%s\""
                   % (given_param[NAME], old_param[NAME]))
             return given_param, given_inter
 
         if len(given_param[NAME]) <= 2 and len(old_param[NAME]) > 2:
-            debug("- choosing old \"%s\" because of short name \"%s\""
+            log_debug("- choosing old \"%s\" because of short name \"%s\""
                   % (old_param[NAME], given_param[NAME]))
             return old_param, old_inter
 
         if len(given_param[DESC]) > 3 * len(old_param[DESC]):
-            debug("- choosing given \"%s\" because it has more text"
+            log_debug("- choosing given \"%s\" because it has more text"
                   % given_param[NAME])
             return given_param, given_inter
 
         if old_param:
-            debug("- no good match, choosing old \"%s\""
+            log_debug("- no good match, choosing old \"%s\""
                   % old_param[NAME])
         return old_param, old_inter
 
@@ -2112,19 +2140,32 @@ class assembled_comment_t(object):
 
 # --------------------------------------------------------------------------
 def main():
-    swig = swig_pydoc_collector_t()
-    swig.collect(args.interface)
+    if args.debug:
+        log_level = LOG_LEVEL_DEBUG
+    elif args.verbose:
+        log_level = LOG_LEVEL_VERB
 
-    cpp = cpp_wrapper_parser_t()
-    cpp.collect(args.cpp_wrapper)
+    log_info("Collecting from: %s" % args.interface)
+    with new_log_indent_t():
+        swig = swig_pydoc_collector_t()
+        swig.collect(args.interface)
 
-    doxy = doxygen_info_t(args.xml_doc_directory)
-    doxy.load_hooks()
-    doxy.load(args.module)
+    log_info("Collecting from: %s" % args.cpp_wrapper)
+    with new_log_indent_t():
+        cpp = cpp_wrapper_parser_t()
+        cpp.collect(args.cpp_wrapper)
+
+    log_info("Collecting from: %s" % args.xml_doc_directory)
+    with new_log_indent_t():
+        doxy = doxygen_info_t(args.xml_doc_directory)
+        doxy.load_hooks()
+        doxy.load(args.module)
 
     extra_sources = swig, cpp, doxy
 
-    patcher = pydoc_patcher_t()
-    patcher.patch(args.input, extra_sources, args.output)
+    log_info("Patching")
+    with new_log_indent_t():
+        patcher = pydoc_patcher_t()
+        patcher.patch(args.input, extra_sources, args.output)
 
 main()

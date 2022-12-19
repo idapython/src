@@ -595,9 +595,9 @@ add_word(*args) -> 'void'
 
 Help on function align_flag in module ida_bytes:
 
-align_flag(*args) -> 'flags_t'
-    align_flag() -> flags_t
-    Get a flags_t representing an alignment directive.
+align_flag(*args) -> 'flags64_t'
+    align_flag() -> flags64_t
+    Get a flags64_t representing an alignment directive.
 
 Help on function append_cmt in module ida_bytes:
 
@@ -628,8 +628,8 @@ attach_custom_data_format(*args) -> 'bool'
 
 Help on function bin_flag in module ida_bytes:
 
-bin_flag(*args) -> 'flags_t'
-    bin_flag() -> flags_t
+bin_flag(*args) -> 'flags64_t'
+    bin_flag() -> flags64_t
     Get number flag of the base, regardless of current processor - better to use
     num_flag()
 
@@ -667,9 +667,9 @@ bin_search3(*args) -> 'size_t *'
 
 Help on function byte_flag in module ida_bytes:
 
-byte_flag(*args) -> 'flags_t'
-    byte_flag() -> flags_t
-    Get a flags_t representing a byte.
+byte_flag(*args) -> 'flags64_t'
+    byte_flag() -> flags64_t
+    Get a flags64_t representing a byte.
 
 Help on function bytesize in module ida_bytes:
 
@@ -691,10 +691,10 @@ calc_def_align(*args) -> 'int'
 
 Help on function calc_dflags in module ida_bytes:
 
-calc_dflags(*args) -> 'flags_t'
-    calc_dflags(f, force) -> flags_t
+calc_dflags(*args) -> 'flags64_t'
+    calc_dflags(f, force) -> flags64_t
     
-    @param f: flags_t
+    @param f: flags64_t
     @param force: bool
 
 Help on function calc_max_align in module ida_bytes:
@@ -738,7 +738,7 @@ can_define_item(*args) -> 'bool'
     
     @param ea: (C++: ea_t) start of the range for the new item
     @param length: (C++: asize_t) length of the new item in bytes
-    @param flags: (C++: flags_t) if not 0, then the kernel will ignore the data types specified by
+    @param flags: (C++: flags64_t) if not 0, then the kernel will ignore the data types specified by
                   the flags and destroy them. For example:
     1000 dw 5
                      1002 db 5 ; undef
@@ -765,8 +765,8 @@ change_storage_type(*args) -> 'error_t'
 
 Help on function char_flag in module ida_bytes:
 
-char_flag(*args) -> 'flags_t'
-    char_flag() -> flags_t
+char_flag(*args) -> 'flags64_t'
+    char_flag() -> flags64_t
     see Bits: instruction operand types
 
 Help on function chunk_size in module ida_bytes:
@@ -812,8 +812,8 @@ clr_op_type(*args) -> 'bool'
 
 Help on function code_flag in module ida_bytes:
 
-code_flag(*args) -> 'flags_t'
-    code_flag() -> flags_t
+code_flag(*args) -> 'flags64_t'
+    code_flag() -> flags64_t
     FF_CODE
 
 Help on class compiled_binpat_t in module ida_bytes:
@@ -1116,7 +1116,7 @@ create_data(*args) -> 'bool'
     arrays.
     
     @param ea: (C++: ea_t) linear address
-    @param dataflag: (C++: flags_t) type of data. Value of function byte_flag(), word_flag(), etc.
+    @param dataflag: (C++: flags64_t) type of data. Value of function byte_flag(), word_flag(), etc.
     @param size: (C++: asize_t) size of array in bytes. should be divisible by the size of one item
                  of the specified type. for variable sized items it can be specified
                  as 0, and the kernel will try to calculate the size.
@@ -1250,14 +1250,14 @@ create_zword(*args) -> 'bool'
 
 Help on function cust_flag in module ida_bytes:
 
-cust_flag(*args) -> 'flags_t'
-    cust_flag() -> flags_t
-    Get a flags_t representing custom type data.
+cust_flag(*args) -> 'flags64_t'
+    cust_flag() -> flags64_t
+    Get a flags64_t representing custom type data.
 
 Help on function custfmt_flag in module ida_bytes:
 
-custfmt_flag(*args) -> 'flags_t'
-    custfmt_flag() -> flags_t
+custfmt_flag(*args) -> 'flags64_t'
+    custfmt_flag() -> flags64_t
     see Bits: instruction operand types
 
 Help on class data_format_t in module ida_bytes:
@@ -1398,8 +1398,8 @@ class data_type_t(builtins.object)
 
 Help on function dec_flag in module ida_bytes:
 
-dec_flag(*args) -> 'flags_t'
-    dec_flag() -> flags_t
+dec_flag(*args) -> 'flags64_t'
+    dec_flag() -> flags64_t
     Get number flag of the base, regardless of current processor - better to use
     num_flag()
 
@@ -1472,15 +1472,15 @@ disable_flags(*args) -> 'error_t'
 
 Help on function double_flag in module ida_bytes:
 
-double_flag(*args) -> 'flags_t'
-    double_flag() -> flags_t
-    Get a flags_t representing a double.
+double_flag(*args) -> 'flags64_t'
+    double_flag() -> flags64_t
+    Get a flags64_t representing a double.
 
 Help on function dword_flag in module ida_bytes:
 
-dword_flag(*args) -> 'flags_t'
-    dword_flag() -> flags_t
-    Get a flags_t representing a double word.
+dword_flag(*args) -> 'flags64_t'
+    dword_flag() -> flags64_t
+    Get a flags64_t representing a double word.
 
 Help on function enable_flags in module ida_bytes:
 
@@ -1496,8 +1496,8 @@ enable_flags(*args) -> 'error_t'
 
 Help on function enum_flag in module ida_bytes:
 
-enum_flag(*args) -> 'flags_t'
-    enum_flag() -> flags_t
+enum_flag(*args) -> 'flags64_t'
+    enum_flag() -> flags64_t
     see Bits: instruction operand types
 
 Help on function equal_bytes in module ida_bytes:
@@ -1524,7 +1524,7 @@ Help on function f_has_cmt in module ida_bytes:
 f_has_cmt(*args) -> 'bool'
     f_has_cmt(f, arg2) -> bool
     
-    @param f: flags_t
+    @param f: flags64_t
     @param arg2: void *
 
 Help on function f_has_dummy_name in module ida_bytes:
@@ -1533,7 +1533,7 @@ f_has_dummy_name(*args) -> 'bool'
     f_has_dummy_name(f, arg2) -> bool
     Does the current byte have dummy (auto-generated, with special prefix) name?
     
-    @param f: (C++: flags_t)
+    @param f: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_has_extra_cmts in module ida_bytes:
@@ -1541,7 +1541,7 @@ Help on function f_has_extra_cmts in module ida_bytes:
 f_has_extra_cmts(*args) -> 'bool'
     f_has_extra_cmts(f, arg2) -> bool
     
-    @param f: flags_t
+    @param f: flags64_t
     @param arg2: void *
 
 Help on function f_has_name in module ida_bytes:
@@ -1550,7 +1550,7 @@ f_has_name(*args) -> 'bool'
     f_has_name(f, arg2) -> bool
     Does the current byte have non-trivial (non-dummy) name?
     
-    @param f: (C++: flags_t)
+    @param f: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_has_user_name in module ida_bytes:
@@ -1559,7 +1559,7 @@ f_has_user_name(*args) -> 'bool'
     f_has_user_name(F, arg2) -> bool
     Does the current byte have user-specified name?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_has_xref in module ida_bytes:
@@ -1568,7 +1568,7 @@ f_has_xref(*args) -> 'bool'
     f_has_xref(f, arg2) -> bool
     Does the current byte have cross-references to it?
     
-    @param f: (C++: flags_t)
+    @param f: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_align in module ida_bytes:
@@ -1577,7 +1577,7 @@ f_is_align(*args) -> 'bool'
     f_is_align(F, arg2) -> bool
     See is_align()
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_byte in module ida_bytes:
@@ -1586,7 +1586,7 @@ f_is_byte(*args) -> 'bool'
     f_is_byte(F, arg2) -> bool
     See is_byte()
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_code in module ida_bytes:
@@ -1595,7 +1595,7 @@ f_is_code(*args) -> 'bool'
     f_is_code(F, arg2) -> bool
     Does flag denote start of an instruction?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_custom in module ida_bytes:
@@ -1604,7 +1604,7 @@ f_is_custom(*args) -> 'bool'
     f_is_custom(F, arg2) -> bool
     See is_custom()
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_data in module ida_bytes:
@@ -1613,7 +1613,7 @@ f_is_data(*args) -> 'bool'
     f_is_data(F, arg2) -> bool
     Does flag denote start of data?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_double in module ida_bytes:
@@ -1622,7 +1622,7 @@ f_is_double(*args) -> 'bool'
     f_is_double(F, arg2) -> bool
     See is_double()
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_dword in module ida_bytes:
@@ -1631,7 +1631,7 @@ f_is_dword(*args) -> 'bool'
     f_is_dword(F, arg2) -> bool
     See is_dword()
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_float in module ida_bytes:
@@ -1640,7 +1640,7 @@ f_is_float(*args) -> 'bool'
     f_is_float(F, arg2) -> bool
     See is_float()
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_head in module ida_bytes:
@@ -1649,7 +1649,7 @@ f_is_head(*args) -> 'bool'
     f_is_head(F, arg2) -> bool
     Does flag denote start of instruction OR data?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_not_tail in module ida_bytes:
@@ -1658,7 +1658,7 @@ f_is_not_tail(*args) -> 'bool'
     f_is_not_tail(F, arg2) -> bool
     Does flag denote tail byte?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_oword in module ida_bytes:
@@ -1667,7 +1667,7 @@ f_is_oword(*args) -> 'bool'
     f_is_oword(F, arg2) -> bool
     See is_oword()
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_pack_real in module ida_bytes:
@@ -1676,7 +1676,7 @@ f_is_pack_real(*args) -> 'bool'
     f_is_pack_real(F, arg2) -> bool
     See is_pack_real()
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_qword in module ida_bytes:
@@ -1685,7 +1685,7 @@ f_is_qword(*args) -> 'bool'
     f_is_qword(F, arg2) -> bool
     See is_qword()
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_strlit in module ida_bytes:
@@ -1694,7 +1694,7 @@ f_is_strlit(*args) -> 'bool'
     f_is_strlit(F, arg2) -> bool
     See is_strlit()
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_struct in module ida_bytes:
@@ -1703,7 +1703,7 @@ f_is_struct(*args) -> 'bool'
     f_is_struct(F, arg2) -> bool
     See is_struct()
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_tail in module ida_bytes:
@@ -1712,7 +1712,7 @@ f_is_tail(*args) -> 'bool'
     f_is_tail(F, arg2) -> bool
     Does flag denote tail byte?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_tbyte in module ida_bytes:
@@ -1721,7 +1721,7 @@ f_is_tbyte(*args) -> 'bool'
     f_is_tbyte(F, arg2) -> bool
     See is_tbyte()
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_word in module ida_bytes:
@@ -1730,7 +1730,7 @@ f_is_word(*args) -> 'bool'
     f_is_word(F, arg2) -> bool
     See is_word()
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function f_is_yword in module ida_bytes:
@@ -1739,7 +1739,7 @@ f_is_yword(*args) -> 'bool'
     f_is_yword(F, arg2) -> bool
     See is_yword()
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param arg2: void *
 
 Help on function find_byte in module ida_bytes:
@@ -1800,14 +1800,14 @@ find_free_chunk(*args) -> 'ea_t'
 
 Help on function float_flag in module ida_bytes:
 
-float_flag(*args) -> 'flags_t'
-    float_flag() -> flags_t
-    Get a flags_t representing a float.
+float_flag(*args) -> 'flags64_t'
+    float_flag() -> flags64_t
+    Get a flags64_t representing a float.
 
 Help on function flt_flag in module ida_bytes:
 
-flt_flag(*args) -> 'flags_t'
-    flt_flag() -> flags_t
+flt_flag(*args) -> 'flags64_t'
+    flt_flag() -> flags64_t
     see Bits: instruction operand types
 
 Help on function free_chunk in module ida_bytes:
@@ -1952,7 +1952,7 @@ get_data_elsize(*args) -> 'asize_t'
     Get size of data type specified in flags 'F'.
     
     @param ea: (C++: ea_t) linear address of the item
-    @param F: (C++: flags_t) flags
+    @param F: (C++: flags64_t) flags
     @param ti: (C++: const opinfo_t *) additional information about the data type. For example, if the
                current item is a structure instance, then ti->tid is structure id.
                Otherwise is ignored (may be nullptr). If specified as nullptr, will
@@ -2021,8 +2021,8 @@ get_first_hidden_range(*args) -> 'hidden_range_t *'
 
 Help on function get_flags in module ida_bytes:
 
-get_flags(*args) -> 'flags_t'
-    get_flags(ea) -> flags_t
+get_flags(*args) -> 'flags64_t'
+    get_flags(ea) -> flags64_t
     get flags with FF_IVL & MS_VAL. It is much slower under remote debugging because
     the kernel needs to read the process memory.
     
@@ -2030,8 +2030,8 @@ get_flags(*args) -> 'flags_t'
 
 Help on function get_flags_by_size in module ida_bytes:
 
-get_flags_by_size(*args) -> 'flags_t'
-    get_flags_by_size(size) -> flags_t
+get_flags_by_size(*args) -> 'flags64_t'
+    get_flags_by_size(size) -> flags64_t
     Get flags from size (in bytes). Supported sizes: 1, 2, 4, 8, 16, 32. For other
     sizes returns 0
     
@@ -2039,8 +2039,8 @@ get_flags_by_size(*args) -> 'flags_t'
 
 Help on function get_flags_ex in module ida_bytes:
 
-get_flags_ex(*args) -> 'flags_t'
-    get_flags_ex(ea, how) -> flags_t
+get_flags_ex(*args) -> 'flags64_t'
+    get_flags_ex(ea, how) -> flags64_t
     Get flags for the specified address, extended form.
     
     @param ea: (C++: ea_t)
@@ -2064,13 +2064,13 @@ get_full_data_elsize(*args) -> 'asize_t'
     with wide bytes e.g. returns 2 for a byte element with 16-bit bytes
     
     @param ea: (C++: ea_t)
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param ti: (C++: const opinfo_t *) opinfo_t const *
 
 Help on function get_full_flags in module ida_bytes:
 
-get_full_flags(*args) -> 'flags_t'
-    get_full_flags(ea) -> flags_t
+get_full_flags(*args) -> 'flags64_t'
+    get_full_flags(ea) -> flags64_t
     Get flags value for address 'ea'.
     
     @param ea: (C++: ea_t)
@@ -2110,8 +2110,8 @@ get_item_end(*args) -> 'ea_t'
 
 Help on function get_item_flag in module ida_bytes:
 
-get_item_flag(*args) -> 'flags_t'
-    get_item_flag(_from, n, ea, appzero) -> flags_t
+get_item_flag(*args) -> 'flags64_t'
+    get_item_flag(_from, n, ea, appzero) -> flags64_t
     Get flag of the item at 'ea' even if it is a tail byte of some array or
     structure. This function is used to get flags of structure members or array
     elements.
@@ -2223,24 +2223,24 @@ get_opinfo(*args) -> 'opinfo_t *'
     @param buf: (C++: opinfo_t *) buffer to receive the result. may not be nullptr
     @param ea: (C++: ea_t) linear address of item
     @param n: (C++: int) number of operand, 0 or 1
-    @param flags: (C++: flags_t) flags of the item
+    @param flags: (C++: flags64_t) flags of the item
     @return: nullptr if no additional representation information
 
 Help on function get_optype_flags0 in module ida_bytes:
 
-get_optype_flags0(*args) -> 'flags_t'
-    get_optype_flags0(F) -> flags_t
+get_optype_flags0(*args) -> 'flags64_t'
+    get_optype_flags0(F) -> flags64_t
     Get flags for first operand.
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function get_optype_flags1 in module ida_bytes:
 
-get_optype_flags1(*args) -> 'flags_t'
-    get_optype_flags1(F) -> flags_t
+get_optype_flags1(*args) -> 'flags64_t'
+    get_optype_flags1(F) -> flags64_t
     Get flags for second operand.
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function get_original_byte in module ida_bytes:
 
@@ -2316,7 +2316,7 @@ get_radix(*args) -> 'int'
     Get radix of the operand, in: flags. If the operand is not a number, returns
     get_default_radix()
     
-    @param F: (C++: flags_t) flags
+    @param F: (C++: flags64_t) flags
     @param n: (C++: int) number of operand (0, 1, -1)
     @return: 2, 8, 10, 16
 
@@ -2421,7 +2421,7 @@ has_any_name(*args) -> 'bool'
     has_any_name(F) -> bool
     Does the current byte have any name?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function has_auto_name in module ida_bytes:
 
@@ -2429,7 +2429,7 @@ has_auto_name(*args) -> 'bool'
     has_auto_name(F) -> bool
     Does the current byte have auto-generated (no special prefix) name?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function has_cmt in module ida_bytes:
 
@@ -2437,7 +2437,7 @@ has_cmt(*args) -> 'bool'
     has_cmt(F) -> bool
     Does the current byte have an indented comment?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function has_dummy_name in module ida_bytes:
 
@@ -2445,7 +2445,7 @@ has_dummy_name(*args) -> 'bool'
     has_dummy_name(F) -> bool
     Does the current byte have dummy (auto-generated, with special prefix) name?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function has_extra_cmts in module ida_bytes:
 
@@ -2453,7 +2453,7 @@ has_extra_cmts(*args) -> 'bool'
     has_extra_cmts(F) -> bool
     Does the current byte have additional anterior or posterior lines?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function has_immd in module ida_bytes:
 
@@ -2461,7 +2461,7 @@ has_immd(*args) -> 'bool'
     has_immd(F) -> bool
     Has immediate value?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function has_name in module ida_bytes:
 
@@ -2469,7 +2469,7 @@ has_name(*args) -> 'bool'
     has_name(F) -> bool
     Does the current byte have non-trivial (non-dummy) name?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function has_user_name in module ida_bytes:
 
@@ -2477,7 +2477,7 @@ has_user_name(*args) -> 'bool'
     has_user_name(F) -> bool
     Does the current byte have user-specified name?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function has_value in module ida_bytes:
 
@@ -2485,7 +2485,7 @@ has_value(*args) -> 'bool'
     has_value(F) -> bool
     Do flags contain byte value?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function has_xref in module ida_bytes:
 
@@ -2493,12 +2493,12 @@ has_xref(*args) -> 'bool'
     has_xref(F) -> bool
     Does the current byte have cross-references to it?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function hex_flag in module ida_bytes:
 
-hex_flag(*args) -> 'flags_t'
-    hex_flag() -> flags_t
+hex_flag(*args) -> 'flags64_t'
+    hex_flag() -> flags64_t
     Get number flag of the base, regardless of current processor - better to use
     num_flag()
 
@@ -2641,7 +2641,7 @@ is_align(*args) -> 'bool'
     is_align(F) -> bool
     FF_ALIGN
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_attached_custom_data_format in module ida_bytes:
 
@@ -2661,7 +2661,7 @@ is_bnot(*args) -> 'bool'
     in order to work with this function
     
     @param ea: (C++: ea_t)
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param n: (C++: int)
 
 Help on function is_byte in module ida_bytes:
@@ -2670,7 +2670,7 @@ is_byte(*args) -> 'bool'
     is_byte(F) -> bool
     FF_BYTE
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_char in module ida_bytes:
 
@@ -2678,7 +2678,7 @@ is_char(*args) -> 'bool'
     is_char(F, n) -> bool
     is character constant?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param n: (C++: int)
 
 Help on function is_char0 in module ida_bytes:
@@ -2687,7 +2687,7 @@ is_char0(*args) -> 'bool'
     is_char0(F) -> bool
     Is the first operand character constant? (example: push 'a')
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_char1 in module ida_bytes:
 
@@ -2695,7 +2695,7 @@ is_char1(*args) -> 'bool'
     is_char1(F) -> bool
     Is the second operand character constant? (example: mov al, 'a')
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_code in module ida_bytes:
 
@@ -2703,7 +2703,7 @@ is_code(*args) -> 'bool'
     is_code(F) -> bool
     Does flag denote start of an instruction?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_custfmt in module ida_bytes:
 
@@ -2711,7 +2711,7 @@ is_custfmt(*args) -> 'bool'
     is_custfmt(F, n) -> bool
     is custom data format?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param n: (C++: int)
 
 Help on function is_custfmt0 in module ida_bytes:
@@ -2720,7 +2720,7 @@ is_custfmt0(*args) -> 'bool'
     is_custfmt0(F) -> bool
     Does the first operand use a custom data representation?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_custfmt1 in module ida_bytes:
 
@@ -2728,7 +2728,7 @@ is_custfmt1(*args) -> 'bool'
     is_custfmt1(F) -> bool
     Does the second operand use a custom data representation?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_custom in module ida_bytes:
 
@@ -2736,7 +2736,7 @@ is_custom(*args) -> 'bool'
     is_custom(F) -> bool
     FF_CUSTOM
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_data in module ida_bytes:
 
@@ -2744,7 +2744,7 @@ is_data(*args) -> 'bool'
     is_data(F) -> bool
     Does flag denote start of data?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_defarg in module ida_bytes:
 
@@ -2752,7 +2752,7 @@ is_defarg(*args) -> 'bool'
     is_defarg(F, n) -> bool
     is defined?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param n: (C++: int)
 
 Help on function is_defarg0 in module ida_bytes:
@@ -2761,7 +2761,7 @@ is_defarg0(*args) -> 'bool'
     is_defarg0(F) -> bool
     Is the first operand defined? Initially operand has no defined representation.
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_defarg1 in module ida_bytes:
 
@@ -2769,7 +2769,7 @@ is_defarg1(*args) -> 'bool'
     is_defarg1(F) -> bool
     Is the second operand defined? Initially operand has no defined representation.
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_double in module ida_bytes:
 
@@ -2777,7 +2777,7 @@ is_double(*args) -> 'bool'
     is_double(F) -> bool
     FF_DOUBLE
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_dword in module ida_bytes:
 
@@ -2785,7 +2785,7 @@ is_dword(*args) -> 'bool'
     is_dword(F) -> bool
     FF_DWORD
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_enum in module ida_bytes:
 
@@ -2793,7 +2793,7 @@ is_enum(*args) -> 'bool'
     is_enum(F, n) -> bool
     is enum?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param n: (C++: int)
 
 Help on function is_enum0 in module ida_bytes:
@@ -2802,7 +2802,7 @@ is_enum0(*args) -> 'bool'
     is_enum0(F) -> bool
     Is the first operand a symbolic constant (enum member)?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_enum1 in module ida_bytes:
 
@@ -2810,7 +2810,7 @@ is_enum1(*args) -> 'bool'
     is_enum1(F) -> bool
     Is the second operand a symbolic constant (enum member)?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_float in module ida_bytes:
 
@@ -2818,7 +2818,7 @@ is_float(*args) -> 'bool'
     is_float(F) -> bool
     FF_FLOAT
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_float0 in module ida_bytes:
 
@@ -2826,7 +2826,7 @@ is_float0(*args) -> 'bool'
     is_float0(F) -> bool
     Is the first operand a floating point number?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_float1 in module ida_bytes:
 
@@ -2834,7 +2834,7 @@ is_float1(*args) -> 'bool'
     is_float1(F) -> bool
     Is the second operand a floating point number?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_flow in module ida_bytes:
 
@@ -2842,7 +2842,7 @@ is_flow(*args) -> 'bool'
     is_flow(F) -> bool
     Does the previous instruction exist and pass execution flow to the current byte?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_fltnum in module ida_bytes:
 
@@ -2850,7 +2850,7 @@ is_fltnum(*args) -> 'bool'
     is_fltnum(F, n) -> bool
     is floating point number?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param n: (C++: int)
 
 Help on function is_forced_operand in module ida_bytes:
@@ -2868,7 +2868,7 @@ is_func(*args) -> 'bool'
     is_func(F) -> bool
     Is function start?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_head in module ida_bytes:
 
@@ -2876,7 +2876,7 @@ is_head(*args) -> 'bool'
     is_head(F) -> bool
     Does flag denote start of instruction OR data?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_invsign in module ida_bytes:
 
@@ -2886,7 +2886,7 @@ is_invsign(*args) -> 'bool'
     0-first operand, 1-other operands
     
     @param ea: (C++: ea_t)
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param n: (C++: int)
 
 Help on function is_loaded in module ida_bytes:
@@ -2915,7 +2915,7 @@ is_manual(*args) -> 'bool'
     is_manual(F, n) -> bool
     is forced operand? (use is_forced_operand())
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param n: (C++: int)
 
 Help on function is_manual_insn in module ida_bytes:
@@ -2940,7 +2940,7 @@ is_not_tail(*args) -> 'bool'
     is_not_tail(F) -> bool
     Does flag denote tail byte?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_numop in module ida_bytes:
 
@@ -2948,7 +2948,7 @@ is_numop(*args) -> 'bool'
     is_numop(F, n) -> bool
     is number (bin, oct, dec, hex)?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param n: (C++: int)
 
 Help on function is_numop0 in module ida_bytes:
@@ -2957,7 +2957,7 @@ is_numop0(*args) -> 'bool'
     is_numop0(F) -> bool
     Is the first operand a number (i.e. binary, octal, decimal or hex?)
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_numop1 in module ida_bytes:
 
@@ -2965,7 +2965,7 @@ is_numop1(*args) -> 'bool'
     is_numop1(F) -> bool
     Is the second operand a number (i.e. binary, octal, decimal or hex?)
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_off in module ida_bytes:
 
@@ -2973,7 +2973,7 @@ is_off(*args) -> 'bool'
     is_off(F, n) -> bool
     is offset?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param n: (C++: int)
 
 Help on function is_off0 in module ida_bytes:
@@ -2982,7 +2982,7 @@ is_off0(*args) -> 'bool'
     is_off0(F) -> bool
     Is the first operand offset? (example: push offset xxx)
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_off1 in module ida_bytes:
 
@@ -2990,7 +2990,7 @@ is_off1(*args) -> 'bool'
     is_off1(F) -> bool
     Is the second operand offset? (example: mov ax, offset xxx)
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_oword in module ida_bytes:
 
@@ -2998,7 +2998,7 @@ is_oword(*args) -> 'bool'
     is_oword(F) -> bool
     FF_OWORD
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_pack_real in module ida_bytes:
 
@@ -3006,7 +3006,7 @@ is_pack_real(*args) -> 'bool'
     is_pack_real(F) -> bool
     FF_PACKREAL
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_qword in module ida_bytes:
 
@@ -3014,7 +3014,7 @@ is_qword(*args) -> 'bool'
     is_qword(F) -> bool
     FF_QWORD
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_same_data_type in module ida_bytes:
 
@@ -3022,8 +3022,8 @@ is_same_data_type(*args) -> 'bool'
     is_same_data_type(F1, F2) -> bool
     Do the given flags specify the same data type?
     
-    @param F1: (C++: flags_t)
-    @param F2: (C++: flags_t)
+    @param F1: (C++: flags64_t)
+    @param F2: (C++: flags64_t)
 
 Help on function is_seg in module ida_bytes:
 
@@ -3031,7 +3031,7 @@ is_seg(*args) -> 'bool'
     is_seg(F, n) -> bool
     is segment?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param n: (C++: int)
 
 Help on function is_seg0 in module ida_bytes:
@@ -3040,7 +3040,7 @@ is_seg0(*args) -> 'bool'
     is_seg0(F) -> bool
     Is the first operand segment selector? (example: push seg seg001)
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_seg1 in module ida_bytes:
 
@@ -3048,7 +3048,7 @@ is_seg1(*args) -> 'bool'
     is_seg1(F) -> bool
     Is the second operand segment selector? (example: mov dx, seg dseg)
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_stkvar in module ida_bytes:
 
@@ -3056,7 +3056,7 @@ is_stkvar(*args) -> 'bool'
     is_stkvar(F, n) -> bool
     is stack variable?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param n: (C++: int)
 
 Help on function is_stkvar0 in module ida_bytes:
@@ -3065,7 +3065,7 @@ is_stkvar0(*args) -> 'bool'
     is_stkvar0(F) -> bool
     Is the first operand a stack variable?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_stkvar1 in module ida_bytes:
 
@@ -3073,7 +3073,7 @@ is_stkvar1(*args) -> 'bool'
     is_stkvar1(F) -> bool
     Is the second operand a stack variable?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_strlit in module ida_bytes:
 
@@ -3081,7 +3081,7 @@ is_strlit(*args) -> 'bool'
     is_strlit(F) -> bool
     FF_STRLIT
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_stroff in module ida_bytes:
 
@@ -3089,7 +3089,7 @@ is_stroff(*args) -> 'bool'
     is_stroff(F, n) -> bool
     is struct offset?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param n: (C++: int)
 
 Help on function is_stroff0 in module ida_bytes:
@@ -3098,7 +3098,7 @@ is_stroff0(*args) -> 'bool'
     is_stroff0(F) -> bool
     Is the first operand an offset within a struct?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_stroff1 in module ida_bytes:
 
@@ -3106,7 +3106,7 @@ is_stroff1(*args) -> 'bool'
     is_stroff1(F) -> bool
     Is the second operand an offset within a struct?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_struct in module ida_bytes:
 
@@ -3114,7 +3114,7 @@ is_struct(*args) -> 'bool'
     is_struct(F) -> bool
     FF_STRUCT
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_suspop in module ida_bytes:
 
@@ -3123,7 +3123,7 @@ is_suspop(*args) -> 'bool'
     is suspicious operand?
     
     @param ea: (C++: ea_t)
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param n: (C++: int)
 
 Help on function is_tail in module ida_bytes:
@@ -3132,7 +3132,7 @@ is_tail(*args) -> 'bool'
     is_tail(F) -> bool
     Does flag denote tail byte?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_tbyte in module ida_bytes:
 
@@ -3140,7 +3140,7 @@ is_tbyte(*args) -> 'bool'
     is_tbyte(F) -> bool
     FF_TBYTE
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_unknown in module ida_bytes:
 
@@ -3148,7 +3148,7 @@ is_unknown(*args) -> 'bool'
     is_unknown(F) -> bool
     Does flag denote unexplored byte?
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_varsize_item in module ida_bytes:
 
@@ -3157,7 +3157,7 @@ is_varsize_item(*args) -> 'int'
     Is the item at 'ea' variable size?.
     
     @param ea: (C++: ea_t) linear address of the item
-    @param F: (C++: flags_t) flags
+    @param F: (C++: flags64_t) flags
     @param ti: (C++: const opinfo_t *) additional information about the data type. For example, if the
                current item is a structure instance, then ti->tid is structure id.
                Otherwise is ignored (may be nullptr). If specified as nullptr, will
@@ -3175,7 +3175,7 @@ is_word(*args) -> 'bool'
     is_word(F) -> bool
     FF_WORD
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_yword in module ida_bytes:
 
@@ -3183,7 +3183,7 @@ is_yword(*args) -> 'bool'
     is_yword(F) -> bool
     FF_YWORD
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function is_zword in module ida_bytes:
 
@@ -3191,7 +3191,7 @@ is_zword(*args) -> 'bool'
     is_zword(F) -> bool
     FF_ZWORD
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
 
 Help on function leading_zero_important in module ida_bytes:
 
@@ -3292,14 +3292,14 @@ next_visea(*args) -> 'ea_t'
 
 Help on function num_flag in module ida_bytes:
 
-num_flag(*args) -> 'flags_t'
-    num_flag() -> flags_t
+num_flag(*args) -> 'flags64_t'
+    num_flag() -> flags64_t
     Get number of default base (bin, oct, dec, hex)
 
 Help on function oct_flag in module ida_bytes:
 
-oct_flag(*args) -> 'flags_t'
-    oct_flag() -> flags_t
+oct_flag(*args) -> 'flags64_t'
+    oct_flag() -> flags64_t
     Get number flag of the base, regardless of current processor - better to use
     num_flag()
 
@@ -3349,8 +3349,8 @@ class octet_generator_t(builtins.object)
 
 Help on function off_flag in module ida_bytes:
 
-off_flag(*args) -> 'flags_t'
-    off_flag() -> flags_t
+off_flag(*args) -> 'flags64_t'
+    off_flag() -> flags64_t
     see Bits: instruction operand types
 
 Help on function op_adds_xrefs in module ida_bytes:
@@ -3360,7 +3360,7 @@ op_adds_xrefs(*args) -> 'bool'
     Should processor module create xrefs from the operand?. Currently 'offset' and
     'structure offset' operands create xrefs
     
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param n: (C++: int)
 
 Help on function op_bin in module ida_bytes:
@@ -3491,15 +3491,15 @@ op_stroff(*args) -> 'bool'
 
 Help on function oword_flag in module ida_bytes:
 
-oword_flag(*args) -> 'flags_t'
-    oword_flag() -> flags_t
-    Get a flags_t representing a octaword.
+oword_flag(*args) -> 'flags64_t'
+    oword_flag() -> flags64_t
+    Get a flags64_t representing a octaword.
 
 Help on function packreal_flag in module ida_bytes:
 
-packreal_flag(*args) -> 'flags_t'
-    packreal_flag() -> flags_t
-    Get a flags_t representing a packed decimal real.
+packreal_flag(*args) -> 'flags64_t'
+    packreal_flag() -> flags64_t
+    Get a flags64_t representing a packed decimal real.
 
 Help on function parse_binpat_str in module ida_bytes:
 
@@ -3761,9 +3761,9 @@ put_word(*args) -> 'void'
 
 Help on function qword_flag in module ida_bytes:
 
-qword_flag(*args) -> 'flags_t'
-    qword_flag() -> flags_t
-    Get a flags_t representing a quad word.
+qword_flag(*args) -> 'flags64_t'
+    qword_flag() -> flags64_t
+    Get a flags64_t representing a quad word.
 
 Help on function register_custom_data_format in module ida_bytes:
 
@@ -3820,8 +3820,8 @@ revert_byte(*args) -> 'bool'
 
 Help on function seg_flag in module ida_bytes:
 
-seg_flag(*args) -> 'flags_t'
-    seg_flag() -> flags_t
+seg_flag(*args) -> 'flags64_t'
+    seg_flag() -> flags64_t
     see Bits: instruction operand types
 
 Help on function set_cmt in module ida_bytes:
@@ -3887,7 +3887,7 @@ set_op_type(*args) -> 'bool'
     (internal function) change representation of operand(s).
     
     @param ea: (C++: ea_t) linear address
-    @param type: (C++: flags_t) new flag value (should be obtained from char_flag(), num_flag() and
+    @param type: (C++: flags64_t) new flag value (should be obtained from char_flag(), num_flag() and
                  similar functions)
     @param n: (C++: int) number of operand (0, 1, -1)
     @retval 1: ok
@@ -3902,7 +3902,7 @@ set_opinfo(*args) -> 'bool'
     
     @param ea: (C++: ea_t) linear address of the item
     @param n: (C++: int) number of operand, 0 or 1 (see the note below)
-    @param flag: (C++: flags_t) flags of the item
+    @param flag: (C++: flags64_t) flags of the item
     @param ti: (C++: const opinfo_t *) additional representation information
     @param suppress_events: (C++: bool) do not generate changing_op_type and op_type_changed
                             events
@@ -3913,33 +3913,33 @@ set_opinfo(*args) -> 'bool'
 
 Help on function stkvar_flag in module ida_bytes:
 
-stkvar_flag(*args) -> 'flags_t'
-    stkvar_flag() -> flags_t
+stkvar_flag(*args) -> 'flags64_t'
+    stkvar_flag() -> flags64_t
     see Bits: instruction operand types
 
 Help on function strlit_flag in module ida_bytes:
 
-strlit_flag(*args) -> 'flags_t'
-    strlit_flag() -> flags_t
-    Get a flags_t representing a string literal.
+strlit_flag(*args) -> 'flags64_t'
+    strlit_flag() -> flags64_t
+    Get a flags64_t representing a string literal.
 
 Help on function stroff_flag in module ida_bytes:
 
-stroff_flag(*args) -> 'flags_t'
-    stroff_flag() -> flags_t
+stroff_flag(*args) -> 'flags64_t'
+    stroff_flag() -> flags64_t
     see Bits: instruction operand types
 
 Help on function stru_flag in module ida_bytes:
 
-stru_flag(*args) -> 'flags_t'
-    stru_flag() -> flags_t
-    Get a flags_t representing a struct.
+stru_flag(*args) -> 'flags64_t'
+    stru_flag() -> flags64_t
+    Get a flags64_t representing a struct.
 
 Help on function tbyte_flag in module ida_bytes:
 
-tbyte_flag(*args) -> 'flags_t'
-    tbyte_flag() -> flags_t
-    Get a flags_t representing a tbyte.
+tbyte_flag(*args) -> 'flags64_t'
+    tbyte_flag() -> flags64_t
+    Get a flags64_t representing a tbyte.
 
 Help on function toggle_bnot in module ida_bytes:
 
@@ -4031,21 +4031,21 @@ visit_patched_bytes(*args) -> 'int'
 
 Help on function word_flag in module ida_bytes:
 
-word_flag(*args) -> 'flags_t'
-    word_flag() -> flags_t
-    Get a flags_t representing a word.
+word_flag(*args) -> 'flags64_t'
+    word_flag() -> flags64_t
+    Get a flags64_t representing a word.
 
 Help on function yword_flag in module ida_bytes:
 
-yword_flag(*args) -> 'flags_t'
-    yword_flag() -> flags_t
-    Get a flags_t representing a ymm word.
+yword_flag(*args) -> 'flags64_t'
+    yword_flag() -> flags64_t
+    Get a flags64_t representing a ymm word.
 
 Help on function zword_flag in module ida_bytes:
 
-zword_flag(*args) -> 'flags_t'
-    zword_flag() -> flags_t
-    Get a flags_t representing a zmm word.
+zword_flag(*args) -> 'flags64_t'
+    zword_flag() -> flags64_t
+    Get a flags64_t representing a zmm word.
 
 Module "ida_dbg"s docstring:
 """
@@ -5492,12 +5492,16 @@ get_reg_val(*args) -> 'PyObject *'
 
 Help on function get_reg_vals in module ida_dbg:
 
-get_reg_vals(*args) -> 'int'
-    get_reg_vals(tid, clsmask, values) -> int
+get_reg_vals(*args) -> 'regvals_t *'
+    get_reg_vals(tid, clsmask=-1) -> regvals_t
+    Fetch live registers values for the thread
     
-    @param tid: thid_t
-    @param clsmask: int
-    @param values: regval_t *
+    @param tid: The ID of the thread to read registers for
+    @param clsmask: An OR'ed mask of register classes to
+           read values for (can be used to speed up the
+           retrieval process)
+    
+    @return: a regvals_t instance (empty if an error occurs)
 
 Help on function get_ret_tev_return in module ida_dbg:
 
@@ -8855,7 +8859,7 @@ add_enum(*args) -> 'enum_t'
     
     @param idx: (C++: size_t)
     @param name: (C++: const char *) char const *
-    @param flag: (C++: flags_t)
+    @param flag: (C++: flags64_t)
 
 Help on function add_enum_member in module ida_enum:
 
@@ -8972,8 +8976,8 @@ get_enum_cmt(*args) -> 'qstring *'
 
 Help on function get_enum_flag in module ida_enum:
 
-get_enum_flag(*args) -> 'flags_t'
-    get_enum_flag(id) -> flags_t
+get_enum_flag(*args) -> 'flags64_t'
+    get_enum_flag(id) -> flags64_t
     Get flags determining the representation of the enum. (currently they define the
     numeric base: octal, decimal, hex, bin) and signness.
     
@@ -9304,7 +9308,7 @@ set_enum_flag(*args) -> 'bool'
     Set data representation flags.
     
     @param id: (C++: enum_t)
-    @param flag: (C++: flags_t)
+    @param flag: (C++: flags64_t)
 
 Help on function set_enum_fromtil in module ida_enum:
 
@@ -10938,7 +10942,7 @@ define_stkvar(*args) -> 'bool'
     @param name: (C++: const char *) variable name, nullptr means autogenerate a name
     @param off: (C++: sval_t) offset of the stack variable in the frame. negative values denote
                 local variables, positive - function arguments.
-    @param flags: (C++: flags_t) variable type flags (byte_flag() for a byte variable, for example)
+    @param flags: (C++: flags64_t) variable type flags (byte_flag() for a byte variable, for example)
     @param ti: (C++: const opinfo_t *) additional type information (like offsets, structs, etc)
     @param nbytes: (C++: asize_t) number of bytes occupied by the variable
     @return: success
@@ -12207,7 +12211,7 @@ f_any(*args) -> 'bool'
     f_any(arg1, arg2) -> bool
     Helper function to accept any address.
     
-    @param arg1: flags_t
+    @param arg1: flags64_t
     @param arg2: void *
 
 Help on function find_func_bounds in module ida_funcs:
@@ -12489,7 +12493,7 @@ class func_t(ida_range.range_t)
  |      
  |      @param start: ea_t
  |      @param end: ea_t
- |      @param f: flags_t
+ |      @param f: flags64_t
  |  
  |  __iter__(self)
  |      Alias for func_item_iterator_t(self).__iter__()
@@ -17463,6 +17467,8 @@ class DecompilationFailure(builtins.Exception)
  |  __init__(self, info)
  |      Initialize self.  See help(type(self)) for accurate signature.
  |  
+ |  add_note = dummy_replacement()
+ |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
@@ -19778,6 +19784,9 @@ class carg_t(cexpr_t)
  |      cpadone(self) -> bool
  |      Pointer arithmetic correction done for this expression?
  |  
+ |  dstr(self, *args) -> 'char const *'
+ |      dstr(self) -> char const *
+ |  
  |  equal_effect(self, *args) -> 'bool'
  |      equal_effect(self, r) -> bool
  |      Compare two expressions. This function tries to compare two expressions in an
@@ -21008,6 +21017,9 @@ class ccase_t(cinsn_t)
  |      
  |      @param cnd: (C++: cexpr_t *) if condition. It will be deleted after being copied.
  |  
+ |  dstr(self, *args) -> 'char const *'
+ |      dstr(self) -> char const *
+ |  
  |  is_epilog(self)
  |  
  |  is_ordinary_flow(self, *args) -> 'bool'
@@ -21877,6 +21889,9 @@ class cexpr_t(citem_t)
  |  cpadone(self, *args) -> 'bool'
  |      cpadone(self) -> bool
  |      Pointer arithmetic correction done for this expression?
+ |  
+ |  dstr(self, *args) -> 'char const *'
+ |      dstr(self) -> char const *
  |  
  |  equal_effect(self, *args) -> 'bool'
  |      equal_effect(self, r) -> bool
@@ -24064,6 +24079,9 @@ class cinsn_t(citem_t)
  |      
  |      @param cnd: (C++: cexpr_t *) if condition. It will be deleted after being copied.
  |  
+ |  dstr(self, *args) -> 'char const *'
+ |      dstr(self) -> char const *
+ |  
  |  is_epilog(self)
  |  
  |  is_ordinary_flow(self, *args) -> 'bool'
@@ -25013,6 +25031,15 @@ create_cfunc(*args) -> 'cfuncptr_t'
     @param mba: (C++: mba_t *) microcode object. After creating the cfunc object it takes the
                 ownership of MBA.
 
+Help on function create_empty_mba in module ida_hexrays:
+
+create_empty_mba(*args) -> 'mba_t *'
+    create_empty_mba(mbr, hf=None) -> mba_t
+    Create an empty microcode object.
+    
+    @param mbr: (C++: const mba_ranges_t &) mba_ranges_t const &
+    @param hf: (C++: hexrays_failure_t *)
+
 Help on function create_field_name in module ida_hexrays:
 
 create_field_name(*args) -> 'qstring'
@@ -25368,6 +25395,12 @@ class ctree_item_t(builtins.object)
  |  
  |  _get_l(self, *args) -> 'lvar_t *'
  |      _get_l(self) -> lvar_t
+ |  
+ |  _print(self, *args) -> 'void'
+ |      _print(self)
+ |  
+ |  dstr(self, *args) -> 'char const *'
+ |      dstr(self) -> char const *
  |  
  |  get_ea(self, *args) -> 'ea_t'
  |      get_ea(self) -> ea_t
@@ -30043,7 +30076,7 @@ class mba_t(builtins.object)
  |      matches LIST. Any operand that overlaps with LIST is considered as a match.
  |      
  |      @param ctx: (C++: op_parent_info_t *) context information for the result
- |      @param ea: (C++: ea_t) desired address of the operand
+ |      @param ea: (C++: ea_t) desired address of the operand. BADADDR means to accept any address.
  |      @param is_dest: (C++: bool) search for destination operand? this argument may be ignored if
  |                      the exact match could not be found
  |      @param list: (C++: const mlist_t &) list of locations the correspond to the operand
@@ -30232,6 +30265,9 @@ class mba_t(builtins.object)
  |  precise_defeas(self, *args) -> 'bool'
  |      precise_defeas(self) -> bool
  |  
+ |  prop_complex(self, *args) -> 'bool'
+ |      prop_complex(self) -> bool
+ |  
  |  propagated_asserts(self, *args) -> 'bool'
  |      propagated_asserts(self) -> bool
  |  
@@ -30342,7 +30378,10 @@ class mba_t(builtins.object)
  |                     debugger If any inconsistency is discovered, an internal error
  |                     will be generated. We strongly recommend you to call this
  |                     function before returing control to the decompiler from your
- |                     callbacks, in the case if you modified the microcode.
+ |                     callbacks, in the case if you modified the microcode. If the
+ |                     microcode is inconsistent, this function will generate an
+ |                     internal error. We provide the source code of this function in
+ |                     the plugins/hexrays_sdk/verifier directory for your reference.
  |  
  |  write_to_const_detected(self, *args) -> 'bool'
  |      write_to_const_detected(self) -> bool
@@ -32586,6 +32625,15 @@ class minsn_t(builtins.object)
  |      
  |      @param mcode: (C++: mcode_t) opcode to search for.
  |  
+ |  deserialize(self, *args) -> 'bool'
+ |      deserialize(self, bytes, format_version) -> bool
+ |      Deserialize an instruction
+ |      
+ |      @param bytes: (C++: const uchar *) pointer to serialized data
+ |      @param format_version: (C++: int) serialization format version. this value is returned by
+ |                             minsn_t::serialize()
+ |      @return: success
+ |  
  |  dstr(self, *args) -> 'char const *'
  |      dstr(self) -> char const *
  |      Get displayable text without tags in a static buffer.
@@ -32792,6 +32840,13 @@ class minsn_t(builtins.object)
  |      @param optflags: (C++: int)
  |  
  |  replace_by(self, o)
+ |  
+ |  serialize(self, *args) -> 'int'
+ |      serialize(self, b) -> int
+ |      Serialize an instruction
+ |      
+ |      @param b: (C++: bytevec_t *) the output buffer
+ |      @return: the serialization format that was used to store info
  |  
  |  set_assert(self, *args) -> 'void'
  |      set_assert(self)
@@ -43013,6 +43068,13 @@ inf_set_allow_sigmulti(*args) -> 'bool'
     
     @param _v: bool
 
+Help on function inf_set_app_bitness in module ida_ida:
+
+inf_set_app_bitness(*args) -> 'void'
+    inf_set_app_bitness(bitness)
+    
+    @param bitness: uint
+
 Help on function inf_set_appcall_options in module ida_ida:
 
 inf_set_appcall_options(*args) -> 'bool'
@@ -44154,6 +44216,13 @@ Help on function inf_use_flirt in module ida_ida:
 inf_use_flirt(*args) -> 'bool'
     inf_use_flirt() -> bool
 
+Help on function is_database_busy in module ida_ida:
+
+is_database_busy(*args) -> 'bool'
+    is_database_busy() -> bool
+    Check if the database is busy (e.g. performing some critical operations and
+    cannot be safely accessed)
+
 Help on function is_filetype_like_binary in module ida_ida:
 
 is_filetype_like_binary(*args) -> 'bool'
@@ -44599,6 +44668,11 @@ class PyIdc_cvt_refclass__(pyidc_cvt_helper__)
  |      list of weak references to the object (if defined)
  |  
  |  value
+
+Help on function TRUNC in module ida_idaapi:
+
+TRUNC(ea)
+    Truncate EA for the current application bitness
 
 Help on IDAPython_displayhook in module ida_idaapi object:
 
@@ -46332,6 +46406,579 @@ class debug_event_t(builtins.object)
  |  tid
  |      tid
 
+Help on class debugger_t in module ida_idd:
+
+class debugger_t(builtins.object)
+ |  Proxy of C++ debugger_t class.
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, *args)
+ |      __init__(self) -> debugger_t
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  __swig_destroy__ = delete_debugger_t(...)
+ |      delete_debugger_t(self)
+ |  
+ |  _debugger_t__get_bpt_bytes = __get_bpt_bytes(self, *args) -> 'bytevec_t'
+ |      __get_bpt_bytes(self) -> bytevec_t
+ |  
+ |  _debugger_t__get_nregs = __get_nregs(self, *args) -> 'int'
+ |      __get_nregs(self) -> int
+ |  
+ |  _debugger_t__get_regclasses = __get_regclasses(self, *args) -> 'PyObject *'
+ |      __get_regclasses(self) -> PyObject *
+ |  
+ |  _debugger_t__get_registers = __get_registers(self, *args) -> 'dynamic_wrapped_array_t< register_info_t >'
+ |      __get_registers(self) -> dyn_register_info_array
+ |  
+ |  attach_process(self, *args) -> 'drc_t'
+ |      attach_process(self, pid, event_id, dbg_proc_flags) -> drc_t
+ |      
+ |      @param pid: pid_t
+ |      @param event_id: int
+ |      @param dbg_proc_flags: uint32
+ |  
+ |  bin_search(self, *args) -> 'drc_t'
+ |      bin_search(self, start_ea, end_ea, data, srch_flags) -> drc_t
+ |      
+ |      @param start_ea: ea_t
+ |      @param end_ea: ea_t
+ |      @param data: compiled_binpat_vec_t const &
+ |      @param srch_flags: int
+ |  
+ |  cache_block_size(self, *args) -> 'size_t'
+ |      cache_block_size(self) -> size_t
+ |  
+ |  can_continue_from_bpt(self, *args) -> 'bool'
+ |      can_continue_from_bpt(self) -> bool
+ |  
+ |  can_debug_standalone_dlls(self, *args) -> 'bool'
+ |      can_debug_standalone_dlls(self) -> bool
+ |  
+ |  check_bpt(self, *args) -> 'drc_t'
+ |      check_bpt(self, bptvc, type, ea, len) -> drc_t
+ |      
+ |      @param bptvc: int *
+ |      @param type: bpttype_t
+ |      @param ea: ea_t
+ |      @param len: int
+ |  
+ |  cleanup_appcall(self, *args) -> 'drc_t'
+ |      cleanup_appcall(self, tid) -> drc_t
+ |      
+ |      @param tid: thid_t
+ |  
+ |  close_file(self, *args) -> 'void'
+ |      close_file(self, fn)
+ |      
+ |      @param fn: int
+ |  
+ |  dbg_enable_trace(self, *args) -> 'bool'
+ |      dbg_enable_trace(self, tid, enable, trace_flags) -> bool
+ |      
+ |      @param tid: thid_t
+ |      @param enable: bool
+ |      @param trace_flags: int
+ |  
+ |  detach_process(self, *args) -> 'drc_t'
+ |      detach_process(self) -> drc_t
+ |  
+ |  eval_lowcnd(self, *args) -> 'drc_t'
+ |      eval_lowcnd(self, tid, ea) -> drc_t
+ |      
+ |      @param tid: thid_t
+ |      @param ea: ea_t
+ |  
+ |  exit_process(self, *args) -> 'drc_t'
+ |      exit_process(self) -> drc_t
+ |  
+ |  fake_memory(self, *args) -> 'bool'
+ |      fake_memory(self) -> bool
+ |  
+ |  get_debapp_attrs(self, *args) -> 'bool'
+ |      get_debapp_attrs(self, out_pattrs) -> bool
+ |      
+ |      @param out_pattrs: debapp_attrs_t *
+ |  
+ |  get_debmod_extensions(self, *args) -> 'void const *'
+ |      get_debmod_extensions(self) -> void const *
+ |  
+ |  get_debug_event(self, *args) -> 'gdecode_t'
+ |      get_debug_event(self, event, timeout_ms) -> gdecode_t
+ |      
+ |      @param event: debug_event_t *
+ |      @param timeout_ms: int
+ |  
+ |  get_memory_info(self, *args) -> 'drc_t'
+ |      get_memory_info(self, ranges) -> drc_t
+ |      
+ |      @param ranges: meminfo_vec_t &
+ |  
+ |  get_processes(self, *args) -> 'drc_t'
+ |      get_processes(self, procs) -> drc_t
+ |      
+ |      @param procs: procinfo_vec_t *
+ |  
+ |  get_srcinfo_path(self, *args) -> 'bool'
+ |      get_srcinfo_path(self, path, base) -> bool
+ |      
+ |      @param path: qstring *
+ |      @param base: ea_t
+ |  
+ |  has_appcall(self, *args) -> 'bool'
+ |      has_appcall(self) -> bool
+ |  
+ |  has_attach_process(self, *args) -> 'bool'
+ |      has_attach_process(self) -> bool
+ |  
+ |  has_check_bpt(self, *args) -> 'bool'
+ |      has_check_bpt(self) -> bool
+ |  
+ |  has_detach_process(self, *args) -> 'bool'
+ |      has_detach_process(self) -> bool
+ |  
+ |  has_get_processes(self, *args) -> 'bool'
+ |      has_get_processes(self) -> bool
+ |  
+ |  has_map_address(self, *args) -> 'bool'
+ |      has_map_address(self) -> bool
+ |  
+ |  has_open_file(self, *args) -> 'bool'
+ |      has_open_file(self) -> bool
+ |  
+ |  has_request_pause(self, *args) -> 'bool'
+ |      has_request_pause(self) -> bool
+ |  
+ |  has_rexec(self, *args) -> 'bool'
+ |      has_rexec(self) -> bool
+ |  
+ |  has_set_exception_info(self, *args) -> 'bool'
+ |      has_set_exception_info(self) -> bool
+ |  
+ |  has_set_resume_mode(self, *args) -> 'bool'
+ |      has_set_resume_mode(self) -> bool
+ |  
+ |  has_soft_bpt(self, *args) -> 'bool'
+ |      has_soft_bpt(self) -> bool
+ |  
+ |  has_thread_continue(self, *args) -> 'bool'
+ |      has_thread_continue(self) -> bool
+ |  
+ |  has_thread_get_sreg_base(self, *args) -> 'bool'
+ |      has_thread_get_sreg_base(self) -> bool
+ |  
+ |  has_thread_suspend(self, *args) -> 'bool'
+ |      has_thread_suspend(self) -> bool
+ |  
+ |  has_update_call_stack(self, *args) -> 'bool'
+ |      has_update_call_stack(self) -> bool
+ |  
+ |  init_debugger(self, *args) -> 'bool'
+ |      init_debugger(self, hostname, portnum, password) -> bool
+ |      
+ |      @param hostname: char const *
+ |      @param portnum: int
+ |      @param password: char const *
+ |  
+ |  is_remote(self, *args) -> 'bool'
+ |      is_remote(self) -> bool
+ |  
+ |  is_resmod_avail(self, *args) -> 'bool'
+ |      is_resmod_avail(self, resmod) -> bool
+ |      
+ |      @param resmod: int
+ |  
+ |  is_safe(self, *args) -> 'bool'
+ |      is_safe(self) -> bool
+ |  
+ |  is_tracing_enabled(self, *args) -> 'bool'
+ |      is_tracing_enabled(self, tid, tracebit) -> bool
+ |      
+ |      @param tid: thid_t
+ |      @param tracebit: int
+ |  
+ |  map_address(self, *args) -> 'ea_t'
+ |      map_address(self, off, regs, regnum) -> ea_t
+ |      
+ |      @param off: ea_t
+ |      @param regs: regval_t const *
+ |      @param regnum: int
+ |  
+ |  may_disturb(self, *args) -> 'bool'
+ |      may_disturb(self) -> bool
+ |  
+ |  may_take_exit_snapshot(self, *args) -> 'bool'
+ |      may_take_exit_snapshot(self) -> bool
+ |  
+ |  must_have_hostname(self, *args) -> 'bool'
+ |      must_have_hostname(self) -> bool
+ |  
+ |  open_file(self, *args) -> 'int'
+ |      open_file(self, file, fsize, readonly) -> int
+ |      
+ |      @param file: char const *
+ |      @param fsize: uint64 *
+ |      @param readonly: bool
+ |  
+ |  read_file(self, *args) -> 'ssize_t'
+ |      read_file(self, fn, off, buf, size) -> ssize_t
+ |      
+ |      @param fn: int
+ |      @param off: qoff64_t
+ |      @param buf: void *
+ |      @param size: size_t
+ |  
+ |  read_memory(self, *args) -> 'drc_t'
+ |      read_memory(self, nbytes, ea, buffer, size) -> drc_t
+ |      
+ |      @param nbytes: size_t *
+ |      @param ea: ea_t
+ |      @param buffer: void *
+ |      @param size: size_t
+ |  
+ |  read_registers(self, *args) -> 'drc_t'
+ |      read_registers(self, tid, clsmask, values) -> drc_t
+ |      
+ |      @param tid: thid_t
+ |      @param clsmask: int
+ |      @param values: regval_t *
+ |  
+ |  rebase_if_required_to(self, *args) -> 'void'
+ |      rebase_if_required_to(self, new_base)
+ |      
+ |      @param new_base: ea_t
+ |  
+ |  regs(self, *args) -> 'register_info_t &'
+ |      regs(self, idx) -> register_info_t
+ |      
+ |      @param idx: int
+ |  
+ |  request_pause(self, *args) -> 'drc_t'
+ |      request_pause(self) -> drc_t
+ |  
+ |  resume(self, *args) -> 'drc_t'
+ |      resume(self, event) -> drc_t
+ |      
+ |      @param event: debug_event_t const *
+ |  
+ |  rexec(self, *args) -> 'int'
+ |      rexec(self, cmdline) -> int
+ |      
+ |      @param cmdline: char const *
+ |  
+ |  send_ioctl(self, *args) -> 'drc_t'
+ |      send_ioctl(self, fn, buf, poutbuf, poutsize) -> drc_t
+ |      
+ |      @param fn: int
+ |      @param buf: void const *
+ |      @param poutbuf: void **
+ |      @param poutsize: ssize_t *
+ |  
+ |  set_exception_info(self, *args) -> 'void'
+ |      set_exception_info(self, info, qty)
+ |      
+ |      @param info: exception_info_t const *
+ |      @param qty: int
+ |  
+ |  set_resume_mode(self, *args) -> 'drc_t'
+ |      set_resume_mode(self, tid, resmod) -> drc_t
+ |      
+ |      @param tid: thid_t
+ |      @param resmod: enum resume_mode_t
+ |  
+ |  start_process(self, *args) -> 'drc_t'
+ |      start_process(self, path, args, startdir, dbg_proc_flags, input_path, input_file_crc32) -> drc_t
+ |      
+ |      @param path: char const *
+ |      @param args: char const *
+ |      @param startdir: char const *
+ |      @param dbg_proc_flags: uint32
+ |      @param input_path: char const *
+ |      @param input_file_crc32: uint32
+ |  
+ |  supports_debthread(self, *args) -> 'bool'
+ |      supports_debthread(self) -> bool
+ |  
+ |  supports_lowcnds(self, *args) -> 'bool'
+ |      supports_lowcnds(self) -> bool
+ |  
+ |  suspended(self, *args) -> 'void'
+ |      suspended(self, dlls_added, thr_names=None)
+ |      
+ |      @param dlls_added: bool
+ |      @param thr_names: thread_name_vec_t *
+ |  
+ |  term_debugger(self, *args) -> 'bool'
+ |      term_debugger(self) -> bool
+ |  
+ |  thread_continue(self, *args) -> 'drc_t'
+ |      thread_continue(self, tid) -> drc_t
+ |      
+ |      @param tid: thid_t
+ |  
+ |  thread_get_sreg_base(self, *args) -> 'drc_t'
+ |      thread_get_sreg_base(self, answer, tid, sreg_value) -> drc_t
+ |      
+ |      @param answer: ea_t *
+ |      @param tid: thid_t
+ |      @param sreg_value: int
+ |  
+ |  thread_suspend(self, *args) -> 'drc_t'
+ |      thread_suspend(self, tid) -> drc_t
+ |      
+ |      @param tid: thid_t
+ |  
+ |  update_bpts(self, *args) -> 'drc_t'
+ |      update_bpts(self, nbpts, bpts, nadd, ndel) -> drc_t
+ |      
+ |      @param nbpts: int *
+ |      @param bpts: update_bpt_info_t *
+ |      @param nadd: int
+ |      @param ndel: int
+ |  
+ |  update_call_stack(self, *args) -> 'drc_t'
+ |      update_call_stack(self, tid, trace) -> drc_t
+ |      
+ |      @param tid: thid_t
+ |      @param trace: call_stack_t *
+ |  
+ |  update_lowcnds(self, *args) -> 'drc_t'
+ |      update_lowcnds(self, nupdated, lowcnds, nlowcnds) -> drc_t
+ |      
+ |      @param nupdated: int *
+ |      @param lowcnds: lowcnd_t const *
+ |      @param nlowcnds: int
+ |  
+ |  use_memregs(self, *args) -> 'bool'
+ |      use_memregs(self) -> bool
+ |  
+ |  use_sregs(self, *args) -> 'bool'
+ |      use_sregs(self) -> bool
+ |  
+ |  virtual_threads(self, *args) -> 'bool'
+ |      virtual_threads(self) -> bool
+ |  
+ |  write_file(self, *args) -> 'ssize_t'
+ |      write_file(self, fn, off, buf) -> ssize_t
+ |      
+ |      @param fn: int
+ |      @param off: qoff64_t
+ |      @param buf: void const *
+ |  
+ |  write_memory(self, *args) -> 'drc_t'
+ |      write_memory(self, nbytes, ea, buffer, size) -> drc_t
+ |      
+ |      @param nbytes: size_t *
+ |      @param ea: ea_t
+ |      @param buffer: void const *
+ |      @param size: size_t
+ |  
+ |  write_register(self, *args) -> 'drc_t'
+ |      write_register(self, tid, regidx, value) -> drc_t
+ |      
+ |      @param tid: thid_t
+ |      @param regidx: int
+ |      @param value: regval_t const *
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  bpt_bytes
+ |      __get_bpt_bytes(self) -> bytevec_t
+ |  
+ |  bpt_size
+ |      bpt_size
+ |  
+ |  default_regclasses
+ |      default_regclasses
+ |  
+ |  filetype
+ |      filetype
+ |  
+ |  flags
+ |      flags
+ |  
+ |  flags2
+ |      flags2
+ |  
+ |  id
+ |      id
+ |  
+ |  memory_page_size
+ |      memory_page_size
+ |  
+ |  name
+ |      name
+ |  
+ |  nregs
+ |      __get_nregs(self) -> int
+ |  
+ |  processor
+ |      processor
+ |  
+ |  regclasses
+ |      __get_regclasses(self) -> PyObject *
+ |  
+ |  registers
+ |      __get_registers(self) -> dyn_register_info_array
+ |  
+ |  resume_modes
+ |      resume_modes
+ |  
+ |  thisown
+ |      The membership flag
+ |  
+ |  version
+ |      version
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  ev_appcall = 33
+ |  
+ |  ev_attach_process = 4
+ |  
+ |  ev_bin_search = 41
+ |  
+ |  ev_check_bpt = 23
+ |  
+ |  ev_cleanup_appcall = 34
+ |  
+ |  ev_close_file = 27
+ |  
+ |  ev_dbg_enable_trace = 37
+ |  
+ |  ev_detach_process = 5
+ |  
+ |  ev_eval_lowcnd = 35
+ |  
+ |  ev_exit_process = 9
+ |  
+ |  ev_get_debapp_attrs = 6
+ |  
+ |  ev_get_debmod_extensions = 31
+ |  
+ |  ev_get_debug_event = 10
+ |  
+ |  ev_get_memory_info = 20
+ |  
+ |  ev_get_processes = 2
+ |  
+ |  ev_get_srcinfo_path = 40
+ |  
+ |  ev_init_debugger = 0
+ |  
+ |  ev_is_tracing_enabled = 38
+ |  
+ |  ev_map_address = 30
+ |  
+ |  ev_open_file = 26
+ |  
+ |  ev_read_file = 28
+ |  
+ |  ev_read_memory = 21
+ |  
+ |  ev_read_registers = 17
+ |  
+ |  ev_rebase_if_required_to = 7
+ |  
+ |  ev_request_pause = 8
+ |  
+ |  ev_resume = 11
+ |  
+ |  ev_rexec = 39
+ |  
+ |  ev_send_ioctl = 36
+ |  
+ |  ev_set_exception_info = 12
+ |  
+ |  ev_set_resume_mode = 16
+ |  
+ |  ev_start_process = 3
+ |  
+ |  ev_suspended = 13
+ |  
+ |  ev_term_debugger = 1
+ |  
+ |  ev_thread_continue = 15
+ |  
+ |  ev_thread_get_sreg_base = 19
+ |  
+ |  ev_thread_suspend = 14
+ |  
+ |  ev_update_bpts = 24
+ |  
+ |  ev_update_call_stack = 32
+ |  
+ |  ev_update_lowcnds = 25
+ |  
+ |  ev_write_file = 29
+ |  
+ |  ev_write_memory = 22
+ |  
+ |  ev_write_register = 18
+
+Help on class dyn_register_info_array in module ida_idd:
+
+class dyn_register_info_array(builtins.object)
+ |  Proxy of C++ dynamic_wrapped_array_t< register_info_t > class.
+ |  
+ |  Methods defined here:
+ |  
+ |  __getitem__(self, *args) -> 'register_info_t const &'
+ |      __getitem__(self, i) -> register_info_t
+ |      
+ |      @param i: size_t
+ |  
+ |  __init__(self, *args)
+ |      __init__(self, _data, _count) -> dyn_register_info_array
+ |      
+ |      @param _data: register_info_t *
+ |      @param _count: size_t
+ |  
+ |  __iter__ = _bounded_getitem_iterator(self)
+ |      Helper function, to be set as __iter__ method for qvector-, or array-based classes.
+ |  
+ |  __len__(self, *args) -> 'size_t'
+ |      __len__(self) -> size_t
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  __setitem__(self, *args) -> 'void'
+ |      __setitem__(self, i, v)
+ |      
+ |      @param i: size_t
+ |      @param v: register_info_t const &
+ |  
+ |  __swig_destroy__ = delete_dyn_register_info_array(...)
+ |      delete_dyn_register_info_array(self)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  count
+ |      count
+ |  
+ |  data
+ |      data
+ |  
+ |  thisown
+ |      The membership flag
+
 Help on class exception_info_t in module ida_idd:
 
 class exception_info_t(builtins.object)
@@ -46565,6 +47212,11 @@ class excvec_t(builtins.object)
  |  
  |  thisown
  |      The membership flag
+
+Help on function get_dbg in module ida_idd:
+
+get_dbg(*args) -> 'debugger_t *'
+    get_dbg() -> debugger_t
 
 Help on function get_event_bpt_hea in module ida_idd:
 
@@ -47350,6 +48002,9 @@ class register_info_t(builtins.object)
  |  __swig_destroy__ = delete_register_info_t(...)
  |      delete_register_info_t(self)
  |  
+ |  _register_info_t__get_bit_strings = __get_bit_strings(self, *args) -> 'PyObject *'
+ |      __get_bit_strings(self) -> PyObject *
+ |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
@@ -47360,7 +48015,7 @@ class register_info_t(builtins.object)
  |      list of weak references to the object (if defined)
  |  
  |  bit_strings
- |      bit_strings
+ |      __get_bit_strings(self) -> PyObject *
  |  
  |  default_bit_strings_mask
  |      default_bit_strings_mask
@@ -47426,6 +48081,11 @@ class regval_t(builtins.object)
  |      get_data_size(self) -> size_t
  |      Get size of value.
  |  
+ |  pyval(self, *args) -> 'PyObject *'
+ |      pyval(self, dtype) -> PyObject *
+ |      
+ |      @param dtype: op_dtype_t
+ |  
  |  set_bytes(self, *args) -> 'bytevec_t &'
  |      set_bytes(self, data, size)
  |      Initialize this regval to an empty custom value.
@@ -47450,6 +48110,12 @@ class regval_t(builtins.object)
  |      Set int value (ival)
  |      
  |      @param x: (C++: uint64)
+ |  
+ |  set_pyval(self, *args) -> 'bool'
+ |      set_pyval(self, o, dtype) -> bool
+ |      
+ |      @param o: PyObject *
+ |      @param dtype: op_dtype_t
  |  
  |  set_unavailable(self, *args) -> 'void'
  |      set_unavailable(self)
@@ -47478,6 +48144,185 @@ class regval_t(builtins.object)
  |  
  |  rvtype
  |      rvtype
+ |  
+ |  thisown
+ |      The membership flag
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  __hash__ = None
+
+Help on class regvals_t in module ida_idd:
+
+class regvals_t(builtins.object)
+ |  Proxy of C++ qvector< regval_t > class.
+ |  
+ |  Methods defined here:
+ |  
+ |  __eq__(self, *args) -> 'bool'
+ |      __eq__(self, r) -> bool
+ |      
+ |      @param r: qvector< regval_t > const &
+ |  
+ |  __getitem__(self, *args) -> 'regval_t const &'
+ |      __getitem__(self, i) -> regval_t
+ |      
+ |      @param i: size_t
+ |  
+ |  __init__(self, *args)
+ |      __init__(self) -> regvals_t
+ |      __init__(self, x) -> regvals_t
+ |      
+ |      @param x: qvector< regval_t > const &
+ |  
+ |  __iter__ = _bounded_getitem_iterator(self)
+ |      Helper function, to be set as __iter__ method for qvector-, or array-based classes.
+ |  
+ |  __len__(self, *args) -> 'size_t'
+ |      __len__(self) -> size_t
+ |  
+ |  __ne__(self, *args) -> 'bool'
+ |      __ne__(self, r) -> bool
+ |      
+ |      @param r: qvector< regval_t > const &
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  __setitem__(self, *args) -> 'void'
+ |      __setitem__(self, i, v)
+ |      
+ |      @param i: size_t
+ |      @param v: regval_t const &
+ |  
+ |  __swig_destroy__ = delete_regvals_t(...)
+ |      delete_regvals_t(self)
+ |  
+ |  _del(self, *args) -> 'bool'
+ |      _del(self, x) -> bool
+ |      
+ |      Parameters
+ |      ----------
+ |      x: regval_t const &
+ |  
+ |  add_unique(self, *args) -> 'bool'
+ |      add_unique(self, x) -> bool
+ |      
+ |      @param x: regval_t const &
+ |  
+ |  at(self, *args) -> 'regval_t const &'
+ |      at(self, _idx) -> regval_t
+ |      
+ |      @param _idx: size_t
+ |  
+ |  back = _qvector_back(self)
+ |      # -----------------------------------------------------------------------
+ |  
+ |  begin(self, *args) -> 'qvector< regval_t >::const_iterator'
+ |      begin(self) -> regval_t
+ |  
+ |  capacity(self, *args) -> 'size_t'
+ |      capacity(self) -> size_t
+ |  
+ |  clear(self, *args) -> 'void'
+ |      clear(self)
+ |  
+ |  empty(self, *args) -> 'bool'
+ |      empty(self) -> bool
+ |  
+ |  end(self, *args) -> 'qvector< regval_t >::const_iterator'
+ |      end(self) -> regval_t
+ |  
+ |  erase(self, *args) -> 'qvector< regval_t >::iterator'
+ |      erase(self, it) -> regval_t
+ |      
+ |      @param it: qvector< regval_t >::iterator
+ |      
+ |      erase(self, first, last) -> regval_t
+ |      
+ |      @param first: qvector< regval_t >::iterator
+ |      @param last: qvector< regval_t >::iterator
+ |  
+ |  extract(self, *args) -> 'regval_t *'
+ |      extract(self) -> regval_t
+ |  
+ |  find(self, *args) -> 'qvector< regval_t >::const_iterator'
+ |      find(self, x) -> regval_t
+ |      
+ |      @param x: regval_t const &
+ |  
+ |  front = _qvector_front(self)
+ |      # -----------------------------------------------------------------------
+ |  
+ |  grow(self, *args) -> 'void'
+ |      grow(self, x=regval_t())
+ |      
+ |      @param x: regval_t const &
+ |  
+ |  has(self, *args) -> 'bool'
+ |      has(self, x) -> bool
+ |      
+ |      @param x: regval_t const &
+ |  
+ |  inject(self, *args) -> 'void'
+ |      inject(self, s, len)
+ |      
+ |      @param s: regval_t *
+ |      @param len: size_t
+ |  
+ |  insert(self, *args) -> 'qvector< regval_t >::iterator'
+ |      insert(self, it, x) -> regval_t
+ |      
+ |      @param it: qvector< regval_t >::iterator
+ |      @param x: regval_t const &
+ |  
+ |  pop_back(self, *args) -> 'void'
+ |      pop_back(self)
+ |  
+ |  push_back(self, *args) -> 'regval_t &'
+ |      push_back(self, x)
+ |      
+ |      @param x: regval_t const &
+ |      
+ |      push_back(self) -> regval_t
+ |  
+ |  qclear(self, *args) -> 'void'
+ |      qclear(self)
+ |  
+ |  reserve(self, *args) -> 'void'
+ |      reserve(self, cnt)
+ |      
+ |      @param cnt: size_t
+ |  
+ |  resize(self, *args) -> 'void'
+ |      resize(self, _newsize, x)
+ |      
+ |      @param _newsize: size_t
+ |      @param x: regval_t const &
+ |      
+ |      resize(self, _newsize)
+ |      
+ |      @param _newsize: size_t
+ |  
+ |  size(self, *args) -> 'size_t'
+ |      size(self) -> size_t
+ |  
+ |  swap(self, *args) -> 'void'
+ |      swap(self, r)
+ |      
+ |      @param r: qvector< regval_t > &
+ |  
+ |  truncate(self, *args) -> 'void'
+ |      truncate(self)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
  |  
  |  thisown
  |      The membership flag
@@ -47843,7 +48688,7 @@ class IDB_Hooks(builtins.object)
  |      
  |      @param sptr: (struc_t *)
  |      @param mptr: (member_t *)
- |      @param flag: (flags_t)
+ |      @param flag: (flags64_t)
  |      @param ti: (const opinfo_t *)
  |      @param nbytes: (::asize_t)
  |  
@@ -48017,7 +48862,7 @@ class IDB_Hooks(builtins.object)
  |      Enum flags have been changed.
  |      
  |      @param id: (enum_t)
- |      @param F: (flags_t)
+ |      @param F: (flags64_t)
  |  
  |  enum_member_created(self, *args) -> 'void'
  |      enum_member_created(self, id, cid)
@@ -48176,7 +49021,7 @@ class IDB_Hooks(builtins.object)
  |      A data item is being created.
  |      
  |      @param ea: (::ea_t)
- |      @param flags: (flags_t)
+ |      @param flags: (flags64_t)
  |      @param tid: (tid_t)
  |      @param len: (::asize_t)
  |  
@@ -49646,7 +50491,7 @@ class IDP_Hooks(builtins.object)
  |      An item hinders creation of another item.
  |      
  |      @param hindering_item_ea: (::ea_t)
- |      @param new_item_flags: (flags_t) (0 for code)
+ |      @param new_item_flags: (flags64_t) (0 for code)
  |      @param new_item_ea: (::ea_t)
  |      @param new_item_length: (::asize_t)
  |      @retval 0: no reaction
@@ -49847,6 +50692,1362 @@ class _notify_when_dispatcher_t(builtins.object)
  |  
  |  _callback_t = <class 'ida_idp._notify_when_dispatcher_t._callback_t'>
 
+Help on class _processor_t in module ida_idp:
+
+class _processor_t(builtins.object)
+ |  Proxy of C++ processor_t class.
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, *args)
+ |      __init__(self) -> _processor_t
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  __swig_destroy__ = delete__processor_t(...)
+ |      delete__processor_t(self)
+ |  
+ |  calcrel_in_bits(self, *args) -> 'bool'
+ |      calcrel_in_bits(self) -> bool
+ |  
+ |  cbsize(self, *args) -> 'int'
+ |      cbsize(self) -> int
+ |  
+ |  dbsize(self, *args) -> 'int'
+ |      dbsize(self) -> int
+ |  
+ |  delay_slot_insn(self, *args) -> 'bool'
+ |      delay_slot_insn(self, ea, bexec, fexec) -> bool
+ |      
+ |      Parameters
+ |      ----------
+ |      ea: ea_t *
+ |      bexec: bool *
+ |      fexec: bool *
+ |  
+ |  get_default_segm_bitness(self, *args) -> 'int'
+ |      get_default_segm_bitness(self, is_64bit_app) -> int
+ |      
+ |      Parameters
+ |      ----------
+ |      is_64bit_app: bool
+ |  
+ |  get_proc_index(self, *args) -> 'int'
+ |      get_proc_index(self) -> int
+ |  
+ |  get_stkvar_scale(self, *args) -> 'int'
+ |      get_stkvar_scale(self) -> int
+ |  
+ |  has_code16_bit(self, *args) -> 'bool'
+ |      has_code16_bit(self) -> bool
+ |  
+ |  has_idp_opts(self, *args) -> 'bool'
+ |      has_idp_opts(self) -> bool
+ |  
+ |  has_realcvt(self, *args) -> 'bool'
+ |      has_realcvt(self) -> bool
+ |  
+ |  has_segregs(self, *args) -> 'bool'
+ |      has_segregs(self) -> bool
+ |  
+ |  privrange_changed(self, *args) -> 'ssize_t'
+ |      privrange_changed(self, old_privrange, delta) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      old_privrange: range_t const &
+ |      delta: adiff_t
+ |  
+ |  sizeof_ldbl(self, *args) -> 'size_t'
+ |      sizeof_ldbl(self) -> size_t
+ |  
+ |  stkup(self, *args) -> 'bool'
+ |      stkup(self) -> bool
+ |  
+ |  supports_calcrel(self, *args) -> 'bool'
+ |      supports_calcrel(self) -> bool
+ |  
+ |  supports_macros(self, *args) -> 'bool'
+ |      supports_macros(self) -> bool
+ |  
+ |  ti(self, *args) -> 'bool'
+ |      ti(self) -> bool
+ |  
+ |  use32(self, *args) -> 'bool'
+ |      use32(self) -> bool
+ |  
+ |  use64(self, *args) -> 'bool'
+ |      use64(self) -> bool
+ |  
+ |  use_mappings(self, *args) -> 'bool'
+ |      use_mappings(self) -> bool
+ |  
+ |  use_tbyte(self, *args) -> 'bool'
+ |      use_tbyte(self) -> bool
+ |  
+ |  ----------------------------------------------------------------------
+ |  Static methods defined here:
+ |  
+ |  add_cref(*args) -> 'ssize_t'
+ |      add_cref(_from, to, type) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      from: ea_t
+ |      to: ea_t
+ |      type: enum cref_t
+ |  
+ |  add_dref(*args) -> 'ssize_t'
+ |      add_dref(_from, to, type) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      from: ea_t
+ |      to: ea_t
+ |      type: enum dref_t
+ |  
+ |  adjust_argloc(*args) -> 'ssize_t'
+ |      adjust_argloc(argloc, type, size) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      argloc: argloc_t *
+ |      type: tinfo_t const *
+ |      size: int
+ |  
+ |  adjust_libfunc_ea(*args) -> 'ssize_t'
+ |      adjust_libfunc_ea(sig, libfun, ea) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      sig: idasgn_t const &
+ |      libfun: libfunc_t const &
+ |      ea: ea_t *
+ |  
+ |  adjust_refinfo(*args) -> 'ssize_t'
+ |      adjust_refinfo(ri, ea, n, fd) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ri: refinfo_t *
+ |      ea: ea_t
+ |      n: int
+ |      fd: fixup_data_t const &
+ |  
+ |  ana_insn(*args) -> 'ssize_t'
+ |      ana_insn(out) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      out: insn_t *
+ |  
+ |  analyze_prolog(*args) -> 'ssize_t'
+ |      analyze_prolog(fct_ea) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      fct_ea: ea_t
+ |  
+ |  arch_changed(*args) -> 'ssize_t'
+ |      arch_changed() -> ssize_t
+ |  
+ |  arg_addrs_ready(*args) -> 'ssize_t'
+ |      arg_addrs_ready(caller, n, tif, addrs) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      caller: ea_t
+ |      n: int
+ |      tif: tinfo_t const &
+ |      addrs: ea_t *
+ |  
+ |  asm_installed(*args) -> 'ssize_t'
+ |      asm_installed(asmnum) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      asmnum: int
+ |  
+ |  assemble(*args) -> 'ssize_t'
+ |      assemble(_bin, ea, cs, ip, _use32, line) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      _bin: uchar *
+ |      ea: ea_t
+ |      cs: ea_t
+ |      ip: ea_t
+ |      _use32: bool
+ |      line: char const *
+ |  
+ |  auto_queue_empty(*args) -> 'void'
+ |      auto_queue_empty(type)
+ |      
+ |      Parameters
+ |      ----------
+ |      type: int
+ |  
+ |  calc_arglocs(*args) -> 'ssize_t'
+ |      calc_arglocs(fti) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      fti: func_type_data_t *
+ |  
+ |  calc_cdecl_purged_bytes(*args) -> 'ssize_t'
+ |      calc_cdecl_purged_bytes(ea) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ea: ea_t
+ |  
+ |  calc_next_eas(*args) -> 'ssize_t'
+ |      calc_next_eas(res, insn, over) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      res: eavec_t *
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |      over: bool
+ |  
+ |  calc_purged_bytes(*args) -> 'ssize_t'
+ |      calc_purged_bytes(p_purged_bytes, fti) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      p_purged_bytes: int *
+ |      fti: func_type_data_t const &
+ |  
+ |  calc_retloc(*args) -> 'ssize_t'
+ |      calc_retloc(retloc, rettype, cc) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      retloc: argloc_t *
+ |      rettype: tinfo_t const &
+ |      cc: cm_t
+ |  
+ |  calc_spdelta(*args) -> 'ssize_t'
+ |      calc_spdelta(spdelta, ins) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      spdelta: sval_t *
+ |      ins: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |  
+ |  calc_step_over(*args) -> 'ssize_t'
+ |      calc_step_over(target, ip) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      target: ea_t *
+ |      ip: ea_t
+ |  
+ |  calc_switch_cases(*args) -> 'ssize_t'
+ |      calc_switch_cases(casevec, targets, insn_ea, si) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      casevec: void *
+ |      targets: eavec_t *
+ |      insn_ea: ea_t
+ |      si: switch_info_t const &
+ |  
+ |  calc_varglocs(*args) -> 'ssize_t'
+ |      calc_varglocs(ftd, regs, stkargs, nfixed) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ftd: func_type_data_t *
+ |      regs: regobjs_t *
+ |      stkargs: relobj_t *
+ |      nfixed: int
+ |  
+ |  calcrel(*args) -> 'bytevec_t *, size_t *'
+ |      calcrel(ea) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ea: ea_t
+ |  
+ |  can_have_type(*args) -> 'ssize_t'
+ |      can_have_type(op) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      op: op_t const &
+ |  
+ |  clean_tbit(*args) -> 'ssize_t'
+ |      clean_tbit(ea, _getreg, regvalues) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ea: ea_t
+ |      _getreg: processor_t::regval_getter_t *
+ |      regvalues: regval_t const &
+ |  
+ |  cmp_operands(*args) -> 'ssize_t'
+ |      cmp_operands(op1, op2) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      op1: op_t const &
+ |      op2: op_t const &
+ |  
+ |  coagulate(*args) -> 'ssize_t'
+ |      coagulate(start_ea) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      start_ea: ea_t
+ |  
+ |  coagulate_dref(*args) -> 'ssize_t'
+ |      coagulate_dref(_from, to, may_define, code_ea) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      from: ea_t
+ |      to: ea_t
+ |      may_define: bool
+ |      code_ea: ea_t *
+ |  
+ |  create_flat_group(*args) -> 'ssize_t'
+ |      create_flat_group(image_base, bitness, dataseg_sel) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      image_base: ea_t
+ |      bitness: int
+ |      dataseg_sel: sel_t
+ |  
+ |  create_func_frame(*args) -> 'ssize_t'
+ |      create_func_frame(pfn) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      pfn: func_t *
+ |  
+ |  create_merge_handlers(*args) -> 'ssize_t'
+ |      create_merge_handlers(md) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      md: merge_data_t *
+ |  
+ |  create_switch_xrefs(*args) -> 'ssize_t'
+ |      create_switch_xrefs(jumpea, si) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      jumpea: ea_t
+ |      si: switch_info_t const &
+ |  
+ |  creating_segm(*args) -> 'ssize_t'
+ |      creating_segm(seg) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      seg: segment_t *
+ |  
+ |  decorate_name(*args) -> 'ssize_t'
+ |      decorate_name(outbuf, name, mangle, cc, type) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      outbuf: qstring *
+ |      name: char const *
+ |      mangle: bool
+ |      cc: cm_t
+ |      type: tinfo_t const &
+ |  
+ |  del_cref(*args) -> 'ssize_t'
+ |      del_cref(_from, to, expand) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      from: ea_t
+ |      to: ea_t
+ |      expand: bool
+ |  
+ |  del_dref(*args) -> 'ssize_t'
+ |      del_dref(_from, to) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      from: ea_t
+ |      to: ea_t
+ |  
+ |  demangle_name(*args) -> 'int'
+ |      demangle_name(res, name, disable_mask, demreq) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      res: int32 *
+ |      name: char const *
+ |      disable_mask: uint32
+ |      demreq: int
+ |  
+ |  emu_insn(*args) -> 'ssize_t'
+ |      emu_insn(insn) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |  
+ |  endbinary(*args) -> 'ssize_t'
+ |      endbinary(ok) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ok: bool
+ |  
+ |  equal_reglocs(*args) -> 'ssize_t'
+ |      equal_reglocs(a1, a2) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      a1: argloc_t const &
+ |      a2: argloc_t const &
+ |  
+ |  extract_address(*args) -> 'ssize_t'
+ |      extract_address(out_ea, screen_ea, string, x) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      out_ea: ea_t *
+ |      screen_ea: ea_t
+ |      string: char const *
+ |      x: size_t
+ |  
+ |  find_op_value(*args) -> 'unsigned-ea-like-numeric-type *'↗
+ |      find_op_value(insn, op) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |      op: int
+ |  
+ |  find_reg_value(*args) -> 'unsigned-ea-like-numeric-type *'↗
+ |      find_reg_value(insn, reg) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |      reg: int
+ |  
+ |  func_bounds(*args) -> 'ssize_t'
+ |      func_bounds(possible_return_code, pfn, max_func_end_ea) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      possible_return_code: int *
+ |      pfn: func_t *
+ |      max_func_end_ea: ea_t
+ |  
+ |  gen_asm_or_lst(*args) -> 'ssize_t'
+ |      gen_asm_or_lst(starting, fp, is_asm, flags, outline) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      starting: bool
+ |      fp: FILE *
+ |      is_asm: bool
+ |      flags: int
+ |      outline: void *
+ |  
+ |  gen_map_file(*args) -> 'ssize_t'
+ |      gen_map_file(nlines, fp) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      nlines: int *
+ |      fp: FILE *
+ |  
+ |  gen_regvar_def(*args) -> 'ssize_t'
+ |      gen_regvar_def(ctx, v) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ctx: outctx_t &
+ |      v: regvar_t *
+ |  
+ |  gen_src_file_lnnum(*args) -> 'ssize_t'
+ |      gen_src_file_lnnum(ctx, file, lnnum) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ctx: outctx_t &
+ |      file: char const *
+ |      lnnum: size_t
+ |  
+ |  gen_stkvar_def(*args) -> 'ssize_t'
+ |      gen_stkvar_def(ctx, mptr, v) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ctx: outctx_t &
+ |      mptr: member_t const *
+ |      v: sval_t
+ |  
+ |  get_abi_info(*args) -> 'ssize_t'
+ |      get_abi_info(abi_names, abi_opts, comp) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      abi_names: qstrvec_t *
+ |      abi_opts: qstrvec_t *
+ |      comp: comp_t
+ |  
+ |  get_autocmt(*args) -> 'qstring *'
+ |      get_autocmt(insn) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |  
+ |  get_bg_color(*args) -> 'ssize_t'
+ |      get_bg_color(color, ea) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      color: bgcolor_t *
+ |      ea: ea_t
+ |  
+ |  get_cc_regs(*args) -> 'ssize_t'
+ |      get_cc_regs(regs, cc) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      regs: callregs_t *
+ |      cc: cm_t
+ |  
+ |  get_code16_mode(*args) -> 'bool'
+ |      get_code16_mode(ea) -> bool
+ |      
+ |      Parameters
+ |      ----------
+ |      ea: ea_t
+ |  
+ |  get_dbr_opnum(*args) -> 'ssize_t'
+ |      get_dbr_opnum(opnum, insn) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      opnum: int *
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |  
+ |  get_frame_retsize(*args) -> 'ssize_t'
+ |      get_frame_retsize(retsize, pfn) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      retsize: int *
+ |      pfn: func_t const *
+ |  
+ |  get_idd_opinfo(*args) -> 'ssize_t'
+ |      get_idd_opinfo(opinf, ea, n, thread_id, _getreg, regvalues) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      opinf: idd_opinfo_t *
+ |      ea: ea_t
+ |      n: int
+ |      thread_id: int
+ |      _getreg: processor_t::regval_getter_t *
+ |      regvalues: regval_t const &
+ |  
+ |  get_macro_insn_head(*args) -> 'ssize_t'
+ |      get_macro_insn_head(head, ip) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      head: ea_t *
+ |      ip: ea_t
+ |  
+ |  get_operand_string(*args) -> 'qstring *'
+ |      get_operand_string(insn, opnum) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |      opnum: int
+ |  
+ |  get_reg_accesses(*args) -> 'ssize_t'
+ |      get_reg_accesses(accvec, insn, flags) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      accvec: reg_accesses_t *
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |      flags: int
+ |  
+ |  get_reg_info(*args) -> 'char const *'
+ |      get_reg_info(regname, bitrange) -> char const *
+ |      
+ |      Parameters
+ |      ----------
+ |      regname: char const *
+ |      bitrange: bitrange_t *
+ |  
+ |  get_reg_name(*args) -> 'qstring *'
+ |      get_reg_name(reg, width, reghi) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      reg: int
+ |      width: size_t
+ |      reghi: int
+ |  
+ |  get_simd_types(*args) -> 'ssize_t'
+ |      get_simd_types(out, simd_attrs, argloc, create_tifs) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      out: void *
+ |      simd_attrs: simd_info_t const *
+ |      argloc: argloc_t const *
+ |      create_tifs: bool
+ |  
+ |  get_stkarg_area_info(*args) -> 'ssize_t'
+ |      get_stkarg_area_info(out, cc) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      out: stkarg_area_info_t *
+ |      cc: cm_t
+ |  
+ |  get_stkvar_scale_factor(*args) -> 'ssize_t'
+ |      get_stkvar_scale_factor() -> ssize_t
+ |  
+ |  getreg(*args) -> 'ssize_t'
+ |      getreg(rv, regnum) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      rv: uval_t *
+ |      regnum: int
+ |  
+ |  init(*args) -> 'ssize_t'
+ |      init(idp_modname) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      idp_modname: char const *
+ |  
+ |  insn_reads_tbit(*args) -> 'ssize_t'
+ |      insn_reads_tbit(insn, _getreg, regvalues) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |      _getreg: processor_t::regval_getter_t *
+ |      regvalues: regval_t const &
+ |  
+ |  is_align_insn(*args) -> 'ssize_t'
+ |      is_align_insn(ea) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ea: ea_t
+ |  
+ |  is_alloca_probe(*args) -> 'ssize_t'
+ |      is_alloca_probe(ea) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ea: ea_t
+ |  
+ |  is_basic_block_end(*args) -> 'ssize_t'
+ |      is_basic_block_end(insn, call_insn_stops_block) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |      call_insn_stops_block: bool
+ |  
+ |  is_call_insn(*args) -> 'ssize_t'
+ |      is_call_insn(insn) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |  
+ |  is_cond_insn(*args) -> 'ssize_t'
+ |      is_cond_insn(insn) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |  
+ |  is_control_flow_guard(*args) -> 'ssize_t'
+ |      is_control_flow_guard(p_reg, insn) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      p_reg: int *
+ |      insn: insn_t const *
+ |  
+ |  is_far_jump(*args) -> 'ssize_t'
+ |      is_far_jump(icode) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      icode: int
+ |  
+ |  is_indirect_jump(*args) -> 'ssize_t'
+ |      is_indirect_jump(insn) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |  
+ |  is_jump_func(*args) -> 'ssize_t'
+ |      is_jump_func(pfn, jump_target, func_pointer) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      pfn: func_t *
+ |      jump_target: ea_t *
+ |      func_pointer: ea_t *
+ |  
+ |  is_ret_insn(*args) -> 'ssize_t'
+ |      is_ret_insn(insn, strict) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |      strict: bool
+ |  
+ |  is_sane_insn(*args) -> 'ssize_t'
+ |      is_sane_insn(insn, no_crefs) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |      no_crefs: int
+ |  
+ |  is_sp_based(*args) -> 'ssize_t'
+ |      is_sp_based(insn, x) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |      x: op_t const &
+ |  
+ |  is_switch(*args) -> 'ssize_t'
+ |      is_switch(si, insn) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      si: switch_info_t *
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |  
+ |  loader_elf_machine(*args) -> 'ssize_t'
+ |      loader_elf_machine(li, machine_type, p_procname, p_pd, ldr, reader) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      li: linput_t *
+ |      machine_type: int
+ |      p_procname: char const **
+ |      p_pd: proc_def_t **
+ |      ldr: elf_loader_t *
+ |      reader: reader_t *
+ |  
+ |  lower_func_type(*args) -> 'ssize_t'
+ |      lower_func_type(argnums, fti) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      argnums: intvec_t *
+ |      fti: func_type_data_t *
+ |  
+ |  max_ptr_size(*args) -> 'ssize_t'
+ |      max_ptr_size() -> ssize_t
+ |  
+ |  may_be_func(*args) -> 'ssize_t'
+ |      may_be_func(insn, state) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+ |      state: int
+ |  
+ |  may_show_sreg(*args) -> 'ssize_t'
+ |      may_show_sreg(current_ea) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      current_ea: ea_t
+ |  
+ |  moving_segm(*args) -> 'ssize_t'
+ |      moving_segm(seg, to, flags) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      seg: segment_t *
+ |      to: ea_t
+ |      flags: int
+ |  
+ |  newasm(*args) -> 'ssize_t'
+ |      newasm(asmnum) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      asmnum: int
+ |  
+ |  newbinary(*args) -> 'ssize_t'
+ |      newbinary(filename, fileoff, basepara, binoff, nbytes) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      filename: char const *
+ |      fileoff: qoff64_t
+ |      basepara: ea_t
+ |      binoff: ea_t
+ |      nbytes: uint64
+ |  
+ |  newfile(*args) -> 'ssize_t'
+ |      newfile(fname) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      fname: char const *
+ |  
+ |  newprc(*args) -> 'ssize_t'
+ |      newprc(pnum, keep_cfg) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      pnum: int
+ |      keep_cfg: bool
+ |  
+ |  next_exec_insn(*args) -> 'ssize_t'
+ |      next_exec_insn(target, ea, tid, _getreg, regvalues) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      target: ea_t *
+ |      ea: ea_t
+ |      tid: int
+ |      _getreg: processor_t::regval_getter_t *
+ |      regvalues: regval_t const &
+ |  
+ |  notify(*args) -> 'ssize_t'
+ |      notify(event_code) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      event_code: enum processor_t::event_t
+ |  
+ |  oldfile(*args) -> 'ssize_t'
+ |      oldfile(fname) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      fname: char const *
+ |  
+ |  out_assumes(*args) -> 'ssize_t'
+ |      out_assumes(ctx) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ctx: outctx_t &
+ |  
+ |  out_data(*args) -> 'ssize_t'
+ |      out_data(ctx, analyze_only) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ctx: outctx_t &
+ |      analyze_only: bool
+ |  
+ |  out_footer(*args) -> 'ssize_t'
+ |      out_footer(ctx) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ctx: outctx_t &
+ |  
+ |  out_header(*args) -> 'ssize_t'
+ |      out_header(ctx) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ctx: outctx_t &
+ |  
+ |  out_insn(*args) -> 'ssize_t'
+ |      out_insn(ctx) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ctx: outctx_t &
+ |  
+ |  out_label(*args) -> 'ssize_t'
+ |      out_label(ctx, colored_name) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ctx: outctx_t &
+ |      colored_name: char const *
+ |  
+ |  out_mnem(*args) -> 'ssize_t'
+ |      out_mnem(ctx) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ctx: outctx_t &
+ |  
+ |  out_operand(*args) -> 'ssize_t'
+ |      out_operand(ctx, op) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ctx: outctx_t &
+ |      op: op_t const &
+ |  
+ |  out_segend(*args) -> 'ssize_t'
+ |      out_segend(ctx, seg) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ctx: outctx_t &
+ |      seg: segment_t *
+ |  
+ |  out_segstart(*args) -> 'ssize_t'
+ |      out_segstart(ctx, seg) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ctx: outctx_t &
+ |      seg: segment_t *
+ |  
+ |  out_special_item(*args) -> 'ssize_t'
+ |      out_special_item(ctx, segtype) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ctx: outctx_t &
+ |      segtype: uchar
+ |  
+ |  realcvt(*args) -> 'fpvalue_error_t'
+ |      realcvt(m, e, swt) -> fpvalue_error_t
+ |      
+ |      Parameters
+ |      ----------
+ |      m: void *
+ |      e: fpvalue_t *
+ |      swt: uint16
+ |  
+ |  rename(*args) -> 'ssize_t'
+ |      rename(ea, new_name, flags) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ea: ea_t
+ |      new_name: char const *
+ |      flags: int
+ |  
+ |  set_code16_mode(*args) -> 'ssize_t'
+ |      set_code16_mode(ea, code16=True) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ea: ea_t
+ |      code16: bool
+ |  
+ |  set_idp_options(*args) -> 'char const *'
+ |      set_idp_options(keyword, vtype, value, idb_loaded=True) -> char const *
+ |      
+ |      Parameters
+ |      ----------
+ |      keyword: char const *
+ |      vtype: int
+ |      value: void const *
+ |      idb_loaded: bool
+ |  
+ |  set_proc_options(*args) -> 'ssize_t'
+ |      set_proc_options(options, confidence) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      options: char const *
+ |      confidence: int
+ |  
+ |  setup_til(*args) -> 'ssize_t'
+ |      setup_til() -> ssize_t
+ |  
+ |  str2reg(*args) -> 'ssize_t'
+ |      str2reg(regname) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      regname: char const *
+ |  
+ |  term(*args) -> 'ssize_t'
+ |      term() -> ssize_t
+ |  
+ |  treat_hindering_item(*args) -> 'ssize_t'
+ |      treat_hindering_item(hindering_item_ea, new_item_flags, new_item_ea, new_item_length) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      hindering_item_ea: ea_t
+ |      new_item_flags: flags64_t
+ |      new_item_ea: ea_t
+ |      new_item_length: asize_t
+ |  
+ |  undefine(*args) -> 'ssize_t'
+ |      undefine(ea) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ea: ea_t
+ |  
+ |  update_call_stack(*args) -> 'ssize_t'
+ |      update_call_stack(stack, tid, _getreg, regvalues) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      stack: call_stack_t *
+ |      tid: int
+ |      _getreg: processor_t::regval_getter_t *
+ |      regvalues: regval_t const &
+ |  
+ |  use_arg_types(*args) -> 'ssize_t'
+ |      use_arg_types(ea, fti, rargs) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ea: ea_t
+ |      fti: func_type_data_t *
+ |      rargs: void *
+ |  
+ |  use_regarg_type(*args) -> 'ssize_t'
+ |      use_regarg_type(idx, ea, rargs) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      idx: int *
+ |      ea: ea_t
+ |      rargs: void *
+ |  
+ |  use_stkarg_type(*args) -> 'ssize_t'
+ |      use_stkarg_type(ea, arg) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      ea: ea_t
+ |      arg: funcarg_t const &
+ |  
+ |  validate_flirt_func(*args) -> 'ssize_t'
+ |      validate_flirt_func(start_ea, funcname) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      start_ea: ea_t
+ |      funcname: char const *
+ |  
+ |  verify_noreturn(*args) -> 'ssize_t'
+ |      verify_noreturn(pfn) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      pfn: func_t *
+ |  
+ |  verify_sp(*args) -> 'ssize_t'
+ |      verify_sp(pfn) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      pfn: func_t *
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  thisown
+ |      The membership flag
+ |  
+ |  version
+ |      version
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  ev_add_cref = 64
+ |  
+ |  ev_add_dref = 65
+ |  
+ |  ev_adjust_argloc = 2013
+ |  
+ |  ev_adjust_libfunc_ea = 73
+ |  
+ |  ev_adjust_refinfo = 50
+ |  
+ |  ev_ana_insn = 10
+ |  
+ |  ev_analyze_prolog = 81
+ |  
+ |  ev_arch_changed = 2021
+ |  
+ |  ev_arg_addrs_ready = 2019
+ |  
+ |  ev_asm_installed = 91
+ |  
+ |  ev_assemble = 74
+ |  
+ |  ev_auto_queue_empty = 71
+ |  
+ |  ev_broadcast = 94
+ |  
+ |  ev_calc_arglocs = 2011
+ |  
+ |  ev_calc_cdecl_purged_bytes = 2008
+ |  
+ |  ev_calc_next_eas = 1002
+ |  
+ |  ev_calc_purged_bytes = 2009
+ |  
+ |  ev_calc_retloc = 2010
+ |  
+ |  ev_calc_spdelta = 82
+ |  
+ |  ev_calc_step_over = 1001
+ |  
+ |  ev_calc_switch_cases = 42
+ |  
+ |  ev_calc_varglocs = 2012
+ |  
+ |  ev_calcrel = 83
+ |  
+ |  ev_can_have_type = 48
+ |  
+ |  ev_clean_tbit = 1006
+ |  
+ |  ev_cmp_operands = 49
+ |  
+ |  ev_coagulate = 28
+ |  
+ |  ev_coagulate_dref = 68
+ |  
+ |  ev_create_flat_group = 79
+ |  
+ |  ev_create_func_frame = 60
+ |  
+ |  ev_create_merge_handlers = 95
+ |  
+ |  ev_create_switch_xrefs = 43
+ |  
+ |  ev_creating_segm = 26
+ |  
+ |  ev_decorate_name = 2020
+ |  
+ |  ev_del_cref = 66
+ |  
+ |  ev_del_dref = 67
+ |  
+ |  ev_delay_slot_insn = 46
+ |  
+ |  ev_demangle_name = 63
+ |  
+ |  ev_emu_insn = 11
+ |  
+ |  ev_endbinary = 7
+ |  
+ |  ev_ending_undo = 87
+ |  
+ |  ev_equal_reglocs = 2015
+ |  
+ |  ev_extract_address = 75
+ |  
+ |  ev_find_op_value = 85
+ |  
+ |  ev_find_reg_value = 84
+ |  
+ |  ev_func_bounds = 57
+ |  
+ |  ev_gen_asm_or_lst = 77
+ |  
+ |  ev_gen_map_file = 78
+ |  
+ |  ev_gen_regvar_def = 24
+ |  
+ |  ev_gen_src_file_lnnum = 25
+ |  
+ |  ev_gen_stkvar_def = 23
+ |  
+ |  ev_get_abi_info = 2001
+ |  
+ |  ev_get_autocmt = 54
+ |  
+ |  ev_get_bg_color = 55
+ |  
+ |  ev_get_cc_regs = 2004
+ |  
+ |  ev_get_code16_mode = 89
+ |  
+ |  ev_get_dbr_opnum = 1004
+ |  
+ |  ev_get_default_enum_size = 2003
+ |  
+ |  ev_get_frame_retsize = 61
+ |  
+ |  ev_get_idd_opinfo = 1007
+ |  
+ |  ev_get_macro_insn_head = 1003
+ |  
+ |  ev_get_operand_string = 51
+ |  
+ |  ev_get_procmod = 90
+ |  
+ |  ev_get_reg_accesses = 92
+ |  
+ |  ev_get_reg_info = 1008
+ |  
+ |  ev_get_reg_name = 52
+ |  
+ |  ev_get_simd_types = 2007
+ |  
+ |  ev_get_stkarg_area_info = 2022
+ |  
+ |  ev_get_stkvar_scale_factor = 62
+ |  
+ |  ev_getreg = 80
+ |  
+ |  ev_init = 0
+ |  
+ |  ev_insn_reads_tbit = 1005
+ |  
+ |  ev_is_align_insn = 44
+ |  
+ |  ev_is_alloca_probe = 45
+ |  
+ |  ev_is_basic_block_end = 38
+ |  
+ |  ev_is_call_insn = 35
+ |  
+ |  ev_is_cond_insn = 34
+ |  
+ |  ev_is_control_flow_guard = 93
+ |  
+ |  ev_is_far_jump = 32
+ |  
+ |  ev_is_indirect_jump = 39
+ |  
+ |  ev_is_insn_table_jump = 40
+ |  
+ |  ev_is_jump_func = 56
+ |  
+ |  ev_is_ret_insn = 36
+ |  
+ |  ev_is_sane_insn = 33
+ |  
+ |  ev_is_sp_based = 47
+ |  
+ |  ev_is_switch = 41
+ |  
+ |  ev_last_cb_before_debugger = 97
+ |  
+ |  ev_last_cb_before_loader = 2023
+ |  
+ |  ev_last_cb_before_type_callbacks = 1010
+ |  
+ |  ev_loader = 3000
+ |  
+ |  ev_loader_elf_machine = 70
+ |  
+ |  ev_lower_func_type = 2014
+ |  
+ |  ev_max_ptr_size = 2002
+ |  
+ |  ev_may_be_func = 37
+ |  
+ |  ev_may_show_sreg = 69
+ |  
+ |  ev_moving_segm = 27
+ |  
+ |  ev_newasm = 3
+ |  
+ |  ev_newbinary = 6
+ |  
+ |  ev_newfile = 4
+ |  
+ |  ev_newprc = 2
+ |  
+ |  ev_next_exec_insn = 1000
+ |  
+ |  ev_obsolete1 = 2005
+ |  
+ |  ev_obsolete2 = 2006
+ |  
+ |  ev_oldfile = 5
+ |  
+ |  ev_out_assumes = 16
+ |  
+ |  ev_out_data = 20
+ |  
+ |  ev_out_footer = 13
+ |  
+ |  ev_out_header = 12
+ |  
+ |  ev_out_insn = 17
+ |  
+ |  ev_out_label = 21
+ |  
+ |  ev_out_mnem = 18
+ |  
+ |  ev_out_operand = 19
+ |  
+ |  ev_out_segend = 15
+ |  
+ |  ev_out_segstart = 14
+ |  
+ |  ev_out_special_item = 22
+ |  
+ |  ev_privrange_changed = 96
+ |  
+ |  ev_realcvt = 76
+ |  
+ |  ev_rename = 31
+ |  
+ |  ev_replaying_undo = 86
+ |  
+ |  ev_set_code16_mode = 88
+ |  
+ |  ev_set_idp_options = 8
+ |  
+ |  ev_set_proc_options = 9
+ |  
+ |  ev_setup_til = 2000
+ |  
+ |  ev_str2reg = 53
+ |  
+ |  ev_term = 1
+ |  
+ |  ev_treat_hindering_item = 30
+ |  
+ |  ev_undefine = 29
+ |  
+ |  ev_update_call_stack = 1009
+ |  
+ |  ev_use_arg_types = 2018
+ |  
+ |  ev_use_regarg_type = 2017
+ |  
+ |  ev_use_stkarg_type = 2016
+ |  
+ |  ev_validate_flirt_func = 72
+ |  
+ |  ev_verify_noreturn = 59
+ |  
+ |  ev_verify_sp = 58
+
 Help on class _processor_t_Trampoline_IDB_Hooks in module ida_idp:
 
 class _processor_t_Trampoline_IDB_Hooks(IDB_Hooks)
@@ -50020,7 +52221,7 @@ class _processor_t_Trampoline_IDB_Hooks(IDB_Hooks)
  |      
  |      @param sptr: (struc_t *)
  |      @param mptr: (member_t *)
- |      @param flag: (flags_t)
+ |      @param flag: (flags64_t)
  |      @param ti: (const opinfo_t *)
  |      @param nbytes: (::asize_t)
  |  
@@ -50194,7 +52395,7 @@ class _processor_t_Trampoline_IDB_Hooks(IDB_Hooks)
  |      Enum flags have been changed.
  |      
  |      @param id: (enum_t)
- |      @param F: (flags_t)
+ |      @param F: (flags64_t)
  |  
  |  enum_member_created(self, *args) -> 'void'
  |      enum_member_created(self, id, cid)
@@ -50353,7 +52554,7 @@ class _processor_t_Trampoline_IDB_Hooks(IDB_Hooks)
  |      A data item is being created.
  |      
  |      @param ea: (::ea_t)
- |      @param flags: (flags_t)
+ |      @param flags: (flags64_t)
  |      @param tid: (tid_t)
  |      @param len: (::asize_t)
  |  
@@ -50638,6 +52839,1222 @@ class _processor_t_Trampoline_IDB_Hooks(IDB_Hooks)
  |  thisown
  |      The membership flag
 
+Help on function _processor_t_add_cref in module ida_idp:
+
+_processor_t_add_cref(*args) -> 'ssize_t'
+    _processor_t_add_cref(_from, to, type) -> ssize_t
+    
+    Parameters
+    ----------
+    from: ea_t
+    to: ea_t
+    type: enum cref_t
+
+Help on function _processor_t_add_dref in module ida_idp:
+
+_processor_t_add_dref(*args) -> 'ssize_t'
+    _processor_t_add_dref(_from, to, type) -> ssize_t
+    
+    Parameters
+    ----------
+    from: ea_t
+    to: ea_t
+    type: enum dref_t
+
+Help on function _processor_t_adjust_argloc in module ida_idp:
+
+_processor_t_adjust_argloc(*args) -> 'ssize_t'
+    _processor_t_adjust_argloc(argloc, type, size) -> ssize_t
+    
+    Parameters
+    ----------
+    argloc: argloc_t *
+    type: tinfo_t const *
+    size: int
+
+Help on function _processor_t_adjust_libfunc_ea in module ida_idp:
+
+_processor_t_adjust_libfunc_ea(*args) -> 'ssize_t'
+    _processor_t_adjust_libfunc_ea(sig, libfun, ea) -> ssize_t
+    
+    Parameters
+    ----------
+    sig: idasgn_t const &
+    libfun: libfunc_t const &
+    ea: ea_t *
+
+Help on function _processor_t_adjust_refinfo in module ida_idp:
+
+_processor_t_adjust_refinfo(*args) -> 'ssize_t'
+    _processor_t_adjust_refinfo(ri, ea, n, fd) -> ssize_t
+    
+    Parameters
+    ----------
+    ri: refinfo_t *
+    ea: ea_t
+    n: int
+    fd: fixup_data_t const &
+
+Help on function _processor_t_ana_insn in module ida_idp:
+
+_processor_t_ana_insn(*args) -> 'ssize_t'
+    _processor_t_ana_insn(out) -> ssize_t
+    
+    Parameters
+    ----------
+    out: insn_t *
+
+Help on function _processor_t_analyze_prolog in module ida_idp:
+
+_processor_t_analyze_prolog(*args) -> 'ssize_t'
+    _processor_t_analyze_prolog(fct_ea) -> ssize_t
+    
+    Parameters
+    ----------
+    fct_ea: ea_t
+
+Help on function _processor_t_arch_changed in module ida_idp:
+
+_processor_t_arch_changed(*args) -> 'ssize_t'
+    _processor_t_arch_changed() -> ssize_t
+
+Help on function _processor_t_arg_addrs_ready in module ida_idp:
+
+_processor_t_arg_addrs_ready(*args) -> 'ssize_t'
+    _processor_t_arg_addrs_ready(caller, n, tif, addrs) -> ssize_t
+    
+    Parameters
+    ----------
+    caller: ea_t
+    n: int
+    tif: tinfo_t const &
+    addrs: ea_t *
+
+Help on function _processor_t_asm_installed in module ida_idp:
+
+_processor_t_asm_installed(*args) -> 'ssize_t'
+    _processor_t_asm_installed(asmnum) -> ssize_t
+    
+    Parameters
+    ----------
+    asmnum: int
+
+Help on function _processor_t_assemble in module ida_idp:
+
+_processor_t_assemble(*args) -> 'ssize_t'
+    _processor_t_assemble(_bin, ea, cs, ip, _use32, line) -> ssize_t
+    
+    Parameters
+    ----------
+    _bin: uchar *
+    ea: ea_t
+    cs: ea_t
+    ip: ea_t
+    _use32: bool
+    line: char const *
+
+Help on function _processor_t_auto_queue_empty in module ida_idp:
+
+_processor_t_auto_queue_empty(*args) -> 'void'
+    _processor_t_auto_queue_empty(type)
+    
+    Parameters
+    ----------
+    type: int
+
+Help on function _processor_t_calc_arglocs in module ida_idp:
+
+_processor_t_calc_arglocs(*args) -> 'ssize_t'
+    _processor_t_calc_arglocs(fti) -> ssize_t
+    
+    Parameters
+    ----------
+    fti: func_type_data_t *
+
+Help on function _processor_t_calc_cdecl_purged_bytes in module ida_idp:
+
+_processor_t_calc_cdecl_purged_bytes(*args) -> 'ssize_t'
+    _processor_t_calc_cdecl_purged_bytes(ea) -> ssize_t
+    
+    Parameters
+    ----------
+    ea: ea_t
+
+Help on function _processor_t_calc_next_eas in module ida_idp:
+
+_processor_t_calc_next_eas(*args) -> 'ssize_t'
+    _processor_t_calc_next_eas(res, insn, over) -> ssize_t
+    
+    Parameters
+    ----------
+    res: eavec_t *
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+    over: bool
+
+Help on function _processor_t_calc_purged_bytes in module ida_idp:
+
+_processor_t_calc_purged_bytes(*args) -> 'ssize_t'
+    _processor_t_calc_purged_bytes(p_purged_bytes, fti) -> ssize_t
+    
+    Parameters
+    ----------
+    p_purged_bytes: int *
+    fti: func_type_data_t const &
+
+Help on function _processor_t_calc_retloc in module ida_idp:
+
+_processor_t_calc_retloc(*args) -> 'ssize_t'
+    _processor_t_calc_retloc(retloc, rettype, cc) -> ssize_t
+    
+    Parameters
+    ----------
+    retloc: argloc_t *
+    rettype: tinfo_t const &
+    cc: cm_t
+
+Help on function _processor_t_calc_spdelta in module ida_idp:
+
+_processor_t_calc_spdelta(*args) -> 'ssize_t'
+    _processor_t_calc_spdelta(spdelta, ins) -> ssize_t
+    
+    Parameters
+    ----------
+    spdelta: sval_t *
+    ins: an ida_ua.insn_t, or an address (C++: const insn_t &)
+
+Help on function _processor_t_calc_step_over in module ida_idp:
+
+_processor_t_calc_step_over(*args) -> 'ssize_t'
+    _processor_t_calc_step_over(target, ip) -> ssize_t
+    
+    Parameters
+    ----------
+    target: ea_t *
+    ip: ea_t
+
+Help on function _processor_t_calc_switch_cases in module ida_idp:
+
+_processor_t_calc_switch_cases(*args) -> 'ssize_t'
+    _processor_t_calc_switch_cases(casevec, targets, insn_ea, si) -> ssize_t
+    
+    Parameters
+    ----------
+    casevec: void *
+    targets: eavec_t *
+    insn_ea: ea_t
+    si: switch_info_t const &
+
+Help on function _processor_t_calc_varglocs in module ida_idp:
+
+_processor_t_calc_varglocs(*args) -> 'ssize_t'
+    _processor_t_calc_varglocs(ftd, regs, stkargs, nfixed) -> ssize_t
+    
+    Parameters
+    ----------
+    ftd: func_type_data_t *
+    regs: regobjs_t *
+    stkargs: relobj_t *
+    nfixed: int
+
+Help on function _processor_t_calcrel in module ida_idp:
+
+_processor_t_calcrel(*args) -> 'bytevec_t *, size_t *'
+    _processor_t_calcrel(ea) -> ssize_t
+    
+    Parameters
+    ----------
+    ea: ea_t
+
+Help on function _processor_t_can_have_type in module ida_idp:
+
+_processor_t_can_have_type(*args) -> 'ssize_t'
+    _processor_t_can_have_type(op) -> ssize_t
+    
+    Parameters
+    ----------
+    op: op_t const &
+
+Help on function _processor_t_clean_tbit in module ida_idp:
+
+_processor_t_clean_tbit(*args) -> 'ssize_t'
+    _processor_t_clean_tbit(ea, _getreg, regvalues) -> ssize_t
+    
+    Parameters
+    ----------
+    ea: ea_t
+    _getreg: processor_t::regval_getter_t *
+    regvalues: regval_t const &
+
+Help on function _processor_t_cmp_operands in module ida_idp:
+
+_processor_t_cmp_operands(*args) -> 'ssize_t'
+    _processor_t_cmp_operands(op1, op2) -> ssize_t
+    
+    Parameters
+    ----------
+    op1: op_t const &
+    op2: op_t const &
+
+Help on function _processor_t_coagulate in module ida_idp:
+
+_processor_t_coagulate(*args) -> 'ssize_t'
+    _processor_t_coagulate(start_ea) -> ssize_t
+    
+    Parameters
+    ----------
+    start_ea: ea_t
+
+Help on function _processor_t_coagulate_dref in module ida_idp:
+
+_processor_t_coagulate_dref(*args) -> 'ssize_t'
+    _processor_t_coagulate_dref(_from, to, may_define, code_ea) -> ssize_t
+    
+    Parameters
+    ----------
+    from: ea_t
+    to: ea_t
+    may_define: bool
+    code_ea: ea_t *
+
+Help on function _processor_t_create_flat_group in module ida_idp:
+
+_processor_t_create_flat_group(*args) -> 'ssize_t'
+    _processor_t_create_flat_group(image_base, bitness, dataseg_sel) -> ssize_t
+    
+    Parameters
+    ----------
+    image_base: ea_t
+    bitness: int
+    dataseg_sel: sel_t
+
+Help on function _processor_t_create_func_frame in module ida_idp:
+
+_processor_t_create_func_frame(*args) -> 'ssize_t'
+    _processor_t_create_func_frame(pfn) -> ssize_t
+    
+    Parameters
+    ----------
+    pfn: func_t *
+
+Help on function _processor_t_create_merge_handlers in module ida_idp:
+
+_processor_t_create_merge_handlers(*args) -> 'ssize_t'
+    _processor_t_create_merge_handlers(md) -> ssize_t
+    
+    Parameters
+    ----------
+    md: merge_data_t *
+
+Help on function _processor_t_create_switch_xrefs in module ida_idp:
+
+_processor_t_create_switch_xrefs(*args) -> 'ssize_t'
+    _processor_t_create_switch_xrefs(jumpea, si) -> ssize_t
+    
+    Parameters
+    ----------
+    jumpea: ea_t
+    si: switch_info_t const &
+
+Help on function _processor_t_creating_segm in module ida_idp:
+
+_processor_t_creating_segm(*args) -> 'ssize_t'
+    _processor_t_creating_segm(seg) -> ssize_t
+    
+    Parameters
+    ----------
+    seg: segment_t *
+
+Help on function _processor_t_decorate_name in module ida_idp:
+
+_processor_t_decorate_name(*args) -> 'ssize_t'
+    _processor_t_decorate_name(outbuf, name, mangle, cc, type) -> ssize_t
+    
+    Parameters
+    ----------
+    outbuf: qstring *
+    name: char const *
+    mangle: bool
+    cc: cm_t
+    type: tinfo_t const &
+
+Help on function _processor_t_del_cref in module ida_idp:
+
+_processor_t_del_cref(*args) -> 'ssize_t'
+    _processor_t_del_cref(_from, to, expand) -> ssize_t
+    
+    Parameters
+    ----------
+    from: ea_t
+    to: ea_t
+    expand: bool
+
+Help on function _processor_t_del_dref in module ida_idp:
+
+_processor_t_del_dref(*args) -> 'ssize_t'
+    _processor_t_del_dref(_from, to) -> ssize_t
+    
+    Parameters
+    ----------
+    from: ea_t
+    to: ea_t
+
+Help on function _processor_t_demangle_name in module ida_idp:
+
+_processor_t_demangle_name(*args) -> 'int'
+    _processor_t_demangle_name(res, name, disable_mask, demreq) -> ssize_t
+    
+    Parameters
+    ----------
+    res: int32 *
+    name: char const *
+    disable_mask: uint32
+    demreq: int
+
+Help on function _processor_t_emu_insn in module ida_idp:
+
+_processor_t_emu_insn(*args) -> 'ssize_t'
+    _processor_t_emu_insn(insn) -> ssize_t
+    
+    Parameters
+    ----------
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+
+Help on function _processor_t_endbinary in module ida_idp:
+
+_processor_t_endbinary(*args) -> 'ssize_t'
+    _processor_t_endbinary(ok) -> ssize_t
+    
+    Parameters
+    ----------
+    ok: bool
+
+Help on function _processor_t_equal_reglocs in module ida_idp:
+
+_processor_t_equal_reglocs(*args) -> 'ssize_t'
+    _processor_t_equal_reglocs(a1, a2) -> ssize_t
+    
+    Parameters
+    ----------
+    a1: argloc_t const &
+    a2: argloc_t const &
+
+Help on function _processor_t_extract_address in module ida_idp:
+
+_processor_t_extract_address(*args) -> 'ssize_t'
+    _processor_t_extract_address(out_ea, screen_ea, string, x) -> ssize_t
+    
+    Parameters
+    ----------
+    out_ea: ea_t *
+    screen_ea: ea_t
+    string: char const *
+    x: size_t
+
+Help on function _processor_t_find_op_value in module ida_idp:
+
+_processor_t_find_op_value(*args) -> 'unsigned-ea-like-numeric-type *'↗
+    _processor_t_find_op_value(insn, op) -> ssize_t
+    
+    Parameters
+    ----------
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+    op: int
+
+Help on function _processor_t_find_reg_value in module ida_idp:
+
+_processor_t_find_reg_value(*args) -> 'unsigned-ea-like-numeric-type *'↗
+    _processor_t_find_reg_value(insn, reg) -> ssize_t
+    
+    Parameters
+    ----------
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+    reg: int
+
+Help on function _processor_t_func_bounds in module ida_idp:
+
+_processor_t_func_bounds(*args) -> 'ssize_t'
+    _processor_t_func_bounds(possible_return_code, pfn, max_func_end_ea) -> ssize_t
+    
+    Parameters
+    ----------
+    possible_return_code: int *
+    pfn: func_t *
+    max_func_end_ea: ea_t
+
+Help on function _processor_t_gen_asm_or_lst in module ida_idp:
+
+_processor_t_gen_asm_or_lst(*args) -> 'ssize_t'
+    _processor_t_gen_asm_or_lst(starting, fp, is_asm, flags, outline) -> ssize_t
+    
+    Parameters
+    ----------
+    starting: bool
+    fp: FILE *
+    is_asm: bool
+    flags: int
+    outline: void *
+
+Help on function _processor_t_gen_map_file in module ida_idp:
+
+_processor_t_gen_map_file(*args) -> 'ssize_t'
+    _processor_t_gen_map_file(nlines, fp) -> ssize_t
+    
+    Parameters
+    ----------
+    nlines: int *
+    fp: FILE *
+
+Help on function _processor_t_gen_regvar_def in module ida_idp:
+
+_processor_t_gen_regvar_def(*args) -> 'ssize_t'
+    _processor_t_gen_regvar_def(ctx, v) -> ssize_t
+    
+    Parameters
+    ----------
+    ctx: outctx_t &
+    v: regvar_t *
+
+Help on function _processor_t_gen_src_file_lnnum in module ida_idp:
+
+_processor_t_gen_src_file_lnnum(*args) -> 'ssize_t'
+    _processor_t_gen_src_file_lnnum(ctx, file, lnnum) -> ssize_t
+    
+    Parameters
+    ----------
+    ctx: outctx_t &
+    file: char const *
+    lnnum: size_t
+
+Help on function _processor_t_gen_stkvar_def in module ida_idp:
+
+_processor_t_gen_stkvar_def(*args) -> 'ssize_t'
+    _processor_t_gen_stkvar_def(ctx, mptr, v) -> ssize_t
+    
+    Parameters
+    ----------
+    ctx: outctx_t &
+    mptr: member_t const *
+    v: sval_t
+
+Help on function _processor_t_get_abi_info in module ida_idp:
+
+_processor_t_get_abi_info(*args) -> 'ssize_t'
+    _processor_t_get_abi_info(abi_names, abi_opts, comp) -> ssize_t
+    
+    Parameters
+    ----------
+    abi_names: qstrvec_t *
+    abi_opts: qstrvec_t *
+    comp: comp_t
+
+Help on function _processor_t_get_autocmt in module ida_idp:
+
+_processor_t_get_autocmt(*args) -> 'qstring *'
+    _processor_t_get_autocmt(insn) -> ssize_t
+    
+    Parameters
+    ----------
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+
+Help on function _processor_t_get_bg_color in module ida_idp:
+
+_processor_t_get_bg_color(*args) -> 'ssize_t'
+    _processor_t_get_bg_color(color, ea) -> ssize_t
+    
+    Parameters
+    ----------
+    color: bgcolor_t *
+    ea: ea_t
+
+Help on function _processor_t_get_cc_regs in module ida_idp:
+
+_processor_t_get_cc_regs(*args) -> 'ssize_t'
+    _processor_t_get_cc_regs(regs, cc) -> ssize_t
+    
+    Parameters
+    ----------
+    regs: callregs_t *
+    cc: cm_t
+
+Help on function _processor_t_get_code16_mode in module ida_idp:
+
+_processor_t_get_code16_mode(*args) -> 'bool'
+    _processor_t_get_code16_mode(ea) -> bool
+    
+    Parameters
+    ----------
+    ea: ea_t
+
+Help on function _processor_t_get_dbr_opnum in module ida_idp:
+
+_processor_t_get_dbr_opnum(*args) -> 'ssize_t'
+    _processor_t_get_dbr_opnum(opnum, insn) -> ssize_t
+    
+    Parameters
+    ----------
+    opnum: int *
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+
+Help on function _processor_t_get_frame_retsize in module ida_idp:
+
+_processor_t_get_frame_retsize(*args) -> 'ssize_t'
+    _processor_t_get_frame_retsize(retsize, pfn) -> ssize_t
+    
+    Parameters
+    ----------
+    retsize: int *
+    pfn: func_t const *
+
+Help on function _processor_t_get_idd_opinfo in module ida_idp:
+
+_processor_t_get_idd_opinfo(*args) -> 'ssize_t'
+    _processor_t_get_idd_opinfo(opinf, ea, n, thread_id, _getreg, regvalues) -> ssize_t
+    
+    Parameters
+    ----------
+    opinf: idd_opinfo_t *
+    ea: ea_t
+    n: int
+    thread_id: int
+    _getreg: processor_t::regval_getter_t *
+    regvalues: regval_t const &
+
+Help on function _processor_t_get_macro_insn_head in module ida_idp:
+
+_processor_t_get_macro_insn_head(*args) -> 'ssize_t'
+    _processor_t_get_macro_insn_head(head, ip) -> ssize_t
+    
+    Parameters
+    ----------
+    head: ea_t *
+    ip: ea_t
+
+Help on function _processor_t_get_operand_string in module ida_idp:
+
+_processor_t_get_operand_string(*args) -> 'qstring *'
+    _processor_t_get_operand_string(insn, opnum) -> ssize_t
+    
+    Parameters
+    ----------
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+    opnum: int
+
+Help on function _processor_t_get_reg_accesses in module ida_idp:
+
+_processor_t_get_reg_accesses(*args) -> 'ssize_t'
+    _processor_t_get_reg_accesses(accvec, insn, flags) -> ssize_t
+    
+    Parameters
+    ----------
+    accvec: reg_accesses_t *
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+    flags: int
+
+Help on function _processor_t_get_reg_info in module ida_idp:
+
+_processor_t_get_reg_info(*args) -> 'char const *'
+    _processor_t_get_reg_info(regname, bitrange) -> char const *
+    
+    Parameters
+    ----------
+    regname: char const *
+    bitrange: bitrange_t *
+
+Help on function _processor_t_get_reg_name in module ida_idp:
+
+_processor_t_get_reg_name(*args) -> 'qstring *'
+    _processor_t_get_reg_name(reg, width, reghi) -> ssize_t
+    
+    Parameters
+    ----------
+    reg: int
+    width: size_t
+    reghi: int
+
+Help on function _processor_t_get_simd_types in module ida_idp:
+
+_processor_t_get_simd_types(*args) -> 'ssize_t'
+    _processor_t_get_simd_types(out, simd_attrs, argloc, create_tifs) -> ssize_t
+    
+    Parameters
+    ----------
+    out: void *
+    simd_attrs: simd_info_t const *
+    argloc: argloc_t const *
+    create_tifs: bool
+
+Help on function _processor_t_get_stkarg_area_info in module ida_idp:
+
+_processor_t_get_stkarg_area_info(*args) -> 'ssize_t'
+    _processor_t_get_stkarg_area_info(out, cc) -> ssize_t
+    
+    Parameters
+    ----------
+    out: stkarg_area_info_t *
+    cc: cm_t
+
+Help on function _processor_t_get_stkvar_scale_factor in module ida_idp:
+
+_processor_t_get_stkvar_scale_factor(*args) -> 'ssize_t'
+    _processor_t_get_stkvar_scale_factor() -> ssize_t
+
+Help on function _processor_t_getreg in module ida_idp:
+
+_processor_t_getreg(*args) -> 'ssize_t'
+    _processor_t_getreg(rv, regnum) -> ssize_t
+    
+    Parameters
+    ----------
+    rv: uval_t *
+    regnum: int
+
+Help on function _processor_t_init in module ida_idp:
+
+_processor_t_init(*args) -> 'ssize_t'
+    _processor_t_init(idp_modname) -> ssize_t
+    
+    Parameters
+    ----------
+    idp_modname: char const *
+
+Help on function _processor_t_insn_reads_tbit in module ida_idp:
+
+_processor_t_insn_reads_tbit(*args) -> 'ssize_t'
+    _processor_t_insn_reads_tbit(insn, _getreg, regvalues) -> ssize_t
+    
+    Parameters
+    ----------
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+    _getreg: processor_t::regval_getter_t *
+    regvalues: regval_t const &
+
+Help on function _processor_t_is_align_insn in module ida_idp:
+
+_processor_t_is_align_insn(*args) -> 'ssize_t'
+    _processor_t_is_align_insn(ea) -> ssize_t
+    
+    Parameters
+    ----------
+    ea: ea_t
+
+Help on function _processor_t_is_alloca_probe in module ida_idp:
+
+_processor_t_is_alloca_probe(*args) -> 'ssize_t'
+    _processor_t_is_alloca_probe(ea) -> ssize_t
+    
+    Parameters
+    ----------
+    ea: ea_t
+
+Help on function _processor_t_is_basic_block_end in module ida_idp:
+
+_processor_t_is_basic_block_end(*args) -> 'ssize_t'
+    _processor_t_is_basic_block_end(insn, call_insn_stops_block) -> ssize_t
+    
+    Parameters
+    ----------
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+    call_insn_stops_block: bool
+
+Help on function _processor_t_is_call_insn in module ida_idp:
+
+_processor_t_is_call_insn(*args) -> 'ssize_t'
+    _processor_t_is_call_insn(insn) -> ssize_t
+    
+    Parameters
+    ----------
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+
+Help on function _processor_t_is_cond_insn in module ida_idp:
+
+_processor_t_is_cond_insn(*args) -> 'ssize_t'
+    _processor_t_is_cond_insn(insn) -> ssize_t
+    
+    Parameters
+    ----------
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+
+Help on function _processor_t_is_control_flow_guard in module ida_idp:
+
+_processor_t_is_control_flow_guard(*args) -> 'ssize_t'
+    _processor_t_is_control_flow_guard(p_reg, insn) -> ssize_t
+    
+    Parameters
+    ----------
+    p_reg: int *
+    insn: insn_t const *
+
+Help on function _processor_t_is_far_jump in module ida_idp:
+
+_processor_t_is_far_jump(*args) -> 'ssize_t'
+    _processor_t_is_far_jump(icode) -> ssize_t
+    
+    Parameters
+    ----------
+    icode: int
+
+Help on function _processor_t_is_indirect_jump in module ida_idp:
+
+_processor_t_is_indirect_jump(*args) -> 'ssize_t'
+    _processor_t_is_indirect_jump(insn) -> ssize_t
+    
+    Parameters
+    ----------
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+
+Help on function _processor_t_is_jump_func in module ida_idp:
+
+_processor_t_is_jump_func(*args) -> 'ssize_t'
+    _processor_t_is_jump_func(pfn, jump_target, func_pointer) -> ssize_t
+    
+    Parameters
+    ----------
+    pfn: func_t *
+    jump_target: ea_t *
+    func_pointer: ea_t *
+
+Help on function _processor_t_is_ret_insn in module ida_idp:
+
+_processor_t_is_ret_insn(*args) -> 'ssize_t'
+    _processor_t_is_ret_insn(insn, strict) -> ssize_t
+    
+    Parameters
+    ----------
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+    strict: bool
+
+Help on function _processor_t_is_sane_insn in module ida_idp:
+
+_processor_t_is_sane_insn(*args) -> 'ssize_t'
+    _processor_t_is_sane_insn(insn, no_crefs) -> ssize_t
+    
+    Parameters
+    ----------
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+    no_crefs: int
+
+Help on function _processor_t_is_sp_based in module ida_idp:
+
+_processor_t_is_sp_based(*args) -> 'ssize_t'
+    _processor_t_is_sp_based(insn, x) -> ssize_t
+    
+    Parameters
+    ----------
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+    x: op_t const &
+
+Help on function _processor_t_is_switch in module ida_idp:
+
+_processor_t_is_switch(*args) -> 'ssize_t'
+    _processor_t_is_switch(si, insn) -> ssize_t
+    
+    Parameters
+    ----------
+    si: switch_info_t *
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+
+Help on function _processor_t_loader_elf_machine in module ida_idp:
+
+_processor_t_loader_elf_machine(*args) -> 'ssize_t'
+    _processor_t_loader_elf_machine(li, machine_type, p_procname, p_pd, ldr, reader) -> ssize_t
+    
+    Parameters
+    ----------
+    li: linput_t *
+    machine_type: int
+    p_procname: char const **
+    p_pd: proc_def_t **
+    ldr: elf_loader_t *
+    reader: reader_t *
+
+Help on function _processor_t_lower_func_type in module ida_idp:
+
+_processor_t_lower_func_type(*args) -> 'ssize_t'
+    _processor_t_lower_func_type(argnums, fti) -> ssize_t
+    
+    Parameters
+    ----------
+    argnums: intvec_t *
+    fti: func_type_data_t *
+
+Help on function _processor_t_max_ptr_size in module ida_idp:
+
+_processor_t_max_ptr_size(*args) -> 'ssize_t'
+    _processor_t_max_ptr_size() -> ssize_t
+
+Help on function _processor_t_may_be_func in module ida_idp:
+
+_processor_t_may_be_func(*args) -> 'ssize_t'
+    _processor_t_may_be_func(insn, state) -> ssize_t
+    
+    Parameters
+    ----------
+    insn: an ida_ua.insn_t, or an address (C++: const insn_t &)
+    state: int
+
+Help on function _processor_t_may_show_sreg in module ida_idp:
+
+_processor_t_may_show_sreg(*args) -> 'ssize_t'
+    _processor_t_may_show_sreg(current_ea) -> ssize_t
+    
+    Parameters
+    ----------
+    current_ea: ea_t
+
+Help on function _processor_t_moving_segm in module ida_idp:
+
+_processor_t_moving_segm(*args) -> 'ssize_t'
+    _processor_t_moving_segm(seg, to, flags) -> ssize_t
+    
+    Parameters
+    ----------
+    seg: segment_t *
+    to: ea_t
+    flags: int
+
+Help on function _processor_t_newasm in module ida_idp:
+
+_processor_t_newasm(*args) -> 'ssize_t'
+    _processor_t_newasm(asmnum) -> ssize_t
+    
+    Parameters
+    ----------
+    asmnum: int
+
+Help on function _processor_t_newbinary in module ida_idp:
+
+_processor_t_newbinary(*args) -> 'ssize_t'
+    _processor_t_newbinary(filename, fileoff, basepara, binoff, nbytes) -> ssize_t
+    
+    Parameters
+    ----------
+    filename: char const *
+    fileoff: qoff64_t
+    basepara: ea_t
+    binoff: ea_t
+    nbytes: uint64
+
+Help on function _processor_t_newfile in module ida_idp:
+
+_processor_t_newfile(*args) -> 'ssize_t'
+    _processor_t_newfile(fname) -> ssize_t
+    
+    Parameters
+    ----------
+    fname: char const *
+
+Help on function _processor_t_newprc in module ida_idp:
+
+_processor_t_newprc(*args) -> 'ssize_t'
+    _processor_t_newprc(pnum, keep_cfg) -> ssize_t
+    
+    Parameters
+    ----------
+    pnum: int
+    keep_cfg: bool
+
+Help on function _processor_t_next_exec_insn in module ida_idp:
+
+_processor_t_next_exec_insn(*args) -> 'ssize_t'
+    _processor_t_next_exec_insn(target, ea, tid, _getreg, regvalues) -> ssize_t
+    
+    Parameters
+    ----------
+    target: ea_t *
+    ea: ea_t
+    tid: int
+    _getreg: processor_t::regval_getter_t *
+    regvalues: regval_t const &
+
+Help on function _processor_t_notify in module ida_idp:
+
+_processor_t_notify(*args) -> 'ssize_t'
+    _processor_t_notify(event_code) -> ssize_t
+    
+    Parameters
+    ----------
+    event_code: enum processor_t::event_t
+
+Help on function _processor_t_oldfile in module ida_idp:
+
+_processor_t_oldfile(*args) -> 'ssize_t'
+    _processor_t_oldfile(fname) -> ssize_t
+    
+    Parameters
+    ----------
+    fname: char const *
+
+Help on function _processor_t_out_assumes in module ida_idp:
+
+_processor_t_out_assumes(*args) -> 'ssize_t'
+    _processor_t_out_assumes(ctx) -> ssize_t
+    
+    Parameters
+    ----------
+    ctx: outctx_t &
+
+Help on function _processor_t_out_data in module ida_idp:
+
+_processor_t_out_data(*args) -> 'ssize_t'
+    _processor_t_out_data(ctx, analyze_only) -> ssize_t
+    
+    Parameters
+    ----------
+    ctx: outctx_t &
+    analyze_only: bool
+
+Help on function _processor_t_out_footer in module ida_idp:
+
+_processor_t_out_footer(*args) -> 'ssize_t'
+    _processor_t_out_footer(ctx) -> ssize_t
+    
+    Parameters
+    ----------
+    ctx: outctx_t &
+
+Help on function _processor_t_out_header in module ida_idp:
+
+_processor_t_out_header(*args) -> 'ssize_t'
+    _processor_t_out_header(ctx) -> ssize_t
+    
+    Parameters
+    ----------
+    ctx: outctx_t &
+
+Help on function _processor_t_out_insn in module ida_idp:
+
+_processor_t_out_insn(*args) -> 'ssize_t'
+    _processor_t_out_insn(ctx) -> ssize_t
+    
+    Parameters
+    ----------
+    ctx: outctx_t &
+
+Help on function _processor_t_out_label in module ida_idp:
+
+_processor_t_out_label(*args) -> 'ssize_t'
+    _processor_t_out_label(ctx, colored_name) -> ssize_t
+    
+    Parameters
+    ----------
+    ctx: outctx_t &
+    colored_name: char const *
+
+Help on function _processor_t_out_mnem in module ida_idp:
+
+_processor_t_out_mnem(*args) -> 'ssize_t'
+    _processor_t_out_mnem(ctx) -> ssize_t
+    
+    Parameters
+    ----------
+    ctx: outctx_t &
+
+Help on function _processor_t_out_operand in module ida_idp:
+
+_processor_t_out_operand(*args) -> 'ssize_t'
+    _processor_t_out_operand(ctx, op) -> ssize_t
+    
+    Parameters
+    ----------
+    ctx: outctx_t &
+    op: op_t const &
+
+Help on function _processor_t_out_segend in module ida_idp:
+
+_processor_t_out_segend(*args) -> 'ssize_t'
+    _processor_t_out_segend(ctx, seg) -> ssize_t
+    
+    Parameters
+    ----------
+    ctx: outctx_t &
+    seg: segment_t *
+
+Help on function _processor_t_out_segstart in module ida_idp:
+
+_processor_t_out_segstart(*args) -> 'ssize_t'
+    _processor_t_out_segstart(ctx, seg) -> ssize_t
+    
+    Parameters
+    ----------
+    ctx: outctx_t &
+    seg: segment_t *
+
+Help on function _processor_t_out_special_item in module ida_idp:
+
+_processor_t_out_special_item(*args) -> 'ssize_t'
+    _processor_t_out_special_item(ctx, segtype) -> ssize_t
+    
+    Parameters
+    ----------
+    ctx: outctx_t &
+    segtype: uchar
+
+Help on function _processor_t_realcvt in module ida_idp:
+
+_processor_t_realcvt(*args) -> 'fpvalue_error_t'
+    _processor_t_realcvt(m, e, swt) -> fpvalue_error_t
+    
+    Parameters
+    ----------
+    m: void *
+    e: fpvalue_t *
+    swt: uint16
+
+Help on function _processor_t_rename in module ida_idp:
+
+_processor_t_rename(*args) -> 'ssize_t'
+    _processor_t_rename(ea, new_name, flags) -> ssize_t
+    
+    Parameters
+    ----------
+    ea: ea_t
+    new_name: char const *
+    flags: int
+
+Help on function _processor_t_set_code16_mode in module ida_idp:
+
+_processor_t_set_code16_mode(*args) -> 'ssize_t'
+    _processor_t_set_code16_mode(ea, code16=True) -> ssize_t
+    
+    Parameters
+    ----------
+    ea: ea_t
+    code16: bool
+
+Help on function _processor_t_set_idp_options in module ida_idp:
+
+_processor_t_set_idp_options(*args) -> 'char const *'
+    _processor_t_set_idp_options(keyword, vtype, value, idb_loaded=True) -> char const *
+    
+    Parameters
+    ----------
+    keyword: char const *
+    vtype: int
+    value: void const *
+    idb_loaded: bool
+
+Help on function _processor_t_set_proc_options in module ida_idp:
+
+_processor_t_set_proc_options(*args) -> 'ssize_t'
+    _processor_t_set_proc_options(options, confidence) -> ssize_t
+    
+    Parameters
+    ----------
+    options: char const *
+    confidence: int
+
+Help on function _processor_t_setup_til in module ida_idp:
+
+_processor_t_setup_til(*args) -> 'ssize_t'
+    _processor_t_setup_til() -> ssize_t
+
+Help on function _processor_t_str2reg in module ida_idp:
+
+_processor_t_str2reg(*args) -> 'ssize_t'
+    _processor_t_str2reg(regname) -> ssize_t
+    
+    Parameters
+    ----------
+    regname: char const *
+
+Help on function _processor_t_term in module ida_idp:
+
+_processor_t_term(*args) -> 'ssize_t'
+    _processor_t_term() -> ssize_t
+
+Help on function _processor_t_treat_hindering_item in module ida_idp:
+
+_processor_t_treat_hindering_item(*args) -> 'ssize_t'
+    _processor_t_treat_hindering_item(hindering_item_ea, new_item_flags, new_item_ea, new_item_length) -> ssize_t
+    
+    Parameters
+    ----------
+    hindering_item_ea: ea_t
+    new_item_flags: flags64_t
+    new_item_ea: ea_t
+    new_item_length: asize_t
+
+Help on function _processor_t_undefine in module ida_idp:
+
+_processor_t_undefine(*args) -> 'ssize_t'
+    _processor_t_undefine(ea) -> ssize_t
+    
+    Parameters
+    ----------
+    ea: ea_t
+
+Help on function _processor_t_update_call_stack in module ida_idp:
+
+_processor_t_update_call_stack(*args) -> 'ssize_t'
+    _processor_t_update_call_stack(stack, tid, _getreg, regvalues) -> ssize_t
+    
+    Parameters
+    ----------
+    stack: call_stack_t *
+    tid: int
+    _getreg: processor_t::regval_getter_t *
+    regvalues: regval_t const &
+
+Help on function _processor_t_use_arg_types in module ida_idp:
+
+_processor_t_use_arg_types(*args) -> 'ssize_t'
+    _processor_t_use_arg_types(ea, fti, rargs) -> ssize_t
+    
+    Parameters
+    ----------
+    ea: ea_t
+    fti: func_type_data_t *
+    rargs: void *
+
+Help on function _processor_t_use_regarg_type in module ida_idp:
+
+_processor_t_use_regarg_type(*args) -> 'ssize_t'
+    _processor_t_use_regarg_type(idx, ea, rargs) -> ssize_t
+    
+    Parameters
+    ----------
+    idx: int *
+    ea: ea_t
+    rargs: void *
+
+Help on function _processor_t_use_stkarg_type in module ida_idp:
+
+_processor_t_use_stkarg_type(*args) -> 'ssize_t'
+    _processor_t_use_stkarg_type(ea, arg) -> ssize_t
+    
+    Parameters
+    ----------
+    ea: ea_t
+    arg: funcarg_t const &
+
+Help on function _processor_t_validate_flirt_func in module ida_idp:
+
+_processor_t_validate_flirt_func(*args) -> 'ssize_t'
+    _processor_t_validate_flirt_func(start_ea, funcname) -> ssize_t
+    
+    Parameters
+    ----------
+    start_ea: ea_t
+    funcname: char const *
+
+Help on function _processor_t_verify_noreturn in module ida_idp:
+
+_processor_t_verify_noreturn(*args) -> 'ssize_t'
+    _processor_t_verify_noreturn(pfn) -> ssize_t
+    
+    Parameters
+    ----------
+    pfn: func_t *
+
+Help on function _processor_t_verify_sp in module ida_idp:
+
+_processor_t_verify_sp(*args) -> 'ssize_t'
+    _processor_t_verify_sp(pfn) -> ssize_t
+    
+    Parameters
+    ----------
+    pfn: func_t *
+
 Help on class asm_t in module ida_idp:
 
 class asm_t(builtins.object)
@@ -50919,7 +54336,7 @@ get_idp_notifier_ud_addr(*args) -> 'PyObject *'
 Help on function get_ph in module ida_idp:
 
 get_ph(*args) -> 'processor_t *'
-    get_ph() -> processor_t *
+    get_ph() -> _processor_t
 
 Help on function get_reg_info in module ida_idp:
 
@@ -51849,7 +55266,7 @@ class processor_t(IDP_Hooks)
  |      An item hinders creation of another item.
  |      
  |      @param hindering_item_ea: (::ea_t)
- |      @param new_item_flags: (flags_t) (0 for code)
+ |      @param new_item_flags: (flags64_t) (0 for code)
  |      @param new_item_ea: (::ea_t)
  |      @param new_item_length: (::asize_t)
  |      @retval 0: no reaction
@@ -53587,7 +57004,109 @@ class Choose(builtins.object)
  |      
  |      @return: The TWidget underlying this view, or None.
  |  
+ |  OnClose(self)
+ |      The chooser window is closed.
+ |  
+ |  OnDeleteLine(self, sel)
+ |      User deleted an element
+ |      
+ |      @param sel: the current selection
+ |      @return: a tuple (changed, selection)
+ |  
+ |  OnEditLine(self, sel)
+ |      User asked to edit an element.
+ |      
+ |      @param sel: the current selection
+ |      @return: a tuple (changed, selection)
+ |  
+ |  OnGetDirTree(self)
+ |      Get the dirtree_t that will be used to present a tree-like
+ |      structure to the user (see CH_HAS_DIRTREE)
+ |      
+ |      @return: the dirtree_t, or None
+ |  
+ |  OnGetIcon(self, n)
+ |      Get an icon to associate with the first cell of an element
+ |      
+ |      @param n: index of the element
+ |      @return: an icon ID
+ |  
+ |  OnGetLine(self, n)
+ |      Get data for an element
+ |      
+ |      This callback is mandatory
+ |      
+ |      @param n: the index to fetch data for
+ |      @return: a list of strings
+ |  
+ |  OnGetLineAttr(self, n)
+ |      Get attributes for an element
+ |      
+ |      @param n: index of the element
+ |      @return: a tuple (color, flags)
+ |  
+ |  OnGetSize(self)
+ |      Get the number of elements in the chooser.
+ |      
+ |      This callback is mandatory
+ |      
+ |      @return: the number of elements
+ |  
+ |  OnIndexToDiffpos(self, n)
+ |      Map an element index to a diffpos_t
+ |      
+ |      This callback is mandatory if CH_HAS_DIFF is specified
+ |      
+ |      @param n: index of the element
+ |      @return: the diffpos
+ |  
+ |  OnIndexToInode(self, n)
+ |      Map an element index to a dirtree_t inode
+ |      
+ |      This callback is mandatory if CH_HAS_DIRTREE is specified
+ |      
+ |      @param n: index of the element
+ |      @return: the inode number
+ |  
+ |  OnInit(self)
+ |      Initialize the chooser and populate it.
+ |      
+ |      This callback is optional
+ |  
+ |  OnInsertLine(self, sel)
+ |      User asked to insert an element
+ |      
+ |      @param sel: the current selection
+ |      @return: a tuple (changed, selection)
+ |  
+ |  OnLazyLoadDir(self, path)
+ |      Callback for lazy-loaded, dirtree-based choosers;
+ |      the function will be called when a folder is expanded and it has
+ |      not been loaded before. The implementation should use the
+ |      given dirtree's link() or mkdir() methods to add the folder contents.
+ |      
+ |      @param path: an absolute dirtree path to the directory that is being expanded
+ |      @return: success
+ |  
  |  OnPopup(self, widget, popup_handle)
+ |  
+ |  OnRefresh(self, sel)
+ |      The chooser needs to be refreshed.
+ |      It returns the new positions of the selected items.
+ |      
+ |      @param sel: the current selection
+ |      @return: a tuple (changed, selection)
+ |  
+ |  OnSelectLine(self, sel)
+ |      User pressed the enter key, or double-clicked a selection
+ |      
+ |      @param sel: the current selection
+ |      @return: a tuple (changed, selection)
+ |  
+ |  OnSelectionChange(self, sel)
+ |      Selection changed
+ |      
+ |      @param sel: the new selection
  |  
  |  Refresh(self)
  |      Causes the refresh callback to trigger
@@ -53604,13 +57123,14 @@ class Choose(builtins.object)
  |               For non-modal choosers it will return 0
  |               or ALREADY_EXISTS if the chooser was already open and is active now;
  |  
- |  __init__(self, title, cols, flags=0, popup_names=None, icon=-1, x1=-1, y1=-1, x2=-1, y2=-1, deflt=None, embedded=False, width=None, height=None, forbidden_cb=0)
+ |  __init__(self, title, cols, flags=0, popup_names=None, icon=-1, x1=-1, y1=-1, x2=-1, y2=-1, deflt=None, embedded=False, width=None, height=None, forbidden_cb=0, flags2=0)
  |      Constructs a chooser window.
  |      @param title: The chooser title
  |      @param cols: a list of colums; each list item is a list of two items
  |          example: [ ["Address", 10 | Choose.CHCOL_HEX],
  |                     ["Name",    30 | Choose.CHCOL_PLAIN] ]
  |      @param flags: One of CH_XXXX constants
+ |      @param flags2: One of CH2_XXXX constants
  |      @param deflt: The index of the default item (0-based) for single
  |          selection choosers or the list of indexes for multi selection
  |          chooser
@@ -55752,15 +59272,18 @@ Help on function attach_dynamic_action_to_popup in module ida_kernwin:
 attach_dynamic_action_to_popup(*args) -> 'bool'
     attach_dynamic_action_to_popup(unused, popup_handle, desc, popuppath=None, flags=0) -> bool
     Create & insert an action into the widget's popup menu
-    (ui_attach_dynamic_action_to_popup).
-    @note: action_desc_t::handler for 'desc' must be instantiated using 'new', as it
-           will be 'delete'd when the action is unregistered.
+    (::ui_attach_dynamic_action_to_popup).
+    Note: The action description in the 'desc' parameter is modified by
+          this call so you should prepare a new description for each call.
+    For example:
+        desc = idaapi.action_desc_t(None, 'Dynamic popup action', Handler())
+        idaapi.attach_dynamic_action_to_popup(form, popup, desc)
     
-    @param unused: (C++: TWidget *) deprecated; should be nullptr
-    @param popup_handle: (C++: TPopupMenu *) target popup
-    @param desc: (C++: const action_desc_t &) created with DYNACTION_DESC_LITERAL
-    @param popuppath: (C++: const char *) can be nullptr
-    @param flags: (C++: int) a combination of SETMENU_ constants (see Set menu flags)
+    @param unused: deprecated; should be None
+    @param popup_handle: target popup
+    @param desc: action description of type action_desc_t
+    @param popuppath: can be None
+    @param flags: a combination of SETMENU_ constants
     @return: success
 
 Help on function banner in module ida_kernwin:
@@ -56049,6 +59572,9 @@ class chooser_base_t(builtins.object)
  |  is_force_default(self, *args) -> 'bool'
  |      is_force_default(self) -> bool
  |      should selection of the already opened non-modal chooser be changed?
+ |  
+ |  is_lazy_loaded(self, *args) -> 'bool'
+ |      is_lazy_loaded(self) -> bool
  |  
  |  is_modal(self, *args) -> 'bool'
  |      is_modal(self) -> bool
@@ -60201,10 +63727,14 @@ Help on function show_wait_box in module ida_kernwin:
 
 show_wait_box(*args) -> 'void'
     show_wait_box(message)
-    Display a dialog box with "Please wait...". If the text message starts with
-    "HIDECANCEL\n", the cancel button
-    won't be added to the dialog box and user_cancelled() will always
-    return false (but can be caled to refresh UI).
+    Display a dialog box with "Please wait...". The behavior of the dialog box can
+    be configured with well-known
+    tokens, that should be placed at the start of the format string:
+    "HIDECANCEL\n": the cancel button won't be added to the dialog box
+    and user_cancelled() will always return false (but
+    can be caled to refresh UI).
+    "NODELAY\n": the dialog will show immediately, instead of
+    appearing after usual grace threshold
     Plugins must call hide_wait_box() to close the dialog box, otherwise
     the user interface will remain disabled.
     Note that, if the wait dialog is already visible, show_wait_box() will
@@ -70108,6 +73638,9 @@ class refinfo_t(builtins.object)
  |  is_rvaoff(self, *args) -> 'bool'
  |      is_rvaoff(self) -> bool
  |  
+ |  is_selfref(self, *args) -> 'bool'
+ |      is_selfref(self) -> bool
+ |  
  |  is_signed(self, *args) -> 'bool'
  |      is_signed(self) -> bool
  |  
@@ -71012,7 +74545,7 @@ append_struct_fields(*args) -> 'qstring *, adiff_t *'
                  array is MAXSTRUCPATH. the first element of the array is the
                  structure id. consecutive elements are id's of used union members
                  (if any).
-    @param flags: (C++: flags_t) the input flags. they will be returned if the struct cannot be
+    @param flags: (C++: flags64_t) the input flags. they will be returned if the struct cannot be
                   found.
     @param delta: (C++: adiff_t) delta to add to displacement
     @param appzero: (C++: bool) should append a struct field name if the displacement is zero?
@@ -71758,21 +75291,22 @@ validate_name(*args) -> 'PyObject *'
 Module "ida_netnode"s docstring:
 """
 Functions that provide the lowest level public interface to the database.
+Namely, we use Btree. To learn more about BTree:
 
-(Namely, Btree). To learn more about Balanced Trees:
-\link{http://www.bluerwhite.org/btree/}
+\link{https://en.wikipedia.org/wiki/B-tree}
 
-We don't use Btree directly. Instead, we have another layer built on the top of
+We do not use Btree directly. Instead, we have another layer built on the top of
 Btree. Here is a brief explanation of this layer.
 
 An object called "netnode" is modeled on the top of Btree. Each netnode has a
-unique id: a 32-bit value (64-bit for ida64). Usually there is a trivial mapping
-of the linear addresses used in the program to netnodes. If we have additional
-information about an address (a comment is attached to it, for example), this
-information is stored in the corresponding netnode. See nalt.hpp to see how the
-kernel uses netnodes. Also, some netnodes have no corresponding linear address
-(however, they still have an id). They are used to store information not related
-to a particular address.
+unique id: a 32-bit value (64-bit for ida64). Initially there is a trivial
+mapping of the linear addresses used in the program to netnodes (later this
+mapping may be modified using ea2node and node2ea functions; this is used for
+fast database rebasings). If we have additional information about an address
+(for example, a comment is attached to it), this information is stored in the
+corresponding netnode. See nalt.hpp to see how the kernel uses netnodes. Also,
+some netnodes have no corresponding linear address (however, they still have an
+id). They are used to store information not related to a particular address.
 
 Each netnode _may_ have the following attributes:
 
@@ -71797,7 +75331,7 @@ Initially:
 
 If you need to store objects bigger that MAXSPECSIZE, please note that there are
 high-level functions to store arbitrary sized objects in supvals. See
-setblog/getblob and other blob-related functions.
+setblob/getblob and other blob-related functions.
 
 You may use netnodes to store additional information about the program.
 Limitations on the use of netnodes are the following:
@@ -77688,10 +81222,10 @@ std_out_segm_footer(*args) -> 'void'
 Help on function take_memory_snapshot in module ida_segment:
 
 take_memory_snapshot(*args) -> 'bool'
-    take_memory_snapshot(only_loader_segs) -> bool
+    take_memory_snapshot(type) -> bool
     Take a memory snapshot of the running process.
     
-    @param only_loader_segs: (C++: bool) only is_loader_segm() segments will be affected
+    @param type: (C++: int) specifies which snapshot we want (see SNAP_ Snapshot types)
     @return: success
 
 Help on function update_segm in module ida_segment:
@@ -78203,7 +81737,7 @@ add_struc_member(*args) -> 'struc_error_t'
     @param sptr: (C++: struc_t *) structure to modify
     @param fieldname: (C++: const char *) if nullptr, then "anonymous_#" name will be generated
     @param offset: (C++: ea_t) BADADDR means add to the end of structure
-    @param flag: (C++: flags_t) type + representation bits
+    @param flag: (C++: flags64_t) type + representation bits
     @param mt: (C++: const opinfo_t *) additional info about member type. must be present for structs,
                offsets, enums, strings, struct offsets.
     @param nbytes: (C++: asize_t) if == 0 then the structure will be a varstruct. in this case the
@@ -78803,7 +82337,7 @@ set_member_type(*args) -> 'bool'
     
     @param sptr: (C++: struc_t *)
     @param offset: (C++: ea_t)
-    @param flag: (C++: flags_t)
+    @param flag: (C++: flags64_t)
     @param mt: (C++: const opinfo_t *) opinfo_t const *
     @param nbytes: (C++: asize_t)
 
@@ -79031,7 +82565,7 @@ class struct_field_visitor_t(builtins.object)
 Help on function visit_stroff_fields in module ida_struct:
 
 visit_stroff_fields(*args) -> 'adiff_t *'
-    visit_stroff_fields(sfv, path, disp, appzero) -> flags_t
+    visit_stroff_fields(sfv, path, disp, appzero) -> flags64_t
     Visit structure fields in a stroff expression or in a reference to a struct data
     variable. This function can be used to enumerate all components of an expression
     like 'a.b.c'.
@@ -83084,6 +86618,15 @@ get_full_type(*args) -> 'type_t'
     Get basic type bits + type flags (TYPE_FULL_MASK)
     
     @param t: (C++: type_t)
+
+Help on function get_idainfo64_by_type in module ida_typeinf:
+
+get_idainfo64_by_type(*args) -> 'size_t *, opinfo_t *, size_t *'
+    get_idainfo64_by_type(out_flags, tif) -> bool
+    Extract information from a tinfo_t.
+    
+    @param out_flags: (C++: flags64_t *) description of type using flags64_t
+    @param tif: (C++: const tinfo_t &) the type to inspect
 
 Help on function get_idainfo_by_type in module ida_typeinf:
 
@@ -88174,7 +91717,7 @@ create_outctx(*args) -> 'outctx_base_t *'
     Create a new output context. To delete it, just use "delete pctx"
     
     @param ea: (C++: ea_t)
-    @param F: (C++: flags_t)
+    @param F: (C++: flags64_t)
     @param suspop: (C++: int)
 
 Help on function decode_insn in module ida_ua:
@@ -88219,8 +91762,8 @@ get_dtype_by_size(*args) -> 'int'
 
 Help on function get_dtype_flag in module ida_ua:
 
-get_dtype_flag(*args) -> 'flags_t'
-    get_dtype_flag(dtype) -> flags_t
+get_dtype_flag(*args) -> 'flags64_t'
+    get_dtype_flag(dtype) -> flags64_t
     Get flags for op_t::dtype field.
     
     @param dtype: (C++: op_dtype_t)
@@ -88245,7 +91788,7 @@ get_immvals(*args) -> 'PyObject *'
     
     @param ea: (C++: ea_t) address to analyze
     @param n: (C++: int) number of operand (0..UA_MAXOP-1), -1 means all operands
-    @param F: (C++: flags_t) flags for the specified address
+    @param F: (C++: flags64_t) flags for the specified address
     @return: number of immediate values (0..2*UA_MAXOP)
 
 Help on function get_lookback in module ida_ua:
@@ -88264,7 +91807,7 @@ get_printable_immvals(*args) -> 'PyObject *'
     
     @param ea: (C++: ea_t) address to analyze
     @param n: (C++: int) number of operand (0..UA_MAXOP-1), -1 means all operands
-    @param F: (C++: flags_t) flags for the specified address
+    @param F: (C++: flags64_t) flags for the specified address
     @return: number of immediate values (0..2*UA_MAXOP)
 
 Help on function insn_add_cref in module ida_ua:
@@ -88641,6 +92184,9 @@ class op_t(builtins.object)
  |  __get_specval__(self, *args) -> 'ea_t'
  |      __get_specval__(self) -> ea_t
  |  
+ |  __get_value64__(self, *args) -> 'uint64'
+ |      __get_value64__(self) -> uint64
+ |  
  |  __get_value__(self, *args) -> 'ea_t'
  |      __get_value__(self) -> ea_t
  |  
@@ -88663,6 +92209,11 @@ class op_t(builtins.object)
  |      __set_specval__(self, v)
  |      
  |      @param v: ea_t
+ |  
+ |  __set_value64__(self, *args) -> 'void'
+ |      __set_value64__(self, v)
+ |      
+ |      @param v: uint64
  |  
  |  __set_value__(self, *args) -> 'void'
  |      __set_value__(self, v)
@@ -88760,6 +92311,9 @@ class op_t(builtins.object)
  |  
  |  value
  |      __get_value__(self) -> ea_t
+ |  
+ |  value64
+ |      __get_value64__(self) -> uint64
 
 Help on function op_t__from_ptrval__ in module ida_ua:
 
@@ -89066,8 +92620,8 @@ class outctx_base_t(builtins.object)
  |      
  |      @param tag: (C++: color_t)
  |  
- |  out_value(self, *args) -> 'flags_t'
- |      out_value(self, x, outf=0) -> flags_t
+ |  out_value(self, *args) -> 'flags64_t'
+ |      out_value(self, x, outf=0) -> flags64_t
  |      Output immediate value. Try to use this function to output all constants of
  |      instruction operands. This function outputs a number from x.addr or x.value in
  |      the form determined by ::uFlag. It outputs a colored text.
@@ -89315,6 +92869,9 @@ class outctx_t(outctx_base_t)
  |  ph
  |      ph
  |  
+ |  prefix_ea
+ |      prefix_ea
+ |  
  |  procmod
  |      procmod
  |  
@@ -89543,8 +93100,8 @@ class outctx_t(outctx_base_t)
  |      
  |      @param tag: (C++: color_t)
  |  
- |  out_value(self, *args) -> 'flags_t'
- |      out_value(self, x, outf=0) -> flags_t
+ |  out_value(self, *args) -> 'flags64_t'
+ |      out_value(self, x, outf=0) -> flags64_t
  |      Output immediate value. Try to use this function to output all constants of
  |      instruction operands. This function outputs a number from x.addr or x.value in
  |      the form determined by ::uFlag. It outputs a colored text.
@@ -90244,6 +93801,11 @@ class DeprecatedIDCError(builtins.Exception)
  |      builtins.BaseException
  |      builtins.object
  |  
+ |  Methods defined here:
+ |  
+ |  add_note = dummy_replacement()
+ |  
+ |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
  |  __weakref__
@@ -91038,7 +94600,7 @@ create_data(*args) -> 'bool'
     arrays.
     
     @param ea: (C++: ea_t) linear address
-    @param dataflag: (C++: flags_t) type of data. Value of function byte_flag(), word_flag(), etc.
+    @param dataflag: (C++: flags64_t) type of data. Value of function byte_flag(), word_flag(), etc.
     @param size: (C++: asize_t) size of array in bytes. should be divisible by the size of one item
                  of the specified type. for variable sized items it can be specified
                  as 0, and the kernel will try to calculate the size.
@@ -91948,8 +95510,8 @@ get_enum_cmt(*args) -> 'qstring *'
 
 Help on function get_enum_flag in module ida_enum:
 
-get_enum_flag(*args) -> 'flags_t'
-    get_enum_flag(id) -> flags_t
+get_enum_flag(*args) -> 'flags64_t'
+    get_enum_flag(id) -> flags64_t
     Get flags determining the representation of the enum. (currently they define the
     numeric base: octal, decimal, hex, bin) and signness.
     
@@ -92438,8 +96000,8 @@ get_frame_size(ea)
 
 Help on function get_full_flags in module ida_bytes:
 
-get_full_flags(*args) -> 'flags_t'
-    get_full_flags(ea) -> flags_t
+get_full_flags(*args) -> 'flags64_t'
+    get_full_flags(ea) -> flags64_t
     Get flags value for address 'ea'.
     
     @param ea: (C++: ea_t)
@@ -94347,37 +97909,6 @@ print_decls(ordinals, flags)
     
     @return: string containing the type definitions
 
-Help on _Feature in module __future__ object:
-
-class _Feature(builtins.object)
- |  Methods defined here:
- |  
- |  __init__(self, optionalRelease, mandatoryRelease, compiler_flag)
- |      Initialize self.  See help(type(self)) for accurate signature.
- |  
- |  __repr__(self)
- |      Return repr(self).
- |  
- |  getMandatoryRelease(self)
- |      Return release in which this feature will become mandatory.
- |      
- |      This is a 5-tuple, of the same form as sys.version_info, or, if
- |      the feature was dropped, is None.
- |  
- |  getOptionalRelease(self)
- |      Return first release in which this feature was recognized.
- |      
- |      This is a 5-tuple, of the same form as sys.version_info.
- |  
- |  ----------------------------------------------------------------------
- |  Data descriptors defined here:
- |  
- |  __dict__
- |      dictionary for instance variables (if defined)
- |  
- |  __weakref__
- |      list of weak references to the object (if defined)
-
 Help on function print_insn_mnem in module idc:
 
 print_insn_mnem(ea)
@@ -94876,7 +98407,7 @@ set_enum_flag(*args) -> 'bool'
     Set data representation flags.
     
     @param id: (C++: enum_t)
-    @param flag: (C++: flags_t)
+    @param flag: (C++: flags64_t)
 
 Help on function set_enum_idx in module ida_enum:
 
@@ -95465,10 +98996,10 @@ suspend_thread(*args) -> 'int'
 Help on function take_memory_snapshot in module ida_segment:
 
 take_memory_snapshot(*args) -> 'bool'
-    take_memory_snapshot(only_loader_segs) -> bool
+    take_memory_snapshot(type) -> bool
     Take a memory snapshot of the running process.
     
-    @param only_loader_segs: (C++: bool) only is_loader_segm() segments will be affected
+    @param type: (C++: int) specifies which snapshot we want (see SNAP_ Snapshot types)
     @return: success
 
 Help on function to_ea in module idc:
@@ -97222,6 +100753,11 @@ Documentation on variable FUNC_LUMINA in module ida_funcs:
 Documentation on variable FUNC_OUTLINE in module ida_funcs:
 
     Outlined code, not a real function.
+
+Documentation on variable FUNC_REANALYZE in module ida_funcs:
+
+    Function frame changed, request to reanalyze the function after the last insn is
+    analyzed.
 
 Documentation on variable MOVE_FUNC_OK in module ida_funcs:
 
@@ -99883,6 +103419,10 @@ Documentation on variable MBA2_NO_FRAME in module ida_hexrays:
 
     do not use function frame info (only snippet mode)
 
+Documentation on variable MBA2_PROP_COMPLEX in module ida_hexrays:
+
+    allow propagation of more complex variable definitions
+
 Documentation on variable MBA2_DONT_VERIFY in module ida_hexrays:
 
     Do not verify microcode. This flag is recomended to be set only when debugging
@@ -100951,6 +104491,10 @@ Documentation on variable DECOMP_NO_HIDE in module ida_hexrays:
 Documentation on variable DECOMP_NO_XREFS in module ida_hexrays:
 
     do not update global xrefs cache
+
+Documentation on variable DECOMP_VOID_MBA in module ida_hexrays:
+
+    return empty mba object (to be used with gen_microcode)
 
 Documentation on variable hxe_flowchart in module ida_hexrays:
 
@@ -102377,14 +105921,14 @@ Documentation on variable register_info_t.dtype in module ida_idd:
 
     Register size (see Operand value types)
 
+Documentation on variable register_info_t.default_bit_strings_mask in module ida_idd:
+
+    mask of default bits
+
 Documentation on variable register_info_t.bit_strings in module ida_idd:
 
     strings corresponding to each bit of the register. (nullptr = no bit, same name
     = multi-bits mask)
-
-Documentation on variable register_info_t.default_bit_strings_mask in module ida_idd:
-
-    mask of default bits
 
 Documentation on variable REGISTER_READONLY in module ida_idd:
 
@@ -102760,6 +106304,764 @@ Documentation on variable DRC_NOCHG in module ida_idd:
 Documentation on variable DRC_ERROR in module ida_idd:
 
     unclassified error, may be complemented by errbuf
+
+Documentation on variable debugger_t.version in module ida_idd:
+
+    Expected kernel version, should be IDD_INTERFACE_VERSION
+
+Documentation on variable debugger_t.name in module ida_idd:
+
+    Short debugger name like win32 or linux.
+
+Documentation on variable debugger_t.id in module ida_idd:
+
+    one of Debugger API module id
+
+Documentation on variable debugger_t.processor in module ida_idd:
+
+    Required processor name. Used for instant debugging to load the correct
+    processor module
+
+Documentation on variable debugger_t.flags2 in module ida_idd:
+
+    Debugger module features
+
+Documentation on variable debugger_t.default_regclasses in module ida_idd:
+
+    Mask of default printed register classes.
+
+Documentation on variable debugger_t.memory_page_size in module ida_idd:
+
+    Size of a memory page. Usually 4K.
+
+Documentation on variable debugger_t.bpt_size in module ida_idd:
+
+    Size of the software breakpoint instruction in bytes.
+
+Documentation on variable debugger_t.filetype in module ida_idd:
+
+    Input file type for the instant debugger. This value will be used after
+    attaching to a new process.
+
+Documentation on variable debugger_t.resume_modes in module ida_idd:
+
+    Resume modes
+
+Documentation on variable debugger_t.ev_init_debugger in module ida_idd:
+
+    Initialize debugger. This event is generated in the main thread.
+    
+    @return: DRC_OK, DRC_FAILED
+
+Documentation on variable debugger_t.ev_term_debugger in module ida_idd:
+
+    Terminate debugger. This event is generated in the main thread.
+    
+    @return: DRC_OK, DRC_FAILED
+
+Documentation on variable debugger_t.ev_get_processes in module ida_idd:
+
+    Return information about the running processes. This event is generated in the
+    main thread. Available if DBG_HAS_GET_PROCESSES is set
+    
+    @return: DRC_NONE, DRC_OK, DRC_FAILED, DRC_NETERR
+
+Documentation on variable debugger_t.ev_start_process in module ida_idd:
+
+    Start an executable to debug. This event is generated in debthread. Must be
+    implemented.
+    
+    @return: DRC_OK, DRC_CRC, DRC_FAILED, DRC_NETERR, DRC_NOFILE
+
+Documentation on variable debugger_t.ev_attach_process in module ida_idd:
+
+    Attach to an existing running process. event_id should be equal to -1 if not
+    attaching to a crashed process. This event is generated in debthread. Available
+    if DBG_HAS_ATTACH_PROCESS is set
+    
+    @return: DRC_NONE, DRC_OK, DRC_FAILED, DRC_NETERR
+
+Documentation on variable debugger_t.ev_detach_process in module ida_idd:
+
+    Detach from the debugged process. May be generated while the process is running
+    or suspended. Must detach from the process in any case. The kernel will
+    repeatedly call get_debug_event() until PROCESS_DETACHED is received. In this
+    mode, all other events will be automatically handled and process will be
+    resumed. This event is generated from debthread. Available if
+    DBG_HAS_DETACH_PROCESS is set
+    
+    @return: DRC_NONE, DRC_OK, DRC_FAILED, DRC_NETERR
+
+Documentation on variable debugger_t.ev_get_debapp_attrs in module ida_idd:
+
+    Retrieve process- and debugger-specific runtime attributes. This event is
+    generated in the main thread.
+    
+    @return: DRC_NONE, DRC_OK
+
+Documentation on variable debugger_t.ev_rebase_if_required_to in module ida_idd:
+
+    Rebase database if the debugged program has been rebased by the system. This
+    event is generated in the main thread.
+    
+    @return: DRC_NONE, DRC_OK
+
+Documentation on variable debugger_t.ev_request_pause in module ida_idd:
+
+    Prepare to pause the process. Normally the next get_debug_event() will pause the
+    process If the process is sleeping, then the pause will not occur until the
+    process wakes up. If the debugger module does not react to this event, then it
+    will be impossible to pause the program. This event is generated in debthread.
+    Available if DBG_HAS_REQUEST_PAUSE is set
+    
+    @return: DRC_NONE, DRC_OK, DRC_FAILED, DRC_NETERR
+
+Documentation on variable debugger_t.ev_exit_process in module ida_idd:
+
+    Stop the process. May be generated while the process is running or suspended.
+    Must terminate the process in any case. The kernel will repeatedly call
+    get_debug_event() until PROCESS_EXITED is received. In this mode, all other
+    events will be automatically handled and process will be resumed. This event is
+    generated in debthread. Must be implemented.
+    
+    @return: DRC_NONE, DRC_OK, DRC_FAILED, DRC_NETERR
+
+Documentation on variable debugger_t.ev_get_debug_event in module ida_idd:
+
+    Get a pending debug event and suspend the process. This event will be generated
+    regularly by IDA. This event is generated in debthread. IMPORTANT: the
+    BREAKPOINT/EXCEPTION/STEP events must be reported only after reporting other
+    pending events for a thread. Must be implemented.
+    
+    @retval ignored
+
+Documentation on variable debugger_t.ev_resume in module ida_idd:
+
+    Continue after handling the event. This event is generated in debthread. Must be
+    implemented.
+    
+    @return: DRC_OK, DRC_FAILED, DRC_NETERR
+
+Documentation on variable debugger_t.ev_set_exception_info in module ida_idd:
+
+    Set exception handling. This event is generated in debthread or the main thread.
+    Available if DBG_HAS_SET_EXCEPTION_INFO is set
+    
+    @return: DRC_NONE, DRC_OK
+
+Documentation on variable debugger_t.ev_suspended in module ida_idd:
+
+    This event will be generated by the kernel each time it has suspended the
+    debugger process and refreshed the database. The debugger module may add
+    information to the database if it wants.
+    
+    The reason for introducing this event is that when an event line LOAD_DLL
+    happens, the database does not reflect the memory state yet and therefore we
+    can't add information about the dll into the database in the get_debug_event()
+    event. Only when the kernel has adjusted the database we can do it. Example: for
+    imported PE DLLs we will add the exported event names to the database.
+    
+    This event is generated in the main thread.
+    
+    @return: DRC_NONE, DRC_OK
+
+Documentation on variable debugger_t.ev_thread_suspend in module ida_idd:
+
+    Suspend a running thread Available if DBG_HAS_THREAD_SUSPEND is set
+
+Documentation on variable debugger_t.ev_thread_continue in module ida_idd:
+
+    Resume a suspended thread Available if DBG_HAS_THREAD_CONTINUE is set
+
+Documentation on variable debugger_t.ev_set_resume_mode in module ida_idd:
+
+    Specify resume action Available if DBG_HAS_SET_RESUME_MODE is set
+
+Documentation on variable debugger_t.ev_read_registers in module ida_idd:
+
+    Read thread registers. This event is generated in debthread. Must be
+    implemented.
+    
+    @return: DRC_OK, DRC_FAILED, DRC_NETERR
+
+Documentation on variable debugger_t.ev_write_register in module ida_idd:
+
+    Write one thread register. This event is generated in debthread. Must be
+    implemented.
+    
+    @return: DRC_OK, DRC_FAILED, DRC_NETERR
+
+Documentation on variable debugger_t.ev_thread_get_sreg_base in module ida_idd:
+
+    Get information about the base of a segment register. Currently used by the IBM
+    PC module to resolve references like fs:0. This event is generated in debthread.
+    Available if DBG_HAS_THREAD_GET_SREG_BASE is set
+    
+    @return: DRC_NONE, DRC_OK, DRC_FAILED, DRC_NETERR
+
+Documentation on variable debugger_t.ev_get_memory_info in module ida_idd:
+
+    Get information on the memory ranges. The debugger module fills 'ranges'. The
+    returned vector must be sorted. This event is generated in debthread. Must be
+    implemented.
+    
+    @retval DRC_OK: new memory layout is returned
+    @retval DRC_FAILED,DRC_NETERR,DRC_NOPROC,DRC_NOCHG,DRC_IDBSEG
+
+Documentation on variable debugger_t.ev_read_memory in module ida_idd:
+
+    Read process memory. This event is generated in debthread.
+    
+    @return: DRC_OK, DRC_FAILED, DRC_NOPROC
+
+Documentation on variable debugger_t.ev_write_memory in module ida_idd:
+
+    Write process memory. This event is generated in debthread.
+    
+    @retval DRC_OK,DRC_FAILED,DRC_NOPROC
+
+Documentation on variable debugger_t.ev_check_bpt in module ida_idd:
+
+    Is it possible to set breakpoint? This event is generated in debthread or in the
+    main thread if debthread is not running yet. It is generated to verify hardware
+    breakpoints. Available if DBG_HAS_CHECK_BPT is set
+    
+    @return: DRC_OK, DRC_NONE
+
+Documentation on variable debugger_t.ev_update_bpts in module ida_idd:
+
+    Add/del breakpoints. bpts array contains nadd bpts to add, followed by ndel bpts
+    to del. This event is generated in debthread.
+    
+    @return: DRC_OK, DRC_FAILED, DRC_NETERR
+
+Documentation on variable debugger_t.ev_update_lowcnds in module ida_idd:
+
+    Update low-level (server side) breakpoint conditions. This event is generated in
+    debthread.
+    
+    @return: DRC_OK, DRC_NETERR
+
+Documentation on variable debugger_t.ev_open_file in module ida_idd:
+
+    @retval (int): handle
+    @retval -1: error
+
+Documentation on variable debugger_t.ev_close_file in module ida_idd:
+
+    @return: ignored
+
+Documentation on variable debugger_t.ev_read_file in module ida_idd:
+
+    @retval number: of read bytes
+
+Documentation on variable debugger_t.ev_write_file in module ida_idd:
+
+    @retval number: of written bytes
+
+Documentation on variable debugger_t.ev_map_address in module ida_idd:
+
+    Map process address. The debugger module may ignore this event. This event is
+    generated in debthread. IDA will generate this event only if DBG_HAS_MAP_ADDRESS
+    is set.
+    
+    @return: DRC_NONE, DRC_OK see MAPPED
+
+Documentation on variable debugger_t.ev_get_debmod_extensions in module ida_idd:
+
+    Get pointer to debugger specific events. This event returns a pointer to a
+    structure that holds pointers to debugger module specific events. For
+    information on the structure layout, please check the corresponding debugger
+    module. Most debugger modules return nullptr because they do not have any
+    extensions. Available extensions may be generated from plugins. This event is
+    generated in the main thread.
+    
+    @return: DRC_NONE, DRC_OK see EXT
+
+Documentation on variable debugger_t.ev_update_call_stack in module ida_idd:
+
+    Calculate the call stack trace for the given thread. This event is generated
+    when the process is suspended and should fill the 'trace' object with the
+    information about the current call stack. If this event returns DRC_NONE, IDA
+    will try to invoke a processor-specific mechanism (see
+    processor_t::ev_update_call_stack). If the current processor module does not
+    implement stack tracing, then IDA will fall back to a generic algorithm (based
+    on the frame pointer chain) to calculate the trace. This event is ideal if the
+    debugging targets manage stack frames in a peculiar way, requiring special
+    analysis. This event is generated in the main thread. Available if
+    DBG_HAS_UPDATE_CALL_STACK is set
+    
+    @retval DRC_NONE: false or not implemented
+    @return: DRC_OK success
+
+Documentation on variable debugger_t.ev_appcall in module ida_idd:
+
+    Call application function. This event calls a function from the debugged
+    application. This event is generated in debthread Available if HAS_APPCALL is
+    set
+    
+    @retval DRC_NONE
+    @retval DRC_OK,see: BLOB_EA
+
+Documentation on variable debugger_t.ev_cleanup_appcall in module ida_idd:
+
+    Cleanup after appcall(). The debugger module must keep the stack blob in the
+    memory until this event is generated. It will be generated by the kernel for
+    each successful appcall(). There is an exception: if APPCALL_MANUAL, IDA may not
+    call cleanup_appcall. If the user selects to terminate a manual appcall, then
+    cleanup_appcall will be generated. Otherwise, the debugger module should
+    terminate the appcall when the generated event returns. This event is generated
+    in debthread. Available if HAS_APPCALL is set
+    
+    @retval DRC_EVENTS: success, there are pending events
+    @retval DRC_OK: success
+    @retval DRC_FAILED: failed
+    @retval DRC_NETERR: network error
+
+Documentation on variable debugger_t.ev_eval_lowcnd in module ida_idd:
+
+    Evaluate a low level breakpoint condition at 'ea'. Other evaluation errors are
+    displayed in a dialog box. This call is used by IDA when the process has already
+    been temporarily suspended for some reason and IDA has to decide whether the
+    process should be resumed or definitely suspended because of a breakpoint with a
+    low level condition. This event is generated in debthread.
+    
+    @retval DRC_OK: condition is satisfied
+    @retval DRC_FAILED: not satisfied
+    @retval DRC_NETERR: network error
+
+Documentation on variable debugger_t.ev_send_ioctl in module ida_idd:
+
+    Perform a debugger-specific event. This event is generated in debthread
+    
+    @retval DRC_...
+
+Documentation on variable debugger_t.ev_dbg_enable_trace in module ida_idd:
+
+    Enable/Disable tracing. The kernel will generated this event if the debugger
+    plugin set DBG_FLAG_TRACER_MODULE. TRACE_FLAGS can be a set of #STEP_TRACE,
+    #INSN_TRACE, #BBLK_TRACE or #FUNC_TRACE. This event is generated in the main
+    thread.
+    
+    @return: DRC_OK, DRC_FAILED, DRC_NONE
+
+Documentation on variable debugger_t.ev_is_tracing_enabled in module ida_idd:
+
+    Is tracing enabled? The kernel will generated this event if the debugger plugin
+    set DBG_FLAG_TRACER_MODULE. TRACE_BIT can be one of the following: #STEP_TRACE,
+    #INSN_TRACE, #BBLK_TRACE or #FUNC_TRACE
+    
+    @retval DRC_OK: bit is set
+    @retval DRC_NONE: bit is not set or not implemented
+
+Documentation on variable debugger_t.ev_rexec in module ida_idd:
+
+    Execute a command on the remote computer. Available if DBG_HAS_REXEC is set
+    
+    @return: (int) exit code
+
+Documentation on variable debugger_t.ev_get_srcinfo_path in module ida_idd:
+
+    Get the path to a file containing source debug info for the given module. This
+    allows srcinfo providers to call into the debugger when looking for debug info.
+    It is useful in certain cases like the iOS debugger, which is a remote debugger
+    but the remote debugserver does not provide dwarf info. So, we allow the
+    debugger client to decide where to look for debug info locally.
+    
+    @return: DRC_NONE, DRC_OK result stored in PATH
+
+Documentation on variable debugger_t.ev_bin_search in module ida_idd:
+
+    Search for a binary pattern in the program.
+    
+    @return: DRC_OK EA contains the binary pattern address
+    @retval DRC_FAILED: not found
+    @retval DRC_NONE: not implemented
+    @retval DRC_NETERR,DRC_ERROR
+
+Documentation on variable debugger_t.registers in module ida_idd:
+
+    Array of registers. Use regs() to access it.
+
+Documentation on variable debugger_t.nregs in module ida_idd:
+
+    Number of registers.
+
+Documentation on variable debugger_t.regclasses in module ida_idd:
+
+    Array of register class names.
+
+Documentation on variable debugger_t.bpt_bytes in module ida_idd:
+
+    A software breakpoint instruction.
+
+Documentation on variable DEBUGGER_ID_X86_IA32_WIN32_USER in module ida_idd:
+
+    Userland win32 processes (win32 debugging APIs)
+
+Documentation on variable DEBUGGER_ID_X86_IA32_LINUX_USER in module ida_idd:
+
+    Userland linux processes (ptrace())
+
+Documentation on variable DEBUGGER_ID_X86_IA32_MACOSX_USER in module ida_idd:
+
+    Userland MAC OS X processes.
+
+Documentation on variable DEBUGGER_ID_ARM_IPHONE_USER in module ida_idd:
+
+    iPhone 1.x
+
+Documentation on variable DEBUGGER_ID_X86_IA32_BOCHS in module ida_idd:
+
+    BochsDbg.exe 32.
+
+Documentation on variable DEBUGGER_ID_6811_EMULATOR in module ida_idd:
+
+    MC6812 emulator (beta)
+
+Documentation on variable DEBUGGER_ID_GDB_USER in module ida_idd:
+
+    GDB remote.
+
+Documentation on variable DEBUGGER_ID_WINDBG in module ida_idd:
+
+    WinDBG using Microsoft Debug engine.
+
+Documentation on variable DEBUGGER_ID_X86_DOSBOX_EMULATOR in module ida_idd:
+
+    Dosbox MS-DOS emulator.
+
+Documentation on variable DEBUGGER_ID_ARM_LINUX_USER in module ida_idd:
+
+    Userland arm linux.
+
+Documentation on variable DEBUGGER_ID_TRACE_REPLAYER in module ida_idd:
+
+    Fake debugger to replay recorded traces.
+
+Documentation on variable DEBUGGER_ID_X86_PIN_TRACER in module ida_idd:
+
+    PIN Tracer module.
+
+Documentation on variable DEBUGGER_ID_DALVIK_USER in module ida_idd:
+
+    Dalvik.
+
+Documentation on variable DEBUGGER_ID_XNU_USER in module ida_idd:
+
+    XNU Kernel.
+
+Documentation on variable DEBUGGER_ID_ARM_MACOS_USER in module ida_idd:
+
+    Userland arm MAC OS.
+
+Documentation on variable DBG_FLAG_REMOTE in module ida_idd:
+
+    Remote debugger (requires remote host name unless DBG_FLAG_NOHOST)
+
+Documentation on variable DBG_FLAG_NOHOST in module ida_idd:
+
+    Remote debugger with does not require network params (host/port/pass). (a unique
+    device connected to the machine)
+
+Documentation on variable DBG_FLAG_FAKE_ATTACH in module ida_idd:
+
+    PROCESS_ATTACHED is a fake event and does not suspend the execution
+
+Documentation on variable DBG_FLAG_HWDATBPT_ONE in module ida_idd:
+
+    Hardware data breakpoints are one byte size by default
+
+Documentation on variable DBG_FLAG_CAN_CONT_BPT in module ida_idd:
+
+    Debugger knows to continue from a bpt. This flag also means that the debugger
+    module hides breakpoints from ida upon read_memory
+
+Documentation on variable DBG_FLAG_NEEDPORT in module ida_idd:
+
+    Remote debugger requires port number (to be used with DBG_FLAG_NOHOST)
+
+Documentation on variable DBG_FLAG_DONT_DISTURB in module ida_idd:
+
+    Debugger can handle only get_debug_event(), request_pause(), exit_process() when
+    the debugged process is running. The kernel may also call service functions
+    (file I/O, map_address, etc)
+
+Documentation on variable DBG_FLAG_SAFE in module ida_idd:
+
+    The debugger is safe (probably because it just emulates the application without
+    really running it)
+
+Documentation on variable DBG_FLAG_CLEAN_EXIT in module ida_idd:
+
+    IDA must suspend the application and remove all breakpoints before terminating
+    the application. Usually this is not required because the application memory
+    disappears upon termination.
+
+Documentation on variable DBG_FLAG_USE_SREGS in module ida_idd:
+
+    Take segment register values into account (non flat memory)
+
+Documentation on variable DBG_FLAG_NOSTARTDIR in module ida_idd:
+
+    Debugger module doesn't use startup directory.
+
+Documentation on variable DBG_FLAG_NOPARAMETERS in module ida_idd:
+
+    Debugger module doesn't use commandline parameters.
+
+Documentation on variable DBG_FLAG_NOPASSWORD in module ida_idd:
+
+    Remote debugger doesn't use password.
+
+Documentation on variable DBG_FLAG_CONNSTRING in module ida_idd:
+
+    Display "Connection string" instead of "Hostname" and hide the "Port" field.
+
+Documentation on variable DBG_FLAG_SMALLBLKS in module ida_idd:
+
+    If set, IDA uses 256-byte blocks for caching memory contents. Otherwise,
+    1024-byte blocks are used
+
+Documentation on variable DBG_FLAG_MANMEMINFO in module ida_idd:
+
+    If set, manual memory region manipulation commands will be available. Use this
+    bit for debugger modules that cannot return memory layout information
+
+Documentation on variable DBG_FLAG_EXITSHOTOK in module ida_idd:
+
+    IDA may take a memory snapshot at PROCESS_EXITED event.
+
+Documentation on variable DBG_FLAG_VIRTHREADS in module ida_idd:
+
+    Thread IDs may be shuffled after each debug event. (to be used for virtual
+    threads that represent cpus for windbg kmode)
+
+Documentation on variable DBG_FLAG_LOWCNDS in module ida_idd:
+
+    Low level breakpoint conditions are supported.
+
+Documentation on variable DBG_FLAG_DEBTHREAD in module ida_idd:
+
+    Supports creation of a separate thread in ida for the debugger (the debthread).
+    Most debugger functions will be called from debthread (exceptions are marked
+    below) The debugger module may directly call only THREAD_SAFE functions. To call
+    other functions please use execute_sync(). The debthread significantly increases
+    debugging speed, especially if debug events occur frequently.
+
+Documentation on variable DBG_FLAG_DEBUG_DLL in module ida_idd:
+
+    Can debug standalone DLLs. For example, Bochs debugger can debug any snippet of
+    code
+
+Documentation on variable DBG_FLAG_FAKE_MEMORY in module ida_idd:
+
+    get_memory_info()/read_memory()/write_memory() work with the idb. (there is no
+    real process to read from, as for the replayer module) the kernel will not call
+    these functions if this flag is set. however, third party plugins may call them,
+    they must be implemented.
+
+Documentation on variable DBG_FLAG_ANYSIZE_HWBPT in module ida_idd:
+
+    The debugger supports arbitrary size hardware breakpoints.
+
+Documentation on variable DBG_FLAG_TRACER_MODULE in module ida_idd:
+
+    The module is a tracer, not a full featured debugger module.
+
+Documentation on variable DBG_FLAG_PREFER_SWBPTS in module ida_idd:
+
+    Prefer to use software breakpoints.
+
+Documentation on variable DBG_FLAG_LAZY_WATCHPTS in module ida_idd:
+
+    Watchpoints are triggered before the offending instruction is executed. The
+    debugger must temporarily disable the watchpoint and single-step before
+    resuming.
+
+Documentation on variable DBG_FLAG_FAST_STEP in module ida_idd:
+
+    Do not refresh memory layout info after single stepping.
+
+Documentation on variable DBG_HAS_GET_PROCESSES in module ida_idd:
+
+    supports ev_get_processes
+
+Documentation on variable DBG_HAS_ATTACH_PROCESS in module ida_idd:
+
+    supports ev_attach_process
+
+Documentation on variable DBG_HAS_DETACH_PROCESS in module ida_idd:
+
+    supports ev_detach_process
+
+Documentation on variable DBG_HAS_REQUEST_PAUSE in module ida_idd:
+
+    supports ev_request_pause
+
+Documentation on variable DBG_HAS_SET_EXCEPTION_INFO in module ida_idd:
+
+    supports ev_set_exception_info
+
+Documentation on variable DBG_HAS_THREAD_SUSPEND in module ida_idd:
+
+    supports ev_thread_suspend
+
+Documentation on variable DBG_HAS_THREAD_CONTINUE in module ida_idd:
+
+    supports ev_thread_continue
+
+Documentation on variable DBG_HAS_SET_RESUME_MODE in module ida_idd:
+
+    supports ev_set_resume_mode. Cannot be set inside the
+    debugger_t::init_debugger()
+
+Documentation on variable DBG_HAS_THREAD_GET_SREG_BASE in module ida_idd:
+
+    supports ev_thread_get_sreg_base
+
+Documentation on variable DBG_HAS_CHECK_BPT in module ida_idd:
+
+    supports ev_check_bpt
+
+Documentation on variable DBG_HAS_OPEN_FILE in module ida_idd:
+
+    supports ev_open_file, ev_close_file, ev_read_file, ev_write_file
+
+Documentation on variable DBG_HAS_UPDATE_CALL_STACK in module ida_idd:
+
+    supports ev_update_call_stack
+
+Documentation on variable DBG_HAS_APPCALL in module ida_idd:
+
+    supports ev_appcall, ev_cleanup_appcall
+
+Documentation on variable DBG_HAS_REXEC in module ida_idd:
+
+    supports ev_rexec
+
+Documentation on variable DBG_HAS_MAP_ADDRESS in module ida_idd:
+
+    supports ev_map_address. Avoid using this bit, especially together with
+    DBG_FLAG_DEBTHREAD because it may cause big slow downs
+
+Documentation on variable DBG_RESMOD_STEP_INTO in module ida_idd:
+
+    RESMOD_INTO is available
+
+Documentation on variable DBG_RESMOD_STEP_OVER in module ida_idd:
+
+    RESMOD_OVER is available
+
+Documentation on variable DBG_RESMOD_STEP_OUT in module ida_idd:
+
+    RESMOD_OUT is available
+
+Documentation on variable DBG_RESMOD_STEP_SRCINTO in module ida_idd:
+
+    RESMOD_SRCINTO is available
+
+Documentation on variable DBG_RESMOD_STEP_SRCOVER in module ida_idd:
+
+    RESMOD_SRCOVER is available
+
+Documentation on variable DBG_RESMOD_STEP_SRCOUT in module ida_idd:
+
+    RESMOD_SRCOUT is available
+
+Documentation on variable DBG_RESMOD_STEP_USER in module ida_idd:
+
+    RESMOD_USER is available
+
+Documentation on variable DBG_RESMOD_STEP_HANDLE in module ida_idd:
+
+    RESMOD_HANDLE is available
+
+Documentation on variable DBG_PROC_IS_DLL in module ida_idd:
+
+    database contains a dll (not exe)
+
+Documentation on variable DBG_PROC_IS_GUI in module ida_idd:
+
+    using gui version of ida
+
+Documentation on variable DBG_PROC_32BIT in module ida_idd:
+
+    application is 32-bit
+
+Documentation on variable DBG_PROC_64BIT in module ida_idd:
+
+    application is 64-bit
+
+Documentation on variable DBG_NO_TRACE in module ida_idd:
+
+    do not trace the application (mac/linux)
+
+Documentation on variable DBG_HIDE_WINDOW in module ida_idd:
+
+    application should be hidden on startup (windows)
+
+Documentation on variable DBG_SUSPENDED in module ida_idd:
+
+    application should be suspended on startup (mac)
+
+Documentation on variable BPT_OK in module ida_idd:
+
+    breakpoint can be set
+
+Documentation on variable BPT_INTERNAL_ERR in module ida_idd:
+
+    interr occurred when verifying breakpoint
+
+Documentation on variable BPT_BAD_TYPE in module ida_idd:
+
+    bpt type is not supported
+
+Documentation on variable BPT_BAD_ALIGN in module ida_idd:
+
+    alignment is invalid
+
+Documentation on variable BPT_BAD_ADDR in module ida_idd:
+
+    ea is invalid
+
+Documentation on variable BPT_BAD_LEN in module ida_idd:
+
+    bpt len is invalid
+
+Documentation on variable BPT_TOO_MANY in module ida_idd:
+
+    reached max number of supported breakpoints
+
+Documentation on variable BPT_READ_ERROR in module ida_idd:
+
+    failed to read memory at bpt ea
+
+Documentation on variable BPT_WRITE_ERROR in module ida_idd:
+
+    failed to write memory at bpt ea
+
+Documentation on variable BPT_SKIP in module ida_idd:
+
+    update_bpts(): do not process bpt
+
+Documentation on variable BPT_PAGE_OK in module ida_idd:
+
+    update_bpts(): ok, added a page bpt
+
+Documentation on variable APPCALL_MANUAL in module ida_idd:
+
+    Only set up the appcall, do not run. debugger_t::cleanup_appcall will not be
+    generated by ida!
+
+Documentation on variable APPCALL_DEBEV in module ida_idd:
+
+    Return debug event information.
+
+Documentation on variable APPCALL_TIMEOUT in module ida_idd:
+
+    Appcall with timeout. If timed out, errbuf will contain "timeout". See
+    SET_APPCALL_TIMEOUT and GET_APPCALL_TIMEOUT
 
 Documentation on variable NO_PROCESS in module ida_idd:
 
@@ -105124,6 +109426,11 @@ Documentation on variable CH_NON_PERSISTED_TREE in module ida_kernwin:
     the chooser tree is not persisted (it is not loaded on startup and is not saved
     on exit)
 
+Documentation on variable CH2_LAZY_LOADED in module ida_kernwin:
+
+    The chooser is lazy-loaded; it receives the callback do_lazy_load_dir() (only
+    meaningful when CH_HAS_DIRTREE is set)
+
 Documentation on variable CHCOL_PLAIN in module ida_kernwin:
 
     plain string
@@ -107011,7 +111318,7 @@ Documentation on variable MERGE_KIND_PATCHES in module ida_merge:
 
 Documentation on variable MERGE_KIND_FLAGS in module ida_merge:
 
-    merge flags_t
+    merge flags64_t
 
 Documentation on variable MERGE_KIND_EXTRACMT in module ida_merge:
 
@@ -107806,7 +112113,7 @@ Documentation on variable switch_info_t.expr_ea in module ida_nalt:
 
 Documentation on variable switch_info_t.marks in module ida_nalt:
 
-    the insns marked as IM_SWITCH. They used to delete the switch.
+    the insns marked as IM_SWITCH. They are used to delete the switch.
 
 Documentation on variable SWI_SPARSE in module ida_nalt:
 
@@ -108018,6 +112325,11 @@ Documentation on variable REFINFO_NO_ZEROS in module ida_nalt:
 Documentation on variable REFINFO_NO_ONES in module ida_nalt:
 
     an opval of ~0 will be considered invalid
+
+Documentation on variable REFINFO_SELFREF in module ida_nalt:
+
+    the self-based reference; refinfo_t::base will be forced to the reference
+    address
 
 Documentation on variable MAXSTRUCPATH in module ida_nalt:
 
@@ -108400,7 +112712,7 @@ Documentation on variable ltag in module ida_netnode:
 
 Documentation on variable IDA_SDK_VERSION in module ida_pro:
 
-    IDA SDK v8.1.
+    IDA SDK v8.2.
 
 Documentation on variable MAXSTR in module ida_pro:
 
@@ -109046,6 +113358,18 @@ Documentation on variable CSS_NOMEM in module ida_segment:
 Documentation on variable CSS_BREAK in module ida_segment:
 
     memory reading process stopped by user
+
+Documentation on variable SNAP_ALL_SEG in module ida_segment:
+
+    Take a snapshot of all segments.
+
+Documentation on variable SNAP_LOAD_SEG in module ida_segment:
+
+    Take a snapshot of loader segments.
+
+Documentation on variable SNAP_CUR_SEG in module ida_segment:
+
+    Take a snapshot of current segment.
 
 Documentation on variable MAX_GROUPS in module ida_segment:
 

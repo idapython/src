@@ -14,6 +14,9 @@
 //</code(py_idaapi)>
 %}
 
+%ignore parse_command_line3;
+%rename (parse_command_line3) py_parse_command_line;
+
 %constant ea_t BADADDR = ea_t(-1);
 %constant sel_t BADSEL = sel_t(-1);
 %constant size_t SIZE_MAX = size_t(-1);

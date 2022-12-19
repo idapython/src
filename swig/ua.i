@@ -116,6 +116,8 @@
   // use ea_t so the right value decoders will be used (for the next three)
   ea_t __get_value__() { return $self->value; }
   void __set_value__(ea_t v) { $self->value = v; }
+  uint64 __get_value64__() { return *((uint64 *)&$self->value); }
+  void __set_value64__(uint64 v) { *((uint64 *)&$self->value) = v; }
   ea_t __get_addr__() { return $self->addr; }
   void __set_addr__(ea_t v) { $self->addr = v; }
   ea_t __get_specval__() { return $self->specval; }
@@ -131,6 +133,7 @@
     reg = property(__get_reg_phrase__, __set_reg_phrase__)
     phrase = property(__get_reg_phrase__, __set_reg_phrase__)
     value = property(__get_value__, __set_value__)
+    value64 = property(__get_value64__, __set_value64__)
     addr = property(__get_addr__, __set_addr__)
     specval = property(__get_specval__, __set_specval__)
   }

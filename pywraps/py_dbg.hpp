@@ -6,53 +6,8 @@
 // hookgenDBG:methodsinfo_def
 
 //-------------------------------------------------------------------------
-struct _cvt_status_t
-{
-  PyObject *def_err_class;
-  const char *def_err_string;
-
-  qstring err_string;
-  PyObject *err_class;
-  bool ok;
-
-  _cvt_status_t(PyObject *_def_err_class, const char *_def_err_string)
-    : def_err_class(_def_err_class),
-    def_err_string(_def_err_string),
-    err_class(nullptr),
-    ok(true) {}
-
-  ~_cvt_status_t()
-  {
-    if ( !ok )
-    {
-      if ( err_class == nullptr )
-      {
-        err_class = def_err_class;
-        err_string = def_err_string;
-      }
-      PyErr_SetString(err_class, err_string.c_str());
-    }
-  }
-
-  qstring &failed(PyObject *_err_class)
-  {
-    QASSERT(30587, !ok);
-    err_class = _err_class;
-    return err_string;
-  }
-};
-
-
-//-------------------------------------------------------------------------
 static bool _to_reg_val(regval_t **out, regval_t *buf, const char *name, PyObject *o)
 {
-  if ( o == Py_None )
-    return false;
-
-  int cvt = SWIG_ConvertPtr(o, (void **) out, SWIGTYPE_p_regval_t, 0);
-  if ( SWIG_IsOK(cvt) && *out != nullptr )
-    return true;
-
   register_info_t ri;
   if ( !get_dbg_reg_info(name, &ri) )
   {
@@ -62,173 +17,7 @@ static bool _to_reg_val(regval_t **out, regval_t *buf, const char *name, PyObjec
     // assume the dtype is DWORD then
     ri.dtype = dt_dword;
   }
-
-  struct ida_local cvt_t
-  {
-    static bool convert_int(regval_t *lout, PyObject *in, op_dtype_t dt)
-    {
-      uint64 u64 = 0;
-      _cvt_status_t status(PyExc_TypeError, "Expected integer value");
-      size_t nbits = 0;
-      switch ( dt )
-      {
-        case dt_byte: nbits = 8; break;
-        case dt_word: nbits = 16; break;
-        default:
-        case dt_dword: nbits = 32; break;
-        case dt_qword: nbits = 64; break;
-      }
-      status.ok = PyW_GetNumber(in, &u64);
-      if ( status.ok )
-      {
-        if ( nbits < 64 )
-        {
-          status.ok = u64 < (1ULL << nbits);
-          if ( !status.ok )
-            status.failed(PyExc_ValueError).sprnt("Integer value too large to fit in %" FMT_Z " bits", nbits);
-        }
-      }
-      if ( status.ok )
-        lout->set_int(u64);
-      return status.ok;
-    }
-
-    static bool convert_float(regval_t *lout, PyObject *in, op_dtype_t)
-    {
-      fpvalue_t fpval;
-      _cvt_status_t status(PyExc_TypeError, "Expected float value");
-      double dbl = PyFloat_AsDouble(in);
-      status.ok = PyErr_Occurred() == nullptr;
-      if ( status.ok )
-        status.ok = ieee_realcvt(&dbl, &fpval, 003 /*load double*/) == REAL_ERROR_OK;
-      if ( !status.ok )
-        status.failed(PyExc_ValueError).sprnt("Float conversion failed");
-      if ( status.ok )
-        lout->set_float(fpval);
-      return status.ok;
-    }
-
-    static bool convert_bytes(regval_t *lout, PyObject *in, op_dtype_t dt)
-    {
-      bytevec_t bytes;
-      _cvt_status_t status(PyExc_TypeError, "Unexpected value");
-      size_t needed = 0;
-      switch ( dt )
-      {
-        case dt_byte16: needed = 16; break;
-        case dt_byte32: needed = 32; break;
-        case dt_byte64: needed = 64; break;
-        default:
-          break;
-      }
-      status.ok = needed > 0;
-      Py_ssize_t got;
-      if ( status.ok )
-      {
-        status.ok = false;
-        if ( PyBytes_Check(in) )
-        {
-          char *buf;
-          status.ok = PyBytes_AsStringAndSize(in, &buf, &got) >= 0 && got <= needed;
-          if ( status.ok )
-            bytes.append((const uchar *) buf, got);
-          else
-            status.failed(PyExc_ValueError).sprnt(
-                    "List of bytes is too long; was expecting at most %d bytes",
-                    int(needed));
-        }
-        else if ( PyLong_Check(in) )
-        {
-          uint64 u64 = 0;
-          status.ok = PyW_GetNumber(in, &u64);
-          if ( status.ok )
-          {
-            got = sizeof(u64);
-            bytes.resize(got, 0);
-            memcpy(bytes.begin(), &u64, got);
-          }
-          else
-          {
-            if ( PyLong_CheckExact(in) )
-              goto TRY_RAW_LONG;
-          }
-        }
-        else if ( PyLong_CheckExact(in) )
-        {
-TRY_RAW_LONG:
-          // (possibly very long) int or long value. Apparently it's rather
-          // safe to use _PyLong_AsByteArray (it's even present in 3.x)
-          // https://stackoverflow.com/questions/18290507/python-extension-construct-and-inspect-large-integers-efficiently
-
-          // /* _PyLong_AsByteArray: Convert the least-significant 8*n bits of long
-          //    v to a base-256 integer, stored in array bytes.  Normally return 0,
-          //    return -1 on error.
-          //    If little_endian is 1/true, store the MSB at bytes[n-1] and the LSB at
-          //    bytes[0]; else (little_endian is 0/false) store the MSB at bytes[0] and
-          //    the LSB at bytes[n-1].
-          //    If is_signed is 0/false, it's an error if v < 0; else (v >= 0) n bytes
-          //    are filled and there's nothing special about bit 0x80 of the MSB.
-          //    If is_signed is 1/true, bytes is filled with the 2's-complement
-          //    representation of v's value.  Bit 0x80 of the MSB is the sign bit.
-          //    Error returns (-1):
-          //    + is_signed is 0 and v < 0.  TypeError is set in this case, and bytes
-          //      isn't altered.
-          //    + n isn't big enough to hold the full mathematical value of v.  For
-          //      example, if is_signed is 0 and there are more digits in the v than
-          //      fit in n; or if is_signed is 1, v < 0, and n is just 1 bit shy of
-          //      being large enough to hold a sign bit.  OverflowError is set in this
-          //      case, but bytes holds the least-significant n bytes of the true value.
-          // */
-          bytes.resize(needed, 0);
-          status.ok = pylong_to_byte_array(
-                  &bytes,
-                  in,
-                  /*little_endian=*/ true,
-                  /*is_signed=*/ true) >= 0;
-          if ( status.ok )
-            got = needed;
-          else
-            status.failed(PyExc_ValueError).sprnt(
-                    "Integer value is too large to fit in %d bytes",
-                    int(needed));
-        }
-      }
-      if ( status.ok )
-      {
-        if ( got < needed )
-          bytes.growfill(needed - got, 0);
-        lout->set_bytes(bytes);
-      }
-      return status.ok;
-    }
-  };
-
-  bool ok = false;
-  regval_t &rv = *buf;
-  switch ( ri.dtype )
-  {
-    case dt_byte:
-    case dt_word:
-    case dt_dword:
-    case dt_qword:
-    default:
-      ok = cvt_t::convert_int(&rv, o, ri.dtype);
-      break;
-    case dt_float:
-    case dt_tbyte:
-    case dt_double:
-    case dt_ldbl:
-      ok = cvt_t::convert_float(&rv, o, ri.dtype);
-      break;
-    case dt_byte16:
-    case dt_byte32:
-    case dt_byte64:
-      ok = cvt_t::convert_bytes(&rv, o, ri.dtype);
-      break;
-  }
-  if ( ok )
-    *out = &rv;
-  return ok;
+  return set_regval_t(out, buf, ri.dtype, o);
 }
 
 //-------------------------------------------------------------------------
@@ -239,38 +28,7 @@ static PyObject *_from_reg_val(
   register_info_t ri;
   if ( !get_dbg_reg_info(name, &ri) ) // see _to_reg_val()
     ri.dtype = dt_dword;
-
-  PyObject *res = nullptr;
-  _cvt_status_t status(PyExc_ValueError, "Conversion failed");
-  switch ( ri.dtype )
-  {
-    default:
-      if ( rv.ival <= uint64(LONG_MAX) )
-        res = PyInt_FromLong(long(rv.ival));
-      else
-        res = PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) rv.ival);
-      break;
-    case dt_float:
-    case dt_tbyte:
-    case dt_double:
-    case dt_ldbl:
-      {
-        double dbl;
-        status.ok = rv.fval.to_double(&dbl) == REAL_ERROR_OK;
-        if ( status.ok )
-          res = PyFloat_FromDouble(dbl);
-      }
-      break;
-    case dt_byte16:
-    case dt_byte32:
-    case dt_byte64:
-      {
-        const bytevec_t &b = rv.bytes();
-        res = PyBytes_FromStringAndSize((const char *) b.begin(), b.size());
-      }
-      break;
-  }
-  return res;
+  return get_regval_t(rv, ri.dtype);
 }
 //</code(py_dbg)>
 
@@ -543,5 +301,33 @@ static PyObject *py_get_reg_val(const char *regname)
   return _from_reg_val(regname, buf);
 }
 
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def get_reg_vals():
+    """
+    Fetch live registers values for the thread
+
+    @param tid The ID of the thread to read registers for
+    @param clsmask An OR'ed mask of register classes to
+           read values for (can be used to speed up the
+           retrieval process)
+
+    @return: a regvals_t instance (empty if an error occurs)
+    """
+    pass
+#</pydoc>
+*/
+static regvals_t *py_get_reg_vals(thid_t tid, int clsmask=-1)
+{
+  regvals_t *rvs = new regvals_t();
+  if ( dbg != nullptr )
+  {
+    rvs->resize(dbg->nregs);
+    if ( get_reg_vals(tid, clsmask, rvs->begin()) != DRC_OK )
+      rvs->clear();
+  }
+  return rvs;
+}
 //</inline(py_dbg)>
 #endif

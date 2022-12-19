@@ -83,7 +83,7 @@ static int py_get_dtype_by_size(asize_t size)
 }
 
 //-------------------------------------------------------------------------
-PyObject *py_get_immvals(ea_t ea, int n, flags_t F=0)
+PyObject *py_get_immvals(ea_t ea, int n, flags64_t F=0)
 {
   uvalvec_t storage;
   storage.resize(2 * UA_MAXOP);
@@ -97,7 +97,7 @@ PyObject *py_get_immvals(ea_t ea, int n, flags_t F=0)
 }
 
 //-------------------------------------------------------------------------
-PyObject *py_get_printable_immvals(ea_t ea, int n, flags_t F=0)
+PyObject *py_get_printable_immvals(ea_t ea, int n, flags64_t F=0)
 {
   uvalvec_t storage;
   storage.resize(2 * UA_MAXOP);

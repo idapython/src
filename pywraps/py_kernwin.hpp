@@ -958,7 +958,7 @@ PyObject *py_get_registered_actions()
 //-------------------------------------------------------------------------
 /*
 #<pydoc>
-def py_attach_dynamic_action_to_popup(
+def attach_dynamic_action_to_popup(
         unused,
         popup_handle,
         desc,

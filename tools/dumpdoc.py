@@ -1,4 +1,5 @@
 
+import __future__
 import re
 import sys
 import inspect
@@ -32,7 +33,13 @@ try:
 except:
     from io import StringIO
 
-ignore_types = (int, float, str, bool, dict, list, tuple, bytes, types.ModuleType)
+import ida_hexrays
+def dummy_replacement():
+    pass
+ida_hexrays.DecompilationFailure.add_note = dummy_replacement
+idc.DeprecatedIDCError.add_note = dummy_replacement
+
+ignore_types = (int, float, str, bool, dict, list, tuple, bytes, types.ModuleType, __future__._Feature)
 TRANSLATED_MARKER = b"\xE2\x86\x97"
 
 if sys.version_info.major < 3:
@@ -66,6 +73,7 @@ ignore_names = [
     "eavec_t", # aliased with uvalvec_t
     ("ida_ida", "__getattr__"),
     ("idc", "__getattr__"),
+    ("__future__", "_Feature"),
 ]
 
 def should_ignore_name(namespace_name, name):
@@ -299,6 +307,24 @@ all_specific_translations = {
         ((
             "Helper for pickle.",
         ), "helper for pickle", False),
+    ],
+    "ida_idp._processor_t" : [
+        ((
+            "'uint32 *'",
+            "'uint64 *'",
+        ), "'unsigned-ea-like-numeric-type *'", True),
+    ],
+    "ida_idp._processor_t_find_op_value" : [
+        ((
+            "'uint32 *'",
+            "'uint64 *'",
+        ), "'unsigned-ea-like-numeric-type *'", True),
+    ],
+    "ida_idp._processor_t_find_reg_value" : [
+        ((
+            "'uint32 *'",
+            "'uint64 *'",
+        ), "'unsigned-ea-like-numeric-type *'", True),
     ],
 }
 

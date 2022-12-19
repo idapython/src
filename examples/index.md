@@ -1231,6 +1231,48 @@ Shift+C
 
   </details>
 
+#### print_registers
+<details>
+  <summary>Print all registers, for all threads</summary>
+
+<blockquote>
+
+#### Source code
+<a href="https://github.com/idapython/src/blob/master/examples/debugging/misc/print_registers.py">debugging/misc/print_registers.py</a>
+
+#### Category
+debugging
+
+#### Description
+           Iterate over the list of threads in the program being
+           debugged, and dump all registers contents
+
+To use this example:
+
+  * run `ida64` on test program `simple_appcall_linux64`, or
+    `ida` on test program `simple_appcall_linux32`, and wait for
+    auto-analysis to finish
+  * put a breakpoint somewhere in the code
+  * select the 'linux debugger' (either local, or remote)
+  * start debugging
+  * Press Alt+Shift+C at the breakpoint
+
+#### Shortcut
+Alt+Shift+C
+
+#### Uses
+* ida_dbg.get_reg_vals
+* ida_dbg.get_thread_qty
+* ida_dbg.getn_thread
+* ida_idd.get_dbg
+* ida_kernwin.AST_ENABLE_ALWAYS
+* ida_kernwin.action_desc_t
+* ida_kernwin.register_action
+
+</blockquote>
+
+  </details>
+
 #### registers_context_menu
 <details>
   <summary>Adding actions to the "registers" widget(s)</summary>
@@ -3361,6 +3403,25 @@ actions idaview
 
 #### See also
 * [save_and_restore_listing_pos](#save_and_restore_listing_pos)
+
+</blockquote>
+
+  </details>
+
+#### lazy_loaded_chooser
+<details>
+  <summary></summary>
+
+<blockquote>
+
+#### Source code
+<a href="https://github.com/idapython/src/blob/master/examples/widgets/tabular_views/custom/lazy_loaded_chooser.py">widgets/tabular_views/custom/lazy_loaded_chooser.py</a>
+
+#### Category
+widgets
+
+#### Description
+
 
 </blockquote>
 

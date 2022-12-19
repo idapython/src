@@ -66,7 +66,7 @@ typedef int diff_source_idx_t;
   $1 = temp.extract();
 }
 
-%apply char { uchar tag };
+%define_netnode_tag_accessors();
 
 %extend merge_node_info2_t
 {

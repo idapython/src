@@ -170,7 +170,7 @@ def cfunc_type(self):
 cfunc_t.type = property(cfunc_type)
 cfuncptr_t.type = property(lambda self: self.__deref__().type)
 
-cfunc_t.arguments = property(lambda self: [o for o in self.lvars if o.is_arg_var])
+cfunc_t.arguments = property(lambda self: [self.lvars[i] for i in self.argidx])
 cfuncptr_t.arguments = property(lambda self: self.__deref__().arguments)
 
 cfunc_t.lvars = property(cfunc_t.get_lvars)

@@ -112,97 +112,9 @@ extern plugin_t PLUGIN;
 %template(VECTOR_TYPE) qvector<ELEMENT_TYPE>;
 %enddef
 
-%ignore wchar2char;
-%ignore hit_counter_t;
-%ignore reg_hit_counter;
-%ignore create_hit_counter;
-%ignore hit_counter_timer;
-%ignore print_all_counters;
-%ignore incrementer_t;
-%ignore reloc_info_t; // swig under mac chokes on this
-%ignore qmutex_create;
-%ignore qiterator;
-%ignore qmutex_free;
-%ignore qmutex_lock;
-%ignore qmutex_t;
-%ignore qmutex_unlock;
-%ignore qsem_create;
-%ignore qsem_free;
-%ignore qsem_post;
-%ignore qsem_wait;
-%ignore qsemaphore_t;
-%ignore qthread_cb_t;
-%ignore qthread_create;
-%ignore qthread_free;
-%ignore qthread_join;
-%ignore qthread_kill;
-%ignore qthread_self;
-%ignore qthread_same;
-%ignore qthread_t;
-%ignore qhandle_t;
-%ignore qpipe_create;
-%ignore qpipe_read;
-%ignore qpipe_write;
-%ignore qpipe_close;
-%ignore qstrlen;
-%ignore qstrcmp;
-%ignore qstrstr;
-%ignore qstrchr;
-%ignore qstrrchr;
 %ignore bytevec_t;
 %ignore qstrvec_t;
-%ignore reloc_info_t;
-%ignore relobj_t;
-%ignore wchar2char;
-%ignore u2cstr;
-%ignore c2ustr;
-%ignore base64_encode;
-%ignore base64_decode;
-%ignore replace_tabs;
-%ignore utf8_unicode;
-%ignore unicode_utf8;
-%ignore win_utf2idb;
-%ignore char2oem;
-%ignore oem2char;
-%ignore set_codepages;
-%ignore get_codepages;
-%ignore convert_codepage;
-%ignore interval::last;
-%ignore interval::overlap;
-%ignore interval::includes;
-%ignore interval::contains;
-%ignore qrotl;
-%ignore qrotr;
-%ignore setflag;
-%ignore read2bytes;
-%ignore rotate_left;
-//%ignore qswap;
-%ignore swap32;
-%ignore swap16;
-%ignore swap_value;
-%ignore qalloc_or_throw;
-%ignore qrealloc_or_throw;
-%ignore get_buffer_for_sysdir;
-%ignore get_buffer_for_winerr;
-%ignore call_atexits;
-%ignore launch_process_params_t;
-%ignore launch_process;
-%ignore term_process;
-%ignore get_process_exit_code;
-%ignore BELOW_NORMAL_PRIORITY_CLASS;
-%ignore parse_command_line;
-%ignore parse_command_line2;
-%ignore parse_command_line3;
-%rename (parse_command_line3) py_parse_command_line;
-%ignore qgetenv;
-%ignore qsetenv;
-%ignore qctime;
-%ignore qlocaltime;
-%ignore qstrftime;
-%ignore qstrftime64;
-%ignore qstrtok;
-%ignore qstrlwr;
-%ignore qstrupr;
+%ignore qthread_cb_t;
 
 // Do not move this. We need to override the define from pro.h
 #define CASSERT(type)
@@ -495,6 +407,34 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 
 %apply unsigned long long { size_t }
 %apply long long { ssize_t }
+
+%define %define_netnode_tag_accessors()
+%apply char { uchar tag };
+
+%fragment("cvt_netnode_tag", "header")
+{
+  SWIGINTERN int SWIG_AsVal_char (PyObject * obj, char *val);
+  SWIGINTERN int SWIG_AsVal_unsigned_SS_char (PyObject * obj, unsigned char *val);
+  bool cvt_netnode_tag(uchar *out, PyObject *obj)
+  {
+    char c = '\0';
+    bool ok = SWIG_AsVal_char(obj, &c) == SWIG_OK;
+    if ( ok )
+      *out = (uchar) c;
+    else
+      ok = SWIG_AsVal_unsigned_SS_char(obj, out) == SWIG_OK;
+    return ok;
+  }
+}
+
+%typemap(in, fragment="cvt_netnode_tag") uchar tag {
+  // %typemap(in) uchar tag
+  if ( !cvt_netnode_tag(&$1, $input) )
+    SWIG_exception_fail(
+            SWIG_ValueError,
+            "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
+}
+%enddef
 
 //---------------------------------------------------------------------
 // Convert an incoming Python list to a tid_t[] array
@@ -1413,12 +1353,26 @@ struct dynamic_wrapped_array_t {
 
 
 %{
-SWIGINTERN PyObject *qstrvec2pylist(const qstrvec_t &vec)
+#define S2LF_EMPTY_NONE 0x1
+SWIGINTERN PyObject *qstrvec2pylist(const qstrvec_t &vec, int flags=0)
 {
   size_t n = vec.size();
   PyObject *py_list = PyList_New(n);
   for ( size_t i=0; i < n; ++i )
-    PyList_SetItem(py_list, i, PyUnicode_FromStringAndSize(vec[i].c_str(), vec[i].length()));
+  {
+    const qstring &s = vec[i];
+    PyObject *o;
+    if ( s.empty() && (flags & S2LF_EMPTY_NONE) == S2LF_EMPTY_NONE )
+    {
+      Py_INCREF(Py_None);
+      o = Py_None;
+    }
+    else
+    {
+      o = PyUnicode_FromStringAndSize(s.c_str(), s.length());
+    }
+    PyList_SetItem(py_list, i, o);
+  }
   return py_list;
 }
 %}
@@ -1806,7 +1760,7 @@ ${NONNULL_TYPEMAPS}
 
 %fragment("call_py_testf_t", "header")
 {
-  bool call_py_testf_t(flags_t flags, void *ud)
+  bool call_py_testf_t(flags64_t flags, void *ud)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( PyErr_Occurred() )
@@ -1829,6 +1783,261 @@ ${NONNULL_TYPEMAPS}
   $1 = call_py_testf_t;
   $2 = $input;
 }
+
+%define %define_regval_python_accessors()
+%{
+//-------------------------------------------------------------------------
+struct _cvt_status_t
+{
+  PyObject *def_err_class;
+  const char *def_err_string;
+
+  qstring err_string;
+  PyObject *err_class;
+  bool ok;
+
+  _cvt_status_t(PyObject *_def_err_class, const char *_def_err_string)
+    : def_err_class(_def_err_class),
+    def_err_string(_def_err_string),
+    err_class(nullptr),
+    ok(true) {}
+
+  ~_cvt_status_t()
+  {
+    if ( !ok )
+    {
+      if ( err_class == nullptr )
+      {
+        err_class = def_err_class;
+        err_string = def_err_string;
+      }
+      PyErr_SetString(err_class, err_string.c_str());
+    }
+  }
+
+  qstring &failed(PyObject *_err_class)
+  {
+    QASSERT(30587, !ok);
+    err_class = _err_class;
+    return err_string;
+  }
+};
+
+static PyObject *get_regval_t(
+        const regval_t &rv,
+        op_dtype_t dtype)
+{
+  PyObject *res = nullptr;
+  _cvt_status_t status(PyExc_ValueError, "Conversion failed");
+  switch ( dtype )
+  {
+    default:
+      if ( rv.ival <= uint64(LONG_MAX) )
+        res = PyInt_FromLong(long(rv.ival));
+      else
+        res = PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) rv.ival);
+      break;
+    case dt_float:
+    case dt_tbyte:
+    case dt_double:
+    case dt_ldbl:
+      {
+        double dbl;
+        status.ok = rv.fval.to_double(&dbl) == REAL_ERROR_OK;
+        if ( status.ok )
+          res = PyFloat_FromDouble(dbl);
+      }
+      break;
+    case dt_byte16:
+    case dt_byte32:
+    case dt_byte64:
+      {
+        const bytevec_t &b = rv.bytes();
+        res = PyBytes_FromStringAndSize((const char *) b.begin(), b.size());
+      }
+      break;
+  }
+  return res;
+}
+
+bool set_regval_t(regval_t **out, regval_t *buf, op_dtype_t dtype, PyObject *o)
+{
+  if ( o == Py_None )
+    return false;
+
+  int cvt = SWIG_ConvertPtr(o, (void **) out, SWIGTYPE_p_regval_t, 0);
+  if ( SWIG_IsOK(cvt) && *out != nullptr )
+    return true;
+
+  struct ida_local cvt_t
+  {
+    static bool convert_int(regval_t *lout, PyObject *in, op_dtype_t dt)
+    {
+      uint64 u64 = 0;
+      _cvt_status_t status(PyExc_TypeError, "Expected integer value");
+      size_t nbits = 0;
+      switch ( dt )
+      {
+        case dt_byte: nbits = 8; break;
+        case dt_word: nbits = 16; break;
+        default:
+        case dt_dword: nbits = 32; break;
+        case dt_qword: nbits = 64; break;
+      }
+      status.ok = PyW_GetNumber(in, &u64);
+      if ( status.ok )
+      {
+        if ( nbits < 64 )
+        {
+          status.ok = u64 < (1ULL << nbits);
+          if ( !status.ok )
+            status.failed(PyExc_ValueError).sprnt("Integer value too large to fit in %" FMT_Z " bits", nbits);
+        }
+      }
+      if ( status.ok )
+        lout->set_int(u64);
+      return status.ok;
+    }
+
+    static bool convert_float(regval_t *lout, PyObject *in, op_dtype_t)
+    {
+      fpvalue_t fpval;
+      _cvt_status_t status(PyExc_TypeError, "Expected float value");
+      double dbl = PyFloat_AsDouble(in);
+      status.ok = PyErr_Occurred() == nullptr;
+      if ( status.ok )
+        status.ok = ieee_realcvt(&dbl, &fpval, 003 /*load double*/) == REAL_ERROR_OK;
+      if ( !status.ok )
+        status.failed(PyExc_ValueError).sprnt("Float conversion failed");
+      if ( status.ok )
+        lout->set_float(fpval);
+      return status.ok;
+    }
+
+    static bool convert_bytes(regval_t *lout, PyObject *in, op_dtype_t dt)
+    {
+      bytevec_t bytes;
+      _cvt_status_t status(PyExc_TypeError, "Unexpected value");
+      size_t needed = 0;
+      switch ( dt )
+      {
+        case dt_byte16: needed = 16; break;
+        case dt_byte32: needed = 32; break;
+        case dt_byte64: needed = 64; break;
+        default:
+          break;
+      }
+      status.ok = needed > 0;
+      Py_ssize_t got;
+      if ( status.ok )
+      {
+        status.ok = false;
+        if ( PyBytes_Check(in) )
+        {
+          char *buf;
+          status.ok = PyBytes_AsStringAndSize(in, &buf, &got) >= 0 && got <= needed;
+          if ( status.ok )
+            bytes.append((const uchar *) buf, got);
+          else
+            status.failed(PyExc_ValueError).sprnt(
+                    "List of bytes is too long; was expecting at most %d bytes",
+                    int(needed));
+        }
+        else if ( PyLong_Check(in) )
+        {
+          uint64 u64 = 0;
+          status.ok = PyW_GetNumber(in, &u64);
+          if ( status.ok )
+          {
+            got = sizeof(u64);
+            bytes.resize(got, 0);
+            memcpy(bytes.begin(), &u64, got);
+          }
+          else
+          {
+            if ( PyLong_CheckExact(in) )
+              goto TRY_RAW_LONG;
+          }
+        }
+        else if ( PyLong_CheckExact(in) )
+        {
+TRY_RAW_LONG:
+          // (possibly very long) int or long value. Apparently it's rather
+          // safe to use _PyLong_AsByteArray (it's even present in 3.x)
+          // https://stackoverflow.com/questions/18290507/python-extension-construct-and-inspect-large-integers-efficiently
+
+          // /* _PyLong_AsByteArray: Convert the least-significant 8*n bits of long
+          //    v to a base-256 integer, stored in array bytes.  Normally return 0,
+          //    return -1 on error.
+          //    If little_endian is 1/true, store the MSB at bytes[n-1] and the LSB at
+          //    bytes[0]; else (little_endian is 0/false) store the MSB at bytes[0] and
+          //    the LSB at bytes[n-1].
+          //    If is_signed is 0/false, it's an error if v < 0; else (v >= 0) n bytes
+          //    are filled and there's nothing special about bit 0x80 of the MSB.
+          //    If is_signed is 1/true, bytes is filled with the 2's-complement
+          //    representation of v's value.  Bit 0x80 of the MSB is the sign bit.
+          //    Error returns (-1):
+          //    + is_signed is 0 and v < 0.  TypeError is set in this case, and bytes
+          //      isn't altered.
+          //    + n isn't big enough to hold the full mathematical value of v.  For
+          //      example, if is_signed is 0 and there are more digits in the v than
+          //      fit in n; or if is_signed is 1, v < 0, and n is just 1 bit shy of
+          //      being large enough to hold a sign bit.  OverflowError is set in this
+          //      case, but bytes holds the least-significant n bytes of the true value.
+          // */
+          bytes.resize(needed, 0);
+          status.ok = pylong_to_byte_array(
+                  &bytes,
+                  in,
+                  /*little_endian=*/ true,
+                  /*is_signed=*/ true) >= 0;
+          if ( status.ok )
+            got = needed;
+          else
+            status.failed(PyExc_ValueError).sprnt(
+                    "Integer value is too large to fit in %d bytes",
+                    int(needed));
+        }
+      }
+      if ( status.ok )
+      {
+        if ( got < needed )
+          bytes.growfill(needed - got, 0);
+        lout->set_bytes(bytes);
+      }
+      return status.ok;
+    }
+  };
+
+  bool ok = false;
+  regval_t &rv = *buf;
+  switch ( dtype )
+  {
+    case dt_byte:
+    case dt_word:
+    case dt_dword:
+    case dt_qword:
+    default:
+      ok = cvt_t::convert_int(&rv, o, dtype);
+      break;
+    case dt_float:
+    case dt_tbyte:
+    case dt_double:
+    case dt_ldbl:
+      ok = cvt_t::convert_float(&rv, o, dtype);
+      break;
+    case dt_byte16:
+    case dt_byte32:
+    case dt_byte64:
+      ok = cvt_t::convert_bytes(&rv, o, dtype);
+      break;
+  }
+  if ( ok )
+    *out = &rv;
+  return ok;
+}
+%}
+%enddef
 
 #endif // __HEADER_I__
 // END: auto-inserted header
