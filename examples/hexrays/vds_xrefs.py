@@ -149,17 +149,14 @@ class XrefsForm(ida_kernwin.PluginForm):
 
         items = []
         for ea in frm:
-            try:
-                cfunc = ida_hexrays.decompile(ea)
+            cfunc = ida_hexrays.decompile(ea)
+            if not cfunc:
+                print('could not decompile function at 0x%x.' % ea)
+                continue
 
-                self.functions.append(cfunc.entry_ea)
-                self.items.append((ea, ida_funcs.get_func_name(cfunc.entry_ea) or "", self.get_decompiled_line(cfunc, ea)))
+            self.functions.append(cfunc.entry_ea)
+            self.items.append((ea, ida_funcs.get_func_name(cfunc.entry_ea) or "", self.get_decompiled_line(cfunc, ea)))
 
-            except Exception as e:
-                print('could not decompile: %s' % (str(e), ))
-                raise
-
-        return
 
     def get_items_for_type(self):
 
@@ -172,14 +169,10 @@ class XrefsForm(ida_kernwin.PluginForm):
 
         addresses = []
         for ea in idautils.Functions():
-
-            try:
-                cfunc = ida_hexrays.decompile(ea)
-            except:
-                print('Decompilation of %x failed' % (ea, ))
+            cfunc = ida_hexrays.decompile(ea)
+            if not cfunc:
+                print('Decompilation of 0x%x failed' % ea)
                 continue
-
-            str(cfunc)
 
             for citem in cfunc.treeitems:
                 citem = citem.to_specific_type
