@@ -270,3 +270,8 @@ class idapython_tree_view_t(base_idapython_tree_view_t):
                 self.netnode.supset(idx, repl, SUPVAL_COL0_DATA_TAG)
         self._dump_items()
         return [ida_kernwin.Choose.ALL_CHANGED] + sel
+
+# -----------------------------------------------------------------------
+if __name__ == '__main__':
+    form = idapython_tree_view_t("idapython_tree_view_t test", 100)
+    form.Show()
