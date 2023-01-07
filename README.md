@@ -15,14 +15,14 @@ Latest stable versions of IDAPython are available from
 ## Resources
 
 The full function cross-reference is readable online at
-  http://www.hex-rays.com/idapro/idapython_docs/
+  https://www.hex-rays.com/products/ida/support/idapython_docs/
 
 Mailing list for the project is hosted by Google Groups at
-  http://groups.google.com/group/idapython
+  https://groups.google.com/g/idapython
 
 ## Installation from binaries
 
-1. Install 2.6 or 2.7 from http://www.python.org/
+1. Install 2.6 or 2.7 from https://www.python.org/
 2. Copy the whole "python" directory to `%IDADIR%`
 3. Copy the contents of the "plugins" directory to the `%IDADIR%\plugins\`
 4. Copy "python.cfg" to `%IDADIR%\cfg`
@@ -48,7 +48,7 @@ or
 -S"yourscript.py arg1 arg2 arg3"
 ```
 
-(Please see http://www.hexblog.com/?p=128)
+(Please see https://hex-rays.com/blog/running-scripts-from-the-command-line-with-idascript/)
 
 If you want fully unattended execution mode, make sure your script
 exits with a `qexit()` call.
