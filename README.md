@@ -22,16 +22,15 @@ Mailing list for the project is hosted by Google Groups at
 
 ## Installation from binaries
 
-1. Install 2.6 or 2.7 from https://www.python.org/
+1. Install latest Python 3.x version from https://www.python.org/
 2. Copy the whole "python" directory to `%IDADIR%`
-3. Copy the contents of the "plugins" directory to the `%IDADIR%\plugins\`
-4. Copy "python.cfg" to `%IDADIR%\cfg`
+3. Copy "idapython.cfg" to `%IDADIR%\cfg`
 
 ## Usage
 
- - Run script: File / Script file (Alt-F7)
- - Execute Python statement(s) (Ctrl-F3)
- - Run previously executed script again: View / Recent Scripts (Alt+F9)
+ - Run script: File / Script file (`Alt+F7`)
+ - Execute Python statement(s) (`Shift+F2`)
+ - Run previously executed script again: View / Recent Scripts (`Alt+F9`)
 
 ### Batch mode execution:
 
@@ -65,7 +64,7 @@ Where N can be:
 
 ### User init file
 
-You can place your custom settings to a file called 'idapythonrc.py'
+You can place your custom settings to a file called `idapythonrc.py`
 that should be placed to
 ```sh
 ${HOME}/.idapro/
@@ -76,27 +75,26 @@ or
 ```
 The user init file is read and executed at the end of the init process.
 
-Please note that IDAPython can be configured with "python.cfg" file.
+Please note that IDAPython can be configured with `idapython.cfg` file.
 
 ### Invoking Python from IDC
 
-The IDAPython plugin exposes a new IDC function `RunPythonStatement(string idc_code)` that allows execution
-of Python code from IDC
+The IDAPython plugin exposes a new IDC function `exec_python(string python_code)` that allows execution
+of Python code from IDC.
 
 ### Invoking IDC from Python
 
-It is possible to use the `idc.eval()` to evaluate IDC expressions from Python
+It is possible to use the `idc.eval_idc()` to evaluate IDC expressions from Python.
 
-### Making Python the default language
+### Switching the default language between Python and IDC
 
-By default, IDA will use IDC to evaluate expressions. It is possible to change the default language to use
-Python instead of IDC.
+By default, IDA will use Python to evaluate expressions. It is possible to change the default language to IDC.
 
-In order to do that, please use the following IDC code:
+In order to do that, use the following Python code:
 ```c
-load_and_run_plugin("python", 3)
+load_and_run_plugin("idapython", 4)
 ```
-To disable Python language and revert back to IDC:
+To go back to Python, use the following IDC code:
 ```c
-load_and_run_plugin("python", 4)
+load_and_run_plugin("idapython", 3)
 ```
