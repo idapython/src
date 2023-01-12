@@ -80,7 +80,7 @@ Note: the path you unpack the IDA SDK into cannot contain white spaces,
    Note: If you want to build for Python3 (let's say you are building for Python 3.8),
       please set the following environment variables:
       - export PYTHON_VERSION_MAJOR=3 ('set PYTHON_VERSION_MAJOR=3' on Windows)
-      - export PYTHON_VERSION_MAJOR=8 ('set PYTHON_VERSION_MINOR=8 on Windows)
+      - export PYTHON_VERSION_MINOR=8 ('set PYTHON_VERSION_MINOR=8 on Windows)
 
 4. Build the plugin
 
