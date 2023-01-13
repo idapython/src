@@ -478,15 +478,18 @@ void py_chooser_mixin_t::mixin_get_row(
             PyObject_CallMethod(
                     self.o, (char *)S_ON_GET_LINE_ATTR,
                     "i", int(n)));
-    if ( PyErr_Occurred() != nullptr )
-      return;
-    if ( pyres.result != nullptr && PyList_Check(pyres.result.o) )
+    if ( PyErr_Occurred() == nullptr && pyres.result != nullptr && PySequence_Check(pyres.result.o) )
     {
-      PyObject *item;
-      if ( (item = PyList_GetItem(pyres.result.o, 0)) != nullptr )
-        attrs->color = PyInt_AsLong(item);
-      if ( (item = PyList_GetItem(pyres.result.o, 1)) != nullptr )
-        attrs->flags = PyInt_AsLong(item);
+      {
+        newref_t item(PySequence_GetItem(pyres.result.o, 0));
+        if (item.o != nullptr && PyLong_Check(item.o))
+          attrs->color = PyLong_AsUnsignedLong(item.o);
+      }
+      {
+        newref_t item(PySequence_GetItem(pyres.result.o, 1));
+        if (item.o != nullptr && PyLong_Check(item.o))
+          attrs->flags = PyInt_AsLong(item.o);
+      }
     }
   }
 }
