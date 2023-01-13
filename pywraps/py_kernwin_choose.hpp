@@ -482,12 +482,12 @@ void py_chooser_mixin_t::mixin_get_row(
     {
       {
         newref_t item(PySequence_GetItem(pyres.result.o, 0));
-        if (item.o != nullptr && PyLong_Check(item.o))
+        if (item && PyLong_Check(item.o))
           attrs->color = PyLong_AsUnsignedLong(item.o);
       }
       {
         newref_t item(PySequence_GetItem(pyres.result.o, 1));
-        if (item.o != nullptr && PyLong_Check(item.o))
+        if (item && PyLong_Check(item.o))
           attrs->flags = PyInt_AsLong(item.o);
       }
     }
