@@ -38,10 +38,8 @@ try:
         ida_kernwin.replace_wait_box("Processing; step %d/%d" % (i+1, neas))
 
         if perform_decompilation:
-            try:
-                ida_hexrays.decompile(ida_funcs.get_func(ea))
-            except ida_hexrays.DecompilationFailure as df:
-                print("Decompilation failure: %s" % df)
+            if not ida_hexrays.decompile(ea):
+                print("Decompilation failure: %x" % ea)
 
         time.sleep(step_sleep * random.random())
 finally:

@@ -3499,8 +3499,6 @@ Using the progress dialog (aka 'wait box') primitives.
 actions
 
 #### Uses
-* ida_funcs.get_func
-* ida_hexrays.DecompilationFailure
 * ida_hexrays.decompile
 * ida_kernwin.hide_wait_box
 * ida_kernwin.replace_wait_box

@@ -17441,10 +17441,7 @@ Module "ida_hexrays"s docstring:
 Help on class DecompilationFailure in module ida_hexrays:
 
 class DecompilationFailure(builtins.Exception)
- |  Raised on a decompilation error.
- |  
- |  The associated hexrays_failure_t object is stored in the
- |  'info' member of this exception.
+ |  Common base class for all non-exit exceptions.
  |  
  |  Method resolution order:
  |      DecompilationFailure
@@ -17453,9 +17450,6 @@ class DecompilationFailure(builtins.Exception)
  |      builtins.object
  |  
  |  Methods defined here:
- |  
- |  __init__(self, info)
- |      Initialize self.  See help(type(self)) for accurate signature.
  |  
  |  add_note = dummy_replacement()
  |  
@@ -17467,6 +17461,9 @@ class DecompilationFailure(builtins.Exception)
  |  
  |  ----------------------------------------------------------------------
  |  Methods inherited from builtins.Exception:
+ |  
+ |  __init__(self, /, *args, **kwargs)
+ |      Initialize self.  See help(type(self)) for accurate signature.
  |  
  |  __new__(*args, **kwargs) from builtins.type
  |      Create and return a new object.  See help(type) for accurate signature.
@@ -26030,7 +26027,12 @@ debug_hexrays_ctree(*args) -> 'void'
 Help on function decompile in module ida_hexrays:
 
 decompile(ea, hf=None, flags=0)
-    # ---------------------------------------------------------------------
+    Decompile a function.
+    
+    @param ea an address belonging to the function, or an ida_funcs.func_t object
+    @param hf extended error information (if failed)
+    @param flags decomp_flags bitwise combination of `DECOMP_...` bits
+    @return the decompilation result (a `ida_hexrays.cfunc_t` wrapper), or None
 
 Help on function decompile_func in module ida_hexrays:
 
@@ -63665,11 +63667,12 @@ show_wait_box(*args) -> 'void'
     Display a dialog box with "Please wait...". The behavior of the dialog box can
     be configured with well-known
     tokens, that should be placed at the start of the format string:
-    "HIDECANCEL\n": the cancel button won't be added to the dialog box
-    and user_cancelled() will always return false (but
-    can be caled to refresh UI).
     "NODELAY\n": the dialog will show immediately, instead of
     appearing after usual grace threshold
+    "HIDECANCEL\n": the cancel button won't be added to the dialog box
+    and user_cancelled() will always return false (but
+    can be called to refresh UI)
+    Using "HIDECANCEL" implies "NODELAY"
     Plugins must call hide_wait_box() to close the dialog box, otherwise
     the user interface will remain disabled.
     Note that, if the wait dialog is already visible, show_wait_box() will

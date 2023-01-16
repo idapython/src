@@ -5,6 +5,14 @@ hexdsp_t *get_idapython_hexdsp();
 #include <hexrays.hpp>
 %}
 
+
+// Functions accepting a `func_t *` can also derive it from an `ea_t`
+%typemap(in, fragment="cvt_func_t") func_t *pfn
+{ // %typemap(in) func_t *pfn
+  if ( !cvt_func_t(&$1, $input) )
+    SWIG_exception_fail(SWIG_ValueError, "in method '" "$symname" "', argument " "$argnum"" of type '" "func_t const *""' (or an address from which it can be derived)");
+}
+
 %{
 SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 {
@@ -964,6 +972,12 @@ void qswap(cinsn_t &a, cinsn_t &b);
 
 %ignore get_widget_vdui;
 %rename (get_widget_vdui) py_get_widget_vdui;
+
+%feature("pythonappend") decompile_func %{
+  if val.__deref__() is None:
+      val = None
+%}
+
 
 //-------------------------------------------------------------------------
 #if SWIG_VERSION == 0x40000 || SWIG_VERSION == 0x40001

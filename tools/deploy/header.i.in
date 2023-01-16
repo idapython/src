@@ -2039,5 +2039,25 @@ TRY_RAW_LONG:
 %}
 %enddef
 
+%fragment("cvt_func_t", "header")
+{
+  bool cvt_func_t(func_t **out, PyObject *obj)
+  {
+    uint64 u64;
+    if ( PyW_GetNumber(obj, &u64) )
+    {
+      *out = get_func(ea_t(u64));
+    }
+    else
+    {
+      void *p = 0;
+      if ( !SWIG_IsOK(SWIG_ConvertPtr(obj, &p, SWIGTYPE_p_func_t, 0 | 0 )) )
+        return false;
+      *out = reinterpret_cast<func_t*>(p);
+    }
+    return true;
+  }
+}
+
 #endif // __HEADER_I__
 // END: auto-inserted header
