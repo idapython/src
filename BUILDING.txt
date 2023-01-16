@@ -30,8 +30,12 @@ REQUIREMENTS
        On Windows, please refer to the following instructions:
          `http://www.swig.org/Doc4.0/Windows.html#Windows_cygwin_mingw`
        On Linux or OSX,
+          (On Ubuntu, you might want to install a couple of packages:
+            `sudo apt install libpcre3-dev yacc bison automake autotools-dev patchelf -y`)
+
          `sh autogen.sh`, then
-         `configure --prefix=/my/swig-4.0.1-py3-install && make && make install`
+         `./configure --prefix=/my_path_to/swig-4.0.1-py3-install && make && make install`
+
 
  - Unix utilities (GNU patch on Windows):
    http://www.research.att.com/sw/tools/uwin/ or
@@ -76,13 +80,14 @@ Note: the path you unpack the IDA SDK into cannot contain white spaces,
    Note: If you want to build for Python3 (let's say you are building for Python 3.8),
       please set the following environment variables:
       - export PYTHON_VERSION_MAJOR=3 ('set PYTHON_VERSION_MAJOR=3' on Windows)
-      - export PYTHON_VERSION_MAJOR=8 ('set PYTHON_VERSION_MINOR=8 on Windows)
+      - export PYTHON_VERSION_MINOR=8 ('set PYTHON_VERSION_MINOR=8 on Windows)
 
 4. Build the plugin
 
-   python build.py --swig-home /my/swig-4.0.1-py3-install --with-hexrays --idc /path/to/ida74_install/idc/idc.idc
+   python build.py --swig-home /my_path_to/swig-4.0.1-py3-install --with-hexrays --ida-install /path/to/ida_install/
 
    You can also run 'build.py --help' for more information.
 
 
 5. Install the components as described in README.md
+
