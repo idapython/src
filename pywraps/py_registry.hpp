@@ -7,21 +7,15 @@
 static PyObject *_py_reg_subkey_children(const char *name, bool subkeys)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  PyObject *result = nullptr;
   qstrvec_t children;
   SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-  if ( reg_subkey_children(&children, name, subkeys) )
-  {
-    result = PyList_New(children.size());
-    if ( result != nullptr )
-      for ( size_t i = 0, n = children.size(); i < n; ++i )
-        PyList_SET_ITEM(result, i, PyUnicode_FromString(children[i].c_str()));
-  }
+  bool ok = reg_subkey_children(&children, name, subkeys);
   SWIG_PYTHON_THREAD_END_ALLOW;
-  if ( result == nullptr )
+  if ( !ok )
     Py_RETURN_NONE;
-  else
-    return result;
+  ref_t result = PyW_StrVecToPyList(children);
+  result.incref();
+  return result.o;
 }
 //</code(py_registry)>
 

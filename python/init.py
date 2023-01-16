@@ -16,6 +16,20 @@ import os
 import sys
 import time
 import warnings
+import os
+import os.path
+
+if os.name == 'nt' and \
+    sys.version_info.major == 3 and \
+    sys.version_info.minor >= 11:
+    # Python 3.11 has a bug with DLLs directory missing from sys.path
+    # so add it if it's not there
+    base = sys.base_exec_prefix
+    dllspath = os.path.join(base, sys.platlibdir)
+    if os.path.exists(dllspath) and dllspath not in sys.path:
+        i = sys.path.index(base) if base in sys.path else len(sys.path)
+        sys.path.insert(i, dllspath)
+
 
 # Prepare sys.path so loading of the shared objects works
 lib_dynload = os.path.join(
@@ -107,10 +121,20 @@ sys.stdout = sys.stderr = IDAPythonStdOut()
 # Initialize the help, with our own stdin wrapper, that'll query the user
 # -----------------------------------------------------------------------
 import pydoc
-class IDAPythonHelpPrompter:
+class IDAPythonHelpPrompter(object):
     def readline(self):
         return ida_kernwin.ask_str('', 0, 'Help topic?')
-help = pydoc.Helper(input = IDAPythonHelpPrompter(), output = sys.stdout)
+
+class IDAPythonHelp(pydoc.Helper):
+    def __init__(self):
+        super().__init__(input = IDAPythonHelpPrompter(), output = sys.stdout)
+    def help(self, *args):
+        try:
+            return super().help(*args)
+        except ImportError as e:
+            print(e)
+
+help = IDAPythonHelp()
 
 # Assign a default sys.argv
 sys.argv = [""]

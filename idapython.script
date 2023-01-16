@@ -15,6 +15,7 @@ global:
   PyW_ShowCbErr;
   PyW_SizeVecToPyList;
   PyW_UvalVecToPyList;
+  PyW_StrVecToPyList;
   PyW_TryGetAttrString;
   PyW_TryImportModule;
   PyW_register_compiled_form;

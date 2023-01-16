@@ -101,6 +101,18 @@ ref_t ida_export PyW_UvalVecToPyList(const uvalvec_t &vec)
 }
 
 //-------------------------------------------------------------------------
+ref_t ida_export PyW_StrVecToPyList(const qstrvec_t &vec)
+{
+  size_t n = vec.size();
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  newref_t py_list(PyList_New(n));
+  for ( size_t i = 0; i < n; ++i )
+    PyList_SetItem(py_list.o, i, PyUnicode_from_qstring(vec[i]));
+  return ref_t(py_list);
+
+}
+
+//-------------------------------------------------------------------------
 static Py_ssize_t pyvar_walk_list(
         const ref_t &py_list,
         int (idaapi *cb)(const ref_t &py_item, Py_ssize_t index, void *ud),

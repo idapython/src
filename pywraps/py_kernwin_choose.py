@@ -103,6 +103,18 @@ class Choose(object):
     ALL_CHANGED       = 1
     SELECTION_CHANGED = 2
 
+    # to construct `forbidden_cb`
+    CHOOSE_HAVE_INIT    = 0x0001
+    CHOOSE_HAVE_GETICON = 0x0002
+    CHOOSE_HAVE_GETATTR = 0x0004
+    CHOOSE_HAVE_INS     = 0x0008
+    CHOOSE_HAVE_DEL     = 0x0010
+    CHOOSE_HAVE_EDIT    = 0x0020
+    CHOOSE_HAVE_ENTER   = 0x0040
+    CHOOSE_HAVE_REFRESH = 0x0080
+    CHOOSE_HAVE_SELECT  = 0x0100
+    CHOOSE_HAVE_ONCLOSE = 0x0200
+
     class UI_Hooks_Trampoline(UI_Hooks):
         def __init__(self, v):
             UI_Hooks.__init__(self)

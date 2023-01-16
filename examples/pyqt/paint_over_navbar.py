@@ -57,8 +57,8 @@ class painter_t(QtCore.QObject):
                 painter.setRenderHints(QtGui.QPainter.Antialiasing)
                 pxl, is_vertical = ida_kernwin.get_navband_pixel(ea)
                 if pxl >= 0:
-                    x = (self.target.width() / 2) if is_vertical else pxl
-                    y = pxl if is_vertical else (self.target.height() / 2)
+                    x = (self.target.width() // 2) if is_vertical else pxl
+                    y = pxl if is_vertical else (self.target.height() // 2)
                     painter.setPen(color)
                     painter.setBrush(color)
                     painter.drawEllipse(QtCore.QPoint(x, y), radius, radius)

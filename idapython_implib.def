@@ -6,6 +6,7 @@ EXPORTS
   PyW_GetStringAttr
   PyW_SizeVecToPyList
   PyW_UvalVecToPyList
+  PyW_StrVecToPyList
   PyW_IsSequenceType
   PyW_ObjectToString
   PyW_PyListToEaVec
