@@ -88,13 +88,14 @@ It is possible to use the `idc.eval_idc()` to evaluate IDC expressions from Pyth
 
 ### Switching the default language between Python and IDC
 
-By default, IDA will use Python to evaluate expressions. It is possible to change the default language to IDC.
+By default, IDA will use IDC to evaluate expressions in dialog boxes and in `eval_expr()`.  
+It is possible to change the default language to Python.
 
-In order to do that, use the following Python code:
-```c
-load_and_run_plugin("idapython", 4)
-```
-To go back to Python, use the following IDC code:
+In order to do that, use the following (IDC/Python) code:
 ```c
 load_and_run_plugin("idapython", 3)
+```
+To go back to IDC, use the following code:
+```c
+load_and_run_plugin("idapython", 4)
 ```
