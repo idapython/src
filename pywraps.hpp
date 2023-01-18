@@ -326,6 +326,7 @@ struct ref_t
 
   bool operator==(const ref_t &other) const { return o == other.o; }
   bool operator!=(const ref_t &other) const { return !((*this) == other); }
+  explicit operator bool() const { return o != nullptr; }
 };
 
 //-------------------------------------------------------------------------
