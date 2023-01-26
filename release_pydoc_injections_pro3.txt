@@ -56964,26 +56964,6 @@ class Choose(builtins.object)
  |  
  |  CHCOL_PLAIN = 0
  |  
- |  CHOOSE_HAVE_DEL = 16
- |  
- |  CHOOSE_HAVE_EDIT = 32
- |  
- |  CHOOSE_HAVE_ENTER = 64
- |  
- |  CHOOSE_HAVE_GETATTR = 4
- |  
- |  CHOOSE_HAVE_GETICON = 2
- |  
- |  CHOOSE_HAVE_INIT = 1
- |  
- |  CHOOSE_HAVE_INS = 8
- |  
- |  CHOOSE_HAVE_ONCLOSE = 512
- |  
- |  CHOOSE_HAVE_REFRESH = 128
- |  
- |  CHOOSE_HAVE_SELECT = 256
- |  
  |  CH_ATTRS = 32
  |  
  |  CH_BUILTIN_MASK = 33030144

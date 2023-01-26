@@ -17451,10 +17451,7 @@ Module "ida_hexrays"s docstring:
 Help on class DecompilationFailure in module ida_hexrays:
 
 class DecompilationFailure(builtins.Exception)
- |  Raised on a decompilation error.
- |  
- |  The associated hexrays_failure_t object is stored in the
- |  'info' member of this exception.
+ |  Common base class for all non-exit exceptions.
  |  
  |  Method resolution order:
  |      DecompilationFailure
@@ -17463,9 +17460,6 @@ class DecompilationFailure(builtins.Exception)
  |      builtins.object
  |  
  |  Methods defined here:
- |  
- |  __init__(self, info)
- |      Initialize self.  See help(type(self)) for accurate signature.
  |  
  |  add_note = dummy_replacement()
  |  
@@ -17477,6 +17471,9 @@ class DecompilationFailure(builtins.Exception)
  |  
  |  ----------------------------------------------------------------------
  |  Methods inherited from builtins.Exception:
+ |  
+ |  __init__(self, /, *args, **kwargs)
+ |      Initialize self.  See help(type(self)) for accurate signature.
  |  
  |  __new__(*args, **kwargs) from builtins.type
  |      Create and return a new object.  See help(type) for accurate signature.
@@ -30076,7 +30073,7 @@ class mba_t(builtins.object)
  |      matches LIST. Any operand that overlaps with LIST is considered as a match.
  |      
  |      @param ctx: (C++: op_parent_info_t *) context information for the result
- |      @param ea: (C++: ea_t) desired address of the operand
+ |      @param ea: (C++: ea_t) desired address of the operand. BADADDR means to accept any address.
  |      @param is_dest: (C++: bool) search for destination operand? this argument may be ignored if
  |                      the exact match could not be found
  |      @param list: (C++: const mlist_t &) list of locations the correspond to the operand
@@ -30264,6 +30261,9 @@ class mba_t(builtins.object)
  |  
  |  precise_defeas(self, *args) -> 'bool'
  |      precise_defeas(self) -> bool
+ |  
+ |  prop_complex(self, *args) -> 'bool'
+ |      prop_complex(self) -> bool
  |  
  |  propagated_asserts(self, *args) -> 'bool'
  |      propagated_asserts(self) -> bool
@@ -32623,10 +32623,12 @@ class minsn_t(builtins.object)
  |      @param mcode: (C++: mcode_t) opcode to search for.
  |  
  |  deserialize(self, *args) -> 'bool'
- |      deserialize(self, bytes) -> bool
+ |      deserialize(self, bytes, format_version) -> bool
  |      Deserialize an instruction
  |      
  |      @param bytes: (C++: const uchar *) pointer to serialized data
+ |      @param format_version: (C++: int) serialization format version. this value is returned by
+ |                             minsn_t::serialize()
  |      @return: success
  |  
  |  dstr(self, *args) -> 'char const *'
@@ -32836,11 +32838,12 @@ class minsn_t(builtins.object)
  |  
  |  replace_by(self, o)
  |  
- |  serialize(self, *args) -> 'void'
- |      serialize(self, b)
+ |  serialize(self, *args) -> 'int'
+ |      serialize(self, b) -> int
  |      Serialize an instruction
  |      
  |      @param b: (C++: bytevec_t *) the output buffer
+ |      @return: the serialization format that was used to store info
  |  
  |  set_assert(self, *args) -> 'void'
  |      set_assert(self)
@@ -49463,6 +49466,32 @@ class IDP_Hooks(builtins.object)
  |      @retval 1: ok
  |      @retval <0: segment should not be created
  |  
+ |  ev_cvt64_hashval(self, *args) -> 'int'
+ |      ev_cvt64_hashval(self, node, tag, name, data, datlen) -> int
+ |      perform 32-64 conversion for a hash value
+ |      
+ |      @param node: (::nodeidx_t)
+ |      @param tag: (uchar)
+ |      @param name: (const ::char *)
+ |      @param data: (const uchar *)
+ |      @param datlen: (::size_t)
+ |      @return: 0 nothing was done
+ |      1 converted successfully
+ |      -1 error (and message in errbuf)
+ |  
+ |  ev_cvt64_supval(self, *args) -> 'int'
+ |      ev_cvt64_supval(self, node, tag, idx, data, datlen) -> int
+ |      perform 32-64 conversion for a netnode array element
+ |      
+ |      @param node: (::nodeidx_t)
+ |      @param tag: (uchar)
+ |      @param idx: (::nodeidx_t)
+ |      @param data: (const uchar *)
+ |      @param datlen: (::size_t)
+ |      @return: 0 nothing was done
+ |      1 converted successfully
+ |      -1 error (and message in errbuf)
+ |  
  |  ev_decorate_name(self, *args) -> 'PyObject *'
  |      ev_decorate_name(self, name, mangle, cc, optional_type) -> PyObject *
  |      Decorate/undecorate a C symbol name.
@@ -50526,6 +50555,28 @@ class _processor_t(builtins.object)
  |  
  |  cbsize(self, *args) -> 'int'
  |      cbsize(self) -> int
+ |  
+ |  cvt64_hashval(self, *args) -> 'ssize_t'
+ |      cvt64_hashval(self, node, tag, name, data, datlen) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      node: nodeidx_t
+ |      tag: uchar
+ |      name: char const *
+ |      data: uchar const *
+ |      datlen: size_t
+ |  
+ |  cvt64_supval(self, *args) -> 'ssize_t'
+ |      cvt64_supval(self, node, tag, idx, data, datlen) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      node: nodeidx_t
+ |      tag: uchar
+ |      idx: nodeidx_t
+ |      data: uchar const *
+ |      datlen: size_t
  |  
  |  dbsize(self, *args) -> 'int'
  |      dbsize(self) -> int
@@ -51660,6 +51711,10 @@ class _processor_t(builtins.object)
  |  
  |  ev_creating_segm = 26
  |  
+ |  ev_cvt64_hashval = 98
+ |  
+ |  ev_cvt64_supval = 97
+ |  
  |  ev_decorate_name = 2020
  |  
  |  ev_del_cref = 66
@@ -51766,7 +51821,7 @@ class _processor_t(builtins.object)
  |  
  |  ev_is_switch = 41
  |  
- |  ev_last_cb_before_debugger = 97
+ |  ev_last_cb_before_debugger = 99
  |  
  |  ev_last_cb_before_loader = 2023
  |  
@@ -55383,6 +55438,32 @@ class processor_t(IDP_Hooks)
  |                 idbs.
  |      @return: must be 0
  |  
+ |  ev_cvt64_hashval(self, *args) -> 'int'
+ |      ev_cvt64_hashval(self, node, tag, name, data, datlen) -> int
+ |      perform 32-64 conversion for a hash value
+ |      
+ |      @param node: (::nodeidx_t)
+ |      @param tag: (uchar)
+ |      @param name: (const ::char *)
+ |      @param data: (const uchar *)
+ |      @param datlen: (::size_t)
+ |      @return: 0 nothing was done
+ |      1 converted successfully
+ |      -1 error (and message in errbuf)
+ |  
+ |  ev_cvt64_supval(self, *args) -> 'int'
+ |      ev_cvt64_supval(self, node, tag, idx, data, datlen) -> int
+ |      perform 32-64 conversion for a netnode array element
+ |      
+ |      @param node: (::nodeidx_t)
+ |      @param tag: (uchar)
+ |      @param idx: (::nodeidx_t)
+ |      @param data: (const uchar *)
+ |      @param datlen: (::size_t)
+ |      @return: 0 nothing was done
+ |      1 converted successfully
+ |      -1 error (and message in errbuf)
+ |  
  |  ev_decorate_name(self, *args) -> 'PyObject *'
  |      ev_decorate_name(self, name, mangle, cc, optional_type) -> PyObject *
  |      Decorate/undecorate a C symbol name.
@@ -57000,26 +57081,6 @@ class Choose(builtins.object)
  |  CHCOL_PATH = 65536
  |  
  |  CHCOL_PLAIN = 0
- |  
- |  CHOOSE_HAVE_DEL = 16
- |  
- |  CHOOSE_HAVE_EDIT = 32
- |  
- |  CHOOSE_HAVE_ENTER = 64
- |  
- |  CHOOSE_HAVE_GETATTR = 4
- |  
- |  CHOOSE_HAVE_GETICON = 2
- |  
- |  CHOOSE_HAVE_INIT = 1
- |  
- |  CHOOSE_HAVE_INS = 8
- |  
- |  CHOOSE_HAVE_ONCLOSE = 512
- |  
- |  CHOOSE_HAVE_REFRESH = 128
- |  
- |  CHOOSE_HAVE_SELECT = 256
  |  
  |  CH_ATTRS = 32
  |  
@@ -59397,10 +59458,6 @@ class chooser_base_t(builtins.object)
  |  is_multi(self, *args) -> 'bool'
  |      is_multi(self) -> bool
  |      is multi-selection allowed?
- |  
- |  is_noidb(self, *args) -> 'bool'
- |      is_noidb(self) -> bool
- |      can use the chooser before opening the database?
  |  
  |  is_quick_filter_visible_initially(self, *args) -> 'bool'
  |      is_quick_filter_visible_initially(self) -> bool
@@ -63541,10 +63598,15 @@ Help on function show_wait_box in module ida_kernwin:
 
 show_wait_box(*args) -> 'void'
     show_wait_box(message)
-    Display a dialog box with "Please wait...". If the text message starts with
-    "HIDECANCEL\n", the cancel button
-    won't be added to the dialog box and user_cancelled() will always
-    return false (but can be caled to refresh UI).
+    Display a dialog box with "Please wait...". The behavior of the dialog box can
+    be configured with well-known
+    tokens, that should be placed at the start of the format string:
+    "NODELAY\n": the dialog will show immediately, instead of
+    appearing after usual grace threshold
+    "HIDECANCEL\n": the cancel button won't be added to the dialog box
+    and user_cancelled() will always return false (but
+    can be called to refresh UI)
+    Using "HIDECANCEL" implies "NODELAY"
     Plugins must call hide_wait_box() to close the dialog box, otherwise
     the user interface will remain disabled.
     Note that, if the wait dialog is already visible, show_wait_box() will
@@ -85115,6 +85177,9 @@ class func_type_data_t(funcargvec_t)
  |  is_static(self, *args) -> 'bool'
  |      is_static(self) -> bool
  |  
+ |  is_swift_cc(self, *args) -> 'bool'
+ |      is_swift_cc(self) -> bool
+ |  
  |  is_vararg_cc(self, *args) -> 'bool'
  |      is_vararg_cc(self) -> bool
  |  
@@ -86186,6 +86251,14 @@ is_sdacl_byte(*args) -> 'bool'
     "sdacl-typeattrs" in the type bit definitions)
     
     @param t: (C++: type_t)
+
+Help on function is_swift_cc in module ida_typeinf:
+
+is_swift_cc(*args) -> 'bool'
+    is_swift_cc(cc) -> bool
+    Swift calling convention (arguments and return values in registers)?
+    
+    @param cc: (C++: cm_t)
 
 Help on function is_tah_byte in module ida_typeinf:
 
@@ -101871,7 +101944,7 @@ Documentation on variable WARN_ILL_PURGED in module ida_hexrays:
 
 Documentation on variable WARN_ILL_FUNCTYPE in module ida_hexrays:
 
-    2 invalid function type has been ignored
+    2 invalid function type 's' has been ignored
 
 Documentation on variable WARN_VARARG_TCAL in module ida_hexrays:
 
@@ -102486,6 +102559,10 @@ Documentation on variable MBA2_HAS_OUTLINES in module ida_hexrays:
 Documentation on variable MBA2_NO_FRAME in module ida_hexrays:
 
     do not use function frame info (only snippet mode)
+
+Documentation on variable MBA2_PROP_COMPLEX in module ida_hexrays:
+
+    allow propagation of more complex variable definitions
 
 Documentation on variable MBA2_DONT_VERIFY in module ida_hexrays:
 
@@ -108293,10 +108370,6 @@ Documentation on variable CH_ATTRS in module ida_kernwin:
 
     generate ui_get_chooser_item_attrs (gui only)
 
-Documentation on variable CH_NOIDB in module ida_kernwin:
-
-    use the chooser before opening the database
-
 Documentation on variable CH_FORCE_DEFAULT in module ida_kernwin:
 
     if a non-modal chooser was already open, change selection to the default one
@@ -108404,7 +108477,9 @@ Documentation on variable CHCOL_PLAIN in module ida_kernwin:
 
 Documentation on variable CHCOL_PATH in module ida_kernwin:
 
-    file path
+    file path. TUI IDA will truncate excessive cell lengths starting at their
+    beginning, and prepending the resulting text with "..." order to leave the
+    filename visible
 
 Documentation on variable CHCOL_HEX in module ida_kernwin:
 
@@ -108420,7 +108495,9 @@ Documentation on variable CHCOL_EA in module ida_kernwin:
 
 Documentation on variable CHCOL_FNAME in module ida_kernwin:
 
-    function name
+    function name. If a chooser column has this flag set, its background color will
+    be automatically set to match the navigator's "Library function", "Lumina
+    function" and "External symbol" colors
 
 Documentation on variable CHCOL_FORMAT in module ida_kernwin:
 
@@ -109133,10 +109210,6 @@ Documentation on variable Choose.CH_MULTI in module ida_kernwin:
     Refer the description of the OnInsertLine(), OnDeleteLine(),
     OnEditLine(), OnSelectLine(), OnRefresh(), OnSelectionChange() to
     see a difference between single and multi selection callbacks.
-
-Documentation on variable Choose.CH_NOIDB in module ida_kernwin:
-
-    use the chooser even without an open database, same as x0=-2
 
 Documentation on variable Choose.CH_FORCE_DEFAULT in module ida_kernwin:
 
@@ -112917,15 +112990,19 @@ Documentation on variable CM_CC_THISCALL in module ida_typeinf:
 
     stack, purged (x86), first arg is in reg (compiler-dependent)
 
-Documentation on variable CM_CC_MANUAL in module ida_typeinf:
+Documentation on variable CM_CC_SWIFT in module ida_typeinf:
 
-    special case for compiler specific (not used)
+    (Swift) arguments and return values in registers (compiler-dependent)
 
 Documentation on variable CM_CC_SPOILED in module ida_typeinf:
 
     This is NOT a cc! Mark of __spoil record the low nibble is count and after n
     {spoilreg_t} present real cm_t byte. if n == BFA_FUNC_MARKER, the next byte is
     the function attribute byte.
+
+Documentation on variable CM_CC_GOLANG in module ida_typeinf:
+
+    (Go) arguments and return value in stack
 
 Documentation on variable CM_CC_SPECIALE in module ida_typeinf:
 

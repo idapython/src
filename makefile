@@ -229,22 +229,8 @@ ifneq ($(HAS_HEXRAYS),)
   MODULES_NAMES += $(HEXRAYS_MODNAME)
 endif
 
-ifeq ($(OUT_OF_TREE_BUILD),)
-  ifndef NOTEAMS
-    HAS_MERGE=1
-  endif
-else
-  ifneq (,$(wildcard $(IDA_INCLUDE)/merge.hpp))
-    HAS_MERGE=1
-  endif
-endif
-
 ifeq ($(HAS_HEXRAYS),)
   NO_CMP_API := 1
-else
-  ifeq ($(HAS_MERGE),)
-    NO_CMP_API := 1
-  endif
 endif
 
 #----------------------------------------------------------------------
@@ -295,7 +281,7 @@ MODULES_NAMES += tryblks
 MODULES_NAMES += typeinf
 MODULES_NAMES += ua
 MODULES_NAMES += xref
-ifneq ($(HAS_MERGE),)
+ifndef NOTEAMS
   MODULES_NAMES += mergemod
   MODULES_NAMES += merge
 endif
@@ -337,7 +323,7 @@ endif
 #  types will not interfere or clash with the types in your module.
 DEF_TYPE_TABLE = SWIG_TYPE_TABLE=idaapi
 SWIGFLAGS=$(_SWIGFLAGS) -Itools/typemaps-supplement $(SWIG_INCLUDES) $(addprefix -D,$(DEF_TYPE_TABLE)) -DMISSED_BC695
-ifeq ($(HAS_MERGE),)
+ifdef NOTEAMS
   SWIGFLAGS += -DNOTEAMS
 endif
 
@@ -392,7 +378,7 @@ ifeq ($(OUT_OF_TREE_BUILD),)
 	$(Q)$(CP) $? $@
   DEST_SIP += $(DEST_SIP38_PYDLL) $(DEST_SIP38_PYI)
 
-  # sip for Python [3.9, ...
+  # sip for Python [3.9, 3.10)
   DEST_SIP39_DIR:=$(DEST_PYQT_DIR)/python_3.9
   $(DEST_SIP39_DIR):
 	-$(Q)if [ ! -d "$(DEST_SIP39_DIR)" ] ; then mkdir -p 2>/dev/null $(DEST_SIP39_DIR) ; fi
@@ -404,7 +390,7 @@ ifeq ($(OUT_OF_TREE_BUILD),)
 	$(Q)$(CP) $? $@
   DEST_SIP += $(DEST_SIP39_PYDLL) $(DEST_SIP39_PYI)
 
-  # sip for Python [3.10, ...
+  # sip for Python [3.10, 3.11)
   DEST_SIP310_DIR:=$(DEST_PYQT_DIR)/python_3.10
   $(DEST_SIP310_DIR):
 	-$(Q)if [ ! -d "$(DEST_SIP310_DIR)" ] ; then mkdir -p 2>/dev/null $(DEST_SIP310_DIR) ; fi
@@ -416,14 +402,34 @@ ifeq ($(OUT_OF_TREE_BUILD),)
 	$(Q)$(CP) $? $@
   DEST_SIP += $(DEST_SIP310_PYDLL) $(DEST_SIP310_PYI)
 
+  # sip for Python [3.11, ...
+  DEST_SIP311_DIR:=$(DEST_PYQT_DIR)/python_3.11
+  $(DEST_SIP311_DIR):
+	-$(Q)if [ ! -d "$(DEST_SIP311_DIR)" ] ; then mkdir -p 2>/dev/null $(DEST_SIP311_DIR) ; fi
+  DEST_SIP311_PYDLL:=$(DEST_SIP311_DIR)/$(SIP_PYDLL_FNAME)
+  DEST_SIP311_PYI:=$(DEST_SIP311_DIR)/$(SIP_PYI_FNAME)
+  $(DEST_SIP311_PYDLL): $(wildcard $(SIP311_TREE)/lib/python*/PyQt5/$(SIP_PYDLL_FNAME)) | $(DEST_SIP311_DIR)
+	$(Q)$(CP) $? $@
+  $(DEST_SIP311_PYI): $(wildcard $(SIP311_TREE)/lib/python*/PyQt5/$(SIP_PYI_FNAME)) | $(DEST_SIP311_DIR)
+	$(Q)$(CP) $? $@
+  DEST_SIP += $(DEST_SIP311_PYDLL) $(DEST_SIP311_PYI)
+
   # And pick the right sip.so now (Python3 only; for Python2, we already put it in the right place)
-  ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 8; echo $$?),0) # ugh
-    DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP39_PYDLL)
+  ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 10; echo $$?),0) # ugh
+    DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP311_PYDLL)
   else
-    ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 7; echo $$?),0) # ugh
-      DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP38_PYDLL)
+    ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 9; echo $$?),0) # ugh
+      DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP310_PYDLL)
     else
-      DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP34_PYDLL)
+      ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 8; echo $$?),0) # ugh
+        DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP39_PYDLL)
+      else
+        ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 7; echo $$?),0) # ugh
+          DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP38_PYDLL)
+        else
+          DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP34_PYDLL)
+        endif
+      endif
     endif
   endif
   $(DEST_PYQT_DIR)/$(SIP_PYDLL_FNAME): $(DEST_INSTALL_SIP_PYDLL)

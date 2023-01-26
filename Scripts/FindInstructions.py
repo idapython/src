@@ -13,7 +13,7 @@ The general syntax is:
 * To specify in which context the instructions should be assembled, pass asm_where=ea:
   find("jmp dword ptr [esp]", asm_where=here())
 
-Copyright (c) 1990-2022 Hex-Rays
+Copyright (c) 1990-2023 Hex-Rays
 ALL RIGHTS RESERVED.
 """
 from __future__ import print_function
