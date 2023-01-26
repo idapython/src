@@ -326,7 +326,7 @@ struct ref_t
 
   bool operator==(const ref_t &other) const { return o == other.o; }
   bool operator!=(const ref_t &other) const { return !((*this) == other); }
-  explicit operator bool() const { return o != nullptr; }
+  operator bool() const { return o != nullptr; }
 };
 
 //-------------------------------------------------------------------------
@@ -1200,9 +1200,9 @@ protected:
       ref_t py_id;
       if ( PyObject_HasAttrString(self, "id") )
         py_id = newref_t(PyObject_GetAttrString(self, "id"));
-      if ( py_id == nullptr || !PyUnicode_Check(py_id.o) )
+      if ( !py_id || !PyUnicode_Check(py_id.o) )
         py_id = newref_t(PyObject_Repr(self));
-      if ( py_id != nullptr && PyUnicode_Check(py_id.o) )
+      if ( !py_id && PyUnicode_Check(py_id.o) )
         PyUnicode_as_qstring(&identifier, py_id.o);
     }
 
@@ -1215,16 +1215,16 @@ protected:
     *p++ = '\0';
     newref_t py_mod(PyImport_ImportModule(buf.c_str()));
 #ifdef TESTABLE_BUILD
-    QASSERT(30591, py_mod != nullptr);
+    QASSERT(30591, py_mod);
 #endif
-    if ( py_mod != nullptr )
+    if ( py_mod )
     {
       newref_t py_def_class(PyObject_GetAttrString(py_mod.o, p));
       newref_t py_this_class(PyObject_GetAttrString(self, "__class__"));
 #ifdef TESTABLE_BUILD
-      QASSERT(30592, py_def_class != nullptr && py_this_class != nullptr);
+      QASSERT(30592, py_def_class && py_this_class);
 #endif
-      if ( py_def_class != nullptr && py_this_class != nullptr )
+      if ( py_def_class && py_this_class )
       {
         for ( size_t i = 0; i < count; ++i )
         {
@@ -1233,9 +1233,9 @@ protected:
           newref_t py_def_meth(PyObject_GetAttrString(py_def_class.o, cur.method_name));
           newref_t py_this_meth(PyObject_GetAttrString(py_this_class.o, cur.method_name));
 #ifdef TESTABLE_BUILD
-          QASSERT(30593, py_def_meth != nullptr && py_this_meth != nullptr);
+          QASSERT(30593, py_def_meth && py_this_meth);
 #endif
-          if ( py_def_meth != nullptr && py_this_meth != nullptr )
+          if ( py_def_meth && py_this_meth )
           {
             if ( PyObject_HasAttrString(py_def_meth.o, "__trampoline") > 0 )
               _has_nondef = 2;
@@ -1256,7 +1256,7 @@ protected:
     if ( PyObject_HasAttrString(self, "__class__") )
     {
       newref_t py_this_class(PyObject_GetAttrString(self, "__class__"));
-      if ( py_this_class != nullptr
+      if ( py_this_class
         && PyObject_HasAttrString(py_this_class.o, forbidden_method_name) )
       {
         msg("WARNING: The method \"%s::%s\" won't be called (it has been replaced with \"%s::%s\")\n",
@@ -1270,9 +1270,9 @@ protected:
           size_t mappings_size,
           bool assert_all_reimplemented) const
   {
-    qstrvec_t missing_reimpls;
     qstring buf;
 #ifdef TESTABLE_BUILD
+    qstrvec_t missing_reimpls;
     buf.sprnt("%s(this=%p) \"%s\" {type=%d, cb=%p, flags=%x}",
               class_name, this, identifier.c_str(), int(type), listener.cb, flags);
     if ( has_fixed_method_set() )
@@ -1323,6 +1323,7 @@ protected:
 #else
     qnotused(mappings);
     qnotused(mappings_size);
+    qnotused(assert_all_reimplemented);
 #endif
     return PyUnicode_from_qstring(buf);
   }

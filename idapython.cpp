@@ -701,7 +701,7 @@ void convert_idc_args()
 
   // Get reference to the IDC module (it is imported by init.py)
   ref_t py_mod(PyW_TryImportModule(S_IDC_MODNAME));
-  if ( py_mod != nullptr )
+  if ( py_mod )
     PyObject_SetAttrString(py_mod.o, S_IDC_ARGS_VARNAME, py_args.o);
 }
 
@@ -1129,8 +1129,7 @@ ref_t idapython_plugin_t::get_sys_displayhook()
   ref_t h;
   if ( config.repl_use_sys_displayhook )
   {
-    ref_t py_sys(PyW_TryImportModule("sys"));
-    if ( py_sys != nullptr )
+    if ( ref_t py_sys = ref_t(PyW_TryImportModule("sys")) )
       h = PyW_TryGetAttrString(py_sys.o, "displayhook");
   }
   return h;
@@ -1425,7 +1424,7 @@ bool idapython_plugin_t::_extlang_create_object(
 
     // Get a reference to the module
     ref_t py_mod(PyW_TryImportModule(modname));
-    if ( py_mod == nullptr )
+    if ( !py_mod )
     {
       errbuf->sprnt("Could not import module '%s'!", modname);
       break;
@@ -1435,7 +1434,7 @@ bool idapython_plugin_t::_extlang_create_object(
     ref_t py_res;
     if ( nargs == 1 && args[0].vtype == VT_PVOID )
       py_res = try_create_swig_wrapper(py_mod, clsname, args[0].pvoid);
-    if ( py_res != nullptr )
+    if ( py_res )
     {
       PyObject_SetAttrString(py_res.o, S_PY_IDCCVT_ID_ATTR, PyLong_FromLong(PY_ICID_OPAQUE));
     }
@@ -1443,7 +1442,7 @@ bool idapython_plugin_t::_extlang_create_object(
     {
       // Get the class reference
       ref_t py_cls(PyW_TryGetAttrString(py_mod.o, clsname));
-      if ( py_cls == nullptr )
+      if ( !py_cls )
       {
         errbuf->sprnt("Could not find class type '%s'!", clsname);
         break;
@@ -1491,7 +1490,7 @@ bool idapython_plugin_t::_extlang_eval_snippet(
                               globals,
                               globals,
                               nullptr));
-      ok = result != nullptr && !PyErr_Occurred(); //-V560 is always true: !PyErr_Occurred()
+      ok = result && !PyErr_Occurred(); //-V560 is always true: !PyErr_Occurred()
       if ( !ok )
         handle_python_error(errbuf);
     }
@@ -1612,7 +1611,7 @@ bool idapython_plugin_t::_extlang_call_method(
     }
 
     ref_t py_method(PyW_TryGetAttrString(py_obj.o, method_name));
-    if ( py_method == nullptr || !PyCallable_Check(py_method.o) )
+    if ( !py_method || !PyCallable_Check(py_method.o) )
     {
       errbuf->sprnt("The input object does not have a callable method called '%s'", method_name);
       break;
@@ -1624,8 +1623,7 @@ bool idapython_plugin_t::_extlang_call_method(
     // to be converted to an unsigned python long
     if ( streq(method_name, "run") )
     {
-      ref_t py_ida_idaapi_mod(PyW_TryImportModule(S_IDA_IDAAPI_MODNAME));
-      if ( py_ida_idaapi_mod != nullptr )
+      if ( ref_t py_ida_idaapi_mod = ref_t(PyW_TryImportModule(S_IDA_IDAAPI_MODNAME)) )
       {
         if ( is_instance_of(py_obj.o, py_ida_idaapi_mod.o, "plugin_t")
           || is_instance_of(py_obj.o, py_ida_idaapi_mod.o, "plugmod_t") )
@@ -1661,14 +1659,14 @@ bool idapython_plugin_t::_extlang_get_attr(
   {
     // Get a reference to the module
     ref_t py_mod(PyW_TryImportModule(S_MAIN));
-    if ( py_mod == nullptr )
+    if ( !py_mod )
       break;
 
     // Object specified:
     // - (1) string contain attribute name in the main module
     // - (2) opaque object (we use it as is)
     ref_t py_obj;
-    if ( obj != nullptr )
+    if ( obj )
     {
       // (1) Get attribute from main module
       if ( obj->vtype == VT_STR )
@@ -1688,7 +1686,7 @@ bool idapython_plugin_t::_extlang_get_attr(
         }
       }
       // Get the attribute reference
-      if ( py_obj == nullptr )
+      if ( !py_obj )
         break;
     }
     // No object specified:
@@ -1704,17 +1702,17 @@ bool idapython_plugin_t::_extlang_get_attr(
       cvt = CIP_FAILED;
       // Get the class
       newref_t cls(PyObject_GetAttrString(py_obj.o, "__class__"));
-      if ( cls == nullptr )
+      if ( !cls )
         break;
 
       // Get its name
       newref_t name(PyObject_GetAttrString(cls.o, "__name__"));
-      if ( name == nullptr )
+      if ( !name )
         break;
 
       // Convert name object to string object
       newref_t string(PyObject_Str(name.o));
-      if ( string == nullptr )
+      if ( !string )
         break;
 
       // Convert name python string to a C string
@@ -1729,7 +1727,7 @@ bool idapython_plugin_t::_extlang_get_attr(
 
     ref_t py_attr(PyW_TryGetAttrString(py_obj.o, attr));
     // No attribute?
-    if ( py_attr == nullptr )
+    if ( !py_attr )
     {
       cvt = CIP_FAILED;
       break;
@@ -1773,7 +1771,7 @@ bool idapython_plugin_t::_extlang_set_attr(
   {
     // Get a reference to the module
     ref_t py_mod(PyW_TryImportModule(S_MAIN));
-    if ( py_mod == nullptr )
+    if ( !py_mod )
       break;
     ref_t py_obj;
     if ( obj != nullptr )
@@ -1790,7 +1788,7 @@ bool idapython_plugin_t::_extlang_set_attr(
           py_obj = ref_t();
       }
       // No object to set_attr on?
-      if ( py_obj == nullptr )
+      if ( !py_obj )
         break;
     }
     else
@@ -1860,7 +1858,7 @@ bool idapython_plugin_t::_cli_execute_line(const char *line)
     // Compile as an expression
     qstring qstr(line);
     newref_t py_code(my_CompileString(insert_encoding_cookie(&qstr), "<string>", Py_eval_input));
-    if ( py_code == nullptr || PyErr_Occurred() )
+    if ( !py_code || PyErr_Occurred() )
     {
       // Not an expression?
       PyErr_Clear();
@@ -1873,7 +1871,7 @@ bool idapython_plugin_t::_cli_execute_line(const char *line)
       PyObject *py_globals = _get_module_globals();
       newref_t py_result(PyEval_EvalCode(py_code.o, py_globals, py_globals));
 
-      if ( py_result == nullptr || PyErr_Occurred() )    //-V560 is always false: PyErr_Occurred()
+      if ( !py_result || PyErr_Occurred() )    //-V560 is always false: PyErr_Occurred()
       {
         PyErr_Print();
       }
@@ -1923,7 +1921,7 @@ bool idapython_plugin_t::_cli_find_completions(
   PYW_GIL_GET;
 
   ref_t py_fc(get_idaapi_attr(S_IDAAPI_FINDCOMPLETIONS));
-  if ( py_fc == nullptr )
+  if ( !py_fc )
     return false;
 
   newref_t py_res(PyObject_CallFunction(py_fc.o, "si", line, x)); //lint !e605 !e1776
@@ -1952,7 +1950,7 @@ bool idapython_plugin_t::_handle_file(
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   ref_t py_executor_func(get_idaapi_attr(idaapi_executor_func_name));
-  if ( py_executor_func == nullptr )
+  if ( !py_executor_func )
   {
     errbuf->sprnt("Could not find %s.%s ?!", S_IDA_IDAAPI_MODNAME, idaapi_executor_func_name);
     return false;
@@ -1985,7 +1983,7 @@ bool idapython_plugin_t::_handle_file(
 
   // Failure at this point means the script was interrupted
   bool interrupted = false;
-  if ( PyW_GetError(errbuf) || py_ret == nullptr )
+  if ( PyW_GetError(errbuf) || !py_ret )
   {
     PyErr_Clear();
     if ( errbuf->empty() )
@@ -2087,7 +2085,7 @@ bool idapython_plugin_t::_check_python_dir()
 void idapython_plugin_t::_prepare_sys_path()
 {
   borref_t path(PySys_GetObject((char *) "path"));
-  if ( path == nullptr || !PySequence_Check(path.o) )
+  if ( !path || !PySequence_Check(path.o) )
     return;
 
   qstring new_path;
@@ -2098,7 +2096,7 @@ void idapython_plugin_t::_prepare_sys_path()
     {
       qstring path_el_utf8;
       newref_t path_el(PySequence_GetItem(path.o, i));
-      if ( path_el != nullptr
+      if ( path_el
         && PyUnicode_Check(path_el.o)
         && PyUnicode_as_qstring(&path_el_utf8, path_el.o) )
       {
@@ -2161,11 +2159,11 @@ bool idapython_plugin_t::_run_init_py()
   contents.resize(effsz);
 
   newref_t code(my_CompileString(contents.c_str(), path, Py_file_input));
-  if ( code == nullptr )
+  if ( !code )
     return false;
 
   newref_t result(PyEval_EvalCode(code.o, __main__globals, __main__globals));
-  return result != nullptr && !PyErr_Occurred();
+  return result && !PyErr_Occurred();
 }
 
 //------------------------------------------------------------------------

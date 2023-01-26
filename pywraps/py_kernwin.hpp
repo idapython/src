@@ -70,7 +70,7 @@ static PyObject *py_register_timer(int interval, PyObject *py_callback)
         msg("Exception in timer callback. This timer will be unregistered.\n");
         PyErr_Print();
       }
-      else if ( py_result != nullptr )
+      else if ( py_result )
       {
         ret = PyLong_AsLong(py_result.o);
       }
@@ -588,7 +588,7 @@ static int py_execute_sync(PyObject *py_callable, int reqf)
       {
         PYW_GIL_GET;
         newref_t py_result(PyObject_CallFunctionObjArgs(py_callable.o, nullptr));
-        int ret = py_result == nullptr || !PyLong_Check(py_result.o)
+        int ret = !py_result || !PyLong_Check(py_result.o)
                 ? -1
                 : PyLong_AsLong(py_result.o);
         // if the requesting thread decided not to wait for the request to
@@ -771,59 +771,61 @@ public:
 
   PyObject *get_dict()
   {
-    newref_t json_module(PyImport_ImportModule("json"));
-    if ( json_module != nullptr )
+    do 
     {
+      newref_t json_module(PyImport_ImportModule("json"));
+      if ( !json_module )
+        break;
       borref_t json_globals(PyModule_GetDict(json_module.o));
-      if ( json_globals != nullptr )
+      if ( !json_globals )
+        break;
+      borref_t json_loads(PyDict_GetItemString(json_globals.o, "loads"));
+      if ( !json_loads )
+        break;
+      
+      qstring clob;
+      if (!serialize_json(&clob, o))
+        break;
+      
+      if ( newref_t dict = newref_t(PyObject_CallFunction(json_loads.o, "s", clob.c_str())) )
       {
-        borref_t json_loads(PyDict_GetItemString(json_globals.o, "loads"));
-        if ( json_loads != nullptr )
-        {
-          qstring clob;
-          if ( serialize_json(&clob, o) )
-          {
-            newref_t dict(PyObject_CallFunction(json_loads.o, "s", clob.c_str()));
-            if ( dict != nullptr )
-            {
-              dict.incref();
-              return dict.o;
-            }
-          }
-        }
+        dict.incref();
+        return dict.o;
       }
-    }
+
+    } while ( false );
     Py_RETURN_NONE;
   }
 
   static bool fill_jobj_from_dict(jobj_t *out, PyObject *dict)
   {
-    if ( PyDict_Check(dict) )
+    do 
     {
+      if ( !PyDict_Check(dict) )
+        break;
       newref_t json_module(PyImport_ImportModule("json"));
-      if ( json_module != nullptr )
+      if ( !json_module )
+        break;
+      borref_t json_globals(PyModule_GetDict(json_module.o));
+      if ( !json_globals )
+        break;
+      
+      borref_t json_dumps(PyDict_GetItemString(json_globals.o, "dumps"));
+      if ( !json_dumps )
+        break;
+
+      newref_t str(PyObject_CallFunction(json_dumps.o, "O", dict));
+      qstring buf;
+      if (PyUnicode_as_qstring(&buf, str.o))
       {
-        borref_t json_globals(PyModule_GetDict(json_module.o));
-        if ( json_globals != nullptr )
+        jvalue_t tmp;
+        if (parse_json_string(&tmp, buf.c_str()) == eOk)
         {
-          borref_t json_dumps(PyDict_GetItemString(json_globals.o, "dumps"));
-          if ( json_dumps != nullptr )
-          {
-            newref_t str(PyObject_CallFunction(json_dumps.o, "O", dict));
-            qstring buf;
-            if ( PyUnicode_as_qstring(&buf, str.o) )
-            {
-              jvalue_t tmp;
-              if ( parse_json_string(&tmp, buf.c_str()) == eOk )
-              {
-                out->swap(tmp.obj());
-                return true;
-              }
-            }
-          }
+          out->swap(tmp.obj());
+          return true;
         }
       }
-    }
+    } while ( false );
     return false;
   }
 };
@@ -873,13 +875,13 @@ private:
     {
       borref_t el0(PyTuple_GetItem(o, 0));
       qstring plug_hint;
-      if ( el0 != nullptr
+      if ( el0 
         && PyUnicode_Check(el0.o)
         && PyUnicode_as_qstring(&plug_hint, el0.o)
         && !plug_hint.empty() )
       {
         borref_t el1(PyTuple_GetItem(o, 1));
-        if ( el1 != nullptr && PyLong_Check(el1.o) )
+        if ( el1 && PyLong_Check(el1.o) )
         {
           long lns = PyLong_AsLong(el1.o);
           if ( lns > 0 )
@@ -1109,7 +1111,7 @@ PyObject *py_set_nav_colorizer(PyObject *new_py_colorizer)
     {
       PYW_GIL_GET;
 
-      if ( py_colorizer == nullptr ) // Shouldn't happen.
+      if ( !py_colorizer ) // Shouldn't happen.
         return 0;
       newref_t pyres = PyObject_CallFunction(
               py_colorizer.o, "KK",
@@ -1117,7 +1119,7 @@ PyObject *py_set_nav_colorizer(PyObject *new_py_colorizer)
               (unsigned long long) nbytes);
       PyW_ShowCbErr("nav_colorizer");
       uint32 rc = 0;
-      bool ok = pyres.o != nullptr && PyLong_Check(pyres.o);
+      bool ok = pyres && PyLong_Check(pyres.o);
       if ( ok )
       {
         int overflow = 0;
@@ -1188,7 +1190,7 @@ uint32 py_call_nav_colorizer(
     return 0;
   borref_t py_fun(PyDict_GetItemString(dict, "fun"));
   borref_t py_ud(PyDict_GetItemString(dict, "ud"));
-  if ( py_fun == nullptr
+  if ( py_fun
     || !PyCapsule_IsValid(py_fun.o, VALID_CAPSULE_NAME)
     || !PyCapsule_IsValid(py_ud.o, VALID_CAPSULE_NAME) )
   {
@@ -1364,7 +1366,7 @@ static void py_ss_restore_callback(const char *err_msg, void *userdata)
   Py_DECREF(o);
 
   // We cannot raise an exception in the callback, just print it.
-  if ( result == nullptr )
+  if ( !result )
     PyErr_Print();
 }
 
@@ -1372,7 +1374,7 @@ static void py_ss_restore_callback(const char *err_msg, void *userdata)
 #<pydoc>
 def get_navband_pixel(ea):
     """
-    Maps an address, onto a pixel coordinate within the navband
+    Maps an address, onto a pixel coordinate within the navigation band
 
     @param ea: The address to map
     @return: a list [pixel, is_vertical]
