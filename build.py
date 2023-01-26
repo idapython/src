@@ -45,7 +45,8 @@ parser.add_argument("-v", "--verbose", help="Verbose mode", default=False, actio
 parser.add_argument("-I", "--ida-install", required=True, help="IDA's installation directory", type=str)
 args = parser.parse_args()
 
-_probe = os.path.join("..", "..", "include", "pro.h")
+sdk_relpath = os.path.join("..", "..")
+_probe = os.path.join(sdk_relpath, "include", "pro.h")
 assert os.path.exists(_probe), "Could not find IDA SDK include path (looked for: \"%s\")" % _probe
 
 
@@ -77,6 +78,7 @@ def main():
     if args.verbose:
         argv.append("-d")
     env["IDA_INSTALL"] = args.ida_install.replace('\\', '/')
+    env["SDK_BIN_PATH"] = os.path.abspath(os.path.join(sdk_relpath, "bin")).replace('\\', '/')
     for ea64 in [True, False]:
         if ea64:
             env["__EA64__"] = "1"

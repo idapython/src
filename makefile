@@ -187,7 +187,11 @@ else
   IDAT_PATH?=$(IDA_INSTALL)/idat
 endif
 
-IDAT_CMD=TVHEADLESS=1 $(IDAT_PATH)$(SUFF64)
+ifeq ($(OUT_OF_TREE_BUILD),)
+  IDAT_CMD=TVHEADLESS=1 $(IDAT_PATH)$(SUFF64)
+else
+  IDAT_CMD=TVHEADLESS=1 IDAPYTHON_DYNLOAD_BASE=$(SDK_BIN_PATH) $(IDAT_PATH)$(SUFF64)
+endif
 
 # envvar HAS_HEXRAYS must have been set by build.py if needed
 ifeq ($(OUT_OF_TREE_BUILD),)

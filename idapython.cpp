@@ -986,6 +986,10 @@ bool idapython_plugin_t::init()
   msg("HexraysPython: Python compiled with DEBUG enabled.\n");
 #endif
 
+  qstring dynload_base;
+  if ( !qgetenv("IDAPYTHON_DYNLOAD_BASE", &dynload_base) )
+    dynload_base = idadir(nullptr);
+
   // Set IDAPYTHON_VERSION in Python
   qstring init_code;
   init_code.sprnt(
@@ -997,7 +1001,7 @@ bool idapython_plugin_t::init()
           "IDAPYTHON_IDAUSR_SYSPATH = %s\n",
           VER_MAJOR, VER_MINOR, VER_PATCH, VER_STATUS, VER_SERIAL,
           config.remove_cwd_sys_path ? "True" : "False",
-          idadir(nullptr),
+          dynload_base.c_str(),
           sizeof(ea_t)*8,
           config.autoimport_compat_idaapi ? "True" : "False",
           config.idausr_syspath ? "True" : "False"
