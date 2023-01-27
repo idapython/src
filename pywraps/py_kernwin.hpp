@@ -1190,7 +1190,7 @@ uint32 py_call_nav_colorizer(
     return 0;
   borref_t py_fun(PyDict_GetItemString(dict, "fun"));
   borref_t py_ud(PyDict_GetItemString(dict, "ud"));
-  if ( py_fun
+  if ( !py_fun
     || !PyCapsule_IsValid(py_fun.o, VALID_CAPSULE_NAME)
     || !PyCapsule_IsValid(py_ud.o, VALID_CAPSULE_NAME) )
   {

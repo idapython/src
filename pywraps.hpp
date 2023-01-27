@@ -1202,7 +1202,7 @@ protected:
         py_id = newref_t(PyObject_GetAttrString(self, "id"));
       if ( !py_id || !PyUnicode_Check(py_id.o) )
         py_id = newref_t(PyObject_Repr(self));
-      if ( !py_id && PyUnicode_Check(py_id.o) )
+      if ( py_id && PyUnicode_Check(py_id.o) )
         PyUnicode_as_qstring(&identifier, py_id.o);
     }
 
