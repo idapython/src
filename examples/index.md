@@ -3327,14 +3327,14 @@ IDA, with a custom widget.
 chooser functions
 
 #### Uses
-* Choose
-* Choose.ALL_CHANGED
-* Choose.CHCOL_HEX
-* Choose.CHCOL_PLAIN
-* Choose.NOTHING_CHANGED
+* ida_funcs.get_func_name
+* ida_kernwin.Choose
+* ida_kernwin.Choose.ALL_CHANGED
+* ida_kernwin.Choose.CHCOL_FNAME
+* ida_kernwin.Choose.CHCOL_HEX
+* ida_kernwin.Choose.CHCOL_PLAIN
 * idautils.Functions
 * idc.del_func
-* idc.jumpto
 
 #### See also
 * [choose](#choose)

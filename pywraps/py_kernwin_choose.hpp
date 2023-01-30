@@ -25,10 +25,11 @@ enum feature_t
   CFEAT_SELECT        = 0x0100,
   CFEAT_ONCLOSE       = 0x0200,
   CFEAT_EMBEDDED      = 0x0400,
-  CFEAT_GETDIRTREE    = 0x0800,
-  CFEAT_INDEX2INODE   = 0x1000,
-  CFEAT_INDEX2DIFFPOS = 0x2000,
-  CFEAT_LAZYLOADDIR   = 0x4000,
+  CFEAT_GETEA         = 0x0800,
+  CFEAT_GETDIRTREE    = 0x1000,
+  CFEAT_INDEX2INODE   = 0x2000,
+  CFEAT_INDEX2DIFFPOS = 0x4000,
+  CFEAT_LAZYLOADDIR   = 0x8000,
 };
 
 //------------------------------------------------------------------------
@@ -61,6 +62,10 @@ enum feature_t
   virtual void idaapi closed() override                                 \
   {                                                                     \
     mixin_closed(this);                                                 \
+  }                                                                     \
+  virtual ea_t idaapi get_ea(size_t n) const override                   \
+  {                                                                     \
+    return mixin_get_ea(n);                                             \
   }                                                                     \
   virtual dirtree_t *idaapi get_dirtree() override                      \
   {                                                                     \
@@ -294,6 +299,7 @@ bool py_chooser_props_t::do_extract_from_pyobject(
     { S_ON_REFRESH,          CFEAT_REFRESH, CH_CAN_REFRESH, 0 },
     { S_ON_SELECTION_CHANGE, CFEAT_SELECT,  0, 0 },
     { S_ON_CLOSE,            CFEAT_ONCLOSE, 0, 0 },
+    { S_ON_GET_EA,           CFEAT_GETEA,   0, 0 },
     { S_ON_GET_DIRTREE,      CFEAT_GETDIRTREE, CH_HAS_DIRTREE, 0 },
     { S_ON_INDEX_TO_INODE,   CFEAT_INDEX2INODE, CH_HAS_DIRTREE, 0 },
     { S_ON_INDEX_TO_DIFFPOS, CFEAT_INDEX2DIFFPOS, CH_HAS_DIFF, 0 },
@@ -375,6 +381,7 @@ protected:
         size_t n,
         const chooser_base_t *chobj) const;
   void mixin_closed(chooser_base_t *chobj);
+  ea_t mixin_get_ea(size_t n) const;
   dirtree_t *mixin_get_dirtree(const chooser_base_t *chobj);
   inode_t mixin_index_to_inode(size_t n) const;
   diffpos_t mixin_index_to_diffpos(size_t n) const;
@@ -517,6 +524,24 @@ void py_chooser_mixin_t::mixin_closed(chooser_base_t *chobj)
     }
     PyObject_DelAttrString(self.o, "ui_hooks_trampoline");
   }
+}
+
+//-------------------------------------------------------------------------
+ea_t py_chooser_mixin_t::mixin_get_ea(size_t n) const
+{
+  ea_t ea = BADADDR;
+  if ( has_feature(CFEAT_GETEA) )
+  {
+    PYW_GIL_GET;
+    pycall_res_t pyres(PyObject_CallMethod(self.o, (char *) S_ON_GET_EA, PY_BV_SZ, Py_ssize_t(n)));
+    if ( pyres.result != nullptr )
+    {
+      uint64 u64;
+      if ( PyW_GetNumber(pyres.result.o, &u64) )
+        ea = ea_t(u64);
+    }
+  }
+  return ea;
 }
 
 //-------------------------------------------------------------------------

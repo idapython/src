@@ -56920,6 +56920,20 @@ class Choose(builtins.object)
  |      
  |      @return: the dirtree_t, or None
  |  
+ |  OnGetEA(self, n)
+ |      Get the address of an element
+ |      
+ |      When this function returns valid addresses:
+ |        * If any column has the `CHCOL_FNAME` flag, rows will
+ |          be colored according to the attributes of the functions
+ |          who own those addresses (extern, library function,
+ |          Lumina, ... - similar to what the "Functions" widget does)
+ |        * When a selection is present and the user presses `<Enter>`
+ |          (`<Shift+Enter>` if the chooser is modal), IDA will jump
+ |          to that address (through jumpto())
+ |      @param n: element number (0-based)
+ |      @return: the effective address, ida_idaapi.BADADDR if the element has no address
+ |  
  |  OnGetIcon(self, n)
  |      Get an icon to associate with the first cell of an element
  |      
@@ -59420,8 +59434,12 @@ class chooser_base_t(builtins.object)
  |  
  |  get_ea(self, *args) -> 'ea_t'
  |      get_ea(self, arg2) -> ea_t
- |      get an address of an element. Used to set breakpoint in any chooser which
- |      implements this callback.
+ |      get the address of an element. When this function returns valid addresses: * If
+ |      any column has the `CHCOL_FNAME` flag, rows will be colored according to the
+ |      attributes of the functions who own those addresses (extern, library function,
+ |      Lumina, ... - similar to what the "Functions" widget does) * When a selection is
+ |      present and the user presses `<Enter>` (`<Shift+Enter>` if the chooser is
+ |      modal), IDA will jump to that address (through jumpto())
  |      
  |      @param arg2: size_t
  |      @return: the effective address, BADADDR if the element has no address
@@ -108495,9 +108513,10 @@ Documentation on variable CHCOL_EA in module ida_kernwin:
 
 Documentation on variable CHCOL_FNAME in module ida_kernwin:
 
-    function name. If a chooser column has this flag set, its background color will
-    be automatically set to match the navigator's "Library function", "Lumina
-    function" and "External symbol" colors
+    function name. If a chooser column has this flag set and implements
+    chooser_base_t::get_ea(), rows background colors will be automatically set to
+    match the navigator's "Library function", "Lumina function" and "External
+    symbol" colors
 
 Documentation on variable CHCOL_FORMAT in module ida_kernwin:
 

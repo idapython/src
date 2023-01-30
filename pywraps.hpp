@@ -110,6 +110,7 @@ static const char S_ON_GET_ICON[]            = "OnGetIcon";
 static const char S_ON_GET_LINE_ATTR[]       = "OnGetLineAttr";
 static const char S_ON_GET_SIZE[]            = "OnGetSize";
 static const char S_ON_GETTEXT[]             = "OnGetText";
+static const char S_ON_GET_EA[]              = "OnGetEA";
 static const char S_ON_GET_DIRTREE[]         = "OnGetDirTree";
 static const char S_ON_INDEX_TO_INODE[]      = "OnIndexToInode";
 static const char S_ON_INDEX_TO_DIFFPOS[]    = "OnIndexToDiffpos";

@@ -385,6 +385,23 @@ class Choose(object):
         """
         pass
 
+    def OnGetEA(self, n):
+        """
+        Get the address of an element
+
+        When this function returns valid addresses:
+          * If any column has the `CHCOL_FNAME` flag, rows will
+            be colored according to the attributes of the functions
+            who own those addresses (extern, library function,
+            Lumina, ... - similar to what the "Functions" widget does)
+          * When a selection is present and the user presses `<Enter>`
+            (`<Shift+Enter>` if the chooser is modal), IDA will jump
+            to that address (through jumpto())
+        @param n element number (0-based)
+        @return the effective address, ida_idaapi.BADADDR if the element has no address
+        """
+        pass
+
     def OnGetDirTree(self):
         """
         Get the dirtree_t that will be used to present a tree-like
