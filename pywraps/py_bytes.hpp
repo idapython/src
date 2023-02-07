@@ -75,7 +75,7 @@ static bool py_do_get_bytes(
       newref_t py_mask(PyBytes_FromStringAndSize(
                                (const char *) mask.begin(),
                                mask.size()));
-      if ( !py_mask  )
+      if ( !py_mask )
         break;
       py_mask.incref();
       *out_py_mask = py_mask.o;

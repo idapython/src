@@ -1383,17 +1383,19 @@ class Form(object):
             raise NotImplementedError("Not yet implemented")
 
 # --------------------------------------------------------------------------
-# Instantiate ask_form function pointer
+# Instantiate ask_form/open_form function pointers
 try:
     import ctypes
-    # Setup the numeric argument size
+# Setup the numeric argument size
     Form.NumericArgument.DefI64 = _ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFF
-    __ask_form_callable = ctypes.CFUNCTYPE(ctypes.c_long)(_ida_kernwin.py_get_ask_form())
-    # specify type of the fixed argument so that varargs are passed correctly
-    # https://bugs.python.org/issue42880
+# int ask_form(const char *form, ...)
+    __ask_form_callable = ctypes.CFUNCTYPE(ctypes.c_int)(_ida_kernwin.py_get_ask_form())
+# specify types of the fixed arguments explicitly so that varargs are passed correctly on arm macOS
+# https://bugs.python.org/issue42880
     __ask_form_callable.argtypes = [ ctypes.c_char_p ]
-    __open_form_callable = ctypes.CFUNCTYPE(ctypes.c_long)(_ida_kernwin.py_get_open_form())
-    __open_form_callable.argtypes = [ ctypes.c_char_p ]
+#  TWidget *open_form(const char *form, uint32 flags, ...)
+    __open_form_callable = ctypes.CFUNCTYPE(ctypes.c_void_p )(_ida_kernwin.py_get_open_form())
+    __open_form_callable.argtypes = [ ctypes.c_char_p, ctypes.c_uint32 ]
 except:
     def __ask_form_callable(*args):
         warning("ask_form() needs ctypes library in order to work")

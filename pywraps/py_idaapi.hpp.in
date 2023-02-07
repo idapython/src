@@ -76,10 +76,11 @@ void pycim_view_close(PyObject *self)
 //-------------------------------------------------------------------------
 static void _ida_idaapi_notify_init_term(int what)
 {
-  if ( newref_t py_mod = newref_t(PyImport_ImportModule("ida_idaapi")) )
+  newref_t py_mod(PyImport_ImportModule("ida_idaapi"));
+  if ( py_mod != nullptr )
   {
     newref_t py_obj(PyObject_GetAttrString(py_mod.o, NOTIFY_DISPATCHER_INSTANCE));
-    if ( py_obj && py_obj.o != Py_None )
+    if ( py_obj != nullptr && py_obj.o != Py_None )
       PyObject_CallMethod(py_obj.o, NOTIFY_DISPATCHER_DISPATCH_METHOD, "i", what);
   }
 }

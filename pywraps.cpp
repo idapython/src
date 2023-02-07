@@ -1147,7 +1147,7 @@ ref_t ida_export create_linked_class_instance(
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   ref_t result;
-  if ( newref_t py_module = newref_t(PyImport_ImportModule(modname)) )
+  if ( ref_t py_module = newref_t(PyImport_ImportModule(modname)) )
   {
     if ( ref_t py_class = ref_t(PyW_TryGetAttrString(py_module.o, clsname)) )
     {
@@ -1824,7 +1824,7 @@ ssize_t ida_export get_callable_arg_count(ref_t callable)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   ssize_t cnt = -1;
-  if ( newref_t py_module = newref_t(PyImport_ImportModule("inspect")) )
+  if ( ref_t py_module = newref_t(PyImport_ImportModule("inspect")) )
   {
     if ( ref_t py_fun = ref_t(PyW_TryGetAttrString(py_module.o, "getfullargspec")) )
     {

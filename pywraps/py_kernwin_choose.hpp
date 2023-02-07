@@ -246,14 +246,14 @@ bool py_chooser_props_t::do_extract_from_pyobject(
     // get list item: [name, width]
     borref_t list(PyList_GetItem(cols_attr.o, i));
     // Extract string
-    if ( borref_t v = borref_t(PyList_GetItem(list.o, 0)) )
+    if ( ref_t v = borref_t(PyList_GetItem(list.o, 0)) )
       PyUnicode_as_qstring(&out->header_strings[i], v.o);
     out->header[i] = out->header_strings[i].c_str();
 
     // Extract width
     int width;
     // No width? Guess width from column title
-    if ( borref_t v2 = borref_t(PyList_GetItem(list.o, 1)) )
+    if ( ref_t v2 = borref_t(PyList_GetItem(list.o, 1)) )
       width = PyInt_AsLong(v2.o);
     else
       width = ::qustrlen(out->header_strings[i].c_str());
@@ -439,7 +439,7 @@ void py_chooser_mixin_t::mixin_get_row(
       // Go over the List returned by Python and convert to C strings
       for ( int i = chobj->columns - 1; i >= 0; --i )
       {
-        if ( newref_t item = newref_t(PySequence_GetItem(list.result.o, Py_ssize_t(i))) )
+        if ( ref_t item = newref_t(PySequence_GetItem(list.result.o, Py_ssize_t(i))) )
         {
           if ( !PyUnicode_Check(item.o) )
           {

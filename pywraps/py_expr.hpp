@@ -40,9 +40,9 @@ static error_t py_call_idc_func(
   }
 
   // Call the Python function
-  newref_t py_result = PyObject_CallObject(
+  newref_t py_result(PyObject_CallObject(
                              ctx->py_func.o,
-                             pargs.empty() ? nullptr : pargs[0].o);
+                             pargs.empty() ? nullptr : pargs[0].o));
 
   int cvt;
   error_t err;

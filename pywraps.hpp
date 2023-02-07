@@ -330,6 +330,8 @@ struct ref_t
   operator bool() const { return o != nullptr; }
 };
 
+struct borref_t;
+
 //-------------------------------------------------------------------------
 // A 'new' reference. Typically used when the CPython implementation returns
 // a PyObject* whose refcnt was already increased, and that the caller is
@@ -347,9 +349,11 @@ struct ref_t
 // ---
 struct newref_t : public ref_t
 {
-  newref_t(); // No.
-  newref_t(const newref_t &other); // No.
-  newref_t &operator=(const newref_t &other); // No.
+  newref_t() = delete;
+  newref_t(const newref_t &other) = delete;
+  newref_t &operator=(const newref_t &other) = delete;
+  newref_t(const borref_t &other) = delete;
+  newref_t &operator=(const borref_t &other) = delete;
   newref_t(PyObject *_o)
   {
 #ifdef _DEBUG
@@ -377,9 +381,11 @@ struct newref_t : public ref_t
 // ---
 struct borref_t : public ref_t
 {
-  borref_t(); // No.
-  borref_t(const newref_t &other); // No.
-  borref_t &operator=(const newref_t &other); // No.
+  borref_t() = delete;
+  borref_t(const newref_t &other) = delete;
+  borref_t &operator=(const newref_t &other) = delete;
+  borref_t(const borref_t &other) = delete;
+  borref_t &operator=(const borref_t &other) = delete;
   borref_t(PyObject *_o)
   {
     o = _o;
@@ -548,7 +554,7 @@ struct pycall_res_t
   newref_t result;
 
 private:
-  pycall_res_t(); // No.
+  pycall_res_t() = delete;
 };
 
 #include <loader.hpp>

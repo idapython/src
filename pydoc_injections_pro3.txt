@@ -26047,7 +26047,12 @@ debug_hexrays_ctree(*args) -> 'void'
 Help on function decompile in module ida_hexrays:
 
 decompile(ea, hf=None, flags=0)
-    # ---------------------------------------------------------------------
+    Decompile a function.
+    
+    @param ea an address belonging to the function, or an ida_funcs.func_t object
+    @param hf extended error information (if failed)
+    @param flags decomp_flags bitwise combination of `DECOMP_...` bits
+    @return the decompilation result (a `ida_hexrays.cfunc_t` wrapper), or None
 
 Help on function decompile_func in module ida_hexrays:
 
@@ -49466,32 +49471,6 @@ class IDP_Hooks(builtins.object)
  |      @retval 1: ok
  |      @retval <0: segment should not be created
  |  
- |  ev_cvt64_hashval(self, *args) -> 'int'
- |      ev_cvt64_hashval(self, node, tag, name, data, datlen) -> int
- |      perform 32-64 conversion for a hash value
- |      
- |      @param node: (::nodeidx_t)
- |      @param tag: (uchar)
- |      @param name: (const ::char *)
- |      @param data: (const uchar *)
- |      @param datlen: (::size_t)
- |      @return: 0 nothing was done
- |      1 converted successfully
- |      -1 error (and message in errbuf)
- |  
- |  ev_cvt64_supval(self, *args) -> 'int'
- |      ev_cvt64_supval(self, node, tag, idx, data, datlen) -> int
- |      perform 32-64 conversion for a netnode array element
- |      
- |      @param node: (::nodeidx_t)
- |      @param tag: (uchar)
- |      @param idx: (::nodeidx_t)
- |      @param data: (const uchar *)
- |      @param datlen: (::size_t)
- |      @return: 0 nothing was done
- |      1 converted successfully
- |      -1 error (and message in errbuf)
- |  
  |  ev_decorate_name(self, *args) -> 'PyObject *'
  |      ev_decorate_name(self, name, mangle, cc, optional_type) -> PyObject *
  |      Decorate/undecorate a C symbol name.
@@ -50555,28 +50534,6 @@ class _processor_t(builtins.object)
  |  
  |  cbsize(self, *args) -> 'int'
  |      cbsize(self) -> int
- |  
- |  cvt64_hashval(self, *args) -> 'ssize_t'
- |      cvt64_hashval(self, node, tag, name, data, datlen) -> ssize_t
- |      
- |      Parameters
- |      ----------
- |      node: nodeidx_t
- |      tag: uchar
- |      name: char const *
- |      data: uchar const *
- |      datlen: size_t
- |  
- |  cvt64_supval(self, *args) -> 'ssize_t'
- |      cvt64_supval(self, node, tag, idx, data, datlen) -> ssize_t
- |      
- |      Parameters
- |      ----------
- |      node: nodeidx_t
- |      tag: uchar
- |      idx: nodeidx_t
- |      data: uchar const *
- |      datlen: size_t
  |  
  |  dbsize(self, *args) -> 'int'
  |      dbsize(self) -> int
@@ -51711,10 +51668,6 @@ class _processor_t(builtins.object)
  |  
  |  ev_creating_segm = 26
  |  
- |  ev_cvt64_hashval = 98
- |  
- |  ev_cvt64_supval = 97
- |  
  |  ev_decorate_name = 2020
  |  
  |  ev_del_cref = 66
@@ -51821,7 +51774,7 @@ class _processor_t(builtins.object)
  |  
  |  ev_is_switch = 41
  |  
- |  ev_last_cb_before_debugger = 99
+ |  ev_last_cb_before_debugger = 97
  |  
  |  ev_last_cb_before_loader = 2023
  |  
@@ -55437,32 +55390,6 @@ class processor_t(IDP_Hooks)
  |      @param md: (::merge_data_t *) This event is generated immediately after opening
  |                 idbs.
  |      @return: must be 0
- |  
- |  ev_cvt64_hashval(self, *args) -> 'int'
- |      ev_cvt64_hashval(self, node, tag, name, data, datlen) -> int
- |      perform 32-64 conversion for a hash value
- |      
- |      @param node: (::nodeidx_t)
- |      @param tag: (uchar)
- |      @param name: (const ::char *)
- |      @param data: (const uchar *)
- |      @param datlen: (::size_t)
- |      @return: 0 nothing was done
- |      1 converted successfully
- |      -1 error (and message in errbuf)
- |  
- |  ev_cvt64_supval(self, *args) -> 'int'
- |      ev_cvt64_supval(self, node, tag, idx, data, datlen) -> int
- |      perform 32-64 conversion for a netnode array element
- |      
- |      @param node: (::nodeidx_t)
- |      @param tag: (uchar)
- |      @param idx: (::nodeidx_t)
- |      @param data: (const uchar *)
- |      @param datlen: (::size_t)
- |      @return: 0 nothing was done
- |      1 converted successfully
- |      -1 error (and message in errbuf)
  |  
  |  ev_decorate_name(self, *args) -> 'PyObject *'
  |      ev_decorate_name(self, name, mangle, cc, optional_type) -> PyObject *
@@ -59477,6 +59404,10 @@ class chooser_base_t(builtins.object)
  |      is_multi(self) -> bool
  |      is multi-selection allowed?
  |  
+ |  is_noidb(self, *args) -> 'bool'
+ |      is_noidb(self) -> bool
+ |      can use the chooser before opening the database?
+ |  
  |  is_quick_filter_visible_initially(self, *args) -> 'bool'
  |      is_quick_filter_visible_initially(self) -> bool
  |  
@@ -60812,7 +60743,7 @@ Help on function get_navband_pixel in module ida_kernwin:
 
 get_navband_pixel(*args) -> 'bool *'
     get_navband_pixel(ea) -> int
-    Maps an address, onto a pixel coordinate within the navband
+    Maps an address, onto a pixel coordinate within the navigation band
     
     @param ea: The address to map
     @return: a list [pixel, is_vertical]
@@ -85195,9 +85126,6 @@ class func_type_data_t(funcargvec_t)
  |  is_static(self, *args) -> 'bool'
  |      is_static(self) -> bool
  |  
- |  is_swift_cc(self, *args) -> 'bool'
- |      is_swift_cc(self) -> bool
- |  
  |  is_vararg_cc(self, *args) -> 'bool'
  |      is_vararg_cc(self) -> bool
  |  
@@ -86269,14 +86197,6 @@ is_sdacl_byte(*args) -> 'bool'
     "sdacl-typeattrs" in the type bit definitions)
     
     @param t: (C++: type_t)
-
-Help on function is_swift_cc in module ida_typeinf:
-
-is_swift_cc(*args) -> 'bool'
-    is_swift_cc(cc) -> bool
-    Swift calling convention (arguments and return values in registers)?
-    
-    @param cc: (C++: cm_t)
 
 Help on function is_tah_byte in module ida_typeinf:
 
@@ -101962,7 +101882,7 @@ Documentation on variable WARN_ILL_PURGED in module ida_hexrays:
 
 Documentation on variable WARN_ILL_FUNCTYPE in module ida_hexrays:
 
-    2 invalid function type 's' has been ignored
+    2 invalid function type has been ignored
 
 Documentation on variable WARN_VARARG_TCAL in module ida_hexrays:
 
@@ -108388,6 +108308,10 @@ Documentation on variable CH_ATTRS in module ida_kernwin:
 
     generate ui_get_chooser_item_attrs (gui only)
 
+Documentation on variable CH_NOIDB in module ida_kernwin:
+
+    use the chooser before opening the database
+
 Documentation on variable CH_FORCE_DEFAULT in module ida_kernwin:
 
     if a non-modal chooser was already open, change selection to the default one
@@ -108495,9 +108419,7 @@ Documentation on variable CHCOL_PLAIN in module ida_kernwin:
 
 Documentation on variable CHCOL_PATH in module ida_kernwin:
 
-    file path. TUI IDA will truncate excessive cell lengths starting at their
-    beginning, and prepending the resulting text with "..." order to leave the
-    filename visible
+    file path
 
 Documentation on variable CHCOL_HEX in module ida_kernwin:
 
@@ -109229,6 +109151,10 @@ Documentation on variable Choose.CH_MULTI in module ida_kernwin:
     Refer the description of the OnInsertLine(), OnDeleteLine(),
     OnEditLine(), OnSelectLine(), OnRefresh(), OnSelectionChange() to
     see a difference between single and multi selection callbacks.
+
+Documentation on variable Choose.CH_NOIDB in module ida_kernwin:
+
+    use the chooser even without an open database, same as x0=-2
 
 Documentation on variable Choose.CH_FORCE_DEFAULT in module ida_kernwin:
 
@@ -113009,19 +112935,15 @@ Documentation on variable CM_CC_THISCALL in module ida_typeinf:
 
     stack, purged (x86), first arg is in reg (compiler-dependent)
 
-Documentation on variable CM_CC_SWIFT in module ida_typeinf:
+Documentation on variable CM_CC_MANUAL in module ida_typeinf:
 
-    (Swift) arguments and return values in registers (compiler-dependent)
+    special case for compiler specific (not used)
 
 Documentation on variable CM_CC_SPOILED in module ida_typeinf:
 
     This is NOT a cc! Mark of __spoil record the low nibble is count and after n
     {spoilreg_t} present real cm_t byte. if n == BFA_FUNC_MARKER, the next byte is
     the function attribute byte.
-
-Documentation on variable CM_CC_GOLANG in module ida_typeinf:
-
-    (Go) arguments and return value in stack
 
 Documentation on variable CM_CC_SPECIALE in module ida_typeinf:
 

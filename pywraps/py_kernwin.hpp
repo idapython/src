@@ -771,7 +771,7 @@ public:
 
   PyObject *get_dict()
   {
-    do 
+    do
     {
       newref_t json_module(PyImport_ImportModule("json"));
       if ( !json_module )
@@ -782,12 +782,12 @@ public:
       borref_t json_loads(PyDict_GetItemString(json_globals.o, "loads"));
       if ( !json_loads )
         break;
-      
+
       qstring clob;
-      if (!serialize_json(&clob, o))
+      if ( !serialize_json(&clob, o) )
         break;
-      
-      if ( newref_t dict = newref_t(PyObject_CallFunction(json_loads.o, "s", clob.c_str())) )
+
+      if ( ref_t dict = newref_t(PyObject_CallFunction(json_loads.o, "s", clob.c_str())) )
       {
         dict.incref();
         return dict.o;
@@ -799,7 +799,7 @@ public:
 
   static bool fill_jobj_from_dict(jobj_t *out, PyObject *dict)
   {
-    do 
+    do
     {
       if ( !PyDict_Check(dict) )
         break;
@@ -809,17 +809,17 @@ public:
       borref_t json_globals(PyModule_GetDict(json_module.o));
       if ( !json_globals )
         break;
-      
+
       borref_t json_dumps(PyDict_GetItemString(json_globals.o, "dumps"));
       if ( !json_dumps )
         break;
 
       newref_t str(PyObject_CallFunction(json_dumps.o, "O", dict));
       qstring buf;
-      if (PyUnicode_as_qstring(&buf, str.o))
+      if ( PyUnicode_as_qstring(&buf, str.o) )
       {
         jvalue_t tmp;
-        if (parse_json_string(&tmp, buf.c_str()) == eOk)
+        if ( parse_json_string(&tmp, buf.c_str()) == eOk )
         {
           out->swap(tmp.obj());
           return true;
@@ -875,7 +875,7 @@ private:
     {
       borref_t el0(PyTuple_GetItem(o, 0));
       qstring plug_hint;
-      if ( el0 
+      if ( el0
         && PyUnicode_Check(el0.o)
         && PyUnicode_as_qstring(&plug_hint, el0.o)
         && !plug_hint.empty() )
@@ -1113,10 +1113,10 @@ PyObject *py_set_nav_colorizer(PyObject *new_py_colorizer)
 
       if ( !py_colorizer ) // Shouldn't happen.
         return 0;
-      newref_t pyres = PyObject_CallFunction(
-              py_colorizer.o, "KK",
-              (unsigned long long) ea,
-              (unsigned long long) nbytes);
+      newref_t pyres(PyObject_CallFunction(
+                             py_colorizer.o, "KK",
+                             (unsigned long long) ea,
+                             (unsigned long long) nbytes));
       PyW_ShowCbErr("nav_colorizer");
       uint32 rc = 0;
       bool ok = pyres && PyLong_Check(pyres.o);

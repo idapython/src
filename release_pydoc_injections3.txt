@@ -60858,7 +60858,7 @@ Help on function get_navband_pixel in module ida_kernwin:
 
 get_navband_pixel(*args) -> 'bool *'
     get_navband_pixel(ea) -> int
-    Maps an address, onto a pixel coordinate within the navband
+    Maps an address, onto a pixel coordinate within the navigation band
     
     @param ea: The address to map
     @return: a list [pixel, is_vertical]
