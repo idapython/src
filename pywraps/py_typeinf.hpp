@@ -575,7 +575,7 @@ PyObject *py_print_decls(text_sink_t &printer, til_t *til, PyObject *py_ordinals
   for ( Py_ssize_t i = 0; i < nords; ++i )
   {
     borref_t item(PyList_GetItem(py_ordinals, i));
-    if ( item == nullptr || !PyLong_Check(item.o) )
+    if ( !item || !PyLong_Check(item.o) )
     {
       qstring msg;
       msg.sprnt("ordinals[%d] is not a valid value", int(i));

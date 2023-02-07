@@ -21,7 +21,7 @@ static int idaapi py_visit_patched_bytes_cb(
                   o,
                   v));
   PyW_ShowCbErr("visit_patched_bytes");
-  return (py_result != nullptr && PyLong_Check(py_result.o)) ? PyLong_AsLong(py_result.o) : 0;
+  return (py_result && PyLong_Check(py_result.o)) ? PyLong_AsLong(py_result.o) : 0;
 }
 
 //-------------------------------------------------------------------------
@@ -53,7 +53,7 @@ static bool py_do_get_bytes(
     // Allocate memory via Python
 
     newref_t py_bytes(PyBytes_FromStringAndSize(nullptr, Py_ssize_t(size)));
-    if ( py_bytes == nullptr )
+    if ( !py_bytes )
       break;
 
     bytevec_t mask;
@@ -75,7 +75,7 @@ static bool py_do_get_bytes(
       newref_t py_mask(PyBytes_FromStringAndSize(
                                (const char *) mask.begin(),
                                mask.size()));
-      if ( py_mask == nullptr )
+      if ( !py_mask  )
         break;
       py_mask.incref();
       *out_py_mask = py_mask.o;

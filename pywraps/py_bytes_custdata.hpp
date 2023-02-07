@@ -31,7 +31,7 @@ class py_custom_data_type_t : public data_type_t
                     bvsz_t(nbytes)));
 
     PyW_ShowCbErr(S_MAY_CREATE_AT);
-    return py_result != nullptr && PyObject_IsTrue(py_result.o);
+    return py_result && PyObject_IsTrue(py_result.o);
   }
 
   // !=nullptr means variable size datatype
@@ -54,7 +54,7 @@ class py_custom_data_type_t : public data_type_t
                     bvea_t(ea),
                     bvasize_t(maxsize)));
 
-    if ( PyW_ShowCbErr(S_CALC_ITEM_SIZE) || py_result == nullptr )
+    if ( PyW_ShowCbErr(S_CALC_ITEM_SIZE) || !py_result )
       return 0;
 
     uint64 num = 0;
@@ -191,7 +191,7 @@ private:
     newref_t py_value(PyBytes_FromStringAndSize(
                               (const char *)value,
                               Py_ssize_t(size)));
-    if ( py_value == nullptr )
+    if ( !py_value )
       return false;
 
     py_custom_data_format_t *_this = (py_custom_data_format_t *) ud;
@@ -205,7 +205,7 @@ private:
                                dtid));
 
     // Error while calling the function?
-    if ( PyW_ShowCbErr(S_PRINTF) || py_result == nullptr )
+    if ( PyW_ShowCbErr(S_PRINTF) || !py_result )
       return false;
 
     bool ok = false;
@@ -239,7 +239,7 @@ private:
                     operand_num));
 
     // Error while calling the function?
-    if ( PyW_ShowCbErr(S_SCAN) || py_result == nullptr )
+    if ( PyW_ShowCbErr(S_SCAN) || !py_result )
       return false;
 
     bool ok = false;

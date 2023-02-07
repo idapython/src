@@ -148,35 +148,35 @@ bool py_chooser_props_t::is_valid_cb(
         const char *name)
 {
   newref_t py_o_class(PyObject_GetAttrString(o, "__class__"));
-  bool ok = py_o_class != nullptr;
+  bool ok = py_o_class;
 #ifdef TESTABLE_BUILD
   QASSERT(30706, ok);
 #endif
   if ( ok )
   {
     newref_t py_oclass_meth(PyObject_GetAttrString(py_o_class.o, name));
-    ok = py_oclass_meth != nullptr && PyCallable_Check(py_oclass_meth.o);
+    ok = py_oclass_meth && PyCallable_Check(py_oclass_meth.o);
 #ifdef TESTABLE_BUILD
     QASSERT(30707, ok);
 #endif
     if ( ok )
     {
       newref_t py_ida_kernwin(PyImport_ImportModule("ida_kernwin"));
-      ok = py_ida_kernwin != nullptr;
+      ok = py_ida_kernwin;
 #ifdef TESTABLE_BUILD
       QASSERT(30708, ok);
 #endif
       if ( ok )
       {
         newref_t py_chooser(PyObject_GetAttrString(py_ida_kernwin.o, "Choose"));
-        ok = py_chooser != nullptr;
+        ok = py_chooser;
 #ifdef TESTABLE_BUILD
         QASSERT(30709, ok);
 #endif
         if ( ok )
         {
           newref_t py_def_cb(PyObject_GetAttrString(py_chooser.o, name));
-          ok = py_def_cb != nullptr;
+          ok = py_def_cb;
 #ifdef TESTABLE_BUILD
           QASSERT(30710, ok);
 #endif
@@ -245,21 +245,18 @@ bool py_chooser_props_t::do_extract_from_pyobject(
   {
     // get list item: [name, width]
     borref_t list(PyList_GetItem(cols_attr.o, i));
-    borref_t v(PyList_GetItem(list.o, 0));
-
     // Extract string
-    if ( v != nullptr )
+    if ( borref_t v = borref_t(PyList_GetItem(list.o, 0)) )
       PyUnicode_as_qstring(&out->header_strings[i], v.o);
     out->header[i] = out->header_strings[i].c_str();
 
     // Extract width
     int width;
-    borref_t v2(PyList_GetItem(list.o, 1));
     // No width? Guess width from column title
-    if ( v2 == nullptr )
-      width = ::qustrlen(out->header_strings[i].c_str());
-    else
+    if ( borref_t v2 = borref_t(PyList_GetItem(list.o, 1)) )
       width = PyInt_AsLong(v2.o);
+    else
+      width = ::qustrlen(out->header_strings[i].c_str());
     out->widths[i] = width;
   }
 
@@ -442,8 +439,7 @@ void py_chooser_mixin_t::mixin_get_row(
       // Go over the List returned by Python and convert to C strings
       for ( int i = chobj->columns - 1; i >= 0; --i )
       {
-        newref_t item(PySequence_GetItem(list.result.o, Py_ssize_t(i)));
-        if ( item != nullptr )
+        if ( newref_t item = newref_t(PySequence_GetItem(list.result.o, Py_ssize_t(i))) )
         {
           if ( !PyUnicode_Check(item.o) )
           {
@@ -659,13 +655,13 @@ class py_chooser_t : public chooser_t, public py_chooser_mixin_t
       {
         {
           newref_t item(PySequence_GetItem(pyres.result.o, 0));
-          if ( item.o != nullptr && PyLong_Check(item.o) )
+          if ( item && PyLong_Check(item.o) )
             ret.changed = cbres_t(PyLong_AsLong(item.o));
         }
         if ( ret.changed != NOTHING_CHANGED )
         {
           newref_t item(PySequence_GetItem(pyres.result.o, 1));
-          if ( item.o != nullptr && PyLong_Check(item.o) )
+          if ( item && PyLong_Check(item.o) )
             ret.idx = ssize_t(PyLong_AsSsize_t(item.o));
         }
       }

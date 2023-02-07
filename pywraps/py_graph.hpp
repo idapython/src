@@ -120,7 +120,7 @@ private:
                     "i",
                     item2->n));
     PyW_ShowCbErr(S_ON_CLICK);
-    return result == nullptr || !PyObject_IsTrue(result.o);
+    return !result || !PyObject_IsTrue(result.o);
   }
 
   // a graph node has been double clicked
@@ -139,13 +139,13 @@ private:
                     "i",
                     item->node));
     PyW_ShowCbErr(S_ON_DBL_CLICK);
-    return result == nullptr || !PyObject_IsTrue(result.o);
+    return !result || !PyObject_IsTrue(result.o);
   }
 
   // a graph viewer got focus
   void on_gotfocus(graph_viewer_t * /*view*/)
   {
-    if ( self.o == nullptr )
+    if ( !self )
       return;
 
     PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -160,7 +160,7 @@ private:
   // a graph viewer lost focus
   void on_lostfocus(graph_viewer_t * /*view*/)
   {
-    if ( self.o == nullptr )
+    if ( !self )
       return;
 
     PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -188,7 +188,7 @@ private:
                     "O",
                     py_nodes.o));
     PyW_ShowCbErr(S_ON_CREATING_GROUP);
-    return (py_result == nullptr || !PyLong_Check(py_result.o))
+    return (!py_result || !PyLong_Check(py_result.o))
          ? 1
          : PyLong_AsLong(py_result.o);
   }
@@ -416,7 +416,7 @@ void py_graph_t::on_user_refresh(mutable_graph_t *g)
           for ( j=0; j < qnumber(edge_ids); j++ )
           {
             newref_t id(PySequence_GetItem(item.o, j));
-            if ( id == nullptr || !PyLong_Check(id.o) )
+            if ( !id || !PyLong_Check(id.o) )
               break;
             int v = int(PyLong_AsLong(id.o));
             if ( v > max_nodes )
@@ -453,7 +453,7 @@ bool py_graph_t::on_user_text(mutable_graph_t * /*g*/, int node, const char **st
   PYW_GIL_CHECK_LOCKED_SCOPE();
   newref_t result(PyObject_CallMethod(self.o, (char *)S_ON_GETTEXT, "i", node));
   PyW_ShowCbErr(S_ON_GETTEXT);
-  if ( result == nullptr )
+  if ( !result )
     return false;
 
   bgcolor_t cl = bg_color == nullptr ? DEFCOLOR : *bg_color;
@@ -472,9 +472,9 @@ bool py_graph_t::on_user_text(mutable_graph_t * /*g*/, int node, const char **st
     newref_t py_str(PySequence_GetItem(result.o, 0));
     newref_t py_color(PySequence_GetItem(result.o, 1));
 
-    if ( py_str != nullptr && PyUnicode_Check(py_str.o) )
+    if ( py_str && PyUnicode_Check(py_str.o) )
       PyUnicode_as_qstring(&buf, py_str.o);
-    if ( py_color != nullptr && PyNumber_Check(py_color.o) )
+    if ( py_color && PyNumber_Check(py_color.o) )
       cl = bgcolor_t(PyLong_AsUnsignedLong(py_color.o));
 
     c = node_cache.add(node, buf.c_str(), cl);

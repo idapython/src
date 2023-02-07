@@ -80,7 +80,7 @@ private:
                     "s",
                     line));
     PyW_ShowCbErr(S_ON_EXECUTE_LINE);
-    return result != nullptr && PyObject_IsTrue(result.o);
+    return result && PyObject_IsTrue(result.o);
   }
 
   //--------------------------------------------------------------------------
@@ -114,7 +114,7 @@ private:
                     *vk_key,
                     shift));
 
-    bool ok = result != nullptr && PyTuple_Check(result.o);
+    bool ok = result && PyTuple_Check(result.o);
 
     PyW_ShowCbErr(S_ON_KEYDOWN);
 
@@ -124,7 +124,7 @@ private:
       if ( sz > 0 )
       {
         borref_t _r(PyTuple_GetItem(result.o, 0));
-        if ( _r != nullptr && PyUnicode_Check(_r.o) )
+        if ( _r && PyUnicode_Check(_r.o) )
           PyUnicode_as_qstring(line, _r.o);
       }
 
@@ -134,7 +134,7 @@ private:
         if ( sz > col )                                                 \
         {                                                               \
           borref_t _r(PyTuple_GetItem(result.o, col));                  \
-          if ( _r != nullptr && PyThingy##_Check(_r.o) )                   \
+          if ( _r && PyThingy##_Check(_r.o) )                           \
             *out = PyThingy##_##AsThingy(_r.o);                         \
         }                                                               \
       } while ( false )
@@ -171,7 +171,7 @@ private:
                     line,
                     x));
 
-    bool ok = result != nullptr && PyUnicode_Check(result.o);
+    bool ok = result && PyUnicode_Check(result.o);
     PyW_ShowCbErr(S_ON_COMPLETE_LINE);
     if ( ok )
       PyUnicode_as_qstring(completion, result.o);

@@ -15,7 +15,7 @@ int idaapi py_enumerate_files_cb(const char *file, void *ud)
                   (PyObject *)ud,
                   py_file.o,
                   nullptr));
-  return (py_ret == nullptr || !PyNumber_Check(py_ret.o)) ? 1 /* stop enum on failure */ : PyInt_AsLong(py_ret.o);
+  return (!py_ret || !PyNumber_Check(py_ret.o)) ? 1 /* stop enum on failure */ : PyInt_AsLong(py_ret.o);
 }
 
 //-------------------------------------------------------------------------

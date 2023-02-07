@@ -313,7 +313,7 @@ class py_simplecustview_t
                     shift));
 
     PyW_ShowCbErr(S_ON_KEYDOWN);
-    return py_result != nullptr && PyObject_IsTrue(py_result.o);
+    return py_result && PyObject_IsTrue(py_result.o);
   }
 
   //--------------------------------------------------------------------------
@@ -329,7 +329,7 @@ class py_simplecustview_t
                     bvsz_t(ln)));
 
     PyW_ShowCbErr(S_ON_HINT);
-    bool ok = py_result != nullptr
+    bool ok = py_result
            && PyTuple_Check(py_result.o)
            && PyTuple_Size(py_result.o) == 2;
     if ( ok )
@@ -352,7 +352,7 @@ class py_simplecustview_t
                     PY_BV_SZ,
                     bvsz_t(menu_id)));
     PyW_ShowCbErr(S_ON_POPUP_MENU);
-    return py_result != nullptr && PyObject_IsTrue(py_result.o);
+    return py_result && PyObject_IsTrue(py_result.o);
   }
 
   //--------------------------------------------------------------------------

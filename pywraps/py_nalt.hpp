@@ -37,7 +37,7 @@ static int idaapi py_import_enum_cb(
                   py_name.o,
                   py_ord.o,
                   nullptr));
-  return py_result != nullptr && PyObject_IsTrue(py_result.o) ? 1 : 0;
+  return py_result && PyObject_IsTrue(py_result.o) ? 1 : 0;
 }
 //</code(py_nalt)>
 
