@@ -1417,6 +1417,8 @@ def ask_form(*args):
     return __call_form_callable(__ask_form_callable, *args)
 
 def open_form(*args):
+    if len(args) == 1:
+        args = (args[0], 0) # add default flags
     return __call_form_callable(__open_form_callable, *args)
 
 #</pycode(py_kernwin_askform)>

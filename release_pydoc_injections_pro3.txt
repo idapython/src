@@ -107700,6 +107700,10 @@ Documentation on variable SEARCH_BRK in module ida_search:
 
     return BADADDR if the search was cancelled.
 
+Documentation on variable SEARCH_USESEL in module ida_search:
+
+    query the UI for a possible current selection to limit the search to
+
 Documentation on variable SREG_NUM in module ida_segment:
 
     Maximum number of segment registers is 16 (see segregs.hpp)
