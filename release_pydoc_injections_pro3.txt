@@ -5281,11 +5281,10 @@ get_current_thread(*args) -> 'thid_t'
 
 Help on function get_dbg_byte in module ida_dbg:
 
-get_dbg_byte(*args) -> 'bool'
-    get_dbg_byte(x, ea) -> bool
+get_dbg_byte(*args) -> 'uint32 *'
+    get_dbg_byte(ea) -> bool
     Get one byte of the debugged process memory.
     
-    @param x: (C++: uint32 *) pointer to byte value
     @param ea: (C++: ea_t) linear address
     @return: true success
     false address inaccessible or debugger not running
