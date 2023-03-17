@@ -69,7 +69,7 @@ except ImportError as e:
 # -----------------------------------------------------------------------
 class IDAPythonStdOut:
     """
-    Dummy file-like class that receives stout and stderr
+    Dummy file-like class that receives stdout and stderr
     """
     encoding = "UTF-8"
 
