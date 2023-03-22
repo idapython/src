@@ -252,7 +252,7 @@ class Choose(object):
         @param: line number of the remaining select item
         @return: list of selected lines numbers (one element or empty)
         """
-        cnt = self.OnGetSize();
+        cnt = self.OnGetSize()
         if cnt == 0:
             return []
         # take in account deleting of the last item(s)
