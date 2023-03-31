@@ -74,7 +74,7 @@ class MyGraph(ida_graph.GraphViewer):
 
         #
         # for the sake of this example, here's how one can use
-        # 'ida_kernwin.View_Hooks' (which can be used wich all
+        # 'ida_kernwin.View_Hooks' (which can be used with all
         # "listing-like" and "graph" widgets) to be notified
         # of cursor movement, current node changes, etc...
         # in this graph.
