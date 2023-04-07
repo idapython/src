@@ -231,7 +231,8 @@ def _bounded_getitem_iterator(self):
 # -----------------------------------------------------------------------
 class plugin_t(pyidc_opaque_object_t):
     """Base class for all scripted plugins."""
-    pass
+    def run(self, arg): pass
+    def term(self): pass
 
 # -----------------------------------------------------------------------
 class plugmod_t(pyidc_opaque_object_t):
