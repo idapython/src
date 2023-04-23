@@ -2077,6 +2077,12 @@ SETPROC_USER             = ida_idp.SETPROC_USER
 
 def SetPrcsr(processor): return set_processor_type(processor, SETPROC_USER)
 
+def get_processor_name():
+    """
+    Get name of the current processor
+    @return: processor name
+    """
+    return ida_ida.inf_get_procname()
 
 set_target_assembler = ida_idp.set_target_assembler
 
