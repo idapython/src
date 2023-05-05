@@ -980,6 +980,7 @@ bool idapython_plugin_t::init()
     return false;
   }
 
+  // add new Python keywords as needed
   python_highlighter.add_new_keywords();
   
   // remove current directory
