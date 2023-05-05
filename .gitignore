@@ -2,3 +2,4 @@ obj/
 *.pyc
 idapyswitch*
 fuzzer/
+.vscode/
