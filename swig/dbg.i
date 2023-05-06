@@ -38,9 +38,9 @@
 %ignore request_set_reg_val;
 %rename (request_set_reg_val) py_request_set_reg_val;
 %rename (get_reg_val) py_get_reg_val;
-
-/* %ignore invalidate_dbg_state; */
-/* %ignore is_request_running; */
+%ignore get_reg_vals;
+%rename (get_reg_vals) py_get_reg_vals;
+%newobject py_get_reg_vals;
 
 %rename (list_bptgrps) py_list_bptgrps;
 %apply qstring *result { qstring *grp_name };
@@ -58,6 +58,11 @@
 %ignore internal_get_sreg_base;
 %rename (internal_get_sreg_base) py_internal_get_sreg_base;
 
+%ignore dbg_can_query;
+%rename (dbg_can_query) py_dbg_can_query;
+
+%define_regval_python_accessors();
+
 //-------------------------------------------------------------------------
 //                       get_process_options()
 %define %get_process_options_out_qstring(ARG_NAME)
@@ -69,7 +74,7 @@
 %typemap(argout) qstring *ARG_NAME
 {
   // %get_process_options_out_qstring %typemap(argout) qstring *ARG_NAME
-  $result = SWIG_Python_AppendOutput($result, IDAPyStr_FromUTF8($1->c_str()));
+  $result = SWIG_Python_AppendOutput($result, PyUnicode_FromString($1->c_str()));
 }
 %typemap(freearg) qstring* ARG_NAME
 {
@@ -90,7 +95,7 @@
 {
   // %typemap(argout) qstring *path (specialization)
   Py_XDECREF($result);
-  $result = IDAPyStr_FromUTF8($1->c_str());
+  $result = PyUnicode_FromString($1->c_str());
 }
 
 //-------------------------------------------------------------------------
@@ -106,13 +111,6 @@ bool request_run_to(ea_t ea, pid_t pid = NO_PROCESS, thid_t tid = NO_THREAD);
 %ignore get_insn_tev_reg_result(int, const char *, uint64 *);
 
 %thread;
-
-%nonnul_argument_prototype(
-        inline void idaapi set_debugger_event_cond(const char *nonnul_cond),
-        const char *nonnul_cond);
-%nonnul_argument_prototype(
-        inline bool idaapi diff_trace_file(const char *nonnul_filename),
-        const char *nonnul_filename);
 
 // We want ALL wrappers around what is declared in dbg.hpp
 // to release the GIL when calling into the IDA api: those
@@ -134,28 +132,28 @@ bool request_run_to(ea_t ea, pid_t pid = NO_PROCESS, thid_t tid = NO_THREAD);
 %{
 PyObject *bpt_t_condition_get(bpt_t *bpt)
 {
-  return IDAPyStr_FromUTF8(bpt->cndbody.c_str());
+  return PyUnicode_FromString(bpt->cndbody.c_str());
 }
 
 void bpt_t_condition_set(bpt_t *bpt, PyObject *val)
 {
-  if ( IDAPyStr_Check(val) )
-    IDAPyStr_AsUTF8(&bpt->cndbody, val);
+  if ( PyUnicode_Check(val) )
+    PyUnicode_as_qstring(&bpt->cndbody, val);
   else
     PyErr_SetString(PyExc_ValueError, "expected a string");
 }
 
 PyObject *bpt_t_elang_get(bpt_t *bpt)
 {
-  return IDAPyStr_FromUTF8(bpt->get_cnd_elang());
+  return PyUnicode_FromString(bpt->get_cnd_elang());
 }
 
 void bpt_t_elang_set(bpt_t *bpt, PyObject *val)
 {
-  if ( IDAPyStr_Check(val) )
+  if ( PyUnicode_Check(val) )
   {
     qstring cval;
-    IDAPyStr_AsUTF8(&cval, val);
+    PyUnicode_as_qstring(&cval, val);
     if ( !bpt->set_cnd_elang(cval.c_str()) )
       PyErr_SetString(PyExc_ValueError, "too many extlangs");
   }
@@ -173,7 +171,7 @@ void bpt_t_elang_set(bpt_t *bpt, PyObject *val)
 {
   PyObject *get_bytes() const
   {
-    return IDAPyBytes_FromMemAndSize(
+    return PyBytes_FromStringAndSize(
         (const char *) $self->bytes.begin(),
         $self->bytes.size());
   }

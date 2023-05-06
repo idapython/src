@@ -42,12 +42,12 @@ bool ext_api_t::load(qstring *errbuf)
   if ( lib_handle == nullptr )
     return false;
 
-#define BIND_SYMBOL(Name)                                               \
+#define BIND_SYMBOL_x(Name, fail)                                       \
   do                                                                    \
   {                                                                     \
     * (FARPROC *) &Name ## _ptr = GetProcAddress(                       \
             (HMODULE) lib_handle, TEXT(#Name));                         \
-    if ( Name ## _ptr == nullptr )                                      \
+    if ( Name ## _ptr == nullptr && fail )                              \
     {                                                                   \
       errbuf->sprnt("GetProcAddress(\"%s\") failed: %s",                \
                     #Name, qstrerror(-1));                              \
@@ -55,12 +55,22 @@ bool ext_api_t::load(qstring *errbuf)
     }                                                                   \
   } while ( 0 )
 
+#define BIND_SYMBOL(Name)      BIND_SYMBOL_x(Name, true)
+#define BIND_SYMBOL_WEAK(Name) BIND_SYMBOL_x(Name, false)
+
   BIND_SYMBOL(PyEval_SetTrace);
-  BIND_SYMBOL(PyRun_SimpleString);
-  BIND_SYMBOL(PyRun_String);
+  BIND_SYMBOL(PyRun_SimpleStringFlags);
+  BIND_SYMBOL(PyRun_StringFlags);
+#if PY_MAJOR_VERSION < 3
+  BIND_SYMBOL(Py_CompileString);
+#else
+  BIND_SYMBOL(Py_CompileStringExFlags);
+#endif
   BIND_SYMBOL(PyFunction_New);
   BIND_SYMBOL(PyFunction_GetCode);
   BIND_SYMBOL(_PyLong_AsByteArray);
+  BIND_SYMBOL_WEAK(PyEval_ThreadsInitialized);
+  BIND_SYMBOL_WEAK(PyEval_InitThreads);
 
 #undef BIND_SYMBOL
 
@@ -112,8 +122,13 @@ bool ext_api_t::load(qstring *errbuf)
   } while ( 0 )
 
   BIND_SYMBOL(PyEval_SetTrace);
-  BIND_SYMBOL(PyRun_SimpleString);
-  BIND_SYMBOL(PyRun_String);
+  BIND_SYMBOL(PyRun_SimpleStringFlags);
+  BIND_SYMBOL(PyRun_StringFlags);
+#if PY_MAJOR_VERSION < 3
+  BIND_SYMBOL(Py_CompileString);
+#else
+  BIND_SYMBOL(Py_CompileStringExFlags);
+#endif
   BIND_SYMBOL(PyFunction_New);
   BIND_SYMBOL(PyFunction_GetCode);
   BIND_SYMBOL(_PyLong_AsByteArray);

@@ -2,8 +2,12 @@
 #include <gdl.hpp>
 %}
 
-%ignore cancellable_graph_t;
-%ignore gdl_graph_t;
+%ignore gdl_graph_t::gen_gdl;
+%ignore gdl_graph_t::gen_dot;
+%ignore gdl_graph_t::path_exists;
+
+%ignore cancellable_graph_t::padding;
+%ignore cancellable_graph_t::check_cancel;
 
 %ignore intmap_t;
 %ignore intset_t;
@@ -11,7 +15,6 @@
 %ignore node_set_t;
 %ignore qflow_chart_t::blocks;
 %ignore flow_chart_t;
-%ignore default_graph_format;
 %ignore setup_graph_subsystem;
 %ignore qbasic_block_t::succ;
 %ignore qbasic_block_t::pred;

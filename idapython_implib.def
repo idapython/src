@@ -6,6 +6,7 @@ EXPORTS
   PyW_GetStringAttr
   PyW_SizeVecToPyList
   PyW_UvalVecToPyList
+  PyW_StrVecToPyList
   PyW_IsSequenceType
   PyW_ObjectToString
   PyW_PyListToEaVec
@@ -21,7 +22,7 @@ EXPORTS
   disable_script_timeout
   enable_extlang_python
   enable_python_cli
-  is_api695_compat_enabled
+  get_plugin_instance
   idcvar_to_pyvar
   lookup_info_t_commit
   lookup_info_t_del_by_py_view
@@ -61,8 +62,9 @@ EXPORTS
   get_callable_arg_count
   idapython_hook_to_notification_point
   idapython_unhook_from_notification_point
+  idapython_register_hook
+  idapython_unregister_hook
   idapython_show_wait_box
   idapython_hide_wait_box
   register_module_lifecycle_callbacks
   prepare_programmatic_plugin_load
-  pycim_lookup_info DATA

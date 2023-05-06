@@ -14,11 +14,11 @@ class py_custom_data_type_t : public data_type_t
   int dtid; // The data format id
   PyObject *py_self;
 
-  // may create data? NULL means always may
+  // may create data? nullptr means always may
   static bool idaapi s_may_create_at(
-          void *ud,                       // user-defined data
-          ea_t ea,                        // address of the future item
-          size_t nbytes)                  // size of the future item
+        void *ud,                       // user-defined data
+        ea_t ea,                        // address of the future item
+        size_t nbytes)                  // size of the future item
   {
     py_custom_data_type_t *_this = (py_custom_data_type_t *)ud;
     PYW_GIL_GET;
@@ -31,16 +31,16 @@ class py_custom_data_type_t : public data_type_t
                     bvsz_t(nbytes)));
 
     PyW_ShowCbErr(S_MAY_CREATE_AT);
-    return py_result != NULL && PyObject_IsTrue(py_result.o);
+    return py_result && PyObject_IsTrue(py_result.o);
   }
 
-  // !=NULL means variable size datatype
+  // !=nullptr means variable size datatype
   static asize_t idaapi s_calc_item_size(
-          // This function is used to determine
-          // size of the (possible) item at 'ea'
-          void *ud,                       // user-defined data
-          ea_t ea,                        // address of the item
-          asize_t maxsize)               // maximal size of the item
+        // This function is used to determine
+        // size of the (possible) item at 'ea'
+        void *ud,                       // user-defined data
+        ea_t ea,                        // address of the item
+        asize_t maxsize)               // maximal size of the item
   {
     PYW_GIL_GET;
     // Returns: 0-no such item can be created/displayed
@@ -54,7 +54,7 @@ class py_custom_data_type_t : public data_type_t
                     bvea_t(ea),
                     bvasize_t(maxsize)));
 
-    if ( PyW_ShowCbErr(S_CALC_ITEM_SIZE) || py_result == NULL )
+    if ( PyW_ShowCbErr(S_CALC_ITEM_SIZE) || !py_result )
       return 0;
 
     uint64 num = 0;
@@ -111,12 +111,12 @@ public:
 
     // may_create_at
     py_attr = PyW_TryGetAttrString(py_self, S_MAY_CREATE_AT);
-    if ( py_attr != NULL && PyCallable_Check(py_attr.o) )
+    if ( py_attr != nullptr && PyCallable_Check(py_attr.o) )
       may_create_at = s_may_create_at;
 
     // calc_item_size
     py_attr = PyW_TryGetAttrString(py_self, S_CALC_ITEM_SIZE);
-    if ( py_attr != NULL && PyCallable_Check(py_attr.o) )
+    if ( py_attr != nullptr && PyCallable_Check(py_attr.o) )
       calc_item_size = s_calc_item_size;
 
     // Now try to register
@@ -136,8 +136,8 @@ public:
       // dtor to be called, which in turn will call this 'do_unregister' a
       // second time, but this is no problem since the dtid has already been
       // unregistered and thus we won't end up in this Py_XDECREF block.
+      dtid = -1; // modify the object now, otherwise it may get deleted
       Py_XDECREF(py_self);
-      dtid = -1;
     }
     return ok;
   }
@@ -148,7 +148,7 @@ py_custom_data_type_t *py_custom_data_type_cast(data_type_t *inst)
 {
   // The following code seems to not work with gcc. Compiler bug? Not sure, but no time ATM
   // py_custom_data_type_t *py_inst = (py_custom_data_type_t *) inst;
-  // py_custom_data_types.has(py_inst) ? py_inst : NULL;
+  // py_custom_data_types.has(py_inst) ? py_inst : nullptr;
   if ( py_custom_data_types.has((py_custom_data_type_t *) inst) )
     return (py_custom_data_type_t *) inst;
   else
@@ -159,7 +159,7 @@ py_custom_data_type_t *py_custom_data_type_cast(data_type_t *inst)
 static int py_custom_data_type_t_get_id(data_type_t *_dt)
 {
   py_custom_data_type_t *dt = py_custom_data_type_cast(_dt);
-  return dt != NULL ? dt->get_dtid() : -1;
+  return dt != nullptr ? dt->get_dtid() : -1;
 }
 
 //-------------------------------------------------------------------------
@@ -176,22 +176,22 @@ private:
   PyObject *py_self;
   qstring df_name, df_menu_name, df_hotkey;
 
-  static bool idaapi s_print(             // convert to colored string
-          void *ud,                       // user-defined data
-          qstring *out,                   // output buffer. may be NULL
-          const void *value,              // value to print. may not be NULL
-          asize_t size,                   // size of value in bytes
-          ea_t current_ea,                // current address (BADADDR if unknown)
-          int operand_num,                // current operand number
-          int dtid)                       // custom data type id
+  static bool idaapi s_print(           // convert to colored string
+        void *ud,                       // user-defined data
+        qstring *out,                   // output buffer. may be nullptr
+        const void *value,              // value to print. may not be nullptr
+        asize_t size,                   // size of value in bytes
+        ea_t current_ea,                // current address (BADADDR if unknown)
+        int operand_num,                // current operand number
+        int dtid)                       // custom data type id
   {
     PYW_GIL_GET;
 
     // Build a string from the buffer
-    newref_t py_value(IDAPyBytes_FromMemAndSize(
+    newref_t py_value(PyBytes_FromStringAndSize(
                               (const char *)value,
                               Py_ssize_t(size)));
-    if ( py_value == NULL )
+    if ( !py_value )
       return false;
 
     py_custom_data_format_t *_this = (py_custom_data_format_t *) ud;
@@ -205,26 +205,26 @@ private:
                                dtid));
 
     // Error while calling the function?
-    if ( PyW_ShowCbErr(S_PRINTF) || py_result == NULL )
+    if ( PyW_ShowCbErr(S_PRINTF) || !py_result )
       return false;
 
     bool ok = false;
-    if ( IDAPyStr_Check(py_result.o) )
+    if ( PyUnicode_Check(py_result.o) )
     {
-      if ( out != NULL )
-        IDAPyStr_AsUTF8(out, py_result.o);
+      if ( out != nullptr )
+        PyUnicode_as_qstring(out, py_result.o);
       ok = true;
     }
     return ok;
   }
 
-  static bool idaapi s_scan(              // convert from uncolored string
-          void *ud,                       // user-defined data
-          bytevec_t *value,               // output buffer. may be NULL
-          const char *input,              // input string. may not be NULL
-          ea_t current_ea,                // current address (BADADDR if unknown)
-          int operand_num,                // current operand number (-1 if unknown)
-          qstring *errstr)                // buffer for error message
+  static bool idaapi s_scan(            // convert from uncolored string
+        void *ud,                       // user-defined data
+        bytevec_t *value,               // output buffer. may be nullptr
+        const char *input,              // input string. may not be nullptr
+        ea_t current_ea,                // current address (BADADDR if unknown)
+        int operand_num,                // current operand number (-1 if unknown)
+        qstring *errstr)                // buffer for error message
   {
     PYW_GIL_GET;
 
@@ -239,7 +239,7 @@ private:
                     operand_num));
 
     // Error while calling the function?
-    if ( PyW_ShowCbErr(S_SCAN) || py_result == NULL )
+    if ( PyW_ShowCbErr(S_SCAN) || !py_result )
       return false;
 
     bool ok = false;
@@ -259,12 +259,12 @@ private:
       if ( ok )
       {
         // Probe-only? Then okay, no need to extract the 'value'
-        if ( value == NULL )
+        if ( value == nullptr )
           break;
 
         Py_ssize_t len;
         char *buf;
-        if ( IDAPyBytes_AsMemAndSize(py_val.o, &buf, &len) != -1 )
+        if ( PyBytes_AsStringAndSize(py_val.o, &buf, &len) != -1 )
         {
           value->qclear();
           value->append(buf, len);
@@ -274,22 +274,22 @@ private:
       else
       {
         // Make sure the user returned (False, String)
-        if ( py_bool.o != Py_False || !IDAPyStr_Check(py_val.o) )
+        if ( py_bool.o != Py_False || !PyUnicode_Check(py_val.o) )
         {
           *errstr = "Invalid return value returned from the Python callback!";
           break;
         }
         // Get the error message
-        IDAPyStr_AsUTF8(errstr, py_val.o);
+        PyUnicode_as_qstring(errstr, py_val.o);
       }
     } while ( false );
     return ok;
   }
 
-  static void idaapi s_analyze(           // analyze custom data format occurrence
-          void *ud,                       // user-defined data
-          ea_t current_ea,                // current address (BADADDR if unknown)
-          int operand_num)                // current operand number
+  static void idaapi s_analyze(         // analyze custom data format occurrence
+        void *ud,                       // user-defined data
+        ea_t current_ea,                // current address (BADADDR if unknown)
+        int operand_num)                // current operand number
     // this callback can be used to create
     // xrefs from the current item.
     // this callback may be missing.
@@ -309,13 +309,13 @@ private:
   }
 public:
   py_custom_data_format_t(
-          PyObject *py_df,
-          const char *name,
-          asize_t value_size,
-          const char *menu_name,
-          int props,
-          const char *hotkey,
-          int32 text_width)
+        PyObject *py_df,
+        const char *name,
+        asize_t value_size,
+        const char *menu_name,
+        int props,
+        const char *hotkey,
+        int32 text_width)
   {
     memset(this, 0, sizeof(data_format_t));
     cbsize = sizeof(data_format_t);
@@ -354,17 +354,17 @@ public:
 
     // print cb
     py_attr = PyW_TryGetAttrString(py_self, S_PRINTF);
-    if ( py_attr != NULL && PyCallable_Check(py_attr.o) )
+    if ( py_attr != nullptr && PyCallable_Check(py_attr.o) )
       print = s_print;
 
     // scan cb
     py_attr = PyW_TryGetAttrString(py_self, S_SCAN);
-    if ( py_attr != NULL && PyCallable_Check(py_attr.o) )
+    if ( py_attr != nullptr && PyCallable_Check(py_attr.o) )
       scan = s_scan;
 
     // analyze cb
     py_attr = PyW_TryGetAttrString(py_self, S_ANALYZE);
-    if ( py_attr != NULL && PyCallable_Check(py_attr.o) )
+    if ( py_attr != nullptr && PyCallable_Check(py_attr.o) )
       analyze = s_analyze;
 
     // Now try to register
@@ -381,8 +381,8 @@ public:
     if ( ok )
     {
       // see comment in py_custom_data_type_t::do_unregister()
-      Py_XDECREF(py_self);
       dfid = -1;
+      Py_XDECREF(py_self);
     }
     return ok;
   }
@@ -401,17 +401,17 @@ py_custom_data_format_t *py_custom_data_format_cast(data_format_t *inst)
 static int py_custom_data_format_t_get_id(data_format_t *_df)
 {
   py_custom_data_format_t *df = py_custom_data_format_cast(_df);
-  return df != NULL ? df->get_dfid() : -1;
+  return df != nullptr ? df->get_dfid() : -1;
 }
 
 //-------------------------------------------------------------------------
 static void clear_custom_data_types_and_formats()
 {
   PYW_GIL_GET;
-  for ( size_t n = py_custom_data_types.size(); n > 0; --n )
-    py_custom_data_types[n-1]->do_unregister();
-  for ( size_t n = py_custom_data_formats.size(); n > 0; --n )
-    py_custom_data_formats[n-1]->do_unregister();
+  for ( ssize_t i=py_custom_data_types.size()-1; i >= 0; --i )
+    py_custom_data_types[i]->do_unregister();
+  for ( ssize_t i=py_custom_data_formats.size()-1; i >= 0; --i )
+    py_custom_data_formats[i]->do_unregister();
 }
 //</code(py_bytes_custdata)>
 
@@ -436,12 +436,12 @@ def register_custom_data_type(dt):
 static int py_register_custom_data_type(PyObject *py_dt)
 {
   ref_t py_attr = PyW_TryGetAttrString(py_dt, "this");
-  if ( py_attr == NULL )
+  if ( py_attr == nullptr )
     return -1;
 
-  py_custom_data_type_t *inst = NULL;
+  py_custom_data_type_t *inst = nullptr;
   int cvt = SWIG_ConvertPtr(py_attr.o, (void **) &inst, SWIGTYPE_p_data_type_t, 0);
-  if ( !SWIG_IsOK(cvt) || py_custom_data_type_cast(inst) == NULL )
+  if ( !SWIG_IsOK(cvt) || py_custom_data_type_cast(inst) == nullptr )
     return -1;
   return inst->do_register();
 }
@@ -461,11 +461,11 @@ def unregister_custom_data_type(dtid):
 static bool py_unregister_custom_data_type(int dtid)
 {
   const data_type_t *_dt = get_custom_data_type(dtid);
-  if ( _dt == NULL )
+  if ( _dt == nullptr )
     return false;
 
   py_custom_data_type_t *dt = py_custom_data_type_cast((data_type_t *) _dt);
-  bool ok = dt != NULL;
+  bool ok = dt != nullptr;
   if ( ok )
     ok = dt->do_unregister();
   else
@@ -490,12 +490,12 @@ def register_custom_data_format(df):
 static int py_register_custom_data_format(PyObject *py_df)
 {
   ref_t py_attr = PyW_TryGetAttrString(py_df, "this");
-  if ( py_attr == NULL )
+  if ( py_attr == nullptr )
     return -1;
 
-  py_custom_data_format_t *inst = NULL;
+  py_custom_data_format_t *inst = nullptr;
   int cvt = SWIG_ConvertPtr(py_attr.o, (void **) &inst, SWIGTYPE_p_data_format_t, 0);
-  if ( !SWIG_IsOK(cvt) || py_custom_data_format_cast(inst) == NULL )
+  if ( !SWIG_IsOK(cvt) || py_custom_data_format_cast(inst) == nullptr )
     return -1;
 
   return inst->do_register();
@@ -516,11 +516,11 @@ def unregister_custom_data_format(dfid):
 static bool py_unregister_custom_data_format(int dfid)
 {
   const data_format_t *_df = get_custom_data_format(dfid);
-  if ( _df == NULL )
+  if ( _df == nullptr )
     return false;
 
   py_custom_data_format_t *df = py_custom_data_format_cast((data_format_t *) _df);
-  bool ok = df != NULL;
+  bool ok = df != nullptr;
   if ( ok )
     ok = df->do_unregister();
   else

@@ -70,7 +70,7 @@ import types
 import sys
 
 __EA64__ = ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFF
-WORDMASK = 0xFFFFFFFFFFFFFFFF if __EA64__ else 0xFFFFFFFF
+WORDMASK = 0xFFFFFFFFFFFFFFFF if __EA64__ else 0xFFFFFFFF # just there for bw-compat purposes; please don't use
 class DeprecatedIDCError(Exception):
     """
     Exception for deprecated function calls
@@ -115,8 +115,13 @@ def _IDC_SetAttr(obj, attrmap, attroffs, value):
 
 BADADDR         = ida_idaapi.BADADDR # Not allowed address value
 BADSEL          = ida_idaapi.BADSEL  # Not allowed selector value/number
-MAXADDR         = ida_ida.MAXADDR & WORDMASK
 SIZE_MAX        = _ida_idaapi.SIZE_MAX
+ida_ida.__set_module_dynattrs(
+    __name__,
+    {
+        "MAXADDR" : (lambda: ida_ida.inf_get_privrange_start_ea(), None),
+    })
+
 #
 #      Flag bit definitions (for get_full_flags())
 #
@@ -358,6 +363,7 @@ def rotate_left(value, count, nbits, offset):
     """
     assert offset >= 0, "offset must be >= 0"
     assert nbits > 0, "nbits must be > 0"
+    count %= nbits # no need to spin the wheel more than 1 rotation
 
     mask = 2**(offset+nbits) - 2**offset
     tmp = value & mask
@@ -549,11 +555,11 @@ def set_name(ea, name, flags=ida_name.SN_CHECK):
     """
     return ida_name.set_name(ea, name, flags)
 
-SN_CHECK      = ida_name.SN_CHECK
+SN_CHECK      = ida_name.SN_CHECK    # Fail if the name contains invalid characters.
 SN_NOCHECK    = ida_name.SN_NOCHECK  # Don't fail if the name contains invalid characters.
-                                     # If this bit is clear, all invalid chars
-                                     # (those !is_ident_cp()) will be replaced
-                                     # by SUBSTCHAR (usually '_').
+                                     # If this bit is set, all invalid chars
+                                     # (not in NameChars or MangleChars) will be replaced
+                                     # by '_'.
                                      # List of valid characters is defined in ida.cfg
 SN_PUBLIC     = ida_name.SN_PUBLIC   # if set, make name public
 SN_NON_PUBLIC = ida_name.SN_NON_PUBLIC # if set, make name non-public
@@ -790,32 +796,11 @@ def define_local_var(start, end, location, name):
     if m:
         # Location in the form of [bp+xx]
         register = ida_idp.str2reg(m.group(1))
-        offset = int(m.group(2), 0)
-        frame = ida_frame.get_frame(func)
-
-        if register == -1 or not frame:
+        if register == -1:
             return 0
 
-        offset += func.frsize
-        member = ida_struct.get_member(frame, offset)
-
-        if member:
-            # Member already exists, rename it
-            if ida_struct.set_member_name(frame, offset, name):
-                return 1
-            else:
-                return 0
-        else:
-            # No member at the offset, create a new one
-            if ida_struct.add_struc_member(
-                    frame,
-                    name,
-                    offset,
-                    ida_bytes.byte_flag(),
-                    None, 1) == 0:
-                return 1
-            else:
-                return 0
+        offset = int(m.group(2), 0)
+        return 1 if ida_frame.define_stkvar(func, name, offset, ida_bytes.byte_flag(), None, 1) else 0
     else:
         # Location as simple register name
         return ida_frame.add_regvar(func, start, end, location, name, None)
@@ -1087,7 +1072,7 @@ def gen_file(filetype, path, ea1, ea2, flags):
                 -1 if an error occurred
                 OFILE_EXE: 0-can't generate exe file, 1-ok
     """
-    f = ida_diskio.fopenWT(path)
+    f = ida_diskio.fopenWB(path)
 
     if f:
         retval = ida_loader.gen_file(filetype, f, ea1, ea2, flags)
@@ -1769,15 +1754,13 @@ SEARCH_NOBRK    = ida_search.SEARCH_NOBRK    # don't test ctrl-break
 SEARCH_NOSHOW   = ida_search.SEARCH_NOSHOW   # don't display the search progress
 
 
-def find_text(ea, flag, y, x, searchstr, from_bc695=False):
-    if not from_bc695:
-        __warn_once_deprecated_proto_confusion("find_text", "ida_search.find_text")
+def find_text(ea, flag, y, x, searchstr):
+    __warn_once_deprecated_proto_confusion("find_text", "ida_search.find_text")
     return ida_search.find_text(ea, y, x, searchstr, flag)
 
 
-def find_binary(ea, flag, searchstr, radix=16, from_bc695=False):
-    if not from_bc695:
-        __warn_once_deprecated_proto_confusion("find_binary", "ida_search.find_binary")
+def find_binary(ea, flag, searchstr, radix=16):
+    __warn_once_deprecated_proto_confusion("find_binary", "ida_search.find_binary")
     endea = flag & 1 and ida_ida.cvar.inf.max_ea or ida_ida.cvar.inf.min_ea
     return ida_search.find_binary(ea, endea, searchstr, radix, flag)
 
@@ -1787,13 +1770,9 @@ def find_binary(ea, flag, searchstr, radix=16, from_bc695=False):
 #----------------------------------------------------------------------------
 def process_config_line(directive):
     """
-    Parse one or more ida.cfg config directives
-    @param directive: directives to process, for example: PACK_DATABASE=2
-
-    @note: If the directives are erroneous, a fatal error will be generated.
-           The settings are permanent: effective for the current session and the next ones
+    Obsolete. Please use ida_idp.process_config_directive().
     """
-    return eval_idc('process_config_line("%s")' % ida_kernwin.str2user(directive))
+    return eval_idc('process_config_directive("%s")' % ida_kernwin.str2user(directive))
 
 
 # The following functions allow you to set/get common parameters.
@@ -1804,29 +1783,7 @@ def process_config_line(directive):
 INF_VERSION    = 0            # short;   Version of database
 INF_PROCNAME   = 1            # char[8]; Name of current processor
 INF_GENFLAGS   = 2            # ushort;  General flags:
-INFFL_AUTO     = 0x01         #              Autoanalysis is enabled?
-INFFL_ALLASM   = 0x02         #              May use constructs not supported by
-                              #              the target assembler
-INFFL_LOADIDC  = 0x04         #              loading an idc file that contains database info
-INFFL_NOUSER   = 0x08         #              do not store user info in the database
-INFFL_READONLY = 0x10         #              (internal) temporary interdiction to modify the database
-INFFL_CHKOPS   =  0x20        #              check manual operands?
-INFFL_NMOPS    =  0x40        #              allow non-matched operands?
-INFFL_GRAPH_VIEW= 0x80        #              currently using graph options (\dto{graph})
 INF_LFLAGS     = 3            # uint32;  IDP-dependent flags
-LFLG_PC_FPP    = 0x00000001   #              decode floating point processor
-                              #              instructions?
-LFLG_PC_FLAT   = 0x00000002   #              Flat model?
-LFLG_64BIT     = 0x00000004   #              64-bit program?
-LFLG_IS_DLL    = 0x00000008   #              is dynamic library?
-LFLG_FLAT_OFF32= 0x00000010   #              treat REF_OFF32 as 32-bit offset for 16bit segments (otherwise try SEG16:OFF16)
-LFLG_MSF       = 0x00000020   #              byte order: is MSB first?
-LFLG_WIDE_HBF  = 0x00000040   #              bit order of wide bytes: high byte first?
-LFLG_DBG_NOPATH= 0x00000080   #              do not store input full path
-LFLG_SNAPSHOT  = 0x00000100   #              is memory snapshot?
-LFLG_PACK      = 0x00000200   # pack the database?
-LFLG_COMPRESS  = 0x00000400   # compress the database?
-LFLG_KERNMODE  = 0x00000800   # is kernel mode binary?
 
 INF_DATABASE_CHANGE_COUNT= 4  # uint32; database change counter; keeps track of byte and segment modifications
 INF_CHANGE_COUNTER=INF_DATABASE_CHANGE_COUNT
@@ -1877,49 +1834,37 @@ INF_ASMTYPE    = 8            # char;    target assembler number (0..n)
 INF_SPECSEGS   = 9
 
 INF_AF         = 10           # uint32;   Analysis flags:
-AF_CODE        = 0x00000001   #              Trace execution flow
-AF_MARKCODE    = 0x00000002   #              Mark typical code sequences as code
-AF_JUMPTBL     = 0x00000004   #              Locate and create jump tables
-AF_PURDAT      = 0x00000008   #              Control flow to data segment is ignored
-AF_USED        = 0x00000010   #              Analyze and create all xrefs
-AF_UNK         = 0x00000020   #              Delete instructions with no xrefs
 
-AF_PROCPTR     = 0x00000040   #              Create function if data xref data->code32 exists
-AF_PROC        = 0x00000080   #              Create functions if call is present
-AF_FTAIL       = 0x00000100   #              Create function tails
-AF_LVAR        = 0x00000200   #              Create stack variables
-AF_STKARG      = 0x00000400   #              Propagate stack argument information
-AF_REGARG      = 0x00000800   #              Propagate register argument information
-AF_TRACE       = 0x00001000   #              Trace stack pointer
-AF_VERSP       = 0x00002000   #              Perform full SP-analysis. (\ph{verify_sp})
-AF_ANORET      = 0x00004000   #              Perform 'no-return' analysis
-AF_MEMFUNC     = 0x00008000   #              Try to guess member function types
-AF_TRFUNC      = 0x00010000   #              Truncate functions upon code deletion
-
-AF_STRLIT      = 0x00020000   #              Create string literal if data xref exists
-AF_CHKUNI      = 0x00040000   #              Check for unicode strings
-AF_FIXUP       = 0x00080000   #              Create offsets and segments using fixup info
-AF_DREFOFF     = 0x00100000   #              Create offset if data xref to seg32 exists
-AF_IMMOFF      = 0x00200000   #              Convert 32bit instruction operand to offset
-AF_DATOFF      = 0x00400000   #              Automatically convert data to offsets
-
-AF_FLIRT       = 0x00800000   #              Use flirt signatures
-AF_SIGCMT      = 0x01000000   #              Append a signature name comment for recognized anonymous library functions
-AF_SIGMLT      = 0x02000000   #              Allow recognition of several copies of the same function
-AF_HFLIRT      = 0x04000000   #              Automatically hide library functions
-
-AF_JFUNC       = 0x08000000   #              Rename jump functions as j_...
-AF_NULLSUB     = 0x10000000   #              Rename empty functions as nullsub_...
-
-AF_DODATA      = 0x20000000   #              Coagulate data segs at the final pass
-AF_DOCODE      = 0x40000000   #              Coagulate code segs at the final pass
-AF_FINAL       = 0x80000000   #              Final pass of analysis
+def _import_module_flag_sets(module, prefixes):
+    if isinstance(prefixes, str):
+        prefixes = [prefixes]
+    for prefix in prefixes:
+        for key in dir(module):
+            if key.startswith(prefix):
+                value = getattr(module, key)
+                if isinstance(value, ida_idaapi.integer_types):
+                    globals()[key] = value
+_import_module_flag_sets(
+    ida_ida,
+    [
+        "INFFL_",
+        "LFLG_",
+        "IDB_",
+        "AF_",
+        "AF2_",
+        "SW_",
+        "NM_",
+        "DEMNAM_",
+        "LN_",
+        "OFLG_",
+        "SCF_",
+        "LMT_",
+        "PREF_",
+        "STRF_",
+        "ABI_",
+    ])
 
 INF_AF2        = 11           # uint32;  Analysis flags 2
-
-AF2_DOEH       = 0x00000001   #              Handle EH information
-AF2_DORTTI     = 0x00000002   #              Handle RTTI information
-AF2_MACRO      = 0x00000004   #              Try to combine several instructions into a macro instruction
 
 INF_BASEADDR   = 12           # uval_t;  base paragraph of the program
 INF_START_SS   = 13           # int32;   value of SS at the start
@@ -1963,80 +1908,36 @@ INF_REFCMTNUM  = 32          # uchar; number of comment lines to
 INF_REFCMTS=INF_REFCMTNUM
 INF_XREFFLAG   = 33          # char;    xrefs representation:
 INF_XREFS=INF_XREFFLAG
-SW_SEGXRF      = 0x01         #              show segments in xrefs?
-SW_XRFMRK      = 0x02         #              show xref type marks?
-SW_XRFFNC      = 0x04         #              show function offsets?
-SW_XRFVAL      = 0x08         #              show xref values? (otherwise-"...")
 
 # NAMES
 INF_MAX_AUTONAME_LEN = 34     # ushort;  max name length (without zero byte)
 INF_NAMETYPE   = 35           # char;    dummy names represenation type
-NM_REL_OFF     = 0
-NM_PTR_OFF     = 1
-NM_NAM_OFF     = 2
-NM_REL_EA      = 3
-NM_PTR_EA      = 4
-NM_NAM_EA      = 5
-NM_EA          = 6
-NM_EA4         = 7
-NM_EA8         = 8
-NM_SHORT       = 9
-NM_SERIAL      = 10
 INF_SHORT_DEMNAMES = 36      # int32;   short form of demangled names
 INF_SHORT_DN=INF_SHORT_DEMNAMES
 INF_LONG_DEMNAMES = 37       # int32;   long form of demangled names
                               #          see demangle.h for definitions
 INF_LONG_DN=INF_LONG_DEMNAMES
 INF_DEMNAMES   = 38           # char;    display demangled names as:
-DEMNAM_CMNT = 0               #              comments
-DEMNAM_NAME = 1               #              regular names
-DEMNAM_NONE = 2               #              don't display
-DEMNAM_GCC3 = 4               #          assume gcc3 names (valid for gnu compiler)
-DEMNAM_FIRST= 8               #          override type info
 INF_LISTNAMES  = 39           # uchar;   What names should be included in the list?
-LN_NORMAL      = 0x01         #              normal names
-LN_PUBLIC      = 0x02         #              public names
-LN_AUTO        = 0x04         #              autogenerated names
-LN_WEAK        = 0x08         #              weak names
 
 # DISASSEMBLY LISTING DETAILS
 INF_INDENT     = 40           # char;    Indention for instructions
-INF_COMMENT    = 41           # char;    Indention for comments
+INF_CMT_INDENT = 41           # char;    Indention for comments
+INF_COMMENT    = 41           # for compatibility
 INF_MARGIN     = 42           # ushort;  max length of data lines
 INF_LENXREF    = 43           # ushort;  max length of line with xrefs
 INF_OUTFLAGS   = 44           # uint32;  output flags
-OFLG_SHOW_VOID = 0x0002       #              Display void marks?
-OFLG_SHOW_AUTO = 0x0004       #              Display autoanalysis indicator?
-OFLG_GEN_NULL  = 0x0010       #              Generate empty lines?
-OFLG_SHOW_PREF = 0x0020       #              Show line prefixes?
-OFLG_PREF_SEG  = 0x0040       #              line prefixes with segment name?
-OFLG_LZERO     = 0x0080       #              generate leading zeroes in numbers
-OFLG_GEN_ORG   = 0x0100       #              Generate 'org' directives?
-OFLG_GEN_ASSUME= 0x0200       #              Generate 'assume' directives?
-OFLG_GEN_TRYBLKS = 0x0400     #              Generate try/catch directives?
 INF_CMTFLG     = 45           # char;    comments:
 INF_CMTFLAG=INF_CMTFLG
-SW_RPTCMT      = 0x01         #              show repeatable comments?
-SW_ALLCMT      = 0x02         #              comment all lines?
-SW_NOCMT       = 0x04         #              no comments at all
-SW_LINNUM      = 0x08         #              show source line numbers
 INF_LIMITER    = 46           # char;    Generate borders?
 INF_BORDER=INF_LIMITER
 INF_BIN_PREFIX_SIZE = 47     # short;   # of instruction bytes to show
                               #          in line prefix
 INF_BINPREF=INF_BIN_PREFIX_SIZE
 INF_PREFFLAG   = 48           # char;    line prefix type:
-PREF_SEGADR    = 0x01         #              show segment addresses?
-PREF_FNCOFF    = 0x02         #              show function offsets?
-PREF_STACK     = 0x04         #              show stack pointer?
 
 # STRING LITERALS
 INF_STRLIT_FLAGS= 49          # uchar;   string literal flags
-STRF_GEN       = 0x01         #              generate names?
-STRF_AUTO      = 0x02         #              names have 'autogenerated' bit?
-STRF_SERIAL    = 0x04         #              generate serial names?
-STRF_COMMENT   = 0x10         #              generate auto comment for string references?
-STRF_SAVECASE  = 0x20         #              preserve case of strings for identifiers
 INF_STRLIT_BREAK= 50         # char;    string literal line break symbol
 INF_STRLIT_ZEROES= 51        # char;    leading zeroes
 INF_STRTYPE    = 52          # int32;   current ascii string type
@@ -2079,15 +1980,6 @@ INF_SIZEOF_LONG = INF_CC_SIZE_L
 INF_SIZEOF_LLONG= INF_CC_SIZE_LL
 INF_SIZEOF_LDBL = INF_CC_SIZE_LDBL
 INF_ABIBITS= 67               # uint32; ABI features
-ABI_8ALIGN4      = 0x00000001 #   4 byte alignment for 8byte scalars (__int64/double) inside structures?
-ABI_PACK_STKARGS = 0x00000002 #   do not align stack arguments to stack slots
-ABI_BIGARG_ALIGN = 0x00000004 #   use natural type alignment for argument if the alignment exceeds native word size (e.g. __int64 argument should be 8byte aligned on some 32bit platforms)
-ABI_STACK_LDBL   = 0x00000008 #   long double areuments are passed on stack
-ABI_STACK_VARARGS= 0x00000010 #   varargs are always passed on stack (even when there are free registers)
-ABI_HARD_FLOAT   = 0x00000020 #   use the floating-point register set
-ABI_SET_BY_USER  = 0x00000040 #   compiler/abi were set by user flag
-ABI_GCC_LAYOUT   = 0x00000080 #   use gcc layout for udts (used for mingw)
-ABI_MAP_STKARGS  = 0x00000100 #   register arguments are mapped to stack area (and consume stack slots)
 INF_APPCALL_OPTIONS= 68       # uint32; appcall options
 
 _INF_attrs_accessors = {
@@ -2110,7 +2002,7 @@ _INF_attrs_accessors = {
     INF_CC_SIZE_LL            : (ida_ida.inf_get_cc_size_ll,            ida_ida.inf_set_cc_size_ll),
     INF_CC_SIZE_S             : (ida_ida.inf_get_cc_size_s,             ida_ida.inf_set_cc_size_s),
     INF_CMTFLAG               : (ida_ida.inf_get_cmtflg,                ida_ida.inf_set_cmtflg),
-    INF_COMMENT               : (ida_ida.inf_get_comment,               ida_ida.inf_set_comment),
+    INF_CMT_INDENT            : (ida_ida.inf_get_cmt_indent,            ida_ida.inf_set_cmt_indent),
     INF_DATABASE_CHANGE_COUNT : (ida_ida.inf_get_database_change_count, ida_ida.inf_set_database_change_count),
     INF_DATATYPES             : (ida_ida.inf_get_datatypes,             ida_ida.inf_set_datatypes),
     INF_DEMNAMES              : (ida_ida.inf_get_demnames,              ida_ida.inf_set_demnames),
@@ -2185,6 +2077,12 @@ SETPROC_USER             = ida_idp.SETPROC_USER
 
 def SetPrcsr(processor): return set_processor_type(processor, SETPROC_USER)
 
+def get_processor_name():
+    """
+    Get name of the current processor
+    @return: processor name
+    """
+    return ida_ida.inf_get_procname()
 
 set_target_assembler = ida_idp.set_target_assembler
 
@@ -3079,6 +2977,8 @@ FUNC_PURGED_OK     = _scope.FUNC_PURGED_OK     # 'argsize' field has been valida
 FUNC_TAIL          = _scope.FUNC_TAIL          # This is a function tail.
                                                # Other bits must be clear
                                                # (except FUNC_HIDDEN)
+FUNC_LUMINA        = _scope.FUNC_LUMINA        # Function info is provided by Lumina.
+FUNC_OUTLINE       = _scope.FUNC_OUTLINE       # Outlined code, not a real function.
 
 
 def set_func_flags(ea, flags):
@@ -4608,6 +4508,17 @@ def __l2m1(v):
         return v
 
 
+def __m1tol(v):
+    """
+    Long -1 to BADNODE: If the 'v' appears to be the
+    'signed long' version of -1, then return BADNODE.
+    Otherwise, return 'v'.
+    """
+    if v == -1:
+        return ida_netnode.BADNODE 
+    else:
+        return v
+
 
 AR_LONG = ida_netnode.atag
 """Array of longs"""
@@ -4855,9 +4766,9 @@ def get_next_index(tag, array_id, idx):
     node = __GetArrayById(array_id)
     try:
         if tag == AR_LONG:
-            return __l2m1(node.altnext(idx, tag))
+            return __l2m1(node.altnext(__m1tol(idx), tag))
         elif tag == AR_STR:
-            return __l2m1(node.supnext(idx, tag))
+            return __l2m1(node.supnext(__m1tol(idx), tag))
         else:
             return -1
     except OverflowError:
@@ -4879,9 +4790,9 @@ def get_prev_index(tag, array_id, idx):
     node = __GetArrayById(array_id)
     try:
         if tag == AR_LONG:
-            return __l2m1(node.altprev(idx, tag))
+            return __l2m1(node.altprev(__m1tol(idx), tag))
         elif tag == AR_STR:
-            return __l2m1(node.supprev(idx, tag))
+            return __l2m1(node.supprev(__m1tol(idx), tag))
         else:
             return -1
     except OverflowError:
@@ -5460,9 +5371,8 @@ get_process_state = ida_dbg.get_process_state
 DSTATE_SUSP            = -1 # process is suspended
 DSTATE_NOTASK          =  0 # no process is currently debugged
 DSTATE_RUN             =  1 # process is running
-DSTATE_RUN_WAIT_ATTACH =  2 # process is running, waiting for process properly attached
-DSTATE_RUN_WAIT_END    =  3 # process is running, but the user asked to kill/detach the process
-                            # remark: in this case, most events are ignored
+DSTATE_RUN_WAIT_ATTACH =  2 # deprecated
+DSTATE_RUN_WAIT_END    =  3 # deprecated
 
 """
  Get various information about the current debug event
@@ -5675,22 +5585,7 @@ define_exception = ida_dbg.define_exception
 EXC_BREAK  = 0x0001 # break on the exception
 EXC_HANDLE = 0x0002 # should be handled by the debugger?
 
-
-def get_reg_value(name):
-    """
-    Get register value
-
-    @param name: the register name
-
-    @note: The debugger should be running. otherwise the function fails
-           the register name should be valid.
-           It is not necessary to use this function to get register values
-           because a register name in the script will do too.
-
-    @return: register value (integer or floating point)
-    """
-    return ida_dbg.get_reg_val(name)
-
+get_reg_value = ida_dbg.get_reg_val
 
 def set_reg_value(value, name):
     """
@@ -6055,94 +5950,6 @@ def set_flag(off, bit, value):
   else:
     v = v & ~bit
   set_inf_attr(off, v)
-
-#--------------------------------------------------------------------------
-# Compatibility macros (auto-generated part. Comes first so
-# that any re-definition below will override auto-generated part)
-if sys.modules["__main__"].IDAPYTHON_COMPAT_695_API:
-
-    # see header.i.in
-    bc695redef = ida_idaapi.bc695redef
-
-    # although many things have changed in the 'inf' structure,
-    # let's still try and do the best we can here even though
-    # some INF_* accessor enumerators don't exist anymore
-    GetCharPrm=get_inf_attr
-    GetLongPrm=get_inf_attr
-    GetShortPrm=get_inf_attr
-    SetCharPrm=set_inf_attr
-    SetLongPrm=set_inf_attr
-    SetShortPrm=set_inf_attr
-
-    #--------------------------------------------------------------------------
-    # Compatibility macros (non-auto-generated part)
-    def CompileEx(inp, isfile): return compile_idc_file(inp) if isfile else compile_idc_text(inp)
-
-    def WriteMap(filepath):
-        return gen_file(OFILE_MAP, filepath, 0, BADADDR, GENFLG_MAPSEG|GENFLG_MAPNAME)
-
-    def WriteTxt(filepath, ea1, ea2):
-        return gen_file(OFILE_ASM, filepath, ea1, ea2, 0)
-
-    def WriteExe(filepath):
-        return gen_file(OFILE_EXE, filepath, 0, BADADDR, 0)
-
-    UTP_STRUCT = ida_typeinf.UTP_STRUCT
-    UTP_ENUM   = ida_typeinf.UTP_ENUM
-
-
-    def begin_type_updating(utp):
-        """
-        Begin type updating. Use this function if you
-        plan to call AddEnumConst or similar type modification functions
-        many times or from inside a loop
-
-        @param utp: one of UTP_xxxx consts
-        @return: None
-        """
-        return ida_typeinf.begin_type_updating(utp)
-
-
-    def end_type_updating(utp):
-        """
-        End type updating. Refreshes the type system
-        at the end of type modification operations
-
-        @param utp: one of ida_typeinf.UTP_xxxx consts
-        @return: None
-        """
-        return ida_typeinf.end_type_updating(utp)
-
-    from idc_bc695 import *
-
-    SendDbgCommand=send_dbg_command
-
-    def MakeFunction(start, end=ida_idaapi.BADADDR):
-        return ida_funcs.add_func(start, end)
-
-    ApplyType = apply_type
-    GetManyBytes = get_bytes
-    GetString = get_strlit_contents
-    ClearTraceFile = clear_trace
-    def FindBinary(ea, flag, searchstr, radix=16):
-        return find_binary(ea, flag, searchstr, radix, from_bc695=True)
-    def FindText(ea, flag, y, x, text):
-        return find_text(ea, flag, y, x, text, from_bc695=True)
-    NextHead = next_head
-    ParseTypes = parse_decls
-    PrevHead = prev_head
-    ProcessUiAction = process_ui_action
-    SaveBase = save_database
-    Eval = eval_idc
-    def MakeStr(ea, endea):
-        return create_strlit(ea, endea)
-
-    def GetProcessorName():
-        return ida_ida.cvar.inf.procname
-
-    def SegStart(ea): return get_segm_start(ea)
-    def SegEnd(ea): return get_segm_end(ea)
-    def SetSegmentType(ea, type): return set_segm_type(ea, type)
 
 # Convenience functions:
 def here(): return get_screen_ea()

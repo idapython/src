@@ -14,6 +14,10 @@
 %ignore get_printable_immvals;
 %rename (get_printable_immvals) py_get_printable_immvals;
 %ignore get_immval;
+%ignore insn_get_next_byte;
+%ignore insn_get_next_word;
+%ignore insn_get_next_dword;
+%ignore insn_get_next_qword;
 %ignore insn_create_op_data;
 
 %ignore construct_macro;
@@ -72,18 +76,20 @@
 
   void assign(const insn_t &other) { *($self) = other; }
 
+  bool is_canon_insn() const { return $self->is_canon_insn(PH); }
+  uint32 get_canon_feature() const { return $self->get_canon_feature(PH); }
+  const char *get_canon_mnem() const { return $self->get_canon_mnem(PH); }
+
   %pythoncode {
     ops = property(__get_ops__)
-#ifdef BC695
-    if _BC695:
-        Operands = ops
-#endif
     Op1 = property(lambda self: self.__get_operand__(0))
     Op2 = property(lambda self: self.__get_operand__(1))
     Op3 = property(lambda self: self.__get_operand__(2))
     Op4 = property(lambda self: self.__get_operand__(3))
     Op5 = property(lambda self: self.__get_operand__(4))
     Op6 = property(lambda self: self.__get_operand__(5))
+    Op7 = property(lambda self: self.__get_operand__(6))
+    Op8 = property(lambda self: self.__get_operand__(7))
 
     auxpref = property(__get_auxpref__, __set_auxpref__)
 
@@ -110,6 +116,8 @@
   // use ea_t so the right value decoders will be used (for the next three)
   ea_t __get_value__() { return $self->value; }
   void __set_value__(ea_t v) { $self->value = v; }
+  uint64 __get_value64__() { return *((uint64 *)&$self->value); }
+  void __set_value64__(uint64 v) { *((uint64 *)&$self->value) = v; }
   ea_t __get_addr__() { return $self->addr; }
   void __set_addr__(ea_t v) { $self->addr = v; }
   ea_t __get_specval__() { return $self->specval; }
@@ -125,6 +133,7 @@
     reg = property(__get_reg_phrase__, __set_reg_phrase__)
     phrase = property(__get_reg_phrase__, __set_reg_phrase__)
     value = property(__get_value__, __set_value__)
+    value64 = property(__get_value64__, __set_value64__)
     addr = property(__get_addr__, __set_addr__)
     specval = property(__get_specval__, __set_specval__)
   }
@@ -143,10 +152,8 @@
 %apply ea_t { adiff_t off };
 %apply ea_t { adiff_t off };
 
-#ifdef PY3
 %apply uchar { char segpref };
 %apply uchar { char insnpref };
-#endif
 
 %include "ua.hpp"
 

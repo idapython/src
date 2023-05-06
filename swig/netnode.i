@@ -73,10 +73,14 @@
 %ignore netnode_inited;
 %ignore netnode_is_available;
 %ignore netnode_copy;
+%ignore netnode_copy2;
+%ignore netnode_copyto2;
 %ignore netnode_altshift;
 %ignore netnode_charshift;
 %ignore netnode_supshift;
 %ignore netnode_altadjust;
+%ignore netnode_altadjust2;
+%ignore altadjust_visitor_t;
 %ignore netnode_exist;
 
 %ignore netnode::truncate_zero_pages;
@@ -103,6 +107,7 @@
 %ignore netnode::setbase;
 
 %ignore netnode::altadjust;
+%ignore netnode::altadjust2;
 %ignore netnode::getblob(qstring *buf, nodeidx_t start, uchar tag);
 %ignore netnode::getblob(void *buf, size_t *bufsize, nodeidx_t start, uchar tag);
 %ignore netnode::getblob_ea(void *buf, size_t *bufsize, ea_t ea, uchar tag);
@@ -110,11 +115,12 @@
 %ignore netnode::validate_names;
 
 %constant nodeidx_t BADNODE = nodeidx_t(-1);
+%constant size_t SIZEOF_nodeidx_t = sizeof(nodeidx_t);
 
 // Renaming one version of hashset() otherwise SWIG will not be able to activate the other one
 %rename (hashset_idx) netnode::hashset(const char *idx, nodeidx_t value, uchar tag=htag);
 
-%apply char { uchar tag };
+%define_netnode_tag_accessors();
 
 %include "netnode.hpp"
 
@@ -130,7 +136,7 @@
       bytevec_t blob;
       if ( self->getblob(&blob, start, uchar(tag)) <= 0 )
         Py_RETURN_NONE;
-      return IDAPyBytes_FromMemAndSize((const char *)blob.begin(), blob.size());
+      return PyBytes_FromStringAndSize((const char *)blob.begin(), blob.size());
     }
 
     PyObject *getclob(nodeidx_t start, char tag)
@@ -138,7 +144,7 @@
       qstring clob;
       if ( self->getblob(&clob, start, uchar(tag)) <= 0 )
         Py_RETURN_NONE;
-      return IDAPyStr_FromUTF8AndSize((const char *)clob.begin(), clob.length());
+      return PyUnicode_FromStringAndSize((const char *)clob.begin(), clob.length());
     }
 
     PyObject *getblob_ea(ea_t ea, char tag)
@@ -146,7 +152,7 @@
       bytevec_t blob;
       if ( self->getblob(&blob, ea, tag) <= 0 )
         Py_RETURN_NONE;
-      return IDAPyBytes_FromMemAndSize((const char *)blob.begin(), blob.size());
+      return PyBytes_FromStringAndSize((const char *)blob.begin(), blob.size());
     }
 
     PyObject *hashstr_buf(const char *idx, char tag=htag)
@@ -156,17 +162,16 @@
       if ( sz < 0 )
         Py_RETURN_NONE;
       else
-        return IDAPyStr_FromUTF8AndSize(buf, sz);
+        return PyUnicode_FromStringAndSize(buf, sz);
     }
 
     bool hashset_buf(const char *idx, PyObject *py_str, char tag=htag)
     {
       qstring buf;
-      return IDAPyStr_AsUTF8(&buf, py_str)
+      return PyUnicode_as_qstring(&buf, py_str)
           && self->hashset(idx, buf.c_str(), buf.length(), uchar(tag));
     }
 
-#ifdef PY3
     bool supset(nodeidx_t alt, const char *value, size_t length=0, uchar tag=stag)
     {
       return self->supset(alt, (void *) value, length, tag);
@@ -176,5 +181,4 @@
     {
       return self->supset_ea(ea, (void *) value, length, tag);
     }
-#endif
 }

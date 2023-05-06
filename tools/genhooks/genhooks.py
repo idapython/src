@@ -7,154 +7,33 @@ from __future__ import print_function
 # convoluted. Especially since it doesn't do that much. Perhaps a good
 # refactoring is in order?
 
+import os
+import sys
 import six
+
+dirname, _ = os.path.split(__file__)
+parent_dirname, _ = os.path.split(dirname)
+if parent_dirname not in sys.path:
+    sys.path.append(parent_dirname)
 
 from argparse import ArgumentParser
 p = ArgumentParser()
 
-p.add_argument("-i", "--input",         required=True,  dest="input",         help="Input file")
-p.add_argument("-o", "--output",        required=True,  dest="output",        help="Output file")
-p.add_argument("-x", "--xml",           required=True,  dest="xml",           help="XML structure containing enumerations information")
-p.add_argument("-c", "--hooks-class",   required=True,  dest="hooks_class",   help="Name of the hooks class")
-p.add_argument("-e", "--enum",          required=True,  dest="enum",          help="Enumeration to look for")
-p.add_argument("-m", "--marker",        required=True,  dest="marker",        help="Marker to look for, to start generating callbacks")
-p.add_argument("-r", "--default-rtype", required=True,  dest="def_rtype",     help="Default return type, for notifications that don't specify it")
-p.add_argument("-n", "--default-rval",  required=True,  dest="def_rval",      help="Default return value, for notifications that don't specify it")
-p.add_argument("-q", "--qualifier",     required=False, dest="qualifier",     help="A possible qualifier, to put in front of enumerators", default="")
-p.add_argument("-R", "--recipe",        required=False, dest="recipe",        help="Special information, needed to generate valid & compatible hooks")
-p.add_argument("-d", "--discard-prefix",required=False, dest="discard_prefix",help="Discard all enum entries starting with the given prefix(es) (multiple prefixes can be specified as a comma-separated list.)")
-p.add_argument("-D", "--discard-doc",   required=False, dest="discard_doc",   help="Typically for kernwin.hpp: ignore enum entries whose documentation starts with the specified pattern (e.g., 'ui:', which is for 'to UI' codes, and not 'from UI' codes)")
-p.add_argument("-s", "--strip-prefix",  required=False, dest="strip_prefix",  help="Strip the given prefix from the enumerator name (e.g., 'ui_', for kernwin.hpp notifications)")
+p.add_argument("-i", "--input",       required=True, help="Input file")
+p.add_argument("-o", "--output",      required=True, help="Output file")
+p.add_argument("-x", "--xml-dir",     required=True, help="XML structure containing enumerations information")
+p.add_argument("-c", "--hooks-class", required=True, help="Name of the hooks class")
+p.add_argument("-m", "--marker",      required=True, help="Marker to look for, to start generating callbacks")
+p.add_argument("-q", "--qualifier",   required=False, help="A possible qualifier, to put in front of enumerators", default="")
 args = p.parse_args()
 
 def warn(msg):
     print("#### WARNING: %s" % msg)
 
-if args.recipe:
-    exec(open(args.recipe).read())
-else:
-    recipe = {}
-
-from xml.dom import *
-import xml.etree.ElementTree as ET
-tree = ET.parse(args.xml)
-
-# Find enum def
-enum_el = tree.find(".//memberdef[@kind='enum']/[name='%s']" % args.enum)
-
-
-def parse_return_type(desc):
-    default = None
-    import re
-    m = re.match(r".*\(default=([^\)]*)\).*", desc)
-    if m:
-        default = m.group(1)
-    if desc.startswith("void"):
-        return "void", default
-    else:
-        return parse_param_type(desc), default
-
-def parse_param_type(desc):
-    if desc.startswith("("):
-        import re
-        m = re.match(r"\(([^\)]*)\)\s*.*", desc)
-        if m:
-            ptype = m.group(1)
-            return ptype.lstrip(":").replace(" ::", " ")
-
-def collect_all_text(el):
-    bits = []
-    for txt in el.itertext():
-        bits.append(txt)
-    return "".join(bits)
-
-enumerators = []
-def add_enum_value(enumval_el, name, enum_name):
-    if not name.startswith("OBSOLETE"):
-        params = []
-
-        # Return type
-        ret_el = enumval_el.find(".//simplesect[@kind='return']")
-        rdata = {"name" : "<return>"}
-        rtype = None
-        rdefault = None
-        rexpr = None
-        recipe_data = recipe.get(name, {})
-
-        if "ignore" in recipe_data and recipe_data["ignore"]:
-            return
-
-        return_data = recipe_data["return"] if (recipe_data and "return" in recipe_data) else {}
-        if "type" in return_data:
-            rtype = return_data["type"]
-        elif ret_el is not None:
-            rdesc = ret_el.find("para").text
-            rtype, rdefault = parse_return_type(rdesc)
-
-        if rtype is None:
-            rtype = args.def_rtype
-
-        if rtype != "void" and rdefault is None:
-            rdefault = args.def_rval
-            assert(rdefault is not None)
-
-        if "default" in return_data:
-            rdefault = return_data["default"]
-        if "retexpr" in return_data:
-            rexpr = return_data["retexpr"]
-
-        params.append({
-            "name" : "<return>",
-            "type" : rtype,
-            "default" : rdefault,
-            "retexpr" : rexpr,
-            })
-
-        # Parameters
-        plist_el = enumval_el.find(".//parameterlist")
-        if plist_el is not None:
-            for pitem_el in plist_el.findall("./parameteritem"):
-                pname = pitem_el.find(".//parametername").text
-                if pname != "none" and pname != "...":
-                    pdesc = collect_all_text(pitem_el.find(".//parameterdescription/para"))
-                    ptype = parse_param_type(pdesc)
-                    if ptype is None:
-                        warn("Couldn't parse parameter description: \"%s\". Dropping notification \"%s\" altogether" % (pdesc, name))
-                        return
-                    params.append({
-                        "name" : pname,
-                        "type" : ptype,
-                        })
-
-        # added parameters
-        if "add_params" in recipe_data:
-            params.extend(recipe_data["add_params"])
-
-        enumerators.append({"name" : name, "params" : params, "enum_name" : enum_name})
-
-
-# for each enum value...
-for enumval_el in enum_el.findall("./enumvalue"):
-    discarded = False
-    enum_name = enumval_el.find("./name").text
-    name = enum_name
-    if args.discard_prefix:
-        for pfx in args.discard_prefix.split(","):
-            if name.startswith(pfx):
-                discarded = True
-                break
-    if not discarded and args.discard_doc:
-        discarded = collect_all_text(enumval_el.find("./detaileddescription")).strip().startswith(args.discard_doc) or \
-                    collect_all_text(enumval_el.find("./briefdescription")).strip().startswith(args.discard_doc)
-    if not discarded:
-        if args.strip_prefix:
-            pfxes = args.strip_prefix.split(",")
-            for pfx in pfxes:
-                if name.startswith(pfx):
-                    name = name[len(pfx):]
-                    break
-        add_enum_value(enumval_el, name, enum_name)
-
+import hooks_utils
+enum_info = hooks_utils.get_hooks_enum_information(args.hooks_class)
+recipe = enum_info.recipe
+enumerators = hooks_utils.get_hooks_enumerators(args.xml_dir, args.hooks_class)
 
 def dump():
     for enumerator in enumerators:
@@ -307,14 +186,14 @@ def gen_notifications(out):
 
             pass_expr = pname
             if deref:
-                pass_expr = "%s != NULL ? *(%s) : (%s)" % (
+                pass_expr = "%s != nullptr ? *(%s) : (%s)" % (
                     pname,
                     pname,
                     deref["ifNULL"])
             if clinked:
                 out.write("  ref_t clinked_%s = create_linked_class_instance(%s, %s, %s);\n" %
                           (pname, clinked["module_define"], clinked["class_define"], pname))
-                out.write("  if ( clinked_%s == NULL )\n" % pname)
+                out.write("  if ( clinked_%s == nullptr )\n" % pname)
                 out.write("    break;\n")
                 pass_expr = "clinked_%s.o" % pname
             elif synth:
@@ -391,14 +270,15 @@ const size_t %s::mappings_size = %d;
 
 def gen_safecall(out, class_name):
     out.write("""
-  // This hook gets called from the kernel. Ensure we hold the GIL.
-  PYW_GIL_GET;
   %s *proxy = (%s *) ud;
   ssize_t ret = 0;
   try
   {
     if ( !proxy->has_fixed_method_set() || proxy->has_nondef[int(code)] > 0 )
     {
+      // This hook gets called from the kernel. Ensure we hold the GIL.
+      PYW_GIL_GET;
+
       if ( proxy->call_requires_new_execution() )
       {
         new_execution_t exec;
@@ -412,8 +292,8 @@ def gen_safecall(out, class_name):
   }
   catch ( Swig::DirectorException &e )
   {
+    PYW_GIL_GET;
     msg("Exception in %%s dispatcher function: %%s\\n", proxy->class_name, e.getMessage());
-    PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( PyErr_Occurred() )
       PyErr_Print();
   }

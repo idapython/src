@@ -1,0 +1,103 @@
+<!--
+Used keywords:
+% for keyword in all_keywords:
+  {{keyword}}
+% endfor
+-->
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>IDAPython examples</title>
+    <link rel="stylesheet" href="index.css">
+    <script type="text/javascript" src="index.js"></script>
+  </head>
+
+  <body>
+    <div style="margin:20px 20px 50px 20px">
+      <a href="http://htmlpreview.github.io/?https://github.com/idapython/src/blob/master/examples/index.html">View on GitHub</a>
+    </div>
+    <div class="toplevel-actions" onclick="handle_toplevel_action()">
+      <a href="#" class="exp-col-all expand-all">Expand all</a>
+      |
+      <a href="#" class="exp-col-all collapse-all">Collapse all</a>
+    </div>
+
+    <h1>IDAPython examples:</h1>
+% for category in sorted(examples):
+    <h2>Category: {{category}}</h2>
+    <div class="c_list" onclick="handle_click()">
+  % for example in sorted(examples[category], key=lambda e: e.name):
+      <div class="example-entry collapsed-entry" name="{{example.name}}">
+        <div>
+          <span class="exp-col expander">&#x25B9;</span>
+          <span class="exp-col collapser" style="display:none">&#x25BF;</span>
+        <a href="{{example.path}}">{{example.name}}</a>: <i>{{example.summary}}</i>
+        </div>
+        <div class="details" id="DIV_{{example.name}}">
+
+<pre>
+{{example.description if example.description else example.summary}}
+</pre>
+
+          <ul>
+            <li>Category: {{example.category}}</li>
+            <li>Summary: {{example.summary}}</li>
+            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/{{example.path}}">GitHub</a></li>
+    % if example.keywords:
+            <li>Keywords:
+      % for keyword in example.keywords:
+            {{keyword}}
+      % endfor
+            </li>
+    % endif
+
+    % if example.shortcuts:
+            <li>Shortcut{{'s' if len(example.shortcuts) > 1 else ''}}:
+      % for shortcut in example.shortcuts:
+            {{shortcut}}
+      % endfor
+            </li>
+    % endif
+
+    % if example.imports:
+            <li>Imports
+              <ul>
+      % for imported in example.imports:
+                <li>{{imported}}</li>
+      % endfor
+              </ul>
+            </li>
+    % endif
+
+    % if example.uses:
+            <li>APIs used
+              <ul>
+      % for use in example.uses:
+                <li>{{use}}</li>
+      % endfor
+              </ul>
+            </li>
+    % endif
+
+    % if example.see_also:
+          <li>See also:
+            <ul>
+      % for see in example.see_also:
+              <li><a class="ex_link" href="#{{see}}">{{see}}</a></li>
+      % endfor
+            </ul>
+          </li>
+    % endif
+
+    % if example.author:
+          <li>Author: {{example.author}}</li>
+    % endif
+      </ul>
+        </div>
+      </div>
+  % endfor # examples of a category
+
+    </div>
+% endfor # categories
+  </body>
+</html>

@@ -99,17 +99,18 @@ SEEK_CUR = 1 # from the current position
 SEEK_END = 2 # from the file end
 
 # Plugin constants
-PLUGIN_MOD  = 0x0001
-PLUGIN_DRAW = 0x0002
-PLUGIN_SEG  = 0x0004
-PLUGIN_UNL  = 0x0008
-PLUGIN_HIDE = 0x0010
-PLUGIN_DBG  = 0x0020
-PLUGIN_PROC = 0x0040
-PLUGIN_FIX  = 0x0080
-PLUGIN_SKIP = 0
-PLUGIN_OK   = 1
-PLUGIN_KEEP = 2
+PLUGIN_MOD   = 0x0001
+PLUGIN_DRAW  = 0x0002
+PLUGIN_SEG   = 0x0004
+PLUGIN_UNL   = 0x0008
+PLUGIN_HIDE  = 0x0010
+PLUGIN_DBG   = 0x0020
+PLUGIN_PROC  = 0x0040
+PLUGIN_FIX   = 0x0080
+PLUGIN_MULTI = 0x0100
+PLUGIN_SKIP  = 0
+PLUGIN_OK    = 1
+PLUGIN_KEEP  = 2
 
 # PyIdc conversion object IDs
 PY_ICID_INT64  = 0
@@ -230,6 +231,12 @@ def _bounded_getitem_iterator(self):
 # -----------------------------------------------------------------------
 class plugin_t(pyidc_opaque_object_t):
     """Base class for all scripted plugins."""
+    def run(self, arg): pass
+    def term(self): pass
+
+# -----------------------------------------------------------------------
+class plugmod_t(pyidc_opaque_object_t):
+    """Base class for all scripted multi-plugins."""
     pass
 
 # -----------------------------------------------------------------------
@@ -306,7 +313,7 @@ class PyIdc_cvt_refclass__(pyidc_cvt_helper__):
 def as_cstr(val):
     """
     Returns a C str from the passed value. The passed value can be of type refclass (returned by a call to buffer() or byref())
-    It scans for the first \x00 and returns the string value up to that point.
+    It scans for the first \\x00 and returns the string value up to that point.
     """
     if isinstance(val, PyIdc_cvt_refclass__):
         val = val.value
@@ -344,6 +351,12 @@ def as_signed(v, nbits = 32):
     The MSB holds the sign.
     """
     return -(( ~v & ((1 << nbits)-1) ) + 1) if v & (1 << nbits-1) else v
+
+# ----------------------------------------------------------------------
+def TRUNC(ea):
+    """ Truncate EA for the current application bitness"""
+    import _ida_ida
+    return (ea & 0xFFFFFFFFFFFFFFFF) if _ida_ida.inf_is_64bit() else (ea & 0xFFFFFFFF)
 
 # ----------------------------------------------------------------------
 def copy_bits(v, s, e=-1):
@@ -437,32 +450,45 @@ def IDAPython_FormatExc(etype, value=None, tb=None, limit=None):
 
 
 # ------------------------------------------------------------
-def IDAPython_ExecScript(script, g, print_error=True):
+def IDAPython_ExecScript(path, g, print_error=True):
     """
     Run the specified script.
-    It also addresses http://code.google.com/p/idapython/issues/detail?id=42
 
     This function is used by the low-level plugin code.
     """
-    script = _utf8_native(script)
-    scriptpath = os.path.dirname(script)
-    if len(scriptpath) and scriptpath not in sys.path:
-        sys.path.append(scriptpath)
+    path = _utf8_native(path)
+    path_dir = os.path.dirname(path)
+    if len(path_dir) and path_dir not in sys.path:
+        sys.path.append(path_dir)
 
     argv = sys.argv
-    sys.argv = [ script ]
+    sys.argv = [path]
 
     # Adjust the __file__ path in the globals we pass to the script
     FILE_ATTR = "__file__"
     has__file__ = FILE_ATTR in g
     if has__file__:
         old__file__ = g[FILE_ATTR]
-    g[FILE_ATTR] = script
+    g[FILE_ATTR] = path
 
     try:
-        with open(script) as fin:
-            code = compile(fin.read(), script, 'exec')
+        if sys.version_info.major >= 3:
+            with open(path, "rb") as fin:
+                raw = fin.read()
+            encoding = "UTF-8" # UTF-8 by default: https://www.python.org/dev/peps/pep-3120/
+
+            # Look for a 'coding' comment
+            encoding_pat = re.compile(r'\s*#.*coding[:=]\s*([-\w.]+).*')
+            for line in raw.decode("ASCII", errors='replace').split("\n"):
+                match = encoding_pat.match(line)
+                if match:
+                    encoding = match.group(1)
+                    break
+
+            code = compile(raw.decode(encoding), path, 'exec')
             exec(code, g)
+        else:
+            execfile(path, g)
         PY_COMPILE_ERR = None
     except Exception as e:
         PY_COMPILE_ERR = "%s\n%s" % (str(e), traceback.format_exc())
@@ -479,23 +505,19 @@ def IDAPython_ExecScript(script, g, print_error=True):
     return PY_COMPILE_ERR
 
 # ------------------------------------------------------------
-def IDAPython_LoadProcMod(script, g, print_error=True):
+def IDAPython_LoadProcMod(path, g, print_error=True):
     """
     Load processor module.
     """
-    script = _utf8_native(script)
+    path = _utf8_native(path)
     pname = g['__name__'] if g and "__name__" in g else '__main__'
     parent = sys.modules[pname]
-
-    scriptpath, scriptname = os.path.split(script)
-    if len(scriptpath) and scriptpath not in sys.path:
-        sys.path.append(scriptpath)
-
-    procmod_name = os.path.splitext(scriptname)[0]
+    path_dir, path_fname = os.path.split(path)
+    procmod_name = os.path.splitext(path_fname)[0]
     procobj = None
     fp = None
     try:
-        fp, pathname, description = imp.find_module(procmod_name)
+        fp, pathname, description = imp.find_module(procmod_name, [path_dir])
         procmod = imp.load_module(procmod_name, fp, pathname, description)
         if parent:
             setattr(parent, procmod_name, procmod)
@@ -513,9 +535,8 @@ def IDAPython_LoadProcMod(script, g, print_error=True):
         if print_error:
             print(PY_COMPILE_ERR)
     finally:
-        if fp: fp.close()
-
-    sys.path.remove(scriptpath)
+        if fp:
+            fp.close()
 
     return (PY_COMPILE_ERR, procobj)
 
@@ -528,8 +549,8 @@ def IDAPython_UnLoadProcMod(script, g, print_error=True):
     pname = g['__name__'] if g and "__name__" in g else '__main__'
     parent = sys.modules[pname]
 
-    scriptname = os.path.split(script)[1]
-    procmod_name = os.path.splitext(scriptname)[0]
+    script_fname = os.path.split(script)[1]
+    procmod_name = os.path.splitext(script_fname)[0]
     if getattr(parent, procmod_name, None):
         delattr(parent, procmod_name)
         del sys.modules[procmod_name]
@@ -760,33 +781,28 @@ class IDAPython_displayhook:
 _IDAPython_displayhook = IDAPython_displayhook()
 sys.displayhook = _IDAPython_displayhook.displayhook
 
-# ----------------------------------- helpers for bw-compat w/ 6.95 API
-class __BC695:
-    def __init__(self):
-        self.FIXME = "FIXME @arnaud"
+def _make_one_time_warning_message(bad_attr, new_attr):
+    warned = [False]
+    def f():
+        if not warned[0]:
+            import traceback
+            # skip two frames to get the actual line which triggered the  access
+            f = sys._getframe().f_back.f_back
+            traceback.print_stack(f)
+            print("Please use \"%s\" instead of \"%s\" (\"%s\" is kept for backward-compatibility, and will be removed soon.)" % (new_attr, bad_attr, bad_attr))
+            warned[0] = True
+    return f
 
-    def false_p(self, *args):
-        return False
+def _make_missed_695bwcompat_property(bad_attr, new_attr, has_setter):
+    _notify_bwcompat = _make_one_time_warning_message(bad_attr, new_attr)
+    def _getter(self):
+        _notify_bwcompat()
+        return getattr(self, new_attr)
+    def _setter(self, v):
+        _notify_bwcompat()
+        return setattr(self, new_attr, v)
+    return property(_getter, _setter if has_setter else None)
 
-    def identity(self, arg):
-        return arg
 
-    def dummy(self, *args):
-        pass
 
-    def replace_fun(self, new):
-        new.__dict__["bc695redef"] = True
-        _replace_module_function(new)
-
-_BC695 = __BC695()
-
-def _make_badattr_property(bad_attr, new_attr):
-    def _raise(*args):
-        raise AttributeError("Property %s has been replaced with %s" % (bad_attr, new_attr))
-    return property(_raise, _raise)
 #</pycode(py_idaapi)>
-
-#<pycode_BC695(py_idaapi)>
-pycim_get_tcustom_control=pycim_get_widget
-pycim_get_tform=pycim_get_widget
-#</pycode_BC695(py_idaapi)>

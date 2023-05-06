@@ -5,12 +5,7 @@ import re
 import sys
 import six
 import xml.etree.ElementTree as ET
-
-try:
-    from argparse import ArgumentParser
-except:
-    print("Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'")
-    raise
+from argparse import ArgumentParser
 
 parser = ArgumentParser(description='Patch some code generation, so it builds')
 parser.add_argument("-i", "--input", required=True)
@@ -20,7 +15,6 @@ parser.add_argument("-b", "--batch-patches", required=True)
 parser.add_argument("-v", "--verbose", default=False, action="store_true")
 parser.add_argument("-x", "--xml-doc-directory", required=True)
 parser.add_argument("-m", "--module", required=True)
-parser.add_argument("-V", "--apply-valist-patches", default=False, action="store_true")
 args = parser.parse_args()
 
 this_dir, _ = os.path.split(__file__)
@@ -117,9 +111,11 @@ if add_ridb is not None:
 
 # Patch the code
 wrap_regex = re.compile(r"SWIGINTERN PyObject \*_wrap_([a-zA-Z0-9_]*)\(.*")
-director_method_regex = re.compile(r".*((SwigDirector_([a-zA-Z0-9_]*))::([a-zA-Z0-9_]*))\(.*")
+director_method_regex = re.compile(r".*((SwigDirector_([a-zA-Z0-9_]*))::~?([a-zA-Z0-9_]*))\(.*")
 swig_clink_var_get_regex = re.compile(r"SWIGINTERN PyObject \*(Swig_var_[a-zA-Z0-9_]*_get).*")
 swig_clink_var_set_regex = re.compile(r"SWIGINTERN int (Swig_var_[a-zA-Z0-9_]*_set).*")
+SWIG_Python_TypeError_regex = re.compile(".*(SWIG_Python_TypeError)\(const char \*type, PyObject \*obj\).*")
+SwigPyObject_dealloc_regex = re.compile(r"^(SwigPyObject_dealloc)\(PyObject \*v\)$")
 
 all_lines = [
     "#ifdef __NT__\n",
@@ -138,6 +134,7 @@ with open(args.input) as f:
     current_function_proto = None
     current_function_uses_args = False
     current_function_uses_varargs = False
+    current_function_uses_AppendOutput = False
 
     def prepend_subst(subst, to_prepend, orig_line):
         if not isinstance(to_prepend, list):
@@ -176,6 +173,10 @@ with open(args.input) as f:
             m = swig_clink_var_get_regex.match(line)
         if not m:
             m = swig_clink_var_set_regex.match(line)
+        if not m:
+            m = SWIG_Python_TypeError_regex.match(line)
+        if not m:
+            m = SwigPyObject_dealloc_regex.match(line)
         if m:
             stat = STAT_IN_FUNCTION
             entered_function = True
@@ -183,24 +184,60 @@ with open(args.input) as f:
             current_function_proto = line
             current_function_uses_args = False
             current_function_uses_varargs = False
+            current_function_uses_AppendOutput = False
             func_patches = patches.get(current_function, [])[:]
+            if current_function == "SWIG_Python_TypeError":
+                func_patches.append(
+                    (
+                        "repl_text",
+                        (
+                            "#ifndef Py_LIMITED_API // tp_name is not accessible",
+                            (
+                                "      (void) obj;",
+                                "#ifndef Py_LIMITED_API // tp_name is not accessible",
+                            ),
+                        )))
+            elif current_function == "SwigPyObject_dealloc":
+                func_patches.append(
+                    (
+                        "insert_before_text",
+                        (
+                            "printf(\"swig/python detected a memory leak",
+                            (
+                                "#ifdef TESTABLE_BUILD",
+                                "      if ( name == nullptr || strcmp(name, \"std::out_of_range *\") != 0 )",
+                                "        abort();",
+                                "#endif",
+                            ),
+                        ),
+                    ))
             line = line.replace(", ...arg0)", ", ...)")
         else:
-            if line.find("PyArg_UnpackTuple(args") > -1:
+            if line.find("(args") > -1:
                 current_function_uses_args = True
-            elif line.find(" = args;"):
+            elif line.find(" = args;") > -1:
                 current_function_uses_args = True
             elif line.find("varargs") > -1:
                 current_function_uses_varargs = True
+
+            if line.find("SWIG_Python_AppendOutput") > -1:
+                current_function_uses_AppendOutput = True
+            elif line.find("return resultobj;") > -1:
+                if current_function_uses_AppendOutput:
+                    subst = line.rstrip().replace(
+                        "resultobj",
+                        "PyList_Check(resultobj) ? PyList_AsTuple(resultobj) : resultobj"
+                    )
+                    subst = "%s %s" % (subst, patched_cmt)
+
             for patch_kind, patch_data in func_patches:
-                if patch_kind == "va_copy":
-                    if args.apply_valist_patches:
-                        dst_va, src_va = patch_data
-                        target = "%s = *%s;" % (dst_va, src_va)
-                        if line.strip() == target:
-                            subst = "set_vva(%s, *%s); %s" % (dst_va, src_va, patched_cmt)
-                elif patch_kind == "spontaneous_callback_call":
-                    if line.lstrip().startswith("return "):
+                if patch_kind == "spontaneous_callback_call":
+                    if patch_data is not None:
+                        add_gil_lock, try_anchor, catch_anchor = patch_data
+                    else:
+                        add_gil_lock, try_anchor, catch_anchor = True, None, None
+                    if line.lstrip().startswith("return ") \
+                       or catch_anchor and line.rstrip() == catch_anchor:
                         subst = prepend_subst(
                             subst,
                             "  }\n" +
@@ -211,13 +248,23 @@ with open(args.input) as f:
                             "      PyErr_Print();\n"
                             "  }\n",
                             line)
-                    elif line.rstrip().find("c_result = SwigValueInit") > -1:
-                        # vtype = line.strip().split()[0]
-                        # init_line = "  %s c_result = %s(0);" % (vtype, vtype)
+                    elif line.rstrip().find("c_result = SwigValueInit") > -1 \
+                         or line.rstrip().find("qstring c_result;") > -1 \
+                         or try_anchor and line.rstrip() == try_anchor:
+
+                        lines = []
+                        if add_gil_lock:
+                            subst_lines = [
+                                "  PYW_GIL_GET; %s" % patched_cmt,
+                                "  try {"
+                            ]
+                        else:
+                            subst_lines = [
+                                "  try { %s" % patched_cmt
+                            ]
                         subst = append_subst(
                             subst,
-                            "  PYW_GIL_GET; %s\n" % patched_cmt +
-                            "  try {",
+                            "\n".join(subst_lines),
                             line)
 
                 elif patch_kind == "repl_text":
@@ -231,7 +278,10 @@ with open(args.input) as f:
                 elif patch_kind == "insert_before_text":
                     idx = line.find(patch_data[0])
                     if idx > -1:
-                        subst = ["%s %s" % (patch_data[1], patched_cmt), line]
+                        repl = patch_data[1]
+                        if not isinstance(repl, str):
+                            repl = "\n".join(repl)
+                        subst = ["%s %s" % (repl, patched_cmt), line]
                 elif patch_kind == "maybe_collect_director_fixed_method_set":
                     if entered_function:
                         subst = [
@@ -241,28 +291,29 @@ with open(args.input) as f:
                                 hooks_class_name, hooks_class_name),
                         ]
                         for forbidden, replacement in (patch_data or []):
-                            subst.append("ensure_no_method_when_no_695_compat(self, \"%s\", \"%s\");" % (
+                            subst.append("ensure_no_method(self, \"%s\", \"%s\");" % (
                                 forbidden, replacement))
 
                 elif patch_kind == "thread_unsafe":
                     if entered_function:
-                        subst = prepend_subst(subst, "  if ( !__chkthr() ) return NULL; %s" % patched_cmt, line)
+                        subst = prepend_subst(subst, "  if ( !__chkthr() ) return nullptr; %s" % patched_cmt, line)
                 elif patch_kind == "requires_idb":
                     if entered_function:
-                        subst = prepend_subst(subst, "  if ( !__chkreqidb() ) return NULL; %s" % patched_cmt, line)
+                        subst = prepend_subst(subst, "  if ( !__chkreqidb() ) return nullptr; %s" % patched_cmt, line)
                 elif patch_kind == "director_method_call_arity_cap":
-                    method_name, args_cfoa, args_cmoa = patch_data
+                    add_gil_lock, method_name, args_cfoa, args_cmoa = patch_data
                     if entered_function:
-                        subst = prepend_subst(
-                            subst,
+                        subst_lines = ["  %s" % patched_cmt]
+                        if add_gil_lock:
+                            subst_lines.append("  PYW_GIL_GET;")
+                        subst_lines.extend(
                             [
-                                "  %s" % patched_cmt,
                                 "  newref_t __method(PyObject_GetAttrString(swig_get_self(), \"%s\"));" % method_name,
                                 "  ssize_t __argcnt = get_callable_arg_count(__method);",
                                 "  if ( __argcnt < 0 )",
                                 "    Swig::DirectorMethodException::raise(\"Error detected when calling '%s.%s'\");" % (hooks_class_name, method_name),
-                            ],
-                            line)
+                            ])
+                        subst = prepend_subst(subst, subst_lines, line)
                     else:
                         add_error = False
                         call_args = None
@@ -275,6 +326,12 @@ with open(args.input) as f:
                             subst = re.sub("\(.*\);", call_args + ";", line)
                             if add_error:
                                 subst = ["#error CHECK_THAT_THIS_WORKS", subst]
+                elif patch_kind == "nullptr_result_on_py_error":
+                    rpfx = "  resultobj = "
+                    idx = line.find(rpfx)
+                    if idx > -1:
+                        repl = line[0:idx+len(rpfx)] + "PyErr_Occurred() != nullptr ? nullptr : " + line[idx+len(rpfx):]
+                        subst = ["%s %s" % (repl, patched_cmt)]
                 else:
                     raise Exception("Unknown patch kind: %s" % patch_kind)
             entered_function = False

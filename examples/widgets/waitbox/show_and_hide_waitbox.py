@@ -1,10 +1,11 @@
+"""
+summary: showing, updating & hiding the progress dialog
 
-#
-# A simple example showing how to use:
-#  ida_kernwin.show_wait_box
-#  ida_kernwin.hide_wait_box
-#  ida_kernwin.replace_wait_box
-#
+description:
+  Using the progress dialog (aka 'wait box') primitives.
+
+keywords: actions
+"""
 
 import time
 import random
@@ -37,10 +38,8 @@ try:
         ida_kernwin.replace_wait_box("Processing; step %d/%d" % (i+1, neas))
 
         if perform_decompilation:
-            try:
-                ida_hexrays.decompile(ida_funcs.get_func(ea))
-            except ida_hexrays.DecompilationFailure as df:
-                print("Decompilation failure: %s" % df)
+            if not ida_hexrays.decompile(ea):
+                print("Decompilation failure: %x" % ea)
 
         time.sleep(step_sleep * random.random())
 finally:

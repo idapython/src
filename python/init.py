@@ -16,6 +16,20 @@ import os
 import sys
 import time
 import warnings
+import os
+import os.path
+
+if os.name == 'nt' and \
+    sys.version_info.major == 3 and \
+    sys.version_info.minor >= 11:
+    # Python 3.11 has a bug with DLLs directory missing from sys.path
+    # so add it if it's not there
+    base = sys.base_exec_prefix
+    dllspath = os.path.join(base, sys.platlibdir)
+    if os.path.exists(dllspath) and dllspath not in sys.path:
+        i = sys.path.index(base) if base in sys.path else len(sys.path)
+        sys.path.insert(i, dllspath)
+
 
 # Prepare sys.path so loading of the shared objects works
 lib_dynload = os.path.join(
@@ -55,8 +69,10 @@ except ImportError as e:
 # -----------------------------------------------------------------------
 class IDAPythonStdOut:
     """
-    Dummy file-like class that receives stout and stderr
+    Dummy file-like class that receives stdout and stderr
     """
+    encoding = "UTF-8"
+
     def write(self, text):
         # NB: in case 'text' is Unicode, msg() will decode it
         # and call msg() to print it
@@ -105,10 +121,20 @@ sys.stdout = sys.stderr = IDAPythonStdOut()
 # Initialize the help, with our own stdin wrapper, that'll query the user
 # -----------------------------------------------------------------------
 import pydoc
-class IDAPythonHelpPrompter:
+class IDAPythonHelpPrompter(object):
     def readline(self):
         return ida_kernwin.ask_str('', 0, 'Help topic?')
-help = pydoc.Helper(input = IDAPythonHelpPrompter(), output = sys.stdout)
+
+class IDAPythonHelp(pydoc.Helper):
+    def __init__(self):
+        super().__init__(input = IDAPythonHelpPrompter(), output = sys.stdout)
+    def help(self, *args):
+        try:
+            return super().help(*args)
+        except ImportError as e:
+            print(e)
+
+help = IDAPythonHelp()
 
 # Assign a default sys.argv
 sys.argv = [""]
@@ -127,11 +153,17 @@ if os.getcwd() in sys.path:
 if not IDAPYTHON_REMOVE_CWD_SYS_PATH:
     sys.path.append(os.getcwd())
 
+# Additional $IDAUSR-derived paths
+if IDAPYTHON_IDAUSR_SYSPATH:
+    idausr_python_list = ida_diskio.get_ida_subdirs("python")
+    for idausr_python in idausr_python_list:
+        one = os.path.join(idausr_python, str(sys.version_info.major))
+        if one not in sys.path:
+            sys.path.append(one)
+
 if IDAPYTHON_COMPAT_AUTOIMPORT_MODULES:
     # Import all the required modules
     from idaapi import get_user_idadir, cvar, Appcall, Form
-    if IDAPYTHON_COMPAT_695_API:
-        from idaapi import Choose2
     from idc      import *
     from idautils import *
     import idaapi

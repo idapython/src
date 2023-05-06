@@ -84,12 +84,12 @@ public:
 
   simpleline_t *get_line(size_t nline)
   {
-    return nline >= lines.size() ? NULL : &lines[nline];
+    return nline >= lines.size() ? nullptr : &lines[nline];
   }
 
   simpleline_t *get_line(place_t *pl)
   {
-    return pl == NULL ? NULL : get_line(((simpleline_place_t *)pl)->n);
+    return pl == nullptr ? nullptr : get_line(((simpleline_place_t *)pl)->n);
   }
 
   size_t count() const
@@ -132,10 +132,10 @@ class py_simplecustview_t
   };
 
   static bool idaapi s_cv_keydown(
-          TWidget * /*cv*/,
-          int vk_key,
-          int shift,
-          void *ud)
+        TWidget * /*cv*/,
+        int vk_key,
+        int shift,
+        void *ud)
   {
     PYW_GIL_GET;
     py_simplecustview_t *_this = (py_simplecustview_t *)ud;
@@ -183,7 +183,7 @@ class py_simplecustview_t
           if ( _this->widget != viewer )
             return 0;
           place_t *place = va_arg(va, place_t *);
-          if ( place == NULL )
+          if ( place == nullptr )
             return 0;
           int *important_lines = va_arg(va, int *);
           return _this->on_hint(place, important_lines, hint) ? 1 : 0;
@@ -196,7 +196,7 @@ class py_simplecustview_t
             break;
         }
         // fallthrough...
-      case ui_term:
+      case ui_database_closed:
         idapython_unhook_from_notification_point(HT_UI, s_ui_cb, _this);
         _this->on_close();
         _this->init_vars();
@@ -209,16 +209,16 @@ class py_simplecustview_t
   //-------------------------------------------------------------------------
   static bool get_color(uint32 *out, ref_t obj)
   {
-    bool ok = PyLong_Check(obj.o);
+    bool ok = PyLong_Check(obj.o) != 0;
     if ( ok )
     {
       *out = uint32(PyLong_AsUnsignedLong(obj.o));
     }
     else
     {
-      ok = IDAPyInt_Check(obj.o) != 0;
+      ok = PyLong_Check(obj.o) != 0;
       if ( ok )
-        *out = uint32(IDAPyInt_AsLong(obj.o));
+        *out = uint32(PyLong_AsLong(obj.o));
     }
     return ok;
   }
@@ -229,9 +229,9 @@ class py_simplecustview_t
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
 
-    if ( IDAPyStr_Check(py) )
+    if ( PyUnicode_Check(py) )
     {
-      IDAPyStr_AsUTF8(&sl.line, py);
+      PyUnicode_as_qstring(&sl.line, py);
       return true;
     }
     Py_ssize_t sz;
@@ -239,10 +239,10 @@ class py_simplecustview_t
       return false;
 
     PyObject *py_val = PyTuple_GetItem(py, 0);
-    if ( !IDAPyStr_Check(py_val) )
+    if ( !PyUnicode_Check(py_val) )
       return false;
 
-    IDAPyStr_AsUTF8(&sl.line, py_val);
+    PyUnicode_as_qstring(&sl.line, py_val);
     uint32 col;
     if ( sz > 1 && get_color(&col, borref_t(PyTuple_GetItem(py, 1))) )
       sl.color = color_t(col);
@@ -259,7 +259,7 @@ class py_simplecustview_t
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CLICK, "i", shift));
     PyW_ShowCbErr(S_ON_CLICK);
-    return py_result != NULL && PyObject_IsTrue(py_result.o);
+    return py_result != nullptr && PyObject_IsTrue(py_result.o);
   }
 
   //--------------------------------------------------------------------------
@@ -269,7 +269,7 @@ class py_simplecustview_t
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_DBL_CLICK, "i", shift));
     PyW_ShowCbErr(S_ON_DBL_CLICK);
-    return py_result != NULL && PyObject_IsTrue(py_result.o);
+    return py_result != nullptr && PyObject_IsTrue(py_result.o);
   }
 
   //--------------------------------------------------------------------------
@@ -277,26 +277,26 @@ class py_simplecustview_t
   void on_curpos_changed()
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CURSOR_POS_CHANGED, NULL));
+    newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CURSOR_POS_CHANGED, nullptr));
     PyW_ShowCbErr(S_ON_CURSOR_POS_CHANGED);
   }
 
   //--------------------------------------------------------------------------
   void on_close()
   {
-    if ( py_self != NULL )
+    if ( py_self != nullptr )
     {
       // Call the close method if it is there and the object is still bound
       if ( (features & HAVE_CLOSE) != 0 )
       {
         PYW_GIL_CHECK_LOCKED_SCOPE();
-        newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CLOSE, NULL));
+        newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CLOSE, nullptr));
         PyW_ShowCbErr(S_ON_CLOSE);
       }
 
       // Cleanup
       Py_DECREF(py_self);
-      py_self = NULL;
+      py_self = nullptr;
     }
   }
 
@@ -313,7 +313,7 @@ class py_simplecustview_t
                     shift));
 
     PyW_ShowCbErr(S_ON_KEYDOWN);
-    return py_result != NULL && PyObject_IsTrue(py_result.o);
+    return py_result && PyObject_IsTrue(py_result.o);
   }
 
   //--------------------------------------------------------------------------
@@ -329,14 +329,14 @@ class py_simplecustview_t
                     bvsz_t(ln)));
 
     PyW_ShowCbErr(S_ON_HINT);
-    bool ok = py_result != NULL
+    bool ok = py_result
            && PyTuple_Check(py_result.o)
            && PyTuple_Size(py_result.o) == 2;
     if ( ok )
     {
-      if ( important_lines != NULL )
+      if ( important_lines != nullptr )
         *important_lines = PyInt_AsLong(PyTuple_GetItem(py_result.o, 0));
-      IDAPyStr_AsUTF8(&hint, PyTuple_GetItem(py_result.o, 1));
+      PyUnicode_as_qstring(&hint, PyTuple_GetItem(py_result.o, 1));
     }
     return ok;
   }
@@ -352,7 +352,7 @@ class py_simplecustview_t
                     PY_BV_SZ,
                     bvsz_t(menu_id)));
     PyW_ShowCbErr(S_ON_POPUP_MENU);
-    return py_result != NULL && PyObject_IsTrue(py_result.o);
+    return py_result && PyObject_IsTrue(py_result.o);
   }
 
   //--------------------------------------------------------------------------
@@ -365,7 +365,7 @@ class py_simplecustview_t
 public:
   py_simplecustview_t()
   {
-    py_this = py_self = py_last_link = NULL;
+    py_this = py_self = py_last_link = nullptr;
     init_vars();
   }
   ~py_simplecustview_t() {}
@@ -376,26 +376,26 @@ public:
   {
     data.clear();
     features = 0;
-    widget = NULL;
+    widget = nullptr;
   }
 
   void close()
   {
-    if ( widget != NULL )
+    if ( widget != nullptr )
       close_widget(widget, WCLS_SAVE | WCLS_CLOSE_LATER);
   }
 
   bool set_range(
-          const place_t *minplace = NULL,
-          const place_t *maxplace = NULL)
+        const place_t *minplace = nullptr,
+        const place_t *maxplace = nullptr)
   {
-    if ( widget == NULL )
+    if ( widget == nullptr )
       return false;
 
     set_custom_viewer_range(
       widget,
-      minplace == NULL ? data.get_min() : minplace,
-      maxplace == NULL ? data.get_max() : maxplace);
+      minplace == nullptr ? data.get_min() : minplace,
+      maxplace == nullptr ? data.get_max() : maxplace);
     return true;
   }
 
@@ -404,12 +404,12 @@ public:
     int *x = 0,
     int *y = 0)
   {
-    return widget == NULL ? NULL : get_custom_viewer_place(widget, mouse, x, y);
+    return widget == nullptr ? nullptr : get_custom_viewer_place(widget, mouse, x, y);
   }
 
   bool refresh()
   {
-    if ( widget == NULL )
+    if ( widget == nullptr )
       return false;
 
     refresh_custom_viewer(widget);
@@ -420,14 +420,14 @@ public:
   {
     // query the cursor position
     int x, y;
-    if ( get_place(mouse, &x, &y) == NULL )
+    if ( get_place(mouse, &x, &y) == nullptr )
       return false;
 
     // query the line at the cursor
     qstring qline;
     get_current_line(&qline, mouse, true);
     const char *line = qline.begin();
-    if ( line == NULL )
+    if ( line == nullptr )
       return false;
 
     if ( x >= (int)qstrlen(line) )
@@ -464,12 +464,12 @@ public:
   bool create(const char *_title, int _features)
   {
     // Already created? (in the instance)
-    if ( widget != NULL )
+    if ( widget != nullptr )
       return true;
 
     // Already created? (in IDA windows list)
     TWidget *found = find_widget(_title);
-    if ( found != NULL )
+    if ( found != nullptr )
       return false;
 
     title    = _title;
@@ -496,7 +496,7 @@ public:
             data.get_min(),
             data.get_max(),
             data.get_min(),
-            (const renderer_info_t *) NULL,
+            (const renderer_info_t *) nullptr,
             data.get_ud(),
             &handlers,
             this);
@@ -558,7 +558,7 @@ public:
     int x, y;
     pl = get_place(mouse, &x, &y);
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( pl == NULL )
+    if ( pl == nullptr )
       Py_RETURN_NONE;
     return Py_BuildValue("(" PY_BV_SZ "ii)", bvsz_t(data.to_lineno(pl)), x, y);
   }
@@ -568,7 +568,7 @@ public:
   {
     simpleline_t *r = data.get_line(nline);
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( r == NULL )
+    if ( r == nullptr )
       Py_RETURN_NONE;
     return Py_BuildValue("(sII)", r->line.c_str(), (unsigned int)r->color, (unsigned int)r->bgcolor);
   }
@@ -596,7 +596,7 @@ public:
   bool init(PyObject *py_link, const char *title)
   {
     // Already created?
-    if ( widget != NULL )
+    if ( widget != nullptr )
       return true;
 
     // Probe callbacks
@@ -628,15 +628,15 @@ public:
     Py_INCREF(py_self);
 
     // Return a reference to the C++ instance (only once)
-    if ( py_this == NULL )
-      py_this = PyCapsule_New(this, VALID_CAPSULE_NAME, NULL);
+    if ( py_this == nullptr )
+      py_this = PyCapsule_New(this, VALID_CAPSULE_NAME, nullptr);
 
     return true;
   }
 
   bool show()
   {
-    if ( widget == NULL && py_last_link != NULL )
+    if ( widget == nullptr && py_last_link != nullptr )
     {
       // Re-create the view (with same previous parameters)
       if ( !init(py_last_link, title.c_str()) )
@@ -644,7 +644,7 @@ public:
     }
 
     // Closed already?
-    if ( widget == NULL )
+    if ( widget == nullptr )
       return false;
 
     display_widget(widget, WOPN_DP_TAB|WOPN_RESTORE);
@@ -653,20 +653,20 @@ public:
 
   bool get_selection(size_t *x1, size_t *y1, size_t *x2, size_t *y2)
   {
-    if ( widget == NULL )
+    if ( widget == nullptr )
       return false;
 
     twinpos_t p1, p2;
     if ( !::read_selection(widget, &p1, &p2) )
       return false;
 
-    if ( y1 != NULL )
+    if ( y1 != nullptr )
       *y1 = data.to_lineno(p1.at);
-    if ( y2 != NULL )
+    if ( y2 != nullptr )
       *y2 = data.to_lineno(p2.at);
-    if ( x1 != NULL )
+    if ( x1 != nullptr )
       *x1 = size_t(p1.x);
-    if ( x2 != NULL )
+    if ( x2 != nullptr )
       *x2 = p2.x;
     return true;
   }
@@ -687,7 +687,7 @@ public:
     PYW_GIL_CHECK_LOCKED_SCOPE();
     return PyCapsule_IsValid(py_this, VALID_CAPSULE_NAME)
          ? (py_simplecustview_t *) PyCapsule_GetPointer(py_this, VALID_CAPSULE_NAME)
-         : NULL;
+         : nullptr;
   }
 
   PyObject *get_pythis()
@@ -708,6 +708,8 @@ public:
 PyObject *pyscv_init(PyObject *py_link, const char *title)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
+  if ( py_link == nullptr )
+    Py_RETURN_NONE;
   py_simplecustview_t *_this = new py_simplecustview_t();
   bool ok = _this->init(py_link, title);
   if ( !ok )
@@ -723,7 +725,7 @@ PyObject *pyscv_init(PyObject *py_link, const char *title)
 bool pyscv_refresh(PyObject *py_this)
 {
   DECL_THIS;
-  return _this != NULL && _this->refresh();
+  return _this != nullptr && _this->refresh();
 }
 
 //--------------------------------------------------------------------------
@@ -731,52 +733,52 @@ PyObject *pyscv_get_current_line(PyObject *py_this, bool mouse, bool notags)
 {
   DECL_THIS;
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( _this == NULL )
+  if ( _this == nullptr )
     Py_RETURN_NONE;
   qstring line;
   _this->get_current_line(&line, mouse, notags);
   if ( line.empty() )
     Py_RETURN_NONE;
-  return IDAPyStr_FromUTF8AndSize(line.c_str(), line.length());
+  return PyUnicode_FromStringAndSize(line.c_str(), line.length());
 }
 
 //--------------------------------------------------------------------------
 bool pyscv_is_focused(PyObject *py_this)
 {
   DECL_THIS;
-  return _this != NULL && _this->is_focused();
+  return _this != nullptr && _this->is_focused();
 }
 
 size_t pyscv_count(PyObject *py_this)
 {
   DECL_THIS;
-  return _this == NULL ? 0 : _this->count();
+  return _this == nullptr ? 0 : _this->count();
 }
 
 bool pyscv_show(PyObject *py_this)
 {
   DECL_THIS;
-  return _this != NULL && _this->show();
+  return _this != nullptr && _this->show();
 }
 
 void pyscv_close(PyObject *py_this)
 {
   DECL_THIS;
-  if ( _this != NULL )
+  if ( _this != nullptr )
     _this->close();
 }
 
 bool pyscv_jumpto(PyObject *py_this, size_t ln, int x, int y)
 {
   DECL_THIS;
-  return _this != NULL && _this->jumpto(ln, x, y);
+  return _this != nullptr && _this->jumpto(ln, x, y);
 }
 
 // Returns the line tuple
 PyObject *pyscv_get_line(PyObject *py_this, size_t nline)
 {
   DECL_THIS;
-  if ( _this == NULL )
+  if ( _this == nullptr )
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     Py_RETURN_NONE;
@@ -789,7 +791,7 @@ PyObject *pyscv_get_line(PyObject *py_this, size_t nline)
 PyObject *pyscv_get_pos(PyObject *py_this, bool mouse)
 {
   DECL_THIS;
-  if ( _this == NULL )
+  if ( _this == nullptr )
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     Py_RETURN_NONE;
@@ -801,7 +803,7 @@ PyObject *pyscv_get_pos(PyObject *py_this, bool mouse)
 PyObject *pyscv_clear_lines(PyObject *py_this)
 {
   DECL_THIS;
-  if ( _this != NULL )
+  if ( _this != nullptr )
     _this->clear();
   PYW_GIL_CHECK_LOCKED_SCOPE();
   Py_RETURN_NONE;
@@ -812,35 +814,35 @@ PyObject *pyscv_clear_lines(PyObject *py_this)
 bool pyscv_add_line(PyObject *py_this, PyObject *py_sl)
 {
   DECL_THIS;
-  return _this != NULL && _this->add_line(py_sl);
+  return _this != nullptr && _this->add_line(py_sl);
 }
 
 //--------------------------------------------------------------------------
 bool pyscv_insert_line(PyObject *py_this, size_t nline, PyObject *py_sl)
 {
   DECL_THIS;
-  return _this != NULL && _this->insert_line(nline, py_sl);
+  return _this != nullptr && _this->insert_line(nline, py_sl);
 }
 
 //--------------------------------------------------------------------------
 bool pyscv_patch_line(PyObject *py_this, size_t nline, size_t offs, int value)
 {
   DECL_THIS;
-  return _this != NULL && _this->patch_line(nline, offs, value);
+  return _this != nullptr && _this->patch_line(nline, offs, value);
 }
 
 //--------------------------------------------------------------------------
 bool pyscv_del_line(PyObject *py_this, size_t nline)
 {
   DECL_THIS;
-  return _this != NULL && _this->del_line(nline);
+  return _this != nullptr && _this->del_line(nline);
 }
 
 //--------------------------------------------------------------------------
 PyObject *pyscv_get_selection(PyObject *py_this)
 {
   DECL_THIS;
-  if ( _this == NULL )
+  if ( _this == nullptr )
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     Py_RETURN_NONE;
@@ -853,11 +855,11 @@ PyObject *pyscv_get_current_word(PyObject *py_this, bool mouse)
 {
   DECL_THIS;
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( _this != NULL )
+  if ( _this != nullptr )
   {
     qstring word;
     if ( _this->get_current_word(mouse, word) )
-      return IDAPyStr_FromUTF8(word.c_str());
+      return PyUnicode_FromString(word.c_str());
   }
   Py_RETURN_NONE;
 }
@@ -867,14 +869,14 @@ PyObject *pyscv_get_current_word(PyObject *py_this, bool mouse)
 bool pyscv_edit_line(PyObject *py_this, size_t nline, PyObject *py_sl)
 {
   DECL_THIS;
-  return _this != NULL && _this->edit_line(nline, py_sl);
+  return _this != nullptr && _this->edit_line(nline, py_sl);
 }
 
 //-------------------------------------------------------------------------
 TWidget *pyscv_get_widget(PyObject *py_this)
 {
   DECL_THIS;
-  return _this == NULL ? NULL : _this->get_widget();
+  return _this == nullptr ? nullptr : _this->get_widget();
 }
 
 

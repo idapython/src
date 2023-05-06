@@ -10,11 +10,17 @@
 %ignore save_lines;
 %ignore align_down_to_stack;
 %ignore align_up_to_stack;
-%ignore bgcolors;
 %ignore encoder_t;
+%ignore file_producer_t;
 
+%typemap(default) const void *owner {
+  $1 = nullptr;
+}
+
+// compat
 %ignore set_user_defined_prefix;
 %rename (set_user_defined_prefix) py_set_user_defined_prefix;
+// end compat
 
 %ignore generate_disassembly;
 %rename (generate_disassembly) py_generate_disassembly;
@@ -40,7 +46,7 @@
   Py_XDECREF(resultobj);
   if (result >= 0)
   {
-    resultobj = IDAPyStr_FromUTF8AndSize((const char *) $1->c_str(), $1->length());
+    resultobj = PyUnicode_FromStringAndSize((const char *) $1->c_str(), $1->length());
   }
   else
   {
@@ -59,7 +65,7 @@
 //</code(py_lines)>
 %}
 
-%nonnul_argument_prototype(
+%pywraps_nonnul_argument_prototype(
         PyObject *py_tag_remove(const char *nonnul_instr),
         const char *nonnul_instr);
 

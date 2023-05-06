@@ -9,45 +9,25 @@ hexrays_failure_t.__str__ = lambda self: str("%x: %s" % (self.errea, self.desc()
 # Renamings
 is_allowed_on_small_struni = accepts_small_udts
 is_small_struni = is_small_udt
+mbl_array_t = mba_t
 
-# ---------------------------------------------------------------------
+# NOTE: Strictly for backward-compatibily reasons (i.e., not
+# to break existing scripts), and will never be thrown.
 class DecompilationFailure(Exception):
-    """
-    Raised on a decompilation error.
+    pass
 
-    The associated hexrays_failure_t object is stored in the
-    'info' member of this exception. """
-
-    def __init__(self, info):
-        Exception.__init__(self, 'Decompilation failed: %s' % (str(info), ))
-        self.info = info
-        return
-
-# ---------------------------------------------------------------------
+# NOTE: We need to keep this `decompile` prototype because some
+# scripts might be passing arguments by keyword
 def decompile(ea, hf=None, flags=0):
-    if isinstance(ea, ida_idaapi.integer_types):
-        func = ida_funcs.get_func(ea)
-        if not func: return
-    elif type(ea) == ida_funcs.func_t:
-        func = ea
-    else:
-        raise RuntimeError('arg 1 of decompile expects either ea_t or cfunc_t argument')
+    """
+    Decompile a function.
 
-    if hf is None:
-        hf = hexrays_failure_t()
-
-    ptr = _ida_hexrays.decompile_func(func, hf, flags)
-
-    if ptr.__deref__() is None:
-        raise DecompilationFailure(hf)
-
-    return ptr
-
-# ---------------------------------------------------------------------
-# stringify all string types
-#qtype.__str__ = qtype.c_str
-#qstring.__str__ = qstring.c_str
-#citem_cmt_t.__str__ = citem_cmt_t.c_str
+    @param ea an address belonging to the function, or an ida_funcs.func_t object
+    @param hf extended error information (if failed)
+    @param flags decomp_flags bitwise combination of `DECOMP_...` bits
+    @return the decompilation result (a `ida_hexrays.cfunc_t` wrapper), or None
+    """
+    return decompile_func(ea, hf, flags)
 
 # ---------------------------------------------------------------------
 # listify all list types
@@ -156,7 +136,7 @@ def cinsn_details(self):
 cinsn_t.details = property(cinsn_details)
 
 cfuncptr_t.__str__ = lambda self: str(self.__deref__())
-cfuncptr_t.__eq__ = lambda self, other: self.__ptrval__() == other.__ptrval__()
+cfuncptr_t.__eq__ = lambda self, other: self.__ptrval__() == other.__ptrval__() if isinstance(other, cfuncptr_t) else False
 
 import ida_typeinf
 def cfunc_type(self):
@@ -169,7 +149,7 @@ def cfunc_type(self):
 cfunc_t.type = property(cfunc_type)
 cfuncptr_t.type = property(lambda self: self.__deref__().type)
 
-cfunc_t.arguments = property(lambda self: [o for o in self.lvars if o.is_arg_var])
+cfunc_t.arguments = property(lambda self: [self.lvars[i] for i in self.argidx])
 cfuncptr_t.arguments = property(lambda self: self.__deref__().arguments)
 
 cfunc_t.lvars = property(cfunc_t.get_lvars)
@@ -464,10 +444,3 @@ def remove_hexrays_callback(callback):
     return 0
 
 #</pycode(py_hexrays)>
-
-#<pycode_BC695(py_hexrays)>
-get_tform_vdui=get_widget_vdui
-hx_get_tform_vdui=hx_get_widget_vdui
-HEXRAYS_API_MAGIC1=(HEXRAYS_API_MAGIC>>32)
-HEXRAYS_API_MAGIC2=(HEXRAYS_API_MAGIC&0xFFFFFFFF)
-#</pycode_BC695(py_hexrays)>

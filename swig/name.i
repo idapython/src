@@ -1,3 +1,8 @@
+
+%{
+#include <demangle.hpp>
+%}
+
 %include "cstring.i"
 %cstring_bounded_output(char *dstname, MAXSTR);
 %cstring_bounded_output(char *buf, MAXSTR);
@@ -60,6 +65,9 @@ inline qstring py_## FNAME(ea_t ea) { return FNAME(ea); }
 %}
 
 %include "name.hpp"
+
+%ignore demangle;
+%include "demangle.hpp"
 
 %inline %{
 //<inline(py_name)>

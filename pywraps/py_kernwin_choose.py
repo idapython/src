@@ -62,17 +62,31 @@ class Choose(object):
     CH_RESTORE       = _ida_kernwin.CH_RESTORE
     """restore floating position if present (equivalent of WOPN_RESTORE) (GUI version only)"""
 
+    CH_RENAME_IS_EDIT = _ida_kernwin.CH_RENAME_IS_EDIT
+    """triggering a 'edit/rename' (i.e., F2 shortcut) on a cell,
+       should call the edit() callback for the corresponding row."""
+
     CH_BUILTIN_SHIFT = _ida_kernwin.CH_BUILTIN_SHIFT
     CH_BUILTIN_MASK = _ida_kernwin.CH_BUILTIN_MASK
 
+    """The chooser can provide a dirtree_t, meaning a tree-like structure
+       can be provided to the user (instead of a flat table)"""
+    CH_HAS_DIRTREE = _ida_kernwin.CH_HAS_DIRTREE
+
+    """The chooser can be used in a diffing/merging workflow"""
+    CH_HAS_DIFF = _ida_kernwin.CH_HAS_DIFF
+
     # column flags (are specified in the widths array)
-    CHCOL_PLAIN  =  _ida_kernwin.CHCOL_PLAIN
-    CHCOL_PATH   =  _ida_kernwin.CHCOL_PATH
-    CHCOL_HEX    =  _ida_kernwin.CHCOL_HEX
-    CHCOL_DEC    =  _ida_kernwin.CHCOL_DEC
-    CHCOL_EA     =  _ida_kernwin.CHCOL_EA
-    CHCOL_FNAME  =  _ida_kernwin.CHCOL_FNAME
-    CHCOL_FORMAT =  _ida_kernwin.CHCOL_FORMAT
+    CHCOL_PLAIN     = _ida_kernwin.CHCOL_PLAIN
+    CHCOL_PATH      = _ida_kernwin.CHCOL_PATH
+    CHCOL_HEX       = _ida_kernwin.CHCOL_HEX
+    CHCOL_DEC       = _ida_kernwin.CHCOL_DEC
+    CHCOL_EA        = _ida_kernwin.CHCOL_EA
+    CHCOL_FNAME     = _ida_kernwin.CHCOL_FNAME
+    CHCOL_FORMAT    = _ida_kernwin.CHCOL_FORMAT
+    CHCOL_DEFHIDDEN = _ida_kernwin.CHCOL_DEFHIDDEN
+    CHCOL_DRAGHINT  = _ida_kernwin.CHCOL_DRAGHINT
+    CHCOL_INODENAME = _ida_kernwin.CHCOL_INODENAME
 
     # special values of the chooser index
     NO_SELECTION   = -1
@@ -88,18 +102,6 @@ class Choose(object):
     NOTHING_CHANGED   = 0
     ALL_CHANGED       = 1
     SELECTION_CHANGED = 2
-
-    # to construct `forbidden_cb`
-    CHOOSE_HAVE_INIT    = 0x0001
-    CHOOSE_HAVE_GETICON = 0x0002
-    CHOOSE_HAVE_GETATTR = 0x0004
-    CHOOSE_HAVE_INS     = 0x0008
-    CHOOSE_HAVE_DEL     = 0x0010
-    CHOOSE_HAVE_EDIT    = 0x0020
-    CHOOSE_HAVE_ENTER   = 0x0040
-    CHOOSE_HAVE_REFRESH = 0x0080
-    CHOOSE_HAVE_SELECT  = 0x0100
-    CHOOSE_HAVE_ONCLOSE = 0x0200
 
     class UI_Hooks_Trampoline(UI_Hooks):
         def __init__(self, v):
@@ -119,7 +121,7 @@ class Choose(object):
                  icon=-1, x1=-1, y1=-1, x2=-1, y2=-1,
                  deflt = None,
                  embedded = False, width = None, height = None,
-                 forbidden_cb = 0):
+                 forbidden_cb = 0, flags2 = 0):
         """
         Constructs a chooser window.
         @param title: The chooser title
@@ -127,6 +129,7 @@ class Choose(object):
             example: [ ["Address", 10 | Choose.CHCOL_HEX],
                        ["Name",    30 | Choose.CHCOL_PLAIN] ]
         @param flags: One of CH_XXXX constants
+        @param flags2: One of CH2_XXXX constants
         @param deflt: The index of the default item (0-based) for single
             selection choosers or the list of indexes for multi selection
             chooser
@@ -142,6 +145,7 @@ class Choose(object):
         """
         self.title = title
         self.flags = flags
+        self.flags2 = flags2
         self.cols = cols
         if deflt == None:
           deflt = 0 if (flags & Choose.CH_MULTI) == 0 else [0]
@@ -248,7 +252,7 @@ class Choose(object):
         @param: line number of the remaining select item
         @return: list of selected lines numbers (one element or empty)
         """
-        cnt = self.OnGetSize();
+        cnt = self.OnGetSize()
         if cnt == 0:
             return []
         # take in account deleting of the last item(s)
@@ -273,5 +277,172 @@ class Choose(object):
 
     def OnPopup(self, widget, popup_handle):
         self._quick_commands.populate_popup(widget, popup_handle)
+
+    def OnInit(self):
+        """
+        Initialize the chooser and populate it.
+
+        This callback is optional
+        """
+        pass
+
+    def OnGetSize(self):
+        """
+        Get the number of elements in the chooser.
+
+        This callback is mandatory
+
+        @return the number of elements
+        """
+        pass
+
+    def OnGetLine(self, n):
+        """
+        Get data for an element
+
+        This callback is mandatory
+
+        @param n the index to fetch data for
+        @return a list of strings
+        """
+        pass
+
+    def OnGetIcon(self, n):
+        """
+        Get an icon to associate with the first cell of an element
+
+        @param n index of the element
+        @return an icon ID
+        """
+        pass
+
+    def OnGetLineAttr(self, n):
+        """
+        Get attributes for an element
+
+        @param n index of the element
+        @return a tuple (color, flags)
+        """
+        pass
+
+    def OnInsertLine(self, sel):
+        """
+        User asked to insert an element
+
+        @param sel the current selection
+        @return a tuple (changed, selection)
+        """
+        pass
+
+    def OnDeleteLine(self, sel):
+        """
+        User deleted an element
+
+        @param sel the current selection
+        @return a tuple (changed, selection)
+        """
+        pass
+
+    def OnEditLine(self, sel):
+        """
+        User asked to edit an element.
+
+        @param sel the current selection
+        @return a tuple (changed, selection)
+        """
+        pass
+
+    def OnSelectLine(self, sel):
+        """
+        User pressed the enter key, or double-clicked a selection
+
+        @param sel the current selection
+        @return a tuple (changed, selection)
+        """
+        pass
+
+    def OnSelectionChange(self, sel):
+        """
+        Selection changed
+
+        @param sel the new selection
+        """
+        pass
+
+    def OnRefresh(self, sel):
+        """
+        The chooser needs to be refreshed.
+        It returns the new positions of the selected items.
+
+        @param sel the current selection
+        @return a tuple (changed, selection)
+        """
+        pass
+
+    def OnClose(self):
+        """
+        The chooser window is closed.
+        """
+        pass
+
+    def OnGetEA(self, n):
+        """
+        Get the address of an element
+
+        When this function returns valid addresses:
+          * If any column has the `CHCOL_FNAME` flag, rows will
+            be colored according to the attributes of the functions
+            who own those addresses (extern, library function,
+            Lumina, ... - similar to what the "Functions" widget does)
+          * When a selection is present and the user presses `<Enter>`
+            (`<Shift+Enter>` if the chooser is modal), IDA will jump
+            to that address (through jumpto())
+        @param n element number (0-based)
+        @return the effective address, ida_idaapi.BADADDR if the element has no address
+        """
+        pass
+
+    def OnGetDirTree(self):
+        """
+        Get the dirtree_t that will be used to present a tree-like
+        structure to the user (see CH_HAS_DIRTREE)
+
+        @return the dirtree_t, or None
+        """
+        pass
+
+    def OnIndexToInode(self, n):
+        """
+        Map an element index to a dirtree_t inode
+
+        This callback is mandatory if CH_HAS_DIRTREE is specified
+
+        @param n index of the element
+        @return the inode number
+        """
+        pass
+
+    def OnIndexToDiffpos(self, n):
+        """
+        Map an element index to a diffpos_t
+
+        This callback is mandatory if CH_HAS_DIFF is specified
+
+        @param n index of the element
+        @return the diffpos
+        """
+        pass
+
+    def OnLazyLoadDir(self, path):
+        """
+        Callback for lazy-loaded, dirtree-based choosers;
+        the function will be called when a folder is expanded and it has
+        not been loaded before. The implementation should use the
+        given dirtree's link() or mkdir() methods to add the folder contents.
+
+        @param path an absolute dirtree path to the directory that is being expanded
+        @return success
+        """
+        pass
 
 #</pycode(py_kernwin_choose)>

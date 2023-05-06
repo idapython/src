@@ -1,14 +1,47 @@
-""" Invert the then and else blocks of a cif_t.
-
-Author: EiNSTeiN_ <einstein@g3nius.org>
-
-This is a rewrite in Python of the vds3 example that comes with hexrays sdk.
 """
+summary: invert if/else blocks
+
+description:
+  Registers an action that can be used to invert the `if`
+  and `else` blocks of a `ida_hexrays.cif_t`.
+
+  For example, a statement like
+
+      if ( cond )
+      {
+        statements1;
+      }
+      else
+      {
+        statements2;
+      }
+
+  will be displayed as
+
+      if ( !cond )
+      {
+        statements2;
+      }
+      else
+      {
+        statements1;
+      }
+
+  The modifications are persistent: the user can quit & restart
+  IDA, and the changes will be present.
+
+author: EiNSTeiN_ (einstein@g3nius.org)
+"""
+
 from __future__ import print_function
 
 import idautils
-import idaapi
-import idc
+
+import ida_kernwin
+import ida_hexrays
+import ida_netnode
+import ida_idaapi
+import ida_idp
 
 import traceback
 
@@ -16,20 +49,20 @@ NETNODE_NAME = '$ hexrays-inverted-if'
 
 inverter_actname = "vds3:invert"
 
-class invert_action_handler_t(idaapi.action_handler_t):
+class invert_action_handler_t(ida_kernwin.action_handler_t):
     def __init__(self, inverter):
-        idaapi.action_handler_t.__init__(self)
+        ida_kernwin.action_handler_t.__init__(self)
         self.inverter = inverter
 
     def activate(self, ctx):
-        vdui = idaapi.get_widget_vdui(ctx.widget)
+        vdui = ida_hexrays.get_widget_vdui(ctx.widget)
         self.inverter.invert_if_event(vdui)
         return 1
 
     def update(self, ctx):
-        return idaapi.AST_ENABLE_FOR_WIDGET if \
-            ctx.widget_type == idaapi.BWN_PSEUDOCODE else \
-            idaapi.AST_DISABLE_FOR_WIDGET
+        return ida_kernwin.AST_ENABLE_FOR_WIDGET if \
+            ctx.widget_type == ida_kernwin.BWN_PSEUDOCODE else \
+            ida_kernwin.AST_DISABLE_FOR_WIDGET
 
 
 class hexrays_callback_info(object):
@@ -37,7 +70,7 @@ class hexrays_callback_info(object):
     def __init__(self):
         self.vu = None
 
-        self.node = idaapi.netnode()
+        self.node = ida_netnode.netnode()
         if not self.node.create(NETNODE_NAME):
             # node exists
             self.load()
@@ -53,7 +86,7 @@ class hexrays_callback_info(object):
         try:
             data = self.node.getblob(0, 'I')
             if data:
-                self.stored = eval(data)
+                self.stored = eval(data.decode("UTF-8"))
                 print('Invert-if: Loaded %s' % (repr(self.stored), ))
         except:
             print('Failed to load invert-if locations')
@@ -65,7 +98,7 @@ class hexrays_callback_info(object):
     def save(self):
 
         try:
-            self.node.setblob(repr(self.stored), 0, 'I')
+            self.node.setblob(repr(self.stored).encode("UTF-8"), 0, 'I')
         except:
             print('Failed to save invert-if locations')
             traceback.print_exc()
@@ -73,7 +106,7 @@ class hexrays_callback_info(object):
 
         return
 
-    def invert_if(self, cfunc, insn):
+    def invert_if(self, insn):
 
         if insn.opname != 'if':
             return False
@@ -83,12 +116,12 @@ class hexrays_callback_info(object):
         if not cif.ithen or not cif.ielse:
             return False
 
-        idaapi.qswap(cif.ithen, cif.ielse)
+        ida_hexrays.qswap(cif.ithen, cif.ielse)
         # Make a copy of 'cif.expr': 'lnot' might destroy its toplevel
         # cexpr_t and return a pointer to its direct child (but we'll want to
         # 'swap' it later, the 'cif.expr' cexpr_t object must remain valid.)
-        cond = idaapi.cexpr_t(cif.expr)
-        notcond = idaapi.lnot(cond)
+        cond = ida_hexrays.cexpr_t(cif.expr)
+        notcond = ida_hexrays.lnot(cond)
 
         cif.expr.swap(notcond)
 
@@ -104,26 +137,26 @@ class hexrays_callback_info(object):
 
     def find_if_statement(self, vu):
 
-        vu.get_current_item(idaapi.USE_KEYBOARD)
+        vu.get_current_item(ida_hexrays.USE_KEYBOARD)
         item = vu.item
 
-        if item.is_citem() and item.it.op == idaapi.cit_if and item.it.to_specific_type.cif.ielse is not None:
+        if item.is_citem() and item.it.op == ida_hexrays.cit_if and item.it.to_specific_type.cif.ielse is not None:
             return item.it.to_specific_type
 
-        if vu.tail.citype == idaapi.VDI_TAIL and vu.tail.loc.itp == idaapi.ITP_ELSE:
+        if vu.tail.citype == ida_hexrays.VDI_TAIL and vu.tail.loc.itp == ida_hexrays.ITP_ELSE:
             # for tail marks, we know only the corresponding ea,
             # not the pointer to if-statement
             # find it by walking the whole ctree
-            class if_finder_t(idaapi.ctree_visitor_t):
+            class if_finder_t(ida_hexrays.ctree_visitor_t):
                 def __init__(self, ea):
-                    idaapi.ctree_visitor_t.__init__(self, idaapi.CV_FAST | idaapi.CV_INSNS)
+                    ida_hexrays.ctree_visitor_t.__init__(self, ida_hexrays.CV_FAST | ida_hexrays.CV_INSNS)
 
                     self.ea = ea
                     self.found = None
                     return
 
                 def visit_insn(self, i):
-                    if i.op == idaapi.cit_if and i.ea == self.ea:
+                    if i.op == ida_hexrays.cit_if and i.ea == self.ea:
                         self.found = i
                         return 1 # stop enumeration
                     return 0
@@ -136,12 +169,11 @@ class hexrays_callback_info(object):
 
     def invert_if_event(self, vu):
 
-        cfunc = vu.cfunc.__deref__()
         i = self.find_if_statement(vu)
         if not i:
             return False
 
-        if self.invert_if(cfunc, i):
+        if self.invert_if(i):
             vu.refresh_ctext()
             self.add_location(i.ea)
 
@@ -149,18 +181,18 @@ class hexrays_callback_info(object):
 
     def restore(self, cfunc):
 
-        class visitor(idaapi.ctree_visitor_t):
+        class visitor(ida_hexrays.ctree_visitor_t):
 
             def __init__(self, inverter, cfunc):
-                idaapi.ctree_visitor_t.__init__(self, idaapi.CV_FAST | idaapi.CV_INSNS)
+                ida_hexrays.ctree_visitor_t.__init__(self, ida_hexrays.CV_FAST | ida_hexrays.CV_INSNS)
                 self.inverter = inverter
                 self.cfunc = cfunc
                 return
 
             def visit_insn(self, i):
                 try:
-                    if i.op == idaapi.cit_if and i.ea in self.inverter.stored:
-                        self.inverter.invert_if(self.cfunc, i)
+                    if i.op == ida_hexrays.cit_if and i.ea in self.inverter.stored:
+                        self.inverter.invert_if(i)
                 except:
                     traceback.print_exc()
                 return 0 # continue enumeration
@@ -170,31 +202,57 @@ class hexrays_callback_info(object):
         return
 
 
-class vds3_hooks_t(idaapi.Hexrays_Hooks):
+class vds3_hooks_t(ida_hexrays.Hexrays_Hooks):
     def __init__(self, i):
-        idaapi.Hexrays_Hooks.__init__(self)
+        ida_hexrays.Hexrays_Hooks.__init__(self)
         self.i = i
 
     def populating_popup(self, widget, phandle, vu):
-        idaapi.attach_action_to_popup(vu.ct, None, inverter_actname)
+        ida_kernwin.attach_action_to_popup(vu.ct, None, inverter_actname)
         return 0
 
     def maturity(self, cfunc, maturity):
-        if maturity == idaapi.CMAT_FINAL:
+        if maturity == ida_hexrays.CMAT_FINAL:
             self.i.restore(cfunc)
         return 0
 
+class idp_hooks_t(ida_idp.IDP_Hooks):
+    def __init__(self, i):
+        ida_idp.IDP_Hooks.__init__(self)
+        self.i = i
 
-if idaapi.init_hexrays_plugin():
-    i = hexrays_callback_info()
-    idaapi.register_action(
-        idaapi.action_desc_t(
-            inverter_actname,
-            "Invert then/else",
-            invert_action_handler_t(i),
-            "I"))
-    vds3_hooks = vds3_hooks_t(i)
-    vds3_hooks.hook()
-else:
-    print('invert-if: hexrays is not available.')
+    # 'node' refers to index of the named node, this index became invalid after
+    # privrange moving, so we recreate the node here to update nodeidx
+    def ev_privrange_changed(self, old_privrange, delta):
+        i.node.create(NETNODE_NAME)
 
+
+# a plugin interface, boilerplate code
+class my_plugin_t(ida_idaapi.plugin_t):
+    flags = ida_idaapi.PLUGIN_HIDE
+    wanted_name = "Hex-Rays if-inverter (IDAPython)"
+    wanted_hotkey = ""
+    comment = "Sample plugin3 for Hex-Rays decompiler"
+    help = ""
+    def init(self):
+        if ida_hexrays.init_hexrays_plugin():
+            i = hexrays_callback_info()
+            ida_kernwin.register_action(
+                ida_kernwin.action_desc_t(
+                    inverter_actname,
+                    "Invert then/else",
+                    invert_action_handler_t(i),
+                    "I"))
+            self.vds3_hooks = vds3_hooks_t(i)
+            self.vds3_hooks.hook()
+            # we need this hook to react to privrange moving event
+            self.idp_hooks = idp_hooks_t(i)
+            self.idp_hooks.hook()
+            return ida_idaapi.PLUGIN_KEEP # keep us in the memory
+    def term(self):
+        self.vds3_hooks.unhook()
+    def run(self, arg):
+        pass
+
+def PLUGIN_ENTRY():
+    return my_plugin_t()

@@ -1,3 +1,28 @@
+"""
+summary: better integrating custom widgets in the desktop layout
+
+description:
+  This is an example demonstrating how one can create widgets from a plugin,
+  and have them re-created automatically at IDA startup-time or at desktop load-time.
+
+  This example should be placed in the 'plugins' directory of the
+  IDA installation, for it to work.
+
+  There are 2 ways to use this example:
+  1) reloading an IDB, where the widget was opened
+     - open the widget ('View > Open subview > ...')
+     - save this IDB, and close IDA
+     - restart IDA with this IDB
+       => the widget will be visible
+
+  2) reloading a desktop, where the widget was opened
+     - open the widget ('View > Open subview > ...')
+     - save the desktop ('Windows > Save desktop...') under, say, the name 'with_auto'
+     - start another IDA instance with some IDB, and load that desktop
+       => the widget will be visible
+
+keywords: desktop
+"""
 
 import ida_idaapi
 import ida_kernwin
@@ -13,26 +38,7 @@ class auto_inst_t(ida_kernwin.simplecustviewer_t):
         if not ida_kernwin.simplecustviewer_t.Create(self, title):
             return False
 
-        text = r"""
-This is an example demonstrating how one can create widgets from a plugin,
-and have them re-created automatically at IDA startup-time or at desktop load-time.
-
-This example should be placed in the 'plugins' directory of the
-IDA installation, for it to work.
-
-There are 2 ways to use this example:
-1) reloading an IDB, where the widget was opened
-   - open the widget ('View > Open subview > """ + title + """')
-   - save this IDB, and close IDA
-   - restart IDA with this IDB
-     => the widget will be visible
-
-2) reloading a desktop, where the widget was opened
-   - open the widget ('View > Open subview > """ + title + """')
-   - save the desktop ('Windows > Save desktop...') under, say, the name 'with_auto'
-   - start another IDA instance with some IDB, and load that desktop
-     => the widget will be visible
-"""
+        text = __doc__
         for l in text.split("\n"):
             self.AddLine(l)
         return True

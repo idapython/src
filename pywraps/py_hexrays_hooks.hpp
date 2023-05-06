@@ -17,8 +17,8 @@ static void hexrays_unloading__unhook_hooks(void)
 }
 
 //-------------------------------------------------------------------------
-Hexrays_Hooks::Hexrays_Hooks(uint32 _flags)
-  : hooks_base_t("ida_hexrays.Hexrays_Hooks", NULL, hook_type_t(-1), _flags),
+Hexrays_Hooks::Hexrays_Hooks(uint32 _flags, uint32 _hkcb_flags)
+  : hooks_base_t("ida_hexrays.Hexrays_Hooks", nullptr, hook_type_t(-1), _flags, _hkcb_flags),
     hooked(false)
 {
   hexrays_hooks_instances.push_back(this);
@@ -50,7 +50,7 @@ struct Hexrays_Hooks : public hooks_base_t
 
   bool hooked;
 
-  Hexrays_Hooks(uint32 _flags=0);
+  Hexrays_Hooks(uint32 _flags=0, uint32 _hkcb_flags=HKCB_GLOBAL);
   virtual ~Hexrays_Hooks();
 
   bool hook()
@@ -66,7 +66,7 @@ struct Hexrays_Hooks : public hooks_base_t
     return !hooked;
   }
 #ifdef TESTABLE_BUILD
-  qstring dump_state() { return hooks_base_t::dump_state(mappings, mappings_size); }
+  PyObject *dump_state(bool assert_all_reimplemented=false) { return hooks_base_t::dump_state(mappings, mappings_size, assert_all_reimplemented); }
 #endif
 
   // hookgenHEXRAYS:methods
@@ -82,24 +82,54 @@ struct Hexrays_Hooks : public hooks_base_t
   }
 
 private:
-  static ssize_t handle_create_hint_output(PyObject *o, vdui_t *, qstring *out_hint, int *out_implines)
+  static ssize_t handle_create_hint_output(
+        PyObject *o,
+        vdui_t *,
+        qstring *out_hint,
+        int *out_implines)
   {
     ssize_t rc = 0;
-    if ( o != NULL && PySequence_Check(o) && PySequence_Size(o) == 3 )
+    if ( o != nullptr && PySequence_Check(o) && PySequence_Size(o) == 3 )
     {
       newref_t py_rc(PySequence_GetItem(o, 0));
       newref_t py_hint(PySequence_GetItem(o, 1));
       newref_t py_implines(PySequence_GetItem(o, 2));
-      if ( IDAPyInt_Check(py_rc.o)
-        && IDAPyStr_Check(py_hint.o)
-        && IDAPyInt_Check(py_implines.o)
-        && IDAPyStr_AsUTF8(out_hint, py_hint.o) )
+      qstring plugin_hint;
+      if ( PyLong_Check(py_rc.o)
+        && PyUnicode_Check(py_hint.o)
+        && PyLong_Check(py_implines.o)
+        && PyUnicode_as_qstring(&plugin_hint, py_hint.o) )
       {
-        rc = IDAPyInt_AsLong(py_rc.o);
-        *out_implines = IDAPyInt_AsLong(py_implines.o);
+        if ( !out_hint->empty()
+          && out_hint->last() != '\n'
+          && !plugin_hint.empty() )
+        {
+          out_hint->append('\n');
+        }
+        out_hint->append(plugin_hint);
+        rc = PyLong_AsLong(py_rc.o);
+        if ( rc == 2 )
+          rc = 0;
+        *out_implines += PyLong_AsLong(py_implines.o);
       }
     }
     return rc;
+  }
+
+  static ssize_t handle_build_callinfo_output(
+        PyObject *o,
+        mblock_t *,
+        tinfo_t *,
+        mcallinfo_t **out_callinfo)
+  {
+    if ( o == nullptr || o == Py_None )
+      return 0;
+    mcallinfo_t *mi = nullptr;
+    const int cvt = SWIG_ConvertPtr(o, (void **) &mi, SWIGTYPE_p_mcallinfo_t, 0);
+    if ( !SWIG_IsOK(cvt) || mi == nullptr )
+      return 0;
+    *out_callinfo = new mcallinfo_t(*mi);
+    return 0;
   }
 };
 //</inline(py_hexrays_hooks)>

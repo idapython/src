@@ -1,3 +1,13 @@
+"""
+summary: drawing custom graphs
+
+description:
+  Showing custom graphs, using `ida_graph.GraphViewer`. In addition,
+  show how to write actions that can be performed on those.
+
+keywords: graph, actions
+"""
+
 from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to use the user graphing functionality
@@ -10,6 +20,9 @@ import ida_graph
 import ida_ua
 import ida_idp
 import ida_funcs
+import ida_xref
+
+import idautils
 
 class _base_graph_action_handler_t(ida_kernwin.action_handler_t):
     def __init__(self, graph):
@@ -61,7 +74,7 @@ class MyGraph(ida_graph.GraphViewer):
 
         #
         # for the sake of this example, here's how one can use
-        # 'ida_kernwin.View_Hooks' (which can be used wich all
+        # 'ida_kernwin.View_Hooks' (which can be used with all
         # "listing-like" and "graph" widgets) to be notified
         # of cursor movement, current node changes, etc...
         # in this graph.
@@ -99,35 +112,36 @@ class MyGraph(ida_graph.GraphViewer):
     def OnGetText(self, node_id):
         return self[node_id]
 
-    def OnPopup(self, form, popup_handle):
+    def OnPopup(self, widget, popup_handle):
         # graph closer
         actname = "graph_closer:%s" % self.title
         desc = ida_kernwin.action_desc_t(actname, "Close: %s" % self.title, GraphCloser(self))
-        ida_kernwin.attach_dynamic_action_to_popup(form, popup_handle, desc)
+        ida_kernwin.attach_dynamic_action_to_popup(None, popup_handle, desc)
 
         # color changer
         actname = "color_changer:%s" % self.title
         desc = ida_kernwin.action_desc_t(actname, "Change colors: %s" % self.title, ColorChanger(self))
-        ida_kernwin.attach_dynamic_action_to_popup(form, popup_handle, desc)
+        ida_kernwin.attach_dynamic_action_to_popup(None, popup_handle, desc)
 
         # selection printer
         actname = "selection_printer:%s" % self.title
         desc = ida_kernwin.action_desc_t(actname, "Print selection: %s" % self.title, SelectionPrinter(self))
-        ida_kernwin.attach_dynamic_action_to_popup(form, popup_handle, desc)
+        ida_kernwin.attach_dynamic_action_to_popup(None, popup_handle, desc)
 
 
 def show_graph():
-    f = ida_funcs.get_func(here())
+    f = ida_funcs.get_func(ida_kernwin.get_screen_ea())
     if not f:
         print("Must be in a function")
         return
     # Iterate through all function instructions and take only call instructions
     result = []
     tmp = ida_ua.insn_t()
-    for x in [x for x in FuncItems(f.start_ea) if (ida_ua.decode_insn(tmp, x) and ida_idp.is_call_insn(tmp))]:
-        for xref in XrefsFrom(x, idaapi.XREF_FAR):
+    for x in [x for x in f if (ida_ua.decode_insn(tmp, x) and ida_idp.is_call_insn(tmp))]:
+        xb = ida_xref.xrefblk_t()
+        for xref in xb.refs_from(x, ida_xref.XREF_FAR):
             if not xref.iscode: continue
-            t = get_func_name(xref.to)
+            t = ida_funcs.get_func_name(xref.to)
             if not t:
                 t = hex(xref.to)
             result.append(t)

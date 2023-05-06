@@ -1,4 +1,6 @@
 
+import sys
+
 import ida_pro
 import ida_funcs
 import ida_lumina
@@ -9,12 +11,17 @@ import idautils
 
 dquot_escaped_str = ida_pro.str2user
 
+if sys.version_info.major >= 3:
+    int_types = [int]
+else:
+    int_types = [int, long]
+
 def escaped_bytestr(bts):
     return "".join(map(lambda b: "\\x%02X" % ord(b), bts))
 
 class func_md_t:
     def __init__(self, pfn, retrieve=True):
-        if type(pfn) in [int, long]:
+        if type(pfn) in int_types:
             pfn = ida_funcs.get_func(pfn)
         self.pfn_ea = pfn.start_ea
         self.func_info = ida_lumina.func_info_t()

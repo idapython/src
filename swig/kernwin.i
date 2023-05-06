@@ -1,20 +1,19 @@
+
 %{
 #include <kernwin.hpp>
 #include <parsejson.hpp>
 %}
 
+%{
+struct dirspec_t;
+%}
+
+%force_declare_SWiG_type(dirspec_t);
+%force_declare_SWiG_type(dirtree_t);
+
 %apply qstring *result { qstring *label };
 %apply qstring *result { qstring *shortcut };
 %apply qstring *result { qstring *tooltip };
-
-%{
-#ifdef __NT__
-idaman __declspec(dllimport) plugin_t PLUGIN;
-#else
-extern plugin_t PLUGIN;
-#endif
-%}
-
 
 %typemap(out) void *get_window_id
 {
@@ -22,7 +21,9 @@ extern plugin_t PLUGIN;
   $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
 }
 
+%ignore callui_t;
 %ignore sync_source_t::sync_source_t();
+%ignore l_compare;
 
 // Ignore the va_list functions
 %ignore vask_form;
@@ -77,6 +78,7 @@ extern plugin_t PLUGIN;
 
 %define_Hooks_class(UI);
 
+%ignore ida_checkmem;
 %ignore vnomem;
 %ignore vmsg;
 %ignore show_wait_box_v;
@@ -89,8 +91,6 @@ extern plugin_t PLUGIN;
 %ignore destroy_custom_viewerdestroy_custom_viewer;
 %ignore set_custom_viewer_handler;
 %ignore set_custom_viewer_range;
-%ignore is_idaview;
-%ignore refresh_custom_viewer;
 %ignore set_custom_viewer_handlers;
 %ignore get_viewer_name;
 // Ignore these string functions. There are trivial replacements in Python.
@@ -139,6 +139,33 @@ extern plugin_t PLUGIN;
 
 %ignore chooser_item_attrs_t::cb;
 
+// chooser_base_t should be read-only
+%ignore chooser_base_t::chooser_base_t;
+%ignore chooser_base_t::~chooser_base_t;
+%ignore chooser_base_t::call_destructor;
+%ignore chooser_base_t::check_version;
+%ignore chooser_base_t::closed;
+%ignore chooser_base_t::get_chooser_obj;
+%ignore chooser_base_t::get_obj_id;
+%ignore chooser_base_t::init;
+%ignore chooser_base_t::set_ask_item_attrs;
+%ignore chooser_base_t::ALL_CHANGED;
+%ignore chooser_base_t::NOTHING_CHANGED;
+%ignore chooser_base_t::SELECTION_CHANGED;
+%ignore chooser_base_t::ALREADY_EXISTS;
+%ignore chooser_base_t::EMPTY_CHOOSER;
+%ignore chooser_base_t::NO_ATTR;
+%ignore chooser_base_t::NO_SELECTION;
+
+%feature("nodirector") chooser_base_t;
+%ignore chooser_base_t::get_row(qstrvec_t *, int *, chooser_item_attrs_t *, size_t) const;
+%extend chooser_base_t {
+  PyObject *get_row(size_t n) const
+  {
+    return py_chooser_base_t_get_row($self, n);
+  }
+}
+
 // Make ask_addr(), ask_seg(), and ask_long() return a
 // tuple: (result, value)
 %rename (_ask_long) ask_long;
@@ -164,14 +191,48 @@ extern plugin_t PLUGIN;
 %apply bytevec_t *vout { bytevec_t *out };
 
 %ignore register_place_class;
-%ignore register_loc_converter;
-%ignore lookup_loc_converter;
+%ignore register_loc_converter2;
+%ignore lookup_loc_converter2;
 
 %ignore hexplace_t;
 %ignore hexplace_gen_t;
 
 %ignore msg_get_lines;
 %rename (msg_get_lines) py_msg_get_lines;
+
+%extend input_event_t {
+
+  size_t _source_as_size() const { return size_t($self->source); }
+  size_t _target_as_size() const { return size_t($self->target); }
+
+  %pythoncode {
+     def get_source_QEvent(self):
+         ptr = self._source_as_size();
+         if ptr:
+             from PyQt5 import sip
+             if self.kind in [iek_key_press, iek_key_release]:
+                 from PyQt5.QtGui import QInputEvent
+                 return sip.wrapinstance(ptr, QInputEvent)
+             elif self.kind in [
+                     iek_mouse_button_press,
+                     iek_mouse_button_release]:
+                 from PyQt5.QtGui import QMouseEvent
+                 return sip.wrapinstance(ptr, QMouseEvent)
+             elif self.kind == iek_mouse_wheel:
+                 from PyQt5.QtGui import QWheelEvent
+                 return sip.wrapinstance(ptr, QWheelEvent)
+             else:
+                 from PyQt5.QtCore import QEvent
+                 return sip.wrapinstance(ptr, QEvent)
+
+     def get_target_QWidget(self):
+         ptr = self._target_as_size()
+         if ptr:
+              from PyQt5 import sip
+              from PyQt5.QtWidgets import QWidget, QAbstractScrollArea
+              return sip.wrapinstance(ptr, QWidget)
+  }
+}
 
 %feature("director") UI_Hooks;
 
@@ -184,11 +245,11 @@ struct py_action_handler_t : public action_handler_t
     : pyah(borref_t(_o)), has_activate(false), has_update(false)
   {
     ref_t act(PyW_TryGetAttrString(pyah.o, "activate"));
-    if ( act != NULL && PyCallable_Check(act.o) > 0 )
+    if ( act && PyCallable_Check(act.o) > 0 )
       has_activate = true;
 
     ref_t upd(PyW_TryGetAttrString(pyah.o, "update"));
-    if ( upd != NULL && PyCallable_Check(upd.o) > 0 )
+    if ( upd && PyCallable_Check(upd.o) > 0 )
       has_update = true;
   }
   virtual idaapi ~py_action_handler_t()
@@ -206,7 +267,7 @@ struct py_action_handler_t : public action_handler_t
     PYW_GIL_GET_AND_REPORT_ERROR;
     newref_t pyctx(SWIG_InternalNewPointerObj(SWIG_as_voidptr(ctx), SWIGTYPE_p_action_ctx_base_t, 0));
     newref_t pyres(PyObject_CallMethod(pyah.o, (char *)"activate", (char *) "O", pyctx.o));
-    return PyErr_Occurred() ? 0 : ((pyres != NULL && IDAPyInt_Check(pyres.o)) ? IDAPyInt_AsLong(pyres.o) : 0);
+    return PyErr_Occurred() != nullptr ? 0 : ((pyres && PyLong_Check(pyres.o)) ? PyLong_AsLong(pyres.o) : 0);
   }
   virtual action_state_t idaapi update(action_update_ctx_t *ctx)
   {
@@ -215,7 +276,7 @@ struct py_action_handler_t : public action_handler_t
     PYW_GIL_GET_AND_REPORT_ERROR;
     newref_t pyctx(SWIG_InternalNewPointerObj(SWIG_as_voidptr(ctx), SWIGTYPE_p_action_ctx_base_t, 0));
     newref_t pyres(PyObject_CallMethod(pyah.o, (char *)"update", (char *) "O", pyctx.o));
-    return PyErr_Occurred() ? AST_DISABLE_ALWAYS : ((pyres != NULL && IDAPyInt_Check(pyres.o)) ? action_state_t(IDAPyInt_AsLong(pyres.o)) : AST_DISABLE);
+    return PyErr_Occurred() != nullptr ? AST_DISABLE_ALWAYS : ((pyres && PyLong_Check(pyres.o)) ? action_state_t(PyLong_AsLong(pyres.o)) : AST_DISABLE);
   }
 
 private:
@@ -229,9 +290,9 @@ private:
 %inline %{
 void refresh_choosers(void)
 {
-  Py_BEGIN_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   callui(ui_refresh_choosers);
-  Py_END_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_END_ALLOW;
 }
 %}
 
@@ -267,12 +328,40 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 %ignore remove_command_interpreter;
 %rename (remove_command_interpreter) py_remove_command_interpreter;
 
+%ignore qvector<line_rendering_output_entry_t*>::grow;
+%template(line_rendering_output_entries_refs_t) qvector<line_rendering_output_entry_t*>;
+%ignore line_rendering_output_entries_refs_t::push_back;
+
+%ignore qvector<const twinline_t*>::grow;
+%template(section_lines_refs_t) qvector<const twinline_t*>;
+%template(sections_lines_refs_t) qvector<section_lines_refs_t>;
+
+%uncomparable_elements_qvector(twinline_t, text_t);
+
+%ignore qvector<sync_source_t>::grow;
+%ignore qvector<sync_source_t>::resize;
+%ignore qvector<sync_source_t>::push_back();
+%template(sync_source_vec_t) qvector<sync_source_t>;
+
 //<typemaps(kernwin)>
 //</typemaps(kernwin)>
 
 %include "kernwin.hpp"
 
 %uncomparable_elements_qvector(disasm_line_t, disasm_text_t);
+
+%extend qvector<line_rendering_output_entry_t*> {
+  void _internal_push_back(line_rendering_output_entry_t *e)
+  {
+    $self->push_back(e);
+  }
+  %pythoncode {
+      def push_back(self, e):
+          if e and e.thisown:
+              self._internal_push_back(e)
+              e.thisown = False
+  }
+}
 
 %extend place_t {
   virtual bool idaapi deserialize(const bytevec_t &in)
@@ -287,13 +376,13 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
           const char *name,
           const char *label,
           PyObject *handler,
-          const char *shortcut = NULL,
-          const char *tooltip = NULL,
+          const char *shortcut = nullptr,
+          const char *tooltip = nullptr,
           int icon = -1,
           int flags = 0)
   {
     action_desc_t *ad = new action_desc_t();
-#define DUPSTR(Prop) ad->Prop = Prop == NULL ? NULL : qstrdup(Prop)
+#define DUPSTR(Prop) ad->Prop = Prop == nullptr ? nullptr : qstrdup(Prop)
     DUPSTR(name);
     DUPSTR(label);
     DUPSTR(shortcut);
@@ -301,14 +390,14 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 #undef DUPSTR
     ad->icon = icon;
     ad->handler = new py_action_handler_t(handler);
-    ad->flags = flags | ADF_OWN_HANDLER;
+    ad->flags = flags | ADF_OWN_HANDLER | ADF_GLOBAL | ADF_OT_PLUGIN;
     ad->owner = &PLUGIN;
     return ad;
   }
 
   ~action_desc_t()
   {
-    if ( $self->handler != NULL ) // Ownership not taken?
+    if ( $self->handler != nullptr ) // Ownership not taken?
       delete $self->handler;
 #define FREESTR(Prop) qfree((char *) $self->Prop)
     FREESTR(name);
@@ -322,18 +411,12 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 
 %extend action_ctx_base_t {
 
-#ifdef BC695
-  TWidget *_get_form() const { return $self->widget; }
-  twidget_type_t _get_form_type() const { return $self->widget_type; }
-  qstring _get_form_title() const { return $self->widget_title; }
-#endif
-
   %pythoncode {
     cur_extracted_ea = cur_value
-#ifdef BC695
-    form = property(_get_form)
-    form_type = property(_get_form_type)
-    form_title = property(_get_form_title)
+#ifdef MISSED_BC695
+    form = ida_idaapi._make_missed_695bwcompat_property("form", "widget", has_setter=False)
+    form_type = ida_idaapi._make_missed_695bwcompat_property("form_type", "widget_type", has_setter=False)
+    form_title = ida_idaapi._make_missed_695bwcompat_property("form_title", "widget_title", has_setter=False)
 #endif
   }
 }
@@ -344,10 +427,10 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 %newobject place_t::as_structplace_t;
 %newobject place_t::as_simpleline_place_t;
 %extend place_t {
-  static idaplace_t *as_idaplace_t(place_t *p) { return (idaplace_t *) p->clone(); }
-  static enumplace_t *as_enumplace_t(place_t *p) { return (enumplace_t *) p->clone(); }
-  static structplace_t *as_structplace_t(place_t *p) { return (structplace_t *) p->clone(); }
-  static simpleline_place_t *as_simpleline_place_t(place_t *p) { return (simpleline_place_t *) p->clone(); }
+  static idaplace_t *as_idaplace_t(place_t *p) { return p != nullptr ? (idaplace_t *) p->clone() : nullptr; }
+  static enumplace_t *as_enumplace_t(place_t *p) { return p != nullptr ? (enumplace_t *) p->clone() : nullptr; }
+  static structplace_t *as_structplace_t(place_t *p) { return p != nullptr ? (structplace_t *) p->clone() : nullptr; }
+  static simpleline_place_t *as_simpleline_place_t(place_t *p) { return p != nullptr ? (simpleline_place_t *) p->clone() : nullptr; }
 
   PyObject *py_generate(void *ud, int maxsize)
   {

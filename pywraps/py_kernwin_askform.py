@@ -179,13 +179,13 @@ class Form(object):
         Factory method returning a ctype class corresponding to the field type string
         """
         if tp in (Form.FT_SEG, Form.FT_HEX, Form.FT_RAWHEX, Form.FT_ADDR):
-            return ctypes.c_ulonglong if i64 else ctypes.c_ulong
+            return ctypes.c_uint64 if i64 else ctypes.c_ulong
         elif tp in (Form.FT_SHEX, Form.FT_DEC, Form.FT_OCT, Form.FT_BIN, Form.FT_CHAR):
-            return ctypes.c_longlong if i64 else ctypes.c_long
+            return ctypes.c_int64 if i64 else ctypes.c_long
         elif tp == Form.FT_UINT64:
-            return ctypes.c_ulonglong
+            return ctypes.c_uint64
         elif tp == Form.FT_INT64:
-            return ctypes.c_longlong
+            return ctypes.c_int64
         elif tp == Form.FT_COLOR:
             return ctypes.c_ulong
         elif tp == Form._FT_USHORT:
@@ -302,7 +302,7 @@ class Form(object):
         """
         String label control
         """
-        def __init__(self, value, tp=None, size=1024):
+        def __init__(self, value, tp=None, size=ida_pro.MAXSTR):
             """
             Type field can be one of:
             A - ascii string
@@ -473,22 +473,30 @@ class Form(object):
         Generic form input control.
         It could be numeric control, string control, directory/file browsing, etc...
         """
-        def __init__(self, tp, width, swidth, hlp = None):
+        def __init__(self,
+                     tp,
+                     width,
+                     swidth,
+                     hlp=None,
+                     is_relative_offset=False):
             """
-            @param width: Display width
-            @param swidth: String width
+            @param width:  The maximum possible number of characters that
+                           can be entered into the input field
+            @param swidth: The width of visible part of the input field
             """
             Form.Control.__init__(self)
             self.tp = tp
             self.width = width
-            self.switdh = swidth
+            self.swidth = swidth
             self.hlp = hlp
+            self.is_relative_offset = is_relative_offset
 
         def get_tag(self):
-            return "%s%d:%s:%s:%s" % (
+            return "%s%d:%s%s:%s:%s" % (
                 self.tp, self.id,
+                "+" if self.is_relative_offset else "",
                 self.width,
-                self.switdh,
+                self.swidth,
                 ":" if self.hlp is None else self.hlp)
 
         def is_input_field(self):
@@ -499,10 +507,17 @@ class Form(object):
         """
         A composite class serving as a base numeric input control class
         """
-        def __init__(self, tp=None, value=0, width=50, swidth=10, hlp=None):
+        def __init__(self,
+                     tp=None,
+                     value=0,
+                     width=50,
+                     swidth=10,
+                     hlp=None,
+                     is_relative_offset=False):
             if tp is None:
                 tp = Form.FT_HEX
-            Form.InputControl.__init__(self, tp, width, swidth, hlp)
+            Form.InputControl.__init__(self,
+                tp, width, swidth, hlp, is_relative_offset)
             Form.NumericArgument.__init__(self, self.tp, value)
 
 
@@ -524,7 +539,7 @@ class Form(object):
         """
         def __init__(self,
                      tp=None,
-                     width=1024,
+                     width=ida_pro.MAXSTR,
                      swidth=40,
                      hlp=None,
                      value=None,
@@ -1356,7 +1371,7 @@ class Form(object):
         elif isinstance(ctrl, (Form.GroupItemControl, Form.GroupControl)):
             return (2, 0)
         elif isinstance(ctrl, Form.StringLabel):
-            return (3, min(_ida_kernwin.MAXSTR, ctrl.size))
+            return (3, min(ida_pro.MAXSTR, ctrl.size))
         elif isinstance(ctrl, Form.ColorInput):
             return (4, 0)
         elif isinstance(ctrl, Form.NumericInput):
@@ -1368,13 +1383,19 @@ class Form(object):
             raise NotImplementedError("Not yet implemented")
 
 # --------------------------------------------------------------------------
-# Instantiate ask_form function pointer
+# Instantiate ask_form/open_form function pointers
 try:
     import ctypes
-    # Setup the numeric argument size
+# Setup the numeric argument size
     Form.NumericArgument.DefI64 = _ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFF
-    __ask_form_callable = ctypes.CFUNCTYPE(ctypes.c_long)(_ida_kernwin.py_get_ask_form())
-    __open_form_callable = ctypes.CFUNCTYPE(ctypes.c_long)(_ida_kernwin.py_get_open_form())
+# int ask_form(const char *form, ...)
+    __ask_form_callable = ctypes.CFUNCTYPE(ctypes.c_int)(_ida_kernwin.py_get_ask_form())
+# specify types of the fixed arguments explicitly so that varargs are passed correctly on arm macOS
+# https://bugs.python.org/issue42880
+    __ask_form_callable.argtypes = [ ctypes.c_char_p ]
+#  TWidget *open_form(const char *form, uint32 flags, ...)
+    __open_form_callable = ctypes.CFUNCTYPE(ctypes.c_void_p )(_ida_kernwin.py_get_open_form())
+    __open_form_callable.argtypes = [ ctypes.c_char_p, ctypes.c_uint32 ]
 except:
     def __ask_form_callable(*args):
         warning("ask_form() needs ctypes library in order to work")
@@ -1396,6 +1417,8 @@ def ask_form(*args):
     return __call_form_callable(__ask_form_callable, *args)
 
 def open_form(*args):
+    if len(args) == 1:
+        args = (args[0], 0) # add default flags
     return __call_form_callable(__open_form_callable, *args)
 
 #</pycode(py_kernwin_askform)>

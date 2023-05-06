@@ -2,11 +2,12 @@
 #<pycode(py_pro)>
 import ida_idaapi
 
-int64vec_t = longlongvec_t
-uint64vec_t = ulonglongvec_t
+longlongvec_t = int64vec_t
+ulonglongvec_t = uint64vec_t
+
 if ida_idaapi.__EA64__:
-    svalvec_t = longlongvec_t
-    uvalvec_t = ulonglongvec_t
+    svalvec_t = int64vec_t
+    uvalvec_t = uint64vec_t
 else:
     svalvec_t = intvec_t
     uvalvec_t = uintvec_t
@@ -15,8 +16,8 @@ eavec_t = uvalvec_t
 ida_idaapi._listify_types(
         intvec_t,
         uintvec_t,
-        longlongvec_t,
-        ulonglongvec_t,
+        int64vec_t,
+        uint64vec_t,
         boolvec_t,
         strvec_t)
 
@@ -97,10 +98,3 @@ class _qstrvec_t(ida_idaapi.py_clinked_object_t):
         return _ida_pro.qstrvec_t_remove(self, idx)
 
 #</pycode(py_pro)>
-
-#<pycode_BC695(py_pro)>
-def strlwr(s):
-    return str(s).lower()
-def strupr(s):
-    return str(s).upper()
-#</pycode_BC695(py_pro)>

@@ -1,3 +1,14 @@
+"""
+summary: A widget showing data in a tabular fashion, providing multiple selection
+
+description:
+  Similar to @{choose}, but with multiple selection
+
+keywords: chooser, actions
+
+see_also: choose, chooser_with_folders
+"""
+
 from __future__ import print_function
 from ida_kernwin import Choose
 
@@ -21,6 +32,14 @@ class MyChoose(Choose):
     def OnSelectLine(self, n):
         self.deflt = n  # save current selection
         return (Choose.NOTHING_CHANGED, )
+
+    def OnDeleteLine(self, indices):
+        new_items = []
+        for idx, item in enumerate(self.items):
+            if idx not in indices:
+                new_items.append(item)
+        self.items = new_items
+        return [Choose.ALL_CHANGED] + indices
 
     def show(self, num):
         self.deflt = [x

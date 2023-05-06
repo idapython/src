@@ -10,13 +10,13 @@ PyObject *py_appcall(
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
   if ( !PyList_Check(arg_list) )
-    return NULL;
+    return nullptr;
 
   const type_t *type   = (const type_t *) _type_or_none.begin();
   const type_t *fields = (const p_list *) _fields.begin();
   tinfo_t tif;
-  tinfo_t *ptif = NULL;
-  if ( tif.deserialize(NULL, &type, &fields) )
+  tinfo_t *ptif = nullptr;
+  if ( tif.deserialize(nullptr, &type, &fields) )
     ptif = &tif;
 
   // Convert Python arguments into IDC values
@@ -49,12 +49,12 @@ PyObject *py_appcall(
     PyErr_SetString(
         PyExc_ValueError,
         "PyAppCall: Failed to convert Python values to IDC values");
-    return NULL;
+    return nullptr;
   }
 
   error_t ret;
   idc_value_t idc_result;
-  Py_BEGIN_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
 
   if ( (debug & IDA_DEBUG_APPCALL) != 0 )
   {
@@ -78,7 +78,7 @@ PyObject *py_appcall(
                     idc_args.begin(),
                     idc_args.size());
 
-  Py_END_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_END_ALLOW;
 
   if ( ret != eOk )
   {
@@ -89,13 +89,13 @@ PyObject *py_appcall(
       ref_t py_appcall_exc;
       idcvar_to_pyvar(idc_result, &py_appcall_exc);
       PyErr_SetObject(PyExc_OSError, py_appcall_exc.o);
-      return NULL;
+      return nullptr;
     }
     // An error in the Appcall? (or an exception but AppCallOptions/DEBEV is not set)
     else
     {
       PyErr_SetString(PyExc_Exception, qstrerror(ret));
-      return NULL;
+      return nullptr;
     }
   }
 
@@ -122,7 +122,7 @@ PyObject *py_appcall(
     if ( idcvar_to_pyvar(idc_args[i], &py_item) == CIP_FAILED )
     {
       PyErr_SetString(PyExc_ValueError, "PyAppCall: Failed while converting IDC values to Python values");
-      return NULL;
+      return nullptr;
     }
   }
 
@@ -133,7 +133,7 @@ PyObject *py_appcall(
   if ( idcvar_to_pyvar(idc_result, &py_result, PYWCVTF_STR_AS_BYTES) <= CIP_IMMUTABLE )
   {
     PyErr_SetString(PyExc_ValueError, "PyAppCall: Failed while converting IDC return value to Python return value");
-    return NULL;
+    return nullptr;
   }
   if ( (debug & IDA_DEBUG_APPCALL) != 0 )
   {
@@ -151,6 +151,12 @@ PyObject *py_appcall(
 
 //-------------------------------------------------------------------------
 //<inline(py_idd)>
+
+static debugger_t *get_dbg()
+{
+  return dbg;
+}
+
 /*
 #<pydoc>
 def dbg_get_registers():
@@ -169,7 +175,7 @@ static PyObject *dbg_get_registers()
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  if ( dbg == NULL )
+  if ( dbg == nullptr )
     Py_RETURN_NONE;
 
   PyObject *py_list = PyList_New(dbg->nregs);
@@ -181,14 +187,14 @@ static PyObject *dbg_get_registers()
 
     // Does this register have bit strings?
     // (Make sure it does not use custom formats because bit_string would be the format name)
-    if ( ri.bit_strings != NULL && (ri.flags & REGISTER_CUSTFMT) == 0 )
+    if ( ri.bit_strings != nullptr && (ri.flags & REGISTER_CUSTFMT) == 0 )
     {
       int nbits = (int)b2a_width((int)get_dtype_size(ri.dtype), 0) * 4;
       py_bits = PyList_New(nbits);
       for ( int i=0; i < nbits; i++ )
       {
         const char *s = ri.bit_strings[i];
-        PyList_SetItem(py_bits, i, IDAPyStr_FromUTF8(s == NULL ? "" : s));
+        PyList_SetItem(py_bits, i, PyUnicode_FromString(s == nullptr ? "" : s));
       }
     }
     else
@@ -229,7 +235,7 @@ static PyObject *dbg_get_thread_sreg_base(thid_t tid, int sreg_value)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   ea_t answer;
-  if ( !dbg_can_query() || internal_get_sreg_base(&answer, tid, sreg_value) != DRC_OK )
+  if ( !dbg_can_query(dbg) || internal_get_sreg_base(&answer, tid, sreg_value) != DRC_OK )
     Py_RETURN_NONE;
   return Py_BuildValue(PY_BV_EA, bvea_t(answer));
 }
@@ -251,18 +257,18 @@ static PyObject *dbg_read_memory(ea_t ea, size_t sz)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  if ( !dbg_can_query() )
+  if ( !dbg_can_query(dbg) )
     Py_RETURN_NONE;
 
   // Create a Python string
-  PyObject *ret = IDAPyBytes_FromMemAndSize(NULL, Py_ssize_t(sz));
-  if ( ret == NULL )
+  PyObject *ret = PyBytes_FromStringAndSize(nullptr, Py_ssize_t(sz));
+  if ( ret == nullptr )
     Py_RETURN_NONE;
 
   // Get the internal buffer
   Py_ssize_t len;
   char *buf;
-  IDAPyBytes_AsMemAndSize(ret, &buf, &len);
+  PyBytes_AsStringAndSize(ret, &buf, &len);
   if ( size_t(read_dbg_memory(ea, buf, sz)) != sz )
   {
     Py_DECREF(ret);
@@ -288,7 +294,7 @@ static PyObject *dbg_write_memory(
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  if ( !dbg_can_query() )
+  if ( !dbg_can_query(dbg) )
     Py_RETURN_NONE;
 
   if ( write_dbg_memory(ea, buf.begin(), buf.size()) != buf.size() )
@@ -311,10 +317,10 @@ static PyObject *dbg_get_name()
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  if ( dbg == NULL )
+  if ( dbg == nullptr )
     Py_RETURN_NONE;
   else
-    return IDAPyStr_FromUTF8(dbg->name);
+    return PyUnicode_FromString(dbg->name);
 }
 
 //-------------------------------------------------------------------------
@@ -334,17 +340,17 @@ static PyObject *dbg_get_memory_info()
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  if ( !dbg_can_query() )
+  if ( !dbg_can_query(dbg) )
     Py_RETURN_NONE;
 
   // Invalidate memory
   meminfo_vec_t ranges;
-  Py_BEGIN_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   invalidate_dbgmem_config();
   invalidate_dbgmem_contents(BADADDR, BADADDR);
 
   get_dbg_memory_info(&ranges);
-  Py_END_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_END_ALLOW;
   return meminfo_vec_t_to_py(ranges);
 }
 
@@ -358,50 +364,56 @@ PyObject *py_appcall(
 
 char get_event_module_name(const debug_event_t *ev, char *buf, size_t bufsize)
 {
+  if ( ev == nullptr )
+    return false;
   qstrncpy(buf, ev->modinfo().name.c_str(), bufsize);
   return true;
 }
 
 ea_t get_event_module_base(const debug_event_t *ev)
 {
-  return ev->modinfo().base;
+  return ev != nullptr ? ev->modinfo().base : BADADDR;
 }
 
 asize_t get_event_module_size(const debug_event_t *ev)
 {
-  return ev->modinfo().size;
+  return ev != nullptr ? ev->modinfo().size : 0;
 }
 
 char get_event_exc_info(const debug_event_t *ev, char *buf, size_t bufsize)
 {
+  if ( ev == nullptr )
+    return false;
   qstrncpy(buf, ev->exc().info.c_str(), bufsize);
   return true;
 }
 
 char get_event_info(const debug_event_t *ev, char *buf, size_t bufsize)
 {
+  if ( ev == nullptr )
+    return false;
   qstrncpy(buf, ev->info().c_str(), bufsize);
   return true;
 }
 
 ea_t get_event_bpt_hea(const debug_event_t *ev)
 {
-  return ev->bpt().hea;
+  return ev != nullptr ? ev->bpt().hea : BADADDR;
 }
 
 uint get_event_exc_code(const debug_event_t *ev)
 {
-  return ev->exc().code;
+  return ev != nullptr ? ev->exc().code : 0;
 }
 
 ea_t get_event_exc_ea(const debug_event_t *ev)
 {
-  return ev->exc().ea;
+  return ev != nullptr ? ev->exc().ea : BADADDR;
 }
 
 bool can_exc_continue(const debug_event_t *ev)
 {
-  return ev->exc().can_cont;
+  return ev != nullptr && ev->exc().can_cont;
 }
 
 //</inline(py_idd)>

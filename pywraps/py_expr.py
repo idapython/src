@@ -75,14 +75,15 @@ def del_idc_func(name):
     return _ida_expr.pyw_unregister_idc_func(f.ctxptr)
 
 # --------------------------------------------------------------------------
-def add_idc_func(name, fp, args, defvals=None, flags=0):
+def add_idc_func(name, fp, args, defvals=(), flags=0):
     """
     Extends the IDC language by exposing a new IDC function that is backed up by a Python function
 
     @param name: IDC function name to expose
     @param fp: Python callable that will receive the arguments and return a tuple.
     @param args: Arguments. A tuple of idaapi.VT_XXX constants
-    @param flags: IDC function flags. A combination of EXTFUN_XXX constants
+    @param defvals: default argument values (optional)
+    @param flags: IDC function flags. A combination of EXTFUN_XXX constants (optional)
 
     @return: Boolean
     """
@@ -128,41 +129,3 @@ def add_idc_func(name, fp, args, defvals=None, flags=0):
                 flags)
 
 #</pycode(py_expr)>
-
-#<pycode_BC695(py_expr)>
-Compile=compile_idc_file
-CompileEx=compile_idc_file
-CompileLine=compile_idc_text
-VT_STR2=VT_STR
-VarCopy=copy_idcv
-VarDelAttr=del_idcv_attr
-VarDeref=deref_idcv
-VarFirstAttr=first_idcv_attr
-def VarGetAttr(obj, attr, res, may_use_getattr=False):
-    return get_idcv_attr(res, obj, attr, may_use_getattr)
-VarGetClassName=get_idcv_class_name
-VarGetSlice=get_idcv_slice
-VarInt64=idcv_int64
-VarLastAttr=last_idcv_attr
-VarMove=move_idcv
-VarNextAttr=next_idcv_attr
-VarObject=idcv_object
-VarPrevAttr=prev_idcv_attr
-VarPrint=print_idcv
-VarRef=create_idcv_ref
-VarSetAttr=set_idcv_attr
-VarSetSlice=set_idcv_slice
-VarString2=idcv_string
-VarSwap=swap_idcvs
-def calc_idc_expr(where, expr, res):
-    return eval_idc_expr(res, where, expr)
-def calcexpr(where, expr, res):
-    return eval_expr(res, where, expr)
-def dosysfile(complain_if_no_file, fname):
-    return exec_system_script(fname, complain_if_no_file)
-def execute(line):
-    return eval_idc_snippet(None, line)
-py_set_idc_func_ex=py_add_idc_func
-def set_idc_func_ex(name, fp=None, args=(), flags=0):
-    return add_idc_func(name, fp, args, (), flags)
-#</pycode_BC695(py_expr)>

@@ -5,6 +5,8 @@
 
 // Most of these could be wrapped if needed
 %ignore get_cc;
+%ignore get_effective_cc;
+%ignore ::use_golang_abi;
 %ignore get_cc_type_size;
 %ignore get_de;
 %ignore skip_ptr_type_header;
@@ -154,7 +156,7 @@
 
   til_t *base(int n)
   {
-    return (n < 0 || n >= $self->nbases) ? NULL : $self->base[n];
+    return (n < 0 || n >= $self->nbases) ? nullptr : $self->base[n];
   }
 }
 
@@ -171,9 +173,9 @@
           const til_t *til,
           const type_t *type,
           const p_list *fields,
-          const p_list *cmts = NULL)
+          const p_list *cmts = nullptr)
   {
-    return $self->deserialize(til, &type, &fields, cmts == NULL ? NULL : &cmts);
+    return $self->deserialize(til, &type, &fields, cmts == nullptr ? nullptr : &cmts);
   }
 
   tinfo_t copy() const
@@ -226,20 +228,20 @@
 %ignore tinfo_t::~tinfo_t(void);
 
 %template(funcargvec_t)      qvector<funcarg_t>;
-%template(udtmembervec_t)    qvector<udt_member_t>;
 %template(reginfovec_t)      qvector<reg_info_t>;
 %template(enum_member_vec_t) qvector<enum_member_t>;
 %template(argpartvec_t)      qvector<argpart_t>;
 %uncomparable_elements_qvector(valstr_t, valstrvec_t);
 %uncomparable_elements_qvector(regobj_t, regobjvec_t);
 %uncomparable_elements_qvector(type_attr_t, type_attrs_t);
+%template(udtmembervec_template_t) qvector<udt_member_t>;
 
 %extend tinfo_t {
   PyObject *get_attr(const qstring &key, bool all_attrs=true)
   {
     bytevec_t bv;
     if ( $self->get_attr(key, &bv, all_attrs) )
-      return IDAPyStr_FromUTF8AndSize((const char *) bv.begin(), bv.size());
+      return PyUnicode_FromStringAndSize((const char *) bv.begin(), bv.size());
     else
       Py_RETURN_NONE;
   }
@@ -262,8 +264,8 @@
   // %typemap(in) const sclass_t *
   if ( $input == Py_None )
     $1 = new sclass_t(sc_unk);
-  else if ( IDAPyInt_Check($input) )
-    $1 = new sclass_t(sclass_t(IDAPyInt_AsLong($input)));
+  else if ( PyLong_Check($input) )
+    $1 = new sclass_t(sclass_t(PyLong_AsLong($input)));
   else
     SWIG_exception_fail(
             SWIG_ValueError,

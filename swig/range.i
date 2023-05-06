@@ -22,13 +22,6 @@
    }
 };
 
-%extend range_t {
-   %pythoncode {
-     startEA = ida_idaapi._make_badattr_property("startEA", "start_ea")
-     endEA = ida_idaapi._make_badattr_property("endEA", "end_ea")
-   }
-};
-
 %pythoncode %{
 #<pycode(py_range)>
 #</pycode(py_range)>

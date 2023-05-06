@@ -9,13 +9,13 @@ int idaapi py_enumerate_files_cb(const char *file, void *ud)
   // and from the same thread as the one that executes
   // 'py_enumerate_files'.
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  newref_t py_file(IDAPyStr_FromUTF8(file));
+  newref_t py_file(PyUnicode_FromString(file));
   newref_t py_ret(
           PyObject_CallFunctionObjArgs(
                   (PyObject *)ud,
                   py_file.o,
-                  NULL));
-  return (py_ret == NULL || !PyNumber_Check(py_ret.o)) ? 1 /* stop enum on failure */ : PyInt_AsLong(py_ret.o);
+                  nullptr));
+  return (!py_ret || !PyNumber_Check(py_ret.o)) ? 1 /* stop enum on failure */ : PyInt_AsLong(py_ret.o);
 }
 
 //-------------------------------------------------------------------------
@@ -54,12 +54,12 @@ PyObject *py_enumerate_files(PyObject *path, PyObject *fname, PyObject *callback
 
   do
   {
-    if ( !IDAPyStr_Check(path) || !IDAPyStr_Check(fname) || !PyCallable_Check(callback) )
+    if ( !PyUnicode_Check(path) || !PyUnicode_Check(fname) || !PyCallable_Check(callback) )
       break;
 
     qstring _path;
     qstring _fname;
-    if ( !IDAPyStr_AsUTF8(&_path, path) || !IDAPyStr_AsUTF8(&_fname, fname) )
+    if ( !PyUnicode_as_qstring(&_path, path) || !PyUnicode_as_qstring(&_fname, fname) )
       break;
 
     char answer[MAXSTR];
@@ -79,7 +79,7 @@ linput_t *py_create_bytearray_linput(const qstring &s)
 {
   qstring *bytes = new qstring(s);
   linput_t *li = create_bytearray_linput((const uchar *) bytes->c_str(), bytes->length());
-  if ( li != NULL )
+  if ( li != nullptr )
   {
     bytearray_linput_data_t &ld = bytearray_linput_data_vec.push_back();
     ld.bytes = bytes;

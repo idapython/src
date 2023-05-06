@@ -11,9 +11,10 @@
     "SwigDirector_IDP_Hooks::ev_get_bg_color" : [
 
         ("director_method_call_arity_cap", (
+            False, # add GIL lock
             "ev_get_bg_color",
-            "(method , __argcnt == 2 ? (PyObject *) obj1 : (PyObject *) obj0, __argcnt == 2 ? (PyObject *) NULL : (PyObject *) obj1, NULL)",
-            "(swig_get_self(), (PyObject *) swig_method_name , __argcnt == 2 ? (PyObject *) obj1 : (PyObject *) obj0, __argcnt == 2 ? (PyObject *) NULL : (PyObject *) obj1, NULL)")
+            "(method , __argcnt == 2 ? (PyObject *) obj1 : (PyObject *) obj0, __argcnt == 2 ? (PyObject *) nullptr : (PyObject *) obj1, nullptr)",
+            "(swig_get_self(), (PyObject *) swig_method_name , __argcnt == 2 ? (PyObject *) obj1 : (PyObject *) obj0, __argcnt == 2 ? (PyObject *) nullptr : (PyObject *) obj1, nullptr)")
         ),
 
         ("insert_before_text", ("int swig_val;",
@@ -24,10 +25,10 @@ if ( __argcnt == 2 )
   {
     result = PyInt_FromLong(0);
   }
-  else if ( IDAPyInt_Check(result) )
+  else if ( PyLong_Check(result) )
   {
-    *color = bgcolor_t(IDAPyInt_AsLong(result));
-    result = IDAPyInt_FromLong(1);
+    *color = bgcolor_t(PyLong_AsLong(result));
+    result = PyLong_FromLong(1);
   }
 }
 """)),
@@ -44,6 +45,51 @@ if ( __argcnt == 2 )
                     "    Swig::DirectorException::raise(\"Unknown 'value_type'\");",
                 ),
             ),
+        ),
+    ],
+
+    "SwigDirector_IDB_Hooks::renamed" : [
+        ("director_method_call_arity_cap", (
+            False, # add GIL lock
+            "renamed",
+            "(method ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2,(__argcnt < 5 ? nullptr : (PyObject *)obj3), nullptr)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2,(__argcnt < 5 ? nullptr : (PyObject *)obj3), nullptr)")
+        ),
+    ],
+
+    "SwigDirector_IDB_Hooks::compiler_changed" : [
+        ("director_method_call_arity_cap", (
+            False, # add GIL lock
+            "compiler_changed",
+            "(method ,(__argcnt == 1 ? nullptr : (PyObject *)obj0), nullptr)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(__argcnt == 1 ? nullptr : (PyObject *)obj0), nullptr)")
+        ),
+    ],
+
+    "SwigDirector_IDB_Hooks::bookmark_changed" : [
+        ("director_method_call_arity_cap", (
+            False, # add GIL lock
+            "bookmark_changed",
+            "(method ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2,(__argcnt < 5 ? nullptr : (PyObject *)obj3), nullptr)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(PyObject *)obj1,(PyObject *)obj2,(__argcnt < 5 ? nullptr : (PyObject *)obj3), nullptr)")
+        ),
+    ],
+
+    "SwigDirector_IDB_Hooks::segm_deleted" : [
+        ("director_method_call_arity_cap", (
+            False, # add GIL lock
+            "segm_deleted",
+            "(method ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 4 ? nullptr : (PyObject *)obj2), nullptr)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(PyObject *)obj1,(__argcnt < 4 ? nullptr : (PyObject *)obj2), nullptr)")
+        ),
+    ],
+
+    "SwigDirector_IDB_Hooks::struc_renamed" : [
+        ("director_method_call_arity_cap", (
+            False, # add GIL lock
+            "struc_renamed",
+            "(method ,(PyObject *)obj0,(__argcnt < 3 ? nullptr : (PyObject *)obj1), nullptr)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(__argcnt < 3 ? nullptr : (PyObject *)obj1), nullptr)")
         ),
     ],
 }

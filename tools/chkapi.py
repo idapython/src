@@ -119,11 +119,11 @@ def check_cpp(args):
 
         "_wrap_warning__varargs__" : {
             "nullptrcheck" : 1, # 1st arg
-            "mustcall" : "IDAPyStr_AsUTF8",
+            "mustcall" : "PyUnicode_as_qstring",
         },
         "_wrap_error__varargs__" : {
             "nullptrcheck" : 1,
-            "mustcall" : "IDAPyStr_AsUTF8",
+            "mustcall" : "PyUnicode_as_qstring",
         },
         "_wrap_tag_remove" : {
             "nullptrcheck" : 1,
@@ -156,19 +156,19 @@ def check_cpp(args):
 
     functions_coherence_hexrays = {
         "_wrap_cfuncptr_t___str__" : {
-            "mustcall" : ["cfunc_t___str__", "IDAPyStr_FromUTF8AndSize"],
+            "mustcall" : ["cfunc_t___str__", "PyUnicode_FromStringAndSize"],
         },
         "_wrap_cfunc_t___str__" : {
-            "mustcall" : ["cfunc_t___str__", "IDAPyStr_FromUTF8AndSize"],
+            "mustcall" : ["cfunc_t___str__", "PyUnicode_FromStringAndSize"],
         },
         "_wrap_hexrays_failure_t_desc" : {
-            "mustcall" : "IDAPyStr_FromUTF8AndSize",
+            "mustcall" : "PyUnicode_FromStringAndSize",
         },
         "_wrap_vd_failure_t_desc" : {
-            "mustcall" : "IDAPyStr_FromUTF8AndSize",
+            "mustcall" : "PyUnicode_FromStringAndSize",
         },
         "_wrap_create_field_name" : {
-            "mustcall" : "IDAPyStr_FromUTF8AndSize",
+            "mustcall" : "PyUnicode_FromStringAndSize",
         },
         "delete_qrefcnt_t_Sl_cfunc_t_Sg_" : {
             "mustcall" : "hexrays_deregister_python_clearable_instance",
@@ -212,7 +212,7 @@ def check_cpp(args):
         "_wrap_boundaries_find" : {
             "nostring" : "SWIGTYPE_p_p_cinsn_t",
         },
-        "mbl_array_t_serialize" : {
+        "mba_t_serialize" : {
             "string" : "bytes_container typemap(argout) (bytevec_t &vout)",
             "mustcall" : "_sized_binary_result",
         },
@@ -386,7 +386,12 @@ def check_python(args):
         "simpleline_place_t" : { "mustinherit" : "place_t" },
         "structplace_t" : { "mustinherit" : "place_t" },
         "textctrl_info_t" : { "mustinherit" : "ida_idaapi.py_clinked_object_t" },
+        "udtmembervec_t" : { "mustinherit" : "udtmembervec_template_t" },
         "udt_type_data_t" : { "mustinherit" : "udtmembervec_t" },
+        "call_stack_t" : { "mustinherit" : "call_stack_info_vec_t" },
+        "abstract_graph_t" : { "mustinherit" : "ida_gdl.gdl_graph_t" },
+        "mutable_graph_t" : { "mustinherit" : "abstract_graph_t" },
+        "meminfo_vec_t" : { "mustinherit" : "meminfo_vec_template_t" },
 
         # Just look for the presence of those things
         "BADNODE" : {},
@@ -396,7 +401,7 @@ def check_python(args):
         "DecompilationFailure" : { "mustinherit" : "Exception" },
         "carg_t" : { "mustinherit" : "cexpr_t" },
         "carglist_t" : { "mustinherit" : "qvector_carg_t" },
-        "cblock_t" : { "mustinherit" : "qlist_cinsn_t" },
+        "cblock_t" : { "mustinherit" : "cinsn_list_t" },
         "ccase_t" : { "mustinherit" : "cinsn_t" },
         "ccases_t" : { "mustinherit" : "qvector_ccase_t" },
         "cdo_t" : { "mustinherit" : "cloop_t" },
@@ -421,6 +426,7 @@ def check_python(args):
         # "vivl_t" : { "mustinherit" : "ivl_t" },
         "ivl_t" : { "mustinherit" : "uval_ivl_t" },
         "ivlset_t" : { "mustinherit" : "uval_ivl_ivlset_t" },
+        "simple_graph_t" : { "mustinherit" : "ida_gdl.gdl_graph_t" },
     }
 
     types_coherence = types_coherence_base.copy()

@@ -1,3 +1,10 @@
+"""
+summary: modifying local variables
+
+description:
+  Use a `ida_hexrays.user_lvar_modifier_t` to modify names,
+  comments and/or types of local variables.
+"""
 
 import ida_hexrays
 import ida_typeinf

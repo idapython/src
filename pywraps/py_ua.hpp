@@ -53,11 +53,9 @@ bool py_construct_macro(insn_t &insn, bool enable, PyObject *build_macro)
     {
       PyObject *py_builder = macro_builders.top().o;
       ref_t py_res;
-      ref_t py_mod(PyW_TryImportModule(SWIG_name));
-      if ( py_mod != NULL )
+      if ( ref_t py_mod = ref_t(PyW_TryImportModule(SWIG_name)) )
       {
-        ref_t py_insn = try_create_swig_wrapper(py_mod, "insn_t", &insn);
-        if ( py_insn != NULL )
+        if ( ref_t py_insn = ref_t(try_create_swig_wrapper(py_mod, "insn_t", &insn)) )
         {
           py_res = newref_t(
                   PyObject_CallFunction(
@@ -83,7 +81,7 @@ static int py_get_dtype_by_size(asize_t size)
 }
 
 //-------------------------------------------------------------------------
-PyObject *py_get_immvals(ea_t ea, int n, flags_t F=0)
+PyObject *py_get_immvals(ea_t ea, int n, flags64_t F=0)
 {
   uvalvec_t storage;
   storage.resize(2 * UA_MAXOP);
@@ -97,7 +95,7 @@ PyObject *py_get_immvals(ea_t ea, int n, flags_t F=0)
 }
 
 //-------------------------------------------------------------------------
-PyObject *py_get_printable_immvals(ea_t ea, int n, flags_t F=0)
+PyObject *py_get_printable_immvals(ea_t ea, int n, flags64_t F=0)
 {
   uvalvec_t storage;
   storage.resize(2 * UA_MAXOP);

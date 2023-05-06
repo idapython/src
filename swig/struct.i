@@ -7,6 +7,11 @@
 %ignore get_member_name(tid_t);
 %ignore get_member_by_id(tid_t, struc_t **); // allow version w/ qstring* only
 
+%ignore get_innermost_member;
+%rename (get_innermost_member) py_get_innermost_member;
+
+%ignore MF_RESERVED1;
+
 //-------------------------------------------------------------------------
 // For 'get_member_by_id()'
 %typemap(in,numinputs=0) qstring *out_mname (qstring temp) {
@@ -15,7 +20,7 @@
 %typemap(argout) qstring *out_mname {
   if (result)
   {
-    %append_output(IDAPyStr_FromUTF8AndSize($1->begin(), $1->length()));
+    %append_output(PyUnicode_FromStringAndSize($1->begin(), $1->length()));
   }
   else
   {
@@ -47,16 +52,21 @@
   }
 }
 
-%nonnul_argument_prototype(
-        asize_t get_member_size(const member_t *nonnul_mptr),
-        const member_t *nonnul_mptr);
+%template (dyn_member_ref_array) dynamic_wrapped_array_t<member_t>;
 
 //-------------------------------------------------------------------------
 %include "struct.hpp"
-// Add a get_member() member function to struc_t.
-// This helps to access the members array in the class.
 %extend struc_t {
-  member_t *get_member(int index) { return &(self->members[index]); }
+  dynamic_wrapped_array_t<member_t> __get_members__()
+  {
+    return dynamic_wrapped_array_t<member_t>($self->members, $self->memqty);
+  }
+
+  %pythoncode {
+    members = property(__get_members__)
+    def get_member(self, index):
+        return self.members[index]
+  }
 }
 
 %inline %{

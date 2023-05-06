@@ -26,6 +26,7 @@ import ida_name
 import ida_netnode
 import ida_segment
 import ida_strlist
+import ida_struct
 import ida_ua
 import ida_xref
 
@@ -33,16 +34,6 @@ import idc
 import types
 import os
 import sys
-
-def refs(ea, funcfirst, funcnext):
-    """
-    Generic reference collector - INTERNAL USE ONLY.
-    """
-    ref = funcfirst(ea)
-    while ref != ida_idaapi.BADADDR:
-        yield ref
-        ref = funcnext(ea, ref)
-
 
 def CodeRefsTo(ea, flow):
     """
@@ -59,10 +50,11 @@ def CodeRefsTo(ea, flow):
         for ref in CodeRefsTo(get_screen_ea(), 1):
             print(ref)
     """
+    xref = ida_xref.xrefblk_t()
     if flow == 1:
-        return refs(ea, ida_xref.get_first_cref_to, ida_xref.get_next_cref_to)
+        yield from xref.crefs_to(ea)
     else:
-        return refs(ea, ida_xref.get_first_fcref_to, ida_xref.get_next_fcref_to)
+        yield from xref.fcrefs_to(ea)
 
 
 def CodeRefsFrom(ea, flow):
@@ -80,11 +72,11 @@ def CodeRefsFrom(ea, flow):
         for ref in CodeRefsFrom(get_screen_ea(), 1):
             print(ref)
     """
+    xref = ida_xref.xrefblk_t()
     if flow == 1:
-        return refs(ea, ida_xref.get_first_cref_from, ida_xref.get_next_cref_from)
+        yield from xref.crefs_from(ea)
     else:
-        return refs(ea, ida_xref.get_first_fcref_from, ida_xref.get_next_fcref_from)
-
+        yield from xref.fcrefs_from(ea)
 
 def DataRefsTo(ea):
     """
@@ -99,7 +91,8 @@ def DataRefsTo(ea):
         for ref in DataRefsTo(get_screen_ea()):
             print(ref)
     """
-    return refs(ea, ida_xref.get_first_dref_to, ida_xref.get_next_dref_to)
+    xref = ida_xref.xrefblk_t()
+    yield from xref.drefs_to(ea)
 
 
 def DataRefsFrom(ea):
@@ -115,7 +108,8 @@ def DataRefsFrom(ea):
         for ref in DataRefsFrom(get_screen_ea()):
             print(ref)
     """
-    return refs(ea, ida_xref.get_first_dref_from, ida_xref.get_next_dref_from)
+    xref = ida_xref.xrefblk_t()
+    yield from xref.drefs_from(ea)
 
 
 # Xref type names table
@@ -143,16 +137,6 @@ def XrefTypeName(typecode):
     assert typecode in _ref_types, "unknown reference type %d" % typecode
     return _ref_types[typecode]
 
-def _copy_xref(xref):
-    """ Make a private copy of the xref class to preserve its contents """
-    class _xref(object):
-        pass
-
-    xr = _xref()
-    for attr in [ 'frm', 'to', 'iscode', 'type', 'user' ]:
-        setattr(xr, attr, getattr(xref, attr))
-    return xr
-
 
 def XrefsFrom(ea, flags=0):
     """
@@ -167,10 +151,7 @@ def XrefsFrom(ea, flags=0):
                          'from', hex(xref.frm), 'to', hex(xref.to))
     """
     xref = ida_xref.xrefblk_t()
-    if xref.first_from(ea, flags):
-        yield _copy_xref(xref)
-        while xref.next_from():
-            yield _copy_xref(xref)
+    return xref.refs_from(ea, flags)
 
 
 def XrefsTo(ea, flags=0):
@@ -186,10 +167,7 @@ def XrefsTo(ea, flags=0):
                          'from', hex(xref.frm), 'to', hex(xref.to))
     """
     xref = ida_xref.xrefblk_t()
-    if xref.first_to(ea, flags):
-        yield _copy_xref(xref)
-        while xref.next_to():
-            yield _copy_xref(xref)
+    return xref.refs_to(ea, flags)
 
 
 def Threads():
@@ -252,18 +230,16 @@ def Functions(start=None, end=None):
 def Chunks(start):
     """
     Get a list of function chunks
+    See also ida_funcs.func_tail_iterator_t
 
     @param start: address of the function
 
-    @return: list of funcion chunks (tuples of the form (start_ea, end_ea))
+    @return: list of function chunks (tuples of the form (start_ea, end_ea))
              belonging to the function
     """
     func_iter = ida_funcs.func_tail_iterator_t( ida_funcs.get_func( start ) )
-    status = func_iter.main()
-    while status:
-        chunk = func_iter.chunk()
+    for chunk in func_iter:
         yield (chunk.start_ea, chunk.end_ea)
-        status = next(func_iter)
 
 
 def Modules():
@@ -318,19 +294,13 @@ def Entries():
 def FuncItems(start):
     """
     Get a list of function items (instruction or data items inside function boundaries)
+    See also ida_funcs.func_item_iterator_t
 
     @param start: address of the function
 
     @return: ea of each item in the function
     """
-    func = ida_funcs.get_func(start)
-    if not func:
-        return
-    fii = ida_funcs.func_item_iterator_t()
-    ok = fii.set(func)
-    while ok:
-        yield fii.current()
-        ok = fii.next_code()
+    return ida_funcs.func_item_iterator_t(ida_funcs.get_func(start))
 
 
 def Structs():
@@ -359,14 +329,14 @@ def StructMembers(sid):
     @note: This will not return 'holes' in structures/stack frames;
            it only returns defined structure members.
     """
-    m = idc.get_first_member(sid)
-    if m == -1:
+    sptr = ida_struct.get_struc(sid)
+    if sptr is None:
         raise Exception("No structure with ID: 0x%x" % sid)
-    while (m != ida_idaapi.BADADDR):
-        name = idc.get_member_name(sid, m)
+    for m in sptr.members:
+        name = idc.get_member_name(sid, m.soff)
         if name:
-            yield (m, name, idc.get_member_size(sid, m))
-        m = idc.get_next_offset(sid, m)
+            size = ida_struct.get_member_size(m)
+            yield (m.soff, name, size)
 
 
 def DecodePrecedingInstruction(ea):
@@ -514,7 +484,7 @@ class Strings(object):
             return self._toseq(True)
 
     def clear_cache(self):
-        """Clears the strings list cache"""
+        """Clears the string list cache"""
         ida_strlist.clear_strlist()
 
     def __init__(self, default_setup = False):
@@ -535,7 +505,7 @@ class Strings(object):
 
 
     def refresh(self):
-        """Refreshes the strings list"""
+        """Refreshes the string list"""
         ida_strlist.build_strlist()
         self.size = ida_strlist.get_strlist_qty()
 
@@ -552,6 +522,7 @@ class Strings(object):
         t.minlen = minlen
         t.only_7bit = only_7bit
         t.display_only_existing_strings = display_only_existing_strings
+        t.ignore_heads = ignore_instructions
         self.refresh()
 
 
@@ -592,9 +563,14 @@ def GetInstructionList():
     return [i[0] for i in ida_idp.ph_get_instruc() if i[0]]
 
 # -----------------------------------------------------------------------
-def _Assemble(ea, line):
+def Assemble(ea, line):
     """
-    Please refer to Assemble() - INTERNAL USE ONLY
+    Assembles one or more lines (does not display an message dialogs)
+    If line is a list then this function will attempt to assemble all the lines
+    This function will turn on batch mode temporarily so that no messages are displayed on the screen
+
+    @param ea:       start address
+    @return: (False, "Error message") or (True, asm_buf) or (True, [asm_buf1, asm_buf2, asm_buf3])
     """
     if type(line) in ([bytes] + list(ida_idaapi.string_types)):
         lines = [line]
@@ -616,21 +592,11 @@ def _Assemble(ea, line):
         ret = ret[0]
     return (True, ret)
 
+# -----------------------------------------------------------------------
+_Assemble = Assemble
 
-def Assemble(ea, line):
-    """
-    Assembles one or more lines (does not display an message dialogs)
-    If line is a list then this function will attempt to assemble all the lines
-    This function will turn on batch mode temporarily so that no messages are displayed on the screen
 
-    @param ea:       start address
-    @return: (False, "Error message") or (True, asm_buf) or (True, [asm_buf1, asm_buf2, asm_buf3])
-    """
-    old_batch = idc.batch(1)
-    ret = _Assemble(ea, line)
-    idc.batch(old_batch)
-    return ret
-
+# -----------------------------------------------------------------------
 def _copy_obj(src, dest, skip_list = None):
     """
     Copy non private/non callable attributes from a class instance to another
@@ -689,7 +655,12 @@ class _procregs(object):
 class _cpu(object):
     "Simple wrapper around get_reg_value/set_reg_value"
     def __getattr__(self, name):
-        return idc.get_reg_value(name)
+        try:
+            return idc.get_reg_value(name)
+        except Exception as ex:
+            raise AttributeError("_cpu: \"{}\" is not a register;"
+                                 " inner exception: [{}] {}"
+                                 .format(name, type(ex).__name__, ex))
 
     def __setattr__(self, name, value):
         return idc.set_reg_value(value, name)

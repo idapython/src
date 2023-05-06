@@ -15,6 +15,7 @@ global:
   PyW_ShowCbErr;
   PyW_SizeVecToPyList;
   PyW_UvalVecToPyList;
+  PyW_StrVecToPyList;
   PyW_TryGetAttrString;
   PyW_TryImportModule;
   PyW_register_compiled_form;
@@ -25,10 +26,12 @@ global:
   enable_python_cli;
   idapython_hook_to_notification_point;
   idapython_unhook_from_notification_point;
+  idapython_register_hook;
+  idapython_unregister_hook;
   idapython_show_wait_box;
   idapython_hide_wait_box;
   idcvar_to_pyvar;
-  is_api695_compat_enabled;
+  get_plugin_instance;
   lookup_info_t_commit;
   lookup_info_t_del_by_py_view;
   lookup_info_t_find_by_py_view;
@@ -43,7 +46,6 @@ global:
   py_customidamemo_t_delete_groups;
   py_customidamemo_t_set_groups_visibility;
   py_customidamemo_t_unbind;
-  pycim_lookup_info;
   pylong_to_byte_array;
   pyobj_get_clink;
   python_timer_del;

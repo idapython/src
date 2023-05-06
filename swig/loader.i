@@ -59,12 +59,6 @@
 %ignore IDP_DESC_START;
 %ignore IDP_DESC_END;
 %ignore get_idp_descs;
-%ignore init_fileregions;
-%ignore term_fileregions;
-%ignore save_fileregions;
-%ignore add_fileregion;
-%ignore move_fileregions;
-%ignore del_fileregions;
 %ignore enum_plugins;
 %ignore is_database_ext;
 %ignore is_temp_database;

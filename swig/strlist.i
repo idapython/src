@@ -28,20 +28,20 @@
       for ( size_t i = 0; i < n; ++i )
       {
         newref_t pyo(PySequence_GetItem(py_t, i));
-        if ( IDAPyInt_Check(pyo.o) )
+        if ( PyLong_Check(pyo.o) )
         {
-          long stype = IDAPyInt_AsLong(pyo.o);
+          long stype = PyLong_AsLong(pyo.o);
           if ( stype < 0 || stype >= 0x100 )
           {
             PyErr_SetString(PyExc_ValueError, "values must be between 0 & 0x100");
-            return NULL;
+            return nullptr;
           }
           t.push_back(uchar(stype));
         }
         else
         {
           PyErr_SetString(PyExc_ValueError, "expected an integer");
-          return NULL;
+          return nullptr;
         }
       }
       $self->strtypes.swap(t);
@@ -49,7 +49,7 @@
     else
     {
       PyErr_SetString(PyExc_TypeError, "expected a list");
-      return NULL;
+      return nullptr;
     }
     Py_RETURN_TRUE;
   }

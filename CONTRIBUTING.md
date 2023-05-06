@@ -53,6 +53,8 @@ so we don't have to do it ourselves.
 When it comes to other types of pull requests (e.g., documentation),
 it should usually not be necessary to write a test.
 
+See also [the best practices for tests & examples](examples/README.md)
+
 
 ### How to write tests?
 

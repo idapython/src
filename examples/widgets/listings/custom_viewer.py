@@ -1,23 +1,33 @@
+"""
+summary: create custom listings in IDA
+
+description:
+  How to create simple listings, that will share many of the features
+  as the built-in IDA widgets (highlighting, copy & paste,
+  notifications, ...)
+
+  In addition, creates actions that will be bound to the
+  freshly-created widget (using `ida_kernwin.attach_action_to_popup`.)
+
+keywords: listing, actions
+"""
+
 from __future__ import print_function
-# -----------------------------------------------------------------------
-# This is an example illustrating how to use customview in Python
-# (c) Hex-Rays
-#
-import idaapi
-import idc
-from idaapi import simplecustviewer_t
+
+import ida_kernwin
+import ida_lines
 
 # -----------------------------------------------------------------------
-class say_something_handler_t(idaapi.action_handler_t):
+class say_something_handler_t(ida_kernwin.action_handler_t):
     def __init__(self, thing):
-        idaapi.action_handler_t.__init__(self)
+        ida_kernwin.action_handler_t.__init__(self)
         self.thing = thing
 
     def activate(self, ctx):
         print(self.thing)
 
     def update(self, ctx):
-        return idaapi.AST_ENABLE_ALWAYS
+        return ida_kernwin.AST_ENABLE_ALWAYS
 
     @staticmethod
     def compose_action_name(v):
@@ -38,7 +48,7 @@ for av in actions_variants:
 
 
 # -----------------------------------------------------------------------
-class mycv_t(simplecustviewer_t):
+class mycv_t(ida_kernwin.simplecustviewer_t):
     def Create(self, sn=None, use_colors=True):
         # Form the title
         title = "Simple custom view test"
@@ -47,16 +57,16 @@ class mycv_t(simplecustviewer_t):
         self.use_colors = use_colors
 
         # Create the customviewer
-        if not simplecustviewer_t.Create(self, title):
+        if not ida_kernwin.simplecustviewer_t.Create(self, title):
             return False
 
         for i in range(0, 100):
-            prefix, bg = idaapi.COLOR_DEFAULT, None
+            prefix, bg = ida_lines.COLOR_DEFAULT, None
             # make every 10th line a bit special
             if i % 10 == 0:
-                prefix = idaapi.COLOR_DNAME   # i.e., dark yellow...
+                prefix = ida_lines.COLOR_DNAME   # i.e., dark yellow...
                 bg = 0xFFFF00                 # ...on cyan
-            pfx = idaapi.COLSTR("%3d" % i, idaapi.SCOLOR_PREFIX)
+            pfx = ida_lines.COLSTR("%3d" % i, ida_lines.SCOLOR_PREFIX)
             if self.use_colors:
                 self.AddLine("%s: Line %d" % (pfx, i), fgcolor=prefix, bgcolor=bg)
             else:
@@ -120,7 +130,7 @@ class mycv_t(simplecustviewer_t):
         elif vkey == ord('G'):
             n = self.GetLineNo()
             if n is not None:
-                v = idaapi.ask_long(self.GetLineNo(), "Where to go?")
+                v = ida_kernwin.ask_long(self.GetLineNo(), "Where to go?")
                 if v:
                     self.Jump(v, 0, 5)
         elif vkey == ord('R'):
@@ -130,7 +140,7 @@ class mycv_t(simplecustviewer_t):
             print("refreshing current line...")
             self.RefreshCurrent()
         elif vkey == ord('A'):
-            s = idaapi.ask_str("NewLine%d" % self.Count(), 0, "Append new line")
+            s = ida_kernwin.ask_str("NewLine%d" % self.Count(), 0, "Append new line")
             self.AddLine(s)
             self.Refresh()
         elif vkey == ord('X'):
@@ -139,7 +149,7 @@ class mycv_t(simplecustviewer_t):
             self.Refresh()
         elif vkey == ord('I'):
             n = self.GetLineNo()
-            s = idaapi.ask_str("InsertedLine%d" % n, 0, "Insert new line")
+            s = ida_kernwin.ask_str("InsertedLine%d" % n, 0, "Insert new line")
             self.InsertLine(n, s)
             self.Refresh()
         elif vkey == ord('E'):
@@ -148,7 +158,7 @@ class mycv_t(simplecustviewer_t):
                 return False
             n = self.GetLineNo()
             print("curline=<%s>" % l)
-            l = l + idaapi.COLSTR("*", idaapi.SCOLOR_VOIDOP)
+            l = l + ida_lines.COLSTR("*", ida_lines.SCOLOR_VOIDOP)
             self.EditLine(n, l)
             self.RefreshCurrent()
             print("Edited line %d" % n)
@@ -167,7 +177,7 @@ class mycv_t(simplecustviewer_t):
         return (1, "OnHint, line=%d" % lineno)
 
     def Show(self, *args):
-        ok = simplecustviewer_t.Show(self, *args)
+        ok = ida_kernwin.simplecustviewer_t.Show(self, *args)
         if ok:
             # permanently attach actions to this viewer's popup menu
             for av in actions_variants:

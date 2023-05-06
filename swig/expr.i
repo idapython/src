@@ -71,10 +71,10 @@
         size_t bufsize,
         const char *file); // get_idc_filename
 
-%nonnul_argument_prototype(
+%pywraps_nonnul_argument_prototype(
         bool py_compile_idc_file(const char *nonnul_line, qstring *errbuf),
         const char *nonnul_line);
-%nonnul_argument_prototype(
+%pywraps_nonnul_argument_prototype(
         bool py_compile_idc_text(const char *nonnul_line, qstring *errbuf),
         const char *nonnul_line);
 %{
@@ -91,13 +91,8 @@
 
 %extend idc_value_t
 {
-  wrapped_array_t<ushort,6> __get_e() {
-    return wrapped_array_t<ushort,6>($self->e);
-  }
-
   %pythoncode {
     str = property(lambda self: self.c_str(), lambda self, v: self.set_string(v))
-    e = property(__get_e)
   }
 }
 

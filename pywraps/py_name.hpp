@@ -10,17 +10,17 @@ PyObject *get_debug_names(ea_t ea1, ea_t ea2, bool return_list=false)
   // Get debug names
   ea_name_vec_t names;
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  Py_BEGIN_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   get_debug_names(&names, ea1, ea2);
-  Py_END_ALLOW_THREADS;
+  SWIG_PYTHON_THREAD_END_ALLOW;
   PyObject *dict = Py_BuildValue("{}");
-  if ( dict != NULL )
+  if ( dict != nullptr )
   {
     ea_t last_ea = BADADDR;
-    PyObject *list = NULL;
+    PyObject *list = nullptr;
     for ( ea_name_vec_t::iterator it = names.begin(); it != names.end(); ++it )
     {
-      PyObject *name_obj = IDAPyStr_FromUTF8(it->name.c_str());
+      PyObject *name_obj = PyUnicode_FromString(it->name.c_str());
       if ( it->ea != last_ea )
       {
         if ( return_list )
@@ -49,7 +49,7 @@ PyObject *py_validate_name(const char *name, nametype_t type, int flags=0)
 {
   qstring qname(name);
   if ( validate_name(&qname, type, flags) )
-    return IDAPyStr_FromUTF8AndSize(qname.c_str(), qname.length());
+    return PyUnicode_FromStringAndSize(qname.c_str(), qname.length());
   else
     Py_RETURN_NONE;
 }

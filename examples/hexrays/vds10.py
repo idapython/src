@@ -1,27 +1,28 @@
-#
-#      Hex-Rays Decompiler project
-#      Copyright (c) 2007-2019 by Hex-Rays, support@hex-rays.com
-#      ALL RIGHTS RESERVED.
-#
-#      Sample plugin for Hex-Rays Decompiler.
-#      It installs a custom microcode optimization rule:
-#        call   !DbgRaiseAssertionFailure <fast:>.0
-#      =>
-#        call   !DbgRaiseAssertionFailure <fast:"char *" "assertion text">.0
-#
-#      To see this plugin in action please use arm64_brk.i64, in the hexrays sdk
-#
-#      This is a rewrite in Python of the vds10 example that comes with hexrays sdk.
-#
+"""
+summary: a custom microcode instruction optimization rule
+
+description:
+  Installs a custom microcode instruction optimization rule,
+  to transform:
+
+      call   !DbgRaiseAssertionFailure <fast:>.0
+
+  into
+
+      call   !DbgRaiseAssertionFailure <fast:"char *" "assertion text">.0
+
+  To see this plugin in action please use arm64_brk.i64
+"""
 
 import ida_bytes
 import ida_range
 import ida_kernwin
 import ida_hexrays
 import ida_typeinf
+import ida_idaapi
 
 class nt_assert_optimizer_t(ida_hexrays.optinsn_t):
-    def func(self, blk, ins):
+    def func(self, blk, ins, optflags):
         if self.handle_nt_assert(ins):
             return 1
         return 0
@@ -55,10 +56,27 @@ class nt_assert_optimizer_t(ida_hexrays.optinsn_t):
         fa.size = fa.type.get_size()
         return True
 
+# --------------------------------------------------------------------------
+# a plugin interface, boilerplate code
+class my_plugin_t(ida_idaapi.plugin_t):
+    flags = ida_idaapi.PLUGIN_HIDE
+    wanted_name = "Optimize DbgRaiseAssertionFailure (IDAPython)"
+    wanted_hotkey = ""
+    comment = "Sample plugin10 for Hex-Rays decompiler"
+    help = ""
+    def init(self):
+        if ida_hexrays.init_hexrays_plugin():
+            self.optimizer = nt_assert_optimizer_t()
+            self.optimizer.install()
+        return ida_idaapi.PLUGIN_KEEP # keep us in the memory
+    def term(self):
+        self.optimizer.remove()
+    def run(self, arg):
+        if arg == 1:
+            return self.optimizer.remove()
+        elif arg == 2:
+            return self.optimizer.install()
 
-if ida_hexrays.init_hexrays_plugin():
-    optimizer = nt_assert_optimizer_t()
-    optimizer.install()
-else:
-    print('vds10: Hex-rays is not available.')
+def PLUGIN_ENTRY():
+    return my_plugin_t()
 

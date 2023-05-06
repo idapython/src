@@ -39,16 +39,6 @@ class BasicBlock(object):
         for i in range(0, q.nsucc(self.id)):
             yield self._fc[q.succ(self.id, i)]
 
-    try:
-        if _BC695:
-            startEA = property(lambda self: self.start_ea, lambda self, ea: setattr(self, "start_ea", ea))
-            endEA = property(lambda self: self.end_ea, lambda self, ea: setattr(self, "end_ea", ea))
-        else:
-            startEA = ida_idaapi._make_badattr_property("startEA", "start_ea")
-            endEA = ida_idaapi._make_badattr_property("endEA", "end_ea")
-    except:
-        pass # BC695 not defined at compile-time
-
 # -----------------------------------------------------------------------
 class FlowChart(object):
     """
@@ -60,7 +50,7 @@ class FlowChart(object):
         Constructor
         @param f: A func_t type, use get_func(ea) to get a reference
         @param bounds: A tuple of the form (start, end). Used if "f" is None
-        @param flags: one of the FC_xxxx flags. One interesting flag is FC_PREDS
+        @param flags: one of the FC_xxxx flags.
         """
         if (f is None) and (bounds is None or type(bounds) != tuple):
             raise Exception("Please specifiy either a function or start/end pair")
@@ -98,5 +88,7 @@ class FlowChart(object):
             raise KeyError
         else:
             return self._getitem(index)
+
+FC_PREDS = 0 # obsolete bit, do not use
 
 #</pycode(py_gdl)>

@@ -1,3 +1,16 @@
+"""
+summary: Non-trivial uses of the `ida_kernwin.Form` helper class
+
+description:
+  How to query for complex user input, using IDA's built-in forms.
+
+  Note: while this example produces full-fledged forms for complex input,
+  simpler types of inputs might can be retrieved by using
+  `ida_kernwin.ask_str` and similar functions.
+
+keywords: forms
+"""
+
 from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to use the Form class
@@ -124,6 +137,8 @@ The end!
                 self.rBlue.id  : 0xFF0000,
             }
             self.SetControlValue(self.iColor1, color[fid])
+        elif fid == self.iColor1.id:
+            print("Color changed: %06x" % self.GetControlValue(self.iColor1))
         else:
             print(">>fid:%d" % fid)
         return 1

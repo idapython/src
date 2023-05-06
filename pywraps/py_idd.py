@@ -246,7 +246,7 @@ class Appcall_consts__(object):
     def __getattr__(self, attr):
         v = Appcall__.valueof(attr, self.__default)
         if v is None:
-            raise ValueError("No constant with name " + attr)
+            raise AttributeError("No constant with name " + attr)
         return v
 
 # -----------------------------------------------------------------------
@@ -301,7 +301,7 @@ class Appcall__(object):
             ea = name_or_ea
         # could not resolve name or invalid address?
         if ea == _ida_idaapi.BADADDR or not _ida_bytes.is_mapped(ea):
-            raise ValueError("Undefined function " + name_or_ea)
+            raise AttributeError("Undefined function " + name_or_ea)
         return ea
 
     @staticmethod
@@ -353,7 +353,7 @@ class Appcall__(object):
         # resolve and raise exception on error
         ea = self.__name_or_ea(name_or_ea)
         if ea == _ida_idaapi.BADADDR:
-            raise ValueError("Undefined function " + name)
+            raise AttributeError("Undefined function " + name)
         # Return the callable method
         return Appcall_callable__(ea)
 
@@ -456,7 +456,3 @@ class Appcall__(object):
 
 Appcall = Appcall__()
 #</pycode(py_idd)>
-
-#<pycode_BC695(py_idd)>
-PROCESS_NO_THREAD=NO_THREAD
-#</pycode_BC695(py_idd)>

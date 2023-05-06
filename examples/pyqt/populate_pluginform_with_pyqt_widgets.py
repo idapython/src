@@ -1,9 +1,16 @@
+"""
+summary: adding PyQt5 widgets into an `ida_kernwin.PluginForm`
 
-from idaapi import PluginForm
+description:
+  Using `ida_kernwin.PluginForm.FormToPyQtWidget`, this script
+  converts IDA's own dockable widget into a type that is
+  recognized by PyQt5, which then enables populating it with
+  regular Qt widgets.
+"""
+
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sip
 
-class MyPluginFormClass(PluginForm):
+class MyPluginFormClass(ida_kernwin.PluginForm):
     def OnCreate(self, form):
         """
         Called when the widget is created

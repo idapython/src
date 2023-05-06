@@ -6,7 +6,7 @@
 //-------------------------------------------------------------------------
 // callback for enumerating imports
 // ea:   import address
-// name: import name (NULL if imported by ordinal)
+// name: import name (nullptr if imported by ordinal)
 // ord:  import ordinal (0 for imports by name)
 // param: user parameter passed to enum_import_names()
 // return: 1-ok, 0-stop enumeration
@@ -18,15 +18,15 @@ static int idaapi py_import_enum_cb(
 {
   // If no name, try to get the name associated with the 'ea'. It may be coming from IDS
   qstring name_buf;
-  if ( name == NULL && get_name(&name_buf, ea) > 0 )
+  if ( name == nullptr && get_name(&name_buf, ea) > 0 )
     name = name_buf.begin();
 
   PYW_GIL_CHECK_LOCKED_SCOPE();
   ref_t py_name;
-  if ( name == NULL )
+  if ( name == nullptr )
     py_name = borref_t(Py_None);
   else
-    py_name = newref_t(IDAPyStr_FromUTF8(name));
+    py_name = newref_t(PyUnicode_FromString(name));
 
   newref_t py_ord(Py_BuildValue(PY_BV_UVAL, bvuval_t(ord)));
   newref_t py_ea(Py_BuildValue(PY_BV_EA, bvea_t(ea)));
@@ -36,8 +36,8 @@ static int idaapi py_import_enum_cb(
                   py_ea.o,
                   py_name.o,
                   py_ord.o,
-                  NULL));
-  return py_result != NULL && PyObject_IsTrue(py_result.o) ? 1 : 0;
+                  nullptr));
+  return py_result && PyObject_IsTrue(py_result.o) ? 1 : 0;
 }
 //</code(py_nalt)>
 
@@ -61,7 +61,7 @@ static PyObject *py_get_import_module_name(int mod_index)
   if ( !get_import_module_name(&qbuf, mod_index) )
     Py_RETURN_NONE;
 
-  return IDAPyStr_FromUTF8AndSize(qbuf.begin(), qbuf.length());
+  return PyUnicode_FromStringAndSize(qbuf.begin(), qbuf.length());
 }
 
 //-------------------------------------------------------------------------

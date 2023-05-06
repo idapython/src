@@ -2,25 +2,6 @@
 #define __PY_IDA_BYTES__
 
 //<code(py_bytes)>
-//------------------------------------------------------------------------
-static bool idaapi py_testf_cb(flags_t flags, void *ud)
-{
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  newref_t py_flags(PyLong_FromUnsignedLong(flags));
-  newref_t result(PyObject_CallFunctionObjArgs((PyObject *) ud, py_flags.o, NULL));
-  return result != NULL && PyObject_IsTrue(result.o);
-}
-
-//------------------------------------------------------------------------
-// Wraps the (next|prev)that()
-static ea_t py_npthat(ea_t ea, ea_t bound, PyObject *py_callable, bool next)
-{
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyCallable_Check(py_callable) )
-    return BADADDR;
-  else
-    return (next ? next_that : prev_that)(ea, bound, py_testf_cb, py_callable);
-}
 
 //---------------------------------------------------------------------------
 static int idaapi py_visit_patched_bytes_cb(
@@ -40,7 +21,7 @@ static int idaapi py_visit_patched_bytes_cb(
                   o,
                   v));
   PyW_ShowCbErr("visit_patched_bytes");
-  return (py_result != NULL && IDAPyInt_Check(py_result.o)) ? IDAPyInt_AsLong(py_result.o) : 0;
+  return (py_result && PyLong_Check(py_result.o)) ? PyLong_AsLong(py_result.o) : 0;
 }
 
 //-------------------------------------------------------------------------
@@ -63,7 +44,7 @@ static bool py_do_get_bytes(
         int gmb_flags)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  bool has_mask = out_py_mask != NULL;
+  bool has_mask = out_py_mask != nullptr;
   do
   {
     if ( size <= 0 )
@@ -71,8 +52,8 @@ static bool py_do_get_bytes(
 
     // Allocate memory via Python
 
-    newref_t py_bytes(IDAPyBytes_FromMemAndSize(NULL, Py_ssize_t(size)));
-    if ( py_bytes == NULL )
+    newref_t py_bytes(PyBytes_FromStringAndSize(nullptr, Py_ssize_t(size)));
+    if ( !py_bytes )
       break;
 
     bytevec_t mask;
@@ -80,21 +61,21 @@ static bool py_do_get_bytes(
       mask.resize((size + 7) / 8, 0);
 
     // Read bytes
-    int code = get_bytes(IDAPyBytes_AsString(py_bytes.o),
+    int code = get_bytes(PyBytes_AsString(py_bytes.o),
                          size,
                          ea,
                          gmb_flags,
-                         has_mask ? mask.begin() : NULL);
+                         has_mask ? mask.begin() : nullptr);
     if ( code < 0 )
       break;
 
     // note: specify size, as '0' bytes would otherwise cut the mask short
     if ( has_mask )
     {
-      newref_t py_mask(IDAPyBytes_FromMemAndSize(
+      newref_t py_mask(PyBytes_FromStringAndSize(
                                (const char *) mask.begin(),
                                mask.size()));
-      if ( py_mask == NULL )
+      if ( !py_mask )
         break;
       py_mask.incref();
       *out_py_mask = py_mask.o;
@@ -143,33 +124,6 @@ static int py_visit_patched_bytes(ea_t ea1, ea_t ea2, PyObject *py_callable)
 //------------------------------------------------------------------------
 /*
 #<pydoc>
-def next_that(ea, maxea, callable):
-    """
-    Find next address with a flag satisfying the function 'testf'.
-    Start searching from address 'ea'+1 and inspect bytes up to 'maxea'.
-    maxea is not included in the search range.
-
-    @param callable: a Python callable with the following prototype:
-                     callable(flags). Return True to stop enumeration.
-    @return: the found address or BADADDR.
-    """
-    pass
-#</pydoc>
-*/
-static ea_t py_next_that(ea_t ea, ea_t maxea, PyObject *callable)
-{
-  return py_npthat(ea, maxea, callable, true);
-}
-
-//---------------------------------------------------------------------------
-static ea_t py_prev_that(ea_t ea, ea_t minea, PyObject *callable)
-{
-  return py_npthat(ea, minea, callable, false);
-}
-
-//------------------------------------------------------------------------
-/*
-#<pydoc>
 def get_bytes(ea, size):
     """
     Get the specified number of bytes of the program.
@@ -182,8 +136,8 @@ def get_bytes(ea, size):
 */
 static PyObject *py_get_bytes(ea_t ea, unsigned int size, int gmb_flags=GMB_READALL)
 {
-  PyObject *py_bytes = NULL;
-  if ( py_do_get_bytes(&py_bytes, NULL, ea, size, gmb_flags) )
+  PyObject *py_bytes = nullptr;
+  if ( py_do_get_bytes(&py_bytes, nullptr, ea, size, gmb_flags) )
     return py_bytes;
   else
     Py_RETURN_NONE;
@@ -206,8 +160,8 @@ def get_bytes_and_mask(ea, size, mask):
 */
 static PyObject *py_get_bytes_and_mask(ea_t ea, unsigned int size, int gmb_flags=GMB_READALL)
 {
-  PyObject *py_bytes = NULL;
-  PyObject *py_mask = NULL;
+  PyObject *py_bytes = nullptr;
+  PyObject *py_mask = nullptr;
   if ( py_do_get_bytes(&py_bytes, &py_mask, ea, size, gmb_flags) )
     return Py_BuildValue("(OO)", py_bytes, py_mask);
   else
@@ -222,14 +176,12 @@ STRCONV_ESCAPE   = 0x00000001 # convert non-printable characters to C escapes (\
 
 def get_strlit_contents(ea, len, type, flags = 0):
   """
-  Get bytes contents at location, possibly converted.
+  Get contents of string literal, as UTF-8-encoded codepoints.
   It works even if the string has not been created in the database yet.
 
-  Note that this will <b>always</b> return a simple string of bytes
-  (i.e., a 'str' instance), and not a string of unicode characters.
-
-  If you want auto-conversion to unicode strings (that is: real strings),
-  you should probably be using the idautils.Strings class.
+  Note that the returned value will be of type 'bytes'; if
+  you want auto-conversion to unicode strings (that is: real Python
+  strings), you should probably be using the idautils.Strings class.
 
   @param ea: linear address of the string
   @param len: length of the string in bytes (including terminating 0)
@@ -254,14 +206,14 @@ static PyObject *py_get_strlit_contents(
     len = uint64(-1);
   qstring buf;
   if ( len != uint64(-1) && ea_t(ea + len) < ea
-    || get_strlit_contents(&buf, ea, len, type, NULL, flags) < 0 )
+    || get_strlit_contents(&buf, ea, len, type, nullptr, flags) < 0 )
   {
     Py_RETURN_NONE;
   }
   if ( type == STRTYPE_C && buf.length() > 0 && buf.last() == '\0' )
     buf.remove_last();
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  newref_t py_buf(IDAPyBytes_FromMemAndSize(buf.begin(), buf.length()));
+  newref_t py_buf(PyBytes_FromStringAndSize(buf.begin(), buf.length()));
   py_buf.incref();
   return py_buf.o;
 }
@@ -285,13 +237,13 @@ static ea_t py_bin_search(
   const size_t len = image.size();
   const uchar *mask = imask.begin();
   bytevec_t lmask;
-  if ( mask != NULL )
+  if ( mask != nullptr )
   {
     if ( *mask == 0xFF )
     {
       // a value of '0xFF' in the first byte meant "all bytes defined". We
-      // can thus turn that into a NULL mask.
-      mask = NULL;
+      // can thus turn that into a nullptr mask.
+      mask = nullptr;
     }
     else
     {
@@ -328,6 +280,24 @@ static PyObject *py_get_8bit(ea_t ea, uint32 v, int nbit)
   uchar octet = get_8bit(&ea, &v, &nbit);
   return Py_BuildValue("(i" PY_BV_EA "ki)", int(uint32(octet)), bvea_t(ea), v, nbit);
 }
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def bin_search(start_ea, end_ea, data, flags):
+  """
+  Search for a set of bytes in the program
+
+  @param start_ea: linear address, start of range to search
+  @param end_ea: linear address, end of range to search (exclusive)
+  @param data: the prepared data to search for (see parse_binpat_str())
+  @param flags: combination of BIN_SEARCH_* flags
+  @return: the address of a match, or ida_idaapi.BADADDR if not found
+  """
+  pass
+#</pydoc>
+*/
+
 //</inline(py_bytes)>
 
 #endif

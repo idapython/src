@@ -1,20 +1,19 @@
+"""
+summary: an `ida_idp.IDP_Hooks.assembly` implementation
+
+description:
+  We add support for assembling the following pseudo instructions:
+
+  * "zero eax" -> xor eax, eax
+  * "nothing" -> nop
+"""
+
 from __future__ import print_function
-import idaapi
+import ida_idp
 import idautils
 
-"""
-    This is a sample script for extending the assemble() hook.
-
-    We add support for assembling the following pseudo instructions:
-      - "zero eax" -> xor eax, eax
-      - "nothing" -> nop
-
-
-(c) Hex-Rays
-"""
-
 #--------------------------------------------------------------------------
-class assemble_idp_hook_t(idaapi.IDP_Hooks):
+class assemble_idp_hook_t(ida_idp.IDP_Hooks):
     def ev_assemble(self, ea, cs, ip, use32, line):
         line = line.strip()
         if line == "zero eax":

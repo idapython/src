@@ -9,11 +9,7 @@ import sys, re, os, glob
 
 major, minor, micro, _, _ = sys.version_info
 
-try:
-    from argparse import ArgumentParser
-except:
-    print("Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'")
-    raise
+from argparse import ArgumentParser
 
 parser = ArgumentParser()
 parser.add_argument("-t", "--template", required=True)
@@ -23,7 +19,6 @@ parser.add_argument("-w", "--pywraps", required=True)
 parser.add_argument("-d", "--interface-dependencies", type=str, required=True)
 parser.add_argument("-l", "--lifecycle-aware", default=False, action="store_true")
 parser.add_argument("-v", "--verbose", default=False, action="store_true")
-parser.add_argument("-b", "--bc695", default=False, action="store_true")
 parser.add_argument("-x", "--xml-doc-directory", required=True)
 args = parser.parse_args()
 
@@ -57,7 +52,7 @@ if xml_tree is not None:
                     name, ptyp, desc = tpl
                     signature.append("%s %s" % (ptyp, name or ""))
                     if relevant_and_non_null(ptyp, desc):
-                        body.append("if ( $%d == NULL )" % (idx+1))
+                        body.append("if ( $%d == nullptr )" % (idx+1))
                         body.append("""  SWIG_exception_fail(SWIG_ValueError, "invalid null reference in method '$symname', argument $argnum of type '$%d_type'");""" % (idx+1))
                     pass
                 typemaps.append("%%typemap(check) (%s)" % ", ".join(signature))
@@ -90,31 +85,18 @@ def apply_tags(template_str, input_str, tags, verbose, path):
                 print("Failed to match <%s> source expression against '%s', skipping...!" % (desc, expr_str))
             continue
 
-        is_695_bwcompat = desc == "pycode_BC695"
-
-        if not is_695_bwcompat:
-            # find pattern in destination
-            dest = expr.search(template_str)
-            if not dest:
-                raise Exception("Found <%s> for module '%s' in input (%s), but failed to match in destination" % (
-                        desc, expr_str, path))
+        # find pattern in destination
+        dest = expr.search(template_str)
+        if not dest:
+            raise Exception("Found <%s> for module '%s' in input (%s), but failed to match in destination" % (
+                    desc, expr_str, path))
 
         # accumulate all the strings to be replaced
         replaces = []
         for src in matches:
             replaces.append(src)
 
-        if is_695_bwcompat:
-            if args.bc695:
-                r2 = []
-                for r in replaces:
-                    rlines = r.split("\n")
-                    rlines = map(lambda l: "    %s" % l, filter(lambda l: len(l.strip()), rlines))
-                    r2.append("\n".join(rlines))
-                replaces = ["", "if _BC695:"] + r2 + ["\n"]
-                template_str = template_str + "%pythoncode %{" + "\n".join(replaces) + "%}"
-        else:
-            template_str = template_str[:dest.start(1)] + "\n".join(replaces) + template_str[dest.end(1):]
+        template_str = template_str[:dest.start(1)] + "\n".join(replaces) + template_str[dest.end(1):]
     return template_str
 
 
@@ -142,8 +124,7 @@ def deploy(module, template, output, pywraps, iface_deps, lifecycle_aware, verbo
             ('inline',   make_re('inline', tagname, '//')),
             ('decls',    make_re('decls', tagname, '//')),
             ('init',     make_re('init', tagname, '//')),
-            ('pycode_BC695', make_re('pycode_BC695', tagname, '#')),
-            )
+        )
 
         with open(path) as fin:
             input_str = fin.read()

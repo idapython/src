@@ -1,3 +1,16 @@
+"""
+summary: A widget showing data in a tabular fashion
+
+description:
+  Shows how to subclass the ida_kernwin.Choose class to
+  show data organized in a simple table.
+  In addition, registers a couple actions that can be applied to it.
+
+keywords: chooser, actions
+
+see_also: choose_multi, chooser_with_folders
+"""
+
 from __future__ import print_function
 import ida_kernwin
 from ida_kernwin import Choose

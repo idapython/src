@@ -3,7 +3,6 @@ recipe = {
     "null" : {"ignore" : True},
     "last" : {"ignore" : True},
     "gen_idanode_text" : {"ignore" : True}, # text_t & friends not exposed
-    "get_lines_rendering_info" : {"ignore" : True},
 
     "get_ea_hint" : {
         "params" : {
@@ -56,21 +55,21 @@ recipe = {
     "populating_widget_popup" : {
         "params" : {
             "ctx" : {
-                "default" : "NULL",
+                "default" : "nullptr",
             },
         },
     },
     "finish_populating_widget_popup" : {
         "params" : {
             "ctx" : {
-                "default" : "NULL",
+                "default" : "nullptr",
             },
         },
     },
     "create_desktop_widget" : {
         "params" : {
             "cfg" : {
-                "type" : "jobj_wrapper_t",
+                "type" : "const jobj_wrapper_t &",
                 "convertor" : "UI_Hooks::wrap_widget_cfg",
                 "convertor_pass_args" : True,
             },
@@ -103,4 +102,15 @@ recipe = {
             },
         },
     },
+    "database_closed" : {
+        "params" : {
+            "reserved" :
+            {
+                "suppress_for_call" : True,
+                "qnotused" : True,
+            },
+        },
+    },
 }
+
+default_rtype = "void"

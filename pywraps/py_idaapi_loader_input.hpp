@@ -137,27 +137,27 @@ public:
   // class from and to IDC. The value of this variable must be set to two
   int __idc_cvt_id__;
   //--------------------------------------------------------------------------
-  loader_input_t(PyObject *pycapsule = NULL): li(NULL), own(OWN_NONE), __idc_cvt_id__(PY_ICID_OPAQUE)
+  loader_input_t(PyObject *pycapsule = nullptr): li(nullptr), own(OWN_NONE), __idc_cvt_id__(PY_ICID_OPAQUE)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( pycapsule != NULL && PyCapsule_IsValid(pycapsule, VALID_CAPSULE_NAME) )
+    if ( pycapsule != nullptr && PyCapsule_IsValid(pycapsule, VALID_CAPSULE_NAME) )
       _from_capsule(pycapsule);
   }
 
   //--------------------------------------------------------------------------
   void close()
   {
-    if ( li == NULL )
+    if ( li == nullptr )
       return;
 
     PYW_GIL_GET;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     if ( own == OWN_CREATE )
       close_linput(li);
     else if ( own == OWN_FROM_FP )
       unmake_linput(li);
-    Py_END_ALLOW_THREADS;
-    li = NULL;
+    SWIG_PYTHON_THREAD_END_ALLOW;
+    li = nullptr;
     own = OWN_NONE;
   }
 
@@ -172,16 +172,16 @@ public:
   {
     close();
     PYW_GIL_GET;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     li = open_linput(filename, remote);
-    if ( li != NULL )
+    if ( li != nullptr )
     {
       // Save file name
       fn = filename;
       own = OWN_CREATE;
     }
-    Py_END_ALLOW_THREADS;
-    return li != NULL;
+    SWIG_PYTHON_THREAD_END_ALLOW;
+    return li != nullptr;
   }
 
   //--------------------------------------------------------------------------
@@ -207,7 +207,7 @@ public:
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( !PyCapsule_IsValid(pycapsule, VALID_CAPSULE_NAME) )
-      return NULL;
+      return nullptr;
     loader_input_t *l = new loader_input_t();
     l->_from_capsule(pycapsule);
     return l;
@@ -217,17 +217,17 @@ public:
   static loader_input_t *from_fp(FILE *fp)
   {
     PYW_GIL_GET;
-    loader_input_t *l = NULL;
-    Py_BEGIN_ALLOW_THREADS;
+    loader_input_t *l = nullptr;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     linput_t *fp_li = make_linput(fp);
-    if ( fp_li != NULL )
+    if ( fp_li != nullptr )
     {
       l = new loader_input_t();
       l->own = OWN_FROM_FP;
       l->fn.sprnt("<FILE * %p>", fp);
       l->li = fp_li;
     }
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     return l;
   }
 
@@ -242,17 +242,17 @@ public:
   {
     PYW_GIL_GET;
     linput_t *l;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     l = create_memory_linput(start, size);
-    if ( l != NULL )
+    if ( l != nullptr )
     {
       close();
       li = l;
       fn = "<memory>";
       own = OWN_CREATE;
     }
-    Py_END_ALLOW_THREADS;
-    return l != NULL;
+    SWIG_PYTHON_THREAD_END_ALLOW;
+    return l != nullptr;
   }
 
   //--------------------------------------------------------------------------
@@ -260,9 +260,9 @@ public:
   {
     int64 r;
     PYW_GIL_GET;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     r = qlseek(li, pos, whence);
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     return r;
   }
 
@@ -271,9 +271,9 @@ public:
   {
     int64 r;
     PYW_GIL_GET;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     r = qltell(li);
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     return r;
   }
 
@@ -284,12 +284,12 @@ public:
     do
     {
       char *buf = (char *) malloc(sz + 5);
-      if ( buf == NULL )
+      if ( buf == nullptr )
         break;
-      Py_BEGIN_ALLOW_THREADS;
+      SWIG_PYTHON_THREAD_BEGIN_ALLOW;
       qlgetz(li, fpos, buf, sz);
-      Py_END_ALLOW_THREADS;
-      PyObject *ret = IDAPyStr_FromUTF8(buf);
+      SWIG_PYTHON_THREAD_END_ALLOW;
+      PyObject *ret = PyUnicode_FromString(buf);
       free(buf);
       return ret;
     } while ( false );
@@ -303,12 +303,12 @@ public:
     bytevec_t buf;
     buf.resize(len);
     bool ok;
-    Py_BEGIN_ALLOW_THREADS;
-    ok = qlgets((char *) buf.begin(), buf.size(), li) != NULL;
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+    ok = qlgets((char *) buf.begin(), buf.size(), li) != nullptr;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     if ( !ok )
       Py_RETURN_NONE;
-    return IDAPyStr_FromUTF8((const char *) buf.begin());
+    return PyUnicode_FromString((const char *) buf.begin());
   }
 
   //--------------------------------------------------------------------------
@@ -318,18 +318,18 @@ public:
     bytevec_t buf;
     buf.resize(size);
     ssize_t nread;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     nread = qlread(li, (char *) buf.begin(), buf.size());
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     if ( nread <= 0 )
       Py_RETURN_NONE;
-    return IDAPyBytes_FromMemAndSize((const char *) buf.begin(), nread);
+    return PyBytes_FromStringAndSize((const char *) buf.begin(), nread);
   }
 
   //--------------------------------------------------------------------------
   bool opened()
   {
-    return li != NULL;
+    return li != nullptr;
   }
 
   //--------------------------------------------------------------------------
@@ -339,15 +339,15 @@ public:
     do
     {
       char *buf = (char *) malloc(size + 5);
-      if ( buf == NULL )
+      if ( buf == nullptr )
         break;
       int r;
-      Py_BEGIN_ALLOW_THREADS;
+      SWIG_PYTHON_THREAD_BEGIN_ALLOW;
       r = lreadbytes(li, buf, size, big_endian);
-      Py_END_ALLOW_THREADS;
+      SWIG_PYTHON_THREAD_END_ALLOW;
       if ( r == -1 )
         r = 0;
-      PyObject *ret = IDAPyStr_FromUTF8AndSize(buf, r);
+      PyObject *ret = PyUnicode_FromStringAndSize(buf, r);
       free(buf);
       return ret;
     } while ( false );
@@ -358,9 +358,9 @@ public:
   int file2base(int64 pos, ea_t ea1, ea_t ea2, int patchable)
   {
     int rc;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     rc = ::file2base(li, pos, ea1, ea2, patchable);
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     return rc;
   }
 
@@ -368,9 +368,9 @@ public:
   int64 size()
   {
     int64 rc;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     rc = qlsize(li);
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     return rc;
   }
 
@@ -378,28 +378,20 @@ public:
   PyObject *filename()
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    return IDAPyStr_FromUTF8(fn.c_str());
+    return PyUnicode_FromString(fn.c_str());
   }
 
   //--------------------------------------------------------------------------
-#ifdef PY3
   PyObject *get_byte()
-#else
-  PyObject *get_char()
-#endif
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     int ch;
-    Py_BEGIN_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_BEGIN_ALLOW;
     ch = qlgetc(li);
-    Py_END_ALLOW_THREADS;
+    SWIG_PYTHON_THREAD_END_ALLOW;
     if ( ch == EOF )
       Py_RETURN_NONE;
-#ifdef PY3
     return Py_BuildValue("i", ch);
-#else
-    return Py_BuildValue("c", ch);
-#endif
   }
 };
 //</inline(py_idaapi_loader_input)>

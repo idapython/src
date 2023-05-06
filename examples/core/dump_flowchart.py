@@ -1,44 +1,69 @@
+# -*- coding: utf-8 -*-
+"""
+summary: dump function flowchart
+
+description:
+  Dumps the current function's flowchart, using 2 methods:
+
+    * the low-level `ida_gdl.qflow_chart_t` type
+    * the somewhat higher-level, and slightly more pythonic
+      `ida_gdl.FlowChart` type.
+"""
+
 from __future__ import print_function
-import idaapi
+
+import ida_gdl
+import ida_funcs
+import ida_kernwin
+
+def out(p, msg):
+    if p:
+        print(msg)
+
+def out_succ(p, start_ea, end_ea):
+    out(p, "  SUCC:  %x - %x" % (start_ea, end_ea))
+
+def out_pred(p, start_ea, end_ea):
+    out(p, "  PRED:  %x - %x" % (start_ea, end_ea))
+
 
 # -----------------------------------------------------------------------
-# Using raw IDAAPI
-def raw_main(p=True):
-    f = idaapi.get_func(here())
+# Using ida_gdl.qflow_chart_t
+def using_qflow_chart_t(ea, p=True):
+    f = ida_funcs.get_func(ea)
     if not f:
         return
 
-    q = idaapi.qflow_chart_t("The title", f, 0, 0, idaapi.FC_PREDS)
-    for n in range(0, q.size()):
+    q = ida_gdl.qflow_chart_t("The title", f, 0, 0, 0)
+    for n in range(q.size()):
         b = q[n]
-        if p:
-            print("%x - %x [%d]:" % (b.start_ea, b.end_ea, n))
+        out(p, "%x - %x [%d]:" % (b.start_ea, b.end_ea, n))
+        for ns in range(q.nsucc(n)):
+            b2 = q[q.succ(n, ns)]
+            out_succ(p, b2.start_ea, b2.end_ea)
 
-        for ns in range(0, q.nsucc(n)):
-            if p:
-                print("SUCC:  %d->%d" % (n, q.succ(n, ns)))
-
-        for ns in range(0, q.npred(n)):
-            if p:
-                print("PRED:  %d->%d" % (n, q.pred(n, ns)))
+        for ns in range(q.npred(n)):
+            b2 = q[q.pred(n, ns)]
+            out_pred(p, b2.start_ea, b2.end_ea)
 
 # -----------------------------------------------------------------------
-# Using the class
-def cls_main(p=True):
-    f = idaapi.FlowChart(idaapi.get_func(here()))
+# Using ida_gdl.FlowChart
+def using_FlowChart(ea, p=True):
+    f = ida_gdl.FlowChart(ida_funcs.get_func(ea))
+
     for block in f:
-        if p:
-            print("%x - %x [%d]:" % (block.start_ea, block.end_ea, block.id))
+        out(p, "%x - %x [%d]:" % (block.start_ea, block.end_ea, block.id))
         for succ_block in block.succs():
-            if p:
-                print("  %x - %x [%d]:" % (succ_block.start_ea, succ_block.end_ea, succ_block.id))
+            out_succ(p, succ_block.start_ea, succ_block.end_ea)
 
         for pred_block in block.preds():
-            if p:
-                print("  %x - %x [%d]:" % (pred_block.start_ea, pred_block.end_ea, pred_block.id))
+            out_pred(p, pred_block.start_ea, pred_block.end_ea)
 
-q = None
-f = None
-raw_main(False)
-cls_main(True)
+ea = ida_kernwin.get_screen_ea()
+
+print(">>> Dumping flow chart using ida_gdl.qflow_chart_t")
+using_qflow_chart_t(ea)
+
+print(">>> Dumping flow chart using the higher-level ida_gdl.FlowChart")
+using_FlowChart(ea)
 

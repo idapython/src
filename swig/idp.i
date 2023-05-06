@@ -5,15 +5,16 @@
 #include <auto.hpp>
 #include <fixup.hpp>
 #include <tryblks.hpp>
+#include <idacfg.hpp>
 
 struct undo_records_t;
 %}
 
+%import "bitrange.hpp"
+
 // Ignore the following symbols
 %ignore rginfo;
-%ignore insn_t::get_canon_mnem;
-%ignore insn_t::get_canon_feature;
-%ignore insn_t::is_canon_insn;
+%ignore processor_t::is_canon_insn;
 %ignore bytes_t;
 %ignore IDPOPT_STR;
 %ignore IDPOPT_NUM;
@@ -26,10 +27,16 @@ struct undo_records_t;
 %ignore IDPOPT_BADVALUE;
 %ignore set_options_t;
 %ignore read_config;
+%ignore read_config2;
 %ignore read_config_file;
+%ignore read_config_file2;
 %ignore read_config_string;
 %ignore cfgopt_t;
 %ignore cfgopt_t__apply;
+%ignore cfgopt_t__apply2;
+%ignore cfgopt_t__apply3;
+%ignore cfgopt_set_t;
+%ignore cfgopt_set_vec_t;
 %ignore parse_config_value;
 
 %define_Hooks_class(IDP);
@@ -44,10 +51,55 @@ struct undo_records_t;
 %ignore asm_t::out_func_footer;
 %ignore asm_t::get_type_name;
 %ignore instruc_t;
-%ignore processor_t;
-%ignore ph;
 %ignore IDP_Hooks::dispatch;
 %ignore _py_getreg;
+%rename (_processor_t) processor_t;
+%ignore processor_t::is_funcarg_off;
+%ignore processor_t::ensure_processor;
+%ignore processor_t::lvar_off;
+%ignore processor_t::is_lumina_usable;
+// The following are queried by the "scripting" processor module support
+%ignore processor_t::id;
+%ignore processor_t::flag;
+%ignore processor_t::flag2;
+%ignore processor_t::cnbits;
+%ignore processor_t::dnbits;
+%ignore processor_t::psnames;
+%ignore processor_t::plnames;
+%ignore processor_t::assemblers;
+%ignore processor_t::_notify;
+%ignore processor_t::reg_names;
+%ignore processor_t::regs_num;
+%ignore processor_t::reg_first_sreg;
+%ignore processor_t::reg_last_sreg;
+%ignore processor_t::segreg_size;
+%ignore processor_t::reg_names;
+%ignore processor_t::reg_code_sreg;
+%ignore processor_t::reg_data_sreg;
+%ignore processor_t::codestart;
+%ignore processor_t::retcodes;
+%ignore processor_t::instruc_start;
+%ignore processor_t::instruc_end;
+%ignore processor_t::instruc;
+%ignore processor_t::tbyte_size;
+%ignore processor_t::real_width;
+%ignore processor_t::icode_return;
+%ignore processor_t::unused_slot;
+
+%ignore event_listener_t;
+%ignore hook_event_listener;
+%ignore unhook_event_listener;
+%ignore ignore_micro_t;
+%ignore modctx_t;
+%ignore procmod_t;
+%ignore plugmod_t;
+%ignore get_hexdsp;
+%ignore set_hexdsp;
+%ignore remove_event_listener;
+%ignore set_module_data;
+%ignore clr_module_data;
+%ignore get_module_data;
+%ignore get_modctx;
 
 // @arnaud
 %ignore notify__calc_next_eas;
@@ -71,12 +123,18 @@ struct undo_records_t;
 %ignore notify__make_code;
 // @arnaud ^^^
 
+%template(reg_access_vec_t) qvector<reg_access_t>;
+
+// ph_calcrel
+%apply size_t *OUTPUT { size_t *out_consumed };
+%apply bytevec_t *vout { bytevec_t *out_relbits };
+
 // @arnaud ditch this once all modules are ported
 // temporary:
 %ignore out_old_data;
 %ignore out_old_specea;
 
-%nonnul_argument_prototype(
+%pywraps_nonnul_argument_prototype(
         static PyObject *AssembleLine(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *nonnul_line),
         const char *nonnul_line);
 
@@ -96,6 +154,7 @@ struct undo_records_t;
 
 %include "idp.hpp"
 %include "config.hpp"
+%include "idacfg.hpp"
 
 #ifndef SWIGIMPORTED // see above
 // prevent tinfo_t * check in some functions (e.g., '_wrap_IDP_Hooks_ev_adjust_argloc')

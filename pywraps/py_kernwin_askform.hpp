@@ -13,7 +13,7 @@ static bool textctrl_info_t_assign(PyObject *self, PyObject *other)
 {
   textctrl_info_t *lhs = textctrl_info_t_get_clink(self);
   textctrl_info_t *rhs = textctrl_info_t_get_clink(other);
-  if ( lhs == NULL || rhs == NULL )
+  if ( lhs == nullptr || rhs == nullptr )
     return false;
 
   *lhs = *rhs;
@@ -24,7 +24,7 @@ static bool textctrl_info_t_assign(PyObject *self, PyObject *other)
 static bool textctrl_info_t_set_text(PyObject *self, const char *s)
 {
   textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(self);
-  if ( ti == NULL )
+  if ( ti == nullptr )
     return false;
   ti->text = s;
   return true;
@@ -34,14 +34,14 @@ static bool textctrl_info_t_set_text(PyObject *self, const char *s)
 static const char *textctrl_info_t_get_text(PyObject *self)
 {
   textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(self);
-  return ti == NULL ? "" : ti->text.c_str();
+  return ti == nullptr ? "" : ti->text.c_str();
 }
 
 //-------------------------------------------------------------------------
 static bool textctrl_info_t_set_flags(PyObject *self, unsigned int flags)
 {
   textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(self);
-  if ( ti == NULL )
+  if ( ti == nullptr )
     return false;
   ti->flags = flags;
   return true;
@@ -51,14 +51,14 @@ static bool textctrl_info_t_set_flags(PyObject *self, unsigned int flags)
 static unsigned int textctrl_info_t_get_flags(PyObject *self)
 {
   textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(self);
-  return ti == NULL ? 0 : ti->flags;
+  return ti == nullptr ? 0 : ti->flags;
 }
 
 //-------------------------------------------------------------------------
 static bool textctrl_info_t_set_tabsize(PyObject *self, unsigned int tabsize)
 {
   textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(self);
-  if ( ti == NULL )
+  if ( ti == nullptr )
     return false;
   ti->tabsize = tabsize;
   return true;
@@ -68,7 +68,7 @@ static bool textctrl_info_t_set_tabsize(PyObject *self, unsigned int tabsize)
 static unsigned int textctrl_info_t_get_tabsize(PyObject *self)
 {
   textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(self);
-  return ti == NULL ? 0 : ti->tabsize;
+  return ti == nullptr ? 0 : ti->tabsize;
 }
 
 //---------------------------------------------------------------------------
@@ -151,7 +151,7 @@ static PyObject *formchgcbfa_get_field_value(
       {
         qstring val;
         if ( fa->get_combobox_value(fid, &val) )
-          return IDAPyStr_FromUTF8(val.c_str());
+          return PyUnicode_FromString(val.c_str());
       }
       break;
 
@@ -184,7 +184,7 @@ static PyObject *formchgcbfa_get_field_value(
       {
         char val[MAXSTR];
         if ( fa->get_string_value(fid, val, sizeof(val)) )
-          return IDAPyStr_FromUTF8(val);
+          return PyUnicode_FromString(val);
         break;
       }
     // string input
@@ -193,7 +193,7 @@ static PyObject *formchgcbfa_get_field_value(
         qstring val;
         val.resize(sz + 1);
         if ( fa->get_string_value(fid, val.begin(), val.size()) )
-          return IDAPyStr_FromUTF8(val.begin());
+          return PyUnicode_FromString(val.begin());
         break;
       }
     case 5:
@@ -215,7 +215,7 @@ static PyObject *formchgcbfa_get_field_value(
           sel_t sel;
           sval_t sval;
           uval_t uval;
-          ulonglong ull;
+          uint64 ull;
         } u;
         switch ( sz )
         {
@@ -268,10 +268,10 @@ static bool formchgcbfa_set_field_value(
     // dropdown list
     case 8:
       // Editable dropdown list
-      if ( IDAPyStr_Check(py_val) )
+      if ( PyUnicode_Check(py_val) )
       {
         qstring val;
-        IDAPyStr_AsUTF8(&val, py_val);
+        PyUnicode_as_qstring(&val, py_val);
         return fa->set_combobox_value(fid, &val);
       }
       // Readonly dropdown list
@@ -286,7 +286,7 @@ static bool formchgcbfa_set_field_value(
     case 7:
       {
         textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(py_val);
-        return ti == NULL ? false : fa->set_text_value(fid, ti);
+        return ti != nullptr && fa->set_text_value(fid, ti);
       }
     // button - uint32
     case 4:
@@ -305,7 +305,7 @@ static bool formchgcbfa_set_field_value(
     case 1:
       {
         qstring val;
-        IDAPyStr_AsUTF8(&val, py_val);
+        PyUnicode_as_qstring(&val, py_val);
         return fa->set_string_value(fid, val.c_str());
       }
     // intvec_t

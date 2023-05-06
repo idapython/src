@@ -1,3 +1,18 @@
+"""
+summary: list all functions (and xrefs) in segment
+
+description:
+  List all the functions in the current segment, as well as
+  all the cross-references to them.
+
+  Contrary to @list_segment_functions, this uses the somewhat
+  higher-level `idautils` module.
+
+keywords: xrefs
+
+see_also: list_segment_functions
+"""
+
 from __future__ import print_function
 #
 # Reference Lister
@@ -6,23 +21,32 @@ from __future__ import print_function
 #
 # Implemented with the idautils module
 #
-from idautils import *
+
+import ida_kernwin
+import ida_idaapi
+import ida_segment
+import ida_funcs
+
+import idautils
 
 def main():
     # Get current ea
-    ea = get_screen_ea()
-    if ea == idaapi.BADADDR:
+    ea = ida_kernwin.get_screen_ea()
+    if ea == ida_idaapi.BADADDR:
         print("Could not get get_screen_ea()")
         return
 
-    # Loop from start to end in the current segment
-    for funcea in Functions(get_segm_start(ea), get_segm_end(ea)):
-        print("Function %s at 0x%x" % (get_func_name(funcea), funcea))
+    seg = ida_segment.getseg(ea)
+    if seg:
+        # Loop from start to end in the current segment
+        for funcea in idautils.Functions(seg.start_ea, seg.end_ea):
+            print("Function %s at 0x%x" % (ida_funcs.get_func_name(funcea), funcea))
 
-        # Find all code references to funcea
-        for ref in CodeRefsTo(funcea, 1):
-            print("  called from %s(0x%x)" % (get_func_name(ref), ref))
-
+            # Find all code references to funcea
+            for ref in idautils.CodeRefsTo(funcea, 1):
+                print("  called from %s(0x%x)" % (ida_funcs.get_func_name(ref), ref))
+    else:
+        print("Please position the cursor within a segment")
 
 if __name__=='__main__':
     main()

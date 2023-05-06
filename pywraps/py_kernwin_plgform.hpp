@@ -24,7 +24,7 @@ class plgform_t
                   PyObject_CallMethod(
                           _this->py_obj.o,
                           (char *)S_ON_CLOSE, "O",
-                          PyCapsule_New(widget, VALID_CAPSULE_NAME, NULL)));
+                          PyCapsule_New(widget, VALID_CAPSULE_NAME, nullptr)));
           PyW_ShowCbErr(S_ON_CLOSE);
         }
         _this->unhook();
@@ -36,7 +36,7 @@ class plgform_t
   void unhook()
   {
     idapython_unhook_from_notification_point(HT_UI, s_callback, this);
-    widget = NULL;
+    widget = nullptr;
 
     // Call DECREF at last, since it may trigger __del__
     PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -44,18 +44,18 @@ class plgform_t
   }
 
 public:
-  plgform_t() : widget(NULL) {}
+  plgform_t() : widget(nullptr) {}
 
   bool show(
-          PyObject *obj,
-          const char *caption,
-          int options)
+        PyObject *obj,
+        const char *caption,
+        int options)
   {
     const bool create_only = options == -1;
 
     // Already displayed?
     TWidget *f = find_widget(caption);
-    if ( f != NULL )
+    if ( f != nullptr )
     {
       // Our form?
       if ( f == widget )
@@ -71,12 +71,12 @@ public:
 
     // Create a form
     widget = create_empty_widget(caption);
-    if ( widget == NULL )
+    if ( widget == nullptr )
       return false;
 
     if ( !idapython_hook_to_notification_point(HT_UI, s_callback, this, /*is_hooks_base=*/ false) )
     {
-      widget = NULL;
+      widget = nullptr;
       return false;
     }
 
@@ -92,7 +92,7 @@ public:
             PyObject_CallMethod(
                     py_obj.o,
                     (char *)S_ON_CREATE, "O",
-                    PyCapsule_New(widget, VALID_CAPSULE_NAME, NULL)));
+                    PyCapsule_New(widget, VALID_CAPSULE_NAME, nullptr)));
     PyW_ShowCbErr(S_ON_CREATE);
 
     if ( !create_only )
@@ -102,7 +102,7 @@ public:
 
   void close(int options = 0)
   {
-    if ( widget != NULL )
+    if ( widget != nullptr )
       close_widget(widget, options);
   }
 
@@ -140,7 +140,7 @@ static bool plgform_show(
         int options = WOPN_DP_TAB|WOPN_RESTORE)
 {
   DECL_PLGFORM;
-  return plgform != NULL && plgform->show(py_obj, caption, options);
+  return plgform != nullptr && plgform->show(py_obj, caption, options);
 }
 
 static void plgform_close(
@@ -148,7 +148,7 @@ static void plgform_close(
         int options)
 {
   DECL_PLGFORM;
-  if ( plgform != NULL )
+  if ( plgform != nullptr )
     plgform->close(options);
 }
 
@@ -156,7 +156,7 @@ static TWidget *plgform_get_widget(
         PyObject *py_link)
 {
   DECL_PLGFORM;
-  return plgform != NULL ? plgform->get_widget() : NULL;
+  return plgform != nullptr ? plgform->get_widget() : nullptr;
 }
 
 #undef DECL_PLGFORM

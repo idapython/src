@@ -17,7 +17,7 @@ bool py_idaview_t::Bind(PyObject *self)
 {
   // Already a py_idaview_t associated to this object?
   py_idaview_t *_this = (py_idaview_t *) view_extract_this(self);
-  if ( _this != NULL )
+  if ( _this != nullptr )
     return false;
 
   qstring title;
@@ -26,16 +26,16 @@ bool py_idaview_t::Bind(PyObject *self)
 
   // Get the IDAView associated to this TWidget
   TWidget *widget = find_widget(title.c_str());
-  if ( widget == NULL )
+  if ( widget == nullptr )
     return false;
 
   // Get unique py_idaview_t associated to that TWidget
   py_idaview_t *py_view;
-  if ( !pycim_lookup_info.find_by_view((py_customidamemo_t**) &py_view, widget) )
+  if ( !get_plugin_instance()->pycim_lookup_info.find_by_view((py_customidamemo_t**) &py_view, widget) )
   {
     py_view = new py_idaview_t();
-    lookup_entry_t &e = pycim_lookup_info.new_entry(py_view);
-    pycim_lookup_info.commit(e, widget);
+    lookup_entry_t &e = get_plugin_instance()->pycim_lookup_info.new_entry(py_view);
+    get_plugin_instance()->pycim_lookup_info.commit(e, widget);
   }
 
   // Finally, bind:
@@ -55,7 +55,7 @@ bool py_idaview_t::Bind(PyObject *self)
 bool py_idaview_t::Unbind(PyObject *self)
 {
   py_idaview_t *_this = (py_idaview_t *) view_extract_this(self);
-  if ( _this == NULL )
+  if ( _this == nullptr )
     return false;
   _this->unbind(true);
   return true;
