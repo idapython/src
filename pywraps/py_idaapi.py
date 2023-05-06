@@ -753,8 +753,7 @@ class IDAPython_displayhook:
             storage.append(str(item))
 
     def _print_hex(self, x):
-        s = hex(x)
-        return s[0:-1] if s.endswith("L") else s
+        return hex(x)
 
     def displayhook(self, item):
         if item is None or type(item) is bool:
