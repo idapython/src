@@ -622,6 +622,15 @@ struct python_highlighter_t : public ida_syntax_highlighter_t
     add_keywords("self", HF_KEYWORD2);
     add_keywords("def", HF_KEYWORD3);
   }
+
+  void add_new_keywords()
+  {
+    // Add new keywords (3.10+):
+    int py_major = 0, py_minor= 0;
+    qsscanf(Py_GetVersion(), "%d.%d", &py_major, &py_minor);
+    if ( py_major >= 3 && py_minor >= 10 )
+      add_keywords("match|case", HF_KEYWORD1);
+  }
 };
 static python_highlighter_t python_highlighter;
 
@@ -971,6 +980,9 @@ bool idapython_plugin_t::init()
     return false;
   }
 
+  // add new Python keywords as needed
+  python_highlighter.add_new_keywords();
+  
   // remove current directory
   _prepare_sys_path();
 
