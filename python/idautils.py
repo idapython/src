@@ -249,7 +249,7 @@ def Modules():
     mod = ida_idd.modinfo_t()
     result = ida_dbg.get_first_module(mod)
     while result:
-        yield ida_idaapi.object_t(name=mod.name, size=mod.size, base=mod.base, rebase_to=mod.rebase_to)
+        yield mod
         result = ida_dbg.get_next_module(mod)
 
 
