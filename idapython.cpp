@@ -615,7 +615,7 @@ struct python_highlighter_t : public ida_syntax_highlighter_t
     add_keywords(
       "and|as|assert|break|class|continue|def|"
       "del|elif|else|except|exec|finally|"
-      "for|from|global|if|import|in|"
+      "for|from|global|nonlocal|if|import|in|"
       "is|lambda|not|or|pass|print|"
       "raise|return|try|while|with|yield|"
       "None|True|False",HF_KEYWORD1);
@@ -628,6 +628,8 @@ struct python_highlighter_t : public ida_syntax_highlighter_t
     // Add new keywords (3.10+):
     int py_major = 0, py_minor= 0;
     qsscanf(Py_GetVersion(), "%d.%d", &py_major, &py_minor);
+    if ( py_major >= 3 && py_minor >= 5 )
+      add_keywords("async|await", HF_KEYWORD1);    
     if ( py_major >= 3 && py_minor >= 10 )
       add_keywords("match|case", HF_KEYWORD1);
   }
