@@ -735,22 +735,17 @@ class peutils_t(object):
         self.__penode = ida_netnode.netnode()
         self.__penode.create(peutils_t.PE_NODE)
 
-    imagebase = property(
-        lambda self: self.__penode.altval(peutils_t.PE_ALT_IMAGEBASE)
-      )
+    imagebase = property(lambda self: self.__penode.altval(peutils_t.PE_ALT_IMAGEBASE))
+    """Loading address (usually pe.imagebase)"""
 
-    header = property(
-        lambda self: self.__penode.altval(peutils_t.PE_ALT_PEHDR_OFF)
-      )
+    header_offset = property(lambda self: self.__penode.altval(peutils_t.PE_ALT_PEHDR_OFF))
+    """Offset of PE header"""
 
     def __str__(self):
-        return "peutils_t(imagebase=%s, header=%s)" % (hex(self.imagebase), hex(self.header))
+        return "peutils_t(imagebase=%x, header=%x)" % (self.imagebase, self.header_offset)
 
-    def header(self):
-        """
-        Returns the complete PE header as an instance of peheader_t (defined in the SDK).
-        """
-        return self.__penode.valobj()
+    header = lambda self: self.__penode.valobj()
+    """Returns the complete PE header as an instance of peheader_t (defined in the SDK)."""
 
 # -----------------------------------------------------------------------
 cpu = _cpu()
