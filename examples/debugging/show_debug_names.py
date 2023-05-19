@@ -16,7 +16,7 @@ def main():
     if not ida_dbg.is_debugger_on():
         print("Please run the process first!")
         return
-    if ida_dbg.get_process_state() != -1:
+    if ida_dbg.get_process_state() != ida_dbg.DSTATE_SUSP:
         print("Please suspend the debugger first!")
         return
 
