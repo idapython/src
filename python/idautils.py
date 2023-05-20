@@ -185,8 +185,8 @@ def Heads(start=None, end=None):
 
     @return: list of heads between start and end
     """
-    if start is None: start = ida_ida.cvar.inf.min_ea
-    if end is None:   end = ida_ida.cvar.inf.max_ea
+    if start is None: start = ida_ida.inf_get_min_ea()
+    if end is None:   end = ida_ida.inf_get_max_ea()
 
     ea = start
     if not idc.is_head(ida_bytes.get_flags(ea)):
@@ -210,8 +210,8 @@ def Functions(start=None, end=None):
     in multiple segments will be reported multiple times, once in each segment
     as they are listed.
     """
-    if start is None: start = ida_ida.cvar.inf.min_ea
-    if end is None:   end = ida_ida.cvar.inf.max_ea
+    if start is None: start = ida_ida.inf_get_min_ea()
+    if end is None:   end = ida_ida.inf_get_max_ea()
 
     # find first function head chunk in the range
     chunk = ida_funcs.get_fchunk(start)
