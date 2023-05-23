@@ -404,7 +404,7 @@ def struct_unpack(buffer, signed = False, offs = 0):
 
 # ------------------------------------------------------------
 try:
-    "".decode("UTF-8").encode("mbcs")
+    b"".decode("UTF-8").encode("mbcs")
     has_mbcs = True
 except:
     has_mbcs = False

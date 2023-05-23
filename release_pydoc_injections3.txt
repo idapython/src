@@ -45051,6 +45051,13 @@ class plugin_t(pyidc_opaque_object_t)
  |      pyidc_opaque_object_t
  |      builtins.object
  |  
+ |  Methods defined here:
+ |  
+ |  run(self, arg)
+ |  
+ |  term(self)
+ |  
+ |  ----------------------------------------------------------------------
  |  Data descriptors inherited from pyidc_opaque_object_t:
  |  
  |  __dict__
@@ -67359,8 +67366,19 @@ class bookmarks_t(builtins.object)
  |  
  |  Methods defined here:
  |  
- |  __init__(self, *args, **kwargs)
- |      Initialize self.  See help(type(self)) for accurate signature.
+ |  __getitem__(self, idx)
+ |  
+ |  __init__(self, w)
+ |      Build an object suitable for iterating bookmarks
+ |      associated with the specified widget.
+ |      
+ |      Note: all ea_t-based widgets (e.g., "IDA View-*",
+ |      "Pseudocode-*", "Hex View-*", ...) share a common storage,
+ |      so bookmarks can be re-used interchangeably between them
+ |  
+ |  __iter__(self)
+ |  
+ |  __len__(self)
  |  
  |  __repr__ = _swig_repr(self)
  |  
@@ -67380,12 +67398,11 @@ class bookmarks_t(builtins.object)
  |      @param e: lochist_entry_t const &
  |      @param ud: void *
  |  
- |  get(*args) -> 'bool'
- |      get(out_entry, out_desc, index, ud) -> bool
+ |  get(*args) -> 'PyObject *'
+ |      get(out, _index, ud) -> PyObject *
  |      
- |      @param out_entry: lochist_entry_t *
- |      @param out_desc: qstring *
- |      @param index: uint32 *
+ |      @param out: lochist_entry_t *
+ |      @param _index: uint32
  |      @param ud: void *
  |  
  |  get_desc(*args) -> 'qstring *'
@@ -67447,12 +67464,11 @@ bookmarks_t_find_index(*args) -> 'uint32'
 
 Help on function bookmarks_t_get in module ida_moves:
 
-bookmarks_t_get(*args) -> 'bool'
-    bookmarks_t_get(out_entry, out_desc, index, ud) -> bool
+bookmarks_t_get(*args) -> 'PyObject *'
+    bookmarks_t_get(out, _index, ud) -> PyObject *
     
-    @param out_entry: lochist_entry_t *
-    @param out_desc: qstring *
-    @param index: uint32 *
+    @param out: lochist_entry_t *
+    @param _index: uint32
     @param ud: void *
 
 Help on function bookmarks_t_get_desc in module ida_moves:
@@ -92916,6 +92932,12 @@ get_processes(*args) -> 'ssize_t'
     
     @param proclist: (C++: procinfo_vec_t *) array with information about each running process
     @return: number of processes or -1 on error
+
+Help on function get_processor_name in module idc:
+
+get_processor_name()
+    Get name of the current processor
+    @return: processor name
 
 Help on function get_qword in module ida_bytes:
 

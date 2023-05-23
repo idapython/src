@@ -654,6 +654,45 @@ plugin
 
   </details>
 
+#### list_bookmarks
+<details>
+  <summary>List bookmarks associated to a listing</summary>
+
+<blockquote>
+
+#### Source code
+<a href="https://github.com/idapython/src/blob/master/examples/core/list_bookmarks.py">core/list_bookmarks.py</a>
+
+#### Category
+core
+
+#### Description
+This sample shows how to programmatically access the list of
+bookmarks placed in a listing widget (e.g., "IDA View-A",
+"Pseudocode-", …) using the low-level `ida_moves.bookmarks_t`
+type.
+
+#### Shortcut
+Ctrl+!
+
+#### Keywords
+bookmarks
+
+#### Uses
+* ida_kernwin.AST_DISABLE_FOR_WIDGET
+* ida_kernwin.AST_ENABLE_FOR_WIDGET
+* ida_kernwin.action_desc_t
+* ida_kernwin.action_handler_t
+* ida_kernwin.get_current_viewer
+* ida_kernwin.get_viewer_user_data
+* ida_kernwin.get_widget_title
+* ida_kernwin.register_action
+* ida_moves.bookmarks_t
+
+</blockquote>
+
+  </details>
+
 #### list_function_items
 <details>
   <summary>Showcases (a few of) the iterators available on a function</summary>
@@ -1334,6 +1373,7 @@ Queries the debugger (possibly remotely) for the list of
 symbols that the process being debugged, provides.
 
 #### Uses
+* ida_dbg.DSTATE_SUSP
 * ida_dbg.get_process_state
 * ida_dbg.is_debugger_on
 * ida_ida.inf_get_max_ea

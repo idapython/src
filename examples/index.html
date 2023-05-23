@@ -1,6 +1,7 @@
 <!--
 Used keywords:
   actions
+  bookmarks
   chooser
   coloring
   colors
@@ -811,6 +812,52 @@ information (e.g., '.text:08047718'), but it is possible to
                 <li>ida_idaapi.plugin_t</li>
                 <li>ida_lines.SCOLOR_INV</li>
                 <li>ida_lines.user_defined_prefix_t</li>
+              </ul>
+            </li>
+
+
+      </ul>
+        </div>
+      </div>
+      <div class="example-entry collapsed-entry" name="list_bookmarks">
+        <div>
+          <span class="exp-col expander">&#x25B9;</span>
+          <span class="exp-col collapser" style="display:none">&#x25BF;</span>
+        <a href="core/list_bookmarks.py">list_bookmarks</a>: <i>List bookmarks associated to a listing</i>
+        </div>
+        <div class="details" id="DIV_list_bookmarks">
+
+<pre>
+This sample shows how to programmatically access the list of
+bookmarks placed in a listing widget (e.g., "IDA View-A",
+"Pseudocode-", …) using the low-level `ida_moves.bookmarks_t`
+type.
+</pre>
+
+          <ul>
+            <li>Category: core</li>
+            <li>Summary: List bookmarks associated to a listing</li>
+            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/core/list_bookmarks.py">GitHub</a></li>
+            <li>Keywords:
+            bookmarks
+            </li>
+
+            <li>Shortcut:
+            Ctrl+!
+            </li>
+
+
+            <li>APIs used
+              <ul>
+                <li>ida_kernwin.AST_DISABLE_FOR_WIDGET</li>
+                <li>ida_kernwin.AST_ENABLE_FOR_WIDGET</li>
+                <li>ida_kernwin.action_desc_t</li>
+                <li>ida_kernwin.action_handler_t</li>
+                <li>ida_kernwin.get_current_viewer</li>
+                <li>ida_kernwin.get_viewer_user_data</li>
+                <li>ida_kernwin.get_widget_title</li>
+                <li>ida_kernwin.register_action</li>
+                <li>ida_moves.bookmarks_t</li>
               </ul>
             </li>
 
@@ -1631,6 +1678,7 @@ symbols that the process being debugged, provides.
 
             <li>APIs used
               <ul>
+                <li>ida_dbg.DSTATE_SUSP</li>
                 <li>ida_dbg.get_process_state</li>
                 <li>ida_dbg.is_debugger_on</li>
                 <li>ida_ida.inf_get_max_ea</li>
