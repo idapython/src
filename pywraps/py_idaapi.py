@@ -403,26 +403,11 @@ def struct_unpack(buffer, signed = False, offs = 0):
     return struct.unpack_from(__struct_unpack_table[n][signed], buffer, offs)[0]
 
 # ------------------------------------------------------------
-try:
-    b"".decode("UTF-8").encode("mbcs")
-    has_mbcs = True
-except:
-    has_mbcs = False
-
-def _utf8_native(utf8):
-    if has_mbcs:
-        uni = utf8.decode("UTF-8")
-        return uni.encode("mbcs")
-    else:
-        return utf8
-
-# ------------------------------------------------------------
 def IDAPython_ExecSystem(cmd):
     """
     Executes a command with popen().
     """
     try:
-        cmd = _utf8_native(cmd)
         f = os.popen(cmd, "r")
         s = ''.join(f.readlines())
         f.close()
@@ -456,7 +441,6 @@ def IDAPython_ExecScript(path, g, print_error=True):
 
     This function is used by the low-level plugin code.
     """
-    path = _utf8_native(path)
     path_dir = os.path.dirname(path)
     if len(path_dir) and path_dir not in sys.path:
         sys.path.append(path_dir)
@@ -509,7 +493,6 @@ def IDAPython_LoadProcMod(path, g, print_error=True):
     """
     Load processor module.
     """
-    path = _utf8_native(path)
     pname = g['__name__'] if g and "__name__" in g else '__main__'
     parent = sys.modules[pname]
     path_dir, path_fname = os.path.split(path)
@@ -545,7 +528,6 @@ def IDAPython_UnLoadProcMod(script, g, print_error=True):
     """
     Unload processor module.
     """
-    script = _utf8_native(script)
     pname = g['__name__'] if g and "__name__" in g else '__main__'
     parent = sys.modules[pname]
 

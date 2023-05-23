@@ -44574,10 +44574,6 @@ Help on function _replace_module_function in module ida_idaapi:
 
 _replace_module_function(replacement)
 
-Help on function _utf8_native in module ida_idaapi:
-
-_utf8_native(utf8)
-
 Help on function as_UTF16 in module ida_idaapi:
 
 as_UTF16(s)
