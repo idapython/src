@@ -16,6 +16,7 @@
 %ignore add_stkvar;
 
 %ignore delete_wrong_frame_info;
+%ignore get_frame(ea_t);
 
 %template(xreflist_t) qvector<xreflist_entry_t>;
 

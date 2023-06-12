@@ -70,15 +70,24 @@
                               self.template.set_place(idap)
 
       def __iter__(self):
+          """
+          Iterate on bookmarks present for the widget.
+          """
           p = self.template.place()
           if p is not None:
               for idx in range(bookmarks_t.size(self.template, self.userdata)):
                   yield self[idx]
 
       def __len__(self):
+          """
+          Get the number of bookmarks for the widget.
+          """
           return bookmarks_t.size(self.template, self.userdata)
 
       def __getitem__(self, idx):
+          """
+          Get the n-th bookmark for the widget.
+          """
           p = self.template.place()
           if p is not None:
               if isinstance(idx, int) and idx >= 0 and idx < len(self):

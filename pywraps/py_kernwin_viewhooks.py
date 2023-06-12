@@ -96,6 +96,12 @@ class CustomIDAMemo(View_Hooks):
             gitpl = self._graph_item_tuple(ve)
             return cb(ve.x, ve.y, ve.state, len(gitpl), gitpl, ve.renderer_pos)
 
+    def _OnBind(self, hook):
+        if hook:
+            self.hook()
+        else:
+            self.unhook()
+
     # End of hooks->wrapper trampolines
 
 

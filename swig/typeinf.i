@@ -88,6 +88,7 @@
 %ignore get_default_align;
 %ignore align_size;
 %ignore align_size;
+%ignore fix_type_align;
 %ignore get_arg_align;
 %ignore align_stkarg_up;
 %ignore get_default_enum_size;

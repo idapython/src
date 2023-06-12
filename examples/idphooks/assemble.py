@@ -8,7 +8,6 @@ description:
   * "nothing" -> nop
 """
 
-from __future__ import print_function
 import ida_idp
 import idautils
 

@@ -5,8 +5,6 @@ description:
   Register (possibly repeating) timers.
 """
 
-from __future__ import print_function
-
 import ida_kernwin
 
 # -------------------------------------------------------------------------

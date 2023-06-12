@@ -9,9 +9,7 @@ keywords: chooser, actions
 see_also: choose, chooser_with_folders
 """
 
-from __future__ import print_function
 from ida_kernwin import Choose
-
 
 class MyChoose(Choose):
 

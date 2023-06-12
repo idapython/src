@@ -324,9 +324,9 @@ public:
 
       // Form already created? try to get associated py_graph instance
       // so that we reuse it
-      TWidget *existing = find_widget(title.c_str());
-      if ( existing != nullptr )
-        get_plugin_instance()->pycim_lookup_info.find_by_view((py_customidamemo_t**) &py_graph, existing);
+      TWidget *view = find_widget(title.c_str());
+      if ( view != nullptr )
+        get_plugin_instance()->pycim_lookup_info.find_by_view((py_customidamemo_t**) &py_graph, view);
 
       if ( py_graph == nullptr )
       {
@@ -335,8 +335,10 @@ public:
       else
       {
         // unbind so we are rebound
-        py_graph->unbind(false);
+        py_graph->unbind();
+        py_graph->bind(self, view);
         py_graph->refresh_needed = true;
+        refresh_viewer(view); // cfr graph.hpp how to refresh an existing mutable_graph_t
       }
       if ( py_graph->initialize(self, title.c_str()) < 0 )
       {

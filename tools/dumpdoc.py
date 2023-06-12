@@ -326,6 +326,30 @@ all_specific_translations = {
             "'uint64 *'",
         ), "'unsigned-ea-like-numeric-type *'", True),
     ],
+    "ida_kernwin.atoea" : [
+        ((
+            "-> 'uint32 *'",
+            "-> 'uint64 *'",
+        ), "'unsigned-ea-like-numeric-type *'", True),
+    ],
+    "ida_kernwin.str2ea" : [
+        ((
+            "-> 'uint32 *'",
+            "-> 'uint64 *'",
+        ), "'unsigned-ea-like-numeric-type *'", True),
+    ],
+    "ida_kernwin.str2ea_ex" : [
+        ((
+            "-> 'uint32 *'",
+            "-> 'uint64 *'",
+        ), "'unsigned-ea-like-numeric-type *'", True),
+    ],
+    "ida_kernwin.PluginForm" : [
+        ((
+           "module '__main__' from 'tools/dumpdoc.py'",
+           "module '__main__' (built-in)",
+        ), "module 'main'", False),
+    ],
 }
 
 if is_64:

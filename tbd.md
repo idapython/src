@@ -37,7 +37,7 @@ Generating TBD Files
 
     /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/tapi
 
-For example, this is how you can recreate libpython3.tbd on an Apple Silicon machine:
+For example, this is how you can recreate libpython3.tbd:
 
     $ alias tapi='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/tapi'
     $ cp /Library/Frameworks/Python.framework/Versions/3.9/Python /tmp/
@@ -61,14 +61,14 @@ with newer versions of the macOS linker (no surprise, the format is really unsta
 
 So far it seems that only the following options are required:
 
-    --- !tapi-tbd
-    tbd-version:     4
-    targets:         [ arm64-macos ]
-    install-name:    '@executable_path/libpython3.link.dylib'
-    current-version: 3.9
-    compatibility-version: 3.9
-    exports:
-        <list of exports>
-    ...
+     --- !tapi-tbd
+     tbd-version:     4
+     targets:         [ arm64-macos, x86_64-macos ]
+     install-name:    '@executable_path/libpython3.link.dylib'
+     current-version: 3.9
+     compatibility-version: 3.9
+     exports:
+       - targets:         [ arm64-macos, x86_64-macos ]
+         symbols:         [ _PyAST_CompileEx, ... 
 
 Everything else can be removed.

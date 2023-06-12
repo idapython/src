@@ -26,7 +26,7 @@ class hint_hooks_t(ida_hexrays.Hexrays_Hooks):
             elif cit == ida_hexrays.VDI_EXPR:
                 ce = vu.item.e
                 if ce.op == ida_hexrays.cot_call:
-                    return 2, "==> ", 1
+                    return 0, "==> ", 1
                 if ce.op == ida_hexrays.cit_if:
                     return 1, "condition", 1
         return 0

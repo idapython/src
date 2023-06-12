@@ -12,8 +12,6 @@ description:
   request that ida displays that using `ida_gdl.display_gdl`.
 """
 
-from __future__ import print_function
-
 import ida_pro
 import ida_hexrays
 import ida_kernwin

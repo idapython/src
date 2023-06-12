@@ -39,6 +39,7 @@
 %ignore outctx_base_t::regname_idx;
 %ignore outctx_base_t::suspop;
 %ignore outctx_base_t::F;
+%ignore outctx_base_t::F_unused;
 %ignore outctx_base_t::outvalues;
 %ignore outctx_base_t::outvalue_getn_flags;
 %ignore outctx_base_t::user_data;

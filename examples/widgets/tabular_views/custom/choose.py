@@ -11,7 +11,6 @@ keywords: chooser, actions
 see_also: choose_multi, chooser_with_folders
 """
 
-from __future__ import print_function
 import ida_kernwin
 from ida_kernwin import Choose
 

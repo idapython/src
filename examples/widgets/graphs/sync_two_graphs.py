@@ -14,8 +14,6 @@ keywords: graph, idaview
 see_also: wrap_idaview
 """
 
-from __future__ import print_function
-
 import ida_kernwin
 import ida_moves
 import ida_graph

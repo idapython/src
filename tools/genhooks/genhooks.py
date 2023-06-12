@@ -9,7 +9,6 @@ from __future__ import print_function
 
 import os
 import sys
-import six
 
 dirname, _ = os.path.split(__file__)
 parent_dirname, _ = os.path.split(dirname)
@@ -69,7 +68,7 @@ def gen_methods(out):
             retbody = "return %s;" % rdata["default"]
         arg_strs = []
         for p in (recipe_data["call_params"] if "call_params" in recipe_data else params[1:]):
-            if isinstance(p, six.string_types):
+            if isinstance(p, str):
                 assert(p[0] == "@")
                 synth_info = recipe["synthetic_params"][p]
                 ptype = synth_info["type"]
@@ -148,7 +147,7 @@ def gen_notifications(out):
         argstr = [] # arguments to pass to the call, minus those explicitly suppressed
         argstr_all = [] # all arguments
         for p in (recipe_data["call_params"] if "call_params" in recipe_data else params[1:]):
-            if isinstance(p, six.string_types):
+            if isinstance(p, str):
                 assert(p[0] == "@")
                 synth_info = recipe["synthetic_params"][p]
                 ptype = synth_info["type"]

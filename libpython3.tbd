@@ -1,11 +1,11 @@
 --- !tapi-tbd
 tbd-version:     4
-targets:         [ arm64-macos ]
+targets:         [ arm64-macos, x86_64-macos ]
 install-name:    '@executable_path/libpython3.link.dylib'
 current-version: 3.9
 compatibility-version: 3.9
 exports:
-  - targets:         [ arm64-macos ]
+  - targets:         [ arm64-macos, x86_64-macos ]
     symbols:         [ _PyAST_CompileEx, _PyAST_CompileObject, _PyAST_FromNode, _PyAST_FromNodeObject,
                        _PyAST_Validate, _PyArena_AddPyObject, _PyArena_Free, _PyArena_Malloc,
                        _PyArena_New, _PyArg_Parse, _PyArg_ParseTuple, _PyArg_ParseTupleAndKeywords,

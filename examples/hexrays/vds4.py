@@ -15,8 +15,6 @@ description:
 author: EiNSTeiN_ (einstein@g3nius.org)
 """
 
-from __future__ import print_function
-
 import ida_kernwin
 import ida_hexrays
 import ida_bytes

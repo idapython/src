@@ -20,8 +20,6 @@ description:
   Note: the real body of code is in `simple_appcall_common.py`.
 """
 
-from __future__ import print_function
-
 import os
 import sys
 sys.path.append(os.path.dirname(__file__))

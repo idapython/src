@@ -2,7 +2,7 @@
 summary: custom painting on top of the navigation band
 
 description:
-  Using an "event filter", we'll intercept paint events
+  Using an "event filter", we will intercept paint events
   targeted at the navigation band widget, let it paint itself,
   and then add our own markers on top.
 """

@@ -10,8 +10,6 @@ description:
   idat -Ldecompile.log -Sdecompile_entry_points.py -c file
 """
 
-from __future__ import print_function
-
 import ida_ida
 import ida_auto
 import ida_loader

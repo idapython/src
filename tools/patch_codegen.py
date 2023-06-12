@@ -3,7 +3,6 @@ from __future__ import print_function
 import os
 import re
 import sys
-import six
 import xml.etree.ElementTree as ET
 from argparse import ArgumentParser
 
@@ -349,7 +348,7 @@ with open(args.input) as f:
             current_function_proto = None
 
         if subst is not None:
-            if isinstance(subst, six.string_types):
+            if isinstance(subst, str):
                 subst = [subst]
             all_lines.extend(map(lambda l: "%s\n" % l, subst))
         else:

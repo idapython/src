@@ -80,7 +80,6 @@ SUPVAL_COL2_DATA_TAG = '2'
 class base_idapython_tree_view_t(ida_kernwin.Choose):
 
     def __init__(self, title, nitems=100, dirspec_log=True, flags=0):
-        flags |= ida_kernwin.CH_NOIDB
         flags |= ida_kernwin.CH_MULTI
         flags |= ida_kernwin.CH_HAS_DIRTREE
         ida_kernwin.Choose.__init__(self,

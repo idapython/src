@@ -629,7 +629,7 @@ struct python_highlighter_t : public ida_syntax_highlighter_t
     int py_major = 0, py_minor= 0;
     qsscanf(Py_GetVersion(), "%d.%d", &py_major, &py_minor);
     if ( py_major >= 3 && py_minor >= 5 )
-      add_keywords("async|await", HF_KEYWORD1);    
+      add_keywords("async|await", HF_KEYWORD1);
     if ( py_major >= 3 && py_minor >= 10 )
       add_keywords("match|case", HF_KEYWORD1);
   }
@@ -984,7 +984,7 @@ bool idapython_plugin_t::init()
 
   // add new Python keywords as needed
   python_highlighter.add_new_keywords();
-  
+
   // remove current directory
   _prepare_sys_path();
 

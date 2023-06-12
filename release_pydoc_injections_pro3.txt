@@ -767,7 +767,7 @@ Help on function char_flag in module ida_bytes:
 
 char_flag(*args) -> 'flags64_t'
     char_flag() -> flags64_t
-    see Bits: instruction operand types
+    see FF_opbits
 
 Help on function chunk_size in module ida_bytes:
 
@@ -807,7 +807,7 @@ clr_op_type(*args) -> 'bool'
     'undefined')
     
     @param ea: (C++: ea_t) linear address
-    @param n: (C++: int) number of operand (0, 1, -1)
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number, OPND_ALL all operands
     @return: success
 
 Help on function code_flag in module ida_bytes:
@@ -815,6 +815,13 @@ Help on function code_flag in module ida_bytes:
 code_flag(*args) -> 'flags64_t'
     code_flag() -> flags64_t
     FF_CODE
+
+Help on function combine_flags in module ida_bytes:
+
+combine_flags(*args) -> 'flags64_t'
+    combine_flags(F) -> flags64_t
+    
+    @param F: flags64_t
 
 Help on class compiled_binpat_t in module ida_bytes:
 
@@ -1258,7 +1265,7 @@ Help on function custfmt_flag in module ida_bytes:
 
 custfmt_flag(*args) -> 'flags64_t'
     custfmt_flag() -> flags64_t
-    see Bits: instruction operand types
+    see FF_opbits
 
 Help on class data_format_t in module ida_bytes:
 
@@ -1498,7 +1505,7 @@ Help on function enum_flag in module ida_bytes:
 
 enum_flag(*args) -> 'flags64_t'
     enum_flag() -> flags64_t
-    see Bits: instruction operand types
+    see FF_opbits
 
 Help on function equal_bytes in module ida_bytes:
 
@@ -1808,7 +1815,7 @@ Help on function flt_flag in module ida_bytes:
 
 flt_flag(*args) -> 'flags64_t'
     flt_flag() -> flags64_t
-    see Bits: instruction operand types
+    see FF_opbits
 
 Help on function free_chunk in module ida_bytes:
 
@@ -2008,7 +2015,7 @@ get_enum_id(*args) -> 'uchar *'
     Get enum id of 'enum' operand.
     
     @param ea: (C++: ea_t) linear address
-    @param n: (C++: int) number of operand (0, 1, -1)
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number, OPND_ALL one of the operands
     @return: id of enum or BADNODE
 
 Help on function get_first_hidden_range in module ida_bytes:
@@ -2053,7 +2060,7 @@ get_forced_operand(*args) -> 'qstring *'
     Get forced operand.
     
     @param ea: (C++: ea_t) linear address
-    @param n: (C++: int) number of operand (0, 1, 2)
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number
     @return: size of forced operand or -1
 
 Help on function get_full_data_elsize in module ida_bytes:
@@ -2117,7 +2124,8 @@ get_item_flag(*args) -> 'flags64_t'
     elements.
     
     @param from: (C++: ea_t) linear address of the instruction which refers to 'ea'
-    @param n: (C++: int) number of operand which refers to 'ea'
+    @param n: (C++: int) operand number which refers to 'ea' or OPND_ALL for one of the
+              operands
     @param ea: (C++: ea_t) the referenced address
     @param appzero: (C++: bool) append a struct field name if the field offset is zero?
                     meaningful only if the name refers to a structure.
@@ -2132,12 +2140,26 @@ get_item_head(*args) -> 'ea_t'
     
     @param ea: (C++: ea_t)
 
+Help on function get_item_refinfo in module ida_bytes:
+
+get_item_refinfo(*args) -> 'bool'
+    get_item_refinfo(ri, ea, n) -> bool
+    Get refinfo of the item at 'ea'. This function works for a regular offset
+    operand as well as for a tail byte of a structure variable (in this case refinfo
+    to corresponding structure member will be returned)
+    
+    @param ri: (C++: refinfo_t *) refinfo holder
+    @param ea: (C++: ea_t) the item address
+    @param n: (C++: int) operand number which refers to 'ea' or OPND_ALL for one of the
+              operands
+    @return: success
+
 Help on function get_item_size in module ida_bytes:
 
 get_item_size(*args) -> 'asize_t'
     get_item_size(ea) -> asize_t
     Get size of item (instruction/data) in bytes. Unexplored bytes have length of 1
-    byte. This function never returns 0.
+    byte. This function returns 0 only for BADADDR.
     
     @param ea: (C++: ea_t)
 
@@ -2213,6 +2235,27 @@ get_octet2(*args) -> 'uchar *'
     get_octet2(ogen) -> bool
     
     @param ogen: octet_generator_t *
+
+Help on function get_operand_flag in module ida_bytes:
+
+get_operand_flag(*args) -> 'flags64_t'
+    get_operand_flag(typebits, n) -> flags64_t
+    Place operand `n`'s type flag in the right nibble of a 64-bit flags set.
+    
+    @param typebits: (C++: uint8) the type bits (one of `FF_N_`)
+    @param n: (C++: int) the operand number
+    @return: the shift to the nibble
+
+Help on function get_operand_type_shift in module ida_bytes:
+
+get_operand_type_shift(*args) -> 'int'
+    get_operand_type_shift(n) -> int
+    Get the shift in `flags64_t` for the nibble representing operand `n`'s type
+    
+    Note: n must be < UA_MAXOP, and is not checked
+    
+    @param n: (C++: uint32) the operand number
+    @return: the shift to the nibble
 
 Help on function get_opinfo in module ida_bytes:
 
@@ -2347,7 +2390,7 @@ get_stroff_path(*args) -> 'int'
     @param path: (C++: tid_t *) buffer for structure path (strpath). see nalt.hpp for more info.
     @param delta: (C++: adiff_t *) struct offset delta
     @param ea: (C++: ea_t) linear address
-    @param n: (C++: int) number of operand (0, 1, -1)
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number, OPND_ALL one of the operands
     @return: length of strpath
 
 Help on function get_wide_byte in module ida_bytes:
@@ -2812,6 +2855,17 @@ is_enum1(*args) -> 'bool'
     
     @param F: (C++: flags64_t)
 
+Help on function is_flag_for_operand in module ida_bytes:
+
+is_flag_for_operand(*args) -> 'bool'
+    is_flag_for_operand(F, typebits, n) -> bool
+    Check that the 64-bit flags set has the expected type for operand `n`.
+    
+    @param F: (C++: flags64_t) the flags
+    @param typebits: (C++: uint8) the type bits (one of `FF_N_`)
+    @param n: (C++: int) the operand number
+    @return: success
+
 Help on function is_float in module ida_bytes:
 
 is_float(*args) -> 'bool'
@@ -2860,7 +2914,7 @@ is_forced_operand(*args) -> 'bool'
     Is operand manually defined?.
     
     @param ea: (C++: ea_t) linear address
-    @param n: (C++: int) number of operand (0, 1, 2)
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number
 
 Help on function is_func in module ida_bytes:
 
@@ -3351,7 +3405,7 @@ Help on function off_flag in module ida_bytes:
 
 off_flag(*args) -> 'flags64_t'
     off_flag() -> flags64_t
-    see Bits: instruction operand types
+    see FF_opbits
 
 Help on function op_adds_xrefs in module ida_bytes:
 
@@ -3408,7 +3462,7 @@ op_enum(*args) -> 'bool'
     converts them to 16/32bit word data
     
     @param ea: (C++: ea_t) linear address
-    @param n: (C++: int) number of operand (0, 1, -1)
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number, OPND_ALL all operands
     @param id: (C++: enum_t) id of enum
     @param serial: (C++: uchar) the serial number of the constant in the enumeration, usually 0.
                    the serial numbers are used if the enumeration contains several
@@ -3459,7 +3513,7 @@ op_seg(*args) -> 'bool'
     converts them to 16/32bit word data
     
     @param ea: (C++: ea_t) linear address
-    @param n: (C++: int) number of operand (0, 1, -1)
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number, OPND_ALL all operands
     @return: success
 
 Help on function op_stkvar in module ida_bytes:
@@ -3471,7 +3525,7 @@ op_stkvar(*args) -> 'bool'
     using insn_t::create_stkvar().
     
     @param ea: (C++: ea_t) linear address
-    @param n: (C++: int) number of operand (0, 1, -1)
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number, OPND_ALL all operands
     @return: success
 
 Help on function op_stroff in module ida_bytes:
@@ -3482,7 +3536,7 @@ op_stroff(*args) -> 'bool'
     bytes, converts them to 16/32bit word data
     
     @param insn: (C++: const insn_t &) the instruction
-    @param n: (C++: int) number of operand (0, 1, -1)
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number, OPND_ALL all operands
     @param path: (C++: const tid_t *) structure path (strpath). see nalt.hpp for more info.
     @param path_len: (C++: int) length of the structure path
     @param delta: (C++: adiff_t) struct offset delta. usually 0. denotes the difference between the
@@ -3822,7 +3876,7 @@ Help on function seg_flag in module ida_bytes:
 
 seg_flag(*args) -> 'flags64_t'
     seg_flag() -> flags64_t
-    see Bits: instruction operand types
+    see FF_opbits
 
 Help on function set_cmt in module ida_bytes:
 
@@ -3844,7 +3898,7 @@ set_forced_operand(*args) -> 'bool'
     Set forced operand.
     
     @param ea: (C++: ea_t) linear address
-    @param n: (C++: int) number of operand (0, 1, 2)
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number
     @param op: (C++: const char *) text of operand
     * nullptr: do nothing (return 0)
     * "" : delete forced operand
@@ -3889,7 +3943,7 @@ set_op_type(*args) -> 'bool'
     @param ea: (C++: ea_t) linear address
     @param type: (C++: flags64_t) new flag value (should be obtained from char_flag(), num_flag() and
                  similar functions)
-    @param n: (C++: int) number of operand (0, 1, -1)
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number, OPND_ALL all operands
     @retval 1: ok
     @retval 0: failed (applied to a tail byte)
 
@@ -3908,14 +3962,15 @@ set_opinfo(*args) -> 'bool'
                             events
     @return: success
     @note: for custom formats (if is_custfmt(flag, n) is true) or for offsets (if
-           is_off(flag, n) is true) N can be in range -1..UA_MAXOP-1. In the case of
-           -1 the additional information about all operands will be set.
+           is_off(flag, n) is true) N can be in range 0..UA_MAXOP-1 or equal to
+           OPND_ALL. In the case of OPND_ALL the additional information about all
+           operands will be set.
 
 Help on function stkvar_flag in module ida_bytes:
 
 stkvar_flag(*args) -> 'flags64_t'
     stkvar_flag() -> flags64_t
-    see Bits: instruction operand types
+    see FF_opbits
 
 Help on function strlit_flag in module ida_bytes:
 
@@ -3927,7 +3982,7 @@ Help on function stroff_flag in module ida_bytes:
 
 stroff_flag(*args) -> 'flags64_t'
     stroff_flag() -> flags64_t
-    see Bits: instruction operand types
+    see FF_opbits
 
 Help on function stru_flag in module ida_bytes:
 
@@ -10923,7 +10978,7 @@ calc_stkvar_struc_offset(*args) -> 'ea_t'
     
     @param pfn: (C++: func_t *) pointer to function (can't be nullptr!)
     @param insn: (C++: const insn_t &) the instruction
-    @param n: (C++: int) number of operand: (0..UA_MAXOP-1) -1 if error, return BADADDR
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number -1 if error, return BADADDR
     @return: BADADDR if some error (issue a warning if stack frame is bad)
 
 Help on function define_stkvar in module ida_frame:
@@ -11061,14 +11116,10 @@ get_effective_spd(*args) -> 'sval_t'
 Help on function get_frame in module ida_frame:
 
 get_frame(*args) -> 'struc_t *'
-    get_frame(pfn) -> struc_t
+    get_frame(pfn) -> struc_t *
     Get pointer to function frame.
     
     @param pfn: func_t const *
-    
-    get_frame(ea) -> struc_t *
-    
-    @param ea: ea_t
 
 Help on function get_frame_part in module ida_frame:
 
@@ -14189,6 +14240,8 @@ class GraphViewer(ida_kernwin.CustomIDAMemo)
  |      Shows an existing graph or creates a new one
  |      
  |      @return: Boolean
+ |  
+ |  _OnBind(self, hook)
  |  
  |  __getitem__(self, idx)
  |      Returns a reference to the object associated with this node id
@@ -17558,7 +17611,8 @@ class Hexrays_Hooks(builtins.object)
  |      
  |      @param blk: (mblock_t *)
  |      @param insn: (minsn_t *) Should return: 1 if combined the current instruction
- |                   with a preceding one
+ |                   with a preceding one -1 if the instruction should not be combined 0
+ |                   else
  |  
  |  create_hint(self, *args) -> 'PyObject *'
  |      create_hint(self, vu) -> PyObject *
@@ -17946,7 +18000,8 @@ class __cbhooks_t(Hexrays_Hooks)
  |      
  |      @param blk: (mblock_t *)
  |      @param insn: (minsn_t *) Should return: 1 if combined the current instruction
- |                   with a preceding one
+ |                   with a preceding one -1 if the instruction should not be combined 0
+ |                   else
  |  
  |  flowchart(self, *args) -> 'int'
  |      flowchart(self, fc) -> int
@@ -23517,6 +23572,15 @@ class chain_visitor_t(builtins.object)
  |  thisown
  |      The membership flag
 
+Help on function change_hexrays_config in module ida_hexrays:
+
+change_hexrays_config(*args) -> 'bool'
+    change_hexrays_config(directive) -> bool
+    Parse DIRECTIVE and update the current configuration variables. For the syntax
+    see hexrays.cfg
+    
+    @param directive: (C++: const char *) char const *
+
 Help on function checkout_hexrays_license in module ida_hexrays:
 
 checkout_hexrays_license(*args) -> 'bool'
@@ -26036,7 +26100,7 @@ decompile(ea, hf=None, flags=0)
 Help on function decompile_func in module ida_hexrays:
 
 decompile_func(*args) -> 'cfuncptr_t'
-    decompile_func(pfn, hf, decomp_flags=0) -> cfuncptr_t
+    decompile_func(pfn, hf=None, decomp_flags=0) -> cfuncptr_t
     Decompile a function. Multiple decompilations of the same function return the
     same object.
     
@@ -26579,7 +26643,7 @@ class gco_info_t(builtins.object)
 Help on function gen_microcode in module ida_hexrays:
 
 gen_microcode(*args) -> 'mba_t *'
-    gen_microcode(mbr, hf, retlist=None, decomp_flags=0, reqmat=MMAT_GLBOPT3) -> mba_t
+    gen_microcode(mbr, hf=None, retlist=None, decomp_flags=0, reqmat=MMAT_GLBOPT3) -> mba_t
     Generate microcode of an arbitrary code snippet
     
     @param mbr: (C++: const mba_ranges_t &) snippet ranges
@@ -30102,6 +30166,16 @@ class mba_t(builtins.object)
  |  get_curfunc(self, *args) -> 'func_t *'
  |      get_curfunc(self) -> func_t *
  |  
+ |  get_func_output_lists(self, *args) -> 'void'
+ |      get_func_output_lists(self, return_regs, spoiled, type, call_ea=BADADDR, tail_call=False)
+ |      Prepare the lists of registers & memory that are defined/killed by a function
+ |      
+ |      @param return_regs: (C++: mlist_t *) defined regs to return (eax,edx)
+ |      @param spoiled: (C++: mlist_t *) spoiled regs (flags,ecx,mem)
+ |      @param type: (C++: const tinfo_t &) the function type
+ |      @param call_ea: (C++: ea_t) the call insn address (if known)
+ |      @param tail_call: (C++: bool) is it the tail call?
+ |  
  |  get_graph(self, *args) -> 'mbl_graph_t *'
  |      get_graph(self) -> mbl_graph_t
  |      Get control graph. Call build_graph() if you need the graph before MMAT_LOCOPT.
@@ -30289,6 +30363,13 @@ class mba_t(builtins.object)
  |      serialize(self)
  |      Serialize mbl array into a sequence of bytes.
  |  
+ |  set_lvar_name(self, *args) -> 'bool'
+ |      set_lvar_name(self, v, name, flagbits) -> bool
+ |      
+ |      @param v: lvar_t &
+ |      @param name: char const *
+ |      @param flagbits: int
+ |  
  |  set_maturity(self, *args) -> 'bool'
  |      set_maturity(self, mat) -> bool
  |      Set maturity level.
@@ -30307,6 +30388,18 @@ class mba_t(builtins.object)
  |      set_mba_flags2(self, f)
  |      
  |      @param f: int
+ |  
+ |  set_nice_lvar_name(self, *args) -> 'bool'
+ |      set_nice_lvar_name(self, v, name) -> bool
+ |      
+ |      @param v: lvar_t &
+ |      @param name: char const *
+ |  
+ |  set_user_lvar_name(self, *args) -> 'bool'
+ |      set_user_lvar_name(self, v, name) -> bool
+ |      
+ |      @param v: lvar_t &
+ |      @param name: char const *
  |  
  |  short_display(self, *args) -> 'bool'
  |      short_display(self) -> bool
@@ -31745,6 +31838,9 @@ class mcallarg_t(mop_t)
  |      is_glbaddr(self, ea) -> bool
  |      
  |      @param ea: ea_t
+ |  
+ |  is_glbaddr_from_fixup(self, *args) -> 'bool'
+ |      is_glbaddr_from_fixup(self) -> bool
  |  
  |  is_impptr_done(self, *args) -> 'bool'
  |      is_impptr_done(self) -> bool
@@ -33893,6 +33989,9 @@ class mop_addr_t(mop_t)
  |      
  |      @param ea: ea_t
  |  
+ |  is_glbaddr_from_fixup(self, *args) -> 'bool'
+ |      is_glbaddr_from_fixup(self) -> bool
+ |  
  |  is_impptr_done(self, *args) -> 'bool'
  |      is_impptr_done(self) -> bool
  |  
@@ -34762,6 +34861,9 @@ class mop_t(builtins.object)
  |      
  |      @param ea: ea_t
  |  
+ |  is_glbaddr_from_fixup(self, *args) -> 'bool'
+ |      is_glbaddr_from_fixup(self) -> bool
+ |  
  |  is_impptr_done(self, *args) -> 'bool'
  |      is_impptr_done(self) -> bool
  |  
@@ -35445,6 +35547,9 @@ class number_format_t(builtins.object)
  |  
  |  flags
  |      flags
+ |  
+ |  flags32
+ |      flags32
  |  
  |  opnum
  |      opnum
@@ -42678,6 +42783,10 @@ inf_hide_libfuncs(*args) -> 'bool'
 Help on function inf_huge_arg_align in module ida_ida:
 
 inf_huge_arg_align(*args) -> 'bool'
+    inf_huge_arg_align(cc) -> bool
+    
+    @param cc: cm_t
+    
     inf_huge_arg_align() -> bool
 
 Help on function inf_inc_database_change_count in module ida_ida:
@@ -44032,6 +44141,15 @@ is_filetype_like_binary(*args) -> 'bool'
     
     @param ft: (C++: filetype_t) enum filetype_t
 
+Help on function move_privrange in module ida_ida:
+
+move_privrange(*args) -> 'bool'
+    move_privrange(new_privrange_start) -> bool
+    Move privrange to the specified address
+    
+    @param new_privrange_start: (C++: ea_t) new start address of the privrange
+    @return: success
+
 Help on function <lambda> in module ida_ida:
 
 <lambda> lambda *args
@@ -44053,6 +44171,15 @@ to_ea(*args) -> 'ea_t'
     
     @param reg_cs: (C++: sel_t)
     @param reg_ip: (C++: uval_t)
+
+Help on function validate_idb in module ida_ida:
+
+validate_idb(*args) -> 'size_t'
+    validate_idb(vld_flags=0) -> size_t
+    Validate the database
+    
+    @param vld_flags: (C++: uint32) combination of VLD_.. constants
+    @return: number of corrupted/fixed records
 
 Module "ida_idaapi"s docstring:
 """None"""
@@ -44154,6 +44281,8 @@ class CustomIDAMemo(View_Hooks)
  |        inst.SetNodesInfos({0 : p, 1 : p, 2 : p})
  |      
  |      @param values: A dictionary of 'int -> node_info_t' objects.
+ |  
+ |  _OnBind(self, hook)
  |  
  |  __init__(self)
  |      __init__(self, _flags=0, _hkcb_flags=0x0001) -> View_Hooks
@@ -49438,6 +49567,30 @@ class IDP_Hooks(builtins.object)
  |      @retval 1: ok
  |      @retval <0: segment should not be created
  |  
+ |  ev_cvt64_hashval(self, *args) -> 'int'
+ |      ev_cvt64_hashval(self, node, tag, name, data) -> int
+ |      perform 32-64 conversion for a hash value
+ |      
+ |      @param node: (::nodeidx_t)
+ |      @param tag: (uchar)
+ |      @param name: (const ::char *)
+ |      @param data: (const uchar *)
+ |      @return: 0 nothing was done
+ |      1 converted successfully
+ |      -1 error (and message in errbuf)
+ |  
+ |  ev_cvt64_supval(self, *args) -> 'int'
+ |      ev_cvt64_supval(self, node, tag, idx, data) -> int
+ |      perform 32-64 conversion for a netnode array element
+ |      
+ |      @param node: (::nodeidx_t)
+ |      @param tag: (uchar)
+ |      @param idx: (::nodeidx_t)
+ |      @param data: (const uchar *)
+ |      @return: 0 nothing was done
+ |      1 converted successfully
+ |      -1 error (and message in errbuf)
+ |  
  |  ev_decorate_name(self, *args) -> 'PyObject *'
  |      ev_decorate_name(self, name, mangle, cc, optional_type) -> PyObject *
  |      Decorate/undecorate a C symbol name.
@@ -50501,6 +50654,26 @@ class _processor_t(builtins.object)
  |  
  |  cbsize(self, *args) -> 'int'
  |      cbsize(self) -> int
+ |  
+ |  cvt64_hashval(self, *args) -> 'ssize_t'
+ |      cvt64_hashval(self, node, tag, name, data) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      node: nodeidx_t
+ |      tag: uchar
+ |      name: char const *
+ |      data: uchar const *
+ |  
+ |  cvt64_supval(self, *args) -> 'ssize_t'
+ |      cvt64_supval(self, node, tag, idx, data) -> ssize_t
+ |      
+ |      Parameters
+ |      ----------
+ |      node: nodeidx_t
+ |      tag: uchar
+ |      idx: nodeidx_t
+ |      data: uchar const *
  |  
  |  dbsize(self, *args) -> 'int'
  |      dbsize(self) -> int
@@ -51635,6 +51808,10 @@ class _processor_t(builtins.object)
  |  
  |  ev_creating_segm = 26
  |  
+ |  ev_cvt64_hashval = 98
+ |  
+ |  ev_cvt64_supval = 97
+ |  
  |  ev_decorate_name = 2020
  |  
  |  ev_del_cref = 66
@@ -51741,7 +51918,7 @@ class _processor_t(builtins.object)
  |  
  |  ev_is_switch = 41
  |  
- |  ev_last_cb_before_debugger = 97
+ |  ev_last_cb_before_debugger = 99
  |  
  |  ev_last_cb_before_loader = 2023
  |  
@@ -54080,6 +54257,13 @@ Help on function get_ash in module ida_idp:
 get_ash(*args) -> 'asm_t *'
     get_ash() -> asm_t
 
+Help on function get_config_value in module ida_idp:
+
+get_config_value(*args) -> 'jvalue_t *'
+    get_config_value(key) -> bool
+    
+    @param key: char const *
+
 Help on function get_idb_notifier_addr in module ida_idp:
 
 get_idb_notifier_addr(*args) -> 'PyObject *'
@@ -55347,6 +55531,30 @@ class processor_t(IDP_Hooks)
  |      @param md: (::merge_data_t *) This event is generated immediately after opening
  |                 idbs.
  |      @return: must be 0
+ |  
+ |  ev_cvt64_hashval(self, *args) -> 'int'
+ |      ev_cvt64_hashval(self, node, tag, name, data) -> int
+ |      perform 32-64 conversion for a hash value
+ |      
+ |      @param node: (::nodeidx_t)
+ |      @param tag: (uchar)
+ |      @param name: (const ::char *)
+ |      @param data: (const uchar *)
+ |      @return: 0 nothing was done
+ |      1 converted successfully
+ |      -1 error (and message in errbuf)
+ |  
+ |  ev_cvt64_supval(self, *args) -> 'int'
+ |      ev_cvt64_supval(self, node, tag, idx, data) -> int
+ |      perform 32-64 conversion for a netnode array element
+ |      
+ |      @param node: (::nodeidx_t)
+ |      @param tag: (uchar)
+ |      @param idx: (::nodeidx_t)
+ |      @param data: (const uchar *)
+ |      @return: 0 nothing was done
+ |      1 converted successfully
+ |      -1 error (and message in errbuf)
  |  
  |  ev_decorate_name(self, *args) -> 'PyObject *'
  |      ev_decorate_name(self, name, mangle, cc, optional_type) -> PyObject *
@@ -57141,6 +57349,8 @@ class CustomIDAMemo(View_Hooks)
  |      
  |      @param values: A dictionary of 'int -> node_info_t' objects.
  |  
+ |  _OnBind(self, hook)
+ |  
  |  __init__(self)
  |      __init__(self, _flags=0, _hkcb_flags=0x0001) -> View_Hooks
  |      
@@ -57693,6 +57903,8 @@ class IDAViewWrapper(CustomIDAMemo)
  |      
  |      @param values: A dictionary of 'int -> node_info_t' objects.
  |  
+ |  _OnBind(self, hook)
+ |  
  |  _get_cb(self, view, cb_name)
  |  
  |  _get_cb_arity(self, cb)
@@ -57859,27 +58071,27 @@ class PluginForm(builtins.object)
  |  ----------------------------------------------------------------------
  |  Static methods defined here:
  |  
- |  FormToPyQtWidget = TWidgetToPyQtWidget(tw, ctx=<module '__main__' (built-in)>)
+ |  FormToPyQtWidget = TWidgetToPyQtWidget(tw, ctx=<module 'main'>)
  |      Convert a TWidget* to a QWidget to be used by PyQt
  |      
  |      @param ctx: Context. Reference to a module that already imported SIP and QtWidgets modules
  |  
- |  FormToPySideWidget = TWidgetToPySideWidget(tw, ctx=<module '__main__' (built-in)>)
+ |  FormToPySideWidget = TWidgetToPySideWidget(tw, ctx=<module 'main'>)
  |      Use this method to convert a TWidget* to a QWidget to be used by PySide
  |      
  |      @param ctx: Context. Reference to a module that already imported QtWidgets module
  |  
- |  QtWidgetToTWidget(w, ctx=<module '__main__' (built-in)>)
+ |  QtWidgetToTWidget(w, ctx=<module 'main'>)
  |      Convert a QWidget to a TWidget* to be used by IDA
  |      
  |      @param ctx: Context. Reference to a module that already imported SIP and QtWidgets modules
  |  
- |  TWidgetToPyQtWidget(tw, ctx=<module '__main__' (built-in)>)
+ |  TWidgetToPyQtWidget(tw, ctx=<module 'main'>)
  |      Convert a TWidget* to a QWidget to be used by PyQt
  |      
  |      @param ctx: Context. Reference to a module that already imported SIP and QtWidgets modules
  |  
- |  TWidgetToPySideWidget(tw, ctx=<module '__main__' (built-in)>)
+ |  TWidgetToPySideWidget(tw, ctx=<module 'main'>)
  |      Use this method to convert a TWidget* to a QWidget to be used by PySide
  |      
  |      @param ctx: Context. Reference to a module that already imported QtWidgets module
@@ -58969,6 +59181,17 @@ ask_yn(*args) -> 'int'
     @param format: (C++: const char *) The question in printf() style format
     @return: the selected button (one of Button IDs). Esc key returns ASKBTN_CANCEL.
 
+Help on function atoea in module ida_kernwin:
+
+atoea(*args) 'unsigned-ea-like-numeric-type *'↗
+    atoea(str) -> bool
+    Convert a number in C notation to an address. decimal: 1234
+    octal: 0123
+    hexadecimal: 0xabcd
+    binary: 0b00101010
+    
+    @param str: (C++: const char *) the string to parse
+
 Help on function attach_action_to_menu in module ida_kernwin:
 
 attach_action_to_menu(*args) -> 'bool'
@@ -59340,10 +59563,6 @@ class chooser_base_t(builtins.object)
  |  is_multi(self, *args) -> 'bool'
  |      is_multi(self) -> bool
  |      is multi-selection allowed?
- |  
- |  is_noidb(self, *args) -> 'bool'
- |      is_noidb(self) -> bool
- |      can use the chooser before opening the database?
  |  
  |  is_quick_filter_visible_initially(self, *args) -> 'bool'
  |      is_quick_filter_visible_initially(self) -> bool
@@ -60001,7 +60220,7 @@ display_widget(*args) -> 'void'
 
 Help on function ea2str in module ida_kernwin:
 
-ea2str(*args) -> 'size_t'
+ea2str(*args) -> 'qstring *'
     ea2str(ea) -> str
     Convert linear address to UTF-8 string.
     
@@ -63904,13 +64123,32 @@ class simpleline_t(builtins.object)
 
 Help on function str2ea in module ida_kernwin:
 
-str2ea(*args) -> 'ea_t'
-    str2ea(str, screenEA=BADADDR) -> ea_t
-    Converts a string express to EA. The expression evaluator may be called as well.
+str2ea(*args) 'unsigned-ea-like-numeric-type *'↗
+    str2ea(str, screen_ea=BADADDR) -> bool
+    Convert string to linear address. Tries to interpret the string as:
+    1) "current IP" keyword if supported by assembler (e.g. "$" in x86)
+    2) segment:offset expression, where "segment" may be a name or a fixed segment
+    register (e.g. cs, ds)
+    3) just segment name/register (translated to segment's start address)
+    4) a name in the database (or debug name during debugging)
+    5) +delta or -delta, where numerical 'delta' is added to or subtracted from
+    'screen_ea'
+    6) if all else fails, try to evaluate 'str' as an IDC expression
     
-    @param str: char const *
-    @param screenEA: ea_t
-    @return: BADADDR or address value
+    @param str: (C++: const char *) string to parse
+    @param screen_ea: (C++: ea_t) the current address in the disassembly/pseudocode view
+    @return: success
+
+Help on function str2ea_ex in module ida_kernwin:
+
+str2ea_ex(*args) 'unsigned-ea-like-numeric-type *'↗
+    str2ea_ex(str, screen_ea=BADADDR, flags=0) -> bool
+    Same as str2ea() but possibly with some steps skipped.
+    
+    @param str: (C++: const char *) string to parse
+    @param screen_ea: (C++: ea_t) the current address in the disassembly/pseudocode view
+    @param flags: (C++: int) see String to address conversion flags
+    @return: success
 
 Help on function str2user in module ida_pro:
 
@@ -66441,6 +66679,7 @@ class bookmarks_t(builtins.object)
  |  Methods defined here:
  |  
  |  __getitem__(self, idx)
+ |      Get the n-th bookmark for the widget.
  |  
  |  __init__(self, w)
  |      Build an object suitable for iterating bookmarks
@@ -66451,8 +66690,10 @@ class bookmarks_t(builtins.object)
  |      so bookmarks can be re-used interchangeably between them
  |  
  |  __iter__(self)
+ |      Iterate on bookmarks present for the widget.
  |  
  |  __len__(self)
+ |      Get the number of bookmarks for the widget.
  |  
  |  __repr__ = _swig_repr(self)
  |  
@@ -68789,6 +69030,9 @@ class printop_t(builtins.object)
  |  is_aflags_initialized(self, *args) -> 'bool'
  |      is_aflags_initialized(self) -> bool
  |  
+ |  is_f64(self, *args) -> 'bool'
+ |      is_f64(self) -> bool
+ |  
  |  is_ti_initialized(self, *args) -> 'bool'
  |      is_ti_initialized(self) -> bool
  |  
@@ -69772,7 +70016,7 @@ append_struct_fields(*args) -> 'qstring *, adiff_t *'
     Append names of struct fields to a name if the name is a struct name.
     
     @param disp: (C++: adiff_t *) displacement from the name
-    @param n: (C++: int) number of operand n which the name appears
+    @param n: (C++: int) operand number in which the name appears
     @param path: (C++: const tid_t *) path in the struct. path is an array of id's. maximal length of
                  array is MAXSTRUCPATH. the first element of the array is the
                  structure id. consecutive elements are id's of used union members
@@ -70778,6 +71022,17 @@ class netnode(builtins.object)
  |      @param alt: uchar
  |      @param tag: uchar
  |  
+ |  blobshift(self, *args) -> 'size_t'
+ |      blobshift(self, _from, to, size, tag) -> size_t
+ |      Shift the blob array elements. Moves the array elements at (from..from+size) to
+ |      (to..to+size)
+ |      
+ |      @param from: (C++: nodeidx_t)
+ |      @param to: (C++: nodeidx_t)
+ |      @param size: (C++: nodeidx_t)
+ |      @param tag: (C++: uchar)
+ |      @return: number of shifted elements
+ |  
  |  blobsize(self, *args) -> 'size_t'
  |      blobsize(self, _start, tag) -> size_t
  |      Get size of blob.
@@ -71501,7 +71756,9 @@ calc_offset_base(*args) -> 'ea_t'
     @param ea: (C++: ea_t) the referencing instruction/data address
     @param n: (C++: int) operand number
     * 0: first operand
-    * 1: other operand
+    * 1: second operand
+    * ...
+    * 7: eighth operand
     @return: output base address or BADADDR
 
 Help on function calc_probable_base_by_value in module ida_offset:
@@ -71567,7 +71824,7 @@ get_default_reftype(*args) -> 'reftype_t'
     Get default reference type depending on the segment.
     
     @param ea: (C++: ea_t)
-    @return: one of REF_OFF8,REF_OFF16,REF_OFF32
+    @return: one of REF_OFF8, REF_OFF16, REF_OFF32, REF_OFF64
 
 Help on function get_offbase in module ida_offset:
 
@@ -71576,7 +71833,7 @@ get_offbase(*args) -> 'ea_t'
     Get offset base value
     
     @param ea: (C++: ea_t) linear address
-    @param n: (C++: int) number of operand
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number
     @return: offset base or BADADDR
 
 Help on function get_offset_expr in module ida_offset:
@@ -71616,9 +71873,11 @@ get_offset_expression(*args) -> 'qstring *'
     offset array
     
     @param ea: (C++: ea_t) start of instruction or data with the offset expression
-    @param n: (C++: int) number of operand (may be ORed with OPND_OUTER)
+    @param n: (C++: int) operand number (may be ORed with OPND_OUTER)
     * 0: first operand
     * 1: second operand
+    * ...
+    * 7: eighth operand
     @param from: (C++: ea_t) linear address of instruction operand or data referring to the
                  name. This address will be used to get fixup information, so it
                  should point to exact position of operand in the instruction.
@@ -71656,10 +71915,11 @@ op_offset_ex(*args) -> 'bool'
     * no segment: fail
     * 16bit segment: to 16bit word data
     * 32bit segment: to dword
-    @param n: (C++: int) number of operand (may be ORed with OPND_OUTER)
+    @param n: (C++: int) operand number (may be ORed with OPND_OUTER)
     * 0: first
     * 1: second
-    * 2: third
+    * ...
+    * 7: eighth operand
     * OPND_MASK: all operands
     @param ri: (C++: const refinfo_t *) reference information
     @return: success
@@ -72727,6 +72987,12 @@ is_control_tty(*args) -> 'enum tty_control_t'
     (typically an opened descriptor to /dev/tty).
     
     @param fd: (C++: int)
+
+Help on function is_cvt64 in module ida_pro:
+
+is_cvt64(*args) -> 'bool'
+    is_cvt64() -> bool
+    is IDA converting IDB into I64?
 
 Help on function is_main_thread in module ida_pro:
 
@@ -75861,13 +76127,13 @@ class lock_segment(builtins.object)
 
 Help on function move_segm in module ida_segment:
 
-move_segm(*args) -> 'int'
-    move_segm(s, to, flags=0) -> int
-    Move a segment to a new address. This function moves all information to the new
-    address. It fixes up address sensitive information in the kernel. The total
-    effect is equal to reloading the segment to the target address. For the file
-    format dependent address sensitive information, loader_t::move_segm is called.
-    Also IDB notification event idb_event::segm_moved is called.
+move_segm(*args) -> 'move_segm_code_t'
+    move_segm(s, to, flags=0) -> move_segm_code_t
+    This function moves all information to the new address. It fixes up address
+    sensitive information in the kernel. The total effect is equal to reloading the
+    segment to the target address. For the file format dependent address sensitive
+    information, loader_t::move_segm is called. Also IDB notification event
+    idb_event::segm_moved is called.
     
     @param s: (C++: segment_t *) segment to move
     @param to: (C++: ea_t) new segment start address
@@ -75900,6 +76166,14 @@ move_segm_start(*args) -> 'bool'
     * -2: don't destroy defined items (function will succeed)
     @retval 1: ok
     @retval 0: failed, a warning message is displayed
+
+Help on function move_segm_strerror in module ida_segment:
+
+move_segm_strerror(*args) -> 'char const *'
+    move_segm_strerror(code) -> char const *
+    Return string describing error MOVE_SEGM_... code.
+    
+    @param code: (C++: move_segm_code_t) enum move_segm_code_t
 
 Help on function rebase_program in module ida_segment:
 
@@ -80391,6 +80665,12 @@ class callregs_t(builtins.object)
  |      @param gprs: (C++: const int *) int const *
  |      @param fprs: (C++: const int *) int const *
  |  
+ |  swap(self, *args) -> 'void'
+ |      swap(self, r)
+ |      swap two instances
+ |      
+ |      @param r: (C++: callregs_t &)
+ |  
  |  ----------------------------------------------------------------------
  |  Static methods defined here:
  |  
@@ -80953,6 +81233,9 @@ class enum_type_data_t(enum_member_vec_t)
  |  is_64bit(self, *args) -> 'bool'
  |      is_64bit(self) -> bool
  |  
+ |  is_bf(self, *args) -> 'bool'
+ |      is_bf(self) -> bool
+ |  
  |  is_char(self, *args) -> 'bool'
  |      is_char(self) -> bool
  |  
@@ -80964,6 +81247,12 @@ class enum_type_data_t(enum_member_vec_t)
  |  
  |  is_udec(self, *args) -> 'bool'
  |      is_udec(self) -> bool
+ |  
+ |  set_bf(self, *args) -> 'bool'
+ |      set_bf(self, bf) -> bool
+ |      Convert enum to a bitmask (flag_enum)
+ |      
+ |      @param bf: (C++: bool)
  |  
  |  swap(self, *args) -> 'void'
  |      swap(self, r)
@@ -81142,6 +81431,14 @@ class enum_type_data_t(enum_member_vec_t)
  |  
  |  __hash__ = None
 
+Help on function enum_type_data_t__set_bf in module ida_typeinf:
+
+enum_type_data_t__set_bf(*args) -> 'bool'
+    enum_type_data_t__set_bf(_this, bf) -> bool
+    
+    @param _this: enum_type_data_t *
+    @param bf: bool
+
 Help on function extract_argloc in module ida_typeinf:
 
 extract_argloc(*args) -> 'bool'
@@ -81278,6 +81575,9 @@ class func_type_data_t(funcargvec_t)
  |  
  |  is_static(self, *args) -> 'bool'
  |      is_static(self) -> bool
+ |  
+ |  is_swift_cc(self, *args) -> 'bool'
+ |      is_swift_cc(self) -> bool
  |  
  |  is_vararg_cc(self, *args) -> 'bool'
  |      is_vararg_cc(self) -> bool
@@ -82215,6 +82515,14 @@ inf_big_arg_align(*args) -> 'bool'
     
     @param cc: cm_t
 
+Help on function inf_huge_arg_align in module ida_typeinf:
+
+inf_huge_arg_align(*args) -> 'bool'
+    inf_huge_arg_align() -> bool
+    inf_huge_arg_align(cc) -> bool
+    
+    @param cc: cm_t
+
 Help on function inf_pack_stkargs in module ida_typeinf:
 
 inf_pack_stkargs(*args) -> 'bool'
@@ -82350,6 +82658,14 @@ is_sdacl_byte(*args) -> 'bool'
     "sdacl-typeattrs" in the type bit definitions)
     
     @param t: (C++: type_t)
+
+Help on function is_swift_cc in module ida_typeinf:
+
+is_swift_cc(*args) -> 'bool'
+    is_swift_cc(cc) -> bool
+    Swift calling convention (arguments and return values in registers)?
+    
+    @param cc: (C++: cm_t)
 
 Help on function is_tah_byte in module ida_typeinf:
 
@@ -83701,6 +84017,18 @@ save_tinfo(*args) -> 'tinfo_code_t'
     @param til: til_t *
     @param ord: size_t
     @param name: char const *
+    @param ntf_flags: int
+
+Help on function save_tinfo2 in module ida_typeinf:
+
+save_tinfo2(*args) -> 'tinfo_code_t'
+    save_tinfo2(tif, til, ord, name, cmt, ntf_flags) -> tinfo_code_t
+    
+    @param tif: tinfo_t *
+    @param til: til_t *
+    @param ord: size_t
+    @param name: char const *
+    @param cmt: char const *
     @param ntf_flags: int
 
 Help on class scattered_aloc_t in module ida_typeinf:
@@ -85248,20 +85576,35 @@ class tinfo_t(builtins.object)
  |      @param til: til_t *
  |      @param name: char const *
  |      @param ntf_flags: int
+ |      
+ |      set_named_type(self, til, name, cmt, ntf_flags=0) -> tinfo_code_t
+ |      
+ |      @param til: til_t *
+ |      @param name: char const *
+ |      @param cmt: char const *
+ |      @param ntf_flags: int
  |  
  |  set_numbered_type(self, *args) -> 'tinfo_code_t'
- |      set_numbered_type(self, til, ord, ntf_flags=0, name=None) -> tinfo_code_t
+ |      set_numbered_type(self, til, ord, ntf_flags=0, name=None, cmt=None) -> tinfo_code_t
  |      
  |      @param til: til_t *
  |      @param ord: uint32
  |      @param ntf_flags: int
  |      @param name: char const *
+ |      @param cmt: char const *
  |  
  |  set_symbol_type(self, *args) -> 'tinfo_code_t'
  |      set_symbol_type(self, til, name, ntf_flags=0) -> tinfo_code_t
  |      
  |      @param til: til_t *
  |      @param name: char const *
+ |      @param ntf_flags: int
+ |      
+ |      set_symbol_type(self, til, name, cmt, ntf_flags=0) -> tinfo_code_t
+ |      
+ |      @param til: til_t *
+ |      @param name: char const *
+ |      @param cmt: char const *
  |      @param ntf_flags: int
  |  
  |  set_volatile(self, *args) -> 'void'
@@ -87019,7 +87362,7 @@ get_immvals(*args) -> 'PyObject *'
     case the transformed values (as needed for printing) will be stored instead.
     
     @param ea: (C++: ea_t) address to analyze
-    @param n: (C++: int) number of operand (0..UA_MAXOP-1), -1 means all operands
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number, OPND_ALL all the operands
     @param F: (C++: flags64_t) flags for the specified address
     @return: number of immediate values (0..2*UA_MAXOP)
 
@@ -87038,7 +87381,7 @@ get_printable_immvals(*args) -> 'PyObject *'
     Get immediate ready-to-print values at the specified address
     
     @param ea: (C++: ea_t) address to analyze
-    @param n: (C++: int) number of operand (0..UA_MAXOP-1), -1 means all operands
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number, OPND_ALL all the operands
     @param F: (C++: flags64_t) flags for the specified address
     @return: number of immediate values (0..2*UA_MAXOP)
 
@@ -87722,6 +88065,9 @@ class outctx_base_t(builtins.object)
  |  gen_xref_lines(self, *args) -> 'bool'
  |      gen_xref_lines(self) -> bool
  |  
+ |  getF(self, *args) -> 'flags64_t'
+ |      getF(self) -> flags64_t
+ |  
  |  get_stkvar(self, *args) -> 'member_t *'
  |      get_stkvar(self, arg2, arg3, arg4, arg5) -> member_t *
  |      
@@ -87925,6 +88271,9 @@ class outctx_base_t(builtins.object)
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
+ |  F32
+ |      F32
+ |  
  |  __dict__
  |      dictionary for instance variables (if defined)
  |  
@@ -88044,7 +88393,7 @@ class outctx_t(outctx_base_t)
  |      It should be called from processor_t::ev_out_insn() and it will call
  |      processor_t::ev_out_operand(). This function outputs a colored text.
  |      
- |      @param n: (C++: int) number of operand
+ |      @param n: (C++: int) 0..UA_MAXOP-1 operand number
  |      @retval 1: operand is displayed
  |      @retval 0: operand is hidden
  |  
@@ -88074,6 +88423,13 @@ class outctx_t(outctx_base_t)
  |      @param prefix: (C++: const char *) char const *
  |      @param flags: int
  |  
+ |  term_outctx(self, *args) -> 'int'
+ |      term_outctx(self, prefix=None) -> int
+ |      Finalize the output context.
+ |      
+ |      @param prefix: (C++: const char *) char const *
+ |      @return: the number of generated lines.
+ |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
@@ -88097,6 +88453,9 @@ class outctx_t(outctx_base_t)
  |  
  |  insn
  |      insn
+ |  
+ |  next_line_ea
+ |      next_line_ea
  |  
  |  ph
  |      ph
@@ -88209,6 +88568,9 @@ class outctx_t(outctx_base_t)
  |                     your line is not the most important one.
  |      @param format: (C++: const char *) printf style colored line to generate
  |      @return: overflow, lnar_maxsize has been reached
+ |  
+ |  getF(self, *args) -> 'flags64_t'
+ |      getF(self) -> flags64_t
  |  
  |  get_stkvar(self, *args) -> 'member_t *'
  |      get_stkvar(self, arg2, arg3, arg4, arg5) -> member_t *
@@ -88379,15 +88741,11 @@ class outctx_t(outctx_base_t)
  |  stack_view(self, *args) -> 'bool'
  |      stack_view(self) -> bool
  |  
- |  term_outctx(self, *args) -> 'int'
- |      term_outctx(self, prefix=None) -> int
- |      Finalize the output context.
- |      
- |      @param prefix: (C++: const char *) char const *
- |      @return: the number of generated lines.
- |  
  |  ----------------------------------------------------------------------
  |  Data descriptors inherited from outctx_base_t:
+ |  
+ |  F32
+ |      F32
  |  
  |  __dict__
  |      dictionary for instance variables (if defined)
@@ -88428,7 +88786,7 @@ print_operand(*args) -> 'qstring *'
     text representation of the specified operand (includes color codes.)
     
     @param ea: (C++: ea_t) the item address (instruction or data)
-    @param n: (C++: int) operand number (0,1,2...). meaningful only for instructions
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number, meaningful only for instructions
     @param getn_flags: (C++: int) Name expression flags Currently only GETN_NODUMMY is
                        accepted.
     @param newtype: (C++: struct printop_t *) if specified, print the operand using the specified type
@@ -91168,7 +91526,7 @@ get_forced_operand(*args) -> 'qstring *'
     Get forced operand.
     
     @param ea: (C++: ea_t) linear address
-    @param n: (C++: int) number of operand (0, 1, 2)
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number
     @return: size of forced operand or -1
 
 Help on function get_frame_args_size in module idc:
@@ -92834,7 +93192,7 @@ op_enum(*args) -> 'bool'
     converts them to 16/32bit word data
     
     @param ea: (C++: ea_t) linear address
-    @param n: (C++: int) number of operand (0, 1, -1)
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number, OPND_ALL all operands
     @param id: (C++: enum_t) id of enum
     @param serial: (C++: uchar) the serial number of the constant in the enumeration, usually 0.
                    the serial numbers are used if the enumeration contains several
@@ -92866,7 +93224,7 @@ set_forced_operand(*args) -> 'bool'
     Set forced operand.
     
     @param ea: (C++: ea_t) linear address
-    @param n: (C++: int) number of operand (0, 1, 2)
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number
     @param op: (C++: const char *) text of operand
     * nullptr: do nothing (return 0)
     * "" : delete forced operand
@@ -92966,7 +93324,7 @@ op_seg(*args) -> 'bool'
     converts them to 16/32bit word data
     
     @param ea: (C++: ea_t) linear address
-    @param n: (C++: int) number of operand (0, 1, -1)
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number, OPND_ALL all operands
     @return: success
 
 Help on function op_stkvar in module ida_bytes:
@@ -92978,7 +93336,7 @@ op_stkvar(*args) -> 'bool'
     using insn_t::create_stkvar().
     
     @param ea: (C++: ea_t) linear address
-    @param n: (C++: int) number of operand (0, 1, -1)
+    @param n: (C++: int) 0..UA_MAXOP-1 operand number, OPND_ALL all operands
     @return: success
 
 Help on function op_stroff in module idc:
@@ -94147,7 +94505,7 @@ split_sreg_range(ea, reg, value, tag=2)
     
     @note: IDA keeps tracks of all the points where segment register change their
            values. This function allows you to specify the correct value of a segment
-           register if IDA is not able to find the corrent value.
+           register if IDA is not able to find the correct value.
 
 Help on function start_process in module ida_dbg:
 
@@ -94576,123 +94934,63 @@ Documentation on variable FF_UNUSED in module ida_bytes:
 
     unused bit (was used for variable bytes)
 
-Documentation on variable MS_0TYPE in module ida_bytes:
+Documentation on variable MS_N_TYPE in module ida_bytes:
 
-    Mask for 1st arg typing.
+    Mask for nth arg.
 
-Documentation on variable FF_0VOID in module ida_bytes:
-
-    Void (unknown)?
-
-Documentation on variable FF_0NUMH in module ida_bytes:
-
-    Hexadecimal number?
-
-Documentation on variable FF_0NUMD in module ida_bytes:
-
-    Decimal number?
-
-Documentation on variable FF_0CHAR in module ida_bytes:
-
-    Char ('x')?
-
-Documentation on variable FF_0SEG in module ida_bytes:
-
-    Segment?
-
-Documentation on variable FF_0OFF in module ida_bytes:
-
-    Offset?
-
-Documentation on variable FF_0NUMB in module ida_bytes:
-
-    Binary number?
-
-Documentation on variable FF_0NUMO in module ida_bytes:
-
-    Octal number?
-
-Documentation on variable FF_0ENUM in module ida_bytes:
-
-    Enumeration?
-
-Documentation on variable FF_0FOP in module ida_bytes:
-
-    Forced operand?
-
-Documentation on variable FF_0STRO in module ida_bytes:
-
-    Struct offset?
-
-Documentation on variable FF_0STK in module ida_bytes:
-
-    Stack variable?
-
-Documentation on variable FF_0FLT in module ida_bytes:
-
-    Floating point number?
-
-Documentation on variable FF_0CUST in module ida_bytes:
-
-    Custom representation?
-
-Documentation on variable MS_1TYPE in module ida_bytes:
-
-    Mask for the type of other operands.
-
-Documentation on variable FF_1VOID in module ida_bytes:
+Documentation on variable FF_N_VOID in module ida_bytes:
 
     Void (unknown)?
 
-Documentation on variable FF_1NUMH in module ida_bytes:
+Documentation on variable FF_N_NUMH in module ida_bytes:
 
     Hexadecimal number?
 
-Documentation on variable FF_1NUMD in module ida_bytes:
+Documentation on variable FF_N_NUMD in module ida_bytes:
 
     Decimal number?
 
-Documentation on variable FF_1CHAR in module ida_bytes:
+Documentation on variable FF_N_CHAR in module ida_bytes:
 
     Char ('x')?
 
-Documentation on variable FF_1SEG in module ida_bytes:
+Documentation on variable FF_N_SEG in module ida_bytes:
 
     Segment?
 
-Documentation on variable FF_1OFF in module ida_bytes:
+Documentation on variable FF_N_OFF in module ida_bytes:
 
     Offset?
 
-Documentation on variable FF_1NUMB in module ida_bytes:
+Documentation on variable FF_N_NUMB in module ida_bytes:
 
     Binary number?
 
-Documentation on variable FF_1NUMO in module ida_bytes:
+Documentation on variable FF_N_NUMO in module ida_bytes:
 
     Octal number?
 
-Documentation on variable FF_1ENUM in module ida_bytes:
+Documentation on variable FF_N_ENUM in module ida_bytes:
 
     Enumeration?
 
-Documentation on variable FF_1FOP in module ida_bytes:
+Documentation on variable FF_N_FOP in module ida_bytes:
 
     Forced operand?
 
-Documentation on variable FF_1STRO in module ida_bytes:
+Documentation on variable FF_N_STRO in module ida_bytes:
 
     Struct offset?
 
-Documentation on variable FF_1STK in module ida_bytes:
+Documentation on variable FF_N_STK in module ida_bytes:
 
     Stack variable?
 
-Documentation on variable FF_1FLT in module ida_bytes:
+Documentation on variable FF_N_FLT in module ida_bytes:
 
     Floating point number?
 
-Documentation on variable FF_1CUST in module ida_bytes:
+Documentation on variable FF_N_CUST in module ida_bytes:
 
     Custom representation?
 
@@ -96879,9 +97177,9 @@ Documentation on variable operand_locator_t.opnum in module ida_hexrays:
 
     operand number in the instruction
 
-Documentation on variable number_format_t.flags in module ida_hexrays:
+Documentation on variable number_format_t.flags32 in module ida_hexrays:
 
-    ida flags, which describe number radix, enum, etc
+    low 32bit of flags (for compatibility)
 
 Documentation on variable number_format_t.opnum in module ida_hexrays:
 
@@ -96899,6 +97197,10 @@ Documentation on variable number_format_t.type_name in module ida_hexrays:
 
     for stroffs: structure for offsetof()
     for enums: enum name
+
+Documentation on variable number_format_t.flags in module ida_hexrays:
+
+    ida flags, which describe number radix, enum, etc
 
 Documentation on variable NF_FIXED in module ida_hexrays:
 
@@ -98041,7 +98343,7 @@ Documentation on variable WARN_ILL_PURGED in module ida_hexrays:
 
 Documentation on variable WARN_ILL_FUNCTYPE in module ida_hexrays:
 
-    2 invalid function type has been ignored
+    2 invalid function type 's' has been ignored
 
 Documentation on variable WARN_VARARG_TCAL in module ida_hexrays:
 
@@ -99708,7 +100010,7 @@ Documentation on variable DECOMP_NO_WAIT in module ida_hexrays:
 
 Documentation on variable DECOMP_NO_CACHE in module ida_hexrays:
 
-    do not use decompilation cache
+    do not use decompilation cache (snippets are never cached)
 
 Documentation on variable DECOMP_NO_FRAME in module ida_hexrays:
 
@@ -99728,7 +100030,21 @@ Documentation on variable DECOMP_NO_HIDE in module ida_hexrays:
 
 Documentation on variable DECOMP_NO_XREFS in module ida_hexrays:
 
-    do not update global xrefs cache
+    Obsolete. Use DECOMP_GXREFS_NOUPD.
+
+Documentation on variable DECOMP_GXREFS_DEFLT in module ida_hexrays:
+
+    the default behavior: do not update the global xrefs cache upon decompile()
+    call, but when the pseudocode text is generated (e.g., through
+    cfunc_t.get_pseudocode())
+
+Documentation on variable DECOMP_GXREFS_NOUPD in module ida_hexrays:
+
+    do not update the global xrefs cache
+
+Documentation on variable DECOMP_GXREFS_FORCE in module ida_hexrays:
+
+    update the global xrefs cache immediately
 
 Documentation on variable DECOMP_VOID_MBA in module ida_hexrays:
 
@@ -100963,6 +101279,18 @@ Documentation on variable UA_MAXOP in module ida_ida:
 
     max number of operands allowed for an instruction
 
+Documentation on variable VLD_AUTO_REPAIR in module ida_ida:
+
+    automatically repair the database
+
+Documentation on variable VLD_DIALOG in module ida_ida:
+
+    ask user to repair (this bit is mutually exclusive with VLD_AUTO_REPAIR)
+
+Documentation on variable VLD_SILENT in module ida_ida:
+
+    no messages to the output window
+
 Documentation on variable PY_ICID_INT64 in module ida_idaapi:
 
     int64 object
@@ -101593,14 +101921,15 @@ Documentation on variable debugger_t.ev_set_exception_info in module ida_idd:
 Documentation on variable debugger_t.ev_suspended in module ida_idd:
 
     This event will be generated by the kernel each time it has suspended the
-    debugger process and refreshed the database. The debugger module may add
-    information to the database if it wants.
+    debuggee process and refreshed the database. The debugger module may add
+    information to the database if necessary.
     
-    The reason for introducing this event is that when an event line LOAD_DLL
+    The reason for introducing this event is that when an event like LOAD_DLL
     happens, the database does not reflect the memory state yet and therefore we
     can't add information about the dll into the database in the get_debug_event()
-    event. Only when the kernel has adjusted the database we can do it. Example: for
-    imported PE DLLs we will add the exported event names to the database.
+    function. Only when the kernel has adjusted the database we can do it. Example:
+    for loaded PE DLLs we can add the exported function names to the list of debug
+    names (see set_debug_names()).
     
     This event is generated in the main thread.
     
@@ -102286,15 +102615,15 @@ Documentation on variable CF_CHG3 in module ida_idp:
 
 Documentation on variable CF_CHG4 in module ida_idp:
 
-    The instruction modifies 4 operand.
+    The instruction modifies the fourth operand.
 
 Documentation on variable CF_CHG5 in module ida_idp:
 
-    The instruction modifies 5 operand.
+    The instruction modifies the fifth operand.
 
 Documentation on variable CF_CHG6 in module ida_idp:
 
-    The instruction modifies 6 operand.
+    The instruction modifies the sixth operand.
 
 Documentation on variable CF_USE1 in module ida_idp:
 
@@ -102310,15 +102639,15 @@ Documentation on variable CF_USE3 in module ida_idp:
 
 Documentation on variable CF_USE4 in module ida_idp:
 
-    The instruction uses value of the 4 operand.
+    The instruction uses value of the fourth operand.
 
 Documentation on variable CF_USE5 in module ida_idp:
 
-    The instruction uses value of the 5 operand.
+    The instruction uses value of the fifth operand.
 
 Documentation on variable CF_USE6 in module ida_idp:
 
-    The instruction uses value of the 6 operand.
+    The instruction uses value of the sixth operand.
 
 Documentation on variable CF_JUMP in module ida_idp:
 
@@ -102335,19 +102664,19 @@ Documentation on variable CF_HLL in module ida_idp:
 
 Documentation on variable CF_CHG7 in module ida_idp:
 
-    The instruction modifies the 7th operand.
+    The instruction modifies the seventh operand.
 
 Documentation on variable CF_CHG8 in module ida_idp:
 
-    The instruction modifies the 8th operand.
+    The instruction modifies the eighth operand.
 
 Documentation on variable CF_USE7 in module ida_idp:
 
-    The instruction uses value of the 7th operand.
+    The instruction uses value of the seventh operand.
 
 Documentation on variable CF_USE8 in module ida_idp:
 
-    The instruction uses value of the 8th operand.
+    The instruction uses value of the eighth operand.
 
 Documentation on variable asm_t.flag in module ida_idp:
 
@@ -104403,6 +104732,122 @@ Documentation on variable IWID_STACK in module ida_kernwin:
     Alias. Some IWID_* were confusing, and thus have been renamed. This is to ensure
     bw-compat.
 
+Documentation on variable IDA_DEBUG_DREFS in module ida_kernwin:
+
+    drefs
+
+Documentation on variable IDA_DEBUG_OFFSET in module ida_kernwin:
+
+    offsets
+
+Documentation on variable IDA_DEBUG_FLIRT in module ida_kernwin:
+
+    flirt
+
+Documentation on variable IDA_DEBUG_IDP in module ida_kernwin:
+
+    idp module
+
+Documentation on variable IDA_DEBUG_LDR in module ida_kernwin:
+
+    ldr module
+
+Documentation on variable IDA_DEBUG_PLUGIN in module ida_kernwin:
+
+    plugin module
+
+Documentation on variable IDA_DEBUG_IDS in module ida_kernwin:
+
+    ids files
+
+Documentation on variable IDA_DEBUG_CONFIG in module ida_kernwin:
+
+    config file
+
+Documentation on variable IDA_DEBUG_CHECKMEM in module ida_kernwin:
+
+    check heap consistency
+
+Documentation on variable IDA_DEBUG_LICENSE in module ida_kernwin:
+
+    licensing
+
+Documentation on variable IDA_DEBUG_DEMANGLE in module ida_kernwin:
+
+    demangler
+
+Documentation on variable IDA_DEBUG_QUEUE in module ida_kernwin:
+
+    queue
+
+Documentation on variable IDA_DEBUG_ROLLBACK in module ida_kernwin:
+
+    rollback
+
+Documentation on variable IDA_DEBUG_ALREADY in module ida_kernwin:
+
+    already data or code
+
+Documentation on variable IDA_DEBUG_TIL in module ida_kernwin:
+
+    type system
+
+Documentation on variable IDA_DEBUG_NOTIFY in module ida_kernwin:
+
+    show all notifications
+
+Documentation on variable IDA_DEBUG_DEBUGGER in module ida_kernwin:
+
+    debugger
+
+Documentation on variable IDA_DEBUG_APPCALL in module ida_kernwin:
+
+    appcall
+
+Documentation on variable IDA_DEBUG_SRCDBG in module ida_kernwin:
+
+    source debugging
+
+Documentation on variable IDA_DEBUG_ACCESSIBILITY in module ida_kernwin:
+
+    accessibility
+
+Documentation on variable IDA_DEBUG_NETWORK in module ida_kernwin:
+
+    network
+
+Documentation on variable IDA_DEBUG_INTERNET in module ida_kernwin:
+
+    internet connection (for API backward compatibility)
+
+Documentation on variable IDA_DEBUG_SIMPLEX in module ida_kernwin:
+
+    full stack analysis
+
+Documentation on variable IDA_DEBUG_DBGINFO in module ida_kernwin:
+
+    handling of debug info (e.g. pdb, dwarf)
+
+Documentation on variable IDA_DEBUG_LUMINA in module ida_kernwin:
+
+    lumina related
+
+Documentation on variable IDA_DEBUG_THEMES in module ida_kernwin:
+
+    themes
+
+Documentation on variable IDA_DEBUG_REGEX in module ida_kernwin:
+
+    regular expression
+
+Documentation on variable IDA_DEBUG_SUBPROC in module ida_kernwin:
+
+    sub process
+
+Documentation on variable IDA_DEBUG_ALWAYS in module ida_kernwin:
+
+    everything
+
 Documentation on variable AST_ENABLE_ALWAYS in module ida_kernwin:
 
     enable action and do not call action_handler_t::update() anymore
@@ -104466,10 +104911,6 @@ Documentation on variable CH_NOBTNS in module ida_kernwin:
 Documentation on variable CH_ATTRS in module ida_kernwin:
 
     generate ui_get_chooser_item_attrs (gui only)
-
-Documentation on variable CH_NOIDB in module ida_kernwin:
-
-    use the chooser before opening the database
 
 Documentation on variable CH_FORCE_DEFAULT in module ida_kernwin:
 
@@ -104578,7 +105019,9 @@ Documentation on variable CHCOL_PLAIN in module ida_kernwin:
 
 Documentation on variable CHCOL_PATH in module ida_kernwin:
 
-    file path
+    file path. TUI IDA will truncate excessive cell lengths starting at their
+    beginning, and prepending the resulting text with "..." order to leave the
+    filename visible
 
 Documentation on variable CHCOL_HEX in module ida_kernwin:
 
@@ -105299,6 +105742,10 @@ Documentation on variable CLNL_LTRIM in module ida_kernwin:
 Documentation on variable CLNL_FINDCMT in module ida_kernwin:
 
     Search for the comment symbol everywhere in the line, not only at the beginning.
+
+Documentation on variable S2EAOPT_NOCALC in module ida_kernwin:
+
+    don't try to interpret string as IDC (or current extlang) expression
 
 Documentation on variable Choose.CH_MODAL in module ida_kernwin:
 
@@ -106511,6 +106958,10 @@ Documentation on variable NSUP_OREF7 in module ida_nalt:
 
     outer complex reference information for operand 8
 
+Documentation on variable NSUP_EX_FLAGS in module ida_nalt:
+
+    Extended flags.
+
 Documentation on variable NSUP_POINTS in module ida_nalt:
 
     SP change points blob (see funcs.cpp). values NSUP_POINTS..NSUP_POINTS+0x1000
@@ -106587,6 +107038,14 @@ Documentation on variable NSUP_GR_LAYT in module ida_nalt:
 Documentation on variable PATCH_TAG in module ida_nalt:
 
     Patch netnode tag.
+
+Documentation on variable IDB_DESKTOPS_NODE_NAME in module ida_nalt:
+
+    hash indexed by desktop name with dekstop netnode
+
+Documentation on variable IDB_DESKTOPS_TAG in module ida_nalt:
+
+    tag to store desktop blob & timestamp
 
 Documentation on variable AFL_LINNUM in module ida_nalt:
 
@@ -107471,7 +107930,7 @@ Documentation on variable ltag in module ida_netnode:
 
 Documentation on variable IDA_SDK_VERSION in module ida_pro:
 
-    IDA SDK v8.2.
+    IDA SDK v8.3.
 
 Documentation on variable MAXSTR in module ida_pro:
 
@@ -108027,33 +108486,6 @@ Documentation on variable SEGMOD_SPARSE in module ida_segment:
     use sparse storage if extending the segment (for set_segm_start(),
     set_segm_end())
 
-Documentation on variable MSF_SILENT in module ida_segment:
-
-    don't display a "please wait" box on the screen
-
-Documentation on variable MSF_NOFIX in module ida_segment:
-
-    don't call the loader to fix relocations
-
-Documentation on variable MSF_LDKEEP in module ida_segment:
-
-    keep the loader in the memory (optimization)
-
-Documentation on variable MSF_FIXONCE in module ida_segment:
-
-    call loader only once with the special calling method. valid for
-    rebase_program(). see loader_t::move_segm.
-
-Documentation on variable MSF_PRIORITY in module ida_segment:
-
-    loader segments will overwrite any existing debugger segments when moved. valid
-    for move_segm()
-
-Documentation on variable MSF_NETNODES in module ida_segment:
-
-    move netnodes instead of changing inf.netdelta (this is slower); valid for
-    rebase_program()
-
 Documentation on variable MOVE_SEGM_OK in module ida_segment:
 
     all ok
@@ -108101,6 +108533,33 @@ Documentation on variable MOVE_SEGM_MAPPING in module ida_segment:
 Documentation on variable MOVE_SEGM_INVAL in module ida_segment:
 
     Invalid argument (delta/target does not fit the address space)
+
+Documentation on variable MSF_SILENT in module ida_segment:
+
+    don't display a "please wait" box on the screen
+
+Documentation on variable MSF_NOFIX in module ida_segment:
+
+    don't call the loader to fix relocations
+
+Documentation on variable MSF_LDKEEP in module ida_segment:
+
+    keep the loader in the memory (optimization)
+
+Documentation on variable MSF_FIXONCE in module ida_segment:
+
+    call loader only once with the special calling method. valid for
+    rebase_program(). see loader_t::move_segm.
+
+Documentation on variable MSF_PRIORITY in module ida_segment:
+
+    loader segments will overwrite any existing debugger segments when moved. valid
+    for move_segm()
+
+Documentation on variable MSF_NETNODES in module ida_segment:
+
+    move netnodes instead of changing inf.netdelta (this is slower); valid for
+    rebase_program()
 
 Documentation on variable CSS_OK in module ida_segment:
 
@@ -109085,15 +109544,19 @@ Documentation on variable CM_CC_THISCALL in module ida_typeinf:
 
     stack, purged (x86), first arg is in reg (compiler-dependent)
 
-Documentation on variable CM_CC_MANUAL in module ida_typeinf:
+Documentation on variable CM_CC_SWIFT in module ida_typeinf:
 
-    special case for compiler specific (not used)
+    (Swift) arguments and return values in registers (compiler-dependent)
 
 Documentation on variable CM_CC_SPOILED in module ida_typeinf:
 
     This is NOT a cc! Mark of __spoil record the low nibble is count and after n
     {spoilreg_t} present real cm_t byte. if n == BFA_FUNC_MARKER, the next byte is
     the function attribute byte.
+
+Documentation on variable CM_CC_GOLANG in module ida_typeinf:
+
+    (Go) arguments and return value in stack
 
 Documentation on variable CM_CC_SPECIALE in module ida_typeinf:
 
@@ -109412,6 +109875,10 @@ Documentation on variable PRTYPE_NOREGEX in module ida_typeinf:
 Documentation on variable PRTYPE_COLORED in module ida_typeinf:
 
     add color tag COLOR_SYMBOL for any parentheses, commas and colons
+
+Documentation on variable PRTYPE_1LINCMT in module ida_typeinf:
+
+    print comments in one line mode
 
 Documentation on variable NTF_TYPE in module ida_typeinf:
 
@@ -110115,7 +110582,7 @@ Documentation on variable stkarg_area_info_t.linkage_area in module ida_typeinf:
 
 Documentation on variable enum_type_data_t.group_sizes in module ida_typeinf:
 
-    if present, specifies bitfield group sizes each group starts with a mask member
+    if present, specifies bitmask group sizes each group starts with a mask member
 
 Documentation on variable enum_type_data_t.taenum_bits in module ida_typeinf:
 

@@ -249,7 +249,10 @@ def Modules():
     mod = ida_idd.modinfo_t()
     result = ida_dbg.get_first_module(mod)
     while result:
-        yield mod
+        # Note: can't simply return `mod` here, since callers might
+        # collect all modules in a list, and they would all re-use
+        # the underlying C++ object.
+        yield ida_idaapi.object_t(name=mod.name, size=mod.size, base=mod.base, rebase_to=mod.rebase_to)
         result = ida_dbg.get_next_module(mod)
 
 
@@ -432,13 +435,7 @@ def MapDataList(ea, length, func, wordsize=1):
     PutDataList(ea, map(func, GetDataList(ea, length, wordsize)), wordsize)
 
 
-def GetInputFileMD5():
-    """
-    Return the MD5 hash of the input binary file
-
-    @return: MD5 string or None on error
-    """
-    return idc.retrieve_input_file_md5()
+GetInputFileMD5 = ida_nalt.retrieve_input_file_md5
 
 
 class Strings(object):

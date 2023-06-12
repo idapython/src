@@ -10,8 +10,6 @@ description:
       `ida_gdl.FlowChart` type.
 """
 
-from __future__ import print_function
-
 import ida_gdl
 import ida_funcs
 import ida_kernwin

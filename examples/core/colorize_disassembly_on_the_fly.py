@@ -101,12 +101,13 @@ class on_the_fly_coloring_hooks_t(ida_kernwin.UI_Hooks):
                     del self.by_widget[title]
 
 
-class carousel_color_ah_t():
+class carousel_color_ah_t(ida_kernwin.action_handler_t):
     """
     The action that will be invoked by IDA when the user
     activates its shortcut.
     """
     def __init__(self, hooks):
+        ida_kernwin.action_handler_t.__init__(self)
         self.hooks = hooks
 
     def activate(self, ctx):

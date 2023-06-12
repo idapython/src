@@ -33,8 +33,6 @@ description:
 author: EiNSTeiN_ (einstein@g3nius.org)
 """
 
-from __future__ import print_function
-
 import idautils
 
 import ida_kernwin

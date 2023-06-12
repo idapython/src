@@ -9,8 +9,6 @@ description:
   See Linux/arch/arm/include/asm/bug.h for more info
 """
 
-from __future__ import print_function
-
 import ida_idp
 import ida_bytes
 import ida_segregs

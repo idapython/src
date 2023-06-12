@@ -11,7 +11,6 @@ description:
 keywords: forms
 """
 
-from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to use the Form class
 # (c) Hex-Rays

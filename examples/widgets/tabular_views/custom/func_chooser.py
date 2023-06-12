@@ -10,7 +10,6 @@ keywords: chooser, functions
 see_also: choose, choose_multi, chooser_with_folders
 """
 
-from __future__ import print_function
 import idautils
 import idc
 import ida_funcs

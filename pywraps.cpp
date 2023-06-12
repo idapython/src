@@ -1,6 +1,7 @@
 
 #include <pro.h>
 #include <ieee.h>
+#include <parsejson.hpp>
 
 #include <Python.h>
 
@@ -265,6 +266,83 @@ Py_ssize_t ida_export PyW_PyListToStrVec(qstrvec_t *out, PyObject *py_list)
     }
   };
   return pyvar_walk_list(py_list, lambda_t::cvt, out);
+}
+
+//-------------------------------------------------------------------------
+PyObject *ida_export PyW_from_jvalue_t(const jvalue_t &v)
+{
+  do
+  {
+    if ( v.type() == JT_UNKNOWN )
+      break;
+    newref_t json_module(PyImport_ImportModule("json"));
+    if ( !json_module )
+      break;
+    borref_t json_globals(PyModule_GetDict(json_module.o));
+    if ( !json_globals )
+      break;
+    borref_t json_loads(PyDict_GetItemString(json_globals.o, "loads"));
+    if ( !json_loads )
+      break;
+    qstring clob;
+    if ( !serialize_json(&clob, v) )
+      break;
+    ref_t dict = newref_t(PyObject_CallFunction(json_loads.o, "s", clob.c_str()));
+    if ( !dict )
+      break;
+    dict.incref();
+    return dict.o;
+  } while ( false );
+
+  Py_RETURN_NONE;
+}
+
+//-------------------------------------------------------------------------
+bool ida_export PyW_to_jvalue_t(jvalue_t *out, PyObject *py)
+{
+  do
+  {
+    newref_t json_module(PyImport_ImportModule("json"));
+    if ( !json_module )
+      break;
+    borref_t json_globals(PyModule_GetDict(json_module.o));
+    if ( !json_globals )
+      break;
+    borref_t json_dumps(PyDict_GetItemString(json_globals.o, "dumps"));
+    if ( !json_dumps )
+      break;
+    newref_t str(PyObject_CallFunction(json_dumps.o, "O", py));
+    qstring buf;
+    if ( !PyUnicode_as_qstring(&buf, str.o) )
+      break;
+    if ( parse_json_string(out, buf.c_str()) != eOk )
+      break;
+    return true;
+  } while ( false );
+
+  return false;
+}
+
+//-------------------------------------------------------------------------
+PyObject *ida_export PyW_from_jobj_t(const jobj_t &o)
+{
+  jvalue_t v;
+  v.set_obj((jobj_t *) &o);
+  PyObject *rc = PyW_from_jvalue_t(v);
+  v.extract_obj();
+  return rc;
+}
+
+//-------------------------------------------------------------------------
+bool ida_export PyW_to_jobj_t(jobj_t *out, PyObject *py)
+{
+  if ( !PyDict_Check(py) )
+    return false;
+  jvalue_t v;
+  bool rc = PyW_to_jvalue_t(&v, py) && v.type() == JT_OBJ;
+  if ( rc )
+    out->swap(v.obj());
+  return rc;
 }
 
 //-------------------------------------------------------------------------
@@ -1643,19 +1721,32 @@ bool ida_export py_customidamemo_t_bind(py_customidamemo_t *_this, PyObject *sel
 
   _this->self = borref_t(self);
   _this->view = view;
+  newref_t result(PyObject_CallMethod(self, (char *)"_OnBind", "O", Py_True));
+
+  if ( !result && PyErr_Occurred() != nullptr )
+  {
+    msg("WARNING: Couldn't bind form object at %p:\n", self);
+    PyErr_Print();
+  }
   return true;
 }
 
 //-------------------------------------------------------------------------
-void ida_export py_customidamemo_t_unbind(py_customidamemo_t *_this, bool clear_view)
+void ida_export py_customidamemo_t_unbind(py_customidamemo_t *_this)
 {
   if ( _this->self == nullptr )
     return;
   PYGLOG("%p: py_customidamemo_t::unbind(); self.o=%p, view=%p\n", _this, _this->self.o, _this->view);
   PYW_GIL_CHECK_LOCKED_SCOPE();
+  newref_t result(PyObject_CallMethod(_this->self.o, (char *)"_OnBind", "O", Py_False));
+  if ( !result && PyErr_Occurred() != nullptr )
+  {
+    msg("WARNING: Couldn't unbind form object at %p:\n", _this->self.o);
+    PyErr_Print();
+  }
+
   PyObject_SetAttrString(_this->self.o, S_M_THIS, Py_None);
   _this->self = newref_t(nullptr);
-  if ( clear_view )
     _this->view = nullptr;
 }
 

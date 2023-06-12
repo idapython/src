@@ -995,6 +995,8 @@ PyObject *py_get_chooser_data(const char *chooser_caption, int n)
   return py_list;
 }
 
+#define CH_NOIDB 0x00000040 // bw-compat
+
 //</inline(py_kernwin_choose)>
 
 #endif // __PY_KERNWIN_CHOOSE__

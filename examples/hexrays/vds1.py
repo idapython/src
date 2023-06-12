@@ -2,8 +2,6 @@
 summary: decompile & print current function.
 """
 
-from __future__ import print_function
-
 import ida_hexrays
 import ida_lines
 import ida_funcs

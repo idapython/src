@@ -117,6 +117,25 @@
 %ignore setflag(ushort &where,ushort bit,int value);
 %ignore setflag(uint32 &where,uint32 bit,int value);
 
+/* // `config.hpp` - note: ideally, this should be in its own module, */
+/* // but it might be an overkill to have an `ida_config` module for */
+/* // just one function (as of this writing in any case.) */
+/* %ignore cfgopt_t; */
+/* %ignore cfgopt_t::params_t; */
+/* %ignore cfgopt_t::num_range_t; */
+/* %ignore read_config; */
+/* %ignore read_config2; */
+/* %ignore read_config_file; */
+/* %ignore read_config_file2; */
+/* %ignore read_config_string; */
+/* %ignore register_cfgopts; */
+/* %ignore parse_config_value; */
+/* %ignore cfgopt_t__apply; */
+/* %ignore cfgopt_t__apply2; */
+/* %ignore cfgopt_t__apply3; */
+/* %ignore cfgopt_set_t; */
+/* %ignore cfgopt_set_vec_t; */
+
 // Make idainfo::get_proc_name() work
 %include "cstring.i"
 %cstring_bounded_output(char *buf, 8);
@@ -127,6 +146,7 @@
 %predefine_uint32_macro(AF_FINAL, 0x80000000);
 
 %include "ida.hpp"
+/* %include "config.hpp" */
 
 %clear(char *buf);
 

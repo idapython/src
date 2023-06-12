@@ -10,6 +10,7 @@
   #define USE_DANGEROUS_FUNCTIONS 1
 #endif
 #include <pro.h>
+#include <parsejson.hpp>
 #undef DEPRECATED
 #define DEPRECATED
 %}
@@ -800,7 +801,7 @@ SWIGINTERN PyObject *_maybe_byte_array_or_none_result(
 }
 %fragment("cvt_" #CONTAINER_TYPE, "header")
 {
-  CONTAINER_TYPE *cvt_##CONTAINER_TYPE(PyObject *obj, bool can_be_none=false)
+  int cvt_##CONTAINER_TYPE(CONTAINER_TYPE **pout, PyObject *obj, bool can_be_none=false)
   {
     CONTAINER_TYPE *out = nullptr;
     if ( can_be_none && obj == Py_None )
@@ -813,38 +814,39 @@ SWIGINTERN PyObject *_maybe_byte_array_or_none_result(
       out = new CONTAINER_TYPE;
       IN_CONVERTER(out, obj);
     }
-    return out;
+    *pout = out;
+    return out != nullptr ? SWIG_NEWOBJ : SWIG_ERROR;
   }
 }
 
-%typemap(in, fragment="cvt_" #CONTAINER_TYPE) REFTYPE
+%typemap(in, fragment="cvt_" #CONTAINER_TYPE) REFTYPE (int res=0)
 { // bytes_container REFTYPE, CONTAINER_TYPE typemap(in)
-  $1 = cvt_ ## CONTAINER_TYPE($input);
-  if ( $1 == nullptr )
+  res = cvt_ ## CONTAINER_TYPE(&$1, $input);
+  if ( !SWIG_IsOK(res) )
     SWIG_exception_fail(
             SWIG_ValueError,
             "Expected " ELTYPE_TO_REPORT1 " " "in method '" "$symname" "', argument " "$argnum"" of type '" ELTYPE_TO_REPORT2 "'");
 }
 
-%typemap(in) const REFTYPE _type_or_none
+%typemap(in) const REFTYPE _type_or_none (int res=0)
 { // bytes_container REFTYPE _type_or_none, CONTAINER_TYPE typemap(in)
-  $1 = cvt_ ## CONTAINER_TYPE($input, /*can_be_none=*/ true);
-  if ( $1 == nullptr )
+  res = cvt_ ## CONTAINER_TYPE(&$1, $input, /*can_be_none=*/ true);
+  if ( !SWIG_IsOK(res) )
     SWIG_exception_fail(
             SWIG_ValueError,
             "Expected " ELTYPE_TO_REPORT1 " " "in method '" "$symname" "', argument " "$argnum"" of type '" ELTYPE_TO_REPORT2 "'");
 }
-%typemap(in) const REFTYPE _fields
+%typemap(in) const REFTYPE _fields (int res=0)
 { // bytes_container REFTYPE _fields, CONTAINER_TYPE typemap(in)
-  $1 = cvt_ ## CONTAINER_TYPE($input, /*can_be_none=*/ true);
-  if ( $1 == nullptr )
+  res = cvt_ ## CONTAINER_TYPE(&$1, $input, /*can_be_none=*/ true);
+  if ( !SWIG_IsOK(res) )
     SWIG_exception_fail(
             SWIG_ValueError,
             "Expected " ELTYPE_TO_REPORT1 " " "in method '" "$symname" "', argument " "$argnum"" of type '" ELTYPE_TO_REPORT2 "'");
 }
 %typemap(freearg) REFTYPE
 { // bytes_container REFTYPE typemap(freearg)
-  delete $1;
+  if ( SWIG_IsNewObj(res$argnum) ) delete $1;
 }
 %typemap(out) REFTYPE // e.g., %typemap(out) qstring*
 { // bytes_container typemap(out) REFTYPE
@@ -1318,6 +1320,19 @@ struct dynamic_wrapped_array_t {
 %typemap(freearg) (const PTRTYPE *BUFNAME, size_t SIZENAME)
 {
   // typemap(freearg) (const PTRTYPE *BUFNAME, size_t SIZENAME)
+}
+%typemap(directorin) (const uchar *data, size_t datlen)
+{
+  // typemap(directorin) (const PTRTYPE *BUFNAME, size_t SIZENAME)
+  if ( $1 != nullptr )
+  {
+    $input = PyBytes_FromStringAndSize((const char *) $1, $2);
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    $input = Py_None;
+  }
 }
 %enddef
 
@@ -2057,6 +2072,27 @@ TRY_RAW_LONG:
     }
     return true;
   }
+}
+
+// Functions accepting a `func_t *` can also derive it from an `ea_t`
+%typemap(in, fragment="cvt_func_t") func_t *
+{ // %typemap(in) func_t *
+  if ( !cvt_func_t(&$1, $input) )
+    SWIG_exception_fail(SWIG_ValueError, "in method '" "$symname" "', argument " "$argnum"" of type '" "func_t const *""' (or an address from which it can be derived)");
+}
+
+
+%typemap(in,numinputs=0) jvalue_t *out (jvalue_t temp)
+{
+  // %typemap(in,numinputs=0) jvalue_t *out (jvalue_t temp)
+  $1 = &temp;
+}
+
+%typemap(argout) jvalue_t *out
+{
+  // %typemap(argout) jvalue_t *out
+  Py_XDECREF($result);
+  $result = PyW_from_jvalue_t(*$1);
 }
 
 #endif // __HEADER_I__

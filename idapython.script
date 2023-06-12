@@ -12,6 +12,10 @@ global:
   PyW_PyListToEa64Vec;
   PyW_PyListToSizeVec;
   PyW_PyListToStrVec;
+  PyW_from_jvalue_t;
+  PyW_to_jvalue_t;
+  PyW_from_jobj_t;
+  PyW_to_jobj_t;
   PyW_ShowCbErr;
   PyW_SizeVecToPyList;
   PyW_UvalVecToPyList;

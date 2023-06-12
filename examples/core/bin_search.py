@@ -15,9 +15,6 @@ description:
   encoding, or as UTF-16.)
 """
 
-from __future__ import print_function
-
-
 import ida_kernwin
 import ida_bytes
 import ida_ida

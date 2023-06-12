@@ -36,13 +36,6 @@
 %rename (extract_type_from_metadata) py_extract_type_from_metadata;
 %rename (split_metadata) py_split_metadata;
 
-
-%feature("nodirector") simple_diff_handler_t;
-%ignore simple_diff_handler_t::simple_diff_handler_t;
-
-%feature("nodirector") simple_idb_diff_handler_t;
-%ignore simple_idb_diff_handler_t::simple_idb_diff_handler_t;
-
 %ignore serialized_tinfo::empty;
 
 %define %rpc_packet_data_t(TYPE, ENUMERATOR)
@@ -57,6 +50,7 @@
 %rpc_packet_data_t(pkt_rpc_fail_t, PKT_RPC_FAIL);
 %rpc_packet_data_t(pkt_rpc_notify_t, PKT_RPC_NOTIFY);
 %rpc_packet_data_t(pkt_helo_t, PKT_HELO);
+%rpc_packet_data_t(pkt_helo_result_t, PKT_HELO_RESULT);
 %rpc_packet_data_t(pkt_pull_md_t, PKT_PULL_MD);
 %rpc_packet_data_t(pkt_pull_md_result_t, PKT_PULL_MD_RESULT);
 %rpc_packet_data_t(pkt_push_md_t, PKT_PUSH_MD);
@@ -191,4 +185,9 @@
 %inline %{
 //<inline(py_lumina)>
 //</inline(py_lumina)>
+%}
+
+%pythoncode %{
+#<pycode(py_lumina)>
+#</pycode(py_lumina)>
 %}

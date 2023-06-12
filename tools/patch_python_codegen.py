@@ -1,7 +1,6 @@
 from __future__ import print_function
 
 import os
-import six
 
 from argparse import ArgumentParser
 
@@ -23,7 +22,7 @@ if os.path.isfile(args.patches):
 
     all_lines = []
     for l in lines:
-        for patch_kind, patch_data in six.iteritems(patches):
+        for patch_kind, patch_data in patches.items():
             if patch_kind == "repl_line":
                 for from_, to in patch_data:
                     if l == from_:

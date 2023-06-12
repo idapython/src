@@ -10,7 +10,6 @@ keywords: xrefs
 see_also: list_segment_functions_using_idautils
 """
 
-from __future__ import print_function
 #
 # Reference Lister
 #

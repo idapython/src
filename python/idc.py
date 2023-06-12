@@ -1027,13 +1027,13 @@ def split_sreg_range(ea, reg, value, tag=SR_user):
 
     @note: IDA keeps tracks of all the points where segment register change their
            values. This function allows you to specify the correct value of a segment
-           register if IDA is not able to find the corrent value.
+           register if IDA is not able to find the correct value.
     """
-    reg = ida_idp.str2reg(reg);
-    if reg >= 0:
-        return ida_segregs.split_sreg_range(ea, reg, value, tag)
-    else:
-        return False
+    rnames = [r.casefold() for r in ida_idp.ph_get_regnames()]
+    for regno in range(ida_idp.ph_get_reg_first_sreg(), ida_idp.ph_get_reg_last_sreg()+1):
+        if rnames[regno]==reg.casefold():
+            return ida_segregs.split_sreg_range(ea, regno, value, tag)
+    return False
 
 
 auto_mark_range = ida_auto.auto_mark_range
@@ -2641,13 +2641,18 @@ MSF_NOFIX     = 0x0002    # don't call the loader to fix relocations
 MSF_LDKEEP    = 0x0004    # keep the loader in the memory (optimization)
 MSF_FIXONCE   = 0x0008    # valid for rebase_program(): call loader only once
 
-MOVE_SEGM_OK     =  0     # all ok
-MOVE_SEGM_PARAM  = -1     # The specified segment does not exist
-MOVE_SEGM_ROOM   = -2     # Not enough free room at the target address
-MOVE_SEGM_IDP    = -3     # IDP module forbids moving the segment
-MOVE_SEGM_CHUNK  = -4     # Too many chunks are defined, can't move
-MOVE_SEGM_LOADER = -5     # The segment has been moved but the loader complained
-MOVE_SEGM_ODD    = -6     # Can't move segments by an odd number of bytes
+MOVE_SEGM_OK          =  0     # all ok
+MOVE_SEGM_PARAM       = -1     # The specified segment does not exist
+MOVE_SEGM_ROOM        = -2     # Not enough free room at the target address
+MOVE_SEGM_IDP         = -3     # IDP module forbids moving the segment
+MOVE_SEGM_CHUNK       = -4     # Too many chunks are defined, can't move
+MOVE_SEGM_LOADER      = -5     # The segment has been moved but the loader complained
+MOVE_SEGM_ODD         = -6     # Can't move segments by an odd number of bytes
+MOVE_SEGM_ORPHAN      = -7,    # Orphan bytes hinder segment movement
+MOVE_SEGM_DEBUG       = -8,    # Debugger segments cannot be moved
+MOVE_SEGM_SOURCEFILES = -9,    # Source files ranges of addresses hinder segment movement
+MOVE_SEGM_MAPPING     = -10,   # Memory mapping ranges of addresses hinder segment movement
+MOVE_SEGM_INVAL       = -11,   # Invalid argument (delta/target does not fit the address space)
 
 
 rebase_program = ida_segment.rebase_program

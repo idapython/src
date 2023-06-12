@@ -13,7 +13,6 @@ keywords: xrefs
 see_also: list_segment_functions
 """
 
-from __future__ import print_function
 #
 # Reference Lister
 #

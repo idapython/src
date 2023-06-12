@@ -349,25 +349,6 @@ PyObject *py_ask_str(qstring *defval, int hist, const char *prompt)
 //------------------------------------------------------------------------
 /*
 #<pydoc>
-def str2ea(addr):
-    """
-    Converts a string express to EA. The expression evaluator may be called as well.
-
-    @return: BADADDR or address value
-    """
-    pass
-#</pydoc>
-*/
-ea_t py_str2ea(const char *str, ea_t screenEA = BADADDR)
-{
-  ea_t ea;
-  bool ok = str2ea(&ea, str, screenEA);
-  return ok ? ea : BADADDR;
-}
-
-//------------------------------------------------------------------------
-/*
-#<pydoc>
 def process_ui_action(name):
     """
     Invokes an IDA UI action by name
@@ -771,62 +752,12 @@ public:
 
   PyObject *get_dict()
   {
-    do
-    {
-      newref_t json_module(PyImport_ImportModule("json"));
-      if ( !json_module )
-        break;
-      borref_t json_globals(PyModule_GetDict(json_module.o));
-      if ( !json_globals )
-        break;
-      borref_t json_loads(PyDict_GetItemString(json_globals.o, "loads"));
-      if ( !json_loads )
-        break;
-
-      qstring clob;
-      if ( !serialize_json(&clob, o) )
-        break;
-
-      if ( ref_t dict = newref_t(PyObject_CallFunction(json_loads.o, "s", clob.c_str())) )
-      {
-        dict.incref();
-        return dict.o;
-      }
-
-    } while ( false );
-    Py_RETURN_NONE;
+    return PyW_from_jobj_t(*o);
   }
 
   static bool fill_jobj_from_dict(jobj_t *out, PyObject *dict)
   {
-    do
-    {
-      if ( !PyDict_Check(dict) )
-        break;
-      newref_t json_module(PyImport_ImportModule("json"));
-      if ( !json_module )
-        break;
-      borref_t json_globals(PyModule_GetDict(json_module.o));
-      if ( !json_globals )
-        break;
-
-      borref_t json_dumps(PyDict_GetItemString(json_globals.o, "dumps"));
-      if ( !json_dumps )
-        break;
-
-      newref_t str(PyObject_CallFunction(json_dumps.o, "O", dict));
-      qstring buf;
-      if ( PyUnicode_as_qstring(&buf, str.o) )
-      {
-        jvalue_t tmp;
-        if ( parse_json_string(&tmp, buf.c_str()) == eOk )
-        {
-          out->swap(tmp.obj());
-          return true;
-        }
-      }
-    } while ( false );
-    return false;
+    return PyW_to_jobj_t(out, dict);
   }
 };
 

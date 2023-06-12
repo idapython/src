@@ -11,8 +11,6 @@ description:
   one format for a specific 'custom data type'.)
 """
 
-from __future__ import print_function
-
 import ida_bytes
 import ida_idaapi
 import ida_lines

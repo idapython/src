@@ -78,6 +78,7 @@
 %ignore netnode_altshift;
 %ignore netnode_charshift;
 %ignore netnode_supshift;
+%ignore netnode_blobshift;
 %ignore netnode_altadjust;
 %ignore netnode_altadjust2;
 %ignore altadjust_visitor_t;

@@ -14,8 +14,6 @@ description:
   `pow(3, 7)`
 """
 
-from __future__ import print_function
-
 import ida_expr
 
 if ida_expr.add_idc_func(

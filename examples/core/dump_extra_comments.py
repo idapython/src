@@ -9,8 +9,6 @@ description:
   the previous and next extra comments.
 """
 
-from __future__ import print_function
-
 import ida_lines
 import ida_kernwin
 

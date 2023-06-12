@@ -129,6 +129,49 @@ struct undo_records_t;
 %apply size_t *OUTPUT { size_t *out_consumed };
 %apply bytevec_t *vout { bytevec_t *out_relbits };
 
+// ev_cvt64_supval, ev_cvt64_hashval, ev_privrange_changed
+%const_pointer_and_size(uchar, data, datlen, bytevec_t, PyBytes_as_bytevec_t, size);
+%typemap(argout) (qstring *errbuf)
+{
+  // %typemap(argout) (qstring *errbuf)
+  if ( result < 0 )
+  {
+    Py_XDECREF($result);
+    if ( $1 != nullptr )
+      $result = PyUnicode_from_qstring(*$1);
+    else
+      $result = PyUnicode_FromString("Unknown error");
+  }
+}
+
+%define %fill_director_method_errbuf(METHOD_NAME)
+%typemap(directorout) int METHOD_NAME
+{
+  // %typemap(directorout) int METHOD_NAME
+  if ( PyString_Check(result) )
+  {
+    if ( errbuf != nullptr )
+    {
+      PyUnicode_as_qstring(errbuf, result);
+    }
+    $result = -1;
+  }
+  else if ( PyLong_Check(result) )
+  {
+    $result = PyLong_AsLong(result);
+  }
+  else
+  {
+    Swig::DirectorTypeMismatchException::raise(
+            SWIG_ErrorType(SWIG_TypeError),
+            "in output value of type '" "int" "'" " in method '$symname'");
+  }
+}
+%enddef
+%fill_director_method_errbuf(ev_cvt64_supval);
+%fill_director_method_errbuf(ev_cvt64_hashval);
+%fill_director_method_errbuf(ev_privrange_changed);
+
 // @arnaud ditch this once all modules are ported
 // temporary:
 %ignore out_old_data;

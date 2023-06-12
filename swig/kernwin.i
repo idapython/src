@@ -120,12 +120,13 @@ struct dirspec_t;
 
 %rename (ask_text) py_ask_text;
 %rename (ask_str) py_ask_str;
-%rename (str2ea)  py_str2ea;
 %ignore process_ui_action;
 %rename (process_ui_action) py_process_ui_action;
 %ignore execute_sync;
 %ignore exec_request_t;
 %rename (execute_sync) py_execute_sync;
+
+%ignore ea2str(char *, size_t, ea_t);
 
 %ignore ui_request_t;
 %ignore execute_ui_requests;

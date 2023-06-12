@@ -8,7 +8,6 @@ description:
 author: Gergely Erdelyi (gergely.erdelyi@d-dome.net)
 """
 
-from __future__ import print_function
 #---------------------------------------------------------------------
 # Structure test
 #

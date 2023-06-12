@@ -8,8 +8,6 @@ description:
 author: EiNSTeiN_ (einstein@g3nius.org)
 """
 
-from __future__ import print_function
-
 import ida_hexrays
 
 class cblock_visitor_t(ida_hexrays.ctree_visitor_t):

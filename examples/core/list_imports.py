@@ -5,8 +5,6 @@ description:
   Using the API to enumerate file imports.
 """
 
-from __future__ import print_function
-
 import ida_nalt
 
 nimps = ida_nalt.get_import_module_qty()

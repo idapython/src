@@ -8,8 +8,6 @@ description:
   `ida_lines.user_defined_prefix_t` helper type.
 """
 
-from __future__ import print_function
-
 import ida_lines
 import ida_idaapi
 

@@ -28,6 +28,9 @@ typedef PY_LONG_LONG bvsval_t;
 class insn_t;
 class op_t;
 struct switch_info_t;
+struct jobj_t;
+struct jarr_t;
+struct jvalue_t;
 
 // "A pointer can be explicitly converted to any integral type large
 //  enough to hold it. The mapping function is implementation-defined."
@@ -507,6 +510,11 @@ idaman Py_ssize_t ida_export PyW_PyListToSizeVec(sizevec_t *out, PyObject *py_li
 idaman Py_ssize_t ida_export PyW_PyListToEaVec(eavec_t *out, PyObject *py_list);
 idaman Py_ssize_t ida_export PyW_PyListToStrVec(qstrvec_t *out, PyObject *py_list);
 
+idaman PyObject *ida_export PyW_from_jvalue_t(const jvalue_t &v);
+idaman bool ida_export PyW_to_jvalue_t(jvalue_t *out, PyObject *py);
+idaman PyObject *ida_export PyW_from_jobj_t(const jobj_t &o);
+idaman bool ida_export PyW_to_jobj_t(jobj_t *out, PyObject *py);
+
 #ifndef LUMINA_HPP // I'd rather put the def of ea64_t and ea64vec_t into pro.h...
 #ifdef __EA64__
 typedef ea_t ea64_t;
@@ -682,9 +690,9 @@ struct pycim_callbacks_ids_t : public qvector<pycim_callback_id_t>
 #define PY_CIM_PARAMS_bind (PyObject *in_self, TWidget *in_view)
 #define PY_CIM_TRANSM_bind (this, in_self, in_view)
 
-#define PY_CIM_HLPPRM_unbind (py_customidamemo_t *_this, bool clear_view)
-#define PY_CIM_PARAMS_unbind (bool clear_view)
-#define PY_CIM_TRANSM_unbind (this, clear_view)
+#define PY_CIM_HLPPRM_unbind (py_customidamemo_t *_this)
+#define PY_CIM_PARAMS_unbind ()
+#define PY_CIM_TRANSM_unbind (this)
 
 #define DECL_CIM_HELPER(decl, RType, MName, MParams)            \
   decl RType ida_export py_customidamemo_t_##MName MParams
@@ -1093,7 +1101,7 @@ py_customidamemo_t::py_customidamemo_t()
 py_customidamemo_t::~py_customidamemo_t()
 {
   PYGLOG("%p: ~py_customidamemo_t()\n", this);
-  unbind(true);
+  unbind();
   get_plugin_instance()->pycim_lookup_info.del_by_py_view(this);
 }
 
@@ -1272,13 +1280,13 @@ protected:
     }
   }
 
+#ifdef TESTABLE_BUILD
   PyObject *dump_state(
           const event_code_to_method_name_t *mappings,
           size_t mappings_size,
           bool assert_all_reimplemented) const
   {
     qstring buf;
-#ifdef TESTABLE_BUILD
     qstrvec_t missing_reimpls;
     buf.sprnt("%s(this=%p) \"%s\" {type=%d, cb=%p, flags=%x}",
               class_name, this, identifier.c_str(), int(type), listener.cb, flags);
@@ -1327,13 +1335,9 @@ protected:
     }
     if ( buf.last() != '\n' )
       buf.append('\n');
-#else
-    qnotused(mappings);
-    qnotused(mappings_size);
-    qnotused(assert_all_reimplemented);
-#endif
     return PyUnicode_from_qstring(buf);
   }
+#endif
 };
 
 //-------------------------------------------------------------------------

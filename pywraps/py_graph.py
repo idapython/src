@@ -117,6 +117,12 @@ class GraphViewer(ida_kernwin.CustomIDAMemo):
     def OnCommand(self, cmd_id):
         return 0
 
+    def _OnBind(self, hook):
+        if hook:
+            self.ui_hooks_trampoline.hook()
+        else:
+            self.ui_hooks_trampoline.unhook()
+        super()._OnBind(hook)
 
 #<pydoc>
 #    def OnGetText(self, node_id):

@@ -6,8 +6,6 @@ description:
   that were patched using IDA.
 """
 
-from __future__ import print_function
-
 import ida_bytes
 import ida_idaapi
 

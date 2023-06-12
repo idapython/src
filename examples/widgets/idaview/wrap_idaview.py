@@ -10,8 +10,6 @@ keywords: idaview, graph
 see_also: custom_graph_with_actions, sync_two_graphs
 """
 
-from __future__ import print_function
-
 # -----------------------------------------------------------------------
 # (c) Hex-Rays
 

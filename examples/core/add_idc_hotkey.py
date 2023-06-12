@@ -11,8 +11,6 @@ keywords: actions
 see_also: actions, add_hotkey
 """
 
-from __future__ import print_function
-
 import ida_expr
 import ida_kernwin
 

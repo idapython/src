@@ -102,8 +102,8 @@ else
 endif
 
 #----------------------------------------------------------------------
-ifdef __APPLE_SILICON__
-  # set up a stub .tbd library to link against, see tbd.readme
+ifdef __MAC__
+  # use  a stub .tbd library to link against, see tbd.md
   TBD_FILE = libpython$(PYTHON_VERSION_MAJOR).tbd
   # note: this path must be compatible with -L$(R) -lpython3 in pyplg.mak
   TBD_MODULE_DEP = $(R)$(TBD_FILE)
@@ -149,7 +149,6 @@ ifdef DO_IDAMAKE_SIMPLIFY
   QGENIDAAPI = @echo $(call qcolor,genidaapi) $< && #
   QGENSWIGHEADER = @echo $(call qcolor,genswigheader) $< && #
   QINJECT_PYDOC = @echo $(call qcolor,inject_pydoc) $$< && #
-  QINJECT_BASE_HOOKS_FLAGS = @echo $(call qcolor,inject_base_hooks_flags) $< && #
   QPATCH_CODEGEN = @echo $(call qcolor,patch_codegen) $$< && #
   QPATCH_H_CODEGEN = @echo $(call qcolor,patch_h_codegen) $$< && #
   QPATCH_PYTHON_CODEGEN = @echo $(call qcolor,patch_python_codegen) $$< && #
@@ -190,7 +189,7 @@ endif
 ifeq ($(OUT_OF_TREE_BUILD),)
   IDAT_CMD=TVHEADLESS=1 $(IDAT_PATH)$(SUFF64)
 else
-  IDAT_CMD=TVHEADLESS=1 IDAPYTHON_DYNLOAD_BASE=$(SDK_BIN_PATH) $(IDAT_PATH)$(SUFF64)
+  IDAT_CMD=TVHEADLESS=1 IDAPYTHON_DYNLOAD_BASE=$(R) $(IDAT_PATH)$(SUFF64)
 endif
 
 # envvar HAS_HEXRAYS must have been set by build.py if needed
@@ -406,7 +405,7 @@ ifeq ($(OUT_OF_TREE_BUILD),)
 	$(Q)$(CP) $? $@
   DEST_SIP += $(DEST_SIP310_PYDLL) $(DEST_SIP310_PYI)
 
-  # sip for Python [3.11, ...
+  # sip for Python [3.11, 3.12)
   DEST_SIP311_DIR:=$(DEST_PYQT_DIR)/python_3.11
   $(DEST_SIP311_DIR):
 	-$(Q)if [ ! -d "$(DEST_SIP311_DIR)" ] ; then mkdir -p 2>/dev/null $(DEST_SIP311_DIR) ; fi
@@ -418,20 +417,36 @@ ifeq ($(OUT_OF_TREE_BUILD),)
 	$(Q)$(CP) $? $@
   DEST_SIP += $(DEST_SIP311_PYDLL) $(DEST_SIP311_PYI)
 
+  # sip for Python [3.12, ...
+  DEST_SIP312_DIR:=$(DEST_PYQT_DIR)/python_3.12
+  $(DEST_SIP312_DIR):
+	-$(Q)if [ ! -d "$(DEST_SIP312_DIR)" ] ; then mkdir -p 2>/dev/null $(DEST_SIP312_DIR) ; fi
+  DEST_SIP312_PYDLL:=$(DEST_SIP312_DIR)/$(SIP_PYDLL_FNAME)
+  DEST_SIP312_PYI:=$(DEST_SIP312_DIR)/$(SIP_PYI_FNAME)
+  $(DEST_SIP312_PYDLL): $(wildcard $(SIP312_TREE)/lib/python*/PyQt5/$(SIP_PYDLL_FNAME)) | $(DEST_SIP312_DIR)
+	$(Q)$(CP) $? $@
+  $(DEST_SIP312_PYI): $(wildcard $(SIP312_TREE)/lib/python*/PyQt5/$(SIP_PYI_FNAME)) | $(DEST_SIP312_DIR)
+	$(Q)$(CP) $? $@
+  DEST_SIP += $(DEST_SIP312_PYDLL) $(DEST_SIP312_PYI)
+
   # And pick the right sip.so now (Python3 only; for Python2, we already put it in the right place)
-  ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 10; echo $$?),0) # ugh
-    DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP311_PYDLL)
+  ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 11; echo $$?),0) # ugh
+    DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP312_PYDLL)
   else
-    ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 9; echo $$?),0) # ugh
-      DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP310_PYDLL)
+    ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 10; echo $$?),0) # ugh
+      DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP311_PYDLL)
     else
-      ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 8; echo $$?),0) # ugh
-        DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP39_PYDLL)
+      ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 9; echo $$?),0) # ugh
+        DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP310_PYDLL)
       else
-        ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 7; echo $$?),0) # ugh
-          DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP38_PYDLL)
+        ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 8; echo $$?),0) # ugh
+          DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP39_PYDLL)
         else
-          DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP34_PYDLL)
+          ifeq ($(shell test $(PYTHON_VERSION_MINOR) -gt 7; echo $$?),0) # ugh
+            DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP38_PYDLL)
+          else
+            DEST_INSTALL_SIP_PYDLL:=$(DEST_SIP34_PYDLL)
+          endif
         endif
       endif
     endif
@@ -652,11 +667,6 @@ find-pywraps-deps = $(wildcard pywraps/py_$(subst .i,,$(notdir $(1)))*.hpp) $(wi
 find-pydoc-patches-deps = $(wildcard tools/inject_pydoc/$(1).py)
 find-patch-codegen-deps = $(wildcard tools/patch_codegen/*$(1)*.py)
 
-ADDITIONAL_PYWRAP_DEP_idaapi=$(ST_PYW)/py_idaapi.hpp
-$(ST_PYW)/py_idaapi.hpp: pywraps/py_idaapi.hpp.in tools/inject_base_hooks_flags.py pywraps.hpp
-	$(QINJECT_BASE_HOOKS_FLAGS)$(PYTHON) tools/inject_base_hooks_flags.py -i $< -o $@ -f pywraps.hpp
-
-
 # Some .i files depend on some other .i files in order to be parseable by SWiG
 # (e.g., segregs.i imports range.i). Declare the list of such dependencies here
 # so they will be picked by the auto-generated rules.
@@ -706,7 +716,7 @@ define make-module-rules
                 --verbose > $(ST_WRAP)/ida_$(1).pydoc_injection
 
     # obj/x86_linux_gcc/swig/X.i
-    $(ST_SWIG)/$(1).i: $(addprefix $(F),$(call find-pywraps-deps,$(1))) $(ADDITIONAL_PYWRAP_DEP_$(1)) swig/$(1).i $(ST_SWIG_HEADER) $(SWIG_IFACE_$(1):%=$(ST_SWIG)/%.i) $(ST_SWIG_HEADER) tools/deploy.py $(PARSED_HEADERS_MARKER)
+    $(ST_SWIG)/$(1).i: $(addprefix $(F),$(call find-pywraps-deps,$(1))) swig/$(1).i $(ST_SWIG_HEADER) $(SWIG_IFACE_$(1):%=$(ST_SWIG)/%.i) $(ST_SWIG_HEADER) tools/deploy.py $(PARSED_HEADERS_MARKER)
 	$(QDEPLOY)$(PYTHON) tools/deploy.py \
                 --pywraps $(ST_PYW) \
                 --template $$(subst $(F),,$$@) \
@@ -847,7 +857,11 @@ else
   DUMPDOC_IS_64:=False
 endif
 
-PYDOC_INJECTIONS_IDAT_CMD=$(IDAT_CMD) $(BATCH_SWITCH) -S"$< $(ST_PYDOC_INJECTIONS) $(ST_WRAP) $(DUMPDOC_IS_64)" -t -L$(F)dumpdoc.log >/dev/null
+ifndef NOTEAMS
+  VAULT_SERVER_OPTS=-Ovault:host=$(TEAMS_BUILD_HOST):port=$(TEAMS_BUILD_PORT):user=$(TEAMS_BUILD_USER):pass=$(TEAMS_BUILD_PASS)
+endif
+
+PYDOC_INJECTIONS_IDAT_CMD=$(IDAT_CMD) $(BATCH_SWITCH) $(VAULT_SERVER_OPTS) -S"$< $(ST_PYDOC_INJECTIONS) $(ST_WRAP) $(DUMPDOC_IS_64)" -t -L$(F)dumpdoc.log >/dev/null
 pydoc_injections: $(ST_PYDOC_INJECTIONS_SUCCESS)
 $(ST_PYDOC_INJECTIONS_SUCCESS): tools/dumpdoc.py $(IDAPYTHON_MODULES) $(PYTHON_BINARY_MODULES)
 ifeq ($(or $(__CODE_CHECKER__),$(NO_CMP_API),$(__ASAN__),$(IDAHOME),$(DEMO_OR_FREE)),)
@@ -922,7 +936,7 @@ endif
 $(R)idapyswitch$(B): $(call dumb_target, pro, $(IDAPYSWITCH_OBJS))
 
 #----------------------------------------------------------------------
-ifdef __APPLE_SILICON__
+ifdef __MAC__
 tbd: $(TBD_MODULE_DEP)
 # copy the tbd library to idabin, and instruct idapyswitch to create the symlink to libpython
 $(TBD_MODULE_DEP): $(TBD_FILE) $(IDAPYSWITCH_DEP)
@@ -993,10 +1007,10 @@ $(F)idapyswitch$(O): $(I)auto.hpp $(I)bitrange.hpp $(I)bytes.hpp            \
                   $(I)exehdr.h $(I)fixup.hpp $(I)fpro.h $(I)funcs.hpp       \
                   $(I)ida.hpp $(I)idp.hpp $(I)ieee.h $(I)kernwin.hpp        \
                   $(I)lines.hpp $(I)llong.hpp $(I)loader.hpp $(I)lzfse.h    \
-                  $(I)lzvn_decode_base.h $(I)nalt.hpp $(I)name.hpp          \
-                  $(I)netnode.hpp $(I)network.hpp $(I)offset.hpp $(I)pro.h  \
-                  $(I)prodir.h $(I)range.hpp $(I)segment.hpp                \
-                  $(I)segregs.hpp $(I)ua.hpp $(I)xref.hpp                   \
+                  $(I)lzvn_decode_base.h $(I)md5.h $(I)nalt.hpp             \
+                  $(I)name.hpp $(I)netnode.hpp $(I)network.hpp              \
+                  $(I)offset.hpp $(I)pro.h $(I)prodir.h $(I)range.hpp       \
+                  $(I)segment.hpp $(I)segregs.hpp $(I)ua.hpp $(I)xref.hpp   \
                   ../../ldr/ar/aixar.hpp ../../ldr/ar/ar.hpp                \
                   ../../ldr/ar/arcmn.cpp ../../ldr/elf/../idaldr.h          \
                   ../../ldr/elf/elf.h ../../ldr/elf/elfbase.h               \
@@ -1065,8 +1079,9 @@ $(F)idapython$(O): $(I)bitrange.hpp $(I)bytes.hpp $(I)config.hpp            \
                   $(I)diskio.hpp $(I)err.h $(I)expr.hpp $(I)fpro.h          \
                   $(I)funcs.hpp $(I)gdl.hpp $(I)graph.hpp $(I)ida.hpp       \
                   $(I)ida_highlighter.hpp $(I)idd.hpp $(I)idp.hpp           \
-                  $(I)ieee.h $(I)kernwin.hpp $(I)lines.hpp $(I)llong.hpp    \
-                  $(I)loader.hpp $(I)nalt.hpp $(I)name.hpp $(I)netnode.hpp  \
-                  $(I)pro.h $(I)range.hpp $(I)segment.hpp $(I)typeinf.hpp   \
-                  $(I)ua.hpp $(I)xref.hpp extapi.cpp extapi.hpp             \
-                  idapython.cpp pywraps.cpp pywraps.hpp
+                  $(I)ieee.h $(I)kernwin.hpp $(I)lex.hpp $(I)lines.hpp      \
+                  $(I)llong.hpp $(I)loader.hpp $(I)nalt.hpp $(I)name.hpp    \
+                  $(I)netnode.hpp $(I)parsejson.hpp $(I)pro.h               \
+                  $(I)range.hpp $(I)segment.hpp $(I)typeinf.hpp $(I)ua.hpp  \
+                  $(I)xref.hpp extapi.cpp                                   \
+                  extapi.hpp idapython.cpp pywraps.cpp pywraps.hpp

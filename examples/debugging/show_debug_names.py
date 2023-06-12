@@ -6,8 +6,6 @@ description:
   symbols that the process being debugged, provides.
 """
 
-from __future__ import print_function
-
 import ida_dbg
 import ida_ida
 import ida_name

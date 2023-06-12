@@ -8,8 +8,6 @@ description:
   Note: this is rather crude, not quite "pythonic" code.
 """
 
-from __future__ import print_function
-
 import idautils
 import idc
 import ida_idaapi

@@ -57,7 +57,7 @@ bool py_idaview_t::Unbind(PyObject *self)
   py_idaview_t *_this = (py_idaview_t *) view_extract_this(self);
   if ( _this == nullptr )
     return false;
-  _this->unbind(true);
+  _this->unbind();
   return true;
 }
 

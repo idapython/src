@@ -7,8 +7,6 @@ description:
   execution.
 """
 
-from __future__ import print_function
-
 import ida_dbg
 import ida_ida
 import ida_lines

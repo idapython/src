@@ -9,7 +9,6 @@ description:
 see_also: show_selected_strings
 """
 
-from __future__ import print_function
 import ida_nalt
 import idautils
 

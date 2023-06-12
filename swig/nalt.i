@@ -75,6 +75,8 @@
 %ignore refinfo_desc_t;
 %ignore get_refinfo_descs;
 
+%ignore printop_t::unused;
+
 %ignore write_struc_path;
 %ignore read_struc_path;
 %ignore del_struc_path;

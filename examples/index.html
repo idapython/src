@@ -404,6 +404,7 @@ across 4 predefined colors (and return to the "no color" state.)
                 <li>ida_kernwin.CK_EXTRA8</li>
                 <li>ida_kernwin.UI_Hooks</li>
                 <li>ida_kernwin.action_desc_t</li>
+                <li>ida_kernwin.action_handler_t</li>
                 <li>ida_kernwin.get_current_viewer</li>
                 <li>ida_kernwin.get_custom_viewer_location</li>
                 <li>ida_kernwin.get_custom_viewer_place_xcoord</li>
@@ -1379,6 +1380,43 @@ menu, so as to keep focus on "IDA View-A" and have the
                 <li>ida_kernwin.execute_ui_requests</li>
                 <li>ida_kernwin.msg</li>
                 <li>ida_kernwin.process_ui_action</li>
+              </ul>
+            </li>
+
+
+      </ul>
+        </div>
+      </div>
+
+    </div>
+    <h2>Category: cvt64</h2>
+    <div class="c_list" onclick="handle_click()">
+      <div class="example-entry collapsed-entry" name="py_cvt64_sample">
+        <div>
+          <span class="exp-col expander">&#x25B9;</span>
+          <span class="exp-col collapser" style="display:none">&#x25BF;</span>
+        <a href="cvt64/py_cvt64_sample.py">py_cvt64_sample</a>: <i>This file contains the CVT64 examples.</i>
+        </div>
+        <div class="details" id="DIV_py_cvt64_sample">
+
+<pre>
+For more infortmation see SDK/plugins/cvt64_sample example
+</pre>
+
+          <ul>
+            <li>Category: cvt64</li>
+            <li>Summary: This file contains the CVT64 examples.</li>
+            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/cvt64/py_cvt64_sample.py">GitHub</a></li>
+
+
+
+            <li>APIs used
+              <ul>
+                <li>ida_idaapi.BADADDR</li>
+                <li>ida_idaapi.BADADDR32</li>
+                <li>ida_netnode.atag</li>
+                <li>ida_netnode.htag</li>
+                <li>ida_netnode.stag</li>
               </ul>
             </li>
 
@@ -2944,6 +2982,7 @@ pressed in the Decompiler window.
             <li>APIs used
               <ul>
                 <li>ida_funcs.get_func_name</li>
+                <li>ida_hexrays.DECOMP_GXREFS_FORCE</li>
                 <li>ida_hexrays.Hexrays_Hooks</li>
                 <li>ida_hexrays.USE_KEYBOARD</li>
                 <li>ida_hexrays.VDI_EXPR</li>
@@ -3421,6 +3460,64 @@ A few notes:
       </ul>
         </div>
       </div>
+      <div class="example-entry collapsed-entry" name="paint_over_graph">
+        <div>
+          <span class="exp-col expander">&#x25B9;</span>
+          <span class="exp-col collapser" style="display:none">&#x25BF;</span>
+        <a href="pyqt/paint_over_graph.py">paint_over_graph</a>: <i>Custom painting on top of graph view edges</i>
+        </div>
+        <div class="details" id="DIV_paint_over_graph">
+
+<pre>
+This sample registers an action enabling painting of a recognizable
+string of text over horizontal nodes edge sections beyond a
+satisfying size threshold.
+
+In a disassembly view, open the context menu and select
+"Paint on edges". This should work for both graph disassembly,
+and proximity browser.
+
+Using an "event filter", we will intercept paint events
+targeted at the disassembly view, let it paint itself, and
+then add our own markers along.
+</pre>
+
+          <ul>
+            <li>Category: pyqt</li>
+            <li>Summary: Custom painting on top of graph view edges</li>
+            <li>View on <a href="https://github.com/idapython/src/blob/master/examples/pyqt/paint_over_graph.py">GitHub</a></li>
+            <li>Keywords:
+            ctxmenu
+            UI_Hooks
+            </li>
+
+
+
+            <li>APIs used
+              <ul>
+                <li>ida_graph.edge_t</li>
+                <li>ida_graph.get_graph_viewer</li>
+                <li>ida_graph.get_viewer_graph</li>
+                <li>ida_graph.point_t</li>
+                <li>ida_graph.viewer_get_gli</li>
+                <li>ida_kernwin.AST_DISABLE_FOR_WIDGET</li>
+                <li>ida_kernwin.AST_ENABLE_FOR_WIDGET</li>
+                <li>ida_kernwin.BWN_DISASM</li>
+                <li>ida_kernwin.PluginForm.FormToPyQtWidget</li>
+                <li>ida_kernwin.UI_Hooks</li>
+                <li>ida_kernwin.action_desc_t</li>
+                <li>ida_kernwin.action_handler_t</li>
+                <li>ida_kernwin.attach_action_to_popup</li>
+                <li>ida_kernwin.get_widget_type</li>
+                <li>ida_kernwin.register_action</li>
+                <li>ida_moves.graph_location_info_t</li>
+              </ul>
+            </li>
+
+
+      </ul>
+        </div>
+      </div>
       <div class="example-entry collapsed-entry" name="paint_over_navbar">
         <div>
           <span class="exp-col expander">&#x25B9;</span>
@@ -3430,7 +3527,7 @@ A few notes:
         <div class="details" id="DIV_paint_over_navbar">
 
 <pre>
-Using an "event filter", we'll intercept paint events
+Using an "event filter", we will intercept paint events
 targeted at the navigation band widget, let it paint itself,
 and then add our own markers on top.
 </pre>
@@ -3888,7 +3985,6 @@ The important bits to enable this are:
                 <li>ida_kernwin.CH_CAN_INS</li>
                 <li>ida_kernwin.CH_HAS_DIRTREE</li>
                 <li>ida_kernwin.CH_MULTI</li>
-                <li>ida_kernwin.CH_NOIDB</li>
                 <li>ida_kernwin.Choose</li>
                 <li>ida_kernwin.Choose.ALL_CHANGED</li>
                 <li>ida_kernwin.Choose.CHCOL_DRAGHINT</li>

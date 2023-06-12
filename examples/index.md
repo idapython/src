@@ -303,6 +303,7 @@ coloring UI_Hooks
 * ida_kernwin.CK_EXTRA8
 * ida_kernwin.UI_Hooks
 * ida_kernwin.action_desc_t
+* ida_kernwin.action_handler_t
 * ida_kernwin.get_current_viewer
 * ida_kernwin.get_custom_viewer_location
 * ida_kernwin.get_custom_viewer_place_xcoord
@@ -1119,6 +1120,34 @@ actions
 * ida_kernwin.execute_ui_requests
 * ida_kernwin.msg
 * ida_kernwin.process_ui_action
+
+</blockquote>
+
+  </details>
+
+## Category: cvt64
+
+#### py_cvt64_sample
+<details>
+  <summary>This file contains the CVT64 examples.</summary>
+
+<blockquote>
+
+#### Source code
+<a href="https://github.com/idapython/src/blob/master/examples/cvt64/py_cvt64_sample.py">cvt64/py_cvt64_sample.py</a>
+
+#### Category
+cvt64
+
+#### Description
+For more infortmation see SDK/plugins/cvt64_sample example
+
+#### Uses
+* ida_idaapi.BADADDR
+* ida_idaapi.BADADDR32
+* ida_netnode.atag
+* ida_netnode.htag
+* ida_netnode.stag
 
 </blockquote>
 
@@ -2452,6 +2481,7 @@ ctxmenu Hexrays_Hooks
 
 #### Uses
 * ida_funcs.get_func_name
+* ida_hexrays.DECOMP_GXREFS_FORCE
 * ida_hexrays.Hexrays_Hooks
 * ida_hexrays.USE_KEYBOARD
 * ida_hexrays.VDI_EXPR
@@ -2863,6 +2893,56 @@ A few notes:
 
   </details>
 
+#### paint_over_graph
+<details>
+  <summary>Custom painting on top of graph view edges</summary>
+
+<blockquote>
+
+#### Source code
+<a href="https://github.com/idapython/src/blob/master/examples/pyqt/paint_over_graph.py">pyqt/paint_over_graph.py</a>
+
+#### Category
+pyqt
+
+#### Description
+This sample registers an action enabling painting of a recognizable
+string of text over horizontal nodes edge sections beyond a
+satisfying size threshold.
+
+In a disassembly view, open the context menu and select
+"Paint on edges". This should work for both graph disassembly,
+and proximity browser.
+
+Using an "event filter", we will intercept paint events
+targeted at the disassembly view, let it paint itself, and
+then add our own markers along.
+
+#### Keywords
+ctxmenu UI_Hooks
+
+#### Uses
+* ida_graph.edge_t
+* ida_graph.get_graph_viewer
+* ida_graph.get_viewer_graph
+* ida_graph.point_t
+* ida_graph.viewer_get_gli
+* ida_kernwin.AST_DISABLE_FOR_WIDGET
+* ida_kernwin.AST_ENABLE_FOR_WIDGET
+* ida_kernwin.BWN_DISASM
+* ida_kernwin.PluginForm.FormToPyQtWidget
+* ida_kernwin.UI_Hooks
+* ida_kernwin.action_desc_t
+* ida_kernwin.action_handler_t
+* ida_kernwin.attach_action_to_popup
+* ida_kernwin.get_widget_type
+* ida_kernwin.register_action
+* ida_moves.graph_location_info_t
+
+</blockquote>
+
+  </details>
+
 #### paint_over_navbar
 <details>
   <summary>Custom painting on top of the navigation band</summary>
@@ -2876,7 +2956,7 @@ A few notes:
 pyqt
 
 #### Description
-Using an "event filter", we'll intercept paint events
+Using an "event filter", we will intercept paint events
 targeted at the navigation band widget, let it paint itself,
 and then add our own markers on top.
 
@@ -3242,7 +3322,6 @@ actions chooser folders
 * ida_kernwin.CH_CAN_INS
 * ida_kernwin.CH_HAS_DIRTREE
 * ida_kernwin.CH_MULTI
-* ida_kernwin.CH_NOIDB
 * ida_kernwin.Choose
 * ida_kernwin.Choose.ALL_CHANGED
 * ida_kernwin.Choose.CHCOL_DRAGHINT

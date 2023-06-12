@@ -6,8 +6,6 @@ description:
   dump their information to the "Output" window
 """
 
-from __future__ import print_function
-
 import inspect
 
 import ida_kernwin

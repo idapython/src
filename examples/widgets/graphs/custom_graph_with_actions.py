@@ -8,7 +8,6 @@ description:
 keywords: graph, actions
 """
 
-from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to use the user graphing functionality
 # in Python

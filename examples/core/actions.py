@@ -18,8 +18,6 @@ keywords: actions
 see_also: add_hotkey
 """
 
-from __future__ import print_function
-
 import ida_kernwin
 
 class SayHi(ida_kernwin.action_handler_t):

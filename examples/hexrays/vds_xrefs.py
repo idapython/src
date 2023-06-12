@@ -10,7 +10,6 @@ description:
 
 author: EiNSTeiN_ (einstein@g3nius.org)
 """
-from __future__ import print_function
 
 import ida_kernwin
 import ida_hexrays
@@ -168,12 +167,10 @@ class XrefsForm(ida_kernwin.PluginForm):
         addresses = []
         for ea in idautils.Functions():
 
-            cfunc = ida_hexrays.decompile(ea)
+            cfunc = ida_hexrays.decompile(ea, flags=ida_hexrays.DECOMP_GXREFS_FORCE)
             if not cfunc:
                 print('Decompilation of %x failed' % (ea, ))
                 continue
-
-            print(str(cfunc)) # KLUDGE
 
             for citem in cfunc.treeitems:
                 citem = citem.to_specific_type

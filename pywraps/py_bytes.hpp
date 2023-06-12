@@ -93,6 +93,38 @@ static bool py_do_get_bytes(
 
 //<inline(py_bytes)>
 
+#define MS_0TYPE 0x00F00000LU            ///< Mask for 1st arg typing
+#define FF_0VOID 0x00000000LU            ///< Void (unknown)?
+#define FF_0NUMH 0x00100000LU            ///< Hexadecimal number?
+#define FF_0NUMD 0x00200000LU            ///< Decimal number?
+#define FF_0CHAR 0x00300000LU            ///< Char ('x')?
+#define FF_0SEG  0x00400000LU            ///< Segment?
+#define FF_0OFF  0x00500000LU            ///< Offset?
+#define FF_0NUMB 0x00600000LU            ///< Binary number?
+#define FF_0NUMO 0x00700000LU            ///< Octal number?
+#define FF_0ENUM 0x00800000LU            ///< Enumeration?
+#define FF_0FOP  0x00900000LU            ///< Forced operand?
+#define FF_0STRO 0x00A00000LU            ///< Struct offset?
+#define FF_0STK  0x00B00000LU            ///< Stack variable?
+#define FF_0FLT  0x00C00000LU            ///< Floating point number?
+#define FF_0CUST 0x00D00000LU            ///< Custom representation?
+
+#define MS_1TYPE 0x0F000000LU            ///< Mask for the type of other operands
+#define FF_1VOID 0x00000000LU            ///< Void (unknown)?
+#define FF_1NUMH 0x01000000LU            ///< Hexadecimal number?
+#define FF_1NUMD 0x02000000LU            ///< Decimal number?
+#define FF_1CHAR 0x03000000LU            ///< Char ('x')?
+#define FF_1SEG  0x04000000LU            ///< Segment?
+#define FF_1OFF  0x05000000LU            ///< Offset?
+#define FF_1NUMB 0x06000000LU            ///< Binary number?
+#define FF_1NUMO 0x07000000LU            ///< Octal number?
+#define FF_1ENUM 0x08000000LU            ///< Enumeration?
+#define FF_1FOP  0x09000000LU            ///< Forced operand?
+#define FF_1STRO 0x0A000000LU            ///< Struct offset?
+#define FF_1STK  0x0B000000LU            ///< Stack variable?
+#define FF_1FLT  0x0C000000LU            ///< Floating point number?
+#define FF_1CUST 0x0D000000LU            ///< Custom representation?
+
 //------------------------------------------------------------------------
 /*
 #<pydoc>

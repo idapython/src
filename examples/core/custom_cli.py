@@ -9,7 +9,6 @@ description:
   It provides an example tab completion support.
 """
 
-from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to implement a CLI
 #

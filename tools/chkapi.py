@@ -5,7 +5,6 @@ import sys
 import os
 import argparse
 import re
-import six
 import pprint
 
 mydir, _ = os.path.split(__file__)
@@ -260,7 +259,7 @@ def check_cpp(args):
         if parser.text.find("""in output value of type '""int""'");""") > -1:
             raise Exception("Director output value type reporting doesn't appear to be patched")
 
-        for fname, fdef in six.iteritems(functions):
+        for fname, fdef in functions.items():
 
             if fdef.api_function_name:
                 api_functions_names.append(fdef.api_function_name)
