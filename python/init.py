@@ -31,27 +31,21 @@ if os.name == 'nt' and \
         sys.path.insert(i, dllspath)
 
 
+if not os.path.isabs(IDAPYTHON_DYNLOAD_BASE):
+    IDAPYTHON_DYNLOAD_BASE = os.path.abspath(IDAPYTHON_DYNLOAD_BASE);
+
 # Prepare sys.path so loading of the shared objects works
 lib_dynload = os.path.join(
-    sys.executable,
     IDAPYTHON_DYNLOAD_BASE,
     "python",
     str(sys.version_info.major))
 
-is_x64 = sys.maxsize >= 0x100000000
-if is_x64:
-    # x64 python requires our lib_dynload to be added; sys.path seems
-    # to be composed differently than x86 builds.
-    # In addition, we always want our own lib-dynload to come first:
-    # the PyQt (& sip) modules that might have to be loaded, should
-    # be the ones shipped with IDA and not those possibly available
-    # on the system.
-    sys.path.insert(0, os.path.join(lib_dynload, IDAPYTHON_DYNLOAD_RELPATH))
-    sys.path.insert(0, lib_dynload)
-else:
-    # for non-x64 platforms, make sure everything works as it used to,
-    # by appending our own lib-dynload to sys.argv..
-    sys.path.append(os.path.join(lib_dynload, IDAPYTHON_DYNLOAD_RELPATH))
+# We always want our own lib-dynload to come first:
+# the PyQt (& sip) modules that might have to be loaded, should
+# be the ones shipped with IDA and not those possibly available
+# on the system.
+sys.path.insert(0, os.path.join(lib_dynload, IDAPYTHON_DYNLOAD_RELPATH))
+sys.path.insert(0, lib_dynload)
 
 try:
     import ida_idaapi
