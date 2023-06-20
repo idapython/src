@@ -342,7 +342,7 @@ def as_uint32(v):
 # -----------------------------------------------------------------------
 def as_int32(v):
     """Returns a number as a signed int32 number"""
-    return -((~v & 0xffffffff)+1)
+    return as_signed(v, 32)
 
 # -----------------------------------------------------------------------
 def as_signed(v, nbits = 32):
@@ -350,7 +350,7 @@ def as_signed(v, nbits = 32):
     Returns a number as signed. The number of bits are specified by the user.
     The MSB holds the sign.
     """
-    return -(( ~v & ((1 << nbits)-1) ) + 1) if v & (1 << nbits-1) else v
+    return -(( ~v & ((1 << nbits)-1) ) + 1) if v & (1 << nbits-1) else v & ((1 << nbits)-1)
 
 # ----------------------------------------------------------------------
 def TRUNC(ea):
