@@ -66,7 +66,7 @@ class simplecustviewer_t(object):
 
     def Show(self):
         """
-        Shows an already created view. It the view was close, then it will call Create() for you
+        Shows an already created view. If the view was closed, then it will call Create() for you
         @return: Boolean
         """
         return _ida_kernwin.pyscv_show(self.__this)
