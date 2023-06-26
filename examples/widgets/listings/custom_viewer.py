@@ -114,11 +114,11 @@ class mycv_t(ida_kernwin.simplecustviewer_t):
         @return: Boolean. True if you handled the event
         """
         print("OnKeydown, vk=%d shift=%d" % (vkey, shift))
-        # ESCAPE?
-        if vkey == 27:
+        # Escape?
+        if vkey == ida_kernwin.IK_ESCAPE:
             self.Close()
-        # VK_DELETE
-        elif vkey == 46:
+        # Delete?
+        elif vkey == ida_kernwin.IK_DELETE:
             n = self.GetLineNo()
             if n is not None:
                 self.DelLine(n)
