@@ -4978,13 +4978,14 @@ def get_type(ea):
     """
     return ida_typeinf.idc_get_type(ea)
 
-def SizeOf(typestr):
+def sizeof(typestr):
     """
     Returns the size of the type. It is equivalent to IDC's sizeof().
-    Use name, tp, fld = idc.parse_decl() ; SizeOf(tp) to retrieve the size
     @return: -1 if typestring is not valid otherwise the size of the type
     """
     return ida_typeinf.calc_type_size(None, typestr)
+
+SizeOf = sizeof
 
 def get_tinfo(ea):
     """
