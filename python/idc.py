@@ -4981,8 +4981,8 @@ def get_type(ea):
 def sizeof(tp):
     """
     Returns the size of the type. It is equivalent to IDC's sizeof().
-	You may pass:
-  	  - A type name as a string
+    You may pass:
+      - A type name as a string
       - Or a type (as bytes) retrieved with: `name, tp, fld = idc.parse_decl(); sizeof(tp)`
 
     @return: -1 if typestring is not valid otherwise the size of the type
