@@ -3406,6 +3406,8 @@ actions ctxmenu listing
 
 #### Uses
 * ida_kernwin.AST_ENABLE_ALWAYS
+* ida_kernwin.IK_DELETE
+* ida_kernwin.IK_ESCAPE
 * ida_kernwin.action_desc_t
 * ida_kernwin.action_handler_t
 * ida_kernwin.ask_long

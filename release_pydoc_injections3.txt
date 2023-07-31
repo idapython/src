@@ -64002,7 +64002,7 @@ class simplecustviewer_t(builtins.object)
  |      Refreshes the current line only
  |  
  |  Show(self)
- |      Shows an already created view. It the view was close, then it will call Create() for you
+ |      Shows an already created view. It the view was closed, then it will call Create() for you
  |      @return: Boolean
  |  
  |  __init__(self)
@@ -111344,6 +111344,10 @@ Documentation on variable NTF_IDBENC in module ida_typeinf:
 Documentation on variable NTF_CHKSYNC in module ida_typeinf:
 
     check that synchronization to IDB passed OK (set_numbered_type, set_named_type)
+
+Documentation on variable NTF_NO_NAMECHK in module ida_typeinf:
+
+    do not validate type name (set_numbered_type, set_named_type)
 
 Documentation on variable TERR_OK in module ida_typeinf:
 

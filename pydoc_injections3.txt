@@ -115129,6 +115129,10 @@ Documentation on variable NTF_CHKSYNC in module ida_typeinf:
 
     check that synchronization to IDB passed OK (set_numbered_type, set_named_type)
 
+Documentation on variable NTF_NO_NAMECHK in module ida_typeinf:
+
+    do not validate type name (set_numbered_type, set_named_type)
+
 Documentation on variable TERR_OK in module ida_typeinf:
 
     ok
