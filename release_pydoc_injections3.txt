@@ -6625,9 +6625,8 @@ Help on function set_reg_val in module ida_dbg:
 
 set_reg_val(*args) -> 'PyObject *'
     set_reg_val(regname, o) -> PyObject
-    Write a register value to the current thread.
     
-    @param regname: (C++: const char *) char const *
+    @param regname: char const *
     @param o: PyObject *
     
     set_reg_val(tid, regidx, o) -> bool, int
@@ -10566,9 +10565,6 @@ Help on function get_first_fixup_ea in module ida_fixup:
 
 get_first_fixup_ea(*args) -> 'ea_t'
     get_first_fixup_ea() -> ea_t
-    Get the first address with fixup information
-    
-    @return: the first address with fixup information, or BADADDR
 
 Help on function get_fixup in module ida_fixup:
 
@@ -48215,9 +48211,8 @@ class regval_t(builtins.object)
  |  
  |  set_int(self, *args) -> 'void'
  |      set_int(self, x)
- |      Set int value (ival)
  |      
- |      @param x: (C++: uint64)
+ |      @param x: uint64
  |  
  |  set_pyval(self, *args) -> 'bool'
  |      set_pyval(self, o, dtype) -> bool
@@ -108605,9 +108600,6 @@ Documentation on variable AFL_HR_DETERMINED in module ida_nalt:
 Documentation on variable STRTYPE_TERMCHR in module ida_nalt:
 
     C-style string.
-    
-    < Character-terminated string. The termination characters are kept in the next
-    bytes of string type.
 
 Documentation on variable STRTYPE_C in module ida_nalt:
 

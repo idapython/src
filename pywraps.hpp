@@ -13,6 +13,7 @@
 #define PY_BV_SEL PY_BV_EA
 #define PY_BV_SVAL "L" // Convert a C long long to a Python long integer object
 #define PY_BV_TYPE "y"
+#define PY_BV_FIELDCMTS "y"
 #define PY_BV_FIELDS "y"
 #define PY_BV_BYTES "y"
 

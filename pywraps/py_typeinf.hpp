@@ -522,36 +522,11 @@ PyObject *py_get_named_type(const til_t *til, const char *name, int ntf_flags)
   int code = get_named_type(til, name, ntf_flags, &type, &fields, &cmt, &field_cmts, &sclass, (uint32 *) &value);
   if ( code == 0 )
     Py_RETURN_NONE;
-  PyObject *tuple = PyTuple_New(7);
-  int idx = 0;
-#define ADD(Expr) PyTuple_SetItem(tuple, idx++, (Expr))
-#define ADD_OR_NONE(Cond, Expr)                 \
-  do                                            \
-  {                                             \
-    if ( Cond )                                 \
-    {                                           \
-      ADD(Expr);                                \
-    }                                           \
-    else                                        \
-    {                                           \
-      Py_INCREF(Py_None);                       \
-      ADD(Py_None);                             \
-    }                                           \
-  } while ( false )
-
-  ADD(PyInt_FromLong(long(code)));
-  ADD(PyBytes_FromString((const char *) type));
-  ADD_OR_NONE(fields != nullptr, PyBytes_FromString((const char *) fields));
-  ADD_OR_NONE(cmt != nullptr, PyUnicode_FromString(cmt));
-  ADD_OR_NONE(field_cmts != nullptr, PyUnicode_FromString((const char *) field_cmts));
-  ADD(PyInt_FromLong(long(sclass)));
-  if ( (ntf_flags & NTF_64BIT) != 0 )
-    ADD(PyLong_FromUnsignedLongLong(value));
-  else
-    ADD(PyLong_FromUnsignedLong(long(value)));
-#undef ADD_OR_NONE
-#undef ADD
-  return tuple;
+  PyObject *py_value = (ntf_flags & NTF_64BIT) != 0
+                     ? PyLong_FromUnsignedLongLong(value)
+                     : PyLong_FromUnsignedLong(long(value));
+  return Py_BuildValue("(i" PY_BV_TYPE PY_BV_FIELDS "s" PY_BV_FIELDCMTS "iN)",
+                       code, type, fields, cmt, field_cmts, sclass, py_value);
 }
 
 //-------------------------------------------------------------------------
@@ -605,7 +580,7 @@ static PyObject *py_get_numbered_type(const til_t *til, uint32 ordinal)
   const p_list *fieldcmts;
   sclass_t sclass;
   if ( get_numbered_type(til, ordinal, &type, &fields, &cmt, &fieldcmts, &sclass) )
-    return Py_BuildValue("(" PY_BV_TYPE PY_BV_FIELDS "ssi)", type, fields, cmt, fieldcmts, sclass);
+    return Py_BuildValue("(" PY_BV_TYPE PY_BV_FIELDS "s" PY_BV_FIELDCMTS "i)", type, fields, cmt, fieldcmts, sclass);
   else
     Py_RETURN_NONE;
 }

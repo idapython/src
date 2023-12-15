@@ -31,7 +31,6 @@ except:
     integer_types = (int,)
     string_types = (str,)
     long_type = int
-import imp
 import re
 
 def require(modulename, package=None):
@@ -500,8 +499,11 @@ def IDAPython_LoadProcMod(path, g, print_error=True):
     procobj = None
     fp = None
     try:
-        fp, pathname, description = imp.find_module(procmod_name, [path_dir])
-        procmod = imp.load_module(procmod_name, fp, pathname, description)
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(procmod_name, path)
+        procmod = importlib.util.module_from_spec(spec)
+        sys.modules[procmod_name] = procmod
+        spec.loader.exec_module(procmod)
         if parent:
             setattr(parent, procmod_name, procmod)
             # export attrs from parent to processor module
@@ -517,9 +519,6 @@ def IDAPython_LoadProcMod(path, g, print_error=True):
         PY_COMPILE_ERR = "%s\n%s" % (str(e), traceback.format_exc())
         if print_error:
             print(PY_COMPILE_ERR)
-    finally:
-        if fp:
-            fp.close()
 
     return (PY_COMPILE_ERR, procobj)
 
