@@ -3,6 +3,8 @@
 %ignore rangeset_t::upper_bound;
 %ignore rangeset_t::move_chunk;
 %ignore rangeset_t::check_move_args;
+%ignore range64_t;
+%ignore range64vec_t;
 
 %template(rangevec_base_t) qvector<range_t>;
 %template(array_of_rangesets) qvector<rangeset_t>;

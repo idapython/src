@@ -102,7 +102,7 @@ typedef int diff_source_idx_t;
 { // %typemap(directorargout) qstrvec_t *
   if ( $result != Py_None )
   {
-    if ( PyW_PyListToStrVec(&tmp, $result) >= 0 )
+    if ( PyW_PySeqToStrVec(&tmp, $result) >= 0 )
     {
       $1->insert($1->end(), tmp.begin(), tmp.end());
     }

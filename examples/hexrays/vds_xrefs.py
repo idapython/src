@@ -15,7 +15,6 @@ import ida_kernwin
 import ida_hexrays
 import ida_typeinf
 import ida_idaapi
-import ida_struct
 import ida_funcs
 
 import idautils
@@ -66,12 +65,17 @@ class XrefsForm(ida_kernwin.PluginForm):
         xtype = x.type
         xtype.remove_ptr_or_array()
         typename = ida_typeinf.print_tinfo('', 0, 0, ida_typeinf.PRTYPE_1LINE, xtype, '', '')
+        tif = ida_typeinf.tinfo_t()
+        if not tif.get_named_type(None, typename):
+            print("Error while retrieving %s type.", typename)
+            return typename
+        udm = ida_typeinf.udm_t()
+        udm.offset = m
+        if tif.find_udm(udm, ida_typeinf.STRMEM_OFFSET) == -1:
+            print("Error while retrieving %s member.", typename)
+            return typename
 
-        sid = ida_struct.get_struc_id(typename)
-        sptr = ida_struct.get_struc(sid)
-        member = ida_struct.get_member(sptr, m)
-
-        return '%s::%s' % (typename, member)
+        return '%s::%s' % (typename, udm.name)
 
     def OnCreate(self, widget):
 

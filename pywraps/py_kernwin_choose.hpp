@@ -746,7 +746,7 @@ class py_chooser_multi_t : public chooser_multi_t, public py_chooser_mixin_t
     cbres_t res;
     // this is an easy but not an optimal way of converting
     if ( !PySequence_Check(pyres.result.o)
-      || PyW_PyListToSizeVec(sel, pyres.result.o) <= 0 )
+      || PyW_PySeqToSizeVec(sel, pyres.result.o) <= 0 )
     {
       sel->clear();
       res = NOTHING_CHANGED;
@@ -886,7 +886,7 @@ PyObject *choose_choose(PyObject *self)
     ref_t deflt_attr(PyW_TryGetAttrString(self, "deflt"));
     if ( deflt_attr != nullptr
       && PyList_Check(deflt_attr.o)
-      && PyW_PyListToSizeVec(&deflt, deflt_attr.o) < 0 )
+      && PyW_PySeqToSizeVec(&deflt, deflt_attr.o) < 0 )
     {
       deflt.clear();
     }
@@ -989,10 +989,9 @@ PyObject *py_get_chooser_data(const char *chooser_caption, int n)
   qstrvec_t data;
   if ( !get_chooser_data(&data, chooser_caption, n) )
     Py_RETURN_NONE;
-  PyObject *py_list = PyList_New(data.size());
-  for ( size_t i = 0; i < data.size(); ++i )
-    PyList_SetItem(py_list, i, PyUnicode_FromString(data[i].c_str()));
-  return py_list;
+  ref_t py_list_ref = PyW_StrVecToPyList(data);
+  py_list_ref.incref();
+  return py_list_ref.o;
 }
 
 #define CH_NOIDB 0x00000040 // bw-compat

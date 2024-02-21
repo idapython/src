@@ -149,3 +149,6 @@ void ext_api_t::clear()
 }
 
 #endif
+
+ext_api_t extapi;
+

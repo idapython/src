@@ -446,29 +446,27 @@ members of different types.
 
             <li>APIs used
               <ul>
-                <li>ida_bytes.FF_BYTE</li>
-                <li>ida_bytes.FF_DATA</li>
-                <li>ida_bytes.FF_DOUBLE</li>
-                <li>ida_bytes.FF_DWORD</li>
-                <li>ida_bytes.FF_FLOAT</li>
-                <li>ida_bytes.FF_OWORD</li>
-                <li>ida_bytes.FF_PACKREAL</li>
-                <li>ida_bytes.FF_QWORD</li>
-                <li>ida_bytes.FF_STRLIT</li>
-                <li>ida_bytes.FF_STRUCT</li>
-                <li>ida_bytes.FF_TBYTE</li>
-                <li>ida_bytes.FF_WORD</li>
-                <li>ida_bytes.off_flag</li>
-                <li>ida_bytes.stroff_flag</li>
-                <li>ida_idaapi.BADADDR</li>
-                <li>ida_nalt.STRTYPE_C</li>
-                <li>ida_struct.add_struc</li>
-                <li>ida_struct.get_struc_id</li>
-                <li>ida_struct.get_struc_size</li>
-                <li>idc.add_struc</li>
-                <li>idc.add_struc_member</li>
-                <li>idc.del_struc</li>
-                <li>idc.set_member_type</li>
+                <li>ida_typeinf.BTF_BYTE</li>
+                <li>ida_typeinf.BTF_DOUBLE</li>
+                <li>ida_typeinf.BTF_FLOAT</li>
+                <li>ida_typeinf.BTF_INT</li>
+                <li>ida_typeinf.BTF_INT128</li>
+                <li>ida_typeinf.BTF_INT16</li>
+                <li>ida_typeinf.BTF_INT64</li>
+                <li>ida_typeinf.BTF_TBYTE</li>
+                <li>ida_typeinf.BTF_UINT32</li>
+                <li>ida_typeinf.FRB_NUMO</li>
+                <li>ida_typeinf.NTF_TYPE</li>
+                <li>ida_typeinf.PRTYPE_DEF</li>
+                <li>ida_typeinf.PRTYPE_MULTI</li>
+                <li>ida_typeinf.PRTYPE_TYPE</li>
+                <li>ida_typeinf.del_named_type</li>
+                <li>ida_typeinf.idc_parse_types</li>
+                <li>ida_typeinf.tinfo_errstr</li>
+                <li>ida_typeinf.tinfo_t</li>
+                <li>ida_typeinf.udm_t</li>
+                <li>ida_typeinf.udt_type_data_t</li>
+                <li>ida_typeinf.value_repr_t</li>
               </ul>
             </li>
 
@@ -561,7 +559,7 @@ one format for a specific 'custom data type'.)
                 <li>ida_lines.SCOLOR_REG</li>
                 <li>ida_nalt.get_input_file_path</li>
                 <li>ida_netnode.netnode</li>
-                <li>ida_struct.is_member_id</li>
+                <li>ida_typeinf.tinfo_t</li>
               </ul>
             </li>
 
@@ -700,10 +698,13 @@ After running this script:
                 <li>ida_kernwin.BWN_STRUCTS</li>
                 <li>ida_kernwin.action_desc_t</li>
                 <li>ida_kernwin.action_handler_t</li>
+                <li>ida_kernwin.get_current_viewer</li>
                 <li>ida_kernwin.get_viewer_user_data</li>
                 <li>ida_kernwin.l_compare2</li>
                 <li>ida_kernwin.linearray_t</li>
+                <li>ida_kernwin.read_selection</li>
                 <li>ida_kernwin.register_action</li>
+                <li>ida_kernwin.twinpos_t</li>
                 <li>ida_kernwin.unregister_action</li>
                 <li>ida_lines.tag_remove</li>
               </ul>
@@ -2940,7 +2941,6 @@ comments and/or types of local variables.
                 <li>ida_hexrays.modify_user_lvars</li>
                 <li>ida_hexrays.user_lvar_modifier_t</li>
                 <li>ida_typeinf.parse_decl</li>
-                <li>ida_typeinf.tinfo_t</li>
                 <li>idc.here</li>
               </ul>
             </li>
@@ -3006,11 +3006,11 @@ pressed in the Decompiler window.
                 <li>ida_kernwin.action_handler_t</li>
                 <li>ida_kernwin.attach_action_to_popup</li>
                 <li>ida_kernwin.register_action</li>
-                <li>ida_struct.get_member</li>
-                <li>ida_struct.get_struc</li>
-                <li>ida_struct.get_struc_id</li>
                 <li>ida_typeinf.PRTYPE_1LINE</li>
+                <li>ida_typeinf.STRMEM_OFFSET</li>
                 <li>ida_typeinf.print_tinfo</li>
+                <li>ida_typeinf.tinfo_t</li>
+                <li>ida_typeinf.udm_t</li>
                 <li>idautils.Functions</li>
                 <li>idautils.XrefsTo</li>
               </ul>
@@ -3096,7 +3096,6 @@ an instruction's operand, or a data item.
                 <li>ida_bytes.is_strlit</li>
                 <li>ida_bytes.is_stroff</li>
                 <li>ida_bytes.is_struct</li>
-                <li>ida_enum.get_enum_name</li>
                 <li>ida_idp.IDB_Hooks</li>
                 <li>ida_nalt.STRENC_DEFAULT</li>
                 <li>ida_nalt.get_default_encoding_idx</li>
@@ -3104,7 +3103,8 @@ an instruction's operand, or a data item.
                 <li>ida_nalt.get_str_encoding_idx</li>
                 <li>ida_nalt.get_strtype_bpu</li>
                 <li>ida_nalt.opinfo_t</li>
-                <li>ida_struct.get_struc_name</li>
+                <li>ida_typeinf.get_tid_name</li>
+                <li>ida_typeinf.tinfo_t</li>
               </ul>
             </li>
 
@@ -4145,6 +4145,7 @@ IDA, with a custom widget.
                 <li>ida_kernwin.Choose.CHCOL_FNAME</li>
                 <li>ida_kernwin.Choose.CHCOL_HEX</li>
                 <li>ida_kernwin.Choose.CHCOL_PLAIN</li>
+                <li>ida_kernwin.get_icon_id_by_name</li>
                 <li>idautils.Functions</li>
                 <li>idc.del_func</li>
               </ul>

@@ -790,7 +790,7 @@ def define_local_var(start, end, location, name):
         return 0
 
     # Find out if location is in the [bp+xx] form
-    r = re.compile("\[([a-z]+)([-+][0-9a-fx]+)", re.IGNORECASE)
+    r = re.compile(r"\[([a-z]+)([-+][0-9a-fx]+)", re.IGNORECASE)
     m = r.match(location)
 
     if m:
@@ -4520,7 +4520,7 @@ def __m1tol(v):
     Otherwise, return 'v'.
     """
     if v == -1:
-        return ida_netnode.BADNODE 
+        return ida_netnode.BADNODE
     else:
         return v
 
@@ -4978,13 +4978,38 @@ def get_type(ea):
     """
     return ida_typeinf.idc_get_type(ea)
 
-def SizeOf(typestr):
+def sizeof(typestr):
     """
     Returns the size of the type. It is equivalent to IDC's sizeof().
-    Use name, tp, fld = idc.parse_decl() ; SizeOf(tp) to retrieve the size
-    @return: -1 if typestring is not valid otherwise the size of the type
+    @param typestr: can be specified as a typeinfo tuple (e.g. the result of get_tinfo()),
+            serialized type byte string,
+            or a string with C declaration (e.g. "int")
+    @return: -1 if typestring is not valid or has no size. otherwise size of the type
     """
-    return ida_typeinf.calc_type_size(None, typestr)
+    if isinstance(typestr, tuple):
+       if len(typestr) == 3:
+         # result of idc.parse_decl() ?
+         tp = typestr[1]
+       elif len(typestr) == 2:
+         # reult of idc.get_tinfo() ?
+         tp  = typestr[0]
+       else:
+         tp = None
+    elif isinstance(typestr, bytes):
+         # raw serialized byte string ?
+         tp  = typestr
+    elif isinstance(typestr, str):
+         # C declaration ?
+         name, tp, _ = parse_decl(typestr, 0)
+
+    # here, 'tp' should be the serialized type string
+    if isinstance(tp, bytes):
+       r = ida_typeinf.calc_type_size(None, tp)
+       return -1 if r is None  else r
+    else:
+       raise TypeError("idc.sizeof(): expected type tuple, serialized type string, or C declaration")
+
+SizeOf = sizeof
 
 def get_tinfo(ea):
     """
@@ -5182,10 +5207,21 @@ def GetLocalType(ordinal, flags):
       return ida_typeinf.idc_print_type(type, fields, name, flags)
     return ""
 
-PRTYPE_1LINE  = 0x0000 # print to one line
-PRTYPE_MULTI  = 0x0001 # print to many lines
-PRTYPE_TYPE   = 0x0002 # print type declaration (not variable declaration)
-PRTYPE_PRAGMA = 0x0004 # print pragmas for alignment
+PRTYPE_1LINE   = 0x0000 # print to one line
+PRTYPE_MULTI   = 0x0001 # print to many lines
+PRTYPE_TYPE    = 0x0002 # print type declaration (not variable declaration)
+PRTYPE_PRAGMA  = 0x0004 # print pragmas for alignment
+PRTYPE_SEMI    = 0x0008 # append ; to the end
+PRTYPE_CPP     = 0x0010 # use c++ name (only for print_type())
+PRTYPE_DEF     = 0x0020 # tinfo_t: print definition, if available
+PRTYPE_NOARGS  = 0x0040 # tinfo_t: do not print function argument names
+PRTYPE_NOARRS  = 0x0080 # tinfo_t: print arguments with #FAI_ARRAY as pointers
+PRTYPE_NORES   = 0x0100 # tinfo_t: never resolve types (meaningful with PRTYPE_DEF)
+PRTYPE_RESTORE = 0x0200 # tinfo_t: print restored types for #FAI_ARRAY and #FAI_STRUCT
+PRTYPE_NOREGEX = 0x0400 # do not apply regular expressions to beautify name
+PRTYPE_COLORED = 0x0800 # add color tag COLOR_SYMBOL for any parentheses, commas and colons
+PRTYPE_METHODS = 0x1000 # tinfo_t: print udt methods
+PRTYPE_1LINCMT = 0x2000 # print comments in one line mode
 
 
 def get_numbered_type_name(ordinal):

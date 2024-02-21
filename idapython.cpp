@@ -34,8 +34,6 @@
 #include "extapi.hpp"
 #include "extapi.cpp"
 
-ext_api_t extapi;
-
 //-------------------------------------------------------------------------
 idapython_plugin_t *idapython_plugin_t::instance = nullptr;
 
@@ -620,7 +618,6 @@ struct python_highlighter_t : public ida_syntax_highlighter_t
       "raise|return|try|while|with|yield|"
       "None|True|False",HF_KEYWORD1);
     add_keywords("self", HF_KEYWORD2);
-    add_keywords("def", HF_KEYWORD3);
   }
 
   void add_new_keywords()

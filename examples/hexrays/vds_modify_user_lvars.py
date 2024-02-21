@@ -21,6 +21,10 @@ class my_modifier_t(ida_hexrays.user_lvar_modifier_t):
     def modify_lvars(self, lvars):
         def log(msg):
             print("modify_lvars: %s" % msg)
+        """Note: lvars.lvvec contains only variables modified from the defaults.
+           To change other variables, you can, for example, first use rename_lvar()
+           so they get added to this list, then use modify_user_lvar_info() or modify_lvars().
+        """
         log("len(lvars.lvvec) = %d" % len(lvars.lvvec))
         log("lvars.lmaps.size() = %d" % lvars.lmaps.size())
         log("lvars.stkoff_delta = %d" % lvars.stkoff_delta)
@@ -36,9 +40,7 @@ class my_modifier_t(ida_hexrays.user_lvar_modifier_t):
             varlog("flags = %x" % one.flags)
             new_type = self.new_types.get(one.name)
             if new_type:
-                tif = ida_typeinf.tinfo_t()
-                ida_typeinf.parse_decl(tif, None, new_type, 0)
-                one.type = tif
+                ida_typeinf.parse_decl(one.type, None, new_type, 0)
             one.name = self.name_prefix + one.name
             one.cmt = self.cmt_prefix + one.cmt
 

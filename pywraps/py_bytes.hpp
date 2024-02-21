@@ -93,37 +93,37 @@ static bool py_do_get_bytes(
 
 //<inline(py_bytes)>
 
-#define MS_0TYPE 0x00F00000LU            ///< Mask for 1st arg typing
-#define FF_0VOID 0x00000000LU            ///< Void (unknown)?
-#define FF_0NUMH 0x00100000LU            ///< Hexadecimal number?
-#define FF_0NUMD 0x00200000LU            ///< Decimal number?
-#define FF_0CHAR 0x00300000LU            ///< Char ('x')?
-#define FF_0SEG  0x00400000LU            ///< Segment?
-#define FF_0OFF  0x00500000LU            ///< Offset?
-#define FF_0NUMB 0x00600000LU            ///< Binary number?
-#define FF_0NUMO 0x00700000LU            ///< Octal number?
-#define FF_0ENUM 0x00800000LU            ///< Enumeration?
-#define FF_0FOP  0x00900000LU            ///< Forced operand?
-#define FF_0STRO 0x00A00000LU            ///< Struct offset?
-#define FF_0STK  0x00B00000LU            ///< Stack variable?
-#define FF_0FLT  0x00C00000LU            ///< Floating point number?
-#define FF_0CUST 0x00D00000LU            ///< Custom representation?
+#define MS_0TYPE 0x00F00000 ///< Mask for 1st arg typing
+#define FF_0VOID 0x00000000 ///< Void (unknown)?
+#define FF_0NUMH 0x00100000 ///< Hexadecimal number?
+#define FF_0NUMD 0x00200000 ///< Decimal number?
+#define FF_0CHAR 0x00300000 ///< Char ('x')?
+#define FF_0SEG  0x00400000 ///< Segment?
+#define FF_0OFF  0x00500000 ///< Offset?
+#define FF_0NUMB 0x00600000 ///< Binary number?
+#define FF_0NUMO 0x00700000 ///< Octal number?
+#define FF_0ENUM 0x00800000 ///< Enumeration?
+#define FF_0FOP  0x00900000 ///< Forced operand?
+#define FF_0STRO 0x00A00000 ///< Struct offset?
+#define FF_0STK  0x00B00000 ///< Stack variable?
+#define FF_0FLT  0x00C00000 ///< Floating point number?
+#define FF_0CUST 0x00D00000 ///< Custom representation?
 
-#define MS_1TYPE 0x0F000000LU            ///< Mask for the type of other operands
-#define FF_1VOID 0x00000000LU            ///< Void (unknown)?
-#define FF_1NUMH 0x01000000LU            ///< Hexadecimal number?
-#define FF_1NUMD 0x02000000LU            ///< Decimal number?
-#define FF_1CHAR 0x03000000LU            ///< Char ('x')?
-#define FF_1SEG  0x04000000LU            ///< Segment?
-#define FF_1OFF  0x05000000LU            ///< Offset?
-#define FF_1NUMB 0x06000000LU            ///< Binary number?
-#define FF_1NUMO 0x07000000LU            ///< Octal number?
-#define FF_1ENUM 0x08000000LU            ///< Enumeration?
-#define FF_1FOP  0x09000000LU            ///< Forced operand?
-#define FF_1STRO 0x0A000000LU            ///< Struct offset?
-#define FF_1STK  0x0B000000LU            ///< Stack variable?
-#define FF_1FLT  0x0C000000LU            ///< Floating point number?
-#define FF_1CUST 0x0D000000LU            ///< Custom representation?
+#define MS_1TYPE 0x0F000000 ///< Mask for the type of other operands
+#define FF_1VOID 0x00000000 ///< Void (unknown)?
+#define FF_1NUMH 0x01000000 ///< Hexadecimal number?
+#define FF_1NUMD 0x02000000 ///< Decimal number?
+#define FF_1CHAR 0x03000000 ///< Char ('x')?
+#define FF_1SEG  0x04000000 ///< Segment?
+#define FF_1OFF  0x05000000 ///< Offset?
+#define FF_1NUMB 0x06000000 ///< Binary number?
+#define FF_1NUMO 0x07000000 ///< Octal number?
+#define FF_1ENUM 0x08000000 ///< Enumeration?
+#define FF_1FOP  0x09000000 ///< Forced operand?
+#define FF_1STRO 0x0A000000 ///< Struct offset?
+#define FF_1STK  0x0B000000 ///< Stack variable?
+#define FF_1FLT  0x0C000000 ///< Floating point number?
+#define FF_1CUST 0x0D000000 ///< Custom representation?
 
 //------------------------------------------------------------------------
 /*
@@ -311,6 +311,16 @@ static PyObject *py_get_8bit(ea_t ea, uint32 v, int nbit)
 {
   uchar octet = get_8bit(&ea, &v, &nbit);
   return Py_BuildValue("(i" PY_BV_EA "ki)", int(uint32(octet)), bvea_t(ea), v, nbit);
+}
+
+//-------------------------------------------------------------------------
+static bool ida_export py_op_stroff(
+        const insn_t &insn,
+        int n,
+        const qvector<tid_t> &path,
+        adiff_t delta)
+{
+  return op_stroff(insn, n, path.begin(), path.size(), delta);
 }
 
 //-------------------------------------------------------------------------

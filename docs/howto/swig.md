@@ -53,7 +53,7 @@ To achieve that, you want to use the `directorargout` typemap:
 
     %typemap(directorargout) qstrvec_t * (qstrvec_t tmp)
     { // %typemap(directorargout) qstrvec_t *
-      if ( PyW_PyListToStrVec(&tmp, $result) >= 0 )
+      if ( PyW_PySeqToStrVec(&tmp, $result) >= 0 )
       {
         $1->swap(tmp);
       }

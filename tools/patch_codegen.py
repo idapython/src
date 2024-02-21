@@ -113,7 +113,7 @@ wrap_regex = re.compile(r"SWIGINTERN PyObject \*_wrap_([a-zA-Z0-9_]*)\(.*")
 director_method_regex = re.compile(r".*((SwigDirector_([a-zA-Z0-9_]*))::~?([a-zA-Z0-9_]*))\(.*")
 swig_clink_var_get_regex = re.compile(r"SWIGINTERN PyObject \*(Swig_var_[a-zA-Z0-9_]*_get).*")
 swig_clink_var_set_regex = re.compile(r"SWIGINTERN int (Swig_var_[a-zA-Z0-9_]*_set).*")
-SWIG_Python_TypeError_regex = re.compile(".*(SWIG_Python_TypeError)\(const char \*type, PyObject \*obj\).*")
+SWIG_Python_TypeError_regex = re.compile(r".*(SWIG_Python_TypeError)\(const char \*type, PyObject \*obj\).*")
 SwigPyObject_dealloc_regex = re.compile(r"^(SwigPyObject_dealloc)\(PyObject \*v\)$")
 
 all_lines = [
@@ -322,7 +322,7 @@ with open(args.input) as f:
                         elif line.find("result = PyObject_CallMethodObjArgs") > -1:
                             call_args = args_cmoa
                         if call_args:
-                            subst = re.sub("\(.*\);", call_args + ";", line)
+                            subst = re.sub(r"\(.*\);", call_args + ";", line)
                             if add_error:
                                 subst = ["#error CHECK_THAT_THIS_WORKS", subst]
                 elif patch_kind == "nullptr_result_on_py_error":

@@ -18,13 +18,36 @@ include ../../allmake.mak
 
 #----------------------------------------------------------------------
 # default goals
-.PHONY: configs modules pyfiles deployed_modules idapython_modules api_contents pydoc_injections pyqt sip bins public_tree test_idc docs tbd examples_index
-all: configs modules pyfiles deployed_modules idapython_modules api_contents pydoc_injections pyqt sip bins examples_index # public_tree test_idc docs
+.PHONY: configs modules pyfiles deployed_modules idapython_modules api_check api_contents pyqt sip bins public_tree test_idc docs tbd examples_index test_pywraps
+all: configs modules pyfiles deployed_modules idapython_modules api_check api_contents pyqt sip bins examples_index test_pywraps # public_tree test_idc docs
 
 ifeq ($(OUT_OF_TREE_BUILD),)
   IDAPYSWITCH:=$(R)idapyswitch$(B)
   IDAPYSWITCH_DEP:=$(IDAPYSWITCH)
   IDAPYSWITCH_PATH:=$(IDAPYSWITCH)
+  TEST_PYWRAPS_RESULT_FNAME:=test_pywraps$(ADRSIZE).txt
+  ifdef __NT__
+    # On Windows, we cannot afford to use `test_pywraps` during a
+    # debug build: since `test_pywraps.exe` relies on `python3.dll`
+    # (and corresponding headers), Python will force optimized
+    # iterators resulting in errors such as:
+    #    dumb.obj : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in test_pywraps.obj
+
+    # And as it turns out, doing it during an optimized build
+    # is problematic as well, because it'll typically not find
+    # `python3.dll`. I tried to support it by patching `PATH`,
+    # but now we're dealing with cygwin confusion...
+    ifdef NDEBUG
+      HAS_TEST_PYWRAPS:=1
+      PYTHON_ROOT_CYGPATH:=$(shell cygpath $(PYTHON_ROOT))
+      TEST_PYWRAPS_ENV:=PATH="$$PATH:$(PYTHON_ROOT_CYGPATH)"
+    endif
+  else
+    HAS_TEST_PYWRAPS:=1
+  endif
+  ifeq ($(HAS_TEST_PYWRAPS),1)
+    TEST_PYWRAPS:=$(F)$(TEST_PYWRAPS_RESULT_FNAME).marker
+  endif
   BINS += $(IDAPYSWITCH)
 else
   ifdef __NT__
@@ -127,6 +150,7 @@ PYTHON_OBJS += $(F)idapython$(O)
 $(MODULE): MODULE_OBJS += $(PYTHON_OBJS)
 $(MODULE): $(PYTHON_OBJS) $(IDAPYSWITCH_MODULE_DEP) $(TBD_MODULE_DEP)
 ifdef __NT__
+  $(MODULE): OUTDLL = /DLL /NOEXP
   $(MODULE): LDFLAGS += /DEF:$(IDAPYTHON_IMPLIB_DEF) /IMPLIB:$(IDAPYTHON_IMPLIB_PATH)
 endif
 
@@ -143,6 +167,7 @@ PATCH_CONST=$(Q)$(PYTHON) tools/patch_constants.py -i $(1) -o $(2)
 # TODO move this below, but it might be necessary before the defines-*
 ifdef DO_IDAMAKE_SIMPLIFY
   QCHKAPI = @echo $(call qcolor,chkapi) && #
+  QDUMPAPI = @echo $(call qcolor,dumpapi) && #
   QDEPLOY = @echo $(call qcolor,deploy) $$< && #
   QGENDOXYCFG = @echo $(call qcolor,gendoxycfg) $@ && #
   QGENHOOKS = @echo $(call qcolor,genhooks) $< && #
@@ -155,7 +180,6 @@ ifdef DO_IDAMAKE_SIMPLIFY
   QSWIG = @echo $(call qcolor,swig) $$< && #
   QUPDATE_SDK = @echo $(call qcolor,update_sdk) $< && #
   QSPLIT_HEXRAYS_TEMPLATES = @echo $(call qcolor,split_hexrays_templates) $< && #
-  QPYDOC_INJECTIONS = @echo $(call qcolor,check_injections) $@ && #
   QGEN_EXAMPLES_INDEX = @echo $(call qcolor,gen_examples_index) $@ && #
 endif
 
@@ -187,9 +211,9 @@ else
 endif
 
 ifeq ($(OUT_OF_TREE_BUILD),)
-  IDAT_CMD=TVHEADLESS=1 $(IDAT_PATH)$(SUFF64)
+  IDAT_CMD=TVHEADLESS=1 "$(IDAT_PATH)$(SUFF64)"
 else
-  IDAT_CMD=TVHEADLESS=1 IDAPYTHON_DYNLOAD_BASE=$(R) $(IDAT_PATH)$(SUFF64)
+  IDAT_CMD=TVHEADLESS=1 IDAPYTHON_DYNLOAD_BASE=$(R) "$(IDAT_PATH)$(SUFF64)"
 endif
 
 # envvar HAS_HEXRAYS must have been set by build.py if needed
@@ -274,6 +298,7 @@ MODULES_NAMES += pro
 MODULES_NAMES += problems
 MODULES_NAMES += range
 MODULES_NAMES += registry
+MODULES_NAMES += regfinder
 MODULES_NAMES += search
 MODULES_NAMES += segment
 MODULES_NAMES += segregs
@@ -291,6 +316,7 @@ endif
 
 ALL_ST_WRAP_CPP = $(foreach mod,$(MODULES_NAMES),$(ST_WRAP)/$(mod).cpp)
 ALL_ST_WRAP_PY = $(foreach mod,$(MODULES_NAMES),$(ST_WRAP)/ida_$(mod).py)
+ALL_ST_WRAP_PY_FINAL = $(foreach mod,$(MODULES_NAMES),$(ST_WRAP)/ida_$(mod).py.final)
 DEPLOYED_MODULES = $(foreach mod,$(MODULES_NAMES),$(DEPLOY_LIBDIR)/_ida_$(mod)$(PYDLL_EXT))
 IDAPYTHON_MODULES = $(foreach mod,$(MODULES_NAMES),$(DEPLOY_PYDIR)/ida_$(mod).py)
 PYTHON_BINARY_MODULES = $(foreach mod,$(MODULES_NAMES),$(DEPLOY_LIBDIR)/_ida_$(mod)$(PYDLL_EXT))
@@ -617,8 +643,8 @@ CC_DEFS += MISSED_BC695
 CC_DEFS += $(DEF_TYPE_TABLE)
 CC_DEFS += $(WITH_HEXRAYS_DEF)
 CC_DEFS += USE_STANDARD_FILE_FUNCTIONS
-CC_DEFS += VER_MAJOR="7"
-CC_DEFS += VER_MINOR="4"
+CC_DEFS += VER_MAJOR=$(IDAVER_MAJOR)
+CC_DEFS += VER_MINOR=$(IDAVER_MINOR)
 CC_DEFS += VER_PATCH="0"
 CC_DEFS += __EXPR_SRC
 CC_INCP += $(F)
@@ -702,8 +728,12 @@ define make-module-rules
     # the presence of the generated .cpp file, and not other generated
     # files.
 
-    # ../../bin/x86_linux_gcc/python/ida_$(1).py (note: dep. on .cpp. See note above.)
-    $(DEPLOY_PYDIR)/ida_$(1).py: $(ST_WRAP)/$(1).cpp tools/inject_pydoc.py $(PARSED_HEADERS_MARKER) $(call find-pydoc-patches-deps,$(1)) $(call find-patch-codegen-deps,$(1))
+    # ../../bin/x86_linux_gcc/python/ida_$(1).py
+    $(DEPLOY_PYDIR)/ida_$(1).py: $(ST_WRAP)/ida_$(1).py.final
+	$(Q)$(CP) $$< $$@
+
+    # obj/x86_linux_gcc/wrappers/ida_X.py.final (note: dep. on .cpp. See note above.)
+    $(ST_WRAP)/ida_$(1).py.final: $(ST_WRAP)/$(1).cpp tools/inject_pydoc.py $(PARSED_HEADERS_MARKER) $(call find-pydoc-patches-deps,$(1)) $(call find-patch-codegen-deps,$(1))
 	$(QINJECT_PYDOC)$(PYTHON) tools/inject_pydoc.py \
                 --xml-doc-directory $(ST_PARSED_HEADERS) \
                 --module $(1) \
@@ -817,62 +847,46 @@ endif
 
 #----------------------------------------------------------------------
 ifdef TESTABLE_BUILD
-API_CONTENTS = api_contents$(EXTRASUF1)$(PYTHON_VERSION_MAJOR).txt
+  API_CONTENTS = api_contents$(EXTRASUF1).brief
 else
-API_CONTENTS = release_api_contents$(EXTRASUF1)$(PYTHON_VERSION_MAJOR).txt
+  API_CONTENTS = api_contents$(EXTRASUF1).full
+  API_CONTENTS_OPTS := --dump-doc
 endif
 ST_API_CONTENTS = $(F)$(API_CONTENTS)
 ST_API_CONTENTS_SUCCESS = $(ST_API_CONTENTS).success
 .PRECIOUS: $(ST_API_CONTENTS)
 
 api_contents: $(ST_API_CONTENTS_SUCCESS)
-$(ST_API_CONTENTS_SUCCESS): $(ALL_ST_WRAP_CPP)
 ifeq ($(or $(__CODE_CHECKER__),$(NO_CMP_API),$(__ASAN__),$(IDAHOME),$(DEMO_OR_FREE)),)
-	$(QCHKAPI)$(PYTHON) tools/chkapi.py $(WITH_HEXRAYS_CHKAPI) -i $(subst $(space),$(comma),$(ALL_ST_WRAP_CPP)) -p $(subst $(space),$(comma),$(ALL_ST_WRAP_PY)) -r $(ST_API_CONTENTS)
+$(ST_API_CONTENTS_SUCCESS): $(ALL_ST_WRAP_PY_FINAL) $(API_CONTENTS) tools/py_scanner.py
+	$(QDUMPAPI)$(PYTHON) tools/py_scanner.py --dump-kind $(API_CONTENTS_OPTS) --paths $(subst $(space),$(comma),$(ALL_ST_WRAP_PY_FINAL)) > $(ST_API_CONTENTS)
   ifeq ($(OUT_OF_TREE_BUILD),)
-    ifdef CMP_API # turn off comparison when bw-compat is off, or api_contents will differ
-	$(Q)(diff -w $(API_CONTENTS) $(ST_API_CONTENTS)) > /dev/null || \
+	$(Q)((diff -w $(API_CONTENTS) $(ST_API_CONTENTS)) > /dev/null && touch $@) || \
           (echo "API CONTENTS CHANGED! update $(API_CONTENTS) or fix the API" && \
            echo "(New API: $(ST_API_CONTENTS)) ***" && \
-           (diff -U 1 -w $(API_CONTENTS) $(ST_API_CONTENTS) && false))
-    endif
+           (diff -U 1 -w $(API_CONTENTS) $(ST_API_CONTENTS); true))
+  else
+	$(Q)touch $@
   endif
+else
+$(ST_API_CONTENTS_SUCCESS): $(ALL_ST_WRAP_PY_FINAL) tools/py_scanner.py
+	$(Q)touch $@
+endif
+
+#-------------------------------------------------------------------------
+ST_API_CHECK_SUCCESS := $(F)api_check.success
+api_check: $(ST_API_CHECK_SUCCESS)
+$(ST_API_CHECK_SUCCESS): $(ALL_ST_WRAP_CPP)
+ifeq ($(or $(__CODE_CHECKER__),$(NO_CMP_API),$(__ASAN__),$(IDAHOME),$(DEMO_OR_FREE)),)
+	$(QCHKAPI)$(PYTHON) tools/chkapi.py $(WITH_HEXRAYS_CHKAPI) -i $(subst $(space),$(comma),$(ALL_ST_WRAP_CPP)) -p $(subst $(space),$(comma),$(ALL_ST_WRAP_PY))
 endif
 	$(Q)touch $@
-
-#----------------------------------------------------------------------
-# Check that doc injection is stable
-ifdef TESTABLE_BUILD
-PYDOC_INJECTIONS = pydoc_injections$(EXTRASUF1)$(PYTHON_VERSION_MAJOR).txt
-else
-PYDOC_INJECTIONS = release_pydoc_injections$(EXTRASUF1)$(PYTHON_VERSION_MAJOR).txt
-endif
-ST_PYDOC_INJECTIONS = $(F)$(PYDOC_INJECTIONS)
-ST_PYDOC_INJECTIONS_SUCCESS = $(ST_PYDOC_INJECTIONS).success
-.PRECIOUS: $(ST_PYDOC_INJECTIONS)
 
 ifdef __EA64__
   DUMPDOC_IS_64:=True
 else
   DUMPDOC_IS_64:=False
 endif
-
-ifndef NOTEAMS
-  VAULT_SERVER_OPTS=-Ovault:host=$(TEAMS_BUILD_HOST):port=$(TEAMS_BUILD_PORT):user=$(TEAMS_BUILD_USER):pass=$(TEAMS_BUILD_PASS)
-endif
-
-PYDOC_INJECTIONS_IDAT_CMD=$(IDAT_CMD) $(BATCH_SWITCH) $(VAULT_SERVER_OPTS) -S"$< $(ST_PYDOC_INJECTIONS) $(ST_WRAP) $(DUMPDOC_IS_64)" -t -L$(F)dumpdoc.log >/dev/null
-pydoc_injections: $(ST_PYDOC_INJECTIONS_SUCCESS)
-$(ST_PYDOC_INJECTIONS_SUCCESS): tools/dumpdoc.py $(IDAPYTHON_MODULES) $(PYTHON_BINARY_MODULES)
-ifeq ($(or $(__CODE_CHECKER__),$(NO_CMP_API),$(__ASAN__),$(IDAHOME),$(DEMO_OR_FREE)),)
-	$(QPYDOC_INJECTIONS)$(PYDOC_INJECTIONS_IDAT_CMD) || \
-	 (echo "Command \"$(PYDOC_INJECTIONS_IDAT_CMD)\" failed. Check \"$(F)dumpdoc.log\" for details." && false)
-	$(Q)(diff -w $(PYDOC_INJECTIONS) $(ST_PYDOC_INJECTIONS)) > /dev/null || \
-          (echo "PYDOC INJECTION CHANGED! update $(PYDOC_INJECTIONS) or fix .. what needs fixing" && \
-           echo "(New API: $(ST_PYDOC_INJECTIONS)) ***" && \
-           (diff -U 1 -w $(PYDOC_INJECTIONS) $(ST_PYDOC_INJECTIONS) && false))
-endif
-	$(Q)touch $@
 
 #----------------------------------------------------------------------
 DOCS_MODULES=$(foreach mod,$(MODULES_NAMES),ida_$(mod))
@@ -934,6 +948,34 @@ ifdef __NT__
   endif
 endif
 $(R)idapyswitch$(B): $(call dumb_target, pro, $(IDAPYSWITCH_OBJS))
+
+#----------------------------------------------------------------------
+TEST_PYWRAPS_OBJS += $(F)test_pywraps$(O)
+TEST_PYWRAPS_DEPS := pywraps.cpp pywraps.hpp extapi.cpp extapi.hpp
+$(F)test_pywraps$(O): $(PARSED_HEADERS_MARKER) $(TEST_PYWRAPS_DEPS)
+ifdef __NT__
+  ifneq ($(OUT_OF_TREE_BUILD),)
+     # SDK provides only MT libraries
+     $(F)test_pywraps$(O): RUNTIME_LIBSW=/MT
+  endif
+endif
+$(R)test_pywraps$(B): $(call dumb_target, json idc unicode pro, $(TEST_PYWRAPS_OBJS)) $(PYTHON_LDFLAGS)
+
+$(F)$(TEST_PYWRAPS_RESULT_FNAME).marker: $(R)test_pywraps$(B)
+	$(Q)$(TEST_PYWRAPS_ENV) $(R)test_pywraps$(B) > $(F)$(TEST_PYWRAPS_RESULT_FNAME)
+  ifeq ($(OUT_OF_TREE_BUILD),)
+	$(Q)((diff -w $(TEST_PYWRAPS_RESULT_FNAME) $(F)$(TEST_PYWRAPS_RESULT_FNAME)) > /dev/null && touch $@) || \
+          (echo "$(TEST_PYWRAPS_RESULT_FNAME) changed" && \
+           (diff -U 1 -w $(TEST_PYWRAPS_RESULT_FNAME) $(F)$(TEST_PYWRAPS_RESULT_FNAME); true))
+  else
+	$(Q)touch $@
+  endif
+
+ifdef __CODE_CHECKER__
+  test_pywraps: ;
+else
+test_pywraps: $(TEST_PYWRAPS)
+endif
 
 #----------------------------------------------------------------------
 ifdef __MAC__
@@ -1071,6 +1113,7 @@ $(F)idapyswitch$(O): $(I)auto.hpp $(I)bitrange.hpp $(I)bytes.hpp            \
                   ../../ldr/mach-o/h/sys/_symbol_aliasing.h                 \
                   ../../ldr/mach-o/h/sys/cdefs.h                            \
                   ../../ldr/mach-o/macho_node.h                             \
+                  ../../ldr/mach-o/strtab_reader_t.h                        \
                   ../../ldr/mach-o/uncompress.cpp ../../ldr/pe/../idaldr.h  \
                   ../../ldr/pe/common.cpp ../../ldr/pe/common.h             \
                   ../../ldr/pe/pe.h idapyswitch.cpp idapyswitch_linux.cpp   \
@@ -1083,5 +1126,14 @@ $(F)idapython$(O): $(I)bitrange.hpp $(I)bytes.hpp $(I)config.hpp            \
                   $(I)llong.hpp $(I)loader.hpp $(I)nalt.hpp $(I)name.hpp    \
                   $(I)netnode.hpp $(I)parsejson.hpp $(I)pro.h               \
                   $(I)range.hpp $(I)segment.hpp $(I)typeinf.hpp $(I)ua.hpp  \
-                  $(I)xref.hpp extapi.cpp                                   \
-                  extapi.hpp idapython.cpp pywraps.cpp pywraps.hpp
+                  $(I)xref.hpp extapi.hpp idapython.cpp pywraps.cpp         \
+                  pywraps.hpp
+$(F)test_pywraps$(O): $(I)bitrange.hpp $(I)bytes.hpp $(I)config.hpp         \
+                  $(I)err.h $(I)expr.hpp $(I)fpro.h $(I)funcs.hpp           \
+                  $(I)gdl.hpp $(I)graph.hpp $(I)ida.hpp $(I)idd.hpp         \
+                  $(I)idp.hpp $(I)ieee.h $(I)kernwin.hpp $(I)lex.hpp        \
+                  $(I)lines.hpp $(I)llong.hpp $(I)loader.hpp $(I)nalt.hpp   \
+                  $(I)name.hpp $(I)netnode.hpp $(I)parsejson.hpp $(I)pro.h  \
+                  $(I)range.hpp $(I)segment.hpp $(I)typeinf.hpp $(I)ua.hpp  \
+                  $(I)xref.hpp extapi.cpp extapi.hpp pywraps.cpp            \
+                  pywraps.hpp test_pywraps.cpp

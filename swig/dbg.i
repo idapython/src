@@ -87,6 +87,11 @@
 %get_process_options_out_qstring(sdir);
 %get_process_options_out_qstring(host);
 %get_process_options_out_qstring(pass);
+%typemap(in, numinputs=0) launch_env_t *envs (launch_env_t temp)
+{
+  // %typemap(in, numinputs=0) launch_env_t *envs (launch_envs_t temp)
+  $1 = &temp;
+}
 %apply int *OUTPUT { int *port };
 
 // specialize for 'get_process_options()'s first output

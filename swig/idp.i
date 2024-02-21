@@ -58,6 +58,7 @@ struct undo_records_t;
 %ignore processor_t::ensure_processor;
 %ignore processor_t::lvar_off;
 %ignore processor_t::is_lumina_usable;
+%ignore processor_t::get_regfinder();
 // The following are queried by the "scripting" processor module support
 %ignore processor_t::id;
 %ignore processor_t::flag;

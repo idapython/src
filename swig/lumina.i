@@ -178,7 +178,7 @@
   resultobj = qstrvec2pylist(*($1));
 }
 
-%numbers_list_to_values_vec(ea64vec_t, SWIGTYPE_p_qvectorT_unsigned_long_long_t, PyW_PyListToEa64Vec);
+%numbers_list_to_values_vec(ea64vec_t, SWIGTYPE_p_qvectorT_unsigned_long_long_t, PyW_PySeqToEa64Vec);
 
 %include "lumina.hpp"
 

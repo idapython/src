@@ -223,7 +223,7 @@ class idb_logger_hooks_t(ida_idp.IDB_Hooks):
     def loader_finished(self, li, neflags, filetypename):
         return self._log()
 
-    def local_types_changed(self):
+    def local_types_changed(self, ltc, ordinal, name):
         return self._log()
 
     def make_code(self, insn):

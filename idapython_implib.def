@@ -9,10 +9,11 @@ EXPORTS
   PyW_StrVecToPyList
   PyW_IsSequenceType
   PyW_ObjectToString
-  PyW_PyListToEaVec
-  PyW_PyListToEa64Vec
-  PyW_PyListToSizeVec
-  PyW_PyListToStrVec
+  PyW_PySeqToEaVec
+  PyW_PySeqToTidVec
+  PyW_PySeqToEa64Vec
+  PyW_PySeqToSizeVec
+  PyW_PySeqToStrVec
   PyW_from_jvalue_t
   PyW_to_jvalue_t
   PyW_from_jobj_t
@@ -47,7 +48,7 @@ EXPORTS
   python_timer_del
   pyvar_to_idcvar
   pyvar_to_idcvar_or_error
-  pyvar_walk_list
+  pyvar_walk_seq
   pyw_convert_idc_args
   set_script_timeout
   set_interruptible_state

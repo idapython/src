@@ -67,7 +67,7 @@ else:
 
 # creates a regular expression
 def make_re(tag, module, prefix):
-    s = '%(p)s<%(tag)s\(%(m)s\)>(.+?)%(p)s</%(tag)s\(%(m)s\)>' % {'m': module, 'tag': tag, 'p': prefix}
+    s = r'%(p)s<%(tag)s\(%(m)s\)>(.+?)%(p)s</%(tag)s\(%(m)s\)>' % {'m': module, 'tag': tag, 'p': prefix}
     return (s, re.compile(s, re.DOTALL))
 
 

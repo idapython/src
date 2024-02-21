@@ -59,4 +59,6 @@ struct ext_api_t
   void clear();
 };
 
+extern ext_api_t extapi;
+
 #endif // EXTAPI_HPP

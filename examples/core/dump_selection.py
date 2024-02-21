@@ -12,32 +12,37 @@ description:
     * select some text in one of the listing widgets (i.e.,
       "IDA View-*", "Enums", "Structures", "Pseudocode-*")
     * press Ctrl+Shift+S to dump the selection
-
 """
 
 import ida_kernwin
 import ida_lines
 
+def get_widget_lines(widget, tp0, tp1):
+    """
+    get lines between places tp0 and tp1 in widget
+    """
+    ud = ida_kernwin.get_viewer_user_data(widget)
+    lnar = ida_kernwin.linearray_t(ud)
+    lnar.set_place(tp0.at)
+    lines = []
+    while True:
+        cur_place = lnar.get_place()
+        first_line_ref = ida_kernwin.l_compare2(cur_place, tp0.at, ud)
+        last_line_ref = ida_kernwin.l_compare2(cur_place, tp1.at, ud)
+        if last_line_ref > 0: # beyond last line
+            break
+        line = ida_lines.tag_remove(lnar.down())
+        if last_line_ref == 0: # at last line
+            line = line[0:tp1.x]
+        elif first_line_ref == 0: # at first line
+            line = ' ' * tp0.x + line[tp0.x:]
+        lines.append(line)
+    return lines
+
 class dump_selection_handler_t(ida_kernwin.action_handler_t):
     def activate(self, ctx):
         if ctx.has_flag(ida_kernwin.ACF_HAS_SELECTION):
-            tp0, tp1 = ctx.cur_sel._from, ctx.cur_sel.to
-            ud = ida_kernwin.get_viewer_user_data(ctx.widget)
-            lnar = ida_kernwin.linearray_t(ud)
-            lnar.set_place(tp0.at)
-            lines = []
-            while True:
-                cur_place = lnar.get_place()
-                first_line_ref = ida_kernwin.l_compare2(cur_place, tp0.at, ud)
-                last_line_ref = ida_kernwin.l_compare2(cur_place, tp1.at, ud)
-                if last_line_ref > 0: # beyond last line
-                    break
-                line = ida_lines.tag_remove(lnar.down())
-                if last_line_ref == 0: # at last line
-                    line = line[0:tp1.x]
-                elif first_line_ref == 0: # at first line
-                    line = ' ' * tp0.x + line[tp0.x:]
-                lines.append(line)
+            lines = get_widget_lines(ctx.widget, ctx.cur_sel._from, ctx.cur_sel.to)
             for line in lines:
                 print(line)
         return 1
@@ -69,3 +74,12 @@ if ida_kernwin.register_action(
             dump_selection_handler_t(),
             ACTION_SHORTCUT)):
     print("Registered action \"%s\"" % ACTION_NAME)
+
+# dump current selection
+p0 = ida_kernwin.twinpos_t()
+p1 = ida_kernwin.twinpos_t()
+view = ida_kernwin.get_current_viewer()
+if ida_kernwin.read_selection(view, p0, p1):
+    lines = get_widget_lines(view, p0, p1)
+    print("\n".join(lines))
+

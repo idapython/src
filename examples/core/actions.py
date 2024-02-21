@@ -79,7 +79,7 @@ act_name = "example:add_action"
 
 if ida_kernwin.register_action(ida_kernwin.action_desc_t(
         act_name,           # Name. Acts as an ID. Must be unique.
-        "Say hi!",          # Label. That's what users see.
+        "Say ~h~i!",        # Label. That's what users see. Can have an accelerator key specified between '~'
         SayHi("developer"), # Handler. Called when activated, and for updating
         "Ctrl+F12",         # Shortcut (optional)
         "Greets the user",  # Tooltip (optional)

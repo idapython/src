@@ -92,4 +92,13 @@ if ( __argcnt == 2 )
             "(swig_get_self(), (PyObject *) swig_method_name ,(PyObject *)obj0,(__argcnt < 3 ? nullptr : (PyObject *)obj1), nullptr)")
         ),
     ],
+
+    "SwigDirector_IDB_Hooks::local_types_changed" : [
+        ("director_method_call_arity_cap", (
+            False, # add GIL lock
+            "local_types_changed",
+            "(method ,(__argcnt < 2 ? nullptr : (PyObject *)obj0), (__argcnt < 2 ? nullptr : (PyObject *)obj1), (__argcnt < 2 ? nullptr : (PyObject *)obj2), nullptr)",
+            "(swig_get_self(), (PyObject *) swig_method_name ,(__argcnt < 2 ? nullptr : (PyObject *)obj0), (__argcnt < 2 ? nullptr : (PyObject *)obj1), (__argcnt < 2 ? nullptr : (PyObject *)obj2), nullptr)")
+        ),
+    ],
 }

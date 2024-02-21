@@ -14,8 +14,11 @@ import ida_idaapi
 import ida_hexrays
 import ida_lines
 
+do_dbg = False
+
 def dbg(msg):
-    #print(msg)
+    if do_dbg:
+        print(msg)
     pass
 
 def is_cident_char(c):
@@ -23,13 +26,19 @@ def is_cident_char(c):
 
 def my_tag_skipcodes(l, storage):
     n = ida_lines.tag_skipcodes(l)
-    dbg("Skipping %d chars ('%s')" % (n, l[0:n]))
-    storage.append(l[0:n])
+    if n > 0:
+        dbg("Skipping %d chars ('%s')" % (n, l[0:n]))
+        storage.append(l[0:n])
     return l[n:]
 
 def remove_spaces(sl):
+
     dbg("*" * 80)
     l = sl.line
+
+    global do_dbg
+    # do_dbg = l.find("const char *") > -1
+
     out = []
 
     def push(c):
@@ -37,25 +46,34 @@ def remove_spaces(sl):
         out.append(c)
 
     # skip initial spaces, do not compress them
-    while True:
-        l = my_tag_skipcodes(l, out)
-        if not l:
-            break
-        c = l[0]
-        if not c.isspace():
-            break
-        push(c)
-        l = l[1:]
+    def eat_spaces(l):
+        while True:
+            l = my_tag_skipcodes(l, out)
+            if not l:
+                break
+            c = l[0]
+            if not c.isspace():
+                break
+            push(c)
+            l = l[1:]
+        return l
+    l = eat_spaces(l)
 
     # remove all spaces except in string and char constants
     delim = None # if not None, then we are skipping until 'delim'
     last = None # last seen character
+
     while True:
+        dbg("-" * 60)
+        dbg("l: '%s'" % l)
+        dbg("d: '%s'" % delim)
+        dbg("out: '%s'" % out)
+
         # go until comments
+        l = my_tag_skipcodes(l, out)
         if l.startswith("//"):
             push(l)
             break
-        dbg("-" * 60)
         nchars = ida_lines.tag_advance(l, 1)
         push(l[0:nchars])
         l = l[nchars:]

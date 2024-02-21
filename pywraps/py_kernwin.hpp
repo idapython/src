@@ -685,7 +685,7 @@ static bool py_execute_ui_requests(PyObject *py_list)
     // Walk the list and extract all callables
     bool init(PyObject *py_list)
     {
-      Py_ssize_t count = pyvar_walk_list(
+      Py_ssize_t count = pyvar_walk_seq(
               py_list,
               s_py_list_walk_cb,
               this);

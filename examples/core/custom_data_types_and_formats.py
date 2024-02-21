@@ -14,9 +14,9 @@ description:
 import ida_bytes
 import ida_idaapi
 import ida_lines
-import ida_struct
 import ida_netnode
 import ida_nalt
+import ida_typeinf
 
 import sys
 import struct
@@ -37,7 +37,8 @@ class pascal_data_type(ida_bytes.data_type_t):
     def calc_item_size(self, ea, maxsize):
         # Custom data types may be used in structure definitions. If this case
         # ea is a member id. Check for this situation and return 1
-        if ida_struct.is_member_id(ea):
+        tif = ida_typeinf.tinfo_t()
+        if tif.get_udm_by_tid(None, ea) != -1:
             return 1
 
         # get the length byte
@@ -87,7 +88,8 @@ class simplevm_data_type(ida_bytes.data_type_t):
             asm_keyword)
 
     def calc_item_size(self, ea, maxsize):
-        if ida_struct.is_member_id(ea):
+        tif = ida_typeinf.tinfo_t()
+        if tif.get_udm_by_tid(None, ea) != -1:
             return 1
         # get the opcode and see if it has an imm
         n = 5 if (ida_bytes.get_byte(ea) & 3) == 0 else 1

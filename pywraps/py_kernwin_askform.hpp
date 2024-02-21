@@ -8,6 +8,9 @@
 //<inline(py_kernwin_askform)>
 #define DECLARE_FORM_ACTIONS form_actions_t *fa = (form_actions_t *)p_fa;
 
+#ifdef TESTABLE_BUILD
+#include <features.hpp>
+#endif
 //---------------------------------------------------------------------------
 static bool textctrl_info_t_assign(PyObject *self, PyObject *other)
 {
@@ -313,7 +316,7 @@ static bool formchgcbfa_set_field_value(
       {
         sizevec_t selection;
         if ( !PySequence_Check(py_val)
-          || PyW_PyListToSizeVec(&selection, py_val) < 0 )
+          || PyW_PySeqToSizeVec(&selection, py_val) < 0 )
         {
           break;
         }
@@ -350,6 +353,9 @@ static size_t py_get_open_form()
 
 static void py_register_compiled_form(PyObject *py_form)
 {
+#ifdef TESTABLE_BUILD
+  add_test_feature("idapy:askform");
+#endif
   PyW_register_compiled_form(py_form);
 }
 

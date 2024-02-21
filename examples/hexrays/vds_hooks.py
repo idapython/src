@@ -163,7 +163,13 @@ class vds_hooks_t(ida_hexrays.Hexrays_Hooks):
     def cmt_changed(self, cfunc, loc, cmt):
         return self._log()
 
-    def build_callinfo(self, *args):
+    def build_callinfo(self, blk, type):
+        return self._log()
+
+    def callinfo_built(self, blk):
+        return self._log()
+
+    def calls_done(self, mba):
         return self._log()
 
 vds_hooks = vds_hooks_t()

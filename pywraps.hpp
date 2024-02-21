@@ -492,11 +492,12 @@ idaman int ida_export pyvar_to_idcvar(
         int *gvar_sn=nullptr);
 
 //-------------------------------------------------------------------------
-// Walks a Python list or Sequence and calls the callback
-idaman Py_ssize_t ida_export pyvar_walk_list(
+// Walks a Python sequence and calls the callback
+idaman Py_ssize_t ida_export pyvar_walk_seq(
         PyObject *py_list,
         int (idaapi *cb)(const ref_t &py_item, Py_ssize_t index, void *ud)=nullptr,
-        void *ud = nullptr);
+        void *ud = nullptr,
+        size_t maxsize=size_t(-1));
 
 // Converts a vector to a Python list object
 idaman ref_t ida_export PyW_SizeVecToPyList(const sizevec_t &vec);
@@ -507,9 +508,10 @@ idaman ref_t ida_export PyW_StrVecToPyList(const qstrvec_t &vec);
 // An exception will be raised in case:
 //  - py_list is not a sequence
 //  - a member of py_list cannot be converted to the numeric target type
-idaman Py_ssize_t ida_export PyW_PyListToSizeVec(sizevec_t *out, PyObject *py_list);
-idaman Py_ssize_t ida_export PyW_PyListToEaVec(eavec_t *out, PyObject *py_list);
-idaman Py_ssize_t ida_export PyW_PyListToStrVec(qstrvec_t *out, PyObject *py_list);
+idaman Py_ssize_t ida_export PyW_PySeqToSizeVec(sizevec_t *out, PyObject *py_list, size_t maxsize=size_t(-1));
+idaman Py_ssize_t ida_export PyW_PySeqToEaVec(eavec_t *out, PyObject *py_list, size_t maxsize=size_t(-1));
+idaman Py_ssize_t ida_export PyW_PySeqToStrVec(qstrvec_t *out, PyObject *py_list, size_t maxsize=size_t(-1));
+idaman Py_ssize_t ida_export PyW_PySeqToTidVec(qvector<tid_t> *out, PyObject *py_list, size_t maxsize=size_t(-1));
 
 idaman PyObject *ida_export PyW_from_jvalue_t(const jvalue_t &v);
 idaman bool ida_export PyW_to_jvalue_t(jvalue_t *out, PyObject *py);
@@ -524,7 +526,7 @@ typedef uint64 ea64_t;
 #endif
 typedef qvector<ea64_t> ea64vec_t;
 #endif // LUMINA_HPP
-idaman Py_ssize_t ida_export PyW_PyListToEa64Vec(ea64vec_t *out, PyObject *py_list);
+idaman Py_ssize_t ida_export PyW_PySeqToEa64Vec(ea64vec_t *out, PyObject *py_list, size_t maxsize=size_t(-1));
 
 //-------------------------------------------------------------------------
 #include <idd.hpp>

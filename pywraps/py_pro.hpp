@@ -43,7 +43,7 @@ static bool qstrvec_t_from_list(
   qstrvec_t *sv = qstrvec_t_get_clink(self);
   return (sv == nullptr || !PySequence_Check(py_list))
        ? false
-       : (PyW_PyListToStrVec(sv, py_list) >= 0);
+       : (PyW_PySeqToStrVec(sv, py_list) >= 0);
 }
 
 static size_t qstrvec_t_size(PyObject *self)

@@ -3,6 +3,8 @@
 #include <struct.hpp>
 %}
 
+%constant bmask64_t DEFMASK64 = bmask64_t(-1);
+
 // Most of these could be wrapped if needed
 %ignore get_cc;
 %ignore get_effective_cc;
@@ -47,6 +49,8 @@
 
 %ignore get_numbered_type(const til_t *, uint32, const type_t **, const p_list **, const char **, const p_list **, sclass_t *);
 %rename (get_numbered_type) py_get_numbered_type;
+
+%ignore NTF_NOSYNC;
 
 %ignore skipName;
 %ignore extract_comment;
@@ -112,7 +116,6 @@
 %ignore is_stkarg_load_t;
 %ignore has_delay_slot_t;
 %ignore gen_use_arg_types;
-%ignore enable_numbered_types;
 %ignore compact_numbered_types;
 
 %ignore callregs_t::findreg;
@@ -129,15 +132,34 @@
 %ignore bitfield_type_data_t::serialize;
 %ignore func_type_data_t::serialize;
 %ignore func_type_data_t::deserialize;
-%ignore tinfo_t::serialize(qtype *, qtype *, qtype *, int) const;
 %ignore name_requires_qualifier;
 %ignore tinfo_visitor_t::level;
-%ignore tinfo_t::deserialize(const til_t *, const qtype *, const qtype *, const qtype *);
+%ignore tinfo_t::serialize(qtype *, qtype *, qtype *, int) const;
+%ignore tinfo_t::deserialize(const til_t *, const qtype *, const qtype *, const qtype *, const char *);
+%ignore tinfo_get_innermost_udm;
+%ignore save_tinfo2;
+// Let's declare our own version of `deserialize_tinfo2` before
+// SWiG hits the one that's in `typeinf.hpp` (and cannot, alas,
+// enjoy the addition of the default value.)
+%rename (deserialize_tinfo) deserialize_tinfo2;
+%inline %{
+idaman bool ida_export deserialize_tinfo2(tinfo_t *tif, const til_t *til, const type_t **ptype, const p_list **pfields, const p_list **pfldcmts, const char *cmt=nullptr);
+%}
+%ignore deserialize_tinfo;
+%ignore deserialize_tinfo2;
+%ignore get_udm_by_tid(tinfo_t *tif, udm_t *udm, tid_t tid);
+%ignore get_edm_by_tid(tinfo_t *tif, edm_t *edm, tid_t tid);
+%ignore get_type_by_tid(tinfo_t *tif, tid_t tid);
+%ignore get_tinfo_by_edm_name(tinfo_t *tif, til_t *til, const char *mname);
+%ignore value_repr_t__parse_value_repr;
+%ignore enum_type_data_t__set_value_repr;
 
 %ignore custloc_desc_t;
 %ignore install_custom_argloc;
 %ignore remove_custom_argloc;
 %ignore retrieve_custom_argloc;
+%ignore enum_type_visitor_t;
+%ignore visit_edms;
 
 %make_argout_errbuf_raise_when_null_result();
 
@@ -192,6 +214,9 @@
   }
 }
 
+%apply size_t *OUTPUT {size_t *out_index};
+%apply uint64 *OUTPUT {uint64 *out_bitoffset};
+
 //---------------------------------------------------------------------
 %define %tinfo_t_or_simple_tinfo_t_container_lifecycle(Type)
 // Instead of re-defining all constructors, add the registering
@@ -219,23 +244,30 @@
 // as it would call til_register_python_tinfo_t_instance() a second time
 // after '%typemap(out) tinfo_t *' already did it.
 %extend tinfo_t {
-  ~tinfo_t(void)
+  ~tinfo_t()
   {
     til_deregister_python_tinfo_t_instance($self);
     delete $self;
   }
 }
 
-%ignore tinfo_t::~tinfo_t(void);
+%ignore tinfo_t::~tinfo_t();
 
 %template(funcargvec_t)      qvector<funcarg_t>;
 %template(reginfovec_t)      qvector<reg_info_t>;
-%template(enum_member_vec_t) qvector<enum_member_t>;
+%template(edmvec_t)          qvector<edm_t>;
 %template(argpartvec_t)      qvector<argpart_t>;
 %uncomparable_elements_qvector(valstr_t, valstrvec_t);
 %uncomparable_elements_qvector(regobj_t, regobjvec_t);
 %uncomparable_elements_qvector(type_attr_t, type_attrs_t);
-%template(udtmembervec_template_t) qvector<udt_member_t>;
+
+%extend value_repr_t
+{
+  inline qstring __str__() const { qstring tmp; $self->print(&tmp); return tmp; }
+}
+%template(udtmembervec_template_t) qvector<udm_t>;
+%ignore udt_type_data_t::VERSION;
+%ignore udt_type_data_old_t;
 
 %extend tinfo_t {
   PyObject *get_attr(const qstring &key, bool all_attrs=true)
@@ -264,7 +296,7 @@
 %typemap(in) const sclass_t * {
   // %typemap(in) const sclass_t *
   if ( $input == Py_None )
-    $1 = new sclass_t(sc_unk);
+    $1 = new sclass_t(SC_UNK);
   else if ( PyLong_Check($input) )
     $1 = new sclass_t(sclass_t(PyLong_AsLong($input)));
   else

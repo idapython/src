@@ -426,7 +426,8 @@ class __cbhooks_t(Hexrays_Hooks):
     def create_hint(self, *args): return self.callback(hxe_create_hint, *args)
     def text_ready(self, *args): return self.callback(hxe_text_ready, *args)
     def populating_popup(self, *args): return self.callback(hxe_populating_popup, *args)
-
+    # NOTE: Do not add support for new notifications here;
+    # non-Hexrays_Hooks callbacks are deprecated.
 
 def install_hexrays_callback(callback):
     "Deprecated. Please use Hexrays_Hooks instead"

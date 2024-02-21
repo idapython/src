@@ -24,7 +24,7 @@ class my_funcs_t(ida_kernwin.Choose):
             [ ["Address", 10 | ida_kernwin.Choose.CHCOL_HEX],
               ["Name",    30 | ida_kernwin.Choose.CHCOL_PLAIN | ida_kernwin.Choose.CHCOL_FNAME] ])
         self.items = []
-        self.icon = 41
+        self.icon = ida_kernwin.get_icon_id_by_name("resources/menu/OpenFunctions.svg")
 
     def OnInit(self):
         self.items = [ [hex(x), ida_funcs.get_func_name(x), x]

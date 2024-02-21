@@ -11,8 +11,7 @@ import binascii
 import ida_idp
 import ida_bytes
 import ida_nalt
-import ida_struct
-import ida_enum
+import ida_typeinf
 
 class operand_changed_t(ida_idp.IDB_Hooks):
     def log(self, msg):
@@ -26,9 +25,14 @@ class operand_changed_t(ida_idp.IDB_Hooks):
         opi = ida_bytes.get_opinfo(buf, ea, n, flags)
         if opi:
             if ida_bytes.is_struct(flags):
-                self.log("New struct: 0x%08X (name=%s)" % (
-                    opi.tid,
-                    ida_struct.get_struc_name(opi.tid)))
+                tif = ida_typeinf.tinfo_t()
+                if tif.get_type_by_tid(opi.tid):
+                    self.log("New struct: 0x%08X ordinal: %d (name=%s)" % (
+                        tif.get_tid(),
+                        tif.get_ordinal(),
+                        tif.get_type_name()))
+                else:
+                    self.log("Failed tif")
             elif ida_bytes.is_strlit(flags):
                 encidx = ida_nalt.get_str_encoding_idx(opi.strtype)
                 if encidx == ida_nalt.STRENC_DEFAULT:
@@ -50,16 +54,21 @@ class operand_changed_t(ida_idp.IDB_Hooks):
                     opi.ri.tdelta,
                     opi.ri.flags))
             elif ida_bytes.is_enum(flags, n):
-                self.log("New enum: 0x%08X (enum=%s), serial=%d" % (
-                    opi.ec.tid,
-                    ida_enum.get_enum_name(opi.ec.tid),
-                    opi.ec.serial))
+                tif = ida_typeinf.tinfo_t()
+                if tif.get_type_by_tid(opi.ec.tid):
+                    self.log("New enum: 0x%08X ordinal: %d (enum=%s), serial=%d" % (
+                        opi.ec.tid,
+                        tif.get_ordinal(),
+                        tif.get_type_name(),
+                        opi.ec.serial))
+                else:
+                    self.log("Failed tif")
                 pass
             elif ida_bytes.is_stroff(flags, n):
                 parts = []
                 for i in range(opi.path.len):
                     tid = opi.path.ids[i]
-                    parts.append("0x%08X (name=%s)" % (tid, ida_struct.get_struc_name(tid)))
+                    parts.append("0x%08X (name=%s)" % (tid, ida_typeinf.get_tid_name(tid)))
                 self.log("New stroff: path=[%s] (len=%d, delta=0x%08X)" % (
                     ", ".join(parts),
                     opi.path.len,

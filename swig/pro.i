@@ -85,6 +85,7 @@
 %ignore qhandle_t;
 %ignore qstrlen;
 %ignore qstrcmp;
+%ignore qstrncmp;
 %ignore qstrstr;
 %ignore qstrchr;
 %ignore qstrrchr;

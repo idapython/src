@@ -2,7 +2,7 @@ from __future__ import print_function
 # -----------------------------------------------------------------------
 # VirusTotal IDA Plugin
 # By Elias Bachaalany <elias at hex-rays.com>
-# (c) Hex-Rays 2011-2023
+# (c) Hex-Rays 2011-2024
 #
 # Special thanks:
 # - VirusTotal team

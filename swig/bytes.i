@@ -38,6 +38,7 @@
 %ignore bin_search; // we redefine our own, w/ 2 params swapped, so we can apply the typemaps below
 %rename (bin_search) py_bin_search;
 %rename (bin_search) bin_search2;
+%rename (op_stroff) py_op_stroff;
 %ignore bin_search2(ea_t, ea_t, const uchar *, const uchar *, size_t, int);
 %ignore bytes_match_for_bin_search;
 

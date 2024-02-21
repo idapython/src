@@ -336,29 +336,27 @@ Usage of the API to create & populate a structure with
 members of different types.
 
 #### Uses
-* ida_bytes.FF_BYTE
-* ida_bytes.FF_DATA
-* ida_bytes.FF_DOUBLE
-* ida_bytes.FF_DWORD
-* ida_bytes.FF_FLOAT
-* ida_bytes.FF_OWORD
-* ida_bytes.FF_PACKREAL
-* ida_bytes.FF_QWORD
-* ida_bytes.FF_STRLIT
-* ida_bytes.FF_STRUCT
-* ida_bytes.FF_TBYTE
-* ida_bytes.FF_WORD
-* ida_bytes.off_flag
-* ida_bytes.stroff_flag
-* ida_idaapi.BADADDR
-* ida_nalt.STRTYPE_C
-* ida_struct.add_struc
-* ida_struct.get_struc_id
-* ida_struct.get_struc_size
-* idc.add_struc
-* idc.add_struc_member
-* idc.del_struc
-* idc.set_member_type
+* ida_typeinf.BTF_BYTE
+* ida_typeinf.BTF_DOUBLE
+* ida_typeinf.BTF_FLOAT
+* ida_typeinf.BTF_INT
+* ida_typeinf.BTF_INT128
+* ida_typeinf.BTF_INT16
+* ida_typeinf.BTF_INT64
+* ida_typeinf.BTF_TBYTE
+* ida_typeinf.BTF_UINT32
+* ida_typeinf.FRB_NUMO
+* ida_typeinf.NTF_TYPE
+* ida_typeinf.PRTYPE_DEF
+* ida_typeinf.PRTYPE_MULTI
+* ida_typeinf.PRTYPE_TYPE
+* ida_typeinf.del_named_type
+* ida_typeinf.idc_parse_types
+* ida_typeinf.tinfo_errstr
+* ida_typeinf.tinfo_t
+* ida_typeinf.udm_t
+* ida_typeinf.udt_type_data_t
+* ida_typeinf.value_repr_t
 
 #### Author
 Gergely Erdelyi (gergely.erdelyi@d-dome.net)
@@ -439,7 +437,7 @@ one format for a specific 'custom data type'.)
 * ida_lines.SCOLOR_REG
 * ida_nalt.get_input_file_path
 * ida_netnode.netnode
-* ida_struct.is_member_id
+* ida_typeinf.tinfo_t
 
 </blockquote>
 
@@ -556,10 +554,13 @@ Ctrl+Shift+S
 * ida_kernwin.BWN_STRUCTS
 * ida_kernwin.action_desc_t
 * ida_kernwin.action_handler_t
+* ida_kernwin.get_current_viewer
 * ida_kernwin.get_viewer_user_data
 * ida_kernwin.l_compare2
 * ida_kernwin.linearray_t
+* ida_kernwin.read_selection
 * ida_kernwin.register_action
+* ida_kernwin.twinpos_t
 * ida_kernwin.unregister_action
 * ida_lines.tag_remove
 
@@ -2447,7 +2448,6 @@ comments and/or types of local variables.
 * ida_hexrays.modify_user_lvars
 * ida_hexrays.user_lvar_modifier_t
 * ida_typeinf.parse_decl
-* ida_typeinf.tinfo_t
 * idc.here
 
 </blockquote>
@@ -2505,11 +2505,11 @@ ctxmenu Hexrays_Hooks
 * ida_kernwin.action_handler_t
 * ida_kernwin.attach_action_to_popup
 * ida_kernwin.register_action
-* ida_struct.get_member
-* ida_struct.get_struc
-* ida_struct.get_struc_id
 * ida_typeinf.PRTYPE_1LINE
+* ida_typeinf.STRMEM_OFFSET
 * ida_typeinf.print_tinfo
+* ida_typeinf.tinfo_t
+* ida_typeinf.udm_t
 * idautils.Functions
 * idautils.XrefsTo
 
@@ -2581,7 +2581,6 @@ IDB_Hooks
 * ida_bytes.is_strlit
 * ida_bytes.is_stroff
 * ida_bytes.is_struct
-* ida_enum.get_enum_name
 * ida_idp.IDB_Hooks
 * ida_nalt.STRENC_DEFAULT
 * ida_nalt.get_default_encoding_idx
@@ -2589,7 +2588,8 @@ IDB_Hooks
 * ida_nalt.get_str_encoding_idx
 * ida_nalt.get_strtype_bpu
 * ida_nalt.opinfo_t
-* ida_struct.get_struc_name
+* ida_typeinf.get_tid_name
+* ida_typeinf.tinfo_t
 
 </blockquote>
 
@@ -3454,6 +3454,7 @@ chooser functions
 * ida_kernwin.Choose.CHCOL_FNAME
 * ida_kernwin.Choose.CHCOL_HEX
 * ida_kernwin.Choose.CHCOL_PLAIN
+* ida_kernwin.get_icon_id_by_name
 * idautils.Functions
 * idc.del_func
 

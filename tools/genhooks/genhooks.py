@@ -123,10 +123,11 @@ def gen_notifications(out):
             pname = recipe_data.get("params", {}).get(pname, {}).get("rename", pname)
             ptype = p["type"]
             pick_type = ptype
+            # instead of va_argi() we jst promote the type to "int"
             if ptype in ["bool", "char", "uchar", "uint16", "cref_t",
               "dref_t", "cm_t", "ui_notification_t", "dbg_notification_t",
               "tcc_renderer_type_t", "range_kind_t", "demreq_type_t",
-              "ctree_maturity_t", "comp_t"]:
+              "ctree_maturity_t", "comp_t", "local_type_change_t"]:
                 cast = ptype
                 pick_type = "int"
             else:

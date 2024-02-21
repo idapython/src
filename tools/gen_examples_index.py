@@ -43,7 +43,7 @@ def read_config():
     global config
 
     config_path = os.path.join(prog_dir, prog_name + ".cfg")
-    with open(config_path, "r") as f:
+    with open(config_path, "r", encoding="UTF-8", errors="surrogateescape") as f:
         config = ast.literal_eval(f.read())
 
     config["exclude"] = set(config["exclude"])
@@ -73,7 +73,7 @@ class Examples(object):
 
         for relpath, path in self._files_with_extension(".py", args.examples_dir):
             verb("Processing \"%s\"" % path)
-            with open(path, "r") as f:
+            with open(path, "r", encoding="UTF-8", errors="surrogateescape") as f:
                 self._load_ast(relpath, ast.parse(f.read(), path))
 
         self._post_read_processing()
@@ -649,11 +649,11 @@ class ExamplesIndex(object):
     def __init__(self):
         self.replacer = TemplateReplacer()
 
-        with open(args.template, "r") as f:
+        with open(args.template, "r", encoding="UTF-8", errors="surrogateescape") as f:
             self.replacer.template(f.read())
 
     def produce(self, examples, all_keywords):
-        with open(args.output, "w") as f:
+        with open(args.output, "w", encoding="UTF-8") as f:
             self.replacer.expand(examples, all_keywords, f)
 
 #-------------------------------------------------------------------------------

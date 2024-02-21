@@ -27,8 +27,8 @@ PyObject *idc_parse_decl(til_t *ti, const char *decl, int flags)
 def calc_type_size(ti, tp):
     """
     Returns the size of a type
-    @param ti: Type info. 'None' can be passed.
-    @param tp: type string
+    @param ti: Type info library. 'None' can be passed.
+    @param tp: serialized type byte string
     @return:
         - None on failure
         - The size of the type
@@ -56,7 +56,7 @@ PyObject *py_calc_type_size(const til_t *ti, PyObject *tp)
   }
   else
   {
-    PyErr_SetString(PyExc_ValueError, "String expected!");
+    PyErr_SetString(PyExc_ValueError, "serialized type byte sequence expected!");
     return nullptr;
   }
 }
@@ -517,7 +517,7 @@ PyObject *py_get_named_type(const til_t *til, const char *name, int ntf_flags)
   const type_t *type = nullptr;
   const p_list *fields = nullptr, *field_cmts = nullptr;
   const char *cmt = nullptr;
-  sclass_t sclass = sc_unk;
+  sclass_t sclass = SC_UNK;
   uint64 value = 0;
   int code = get_named_type(til, name, ntf_flags, &type, &fields, &cmt, &field_cmts, &sclass, (uint32 *) &value);
   if ( code == 0 )

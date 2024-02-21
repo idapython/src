@@ -68,6 +68,13 @@ struct dirspec_t;
 %ignore get_chooser_data;
 %rename (get_chooser_data) py_get_chooser_data;
 
+%template(chooser_row_info_vec_t) qvector<chooser_row_info_t>;
+%typemap(out) qstrvec_t *
+{
+  Py_XDECREF($result);
+  $result = qstrvec2pylist(*$1);
+}
+
 %rename (del_hotkey) py_del_hotkey;
 %rename (add_hotkey) py_add_hotkey;
 
@@ -427,11 +434,13 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 %newobject place_t::as_enumplace_t;
 %newobject place_t::as_structplace_t;
 %newobject place_t::as_simpleline_place_t;
+%newobject place_t::as_tiplace_t;
 %extend place_t {
   static idaplace_t *as_idaplace_t(place_t *p) { return p != nullptr ? (idaplace_t *) p->clone() : nullptr; }
   static enumplace_t *as_enumplace_t(place_t *p) { return p != nullptr ? (enumplace_t *) p->clone() : nullptr; }
   static structplace_t *as_structplace_t(place_t *p) { return p != nullptr ? (structplace_t *) p->clone() : nullptr; }
   static simpleline_place_t *as_simpleline_place_t(place_t *p) { return p != nullptr ? (simpleline_place_t *) p->clone() : nullptr; }
+  static tiplace_t *as_tiplace_t(place_t *p) { return p != nullptr ? (tiplace_t *) p->clone() : nullptr; }
 
   PyObject *py_generate(void *ud, int maxsize)
   {
@@ -460,6 +469,8 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
         return place_t.as_structplace_t(self.at)
     def place_as_simpleline_place_t(self):
         return place_t.as_simpleline_place_t(self.at)
+    def place_as_tiplace_t(self):
+        return place_t.as_tiplace_t(self.at)
 
     def place(self, view):
         ptype = get_viewer_place_type(view)
@@ -470,6 +481,8 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
         elif ptype == TCCPT_STRUCTPLACE:
             return self.place_as_structplace_t()
         elif ptype == TCCPT_SIMPLELINE_PLACE:
+            return self.place_as_simpleline_place_t()
+        elif ptype == TCCPT_TIPLACE:
             return self.place_as_simpleline_place_t()
         else:
             return self.at

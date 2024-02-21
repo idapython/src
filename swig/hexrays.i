@@ -804,7 +804,7 @@ cexpr_t *citem_t_cexpr_get(citem_t *item) { return (cexpr_t *) item; }
 
 
 %extend ctree_item_t {
-  CTREE_ITEM_MEMBER_REF(citem_t *, it);
+  CTREE_CONDITIONAL_ITEM_MEMBER_REF(citem_t *, it, VDI_EXPR);
   CTREE_CONDITIONAL_ITEM_MEMBER_REF(cexpr_t*, e, VDI_EXPR);
   CTREE_CONDITIONAL_ITEM_MEMBER_REF(cinsn_t*, i, VDI_EXPR);
   CTREE_CONDITIONAL_ITEM_MEMBER_REF(lvar_t*, l, VDI_LVAR);
