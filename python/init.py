@@ -35,28 +35,35 @@ if not os.path.isabs(IDAPYTHON_DYNLOAD_BASE):
     IDAPYTHON_DYNLOAD_BASE = os.path.abspath(IDAPYTHON_DYNLOAD_BASE);
 
 # Prepare sys.path so loading of the shared objects works
-lib_dynload = os.path.join(
-    IDAPYTHON_DYNLOAD_BASE,
-    "python",
-    str(sys.version_info.major))
+lib_dynload = os.path.join(IDAPYTHON_DYNLOAD_BASE, "python")
 
 # We always want our own lib-dynload to come first:
 # the PyQt (& sip) modules that might have to be loaded, should
 # be the ones shipped with IDA and not those possibly available
 # on the system.
-sys.path.insert(0, os.path.join(lib_dynload, IDAPYTHON_DYNLOAD_RELPATH))
+sys.path.insert(0, os.path.join(lib_dynload, "lib-dynload"))
 sys.path.insert(0, lib_dynload)
 
-try:
-    import ida_idaapi
-    import ida_kernwin
-    import ida_diskio
-except ImportError as e:
-    print("Import failed: %s. Current sys.path:" % str(e))
-    for p in sys.path:
-        print("\t%s" % p)
-    raise
+# We want all ida_* modules to be available
+all_mods = "${MODULES}"
 
+for mod in all_mods.split(","):
+    try:
+        # Import module and make it visible at global scope
+        globals()[f"ida_{mod}"] = __import__(f"ida_{mod}")
+    except ImportError as e:
+        print("Import failed: %s. Current sys.path:" % str(e))
+        for p in sys.path:
+            print("\t%s" % p)
+        raise
+    except Exception as e:
+        print("Cannot load module ida_%s: %s" % (mod, str(e)))
+        import traceback
+        traceback.print_exc()
+        raise
+    except ModuleNotFoundError as e:
+        # Silently skip modules not present in current installation
+        continue
 
 # -----------------------------------------------------------------------
 # Take over the standard text outputs
@@ -96,7 +103,7 @@ def runscript(script):
 def print_banner():
     banner = [
       "Python %s " % sys.version,
-      "IDAPython" + (" 64-bit" if ida_idaapi.__EA64__ else "") + " v%d.%d.%d %s (serial %d) (c) The IDAPython Team <idapython@googlegroups.com>" % IDAPYTHON_VERSION
+      "IDAPython" + (" 64-bit" if ida_idaapi.__EA64__ else "") + " v%d.%d.%d (c) The IDAPython Team <idapython@googlegroups.com>" % IDAPYTHON_VERSION
     ]
     sepline = '-' * (max([len(s) for s in banner])+1)
 
@@ -107,9 +114,10 @@ def print_banner():
 # -----------------------------------------------------------------------
 
 # Redirect stderr and stdout to the IDA message window
-_orig_stdout = sys.stdout;
-_orig_stderr = sys.stderr;
-sys.stdout = sys.stderr = IDAPythonStdOut()
+if IDAPYTHON_OWNING_INTERPRETER:
+  _orig_stdout = sys.stdout
+  _orig_stderr = sys.stderr
+  sys.stdout = sys.stderr = IDAPythonStdOut()
 
 # -----------------------------------------------------------------------
 # Initialize the help, with our own stdin wrapper, that'll query the user
@@ -131,7 +139,8 @@ class IDAPythonHelp(pydoc.Helper):
 help = IDAPythonHelp()
 
 # Assign a default sys.argv
-sys.argv = [""]
+if IDAPYTHON_OWNING_INTERPRETER:
+  sys.argv = [""]
 
 # Have to make sure Python finds our modules
 sys.path.append(ida_diskio.idadir("python"))
@@ -147,12 +156,11 @@ if os.getcwd() in sys.path:
 if not IDAPYTHON_REMOVE_CWD_SYS_PATH:
     sys.path.append(os.getcwd())
 
-# Additional $IDAUSR-derived paths
+# Additional IDAUSR-derived paths
 if IDAPYTHON_IDAUSR_SYSPATH:
     idausr_python_list = ida_diskio.get_ida_subdirs("python")
-    for idausr_python in idausr_python_list:
-        one = os.path.join(idausr_python, str(sys.version_info.major))
-        if one not in sys.path:
+    for one in idausr_python_list:
+        if one not in sys.path and os.path.exists(one):
             sys.path.append(one)
 
 if IDAPYTHON_COMPAT_AUTOIMPORT_MODULES:
@@ -182,5 +190,28 @@ if sys.version_info.major >= 3:
     for sp in site.getsitepackages():
         if sp not in sys.path:
             sys.path.append(sp)
+
+
+# Prepare PySide6 path, if found
+def prepare_PySide6_import():
+    python_name = f"python{sys.version_info[0]}.{sys.version_info[1]}"
+    pyside_subdir = f"PySide6-{python_name}"
+    candidate_PySide6_dist = os.path.join(IDAPYTHON_DYNLOAD_BASE, "python", pyside_subdir)
+    if os.path.isdir(candidate_PySide6_dist):
+        candidate_PySide6_dir = os.path.join(candidate_PySide6_dist, python_name, "site-packages")
+        if os.path.isdir(candidate_PySide6_dir):
+            if "linux" in sys.platform:
+                import ctypes
+                try:
+                    # preload libraries
+                    ctypes.cdll.LoadLibrary(os.path.join(candidate_PySide6_dist, "libshiboken6.abi3.so.6.8"))
+                    ctypes.cdll.LoadLibrary(os.path.join(candidate_PySide6_dist, "libpyside6.abi3.so.6.8"))
+                except:
+                    import traceback
+                    traceback.print_exc()
+            sys.path.append(candidate_PySide6_dir)
+
+if sys.version_info[:2] >= (3, 9):
+    prepare_PySide6_import()
 
 # All done, ready to rock.

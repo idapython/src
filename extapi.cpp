@@ -71,6 +71,7 @@ bool ext_api_t::load(qstring *errbuf)
   BIND_SYMBOL(_PyLong_AsByteArray);
   BIND_SYMBOL_WEAK(PyEval_ThreadsInitialized);
   BIND_SYMBOL_WEAK(PyEval_InitThreads);
+  BIND_SYMBOL_WEAK(Py_NoSiteFlag);
 
 #undef BIND_SYMBOL
 
@@ -90,24 +91,34 @@ void ext_api_t::clear()
 //-------------------------------------------------------------------------
 bool ext_api_t::load(qstring *errbuf)
 {
-  QASSERT(30603, lib_path.empty() && lib_handle == nullptr);
-
-  // First, let's figure out the library to load
-  Dl_info dl_info;
-  memset(&dl_info, 0, sizeof(dl_info));
-  int rc = dladdr((void *) Py_IsInitialized, &dl_info);
-  if ( rc == 0 )
+  if ( !lib_path.empty() && lib_handle != nullptr )
   {
-    *errbuf = "Cannot determine path to shared object";
-    return false;
+    return true;
   }
+  // QASSERT(30603, lib_path.empty() && lib_handle == nullptr);
 
-  lib_path = dl_info.dli_fname;
-  lib_handle = dlopen(lib_path.c_str(), RTLD_NOLOAD | RTLD_GLOBAL | RTLD_LAZY);
-  if ( lib_handle == nullptr )
+  // first, check if we have global symbols
+  if ( dlsym(RTLD_DEFAULT, "Py_IsInitialized") != nullptr )
+    lib_handle = RTLD_DEFAULT;
+  else
   {
-    errbuf->sprnt("dlopen(\"%s\") failed: %s", lib_path.c_str(), qstrerror(-1));
-    return false;
+    // otherwise, look for shared library to import from
+    Dl_info dl_info;
+    memset(&dl_info, 0, sizeof(dl_info));
+    int rc = dladdr((void *) Py_IsInitialized, &dl_info);
+    if ( rc == 0 )
+    {
+      *errbuf = "Cannot determine path to shared object";
+      return false;
+    }
+
+    lib_path = dl_info.dli_fname;
+    lib_handle = dlopen(lib_path.c_str(), RTLD_NOLOAD | RTLD_GLOBAL | RTLD_LAZY);
+    if ( lib_handle == nullptr )
+    {
+      errbuf->sprnt("dlopen(\"%s\") failed: %s", lib_path.c_str(), qstrerror(-1));
+      return false;
+    }
   }
 
 #define BIND_SYMBOL(Name)                                               \
@@ -132,6 +143,7 @@ bool ext_api_t::load(qstring *errbuf)
   BIND_SYMBOL(PyFunction_New);
   BIND_SYMBOL(PyFunction_GetCode);
   BIND_SYMBOL(_PyLong_AsByteArray);
+  BIND_SYMBOL(Py_NoSiteFlag);
 
 #undef BIND_SYMBOL
 
@@ -143,7 +155,8 @@ void ext_api_t::clear()
 {
   if ( lib_handle != nullptr )
   {
-    dlclose(lib_handle);
+    if ( lib_handle != RTLD_DEFAULT )
+      dlclose(lib_handle);
     lib_handle = nullptr;
   }
 }

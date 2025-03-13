@@ -55,6 +55,8 @@
 %ignore idc_value_t::_set_string;
 %ignore idc_value_t::idc_value_t(const qstring &);
 %ignore idc_value_t::set_string(const qstring &);
+%ignore idc_value_t::qstr();
+
 
 %ignore eval_expr;
 %rename (eval_expr) py_eval_expr;
@@ -64,6 +66,9 @@
 %rename (compile_idc_file) py_compile_idc_file;
 %ignore compile_idc_text;
 %rename (compile_idc_text) py_compile_idc_text;
+
+%ignore compile_idc_snippet(char const *,char const *);
+%ignore exec_idc_script(idc_value_t *,char const *,char const *,idc_value_t const [],size_t);
 
 %cstring_output_buf_and_size_returning_charptr(
         1,

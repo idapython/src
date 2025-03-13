@@ -1,5 +1,4 @@
 %{
-#include <enum.hpp>
 #include <idd.hpp>
 %}
 

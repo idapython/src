@@ -20,8 +20,6 @@
 %ignore insn_get_next_qword;
 %ignore insn_create_op_data;
 
-%ignore construct_macro;
-%ignore API70_construct_macro;
 %rename (construct_macro) py_construct_macro;
 %ignore get_dtype_by_size;
 %rename (get_dtype_by_size) py_get_dtype_by_size;
@@ -36,6 +34,7 @@
 %ignore outctx_base_t::get_cmtgen_state;
 %ignore outctx_base_t::get_binop_state;
 
+%ignore outctx_base_t::_eah;
 %ignore outctx_base_t::regname_idx;
 %ignore outctx_base_t::suspop;
 %ignore outctx_base_t::F;

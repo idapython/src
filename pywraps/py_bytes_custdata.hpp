@@ -419,23 +419,10 @@ static void clear_custom_data_types_and_formats()
 //<inline(py_bytes_custdata)>
 
 //------------------------------------------------------------------------
-/*
-#<pydoc>
-def register_custom_data_type(dt):
-    """
-    Registers a custom data type.
-    @param dt: an instance of the data_type_t class
-    @return:
-        < 0 if failed to register
-        > 0 data type id
-    """
-    pass
-#</pydoc>
-*/
 // Given a py_data_type_t object, this function will register a datatype
-static int py_register_custom_data_type(PyObject *py_dt)
+static int py_register_custom_data_type(PyObject *dt)
 {
-  ref_t py_attr = PyW_TryGetAttrString(py_dt, "this");
+  ref_t py_attr = PyW_TryGetAttrString(dt, "this");
   if ( py_attr == nullptr )
     return -1;
 
@@ -447,17 +434,6 @@ static int py_register_custom_data_type(PyObject *py_dt)
 }
 
 //------------------------------------------------------------------------
-/*
-#<pydoc>
-def unregister_custom_data_type(dtid):
-    """
-    Unregisters a custom data type.
-    @param dtid: the data type id
-    @return: Boolean
-    """
-    pass
-#</pydoc>
-*/
 static bool py_unregister_custom_data_type(int dtid)
 {
   const data_type_t *_dt = get_custom_data_type(dtid);
@@ -474,22 +450,9 @@ static bool py_unregister_custom_data_type(int dtid)
 }
 
 //------------------------------------------------------------------------
-/*
-#<pydoc>
-def register_custom_data_format(df):
-    """
-    Registers a custom data format with a given data type.
-    @param df: an instance of data_format_t
-    @return:
-        < 0 if failed to register
-        > 0 data format id
-    """
-    pass
-#</pydoc>
-*/
-static int py_register_custom_data_format(PyObject *py_df)
+static int py_register_custom_data_format(PyObject *df)
 {
-  ref_t py_attr = PyW_TryGetAttrString(py_df, "this");
+  ref_t py_attr = PyW_TryGetAttrString(df, "this");
   if ( py_attr == nullptr )
     return -1;
 
@@ -502,17 +465,6 @@ static int py_register_custom_data_format(PyObject *py_df)
 }
 
 //------------------------------------------------------------------------
-/*
-#<pydoc>
-def unregister_custom_data_format(dfid):
-    """
-    Unregisters a custom data format
-    @param dfid: data format id
-    @return: Boolean
-    """
-    pass
-#</pydoc>
-*/
 static bool py_unregister_custom_data_format(int dfid)
 {
   const data_format_t *_df = get_custom_data_format(dfid);

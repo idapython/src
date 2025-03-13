@@ -18,6 +18,29 @@ with one or many examples, and those should be also put under test
 rather than if it consists of a bunch of IDAPython code our
 users will never see, and cannot be inspired from.)
 
+### Best practices
+
+* don't use `idc.py`: some of its operations are a bit too elusive
+* don't use `idaapi`: that "hides" the provenance of the
+  function/type/item being used, and makes it that much harder to
+  group ideas by module
+* don't `from <something> import <whatever>`: for the same reason
+* use double-quotes for all string literals, unless there's a good
+  reason not to do so (e.g., the string literal contains some `"`
+  characters, and `\`-escaping them would be inconvenient & make the
+  code awkward to read).
+  Double-quoted string literals let us grep more predictably & reliably.
+
+## Example header
+
+Every example must have a valid header, holding a one-liner `summary:`,
+as well as a description further explaining what the example is about.
+
+Some notes:
+
+* `summary:`: the one-liner must not end with a `.`
+* `summary:`: prefer the `list something...` form over the `listing something...`
+
 ## Helping our customers, teaching IDAPython in the process
 
 In addition, when a customer asks for help on support@ (or the forums)

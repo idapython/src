@@ -63,8 +63,7 @@
             "invalid bytes " "in method '" "$symname" "', argument " "$argnum"" should be " #SIZE " bytes long");
 }
 %enddef
-%define_sized_bytevec_t(bytevec12_t, 12);
-%define_sized_bytevec_t(bytevec10_t, 10);
+%define_sized_bytevec_t(bytevec16_t, 16);
 
 %ignore fpvalue_t::from_half;
 %ignore fpvalue_t::from_float;
@@ -84,35 +83,22 @@
     return fp;
   }
 
-  fpvalue_t(const bytevec12_t &in)
+  fpvalue_t(const bytevec16_t &in)
   {
     fpvalue_t *fp = new fpvalue_t();
     memmove(fp->w, in.begin(), sizeof(fp->w));
     return fp;
   }
 
-  void _get_bytes(bytevec12_t *vout) const
+  void _get_bytes(bytevec16_t *vout) const
   {
-    vout->resize(12);
+    vout->resize(16);
     memmove(vout->begin(), (const void *) $self->w, vout->size());
   }
 
-  void _set_bytes(const bytevec12_t &in)
+  void _set_bytes(const bytevec16_t &in)
   {
     memmove($self->w, (const void *) in.begin(), sizeof($self->w));
-  }
-
-  void _get_10bytes(bytevec10_t *vout) const
-  {
-    vout->resize(10);
-    memmove(vout->begin(), (const void *) $self->w, vout->size());
-  }
-
-  void _set_10bytes(const bytevec10_t &in)
-  {
-    CASSERT(sizeof($self) == 10);
-    memmove($self->w, (const void *) in.begin(), in.size()); // guaranteed to be 10 bytes long, thanks to %typemap(check) (const bytevec10_t)
-    $self->w[FPVAL_NWORDS-1] = 0;
   }
 
   // yes, it's called '_get_float', but we return a 'double' because
@@ -138,6 +124,11 @@
               "The floating-point number couldn't be converted");
   }
 
+  fpvalue_t copy() const
+  {
+    return *$self;
+  }
+
   qstring __str__() const
   {
     char buf[MAXSTR];
@@ -150,6 +141,14 @@
   wrapped_array_t<uint16,FPVAL_NWORDS> _get_shorts()
   {
     return wrapped_array_t<uint16,FPVAL_NWORDS>($self->w);
+  }
+
+  static fpvalue_t new_from_str(const char *p)
+  {
+    fpvalue_t v;
+    if ( v.from_str(&p) != REAL_ERROR_OK )
+      v.clear();
+    return v;
   }
 
   fpvalue_error_t from_str(const char *p)
@@ -165,7 +164,6 @@
   %pythoncode
   {
     bytes = property(_get_bytes, _set_bytes)
-    _10bytes = property(_get_10bytes, _set_10bytes)
     shorts = property(_get_shorts)
     float = property(_get_float, _set_float)
     sval = property(lambda self: self.to_sval(), lambda self, v: self.from_sval(v))
@@ -182,6 +180,10 @@
 
     def __setitem__(self, i, v):
         self.shorts[i] = v
+
+    def __repr__(self):
+        return f"{self.__class__.__module__}.{self.__class__.__name__}.new_from_str('{str(self)}')"
+
   }
 }
 

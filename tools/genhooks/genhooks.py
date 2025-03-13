@@ -31,7 +31,7 @@ def warn(msg):
 
 import hooks_utils
 enum_info = hooks_utils.get_hooks_enum_information(args.hooks_class)
-recipe = enum_info.recipe
+recipe = enum_info.recipe_module.recipe
 enumerators = hooks_utils.get_hooks_enumerators(args.xml_dir, args.hooks_class)
 
 def dump():

@@ -1,8 +1,12 @@
+
 %ignore rangeset_t::count;
 %ignore rangeset_t::lower_bound;
 %ignore rangeset_t::upper_bound;
 %ignore rangeset_t::move_chunk;
 %ignore rangeset_t::check_move_args;
+%ignore rangeset_t::begin() const;
+%ignore rangeset_t::end() const;
+
 %ignore range64_t;
 %ignore range64vec_t;
 

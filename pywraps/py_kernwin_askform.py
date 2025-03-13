@@ -205,8 +205,8 @@ class Form(object):
         @param tp: One of Form.FT_XXX
         """
         DefI64 = False
-        def __init__(self, tp, value):
-            cls = Form.fieldtype_to_ctype(tp, self.DefI64)
+        def __init__(self, tp, value, i64=None):
+            cls = Form.fieldtype_to_ctype(tp, i64 if i64 is not None else self.DefI64)
             if cls is None:
                 raise TypeError("Invalid numeric field type: %s" % tp)
             # Get a pointer type to the ctype type
@@ -513,12 +513,13 @@ class Form(object):
                      width=50,
                      swidth=10,
                      hlp=None,
-                     is_relative_offset=False):
+                     is_relative_offset=False,
+                     i64=None):
             if tp is None:
                 tp = Form.FT_HEX
             Form.InputControl.__init__(self,
                 tp, width, swidth, hlp, is_relative_offset)
-            Form.NumericArgument.__init__(self, self.tp, value)
+            Form.NumericArgument.__init__(self, self.tp, value, i64=i64)
 
 
     class ColorInput(NumericInput):
@@ -529,7 +530,7 @@ class Form(object):
             """
             @param value: Initial color value in RGB
             """
-            Form.NumericInput.__init__(self, tp=Form.FT_COLOR, value=value)
+            Form.NumericInput.__init__(self, tp=Form.FT_COLOR, value=value, i64=False)
 
 
     class StringInput(InputControl, StringArgument):

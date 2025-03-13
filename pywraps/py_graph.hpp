@@ -75,11 +75,11 @@ private:
   // Refresh user-defined graph node number and edges
   // It calls Python method and expects that the user already filled
   // the nodes and edges. The nodes and edges are retrieved and passed to IDA
-  void on_user_refresh(mutable_graph_t *g);
+  void on_user_refresh(interactive_graph_t *g);
 
   // Retrieves the text for user-defined graph node
   // It expects either a string or a tuple (string, bgcolor)
-  bool on_user_text(mutable_graph_t * /*g*/, int node, const char **str, bgcolor_t *bg_color);
+  bool on_user_text(interactive_graph_t * /*g*/, int node, const char **str, bgcolor_t *bg_color);
 
   // Retrieves the hint for the user-defined graph
   // Calls Python and expects a string or None
@@ -88,7 +88,7 @@ private:
   int _on_hint_epilog(char **hint, ref_t result);
 
   // graph is being destroyed
-  void on_graph_destroyed(mutable_graph_t * /*g*/ = nullptr)
+  void on_graph_destroyed(interactive_graph_t * /*g*/ = nullptr)
   {
     refresh_needed = true;
     node_cache.clear();
@@ -173,7 +173,7 @@ private:
   }
 
   // a group is being created
-  int on_creating_group(mutable_graph_t * /*my_g*/, intvec_t *my_nodes)
+  int on_creating_group(interactive_graph_t * /*my_g*/, intvec_t *my_nodes)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t py_nodes(PyList_New(my_nodes->size()));
@@ -194,7 +194,7 @@ private:
   }
 
   // a group is being deleted
-  int on_deleting_group(mutable_graph_t * /*g*/, int /*old_group*/)
+  int on_deleting_group(interactive_graph_t * /*g*/, int /*old_group*/)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     // TODO
@@ -202,7 +202,7 @@ private:
   }
 
   // a group is being collapsed/uncollapsed
-  int on_group_visibility(mutable_graph_t * /*g*/, int /*group*/, bool /*expand*/)
+  int on_group_visibility(interactive_graph_t * /*g*/, int /*group*/, bool /*expand*/)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     // TODO
@@ -338,7 +338,7 @@ public:
         py_graph->unbind();
         py_graph->bind(self, view);
         py_graph->refresh_needed = true;
-        refresh_viewer(view); // cfr graph.hpp how to refresh an existing mutable_graph_t
+        refresh_viewer(view); // cfr graph.hpp how to refresh an existing interactive_graph_t
       }
       if ( py_graph->initialize(self, title.c_str()) < 0 )
       {
@@ -374,7 +374,7 @@ void py_graph_t::collect_class_callbacks_ids(pycim_callbacks_ids_t *out)
 }
 
 //-------------------------------------------------------------------------
-void py_graph_t::on_user_refresh(mutable_graph_t *g)
+void py_graph_t::on_user_refresh(interactive_graph_t *g)
 {
   if ( !refresh_needed )
     return;
@@ -439,7 +439,7 @@ void py_graph_t::on_user_refresh(mutable_graph_t *g)
 }
 
 //-------------------------------------------------------------------------
-bool py_graph_t::on_user_text(mutable_graph_t * /*g*/, int node, const char **str, bgcolor_t *bg_color)
+bool py_graph_t::on_user_text(interactive_graph_t * /*g*/, int node, const char **str, bgcolor_t *bg_color)
 {
   // If already cached then return the value
   nodetext_cache_t *c = node_cache.get(node);
@@ -531,16 +531,16 @@ ssize_t py_graph_t::gr_callback(int code, va_list va)
     //
     case grcode_user_text:
       {
-        mutable_graph_t *g  = va_arg(va, mutable_graph_t *);
-        int node            = va_arg(va, int);
-        const char **result = va_arg(va, const char **);
-        bgcolor_t *bgcolor  = va_arg(va, bgcolor_t *);
+        interactive_graph_t *g  = va_arg(va, interactive_graph_t *);
+        int node                = va_arg(va, int);
+        const char **result     = va_arg(va, const char **);
+        bgcolor_t *bgcolor      = va_arg(va, bgcolor_t *);
         ret = on_user_text(g, node, result, bgcolor);
         break;
       }
       //
     case grcode_destroyed:
-      on_graph_destroyed(va_arg(va, mutable_graph_t *));
+      on_graph_destroyed(va_arg(va, interactive_graph_t *));
       ret = 0;
       break;
 
@@ -548,7 +548,7 @@ ssize_t py_graph_t::gr_callback(int code, va_list va)
     case grcode_clicked:
       if ( has_callback(GRCODE_HAVE_CLICKED) )
       {
-        graph_viewer_t *view     = va_arg(va, graph_viewer_t *);
+        graph_viewer_t *view   = va_arg(va, graph_viewer_t *);
         selection_item_t *item = va_arg(va, selection_item_t *);
         graph_item_t *gitem    = va_arg(va, graph_item_t *);
         ret = on_clicked(view, item, gitem);
@@ -594,14 +594,14 @@ ssize_t py_graph_t::gr_callback(int code, va_list va)
       break;
       //
     case grcode_user_refresh:
-      on_user_refresh(va_arg(va, mutable_graph_t *));
+      on_user_refresh(va_arg(va, interactive_graph_t *));
 
       ret = 1;
       break;
       //
     case grcode_user_hint:
       {
-        /*mutable_graph_t *g =*/ va_arg(va, mutable_graph_t *);
+        /*interactive_graph_t *g =*/ va_arg(va, interactive_graph_t *);
         int node = va_arg(va, int);
         int src = va_arg(va, int);
         int dest = va_arg(va, int);
@@ -618,7 +618,7 @@ ssize_t py_graph_t::gr_callback(int code, va_list va)
     case grcode_creating_group:      // a group is being created
       if ( has_callback(GRCODE_HAVE_CREATING_GROUP) )
       {
-        mutable_graph_t *g = va_arg(va, mutable_graph_t*);
+        interactive_graph_t *g = va_arg(va, interactive_graph_t*);
         intvec_t *nodes = va_arg(va, intvec_t*);
         ret = on_creating_group(g, nodes);
       }
@@ -631,7 +631,7 @@ ssize_t py_graph_t::gr_callback(int code, va_list va)
     case grcode_deleting_group:      // a group is being deleted
       if ( has_callback(GRCODE_HAVE_DELETING_GROUP) )
       {
-        mutable_graph_t *g = va_arg(va, mutable_graph_t*);
+        interactive_graph_t *g = va_arg(va, interactive_graph_t*);
         int old_group = va_arg(va, int);
         ret = on_deleting_group(g, old_group);
       }
@@ -644,7 +644,7 @@ ssize_t py_graph_t::gr_callback(int code, va_list va)
     case grcode_group_visibility:    // a group is being collapsed/uncollapsed
       if ( has_callback(GRCODE_HAVE_GROUP_VISIBILITY) )
       {
-        mutable_graph_t *g = va_arg(va, mutable_graph_t*);
+        interactive_graph_t *g = va_arg(va, interactive_graph_t*);
         int group = va_arg(va, int);
         bool expand = bool(va_arg(va, int));
         ret = on_group_visibility(g, group, expand);

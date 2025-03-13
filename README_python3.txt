@@ -13,8 +13,3 @@ please run `idapyswitch` from the IDA directory. It will scan for Python
 installs present in the system's standard locations and offer you to choose one.
 It also supports optional command-line switches to handle non-standard installs.
 Run `idapyswitch -h` to see them.
-
-On Windows, you may need to run it as administrator
-so it can patch sip.pyd (library required for PyQt bindings).
-
-

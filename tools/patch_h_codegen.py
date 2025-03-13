@@ -21,6 +21,7 @@ if os.path.isfile(args.patches):
     all_lines = []
     for l in lines:
         l = l.replace(", ...arg0)", ", ...)")
+        l = l.replace(",...arg0)", ",...)")
         all_lines.append(l)
 
     import tempfile

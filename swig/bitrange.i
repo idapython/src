@@ -82,6 +82,12 @@
              $self->mask64());
     return qs;
   }
+
+
+  %pythoncode {
+      def __repr__(self):
+          return f"{self.__class__.__module__}.{self.__class__.__name__}({self.bitoff()}, {self.bitsize()})" % ()
+  }
 }
 
 %include "bitrange.hpp"

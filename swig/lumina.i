@@ -115,7 +115,7 @@
 {
   // bytes_container typemap(argout) (metadata_t *out_md)
   PyObject *py_md = PyBytes_FromStringAndSize((const char *) $1->begin(), $1->size());
-  $result = SWIG_Python_AppendOutput($result, py_md);
+  $result = SWIG_Python_AppendOutput($result, py_md, /*is_void=*/ 1);
 }
 
 
@@ -152,7 +152,7 @@
 {
   // typemap(argout) (md5_t *out)
   PyObject *py_hash = PyBytes_FromStringAndSize((const char *) $1->hash, sizeof($1->hash));
-  $result = SWIG_Python_AppendOutput($result, py_hash);
+  $result = SWIG_Python_AppendOutput($result, py_hash, /*is_void=*/ 1);
 }
 
 %apply md5_t *out { md5_t *out_hash };

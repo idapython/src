@@ -5,7 +5,6 @@
 
 // FIXME: Are these really useful?
 %ignore iterate_func_chunks;
-%ignore get_idasgn_header_by_short_name;
 
 // Kernel-only & unexported symbols
 %ignore determine_rtl;
@@ -136,14 +135,47 @@
 %alias_func_item_iterator(head_items);
 %alias_func_item_iterator(not_tails);
 
+%feature("pythonappend") func_t::get_frame_object %{
+    if val.empty():
+        val = None
+%}
+
+%feature("pythonappend") func_t::get_prototype %{
+    if val.empty():
+        val = None
+%}
+
 %extend func_t
 {
+  tinfo_t get_frame_object() const
+  {
+    tinfo_t frame;
+    get_func_frame(&frame, $self);
+    return frame;
+  }
+
+  ssize_t get_name(qstring *out) const
+  {
+    return get_func_name(out, $self->start_ea);
+  }
+
+  tinfo_t get_prototype() const
+  {
+    tinfo_t proto;
+    get_tinfo(&proto, $self->start_ea);
+    return proto;
+  }
+
   %pythoncode {
     def __iter__(self):
         """
         Alias for func_item_iterator_t(self).__iter__()
         """
         return func_item_iterator_t(self).__iter__()
+
+    frame_object = property(get_frame_object)
+    name = property(get_name)
+    prototype = property(get_prototype)
   }
 }
 

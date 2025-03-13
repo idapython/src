@@ -6,24 +6,6 @@
 //-------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def AssembleLine(ea, cs, ip, use32, line):
-    """
-    Assemble an instruction to a string (display a warning if an error is found)
-
-    @param ea: linear address of instruction
-    @param cs:  cs of instruction
-    @param ip:  ip of instruction
-    @param use32: is 32bit segment
-    @param line: line to assemble
-    @return:
-        - None on failure
-        - or a string containing the assembled instruction
-    """
-    pass
-#</pydoc>
-*/
 static PyObject *AssembleLine(
         ea_t ea,
         ea_t cs,
@@ -31,31 +13,18 @@ static PyObject *AssembleLine(
         bool use32,
         const char *line)
 {
-  char buf[MAXSTR];
-  int inslen = processor_t::assemble((uchar *)buf, ea, cs, ip, use32, line);
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( inslen > 0 )
-    return PyBytes_FromStringAndSize(buf, inslen);
-  else
-    Py_RETURN_NONE;
+  if ( line != nullptr )
+  {
+    char buf[MAXSTR];
+    int inslen = processor_t::assemble((uchar *)buf, ea, cs, ip, use32, line);
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    if ( inslen > 0 )
+      return PyBytes_FromStringAndSize(buf, inslen);
+  }
+  Py_RETURN_NONE;
 }
 
 //---------------------------------------------------------------------------
-/*
-#<pydoc>
-def assemble(ea, cs, ip, use32, line):
-    """
-    Assemble an instruction into the database (display a warning if an error is found)
-    @param ea: linear address of instruction
-    @param cs: cs of instruction
-    @param ip: ip of instruction
-    @param use32: is 32bit segment?
-    @param line: line to assemble
-
-    @return: Boolean. True on success.
-    """
-#</pydoc>
-*/
 bool assemble(
         ea_t ea,
         ea_t cs,
@@ -78,226 +47,90 @@ bool assemble(
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def ph_get_id():
-    """
-    Returns the 'ph.id' field
-    """
-    pass
-#</pydoc>
-*/
 static size_t ph_get_id()
 {
   return PH.id;
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def ph_get_version():
-    """
-    Returns the 'ph.version'
-    """
-    pass
-#</pydoc>
-*/
 static size_t ph_get_version()
 {
   return PH.version;
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def ph_get_flag():
-    """
-    Returns the 'ph.flag'
-    """
-    pass
-#</pydoc>
-*/
 static size_t ph_get_flag()
 {
   return PH.flag;
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def ph_get_cnbits():
-    """
-    Returns the 'ph.cnbits'
-    """
-    pass
-#</pydoc>
-*/
 static size_t ph_get_cnbits()
 {
   return PH.cnbits;
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def ph_get_dnbits():
-    """
-    Returns the 'ph.dnbits'
-    """
-    pass
-#</pydoc>
-*/
 static size_t ph_get_dnbits()
 {
   return PH.dnbits;
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def ph_get_reg_first_sreg():
-    """
-    Returns the 'ph.reg_first_sreg'
-    """
-    pass
-#</pydoc>
-*/
 static size_t ph_get_reg_first_sreg()
 {
   return PH.reg_first_sreg;
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def ph_get_reg_last_sreg():
-    """
-    Returns the 'ph.reg_last_sreg'
-    """
-    pass
-#</pydoc>
-*/
 static size_t ph_get_reg_last_sreg()
 {
   return PH.reg_last_sreg;
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def ph_get_segreg_size():
-    """
-    Returns the 'ph.segreg_size'
-    """
-    pass
-#</pydoc>
-*/
 static size_t ph_get_segreg_size()
 {
   return PH.segreg_size;
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def ph_get_reg_code_sreg():
-    """
-    Returns the 'ph.reg_code_sreg'
-    """
-    pass
-#</pydoc>
-*/
 static size_t ph_get_reg_code_sreg()
 {
   return PH.reg_code_sreg;
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def ph_get_reg_data_sreg():
-    """
-    Returns the 'ph.reg_data_sreg'
-    """
-    pass
-#</pydoc>
-*/
 static size_t ph_get_reg_data_sreg()
 {
   return PH.reg_data_sreg;
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def ph_get_icode_return():
-    """
-    Returns the 'ph.icode_return'
-    """
-    pass
-#</pydoc>
-*/
 static size_t ph_get_icode_return()
 {
   return PH.icode_return;
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def ph_get_instruc_start():
-    """
-    Returns the 'ph.instruc_start'
-    """
-    pass
-#</pydoc>
-*/
 static size_t ph_get_instruc_start()
 {
   return PH.instruc_start;
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def ph_get_instruc_end():
-    """
-    Returns the 'ph.instruc_end'
-    """
-    pass
-#</pydoc>
-*/
 static size_t ph_get_instruc_end()
 {
   return PH.instruc_end;
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def ph_get_tbyte_size():
-    """
-    Returns the 'ph.tbyte_size' field as defined in he processor module
-    """
-    pass
-#</pydoc>
-*/
 static size_t ph_get_tbyte_size()
 {
   return PH.tbyte_size;
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def ph_get_instruc():
-    """
-    Returns a list of tuples (instruction_name, instruction_feature) containing the
-    instructions list as defined in he processor module
-    """
-    pass
-#</pydoc>
-*/
 static PyObject *ph_get_instruc()
 {
   Py_ssize_t i = 0;
@@ -314,15 +147,6 @@ static PyObject *ph_get_instruc()
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def ph_get_regnames():
-    """
-    Returns the list of register names as defined in the processor module
-    """
-    pass
-#</pydoc>
-*/
 static PyObject *ph_get_regnames()
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -338,21 +162,7 @@ static const regval_t *idaapi _py_getreg(
         const char *name,
         const regval_t *regvals);
 
-/*
-#<pydoc>
-def ph_get_operand_info():
-    """
-    Returns the operand information given an ea and operand number.
-
-    @param ea: address
-    @param n: operand number
-
-    @return: Returns an idd_opinfo_t as a tuple: (modified, ea, reg_ival, regidx, value_size).
-             Please refer to idd_opinfo_t structure in the SDK.
-    """
-    pass
-#</pydoc>
-*/
+//-------------------------------------------------------------------------
 static PyObject *ph_get_operand_info(
         ea_t ea,
         int n)
@@ -369,7 +179,7 @@ static PyObject *ph_get_operand_info(
     // Allocate register space
     thid_t tid = get_current_thread();
     regvals_t regvalues;
-    regvalues.resize(dbg->nregs);
+    regvalues.resize(dbg->nregisters);
     // Read registers
     if ( get_reg_vals(tid, -1, regvalues.begin()) != DRC_OK )
       break;
@@ -425,6 +235,15 @@ static ssize_t ph_get_reg_accesses(
         int flags)
 {
   return processor_t::get_reg_accesses(accvec, insn, flags);
+}
+
+//-------------------------------------------------------------------------
+static ssize_t ph_get_abi_info(
+        qstrvec_t *abi_names,
+        qstrvec_t *abi_opts,
+        comp_t comp)
+{
+  return processor_t::get_abi_info(abi_names, abi_opts, comp);
 }
 
 //---------------------------------------------------------------------------
@@ -687,7 +506,7 @@ static const regval_t *idaapi _py_getreg(
         const char *name,
         const regval_t *regvals)
 {
-  for ( int i=dbg->nregs - 1; i >= 0; i-- )
+  for ( int i=dbg->nregisters - 1; i >= 0; i-- )
   {
     if ( strieq(name, dbg->regs(i).name) )
       return &regvals[i];

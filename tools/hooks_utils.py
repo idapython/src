@@ -10,47 +10,13 @@ genhooks_dir = os.path.join(mydir, "genhooks")
 if genhooks_dir not in sys.path:
     sys.path.append(genhooks_dir)
 
-import all_recipes
-
-class enum_info_t:
-    def __init__(
-            self,
-            fname,
-            enum_name,
-            discard_prefixes,
-            discard_doc,
-            strip_prefixes,
-            recipe,
-            default_rtype):
-        self.fname = fname
-        self.enum_name = enum_name
-        self.discard_prefixes = discard_prefixes
-        self.discard_doc = discard_doc
-        self.strip_prefixes = strip_prefixes
-        self.recipe = recipe
-        self.default_rtype = default_rtype
-
-_hooks_enum_info = {}
-for klass in all_recipes.hooks:
-    fname,            \
-    enum_name,        \
-    discard_prefixes, \
-    discard_doc,      \
-    strip_prefixes,   \
-    recipe_module = all_recipes.hooks[klass]
-
-    _hooks_enum_info[klass] = enum_info_t(
-        fname,
-        enum_name,
-        discard_prefixes,
-        discard_doc,
-        strip_prefixes,
-        recipe_module.recipe,
-        recipe_module.default_rtype)
-
+import recipe_index
 
 def get_hooks_enum_information(class_name):
-    return _hooks_enum_info[class_name]
+    for _, recipes in recipe_index.hooks.items():
+        for recipe in recipes:
+            if recipe.class_name == class_name:
+                return recipe
 
 def _parse_param_type(desc):
     if desc.startswith("("):
@@ -82,7 +48,7 @@ def _parse_enumerator(enumval_el, name, enum_name, hooks_info):
     rtype = None
     rdefault = None
     rexpr = None
-    recipe_data = hooks_info.recipe.get(name, {})
+    recipe_data = hooks_info.recipe_module.recipe.get(name, {})
 
     if "ignore" in recipe_data and recipe_data["ignore"]:
         return
@@ -96,7 +62,7 @@ def _parse_enumerator(enumval_el, name, enum_name, hooks_info):
     if "type" in return_data:
         rtype = return_data["type"]
     elif ret_el is not None:
-        rdesc = ret_el.find("para").text
+        rdesc = doxygen_utils.join_all_element_text(ret_el)
         rtype, notype_rdesc, rdefault = _parse_return_type(rdesc)
 
     detaileddescription_el = enumval_el.find("detaileddescription")
@@ -106,7 +72,7 @@ def _parse_enumerator(enumval_el, name, enum_name, hooks_info):
         doxygen_utils.for_each_retval(detaileddescription_el, collect_retval)
 
     if rtype is None:
-        rtype = hooks_info.default_rtype
+        rtype = hooks_info.recipe_module.default_rtype
 
     if rtype != "void" and rdefault is None:
         rdefault = 0
@@ -157,7 +123,7 @@ def _parse_enumerator(enumval_el, name, enum_name, hooks_info):
 
 def get_hooks_enumerators(xml_dir, class_name):
     hooks_info = get_hooks_enum_information(class_name)
-    tree = ET.parse(os.path.join(xml_dir, hooks_info.fname))
+    tree = ET.parse(os.path.join(xml_dir, hooks_info.toplevel_xml_fname))
     enum_el = tree.find(".//memberdef[@kind='enum']/[name='%s']" % hooks_info.enum_name)
 
     enumerators = []

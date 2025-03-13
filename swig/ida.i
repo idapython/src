@@ -13,7 +13,9 @@
 %ignore idainfo::lflags;
 
 %ignore inf_get_procname();
+%ignore inf_get_procname(char *);
 %ignore inf_get_strlit_pref();
+%ignore inf_get_strlit_pref(char *);
 
 %ignore ea_helper_t;
 %ignore hook_cb_t;
@@ -31,10 +33,6 @@
 %ignore setinf;
 %ignore setinf_buf;
 %ignore setinf_flag;
-#ifdef NOTEAMS
-%ignore idbattr_info_t;
-%ignore idbattr_valmap_t;
-#endif
 
 %extend idainfo
 {

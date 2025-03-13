@@ -10,12 +10,6 @@
 struct py_cli_cbs_t
 {
   bool (idaapi *execute_line)(const char *line);
-  bool (idaapi *complete_line)(
-          qstring *completion,
-          const char *prefix,
-          int n,
-          const char *line,
-          int x);
   bool (idaapi *keydown)(
           qstring *line,
           int *p_x,
@@ -24,6 +18,8 @@ struct py_cli_cbs_t
           int shift);
   bool (idaapi *find_completions)(
           qstrvec_t *out_completions,
+          qstrvec_t *out_hints,
+          qstrvec_t *out_docs,
           int *out_match_start,
           int *out_match_end,
           const char *line,
@@ -52,13 +48,9 @@ private:
   {                                                                     \
     return py_clis[CBN]->on_execute_line(line);                         \
   }                                                                     \
-  static bool idaapi s_complete_line##CBN(qstring *completion, const char *prefix, int n, const char *line, int x) \
+  static bool idaapi s_find_completions##CBN(qstrvec_t *completions, qstrvec_t *hints, qstrvec_t *docs, int *out_start, int *out_end, const char *line, int x) \
   {                                                                     \
-    return py_clis[CBN]->on_complete_line(completion, prefix, n, line, x); \
-  }                                                                     \
-  static bool idaapi s_find_completions##CBN(qstrvec_t *completions, int *out_start, int *out_end, const char *line, int x) \
-  {                                                                     \
-    return py_clis[CBN]->on_find_completions(completions, out_start, out_end, line, x); \
+    return py_clis[CBN]->on_find_completions(completions, hints, docs, out_start, out_end, line, x); \
   }
 
   IMPL_PY_CLI_CB(0);    IMPL_PY_CLI_CB(1);   IMPL_PY_CLI_CB(2);   IMPL_PY_CLI_CB(3);
@@ -148,41 +140,12 @@ private:
   }
 
   // callback: the user pressed Tab
-  // Find a completion number N for prefix PREFIX
-  // LINE is given as context information. X is the index where PREFIX starts in LINE
-  // New prefix should be stored in PREFIX.
-  // Returns: true if generated a new completion
-  // This callback is optional
-  bool on_complete_line(
-        qstring *completion,
-        const char *prefix,
-        int n,
-        const char *line,
-        int x)
-  {
-    PYW_GIL_GET;
-    newref_t result(
-            PyObject_CallMethod(
-                    self,
-                    (char *)S_ON_COMPLETE_LINE,
-                    "sisi",
-                    prefix,
-                    n,
-                    line,
-                    x));
-
-    bool ok = result && PyUnicode_Check(result.o);
-    PyW_ShowCbErr(S_ON_COMPLETE_LINE);
-    if ( ok )
-      PyUnicode_as_qstring(completion, result.o);
-    return ok;
-  }
-
-  // callback: the user pressed Tab
   // Find completions
   // This callback is optional
   bool on_find_completions(
         qstrvec_t *out_completions,
+        qstrvec_t *out_hints,
+        qstrvec_t *out_docs,
         int *out_match_start,
         int *out_match_end,
         const char *line,
@@ -200,7 +163,7 @@ private:
     if ( PyErr_Occurred() != nullptr )
       return false;
     return idapython_convert_cli_completions(
-            out_completions, out_match_start, out_match_end, py_res);
+            out_completions, out_hints, out_docs, out_match_start, out_match_end, py_res);
   }
 
   // Private ctor (use bind())
@@ -262,7 +225,6 @@ public:
       if ( !PyObject_HasAttrString(py_obj, S_ON_EXECUTE_LINE) )
         break;
       py_cli->cli.execute_line = py_cli_cbs[cli_idx].execute_line;
-      py_cli->cli.unused = (void *) (PyObject_HasAttrString(py_obj, S_ON_COMPLETE_LINE) ? py_cli_cbs[cli_idx].complete_line : nullptr);
       py_cli->cli.keydown = PyObject_HasAttrString(py_obj, S_ON_KEYDOWN) ? py_cli_cbs[cli_idx].keydown : nullptr;
       py_cli->cli.find_completions = PyObject_HasAttrString(py_obj, S_ON_FIND_COMPLETIONS) ? py_cli_cbs[cli_idx].find_completions : nullptr;
 
@@ -305,7 +267,7 @@ public:
   }
 };
 py_cli_t *py_cli_t::py_clis[MAX_PY_CLI] = { nullptr };
-#define DECL_PY_CLI_CB(CBN) { s_execute_line##CBN, s_complete_line##CBN, s_keydown##CBN }
+#define DECL_PY_CLI_CB(CBN) { s_execute_line##CBN, s_keydown##CBN, s_find_completions##CBN }
 const py_cli_cbs_t py_cli_t::py_cli_cbs[MAX_PY_CLI] =
 {
   DECL_PY_CLI_CB(0),   DECL_PY_CLI_CB(1),  DECL_PY_CLI_CB(2),   DECL_PY_CLI_CB(3),

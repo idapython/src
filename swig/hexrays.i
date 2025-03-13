@@ -1,6 +1,6 @@
 %{
-#undef HEXDSP
 hexdsp_t *get_idapython_hexdsp();
+#undef HEXDSP
 #define HEXDSP get_idapython_hexdsp()
 #include <hexrays.hpp>
 %}
@@ -55,9 +55,9 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 }
 %enddef
 
-%define %method_sets_type_and_gains_ownership_of_regular_object_argument(TYPE, METHOD)
+%define %method_sets_type_and_gains_ownership_of_regular_object_argument(TYPE, METHOD, ARGNAME)
 %feature("pythonprepend") TYPE::METHOD %{
-    o = args[0]
+    o = ARGNAME
     self._ensure_cond(self.t == mop_z, "self.t == mop_z")
 %}
 %feature("pythonappend") TYPE::METHOD %{
@@ -81,7 +81,10 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 %ignore string_printer_t::vprint;
 %ignore vdui_t::vdui_t;
 %ignore cblock_t::find;
+
 %ignore citem_t::op;
+%ignore citem_t::find_parent_of(const citem_t *) const;
+
 %ignore cfunc_t::cfunc_t;
 %ignore cfunc_t::sv;         // lazy member. Use get_pseudocode() instead
 %ignore cfunc_t::boundaries; // lazy member. Use get_boundaries() instead
@@ -98,6 +101,9 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 %ignore cblock_t::use_curly_braces;
 %ignore casm_t::print;
 %ignore cgoto_t::print;
+%ignore ctry_t::print;
+%ignore ccatch_t::print;
+
 %ignore cexpr_t::is_aliasable;
 %ignore cexpr_t::like_boolean;
 %ignore cexpr_t::contains_expr;
@@ -106,6 +112,10 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 %ignore cexpr_t::is_type_partial;
 %ignore cexpr_t::set_type_partial;
 %ignore cexpr_t::is_value_used;
+%ignore cexpr_t::find_num_op() const;
+%ignore cexpr_t::find_op(ctype_t) const;
+%ignore cexpr_t::theother(const cexpr_t *) const;
+
 %ignore lvar_t::is_promoted_arg;
 %ignore lvar_t::lvar_t;
 %ignore lvar_t::is_partialy_typed;
@@ -143,6 +153,8 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 %ignore mba_t::idaloc2vd(const mba_t *, const argloc_t &, int);
 %ignore mba_t::range_contains;
 %ignore mba_t::get_stkvar;
+%ignore mba_t::arg(int) const;
+%ignore mba_t::get_mblock(uint) const;
 
 %feature("nodirector") codegen_t;
 %ignore codegen_t::reserved;
@@ -150,43 +162,63 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 %feature("nodirector") simple_graph_t;
 %ignore simple_graph_t::simple_graph_t;
 %ignore simple_graph_t::~simple_graph_t;
+%ignore simple_graph_t::ignore_edge;
+%ignore simple_graph_t::iterator;
+%ignore hexrays_node_visitor_t;
 
 %feature("nodirector") mbl_graph_t;
 %ignore mbl_graph_t::mbl_graph_t;
 %ignore mbl_graph_t::~mbl_graph_t;
+%ignore mbl_graph_t::ignore_edge;
 
 %define_hexrays_lifecycle_object(minsn_t);
 %ignore minsn_t::find_ins_op(const mop_t **, mcode_t) const;
+%ignore minsn_t::find_ins_op(const mop_t **) const;
 %ignore minsn_t::find_num_op(const mop_t **) const;
+%ignore minsn_t::find_opcode(mcode_t) const;
 %ignore minsn_t::set_combined;
+
+
+%ignore mop_t::is_constant(uint64 *) const;
+%ignore mop_t::is_constant() const;
+%ignore mop_t::get_insn(mcode_t) const;
 
 %define_hexrays_lifecycle_object(mop_t);
 %ignore mop_t::_make_strlit(qstring *);
 %template(mopvec_t) qvector<mop_t>;
-%method_sets_type_and_gains_ownership_of_regular_object_argument(mop_t, _make_cases)
-%method_sets_type_and_gains_ownership_of_regular_object_argument(mop_t, _make_callinfo)
-%method_sets_type_and_gains_ownership_of_regular_object_argument(mop_t, _make_pair)
-%method_sets_type_and_gains_ownership_of_regular_object_argument(mop_t, _make_insn)
+%method_sets_type_and_gains_ownership_of_regular_object_argument(mop_t, _make_cases, _cases)
+%method_sets_type_and_gains_ownership_of_regular_object_argument(mop_t, _make_callinfo, fi)
+%method_sets_type_and_gains_ownership_of_regular_object_argument(mop_t, _make_pair, _pair)
+%method_sets_type_and_gains_ownership_of_regular_object_argument(mop_t, _make_insn, ins)
+%method_sets_type_and_gains_ownership_of_regular_object_argument(mop_t, make_insn, ins)
 
 %template(mcallargs_t) qvector<mcallarg_t>;
 
+%ignore block_chains_t::get_reg_chain(mreg_t, int);
+%ignore block_chains_t::get_stk_chain(sval_t, int);
+%ignore block_chains_t::get_chain(voff_t &, int);
+%ignore block_chains_t::get_chain(chain_t &);
 %uncomparable_elements_qvector(block_chains_t, block_chains_vec_t);
 
 %ignore mblock_t::mblock_t;
-%ignore mblock_t::find_first_use(mlist_t *, const minsn_t *, const minsn_t *, maymust_t) const;
+
+%ignore mblock_t::find_first_use(mlist_t *, const minsn_t *, const minsn_t *, maymust_t=MAY_ACCESS) const;
+%ignore mblock_t::find_first_use(mlist_t *, const minsn_t *, const minsn_t *) const;
 %ignore mblock_t::find_redefinition(const mlist_t &, const minsn_t *, const minsn_t *, maymust_t) const;
+%ignore mblock_t::find_redefinition(const mlist_t &, const minsn_t *, const minsn_t *) const;
 %ignore mblock_t::reserved;
 %ignore mblock_t::vdump_block;
+
 // Note: we cannot use %delobject here, as that would disown
 // the block itself, not the instruction.
 %feature("pythonappend") mblock_t::insert_into_block %{
-    mn = args[0]
+    mn = nm
     mn._maybe_disown_and_deregister()
 %}
 // Note: we could be using %newobject here, but for the sake of
 // symmetry with 'insert_into_block', let's go with "pythonappend".
 %feature("pythonprepend") mblock_t::remove_from_block %{
-    mn = args[0]
+    mn = m
 %}
 %feature("pythonappend") mblock_t::remove_from_block %{
     if mn:
@@ -224,13 +256,20 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 
 %ignore getf_reginsn(const minsn_t *);
 %ignore getb_reginsn(const minsn_t *);
+
 %ignore lvar_t::dstr;
+%ignore lvar_t::type() const;
+
 %ignore lvar_locator_t::dstr;
+%ignore lvar_locator_t::get_scattered() const;
+
 %ignore fnumber_t::dstr;
 %ignore range_item_iterator_t;
 %ignore mba_item_iterator_t;
 %ignore range_chunk_iterator_t;
 %ignore mba_ranges_t::range_contains;
+
+%ignore hexrays_failure_t::hexrays_failure_t(merror_t,ea_t);
 
 %newobject gen_microcode;
 %define_hexrays_lifecycle_object(mba_t);
@@ -241,6 +280,10 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
 %apply uint64 *OUTPUT { uvlr_t *v };    // valrng_t::cvt_to_single_value
 %apply uint64 *OUTPUT { uvlr_t *val };  // valrng_t::cvt_to_cmp
 %apply int    *OUTPUT { cmpop_t *cmp }; // valrng_t::cvt_to_cmp
+
+%apply qstrvec_t *out { qstrvec_t *warnings };
+
+%hooks_director_handle_qstrvec_t_output(collect_warnings, warnings);
 
 %define %def_opt_handler(TypeName, Install, Remove, Hxclr)
 %ignore Install;
@@ -363,6 +406,10 @@ SWIGINTERN void __raise_vdf(const vd_failure_t &e)
      qstring_printer_t p($self, qs, 0);
      $self->print_func(p);
      return qs;
+   }
+
+   %pythoncode {
+       __repr__ = __str__
    }
 };
 
@@ -910,6 +957,10 @@ typedef int iterator_word;
 %template(qvector_lvar_t) qvector<lvar_t>;
 %template(qvector_carg_t) qvector<carg_t>;
 %template(qvector_ccase_t) qvector<ccase_t>;
+%template(qvector_catchexprs_t) qvector<catchexpr_t>;
+%template(qvector_ccatchvec_t) qvector<ccatch_t>;
+%uncomparable_elements_qvector(cblock_pos_t, cblock_posvec_t);
+
 %template(lvar_saved_infos_t) qvector<lvar_saved_info_t>;
 %template(ui_stroff_ops_t) qvector<ui_stroff_op_t>;
 
@@ -965,6 +1016,9 @@ void qswap(cinsn_t &a, cinsn_t &b);
 %ignore get_widget_vdui;
 %rename (get_widget_vdui) py_get_widget_vdui;
 
+%ignore decompile_func(func_t *,hexrays_failure_t *);
+%ignore  decompile_func(func_t *);
+
 %feature("pythonappend") decompile_func %{
   if val.__deref__() is None:
       val = None
@@ -972,7 +1026,6 @@ void qswap(cinsn_t &a, cinsn_t &b);
 
 
 //-------------------------------------------------------------------------
-#if SWIG_VERSION == 0x40000 || SWIG_VERSION == 0x40001
 %typemap(out) cfuncptr_t {}
 %typemap(ret) cfuncptr_t
 {
@@ -991,9 +1044,6 @@ void qswap(cinsn_t &a, cinsn_t &b);
   hexrays_register_python_clearable_instance(ni, hxclr_cfuncptr);
   $result = SWIG_NewPointerObj(ni, $1_descriptor, SWIG_POINTER_OWN | 0);
 }
-#else
-#error Ensure cfuncptr_t wrapping is compatible with this version of SWIG
-#endif
 
 //---------------------------------------------------------------------
 %define %python_callback_in(CB)

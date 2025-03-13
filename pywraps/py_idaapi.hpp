@@ -109,17 +109,6 @@ static void ida_idaapi_closebase(void) {}
 #define HBF_VOLATILE_METHOD_SET 0x00000002
 
 //------------------------------------------------------------------------
-/*
-#<pydoc>
-def parse_command_line(cmdline):
-    """
-    Parses a space separated string (quotes and escape character are supported)
-    @param cmdline: The command line to parse
-    @return: A list of strings or None on failure
-    """
-    pass
-#</pydoc>
-*/
 static PyObject *py_parse_command_line(const char *cmdline)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -129,69 +118,17 @@ static PyObject *py_parse_command_line(const char *cmdline)
     Py_RETURN_NONE;
   return qstrvec2pylist(args);
 }
-
-//-------------------------------------------------------------------------
-/*
-#<pydoc>
-def get_inf_structure():
-    """
-    Returns the global variable 'inf' (an instance of idainfo structure, see ida.hpp)
-    """
-    pass
-#</pydoc>
-*/
-idainfo *get_inf_structure(void)
-{
-  return &inf;
-}
-
-//-------------------------------------------------------------------------
 // Declarations from Python.cpp
-/*
-#<pydoc>
-def set_script_timeout(timeout):
-    """
-    Changes the script timeout value. The script wait box dialog will be hidden and shown again when the timeout elapses.
-    See also L{disable_script_timeout}.
-
-    @param timeout: This value is in seconds.
-                    If this value is set to zero then the script will never timeout.
-    @return: Returns the old timeout value
-    """
-    pass
-#</pydoc>
-*/
 idaman int ida_export set_script_timeout(int timeout);
 
-/*
-#<pydoc>
-def disable_script_timeout():
-    """
-    Disables the script timeout and hides the script wait box.
-    Calling L{set_script_timeout} will not have any effects until the script is compiled and executed again
-
-    @return: None
-    """
-    pass
-#</pydoc>
-*/
+//-------------------------------------------------------------------------
 idaman void ida_export disable_script_timeout();
 
-/*
-#<pydoc>
-def enable_extlang_python(enable):
-    """
-    Enables or disables Python extlang.
-    When enabled, all expressions will be evaluated by Python.
-    @param enable: Set to True to enable, False otherwise
-    """
-    pass
-#</pydoc>
-*/
+//-------------------------------------------------------------------------
 idaman void ida_export enable_extlang_python(bool enable);
 idaman void ida_export enable_python_cli(bool enable);
 
-idaman PyObject *ida_export format_basestring(PyObject *_in)
+idaman qstring ida_export format_basestring(PyObject *_in)
 {
   // This is basically a reimplementation of str.__repr__, except that
   // we don't want to turn non-ASCII bytes into a \xNN equivalent: IDA
@@ -239,22 +176,10 @@ idaman PyObject *ida_export format_basestring(PyObject *_in)
       buf.append(c);
   }
   buf.append(quote);
-  return PyUnicode_FromStringAndSize(buf.c_str(), buf.length());
+  return buf;
 }
 
-/*
-#<pydoc>
-def RunPythonStatement(stmt):
-    """
-    This is an IDC function exported from the Python plugin.
-    It is used to evaluate Python statements from IDC.
-    @param stmt: The statement to evaluate
-    @return: 0 - on success otherwise a string containing the error
-    """
-    pass
-#</pydoc>
-*/
-
+//-------------------------------------------------------------------------
 void pygc_refresh(PyObject *self);
 PyObject *pygc_create_groups(PyObject *self, PyObject *groups_infos);
 PyObject *pygc_delete_groups(PyObject *self, PyObject *groups, PyObject *new_current);

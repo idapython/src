@@ -11,7 +11,6 @@
 %ignore ioport_bit_t;
 %ignore ioport_bits_t;
 %ignore ioport_t;
-%ignore read_ioports;
 %ignore choose_ioport_device;
 %ignore find_ioport;
 %ignore find_ioport_bit;

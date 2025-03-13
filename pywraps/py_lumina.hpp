@@ -16,11 +16,11 @@ bool py_extract_type_from_metadata(tinfo_t *out, const bytevec_t &in)
 }
 
 //-------------------------------------------------------------------------
-PyObject *py_split_metadata(const metadata_t &md)
+PyObject *py_split_metadata(const metadata_t &metadata)
 {
   PyObject *py_dict = PyDict_New();
 
-  metadata_iterator_t p(md);
+  metadata_iterator_t p(metadata);
   while ( p.next() )
   {
     newref_t py_key(PyInt_FromLong(p.key));

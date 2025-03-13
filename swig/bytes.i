@@ -4,6 +4,9 @@
 
 %apply (testf_t *func, void *ud) { (testf_t *testf, void *ud=nullptr) };
 
+%ignore next_that(ea_t, ea_t, testf_t *);
+%ignore prev_that(ea_t, ea_t, testf_t *);
+
 // Unexported and kernel-only declarations
 %ignore adjust_visea;
 %ignore visit_patched_bytes;
@@ -35,24 +38,70 @@
 %ignore get_bytes;
 %ignore get_strlit_contents;
 %ignore get_hex_string;
-%ignore bin_search; // we redefine our own, w/ 2 params swapped, so we can apply the typemaps below
-%rename (bin_search) py_bin_search;
-%rename (bin_search) bin_search2;
+%ignore bin_search(ea_t,ea_t,const compiled_binpat_vec_t&,int);
+%ignore find_binary;
 %rename (op_stroff) py_op_stroff;
-%ignore bin_search2(ea_t, ea_t, const uchar *, const uchar *, size_t, int);
 %ignore bytes_match_for_bin_search;
 
-%ignore get_8bit;
-%rename (get_8bit) py_get_8bit;
+%apply uchar * OUTPUT { uchar *out }; // get_octet
 
-%ignore get_octet;
-%rename (get_octet) py_get_octet;
+//-------------------------------------------------------------------------
+//                       get_stroff_path
+//-------------------------------------------------------------------------
 
-%apply uchar * OUTPUT { uchar *out }; // get_octet2
+%typemap(in,numinputs=0) (qvector<tid_t> *out_path) (qvector<tid_t> temp) {
+  // %typemap(in,numinputs=0) (qvector<tid_t> *out_path) (qvector<tid_t> temp)
+  $1 = &temp;
+}
+
+%typemap(argout) qvector<tid_t> *out_path
+{
+  // %typemap(argout) qvector<tid_t> *out_path
+  if ( result > 0 )
+  {
+    ref_t py_list(PyW_TidVecToPyList(*($1)));
+    py_list.incref();
+    $result = SWIG_Python_AppendOutput($result, py_list.o, /*is_void=*/ 1);
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    $result = SWIG_Python_AppendOutput($result, Py_None, /*is_void=*/ 1);
+  }
+}
+
+%typemap(in,numinputs=0) (adiff_t *out_delta) (adiff_t temp) {
+  // %typemap(in,numinputs=0) (adiff_t *out_delta) (adiff_t temp)
+  $1 = &temp;
+}
+
+%typemap(argout) adiff_t *out_delta
+{
+  // %typemap(argout) adiff_t *out_delta
+  if ( result > 0 )
+  {
+    newref_t py_delta(PyLong_FromUnsignedLongLong(*($1)));
+    py_delta.incref();
+    $result = SWIG_Python_AppendOutput($result, py_delta.o, /*is_void=*/ 1);
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    $result = SWIG_Python_AppendOutput($result, Py_None, /*is_void=*/ 1);
+  }
+}
+
+%feature("pythonappend") get_stroff_path %{
+    if isinstance(val, tuple): # "modern" form; let's drop the count
+        val = (val[1], val[2])
+%}
+
+//-------------------------------------------------------------------------
 
 %template(compiled_binpat_vec_t) qvector<compiled_binpat_t>;
+%ignore parse_binpat_str(compiled_binpat_vec_t *,ea_t,char const *,int,int);
 
-%apply size_t * OUTPUT { size_t *out_matched_idx }; // bin_search3
+%apply size_t * OUTPUT { size_t *out_matched_idx }; // bin_search
 
 // TODO: This could be fixed (if needed)
 %ignore set_dbgmem_source;
@@ -87,6 +136,12 @@
 //<code(py_bytes_custdata)>
 //</code(py_bytes_custdata)>
 %}
+
+%{
+//<code(py_bytes_find_bytes)>
+//</code(py_bytes_find_bytes)>
+%}
+
 
 %extend data_type_t
 {
@@ -203,7 +258,18 @@
 //</inline(py_bytes_custdata)>
 %}
 
+%inline %{
+//<inline(py_bytes_find_bytes)>
+//</inline(py_bytes_find_bytes)>
+%}
+
+
 %pythoncode %{
 #<pycode(py_bytes_custdata)>
 #</pycode(py_bytes_custdata)>
+%}
+
+%pythoncode %{
+#<pycode(py_bytes_find_bytes)>
+#</pycode(py_bytes_find_bytes)>
 %}

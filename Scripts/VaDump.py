@@ -2,7 +2,7 @@
 
 This script shows how to send debugger commands and use the result in IDA
 
-Copyright (c) 1990-2024 Hex-Rays
+Copyright (c) 1990-2025 Hex-Rays
 ALL RIGHTS RESERVED.
 
 """

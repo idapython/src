@@ -29,6 +29,66 @@ s_subparser.add_argument("-e", "--examples-dir", required=True)
 
 args = parser.parse_args()
 
+#-------------------------------------------------------------------------------
+CATEGORY_INFO = [
+    (
+        "ui",
+        "User interface",
+        "Creating & manipulating user-interface widgets, prompting the " +
+        "user with forms, enriching existing widgets, or creating your " +
+        "own UI through Python Qt bindings."
+    ),
+    (
+        "disassembler",
+        "Disassembly",
+        "Various ways to query, or modify the disassembly listing, " +
+        "alter the way analysis is performed, or be notified of changes " +
+        "made to the IDB."
+    ),
+    (
+        "decompiler",
+        "Decompilation",
+        "Querying the decompiler, manipulating the decompilation trees " +
+        "(either at the microcode level, or the C-tree), and examples " +
+        "showing how to intervene in the decompilation output."
+    ),
+    (
+        "debugger",
+        "Debuggers",
+        "Driving debugging sessions, be notified of debugging events."
+    ),
+    (
+        "types",
+        "Working with types",
+        "These samples utilize our Type APIs, which allow you to manage " +
+        "the types and perform various operations on them, like creating " +
+        "the structures or enums and adding their members programmatically."
+    ),
+    (
+        "misc",
+        "Miscellaneous",
+        "Miscellaneous examples that don't quite fall into another category, " +
+        "but don't really justify one of their own."
+    ),
+]
+
+#-------------------------------------------------------------------------------
+LEVEL_INFO = [
+    (
+        "beginner",
+        "Beginner",
+    ),
+    (
+        "intermediate",
+        "Intermediate",
+    ),
+    (
+        "advanced",
+        "Advanced",
+    ),
+]
+
+
 # --------------------------------------------------------------------------
 def verb(msg):
     if args.verbose:
@@ -403,14 +463,17 @@ class Tags(object):
     IMPORTS     = "imports"
     SEE_ALSO    = "see_also"
     AUTHOR      = "author"
+    LEVEL       = "level"
 
     # tags that can be used in the template (with the {{example.XXX}} syntax)
     ALL_TAGS = set([NAME, PATH, SUMMARY, DESCRIPTION, CATEGORY, \
-                    KEYWORDS, USES, IMPORTS, SEE_ALSO, AUTHOR])
+                    KEYWORDS, USES, IMPORTS, SEE_ALSO, AUTHOR, \
+                    LEVEL])
 
     # tags that can be used in the examples' docstrings
     IN_DOCSTRING = set([SUMMARY, DESCRIPTION, CATEGORY, \
-                        KEYWORDS, USES, SEE_ALSO, AUTHOR])
+                        KEYWORDS, USES, SEE_ALSO, AUTHOR, \
+                        LEVEL])
 
     def __init__(self):
         self.items = {}
@@ -447,6 +510,7 @@ class Tags(object):
 class Example(object):
     def __init__(self, content):
         self.content = content
+        _, self.file_name = os.path.split(self.path)
 
     def __getattr__(self, key):
         if key in self.content:
@@ -537,8 +601,8 @@ class ShortcutFinder(ast.NodeVisitor):
 
             value = None
             # save strings
-            if isinstance(node.value, ast.Str):
-                value = node.value.s
+            if isinstance(node.value, ast.Constant):
+                value = node.value.value
             # save also lists of names, in case they are class names
             elif isinstance(node.value, ast.List):
                 if all(isinstance(elt, ast.Name) for elt in node.value.elts):
@@ -588,8 +652,8 @@ class ShortcutFinder(ast.NodeVisitor):
                 del scope[name]
 
     def _find_values(self, arg):
-        if isinstance(arg, ast.Str):
-            return [arg.s]
+        if isinstance(arg, ast.Constant):
+            return [arg.value]
 
         # single variable
         if isinstance(arg, ast.Name):
@@ -657,6 +721,63 @@ class ExamplesIndex(object):
             self.replacer.expand(examples, all_keywords, f)
 
 #-------------------------------------------------------------------------------
+class Categories(object):
+
+    class Category(object):
+
+        class Level(object):
+            def __init__(self, id):
+                self.id = id
+                assert(self.id)
+                for rank, tpl in enumerate(LEVEL_INFO):
+                    if tpl[0] == id:
+                        self.rank = rank
+                        _, label = tpl
+                self.label = label # will bomb if not found
+                self.examples = []
+
+            def append(self, example):
+                self.examples.append(example)
+
+        def __init__(self, id):
+            self.id = id
+            for rank, tpl in enumerate(CATEGORY_INFO):
+                if tpl[0] == id:
+                    self.rank = rank
+                    _, label, description = tpl
+            self.label = label # will bomb if not found
+            self.description = " ".join(description.split("\n"))
+            self.levels = []
+
+        def get_level(self, id):
+            for l in self.levels:
+                if l.id == id:
+                    return l
+            l = self.Level(id)
+            self.levels.append(l)
+            return l
+
+        def append(self, example):
+            if not example.level:
+                raise Exception("Missing level for %s" % example.path)
+            self.get_level(example.level).append(example)
+
+    def __init__(self):
+        self.categories = []
+
+    def get_category(self, id):
+        for c in self.categories:
+            if c.id == id:
+                return c
+        c = self.Category(id)
+        self.categories.append(c)
+        return c
+
+    def append(self, example):
+        self.get_category(example.category).append(example)
+
+
+#-------------------------------------------------------------------------------
 class TemplateReplacer(object):
     def __init__(self):
         self.re_percent_line = re.compile(r" *% *")
@@ -688,14 +809,13 @@ class TemplateReplacer(object):
 
     def expand(self, examples, all_keywords, f):
         # group by category
-        grouped = {}
+        categories = Categories()
         for example in examples:
-            if example.category not in grouped:
-                grouped[example.category] = []
-            grouped[example.category].append(example)
+            assert example.description and example.summary and not example.summary.endswith("."), "Path: %s" % example.path
+            categories.append(example)
 
         # call the template's entry point
-        self.module_scope["__mm__entry"](grouped, all_keywords, f)
+        self.module_scope["__mm__entry"](categories, all_keywords, f)
 
     def _sandwich(self, lines, lineno=0, open_keyword=None):
         in_else = False
@@ -758,7 +878,7 @@ class TemplateReplacer(object):
 
         # wrap the final code in a function, so that data can be passed
         return self._function_def("__mm__entry",
-                                  ["examples", "all_keywords", "_mm_f"],
+                                  ["categories", "all_keywords", "_mm_f"],
                                   body)
 
     def _code_block(self, lines, lineno):
@@ -870,11 +990,11 @@ class TemplateReplacer(object):
 
     def _output_text(self, text):
         return ast.Expr(value=self._call(self._dot("_mm_f", "write"),
-                                         [ast.Str(text)]))
+                                         [ast.Constant(text)]))
 
     def _output_eval(self, expr):
         # eval(expr)
-        value = self._call(ast.Name("eval", ast.Load()), [ast.Str(expr)])
+        value = self._call(ast.Name("eval", ast.Load()), [ast.Constant(expr)])
         # str(eval(expr))
         valueStr = self._call(ast.Name("str", ast.Load()), [value])
         # _mm_f.write(str(eval(expr)))

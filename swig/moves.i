@@ -10,9 +10,13 @@
 %ignore lochist_t::rebase_stack;
 %ignore location_t::location_t(bool);
 %ignore lochist_t::is_hexrays68_compat;
+
 %ignore lochist_entry_t::set_place(const place_t &);
+%ignore lochist_entry_t::place() const;
+%ignore lochist_entry_t::renderer_info() const;
 %ignore lochist_entry_t::serialize;
 %ignore lochist_entry_t::deserialize;
+
 %ignore graph_location_info_t::serialize(bytevec_t *) const;
 %ignore graph_location_info_t::deserialize(memory_deserializer_t &);
 %ignore renderer_info_pos_t::serialize(bytevec_t *) const;
@@ -101,3 +105,8 @@
 }
 
 %include "moves.hpp"
+
+%pythoncode %{
+#<pycode(py_moves_end)>
+#</pycode(py_moves_end)>
+%}

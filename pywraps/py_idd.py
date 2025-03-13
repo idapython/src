@@ -441,13 +441,13 @@ class Appcall__(object):
     def set_appcall_options(opt):
         """Method to change the Appcall options globally (not per Appcall)"""
         old_opt = Appcall__.get_appcall_options()
-        _ida_ida.cvar.inf.appcall_options = opt
+        _ida_ida.inf_set_appcall_options(opt)
         return old_opt
 
     @staticmethod
     def get_appcall_options():
         """Return the global Appcall options"""
-        return _ida_ida.cvar.inf.appcall_options
+        return _ida_ida.inf_get_appcall_options()
 
     @staticmethod
     def cleanup_appcall(tid = 0):

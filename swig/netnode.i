@@ -22,9 +22,11 @@
 %ignore netnode_supstr;
 %ignore netnode_qsupstr;
 %ignore netnode::supstr(nodeidx_t,char*,size_t,uchar) const;
+%ignore netnode::supstr(nodeidx_t,char*,size_t) const;
 %ignore netnode_supstr_ea;
 %ignore netnode_qsupstr_ea;
 %ignore netnode::supstr_ea(ea_t,char*,size_t,uchar) const;
+%ignore netnode::supstr_ea(ea_t,char*,size_t) const;
 %ignore netnode_supset;
 %ignore netnode_supdel;
 %ignore netnode_lower_bound;
@@ -36,6 +38,7 @@
 %ignore netnode_supstr_idx8;
 %ignore netnode_qsupstr_idx8;
 %ignore netnode::supstr_idx8(uchar,char*,size_t,uchar) const;
+%ignore netnode::supstr_idx8(uchar,char*,size_t) const;
 %ignore netnode_supset_idx8;
 %ignore netnode_supdel_idx8;
 %ignore netnode_lower_bound_idx8;
@@ -50,21 +53,26 @@
 %ignore netnode_hashstr;
 %ignore netnode_qhashstr;
 %ignore netnode::hashstr(const char*,char*,size_t,uchar) const;
+%ignore netnode::hashstr(const char*,char*,size_t) const;
 %ignore netnode_hashval_long;
 %ignore netnode_hashset;
 %ignore netnode_hashdel;
 %ignore netnode_hashfirst;
 %ignore netnode_qhashfirst;
 %ignore netnode::hashfirst(char*,size_t,uchar) const;
+%ignore netnode::hashfirst(char*,size_t) const;
 %ignore netnode_hashnext;
 %ignore netnode_qhashnext;
 %ignore netnode::hashnext(const char*,char*,size_t,uchar) const;
+%ignore netnode::hashnext(const char*,char*,size_t) const;
 %ignore netnode_hashlast;
 %ignore netnode_qhashlast;
 %ignore netnode::hashlast(char*,size_t,uchar) const;
+%ignore netnode::hashlast(char*,size_t) const;
 %ignore netnode_hashprev;
 %ignore netnode_qhashprev;
 %ignore netnode::hashprev(const char*,char*,size_t,uchar) const;
+%ignore netnode::hashprev(const char*,char*,size_t) const;
 %ignore netnode_blobsize;
 %ignore netnode_getblob;
 %ignore netnode_qgetblob;
@@ -125,6 +133,9 @@
 
 %include "netnode.hpp"
 
+%ignore netnode::supset(nodeidx_t, const char *);
+%ignore netnode::supset_ea(ea_t, const char *);
+
 %extend netnode
 {
     nodeidx_t index()
@@ -183,3 +194,8 @@
       return self->supset_ea(ea, (void *) value, length, tag);
     }
 }
+
+%pythoncode %{
+#<pycode(py_netnode_end)>
+#</pycode(py_netnode_end)>
+%}

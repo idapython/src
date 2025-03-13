@@ -53,8 +53,8 @@ def check_cpp(args):
         #
         # Misc.
         #
-        "_wrap_tinfo_t_deserialize__SWIG_1" : {
-            "mustcall" : "tinfo_t_deserialize__SWIG_1",
+        "_wrap_tinfo_t_deserialize__SWIG_7" : {
+            "mustcall" : "tinfo_t_deserialize__SWIG_7",
         },
         "_wrap_get_bpt_group" : {
             "mustcall" : "_maybe_sized_cstring_result",
@@ -115,15 +115,6 @@ def check_cpp(args):
         "_wrap_idainfo_tag_get" : {
             "nostring" : " --size;",
         },
-
-        "_wrap_warning__varargs__" : {
-            "nullptrcheck" : 1, # 1st arg
-            "mustcall" : "PyUnicode_as_qstring",
-        },
-        "_wrap_error__varargs__" : {
-            "nullptrcheck" : 1,
-            "mustcall" : "PyUnicode_as_qstring",
-        },
         "_wrap_tag_remove" : {
             "nullptrcheck" : 1,
         },
@@ -133,20 +124,12 @@ def check_cpp(args):
         "_wrap_compile_idc_text" : {
             "nullptrcheck" : 1,
         },
-        "_wrap_get_member_size" : {
-            "nullptrcheck" : 1,
-        },
         "_wrap_load_debugger" : {
             "string" : ["SWIG_PYTHON_THREAD_BEGIN_ALLOW", "SWIG_PYTHON_THREAD_END_ALLOW"],
         },
-        "_wrap_AssembleLine" : {
-            "nullptrcheck" : 5,
-        },
-
         "_wrap_get_opinfo" : {
             "string" : ["Py_XDECREF(resultobj)", "Py_INCREF(resultobj)"],
         },
-
         "_wrap_file2base" : {
             "nostring" : ["SWIGTYPE_p_qoff64_t", "qoff64_t *"],
         },
@@ -166,13 +149,13 @@ def check_cpp(args):
         "_wrap_vd_failure_t_desc" : {
             "mustcall" : "PyUnicode_FromStringAndSize",
         },
-        "_wrap_create_field_name" : {
+        "_wrap_create_field_name__SWIG_0" : {
             "mustcall" : "PyUnicode_FromStringAndSize",
         },
         "delete_qrefcnt_t_Sl_cfunc_t_Sg_" : {
             "mustcall" : "hexrays_deregister_python_clearable_instance",
         },
-        "_wrap_decompile" : {
+        "_wrap_decompile__SWIG_0" : {
             "mustcall" : "hexrays_register_python_clearable_instance",
         },
         "_wrap_vdui_t_cfunc_get" : {
@@ -372,7 +355,6 @@ def check_python(args):
         "_qstrvec_t" : { "mustinherit" : "ida_idaapi.py_clinked_object_t" },
         "argpart_t" : { "mustinherit" : "argloc_t" },
         "cli_t" : { "mustinherit" : "ida_idaapi.pyidc_opaque_object_t" },
-        "enumplace_t" : { "mustinherit" : "place_t" },
         "func_type_data_t" : { "mustinherit" : "funcargvec_t" },
         "ida_lowertype_helper_t" : { "mustinherit" : "lowertype_helper_t" },
         "idaplace_t" : { "mustinherit" : "place_t" },
@@ -383,13 +365,13 @@ def check_python(args):
         "py_clinked_object_t" : { "mustinherit" : "pyidc_opaque_object_t" },
         "segm_move_infos_t" : { "mustinherit" : "segm_move_info_vec_t" },
         "simpleline_place_t" : { "mustinherit" : "place_t" },
-        "structplace_t" : { "mustinherit" : "place_t" },
+        "tiplace_t" : { "mustinherit" : "place_t" },
         "textctrl_info_t" : { "mustinherit" : "ida_idaapi.py_clinked_object_t" },
         "udtmembervec_t" : { "mustinherit" : "udtmembervec_template_t" },
         "udt_type_data_t" : { "mustinherit" : "udtmembervec_t" },
         "call_stack_t" : { "mustinherit" : "call_stack_info_vec_t" },
-        "abstract_graph_t" : { "mustinherit" : "ida_gdl.gdl_graph_t" },
-        "mutable_graph_t" : { "mustinherit" : "abstract_graph_t" },
+        "drawable_graph_t" : { "mustinherit" : "ida_gdl.gdl_graph_t" },
+        "interactive_graph_t" : { "mustinherit" : "drawable_graph_t" },
         "meminfo_vec_t" : { "mustinherit" : "meminfo_vec_template_t" },
 
         # Just look for the presence of those things

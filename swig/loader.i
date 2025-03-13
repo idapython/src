@@ -74,6 +74,8 @@
 %ignore load_and_run_plugin;
 %rename (load_and_run_plugin) py_load_and_run_plugin;
 
+%ignore process_archive(qstring *,linput_t *,qstring *,ushort *,char const *,load_info_t const *);
+
 %ignore extract_module_from_archive;
 %rename (extract_module_from_archive) py_extract_module_from_archive;
 

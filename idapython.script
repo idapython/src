@@ -21,6 +21,7 @@ global:
   PyW_SizeVecToPyList;
   PyW_UvalVecToPyList;
   PyW_StrVecToPyList;
+  PyW_TidVecToPyList;
   PyW_TryGetAttrString;
   PyW_TryImportModule;
   PyW_register_compiled_form;
@@ -29,6 +30,7 @@ global:
   disable_script_timeout;
   enable_extlang_python;
   enable_python_cli;
+  idapython_convert_cli_completions;
   idapython_hook_to_notification_point;
   idapython_unhook_from_notification_point;
   idapython_register_hook;

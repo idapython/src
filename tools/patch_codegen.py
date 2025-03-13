@@ -204,13 +204,16 @@ with open(args.input) as f:
                             "printf(\"swig/python detected a memory leak",
                             (
                                 "#ifdef TESTABLE_BUILD",
-                                "      if ( name == nullptr || strcmp(name, \"std::out_of_range *\") != 0 )",
-                                "        abort();",
+                                "      /* disabled because of https://github.com/swig/swig/issues/2638#issuecomment-1991845894 */",
+                                "      // if ( name == nullptr || strcmp(name, \"std::out_of_range *\") != 0 )",
+                                "        // abort();",
                                 "#endif",
                             ),
                         ),
                     ))
+
             line = line.replace(", ...arg0)", ", ...)")
+            line = line.replace(",...arg0)", ",...)")
         else:
             if line.find("(args") > -1:
                 current_function_uses_args = True
@@ -219,7 +222,8 @@ with open(args.input) as f:
             elif line.find("varargs") > -1:
                 current_function_uses_varargs = True
 
-            if line.find("SWIG_Python_AppendOutput") > -1:
+            if line.find("SWIG_Python_AppendOutput") > -1 \
+               or line.find("Will be tuplified") > -1:
                 current_function_uses_AppendOutput = True
             elif line.find("return resultobj;") > -1:
                 if current_function_uses_AppendOutput:
@@ -274,6 +278,15 @@ with open(args.input) as f:
                             repl = "\n".join(repl)
                         subst = line.rstrip().replace(patch_data[0], repl)
                         subst = "%s %s" % (subst, patched_cmt)
+                elif patch_kind == "release_gil_around":
+                    expr = patch_data
+                    idx = line.find(expr)
+                    if idx > -1:
+                        subst = [
+                            "SWIG_PYTHON_THREAD_BEGIN_ALLOW;",
+                            line,
+                            "SWIG_PYTHON_THREAD_END_ALLOW;",
+                        ]
                 elif patch_kind == "insert_before_text":
                     idx = line.find(patch_data[0])
                     if idx > -1:

@@ -31,6 +31,7 @@ typedef int _PyLong_AsByteArray_t(PyObject *, unsigned char *, size_t, int, int)
 
 typedef int  PyEval_ThreadsInitialized_t(void);
 typedef void PyEval_InitThreads_t(void);
+typedef int  Py_NoSiteFlag_t;
 
 struct ext_api_t
 {
@@ -51,6 +52,7 @@ struct ext_api_t
   _PyLong_AsByteArray_t *_PyLong_AsByteArray_ptr;
   PyEval_ThreadsInitialized_t *PyEval_ThreadsInitialized_ptr;
   PyEval_InitThreads_t *PyEval_InitThreads_ptr;
+  int *Py_NoSiteFlag_ptr;
 
   ext_api_t() { memset(this, 0, sizeof(*this)); }
   ~ext_api_t() { clear(); }

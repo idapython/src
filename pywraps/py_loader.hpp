@@ -5,29 +5,13 @@
 //<inline(py_loader)>
 
 //------------------------------------------------------------------------
-/*
-#<pydoc>
-def mem2base(mem, ea, fpos):
-    """
-    Load database from the memory.
-    @param mem: the buffer
-    @param ea: start linear addresses
-    @param fpos: position in the input file the data is taken from.
-                 if == -1, then no file position correspond to the data.
-    @return:
-        - Returns zero if the passed buffer was not a string
-        - Otherwise 1 is returned
-    """
-    pass
-#</pydoc>
-*/
-static int py_mem2base(PyObject *py_mem, ea_t ea, qoff64_t fpos = -1)
+static int py_mem2base(PyObject *mem, ea_t ea, qoff64_t fpos = -1)
 {
   Py_ssize_t len;
   char *buf;
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( PyBytes_AsStringAndSize(py_mem, &buf, &len) == -1 )
+    if ( PyBytes_AsStringAndSize(mem, &buf, &len) == -1 )
       return 0;
   }
 
@@ -35,18 +19,6 @@ static int py_mem2base(PyObject *py_mem, ea_t ea, qoff64_t fpos = -1)
 }
 
 //------------------------------------------------------------------------
-/*
-#<pydoc>
-def load_plugin(name):
-    """
-    Loads a plugin
-    @return:
-        - None if plugin could not be loaded
-        - An opaque object representing the loaded plugin
-    """
-    pass
-#</pydoc>
-*/
 static PyObject *py_load_plugin(const char *name)
 {
   if ( qfileexist(name) )
@@ -61,17 +33,6 @@ static PyObject *py_load_plugin(const char *name)
 }
 
 //------------------------------------------------------------------------
-/*
-#<pydoc>
-def run_plugin(plg):
-    """
-    Runs a plugin
-    @param plg: A plugin object (returned by load_plugin())
-    @return: Boolean
-    """
-    pass
-#</pydoc>
-*/
 static bool py_run_plugin(PyObject *plg, size_t arg)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();

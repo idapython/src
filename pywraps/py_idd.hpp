@@ -157,20 +157,7 @@ static debugger_t *get_dbg()
   return dbg;
 }
 
-/*
-#<pydoc>
-def dbg_get_registers():
-    """
-    This function returns the register definition from the currently loaded debugger.
-    Basically, it returns an array of structure similar to to idd.hpp / register_info_t
-    @return:
-        None if no debugger is loaded
-        tuple(name, flags, class, dtype, bit_strings, default_bit_strings_mask)
-        The bit_strings can be a tuple of strings or None (if the register does not have bit_strings)
-    """
-    pass
-#</pydoc>
-*/
+//-------------------------------------------------------------------------
 static PyObject *dbg_get_registers()
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -178,9 +165,9 @@ static PyObject *dbg_get_registers()
   if ( dbg == nullptr )
     Py_RETURN_NONE;
 
-  PyObject *py_list = PyList_New(dbg->nregs);
+  PyObject *py_list = PyList_New(dbg->nregisters);
 
-  for ( int i=0; i < dbg->nregs; i++ )
+  for ( int i=0; i < dbg->nregisters; i++ )
   {
     register_info_t &ri = dbg->regs(i);
     PyObject *py_bits;
@@ -217,20 +204,6 @@ static PyObject *dbg_get_registers()
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def dbg_get_thread_sreg_base(tid, sreg_value):
-    """
-    Returns the segment register base value
-    @param tid: thread id
-    @param sreg_value: segment register (selector) value
-    @return:
-        - The base as an 'ea'
-        - Or None on failure
-    """
-    pass
-#</pydoc>
-*/
 static PyObject *dbg_get_thread_sreg_base(thid_t tid, int sreg_value)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -241,18 +214,6 @@ static PyObject *dbg_get_thread_sreg_base(thid_t tid, int sreg_value)
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def dbg_read_memory(ea, sz):
-    """
-    Reads from the debugee's memory at the specified ea
-    @return:
-        - The read buffer (as a string)
-        - Or None on failure
-    """
-    pass
-#</pydoc>
-*/
 static PyObject *dbg_read_memory(ea_t ea, size_t sz)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -278,41 +239,21 @@ static PyObject *dbg_read_memory(ea_t ea, size_t sz)
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def dbg_write_memory(ea, buffer):
-    """
-    Writes a buffer to the debugee's memory
-    @return: Boolean
-    """
-    pass
-#</pydoc>
-*/
 static PyObject *dbg_write_memory(
         ea_t ea,
-        const bytevec_t &buf)
+        const bytevec_t &buffer)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
   if ( !dbg_can_query(dbg) )
     Py_RETURN_NONE;
 
-  if ( write_dbg_memory(ea, buf.begin(), buf.size()) != buf.size() )
+  if ( write_dbg_memory(ea, buffer.begin(), buffer.size()) != buffer.size() )
     Py_RETURN_FALSE;
   Py_RETURN_TRUE;
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def dbg_get_name():
-    """
-    This function returns the current debugger's name.
-    @return: Debugger name or None if no debugger is active
-    """
-    pass
-#</pydoc>
-*/
 static PyObject *dbg_get_name()
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -324,18 +265,6 @@ static PyObject *dbg_get_name()
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def dbg_get_memory_info():
-    """
-    This function returns the memory configuration of a debugged process.
-    @return:
-        None if no debugger is active
-        tuple(start_ea, end_ea, name, sclass, sbase, bitness, perm)
-    """
-    pass
-#</pydoc>
-*/
 static PyObject *dbg_get_memory_info()
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();

@@ -1,4 +1,5 @@
 from __future__ import print_function
+from __future__ import annotations
 # -----------------------------------------------------------------------
 try:
     import pywraps
@@ -13,8 +14,12 @@ import datetime
 
 #<pycode(py_idaapi)>
 
+# Type aliases (we currently still support 3.8, so no `type` statement, or `typing.TypeAlias`es just yet)
+ea_t = int
+
 __EA64__ = BADADDR == 0xFFFFFFFFFFFFFFFF
 
+import inspect
 import struct
 import traceback
 import os
@@ -330,7 +335,7 @@ def as_UTF16(s):
             s = s.decode("UTF-8")
     else:
         s = unicode(s)
-    return s.encode("UTF-16" + ("BE" if _ida_ida.cvar.inf.is_be() else "LE"))
+    return s.encode("UTF-16" + ("BE" if _ida_ida.inf_is_be() else "LE"))
 as_unicode = as_UTF16
 
 # -----------------------------------------------------------------------
@@ -539,10 +544,600 @@ def IDAPython_UnLoadProcMod(script, g, print_error=True):
     return PY_COMPILE_ERR
 
 # ----------------------------------------------------------------------
+# Shameless rip-off of pdoc AST parsing follows
+def IDAPython_GetDocstrings(obj):
+    import ast
+    from itertools import tee
+    from itertools import zip_longest
+    from typing import TypeVar
+    from typing import Optional
+    T = TypeVar("T")
+
+    empty: type = inspect.Signature.empty  # type: ignore  # noqa
+
+    if sys.version_info >= (3, 9):
+        from functools import cache
+    else:  # pragma: no cover
+        from functools import lru_cache
+
+        cache = lru_cache(maxsize=None)
+
+    if sys.version_info >= (3, 12):
+        from ast import TypeAlias as ast_TypeAlias
+    else:  # pragma: no cover
+        class ast_TypeAlias:
+            pass
+
+    def _dedent(source: str) -> str:
+        if not source or source[0] not in (" ", "\t"):
+            return source
+        source = source.lstrip()
+        if not any(source.startswith(x) for x in ["async ", "def ", "class "]):
+            first_line, rest = source.split("\n", 1)
+            return first_line + "\n" + _dedent(rest)
+        else:
+            return source
+
+    def _pairwise_longest(iterable):
+        """s -> (s0,s1), (s1,s2), (s2, s3),  ..., (sN, None)"""
+        a, b = tee(iterable)
+        next(b, None)
+        return zip_longest(a, b)
+
+    @cache
+    def _nodes(tree):
+        """
+        Returns the list of all nodes in tree's body.
+        """
+        return list(_nodes_iter(tree))
+
+    def _nodes_iter(tree):
+        for a in tree.body:
+            yield a
+
+    @cache
+    def _walk_tree(tree):
+        var_docstrings = {}
+        func_docstrings = {}
+        nodes = _nodes(tree)
+        if len(nodes) == 1 and type(nodes[0]) is ast.ClassDef:
+            nodes = nodes[0].body
+        for a, b in _pairwise_longest(nodes):
+            if isinstance(a, ast_TypeAlias):
+                name = a.name.id
+            elif (
+                isinstance(a, ast.AnnAssign) and isinstance(a.target, ast.Name) and a.simple
+            ):
+                name = a.target.id
+            elif (
+                isinstance(a, ast.Assign)
+                and len(a.targets) == 1
+                and isinstance(a.targets[0], ast.Name)
+            ):
+                name = a.targets[0].id
+            elif isinstance(a, ast.FunctionDef) and a.body:
+                continue
+            else:
+                continue
+            if (
+                isinstance(b, ast.Expr)
+                and isinstance(b.value, ast.Constant)
+                and isinstance(b.value.value, str)
+            ):
+                var_docstrings[name] = inspect.cleandoc(b.value.value).strip()
+        return var_docstrings
+
+    res = None
+    try:
+        res = _walk_tree(ast.parse(inspect.getsource(obj)))
+    except:
+        pass
+    return res
+
+# ----------------------------------------------------------------------
 class __IDAPython_Completion_Util(object):
     """Internal utility class for auto-completion support"""
     def __init__(self):
         pass
+
+    def __resolve_type(self, tname):
+        rtypes = {
+            'char': 'char',
+            'short': 'short',
+            'int': 'int',
+            'long': 'long',
+            'long long': 'long long',
+            'unsigned char': 'unsigned char',
+            'unsigned short': 'unsigned short',
+            'unsigned int': 'unsigned int',
+            'unsigned long': 'unsigned long',
+            'unsigned long long': 'unsigned long long',
+            'aflags_t': 'unsigned int',
+            'off_t': 'unsigned long long',
+            'time_t': 'unsigned long long',
+            'size_t': 'unsigned long',
+            'uint_fast8_t': 'unsigned char',
+            'uint_fast16_t': 'unsigned long',
+            'uint_fast32_t': 'unsigned long',
+            'uint_fast64_t': 'unsigned long',
+            'uintptr_t': 'unsigned long',
+            'wint_t': 'unsigned int',
+            '__cpu_mask': 'unsigned long',
+            '_Atomic_word': 'int',
+            'uchar': 'unsigned char',
+            'ushort': 'unsigned short',
+            'uint': 'unsigned int',
+            'int8': 'char',
+            'uint8': 'unsigned char',
+            'int16': 'short',
+            'uint16': 'unsigned short',
+            'int32': 'int',
+            'uint32': 'unsigned int',
+            'uint64': 'unsigned long long',
+            'int64': 'long long',
+            'ulonglong': 'unsigned long long',
+            'longlong': 'long long',
+            'wchar16_t': 'unsigned short',
+            'wchar32_t': 'unsigned int',
+            'ea_t': 'unsigned long long',
+            'sel_t': 'unsigned long long',
+            'asize_t': 'unsigned long long',
+            'adiff_t': 'long long',
+            'uval_t': 'unsigned long long',
+            'sval_t': 'long long',
+            'ea32_t': 'unsigned int',
+            'ea64_t': 'unsigned long long',
+            'error_t': 'int',
+            'op_dtype_t': 'unsigned char',
+            'inode_t': 'unsigned long long',
+            'diffpos_t': 'unsigned long',
+            'qtime32_t': 'int',
+            'qtime64_t': 'unsigned long long',
+            'flags_t': 'unsigned int',
+            'flags64_t': 'unsigned long long',
+            'tid_t': 'unsigned long long',
+            'bgcolor_t': 'unsigned int',
+            'qhandle_t': 'int',
+            'comp_t': 'unsigned char',
+            'cm_t': 'unsigned char',
+            'atype_t': 'int',
+            'idastate_t': 'int',
+            'nodeidx64_t': 'unsigned long long',
+            'nodeidx32_t': 'unsigned int',
+            'nodeidx_t': 'unsigned long long',
+            'reftype_t': 'unsigned char',
+            'type_t': 'unsigned char',
+            'p_list': 'unsigned char',
+            'color_t': 'unsigned char',
+            'enum_t': 'unsigned long long',
+            'bmask_t': 'unsigned long long',
+            'const_t': 'unsigned long long',
+            'tif_cursor_t': 'unsigned long long',
+            'cpidx_t': 'int',
+            'cplen_t': 'int',
+            'twidget_type_t': 'int',
+            'input_event_modifiers_t': 'int',
+            'view_event_state_t': 'int',
+            'optype_t': 'unsigned char',
+            'help_t': 'int',
+            'pid_t': 'int',
+            'thid_t': 'int',
+            'register_class_t': 'unsigned char',
+            'bpttype_t': 'int',
+            'mangled_name_type_t': 'int',
+            'diff_degree_t': 'ssize_t',
+            'diridx_t': 'unsigned long long',
+            'blob_idx_t': 'unsigned long long',
+            'fixup_type_t': 'unsigned short',
+            'graph_id_t': 'unsigned long long',
+            'layout_type_t': 'int',
+            'ignore_name_def_t': 'int',
+            'p_string': 'unsigned char',
+            'bmask64_t': 'unsigned long long',
+            'bte_t': 'unsigned char',
+            'type_sign_t': 'int',
+            'argloc_type_t': 'int',
+            'biggest_t': 'unsigned long',
+            'regnum_t': 'short',
+            'lxtype': 'unsigned short',
+            'utc_timestamp_t': 'unsigned long long',
+            'lofi_timestamp_t': 'unsigned long long',
+            'problist_id_t': 'unsigned char',
+            'nfds_t': 'unsigned long',
+            'regoff_t': 'unsigned long long',
+            'srclang_t': 'int'
+        }
+        if tname in rtypes.keys():
+            resolved = rtypes[tname]
+            t2sz = {
+                    'char': 1,
+                    'short': 2,
+                    'int': 4,
+                    'long': 8,
+                    'long long': 8,
+                    'unsigned char': 1,
+                    'unsigned short': 2,
+                    'unsigned int': 4,
+                    'unsigned long': 8,
+                    'unsigned long long': 8,
+                    'ssize_t': 8,
+            }
+            size = t2sz[resolved]
+        else:
+            resolved = tname
+            size = None
+        return resolved, size
+
+    def __render_rets(self, rets):
+        import ida_lines as il
+        h = lambda s, c: f"{il.SCOLOR_ON}{c}{s}{il.SCOLOR_OFF}{c}"
+        ha = lambda strs, cs: "".join([ h(s, c) for s, c in zip(strs, cs) ])
+        tmp = []
+        for i in range(len(rets)):
+            if rets[i] == "void":
+                continue
+            tmp.append(ha( [ rets[i] ], [ il.SCOLOR_REG ]))
+
+        retstr = ha([", "], [il.SCOLOR_DEFAULT]).join(tmp)
+        return retstr
+
+    def __render_args(self, args, types, defaults):
+        import ida_lines as il
+        h = lambda s, c: f"{il.SCOLOR_ON}{c}{s}{il.SCOLOR_OFF}{c}"
+        ha = lambda strs, cs: "".join([ h(s, c) for s, c in zip(strs, cs) ])
+        tmp = []
+        for i in range(len(args)):
+            if types[i] is None and defaults[i] is None:
+                tmp.append(ha( [ f"{args[i]}" ], [ il.SCOLOR_LOCNAME ]))
+            elif types[i] is None and defaults[i] is not None:
+                tmp.append(ha([ f"{args[i]}", " = ", f"{defaults[i]}" ],
+                    [ il.SCOLOR_LOCNAME, il.SCOLOR_DEFAULT, il.SCOLOR_NUMBER ]))
+            elif types[i] is not None and defaults[i] is None:
+               tmp.append(ha([ f"{args[i]}", ": ", f"{types[i]}", ],
+                   [ il.SCOLOR_LOCNAME, il.SCOLOR_DEFAULT, il.SCOLOR_REG, ]))
+            elif types[i] is not None and defaults[i] is not None:
+               tmp.append(ha([ f"{args[i]}", ": ", f"{types[i]}", " = ", f"{defaults[i]}" ],
+                   [ il.SCOLOR_LOCNAME, il.SCOLOR_DEFAULT, il.SCOLOR_REG,
+                     il.SCOLOR_DEFAULT, il.SCOLOR_NUMBER ]))
+
+        argstr = ha([", "], [il.SCOLOR_DEFAULT]).join(tmp)
+        return argstr
+
+
+    def __render_proto(self, name, args, types, defaults, rets, is_ctor = False):
+        import ida_lines as il
+        h = lambda s, c: f"{il.SCOLOR_ON}{c}{s}{il.SCOLOR_OFF}{c}"
+        ha = lambda strs, cs: "".join([ h(s, c) for s, c in zip(strs, cs) ])
+        argstr = self.__render_args(args, types, defaults)
+        if is_ctor and len(rets) == 0:
+            rets = [ name ]
+        retstr = self.__render_rets(rets)
+
+        proto = ha([ f"{name}", "(" ],
+                   [ il.SCOLOR_MACRO if is_ctor else il.SCOLOR_CNAME, il.SCOLOR_DEFAULT ]) + \
+                   f"{argstr}"
+
+        if len(retstr) > 0:
+            proto += ha( [ ") -> ", ], [ il.SCOLOR_DEFAULT, ]) + retstr
+        else:
+            proto += ha( [")" ], [ il.SCOLOR_DEFAULT ])
+
+        return proto
+
+    def __render_constant(self, name, attr):
+        import ida_lines as il
+        h = lambda s, c: f"{il.SCOLOR_ON}{c}{s}{il.SCOLOR_OFF}{c}"
+        ha = lambda strs, cs: "".join([ h(s, c) for s, c in zip(strs, cs) ])
+        out = ha([ f"{name.ljust(48)}", f" = ",            f"{attr:#018x}", ],
+                 [ il.SCOLOR_DNAME,     il.SCOLOR_DEFAULT, il.SCOLOR_NUMBER ])
+        return out
+
+    def __render_default(self, name):
+        import ida_lines as il
+        h = lambda s, c: f"{il.SCOLOR_ON}{c}{s}{il.SCOLOR_OFF}{c}"
+        ha = lambda strs, cs: "".join([ h(s, c) for s, c in zip(strs, cs) ])
+        out = ha([ f"{name.ljust(48)}", ], [ il.SCOLOR_UNKNAME, ])
+        return out
+
+    def __render_int_member(self, name, typ, val):
+        import ida_lines as il
+        h = lambda s, c: f"{il.SCOLOR_ON}{c}{s}{il.SCOLOR_OFF}{c}"
+        ha = lambda strs, cs: "".join([ h(s, c) for s, c in zip(strs, cs) ])
+        _, sz = self.__resolve_type(typ)
+        if sz is None:
+            val_fmt = f"{val:#018x}"
+        else:
+            val_fmt = {
+                1: f"{val:#04x}",
+                2: f"{val:#06x}",
+                4: f"{val:#010x}",
+                8: f"{val:#018x}",
+            }[sz]
+        pref_len = len(f"{name}: {typ}")
+        eq_pad = f" {'='.rjust(48-pref_len)} "
+        out = ha([ f"{name}", ": ", f"{typ}", eq_pad, val_fmt ],
+                 [ il.SCOLOR_LOCNAME, il.SCOLOR_DEFAULT, il.SCOLOR_REG, il.SCOLOR_DEFAULT,
+                   il.SCOLOR_NUMBER ])
+        return out
+
+    def __render_docstr(self, doc, name):
+        import ida_lines as il
+        h = lambda s, c: f"{il.SCOLOR_ON}{c}{s}{il.SCOLOR_OFF}{c}"
+        ha = lambda strs, cs: "".join([ h(s, c) for s, c in zip(strs, cs) ])
+
+        if doc is None:
+            return ""
+
+        # proto = (args, types, defaults, rets)
+        out = []
+        ign = False
+        for l in doc.splitlines():
+            l = l.strip(" \n\r\t")
+            m = re.match(f"(\\d). {name}\\(", l)
+            if len(l) == 0:
+                continue
+            elif m is not None or "This function has the following signatures:" in l:
+                # prototype definition
+                continue
+            else:
+                # re-wrap docstring to 128 chars
+                final = []
+                curline = ""
+                tmp = l.split(" ")
+                for i in range(len(tmp)):
+                    if len(curline) + len(tmp[i]) + 1 > 128:
+                         final.append(f"{curline}")
+                         curline = f"{tmp[i]} "
+                    else:
+                         curline += f"{tmp[i]} "
+                if len(curline) > 0:
+                    final.append(f"{curline}")
+
+                out.append("\n".join(final))
+        return "\n".join(out)
+
+    def __parse_arg(self, arg):
+        arg = arg.strip(" ")
+        default = None
+        typ = None
+        if "=" in arg:
+            arg, default = [ z.strip(" ") for z in arg.split("=") ]
+        if ":" in arg:
+            arg, typ = [ z.strip(" ") for z in arg.split(":") ]
+        # Swig auto-renames certain argument names if they are also
+        # python keywords (for example from -> _from)
+        arg = arg.lstrip("_")
+        return arg, typ, default
+
+    def __proto_from_docstring(self, name, doc, altname = None):
+        import re
+        out = []
+        args, types, defaults, rets = [], [], [], []
+        if doc is None or len(doc) == 0:
+            out.append((args, types, defaults, rets))
+            return out
+        if altname is not None:
+            name = altname
+        for l in doc.splitlines():
+            m = re.match(f"    (\\d). {name}\\(", l)
+            if m:
+                if len(args + types + defaults + rets) > 0:
+                    out.append((args, types, defaults, rets))
+                args, types, defaults, rets = [], [], [], []
+
+                l = l[len("    0. "):]
+
+                # return types
+                if " -> " in l:
+                    tmp = l.split(" -> ")[1].strip("() ")
+                    if tmp == "void":
+                        rets = []
+                    else:
+                        rets = [ t.strip(" ") for t in tmp.split(",") ]
+                else:
+                    rets = []
+
+                # arguments, types, default values in prototype
+                o = 0
+                lvl = 1
+                # poor man's context free grammar state machine finding
+                # outermost group of parentheses
+                for o in range(l.find("("), len(l)):
+                    if l[o] == "(":
+                        lvl += 1
+                    elif l[o] == ")":
+                        lvl -= 1
+                        if lvl == 1:
+                            tmp = l[l.find("(") + 1:o]
+                            break
+                else:
+                    # couldn't find outermost parenthesis group, skip
+                    continue
+
+                if "void" in tmp:
+                    args = []
+                for t in tmp.split(","):
+                    arg, typ, default = self.__parse_arg(t)
+                    args.append(arg)
+                    types.append(typ)
+                    defaults.append(default)
+
+        if len(args + types + defaults + rets) > 0:
+            out.append((args, types, defaults, rets))
+        if len(out) == 0:
+            return [([], [], [], [])]
+        return out
+
+    def __proto_from_argspec(self, name, args, defaults, annotations):
+        types = []
+        _defaults = []
+        rets = []
+        out = []
+        def __repr_type(typ):
+            if type(typ) is str:
+                # string annotation, leave as is
+                return typ
+            elif typ.__class__.__module__ in [ "typing", "types" ]:
+                # type hint, leave as is
+                return typ
+            elif typ in [ bool, str, int, float ]:
+                # builtin type, format as string
+                return typ.__name__
+            else:
+                # anything complex, leave as is
+                return typ.__class__.__name__
+
+        for i, arg in enumerate(args):
+            if arg not in annotations.keys():
+                types.append(None)
+            else:
+                types.append(__repr_type(annotations[arg]))
+
+            if defaults and i >= len(args) - len(defaults):
+                z = i - (len(args) - len(defaults))
+                _defaults.append(defaults[z])
+            else:
+                _defaults.append(None)
+        if "return" not in annotations.keys():
+            rets = []
+        elif annotations["return"] == "void":
+            rets = []
+        elif type(annotations["return"]) == list:
+            rets = [ __repr_type(r) for r in annotations["return"] ]
+        else:
+            rets = [ __repr_type(annotations["return"]) ]
+
+        out.append((args, types, _defaults, rets))
+        return out
+
+    def build_hints(self, names, ns):
+        out = []
+        W_CMEMB = 258
+        W_CTOR  = 257
+        W_FUNC  = 256
+        var_docs = {}
+        try:
+            var_docs = IDAPython_GetDocstrings(ns)
+        except:
+            pass
+
+        for name in names:
+            try:
+                attr = getattr(ns, name)
+                is_prop = False
+                pclass = None
+                try:
+                    is_prop = type(getattr(type(ns), name)) is property
+                except:
+                    pass
+                is_int = type(attr) == int
+                is_spo = "SwigPyObject" in str(type(attr))
+                is_typing = type(attr).__module__ == "typing"
+                if is_typing:
+                    # Ignore typing-related imports ("from typing import X" ...)
+                    continue
+                if is_prop:
+                    pclass = getattr(ns, "__class__")
+                    mod, cls = pclass.__module__, pclass.__name__
+                    var_docs = IDAPython_GetDocstrings(pclass)
+                    doc = var_docs[name] if name in var_docs.keys() else ""
+                    docr  = self.__render_docstr(doc, name)
+
+                    if is_int or is_spo:
+                        # class member, integral type or SwigPyObject
+                        try:
+                            # get low-level swig auto generated function
+                            getter = getattr(getattr(sys.modules[mod], f"_{mod}"), f"{cls}_{name}_get")
+                            typ = inspect.getdoc(getter).split(" -> ")[1]
+                        except:
+                            typ = "unk"
+                        if is_int:
+                            hint = self.__render_int_member(name, typ, attr)
+                        else:
+                            hint = self.__render_args([ name ], [ typ ], [ None ])
+                        out.append((name, hint, docr, [ W_CMEMB ]))
+                    else:
+                        # class member, complex type, property, no SwigPyObject
+                        annots = getattr(pclass, "__annotations__")
+                        if name in annots.keys():
+                            # if we have a type annnotation, pick that
+                            typ = annots[name]
+                        else:
+                            # if we don't have a type annotation, take the python type
+                            typ = type(attr).__name__
+                        hint = self.__render_args([ name ], [ typ ], [ None ])
+                        out.append((name, hint, docr, [ W_CMEMB ]))
+                elif is_int:
+                    # constant
+                    hint = self.__render_constant(name, attr)
+                    if name in var_docs.keys():
+                        doc = var_docs[name]
+                    else:
+                        doc = ""
+                    docr  = self.__render_docstr(doc, name)
+                    out.append((name, hint, docr, [ W_CMEMB ]))
+                elif inspect.isfunction(attr) or inspect.ismethod(attr) or inspect.isclass(attr):
+                    # function or constructor
+                    args, varargs, _, defaults, _, _, annots = inspect.getfullargspec(attr)
+                    doc = inspect.getdoc(attr)
+                    docr = self.__render_docstr(doc, name)
+                    altname = None
+                    is_ctor = inspect.isclass(attr)
+                    weight = W_CTOR if is_ctor else W_FUNC
+                    if name not in str(attr):
+                        # Some functions are mapped to each other. The docstring
+                        # parser can only extract prototypes from overloaded
+                        # functions if it knows the name of the target function
+                        altname = str(attr).split(" ")[1]
+                    if varargs == "args" and doc is not None:
+                        # Overloaded function, retrieve prototype from comment and
+                        # insert one entry per prototype
+                        prots = self.__proto_from_docstring(name, doc, altname = altname)
+                        for prot in prots:
+                            hint = self.__render_proto(name, *prot, is_ctor = is_ctor)
+                            out.append((name, hint, docr, [ weight ]))
+                    else:
+                        # Regular function, retrieve prototype from argspec
+                        prot = self.__proto_from_argspec(name, args, defaults, annots)[0]
+                        hint = self.__render_proto(name, *prot, is_ctor = is_ctor)
+                        out.append((name, hint, docr, [ weight ]))
+                elif inspect.isclass(type(attr)) and type(attr).__name__ == "str":
+                    # class member, string
+                    if name in var_docs.keys():
+                        doc = var_docs[name]
+                    else:
+                        doc = ""
+                    docr  = self.__render_docstr(doc, name)
+                    hint = self.__render_default(name)
+                    out.append((name, hint, docr, [] ))
+                elif inspect.isclass(type(attr)) and not callable(attr):
+                    # class member, complex type
+                    typ = type(attr).__name__
+                    if typ == "module" and ns.__name__ != "__main__":
+                        # hide submodules that show up just because they were
+                        # imported by code in the module we're inspecting
+                        continue
+                    doc = inspect.getdoc(attr)
+                    if doc is None:
+                        doc = ""
+                    docr  = self.__render_docstr(doc, name)
+                    hint = self.__render_args([ name ], [ typ ], [ None ])
+                    out.append((name, hint, docr, [ W_CMEMB ]))
+                else:
+                    doc = inspect.getdoc(attr)
+                    if doc is None:
+                        doc = ""
+                    docr  = self.__render_docstr(doc, name)
+                    hint = self.__render_default(name)
+                    out.append((name, hint, docr, [] ))
+            except:
+                out.append((name, name, "", [] ))
+                # self.debug("build_hint(%s) got an exception:\n%s", name, traceback.format_exc())
+                pass
+
+        out = sorted(out, key = lambda r: sum([ 1 << x for x in r[3] ]))
+        comps, hints, docs, _ = zip(*out)
+        return list(comps), list(hints), list(docs)
 
     def debug(self, *args):
         try:
@@ -577,6 +1172,48 @@ class __IDAPython_Completion_Util(object):
     def get_candidates(self, qname, line, match_syntax_char):
         # self.debug("get_candidates(qname=%s, line=%s, match_syntax_char=%s)", qname, line, match_syntax_char)
         results = []
+        MAGIC_METHODS = [ f"__{m}__" for m in [
+            # as per https://docs.python.org/3/reference/datamodel.html (v3.12.3)
+            "abs", "add", "aenter", "aexit", "aiter", "and", "anext",
+            "annotations", "await", "bases", "bool", "buffer", "bytes", "call",
+            "ceil", "class", "class_getitem", "closure", "code", "complex",
+            "contains", "copy", "deepcopy", "defaults", "del", "delattr",
+            "delete", "delitem", "dict", "dir", "divmod", "doc", "enter", "eq",
+            "exit", "file", "float", "floor", "floordiv", "format", "fspath",
+            "func", "future", "ge", "get", "getattr", "getattribute", "getitem",
+            "getnewargs", "getstate", "globals", "gt", "hash", "iadd", "iand",
+            "ifloordiv", "ilshift", "imatmul", "imod", "imul", "index", "init",
+            "init_subclass", "instancecheck", "int", "invert", "ior", "ipow",
+            "irshift", "isub", "iter", "itruediv", "ixor", "kwdefaults", "le",
+            "len", "length_hint", "lshift", "lt", "match_args", "matmul",
+            "missing", "mod", "module", "mro_entries", "mul", "name", "ne",
+            "neg", "new", "next", "objclass", "or", "pos", "pow", "prepare",
+            "qualname", "radd", "rand", "rdivmod", "reduce", "reduce_ex",
+            "release_buffer", "repr", "reversed", "rfloordiv", "rlshift",
+            "rmatmul", "rmod", "rmul", "ror", "round", "rpow", "rrshift",
+            "rshift", "rsub", "rtruediv", "rxor", "self", "set", "set_name",
+            "setattr", "setitem", "sizeof", "slots", "str", "sub",
+            "subclasscheck", "subclasses", "traceback", "truediv", "trunc",
+            "type_params", "typing_prepare_subst", "typing_subst", "weakref",
+            "xor", "builtins",
+            # and some more (manually picked)
+            "cached", "loader", "package", "spec", "subclasshook",
+        ]]
+
+        # and some Swig internals that are decorated differently
+        MAGIC_METHODS.extend([
+            "__swig_destroy__",
+            "_SwigNonDynamicMeta",
+            "_swig_python_version_info",
+            "_swig_add_metaclass",
+            "_swig_repr",
+            "_swig_setattr_nondynamic_class_variable",
+            "_swig_setattr_nondynamic_instance_variable",
+            "thisown", "this", "weakref",
+            "cvar", "_real_cvar", "_wrap_cvar",
+            "SWIG_PYTHON_LEGACY_BOOL",
+        ])
+
         try:
             ns = sys.modules['__main__']
             parts = qname.split('.')
@@ -596,12 +1233,27 @@ class __IDAPython_Completion_Util(object):
             if not results and len(parts) == 1:
                 results = self.dir_namespace(builtins, last_token)
                 # self.debug("get_candidates() completions for %s in %s: %s", last_token, builtins, results)
+            if last_token not in [ "_", "__" ]:
+                # only filter out __magic_methods__ if user doesn't explicitly
+                # look for something with a "_" or "__" prefix.
+                results = [ r for r in results if
+                    not (r in MAGIC_METHODS) and # magic methods
+                    not (r.startswith(f"_ida_") and r in sys.modules) and # low-level module
+                    not (r.startswith(f"__get")) and # property getters
+                    not (r.startswith(f"__set")) and # property setters
+                    not (r.endswith(f"__from_ptrval__")) # swig
+                ]
+
+            results, hints, docs = self.build_hints(results, ns)
+
+            docs = [ "    " + d.replace("\n", "\n    ") if len(d) > 0 else "" for d in docs ]
 
             results = map(lambda r: self.maybe_extend_syntactically(ns, r, line, match_syntax_char), results)
+
             ns_parts = parts[:-1]
             results = list(map(lambda r: ".".join(ns_parts + [r]), results))
-            # self.debug("get_candidates() => '%s'", str(results))
-            return results
+            # self.debug("get_candidates() => '%s', '%s'", str(results), str(hints))
+            return results, hints, docs
 
     QNAME_PAT = re.compile(r"([a-zA-Z_]([a-zA-Z0-9_\.]*)?)")
 
@@ -628,7 +1280,9 @@ class __IDAPython_Completion_Util(object):
                 if sys.version_info.major < 3:
                     qname = qname.encode("UTF-8")
                 if x >= start and x <= end:
-                    result = self.get_candidates(qname, line, match_syntax_char), start, end + (1 if match_syntax_char else 0)
+                    matches, hints, docs = self.get_candidates(qname, line, match_syntax_char)
+                    rep_x, end = start, end + (1 if match_syntax_char else 0)
+                    result = matches, hints, docs, rep_x, end
 
             # self.debug("__call__() => '%s'", str(result))
             return result
@@ -731,28 +1385,32 @@ class IDAPython_displayhook:
                 self.format_item(num_printer, storage, pair[1])
             storage.append('}')
         else:
-            storage.append(str(item))
+            storage.append(repr(item))
 
     def _print_hex(self, x):
         return hex(x)
+
+    def displayhook_format(self, item):
+        storage = []
+        import ida_idp
+        num_printer = self._print_hex
+        dn = ida_idp.ph_get_flag() & ida_idp.PR_DEFNUM
+        if dn == ida_idp.PRN_OCT:
+            num_printer = oct
+        elif dn == ida_idp.PRN_DEC:
+            num_printer = str
+        elif dn == ida_idp.PRN_BIN:
+            num_printer = bin
+        self.format_item(num_printer, storage, item)
+        return "".join(storage)
 
     def displayhook(self, item):
         if item is None or type(item) is bool:
             self.orig_displayhook(item)
             return
         try:
-            storage = []
-            import ida_idp
-            num_printer = self._print_hex
-            dn = ida_idp.ph_get_flag() & ida_idp.PR_DEFNUM
-            if dn == ida_idp.PRN_OCT:
-                num_printer = oct
-            elif dn == ida_idp.PRN_DEC:
-                num_printer = str
-            elif dn == ida_idp.PRN_BIN:
-                num_printer = bin
-            self.format_item(num_printer, storage, item)
-            sys.stdout.write("%s\n" % "".join(storage))
+            clob = self.displayhook_format(item)
+            sys.stdout.write("%s\n" % clob)
         except:
             import traceback
             traceback.print_exc()

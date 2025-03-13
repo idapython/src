@@ -984,10 +984,10 @@ PyObject *choose_choose(PyObject *self);
 void choose_activate(PyObject *self);
 PyObject *choose_create_embedded_chobj(PyObject *self);
 
-PyObject *py_get_chooser_data(const char *chooser_caption, int n)
+PyObject *py_get_chooser_data(const char *title, int n)
 {
   qstrvec_t data;
-  if ( !get_chooser_data(&data, chooser_caption, n) )
+  if ( !get_chooser_data(&data, title, n) )
     Py_RETURN_NONE;
   ref_t py_list_ref = PyW_StrVecToPyList(data);
   py_list_ref.incref();

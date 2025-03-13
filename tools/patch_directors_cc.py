@@ -71,10 +71,10 @@ patches = [
     "virtual int idaapi walk_forward",
     "virtual int idaapi walk_backward",
 
-    # mutable_graph_t
+    # interactive_graph_t
     "virtual rect_t &idaapi nrect",
     "virtual edge_info_t *idaapi get_edge",
-    "virtual abstract_graph_t *idaapi clone",
+    "virtual drawable_graph_t *idaapi clone",
     "virtual bool idaapi set_nrect",
     "virtual bool idaapi set_edge",
     "virtual int idaapi add_node",
@@ -83,7 +83,7 @@ patches = [
     "virtual bool idaapi del_edge",
     "virtual bool idaapi replace_edge",
     "virtual bool idaapi refresh",
-    "virtual mutable_graph_t *idaapi clone",
+    "virtual interactive_graph_t *idaapi clone",
     "virtual bool idaapi redo_layout",
     "virtual void idaapi resize",
     "virtual ea_t idaapi calc_group_ea",

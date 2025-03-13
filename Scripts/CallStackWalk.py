@@ -4,7 +4,7 @@ A script that tries to determine the call stack
 
 Run the application with the debugger, suspend the debugger, select a thread and finally run the script.
 
-Copyright (c) 1990-2024 Hex-Rays
+Copyright (c) 1990-2025 Hex-Rays
 ALL RIGHTS RESERVED.
 """
 import ida_ua
@@ -169,7 +169,7 @@ def main():
         return
 
     # get all debug namesp
-    dn = ida_name.get_debug_names(ida_ida.cvar.inf.min_ea, ida_ida.cvar.inf.max_ea)
+    dn = ida_name.get_debug_names(ida_ida.inf_get_min_ea(), ida_ida.inf_get_max_ea())
     # initiate a nearest name search (using debug names)
     nn = ida_name.NearestName(dn)
 

@@ -21,7 +21,6 @@ dbg.hpp       - INCOMPLETE (SWIGs and lot of fixing to do)
 demangle.hpp  - EXCLUDED
 diskio.hpp    - INCOMPLETE (no SWIGs, some unwrapped)
 entry.hpp     - COMPLETE
-enum.hpp      - COMPLETE
 err.h         - EXCLUDED
 exehdr.h      - EXCLUDED
 expr.hpp      - COMPLETE (necessary SWIGs)
@@ -57,7 +56,6 @@ segment.hpp   - COMPLETE
 sistack.hpp   - EXCLUDED
 segregs.hpp   - INCOMPLETE (not wrapped at all)
 strlist.hpp   - COMPLETE
-struct.hpp    - COMPLETE
 typeinf.hpp   - INCOMPLETE (no SWIGs, lot of fixing to do)
 ua.hpp        - INCOMPLETE (SWIGs and lot of fixing to do)
 va.hpp        - EXCLUDED

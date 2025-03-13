@@ -20,6 +20,7 @@ parser.add_argument("-m", "--modules", required=True)
 parser.add_argument("-s", "--include-source-for-modules", required=True)
 parser.add_argument("-x", "--exclude-modules-from-searchable-index", required=True)
 parser.add_argument("-v", "--verbose", default=False, action="store_true")
+parser.add_argument("-M", "--markdown", default=False, action="store_true", help="Output to Markdown, not HTML")
 
 args = parser.parse_args(idc.ARGV[1:])
 
@@ -29,7 +30,7 @@ args.exclude_modules_from_searchable_index = args.exclude_modules_from_searchabl
 
 try:
 # pdoc location
-    pdoc_path = os.path.join(idasrc_path, "third_party", "pdoc", "pdoc-master")
+    pdoc_path = os.path.join(idasrc_path, "third_party", "pdoc", "pdoc-240411")
     sys.path.append(pdoc_path)
     sys.path.append(tools_docs_path) # for the custom epytext
     import pdoc
@@ -130,57 +131,66 @@ def build_documentation():
     pdoc.link_inheritance()
 
     #
-    # ida_*.html
+    # ida_*.[html|md]
     #
-    pdoc.tpl_lookup.directories.insert(0, os.path.join(tools_docs_path, "templates"))
-    show_source_code = set(args.include_source_for_modules)
-
     def all_modules(module_collection):
         for module in module_collection:
             yield module
 
             yield from all_modules(module.submodules())
 
+    pdoc.tpl_lookup.directories.insert(0, os.path.join(tools_docs_path, "templates"))
+    show_source_code = set(args.include_source_for_modules)
     for module in all_modules(modules):
-        module.obj.__docformat__ = "hr_epy"
-
         print("Processing: %s" % module.name)
-        html = module.html(
-            show_source_code=module.name in show_source_code,
-            search_prefix=module.name)
+
+        if args.markdown:
+            contents = module.md(
+                show_source_code=module.name in show_source_code,
+                search_prefix=module.name)
+        else:
+            contents = module.html(
+                show_source_code=module.name in show_source_code,
+                search_prefix=module.name)
 
         path = os.path.join(args.output, module.url())
+        # close your eyes
+        if args.markdown and path.endswith(".html"):
+            path = path[:-5] + ".md"
+
         dirname = os.path.dirname(path)
         os.makedirs(dirname, exist_ok=True)
 
         print("Writing: %s" % path)
         with open(path, "w", encoding="utf-8") as f:
+            f.write(contents)
+
+    if not args.markdown:
+
+        #
+        # doc-search.html, index.js
+        #
+        template_config = {}
+        gen_lunr_search(
+            [mod for mod in modules if mod.name not in args.exclude_modules_from_searchable_index],
+            index_docstrings=True,
+            template_config=pdoc._get_config(**template_config).get('lunr_search'))
+
+        #
+        # index.html
+        #
+        path = os.path.join(args.output, "index.html")
+        class fake_module_t(object):
+            def __init__(self, name, url):
+                self.name = name
+                self._url = url
+            def url(self):
+                return self._url
+
+        index_module = fake_module_t("index", "index.html")
+        html = pdoc._render_template('/index.mako', module=index_module, modules=modules)
+        with open(path, "w", encoding="utf-8") as f:
             f.write(html)
-
-    #
-    # doc-search.html, index.js
-    #
-    template_config = {}
-    gen_lunr_search(
-        [mod for mod in modules if mod.name not in args.exclude_modules_from_searchable_index],
-        index_docstrings=True,
-        template_config=pdoc._get_config(**template_config).get('lunr_search'))
-
-    #
-    # index.html
-    #
-    path = os.path.join(args.output, "index.html")
-    class fake_module_t(object):
-        def __init__(self, name, url):
-            self.name = name
-            self._url = url
-        def url(self):
-            return self._url
-
-    index_module = fake_module_t("index", "index.html")
-    html = pdoc._render_template('/index.mako', module=index_module, modules=modules)
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(html)
 
 # --------------------------------------------------------------------------
 def main():

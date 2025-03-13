@@ -34,17 +34,31 @@ static PyObject *_from_reg_val(
 
 //<inline(py_dbg)>
 
+inline void idaapi set_process_options(
+        const char *path,
+        const char *args,
+        const char *sdir,
+        const char *host,
+        const char *pass,
+        int port)
+{
+  launch_env_t envs;
+  return set_process_options(path, args, &envs, sdir, host, pass, port);
+}
+
+inline void idaapi get_process_options_noenv(
+        qstring *path,
+        qstring *args,
+        qstring *sdir,
+        qstring *host,
+        qstring *pass,
+        int *port)
+{
+  launch_env_t envs;
+  get_process_options(path, args, &envs, sdir, host, pass, port);
+}
+
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def get_manual_regions():
-    """
-    Returns the manual memory regions
-    @return: list(start_ea, end_ea, name, sclass, sbase, bitness, perm)
-    """
-    pass
-#</pydoc>
-*/
 static PyObject *py_get_manual_regions()
 {
   meminfo_vec_t ranges;
@@ -55,32 +69,12 @@ static PyObject *py_get_manual_regions()
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def dbg_is_loaded():
-    """
-    Checks if a debugger is loaded
-    @return: Boolean
-    """
-    pass
-#</pydoc>
-*/
 static bool dbg_is_loaded()
 {
   return dbg != nullptr;
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def refresh_debugger_memory():
-    """
-    Refreshes the debugger memory
-    @return: Nothing
-    """
-    pass
-#</pydoc>
-*/
 static PyObject *refresh_debugger_memory()
 {
   SWIG_PYTHON_THREAD_BEGIN_ALLOW;
@@ -146,16 +140,6 @@ ssize_t idaapi DBG_Callback(void *ud, int code, va_list va)
 
 
 //------------------------------------------------------------------------
-/*
-#<pydoc>
-def py_list_bptgrps():
-    """
-    Returns list of breakpoint group names
-    @return: A list of strings or None on failure
-    """
-    pass
-#</pydoc>
-*/
 static PyObject *py_list_bptgrps()
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -167,17 +151,6 @@ static PyObject *py_list_bptgrps()
 }
 
 //------------------------------------------------------------------------
-/*
-#<pydoc>
-def internal_get_sreg_base():
-    """
-    Get the sreg base, for the given thread.
-
-    @return: The sreg base, or BADADDR on failure.
-    """
-    pass
-#</pydoc>
-*/
 static ea_t py_internal_get_sreg_base(thid_t tid, int sreg_value)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -202,22 +175,6 @@ static ssize_t py_write_dbg_memory(ea_t ea, PyObject *py_buf, size_t size=size_t
   return write_dbg_memory(ea, buf, size);
 }
 
-/*
-#<pydoc>
-def dbg_can_query():
-    """
-    This function can be used to check if the debugger can be queried:
-      - debugger is loaded
-      - process is suspended
-      - process is not suspended but can take requests. In this case some requests like
-        memory read/write, bpt management succeed and register querying will fail.
-        Check if idaapi.get_process_state() < 0 to tell if the process is suspended
-    @return: Boolean
-    """
-    pass
-#</pydoc>
-*/
-
 //-------------------------------------------------------------------------
 static bool py_dbg_can_query()
 {
@@ -225,11 +182,11 @@ static bool py_dbg_can_query()
 }
 
 //-------------------------------------------------------------------------
-static PyObject *py_set_reg_val(const char *regname, PyObject *o)
+static PyObject *py_set_reg_val(const char *regname, PyObject *value)
 {
   regval_t buf;
   regval_t *ptr;
-  if ( !_to_reg_val(&ptr, &buf, regname, o) )
+  if ( !_to_reg_val(&ptr, &buf, regname, value) )
     return nullptr;
   SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   bool ok = set_reg_val(regname, ptr);
@@ -243,14 +200,14 @@ static PyObject *py_set_reg_val(const char *regname, PyObject *o)
 }
 
 //-------------------------------------------------------------------------
-static PyObject *py_set_reg_val(thid_t tid, int regidx, PyObject *o)
+static PyObject *py_set_reg_val(thid_t tid, int regidx, PyObject *value)
 {
   if ( dbg == nullptr )
   {
     PyErr_SetString(PyExc_Exception, "No debugger loaded");
     return nullptr;
   }
-  if ( regidx < 0 || regidx >= dbg->nregs )
+  if ( regidx < 0 || regidx >= dbg->nregisters )
   {
     qstring buf;
     buf.sprnt("Bad register index: %d", regidx);
@@ -260,7 +217,7 @@ static PyObject *py_set_reg_val(thid_t tid, int regidx, PyObject *o)
   const register_info_t &ri = dbg->regs(regidx);
   regval_t buf;
   regval_t *ptr;
-  if ( !_to_reg_val(&ptr, &buf, ri.name, o) )
+  if ( !_to_reg_val(&ptr, &buf, ri.name, value) )
     return nullptr;
   SWIG_PYTHON_THREAD_BEGIN_ALLOW;
   bool ok = set_reg_val(tid, regidx, ptr) > 0;
@@ -302,28 +259,12 @@ static PyObject *py_get_reg_val(const char *regname)
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def get_reg_vals():
-    """
-    Fetch live registers values for the thread
-
-    @param tid The ID of the thread to read registers for
-    @param clsmask An OR'ed mask of register classes to
-           read values for (can be used to speed up the
-           retrieval process)
-
-    @return: a regvals_t instance (empty if an error occurs)
-    """
-    pass
-#</pydoc>
-*/
-static regvals_t *py_get_reg_vals(thid_t tid, int clsmask=-1)
+static regvals_t *py_get_reg_vals(thid_t tid, int clsmask)
 {
   regvals_t *rvs = new regvals_t();
   if ( dbg != nullptr )
   {
-    rvs->resize(dbg->nregs);
+    rvs->resize(dbg->nregisters);
     if ( get_reg_vals(tid, clsmask, rvs->begin()) != DRC_OK )
       rvs->clear();
   }

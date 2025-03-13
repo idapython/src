@@ -32,7 +32,6 @@ import ida_auto
 import ida_dbg
 import ida_diskio
 import ida_entry
-import ida_enum
 import ida_expr
 import ida_fixup
 import ida_frame
@@ -55,7 +54,6 @@ import ida_pro
 import ida_search
 import ida_segment
 import ida_segregs
-import ida_struct
 import ida_typeinf
 import ida_ua
 import ida_xref
@@ -275,20 +273,16 @@ FF_JUMP  = ida_bytes.FF_JUMP & 0xFFFFFFFF  # Has jump table
 #
 #      Loader flags
 #
-if ida_idaapi.uses_swig_builtins:
-    _scope = ida_loader.loader_t
-else:
-    _scope = ida_loader
-NEF_SEGS   = _scope.NEF_SEGS   # Create segments
-NEF_RSCS   = _scope.NEF_RSCS   # Load resources
-NEF_NAME   = _scope.NEF_NAME   # Rename entries
-NEF_MAN    = _scope.NEF_MAN    # Manual load
-NEF_FILL   = _scope.NEF_FILL   # Fill segment gaps
-NEF_IMPS   = _scope.NEF_IMPS   # Create imports section
-NEF_FIRST  = _scope.NEF_FIRST  # This is the first file loaded
-NEF_CODE   = _scope.NEF_CODE   # for load_binary_file:
-NEF_RELOAD = _scope.NEF_RELOAD # reload the file at the same place:
-NEF_FLAT   = _scope.NEF_FLAT   # Autocreated FLAT group (PE)
+NEF_SEGS   = ida_loader.NEF_SEGS   # Create segments
+NEF_RSCS   = ida_loader.NEF_RSCS   # Load resources
+NEF_NAME   = ida_loader.NEF_NAME   # Rename entries
+NEF_MAN    = ida_loader.NEF_MAN    # Manual load
+NEF_FILL   = ida_loader.NEF_FILL   # Fill segment gaps
+NEF_IMPS   = ida_loader.NEF_IMPS   # Create imports section
+NEF_FIRST  = ida_loader.NEF_FIRST  # This is the first file loaded
+NEF_CODE   = ida_loader.NEF_CODE   # for load_binary_file:
+NEF_RELOAD = ida_loader.NEF_RELOAD # reload the file at the same place:
+NEF_FLAT   = ida_loader.NEF_FLAT   # Autocreated FLAT group (PE)
 
 #         List of built-in functions
 #         --------------------------
@@ -506,10 +500,10 @@ def delete_all_segments():
     Delete all segments, instructions, comments, i.e. everything
     except values of bytes.
     """
-    ea = ida_ida.cvar.inf.min_ea
+    ea = ida_ida.inf_get_min_ea()
 
     # Brute-force nuke all info from all the heads
-    while ea != BADADDR and ea <= ida_ida.cvar.inf.max_ea:
+    while ea != BADADDR and ea <= ida_ida.inf_get_max_ea():
         ida_name.del_local_name(ea)
         ida_name.del_global_name(ea)
         func = ida_funcs.get_func(ea)
@@ -524,7 +518,7 @@ def delete_all_segments():
             ida_segment.set_segment_cmt(seg, "", True)
             ida_segment.del_segm(ea, ida_segment.SEGMOD_KEEP | ida_segment.SEGMOD_SILENT)
 
-        ea = ida_bytes.next_head(ea, ida_ida.cvar.inf.max_ea)
+        ea = ida_bytes.next_head(ea, ida_ida.inf_get_max_ea())
 
 
 create_insn = ida_ua.create_insn
@@ -755,12 +749,14 @@ def create_struct(ea, size, strname):
 
     @return: 1-ok, 0-failure
     """
-    strid = ida_struct.get_struc_id(strname)
+    tif = ida_typeinf.tinfo_t()
+    if not tif.get_named_type(None, strname) or not tif.is_udt():
+        return -1
 
     if size == -1:
-        size = ida_struct.get_struc_size(strid)
+        size = tif.get_size()
 
-    return ida_bytes.create_struct(ea, size, strid)
+    return ida_bytes.create_struct(ea, size, tif.get_tid())
 
 
 create_custom_data = ida_bytes.create_custdata
@@ -800,7 +796,7 @@ def define_local_var(start, end, location, name):
             return 0
 
         offset = int(m.group(2), 0)
-        return 1 if ida_frame.define_stkvar(func, name, offset, ida_bytes.byte_flag(), None, 1) else 0
+        return 1 if ida_frame.define_stkvar(func, name, offset, ida_typeinf.tinfo_t(ida_typeinf.BT_UNK_BYTE)) else 0
     else:
         # Location as simple register name
         return ida_frame.add_regvar(func, start, end, location, name, None)
@@ -1029,11 +1025,10 @@ def split_sreg_range(ea, reg, value, tag=SR_user):
            values. This function allows you to specify the correct value of a segment
            register if IDA is not able to find the correct value.
     """
-    rnames = [r.casefold() for r in ida_idp.ph_get_regnames()]
-    for regno in range(ida_idp.ph_get_reg_first_sreg(), ida_idp.ph_get_reg_last_sreg()+1):
-        if rnames[regno]==reg.casefold():
-            return ida_segregs.split_sreg_range(ea, regno, value, tag)
-    return False
+    reg = ida_idp.str2sreg(reg);
+    if reg == -1:
+        return False
+    return ida_segregs.split_sreg_range(ea, reg, value, tag)
 
 
 auto_mark_range = ida_auto.auto_mark_range
@@ -1072,11 +1067,12 @@ def gen_file(filetype, path, ea1, ea2, flags):
                 -1 if an error occurred
                 OFILE_EXE: 0-can't generate exe file, 1-ok
     """
-    f = ida_diskio.fopenWB(path)
-
-    if f:
-        retval = ida_loader.gen_file(filetype, f, ea1, ea2, flags)
-        ida_diskio.eclose(f)
+    fopen = ida_diskio.fopenWB if filetype == ida_loader.OFILE_EXE else ida_diskio.fopenWT
+    fp = fopen(path)
+    if fp:
+        retval = ida_loader.gen_file(filetype, fp, ea1, ea2, flags)
+        import ida_fpro
+        ida_fpro.qfclose(fp)
         return retval
     else:
         return -1
@@ -1190,7 +1186,7 @@ def __DbgValue(ea, len):
     if len not in ida_idaapi.__struct_unpack_table:
         return None
     r = ida_idd.dbg_read_memory(ea, len)
-    return None if r is None else struct.unpack((">" if ida_ida.cvar.inf.is_be() else "<") + ida_idaapi.__struct_unpack_table[len][1], r)[0]
+    return None if r is None else struct.unpack((">" if ida_ida.inf_is_be() else "<") + ida_idaapi.__struct_unpack_table[len][1], r)[0]
 
 
 def read_dbg_byte(ea):
@@ -1372,11 +1368,10 @@ def get_sreg(ea, reg):
            so to get paragraph pointed to by the segment register you need to
            call sel2para() function.
     """
-    reg = ida_idp.str2reg(reg);
-    if reg >= 0:
-        return ida_segregs.get_sreg(ea, reg)
-    else:
+    reg = ida_idp.str2sreg(reg);
+    if reg == -1:
         return -1
+    return ida_segregs.get_sreg(ea, reg)
 
 next_addr = ida_bytes.next_addr
 prev_addr = ida_bytes.prev_addr
@@ -1742,28 +1737,8 @@ find_data    = ida_search.find_data
 find_unknown = ida_search.find_unknown
 find_defined = ida_search.find_defined
 find_imm     = ida_search.find_imm
-
-SEARCH_UP       = ida_search.SEARCH_UP       # search backward
-SEARCH_DOWN     = ida_search.SEARCH_DOWN     # search forward
-SEARCH_NEXT     = ida_search.SEARCH_NEXT     # start the search at the next/prev item
-                                             # useful only for find_text() and find_binary()
-SEARCH_CASE     = ida_search.SEARCH_CASE     # search case-sensitive
-                                             # (only for bin&txt search)
-SEARCH_REGEX    = ida_search.SEARCH_REGEX    # enable regular expressions (only for text)
-SEARCH_NOBRK    = ida_search.SEARCH_NOBRK    # don't test ctrl-break
-SEARCH_NOSHOW   = ida_search.SEARCH_NOSHOW   # don't display the search progress
-
-
-def find_text(ea, flag, y, x, searchstr):
-    __warn_once_deprecated_proto_confusion("find_text", "ida_search.find_text")
-    return ida_search.find_text(ea, y, x, searchstr, flag)
-
-
-def find_binary(ea, flag, searchstr, radix=16):
-    __warn_once_deprecated_proto_confusion("find_binary", "ida_search.find_binary")
-    endea = flag & 1 and ida_ida.cvar.inf.max_ea or ida_ida.cvar.inf.min_ea
-    return ida_search.find_binary(ea, endea, searchstr, radix, flag)
-
+find_text    = ida_search.find_text
+find_bytes   = ida_bytes.find_bytes
 
 #----------------------------------------------------------------------------
 #       G L O B A L   S E T T I N G S   M A N I P U L A T I O N
@@ -1891,7 +1866,7 @@ INF_START_PRIVRANGE=INF_PRIVRANGE_START_EA
 INF_PRIVRANGE_END_EA = 28     # uval_t; Initially (MAXADDR, MAXADDR+0x100000)
 INF_END_PRIVRANGE=INF_PRIVRANGE_END_EA
 
-INF_NETDELTA   = 29           # sval_t; Delta value to be added to all adresses for mapping to netnodes.
+INF_NETDELTA   = 29           # sval_t; Delta value to be added to all addresses for mapping to netnodes.
                               # Initially 0.
 # CROSS REFERENCES
 INF_XREFNUM    = 30           # char;    Number of references to generate
@@ -1911,7 +1886,7 @@ INF_XREFS=INF_XREFFLAG
 
 # NAMES
 INF_MAX_AUTONAME_LEN = 34     # ushort;  max name length (without zero byte)
-INF_NAMETYPE   = 35           # char;    dummy names represenation type
+INF_NAMETYPE   = 35           # char;    dummy names representation type
 INF_SHORT_DEMNAMES = 36      # int32;   short form of demangled names
 INF_SHORT_DN=INF_SHORT_DEMNAMES
 INF_LONG_DEMNAMES = 37       # int32;   long form of demangled names
@@ -2159,7 +2134,7 @@ def sel2para(sel):
 
 def find_selector(val):
     """
-    Find a selector which has the specifed value
+    Find a selector which has the specified value
 
     @param val: value to search for
 
@@ -2377,26 +2352,22 @@ def set_segm_alignment(ea, alignment):
     return set_segm_attr(ea, SEGATTR_ALIGN, alignment)
 
 
-if ida_idaapi.uses_swig_builtins:
-    _scope = ida_segment.segment_t
-else:
-    _scope = ida_segment
-saAbs        = _scope.saAbs        # Absolute segment.
-saRelByte    = _scope.saRelByte    # Relocatable, byte aligned.
-saRelWord    = _scope.saRelWord    # Relocatable, word (2-byte, 16-bit) aligned.
-saRelPara    = _scope.saRelPara    # Relocatable, paragraph (16-byte) aligned.
-saRelPage    = _scope.saRelPage    # Relocatable, aligned on 256-byte boundary
-                                   # (a "page" in the original Intel specification).
-saRelDble    = _scope.saRelDble    # Relocatable, aligned on a double word
-                                   # (4-byte) boundary. This value is used by
-                                   # the PharLap OMF for the same alignment.
-saRel4K      = _scope.saRel4K      # This value is used by the PharLap OMF for
-                                   # page (4K) alignment. It is not supported
-                                   # by LINK.
-saGroup      = _scope.saGroup      # Segment group
-saRel32Bytes = _scope.saRel32Bytes # 32 bytes
-saRel64Bytes = _scope.saRel64Bytes # 64 bytes
-saRelQword   = _scope.saRelQword   # 8 bytes
+saAbs        = ida_segment.saAbs        # Absolute segment.
+saRelByte    = ida_segment.saRelByte    # Relocatable, byte aligned.
+saRelWord    = ida_segment.saRelWord    # Relocatable, word (2-byte, 16-bit) aligned.
+saRelPara    = ida_segment.saRelPara    # Relocatable, paragraph (16-byte) aligned.
+saRelPage    = ida_segment.saRelPage    # Relocatable, aligned on 256-byte boundary
+                                        # (a "page" in the original Intel specification).
+saRelDble    = ida_segment.saRelDble    # Relocatable, aligned on a double word
+                                        # (4-byte) boundary. This value is used by
+                                        # the PharLap OMF for the same alignment.
+saRel4K      = ida_segment.saRel4K      # This value is used by the PharLap OMF for
+                                        # page (4K) alignment. It is not supported
+                                        # by LINK.
+saGroup      = ida_segment.saGroup      # Segment group
+saRel32Bytes = ida_segment.saRel32Bytes # 32 bytes
+saRel64Bytes = ida_segment.saRel64Bytes # 64 bytes
+saRelQword   = ida_segment.saRelQword   # 8 bytes
 
 
 def set_segm_combination(segea, comb):
@@ -2411,15 +2382,15 @@ def set_segm_combination(segea, comb):
     return set_segm_attr(segea, SEGATTR_COMB, comb)
 
 
-scPriv   = _scope.scPriv   # Private. Do not combine with any other program
-                           # segment.
-scPub    = _scope.scPub    # Public. Combine by appending at an offset that
-                           # meets the alignment requirement.
-scPub2   = _scope.scPub2   # As defined by Microsoft, same as C=2 (public).
-scStack  = _scope.scStack  # Stack. Combine as for C=2. This combine type
-                           # forces byte alignment.
-scCommon = _scope.scCommon # Common. Combine by overlay using maximum size.
-scPub3   = _scope.scPub3   # As defined by Microsoft, same as C=2 (public).
+scPriv   = ida_segment.scPriv   # Private. Do not combine with any other program
+                                # segment.
+scPub    = ida_segment.scPub    # Public. Combine by appending at an offset that
+                                # meets the alignment requirement.
+scPub2   = ida_segment.scPub2   # As defined by Microsoft, same as C=2 (public).
+scStack  = ida_segment.scStack  # Stack. Combine as for C=2. This combine type
+                                # forces byte alignment.
+scCommon = ida_segment.scCommon # Common. Combine by overlay using maximum size.
+scPub3   = ida_segment.scPub3   # As defined by Microsoft, same as C=2 (public).
 
 
 def set_segm_addressing(ea, bitness):
@@ -2468,12 +2439,10 @@ def set_default_sreg_value(ea, reg, value):
     @param value: default value of the segment register. -1-undefined.
     """
     seg = ida_segment.getseg(ea)
-
-    reg = ida_idp.str2reg(reg);
-    if seg and reg >= 0:
-        return ida_segregs.set_default_sreg_value(seg, reg, value)
-    else:
+    reg = ida_idp.str2sreg(reg);
+    if reg == -1:
         return False
+    return ida_segregs.set_default_sreg_value(seg, reg, value)
 
 
 def set_segm_type(segea, segtype):
@@ -2494,22 +2463,22 @@ def set_segm_type(segea, segtype):
     return seg.update()
 
 
-SEG_NORM   = _scope.SEG_NORM
-SEG_XTRN   = _scope.SEG_XTRN   # * segment with 'extern' definitions
-                               #   no instructions are allowed
-SEG_CODE   = _scope.SEG_CODE   # pure code segment
-SEG_DATA   = _scope.SEG_DATA   # pure data segment
-SEG_IMP    = _scope.SEG_IMP    # implementation segment
-SEG_GRP    = _scope.SEG_GRP    # * group of segments
-                               #   no instructions are allowed
-SEG_NULL   = _scope.SEG_NULL   # zero-length segment
-SEG_UNDF   = _scope.SEG_UNDF   # undefined segment type
-SEG_BSS    = _scope.SEG_BSS    # uninitialized segment
-SEG_ABSSYM = _scope.SEG_ABSSYM # * segment with definitions of absolute symbols
-                               #   no instructions are allowed
-SEG_COMM   = _scope.SEG_COMM   # * segment with communal definitions
-                               #   no instructions are allowed
-SEG_IMEM   = _scope.SEG_IMEM   # internal processor memory & sfr (8051)
+SEG_NORM   = ida_segment.SEG_NORM
+SEG_XTRN   = ida_segment.SEG_XTRN   # * segment with 'extern' definitions
+                                    #   no instructions are allowed
+SEG_CODE   = ida_segment.SEG_CODE   # pure code segment
+SEG_DATA   = ida_segment.SEG_DATA   # pure data segment
+SEG_IMP    = ida_segment.SEG_IMP    # implementation segment
+SEG_GRP    = ida_segment.SEG_GRP    # * group of segments
+                                    #   no instructions are allowed
+SEG_NULL   = ida_segment.SEG_NULL   # zero-length segment
+SEG_UNDF   = ida_segment.SEG_UNDF   # undefined segment type
+SEG_BSS    = ida_segment.SEG_BSS    # uninitialized segment
+SEG_ABSSYM = ida_segment.SEG_ABSSYM # * segment with definitions of absolute symbols
+                                    #   no instructions are allowed
+SEG_COMM   = ida_segment.SEG_COMM   # * segment with communal definitions
+                                    #   no instructions are allowed
+SEG_IMEM   = ida_segment.SEG_IMEM   # internal processor memory & sfr (8051)
 
 
 def get_segm_attr(segea, attr):
@@ -2776,14 +2745,14 @@ def SaveFile(filepath, pos, ea, size):
     @return: 0 - error, 1 - ok
     """
     if ( os.path.isfile(filepath) ):
-        of = ida_diskio.fopenM(filepath)
+        fp = ida_diskio.fopenM(filepath)
     else:
-        of = ida_diskio.fopenWB(filepath)
+        fp = ida_diskio.fopenWB(filepath)
 
-
-    if of:
-        retval = ida_loader.base2file(of, pos, ea, ea+size)
-        ida_diskio.eclose(of)
+    if fp:
+        retval = ida_loader.base2file(fp, pos, ea, ea+size)
+        import ida_fpro
+        ida_fpro.qfclose(fp)
         return retval
     else:
         return 0
@@ -2950,40 +2919,35 @@ def get_func_flags(ea):
         return func.flags
 
 
-if ida_idaapi.uses_swig_builtins:
-    _scope = ida_funcs.func_t
-else:
-    _scope = ida_funcs
-
-FUNC_NORET         = _scope.FUNC_NORET         # function doesn't return
-FUNC_FAR           = _scope.FUNC_FAR           # far function
-FUNC_LIB           = _scope.FUNC_LIB           # library function
-FUNC_STATIC        = _scope.FUNC_STATICDEF     # static function
-FUNC_FRAME         = _scope.FUNC_FRAME         # function uses frame pointer (BP)
-FUNC_USERFAR       = _scope.FUNC_USERFAR       # user has specified far-ness
-                                               # of the function
-FUNC_HIDDEN        = _scope.FUNC_HIDDEN        # a hidden function
-FUNC_THUNK         = _scope.FUNC_THUNK         # thunk (jump) function
-FUNC_BOTTOMBP      = _scope.FUNC_BOTTOMBP      # BP points to the bottom of the stack frame
-FUNC_NORET_PENDING = _scope.FUNC_NORET_PENDING # Function 'non-return' analysis
-                                               # must be performed. This flag is
-                                               # verified upon func_does_return()
-FUNC_SP_READY      = _scope.FUNC_SP_READY      # SP-analysis has been performed
-                                               # If this flag is on, the stack
-                                               # change points should not be not
-                                               # modified anymore. Currently this
-                                               # analysis is performed only for PC
-FUNC_PURGED_OK     = _scope.FUNC_PURGED_OK     # 'argsize' field has been validated.
-                                               # If this bit is clear and 'argsize'
-                                               # is 0, then we do not known the real
-                                               # number of bytes removed from
-                                               # the stack. This bit is handled
-                                               # by the processor module.
-FUNC_TAIL          = _scope.FUNC_TAIL          # This is a function tail.
-                                               # Other bits must be clear
-                                               # (except FUNC_HIDDEN)
-FUNC_LUMINA        = _scope.FUNC_LUMINA        # Function info is provided by Lumina.
-FUNC_OUTLINE       = _scope.FUNC_OUTLINE       # Outlined code, not a real function.
+FUNC_NORET         = ida_funcs.FUNC_NORET         # function doesn't return
+FUNC_FAR           = ida_funcs.FUNC_FAR           # far function
+FUNC_LIB           = ida_funcs.FUNC_LIB           # library function
+FUNC_STATIC        = ida_funcs.FUNC_STATICDEF     # static function
+FUNC_FRAME         = ida_funcs.FUNC_FRAME         # function uses frame pointer (BP)
+FUNC_USERFAR       = ida_funcs.FUNC_USERFAR       # user has specified far-ness
+                                                  # of the function
+FUNC_HIDDEN        = ida_funcs.FUNC_HIDDEN        # a hidden function
+FUNC_THUNK         = ida_funcs.FUNC_THUNK         # thunk (jump) function
+FUNC_BOTTOMBP      = ida_funcs.FUNC_BOTTOMBP      # BP points to the bottom of the stack frame
+FUNC_NORET_PENDING = ida_funcs.FUNC_NORET_PENDING # Function 'non-return' analysis
+                                                  # must be performed. This flag is
+                                                  # verified upon func_does_return()
+FUNC_SP_READY      = ida_funcs.FUNC_SP_READY      # SP-analysis has been performed
+                                                  # If this flag is on, the stack
+                                                  # change points should not be not
+                                                  # modified anymore. Currently this
+                                                  # analysis is performed only for PC
+FUNC_PURGED_OK     = ida_funcs.FUNC_PURGED_OK     # 'argsize' field has been validated.
+                                                  # If this bit is clear and 'argsize'
+                                                  # is 0, then we do not known the real
+                                                  # number of bytes removed from
+                                                  # the stack. This bit is handled
+                                                  # by the processor module.
+FUNC_TAIL          = ida_funcs.FUNC_TAIL          # This is a function tail.
+                                                  # Other bits must be clear
+                                                  # (except FUNC_HIDDEN)
+FUNC_LUMINA        = ida_funcs.FUNC_LUMINA        # Function info is provided by Lumina.
+FUNC_OUTLINE       = ida_funcs.FUNC_OUTLINE       # Outlined code, not a real function.
 
 
 def set_func_flags(ea, flags):
@@ -3122,12 +3086,7 @@ def get_frame_id(ea):
              you need to use structure member manipulaion functions with the
              obtained ID.
     """
-    frame = ida_frame.get_frame(ea)
-
-    if frame:
-        return frame.id
-    else:
-        return None
+    return get_func_attr(ea, FUNCATTR_FRAME)
 
 
 def get_frame_lvar_size(ea):
@@ -3138,7 +3097,7 @@ def get_frame_lvar_size(ea):
 
     @return: Size of local variables in bytes.
              If the function doesn't have a frame, return 0
-             If the function does't exist, return None
+             If the function doesn't exist, return None
     """
     return get_func_attr(ea, FUNCATTR_FRSIZE)
 
@@ -3152,7 +3111,7 @@ def get_frame_regs_size(ea):
     @return: Size of saved registers in bytes.
              If the function doesn't have a frame, return 0
              This value is used as offset for BP (if FUNC_FRAME is set)
-             If the function does't exist, return None
+             If the function doesn't exist, return None
     """
     return get_func_attr(ea, FUNCATTR_FRREGS)
 
@@ -3165,7 +3124,7 @@ def get_frame_args_size(ea):
 
     @return: Size of function arguments in bytes.
              If the function doesn't have a frame, return 0
-             If the function does't exist, return -1
+             If the function doesn't exist, return -1
     """
     return get_func_attr(ea, FUNCATTR_ARGSIZE)
 
@@ -3181,7 +3140,7 @@ def get_frame_size(ea):
                 return address + size of function arguments
                 If the function doesn't have a frame, return size of
                 function return address in the stack.
-                If the function does't exist, return 0
+                If the function doesn't exist, return 0
     """
     func = ida_funcs.get_func(ea)
 
@@ -3253,6 +3212,184 @@ def get_sp_delta(ea):
 
     return ida_frame.get_sp_delta(func, ea)
 
+def get_fchunk_attr(ea, attr):
+    """
+    Get a function chunk attribute
+
+    @param ea: any address in the chunk
+    @param attr: one of: FUNCATTR_START, FUNCATTR_END, FUNCATTR_OWNER, FUNCATTR_REFQTY
+
+    @return: desired attribute or -1
+    """
+    func = ida_funcs.get_fchunk(ea)
+    return _IDC_GetAttr(func, _FUNCATTRMAP, attr) if func else BADADDR
+
+
+def set_fchunk_attr(ea, attr, value):
+    """
+    Set a function chunk attribute
+
+    @param ea: any address in the chunk
+    @param attr: only FUNCATTR_START, FUNCATTR_END, FUNCATTR_OWNER
+    @param value: desired value
+
+    @return: 0 if failed, 1 if success
+    """
+    if attr in [ FUNCATTR_START, FUNCATTR_END, FUNCATTR_OWNER ]:
+        chunk = ida_funcs.get_fchunk(ea)
+        if chunk:
+            _IDC_SetAttr(chunk, _FUNCATTRMAP, attr, value)
+            return ida_funcs.update_func(chunk)
+    return 0
+
+
+get_fchunk_referer = ida_funcs.get_fchunk_referer
+
+
+def get_next_fchunk(ea):
+    """
+    Get next function chunk
+
+    @param ea: any address
+
+    @return:  the starting address of the next function chunk or BADADDR
+
+    @note: This function enumerates all chunks of all functions in the database
+    """
+    func = ida_funcs.get_next_fchunk(ea)
+
+    if func:
+        return func.start_ea
+    else:
+        return BADADDR
+
+
+def get_prev_fchunk(ea):
+    """
+    Get previous function chunk
+
+    @param ea: any address
+
+    @return: the starting address of the function chunk or BADADDR
+
+    @note: This function enumerates all chunks of all functions in the database
+    """
+    func = ida_funcs.get_prev_fchunk(ea)
+
+    if func:
+        return func.start_ea
+    else:
+        return BADADDR
+
+
+def append_func_tail(funcea, ea1, ea2):
+    """
+    Append a function chunk to the function
+
+    @param funcea: any address in the function
+    @param ea1: start of function tail
+    @param ea2: end of function tail
+    @return: 0 if failed, 1 if success
+
+    @note: If a chunk exists at the specified addresses, it must have exactly
+           the specified boundaries
+    """
+    func = ida_funcs.get_func(funcea)
+
+    if not func:
+        return 0
+    else:
+        return ida_funcs.append_func_tail(func, ea1, ea2)
+
+
+def remove_fchunk(funcea, tailea):
+    """
+    Remove a function chunk from the function
+
+    @param funcea: any address in the function
+    @param tailea: any address in the function chunk to remove
+
+    @return: 0 if failed, 1 if success
+    """
+    func = ida_funcs.get_func(funcea)
+
+    if not func:
+        return 0
+    else:
+        return ida_funcs.remove_func_tail(func, tailea)
+
+
+def set_tail_owner(tailea, funcea):
+    """
+    Change the function chunk owner
+
+    @param tailea: any address in the function chunk
+    @param funcea: the starting address of the new owner
+
+    @return: False if failed, True if success
+
+    @note: The new owner must already have the chunk appended before the call
+    """
+    tail = ida_funcs.get_fchunk(tailea)
+
+    if not tail:
+        return False
+    else:
+        return ida_funcs.set_tail_owner(tail, funcea)
+
+
+def first_func_chunk(funcea):
+    """
+    Get the first function chunk of the specified function
+
+    @param funcea: any address in the function
+
+    @return: the function entry point or BADADDR
+
+    @note: This function returns the first (main) chunk of the specified function
+    """
+    func = ida_funcs.get_func(funcea)
+    fci = ida_funcs.func_tail_iterator_t(func, funcea)
+    if fci.main():
+        return fci.chunk().start_ea
+    else:
+        return BADADDR
+
+
+def next_func_chunk(funcea, tailea):
+    """
+    Get the next function chunk of the specified function
+
+    @param funcea: any address in the function
+    @param tailea: any address in the current chunk
+
+    @return: the starting address of the next function chunk or BADADDR
+
+    @note: This function returns the next chunk of the specified function
+    """
+    func = ida_funcs.get_func(funcea)
+    fci = ida_funcs.func_tail_iterator_t(func, funcea)
+    if not fci.main():
+        return BADADDR
+
+    # Iterate and try to find the current chunk
+    found = False
+    while True:
+        if fci.chunk().start_ea <= tailea and \
+           fci.chunk().end_ea > tailea:
+            found = True
+            break
+        if not next(fci):
+            break
+
+    # Return the next chunk, if there is one
+    if found and next(fci):
+        return fci.chunk().start_ea
+    else:
+        return BADADDR
+
+
+
 
 # ----------------------------------------------------------------------------
 #                              S T A C K
@@ -3260,7 +3397,7 @@ def get_sp_delta(ea):
 
 def add_auto_stkpnt(func_ea, ea, delta):
     """
-    Add automatical SP register change point
+    Add automatic SP register change point
     @param func_ea: function start
     @param ea: linear address where SP changes
                usually this is the end of the instruction which
@@ -3470,17 +3607,28 @@ get_bookmark_desc = ida_idc.get_mark_comment
 #                          S T R U C T U R E S
 # ----------------------------------------------------------------------------
 
-get_struc_qty = ida_struct.get_struc_qty
-get_first_struc_idx = ida_struct.get_first_struc_idx
-get_last_struc_idx = ida_struct.get_last_struc_idx
-get_next_struc_idx = ida_struct.get_next_struc_idx
-get_prev_struc_idx = ida_struct.get_prev_struc_idx
-get_struc_idx = ida_struct.get_struc_idx
-get_struc_by_idx = ida_struct.get_struc_by_idx
-get_struc_id = ida_struct.get_struc_id
-get_struc_name = ida_struct.get_struc_name
-get_struc_cmt = ida_struct.get_struc_cmt
-get_struc_size = ida_struct.get_struc_size
+def get_struc_id(name):
+    tid = ida_typeinf.get_named_type_tid(name)
+    tif = ida_typeinf.tinfo_t()
+    if tid != BADADDR and tif.get_type_by_tid(tid) and tif.is_udt():
+        return tid
+    return BADADDR
+
+
+def get_struc_name(tid):
+    return ida_typeinf.get_tid_name(tid)
+
+
+def get_struc_cmt(tid):
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(tid) and tif.is_udt():
+        return tif.get_type_cmt()
+
+
+def get_struc_size(tid):
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(tid) and tif.is_udt():
+        return tif.get_size()
 
 
 def get_member_qty(sid):
@@ -3491,17 +3639,46 @@ def get_member_qty(sid):
 
     @return: -1 if bad structure type ID is passed otherwise
              returns number of members.
-
-    @note: Union members are, in IDA's internals, located
-           at subsequent byte offsets: member 0 -> offset 0x0,
-           member 1 -> offset 0x1, etc...
     """
-    s = ida_struct.get_struc(sid)
-    return -1 if not s else s.memqty
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(sid) and tif.is_udt():
+        return tif.get_udt_nmembers()
+    return -1
+
+
+def get_member_by_idx(sid, idx):
+    """
+    Get member ID by member ordinal number
+
+    @param sid: structure type ID
+    @param idx: member ordinal number
+
+    @return: -1 if bad structure type ID is passed or there is
+             no member with the specified index
+             otherwise returns the member ID.
+    """
+    tif = ida_typeinf.tinfo_t()
+    if idx >= 0 and tif.get_type_by_tid(sid) and tif.is_udt() and idx < tif.get_udt_nmembers():
+        return tif.get_udm_tid(idx)
+    return -1
+
+
+def is_member_id(sid):
+    """
+    Is a member id?
+
+    @param sid: structure type ID
+
+    @return: True there is structure member with the specified ID
+             False otherwise
+    """
+    tif = ida_typeinf.tinfo_t()
+    return tif.get_udm_by_tid(None, sid) != -1
 
 
 def get_member_id(sid, member_offset):
     """
+
     @param sid: structure type ID
     @param member_offset:. The offset can be
     any offset in the member. For example,
@@ -3513,120 +3690,14 @@ def get_member_id(sid, member_offset):
     no member at the specified offset.
     otherwise returns the member id.
     """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return -1
-
-    m = ida_struct.get_member(s, member_offset)
-    if not m:
-        return -1
-
-    return m.id
-
-
-def get_prev_offset(sid, offset):
-    """
-    Get previous offset in a structure
-
-    @param sid: structure type ID
-    @param offset: current offset
-
-    @return: -1 if bad structure type ID is passed,
-             ida_idaapi.BADADDR if no (more) offsets in the structure,
-             otherwise returns previous offset in a structure.
-
-    @note: IDA allows 'holes' between members of a
-           structure. It treats these 'holes'
-           as unnamed arrays of bytes.
-           This function returns a member offset or a hole offset.
-           It will return size of the structure if input
-           'offset' is bigger than the structure size.
-
-    @note: Union members are, in IDA's internals, located
-           at subsequent byte offsets: member 0 -> offset 0x0,
-           member 1 -> offset 0x1, etc...
-    """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return -1
-
-    return ida_struct.get_struc_prev_offset(s, offset)
-
-
-def get_next_offset(sid, offset):
-    """
-    Get next offset in a structure
-
-    @param sid:     structure type ID
-    @param offset: current offset
-
-    @return: -1 if bad structure type ID is passed,
-             ida_idaapi.BADADDR if no (more) offsets in the structure,
-             otherwise returns next offset in a structure.
-
-    @note: IDA allows 'holes' between members of a
-           structure. It treats these 'holes'
-           as unnamed arrays of bytes.
-           This function returns a member offset or a hole offset.
-           It will return size of the structure if input
-           'offset' belongs to the last member of the structure.
-
-    @note: Union members are, in IDA's internals, located
-           at subsequent byte offsets: member 0 -> offset 0x0,
-           member 1 -> offset 0x1, etc...
-    """
-    s = ida_struct.get_struc(sid)
-    return -1 if not s else ida_struct.get_struc_next_offset(s, offset)
-
-
-def get_first_member(sid):
-    """
-    Get offset of the first member of a structure
-
-    @param sid: structure type ID
-
-    @return: -1 if bad structure type ID is passed,
-             ida_idaapi.BADADDR if structure has no members,
-             otherwise returns offset of the first member.
-
-    @note: IDA allows 'holes' between members of a
-           structure. It treats these 'holes'
-           as unnamed arrays of bytes.
-
-    @note: Union members are, in IDA's internals, located
-           at subsequent byte offsets: member 0 -> offset 0x0,
-           member 1 -> offset 0x1, etc...
-    """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return -1
-
-    return ida_struct.get_struc_first_offset(s)
-
-
-def get_last_member(sid):
-    """
-    Get offset of the last member of a structure
-
-    @param sid: structure type ID
-
-    @return: -1 if bad structure type ID is passed,
-             ida_idaapi.BADADDR if structure has no members,
-             otherwise returns offset of the last member.
-
-    @note: IDA allows 'holes' between members of a
-          structure. It treats these 'holes'
-          as unnamed arrays of bytes.
-
-    @note: Union members are, in IDA's internals, located
-           at subsequent byte offsets: member 0 -> offset 0x0,
-           member 1 -> offset 0x1, etc...
-    """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return -1
-
-    return ida_struct.get_struc_last_offset(s)
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(sid) and tif.is_udt():
+        udm = ida_typeinf.udm_t()
+        udm.offset = member_offset
+        idx = tif.find_udm(udm, ida_typeinf.STRMEM_AUTO)
+        if idx != -1:
+            return tif.get_udm_tid(idx)
+    return -1
 
 
 def get_member_offset(sid, member_name):
@@ -3644,15 +3715,19 @@ def get_member_offset(sid, member_name):
            at subsequent byte offsets: member 0 -> offset 0x0,
            member 1 -> offset 0x1, etc...
     """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return -1
+    if member_name == " r":
+        member_name = ida_typeinf.FRAME_UDM_NAME_R
+    if member_name == " s":
+        member_name = ida_typeinf.FRAME_UDM_NAME_S
 
-    m = ida_struct.get_member_by_name(s, member_name)
-    if not m:
-        return -1
-
-    return m.get_soff()
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(sid) and tif.is_udt():
+        udm = ida_typeinf.udm_t()
+        udm.name = member_name
+        idx = tif.find_udm(udm, ida_typeinf.STRMEM_NAME)
+        if idx != -1:
+            return udm.offset // 8
+    return -1
 
 
 def get_member_name(sid, member_offset):
@@ -3670,18 +3745,17 @@ def get_member_name(sid, member_offset):
              or no such member in the structure
              otherwise returns name of the specified member.
     """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return None
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(sid) and tif.is_udt():
+        udm = ida_typeinf.udm_t()
+        udm.offset = member_offset
+        idx = tif.find_udm(udm, ida_typeinf.STRMEM_AUTO)
+        if idx != -1:
+            return udm.name
+    return None
 
-    m = ida_struct.get_member(s, member_offset)
-    if not m:
-        return None
 
-    return ida_struct.get_member_name(m.id)
-
-
-def get_member_cmt(sid, member_offset, repeatable):
+def get_member_cmt(sid, member_offset, repeatable=True):
     """
     Get comment of a member
 
@@ -3691,22 +3765,20 @@ def get_member_cmt(sid, member_offset, repeatable):
                           is a member is 4 bytes long and starts
                           at offset 2, then 2,3,4,5 denote
                           the same structure member.
-    @param repeatable: 1: get repeatable comment
-                       0: get regular comment
+    @param repeatable: is not used anymore
 
     @return: None if bad structure type ID is passed
              or no such member in the structure
              otherwise returns comment of the specified member.
     """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return None
-
-    m = ida_struct.get_member(s, member_offset)
-    if not m:
-        return None
-
-    return ida_struct.get_member_cmt(m.id, repeatable)
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(sid) and tif.is_udt():
+        udm = ida_typeinf.udm_t()
+        udm.offset = member_offset
+        idx = tif.find_udm(udm, ida_typeinf.STRMEM_AUTO)
+        if idx != -1:
+            return udm.cmt
+    return None
 
 
 def get_member_size(sid, member_offset):
@@ -3725,41 +3797,14 @@ def get_member_size(sid, member_offset):
              otherwise returns size of the specified
              member in bytes.
     """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return None
-
-    m = ida_struct.get_member(s, member_offset)
-    if not m:
-        return None
-
-    return ida_struct.get_member_size(m)
-
-
-def get_member_flag(sid, member_offset):
-    """
-    Get type of a member
-
-    @param sid: structure type ID
-    @param member_offset: member offset. The offset can be
-                          any offset in the member. For example,
-                          is a member is 4 bytes long and starts
-                          at offset 2, then 2,3,4,5 denote
-                          the same structure member.
-
-    @return: -1 if bad structure type ID is passed
-             or no such member in the structure
-             otherwise returns type of the member, see bit
-             definitions above. If the member type is a structure
-             then function GetMemberStrid() should be used to
-             get the structure type id.
-    """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return -1
-
-    m = ida_struct.get_member(s, member_offset)
-    return -1 if not m else m.flag
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(sid) and tif.is_udt():
+        udm = ida_typeinf.udm_t()
+        udm.offset = member_offset
+        idx = tif.find_udm(udm, ida_typeinf.STRMEM_AUTO)
+        if idx != -1:
+            return udm.size // 8
+    return -1
 
 
 def get_member_strid(sid, member_offset):
@@ -3777,19 +3822,16 @@ def get_member_strid(sid, member_offset):
              otherwise returns structure id of the member.
              If the current member is not a structure, returns -1.
     """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return -1
-
-    m = ida_struct.get_member(s, member_offset)
-    if not m:
-        return -1
-
-    cs = ida_struct.get_sptr(m)
-    if cs:
-        return cs.id
-    else:
-        return -1
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(sid) and tif.is_udt():
+        udm = ida_typeinf.udm_t()
+        udm.offset = member_offset
+        idx = tif.find_udm(udm, ida_typeinf.STRMEM_AUTO)
+        if idx != -1:
+            tid = udm.type.get_tid()
+            if tid != BADADDR:
+                return tid
+    return -1
 
 
 def is_union(sid):
@@ -3798,30 +3840,22 @@ def is_union(sid):
 
     @param sid: structure type ID
 
-    @return: 1: yes, this is a union id
-             0: no
+    @return: True: yes, this is a union id
+             False: no
 
     @note: Unions are a special kind of structures
     """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return 0
-
-    return s.is_union()
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(sid) and tif.is_udt():
+        return tif.is_union()
+    return False
 
 
 def add_struc(index, name, is_union):
     """
     Define a new structure type
 
-    @param index: index of new structure type
-                  If another structure has the specified index,
-                  then index of that structure and all other
-                  structures will be incremented, freeing the specifed
-                  index. If index is == -1, then the biggest index
-                  number will be used.
-                  See get_first_struc_idx() for the explanation of
-                  structure indices and IDs.
+    @param index: -1
     @param name: name of the new structure type.
     @param is_union: 0: structure
                      1: union
@@ -3831,10 +3865,12 @@ def add_struc(index, name, is_union):
              already used in the program.
              otherwise returns ID of the new structure type
     """
-    if index == -1:
-        index = BADADDR
-
-    return ida_struct.add_struc(index, name, is_union)
+    udt = ida_typeinf.udt_type_data_t()
+    udt.is_union = is_union
+    tif = ida_typeinf.tinfo_t()
+    if tif.create_udt(udt) and tif.set_named_type(None, name) == ida_typeinf.TERR_OK:
+        return tif.get_tid()
+    return BADADDR
 
 
 def del_struc(sid):
@@ -3849,34 +3885,22 @@ def del_struc(sid):
              deleted structure type will be displayed as array
              of bytes.
     """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return 0
-
-    return ida_struct.del_struc(s)
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(sid)
+    return ida_typeinf.del_numbered_type(None, tif.get_ordinal())
 
 
-def set_struc_idx(sid, index):
-    """
-    Change structure index
-
-    @param sid: structure type ID
-    @param index: new index of the structure
-
-    @return: != 0 - ok
-
-    @note: See get_first_struc_idx() for the explanation of
-           structure indices and IDs.
-    """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return 0
-
-    return ida_struct.set_struc_idx(s, index)
+def set_struc_name(sid, name):
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(sid):
+        return tif.rename_type(name) == ida_typeinf.TERR_OK
+    return False
 
 
-set_struc_name = ida_struct.set_struc_name
-set_struc_cmt = ida_struct.set_struc_cmt
+def set_struc_cmt(sid, cmt, repeatable=True):
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(sid):
+        return tif.set_type_cmt(cmt, not repeatable) == ida_typeinf.TERR_OK
 
 
 def add_struc_member(sid, name, offset, flag, typeid, nbytes, target=-1, tdelta=0, reftype=REF_OFF32):
@@ -3906,7 +3930,7 @@ def add_struc_member(sid, name, offset, flag, typeid, nbytes, target=-1, tdelta=
     @note: The remaining arguments are allowed only if is_off0(flag) and you want
            to specify a complex offset expression
 
-    @return: 0 - ok, otherwise error code (one of STRUC_ERROR_*)
+    @return: 0 - ok, otherwise error code (one of typeinf.TERR_*)
 
     """
     if is_off0(flag):
@@ -3914,15 +3938,6 @@ def add_struc_member(sid, name, offset, flag, typeid, nbytes, target=-1, tdelta=
                                                                                target, tdelta, reftype))
     else:
         return eval_idc('add_struc_member(%d, "%s", %d, %d, %d, %d);' % (sid, ida_kernwin.str2user(name or ""), offset, flag, typeid, nbytes))
-
-
-STRUC_ERROR_MEMBER_NAME    = -1 # already has member with this name (bad name)
-STRUC_ERROR_MEMBER_OFFSET  = -2 # already has member at this offset
-STRUC_ERROR_MEMBER_SIZE    = -3 # bad number of bytes or bad sizeof(type)
-STRUC_ERROR_MEMBER_TINFO   = -4 # bad typeid parameter
-STRUC_ERROR_MEMBER_STRUCT  = -5 # bad struct id (the 1st argument)
-STRUC_ERROR_MEMBER_UNIVAR  = -6 # unions can't have variable sized members
-STRUC_ERROR_MEMBER_VARLAST = -7 # variable sized member should be the last member in the structure
 
 
 def del_struc_member(sid, member_offset):
@@ -3938,11 +3953,14 @@ def del_struc_member(sid, member_offset):
            structure. It treats these 'holes'
            as unnamed arrays of bytes.
     """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return 0
-
-    return ida_struct.del_struc_member(s, member_offset)
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(sid) and tif.is_udt():
+        udm = ida_typeinf.udm_t()
+        udm.offset = member_offset
+        idx = tif.find_udm(udm, ida_typeinf.STRMEM_AUTO)
+        if idx != -1:
+            return tif.del_udm(idx) == ida_typeinf.TERR_OK
+    return False
 
 
 def set_member_name(sid, member_offset, name):
@@ -3955,11 +3973,14 @@ def set_member_name(sid, member_offset, name):
 
     @return: != 0 - ok.
     """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return 0
-
-    return ida_struct.set_member_name(s, member_offset, name)
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(sid) and tif.is_udt():
+        udm = ida_typeinf.udm_t()
+        udm.offset = member_offset
+        idx = tif.find_udm(udm, ida_typeinf.STRMEM_AUTO)
+        if idx != -1:
+            return tif.rename_udm(idx, name) == ida_typeinf.TERR_OK
+    return False
 
 
 def set_member_type(sid, member_offset, flag, typeid, nitems, target=-1, tdelta=0, reftype=REF_OFF32):
@@ -4008,227 +4029,163 @@ def set_member_cmt(sid, member_offset, comment, repeatable):
 
     @return: != 0 - ok
     """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return 0
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(sid) and tif.is_udt():
+        udm = ida_typeinf.udm_t()
+        udm.offset = member_offset
+        idx = tif.find_udm(udm, ida_typeinf.STRMEM_AUTO)
+        if idx != -1:
+            return tif.set_udm_cmt(idx, comment, not repeatable) == ida_typeinf.TERR_OK
+    return False
 
-    m = ida_struct.get_member(s, member_offset)
-    if not m:
-        return 0
 
-    return ida_struct.set_member_cmt(m, comment, repeatable)
-
-
-def expand_struc(sid, offset, delta, recalc):
+def expand_struc(sid, offset, delta, recalc=True):
     """
     Expand or shrink a structure type
     @param id: structure type ID
     @param offset: offset in the structure
     @param delta: how many bytes to add or remove
-    @param recalc: recalculate the locations where the structure
-                               type is used
-    @return: != 0 - ok
+    @param recalc: is not used anymore
+    @return: True if ok, False on error
     """
-    s = ida_struct.get_struc(sid)
-    if not s:
-        return 0
-
-    return ida_struct.expand_struc(s, offset, delta, recalc)
-
-
-def get_fchunk_attr(ea, attr):
-    """
-    Get a function chunk attribute
-
-    @param ea: any address in the chunk
-    @param attr: one of: FUNCATTR_START, FUNCATTR_END, FUNCATTR_OWNER, FUNCATTR_REFQTY
-
-    @return: desired attribute or -1
-    """
-    func = ida_funcs.get_fchunk(ea)
-    return _IDC_GetAttr(func, _FUNCATTRMAP, attr) if func else BADADDR
-
-
-def set_fchunk_attr(ea, attr, value):
-    """
-    Set a function chunk attribute
-
-    @param ea: any address in the chunk
-    @param attr: only FUNCATTR_START, FUNCATTR_END, FUNCATTR_OWNER
-    @param value: desired value
-
-    @return: 0 if failed, 1 if success
-    """
-    if attr in [ FUNCATTR_START, FUNCATTR_END, FUNCATTR_OWNER ]:
-        chunk = ida_funcs.get_fchunk(ea)
-        if chunk:
-            _IDC_SetAttr(chunk, _FUNCATTRMAP, attr, value)
-            return ida_funcs.update_func(chunk)
-    return 0
-
-
-get_fchunk_referer = ida_funcs.get_fchunk_referer
-
-
-def get_next_fchunk(ea):
-    """
-    Get next function chunk
-
-    @param ea: any address
-
-    @return:  the starting address of the next function chunk or BADADDR
-
-    @note: This function enumerates all chunks of all functions in the database
-    """
-    func = ida_funcs.get_next_fchunk(ea)
-
-    if func:
-        return func.start_ea
-    else:
-        return BADADDR
-
-
-def get_prev_fchunk(ea):
-    """
-    Get previous function chunk
-
-    @param ea: any address
-
-    @return: the starting address of the function chunk or BADADDR
-
-    @note: This function enumerates all chunks of all functions in the database
-    """
-    func = ida_funcs.get_prev_fchunk(ea)
-
-    if func:
-        return func.start_ea
-    else:
-        return BADADDR
-
-
-def append_func_tail(funcea, ea1, ea2):
-    """
-    Append a function chunk to the function
-
-    @param funcea: any address in the function
-    @param ea1: start of function tail
-    @param ea2: end of function tail
-    @return: 0 if failed, 1 if success
-
-    @note: If a chunk exists at the specified addresses, it must have exactly
-           the specified boundaries
-    """
-    func = ida_funcs.get_func(funcea)
-
-    if not func:
-        return 0
-    else:
-        return ida_funcs.append_func_tail(func, ea1, ea2)
-
-
-def remove_fchunk(funcea, tailea):
-    """
-    Remove a function chunk from the function
-
-    @param funcea: any address in the function
-    @param tailea: any address in the function chunk to remove
-
-    @return: 0 if failed, 1 if success
-    """
-    func = ida_funcs.get_func(funcea)
-
-    if not func:
-        return 0
-    else:
-        return ida_funcs.remove_func_tail(func, tailea)
-
-
-def set_tail_owner(tailea, funcea):
-    """
-    Change the function chunk owner
-
-    @param tailea: any address in the function chunk
-    @param funcea: the starting address of the new owner
-
-    @return: False if failed, True if success
-
-    @note: The new owner must already have the chunk appended before the call
-    """
-    tail = ida_funcs.get_fchunk(tailea)
-
-    if not tail:
-        return False
-    else:
-        return ida_funcs.set_tail_owner(tail, funcea)
-
-
-def first_func_chunk(funcea):
-    """
-    Get the first function chunk of the specified function
-
-    @param funcea: any address in the function
-
-    @return: the function entry point or BADADDR
-
-    @note: This function returns the first (main) chunk of the specified function
-    """
-    func = ida_funcs.get_func(funcea)
-    fci = ida_funcs.func_tail_iterator_t(func, funcea)
-    if fci.main():
-        return fci.chunk().start_ea
-    else:
-        return BADADDR
-
-
-def next_func_chunk(funcea, tailea):
-    """
-    Get the next function chunk of the specified function
-
-    @param funcea: any address in the function
-    @param tailea: any address in the current chunk
-
-    @return: the starting address of the next function chunk or BADADDR
-
-    @note: This function returns the next chunk of the specified function
-    """
-    func = ida_funcs.get_func(funcea)
-    fci = ida_funcs.func_tail_iterator_t(func, funcea)
-    if not fci.main():
-        return BADADDR
-
-    # Iterate and try to find the current chunk
-    found = False
-    while True:
-        if fci.chunk().start_ea <= tailea and \
-           fci.chunk().end_ea > tailea:
-            found = True
-            break
-        if not next(fci):
-            break
-
-    # Return the next chunk, if there is one
-    if found and next(fci):
-        return fci.chunk().start_ea
-    else:
-        return BADADDR
-
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(sid) and tif.is_udt():
+        udm = ida_typeinf.udm_t()
+        udm.offset = offset*8
+        idx = tif.find_udm(udm, ida_typeinf.STRMEM_LOWBND|ida_typeinf.STRMEM_SKIP_GAPS)
+        if idx != -1:
+            return tif.expand_udt(idx, delta) == ida_typeinf.TERR_OK
+    return False
 
 # ----------------------------------------------------------------------------
 #                          E N U M S
 # ----------------------------------------------------------------------------
-get_enum_qty = ida_enum.get_enum_qty
-getn_enum = ida_enum.getn_enum
-get_enum_idx = ida_enum.get_enum_idx
-get_enum = ida_enum.get_enum
-get_enum_name = ida_enum.get_enum_name
-get_enum_cmt = ida_enum.get_enum_cmt
-get_enum_size = ida_enum.get_enum_size
-get_enum_width = ida_enum.get_enum_width
-get_enum_flag = ida_enum.get_enum_flag
-get_enum_member_by_name = ida_enum.get_enum_member_by_name
-get_enum_member_value = ida_enum.get_enum_member_value
-get_enum_member_bmask = ida_enum.get_enum_member_bmask
-get_enum_member_enum = ida_enum.get_enum_member_enum
+ENFL_REGEX = 0x0001    # apply regular expressions to beautify the name
+
+def get_enum(name):
+    """
+    Get enum by name
+
+    @param name: enum type name
+
+    @return: enum type TID or BADADDR
+    """
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_named_type(None, name) and tif.is_enum():
+        return tif.get_tid()
+    return BADADDR
+
+
+def get_enum_name(enum_id, flags=0):
+    """
+    Get name of enum
+
+    @param enum_id: enum TID
+    @param flags: use ENFL_REGEX to beautify the name
+
+    @return: enum name or None
+    """
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(enum_id):
+        return tif.get_nice_type_name() if (flags & ENFL_REGEX) != 0 else tif.get_type_name()
+    return None
+
+
+def get_enum_cmt(enum_id):
+    """
+    Get enum comment
+
+    @param enum_id: enum TID
+
+    @return: enum comment
+    """
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    return tif.get_type_cmt()
+
+
+def get_enum_size(enum_id):
+    """
+    Get the number of the members of the enum
+
+    @param enum_id: enum TID
+
+    @return: number of members
+    """
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    return tif.get_enum_nmembers()
+
+
+def get_enum_width(enum_id):
+    """
+    Get the width of a enum element
+    allowed values: 0 (unspecified),1,2,4,8,16,32,64
+
+    @param enum_id: enum TID
+
+    @return: enum width or -1 in case of error
+    """
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    return tif.get_enum_width()
+
+
+def get_enum_flag(enum_id):
+    """
+    Get flags determining the representation of the enum.
+    (currently they define the numeric base: octal, decimal, hex, bin) and signness.
+
+    @param enum_id: enum TID
+
+    @return: flag of 0
+    """
+    tif = ida_typeinf.tinfo_t()
+    F = 0
+    if tif.get_type_by_tid(enum_id) and tif.is_enum():
+        radix = tif.get_enum_radix()
+        if radix == 1:
+            F = ida_bytes.get_operand_flag(ida_bytes.FF_N_CHAR, 0)
+        elif radix == 2:
+            F = ida_bytes.get_operand_flag(ida_bytes.FF_N_NUMB, 0);
+        elif radix == 8:
+            F = ida_bytes.get_operand_flag(ida_bytes.FF_N_NUMO, 0);
+        elif radix == 10:
+            F = ida_bytes.get_operand_flag(ida_bytes.FF_N_NUMD, 0);
+        else:
+            F = ida_bytes.get_operand_flag(ida_bytes.FF_N_NUMH, 0);
+        if tif.is_signed():
+            F |= ida_bytes.FF_SIGN
+    return F
+
+
+def get_enum_member_by_name(name):
+    """
+    Get a reference to an enum member by its name
+
+    @param name: enum member name
+
+    @return: enum member TID or BADADDR
+    """
+    tif = ida_typeinf.tinfo_t()
+    idx = tif.get_edm_by_name(name)
+    if idx != -1:
+        return tif.get_edm_tid(idx)
+    return BADADDR
+
+
+def get_enum_member_enum(const_id):
+    """
+    Get the parent enum of an enum member
+
+    @param const_id: id of const
+
+    @return: enum TID or BADADDR
+    """
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(const_id) and tif.is_enum():
+        return tif.get_tid()
+    return BADADDR;
 
 
 def get_enum_member(enum_id, value, serial, bmask):
@@ -4240,19 +4197,106 @@ def get_enum_member(enum_id, value, serial, bmask):
     @param serial: serial number of the constant in the
               enumeration. See op_enum() for details.
     @param bmask: bitmask of the constant
-              ordinary enums accept only ida_enum.DEFMASK as a bitmask
+              ordinary enums accept only -1 as a bitmask
 
     @return: id of constant or -1 if error
     """
     if bmask < 0:
         bmask &= BADADDR
-    return ida_enum.get_enum_member(enum_id, value, serial, bmask)
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    edm = ida_typeinf.edm_t()
+    if tif.get_type_by_tid(enum_id) and tif.find_edm(edm, value, bmask, serial) != -1:
+        return ida_typeinf.get_named_type_tid(edm.name)
+    return -1
 
 
-get_first_bmask = ida_enum.get_first_bmask
-get_last_bmask = ida_enum.get_last_bmask
-get_next_bmask = ida_enum.get_next_bmask
-get_prev_bmask = ida_enum.get_prev_bmask
+def get_first_bmask(enum_id):
+    """
+    Get first bitmask in the enum
+
+    @param enum_id: id of enum
+
+    @return: id of constant or -1 if error
+    """
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    ei = ida_typeinf.enum_type_data_t()
+    tif.get_enum_details(ei)
+    if not ei.group_sizes.empty():
+        return ei[0].value & ei.calc_mask()
+    return -1
+
+
+def get_last_bmask(enum_id):
+    """
+    Get last bitmask in the enum
+
+    @param enum_id: id of enum
+
+    @return: id of constant or -1 if error
+    """
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    ei = ida_typeinf.enum_type_data_t()
+    tif.get_enum_details(ei)
+    m = -1
+    for (grp_start, grp_size) in ei.all_groups():
+        m = ei[grp_start].value & ei.calc_mask()
+    return m
+
+
+def get_next_bmask(enum_id, bmask):
+    """
+    Get next bitmask in the enum
+
+    @param enum_id: id of enum
+    @param bmask
+
+    @return: id of constant or -1 if error
+    """
+    if bmask < 0:
+        bmask &= BADADDR
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    ei = ida_typeinf.enum_type_data_t()
+    tif.get_enum_details(ei)
+    found = False
+    vmask = ei.calc_mask()
+    bmask &= vmask
+    for (grp_start, grp_size) in ei.all_groups():
+        m = ei[grp_start].value & vmask
+        if not found and m == bmask:
+            found = True
+        elif found:
+            return m
+    return -1
+
+
+def get_prev_bmask(enum_id, bmask):
+    """
+    Get prev bitmask in the enum
+
+    @param enum_id: id of enum
+    @param bmask
+
+    @return: id of constant or -1 if error
+    """
+    if bmask < 0:
+        bmask &= BADADDR
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    ei = ida_typeinf.enum_type_data_t()
+    tif.get_enum_details(ei)
+    prev_grp_start = -1
+    vmask = ei.calc_mask()
+    bmask &= vmask
+    for (grp_start, grp_size) in ei.all_groups():
+        m = ei[grp_start].value & vmask
+        if m == bmask:
+            return ei[prev_grp_start].value & vmask if prev_grp_start != -1 else -1
+        prev_grp_start = grp_start
+    return -1
 
 
 def get_bmask_name(enum_id, bmask):
@@ -4266,7 +4310,13 @@ def get_bmask_name(enum_id, bmask):
     """
     if bmask < 0:
         bmask &= BADADDR
-    return ida_enum.get_bmask_name(enum_id, bmask)
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    edm = ida_typeinf.edm_t()
+    idx = tif.find_edm(edm, bmask)
+    if idx != -1:
+        return edm.name
+    return None
 
 
 def get_bmask_cmt(enum_id, bmask, repeatable):
@@ -4281,7 +4331,13 @@ def get_bmask_cmt(enum_id, bmask, repeatable):
     """
     if bmask < 0:
         bmask &= BADADDR
-    return ida_enum.get_bmask_cmt(enum_id, bmask, repeatable)
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    edm = ida_typeinf.edm_t()
+    idx = tif.find_edm(edm, bmask)
+    if idx != -1:
+        return edm.cmt
+    return None
 
 
 def set_bmask_name(enum_id, bmask, name):
@@ -4292,11 +4348,16 @@ def set_bmask_name(enum_id, bmask, name):
     @param bmask: bitmask of the constant
     @param name: name of bitmask
 
-    @return: 1-ok, 0-failed
+    @return: True-ok, False-failed
     """
     if bmask < 0:
         bmask &= BADADDR
-    return ida_enum.set_bmask_name(enum_id, bmask, name)
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    idx = tif.find_edm(None, bmask)
+    if idx != -1:
+        return tif.rename_edm(idx, name) == ida_typeinf.TERR_OK
+    return False
 
 
 def set_bmask_cmt(enum_id, bmask, cmt, repeatable):
@@ -4306,79 +4367,141 @@ def set_bmask_cmt(enum_id, bmask, cmt, repeatable):
     @param enum_id: id of enum
     @param bmask: bitmask of the constant
     @param cmt: comment
-    repeatable - type of comment, 0-regular, 1-repeatable
+    repeatable - is not used anymore
 
     @return: 1-ok, 0-failed
     """
     if bmask < 0:
         bmask &= BADADDR
-    return ida_enum.set_bmask_cmt(enum_id, bmask, cmt, repeatable)
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    idx = tif.find_edm(None, bmask)
+    if idx != -1:
+        return tif.set_edm_cmt(idx, cmt) == ida_typeinf.TERR_OK
+    return False
 
 
-def get_first_enum_member(enum_id, bmask):
+def __collect_enum_value(ei, bmask):
+    vmask = ei.calc_mask()
+    values = set()
+    if bmask == BADADDR:
+        for (idx, _, _) in ei.all_constants():
+            values.add(ei[idx].value & vmask)
+    elif ei.is_bf():
+        bmask &= vmask
+        for (grp_start, grp_size) in ei.all_groups():
+            if (ei[grp_start].value & vmask) == bmask:
+                grp_end = grp_start + grp_size
+                if grp_size != 1:
+                    grp_start += 1
+                for idx in range(grp_start, grp_end):
+                    values.add(ei[idx].value & vmask)
+                break
+    return list(sorted(values))
+
+
+def get_first_enum_member(enum_id, bmask=-1):
     """
     Get first constant in the enum
 
     @param enum_id: id of enum
-    @param bmask: bitmask of the constant (ordinary enums accept only ida_enum.DEFMASK as a bitmask)
+    @param bmask: bitmask of the constant (ordinary enums accept only -1 as a bitmask)
 
-    @return: value of constant or idaapi.BADNODE no constants are defined
+    @return: value of constant or -1 if no constants are defined
              All constants are sorted by their values as unsigned longs.
     """
     if bmask < 0:
         bmask &= BADADDR
-    return ida_enum.get_first_enum_member(enum_id, bmask)
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    ei = ida_typeinf.enum_type_data_t()
+    if tif.get_enum_details(ei):
+        values = __collect_enum_value(ei, bmask)
+        if len(values) != 0:
+            return values[0]
+    return -1
 
 
-def get_last_enum_member(enum_id, bmask):
+def get_last_enum_member(enum_id, bmask=-1):
     """
     Get last constant in the enum
 
     @param enum_id: id of enum
-    @param bmask: bitmask of the constant (ordinary enums accept only ida_enum.DEFMASK as a bitmask)
+    @param bmask: bitmask of the constant (ordinary enums accept only -1 as a bitmask)
 
-    @return: value of constant or idaapi.BADNODE no constants are defined
+    @return: value of constant or -1 if no constants are defined
              All constants are sorted by their values
              as unsigned longs.
     """
     if bmask < 0:
         bmask &= BADADDR
-    return ida_enum.get_last_enum_member(enum_id, bmask)
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    ei = ida_typeinf.enum_type_data_t()
+    if tif.get_enum_details(ei):
+        values = __collect_enum_value(ei, bmask)
+        if len(values) != 0:
+            return values[-1]
+    return -1
 
 
-def get_next_enum_member(enum_id, value, bmask):
+def get_next_enum_member(enum_id, value, bmask=-1):
     """
     Get next constant in the enum
 
     @param enum_id: id of enum
-    @param bmask: bitmask of the constant ordinary enums accept only ida_enum.DEFMASK as a bitmask
+    @param bmask: bitmask of the constant ordinary enums accept only -1 as a bitmask
     @param value: value of the current constant
 
     @return: value of a constant with value higher than the specified
-             value. idaapi.BADNODE no such constants exist.
+             value. -1 if no such constants exist.
              All constants are sorted by their values as unsigned longs.
     """
     if bmask < 0:
         bmask &= BADADDR
-    return ida_enum.get_next_enum_member(enum_id, value, bmask)
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    ei = ida_typeinf.enum_type_data_t()
+    if tif.get_enum_details(ei):
+        values = __collect_enum_value(ei, bmask)
+        value &= ei.calc_mask()
+        try:
+            idx = values.index(value)
+            if idx < len(values):
+                return values[idx+1]
+        except:
+            pass
+    return -1
 
 
-def get_prev_enum_member(enum_id, value, bmask):
+def get_prev_enum_member(enum_id, value, bmask=-1):
     """
     Get prev constant in the enum
 
     @param enum_id: id of enum
     @param bmask  : bitmask of the constant
-              ordinary enums accept only ida_enum.DEFMASK as a bitmask
+              ordinary enums accept only -1 as a bitmask
     @param value: value of the current constant
 
     @return: value of a constant with value lower than the specified
-        value. idaapi.BADNODE no such constants exist.
+        value. -1 if no such constants exist.
         All constants are sorted by their values as unsigned longs.
     """
     if bmask < 0:
         bmask &= BADADDR
-    return ida_enum.get_prev_enum_member(enum_id, value, bmask)
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    ei = ida_typeinf.enum_type_data_t()
+    if tif.get_enum_details(ei):
+        values = __collect_enum_value(ei, bmask)
+        value &= ei.calc_mask()
+        try:
+            idx = values.index(value)
+            if idx != 0:
+                return values[idx-1]
+        except:
+            pass
+    return -1
 
 
 def get_enum_member_name(const_id):
@@ -4389,68 +4512,183 @@ def get_enum_member_name(const_id):
 
     Returns: name of constant
     """
-    name = ida_enum.get_enum_member_name(const_id)
+    tif = ida_typeinf.tinfo_t()
+    edm = ida_typeinf.edm_t()
+    if tif.get_edm_by_tid(edm, const_id) != -1:
+        return edm.name
+    return None
 
-    if not name:
-        return ""
-    else:
-        return name
 
-
-def get_enum_member_cmt(const_id, repeatable):
+def get_enum_member_cmt(const_id, repeatable=True):
     """
     Get comment of a constant
 
     @param const_id: id of const
-    @param repeatable: 0:get regular comment, 1:get repeatable comment
+    @param repeatable: not used anymore
 
     @return: comment string
     """
-    cmt = ida_enum.get_enum_member_cmt(const_id, repeatable)
+    tif = ida_typeinf.tinfo_t()
+    edm = ida_typeinf.edm_t()
+    if tif.get_edm_by_tid(edm, const_id) != -1:
+        return edm.cmt
+    return None
 
-    if not cmt:
-        return ""
-    else:
-        return cmt
+
+def get_enum_member_value(const_id):
+    """
+    Get value of an enum member
+
+    @param const_id: id of const
+
+    @return: member value or None
+    """
+    tif = ida_typeinf.tinfo_t()
+    edm = ida_typeinf.edm_t()
+    if tif.get_edm_by_tid(edm, const_id) != -1:
+        return edm.value & tif.calc_enum_mask()
+    return None
+
+
+def get_enum_member_bmask(const_id):
+    """
+    Get bitmask of an enum member
+
+    @param const_id: id of const
+
+    @return: member value or None
+    """
+    tif = ida_typeinf.tinfo_t()
+    idx = tif.get_edm_by_tid(None, const_id)
+    if idx != -1 and tif.is_bitmask_enum():
+        ei = ida_typeinf.enum_type_data_t()
+        if tif.get_enum_details(ei):
+            grp = ei.get_constant_group(idx)
+            if grp is not None:
+                return ei[grp[0]].value
+    return None
 
 
 def add_enum(idx, name, flag):
     """
     Add a new enum type
 
-    @param idx: serial number of the new enum.
-            If another enum with the same serial number
-            exists, then all enums with serial
-            numbers >= the specified idx get their
-            serial numbers incremented (in other words,
-            the new enum is put in the middle of the list of enums).
-
-            If idx >= get_enum_qty() or idx == idaapi.BADNODE
-            then the new enum is created at the end of
-            the list of enums.
-
+    @param idx: is not used anymore
     @param name: name of the enum.
     @param flag: flags for representation of numeric constants
                  in the definition of enum.
 
     @return: id of new enum or BADADDR
     """
-    if idx < 0:
-        idx = idx & SIZE_MAX
-    return ida_enum.add_enum(idx, name, flag)
+    ei = ida_typeinf.enum_type_data_t()
+    radix = 1 if ida_bytes.is_char0(flag) else ida_bytes.get_radix(flag, 0)
+    ei.set_enum_radix(radix, (flag & ida_bytes.FF_SIGN) != 0)
+    tif = ida_typeinf.tinfo_t()
+    if tif.create_enum(ei) and tif.set_named_type(None, name) == ida_typeinf.TERR_OK:
+        return tif.get_tid()
+    return BADADDR
 
 
-del_enum = ida_enum.del_enum
-set_enum_idx = ida_enum.set_enum_idx
-set_enum_name = ida_enum.set_enum_name
-set_enum_cmt = ida_enum.set_enum_cmt
-set_enum_flag = ida_enum.set_enum_flag
-set_enum_bf = ida_enum.set_enum_bf
-set_enum_width = ida_enum.set_enum_width
-is_bf = ida_enum.is_bf
+def del_enum(enum_id):
+    """
+    Delete an enum type
+
+    @param enum_id: id of enum
+
+    @return: success
+    """
+    return ida_typeinf.del_named_type(None, ida_typeinf.get_tid_name(enum_id), ida_typeinf.NTF_TYPE)
 
 
-def add_enum_member(enum_id, name, value, bmask):
+def set_enum_name(enum_id, name):
+    """
+    Set name of enum type
+
+    @param enum_id: id of enum
+    @param name: new enum name
+
+    @return: 1-ok, 0-failed
+    """
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(enum_id) and tif.rename_type(name):
+        return 1
+    return 0
+
+
+def set_enum_flag(enum_id, flag):
+    """
+    Set enum constant representation flags
+
+    @param enum_id: enum TID
+    @param flag
+
+    @return: success
+    """
+    tif = ida_typeinf.tinfo_t()
+    if ida_bytes.is_char0(flag):
+        radix = 1
+    else:
+        radix = ida_bytes.get_radix(flag, 0)
+    return tif.get_type_by_tid(enum_id) and tif.set_enum_radix(radix, (flag & ida_bytes.FF_SIGN) != 0) == ida_typeinf.TERR_OK;
+
+
+def set_enum_width(enum_id, nbytes):
+    """
+    Set the width of enum base type
+
+    @param enum_id: enum TID
+    @param nbytes: width of enum base type, allowed values: 0 (unspecified),1,2,4,8,16,32,64
+
+    @return: success
+    """
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    return tif.set_enum_width(nbytes)
+
+
+def is_bf(enum_id):
+    """
+    Is enum a bitmask ?
+
+    @param enum_id: enum TID
+
+    @return: if it is a bitmask enum return True, otherwise False
+    """
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    return tif.is_bitmask_enum()
+
+
+def set_enum_bf(enum_id, bf):
+    """
+    Set or clear the 'bitmask' attribute of an enum
+
+    @param enum_id: enum TID
+    @param bf: bitmask enum or not
+
+    @return: success
+    """
+    tif = ida_typeinf.tinfo_t()
+    return tif.get_type_by_tid(enum_id) and tif.set_enum_is_bitmask(ida_typeinf.tinfo_t.ENUMBM_ON if bf else ida_typeinf.tinfo_t.ENUMBM_OFF) == ida_typeinf.TERR_OK
+
+
+def set_enum_cmt(enum_id, cmt, repeatable):
+    """
+    Set comment for enum type
+
+    @param enum_id: enum TID
+    @param cmt: comment
+    @param repeatable: is comment repeatable ?
+
+    @return: 1-ok, 0-failed
+    """
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(enum_id) and tif.set_type_cmt(cmt, not repeatable):
+        return 1
+    return 0
+
+
+def add_enum_member(enum_id, name, value, bmask=-1):
     """
     Add a member of enum - a symbolic constant
 
@@ -4458,24 +4696,23 @@ def add_enum_member(enum_id, name, value, bmask):
     @param name: name of symbolic constant. Must be unique in the program.
     @param value: value of symbolic constant.
     @param bmask: bitmask of the constant
-        ordinary enums accept only ida_enum.DEFMASK as a bitmask
+        ordinary enums accept only -1 as a bitmask
         all bits set in value should be set in bmask too
 
     @return: 0-ok, otherwise error code (one of ENUM_MEMBER_ERROR_*)
     """
     if bmask < 0:
         bmask &= BADADDR
-    return ida_enum.add_enum_member(enum_id, name, value, bmask)
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_type_by_tid(enum_id):
+        edm = ida_typeinf.edm_t()
+        edm.name = name
+        edm.value = value
+        return tif.add_edm(edm, bmask)
+    return ida_typeinf.TERR_BAD_TYPE
 
 
-ENUM_MEMBER_ERROR_NAME  = ida_enum.ENUM_MEMBER_ERROR_NAME  # already have member with this name (bad name)
-ENUM_MEMBER_ERROR_VALUE = ida_enum.ENUM_MEMBER_ERROR_VALUE # already have member with this value
-ENUM_MEMBER_ERROR_ENUM  = ida_enum.ENUM_MEMBER_ERROR_ENUM  # bad enum id
-ENUM_MEMBER_ERROR_MASK  = ida_enum.ENUM_MEMBER_ERROR_MASK  # bad bmask
-ENUM_MEMBER_ERROR_ILLV  = ida_enum.ENUM_MEMBER_ERROR_ILLV  # bad bmask and value combination (~bmask & value != 0)
-
-
-def del_enum_member(enum_id, value, serial, bmask):
+def del_enum_member(enum_id, value, serial, bmask=-1):
     """
     Delete a member of enum - a symbolic constant
 
@@ -4484,17 +4721,53 @@ def del_enum_member(enum_id, value, serial, bmask):
     @param serial: serial number of the constant in the
         enumeration. See op_enum() for for details.
     @param bmask: bitmask of the constant ordinary enums accept
-        only ida_enum.DEFMASK as a bitmask
+        only -1 as a bitmask
 
     @return: 1-ok, 0-failed
     """
     if bmask < 0:
         bmask &= BADADDR
-    return ida_enum.del_enum_member(enum_id, value, serial, bmask)
+    tif = ida_typeinf.tinfo_t()
+    tif.get_type_by_tid(enum_id)
+    idx = tif.find_edm(None, value, bmask, serial)
+    if idx != -1 and tif.del_edm(idx) == ida_typeinf.TERR_OK:
+        return 1
+    return 0
 
 
-set_enum_member_name = ida_enum.set_enum_member_name
-set_enum_member_cmt = ida_enum.set_enum_member_cmt
+def set_enum_member_name(const_id, name):
+    """
+    Set name of enum member
+
+    @param const_id: enum constant TID
+    @param name: new member name
+
+    @return: 1-ok, 0-failed
+    """
+    tif = ida_typeinf.tinfo_t()
+    idx = tif.get_edm_by_tid(None, const_id)
+    if idx != -1 and tif.rename_edm(idx, name) == ida_typeinf.TERR_OK:
+        return 1
+    return 0
+
+
+def set_enum_member_cmt(const_id, cmt, repeatable=False):
+    """
+    Set comment for enum member
+
+    @param const_id: enum constant TID
+    @param cmt: comment
+    @param repeatable: is not used anymore
+
+    @return: 1-ok, 0-failed
+    """
+    name = ida_typeinf.get_tid_name(const_id)
+    tif = ida_typeinf.tinfo_t()
+    idx = tif.get_edm_by_name(name)
+    if idx != -1 and tif.set_edm_cmt(idx, cmt) == ida_typeinf.TERR_OK:
+        return 1
+    return 0
+
 
 #----------------------------------------------------------------------------
 #                         A R R A Y S  I N  I D C
@@ -4959,13 +5232,15 @@ def import_type(idx, type_name):
     Copy structure, union, or enum definition from the type library
     to the IDA database.
 
-    @param idx: the position of the new type in the list of
-                types (structures or enums) -1 means at the end of the list
+    @param idx: -1, ignored
     @param type_name: name of type to copy
 
     @return: BADNODE-failed, otherwise the type id (structure id or enum id)
     """
-    return ida_typeinf.import_type(None, idx, type_name)
+    tif = ida_typeinf.tinfo_t()
+    if tif.get_named_type(None, type_name):
+        return tif.force_tid()
+    return BADADDR
 
 
 def get_type(ea):
@@ -5171,13 +5446,13 @@ PDF_DEF_BASE   = 0x4  # include base types: __int8, __int16, etc..
 PDF_HEADER_CMT = 0x8  # prepend output with a descriptive comment
 
 
-def get_ordinal_qty():
+def get_ordinal_limit():
     """
     Get number of local types + 1
 
     @return: value >= 1. 1 means that there are no local types.
     """
-    return ida_typeinf.get_ordinal_qty(None)
+    return ida_typeinf.get_ordinal_limit(None)
 
 
 def set_local_type(ordinal, input, flags):
@@ -5705,7 +5980,7 @@ BPT_WRITE    = 1                     # Hardware: Write access
 BPT_RDWR     = 3                     # Hardware: Read/write access
 BPT_SOFT     = 4                     # Software breakpoint
 BPT_EXEC     = 8                     # Hardware: Execute instruction
-BPT_DEFAULT  = (BPT_SOFT|BPT_EXEC);  # Choose bpt type automaticaly
+BPT_DEFAULT  = (BPT_SOFT|BPT_EXEC);  # Choose bpt type automatically
 
 BPTATTR_COUNT  =  4
 BPTATTR_FLAGS  =  5
@@ -5744,7 +6019,7 @@ def set_bpt_attr(address, bptattr, value):
     @param address: any address in the breakpoint range
     @param bptattr: the attribute code, one of BPTATTR_* constants
                     BPTATTR_CND is not allowed, see set_bpt_cond()
-    @param value: the attibute value
+    @param value: the attribute value
 
     @return: success
     """

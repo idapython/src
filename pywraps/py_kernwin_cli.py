@@ -82,18 +82,18 @@ class cli_t(ida_idaapi.pyidc_opaque_object_t):
         """
         return None
 
-    def OnCompleteLine(self, prefix, n, line, prefix_start):
+    def OnFindCompletions(self, line, x):
         """
-        The user pressed Tab. Find a completion number N for prefix PREFIX
+        The user pressed Tab. Return a list of completions
 
         This callback is optional.
 
-        @param prefix: Line prefix at prefix_start (string)
-        @param n: completion number (int)
         @param line: the current line (string)
-        @param prefix_start: the index where PREFIX starts in LINE (int)
+        @param x: the index where the cursor is (int)
 
-        @return: None if no completion could be generated otherwise a String with the completion suggestion
+        @return: None if no completion could be generated, otherwise a tuple:
+            (completions : Sequence[str], hints : Sequence[str], docs: Sequence[str],
+              match_start: int, match_end: int)
         """
         return None
 

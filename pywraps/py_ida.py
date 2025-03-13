@@ -147,19 +147,6 @@ idainfo_comment_set = inf_set_cmt_indent
 
 __make_idainfo_accessors(None, "is_graph_view", "set_graph_view")
 
-if ida_idaapi.uses_swig_builtins:
-    _scope = _ida_ida.idainfo
-else:
-    _scope = _ida_ida
-SW_RPTCMT = _scope.SCF_RPTCMT
-SW_ALLCMT = _scope.SCF_ALLCMT
-SW_NOCMT = _scope.SCF_NOCMT
-SW_LINNUM = _scope.SCF_LINNUM
-SW_TESTMODE = _scope.SCF_TESTMODE
-SW_SHHID_ITEM = _scope.SCF_SHHID_ITEM
-SW_SHHID_FUNC = _scope.SCF_SHHID_FUNC
-SW_SHHID_SEGM = _scope.SCF_SHHID_SEGM
-
 def __wrap_hooks_callback(klass, new_name, old_name, do_call):
     bkp_name = "__real_%s" % new_name
     def __wrapper(self, *args):

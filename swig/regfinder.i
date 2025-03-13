@@ -24,19 +24,21 @@
 
 //-------------------------------------------------------------------------
 // ignore helpers
-%ignore reg_finder_invalidate_cache(reg_finder_t *_this, ea_t ea);
-%ignore reg_finder_find(reg_finder_t *_this, reg_value_info_t *out, ea_t ea, ea_t ds, reg_finder_op_t op, int max_depth);
-%ignore reg_finder_calc_op_addr(reg_finder_t *_this, reg_value_info_t *addr, const op_t *memop, const insn_t *insn, ea_t ea, ea_t ds);
+%ignore reg_finder_invalidate_cache(reg_finder_t *_this, ea_t to, ea_t from);
+%ignore reg_finder_invalidate_cache(reg_finder_t *_this);
+%ignore reg_finder_find(reg_finder_t *_this, reg_value_info_t *out, ea_t ea, ea_t ds, reg_finder_op_t op, int max_depth, size_t linear_insns);
+%ignore reg_finder_calc_op_addr(reg_finder_t *_this, reg_value_info_t *addr, const op_t *memop, const insn_t *insn, ea_t ea, ea_t ds, int max_depth);
 %ignore reg_finder_emulate_mem_read(reg_finder_t *_this, reg_value_info_t *value, const reg_value_info_t *addr, int width, bool is_signed, const insn_t *insn);
 %ignore reg_finder_emulate_binary_op(reg_finder_t *_this, reg_value_info_t *value, int aop, const op_t *op1, const op_t *op2, const insn_t *insn, ea_t ea, ea_t ds, reg_finder_binary_ops_adjust_fun adjust, void *ud);
 %ignore reg_finder_emulate_unary_op(reg_finder_t *_this, reg_value_info_t *value, int aop, int reg, const insn_t *insn, ea_t ea, ea_t ds);
-%ignore reg_finder_may_modify_stkvars(const reg_finder_t *_this, reg_finder_op_t op, const insn_t *insn);
+%ignore reg_finder_may_modify_stkvar(reg_finder_t *_this, reg_finder_op_t op, const insn_t *insn);
+%ignore reg_finder_can_resolve_mem(const reg_finder_t *_this, ea_t ea);
 %ignore reg_finder_ctr(reg_finder_t *_this);
 %ignore reg_finder_dtr(reg_finder_t *_this);
 %ignore reg_value_def_dstr(const reg_value_def_t *_this, qstring *vout, int how, const procmod_t *pm);
 %ignore reg_value_info_dstr(const reg_value_info_t *_this, qstring *vout, const procmod_t *pm);
 %ignore reg_value_info_vals_union(reg_value_info_t *_this, const reg_value_info_t *r);
-%ignore reg_finder_op_make_rfop(func_t *pfn, const insn_t *insn, const op_t *op);
+%ignore reg_finder_make_rfop(reg_finder_t *_this, reg_finder_op_t *rfop, const op_t *op, const insn_t *insn, func_t *pfn);
 
 //-------------------------------------------------------------------------
 // add access to reg_value_info_t::vals

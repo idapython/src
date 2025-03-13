@@ -1094,10 +1094,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\swig\enum.i"
-				>
-			</File>
-			<File
 				RelativePath="..\swig\expr.i"
 				>
 			</File>

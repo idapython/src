@@ -34,7 +34,6 @@ extern plugin_t PLUGIN;
 // generate directors for all classes that have virtual methods
 %feature("director");
 // exceptions
-%feature("nodirector") enumplace_t;
 %feature("nodirector") generic_linput64_t;
 %feature("nodirector") generic_linput_t;
 %feature("nodirector") place_t;
@@ -57,6 +56,7 @@ extern plugin_t PLUGIN;
 // and others...
 #pragma SWIG nowarn=312
 #pragma SWIG nowarn=325
+#pragma SWIG nowarn=328 // Value assigned to cb not used due to limited parsing implementation
 #pragma SWIG nowarn=314
 #pragma SWIG nowarn=362
 #pragma SWIG nowarn=383
@@ -69,9 +69,6 @@ extern plugin_t PLUGIN;
 #pragma SWIG nowarn=394 // operator new[] ignored
 #pragma SWIG nowarn=395 // operator delete[] ignored
 #pragma SWIG nowarn=351 // operator delete ignored
-
-// Do not create separate wrappers for default arguments
-%feature("compactdefaultargs");
 
 %ignore qvector::at(size_t);
 %ignore qvector::front;
@@ -122,6 +119,8 @@ extern plugin_t PLUGIN;
 #define CASSERT(type)
 
 %pythoncode {
+from typing import Tuple, List, Union
+
 import ida_idaapi
 }
 
@@ -150,6 +149,16 @@ import ida_idaapi
     if ( i >= $self->size() )
       throw std::out_of_range("out of bounds access");
     $self->at(i) = v;
+  }
+
+  inline void append(const T &x)
+  {
+    $self->push_back(x);
+  }
+
+  inline void extend(const qvector<T> &x)
+  {
+    $self->insert($self->end(), x.begin(), x.end());
   }
 
   %pythoncode {
@@ -213,18 +222,20 @@ import ida_idaapi
     __iter__ = ida_idaapi._bounded_getitem_iterator
 
     def find(self, item):
-        it = self.begin()
-        for i in range(self.size()):
-            if it.cur == item:
-                return it
-            next(it)
+        if item is not None:
+            it = self.begin()
+            for i in range(self.size()):
+                if it.cur == item:
+                    return it
+                next(it)
 
     def index(self, item):
-        it = self.begin()
-        for i in range(self.size()):
-            if it.cur == item:
-                return i
-            next(it)
+        if item is not None:
+            it = self.begin()
+            for i in range(self.size()):
+                if it.cur == item:
+                    return i
+                next(it)
 
     def at(self, index):
         it = self.begin()
@@ -296,8 +307,8 @@ class QLIST_TYPE##_iterator {};
 %enddef
 %exception_set_default_handlers();
 
-// Enable automatic docstring generation
-%feature(autodoc,2);
+// Enable C/C++ type annotations in function prototypes
+%feature("python:annotations", "c");
 
 %{
 /* strnlen() arrived on OSX at v10.7. Provide it ourselves if needed. */
@@ -413,10 +424,12 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 %define %define_netnode_tag_accessors()
 %apply char { uchar tag };
 
-%fragment("cvt_netnode_tag", "header")
+
+%fragment("cvt_netnode_tag",
+    "header",
+    fragment="SWIG_AsVal_char",
+    fragment="SWIG_AsVal_unsigned_SS_char")
 {
-  SWIGINTERN int SWIG_AsVal_char (PyObject * obj, char *val);
-  SWIGINTERN int SWIG_AsVal_unsigned_SS_char (PyObject * obj, unsigned char *val);
   bool cvt_netnode_tag(uchar *out, PyObject *obj)
   {
     char c = '\0';
@@ -436,6 +449,14 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
             SWIG_ValueError,
             "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
 }
+
+%typemap(typecheck, fragment="cvt_netnode_tag") uchar tag {
+  // %typemap(typecheck) uchar tag
+  uchar tmp;
+  $1 = cvt_netnode_tag(&tmp, $input);
+}
+
+
 %enddef
 
 //---------------------------------------------------------------------
@@ -654,6 +675,15 @@ SWIGINTERN PyObject *_maybe_byte_array_or_none_result(
 //-------------------------------------------------------------------------
 //                            OUT qstrvec_t
 //-------------------------------------------------------------------------
+%typemap(in) const qstrvec_t & (qstrvec_t temp)
+{
+  // %typemap(in) const qstrvec_t & (qstrvec_t temp)
+  Py_ssize_t len = PyW_PySeqToStrVec(&temp, $input);
+  if ( len == CIP_FAILED )
+    return nullptr;
+
+  $1 = &temp;
+}
 %typemap(in,numinputs=0) qstrvec_t *out (qstrvec_t temp)
 {
   // %typemap(in,numinputs=0) qstrvec_t *out (qstrvec_t temp)
@@ -670,6 +700,52 @@ SWIGINTERN PyObject *_maybe_byte_array_or_none_result(
   // %typemap(freearg) qstrvec_t* out
   // Nothing. We certainly don't want 'temp' to be deleted.
 }
+
+// Same, but for tuple-appending
+%typemap(in,numinputs=0) qstrvec_t *out_wrap_in_list_and_append (qstrvec_t temp)
+{
+  // %typemap(in,numinputs=0) qstrvec_t *out_wrap_in_list_and_append (qstrvec_t temp)
+  $1 = &temp;
+}
+%typemap(argout) qstrvec_t *out_wrap_in_list_and_append
+{
+  // %typemap(argout) qstrvec_t *out_wrap_in_list_and_append
+  PyObject *was = $result;
+  $result = PyList_New(0); // Will be tuplified
+
+  PyList_Append($result, was);
+  newref_t _nl(qstrvec2pylist(*($1)));
+  PyList_Append($result, _nl.o);
+}
+%typemap(freearg) qstrvec_t* out_wrap_in_list_and_append
+{
+  // %typemap(freearg) qstrvec_t* out_wrap_in_list_and_append
+  // Nothing. We certainly don't want 'temp' to be deleted.
+}
+
+//-------------------------------------------------------------------------
+// Director helpers
+%define %hooks_director_handle_qstrvec_t_output(METHOD_NAME, STORAGE_QSTRVEC_T)
+%typemap(directorout) int METHOD_NAME
+{ // %typemap(directorout) int METHOD_NAME
+  if ( PySequence_Check(result) )
+  {
+    $result = PyW_PySeqToStrVec(STORAGE_QSTRVEC_T, result);
+
+    if ( !$result )
+    {
+      Swig::DirectorTypeMismatchException::raise(
+        SWIG_ErrorType(SWIG_TypeError),
+        "in output value of type 'qstrvec_t' in method '$symname'");
+    }
+  }
+  else
+  {
+    $result = 0; // not implemented
+  }
+}
+%enddef
+
 
 //-------------------------------------------------------------------------
 //          md5/sha256 hash retrieval (as hex representation)
@@ -762,7 +838,7 @@ SWIGINTERN PyObject *_maybe_byte_array_or_none_result(
         ARGOUT_MAYBE_CONVERTER,
         ELTYPE_TO_REPORT1,
         ELTYPE_TO_REPORT2)
-%typemap(typecheck) REFTYPE
+%typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) REFTYPE
 { // bytes_container REFTYPE typemap(typecheck)
   $1 = CHECKER($input) ? 1 : 0;
 }
@@ -1250,7 +1326,6 @@ struct dynamic_wrapped_array_t {
 }
 
 //-------------------------------------------------------------------------
-#if SWIG_VERSION == 0x40000 || SWIG_VERSION == 0x40001
 %typemap(out) tinfo_t
 {
   // %typemap(out) tinfo_t
@@ -1296,9 +1371,61 @@ struct dynamic_wrapped_array_t {
   $result = SWIG_NewPointerObj($1, $1_descriptor, 0);
 }
 
-#else
-#error Ensure tinfo_t wrapping is compatible with this version of SWIG
-#endif
+//-------------------------------------------------------------------------
+//                             udm_t *out
+//-------------------------------------------------------------------------
+%typemap(in,numinputs=0) udm_t *out (udm_t temp)
+{
+  // %typemap(in,numinputs=0) udm_t *out (udm_t temp)
+  $1 = &temp;
+}
+%typemap(argout) udm_t *out
+{
+  // %typemap(argout) udm_t *out
+  if ( result > -1 )
+  {
+    PyObject *py_udm = SWIG_NewPointerObj(new udm_t(*($1)), $1_descriptor, SWIG_POINTER_OWN | 0);
+    $result = SWIG_Python_AppendOutput($result, py_udm, /*is_void=*/ 1);
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    $result = SWIG_Python_AppendOutput($result, Py_None, /*is_void=*/ 1);
+  }
+}
+%typemap(freearg) udm_t *out
+{
+  // %typemap(freearg) udm_t *out
+  // Nothing. We certainly don't want 'temp' to be deleted.
+}
+
+//-------------------------------------------------------------------------
+//                             edm_t *out
+//-------------------------------------------------------------------------
+%typemap(in,numinputs=0) edm_t *out (edm_t temp)
+{
+  // %typemap(in,numinputs=0) edm_t *out (edm_t temp)
+  $1 = &temp;
+}
+%typemap(argout) edm_t *out
+{
+  // %typemap(argout) edm_t *out
+  if ( result > -1 )
+  {
+    PyObject *py_edm = SWIG_NewPointerObj(new edm_t(*($1)), $1_descriptor, SWIG_POINTER_OWN | 0);
+    $result = SWIG_Python_AppendOutput($result, py_edm, /*is_void=*/ 1);
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    $result = SWIG_Python_AppendOutput($result, Py_None, /*is_void=*/ 1);
+  }
+}
+%typemap(freearg) edm_t *out
+{
+  // %typemap(freearg) edm_t *out
+  // Nothing. We certainly don't want 'temp' to be deleted.
+}
 
 // Convert all of these
 %cstring_output_maxstr_none(char *buf, size_t bufsize);
@@ -1361,17 +1488,7 @@ struct dynamic_wrapped_array_t {
 %const_void_pointer_and_size(void, dataptr, len);
 %const_char_pointer_and_size(char, value, length);
 
-// Create wrapper classes for basic type arrays
-%array_class(uchar, uchar_array);
-%array_class(tid_t, tid_array);
-%array_class(ea_t, ea_array);
-%array_class(sel_t, sel_array);
-%array_class(uval_t, uval_array);
-%pointer_class(int, int_pointer);
-%pointer_class(ea_t, ea_pointer);
-%pointer_class(sval_t, sval_pointer);
-%pointer_class(sel_t, sel_pointer);
-
+%include <cstring.i>
 
 %{
 #define S2LF_EMPTY_NONE 0x1
@@ -1430,6 +1547,13 @@ SWIGINTERN PyObject *qstrvec2pylist(const qstrvec_t &vec, int flags=0)
     SWIG_exception_fail(SWIG_ArgError(ecode), "in method '$symname', argument $argnum of type $1_type");
 }
 
+%typemap(typecheck, precedence=SWIG_TYPECHECK_INTEGER, fragment="cvt_uint64") uint64
+{
+  // %typemap(typecheck) uint64
+  uint64 tmp;
+  $1 = cvt_uint64(&tmp, $input) == SWIG_OK;
+}
+
 //-------------------------------------------------------------------------
 %define %_uint_result_as_output(TYPE, CONVFUNC, CHECK_EXPR)
 %typemap(in,numinputs=0) TYPE *result (TYPE temp = 0)
@@ -1474,9 +1598,9 @@ SWIGINTERN PyObject *qstrvec2pylist(const qstrvec_t &vec, int flags=0)
 {
   // %typemap(argout) ea_t *appended_ea
 #ifdef __EA64__
-  $result = SWIG_Python_AppendOutput($result, PyLong_FromUnsignedLongLong(*($1)));
+  $result = SWIG_Python_AppendOutput($result, PyLong_FromUnsignedLongLong(*($1)), /*is_void=*/ 1);
 #else
-  $result = SWIG_Python_AppendOutput($result, PyLong_FromUnsignedLong(*($1)));
+  $result = SWIG_Python_AppendOutput($result, PyLong_FromUnsignedLong(*($1)), /*is_void=*/ 1);
 #endif
 }
 
@@ -1550,12 +1674,12 @@ SWIGINTERN PyObject *qstrvec2pylist(const qstrvec_t &vec, int flags=0)
 
 //-------------------------------------------------------------------------
 // For e.g., get_idainfo_by_type()
-%apply uint32 * OUTPUT { flags_t *out_flags };
+%apply uint64 * OUTPUT { flags64_t *out_flags };
 %apply size_t * OUTPUT { size_t *out_size };
 %apply size_t * OUTPUT { size_t *out_alsize };
 %typemap(check) size_t *out_size "*($1) = 0; // %typemap(check) size_t *out_size";
 %typemap(check) size_t *out_alsize "*($1) = 0; // %typemap(check) size_t *out_alsize";
-%typemap(check) flags_t *out_flags "*($1) = 0; // %typemap(check) flags_t *out_flags";
+%typemap(check) flags64_t *out_flags "*($1) = 0; // %typemap(check) flags_t *out_flags";
 
 %typemap(in,numinputs=0) opinfo_t *out_mt (opinfo_t temp) {
   // typemap(in,numinputs=0) opinfo_t *out_mt
@@ -1567,12 +1691,12 @@ SWIGINTERN PyObject *qstrvec2pylist(const qstrvec_t &vec, int flags=0)
   if ( result )
   {
     PyObject *py_opinfo = SWIG_NewPointerObj(SWIG_as_voidptr(new opinfo_t(*($1))), SWIGTYPE_p_opinfo_t, SWIG_POINTER_NEW );
-    $result = SWIG_Python_AppendOutput($result, py_opinfo);
+    $result = SWIG_Python_AppendOutput($result, py_opinfo, /*is_void=*/ 1);
   }
   else
   {
     Py_INCREF(Py_None);
-    $result = SWIG_Python_AppendOutput($result, Py_None);
+    $result = SWIG_Python_AppendOutput($result, Py_None, /*is_void=*/ 1);
   }
 }
 %typemap(freearg) opinfo_t *out_mt
@@ -1615,6 +1739,7 @@ HOOKS_DUMP_STATE();
 
 %{
 #include <expr.hpp>
+#include <idd.hpp>
 #include <ieee.h>
 #include "../../../pywraps.hpp"
 %}
@@ -1748,16 +1873,6 @@ inline void _kludge_force_declare_##NAME(const NAME *) {}
 
 %include <constraints.i>
 
-// If the module is 'pro', don't import pro.h, or the %include
-// at the beginning of pro.i won't have any effect. Same for all
-// modules.
-${ALL_IMPORTS}
-
-// This is where all the collected NONNULL information coming
-// from the SDK, will be injected in the form of 'check'
-// typemaps.
-${NONNULL_TYPEMAPS}
-
 // gdl_graph_t & subclasses
 %cstring_output_maxstr_none(char *iobuf, int iobufsize);
 
@@ -1821,7 +1936,7 @@ ${NONNULL_TYPEMAPS}
     int res = SWIG_ConvertFunctionPtr($input, (void**)(&$1), SWIGTYPE_p_f_p_q_const__char_v_______int);
     if ( !SWIG_IsOK(res) )
     {
-      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "parse_decls" "', argument " "3"" of type '" "printer_t *""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res), "in method '" "parse_decls" "', argument " "3"" of type '" "printer_t *""'");
       SWIG_exception_fail(
             SWIG_TypeError,
             "in method '" "$symname" "', argument " "$argnum"" of type 'printer_t *'");
@@ -1874,33 +1989,27 @@ static PyObject *get_regval_t(
 {
   PyObject *res = nullptr;
   _cvt_status_t status(PyExc_ValueError, "Conversion failed");
-  switch ( dtype )
+  if ( is_floating_dtype(dtype) )
   {
-    default:
-      if ( rv.ival <= uint64(LONG_MAX) )
-        res = PyInt_FromLong(long(rv.ival));
-      else
-        res = PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) rv.ival);
-      break;
-    case dt_float:
-    case dt_tbyte:
-    case dt_double:
-    case dt_ldbl:
-      {
-        double dbl;
-        status.ok = rv.fval.to_double(&dbl) == REAL_ERROR_OK;
-        if ( status.ok )
-          res = PyFloat_FromDouble(dbl);
-      }
-      break;
-    case dt_byte16:
-    case dt_byte32:
-    case dt_byte64:
-      {
-        const bytevec_t &b = rv.bytes();
-        res = PyBytes_FromStringAndSize((const char *) b.begin(), b.size());
-      }
-      break;
+    double dbl;
+    fpvalue_t fpv;
+    const bytevec_t &b = rv.bytes();
+    status.ok = cpu2ieee(&fpv, b.begin(), b.size()) == REAL_ERROR_OK
+             && fpv.to_double(&dbl) == REAL_ERROR_OK;
+    if ( status.ok )
+      res = PyFloat_FromDouble(dbl);
+  }
+  else if ( dtype == dt_byte16 || dtype == dt_byte32 || dtype == dt_byte64 )
+  {
+    const bytevec_t &b = rv.bytes();
+    res = PyBytes_FromStringAndSize((const char *) b.begin(), b.size());
+  }
+  else
+  {
+    if ( rv.ival <= uint64(LONG_MAX) )
+      res = PyInt_FromLong(long(rv.ival));
+    else
+      res = PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) rv.ival);
   }
   return res;
 }
@@ -1944,19 +2053,29 @@ bool set_regval_t(regval_t **out, regval_t *buf, op_dtype_t dtype, PyObject *o)
       return status.ok;
     }
 
-    static bool convert_float(regval_t *lout, PyObject *in, op_dtype_t)
+    static bool convert_float(regval_t *lout, PyObject *in, op_dtype_t dt)
     {
-      fpvalue_t fpval;
       _cvt_status_t status(PyExc_TypeError, "Expected float value");
       double dbl = PyFloat_AsDouble(in);
       status.ok = PyErr_Occurred() == nullptr;
       if ( status.ok )
-        status.ok = ieee_realcvt(&dbl, &fpval, 003 /*load double*/) == REAL_ERROR_OK;
-      if ( !status.ok )
+      {
+        // convert from IBM PC format to IEEE; then to the target cpu format
+        uchar native[32];
+        int size = get_dtype_size(dt);
+        QASSERT(0, size <= sizeof(native));
+        fpvalue_t fpval;
+        uint16 swt = sizeof(double) / 2 - 1;
+        status.ok = ieee_realcvt(&dbl, &fpval, swt) == REAL_ERROR_OK
+                 && ieee2cpu(native, fpval, size) == REAL_ERROR_OK;
+        if ( status.ok )
+        {
+          lout->set_bytes(native, size, RVT_FLOAT);
+          return true;
+        }
         status.failed(PyExc_ValueError).sprnt("Float conversion failed");
-      if ( status.ok )
-        lout->set_float(fpval);
-      return status.ok;
+      }
+      return false;
     }
 
     static bool convert_bytes(regval_t *lout, PyObject *in, op_dtype_t dt)
@@ -2065,6 +2184,7 @@ TRY_RAW_LONG:
     default:
       ok = cvt_t::convert_int(&rv, o, dtype);
       break;
+    case dt_half:
     case dt_float:
     case dt_tbyte:
     case dt_double:
@@ -2124,6 +2244,60 @@ TRY_RAW_LONG:
   Py_XDECREF($result);
   $result = PyW_from_jvalue_t(*$1);
 }
+
+// pattern matching of multi-argument typemaps is more strict; would not work without argument names
+%define  %define_merge_handler_typemap(MNI_ARG_NAME, N_ARG_NAME)
+%typemap(in,numinputs=0) (int moddata_id) { $1 = -1; }
+%typemap(in,numinputs=1) (const merge_node_info2_t *MNI_ARG_NAME, size_t N_ARG_NAME) (qvector<merge_node_info2_t> temp)
+{
+  // %typemap(in,numinputs=1) (const merge_node_info2_t *, size_t ) (qvector<merge_node_info2_t> temp)
+  if ( $input == Py_None )
+  {
+    $2 = 0;
+    $1 = nullptr;
+  }
+  else
+  {
+    if ( !PySequence_Check($input) )
+    {
+      PyErr_SetString(PyExc_TypeError, "Expecting a list of `merge_node_info2_t` instances");
+      return nullptr;
+    }
+    PyObject *s = $input;
+    Py_ssize_t len = PySequence_Size(s);
+    temp.reserve(len);
+    for ( Py_ssize_t i = 0; i < len; ++i )
+    {
+      newref_t o(PySequence_GetItem(s, i));
+      void *ap = 0 ;
+      int cvt = SWIG_ConvertPtr(o.o, &ap, $descriptor, 0);
+      if ( !SWIG_IsOK(cvt) )
+        SWIG_exception_fail(
+                SWIG_ArgError(cvt),
+                "in method '" "$symname" "', argument " "$argnum"" consists of 'merge_node_info2_t' instances");
+      temp.push_back(*reinterpret_cast<merge_node_info2_t*>(ap));
+    }
+    $2 = temp.size();
+    $1 = temp.extract();
+  }
+}
+
+%typemap(typecheck,numinputs=1) (const merge_node_info2_t *MNI_ARG_NAME, size_t N_ARG_NAME)
+{
+  // %typemap(typecheck,numinputs=1) (const merge_node_info2_t *, size_t )
+  $1 = ($input == Py_None || PySequence_Check($input));
+}
+%enddef
+
+// If the module is 'pro', don't import pro.h, or the %include
+// at the beginning of pro.i won't have any effect. Same for all
+// modules.
+${ALL_IMPORTS}
+
+// This is where all the collected NONNULL information coming
+// from the SDK, will be injected in the form of 'check'
+// typemaps.
+${NONNULL_TYPEMAPS}
 
 #endif // __HEADER_I__
 // END: auto-inserted header

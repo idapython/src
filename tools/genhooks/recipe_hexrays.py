@@ -28,6 +28,17 @@ recipe = {
             "convertor_pass_args" : True,
         }
     },
+    # "collect_warnings" : {
+    #     "params" : {
+    #         "warnings" : { "suppress_for_call" : True, }
+    #     },
+    #     "return" : {
+    #         "type" : "PyObject *",
+    #         "retexpr" : "Py_RETURN_NONE",
+    #         "convertor" : "Hexrays_Hooks::handle_build_qstrvec_output",
+    #         "convertor_pass_args" : True,
+    #     }
+    # },
 }
 
 default_rtype = "int"

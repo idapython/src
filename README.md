@@ -15,7 +15,7 @@ Latest stable versions of IDAPython are available from
 ## Resources
 
 The full function cross-reference is readable online at
-  https://www.hex-rays.com/products/ida/support/idapython_docs/
+  https://python.docs.hex-rays.com
 
 Mailing list for the project is hosted by Google Groups at
   https://groups.google.com/g/idapython

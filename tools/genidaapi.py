@@ -10,11 +10,15 @@ parser.add_argument("-o", "--output", required=True)
 parser.add_argument("-m", "--modules", required=True)
 args = parser.parse_args()
 
+# Hack to force ida_idaapi to be loaded as first element
+mods = args.modules.split(",")
+mods.insert(0, mods.pop(mods.index("idaapi")))
+
 with open(args.input) as fin:
     with open(args.output, "w") as fout:
         template = string.Template(fin.read())
         kvps = {
-            "MODULES" : args.modules,
-            "IMPORTS" : "\n".join([("from ida_%s import *" % mod) for mod in args.modules.split(",")])
+            "MODULES" : ",".join(mods),
+            "IMPORTS" : "\n".join([(f"from ida_{mod} import *") for mod in mods ])
             }
         fout.write(template.substitute(kvps))

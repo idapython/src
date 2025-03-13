@@ -42,6 +42,7 @@
 %ignore plugin_option_t;
 %ignore plugins_option_t;
 %ignore parse_plugin_options;
+%ignore build_plugin_options;
 %ignore test_bit;
 %ignore set_bit;
 %ignore set_bits;
@@ -125,6 +126,7 @@
 %ignore call_atexits;
 %ignore launch_process_params_t;
 %ignore launch_process;
+%ignore pipe_process;
 %ignore term_process;
 %ignore get_process_exit_code;
 %ignore BELOW_NORMAL_PRIORITY_CLASS;
@@ -138,6 +140,9 @@
 %ignore qstrtok;
 %ignore qstrlwr;
 %ignore qstrupr;
+
+// do not generate operator delete etc.
+%feature("nodirector") qrefcnt_obj_t;
 
 %extend qrefcnt_t {
   size_t __ptrval__() const
@@ -164,7 +169,6 @@
   %import "ida.hpp"
   %import "xref.hpp"
   %import "typeinf.hpp"
-  %import "enum.hpp"
   %import "netnode.hpp"
 #endif
 
@@ -197,18 +201,46 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(qstrvec_t)
 //</inline(py_pro)>
 %}
 
+// Create wrapper classes for basic type arrays
 #ifdef IDA_MODULE_PRO
-  %include "carrays.i"
-  %include "cpointer.i"
+  %include <carrays.i>
+  %include <cpointer.i>
   %array_class(uchar, uchar_array);
   %array_class(tid_t, tid_array);
   %array_class(ea_t, ea_array);
   %array_class(sel_t, sel_array);
   %array_class(uval_t, uval_array);
-  %pointer_class(int, int_pointer);
-  %pointer_class(ea_t, ea_pointer);
-  %pointer_class(sval_t, sval_pointer);
-  %pointer_class(sel_t, sel_pointer);
+
+  // wrappers for everything in pro.h that our API functions expect to be passed
+  %pointer_class(uchar     , uchar_pointer);
+  %pointer_class(ushort    , ushort_pointer);
+  %pointer_class(uint      , uint_pointer);
+  %pointer_class(sint8     , sint8_pointer);
+  %pointer_class(int8      , int8_pointer);
+  %pointer_class(uint8     , uint8_pointer);
+  %pointer_class(int16     , int16_pointer);
+  %pointer_class(uint16    , uint16_pointer);
+  %pointer_class(int32     , int32_pointer);
+  %pointer_class(uint32    , uint32_pointer);
+  %pointer_class(int64     , int64_pointer);
+  %pointer_class(uint64    , uint64_pointer);
+  %pointer_class(ssize_t   , ssize_pointer);
+  %pointer_class(bool      , bool_pointer);
+  %pointer_class(char      , char_pointer);
+  %pointer_class(short     , short_pointer);
+  %pointer_class(int       , int_pointer);
+  %pointer_class(ea_t      , ea_pointer);
+  %pointer_class(sel_t     , sel_pointer);
+  %pointer_class(asize_t   , asize_pointer);
+  %pointer_class(adiff_t   , adiff_pointer);
+  %pointer_class(uval_t    , uval_pointer);
+  %pointer_class(sval_t    , sval_pointer);
+  %pointer_class(ea32_t    , ea32_pointer);
+  %pointer_class(ea64_t    , ea64_pointer);
+  %pointer_class(flags_t   , flags_pointer);
+  %pointer_class(flags64_t , flags64_pointer);
+  %pointer_class(tid_t     , tid_pointer);
+
 #endif
 
 %pythoncode %{

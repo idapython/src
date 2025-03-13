@@ -9,7 +9,7 @@
 #define DECLARE_FORM_ACTIONS form_actions_t *fa = (form_actions_t *)p_fa;
 
 #ifdef TESTABLE_BUILD
-#include <features.hpp>
+idaman void ida_export add_test_feature(const char *name);
 #endif
 //---------------------------------------------------------------------------
 static bool textctrl_info_t_assign(PyObject *self, PyObject *other)
@@ -171,7 +171,7 @@ static PyObject *formchgcbfa_get_field_value(
       {
         uval_t val;
         if ( fa->get_unsigned_value(fid, &val) )
-          return PyLong_FromUnsignedLong(val);
+          return PyLong_FromUnsignedLong(val & 0xFFFFFFFF);
         break;
       }
     // ushort

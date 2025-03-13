@@ -91,23 +91,30 @@ class PluginForm(object):
     VALID_CAPSULE_NAME = b"$valid$"
 
     @staticmethod
-    def TWidgetToPyQtWidget(tw, ctx = sys.modules['__main__']):
+    def TWidgetToQtPythonWidget(tw, ctx = sys.modules['__main__']):
         """
-        Convert a TWidget* to a QWidget to be used by PyQt
-
-        @param ctx: Context. Reference to a module that already imported SIP and QtWidgets modules
+        Convert a TWidget* to a QWidget to be used by the Qt Python bindings
         """
-        if type(tw).__name__ == "SwigPyObject":
-            ptr_l = ida_idaapi.long_type(tw)
+        if type(tw).__name__ == 'SwigPyObject':
+            ptr_l = int(tw)
         else:
             import ctypes
             ctypes.pythonapi.PyCapsule_GetPointer.restype = ctypes.c_void_p
             ctypes.pythonapi.PyCapsule_GetPointer.argtypes = [ctypes.py_object, ctypes.c_char_p]
             ptr_l = ctypes.pythonapi.PyCapsule_GetPointer(tw, PluginForm.VALID_CAPSULE_NAME)
-        PluginForm._ensure_widget_deps(ctx)
-        vptr = ctx.sip.voidptr(ptr_l)
-        return ctx.sip.wrapinstance(vptr.__int__(), ctx.QtWidgets.QWidget)
-    FormToPyQtWidget = TWidgetToPyQtWidget
+
+        try:
+            import shiboken6.Shiboken
+            import PySide6.QtWidgets
+            return shiboken6.Shiboken.wrapInstance(ptr_l, PySide6.QtWidgets.QWidget)
+        except ImportError:
+            # Assume PyQt5
+            PluginForm._ensure_widget_deps(ctx)
+            vptr = ctx.sip.voidptr(ptr_l)
+            return ctx.sip.wrapinstance(vptr.__int__(), ctx.QtWidgets.QWidget)
+
+    TWidgetToPyQtWidget = TWidgetToQtPythonWidget
+    FormToPyQtWidget = TWidgetToQtPythonWidget
 
 
     @staticmethod

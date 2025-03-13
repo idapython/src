@@ -100,7 +100,7 @@ struct undo_records_t;
 %ignore set_module_data;
 %ignore clr_module_data;
 %ignore get_module_data;
-%ignore get_modctx;
+%ignore get_eah;
 
 // @arnaud
 %ignore notify__calc_next_eas;
@@ -129,6 +129,10 @@ struct undo_records_t;
 // ph_calcrel
 %apply size_t *OUTPUT { size_t *out_consumed };
 %apply bytevec_t *vout { bytevec_t *out_relbits };
+
+%ignore processor_t::privrange_changed(range_t const &,adiff_t);
+%ignore processor_t::cvt64_supval(nodeidx_t,uchar,nodeidx_t,uchar const *,size_t);
+%ignore processor_t::cvt64_hashval(nodeidx_t,uchar,char const *,uchar const *,size_t);
 
 // ev_cvt64_supval, ev_cvt64_hashval, ev_privrange_changed
 %const_pointer_and_size(uchar, data, datlen, bytevec_t, PyBytes_as_bytevec_t, size);
@@ -173,14 +177,39 @@ struct undo_records_t;
 %fill_director_method_errbuf(ev_cvt64_hashval);
 %fill_director_method_errbuf(ev_privrange_changed);
 
+%apply qstrvec_t *out { qstrvec_t *abi_names };
+%apply qstrvec_t *out_wrap_in_list_and_append { qstrvec_t *abi_opts };
+
+%typemap(directorout) int ev_get_abi_info
+{
+  // %typemap(directorout) int get_abi_info
+  if ( result != Py_None )
+  {
+    $result = PySequence_Check(result) && PySequence_Size(result) == 2;
+    if ( $result )
+    {
+      newref_t r0(PySequence_GetItem(result, 0));
+      newref_t r1(PySequence_GetItem(result, 1));
+      $result = PyW_PySeqToStrVec(abi_names, r0.o) && PyW_PySeqToStrVec(abi_opts, r1.o);
+    }
+
+    if ( !$result )
+    {
+      Swig::DirectorTypeMismatchException::raise(
+              SWIG_ErrorType(SWIG_TypeError),
+              "in output value of type '" "int" "'" " in method '$symname'");
+    }
+  }
+  else
+  {
+    $result = 0; // not implemented
+  }
+}
+
 // @arnaud ditch this once all modules are ported
 // temporary:
 %ignore out_old_data;
 %ignore out_old_specea;
-
-%pywraps_nonnul_argument_prototype(
-        static PyObject *AssembleLine(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *nonnul_line),
-        const char *nonnul_line);
 
 #ifndef SWIGIMPORTED // let's not modify the wrappers for modules %import'ing us (e.g., typeinf.i, hexrays.i)
 %cstring_output_buf_and_size_returning_charptr(
@@ -226,10 +255,6 @@ struct undo_records_t;
 //-------------------------------------------------------------------------
 //                               IDB_Hooks
 //-------------------------------------------------------------------------
-%{
-#include <enum.hpp>
-%}
-
 %define_Hooks_class(IDB);
 
 %inline %{

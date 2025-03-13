@@ -25,12 +25,19 @@
 // Duplicate names, in-out qstring w/ existing
 // qstring-returning alternatives.
 %ignore get_visible_name(qstring *, ea_t, int);
+%ignore get_visible_name(qstring *, ea_t);
 %ignore get_short_name(qstring *, ea_t, int);
+%ignore get_short_name(qstring *, ea_t);
 %ignore get_long_name(qstring *, ea_t, int);
+%ignore get_long_name(qstring *, ea_t);
 %ignore get_colored_short_name(qstring *, ea_t, int);
+%ignore get_colored_short_name(qstring *, ea_t);
 %ignore get_colored_long_name(qstring *, ea_t, int);
+%ignore get_colored_long_name(qstring *, ea_t);
 %ignore get_demangled_name(qstring *, ea_t, int32, int, int);
+%ignore get_demangled_name(qstring *, ea_t, int32, int);
 %ignore get_colored_demangled_name(qstring *, ea_t, int32, int, int);
+%ignore get_colored_demangled_name(qstring *, ea_t, int32, int);
 
 %uncomparable_elements_qvector(ea_name_t, ea_name_vec_t);
 
@@ -43,10 +50,12 @@
 // 'flags' versions, they can still rely on get_ea_name().
 %define %restrict_ambiguous_name_function(FNAME)
 %ignore FNAME(qstring *, ea_t, int);
+%ignore FNAME(qstring *, ea_t);
 %ignore FNAME(ea_t, int);
 %rename (FNAME) py_ ## FNAME;
 
 %ignore demangle_name(const char *, uint32, demreq_type_t);
+%ignore demangle_name(const char *, uint32);
 
 %inline %{
 inline qstring py_## FNAME(ea_t ea) { return FNAME(ea); }

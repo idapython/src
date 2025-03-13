@@ -3,101 +3,6 @@
 
 //--------------------------------------------------------------------------
 //<inline(py_idaapi_loader_input)>
-/*
-#<pydoc>
-class loader_input_t(pyidc_opaque_object_t):
-    """
-    A helper class to work with linput_t related functions.
-    This class is also used by file loaders scripts.
-    """
-    def __init__(self):
-        pass
-
-    def close(self):
-        """Closes the file"""
-        pass
-
-    def open(self, filename, remote = False):
-        """
-        Opens a file (or a remote file)
-        @return: Boolean
-        """
-        pass
-
-    def set_linput(self, linput):
-        """Links the current loader_input_t instance to a linput_t instance"""
-        pass
-
-    @staticmethod
-    def from_fp(fp):
-        """A static method to construct an instance from a FILE*"""
-        pass
-
-    def open_memory(self, start, size):
-        """
-        Create a linput for process memory (By internally calling idaapi.create_memory_linput())
-        This linput will use dbg->read_memory() to read data
-        @param start: starting address of the input
-        @param size: size of the memory range to represent as linput
-                    if unknown, may be passed as 0
-        """
-        pass
-
-    def seek(self, pos, whence = SEEK_SET):
-        """
-        Set input source position
-        @return: the new position (not 0 as fseek!)
-        """
-        pass
-
-    def tell(self):
-        """Returns the current position"""
-        pass
-
-    def getz(self, sz, fpos = -1):
-        """
-        Returns a zero terminated string at the given position
-        @param sz: maximum size of the string
-        @param fpos: if != -1 then seek will be performed before reading
-        @return: The string or None on failure.
-        """
-        pass
-
-    def gets(self, len):
-        """Reads a line from the input file. Returns the read line or None"""
-        pass
-
-    def read(self, size):
-        """Reads from the file. Returns the buffer or None"""
-        pass
-
-    def readbytes(self, size, big_endian):
-        """Similar to read() but it respect the endianness"""
-        pass
-
-    def file2base(self, pos, ea1, ea2, patchable):
-        """
-        Load portion of file into the database
-        This function will include (ea1..ea2) into the addressing space of the
-        program (make it enabled)
-        @param li: pointer ot input source
-        @param pos: position in the file
-        @param (ea1..ea2): range of destination linear addresses
-        @param patchable: should the kernel remember correspondance of
-                          file offsets to linear addresses.
-        @return: 1-ok,0-read error, a warning is displayed
-        """
-        pass
-
-    def get_byte(self):
-        """Reads a single byte from the file. Returns None if EOF or the read byte"""
-        pass
-
-    def opened(self):
-        """Checks if the file is opened or not"""
-        pass
-#</pydoc>
-*/
 class loader_input_t
 {
 private:
@@ -168,7 +73,7 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  bool open(const char *filename, bool remote = false)
+  bool open(const char *filename, bool remote)
   {
     close();
     PYW_GIL_GET;
@@ -238,12 +143,12 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  bool open_memory(ea_t start, asize_t size = 0)
+  bool open_memory(ea_t start, int64 size)
   {
     PYW_GIL_GET;
     linput_t *l;
     SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-    l = create_memory_linput(start, size);
+    l = create_memory_linput(start, asize_t(size));
     if ( l != nullptr )
     {
       close();
@@ -256,12 +161,12 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  int64 seek(int64 pos, int whence = SEEK_SET)
+  int64 seek(int64 offset, int whence)
   {
     int64 r;
     PYW_GIL_GET;
     SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-    r = qlseek(li, pos, whence);
+    r = qlseek(li, offset, whence);
     SWIG_PYTHON_THREAD_END_ALLOW;
     return r;
   }
@@ -278,16 +183,16 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  PyObject *getz(size_t sz, int64 fpos = -1)
+  PyObject *getz(size_t size, int64 fpos)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     do
     {
-      char *buf = (char *) malloc(sz + 5);
+      char *buf = (char *) malloc(size + 5);
       if ( buf == nullptr )
         break;
       SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-      qlgetz(li, fpos, buf, sz);
+      qlgetz(li, fpos, buf, size);
       SWIG_PYTHON_THREAD_END_ALLOW;
       PyObject *ret = PyUnicode_FromString(buf);
       free(buf);
@@ -297,7 +202,7 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  PyObject *gets(size_t len)
+  PyObject *gets(int64 len)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     bytevec_t buf;
@@ -312,17 +217,23 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  PyObject *read(size_t size)
+  PyObject *read(int64 size)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    bytevec_t buf;
-    buf.resize(size);
-    ssize_t nread;
     SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+    ssize_t ssize(size);
+    bytevec_t buf;
+    if ( ssize < 0 )
+      ssize = qlsize(li) - qltell(li);
+    buf.resize(ssize);
+    ssize_t nread;
     nread = qlread(li, (char *) buf.begin(), buf.size());
     SWIG_PYTHON_THREAD_END_ALLOW;
     if ( nread <= 0 )
-      Py_RETURN_NONE;
+    {
+      buf.clear();
+      nread = 0;
+    }
     return PyBytes_FromStringAndSize((const char *) buf.begin(), nread);
   }
 

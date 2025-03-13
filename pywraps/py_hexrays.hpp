@@ -331,8 +331,7 @@ static bool is_hexrays_plugin(const plugin_t *entry)
 //-------------------------------------------------------------------------
 static void try_init()
 {
-  init_hexrays_plugin(0);
-  if ( get_hexdsp() != nullptr )
+  if ( init_hexrays_plugin(0) )
     msg("IDAPython Hex-Rays bindings initialized.\n");
 }
 
@@ -358,7 +357,7 @@ static ssize_t idaapi ida_hexrays_ui_notification(void *, int code, va_list va)
       break;
 
     case ui_destroying_plugmod:
-      if ( get_hexdsp() != nullptr )
+      if ( hexdsp_inited() )
       {
         /*const plugmod_t *plugmod =*/ va_arg(va, plugmod_t *);
         const plugin_t *entry = va_arg(va, plugin_t *);

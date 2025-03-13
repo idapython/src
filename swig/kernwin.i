@@ -75,11 +75,33 @@ struct dirspec_t;
   $result = qstrvec2pylist(*$1);
 }
 
+%template(tagged_line_section_vec_t) qvector<tagged_line_section_t>;
+
 %rename (del_hotkey) py_del_hotkey;
 %rename (add_hotkey) py_add_hotkey;
 
 %ignore msg;
 %rename (msg) py_msg;
+%ignore warning;
+%rename (warning) py_warning;
+%ignore error;
+%rename (error) py_error;
+
+%feature("pythonprepend") py_msg %{
+    if isinstance(message, bytes):
+        message = message.decode("UTF-8")
+%}
+
+%feature("pythonprepend") py_warning %{
+    if isinstance(message, bytes):
+        message = message.decode("UTF-8")
+%}
+
+%feature("pythonprepend") py_error %{
+    if isinstance(message, bytes):
+        message = message.decode("UTF-8")
+%}
+
 
 %ignore vinfo;
 
@@ -174,6 +196,21 @@ struct dirspec_t;
   }
 }
 
+%extend tagged_line_section_t {
+  qstring __str__() const
+  {
+    qstring qs;
+    qs.sprnt("{start=%d, length=%d (end=%d), byte_offsets={text_start=%d, text_end=%d}, tag=%d}",
+             $self->start,
+             $self->length,
+             $self->start + $self->length,
+             $self->byte_offsets.text_start,
+             $self->byte_offsets.text_end,
+             $self->tag);
+    return qs;
+  }
+}
+
 // Make ask_addr(), ask_seg(), and ask_long() return a
 // tuple: (result, value)
 %rename (_ask_long) ask_long;
@@ -194,6 +231,13 @@ struct dirspec_t;
 %ignore place_t__generate;
 %rename (generate) py_generate;
 %newobject place_t::clone;
+// disable destruction of place_t and its children
+%nodefaultdtor place_t;
+%nodefaultdtor simpleline_place_t;
+%nodefaultdtor idaplace_t;
+%nodefaultdtor structplace_t;
+%nodefaultdtor enumplace_t;
+%nodefaultdtor tiplace_t;
 
 // For place_t::serialize()
 %apply bytevec_t *vout { bytevec_t *out };
@@ -350,6 +394,7 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 %ignore qvector<sync_source_t>::resize;
 %ignore qvector<sync_source_t>::push_back();
 %template(sync_source_vec_t) qvector<sync_source_t>;
+%ignore add_test_feature;
 
 //<typemaps(kernwin)>
 //</typemaps(kernwin)>
@@ -431,14 +476,10 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 
 //-------------------------------------------------------------------------
 %newobject place_t::as_idaplace_t;
-%newobject place_t::as_enumplace_t;
-%newobject place_t::as_structplace_t;
 %newobject place_t::as_simpleline_place_t;
 %newobject place_t::as_tiplace_t;
 %extend place_t {
   static idaplace_t *as_idaplace_t(place_t *p) { return p != nullptr ? (idaplace_t *) p->clone() : nullptr; }
-  static enumplace_t *as_enumplace_t(place_t *p) { return p != nullptr ? (enumplace_t *) p->clone() : nullptr; }
-  static structplace_t *as_structplace_t(place_t *p) { return p != nullptr ? (structplace_t *) p->clone() : nullptr; }
   static simpleline_place_t *as_simpleline_place_t(place_t *p) { return p != nullptr ? (simpleline_place_t *) p->clone() : nullptr; }
   static tiplace_t *as_tiplace_t(place_t *p) { return p != nullptr ? (tiplace_t *) p->clone() : nullptr; }
 
@@ -463,10 +504,6 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
   %pythoncode {
     def place_as_idaplace_t(self):
         return place_t.as_idaplace_t(self.at)
-    def place_as_enumplace_t(self):
-        return place_t.as_enumplace_t(self.at)
-    def place_as_structplace_t(self):
-        return place_t.as_structplace_t(self.at)
     def place_as_simpleline_place_t(self):
         return place_t.as_simpleline_place_t(self.at)
     def place_as_tiplace_t(self):
@@ -476,10 +513,6 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
         ptype = get_viewer_place_type(view)
         if ptype == TCCPT_IDAPLACE:
             return self.place_as_idaplace_t()
-        elif ptype == TCCPT_ENUMPLACE:
-            return self.place_as_enumplace_t()
-        elif ptype == TCCPT_STRUCTPLACE:
-            return self.place_as_structplace_t()
         elif ptype == TCCPT_SIMPLELINE_PLACE:
             return self.place_as_simpleline_place_t()
         elif ptype == TCCPT_TIPLACE:
@@ -629,4 +662,9 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 %pythoncode %{
 #<pycode(py_kernwin_plgform)>
 #</pycode(py_kernwin_plgform)>
+%}
+
+%pythoncode %{
+#<pycode(py_kernwin_end)>
+#</pycode(py_kernwin_end)>
 %}

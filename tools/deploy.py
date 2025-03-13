@@ -145,11 +145,7 @@ def deploy(module, template, output, pywraps, iface_deps, lifecycle_aware, verbo
 
     # write output file
     with open(output, 'w') as f:
-        # f.write("""%module(docstring="IDA Plugin SDK API wrapper: {0}",directors="1",threads="1") {1}\n""".format(
-        #     module,
-        #     module if module == "idaapi" else "_ida_%s" % module))
-        f.write("""%module(docstring="IDA Plugin SDK API wrapper: {0}",directors="1",threads="1") {1}\n""".format(
-            module, "ida_%s" % module))
+        f.write("""%module(directors="1",threads="1") {0}\n""".format("ida_%s" % module))
         f.write("#ifndef IDA_MODULE_DEFINED\n")
         f.write("""  #define IDA_MODULE_%s\n""" % module.upper())
         f.write("#define IDA_MODULE_DEFINED\n")

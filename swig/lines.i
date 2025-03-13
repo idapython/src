@@ -17,11 +17,6 @@
   $1 = nullptr;
 }
 
-// compat
-%ignore set_user_defined_prefix;
-%rename (set_user_defined_prefix) py_set_user_defined_prefix;
-// end compat
-
 %ignore generate_disassembly;
 %rename (generate_disassembly) py_generate_disassembly;
 
@@ -60,13 +55,8 @@
 
 %include "lines.hpp"
 
-%{
-//<code(py_lines)>
-//</code(py_lines)>
-%}
-
 %pywraps_nonnul_argument_prototype(
-        PyObject *py_tag_remove(const char *nonnul_instr),
+        qstring py_tag_remove(const char *nonnul_instr),
         const char *nonnul_instr);
 
 %inline %{

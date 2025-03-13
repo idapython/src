@@ -44,16 +44,6 @@ static int idaapi py_import_enum_cb(
 //<inline(py_nalt)>
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def get_import_module_name(path, fname, callback):
-    """
-    Returns the name of an imported module given its index
-    @return: None or the module name
-    """
-    pass
-#</pydoc>
-*/
 static PyObject *py_get_import_module_name(int mod_index)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -65,26 +55,12 @@ static PyObject *py_get_import_module_name(int mod_index)
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def enum_import_names(mod_index, callback):
-    """
-    Enumerate imports from a specific module.
-    Please refer to ex_imports.py example.
-
-    @param mod_index: The module index
-    @param callback: A callable object that will be invoked with an ea, name (could be None) and ordinal.
-    @return: 1-finished ok, -1 on error, otherwise callback return value (<=0)
-    """
-    pass
-#</pydoc>
-*/
-static int py_enum_import_names(int mod_index, PyObject *py_cb)
+static int py_enum_import_names(int mod_index, PyObject *callback)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyCallable_Check(py_cb) )
+  if ( !PyCallable_Check(callback) )
     return -1;
-  return enum_import_names(mod_index, py_import_enum_cb, py_cb);
+  return enum_import_names(mod_index, py_import_enum_cb, callback);
 }
 
 //-------------------------------------------------------------------------

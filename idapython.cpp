@@ -10,8 +10,20 @@
 //---------------------------------------------------------------------
 // python.cpp - Main plugin code
 //---------------------------------------------------------------------
+#if defined(_DEBUG) && defined(Py_LIMITED_API) && defined(_MSC_VER) && _MSC_VER >= 1929
+// Py_LIMITED_API is incompatible with Py_DEBUG, Py_TRACE_REFS, and Py_REF_DEBUG
+// it would also try to link python3Y_d.lib which is not present in normal Python install
+# include <corecrt.h> // for _invalid_parameter()
+#undef _DEBUG
+#define _WASDEBUG
+#endif
 #include <Python.h>
-
+#ifdef __MAC__
+extern "C" __attribute__((weak)) int Py_IsInitialized(void);
+#endif
+#ifdef _WASDEBUG
+#define _DEBUG
+#endif
 //-------------------------------------------------------------------------
 // This define fixes the redefinition of ssize_t
 #ifdef HAVE_SSIZE_T
@@ -26,6 +38,7 @@
 #include <diskio.hpp>
 #include <loader.hpp>
 #include <kernwin.hpp>
+#include <make_script_ns.hpp>
 #include <ida_highlighter.hpp>
 #include <signal.h>
 
@@ -44,18 +57,18 @@ idapython_plugin_t *idapython_plugin_t::instance = nullptr;
 
 // Python-style version tuple comes from the makefile
 // Only the serial and status is set here
-#define VER_SERIAL 0
-#define VER_STATUS "final"
-#define IDAPYTHON_RUNSTATEMENT                   0
-#define IDAPYTHON_ENABLE_EXTLANG                 3
-#define IDAPYTHON_DISABLE_EXTLANG                4
-#define PYTHON_DIR_NAME                          "python"
-#define S_IDAPYTHON                              "IDAPython"
-#define S_INIT_PY                                "init.py"
-static const char S_IDC_ARGS_VARNAME[] =         "ARGV";
-static const char S_IDC_EXEC_PYTHON[] =          "exec_python";
-static const char S_IDC_EVAL_PYTHON[] =          "eval_python";
-static const char S_IDAPYTHON_DATA_NODE[] =      "IDAPython_Data";
+#define IDAPYTHON_RUNSTATEMENT                    0
+#define IDAPYTHON_ENABLE_EXTLANG                  3
+#define IDAPYTHON_DISABLE_EXTLANG                 4
+#define PYTHON_DIR_NAME                           "python"
+#define S_IDAPYTHON                               "IDAPython"
+#define S_INIT_PY                                 "init.py"
+static const char S_IDC_ARGS_VARNAME[] =          "ARGV";
+static const char S_IDC_EXEC_PYTHON[] =           "exec_python";
+static const char S_IDC_EXEC_PYTHON_SCRIPT[] =    "exec_python_script";
+static const char S_IDC_EVAL_PYTHON[] =           "eval_python";
+static const char S_IDC_EVAL_PYTHON_REPL_STMT[] = "eval_python_repl_stmt";
+static const char S_IDAPYTHON_DATA_NODE[] =       "IDAPython_Data";
 
 //lint -e818 could be pointer to const
 //lint -e1762 member function '' could be made const
@@ -416,10 +429,8 @@ static void handle_python_error(
     errbuf->clear();
 
   // No exception?
-  if ( !PyErr_Occurred() )
-    return;
-
-  PyW_GetError(errbuf, clear_error);
+  if ( PyErr_Occurred() )
+    PyW_GetError(errbuf, clear_error);
 }
 
 //-------------------------------------------------------------------------
@@ -486,6 +497,59 @@ static const ext_idcfunc_t idc_eval_python_desc =
   0,
   0
 };
+
+//-------------------------------------------------------------------------
+// A utility for simulating REPL input from IDC
+
+static error_t idaapi idc_eval_python_repl_stmt(
+        idc_value_t *argv,
+        idc_value_t * /*res*/)
+{
+  qstring buf(argv[0].qstr());
+  // We need an extra `\n` to close the statement for `cli_execute_line`
+  if ( !buf.ends_with("\n") )
+    buf.append('\n');
+  idapython_plugin_t::cli_execute_line(buf.c_str());
+  return eOk;
+}
+
+static const char idc_eval_python_repl_stmt_args[] = { VT_STR, 0 };
+static const ext_idcfunc_t idc_eval_python_repl_stmt_desc =
+{
+  S_IDC_EVAL_PYTHON_REPL_STMT,
+  idc_eval_python_repl_stmt,
+  idc_eval_python_repl_stmt_args,
+  nullptr,
+  0,
+  0
+};
+
+//-------------------------------------------------------------------------
+// A utility for executing a script from IDC
+static error_t idaapi idc_exec_python_script(
+        idc_value_t *argv,
+        idc_value_t *res)
+{
+  qstring errbuf;
+  const char *path = argv[0].c_str();
+  bool ok = idapython_plugin_t::exec_script(path, /*gloabls*/ nullptr, &errbuf);
+  if ( !ok )
+    return throw_idc_exception(res, errbuf.c_str());
+  return eOk;
+}
+
+static const char idc_exec_python_script_args[] = { VT_STR, 0 };
+static const ext_idcfunc_t idc_exec_python_script_desc =
+{
+  S_IDC_EXEC_PYTHON_SCRIPT,
+  idc_exec_python_script,
+  idc_exec_python_script_args,
+  nullptr,
+  0,
+  0
+};
+
+
 
 //--------------------------------------------------------------------------
 static const cfgopt_t opts[] =
@@ -672,8 +736,7 @@ static const cli_t cli_python =
   "Python - IDAPython plugin",
   "Enter any Python expression",
   idapython_plugin_t::cli_execute_line,
-  nullptr,
-  nullptr,
+  nullptr, // keydown
   idapython_plugin_t::cli_find_completions,
 };
 
@@ -741,30 +804,9 @@ static void send_modules_lifecycle_notification(module_lifecycle_notification_t 
 }
 
 //-------------------------------------------------------------------------
-static wchar_t *utf8_wchar_t(qvector<wchar_t> *out, const char *in)
-{
-#ifdef __NT__
-  qwstring tmp;
-  utf8_utf16(&tmp, in);
-  out->qclear();
-  out->insert(out->begin(), tmp.begin(), tmp.end());
-#else
-  const char *p = in;
-  while ( *p != '\0' )
-  {
-    wchar32_t cp = get_utf8_char(&p);
-    if ( cp == 0 || cp == BADCP )
-      break;
-    out->push_back(cp);
-  }
-  out->push_back(0); // we're not dealing with a qstring; have to do it ourselves
-#endif
-  return out->begin();
-}
-
-//-------------------------------------------------------------------------
 idapython_plugin_t::idapython_plugin_t()
   : initialized(false),
+    owning_interpreter(true),
     ui_ready(false)
 #ifdef TESTABLE_BUILD
     , user_code_lenient(-1)
@@ -783,7 +825,7 @@ idapython_plugin_t::~idapython_plugin_t()
   if ( !initialized || Py_IsInitialized() == 0 )
     goto SKIP_CLEANUP;
 
-  if ( PyGILState_GetThisThreadState() )
+  if ( owning_interpreter && PyGILState_GetThisThreadState() )
   {
     // Note: No 'PYW_GIL_GET' here, as it would try to release
     // the state after 'Py_Finalize()' has been called.
@@ -802,17 +844,24 @@ idapython_plugin_t::~idapython_plugin_t()
   enable_python_cli(false);
 
   // Remove the extlang
-  remove_extlang(&extlang_python);
+  if ( extlang_python.refcnt > 0 ) // avoid interr 1442
+    remove_extlang(&extlang_python);
 
   // De-init pywraps
   deinit_pywraps();
 
   // Uninstall IDC function
   del_idc_func(idc_eval_python_desc.name);
+  del_idc_func(idc_eval_python_repl_stmt_desc.name);
+  del_idc_func(idc_exec_python_script_desc.name);
   del_idc_func(idc_runpythonstatement_desc.name);
 
-  // Shut the interpreter down
-  Py_Finalize();
+  if ( owning_interpreter )
+  {
+    // Shut the interpreter down if we launched it
+    Py_Finalize();
+  }
+
   initialized = false;
 
 #ifdef TESTABLE_BUILD
@@ -828,6 +877,37 @@ SKIP_CLEANUP:
   instance = nullptr;
 }
 
+#ifdef __NT__
+#define PYEXE "python.exe"
+#else
+#define PYEXE "python3"
+#endif
+
+//--------------------------------------------------------------------------
+// detect if we're running under venv
+// 1. check for IDAPYTHON_VENV_EXECUTABLE override
+// 2. check for python3/python.exe in PATH and pyvenv.cfg one level up
+static bool detect_venv(qstring *venv_exec_path)
+{
+  if ( qgetenv("IDAPYTHON_VENV_EXECUTABLE", venv_exec_path)
+    && qfileexist(venv_exec_path->c_str()) )
+    return true;
+  char exepath[QMAXPATH];
+  char cfgpath[QMAXPATH];
+  if ( search_path(exepath, sizeof(exepath), PYEXE, false) )
+  {
+    qdirname(cfgpath, sizeof(cfgpath), exepath);
+    qmakepath(cfgpath, sizeof(cfgpath), cfgpath, "..","pyvenv.cfg", nullptr);
+    if ( qfileexist(cfgpath) )
+    {
+      *venv_exec_path = exepath;
+      return true;
+    }
+  }
+  venv_exec_path->clear();
+  return false;
+
+}
 #ifdef __NT__
 // for MessageBox()
 #pragma comment(lib, "user32")
@@ -866,6 +946,7 @@ static void exithandler(void)
   }
 }
 
+
 //lint -e2761 call to non-async-signal-safe function '' within signal handler ''
 //lint -e2762 call to signal registration function 'signal' within signal handler 'aborthandler'
 //-------------------------------------------------------------------------
@@ -888,7 +969,7 @@ static void aborthandler(int sig)
 // Initialize the Python environment
 bool idapython_plugin_t::init()
 {
-  if ( Py_IsInitialized() != 0 )
+  if ( initialized )
     return true;
 
   // Read configuration
@@ -902,7 +983,7 @@ bool idapython_plugin_t::init()
   // Form the absolute path to IDA\python folder
   {
     char buf[QMAXPATH];
-    qmakepath(buf, sizeof(buf), idadir(PYTHON_DIR_NAME), QSTRINGIZE(PY_MAJOR_VERSION), nullptr);
+    qmakepath(buf, sizeof(buf), idadir(PYTHON_DIR_NAME), nullptr);
     idapython_dir = buf;
   }
 
@@ -919,31 +1000,6 @@ bool idapython_plugin_t::init()
     warning("Couldn't initialize IDAPython: %s", errbuf.c_str());
     return false;
   }
-
-#ifdef __MAC__
-  if ( !extapi.lib_path.empty() )
-  {
-    // On OSX we should explicitly call Py_SetPythonHome().
-    // When using the system Python installation, sys.path will contain paths to other
-    // Python installations if they appear in $PATH. This can cause fatal errors during
-    // the system python's initialization.
-    //
-    // Note: The path will be something like:
-    // /System/Library/Frameworks/Python.framework/Versions/2.5/Python
-    // We need to strip the last part.
-    //
-    // Also, use a permanent buffer because Py_SetPythonHome() just stores a pointer
-    char utf8_pyhomepath[MAXSTR];
-    qstrncpy(utf8_pyhomepath, extapi.lib_path.c_str(), sizeof(utf8_pyhomepath));
-    char *lastslash = strrchr(utf8_pyhomepath, '/');
-    if ( lastslash != nullptr )
-    {
-      *lastslash = 0;
-      utf8_wchar_t(&pyhomepath, utf8_pyhomepath);
-      Py_SetPythonHome(pyhomepath.begin());
-    }
-  }
-#endif
 
   if ( config.alert_auto_scripts )
   {
@@ -967,98 +1023,146 @@ bool idapython_plugin_t::init()
   // ... and exit()
   atexit(exithandler);
 
-  // Start the interpreter
-  Py_InitializeEx(0 /* Don't catch SIGPIPE, SIGXFZ, SIGXFSZ & SIGINT signals */);
-  // disable handlers
-  initdone = 1;
-  signal(SIGABRT, previousHandler);
+  // If a virtual environment is requested, we defer the loading of
+  // the site module until after we updated sys.executable. The site
+  // module will look for a pyvenv.cfg one level above the interpreter
+  // and take care of setting site-packages properly.
 
-  if ( !Py_IsInitialized() )
+  qstring venv_exec_path;
+  bool venv_requested = detect_venv(&venv_exec_path);
+  venv_requested = venv_exec_path.size() > 0 && extapi.Py_NoSiteFlag_ptr != nullptr;
+
+  if ( venv_requested )
   {
-    warning("IDAPython: Py_InitializeEx() failed");
-    return false;
+    *extapi.Py_NoSiteFlag_ptr = 1;
+    msg("IDAPython: Requested to use virtual environment interpreter at %s\n", venv_exec_path.c_str());
+  }
+
+  if ( Py_IsInitialized() == 0 )
+  {
+    // Start the interpreter
+    Py_InitializeEx(0 /* Don't catch SIGPIPE, SIGXFZ, SIGXFSZ & SIGINT signals */);
+    // disable handlers
+    initdone = 1;
+    signal(SIGABRT, previousHandler);
+
+    if ( !Py_IsInitialized() )
+    {
+      warning("IDAPython: Py_InitializeEx() failed");
+      return false;
+    }
+    owning_interpreter = true;
+  }
+  else
+  {
+    // We are running under Python, the interpreter was not loaded by us
+    owning_interpreter = false;
+    initdone = 1;
   }
 
   // add new Python keywords as needed
   python_highlighter.add_new_keywords();
 
-  // remove current directory
-  _prepare_sys_path();
-
-  if ( extapi.PyEval_ThreadsInitialized_ptr != nullptr
-    && extapi.PyEval_InitThreads_ptr != nullptr )
   {
-    // Enable multi-threading support (before 3.9
-    if ( !extapi.PyEval_ThreadsInitialized_ptr() )
-      extapi.PyEval_InitThreads_ptr();
-  }
+    // Aquire Global Interpreter Lock (GIL), ensure current thread is allowed to execute Python code
+    // This is needed when running idalib from Python and is harmless when running inside IDA
+    PYW_GIL_GET;
+
+    // remove current directory
+    _prepare_sys_path();
+
+    if ( extapi.PyEval_ThreadsInitialized_ptr != nullptr
+      && extapi.PyEval_InitThreads_ptr != nullptr )
+    {
+      // Enable multi-threading support (before 3.9
+      if ( !extapi.PyEval_ThreadsInitialized_ptr() )
+        extapi.PyEval_InitThreads_ptr();
+    }
 
 #ifdef Py_DEBUG
-  msg("HexraysPython: Python compiled with DEBUG enabled.\n");
+    msg("HexraysPython: Python compiled with DEBUG enabled.\n");
 #endif
 
-  qstring dynload_base;
-  if ( !qgetenv("IDAPYTHON_DYNLOAD_BASE", &dynload_base) )
-    dynload_base = idadir(nullptr);
+    qstring dynload_base;
+    if ( !qgetenv("IDAPYTHON_DYNLOAD_BASE", &dynload_base) )
+      dynload_base = idadir(nullptr);
 
-  // Set IDAPYTHON_VERSION in Python
-  qstring init_code;
-  init_code.sprnt(
-          "IDAPYTHON_VERSION=(%d, %d, %d, '%s', %d)\n"
-          "IDAPYTHON_REMOVE_CWD_SYS_PATH = %s\n"
-          "IDAPYTHON_DYNLOAD_BASE = r\"%s\"\n"
-          "IDAPYTHON_DYNLOAD_RELPATH = \"ida_%" FMT_Z "\"\n"
-          "IDAPYTHON_COMPAT_AUTOIMPORT_MODULES = %s\n"
-          "IDAPYTHON_IDAUSR_SYSPATH = %s\n",
-          VER_MAJOR, VER_MINOR, VER_PATCH, VER_STATUS, VER_SERIAL,
-          config.remove_cwd_sys_path ? "True" : "False",
-          dynload_base.c_str(),
-          sizeof(ea_t)*8,
-          config.autoimport_compat_idaapi ? "True" : "False",
-          config.idausr_syspath ? "True" : "False"
-                  );
+    // Set IDAPYTHON_VERSION in Python
+    qstring init_code;
+    init_code.sprnt(
+            "IDAPYTHON_VERSION=(%d, %d, %d)\n"
+            "IDAPYTHON_REMOVE_CWD_SYS_PATH = %s\n"
+            "IDAPYTHON_DYNLOAD_BASE = r\"%s\"\n"
+            "IDAPYTHON_COMPAT_AUTOIMPORT_MODULES = %s\n"
+            "IDAPYTHON_IDAUSR_SYSPATH = %s\n"
+            "IDAPYTHON_OWNING_INTERPRETER = %s\n"
+            "IDAPYTHON_VENV_EXECUTABLE = r\"%s\"\n",
+            IDAVER_MAJOR, IDAVER_MINOR, IDAVER_PATCH,
+            config.remove_cwd_sys_path ? "True" : "False",
+            dynload_base.c_str(),
+            config.autoimport_compat_idaapi ? "True" : "False",
+            config.idausr_syspath ? "True" : "False",
+            owning_interpreter ? "True" : "False",
+            venv_exec_path.c_str()
+          );
 
-  if ( extapi.PyRun_SimpleStringFlags_ptr(init_code.c_str(), nullptr) != 0 )
-  {
-    warning("IDAPython: error executing bootstrap code");
-    return false;
-  }
+    if ( extapi.PyRun_SimpleStringFlags_ptr(init_code.c_str(), nullptr) != 0 )
+    {
+      warning("IDAPython: error executing bootstrap code");
+      return false;
+    }
 
-  // Install extlang. Needs to be done before running init.py
-  // in case it's calling idaapi.enable_extlang_python(1)
-  if ( config.namespace_aware )
-    extlang_python.flags |= EXTLANG_NS_AWARE;
-  install_extlang(&extlang_python);
+    // Install extlang. Needs to be done before running init.py
+    // in case it's calling idaapi.enable_extlang_python(1)
+    if ( config.namespace_aware )
+      extlang_python.flags |= EXTLANG_NS_AWARE;
+    install_extlang(&extlang_python);
 
-  // Execute init.py (for Python side initialization)
-  if ( !_run_init_py() )
-  {
-    // Try to fetch a one line error string. We must do it before printing
-    // the traceback information. Make sure that the exception is not cleared
-    handle_python_error(&errbuf, false);
+    // If loading site was deferred earlier, do it now.
+    if ( venv_requested )
+    {
+      extapi.PyRun_SimpleStringFlags_ptr(
+        "import sys\n"
+        "sys.executable = IDAPYTHON_VENV_EXECUTABLE\n"
+        "import site\n"
+        "site.main()\n",
+        nullptr
+      );
+    }
 
-    // Print the exception traceback
-    extapi.PyRun_SimpleStringFlags_ptr("import traceback;traceback.print_exc();", nullptr);
 
-    warning("IDAPython: error executing " S_INIT_PY ":\n"
-            "%s\n"
-            "\n"
-            "Refer to the message window to see the full error log.", errbuf.c_str());
-    remove_extlang(&extlang_python);
-    return false;
-  }
+    // Execute init.py (for Python side initialization)
+    if ( !_run_init_py() )
+    {
+      // Try to fetch a one line error string. We must do it before printing
+      // the traceback information. Make sure that the exception is not cleared
+      handle_python_error(&errbuf, /*clear_error=*/ false);
 
-  // Init pywraps and notify_when
-  if ( !init_pywraps() )
-  {
-    warning("IDAPython: init_pywraps() failed!");
-    remove_extlang(&extlang_python);
-    return false;
+      // Print the exception traceback
+      extapi.PyRun_SimpleStringFlags_ptr("import traceback;traceback.print_exc();", nullptr);
+
+      warning("IDAPython: error executing " S_INIT_PY ":\n"
+              "%s\n"
+              "\n"
+              "Refer to the message window to see the full error log.", errbuf.c_str());
+      remove_extlang(&extlang_python);
+      return false;
+    }
+
+    // Init pywraps and notify_when
+    if ( !init_pywraps() )
+    {
+      warning("IDAPython: init_pywraps() failed!");
+      remove_extlang(&extlang_python);
+      return false;
+    }
   }
 
   // Register a exec_python() function for IDC
   add_idc_func(idc_runpythonstatement_desc);
   add_idc_func(idc_eval_python_desc);
+  add_idc_func(idc_eval_python_repl_stmt_desc);
+  add_idc_func(idc_exec_python_script_desc);
 
   // A script specified on the command line is run
   if ( config.run_script.when == RSW_on_init )
@@ -1073,7 +1177,8 @@ bool idapython_plugin_t::init()
   // Let all modules perform possible initialization
   send_modules_lifecycle_notification(mln_init);
 
-  PyEval_ReleaseThread(PyThreadState_Get());
+  if ( owning_interpreter )
+    PyEval_ReleaseThread(PyThreadState_Get());
 
   initialized = true;
   return true;
@@ -1239,7 +1344,8 @@ ssize_t idaapi idapython_plugin_t::on_event(ssize_t code, va_list)
       {
         PYW_GIL_GET; // See above
         ui_ready = true;
-        extapi.PyRun_SimpleStringFlags_ptr("print_banner()", nullptr);
+        if ( !is_ida_library(nullptr, 0, nullptr) )
+          extapi.PyRun_SimpleStringFlags_ptr("print_banner()", nullptr);
         if ( config.run_script.when == RSW_ui_ready_to_run )
           _run_user_script();
       }
@@ -1281,11 +1387,12 @@ ssize_t idaapi idapython_plugin_t::on_idb_notification(void *, int code, va_list
 // Compile callback for Python external language evaluator
 bool idapython_plugin_t::_extlang_compile_file(
         const char *path,
+        const char *requested_namespace,
         qstring *errbuf)
 {
   PYW_GIL_GET;
   new_execution_t exec;
-  PyObject *globals = _get_module_globals_from_path(path);
+  PyObject *globals = _get_module_globals_from_path(path, requested_namespace);
   return _handle_file(path, globals, errbuf);
 }
 
@@ -1394,7 +1501,9 @@ bool idapython_plugin_t::_extlang_load_procmod(
   bool ok;
   {
     new_execution_t exec;
-    PyObject *globals = _get_module_globals_from_path(path);
+    qstring ns;
+    make_script_ns(&ns, IDP_SUBDIR, path);
+    PyObject *globals = _get_module_globals_from_path(path, ns.c_str());
     ok = _handle_file(path, globals, errbuf, S_IDAAPI_LOADPROCMOD, procobj, /*want_tuple=*/ true);
   }
   if ( ok && procobj->is_zero() )
@@ -1413,7 +1522,9 @@ bool idapython_plugin_t::_extlang_unload_procmod(
 {
   PYW_GIL_GET;
   new_execution_t exec;
-  PyObject *globals = _get_module_globals_from_path(path);
+  qstring ns;
+  make_script_ns(&ns, IDP_SUBDIR, path);
+  PyObject *globals = _get_module_globals_from_path(path, ns.c_str());
   return _handle_file(path, globals, errbuf, S_IDAAPI_UNLOADPROCMOD);
 }
 
@@ -1505,7 +1616,7 @@ bool idapython_plugin_t::_extlang_eval_snippet(
                               globals,
                               globals,
                               nullptr));
-      ok = result && !PyErr_Occurred(); //-V560 is always true: !PyErr_Occurred()
+      ok = result && !PyErr_Occurred();
       if ( !ok )
         handle_python_error(errbuf);
     }
@@ -1735,7 +1846,7 @@ bool idapython_plugin_t::_extlang_get_attr(
       if ( !PyUnicode_as_qstring(&clsname, string.o) )
         break;
 
-      result->set_string(clsname);  //-V595 'result' was utilized before it was verified against nullptr
+      result->set_string(clsname);
       cvt = CIP_OK; //lint !e838
       break;
     }
@@ -1825,6 +1936,50 @@ bool idapython_plugin_t::_extlang_set_attr(
 }
 
 //-------------------------------------------------------------------------
+// Remove common whitespace prefix (dedent input)
+// Returns true if leadig whitespace was trimmed.
+static bool strip_leading_whitespace(qstring *lines)
+{
+  qstrvec_t vec;
+  lines->split(&vec, "\n");
+
+  // Traverse all input lines once, looking for a common prefix
+  size_t min_spaces = SIZE_MAX;
+  size_t min_tabs = SIZE_MAX;
+  for ( qstring &s : vec )
+  {
+    // empty lines and comment lines are ignored
+    if ( s.length() == 0 || s[0] == '#' )
+      continue;
+
+    size_t num_spaces = 0;
+    while ( num_spaces < s.length() && s[num_spaces] == ' ' )
+      num_spaces++;
+    min_spaces = qmin(min_spaces, num_spaces);
+
+    size_t num_tabs = 0;
+    while ( num_tabs < s.length() && s[num_tabs] == '\t' )
+      num_tabs++;
+    min_tabs = qmin(min_tabs, num_tabs);
+  }
+
+  if ( min_spaces > 0 && min_tabs > 0 )
+    return false; // mix of tabs and spaces is not supported
+
+  size_t prefix_len = min_spaces > 0 ? min_spaces : min_tabs;
+  if ( prefix_len == 0 )
+    return false;
+
+  // If common whitespace prefix was found, remove it
+  for ( qstring &s : vec )
+    if ( s.length() != 0 && s[0] != '#' )
+      s.remove(0, prefix_len);
+
+  *lines = qstring::join(vec, "\n");
+  return true;
+}
+
+//-------------------------------------------------------------------------
 // Execute a line in the Python CLI
 bool idapython_plugin_t::_cli_execute_line(const char *line)
 {
@@ -1833,6 +1988,10 @@ bool idapython_plugin_t::_cli_execute_line(const char *line)
   // Do not process empty lines
   if ( line[0] == '\0' )
     return true;
+
+  qstring tmp = line;
+  strip_leading_whitespace(&tmp);
+  line = tmp.c_str();
 
   const char *last_line = strrchr(line, '\n');
   if ( last_line == nullptr )
@@ -1871,7 +2030,7 @@ bool idapython_plugin_t::_cli_execute_line(const char *line)
     new_execution_t exec;
 
     // Compile as an expression
-    qstring qstr(line);
+    qstring qstr = line;
     newref_t py_code(my_CompileString(insert_encoding_cookie(&qstr), "<string>", Py_eval_input));
     if ( !py_code || PyErr_Occurred() )
     {
@@ -1886,7 +2045,7 @@ bool idapython_plugin_t::_cli_execute_line(const char *line)
       PyObject *py_globals = _get_module_globals();
       newref_t py_result(PyEval_EvalCode(py_code.o, py_globals, py_globals));
 
-      if ( !py_result || PyErr_Occurred() )    //-V560 is always false: PyErr_Occurred()
+      if ( !py_result || PyErr_Occurred() )
       {
         PyErr_Print();
       }
@@ -1928,6 +2087,8 @@ bool idapython_plugin_t::_cli_execute_line(const char *line)
 //-------------------------------------------------------------------------
 bool idapython_plugin_t::_cli_find_completions(
         qstrvec_t *out_completions,
+        qstrvec_t *out_hints,
+        qstrvec_t *out_docs,
         int *out_match_start,
         int *out_match_end,
         const char *line,
@@ -1944,6 +2105,8 @@ bool idapython_plugin_t::_cli_find_completions(
     return false;
   return idapython_convert_cli_completions(
           out_completions,
+          out_hints,
+          out_docs,
           out_match_start,
           out_match_end,
           py_res);
@@ -2028,7 +2191,7 @@ bool idapython_plugin_t::_handle_file(
       ret_o = py_ret.o;
     }
 
-    if ( ret_o == Py_None )   //-V614 uninitialized 'ret_o'
+    if ( ret_o == Py_None )
     {
       if ( want_tuple )
       {
@@ -2050,6 +2213,17 @@ bool idapython_plugin_t::_handle_file(
     }
   }
   return ok;
+}
+
+//-------------------------------------------------------------------------
+bool idapython_plugin_t::_exec_script(
+        const char *path,
+        PyObject *globals,
+        qstring *errbuf)
+{
+  PYW_GIL_GET;
+
+  return _handle_file(path, globals, errbuf);
 }
 
 //-------------------------------------------------------------------------
@@ -2103,7 +2277,7 @@ void idapython_plugin_t::_prepare_sys_path()
   if ( !path || !PySequence_Check(path.o) )
     return;
 
-  qstring new_path;
+  qstrvec_t new_path;
   Py_ssize_t path_len = PySequence_Size(path.o);
   if ( path_len > 0 )
   {
@@ -2115,19 +2289,18 @@ void idapython_plugin_t::_prepare_sys_path()
         && PyUnicode_Check(path_el.o)
         && PyUnicode_as_qstring(&path_el_utf8, path_el.o) )
       {
-        if ( path_el_utf8.empty() )
-          continue; // skip empty entry
-        if ( !new_path.empty() )
-          new_path.append(DELIMITER);
-        new_path.append(path_el_utf8);
+        if ( !path_el_utf8.empty() ) // skip empty entry
+          new_path.push_back(path_el_utf8);
       }
     }
   }
-  if ( !new_path.empty() )
-    new_path.append(DELIMITER);
-  new_path.append(idadir("python"));
-  qvector<wchar_t> wpath;
-  PySys_SetPath(utf8_wchar_t(&wpath, new_path.c_str()));
+  new_path.push_back(idadir("python"));
+
+  ref_t py_new_path(PyW_StrVecToPyList(new_path));
+  // Since `PySys_GetObject` returns a borrowed reference,
+  // I'm guessing `PySys_SetObject` steals one...
+  py_new_path.incref();
+  PySys_SetObject("path", py_new_path.o);
 }
 
 //-------------------------------------------------------------------------
@@ -2192,49 +2365,20 @@ PyObject *idapython_plugin_t::_get_module_globals(const char *modname)
 }
 
 //-------------------------------------------------------------------------
-PyObject *idapython_plugin_t::_get_module_globals_from_path_with_kind(
-        const char *path,
-        const char *kind)
-{
-  const char *fname = qbasename(path);
-  if ( fname != nullptr )
-  {
-    const char *ext = get_file_ext(fname);
-    if ( ext == nullptr )
-      ext = tail(fname);
-    else
-      --ext;
-    if ( ext > fname )
-    {
-      int len = ext - fname;
-      qstring modname;
-      modname.sprnt("__%s__%*.*s", kind, len, len, fname);
-      return _get_module_globals(modname.begin());
-    }
-  }
-  return nullptr;
-}
-
-//-------------------------------------------------------------------------
 PyObject *idapython_plugin_t::_get_module_globals_from_path(
-        const char *path)
+        const char *path,
+        const char *requested_namespace)
 {
   if ( (extlang_python.flags & EXTLANG_NS_AWARE) != 0 )
   {
+    qstring ns;
     if ( requested_plugin_path == path )
-      return _get_module_globals_from_path_with_kind(path, PLG_SUBDIR);
-
-    char dirpath[QMAXPATH];
-    if ( qdirname(dirpath, sizeof(dirpath), path) )
     {
-      const char *dirname = qbasename(dirpath);
-      if ( streq(dirname, PLG_SUBDIR)
-        || streq(dirname, IDP_SUBDIR)
-        || streq(dirname, LDR_SUBDIR) )
-      {
-        return _get_module_globals_from_path_with_kind(path, dirname);
-      }
+      make_script_ns(&ns, PLG_SUBDIR, path);
+      requested_namespace = ns.c_str();
     }
+    if ( requested_namespace )
+      return _get_module_globals(requested_namespace);
   }
   return nullptr;
 }
@@ -2243,10 +2387,17 @@ PyObject *idapython_plugin_t::_get_module_globals_from_path(
 // Plugin init routine
 static plugmod_t *idaapi init()
 {
-  idapython_plugin_t *p = new idapython_plugin_t;
-  if ( p->init() )
-    return p;
-  delete p;
+#ifdef __MAC__
+  // on macOS we link weakly against python so it's best to verify that
+  // the python symbols have been resolved before using them
+  if ( Py_IsInitialized != nullptr )
+#endif
+  {
+    idapython_plugin_t *p = new idapython_plugin_t;
+    if ( p->init() )
+      return p;
+    delete p;
+  }
   return nullptr;
 }
 

@@ -26,7 +26,7 @@ import ida_name
 import ida_netnode
 import ida_segment
 import ida_strlist
-import ida_struct
+import ida_typeinf
 import ida_ua
 import ida_xref
 
@@ -310,13 +310,14 @@ def Structs():
     """
     Get a list of structures
 
-    @return: List of tuples (idx, sid, name)
+    @return: List of tuples (ordinal, sid, name)
     """
-    idx  = idc.get_first_struc_idx()
-    while idx != ida_idaapi.BADADDR:
-        sid = idc.get_struc_by_idx(idx)
-        yield (idx, sid, idc.get_struc_name(sid))
-        idx = idc.get_next_struc_idx(idx)
+    limit = ida_typeinf.get_ordinal_limit()
+    for ordinal in range(1, limit):
+        tif = ida_typeinf.tinfo_t()
+        tif.get_numbered_type(None, ordinal)
+        if tif.is_udt():
+            yield (ordinal, tif.get_tid(), tif.get_type_name())
 
 
 def StructMembers(sid):
@@ -325,21 +326,21 @@ def StructMembers(sid):
 
     @param sid: ID of the structure.
 
-    @return: List of tuples (offset, name, size)
+    @return: List of tuples (offset_in_bytes, name, size_in_bytes)
 
     @note: If 'sid' does not refer to a valid structure,
            an exception will be raised.
     @note: This will not return 'holes' in structures/stack frames;
            it only returns defined structure members.
     """
-    sptr = ida_struct.get_struc(sid)
-    if sptr is None:
+    tif = ida_typeinf.tinfo_t()
+    if not tif.get_type_by_tid(sid) or not tif.is_udt():
         raise Exception("No structure with ID: 0x%x" % sid)
-    for m in sptr.members:
-        name = idc.get_member_name(sid, m.soff)
-        if name:
-            size = ida_struct.get_member_size(m)
-            yield (m.soff, name, size)
+    udt = ida_typeinf.udt_type_data_t()
+    tif.get_udt_details(udt)
+    for udm in udt:
+        if not udm.is_gap():
+            yield (udm.offset//8, udm.name, udm.size//8)
 
 
 def DecodePrecedingInstruction(ea):
@@ -738,8 +739,8 @@ class peutils_t(object):
     header_offset = property(lambda self: self.__penode.altval(peutils_t.PE_ALT_PEHDR_OFF))
     """Offset of PE header"""
 
-    def __str__(self):
-        return "peutils_t(imagebase=%x, header=%x)" % (self.imagebase, self.header_offset)
+    def __repr__(self):
+        return f"{self.__class__.__module__}.{self.__class__.__name__}(imagebase=%x, header=%x)" % (self.imagebase, self.header_offset)
 
     header = lambda self: self.__penode.valobj()
     """Returns the complete PE header as an instance of peheader_t (defined in the SDK)."""

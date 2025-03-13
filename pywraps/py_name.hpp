@@ -45,7 +45,7 @@ inline qstring py_get_ea_name(ea_t ea, int gtn_flags=0)
 }
 
 //-------------------------------------------------------------------------
-PyObject *py_validate_name(const char *name, nametype_t type, int flags=0)
+PyObject *py_validate_name(const char *name, nametype_t type, int flags=SN_NOCHECK)
 {
   qstring qname(name);
   if ( validate_name(&qname, type, flags) )
